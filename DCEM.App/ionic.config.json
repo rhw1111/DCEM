@@ -1,0 +1,7 @@
+{
+  "name": "DoApp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
