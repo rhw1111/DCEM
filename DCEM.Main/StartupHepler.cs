@@ -9,6 +9,7 @@ using MSLibrary;
 using MSLibrary.Configuration;
 using MSLibrary.DI;
 using MSLibrary.Context;
+using MSLibrary.Xrm;
 using DCEM.Main.Context;
 
 namespace DCEM.Main
@@ -104,7 +105,7 @@ namespace DCEM.Main
         /// </summary>
         public static void InitStaticInfo()
         {
-
+            CrmServiceFactoryRepositoryHelper.Repository = DIContainerContainer.Get<ICrmServiceFactoryRepository>();
         }
 
     }

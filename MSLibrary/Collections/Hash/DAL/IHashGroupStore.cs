@@ -20,5 +20,7 @@ namespace MSLibrary.Collections.Hash.DAL
         Task<HashGroup> QueryByName(string name);
         HashGroup QueryByNameSync(string name);
 
+        Task QueryByType(string type, Func<HashGroup,Task> action);
+
     }
 }

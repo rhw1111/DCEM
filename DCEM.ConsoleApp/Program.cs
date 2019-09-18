@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Memory;
 using MSLibrary.Thread;
 
 namespace DCEM.ConsoleApp
@@ -10,7 +11,29 @@ namespace DCEM.ConsoleApp
     {
         async static Task  Main(string[] args)
         {
+            MemoryCache cache = new MemoryCache(new MemoryCacheOptions()
+            {
+                SizeLimit = 1
+            });
 
+            cache.Set(1, new CacheItem() { Number=1 }, new MemoryCacheEntryOptions()
+            {
+                AbsoluteExpirationRelativeToNow = new TimeSpan(0, 0, 100),
+                 Size=1
+                 
+            });
+
+
+            cache.Set("1", new CacheItem() { Number = 2 }, new MemoryCacheEntryOptions()
+            {
+                AbsoluteExpirationRelativeToNow = new TimeSpan(0, 0, 100),
+                Size=1
+
+            });
+
+
+           var citem= cache.Get<CacheItem>(1);
+         citem = cache.Get<CacheItem>("1");
             ParallelHelper parallelHelper = new ParallelHelper(40);
 
             ConcurrentDictionary<int, int> dict = new ConcurrentDictionary<int, int>(); 
@@ -51,5 +74,11 @@ namespace DCEM.ConsoleApp
 
             Console.Read();
         }
+    }
+
+
+    public class CacheItem
+    {
+        public int Number { get; set; }
     }
 }

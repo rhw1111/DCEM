@@ -89,6 +89,21 @@ namespace MSLibrary.Logger
             }
         }
 
+        /// <summary>
+        /// 父动作名称
+        /// </summary>
+        public string ParentActionName
+        {
+            get
+            {
+                return GetAttribute<string>("ParentActionName");
+            }
+            set
+            {
+                SetAttribute<string>("ParentActionName", value);
+            }
+        }
+
 
         /// <summary>
         /// 请求内容
@@ -106,19 +121,20 @@ namespace MSLibrary.Logger
         }
 
         /// <summary>
-        /// 响应内容
+        /// 请求路径
         /// </summary>
-        public string ResponseBody
+        public string RequestUri
         {
             get
             {
-                return GetAttribute<string>("ResponseBody");
+                return GetAttribute<string>("RequestUri");
             }
             set
             {
-                SetAttribute<string>("ResponseBody", value);
+                SetAttribute<string>("RequestUri", value);
             }
         }
+
 
         /// <summary>
         /// 内容
@@ -147,6 +163,28 @@ namespace MSLibrary.Logger
             set
             {
                 SetAttribute<bool>("Root", value);
+            }
+        }
+        /// <summary>
+        /// 日志级别
+        //Trace = 0,
+        //Debug = 1,
+        //Information = 2,
+        //Warning = 3,
+        //Error = 4,
+        //Critical = 5,
+        //None = 6
+        /// </summary>
+        public int Level
+        {
+            get
+            {
+               
+                return GetAttribute<int>("Level");
+            }
+            set
+            {
+                SetAttribute<int>("Level", value);
             }
         }
 

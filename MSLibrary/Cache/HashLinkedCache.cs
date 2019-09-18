@@ -100,11 +100,10 @@ namespace MSLibrary.Cache
 
         public void SetValue(TKey key, TValue value)
         {
-
+            KeyValuePair<TKey, TValue> pair = new KeyValuePair<TKey, TValue>(key, value);
             //从hash表中取数据
             if (!_dict.TryGetValue(key, out LinkedListNode<KeyValuePair<TKey, TValue>> tNode))
             {
-                KeyValuePair<TKey, TValue> pair = new KeyValuePair<TKey, TValue>(key, value);
                 //异步使用策略
                 Task.Run(() =>
                 {
@@ -114,6 +113,18 @@ namespace MSLibrary.Cache
                         {
                             _linkedStrategy.Add(pair, _linked);
                         }
+                    }
+                });
+            }
+            else
+            {
+                tNode.Value = pair;
+                //异步使用策略
+                Task.Run(() =>
+                {
+                    lock (_dict)
+                    {
+                        _linkedStrategy.Hit(tNode, _linked);
                     }
                 });
             }

@@ -70,10 +70,10 @@ namespace MSLibrary.Collections.Hash.DAL
         /// <returns></returns>
         public static string GetHashGroupSelectFields(string prefix)
         {
-            var strSelect = @"{0}.[id] as [{0}id],{0}.[name] as [{0}name],{0}.[count] as [{0}count],{0}.[strategyid] as [{0}strategyid],{0}.[createtime] as [{0}createtime],{0}.[modifytime] as [{0}modifytime],{0}.[sequence] as [{0}sequence]";
+            var strSelect = @"{0}.[id] as [{0}id],{0}.[name] as [{0}name],{0}.[type] as [{0}type],{0}.[count] as [{0}count],{0}.[strategyid] as [{0}strategyid],{0}.[createtime] as [{0}createtime],{0}.[modifytime] as [{0}modifytime],{0}.[sequence] as [{0}sequence]";
             if (string.IsNullOrEmpty(prefix))
             {
-                strSelect = @"[id],[name],[count],[strategyid],[createtime],[modifytime],[sequence]";
+                strSelect = @"[id],[name],[type],[count],[strategyid],[createtime],[modifytime],[sequence]";
             }
             return string.Format(strSelect, prefix);
         }
@@ -91,6 +91,11 @@ namespace MSLibrary.Collections.Hash.DAL
             if (reader[string.Format("{0}name", prefix)] != DBNull.Value)
             {
                 record.Name = (string)reader[string.Format("{0}name", prefix)];
+            }
+
+            if (reader[string.Format("{0}type", prefix)] != DBNull.Value)
+            {
+                record.Type = (string)reader[string.Format("{0}type", prefix)];
             }
 
             if (reader[string.Format("{0}count", prefix)] != DBNull.Value)

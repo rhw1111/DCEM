@@ -47,7 +47,7 @@ namespace MSLibrary.MessageQueue.DAL
 
         public async Task Add(SMessageHistoryListenerDetail detail)
         {
-            var storeInfo = await StoreInfoHelper.GetHashStoreInfo(_hashGroupRepository, _storeInfoResolveService, _messageHistoryListenerDetailHashGroupName, detail.SMessageHistoryID.ToString());
+            var storeInfo = await StoreInfoHelper.GetHashStoreInfo(_storeInfoResolveService, _messageHistoryListenerDetailHashGroupName, detail.SMessageHistoryID.ToString());
 
             if (!storeInfo.TableNames.TryGetValue(HashEntityNames.SMessageHistoryListenerDetail, out string tableNameListenerDetail))
             {
@@ -247,7 +247,7 @@ namespace MSLibrary.MessageQueue.DAL
 
         public async Task<SMessageHistoryListenerDetail> QueryByName(Guid historyId, string name)
         {
-            var storeInfo = await StoreInfoHelper.GetHashStoreInfo(_hashGroupRepository, _storeInfoResolveService, _messageHistoryListenerDetailHashGroupName, historyId.ToString());
+            var storeInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService, _messageHistoryListenerDetailHashGroupName, historyId.ToString());
 
             if (!storeInfo.TableNames.TryGetValue(HashEntityNames.SMessageHistoryListenerDetail, out string tableNameListenerDetail))
             {

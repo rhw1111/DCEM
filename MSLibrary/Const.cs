@@ -2098,6 +2098,7 @@ namespace MSLibrary
         public const string Audit = "Audit";
         public const string UploadFile = "UploadFile";
         public const string ThirdPartySystemTokenRecord = "ThirdPartySystemTokenRecord";
+        public const string CommonLog = "CommonLog";
     }
 
 

@@ -65,12 +65,17 @@ namespace MSLibrary.Collections.Hash.DAL
 
                     }
 
-                    parameter = new SqlParameter("@name", SqlDbType.NVarChar, 100)
+                    parameter = new SqlParameter("@name", SqlDbType.VarChar, 100)
                     {
                         Value = group.Name
                     };
                     commond.Parameters.Add(parameter);
 
+                    parameter = new SqlParameter("@type", SqlDbType.VarChar, 100)
+                    {
+                        Value = group.Type
+                    };
+                    commond.Parameters.Add(parameter);
 
                     parameter = new SqlParameter("@count", SqlDbType.BigInt)
                     {
@@ -466,6 +471,77 @@ namespace MSLibrary.Collections.Hash.DAL
             });
 
             return group;
+        }
+
+        public async Task QueryByType(string type, Func<HashGroup, Task> action)
+        {
+            /*List<HashGroup> result = new List<HashGroup>();
+            int? index = null;
+            int count = 500;
+
+            //获取只读连接字符串
+            var strConn = _hashConnectionFactory.CreateReadForHash();
+
+            while(true)
+            {
+                result.Clear();
+
+
+                DBTransactionHelper.SqlTransactionWork(DBTypes.SqlServer, true, false, strConn, (conn, transaction) =>
+                {
+                    SqlTransaction sqlTran = null;
+                    if (transaction != null)
+                    {
+                        sqlTran = (SqlTransaction)transaction;
+                    }
+
+                    using (SqlCommand commond = new SqlCommand()
+                    {
+                        Connection = (SqlConnection)conn,
+                        CommandType = CommandType.Text,
+                        Transaction = sqlTran,
+                        CommandText = string.Format(@"select {0},{1} from HashGroup as g join HashGroupStrategy as s 
+                                                  on g.strategyid=s.id
+                                                  where g.[name]=@name", StoreHelper.GetHashGroupSelectFields("g"), StoreHelper.GetHashGroupStrategySelectFields("s"))
+                    })
+                    {
+
+                        var parameter = new SqlParameter("@name", SqlDbType.NVarChar, 100)
+                        {
+                            Value = name
+                        };
+                        commond.Parameters.Add(parameter);
+
+                        commond.Prepare();
+
+                        SqlDataReader reader = null;
+
+                        using (reader = commond.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                group = new HashGroup();
+                                StoreHelper.SetHashGroupSelectFields(group, reader, "g");
+                                group.Strategy = new HashGroupStrategy();
+                                StoreHelper.SetHashGroupStrategySelectFields(group.Strategy, reader, "s");
+                            }
+
+                            reader.Close();
+                        }
+                    }
+                });
+
+
+
+
+
+                if (result.Count<count)
+                {
+                    break;
+                }
+            }
+
+            return group;*/
         }
     }
 }

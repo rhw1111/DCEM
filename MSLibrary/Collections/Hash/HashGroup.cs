@@ -59,6 +59,22 @@ namespace MSLibrary.Collections.Hash
         }
 
         /// <summary>
+        /// 类型
+        /// 用于哈希组归类
+        /// </summary>
+        public string Type
+        {
+            get
+            {
+                return GetAttribute<string>("Type");
+            }
+            set
+            {
+                SetAttribute<string>("Type", value);
+            }
+        }
+
+        /// <summary>
         /// 哈希总数
         /// 关键字将以该数作为基数计算
         /// </summary>
@@ -599,9 +615,9 @@ namespace MSLibrary.Collections.Hash
     [Injection(InterfaceType = typeof(IHashGroupIMP), Scope = InjectionScope.Transient)]
     public class HashGroupIMP : IHashGroupIMP
     {
-        private static string _strategyServiceFactoryTypeName;
-        public static IFactory<IHashGroupStrategyService> _strategyServiceFactory;
-        private static object _lockObj = new object();
+        private  string _strategyServiceFactoryTypeName;
+        public  IFactory<IHashGroupStrategyService> _strategyServiceFactory;
+        private  object _lockObj = new object();
 
 
         private IHashGroupStore _hashGroupStore;

@@ -32,6 +32,7 @@ namespace MSLibrary.Logger.LoggingBuilderProviderHandlers
                     
             });
 
+
             //配置级别过滤
             foreach(var filterItem in configuration.LogLevels)
             {

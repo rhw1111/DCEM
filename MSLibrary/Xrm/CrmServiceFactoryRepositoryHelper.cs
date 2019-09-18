@@ -3,18 +3,20 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Caching.Memory;
+using MSLibrary.Cache;
 
 namespace MSLibrary.Xrm
 {
     /// <summary>
     /// Crm服务工厂仓储帮助器
-    /// 供需要使用服务工厂仓储的调用方使用
     /// 加入了缓存功能
+    /// 简化需要缓存服务的服务工厂仓储的调用方使用
+    /// 
     /// </summary>
     public static class CrmServiceFactoryRepositoryHelper
     {
         private static ICrmServiceFactoryRepository _repository;
+        private static int _cacheSize = 200;
 
         public static ICrmServiceFactoryRepository Repository
         {
@@ -24,29 +26,31 @@ namespace MSLibrary.Xrm
             }
         }
 
-        private static int CacheSize { get; set; } = 200;
+        private static int CacheSize {
+            get
+            {
+                return _cacheSize;
+            }
+            set
+            {
+                _factories.Length = value;
+            }
+        }
         private static int CacheTimeout { get; set; } = 600;
 
-        private static MemoryCache _factories = new MemoryCache(new MemoryCacheOptions()
-        {
-             SizeLimit= CacheSize
-        });
+        private static HashLinkedCache<string, CacheTimeContainer<CrmServiceFactory>> _factories = new HashLinkedCache<string, CacheTimeContainer<CrmServiceFactory>>() { Length= CacheSize };
 
         public static async Task<CrmServiceFactory> QueryByName(string name)
         {
-            if (!_factories.TryGetValue<CrmServiceFactory>(name,out CrmServiceFactory serviceFactory))
+            CacheTimeContainer<CrmServiceFactory> serviceFactoryItem = _factories.GetValue(name);
+            if (serviceFactoryItem== null || serviceFactoryItem.Expire())
             {
-                serviceFactory = await _repository.QueryByName(name);
-                if (serviceFactory!=null)
-                {
-                    _factories.Set(name, serviceFactory, new MemoryCacheEntryOptions()
-                    {
-                        AbsoluteExpirationRelativeToNow = new TimeSpan(0, 0, CacheTimeout)
-                    });
-                }
+                var serviceFactory = await _repository.QueryByName(name);
+                serviceFactoryItem = new CacheTimeContainer<CrmServiceFactory>(serviceFactory, CacheTimeout);
+                _factories.SetValue(name, serviceFactoryItem);
             }
 
-            return serviceFactory;
+            return serviceFactoryItem.Value;
         }
 
         

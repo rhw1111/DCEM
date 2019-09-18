@@ -42,7 +42,7 @@ namespace MSLibrary.Workflow.DAL
         public async Task Add(WorkflowResource resource)
         {
 
-            var dbInfo = await StoreInfoHelper.GetHashStoreInfo(_hashGroupRepository, _storeInfoResolveService, _hashGroupName, resource.Type, resource.Key);
+            var dbInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService, _hashGroupName, resource.Type, resource.Key);
 
             if (!dbInfo.TableNames.TryGetValue(HashEntityNames.WorkflowResource, out string tableName))
             {
@@ -159,7 +159,7 @@ namespace MSLibrary.Workflow.DAL
 
         public async Task Delete(string resourceType, string resourceKey, Guid id)
         {
-            var dbInfo = await StoreInfoHelper.GetHashStoreInfo(_hashGroupRepository, _storeInfoResolveService, _hashGroupName, resourceType, resourceKey);
+            var dbInfo = await StoreInfoHelper.GetHashStoreInfo(_storeInfoResolveService, _hashGroupName, resourceType, resourceKey);
 
             if (!dbInfo.TableNames.TryGetValue(HashEntityNames.WorkflowResource, out string tableName))
             {
@@ -206,7 +206,7 @@ namespace MSLibrary.Workflow.DAL
 
         public async Task UpdateStatus(string resourceType, string resourceKey, Guid id, int status)
         {
-            var dbInfo = await StoreInfoHelper.GetHashStoreInfo(_hashGroupRepository, _storeInfoResolveService, _hashGroupName, resourceType, resourceKey);
+            var dbInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService, _hashGroupName, resourceType, resourceKey);
 
             if (!dbInfo.TableNames.TryGetValue(HashEntityNames.WorkflowResource, out string tableName))
             {
@@ -266,7 +266,7 @@ namespace MSLibrary.Workflow.DAL
         /// <returns></returns>
         public async Task<WorkflowResource> QueryByKey(string type, string key)
         {
-            var dbInfo = await StoreInfoHelper.GetHashStoreInfo(_hashGroupRepository, _storeInfoResolveService, _hashGroupName, type, key);
+            var dbInfo = await StoreInfoHelper.GetHashStoreInfo(_storeInfoResolveService, _hashGroupName, type, key);
 
             if (!dbInfo.TableNames.TryGetValue(HashEntityNames.WorkflowResource, out string tableName))
             {

@@ -408,6 +408,26 @@ namespace MSLibrary.SystemToken.DAL
                     };
                     command.Parameters.Add(parameter);
 
+                    parameter = new SqlParameter("@currentpage", SqlDbType.Int)
+                    {
+                        Value = page
+                    };
+                    command.Parameters.Add(parameter);
+
+
+                    parameter = new SqlParameter("@pagesize", SqlDbType.Int)
+                    {
+                        Value = pageSize
+                    };
+                    command.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter("@count", SqlDbType.Int)
+                    {
+                         Direction= ParameterDirection.Output
+                    };
+                    command.Parameters.Add(parameter);
+
+
                     command.Prepare();
 
                     SqlDataReader reader = null;
@@ -426,7 +446,7 @@ namespace MSLibrary.SystemToken.DAL
                         reader.Close();
 
                         result.TotalCount = (int)command.Parameters["@count"].Value;
-                        result.CurrentPage = (int)command.Parameters["@currentpage"].Value;
+                        result.CurrentPage = page;
 
                     }
                 }
@@ -548,7 +568,7 @@ namespace MSLibrary.SystemToken.DAL
             string[] info = new string[2];
 
             //获取前缀的哈希节点关键字,
-            var dbInfo = await StoreInfoHelper.GetHashStoreInfo(_hashGroupRepository, _storeInfoResolveService, hashGroupName, userKey);
+            var dbInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService, hashGroupName, userKey);
 
             if (!dbInfo.TableNames.TryGetValue(HashEntityNames.ThirdPartySystemTokenRecord, out string tableName))
             {
