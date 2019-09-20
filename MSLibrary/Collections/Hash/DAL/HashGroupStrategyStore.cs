@@ -63,14 +63,14 @@ namespace MSLibrary.Collections.Hash.DAL
 
                     }
 
-                    parameter = new SqlParameter("@name", SqlDbType.NVarChar, 100)
+                    parameter = new SqlParameter("@name", SqlDbType.VarChar, 100)
                     {
                         Value = strategy.Name
                     };
                     commond.Parameters.Add(parameter);
 
 
-                    parameter = new SqlParameter("@strategyservicefactorytype", SqlDbType.NVarChar, 500)
+                    parameter = new SqlParameter("@strategyservicefactorytype", SqlDbType.VarChar, 500)
                     {
                         Value = strategy.StrategyServiceFactoryType
                     };
@@ -241,7 +241,7 @@ namespace MSLibrary.Collections.Hash.DAL
 		                            fetch next @pagesize rows only;", StoreHelper.GetHashGroupStrategySelectFields(string.Empty))
                 })
                 {
-                    var parameter = new SqlParameter("@name", SqlDbType.NVarChar, 150)
+                    var parameter = new SqlParameter("@name", SqlDbType.VarChar, 100)
                     {
                         Value = $"{name.ToSqlLike()}%"
                     };

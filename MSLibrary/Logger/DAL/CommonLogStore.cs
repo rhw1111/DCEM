@@ -21,7 +21,8 @@ namespace MSLibrary.Logger.DAL
     public class CommonLogStore : ICommonLogStore
     {
 
-        private const string GroupNameFormatting = "CommonLog-{0}";
+        private const string _groupNameFormatting = "CommonLog-{0}";
+        private const string _groupType = "CommonLog";
 
         private static string _commonLogDefaultHashGroupName;
         /// <summary>
@@ -37,11 +38,13 @@ namespace MSLibrary.Logger.DAL
         }
 
 
+        private IHashGroupRepository _hashGroupRepository;
         private IStoreInfoResolveService _storeInfoResolveService;
         private ICommonLogConnectionFactory _commonLogConnectionFactory;
 
-        public CommonLogStore(IStoreInfoResolveService storeInfoResolveService, ICommonLogConnectionFactory commonLogConnectionFactory)
+        public CommonLogStore(IHashGroupRepository hashGroupRepository,IStoreInfoResolveService storeInfoResolveService, ICommonLogConnectionFactory commonLogConnectionFactory)
         {
+            _hashGroupRepository = hashGroupRepository;
             _storeInfoResolveService = storeInfoResolveService;
             _commonLogConnectionFactory = commonLogConnectionFactory;
         }
@@ -75,8 +78,8 @@ namespace MSLibrary.Logger.DAL
              
                     if (log.ID == Guid.Empty)
                     {
-                        command.CommandText = string.Format(@"insert into {0} ([id],[parentid],[contextinfo],[actionname],[parentactionname],[requestbody],[requesturi],[message],[root],[level],[createtime],[modifytime])
-                                                values (default,@parentid,@contextinfo,@actionname,@parentactionname,@requestbody,@requesturi,@message,@root,@level,GETUTCDATE(),GETUTCDATE()); 
+                        command.CommandText = string.Format(@"insert into {0} ([id],[parentid],[previousid],[contextinfo],[actionname],[parentactionname],[requestbody],[requesturi],[message],[root],[level],[createtime],[modifytime])
+                                                values (default,@parentid,@previousid,@contextinfo,@actionname,@parentactionname,@requestbody,@requesturi,@message,@root,@level,GETUTCDATE(),GETUTCDATE()); 
                                                 SELECT @newid=[id] FROM {0} WHERE [sequence]=SCOPE_IDENTITY()", tableNameCommonlog);
 
                         parameter = new SqlParameter("@newid", SqlDbType.UniqueIdentifier)
@@ -87,8 +90,8 @@ namespace MSLibrary.Logger.DAL
                     }
                     else
                     {
-                        command.CommandText = string.Format(@"insert into {0} ([id],[parentid],[contextinfo],[actionname],[parentactionname],[requestbody],[requesturi],[message],[root],[level],[createtime],[modifytime])
-                                                VALUES (@id,@parentid,@contextinfo,@actionname,@parentactionname,@requestbody,@requesturi,@message,@root,@level,GETUTCDATE(),GETUTCDATE())", tableNameCommonlog);
+                        command.CommandText = string.Format(@"insert into {0} ([id],[parentid],[previousid],[contextinfo],[actionname],[parentactionname],[requestbody],[requesturi],[message],[root],[level],[createtime],[modifytime])
+                                                VALUES (@id,@parentid,@previousid,@contextinfo,@actionname,@parentactionname,@requestbody,@requesturi,@message,@root,@level,GETUTCDATE(),GETUTCDATE())", tableNameCommonlog);
 
                         parameter = new SqlParameter("@id", SqlDbType.UniqueIdentifier)
                         {
@@ -101,6 +104,12 @@ namespace MSLibrary.Logger.DAL
                     parameter = new SqlParameter("@parentid", SqlDbType.UniqueIdentifier)
                     {
                         Value = log.ParentID
+                    };
+                    command.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter("@previousid", SqlDbType.UniqueIdentifier)
+                    {
+                        Value = log.PreviousID
                     };
                     command.Parameters.Add(parameter);
 
@@ -217,62 +226,25 @@ namespace MSLibrary.Logger.DAL
             return result;
         }
 
-        public async Task<List<CommonLog>> QueryRootByParentActionTop(string parentActionName, int top)
+        public async Task<List<CommonLog>> QueryRootByConditionTop(string parentActionName,int? level, int top)
         {
             List<CommonLog> logs = new List<CommonLog>();
 
-            var group = await getHashGroup(parentActionName);
+            List<HashGroup> groups = new List<HashGroup>();
 
-            var dbInfos = await StoreInfoHelper.GetHashStoreInfos(group, _storeInfoResolveService);
-
-            foreach(var dbInfoItem in dbInfos)
+            if (parentActionName != null)
             {
-                var tableNameCommonlog = getTableName(group.Name, dbInfoItem.TableNames);
-
-                await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, dbInfoItem.DBConnectionNames.Read, async (conn, transaction) =>
+                var group = await getHashGroup(parentActionName);
+                await queryRootByConditionTop(group, parentActionName, level, top, logs);
+            }
+            else
+            {
+                await _hashGroupRepository.QueryByType(_groupType, async(group)=>
                 {
-                    SqlTransaction sqlTran = null;
-                    if (transaction != null)
-                    {
-                        sqlTran = (SqlTransaction)transaction;
-                    }
-                    using (SqlCommand command = new SqlCommand()
-                    {
-                        Connection = (SqlConnection)conn,
-                        CommandType = CommandType.Text,
-                        Transaction = sqlTran,
-                    })
-                    {
-                        SqlParameter parameter;
-
-                        command.CommandText = string.Format(@"select top (@top) {0} from [dbo].[{1}] order by [sequence] desc;", StoreHelper.GetCommonLogSelectFields(string.Empty), tableNameCommonlog);
-
-                        parameter = new SqlParameter("@top", SqlDbType.Int)
-                        {
-                            Value = top
-                        };
-                        command.Parameters.Add(parameter);
-
-                        command.Prepare();
-
-                        SqlDataReader reader = null;
-
-
-                        using (reader = await command.ExecuteReaderAsync())
-                        {
-                            while (await reader.ReadAsync())
-                            {
-                                var log = new CommonLog();
-                                StoreHelper.SetCommonLogSelectFields(log, reader, string.Empty);
-                                logs.Add(log);
-                            }
-                            reader.Close();
-                        }
-                    }
+                    await queryRootByConditionTop(group, parentActionName, level, top, logs);
                 });
 
             }
-
 
             logs = (from item in logs
                     orderby item.CreateTime descending
@@ -541,12 +513,20 @@ namespace MSLibrary.Logger.DAL
                     SqlParameter parameter;
 
                     command.CommandText = string.Format(@"SELECT @count = COUNT(*)
-                                                    FROM [dbo].[{1}]                                                      
+                                                    FROM [dbo].[{1}] 
+                                                    where [parentid]=@parentid
                                                     
                                                     SELECT {0}
-                                                    FROM [dbo].[{1}]                                               
+                                                    FROM [dbo].[{1}] 
+                                                    where [parentid]=@parentid
                                                     ORDER BY [sequence] OFFSET (@pagesize * (@currentpage - 1)) ROWS FETCH NEXT @pagesize ROWS ONLY;", StoreHelper.GetCommonLogSelectFields(string.Empty), tableNameCommonlog);
 
+
+                    parameter = new SqlParameter("@parentid", SqlDbType.UniqueIdentifier)
+                    {
+                        Value = parentID
+                    };
+                    command.Parameters.Add(parameter);
 
                     parameter = new SqlParameter("@currentpage", SqlDbType.Int)
                     {
@@ -592,10 +572,84 @@ namespace MSLibrary.Logger.DAL
         }
 
 
+        private async Task queryRootByConditionTop(HashGroup group,string parentActionName, int? level, int top,List<CommonLog> logs)
+        {
+            var dbInfos = await StoreInfoHelper.GetHashStoreInfos(group, _storeInfoResolveService);
+
+            foreach (var dbInfoItem in dbInfos)
+            {
+                var tableNameCommonlog = getTableName(group.Name, dbInfoItem.TableNames);
+
+                await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, dbInfoItem.DBConnectionNames.Read, async (conn, transaction) =>
+                {
+                    SqlTransaction sqlTran = null;
+                    if (transaction != null)
+                    {
+                        sqlTran = (SqlTransaction)transaction;
+                    }
+                    using (SqlCommand command = new SqlCommand()
+                    {
+                        Connection = (SqlConnection)conn,
+                        CommandType = CommandType.Text,
+                        Transaction = sqlTran,
+                    })
+                    {
+                        SqlParameter parameter;
+                        string strConditionParentActionName = string.Empty;
+                        if (strConditionParentActionName!=null)
+                        {
+                            strConditionParentActionName = "and [parentactionname]=@parentactionname";
+                            parameter = new SqlParameter("@parentactionname", SqlDbType.NVarChar,300)
+                            {
+                                Value = parentActionName
+                            };
+                            command.Parameters.Add(parameter);
+                        }
+
+                        string strConditionLevel = string.Empty;
+                        if (level!=null)
+                        {
+                            strConditionParentActionName = "and [level]=@level";
+                            parameter = new SqlParameter("@level", SqlDbType.Int)
+                            {
+                                Value = level.Value
+                            };
+                            command.Parameters.Add(parameter);
+                        }
+
+                        command.CommandText = string.Format(@"select top (@top) {0} from [dbo].[{1}] where 1=1 {2} {3} order by [sequence] desc;", StoreHelper.GetCommonLogSelectFields(string.Empty), tableNameCommonlog,strConditionParentActionName,strConditionLevel);
+
+                        parameter = new SqlParameter("@top", SqlDbType.Int)
+                        {
+                            Value = top
+                        };
+                        command.Parameters.Add(parameter);
+
+
+                        command.Prepare();
+
+                        SqlDataReader reader = null;
+
+
+                        using (reader = await command.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                var log = new CommonLog();
+                                StoreHelper.SetCommonLogSelectFields(log, reader, string.Empty);
+                                logs.Add(log);
+                            }
+                            reader.Close();
+                        }
+                    }
+                });
+
+            }
+        }
         private async Task<HashGroup> getHashGroup(string parentAction)
         {
 
-            var group = await HashGroupRepositoryHelper.QueryByName(string.Format(GroupNameFormatting, parentAction));
+            var group = await HashGroupRepositoryHelper.QueryByName(string.Format(_groupNameFormatting, parentAction));
 
             if (group == null)
             {
@@ -616,6 +670,10 @@ namespace MSLibrary.Logger.DAL
 
             return group;
         }
+
+
+
+
 
         private string getTableName(string groupName, Dictionary<string,string> tableNames)
         {
