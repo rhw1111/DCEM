@@ -14,7 +14,7 @@ using DCEM.Main.Context;
 
 namespace DCEM.Main
 {
-    public static class StartupHepler
+    public static class StartupHelper
     {
         /// <summary>
         /// 初始化配置容器
@@ -23,13 +23,13 @@ namespace DCEM.Main
         /// <paramref name="environmentName">当前环境名称</paramref>
         /// <paramref name="fileBaseUrl">配置文件基地址</paramref>
         /// </summary>
-        public static void InitConfigurationContainer(string environmentName,string fileBaseUrl)
+        public static void InitConfigurationContainer(string environmentName, string fileBaseUrl)
         {
             var appConfigurationUri = $"{fileBaseUrl}{Path.DirectorySeparatorChar}Configurations{Path.DirectorySeparatorChar}configuration-{environmentName}.json";
 
             if (!File.Exists(appConfigurationUri))
             {
-                appConfigurationUri= $"{fileBaseUrl}{Path.DirectorySeparatorChar}Configurations{Path.DirectorySeparatorChar}configuration.json";
+                appConfigurationUri = $"{fileBaseUrl}{Path.DirectorySeparatorChar}Configurations{Path.DirectorySeparatorChar}configuration.json";
             }
 
             var hostConfigurationUri = $"{fileBaseUrl}{Path.DirectorySeparatorChar}Configurations{Path.DirectorySeparatorChar}host-{environmentName}.json";
@@ -54,7 +54,7 @@ namespace DCEM.Main
 
             //向配置容器增加主机配置信息
             ConfigurationContainer.Add(ConfigurationNames.Host, hostConfiguration);
-            
+
             //向配置容器增加主配置
             ConfigurationContainer.Add(ConfigurationNames.Application, configuration);
 
@@ -76,9 +76,7 @@ namespace DCEM.Main
 
 
         }
-
-
-
+         
         /// <summary>
         /// 初始化DI容器
         /// 自动装载被标识的对象
