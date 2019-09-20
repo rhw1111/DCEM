@@ -60,6 +60,22 @@ namespace MSLibrary.Logger
         }
 
         /// <summary>
+        /// 上一个日志的ID
+        /// </summary>
+        public Guid PreviousID
+        {
+            get
+            {
+
+                return GetAttribute<Guid>("PreviousID");
+            }
+            set
+            {
+                SetAttribute<Guid>("PreviousID", value);
+            }
+        }
+
+        /// <summary>
         /// 上下文信息
         /// </summary>
         public string ContextInfo

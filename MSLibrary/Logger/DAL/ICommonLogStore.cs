@@ -19,6 +19,7 @@ namespace MSLibrary.Logger.DAL
 
         Task<QueryResult<CommonLog>> QueryByParentId(Guid parentID,string parentAction,int page,int pageSize);
 
-        Task<List<CommonLog>> QueryRootByParentActionTop(string parentAction,int top);
+        Task<List<CommonLog>> QueryRootByConditionTop(string parentAction,int? level,int top);
+
     }
 }

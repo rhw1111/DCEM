@@ -32,5 +32,13 @@ namespace MSLibrary.Collections.Hash
         /// <param name="pageSize"></param>
         /// <returns></returns>
         Task<QueryResult<HashGroup>> QueryByName(string name, int page, int pageSize);
+        /// <summary>
+        /// 根据类型查询该类型下所有的组
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        Task QueryByType(string type, Func<HashGroup, Task> action);
+
     }
 }

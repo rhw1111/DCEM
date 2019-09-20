@@ -36,5 +36,10 @@ namespace MSLibrary.Collections.Hash
         {
             return _hashGroupStore.QueryByNameSync(name);
         }
+
+        public async Task QueryByType(string type, Func<HashGroup, Task> action)
+        {
+            await _hashGroupStore.QueryByType(type, action);
+        }
     }
 }
