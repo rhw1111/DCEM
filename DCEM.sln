@@ -38,6 +38,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Db", "Db", "{F6E496C3-AAF8-406F-890A-5DC5C21088BD}"
 	ProjectSection(SolutionItems) = preProject
 		db.sql = db.sql
+		HashGroup.sql = HashGroup.sql
+		HashGroupStrategy.sql = HashGroupStrategy.sql
+		HashNode.sql = HashNode.sql
+		HashRealNode.sql = HashRealNode.sql
 		SystemConfiguration.sql = SystemConfiguration.sql
 	EndProjectSection
 EndProject
