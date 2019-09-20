@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCEM.NUnitTest", "DCEM.NUni
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCEM.ConsoleApp", "DCEM.ConsoleApp\DCEM.ConsoleApp.csproj", "{5E0BE6F6-791E-4231-95D3-0486EC9E0959}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCEM.LoggerService", "DCEM.LoggerService\DCEM.LoggerService.csproj", "{D54CBBAE-BD9A-4585-8125-B0BA7305C77D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCEM.LoggerService", "DCEM.LoggerService\DCEM.LoggerService.csproj", "{D54CBBAE-BD9A-4585-8125-B0BA7305C77D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "001Libs", "001Libs", "{E2B83048-8094-420E-AFA7-AA8274A28A2F}"
 EndProject
@@ -25,13 +25,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "002Internets", "002Internet
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "003Inners", "003Inners", "{20DF9404-CEDD-448F-8BB2-68A28FF96123}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCEM.ConfigurationService", "DCEM.ConfigurationService\DCEM.ConfigurationService.csproj", "{770D878F-D159-4683-8744-02AB09104790}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCEM.ConfigurationService", "DCEM.ConfigurationService\DCEM.ConfigurationService.csproj", "{770D878F-D159-4683-8744-02AB09104790}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCEM.AuthorizationService", "DCEM.AuthorizationService\DCEM.AuthorizationService.csproj", "{6A49E4B5-6C8D-44FC-82E7-EDF338D8572D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCEM.AuthorizationService", "DCEM.AuthorizationService\DCEM.AuthorizationService.csproj", "{6A49E4B5-6C8D-44FC-82E7-EDF338D8572D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "004Apps", "004Apps", "{1BE884B4-23B7-4124-93E6-9B9C30F751B4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "005Tests", "005Tests", "{3FC87C7D-F71A-4D97-9C0E-7A242C4A7A8E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "099Others", "099Others", "{05061FC2-A7DF-42F3-ADFD-9DC28994E97A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Db", "Db", "{F6E496C3-AAF8-406F-890A-5DC5C21088BD}"
+	ProjectSection(SolutionItems) = preProject
+		db.sql = db.sql
+		SystemConfiguration.sql = SystemConfiguration.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -94,6 +102,7 @@ Global
 		{D54CBBAE-BD9A-4585-8125-B0BA7305C77D} = {20DF9404-CEDD-448F-8BB2-68A28FF96123}
 		{770D878F-D159-4683-8744-02AB09104790} = {20DF9404-CEDD-448F-8BB2-68A28FF96123}
 		{6A49E4B5-6C8D-44FC-82E7-EDF338D8572D} = {20DF9404-CEDD-448F-8BB2-68A28FF96123}
+		{F6E496C3-AAF8-406F-890A-5DC5C21088BD} = {05061FC2-A7DF-42F3-ADFD-9DC28994E97A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {843D9FD7-3ABC-41CB-A7B0-6A4C72441BC9}
