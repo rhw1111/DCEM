@@ -23,6 +23,9 @@
 		CF5CD6803D154083ACF77648 /* CDVSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 03EF2F7C81B143BF96F240B6 /* CDVSplashScreen.m */; };
 		5197003BE6AD429CAACE255B /* CDVViewController+SplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 45BFCCC659A74222B686760C /* CDVViewController+SplashScreen.m */; };
 		A0C7206E6EEC4523B0E9003F /* CDVStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CB1A1A61CA4D1DB0F04103 /* CDVStatusBar.m */; };
+		B586A5EC82854B13B0FDC562 /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7EC8E908E44BAEBE4E5279 /* Toast+UIView.m */; };
+		D0FE1F7582E34EB5B7401A35 /* Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = BD973B5DF5154CDB97301106 /* Toast.m */; };
+		E64EDFFA1C474827A2196B51 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F7E1E9ACE24189A9513389 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +92,11 @@
 		62E0848583004A6DA1D746BD /* CDVViewController+SplashScreen.h */ = {isa = PBXFileReference; name = "CDVViewController+SplashScreen.h"; path = "cordova-plugin-splashscreen/CDVViewController+SplashScreen.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		D8CB1A1A61CA4D1DB0F04103 /* CDVStatusBar.m */ = {isa = PBXFileReference; name = "CDVStatusBar.m"; path = "cordova-plugin-statusbar/CDVStatusBar.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
 		0B58874CF80B4957B58316C0 /* CDVStatusBar.h */ = {isa = PBXFileReference; name = "CDVStatusBar.h"; path = "cordova-plugin-statusbar/CDVStatusBar.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		5A7EC8E908E44BAEBE4E5279 /* Toast+UIView.m */ = {isa = PBXFileReference; name = "Toast+UIView.m"; path = "cordova-plugin-x-toast/Toast+UIView.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		BD973B5DF5154CDB97301106 /* Toast.m */ = {isa = PBXFileReference; name = "Toast.m"; path = "cordova-plugin-x-toast/Toast.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		E71BA21E999B41C7BD530EF3 /* Toast+UIView.h */ = {isa = PBXFileReference; name = "Toast+UIView.h"; path = "cordova-plugin-x-toast/Toast+UIView.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		C18C19BFA759413089D8BB84 /* Toast.h */ = {isa = PBXFileReference; name = "Toast.h"; path = "cordova-plugin-x-toast/Toast.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		90F7E1E9ACE24189A9513389 /* QuartzCore.framework */ = {isa = PBXFileReference; name = "QuartzCore.framework"; path = "System/Library/Frameworks/QuartzCore.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +106,7 @@
 			files = (
 				301BF552109A68D80062928A /* libCordova.a in Frameworks */,
 				19ED730C766F4AE7A280E312 /* WebKit.framework in Frameworks */,
+				E64EDFFA1C474827A2196B51 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				009F9C9313514ADEBEACF1C1 /* WebKit.framework */,
+				90F7E1E9ACE24189A9513389 /* QuartzCore.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -213,6 +223,10 @@
 				62E0848583004A6DA1D746BD /* CDVViewController+SplashScreen.h */,
 				D8CB1A1A61CA4D1DB0F04103 /* CDVStatusBar.m */,
 				0B58874CF80B4957B58316C0 /* CDVStatusBar.h */,
+				5A7EC8E908E44BAEBE4E5279 /* Toast+UIView.m */,
+				BD973B5DF5154CDB97301106 /* Toast.m */,
+				E71BA21E999B41C7BD530EF3 /* Toast+UIView.h */,
+				C18C19BFA759413089D8BB84 /* Toast.h */,
 			);
 			name = Plugins;
 			path = "MyApp/Plugins";
@@ -346,6 +360,8 @@
 				CF5CD6803D154083ACF77648 /* CDVSplashScreen.m in Sources */,
 				5197003BE6AD429CAACE255B /* CDVViewController+SplashScreen.m in Sources */,
 				A0C7206E6EEC4523B0E9003F /* CDVStatusBar.m in Sources */,
+				B586A5EC82854B13B0FDC562 /* Toast+UIView.m in Sources */,
+				D0FE1F7582E34EB5B7401A35 /* Toast.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
