@@ -21,6 +21,7 @@ namespace MSLibrary.Logger.DAL
         {
             log.ID = (Guid)reader[string.Format("{0}id", prefix)];
             log.ParentID= (Guid)reader[string.Format("{0}parentid", prefix)];
+            log.PreviousID = (Guid)reader[string.Format("{0}previousid", prefix)];
             log.ContextInfo = reader[string.Format("{0}contextinfo", prefix)].ToString();
             log.ActionName = reader[string.Format("{0}actionname", prefix)].ToString();
             log.ParentActionName = reader[string.Format("{0}parentactionname", prefix)].ToString();
@@ -39,10 +40,10 @@ namespace MSLibrary.Logger.DAL
         /// <returns></returns>
         public static string GetCommonLogSelectFields(string prefix)
         {
-            var strSelect = @"{0}.[id] as [{0}id],{0}.[parentid] as [{0}parentid],{0}.[contextinfo] as [{0}contextinfo],{0}.[actionname] as [{0}actionname],{0}.[parentactionname] as [{0}parentactionname],{0}.[requestbody] as [{0}requestbody],{0}.[requesturi] as [{0}requesturi],{0}.[message] as [{0}message],{0}.[root] as [{0}root],{0}.[level] as [{0}level],{0}.[createtime] as [{0}createtime],{0}.[modifytime] as [{0}modifytime],{0}.[sequence] as [{0}sequence]";
+            var strSelect = @"{0}.[id] as [{0}id],{0}.[parentid] as [{0}parentid],{0}.[previousid] as [{0}previousid],{0}.[contextinfo] as [{0}contextinfo],{0}.[actionname] as [{0}actionname],{0}.[parentactionname] as [{0}parentactionname],{0}.[requestbody] as [{0}requestbody],{0}.[requesturi] as [{0}requesturi],{0}.[message] as [{0}message],{0}.[root] as [{0}root],{0}.[level] as [{0}level],{0}.[createtime] as [{0}createtime],{0}.[modifytime] as [{0}modifytime],{0}.[sequence] as [{0}sequence]";
             if (string.IsNullOrEmpty(prefix))
             {
-                strSelect = @"[id],[parentid],[contextinfo],[actionname],[parentactionname],[requestbody],[requesturi],[message],[root],[level],[createtime],[modifytime],[sequence]";
+                strSelect = @"[id],[parentid],[previousid],[contextinfo],[actionname],[parentactionname],[requestbody],[requesturi],[message],[root],[level],[createtime],[modifytime],[sequence]";
             }
             return string.Format(strSelect, prefix);
         }
