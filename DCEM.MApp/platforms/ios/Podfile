@@ -2,7 +2,7 @@
 
 platform :ios, '9.0'
 
-target 'c:\Project\DoApp\platforms\ios\MyApp' do
-	project 'c:\Project\DoApp\platforms\ios\MyApp.xcodeproj'
+target 'F:\MSProject\GitHub\APPDemoNew\DCEM.MApp\platforms\ios\MyApp' do
+	project 'F:\MSProject\GitHub\APPDemoNew\DCEM.MApp\platforms\ios\MyApp.xcodeproj'
 
 end
