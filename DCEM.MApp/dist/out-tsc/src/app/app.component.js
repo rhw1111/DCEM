@@ -1,5 +1,4 @@
 import * as tslib_1 from "tslib";
-var _a, _b, _c;
 import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -24,7 +23,9 @@ AppComponent = tslib_1.__decorate([
         templateUrl: 'app.component.html',
         styleUrls: ['app.component.scss']
     }),
-    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof Platform !== "undefined" && Platform) === "function" ? _a : Object, typeof (_b = typeof SplashScreen !== "undefined" && SplashScreen) === "function" ? _b : Object, typeof (_c = typeof StatusBar !== "undefined" && StatusBar) === "function" ? _c : Object])
+    tslib_1.__metadata("design:paramtypes", [Platform,
+        SplashScreen,
+        StatusBar])
 ], AppComponent);
 export { AppComponent };
 //# sourceMappingURL=app.component.js.map
