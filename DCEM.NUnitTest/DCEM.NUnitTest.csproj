@@ -13,7 +13,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DCEM.Main\DCEM.Main.csproj" />
     <ProjectReference Include="..\MSLibrary\MSLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Configurations\configuration-NUT.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Configurations\Langs\language.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Configurations\log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

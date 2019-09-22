@@ -251,7 +251,7 @@ namespace MSLibrary.Collections.Hash.DAL
 		                            fetch next @pagesize rows only;", StoreHelper.GetHashGroupSelectFields("g"), StoreHelper.GetHashGroupSelectFields("s"))
                 })
                 {
-                    var parameter = new SqlParameter("@name", SqlDbType.NVarChar, 150)
+                    var parameter = new SqlParameter("@name", SqlDbType.VarChar, 150)
                     {
                         Value = $"{name.ToSqlLike()}%"
                     };
@@ -336,7 +336,7 @@ namespace MSLibrary.Collections.Hash.DAL
                 })
                 {
 
-                    var parameter = new SqlParameter("@name", SqlDbType.NVarChar,100)
+                    var parameter = new SqlParameter("@name", SqlDbType.VarChar,100)
                     {
                         Value = name
                     };
@@ -445,7 +445,7 @@ namespace MSLibrary.Collections.Hash.DAL
                 })
                 {
 
-                    var parameter = new SqlParameter("@name", SqlDbType.NVarChar, 100)
+                    var parameter = new SqlParameter("@name", SqlDbType.VarChar, 100)
                     {
                         Value = name
                     };
@@ -475,9 +475,9 @@ namespace MSLibrary.Collections.Hash.DAL
 
         public async Task QueryByType(string type, Func<HashGroup, Task> action)
         {
-            /*List<HashGroup> result = new List<HashGroup>();
+            List<HashGroup> result = new List<HashGroup>();
             int? index = null;
-            int count = 500;
+            long count = 500;
 
             //获取只读连接字符串
             var strConn = _hashConnectionFactory.CreateReadForHash();
@@ -495,22 +495,45 @@ namespace MSLibrary.Collections.Hash.DAL
                         sqlTran = (SqlTransaction)transaction;
                     }
 
+                    string strSql = string.Format(@"select top(@top) {0},{1} from HashGroup as g join HashGroupStrategy as s 
+                                                  on g.strategyid=s.id
+                                                  where g.[type]=@type order by g.[sequence]", StoreHelper.GetHashGroupSelectFields("g"), StoreHelper.GetHashGroupStrategySelectFields("s"));
+                    if (index!=null)
+                    {
+                        strSql = string.Format(@"select top(@top) {0},{1} from HashGroup as g join HashGroupStrategy as s 
+                                                  on g.strategyid=s.id
+                                                  where g.[type]=@type and g.[sequence]>@index order by g.[sequence]", StoreHelper.GetHashGroupSelectFields("g"), StoreHelper.GetHashGroupStrategySelectFields("s"));
+                    }
+
                     using (SqlCommand commond = new SqlCommand()
                     {
                         Connection = (SqlConnection)conn,
                         CommandType = CommandType.Text,
                         Transaction = sqlTran,
-                        CommandText = string.Format(@"select {0},{1} from HashGroup as g join HashGroupStrategy as s 
-                                                  on g.strategyid=s.id
-                                                  where g.[name]=@name", StoreHelper.GetHashGroupSelectFields("g"), StoreHelper.GetHashGroupStrategySelectFields("s"))
+                        CommandText = strSql
                     })
                     {
 
-                        var parameter = new SqlParameter("@name", SqlDbType.NVarChar, 100)
+                        var parameter = new SqlParameter("@top", SqlDbType.Int)
                         {
-                            Value = name
+                            Value = count
                         };
                         commond.Parameters.Add(parameter);
+
+                        parameter = new SqlParameter("@type", SqlDbType.VarChar,100)
+                        {
+                            Value = type
+                        };
+                        commond.Parameters.Add(parameter);
+
+                        if (index!=null)
+                        {
+                            parameter = new SqlParameter("@index", SqlDbType.BigInt)
+                            {
+                                Value = index
+                            };
+                            commond.Parameters.Add(parameter);
+                        }
 
                         commond.Prepare();
 
@@ -518,13 +541,14 @@ namespace MSLibrary.Collections.Hash.DAL
 
                         using (reader = commond.ExecuteReader())
                         {
-                            if (reader.Read())
+                            while (reader.Read())
                             {
-                                group = new HashGroup();
+                                var group = new HashGroup();
                                 StoreHelper.SetHashGroupSelectFields(group, reader, "g");
                                 group.Strategy = new HashGroupStrategy();
                                 StoreHelper.SetHashGroupStrategySelectFields(group.Strategy, reader, "s");
-                            }
+                                result.Add(group);
+                            }  
 
                             reader.Close();
                         }
@@ -533,15 +557,16 @@ namespace MSLibrary.Collections.Hash.DAL
 
 
 
-
+                foreach(var item in result)
+                {
+                    await action(item);
+                }
 
                 if (result.Count<count)
                 {
                     break;
                 }
             }
-
-            return group;*/
         }
     }
 }

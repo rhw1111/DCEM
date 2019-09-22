@@ -34,6 +34,17 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCEM.AuthorizationService.Main", "DCEM.AuthorizationService.Main\DCEM.AuthorizationService.Main.csproj", "{565E977A-8E92-46E0-8F7C-369682DFDE7D}"
 EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "DCEM.App", "DCEM.MApp\DCEM.App.njsproj", "{F26CEDE4-F02D-4382-A6BD-49C0CB89D2AA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "099Others", "099Others", "{05061FC2-A7DF-42F3-ADFD-9DC28994E97A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Db", "Db", "{F6E496C3-AAF8-406F-890A-5DC5C21088BD}"
+	ProjectSection(SolutionItems) = preProject
+		db.sql = db.sql
+		HashGroup.sql = HashGroup.sql
+		HashGroupStrategy.sql = HashGroupStrategy.sql
+		HashNode.sql = HashNode.sql
+		HashRealNode.sql = HashRealNode.sql
+		SystemConfiguration.sql = SystemConfiguration.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,6 +112,7 @@ Global
 		{6A49E4B5-6C8D-44FC-82E7-EDF338D8572D} = {20DF9404-CEDD-448F-8BB2-68A28FF96123}
 		{565E977A-8E92-46E0-8F7C-369682DFDE7D} = {E2B83048-8094-420E-AFA7-AA8274A28A2F}
 		{F26CEDE4-F02D-4382-A6BD-49C0CB89D2AA} = {1BE884B4-23B7-4124-93E6-9B9C30F751B4}
+		{F6E496C3-AAF8-406F-890A-5DC5C21088BD} = {05061FC2-A7DF-42F3-ADFD-9DC28994E97A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {843D9FD7-3ABC-41CB-A7B0-6A4C72441BC9}
