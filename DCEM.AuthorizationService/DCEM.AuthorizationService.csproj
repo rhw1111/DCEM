@@ -10,4 +10,9 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DCEM.AuthorizationService.Main\DCEM.AuthorizationService.Main.csproj" />
+    <ProjectReference Include="..\MSLibrary\MSLibrary.csproj" />
+  </ItemGroup>
+
 </Project>

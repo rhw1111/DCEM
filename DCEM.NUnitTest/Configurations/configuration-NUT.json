@@ -1,0 +1,55 @@
+﻿{
+  "Connections": {
+    //"maindball": "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=DCEM;Data Source=.;",
+    //"maindbread": "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=dcem;Data Source=.;"
+    //"maindball": "Password=pass01!;Persist Security Info=True;User ID=sa;Initial Catalog=GSP20Test8;Data Source=22.188.136.7",
+    "maindball": "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=DCEM;Data Source=.;",
+    "maindbread": "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=DCEM;Data Source=.;",
+    "seconddball": "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=DCEM;Data Source=.;",
+    "seconddbread": "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=DCEM;Data Source=.;"
+  },
+  "DISetting": {
+    "SearchAssemblyNames": [ "MSLibrary", "DCEM.Main" ]
+  },
+  "LoggerSetting": {
+    "LoggerNames": [ "dcem" ],
+    "Log4netSetting": {
+      "Log4netConfiguarationUrl": "Configurations\\log4net.config",
+      "Log4netNames": [
+        {
+          "Name": "System",
+          "AcceptTypeName": "System.String"
+        },
+        {
+          "Name": "Info",
+          "AcceptTypeName": "DCEM.Main.Logger.LogContent"
+        },
+        {
+          "Name": "Error",
+          "AcceptTypeName": "DCEM.Main.Logger.LogContent"
+        }
+      ]
+    }
+  },
+  "EncryptInfo": {
+    "SymmetryEncryptInfo": {
+      "EncryptKey": "",
+      "EncryptIV": ""
+    }
+  },
+  "JWTConfiguration": {
+    "SignKey": "xjecvq",
+    "ExpireSeconds": 300
+  },
+  "TestSettings": {
+    "Enable": true,
+    "UserName": "dcem\\administrator"
+
+  },
+  "AdministratorSettings": {
+    "AdministratorName": "dcem\\administrator",
+    "RoleCode": "",
+    "OUCode": "",
+    "BranchCode": ""
+  }
+}

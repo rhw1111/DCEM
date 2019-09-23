@@ -95,7 +95,7 @@ namespace MSLibrary.Collections.Hash.DAL
                         command.Parameters.Add(parameter);
                     }
 
-                    parameter = new SqlParameter("@name", SqlDbType.NVarChar, 100)
+                    parameter = new SqlParameter("@name", SqlDbType.VarChar, 100)
                     {
                         Value = node.Name
                     };
@@ -106,7 +106,7 @@ namespace MSLibrary.Collections.Hash.DAL
                         Value = node.GroupId
                     };
                     command.Parameters.Add(parameter);
-                    parameter = new SqlParameter("@nodekey", SqlDbType.NVarChar, 1000)
+                    parameter = new SqlParameter("@nodekey", SqlDbType.VarChar, 4000)
                     {
                         Value = node.NodeKey
                     };
