@@ -41,6 +41,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Db", "Db", "{F6E496C3-AAF8-
 		SystemConfiguration.sql = SystemConfiguration.sql
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCEM.LoggerService.Main", "DCEM.LoggerService.Main\DCEM.LoggerService.Main.csproj", "{34D156A3-5A7D-46C3-BF65-C4E2ED22A5AC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{6A49E4B5-6C8D-44FC-82E7-EDF338D8572D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A49E4B5-6C8D-44FC-82E7-EDF338D8572D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A49E4B5-6C8D-44FC-82E7-EDF338D8572D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34D156A3-5A7D-46C3-BF65-C4E2ED22A5AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34D156A3-5A7D-46C3-BF65-C4E2ED22A5AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34D156A3-5A7D-46C3-BF65-C4E2ED22A5AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34D156A3-5A7D-46C3-BF65-C4E2ED22A5AC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,6 +109,7 @@ Global
 		{770D878F-D159-4683-8744-02AB09104790} = {20DF9404-CEDD-448F-8BB2-68A28FF96123}
 		{6A49E4B5-6C8D-44FC-82E7-EDF338D8572D} = {20DF9404-CEDD-448F-8BB2-68A28FF96123}
 		{F6E496C3-AAF8-406F-890A-5DC5C21088BD} = {05061FC2-A7DF-42F3-ADFD-9DC28994E97A}
+		{34D156A3-5A7D-46C3-BF65-C4E2ED22A5AC} = {E2B83048-8094-420E-AFA7-AA8274A28A2F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {843D9FD7-3ABC-41CB-A7B0-6A4C72441BC9}

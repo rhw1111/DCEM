@@ -9,6 +9,7 @@ using MSLibrary.Collections.Hash;
 using MSLibrary.LanguageTranslate;
 using MSLibrary.Transaction;
 using MSLibrary.DAL;
+using MSLibrary.DI;
 
 namespace MSLibrary.Logger.DAL
 {
@@ -16,8 +17,9 @@ namespace MSLibrary.Logger.DAL
     /// 通用日志数据操作
     /// 日志用CommonLog-{parentAction}作为组名称查找哈希组，
     /// 如果找不到，则使用CommonLogDefaultHashGroupName作为组名称查找哈希组，
-    /// 以parentID作为key在找到的哈希组中找到对应的节点信息
+    /// 以parentID作为key在找到的哈希组中找到对应的节点信息    
     /// </summary>
+    [Injection(InterfaceType = typeof(ICommonLogStore), Scope = InjectionScope.Singleton)]
     public class CommonLogStore : ICommonLogStore
     {
 

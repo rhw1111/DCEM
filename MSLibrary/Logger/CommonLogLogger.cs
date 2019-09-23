@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 using MSLibrary;
 using MSLibrary.Transaction;
+using MSLibrary.DI;
 
 namespace MSLibrary.Logger
 {
@@ -17,6 +18,7 @@ namespace MSLibrary.Logger
     /// 基于通用日志记录的日志
     /// 供所有日志服务以外的服务使用
     /// </summary>
+    [Injection(InterfaceType = typeof(CommonLogLogger), Scope = InjectionScope.Singleton)]
     public class CommonLogLogger : ILogger
     {
         private ICommonLogEnvInfoGeneratorService _commonLogEnvInfoGeneratorService;
@@ -74,6 +76,8 @@ namespace MSLibrary.Logger
 
 
 
+
+
             if (strUserInfo==null)
             {
                 strUserInfo = string.Empty;
@@ -88,7 +92,7 @@ namespace MSLibrary.Logger
                     log = new CommonLog()
                     {
                         ID = id,
-                        Level = (int)LogLevel.Error,
+                        Level = (int)logLevel,
                         ParentID = parentID,
                         ParentActionName = strPActionName,
                         PreviousID = previousID,
@@ -138,7 +142,7 @@ namespace MSLibrary.Logger
                         log = new CommonLog()
                         {
                             ID = id,
-                            Level = (int)LogLevel.Error,
+                            Level = (int)logLevel,
                             ParentID = parentID,
                             ParentActionName = strPActionName,
                             PreviousID = previousID,
@@ -177,7 +181,7 @@ namespace MSLibrary.Logger
                         log = new CommonLog()
                         {
                             ID = id,
-                            Level = (int)LogLevel.Error,
+                            Level = (int)logLevel,
                             ParentID = parentID,
                             ParentActionName = strPActionName,
                             PreviousID = previousID,
@@ -274,11 +278,6 @@ namespace MSLibrary.Logger
         /// </summary>
         [DataMember]
         public string ParentActionName { get; set; }
-        /// <summary>
-        /// 日志级别
-        /// </summary>
-        [DataMember]
-        public int Level { get; set; }
 
         /// <summary>
         /// 请求内容

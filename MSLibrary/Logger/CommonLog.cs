@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using MSLibrary.DI;
+using MSLibrary.Logger.DAL;
 
 namespace MSLibrary.Logger
 {
@@ -234,10 +236,49 @@ namespace MSLibrary.Logger
                 SetAttribute<DateTime>("ModifyTime", value);
             }
         }
+
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <returns></returns>
+        public async Task Add()
+        {
+            await _imp.Add(this);
+        }
+        /// <summary>
+        /// 新增到本地
+        /// </summary>
+        /// <returns></returns>
+        public async Task AddLocal()
+        {
+            await _imp.AddLocal(this);
+        }
     }
 
     public interface ICommonLogIMP
     {
         Task Add(CommonLog log);
+        Task AddLocal(CommonLog log);
+    }
+
+    [Injection(InterfaceType = typeof(ICommonLogIMP), Scope = InjectionScope.Transient)]
+    public class CommonLogIMP : ICommonLogIMP
+    {
+        private ICommonLogStore _commonLogStore;
+
+        public CommonLogIMP(ICommonLogStore commonLogStore)
+        {
+            _commonLogStore = commonLogStore;
+        }
+
+        public async Task Add(CommonLog log)
+        {
+            await _commonLogStore.Add(log);
+        }
+
+        public async Task AddLocal(CommonLog log)
+        {
+            await _commonLogStore.AddLocal(log);
+        }
     }
 }
