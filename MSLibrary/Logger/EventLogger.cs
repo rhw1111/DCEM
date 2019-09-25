@@ -4,7 +4,7 @@ using System.Text;
 using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
+using Microsoft.Extensions.Logging.EventLog;
 using System.Diagnostics;
 
 namespace MSLibrary.Logger
@@ -33,7 +33,7 @@ namespace MSLibrary.Logger
         }
         public IDisposable BeginScope<TState>(TState state)
         {
-            return ConsoleLogScope.Push(this._loggerName, state);
+            return (new LoggerExternalScopeProvider()).Push(state);
         }
 
         public bool IsEnabled(LogLevel logLevel)
@@ -56,22 +56,22 @@ namespace MSLibrary.Logger
                     strContent = ConvertFactory.Create().Convert(state);
                 }
      
-                if (ConsoleLogScope.Current != null)
-                {
+                //if (ConsoleLogScope.Current != null)
+                //{
+                //    strMessage = $@"{_loggerName}[{eventId.Id}]
+                //                    =>{ConsoleLogScope.Current.ToString()}
+                //                    {strContent}              
+                //               ";
+                //}
+                //else
+                //{
                     strMessage = $@"{_loggerName}[{eventId.Id}]
-                                    =>{ConsoleLogScope.Current.ToString()}
                                     {strContent}              
                                ";
-                }
-                else
-                {
-                    strMessage = $@"{_loggerName}[{eventId.Id}]
-                                    {strContent}              
-                               ";
-                }
+                //}
             
 
-#if net
+            
             EventLog myLog = new EventLog()
             {
                 Source=_loggerName
@@ -104,7 +104,7 @@ namespace MSLibrary.Logger
                     break;
             }
 
-#endif
+
         }
     }
 
