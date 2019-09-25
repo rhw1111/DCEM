@@ -50,7 +50,7 @@ namespace MSLibrary.MessageQueue.DAL
         public async Task Add(SMessageHistory history)
         {
 
-            var storeInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService, _messageHistoryHashGroupName, history.ID.ToString());
+            var storeInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService,_hashGroupRepository, _messageHistoryHashGroupName, history.ID.ToString());
 
             if (!storeInfo.TableNames.TryGetValue(HashEntityNames.SMessageHistory, out string tableName))
             {
@@ -179,7 +179,7 @@ namespace MSLibrary.MessageQueue.DAL
 
         public async Task<SMessageHistory> QueryById(Guid id)
         {
-            var storeInfo = await StoreInfoHelper.GetHashStoreInfo(_storeInfoResolveService, _messageHistoryHashGroupName, id.ToString());
+            var storeInfo = await StoreInfoHelper.GetHashStoreInfo(_storeInfoResolveService,_hashGroupRepository, _messageHistoryHashGroupName, id.ToString());
 
             if (!storeInfo.TableNames.TryGetValue(HashEntityNames.SMessageHistory, out string tableName))
             {
@@ -238,7 +238,7 @@ namespace MSLibrary.MessageQueue.DAL
 
         public async Task UpdateStatus(Guid id, int status)
         {
-            var storeInfo = await StoreInfoHelper.GetHashStoreInfo(_storeInfoResolveService, _messageHistoryHashGroupName, id.ToString());
+            var storeInfo = await StoreInfoHelper.GetHashStoreInfo(_storeInfoResolveService,_hashGroupRepository, _messageHistoryHashGroupName, id.ToString());
 
             if (!storeInfo.TableNames.TryGetValue(HashEntityNames.SMessageHistory, out string tableName))
             {

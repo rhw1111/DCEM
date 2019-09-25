@@ -31,6 +31,7 @@ namespace MSLibrary.Logger.LoggingBuilderProviderHandlers
             {
                 builder.AddFilter<CommonLogLocalProvider>(filterItem.Key, filterItem.Value);
             }
+            await Task.FromResult(0);
         }
     }
 }

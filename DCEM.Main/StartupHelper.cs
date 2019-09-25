@@ -29,11 +29,11 @@ namespace DCEM.Main
         /// </summary>
         public static void InitConfigurationContainer(string environmentName,string fileBaseUrl)
         {
-            var appConfigurationUri = $"{fileBaseUrl}{Path.DirectorySeparatorChar}Configurations{Path.DirectorySeparatorChar}configuration-{environmentName}.json";
+            var appConfigurationUri = $"{fileBaseUrl}{Path.DirectorySeparatorChar}Configurations{Path.DirectorySeparatorChar}app-{environmentName}.json";
 
             if (!File.Exists(appConfigurationUri))
             {
-                appConfigurationUri= $"{fileBaseUrl}{Path.DirectorySeparatorChar}Configurations{Path.DirectorySeparatorChar}configuration.json";
+                appConfigurationUri= $"{fileBaseUrl}{Path.DirectorySeparatorChar}Configurations{Path.DirectorySeparatorChar}app.json";
             }
 
             var hostConfigurationUri = $"{fileBaseUrl}{Path.DirectorySeparatorChar}Configurations{Path.DirectorySeparatorChar}host-{environmentName}.json";

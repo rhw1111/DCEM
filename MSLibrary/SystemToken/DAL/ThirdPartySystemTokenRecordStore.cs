@@ -568,7 +568,7 @@ namespace MSLibrary.SystemToken.DAL
             string[] info = new string[2];
 
             //获取前缀的哈希节点关键字,
-            var dbInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService, hashGroupName, userKey);
+            var dbInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService,_hashGroupRepository, hashGroupName, userKey);
 
             if (!dbInfo.TableNames.TryGetValue(HashEntityNames.ThirdPartySystemTokenRecord, out string tableName))
             {

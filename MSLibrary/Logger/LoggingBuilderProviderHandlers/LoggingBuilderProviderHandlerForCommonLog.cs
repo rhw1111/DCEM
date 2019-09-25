@@ -32,6 +32,7 @@ namespace MSLibrary.Logger.LoggingBuilderProviderHandlers
             {
                 builder.AddFilter<CommonLogProvider>(filterItem.Key, filterItem.Value);
             }
+            await Task.FromResult(0);
         }
 
 

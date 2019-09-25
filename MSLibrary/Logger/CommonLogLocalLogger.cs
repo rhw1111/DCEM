@@ -30,7 +30,7 @@ namespace MSLibrary.Logger
 
         public IDisposable BeginScope<TState>(TState state)
         {
-            return ConsoleLogScope.Push("", state);
+            return (new LoggerExternalScopeProvider()).Push(state);
         }
 
         public bool IsEnabled(LogLevel logLevel)
@@ -41,10 +41,17 @@ namespace MSLibrary.Logger
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
             var strUserInfo = _commonLogLoclEnvInfoGeneratorService.GenerateUserInfo();
+            var strParentUserInfo = _commonLogLoclEnvInfoGeneratorService.GenerateParentUserInfo();
+
 
             if (strUserInfo == null)
             {
                 strUserInfo = string.Empty;
+            }
+
+            if (strParentUserInfo == null)
+            {
+                strParentUserInfo = string.Empty;
             }
 
             if (state is string)
@@ -64,6 +71,7 @@ namespace MSLibrary.Logger
                         RequestBody = string.Empty,
                         RequestUri = string.Empty,
                         ContextInfo = strUserInfo,
+                        ParentContextInfo=strParentUserInfo,
                         Root = true,
                         Message = state as string
                     };
@@ -102,6 +110,7 @@ namespace MSLibrary.Logger
                         RequestBody = logContent.RequestBody,
                         RequestUri = logContent.RequestUri,
                         ContextInfo = strUserInfo,
+                        ParentContextInfo=strParentUserInfo,
                         Root = true,
                         Message = logContent.Message
                     };
@@ -141,6 +150,7 @@ namespace MSLibrary.Logger
                             RequestBody = string.Empty,
                             RequestUri = string.Empty,
                             ContextInfo = strUserInfo,
+                            ParentContextInfo = strParentUserInfo,
                             Root = true,
                             Message = formatter(state, exception)
                         };
@@ -178,6 +188,11 @@ namespace MSLibrary.Logger
         /// </summary>
         /// <returns></returns>
         string GenerateUserInfo();
+        /// <summary>
+        /// 生成父用户信息
+        /// </summary>
+        /// <returns></returns>
+        string GenerateParentUserInfo();
     }
 
 

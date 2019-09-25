@@ -278,7 +278,7 @@ namespace MSLibrary.Logger.DAL
                     {
                         command.CommandText = string.Format(@"insert into CommonLog_Local ([id],[parentid],[contextinfo],[actionname],[parentactionname],[requestbody],[requesturi],[message],[root],[level],[createtime],[modifytime])
                                                 values (default,@parentid,@contextinfo,@actionname,@parentactionname,@requestbody,@requesturi,@message,@root,@level,GETUTCDATE(),GETUTCDATE()); 
-                                                SELECT @newid=[id] FROM {0} WHERE [sequence]=SCOPE_IDENTITY()");
+                                                SELECT @newid=[id] FROM [dbo].[CommonLog_Local] WHERE [sequence]=SCOPE_IDENTITY()");
 
                         parameter = new SqlParameter("@newid", SqlDbType.UniqueIdentifier)
                         {
@@ -650,12 +650,13 @@ namespace MSLibrary.Logger.DAL
         }
         private async Task<HashGroup> getHashGroup(string parentAction)
         {
+            var hashGroupRepositoryFactory = HashGroupRepositoryHelperFactory.Create(_hashGroupRepository);
 
-            var group = await HashGroupRepositoryHelper.QueryByName(string.Format(_groupNameFormatting, parentAction));
+            var group = await hashGroupRepositoryFactory.QueryByName(string.Format(_groupNameFormatting, parentAction));
 
             if (group == null)
             {
-                group = await HashGroupRepositoryHelper.QueryByName(_commonLogDefaultHashGroupName);
+                group = await hashGroupRepositoryFactory.QueryByName(_commonLogDefaultHashGroupName);
             }
 
             if (group == null)

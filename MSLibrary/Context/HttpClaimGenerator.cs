@@ -6,7 +6,9 @@ using System.Security.Claims;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using MSLibrary.DI;
+using MSLibrary.LanguageTranslate;
 using MSLibrary.Context.HttpClaimGeneratorServices;
+using MSLibrary.Context.DAL;
 
 namespace MSLibrary.Context
 {
@@ -61,6 +63,51 @@ namespace MSLibrary.Context
         }
 
         /// <summary>
+        /// 类型
+        /// </summary>
+        public string Type
+        {
+            get
+            {
+                return GetAttribute<string>("Type");
+            }
+            set
+            {
+                SetAttribute<string>("Type", value);
+            }
+        }
+
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        public DateTime CreateTime
+        {
+            get
+            {
+                return GetAttribute<DateTime>("CreateTime");
+            }
+            set
+            {
+                SetAttribute<DateTime>("CreateTime", value);
+            }
+        }
+
+        /// <summary>
+        /// 修改时间
+        /// </summary>
+        public DateTime ModifyTime
+        {
+            get
+            {
+                return GetAttribute<DateTime>("ModifyTime");
+            }
+            set
+            {
+                SetAttribute<DateTime>("ModifyTime", value);
+            }
+        }
+
+        /// <summary>
         /// 根据http上下文生成声明
         /// </summary>
         /// <param name="httpContext"></param>
@@ -68,6 +115,20 @@ namespace MSLibrary.Context
         public async Task<ClaimsIdentity> Generate(HttpContext httpContext)
         {
             return await _imp.Generate(this, httpContext);
+        }
+
+        public async Task Add()
+        {
+            await _imp.Add(this);
+        }
+        public async Task Update()
+        {
+            await _imp.Update(this);
+        }
+        public async Task Delete()
+        {
+            await _imp.Delete(this);
+
         }
 
     }
@@ -78,6 +139,10 @@ namespace MSLibrary.Context
     public interface IHttpClaimGeneratorIMP
     {
         Task<ClaimsIdentity> Generate(HttpClaimGenerator generator, HttpContext httpContext);
+
+        Task Add(HttpClaimGenerator generator);
+        Task Update(HttpClaimGenerator generator);
+        Task Delete(HttpClaimGenerator generator);
     }
 
     [Injection(InterfaceType = typeof(IHttpClaimGeneratorIMP), Scope = InjectionScope.Transient)]
@@ -93,6 +158,23 @@ namespace MSLibrary.Context
             }
         }
 
+        private IHttpClaimGeneratorStore _httpClaimGeneratorStore;
+
+        public HttpClaimGeneratorIMP(IHttpClaimGeneratorStore httpClaimGeneratorStore)
+        {
+            _httpClaimGeneratorStore = httpClaimGeneratorStore;
+        }
+
+        public async Task Add(HttpClaimGenerator generator)
+        {
+            await _httpClaimGeneratorStore.Add(generator);
+        }
+
+        public async Task Delete(HttpClaimGenerator generator)
+        {
+            await _httpClaimGeneratorStore.Delete(generator.ID);
+        }
+
         /// <summary>
         /// 根据Http上下文生成声明
         /// 具体生成服务通过静态键值对注册，键为生成器名称
@@ -103,14 +185,27 @@ namespace MSLibrary.Context
         /// <returns></returns>
         public async Task<ClaimsIdentity> Generate(HttpClaimGenerator generator, HttpContext httpContext)
         {
-            if (!_httpClaimGeneratorServiceFactories.TryGetValue(generator.Name,out IFactory<IHttpClaimGeneratorService> generatorServiceFactory))
+            if (!_httpClaimGeneratorServiceFactories.TryGetValue(generator.Type,out IFactory<IHttpClaimGeneratorService> generatorServiceFactory))
             {
-                throw new Exception($"not found {generator.Name} IFactory<IHttpClaimGeneratorService> in HttpClaimGenerator");
+                var fragment = new TextFragment()
+                {
+                    Code = TextCodes.NotFoundHttpClaimGeneratorServiceByType,
+                    DefaultFormatting = "找不到类型为{0}的Http声明生成服务，发生位置:{1}",
+                    ReplaceParameters = new List<object>() { generator.Type, $"{this.GetType().FullName}.HttpClaimGeneratorServiceFactories" }
+                };
+
+                throw new UtilityException((int)Errors.NotFoundHttpClaimGeneratorServiceByType, fragment);
+
             }
 
             var result= await generatorServiceFactory.Create().Do(httpContext);
 
             return result;
+        }
+
+        public async Task Update(HttpClaimGenerator generator)
+        {
+            await _httpClaimGeneratorStore.Update(generator);
         }
     }
 }

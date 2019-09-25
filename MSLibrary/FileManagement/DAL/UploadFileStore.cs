@@ -1356,7 +1356,7 @@ namespace MSLibrary.FileManagement.DAL
             string[] info = new string[2];
 
             //获取前缀的哈希节点关键字,
-            var dbInfo = await StoreInfoHelper.GetHashStoreInfo(_storeInfoResolveService, hashGroupName, regardingType, regardingKey);
+            var dbInfo = await StoreInfoHelper.GetHashStoreInfo(_storeInfoResolveService,_hashGroupRepository, hashGroupName, regardingType, regardingKey);
 
             if (!dbInfo.TableNames.TryGetValue(HashEntityNames.UploadFile, out string tableName))
             {
@@ -1381,7 +1381,7 @@ namespace MSLibrary.FileManagement.DAL
             string[] info = new string[2];
 
             //获取前缀的哈希节点关键字,
-            var dbInfo = StoreInfoHelper.GetHashStoreInfoSync(_storeInfoResolveService, hashGroupName, regardingType, regardingKey);
+            var dbInfo = StoreInfoHelper.GetHashStoreInfoSync(_storeInfoResolveService,_hashGroupRepository, hashGroupName, regardingType, regardingKey);
 
             if (!dbInfo.TableNames.TryGetValue(HashEntityNames.UploadFile, out string tableName))
             {
@@ -1407,7 +1407,7 @@ namespace MSLibrary.FileManagement.DAL
             string[] info = new string[2];
 
             //获取前缀的哈希节点关键字,
-            var dbInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService, hashGroupName, regardingType, regardingKey);
+            var dbInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService,_hashGroupRepository, hashGroupName, regardingType, regardingKey);
 
             if (!dbInfo.TableNames.TryGetValue(HashEntityNames.UploadFile, out string tableName))
             {
@@ -1434,7 +1434,7 @@ namespace MSLibrary.FileManagement.DAL
             string[] info = new string[2];
 
             //获取前缀的哈希节点关键字,
-            var dbInfo = StoreInfoHelper.GetHashStoreInfoSync(_storeInfoResolveService, hashGroupName, regardingType, regardingKey);
+            var dbInfo = StoreInfoHelper.GetHashStoreInfoSync(_storeInfoResolveService,_hashGroupRepository, hashGroupName, regardingType, regardingKey);
 
             if (!dbInfo.TableNames.TryGetValue(HashEntityNames.UploadFile, out string tableName))
             {
@@ -1474,7 +1474,7 @@ namespace MSLibrary.FileManagement.DAL
             }
 
 
-            var storeInfos = await StoreInfoHelper.GetHashStoreInfos(_storeInfoResolveService, hashGroupName);
+            var storeInfos = await StoreInfoHelper.GetHashStoreInfos(_storeInfoResolveService,_hashGroupRepository, hashGroupName);
 
             foreach (var infoItem in storeInfos)
             {

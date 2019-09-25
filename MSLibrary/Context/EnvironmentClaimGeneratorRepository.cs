@@ -9,7 +9,7 @@ namespace MSLibrary.Context
     /// <summary>
     /// 基于环境的声明生成器仓储
     /// </summary>
-    [Injection(InterfaceType = typeof(IEnvironmentClaimGeneratorRepository), Scope = InjectionScope.Singleton)]
+   /* [Injection(InterfaceType = typeof(IEnvironmentClaimGeneratorRepository), Scope = InjectionScope.Singleton)]
     public class EnvironmentClaimGeneratorRepository : IEnvironmentClaimGeneratorRepository
     {
         /// <summary>
@@ -28,5 +28,5 @@ namespace MSLibrary.Context
 
             return await Task.FromResult(generator);
         }
-    }
+    }*/
 }

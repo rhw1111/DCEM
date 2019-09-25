@@ -93,6 +93,22 @@ namespace MSLibrary.Logger
         }
 
         /// <summary>
+        /// 父上下文信息
+        /// </summary>
+        public string ParentContextInfo
+        {
+            get
+            {
+                return GetAttribute<string>("ParentContextInfo");
+            }
+            set
+            {
+                SetAttribute<string>("ParentContextInfo", value);
+            }
+        }
+
+
+        /// <summary>
         /// 动作名称
         /// </summary>
         public string ActionName

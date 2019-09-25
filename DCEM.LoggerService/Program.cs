@@ -44,35 +44,34 @@ namespace DCEM.LoggerService
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-            .ConfigureServices((context,services)=>
+            .ConfigureServices((context, services) =>
             {
-                if (_initConfigureServices==false)
+                if (_initConfigureServices == false)
                 {
                     //初始化配置容器
                     MainStartupHelper.InitConfigurationContainer(context.HostingEnvironment.EnvironmentName, _baseUrl);
                     StartupHelper.InitConfigurationContainer(context.HostingEnvironment.EnvironmentName, _baseUrl);
 
                     //获取核心配置
-                    var coreConfiguration= ConfigurationContainer.Get<CoreConfiguration>(ConfigurationNames.Application);
+                    var coreConfiguration = ConfigurationContainer.Get<CoreConfiguration>(ConfigurationNames.Application);
 
                     //初始化DI容器
                     MainStartupHelper.InitDI(services, coreConfiguration.DISetting);
-                    StartupHelper.InitDI(services, coreConfiguration.DISetting);
 
 
                     //初始化静态设置
                     MainStartupHelper.InitStaticInfo();
-
+                    StartupHelper.InitStaticInfo();
 
                     _initConfigureServices = true;
                 }
             })
-            .ConfigureLogging((builder)=>
+            .ConfigureLogging((builder) =>
             {
                 //初始化日志配置
                 MainStartupHelper.InitLogger(builder);
             })
-            
-                .UseStartup<Startup>();
+            .UseConfiguration(ConfigurationContainer.GetConfiguration(ConfigurationNames.Host))
+            .UseStartup<Startup>();
     }
 }

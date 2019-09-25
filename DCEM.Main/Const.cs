@@ -61,4 +61,27 @@ namespace DCEM.Main
         /// </summary>
         public const string CommonLogLocal = "CommonLogLocal";
     }
+
+    /// <summary>
+    /// Http头名称集
+    /// </summary>
+    public static class HttpHeaderNames
+    {
+        /// <summary>
+        /// 内部请求附加的身份信息的头名称
+        /// </summary>
+        public const string InnerAuth = "InnerAuth";
+    }
+
+    /// <summary>
+    /// 声明类型集合
+    /// </summary>
+    public static class ClaimsTypes
+    {
+        public const string User = "User";
+        public const string UserID = "UserID";
+        public const string Lcid = "Lcid";
+        public const string TimezoneOffset = "TimezoneOffset";
+
+    }
 }
