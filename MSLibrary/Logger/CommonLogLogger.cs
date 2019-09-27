@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 using MSLibrary;
 using MSLibrary.Transaction;
+using MSLibrary.DI;
 
 namespace MSLibrary.Logger
 {
@@ -17,6 +18,7 @@ namespace MSLibrary.Logger
     /// 基于通用日志记录的日志
     /// 供所有日志服务以外的服务使用
     /// </summary>
+    [Injection(InterfaceType = typeof(CommonLogLogger), Scope = InjectionScope.Singleton)]
     public class CommonLogLogger : ILogger
     {
         private ICommonLogEnvInfoGeneratorService _commonLogEnvInfoGeneratorService;
@@ -31,7 +33,7 @@ namespace MSLibrary.Logger
 
         public IDisposable BeginScope<TState>(TState state)
         {
-            return ConsoleLogScope.Push("", state);
+            return (new LoggerExternalScopeProvider()).Push(state);
         }
 
         public bool IsEnabled(LogLevel logLevel)
@@ -42,6 +44,8 @@ namespace MSLibrary.Logger
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
             var strUserInfo = _commonLogEnvInfoGeneratorService.GenerateUserInfo();
+            var strParentUserInfo = _commonLogEnvInfoGeneratorService.GenerateParentUserInfo();
+
             var pID = _commonLogEnvInfoGeneratorService.GetParentID();
             var pActionName = _commonLogEnvInfoGeneratorService.GetParentActionName();
             var preID = _commonLogEnvInfoGeneratorService.GetPreviousID();
@@ -74,9 +78,16 @@ namespace MSLibrary.Logger
 
 
 
+
+
             if (strUserInfo==null)
             {
                 strUserInfo = string.Empty;
+            }
+
+            if (strParentUserInfo==null)
+            {
+                strParentUserInfo = string.Empty;
             }
 
             if (state is string)
@@ -88,7 +99,7 @@ namespace MSLibrary.Logger
                     log = new CommonLog()
                     {
                         ID = id,
-                        Level = (int)LogLevel.Error,
+                        Level = (int)logLevel,
                         ParentID = parentID,
                         ParentActionName = strPActionName,
                         PreviousID = previousID,
@@ -96,6 +107,7 @@ namespace MSLibrary.Logger
                         RequestBody = string.Empty,
                         RequestUri = string.Empty,
                         ContextInfo = strUserInfo,
+                        ParentContextInfo=strParentUserInfo,
                         Root = root,
                         Message = state as string
                     };
@@ -138,7 +150,7 @@ namespace MSLibrary.Logger
                         log = new CommonLog()
                         {
                             ID = id,
-                            Level = (int)LogLevel.Error,
+                            Level = (int)logLevel,
                             ParentID = parentID,
                             ParentActionName = strPActionName,
                             PreviousID = previousID,
@@ -146,6 +158,7 @@ namespace MSLibrary.Logger
                             RequestBody = logContent.RequestBody,
                             RequestUri = logContent.RequestUri,
                             ContextInfo = strUserInfo,
+                            ParentContextInfo=strParentUserInfo,
                             Root = root,
                             Message = logContent.Message
                         };
@@ -177,7 +190,7 @@ namespace MSLibrary.Logger
                         log = new CommonLog()
                         {
                             ID = id,
-                            Level = (int)LogLevel.Error,
+                            Level = (int)logLevel,
                             ParentID = parentID,
                             ParentActionName = strPActionName,
                             PreviousID = previousID,
@@ -185,6 +198,7 @@ namespace MSLibrary.Logger
                             RequestBody = string.Empty,
                             RequestUri = string.Empty,
                             ContextInfo = strUserInfo,
+                            ParentContextInfo=strParentUserInfo,
                             Root = root,
                             Message = formatter(state, exception)
                         };
@@ -221,6 +235,11 @@ namespace MSLibrary.Logger
         /// </summary>
         /// <returns></returns>
         string GenerateUserInfo();
+        /// <summary>
+        /// 生成父用户信息
+        /// </summary>
+        /// <returns></returns>
+        string GenerateParentUserInfo();
         /// <summary>
         /// 获取父日志ID
         /// </summary>
@@ -274,11 +293,6 @@ namespace MSLibrary.Logger
         /// </summary>
         [DataMember]
         public string ParentActionName { get; set; }
-        /// <summary>
-        /// 日志级别
-        /// </summary>
-        [DataMember]
-        public int Level { get; set; }
 
         /// <summary>
         /// 请求内容

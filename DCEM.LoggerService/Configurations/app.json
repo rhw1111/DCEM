@@ -1,0 +1,6 @@
+{
+  "Connections": null,
+  "DISetting": {
+    "SearchAssemblyNames": [ "MSLibrary", "DCEM.Main", "DCEM.LoggerService.Main", "DCEM.LoggerService" ]
+  }
+}

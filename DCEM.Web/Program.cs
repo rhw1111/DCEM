@@ -13,6 +13,7 @@ namespace DCEM.Web
 {
     public class Program
     {
+        private static bool _initConfigureServices=false;
         public static void Main(string[] args)
         {
             //设置编码，解决中文问题
@@ -26,14 +27,23 @@ namespace DCEM.Web
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+            
+            .ConfigureServices((services)=>
+            {
+                
+            })
+            
            .ConfigureAppConfiguration((context,builder)=>
            {
+              
                 //context.HostingEnvironment.EnvironmentName
            })
             .ConfigureLogging((builder)=>
             {
                 //builder.AddEventSourceLogger().AddFilter()
             })
+         
+            //.UseConfiguration()
             .UseStartup<Startup>();
     }
 }

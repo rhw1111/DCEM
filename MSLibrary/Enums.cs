@@ -150,6 +150,23 @@ namespace MSLibrary
         /// AAD的Oauth认证的响应出错
         /// </summary>
         AADOauthResponseError = 314711002,
+        /// <summary>
+        /// 找不到指定类型的身份信息Http头生成服务
+        /// </summary>
+        NotFoundAuthInfoHttpHeaderGeneratorServiceByType= 314711100,
+        /// <summary>
+        /// 找不到指定类型的声明上下文生成服务
+        /// </summary>
+        NotFoundClaimContextGeneratorServiceByType = 314711101,
+        /// <summary>
+        /// 找不到指定类型的Http声明生成服务
+        /// </summary>
+        NotFoundHttpClaimGeneratorServiceByType= 314711102,
+        /// <summary>
+        /// 找不到指定类型的环境声明生成服务
+        /// </summary>
+        NotFoundEnvironmentClaimGeneratorServiceByType= 314711103,
+
 
         /// <summary>
         /// 不是AccessToken

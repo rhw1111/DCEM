@@ -11,11 +11,13 @@ namespace MSLibrary.Collections.Hash
     /// 提供缓存服务
     /// 简化需要缓存服务的调用方使用
     /// </summary>
-    public static class HashGroupRepositoryHelper
+    public class HashGroupRepositoryHelper
     {
-        public static IHashGroupRepository Repository
+        private IHashGroupRepository _hashGroupRepository;
+
+        public HashGroupRepositoryHelper(IHashGroupRepository hashGroupRepository)
         {
-            get;set;
+            _hashGroupRepository = hashGroupRepository;
         }
 
         private static int _cacheSize = 2000;
@@ -44,12 +46,12 @@ namespace MSLibrary.Collections.Hash
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static async Task<HashGroup> QueryById(Guid id)
+        public async Task<HashGroup> QueryById(Guid id)
         {
             CacheTimeContainer<HashGroup> groupItem = _groupsByID.GetValue(id);
             if (groupItem == null || groupItem.Expire())
             {
-                var group = await Repository.QueryById(id);
+                var group = await _hashGroupRepository.QueryById(id);
                 groupItem = new CacheTimeContainer<HashGroup>(group, CacheTimeout);
                 _groupsByID.SetValue(id, groupItem);
             }
@@ -61,24 +63,24 @@ namespace MSLibrary.Collections.Hash
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public async static Task<HashGroup> QueryByName(string name)
+        public async Task<HashGroup> QueryByName(string name)
         {
             CacheTimeContainer<HashGroup> groupItem = _groupsByName.GetValue(name);
             if (groupItem == null || groupItem.Expire())
             {
-                var group = await Repository.QueryByName(name);
+                var group = await _hashGroupRepository.QueryByName(name);
                 groupItem = new CacheTimeContainer<HashGroup>(group, CacheTimeout);
                 _groupsByName.SetValue(name, groupItem);
             }
 
             return groupItem.Value;
         }
-        public static HashGroup QueryByNameSync(string name)
+        public  HashGroup QueryByNameSync(string name)
         {
             CacheTimeContainer<HashGroup> groupItem = _groupsByName.GetValue(name);
             if (groupItem == null || groupItem.Expire())
             {
-                var group = Repository.QueryByNameSync(name);
+                var group = _hashGroupRepository.QueryByNameSync(name);
                 groupItem = new CacheTimeContainer<HashGroup>(group, CacheTimeout);
                 _groupsByName.SetValue(name, groupItem);
             }
@@ -87,5 +89,17 @@ namespace MSLibrary.Collections.Hash
         }
 
 
+    }
+
+
+    /// <summary>
+    /// 哈希组仓储静态帮助器工厂
+    /// </summary>
+    public static class HashGroupRepositoryHelperFactory
+    {
+        public static HashGroupRepositoryHelper Create(IHashGroupRepository repository)
+        {
+            return new HashGroupRepositoryHelper(repository);
+        }
     }
 }

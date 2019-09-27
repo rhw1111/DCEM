@@ -65,7 +65,7 @@ namespace MSLibrary.Workflow.DAL
         /// <returns></returns>
         public async Task Add(string resourceType, string resourceKey, WorkflowStepUserAction action)
         {
-            var dbInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService, _hashGroupName, resourceType, resourceKey);
+            var dbInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService,_hashGroupRepository, _hashGroupName, resourceType, resourceKey);
 
             if (!dbInfo.TableNames.TryGetValue(HashEntityNames.WorkflowStepUserAction, out string tableNameStepUserAction))
             {
@@ -187,7 +187,7 @@ namespace MSLibrary.Workflow.DAL
         /// <returns></returns>
         public async Task Delete(string resourceType, string resourceKey, Guid stepId, Guid actionId)
         {
-            var dbInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService, _hashGroupName, resourceType, resourceKey);
+            var dbInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService,_hashGroupRepository, _hashGroupName, resourceType, resourceKey);
 
             if (!dbInfo.TableNames.TryGetValue(HashEntityNames.WorkflowStepUserAction, out string tableNameStepUserAction))
             {
@@ -250,7 +250,7 @@ namespace MSLibrary.Workflow.DAL
         /// <returns></returns>
         public async Task Delete(string resourceType, string resourceKey, Guid stepId)
         {
-            var dbInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService, _hashGroupName, resourceType, resourceKey);
+            var dbInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService,_hashGroupRepository, _hashGroupName, resourceType, resourceKey);
 
             if (!dbInfo.TableNames.TryGetValue(HashEntityNames.WorkflowStepUserAction, out string tableNameStepUserAction))
             {
@@ -306,7 +306,7 @@ namespace MSLibrary.Workflow.DAL
         /// <returns></returns>
         public async Task QueryByStep(string resourceType, string resourceKey, Guid stepId, Func<WorkflowStepUserAction, Task> callback)
         {
-            var dbInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService, _hashGroupName, resourceType, resourceKey);
+            var dbInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService,_hashGroupRepository, _hashGroupName, resourceType, resourceKey);
 
             if (!dbInfo.TableNames.TryGetValue(HashEntityNames.WorkflowStepUserAction, out string tableNameStepUserAction))
             {
@@ -375,7 +375,7 @@ namespace MSLibrary.Workflow.DAL
         /// <returns></returns>
         public async Task<int> QueryCountByStep(string resourceType, string resourceKey, Guid stepId)
         {
-            var dbInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService, _hashGroupName, resourceType, resourceKey);
+            var dbInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService,_hashGroupRepository, _hashGroupName, resourceType, resourceKey);
 
             if (!dbInfo.TableNames.TryGetValue(HashEntityNames.WorkflowStepUserAction, out string tableNameStepUserAction))
             {
@@ -433,7 +433,7 @@ namespace MSLibrary.Workflow.DAL
         /// <returns></returns>
         public async Task QueryByResource(string resourceType, string resourceKey, Guid resourceId, string actionName, int status, Func<WorkflowStepUserAction, Task> callback)
         {
-            var dbInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService, _hashGroupName, resourceType, resourceKey);
+            var dbInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService,_hashGroupRepository, _hashGroupName, resourceType, resourceKey);
 
             if (!dbInfo.TableNames.TryGetValue(HashEntityNames.WorkflowStepUserAction, out string tableNameStepUserAction))
             {
@@ -569,7 +569,7 @@ namespace MSLibrary.Workflow.DAL
         /// <returns></returns>
         public async Task<WorkflowStepUserAction> QueryByStepAndUser(string resourceType, string resourceKey, Guid stepId, string userKey)
         {
-            var dbInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService, _hashGroupName, resourceType, resourceKey);
+            var dbInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService,_hashGroupRepository, _hashGroupName, resourceType, resourceKey);
 
             if (!dbInfo.TableNames.TryGetValue(HashEntityNames.WorkflowStepUserAction, out string tableNameStepUserAction))
             {
@@ -658,7 +658,7 @@ namespace MSLibrary.Workflow.DAL
 
         public async Task QueryByResource(string resourceType, string resourceKey, Guid resourceId, int status, Func<WorkflowStepUserAction, Task> callback)
         {
-            var dbInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService, _hashGroupName, resourceType, resourceKey);
+            var dbInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService,_hashGroupRepository, _hashGroupName, resourceType, resourceKey);
 
             if (!dbInfo.TableNames.TryGetValue(HashEntityNames.WorkflowStepUserAction, out string tableNameStepUserAction))
             {
@@ -779,7 +779,7 @@ namespace MSLibrary.Workflow.DAL
 
         public async Task QueryByResource(string resourceType, string resourceKey, Guid resourceId, Func<WorkflowStepUserAction, Task> callback)
         {
-            var dbInfo = await StoreInfoHelper.GetHashStoreInfo(_storeInfoResolveService, _hashGroupName, resourceType, resourceKey);
+            var dbInfo = await StoreInfoHelper.GetHashStoreInfo(_storeInfoResolveService,_hashGroupRepository, _hashGroupName, resourceType, resourceKey);
 
             if (!dbInfo.TableNames.TryGetValue(HashEntityNames.WorkflowStepUserAction, out string tableNameStepUserAction))
             {

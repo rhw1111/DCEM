@@ -524,6 +524,34 @@ namespace MSLibrary
         /// </summary>
         public const string NotFoundSystemLoginEndpointByName = "NotFoundSystemLoginEndpointByName";
         /// <summary>
+        /// 找不到指定类型的身份信息Http头生成服务
+        /// 格式为“找不到类型为{0}的身份信息Http头生成服务，发生位置:{1}”
+        /// {0}：对应生成器类型
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFoundAuthInfoHttpHeaderGeneratorServiceByType = "NotFoundAuthInfoHttpHeaderGeneratorServiceByType";
+        /// <summary>
+        /// 找不到指定类型的声明上下文生成服务
+        /// 格式为“找不到类型为{0}的声明上下文生成服务，发生位置:{1}”
+        /// {0}：对应生成器类型
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFoundClaimContextGeneratorServiceByType = "NotFoundClaimContextGeneratorServiceByType";
+
+        /// <summary>
+        /// 找不到指定类型的Http声明生成服务
+        /// 格式为“找不到类型为{0}的Http声明生成服务，发生位置:{1}”
+        /// {0}：对应生成器类型
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFoundHttpClaimGeneratorServiceByType = "NotFoundHttpClaimGeneratorServiceByType";
+        /// <summary>
+        /// 找不到指定类型的环境声明生成服务
+        /// 格式为“找不到类型为{0}的环境声明生成服务，发生位置:{1}”
+        /// {0}：对应生成器类型
+        /// </summary>
+        public const string NotFoundEnvironmentClaimGeneratorServiceByType = "NotFoundEnvironmentClaimGeneratorServiceByType";
+        /// <summary>
         /// 在指定名称的系统登录终结点中，找不到指定名称的关联认证终结点
         /// 格式为“名称为{0}的系统登录终结点中，找不到名称为{1}的关联认证终结点”
         /// {0}为系统登陆终结点名称
