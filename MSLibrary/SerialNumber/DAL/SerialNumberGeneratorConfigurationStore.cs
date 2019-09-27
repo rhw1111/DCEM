@@ -40,17 +40,35 @@ namespace MSLibrary.SerialNumber.DAL
                 using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
-                    CommandType = CommandType.StoredProcedure,
-                    CommandText = "dbo.core_SerialNumberGeneratorConfigurationAdd",
+                    CommandType = CommandType.Text,
                     Transaction = sqlTran
                 })
                 {
-
-
-
                     SqlParameter parameter;
+
                     if (configuration.ID != Guid.Empty)
                     {
+
+                        commond.CommandText = @"
+                                                INSERT INTO [dbo].[SerialNumberGeneratorConfiguration](
+                                                    [id]
+                                                    ,[name]
+                                                    ,[prefixtemplate]
+                                                    ,[seriallength]
+                                                    ,[createtime]
+                                                    ,[modifytime]
+                                                )
+                                                VALUES(
+                                                    @id
+                                                    ,@name
+                                                    ,@prefixtemplate
+                                                    ,@seriallength
+                                                    ,GETUTCDATE()
+                                                    ,GETUTCDATE()
+                                                )	
+                                                SELECT @newid=@id	";
+
+
                         parameter = new SqlParameter("@id", SqlDbType.UniqueIdentifier)
                         {
                             Value = configuration.ID
@@ -59,11 +77,26 @@ namespace MSLibrary.SerialNumber.DAL
                     }
                     else
                     {
-                        parameter = new SqlParameter("@id", SqlDbType.UniqueIdentifier)
-                        {
-                            Value = DBNull.Value
-                        };
-                        commond.Parameters.Add(parameter);
+                        commond.CommandText = @" 
+                                                INSERT INTO [dbo].[SerialNumberGeneratorConfiguration](
+                                                    [id]
+                                                    ,[name]
+                                                    ,[prefixtemplate]
+                                                    ,[seriallength]
+                                                    ,[createtime]
+                                                    ,[modifytime]
+                                                )
+                                                VALUES(
+                                                    DEFAULT
+                                                    ,@name
+                                                    ,@prefixtemplate
+                                                    ,@seriallength
+                                                    ,GETUTCDATE()
+                                                    ,GETUTCDATE()
+                                                )
+                                                SELECT @newid=[id] 
+                                                FROM [dbo].[SerialNumberGeneratorConfiguration] 
+                                                WHERE [sequence]=SCOPE_IDENTITY()";
 
                     }
 
@@ -92,15 +125,11 @@ namespace MSLibrary.SerialNumber.DAL
                         Direction = ParameterDirection.Output
                     };
                     commond.Parameters.Add(parameter);
-
-
+                     
                     commond.Prepare();
-
-
-                        await commond.ExecuteNonQueryAsync();
-                  
-
-
+                     
+                    await commond.ExecuteNonQueryAsync();
+                     
                     if (configuration.ID == Guid.Empty)
                     {
                         configuration.ID = (Guid)commond.Parameters["@newid"].Value;
@@ -124,9 +153,10 @@ namespace MSLibrary.SerialNumber.DAL
                 using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
-                    CommandType = CommandType.StoredProcedure,
+                    CommandType = CommandType.Text,
                     Transaction = sqlTran,
-                    CommandText = @"dbo.core_SerialNumberGeneratorConfigurationDelete"
+                    CommandText = @" delete from [dbo].[SerialNumberGeneratorConfiguration]		  
+		                                where [id]=@id"
                 })
                 {
 
@@ -140,9 +170,9 @@ namespace MSLibrary.SerialNumber.DAL
 
                     commond.Prepare();
 
-        
-                        await commond.ExecuteNonQueryAsync();
-                  
+
+                    await commond.ExecuteNonQueryAsync();
+
 
 
                 }
@@ -238,11 +268,11 @@ namespace MSLibrary.SerialNumber.DAL
                     SqlDataReader reader = null;
 
 
-                        reader = await commond.ExecuteReaderAsync();
-                    
+                    reader = await commond.ExecuteReaderAsync();
 
 
-                    using (reader= await commond.ExecuteReaderAsync())
+
+                    using (reader = await commond.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
@@ -274,9 +304,14 @@ namespace MSLibrary.SerialNumber.DAL
                 using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
-                    CommandType = CommandType.StoredProcedure,
+                    CommandType = CommandType.Text,
                     Transaction = sqlTran,
-                    CommandText = @"dbo.core_SerialNumberGeneratorConfigurationUpdate"
+                    CommandText = @" update [dbo].[SerialNumberGeneratorConfiguration]
+		                              set [name]=@name
+                                        ,[prefixtemplate]=@prefixtemplate
+                                        ,[seriallength]=@seriallength
+                                        ,[modifytime]=getutcdate()
+		                              where [id]=@id"
                 })
                 {
 
@@ -308,8 +343,8 @@ namespace MSLibrary.SerialNumber.DAL
                     commond.Prepare();
 
 
-                        await commond.ExecuteNonQueryAsync();
-                   
+                    await commond.ExecuteNonQueryAsync();
+
 
                 }
             });
