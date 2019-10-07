@@ -12,6 +12,7 @@
     <ProjectReference Include="..\MSLibrary\MSLibrary.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Context\DAL\" />
     <Folder Include="Xrm\" />
   </ItemGroup>
   <ItemGroup>

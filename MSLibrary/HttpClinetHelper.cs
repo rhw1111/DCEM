@@ -17,7 +17,7 @@ namespace MSLibrary
     {
         private static IHttpClientFactory _httpClientFactory;
 
-        private static IHttpClientFactory HttpClientFactory
+        public static IHttpClientFactory HttpClientFactory
         {
             set
             {

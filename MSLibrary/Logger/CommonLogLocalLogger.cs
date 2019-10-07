@@ -66,9 +66,11 @@ namespace MSLibrary.Logger
                         Level = (int)logLevel,
                         ParentID = Guid.Empty,
                         ParentActionName = string.Empty,
-                        PreviousID = Guid.Empty,
+                        PreLevelID = Guid.Empty,
+                        CurrentLevelID = Guid.Empty,
                         ActionName = string.Empty,
                         RequestBody = string.Empty,
+                        ResponseBody = string.Empty,
                         RequestUri = string.Empty,
                         ContextInfo = strUserInfo,
                         ParentContextInfo=strParentUserInfo,
@@ -105,9 +107,11 @@ namespace MSLibrary.Logger
                         Level = (int)logLevel,
                         ParentID = Guid.Empty,
                         ParentActionName = string.Empty,
-                        PreviousID = Guid.Empty,
+                        PreLevelID = Guid.Empty,
+                        CurrentLevelID=Guid.Empty,
                         ActionName = logContent.ActionName,
                         RequestBody = logContent.RequestBody,
+                        ResponseBody=logContent.ResponseBody,
                         RequestUri = logContent.RequestUri,
                         ContextInfo = strUserInfo,
                         ParentContextInfo=strParentUserInfo,
@@ -145,7 +149,8 @@ namespace MSLibrary.Logger
                             Level = (int)logLevel,
                             ParentID = Guid.Empty,
                             ParentActionName = string.Empty,
-                            PreviousID = Guid.Empty,
+                            PreLevelID = Guid.Empty,
+                            CurrentLevelID=Guid.Empty,
                             ActionName = string.Empty,
                             RequestBody = string.Empty,
                             RequestUri = string.Empty,
@@ -215,6 +220,15 @@ namespace MSLibrary.Logger
         public string RequestBody
         {
             get; set;
+        }
+
+        /// <summary>
+        /// 响应内容
+        /// </summary>
+        [DataMember]
+        public string ResponseBody
+        {
+            get;set;
         }
 
         /// <summary>

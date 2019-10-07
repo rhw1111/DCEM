@@ -7,7 +7,16 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MSLibrary;
+using MSLibrary.Logger;
+using MSLibrary.Context;
+using MSLibrary.Context.Middleware;
+using MSLibrary.Context.Filter;
+using MSLibrary.Logger.Middleware;
+using MSLibrary.AspNet.Middleware;
+using DCEM.Main.Logger;
 using DCEM.LoggerService.Main;
+using DCEM.Main;
 
 namespace DCEM.LoggerService
 {
@@ -19,6 +28,9 @@ namespace DCEM.LoggerService
         {
             services.AddControllers((opts)=>
                 {
+                    opts.Filters.AddService<UserAuthorizeActionGolbalFilter>();
+
+                    
                     //opts.MaxIAsyncEnumerableBufferLimit
                 });
         }
@@ -36,6 +48,16 @@ namespace DCEM.LoggerService
             app.UseEndpoints(endpoints =>
             {
             });
+
+            
+
+            app.UseDIWrapper(ContextExtensionTypes.DI,LoggerCategoryNames.DIWrapper);
+
+            app.UseExceptionWrapper(LoggerCategoryNames.HttpRequest);
+
+            app.UseSystemAuthentication(string.Empty, HttpClaimGeneratorServiceTypes.Inner);
+
+          
         }
     }
 }

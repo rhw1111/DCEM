@@ -22,7 +22,6 @@ namespace DCEM.LoggerService
 
     public class Program
     {
-        private static bool _initConfigureServices = false;
         private static string _baseUrl;
 
         public static void Main(string[] args)
@@ -46,8 +45,6 @@ namespace DCEM.LoggerService
             WebHost.CreateDefaultBuilder(args)
             .ConfigureServices((context, services) =>
             {
-                if (_initConfigureServices == false)
-                {
                     //初始化配置容器
                     MainStartupHelper.InitConfigurationContainer(context.HostingEnvironment.EnvironmentName, _baseUrl);
                     StartupHelper.InitConfigurationContainer(context.HostingEnvironment.EnvironmentName, _baseUrl);
@@ -63,8 +60,8 @@ namespace DCEM.LoggerService
                     MainStartupHelper.InitStaticInfo();
                     StartupHelper.InitStaticInfo();
 
-                    _initConfigureServices = true;
-                }
+
+                
             })
             .ConfigureLogging((builder) =>
             {

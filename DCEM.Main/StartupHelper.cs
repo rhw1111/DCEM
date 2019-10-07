@@ -10,11 +10,15 @@ using MSLibrary;
 using MSLibrary.Configuration;
 using MSLibrary.DI;
 using MSLibrary.Context;
+using MSLibrary.Context.HttpClaimGeneratorServices;
 using MSLibrary.Xrm;
 using MSLibrary.Logger;
 using MSLibrary.Logger.LoggingBuilderProviderHandlers;
 using DCEM.Main;
 using DCEM.Main.Context;
+using DCEM.Main.Context.HttpClaimGeneratorServices;
+using DCEM.Main.Context.ClaimContextGeneratorServices;
+using System.Net.Http;
 
 namespace DCEM.Main
 {
@@ -95,7 +99,11 @@ namespace DCEM.Main
             ContextContainer.Current.Register<int>(ContextTypes.CurrentUserTimezoneOffset, new ContextCurrentUserTimezoneOffset());
             ContextContainer.Current.Register<ConcurrentDictionary<string, object>>(ContextTypes.Dictionary, new ContextDictionary());
             ContextContainer.Current.Register<Guid>(ContextExtensionTypes.CurrentUserID, new ContextCurrentUserID());
-
+            ContextContainer.Current.Register<Guid>(ContextExtensionTypes.ParentCommonLogID, new ContextParentCommonLogID());
+            ContextContainer.Current.Register<string>(ContextExtensionTypes.ParentCommonLogActionName, new ContextParentCommonLogActionName());
+            ContextContainer.Current.Register<string>(ContextExtensionTypes.ParentCommonLogContextInfo, new ContextParentCommonLogContextInfo());
+            ContextContainer.Current.Register<Guid>(ContextExtensionTypes.PreCommonLogLevelID, new ContextCommonLogPreLevelID());
+            ContextContainer.Current.Register<Guid>(ContextExtensionTypes.CurrentCommonLogLevelID, new ContextCommonLogCurrentLevelID());
 
         }
 
@@ -109,7 +117,8 @@ namespace DCEM.Main
         /// <param name="dISetting"></param>
         public static void InitDI(IServiceCollection serviceCollection, DISetting dISetting)
         {
-
+            serviceCollection.AddHttpClient();
+            
             DIContainerContainer.DIContainer = new DIContainerDefault(serviceCollection, serviceCollection.BuildServiceProvider());
             DIContainerInit.Init = new DIContainerInitDefault();
             DIContainerInit.Execute(dISetting.SearchAssemblyNames);
@@ -127,12 +136,23 @@ namespace DCEM.Main
         /// </summary>
         public static void InitStaticInfo()
         {
+            //为HttpClinetHelper的HttpClientFactory赋值
+            HttpClinetHelper.HttpClientFactory = DIContainerContainer.Get<IHttpClientFactory>();
+
             //CrmServiceFactoryRepositoryHelper.Repository = DIContainerContainer.Get<ICrmServiceFactoryRepository>();
             //为日志构建器处理的提供方处理工厂赋值
-            LoggingBuilderHandlerDefault.ProviderHandlerFactories.Add(LoggerProviderHandlerNames.ApplicationInsights, DIContainerContainer.Get<LoggingBuilderProviderHandlerForApplicationInsightsFactory>());
-            LoggingBuilderHandlerDefault.ProviderHandlerFactories.Add(LoggerProviderHandlerNames.Console, DIContainerContainer.Get<LoggingBuilderProviderHandlerForConsoleFactory>());
-            LoggingBuilderHandlerDefault.ProviderHandlerFactories.Add(LoggerProviderHandlerNames.CommonLog, DIContainerContainer.Get<LoggingBuilderProviderHandlerForCommonLogFactory>());
-            LoggingBuilderHandlerDefault.ProviderHandlerFactories.Add(LoggerProviderHandlerNames.CommonLogLocal, DIContainerContainer.Get<LoggingBuilderProviderHandlerForCommonLogFactory>());
+            LoggingBuilderHandlerDefault.ProviderHandlerFactories[LoggerProviderHandlerNames.ApplicationInsights]=DIContainerContainer.Get<LoggingBuilderProviderHandlerForApplicationInsightsFactory>();
+            LoggingBuilderHandlerDefault.ProviderHandlerFactories[LoggerProviderHandlerNames.Console]= DIContainerContainer.Get<LoggingBuilderProviderHandlerForConsoleFactory>();
+            LoggingBuilderHandlerDefault.ProviderHandlerFactories[LoggerProviderHandlerNames.CommonLog]= DIContainerContainer.Get<LoggingBuilderProviderHandlerForCommonLogFactory>();
+            LoggingBuilderHandlerDefault.ProviderHandlerFactories[LoggerProviderHandlerNames.CommonLogLocal]=DIContainerContainer.Get<LoggingBuilderProviderHandlerForCommonLogFactory>();
+
+            //为HttpClaimGeneratorIMP.HttpClaimGeneratorServiceFactories增加键值对
+            HttpClaimGeneratorIMP.HttpClaimGeneratorServiceFactories[HttpClaimGeneratorServiceTypes.Inner]= DIContainerContainer.Get<HttpClaimGeneratorServiceForInnerFactory>();
+
+            //为ClaimContextGeneratorIMP.ClaimContextGeneratorServiceFactories增加键值对
+            ClaimContextGeneratorIMP.ClaimContextGeneratorServiceFactories[ClaimContextGeneratorServiceTypes.Inner]= DIContainerContainer.Get<ClaimContextGeneratorServiceForInnerFactory>();
+            ClaimContextGeneratorIMP.ClaimContextGeneratorServiceFactories[ClaimContextGeneratorServiceTypes.Default] = DIContainerContainer.Get<ClaimContextGeneratorServiceForDefaultFactory>();
+
 
         }
 

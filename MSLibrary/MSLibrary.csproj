@@ -79,11 +79,4 @@
     <Folder Include="SystemToken\Application\" />
   </ItemGroup>
 
-
-  <ItemGroup>
-    <Reference Include="Microsoft.AspNetCore.StaticFiles">
-      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnetcore.staticfiles\2.0.1\lib\netstandard2.0\Microsoft.AspNetCore.StaticFiles.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>

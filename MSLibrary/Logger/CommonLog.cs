@@ -62,18 +62,35 @@ namespace MSLibrary.Logger
         }
 
         /// <summary>
-        /// 上一个日志的ID
+        /// 上一层ID
         /// </summary>
-        public Guid PreviousID
+        public Guid PreLevelID
         {
             get
             {
 
-                return GetAttribute<Guid>("PreviousID");
+                return GetAttribute<Guid>("PreLevelID");
             }
             set
             {
-                SetAttribute<Guid>("PreviousID", value);
+                SetAttribute<Guid>("PreLevelID", value);
+            }
+        }
+
+        
+        /// <summary>
+        /// 当前层ID
+        /// </summary>
+        public Guid CurrentLevelID
+        {
+            get
+            {
+
+                return GetAttribute<Guid>("CurrentLevelID");
+            }
+            set
+            {
+                SetAttribute<Guid>("CurrentLevelID", value);
             }
         }
 
@@ -151,6 +168,21 @@ namespace MSLibrary.Logger
             set
             {
                 SetAttribute<string>("RequestBody", value);
+            }
+        }
+
+        /// <summary>
+        /// 响应内容
+        /// </summary>
+        public string ResponseBody
+        {
+            get
+            {
+                return GetAttribute<string>("ResponseBody");
+            }
+            set
+            {
+                SetAttribute<string>("ResponseBody", value);
             }
         }
 

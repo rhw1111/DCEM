@@ -96,8 +96,18 @@ namespace MSLibrary.Logger
         /// <param name="state">包含信息的对象</param>
         public static void LogError<T>(string categoryName, T state)
         {
+            //尝试序列化state
+            string strState = string.Empty;
+            try
+            {
+                strState = JsonSerializerHelper.Serializer(state);
+            }
+            catch
+            {
+
+            }
             var logger = GetLogger(categoryName);
-            logger.Log<T>(LogLevel.Error,new EventId(),state,null,(obj,ex)=> { return string.Empty; });
+            logger.Log<T>(LogLevel.Error,new EventId(),state,null,(obj,ex)=> { return strState; });
 
         }
 
@@ -111,8 +121,19 @@ namespace MSLibrary.Logger
         /// <param name="state">包含信息的对象</param>
         public static void LogInformation<T>(string categoryName, T state)
         {
+            //尝试序列化state
+            string strState = string.Empty;
+            try
+            {
+                strState = JsonSerializerHelper.Serializer(state);
+            }
+            catch
+            {
+
+            }
+
             var logger = GetLogger(categoryName);
-            logger.Log<T>(LogLevel.Information, new EventId(), state, null, (obj, ex) => { return string.Empty; });
+            logger.Log<T>(LogLevel.Information, new EventId(), state, null, (obj, ex) => { return strState; });
         }
 
         /// <summary>
