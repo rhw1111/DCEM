@@ -44,9 +44,40 @@ namespace MSLibrary.Entity.DAL
                     using (SqlCommand commond = new SqlCommand()
                     {
                         Connection = (SqlConnection)conn,
-                        CommandType = CommandType.StoredProcedure,
+                        CommandType = CommandType.Text,
                          Transaction=sqlTran,
-                        CommandText = "core_EntityAttributeMapConfigurationDetailQueryByConfigurationId"
+                        CommandText = @"set @currentpage=@page
+		                                select @count= count(*) from [dbo].[EntityAttributeMapConfigurationDetail] where configurationid=@configurationid
+		                                if @pagesize*@page>=@count
+			                                begin
+				                                set @currentpage= @count/@pagesize
+				                                if @count%@pagesize<>0
+					                                begin
+						                                set @currentpage=@currentpage+1
+					                                end
+				                                if @currentpage=0
+					                                set @currentpage=1
+			                                end
+		                                else if @page<1 
+			                                begin 
+				                                set @currentpage=1
+			                                end
+		
+		
+		                                declare @columns nvarchar(500),@prefix nvarchar(20)
+		                                set @prefix=''
+		                                set @columns=dbo.core_GetEntityAttributeMapConfigurationDetailQueryColumns(@prefix)
+
+		                                select @prefix as prefix
+
+		                                declare @execsql nvarchar(1000)
+		                                set @execsql='select '+@columns+' from [dbo].[EntityAttributeMapConfigurationDetail]WITH (SNAPSHOT) where configurationid=@configurationid '
+		                                +'order by [createtime] desc '
+		                                +'offset  ( @pagesize * ( @currentpage - 1 )) rows '
+		                                +'fetch next @pagesize rows only;'
+		
+		                                exec sp_executesql @execsql, N'@configurationid uniqueidentifier,@pagesize int,@currentpage int',@configurationid, @pagesize,@currentpage 	
+                                "
                     })
                     {
 
@@ -149,8 +180,39 @@ namespace MSLibrary.Entity.DAL
                     using (SqlCommand commond = new SqlCommand()
                     {
                         Connection = (SqlConnection)conn,
-                        CommandType = CommandType.StoredProcedure,
-                        CommandText = "core_EntityAttributeMapConfigurationDetailQueryByConfigurationId",
+                        CommandType = CommandType.Text,
+                        CommandText = @"set @currentpage=@page
+		                            select @count= count(*) from [dbo].[EntityAttributeMapConfigurationDetail] where configurationid=@configurationid
+		                            if @pagesize*@page>=@count
+			                            begin
+				                            set @currentpage= @count/@pagesize
+				                            if @count%@pagesize<>0
+					                            begin
+						                            set @currentpage=@currentpage+1
+					                            end
+				                            if @currentpage=0
+					                            set @currentpage=1
+			                            end
+		                            else if @page<1 
+			                            begin 
+				                            set @currentpage=1
+			                            end
+		
+		
+		                            declare @columns nvarchar(500),@prefix nvarchar(20)
+		                            set @prefix=''
+		                            set @columns=dbo.core_GetEntityAttributeMapConfigurationDetailQueryColumns(@prefix)
+
+		                            select @prefix as prefix
+
+		                            declare @execsql nvarchar(1000)
+		                            set @execsql='select '+@columns+' from [dbo].[EntityAttributeMapConfigurationDetail]WITH (SNAPSHOT) where configurationid=@configurationid '
+		                            +'order by [createtime] desc '
+		                            +'offset  ( @pagesize * ( @currentpage - 1 )) rows '
+		                            +'fetch next @pagesize rows only;'
+		
+		                            exec sp_executesql @execsql, N'@configurationid uniqueidentifier,@pagesize int,@currentpage int',@configurationid, @pagesize,@currentpage 	
+                            ",
                          Transaction=sqlTran
                     })
                     {
@@ -247,9 +309,40 @@ namespace MSLibrary.Entity.DAL
                     using (SqlCommand commond = new SqlCommand()
                     {
                         Connection = (SqlConnection)conn,
-                        CommandType = CommandType.StoredProcedure,
+                        CommandType = CommandType.Text,
                         Transaction = sqlTran,
-                        CommandText = "core_EntityAttributeMapConfigurationDetailQueryByConfigurationId"
+                        CommandText = @"set @currentpage=@page
+		                                select @count= count(*) from [dbo].[EntityAttributeMapConfigurationDetail] where configurationid=@configurationid
+		                                if @pagesize*@page>=@count
+			                                begin
+				                                set @currentpage= @count/@pagesize
+				                                if @count%@pagesize<>0
+					                                begin
+						                                set @currentpage=@currentpage+1
+					                                end
+				                                if @currentpage=0
+					                                set @currentpage=1
+			                                end
+		                                else if @page<1 
+			                                begin 
+				                                set @currentpage=1
+			                                end
+		
+		
+		                                declare @columns nvarchar(500),@prefix nvarchar(20)
+		                                set @prefix=''
+		                                set @columns=dbo.core_GetEntityAttributeMapConfigurationDetailQueryColumns(@prefix)
+
+		                                select @prefix as prefix
+
+		                                declare @execsql nvarchar(1000)
+		                                set @execsql='select '+@columns+' from [dbo].[EntityAttributeMapConfigurationDetail]WITH (SNAPSHOT) where configurationid=@configurationid '
+		                                +'order by [createtime] desc '
+		                                +'offset  ( @pagesize * ( @currentpage - 1 )) rows '
+		                                +'fetch next @pagesize rows only;'
+		
+		                                exec sp_executesql @execsql, N'@configurationid uniqueidentifier,@pagesize int,@currentpage int',@configurationid, @pagesize,@currentpage 	
+                                "
                     })
                     {
 
@@ -338,8 +431,37 @@ namespace MSLibrary.Entity.DAL
                     using (SqlCommand commond = new SqlCommand()
                     {
                         Connection = (SqlConnection)conn,
-                        CommandType = CommandType.StoredProcedure,
-                        CommandText = "core_EntityAttributeMapConfigurationDetailQueryByConfigurationId",
+                        CommandType = CommandType.Text,
+                        CommandText = @"set @currentpage=@page
+		                                select @count= count(*) from [dbo].[EntityAttributeMapConfigurationDetail] where configurationid=@configurationid
+		                                if @pagesize*@page>=@count
+			                                begin
+				                                set @currentpage= @count/@pagesize
+				                                if @count%@pagesize<>0
+					                                begin
+						                                set @currentpage=@currentpage+1
+					                                end
+				                                if @currentpage=0
+					                                set @currentpage=1
+			                                end
+		                                else if @page<1 
+			                                begin 
+				                                set @currentpage=1
+			                                end 
+
+		                                declare @columns nvarchar(500),@prefix nvarchar(20)
+		                                set @prefix=''
+		                                set @columns=dbo.core_GetEntityAttributeMapConfigurationDetailQueryColumns(@prefix)
+
+		                                select @prefix as prefix
+
+		                                declare @execsql nvarchar(1000)
+		                                set @execsql='select '+@columns+' from [dbo].[EntityAttributeMapConfigurationDetail]WITH (SNAPSHOT) where configurationid=@configurationid '
+		                                +'order by [createtime] desc '
+		                                +'offset  ( @pagesize * ( @currentpage - 1 )) rows '
+		                                +'fetch next @pagesize rows only;'
+		
+		                                exec sp_executesql @execsql, N'@configurationid uniqueidentifier,@pagesize int,@currentpage int',@configurationid, @pagesize,@currentpage 	",
                         Transaction = sqlTran
                     })
                     {

@@ -38,17 +38,33 @@ namespace MSLibrary.Collections.Hash.DAL
                 using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
-                    CommandType = CommandType.StoredProcedure,
-                    CommandText = "dbo.core_HashGroupAdd",
+                    CommandType = CommandType.Text,
                     Transaction = sqlTran
                 })
                 {
-
-
-
                     SqlParameter parameter;
                     if (group.ID != Guid.Empty)
                     {
+
+                        commond.CommandText = @"
+                                                insert into [dbo].[HashGroup](
+                                                                                    [id]
+                                                                                    ,[name]
+                                                                                    ,[count]
+                                                                                    ,[strategyid]
+                                                                                    ,[createtime]
+                                                                                    ,[modifytime]
+                                                                            )
+                                                                            values(
+                                                                                    @id
+                                                                                    ,@name
+                                                                                    ,@count
+                                                                                    ,@strategyid
+                                                                                    ,getutcdate()
+                                                                                    ,getutcdate()
+                                                                                 )	
+		                                       ";
+
                         parameter = new SqlParameter("@id", SqlDbType.UniqueIdentifier)
                         {
                             Value = group.ID
@@ -57,9 +73,32 @@ namespace MSLibrary.Collections.Hash.DAL
                     }
                     else
                     {
-                        parameter = new SqlParameter("@id", SqlDbType.UniqueIdentifier)
+                        commond.CommandText = @"
+                                                insert into [dbo].[HashGroup](
+                                                            [id]
+                                                            ,[name]
+                                                            ,[count]
+                                                            ,[strategyid]
+                                                            ,[createtime]
+                                                            ,[modifytime]
+                                                        )
+                                                        values(
+                                                                default
+                                                                ,@name
+                                                                ,@count
+                                                                ,@strategyid
+                                                                ,getutcdate()
+                                                                ,getutcdate()
+                                                        )
+                                                select 
+                                                        @newid=[id] 
+                                                        from [dbo].[HashGroup] 
+                                                where 
+                                                        [sequence]=SCOPE_IDENTITY()";
+
+                        parameter = new SqlParameter("@newid", SqlDbType.UniqueIdentifier)
                         {
-                            Value = DBNull.Value
+                            Direction = ParameterDirection.Output
                         };
                         commond.Parameters.Add(parameter);
 
@@ -90,20 +129,9 @@ namespace MSLibrary.Collections.Hash.DAL
                     commond.Parameters.Add(parameter);
 
 
-                    parameter = new SqlParameter("@newid", SqlDbType.UniqueIdentifier)
-                    {
-                        Direction = ParameterDirection.Output
-                    };
-                    commond.Parameters.Add(parameter);
-
-
                     commond.Prepare();
-
-
-
-                        await commond.ExecuteNonQueryAsync();
-                   
-
+                     
+                    await commond.ExecuteNonQueryAsync();
 
                     if (group.ID == Guid.Empty)
                     {
@@ -128,9 +156,11 @@ namespace MSLibrary.Collections.Hash.DAL
                 using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
-                    CommandType = CommandType.StoredProcedure,
+                    CommandType = CommandType.Text,
                     Transaction = sqlTran,
-                    CommandText = @"dbo.core_HashGroupDelete"
+                    CommandText = @" delete from 
+                                    [dbo].[HashGroup]		  
+		                            where [id]=@id"
                 })
                 {
 
@@ -145,8 +175,8 @@ namespace MSLibrary.Collections.Hash.DAL
                     commond.Prepare();
 
 
-                        await commond.ExecuteNonQueryAsync();
-                  
+                    await commond.ExecuteNonQueryAsync();
+
 
 
                 }
@@ -286,14 +316,14 @@ namespace MSLibrary.Collections.Hash.DAL
 
                     SqlDataReader reader = null;
 
-                    using (reader= await commond.ExecuteReaderAsync())
+                    using (reader = await commond.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
                         {
                             var record = new HashGroup();
                             StoreHelper.SetHashGroupSelectFields(record, reader, "g");
                             record.Strategy = new HashGroupStrategy();
-                            StoreHelper.SetHashGroupStrategySelectFields(record.Strategy,reader,"s");
+                            StoreHelper.SetHashGroupStrategySelectFields(record.Strategy, reader, "s");
                             result.Results.Add(record);
                         }
 
@@ -336,7 +366,7 @@ namespace MSLibrary.Collections.Hash.DAL
                 })
                 {
 
-                    var parameter = new SqlParameter("@name", SqlDbType.VarChar,100)
+                    var parameter = new SqlParameter("@name", SqlDbType.VarChar, 100)
                     {
                         Value = name
                     };
@@ -380,9 +410,15 @@ namespace MSLibrary.Collections.Hash.DAL
                 using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
-                    CommandType = CommandType.StoredProcedure,
+                    CommandType = CommandType.Text,
                     Transaction = sqlTran,
-                    CommandText = @"dbo.core_HashGroupUpdate"
+                    CommandText = @"update [dbo].[HashGroup]
+                                    set 
+                                        [name]=@name
+                                        ,[count]=@count
+                                        ,[strategyid]=@strategyid
+                                        ,[modifytime]=getutcdate()
+                                    where [id]=@id"
                 })
                 {
 
@@ -455,7 +491,7 @@ namespace MSLibrary.Collections.Hash.DAL
 
                     SqlDataReader reader = null;
 
-                    using (reader= commond.ExecuteReader())
+                    using (reader = commond.ExecuteReader())
                     {
                         if (reader.Read())
                         {
@@ -482,7 +518,7 @@ namespace MSLibrary.Collections.Hash.DAL
             //获取只读连接字符串
             var strConn = _hashConnectionFactory.CreateReadForHash();
 
-            while(true)
+            while (true)
             {
                 result.Clear();
 
@@ -498,7 +534,7 @@ namespace MSLibrary.Collections.Hash.DAL
                     string strSql = string.Format(@"select top(@top) {0},{1} from HashGroup as g join HashGroupStrategy as s 
                                                   on g.strategyid=s.id
                                                   where g.[type]=@type order by g.[sequence]", StoreHelper.GetHashGroupSelectFields("g"), StoreHelper.GetHashGroupStrategySelectFields("s"));
-                    if (index!=null)
+                    if (index != null)
                     {
                         strSql = string.Format(@"select top(@top) {0},{1} from HashGroup as g join HashGroupStrategy as s 
                                                   on g.strategyid=s.id
@@ -520,13 +556,13 @@ namespace MSLibrary.Collections.Hash.DAL
                         };
                         commond.Parameters.Add(parameter);
 
-                        parameter = new SqlParameter("@type", SqlDbType.VarChar,100)
+                        parameter = new SqlParameter("@type", SqlDbType.VarChar, 100)
                         {
                             Value = type
                         };
                         commond.Parameters.Add(parameter);
 
-                        if (index!=null)
+                        if (index != null)
                         {
                             parameter = new SqlParameter("@index", SqlDbType.BigInt)
                             {
@@ -548,7 +584,7 @@ namespace MSLibrary.Collections.Hash.DAL
                                 group.Strategy = new HashGroupStrategy();
                                 StoreHelper.SetHashGroupStrategySelectFields(group.Strategy, reader, "s");
                                 result.Add(group);
-                            }  
+                            }
 
                             reader.Close();
                         }
@@ -557,12 +593,12 @@ namespace MSLibrary.Collections.Hash.DAL
 
 
 
-                foreach(var item in result)
+                foreach (var item in result)
                 {
                     await action(item);
                 }
 
-                if (result.Count<count)
+                if (result.Count < count)
                 {
                     break;
                 }
