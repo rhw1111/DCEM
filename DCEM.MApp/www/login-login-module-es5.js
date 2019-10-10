@@ -71,7 +71,7 @@ var Toast = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-title text-center>登录</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content padding>\r\n\r\n  <ion-list inset>\r\n    <ion-item>\r\n      <ion-input type=\"text\" value=\"admin\" placeholder=\"用户名\" #username></ion-input>\r\n      <ion-icon ios=\"ios-person\" md=\"md-person\" item-end [ngStyle]=\"iconStyle\"></ion-icon>\r\n    </ion-item>\r\n\r\n    <ion-item>\r\n      <ion-input [type]=\"isShow ? 'text':'password'\" value=\"88888\" placeholder=\"密码\" #password></ion-input>\r\n      <ion-icon ios=\"ios-key\" md=\"md-key\" item-end [ngStyle]=\"iconStyle\"></ion-icon>\r\n    </ion-item>\r\n\r\n    <ion-item no-lines>\r\n      <ion-label>\r\n        <!-- 控制字体图标的显示是由 ios 以及 md 两个属性控制的  -->\r\n        <ion-icon [ios]=\"isShow ? 'ios-eye' : 'ios-eye-off'\" [md]=\"isShow ? 'md-eye' : 'md-eye-off'\"></ion-icon>\r\n      </ion-label>\r\n      <ion-toggle checked=\"false\" [(ngModel)]=\"isShow\"></ion-toggle>\r\n    </ion-item>\r\n\r\n    <ion-item no-lines>\r\n      <ion-label>记住密码</ion-label>\r\n      <ion-toggle checked=\"false\" [(ngModel)]=\"isRemember\"></ion-toggle>\r\n    </ion-item>\r\n\r\n  </ion-list>\r\n\r\n  <div padding>\r\n    <ion-button (click)=\"_login(username, password)\"  expand=\"block\">登录</ion-button>\r\n  </div>\r\n</ion-content>"
+module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-title text-center>登录</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n\r\n<ion-content>\r\n  <ion-avatar class=\"logo\">\r\n      <img src=\"assets/img/head_default.jpg\">\r\n  </ion-avatar>\r\n  <ion-list>\r\n      <ion-item>\r\n          <ion-label>用户名：</ion-label>\r\n          <ion-input type=\"text\" placeholder=\"由字母、数字、下划线组成\" [(ngModel)]=\"username\" (ionChange)=\"onChange(1)\" (ionBlur)=\"onBlur()\"></ion-input>\r\n      </ion-item>\r\n      <ion-item>\r\n          <ion-label>密&emsp;码：</ion-label>\r\n          <ion-input type=\"password\" placeholder=\"6-20位数字或字母\" [(ngModel)]=\"password\" (ionChange)=\"onChange(2)\" (ionBlur)=\"onBlur()\"></ion-input>\r\n      </ion-item>\r\n  </ion-list>\r\n  <ion-label *ngIf=\"errorMsg\" class=\"error-message\"> {{errorMsg}} </ion-label>\r\n  <ion-button class=\"login\" (click)=\"_login(username, password)\" color=\"primary\" fill=\"solid\" size=\"default\" type=\"button\" expand=\"block\" [disabled]='!status'> 登录</ion-button>\r\n</ion-content>\r\n\r\n<!-- \r\n<ion-content padding>\r\n\r\n  <ion-list inset>\r\n    <ion-item>\r\n      <ion-input type=\"text\" value=\"admin\" placeholder=\"用户名\" #username></ion-input>\r\n      <ion-icon ios=\"ios-person\" md=\"md-person\" item-end [ngStyle]=\"iconStyle\"></ion-icon>\r\n    </ion-item>\r\n\r\n    <ion-item>\r\n      <ion-input [type]=\"isShow ? 'text':'password'\" value=\"88888\" placeholder=\"密码\" #password></ion-input>\r\n      <ion-icon ios=\"ios-key\" md=\"md-key\" item-end [ngStyle]=\"iconStyle\"></ion-icon>\r\n    </ion-item>\r\n\r\n    <ion-item no-lines>\r\n      <ion-label>\r\n         控制字体图标的显示是由 ios 以及 md 两个属性控制的  \r\n        <ion-icon [ios]=\"isShow ? 'ios-eye' : 'ios-eye-off'\" [md]=\"isShow ? 'md-eye' : 'md-eye-off'\"></ion-icon>\r\n      </ion-label>\r\n      <ion-toggle checked=\"false\" [(ngModel)]=\"isShow\"></ion-toggle>\r\n    </ion-item>\r\n\r\n    <ion-item no-lines>\r\n      <ion-label>记住密码</ion-label>\r\n      <ion-toggle checked=\"false\" [(ngModel)]=\"isRemember\"></ion-toggle>\r\n    </ion-item>\r\n\r\n  </ion-list>\r\n\r\n  <div padding>\r\n    <ion-button (click)=\"_login(username, password)\"  expand=\"block\">登录</ion-button>\r\n  </div>\r\n</ion-content> -->"
 
 /***/ }),
 
@@ -136,7 +136,7 @@ var LoginPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2xvZ2luL2xvZ2luLnBhZ2Uuc2NzcyJ9 */"
+module.exports = ".logo {\n  margin: 6em auto 5em auto; }\n\nion-list {\n  padding: 0em 2em 1em 2em; }\n\n.error-message {\n  color: red;\n  margin: 0em 2em 0em 8em;\n  font-size: 12px; }\n\n.login {\n  margin: 4em 11em 0.5em 11em; }\n\n.register {\n  margin: 1em 11em 0.5em 11em; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbG9naW4vRTpcXEFwcFByb2plY3RcXERDRU1cXERDRU0uTUFwcC9zcmNcXGFwcFxcbG9naW5cXGxvZ2luLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLHlCQUF5QixFQUFBOztBQUc3QjtFQUNJLHdCQUF3QixFQUFBOztBQUc1QjtFQUNJLFVBQVU7RUFDVix1QkFBdUI7RUFDdkIsZUFBZSxFQUFBOztBQUduQjtFQUNJLDJCQUEyQixFQUFBOztBQUcvQjtFQUNJLDJCQUEyQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvbG9naW4vbG9naW4ucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmxvZ28ge1xyXG4gICAgbWFyZ2luOiA2ZW0gYXV0byA1ZW0gYXV0bztcclxufVxyXG5cclxuaW9uLWxpc3Qge1xyXG4gICAgcGFkZGluZzogMGVtIDJlbSAxZW0gMmVtO1xyXG59XHJcblxyXG4uZXJyb3ItbWVzc2FnZSB7XHJcbiAgICBjb2xvcjogcmVkO1xyXG4gICAgbWFyZ2luOiAwZW0gMmVtIDBlbSA4ZW07XHJcbiAgICBmb250LXNpemU6IDEycHg7XHJcbn1cclxuXHJcbi5sb2dpbiB7XHJcbiAgICBtYXJnaW46IDRlbSAxMWVtIDAuNWVtIDExZW07XHJcbn1cclxuXHJcbi5yZWdpc3RlciB7XHJcbiAgICBtYXJnaW46IDFlbSAxMWVtIDAuNWVtIDExZW07XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -151,47 +151,134 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginPage", function() { return LoginPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _ionic_native_toast_ngx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic-native/toast/ngx */ "./node_modules/@ionic-native/toast/ngx/index.js");
+/* harmony import */ var _services_http_service_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../services/http-service.service */ "./src/app/services/http-service.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/authentication.service */ "./src/app/services/authentication.service.ts");
 
 
 
 
+
+//import { Toast } from '@ionic-native/toast/ngx';
 var LoginPage = /** @class */ (function () {
-    function LoginPage(navCtrl, toast) {
+    function LoginPage(navCtrl, httpService, authService) {
         this.navCtrl = navCtrl;
-        this.toast = toast;
+        this.httpService = httpService;
+        this.authService = authService;
+        this.username = '';
+        this.password = '';
+        this.errorMsg = '';
+        this.nameMsg = '';
+        this.pwdMsg = '';
+        this.status = false;
     }
     LoginPage.prototype.ngOnInit = function () {
+    };
+    //内容发生改变时触发的事件
+    LoginPage.prototype.onChange = function (type) {
+        if (type == 1) {
+            //用户名校验
+            var nameReg = /^[a-zA-Z0-9_-]{0,}$/;
+            if (!nameReg.test(this.username)) {
+                this.nameMsg = '用户名不能含有中文或特殊字符！';
+            }
+            else if (this.username.length > 25) {
+                this.nameMsg = '用户名超过长度限制！';
+            }
+            else if (this.username.length <= 0) {
+                this.nameMsg = '用户名不能为空！';
+            }
+            else {
+                this.nameMsg = '';
+            }
+        }
+        else if (type == 2) {
+            //密码校验
+            //包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符
+            //let pwdReg = /^.*(?=.{6,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$/;
+            //6-20个字母、数字、下划线
+            var pwdReg = /^(\w){6,20}$/;
+            if (this.password.length < 6 || this.password.length > 20) {
+                this.pwdMsg = '密码长度为6~20位';
+            }
+            else if (!pwdReg.test(this.password)) {
+                this.pwdMsg = '密码由字母、数字、下划线组成';
+            }
+            else {
+                this.pwdMsg = '';
+            }
+        }
+        this.errorMsg = this.nameMsg.length <= 0 ? this.pwdMsg : this.nameMsg;
+        if (this.errorMsg.length <= 0 &&
+            this.username.length > 0 &&
+            this.password.length > 0) {
+            //登录按钮可以点击
+            this.status = true;
+        }
+        else {
+            //登录按钮不可点击
+            this.status = false;
+        }
+    };
+    //失去焦点 【(ionFocus)="onFocus()"获取焦点时的事件】
+    LoginPage.prototype.onBlur = function () {
+        if (this.username.length <= 0) {
+            this.errorMsg = '用户名不能为空！';
+        }
+        else if (this.password.length <= 0) {
+            this.errorMsg = '密码不能为空！';
+        }
     };
     LoginPage.prototype._login = function (username, password) {
         var _this = this;
         var userinfo = '用户名：' + username.value + '密码：' + password.value;
-        //alert(userinfo);
-        if (username.value == "admin" && password.value == "123456") {
-            this.toast.show('登录成功！', '5000', 'center').subscribe(function (toast) {
-                //console.log(toast);
+        this.httpService.GET("/api/AliOss/Get", userinfo, function (authtoken) {
+            if (authtoken != "") {
+                _this.authService.login(authtoken);
+                _this.httpService.showLoading('登录成功，数据加载中...');
                 _this.navCtrl.navigateForward('tabs');
-            });
-        }
-        else {
-            this.toast.show('账户或密码错误', '5000', 'center').subscribe(function (toast) {
-                console.log(toast);
-            });
-        }
+            }
+            else {
+                _this.httpService.presentToastWarning("账户或密码错误!");
+            }
+        });
+        // if(true){
+        //    //this.presentToast("登录成功！");
+        //   // this.toast.show('登录成功！', '5000', 'center').subscribe(
+        //   //   toast => {
+        //   //     //console.log(toast);
+        //   // setTimeout(()=>{
+        //   // },500);
+        //   this.httpService.showLoading('登录成功，数据加载中...');
+        //   this.navCtrl.navigateForward('tabs');
+        //   //this.httpService.hideLoading();
+        //   //   }
+        //   // );
+        // }
+        // else{
+        //   //alert('账户或密码错误');
+        //   // this.toast.show('账户或密码错误', '5000', 'center').subscribe(
+        //   //   toast => {
+        //       // console.log(toast);
+        //   //   }
+        //   // );
+        // }
     };
     LoginPage.ctorParameters = function () { return [
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"] },
-        { type: _ionic_native_toast_ngx__WEBPACK_IMPORTED_MODULE_3__["Toast"] }
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["NavController"] },
+        { type: _services_http_service_service__WEBPACK_IMPORTED_MODULE_1__["HttpService"] },
+        { type: _services_authentication_service__WEBPACK_IMPORTED_MODULE_4__["AuthenticationService"] }
     ]; };
     LoginPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
             selector: 'app-login',
             template: __webpack_require__(/*! raw-loader!./login.page.html */ "./node_modules/raw-loader/index.js!./src/app/login/login.page.html"),
             styles: [__webpack_require__(/*! ./login.page.scss */ "./src/app/login/login.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"], _ionic_native_toast_ngx__WEBPACK_IMPORTED_MODULE_3__["Toast"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_3__["NavController"],
+            _services_http_service_service__WEBPACK_IMPORTED_MODULE_1__["HttpService"],
+            _services_authentication_service__WEBPACK_IMPORTED_MODULE_4__["AuthenticationService"]])
     ], LoginPage);
     return LoginPage;
 }());

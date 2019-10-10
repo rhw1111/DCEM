@@ -4,6 +4,26 @@
   </ion-toolbar>
 </ion-header>
 
+
+<ion-content>
+  <ion-avatar class="logo">
+      <img src="assets/img/head_default.jpg">
+  </ion-avatar>
+  <ion-list>
+      <ion-item>
+          <ion-label>用户名：</ion-label>
+          <ion-input type="text" placeholder="由字母、数字、下划线组成" [(ngModel)]="username" (ionChange)="onChange(1)" (ionBlur)="onBlur()"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>密&emsp;码：</ion-label>
+          <ion-input type="password" placeholder="6-20位数字或字母" [(ngModel)]="password" (ionChange)="onChange(2)" (ionBlur)="onBlur()"></ion-input>
+      </ion-item>
+  </ion-list>
+  <ion-label *ngIf="errorMsg" class="error-message"> {{errorMsg}} </ion-label>
+  <ion-button class="login" (click)="_login(username, password)" color="primary" fill="solid" size="default" type="button" expand="block" [disabled]='!status'> 登录</ion-button>
+</ion-content>
+
+<!-- 
 <ion-content padding>
 
   <ion-list inset>
@@ -19,7 +39,7 @@
 
     <ion-item no-lines>
       <ion-label>
-        <!-- 控制字体图标的显示是由 ios 以及 md 两个属性控制的  -->
+         控制字体图标的显示是由 ios 以及 md 两个属性控制的  
         <ion-icon [ios]="isShow ? 'ios-eye' : 'ios-eye-off'" [md]="isShow ? 'md-eye' : 'md-eye-off'"></ion-icon>
       </ion-label>
       <ion-toggle checked="false" [(ngModel)]="isShow"></ion-toggle>
@@ -35,4 +55,4 @@
   <div padding>
     <ion-button (click)="_login(username, password)"  expand="block">登录</ion-button>
   </div>
-</ion-content>
+</ion-content> -->

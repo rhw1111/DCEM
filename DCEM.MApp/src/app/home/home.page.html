@@ -1,14 +1,59 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+      <ion-toolbar>
+          <ion-buttons slot="start">
+              <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+  
+          <ion-title>首页</ion-title>
+  
+          <ion-buttons slot="primary">
+            <ion-button (click)="addTestDrive()">
+              <ion-icon slot="icon-only" name="add"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+  </ion-header>
+<!-- 
+<ion-content padding>
+     <ion-list auto-hide="false" *ngFor="let r of testDriveList">
+        <ion-item (click)="showDetail(r)">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="9">
+                    <ion-label>
+                      <h3><ion-icon name="timer"></ion-icon>  {{r.Date}}</h3>
+                    </ion-label>
+                </ion-col>
+                <ion-col size="3">
+                    <ion-label>
+                      <h3 *ngIf="r.Status==0">待完成</h3>
+                      <h3 *ngIf="r.Status==1">已完成</h3>
+                      <h3 *ngIf="r.Status==2">已关闭</h3>
+                    </ion-label>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                      <ion-label>
+                        <h2>{{r.UserName}}</h2>
+                        <h3>试驾时间：{{r.StartTime}}-{{r.EndTime}}</h3>
+                        <p>车型：{{r.VehicleType}}</p>
+                      </ion-label>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+      </ion-list>
+</ion-content> -->
 
-<ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+<ion-content fullscreen>
+  <ion-list>
+      <ion-item button>
+        <ion-icon slot="start" name="logo-angular" style="color: red;"></ion-icon>
+        <ion-label>
+          <h3>首页导航一</h3>
+        </ion-label>
+        <ion-icon class="item-detail-icon ios hydrated" role="img" aria-label="arrow forward"></ion-icon>
+      </ion-item>
+  </ion-list>
 </ion-content>

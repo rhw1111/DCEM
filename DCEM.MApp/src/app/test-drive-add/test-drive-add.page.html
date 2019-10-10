@@ -1,0 +1,52 @@
+<ion-header translucent>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/"></ion-back-button>
+        </ion-buttons>
+      <ion-title>创建试乘试驾记录</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content fullscreen>
+    <form onsubmit="processForm(event)">
+      <ion-list lines="full" class="ion-no-margin ion-no-padding">
+            <ion-item>
+              <ion-label>姓名<ion-text color="danger">*</ion-text></ion-label>
+              <ion-input></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>手机号<ion-text color="danger">*</ion-text></ion-label>
+              <ion-input></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>车型<ion-text color="danger">*</ion-text></ion-label>
+              <ion-input></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>开始时间<ion-text color="danger">*</ion-text></ion-label>
+              <ion-datetime value="1990-02-19" placeholder="选择日期"></ion-datetime>
+              <ion-datetime display-format="h:mm A" picker-format="h:mm A" value="1990-02-19T07:43Z"></ion-datetime>
+            </ion-item>
+            <ion-item>
+                <ion-label>结束时间<ion-text color="danger">*</ion-text></ion-label>
+              <ion-datetime value="1990-02-20" placeholder="选择日期"></ion-datetime>
+              <ion-datetime display-format="h:mm A" picker-format="h:mm A" value="1990-02-19T07:43Z"></ion-datetime>
+            </ion-item>
+        <ion-item>
+          <ion-label position="stacked">基本信息</ion-label>
+          <ion-input placeholder="省"></ion-input>
+          <ion-input placeholder="市"></ion-input>
+          <ion-input placeholder="区"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">备注</ion-label>
+          <ion-textarea rows="8"></ion-textarea>
+        </ion-item>
+      </ion-list>
+
+      <div class="ion-padding">
+        <ion-button expand="block" type="submit" class="ion-no-margin">创建</ion-button>
+      </div>
+    </form>
+  </ion-content>

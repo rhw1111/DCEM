@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using System.Web.Http;
+using Microsoft.AspNetCore.Cors;
 
 namespace DCEM.Web.Controllers
 {
+    [EnableCors("any")]
     [Route("api/TestDrive")]
     [ApiController]
     public class TestDriveController : ControllerBase
@@ -15,7 +18,7 @@ namespace DCEM.Web.Controllers
         [Route("Get")]
         public ActionResult<List<TestDriveResponse>> Get()
         {
-            var testdrivelist = new List<TestDriveResponse>();
+           var testdrivelist = new List<TestDriveResponse>();
 
             var testdrive1 = new TestDriveResponse()
             {
