@@ -6,6 +6,18 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using MSLibrary;
+using MSLibrary.Logger;
+using MSLibrary.Context;
+using MSLibrary.Context.Middleware;
+using MSLibrary.Context.Filter;
+using MSLibrary.Logger.Middleware;
+using MSLibrary.AspNet.Middleware;
+using DCEM.Main.Logger;
+using DCEM.ConfigurationService.Main;
+using DCEM.Main;
+using MSLibrary.DI;
 
 namespace DCEM.ConfigurationService
 {
@@ -15,20 +27,35 @@ namespace DCEM.ConfigurationService
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers((opts) =>
+            {
+                opts.Filters.AddService<UserAuthorizeActionGolbalFilter>();
+
+                opts.Filters.Add(DIContainerContainer.Get<UserAuthorizeFilter>(true, string.Empty, ClaimContextGeneratorServiceTypes.Default, ClaimContextGeneratorServiceTypes.Default, ClaimContextGeneratorServiceTypes.Default));
+                //opts.MaxIAsyncEnumerableBufferLimit
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.Run(async (context) =>
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
             {
-                await context.Response.WriteAsync("Hello World!");
             });
+
+
+            app.UseCommonLogInfoHandler(string.Empty, LoggerCategoryExtensionNames.DCEM_ConfigurationService);
+
+            app.UseDIWrapper(ContextExtensionTypes.DI, LoggerCategoryNames.DIWrapper);
+
+            app.UseExceptionWrapper(LoggerCategoryNames.HttpRequest);
         }
     }
 }

@@ -150,6 +150,35 @@ namespace MSLibrary
         /// AAD的Oauth认证的响应出错
         /// </summary>
         AADOauthResponseError = 314711002,
+        /// <summary>
+        /// 找不到指定类型的身份信息Http头生成服务
+        /// </summary>
+        NotFoundAuthInfoHttpHeaderGeneratorServiceByType= 314711100,
+        /// <summary>
+        /// 找不到指定类型的声明上下文生成服务
+        /// </summary>
+        NotFoundClaimContextGeneratorServiceByType = 314711101,
+        /// <summary>
+        /// 找不到指定类型的Http声明生成服务
+        /// </summary>
+        NotFoundHttpClaimGeneratorServiceByType= 314711102,
+        /// <summary>
+        /// 找不到指定类型的环境声明生成服务
+        /// </summary>
+        NotFoundEnvironmentClaimGeneratorServiceByType= 314711103,
+        /// <summary>
+        /// 在声明集中找不到指定类型的声明
+        /// </summary>
+        NotFoundTypeInClaims = 314711200,
+
+        /// <summary>
+        /// 找不到指定名称的系统配置
+        /// </summary>
+        NotFoundSystemConfigurationByName= 314711250,
+        /// <summary>
+        /// 系统配置转换成指定类型失败
+        /// </summary>
+        SystemConfigurationConvertTypeFail= 314711251,
 
         /// <summary>
         /// 不是AccessToken
@@ -967,6 +996,14 @@ namespace MSLibrary
         /// 找不到指定类型的IEnumerableItemDisplayService
         /// </summary>
         NotFoundIEnumerableItemDisplayServiceByType = 314726400,
+        /// <summary>
+        /// 找不到指定类型的远程服务验证信息生成服务
+        /// </summary>
+        NotFoundRemoteServiceAuthInfoGeneratorServiceByType= 314726500,
+        /// <summary>
+        /// 找不到指定名称的远程服务描述
+        /// </summary>
+        NotFoundRemoteServiceDescriptionByName= 314726501,
 
     }
 

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging.Console;
 using MSLibrary.Thread;
+using MSLibrary.Serializer;
 
 namespace DCEM.ConsoleApp
 {
@@ -11,6 +13,7 @@ namespace DCEM.ConsoleApp
     {
         async static Task  Main(string[] args)
         {
+
             MemoryCache cache = new MemoryCache(new MemoryCacheOptions()
             {
                 SizeLimit = 1
@@ -80,5 +83,11 @@ namespace DCEM.ConsoleApp
     public class CacheItem
     {
         public int Number { get; set; }
+    }
+
+    public enum E
+    {
+        A=0,
+        B=1
     }
 }

@@ -9,7 +9,7 @@ namespace MSLibrary.Context
     /// <summary>
     /// 基于声明的上下文生成器仓储
     /// </summary>
-    [Injection(InterfaceType = typeof(IClaimContextGeneratorRepository), Scope = InjectionScope.Singleton)]
+   /* [Injection(InterfaceType = typeof(IClaimContextGeneratorRepository), Scope = InjectionScope.Singleton)]
     public class ClaimContextGeneratorRepository : IClaimContextGeneratorRepository
     {
         /// <summary>
@@ -28,5 +28,5 @@ namespace MSLibrary.Context
 
             return await Task.FromResult(claimContextGenerator);
         }
-    }
+    }*/
 }

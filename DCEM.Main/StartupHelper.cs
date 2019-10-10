@@ -5,12 +5,20 @@ using System.Text;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using MSLibrary;
 using MSLibrary.Configuration;
 using MSLibrary.DI;
 using MSLibrary.Context;
+using MSLibrary.Context.HttpClaimGeneratorServices;
 using MSLibrary.Xrm;
+using MSLibrary.Logger;
+using MSLibrary.Logger.LoggingBuilderProviderHandlers;
+using DCEM.Main;
 using DCEM.Main.Context;
+using DCEM.Main.Context.HttpClaimGeneratorServices;
+using DCEM.Main.Context.ClaimContextGeneratorServices;
+using System.Net.Http;
 
 namespace DCEM.Main
 {
@@ -23,21 +31,29 @@ namespace DCEM.Main
         /// <paramref name="environmentName">当前环境名称</paramref>
         /// <paramref name="fileBaseUrl">配置文件基地址</paramref>
         /// </summary>
-        public static void InitConfigurationContainer(string environmentName, string fileBaseUrl)
+        public static void InitConfigurationContainer(string environmentName,string fileBaseUrl)
         {
-            var appConfigurationUri = $"{fileBaseUrl}{Path.DirectorySeparatorChar}Configurations{Path.DirectorySeparatorChar}configuration-{environmentName}.json";
+            var appConfigurationUri = $"{fileBaseUrl}{Path.DirectorySeparatorChar}Configurations{Path.DirectorySeparatorChar}app-{environmentName}.json";
 
             if (!File.Exists(appConfigurationUri))
             {
-                appConfigurationUri = $"{fileBaseUrl}{Path.DirectorySeparatorChar}Configurations{Path.DirectorySeparatorChar}configuration.json";
+                appConfigurationUri= $"{fileBaseUrl}{Path.DirectorySeparatorChar}Configurations{Path.DirectorySeparatorChar}app.json";
             }
 
             var hostConfigurationUri = $"{fileBaseUrl}{Path.DirectorySeparatorChar}Configurations{Path.DirectorySeparatorChar}host-{environmentName}.json";
 
-            if (!File.Exists(appConfigurationUri))
+            if (!File.Exists(hostConfigurationUri))
             {
                 hostConfigurationUri = $"{fileBaseUrl}{Path.DirectorySeparatorChar}Configurations{Path.DirectorySeparatorChar}host.json";
             }
+
+            var loggerConfigurationUri = $"{fileBaseUrl}{Path.DirectorySeparatorChar}Configurations{Path.DirectorySeparatorChar}logger-{environmentName}.json";
+
+            if (!File.Exists(loggerConfigurationUri))
+            {
+                loggerConfigurationUri = $"{fileBaseUrl}{Path.DirectorySeparatorChar}Configurations{Path.DirectorySeparatorChar}logger.json";
+            }
+
 
 
             ConfigurationContainer.Container = new ConfigurationContainerDefault();
@@ -52,11 +68,21 @@ namespace DCEM.Main
                 .AddJsonFile(hostConfigurationUri, optional: true, reloadOnChange: true)
                 .Build();
 
+            var loggerConfiguration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile(loggerConfigurationUri, optional: true, reloadOnChange: true)
+                .Build();
+
             //向配置容器增加主机配置信息
             ConfigurationContainer.Add(ConfigurationNames.Host, hostConfiguration);
-
+            
             //向配置容器增加主配置
             ConfigurationContainer.Add(ConfigurationNames.Application, configuration);
+
+            //向配置容器增加日志配置
+            ConfigurationContainer.Add(ConfigurationNames.Logger, configuration);
+
+
 
             //向配置容器增加批处理配置
             //ConfigurationContainer.Add(ConfigurationNames.Schedule, configuration);
@@ -73,10 +99,16 @@ namespace DCEM.Main
             ContextContainer.Current.Register<int>(ContextTypes.CurrentUserTimezoneOffset, new ContextCurrentUserTimezoneOffset());
             ContextContainer.Current.Register<ConcurrentDictionary<string, object>>(ContextTypes.Dictionary, new ContextDictionary());
             ContextContainer.Current.Register<Guid>(ContextExtensionTypes.CurrentUserID, new ContextCurrentUserID());
-
+            ContextContainer.Current.Register<Guid>(ContextExtensionTypes.ParentCommonLogID, new ContextParentCommonLogID());
+            ContextContainer.Current.Register<string>(ContextExtensionTypes.ParentCommonLogActionName, new ContextParentCommonLogActionName());
+            ContextContainer.Current.Register<string>(ContextExtensionTypes.ParentCommonLogContextInfo, new ContextParentCommonLogContextInfo());
+            ContextContainer.Current.Register<Guid>(ContextExtensionTypes.PreCommonLogLevelID, new ContextCommonLogPreLevelID());
+            ContextContainer.Current.Register<Guid>(ContextExtensionTypes.CurrentCommonLogLevelID, new ContextCommonLogCurrentLevelID());
 
         }
-         
+
+
+
         /// <summary>
         /// 初始化DI容器
         /// 自动装载被标识的对象
@@ -85,7 +117,8 @@ namespace DCEM.Main
         /// <param name="dISetting"></param>
         public static void InitDI(IServiceCollection serviceCollection, DISetting dISetting)
         {
-
+            serviceCollection.AddHttpClient();
+            
             DIContainerContainer.DIContainer = new DIContainerDefault(serviceCollection, serviceCollection.BuildServiceProvider());
             DIContainerInit.Init = new DIContainerInitDefault();
             DIContainerInit.Execute(dISetting.SearchAssemblyNames);
@@ -103,7 +136,36 @@ namespace DCEM.Main
         /// </summary>
         public static void InitStaticInfo()
         {
-            CrmServiceFactoryRepositoryHelper.Repository = DIContainerContainer.Get<ICrmServiceFactoryRepository>();
+            //为HttpClinetHelper的HttpClientFactory赋值
+            HttpClinetHelper.HttpClientFactory = DIContainerContainer.Get<IHttpClientFactory>();
+
+            //CrmServiceFactoryRepositoryHelper.Repository = DIContainerContainer.Get<ICrmServiceFactoryRepository>();
+            //为日志构建器处理的提供方处理工厂赋值
+            LoggingBuilderHandlerDefault.ProviderHandlerFactories[LoggerProviderHandlerNames.ApplicationInsights]=DIContainerContainer.Get<LoggingBuilderProviderHandlerForApplicationInsightsFactory>();
+            LoggingBuilderHandlerDefault.ProviderHandlerFactories[LoggerProviderHandlerNames.Console]= DIContainerContainer.Get<LoggingBuilderProviderHandlerForConsoleFactory>();
+            LoggingBuilderHandlerDefault.ProviderHandlerFactories[LoggerProviderHandlerNames.CommonLog]= DIContainerContainer.Get<LoggingBuilderProviderHandlerForCommonLogFactory>();
+            LoggingBuilderHandlerDefault.ProviderHandlerFactories[LoggerProviderHandlerNames.CommonLogLocal]=DIContainerContainer.Get<LoggingBuilderProviderHandlerForCommonLogFactory>();
+
+            //为HttpClaimGeneratorIMP.HttpClaimGeneratorServiceFactories增加键值对
+            HttpClaimGeneratorIMP.HttpClaimGeneratorServiceFactories[HttpClaimGeneratorServiceTypes.Inner]= DIContainerContainer.Get<HttpClaimGeneratorServiceForInnerFactory>();
+
+            //为ClaimContextGeneratorIMP.ClaimContextGeneratorServiceFactories增加键值对
+            ClaimContextGeneratorIMP.ClaimContextGeneratorServiceFactories[ClaimContextGeneratorServiceTypes.Inner]= DIContainerContainer.Get<ClaimContextGeneratorServiceForInnerFactory>();
+            ClaimContextGeneratorIMP.ClaimContextGeneratorServiceFactories[ClaimContextGeneratorServiceTypes.Default] = DIContainerContainer.Get<ClaimContextGeneratorServiceForDefaultFactory>();
+
+
+        }
+
+        /// <summary>
+        /// 初始化日志
+        /// </summary>
+        /// <param name="builder"></param>
+        public static void InitLogger(ILoggingBuilder builder)
+        {
+           var mainHandler=  DIContainerContainer.Get<ILoggingBuilderHandler>();
+            var loggerConfiguration = ConfigurationContainer.Get<LoggerConfiguration>(ConfigurationNames.Logger);
+
+            mainHandler.Execute(builder, loggerConfiguration).Wait();
         }
 
     }

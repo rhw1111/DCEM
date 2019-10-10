@@ -50,7 +50,7 @@ namespace MSLibrary.SerialNumber.DAL
         {
             record.Value = 1;
 
-            var storeInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService, _hashGroupName, record.Prefix);
+            var storeInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService,_hashGroupRepository, _hashGroupName, record.Prefix);
 
             if (!storeInfo.TableNames.TryGetValue(HashEntityNames.SerialNumber, out string tableName))
             {
@@ -160,7 +160,7 @@ namespace MSLibrary.SerialNumber.DAL
 
         public async Task UpdateValue(SerialNumberRecord record)
         {
-            var storeInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService, _hashGroupName, record.Prefix);
+            var storeInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService,_hashGroupRepository, _hashGroupName, record.Prefix);
 
             if (!storeInfo.TableNames.TryGetValue(HashEntityNames.SerialNumber, out string tableName))
             {
@@ -217,7 +217,7 @@ namespace MSLibrary.SerialNumber.DAL
         {
             SerialNumberRecord record = null;
 
-            var storeInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService, _hashGroupName, prefix);
+            var storeInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService,_hashGroupRepository, _hashGroupName, prefix);
 
             if (!storeInfo.TableNames.TryGetValue(HashEntityNames.SerialNumber, out string tableName))
             {

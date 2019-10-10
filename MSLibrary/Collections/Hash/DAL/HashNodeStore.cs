@@ -37,17 +37,33 @@ namespace MSLibrary.Collections.Hash.DAL
                 using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
-                    CommandType = CommandType.StoredProcedure,
-                    CommandText = "dbo.core_HashNodeAdd",
+                    CommandType = CommandType.Text,
                     Transaction = sqlTran
                 })
                 {
-
-
-
                     SqlParameter parameter;
+
                     if (node.ID != Guid.Empty)
                     {
+                        commond.CommandText = @"
+                                                INSERT INTO [dbo].[HashNode](
+                                                        [id]
+                                                        ,[groupid]
+                                                        ,[code]
+                                                        ,[status]
+                                                        ,[createtime]
+                                                        ,[modifytime]
+                                                        )
+                                                VALUES(
+                                                         @id
+                                                        ,@groupid
+                                                        ,@code
+                                                        ,@status
+                                                        ,GETUTCDATE()
+                                                        ,GETUTCDATE()
+                                                )	
+                                                SELECT @newid=@id	";
+
                         parameter = new SqlParameter("@id", SqlDbType.UniqueIdentifier)
                         {
                             Value = node.ID
@@ -56,9 +72,32 @@ namespace MSLibrary.Collections.Hash.DAL
                     }
                     else
                     {
-                        parameter = new SqlParameter("@id", SqlDbType.UniqueIdentifier)
+
+                        commond.CommandText = @" 
+                                                INSERT INTO [dbo].[HashNode]
+                                                (
+                                                        [id]
+                                                        ,[groupid]
+                                                        ,[code]
+                                                        ,[status]
+                                                        ,[createtime]
+                                                        ,[modifytime]
+                                                )
+                                                VALUES(
+                                                        DEFAULT
+                                                        ,@groupid
+                                                        ,@code
+                                                        ,@status
+                                                        ,GETUTCDATE()
+                                                        ,GETUTCDATE()
+                                                )
+                                                SELECT @newid=[id] FROM [dbo].[HashNode] 
+                                                WHERE [sequence]=SCOPE_IDENTITY()";
+
+
+                        parameter = new SqlParameter("@newid", SqlDbType.UniqueIdentifier)
                         {
-                            Value = DBNull.Value
+                            Direction = ParameterDirection.Output
                         };
                         commond.Parameters.Add(parameter);
 
@@ -84,20 +123,12 @@ namespace MSLibrary.Collections.Hash.DAL
                     commond.Parameters.Add(parameter);
 
 
-
-                    parameter = new SqlParameter("@newid", SqlDbType.UniqueIdentifier)
-                    {
-                        Direction = ParameterDirection.Output
-                    };
-                    commond.Parameters.Add(parameter);
-
-
                     commond.Prepare();
 
 
 
-                        await commond.ExecuteNonQueryAsync();
-                
+                    await commond.ExecuteNonQueryAsync();
+
 
 
                     if (node.ID == Guid.Empty)
@@ -123,9 +154,10 @@ namespace MSLibrary.Collections.Hash.DAL
                 using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
-                    CommandType = CommandType.StoredProcedure,
+                    CommandType = CommandType.Text,
                     Transaction = sqlTran,
-                    CommandText = @"dbo.core_HashNodeDelete"
+                    CommandText = @"DELETE FROM [dbo].[HashNode]		  
+		                            WHERE [id]=@id AND groupid=@groupid"
                 })
                 {
 
@@ -146,8 +178,8 @@ namespace MSLibrary.Collections.Hash.DAL
                     commond.Prepare();
 
 
-                        await commond.ExecuteNonQueryAsync();
-                
+                    await commond.ExecuteNonQueryAsync();
+
 
 
                 }
@@ -319,7 +351,7 @@ namespace MSLibrary.Collections.Hash.DAL
                         command.Parameters.Add(parameter);
                         command.Prepare();
                         SqlDataReader reader = null;
-    
+
                         using (reader = await command.ExecuteReaderAsync())
                         {
                             if (await reader.ReadAsync())
@@ -1520,8 +1552,12 @@ namespace MSLibrary.Collections.Hash.DAL
                 using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
-                    CommandType = CommandType.StoredProcedure,
-                    CommandText = "dbo.core_HashNodeUpdate",
+                    CommandType = CommandType.Text,
+                    CommandText = @" UPDATE [dbo].[HashNode] 
+                                     SET[groupid] = @groupid,
+                                        [code] = @code,
+                                        [modifytime] = GETUTCDATE() 
+                                     WHERE[id] = @id",
                     Transaction = sqlTran
                 })
                 {
@@ -1595,8 +1631,11 @@ namespace MSLibrary.Collections.Hash.DAL
                 using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
-                    CommandType = CommandType.StoredProcedure,
-                    CommandText = "dbo.core_HashNodeUpdateStatus",
+                    CommandType = CommandType.Text,
+                    CommandText = @"UPDATE [dbo].[HashNode]
+		                            SET [status]=@status
+                                    ,[modifytime]=GETUTCDATE()
+		                            WHERE [id]=@nodeid",
                     Transaction = sqlTran
                 })
                 {

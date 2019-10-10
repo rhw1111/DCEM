@@ -15,7 +15,7 @@ using MSLibrary.DI;
 namespace MSLibrary.Context.Middleware
 {
     /// <summary>
-    /// 系统身份授权中间件
+    /// 系统身份认中间件
     /// 根据传入的指定声明生成器名称执行指定的生成器，
     /// 将结果赋值Http上下文中的User属性
     /// </summary>
@@ -33,14 +33,12 @@ namespace MSLibrary.Context.Middleware
         /// </summary>
         /// <param name="next"></param>
         /// <param name="generatorName">声明生成器名称</param>
-        /// <param name="errorCatalogName">错误日志的目录名称</param>
         /// <param name="loggerFactory">日志工厂</param>
         /// <param name="appSystemAuthentication"></param>
-        public SystemAuthentication(RequestDelegate next,string generatorName,string errorCatalogName,ILoggerFactory loggerFactory, IAppSystemAuthentication appSystemAuthentication)
+        public SystemAuthentication(RequestDelegate next,string generatorName,ILoggerFactory loggerFactory, IAppSystemAuthentication appSystemAuthentication)
         {
             _nextMiddleware = next;
             _generatorName = generatorName;
-            _errorCatalogName = errorCatalogName;
             _loggerFactory = loggerFactory;
             _appSystemAuthentication = appSystemAuthentication;
         }
@@ -55,7 +53,7 @@ namespace MSLibrary.Context.Middleware
             using (var diContainer = DIContainerContainer.CreateContainer())
             {
                 var loggerFactory = diContainer.Get<ILoggerFactory>();
-                logger = loggerFactory.CreateLogger(_errorCatalogName);
+                logger = loggerFactory.CreateLogger(_generatorName);
             }
 
 

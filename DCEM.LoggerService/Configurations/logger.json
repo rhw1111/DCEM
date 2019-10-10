@@ -1,0 +1,13 @@
+{
+  "GlobalLogLevels": {
+    "DCEM.LoggerService": "0"
+  },
+  "Providers": {
+    "CommonLogLocal": {
+      "Configuration": null,
+      "LogLevels": {
+        "DCEM.LoggerService": "0"
+      }
+    }
+  }
+}

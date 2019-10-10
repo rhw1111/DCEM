@@ -9,7 +9,7 @@ namespace MSLibrary.Context
     /// <summary>
     /// 基于Http的声明生成器仓储
     /// </summary>
-    [Injection(InterfaceType = typeof(IHttpClaimGeneratorRepository), Scope = InjectionScope.Singleton)]
+    /*[Injection(InterfaceType = typeof(IHttpClaimGeneratorRepository), Scope = InjectionScope.Singleton)]
     public class HttpClaimGeneratorRepository : IHttpClaimGeneratorRepository
     {
         /// <summary>
@@ -28,5 +28,5 @@ namespace MSLibrary.Context
 
             return await Task.FromResult(generator);
         }
-    }
+    }*/
 }

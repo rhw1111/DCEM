@@ -388,6 +388,13 @@ namespace MSLibrary
         /// {1}为策略服务实际类型
         /// </summary>
         public const string HashGroupStrategyServiceFactoryTypeError = "HashGroupStrategyServiceFactoryTypeError";
+
+        /// <summary>
+        /// 找不到指定名称的远程服务描述
+        /// 格式为“找不到名称为{0}的远程服务描述”
+        /// {0}：远程服务名称
+        /// </summary>
+        public const string NotFoundRemoteServiceDescriptionByName = "NotFoundRemoteServiceDescriptionByName";
         /// <summary>
         /// 找不到指定前缀的序列号记录
         /// 格式为“前缀为{0}的序列号记录不存在”
@@ -523,6 +530,41 @@ namespace MSLibrary
         /// {0}为系统登陆终结点名称
         /// </summary>
         public const string NotFoundSystemLoginEndpointByName = "NotFoundSystemLoginEndpointByName";
+        /// <summary>
+        /// 找不到指定类型的身份信息Http头生成服务
+        /// 格式为“找不到类型为{0}的身份信息Http头生成服务，发生位置：{1}”
+        /// {0}：对应生成器类型
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFoundAuthInfoHttpHeaderGeneratorServiceByType = "NotFoundAuthInfoHttpHeaderGeneratorServiceByType";
+        /// <summary>
+        /// 找不到指定类型的远程服务验证信息生成服务
+        /// 格式为“找不到类型为{0}的远程服务验证信息生成服务，发生位置：{1}”
+        /// {0}：远程服务验证信息生成服务类型
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFoundRemoteServiceAuthInfoGeneratorServiceByType = "NotFoundRemoteServiceAuthInfoGeneratorServiceByType";
+        /// <summary>
+        /// 找不到指定类型的声明上下文生成服务
+        /// 格式为“找不到类型为{0}的声明上下文生成服务，发生位置:{1}”
+        /// {0}：对应生成器类型
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFoundClaimContextGeneratorServiceByType = "NotFoundClaimContextGeneratorServiceByType";
+
+        /// <summary>
+        /// 找不到指定类型的Http声明生成服务
+        /// 格式为“找不到类型为{0}的Http声明生成服务，发生位置:{1}”
+        /// {0}：对应生成器类型
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFoundHttpClaimGeneratorServiceByType = "NotFoundHttpClaimGeneratorServiceByType";
+        /// <summary>
+        /// 找不到指定类型的环境声明生成服务
+        /// 格式为“找不到类型为{0}的环境声明生成服务，发生位置:{1}”
+        /// {0}：对应生成器类型
+        /// </summary>
+        public const string NotFoundEnvironmentClaimGeneratorServiceByType = "NotFoundEnvironmentClaimGeneratorServiceByType";
         /// <summary>
         /// 在指定名称的系统登录终结点中，找不到指定名称的关联认证终结点
         /// 格式为“名称为{0}的系统登录终结点中，找不到名称为{1}的关联认证终结点”
@@ -2049,6 +2091,29 @@ namespace MSLibrary
         /// {1}：发生的位置
         /// </summary>
         public const string NotFoundMatrixDataTypeConvertServiceByType = "NotFoundMatrixDataTypeConvertServiceByType";
+
+        /// <summary>
+        /// 在声明集中找不到指定类型的声明
+        /// 格式为“找不到类型为{0}的声明，发生位置：{1}”
+        /// {0}：指定的声明类型
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFoundTypeInClaims = "NotFoundTypeInClaims";
+
+        /// <summary>
+        /// 找不到指定名称的系统配置
+        /// 格式为“找不到名称为{0}的系统配置”
+        /// {0}：系统配置名称
+        /// </summary>
+        public const string NotFoundSystemConfigurationByName = "NotFoundSystemConfigurationByName";
+        /// <summary>
+        /// 系统配置转换成指定类型失败
+        /// 格式为“系统配置{0}转成类型{1}失败，配置内容为{2}”
+        /// {0}：系统配置名称
+        /// {1}：要转换成的类型
+        /// {2}：配置内容
+        /// </summary>
+        public const string SystemConfigurationConvertTypeFail = "SystemConfigurationConvertTypeFail";
 
         /// <summary>
         /// 找不到指定类型的针对日志提供方的日志构建器处理

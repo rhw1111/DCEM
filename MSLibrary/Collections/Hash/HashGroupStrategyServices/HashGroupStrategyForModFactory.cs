@@ -9,6 +9,11 @@ namespace MSLibrary.Collections.Hash.HashGroupStrategyServices
     public class HashGroupStrategyForModFactory : IFactory<IHashGroupStrategyService>
     {
         private HashGroupStrategyForMod _hashGroupStrategyForMod;
+
+        public HashGroupStrategyForModFactory(HashGroupStrategyForMod hashGroupStrategyForMod)
+        {
+            _hashGroupStrategyForMod = hashGroupStrategyForMod;
+        }
         public IHashGroupStrategyService Create()
         {
             return _hashGroupStrategyForMod;

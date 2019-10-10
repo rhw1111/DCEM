@@ -12,6 +12,7 @@ using MSLibrary.DI;
 using MSLibrary.Logger;
 using MSLibrary.AspNet.Middleware.Application;
 using MSLibrary.Context.Application;
+using MSLibrary.Context;
 
 namespace MSLibrary.AspNet.Middleware
 {
@@ -24,7 +25,7 @@ namespace MSLibrary.AspNet.Middleware
         private RequestDelegate _nextMiddleware;
         private string _name;
         private string _categoryName;
-        ILoggerFactory _loggerFactory;
+        private ILoggerFactory _loggerFactory;
         private IAppHttpContextLogConvert _appHttpContextLogConvert;
         private IAppGetLogExcludePaths _appGetLogExcludePaths;
         private IAppGetOutputStreamReplaceExcludePaths _appGetOutputStreamReplaceExcludePaths;
@@ -47,57 +48,61 @@ namespace MSLibrary.AspNet.Middleware
 
         public async Task Invoke(HttpContext context)
         {
-            using (var diContainer = DIContainerContainer.CreateContainer())
-            {
-                ContextContainer.SetValue<IDIContainer>(_name, diContainer);
-
-                var replaceExcludePaths = await _appGetOutputStreamReplaceExcludePaths.Do();
-                bool needReplace = true;
-                if (context.Request.Path.HasValue)
+            var logger= _loggerFactory.CreateLogger(_categoryName);
+            HttpErrorHelper.ExecuteByHttpContextAsync(context,logger,async()=>
                 {
-                    //检查当前请求路径是否匹配
-                    foreach (var item in replaceExcludePaths)
+                    using (var diContainer = DIContainerContainer.CreateContainer())
                     {
-                        Regex regex = new Regex(item, RegexOptions.IgnoreCase);
-                        if (regex.IsMatch(context.Request.Path.Value))
+                        ContextContainer.SetValue<IDIContainer>(_name, diContainer);
+
+                        var replaceExcludePaths = await _appGetOutputStreamReplaceExcludePaths.Do();
+                        bool needReplace = true;
+                        if (context.Request.Path.HasValue)
                         {
-                            needReplace = false;
-                            break;
+                            //检查当前请求路径是否匹配
+                            foreach (var item in replaceExcludePaths)
+                            {
+                                Regex regex = new Regex(item, RegexOptions.IgnoreCase);
+                                if (regex.IsMatch(context.Request.Path.Value))
+                                {
+                                    needReplace = false;
+                                    break;
+                                }
+                            }
                         }
-                    }
-                }
 
-                if (needReplace)
-                {
-                    Stream originalBody = context.Response.Body;
-                    try
-                    {
-
-                        using (var responseStream = new MemoryStream())
+                        if (needReplace)
                         {
-                            context.Response.Body = responseStream;
+                            Stream originalBody = context.Response.Body;
+                            try
+                            {
+
+                                using (var responseStream = new MemoryStream())
+                                {
+                                    context.Response.Body = responseStream;
 
 
+                                    await InnerInvoke(context);
+
+
+                                    responseStream.Position = 0;
+                                    await responseStream.CopyToAsync(originalBody);
+
+                                }
+                            }
+                            finally
+                            {
+                                context.Response.Body = originalBody;
+                            }
+                        }
+                        else
+                        {
                             await InnerInvoke(context);
-
-
-                            responseStream.Position = 0;
-                            await responseStream.CopyToAsync(originalBody);
-
                         }
-                    }
-                    finally
-                    {
-                        context.Response.Body = originalBody;
-                    }
-                }
-                else
-                {
-                    await InnerInvoke(context);
-                }
 
-            }
+                    }
 
+                });
 
 
         }
@@ -106,7 +111,6 @@ namespace MSLibrary.AspNet.Middleware
 
         private async Task InnerInvoke(HttpContext context)
         {
-
             await _nextMiddleware.Invoke(context);
 
             var excludePaths = await _appGetLogExcludePaths.Do();
@@ -145,9 +149,7 @@ namespace MSLibrary.AspNet.Middleware
                     }
                 }
 
-
-                    LoggerHelper.LogInformation(_categoryName, logObj);
-                
+                LoggerHelper.LogInformation(_categoryName, logObj);
 
             }
 

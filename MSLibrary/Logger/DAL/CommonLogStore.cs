@@ -9,6 +9,7 @@ using MSLibrary.Collections.Hash;
 using MSLibrary.LanguageTranslate;
 using MSLibrary.Transaction;
 using MSLibrary.DAL;
+using MSLibrary.DI;
 
 namespace MSLibrary.Logger.DAL
 {
@@ -16,8 +17,9 @@ namespace MSLibrary.Logger.DAL
     /// 通用日志数据操作
     /// 日志用CommonLog-{parentAction}作为组名称查找哈希组，
     /// 如果找不到，则使用CommonLogDefaultHashGroupName作为组名称查找哈希组，
-    /// 以parentID作为key在找到的哈希组中找到对应的节点信息
+    /// 以parentID作为key在找到的哈希组中找到对应的节点信息    
     /// </summary>
+    [Injection(InterfaceType = typeof(ICommonLogStore), Scope = InjectionScope.Singleton)]
     public class CommonLogStore : ICommonLogStore
     {
 
@@ -78,8 +80,8 @@ namespace MSLibrary.Logger.DAL
              
                     if (log.ID == Guid.Empty)
                     {
-                        command.CommandText = string.Format(@"insert into {0} ([id],[parentid],[previousid],[contextinfo],[actionname],[parentactionname],[requestbody],[requesturi],[message],[root],[level],[createtime],[modifytime])
-                                                values (default,@parentid,@previousid,@contextinfo,@actionname,@parentactionname,@requestbody,@requesturi,@message,@root,@level,GETUTCDATE(),GETUTCDATE()); 
+                        command.CommandText = string.Format(@"insert into {0} ([id],[parentid],[prelevelid],[currentlevelid],[contextinfo],[actionname],[parentactionname],[requestbody],[responsebody],[requesturi],[message],[root],[level],[createtime],[modifytime])
+                                                values (default,@parentid,@prelevelid,@currentlevelid,@contextinfo,@actionname,@parentactionname,@requestbody,@responsebody,@requesturi,@message,@root,@level,GETUTCDATE(),GETUTCDATE()); 
                                                 SELECT @newid=[id] FROM {0} WHERE [sequence]=SCOPE_IDENTITY()", tableNameCommonlog);
 
                         parameter = new SqlParameter("@newid", SqlDbType.UniqueIdentifier)
@@ -90,8 +92,8 @@ namespace MSLibrary.Logger.DAL
                     }
                     else
                     {
-                        command.CommandText = string.Format(@"insert into {0} ([id],[parentid],[previousid],[contextinfo],[actionname],[parentactionname],[requestbody],[requesturi],[message],[root],[level],[createtime],[modifytime])
-                                                VALUES (@id,@parentid,@previousid,@contextinfo,@actionname,@parentactionname,@requestbody,@requesturi,@message,@root,@level,GETUTCDATE(),GETUTCDATE())", tableNameCommonlog);
+                        command.CommandText = string.Format(@"insert into {0} ([id],[parentid],[prelevelid],[currentlevelid],[contextinfo],[actionname],[parentactionname],[requestbody],[responsebody],[requesturi],[message],[root],[level],[createtime],[modifytime])
+                                                VALUES (@id,@parentid,@prelevelid,@currentlevelid,@contextinfo,@actionname,@parentactionname,@requestbody,@responsebody,@requesturi,@message,@root,@level,GETUTCDATE(),GETUTCDATE())", tableNameCommonlog);
 
                         parameter = new SqlParameter("@id", SqlDbType.UniqueIdentifier)
                         {
@@ -107,9 +109,15 @@ namespace MSLibrary.Logger.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@previousid", SqlDbType.UniqueIdentifier)
+                    parameter = new SqlParameter("@prelevelid", SqlDbType.UniqueIdentifier)
                     {
-                        Value = log.PreviousID
+                        Value = log.PreLevelID
+                    };
+                    command.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter("@currentlevelid", SqlDbType.UniqueIdentifier)
+                    {
+                        Value = log.CurrentLevelID
                     };
                     command.Parameters.Add(parameter);
 
@@ -136,6 +144,13 @@ namespace MSLibrary.Logger.DAL
                         Value = log.RequestBody
                     };
                     command.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter("@responsebody", SqlDbType.NVarChar, log.ResponseBody.Length)
+                    {
+                        Value = log.ResponseBody
+                    };
+                    command.Parameters.Add(parameter);
+
 
                     parameter = new SqlParameter("@requesturi", SqlDbType.NVarChar, 500)
                     {
@@ -274,9 +289,9 @@ namespace MSLibrary.Logger.DAL
 
                     if (log.ID == Guid.Empty)
                     {
-                        command.CommandText = string.Format(@"insert into CommonLog_Local ([id],[parentid],[contextinfo],[actionname],[parentactionname],[requestbody],[requesturi],[message],[root],[level],[createtime],[modifytime])
-                                                values (default,@parentid,@contextinfo,@actionname,@parentactionname,@requestbody,@requesturi,@message,@root,@level,GETUTCDATE(),GETUTCDATE()); 
-                                                SELECT @newid=[id] FROM {0} WHERE [sequence]=SCOPE_IDENTITY()");
+                        command.CommandText = string.Format(@"insert into CommonLog_Local ([id],[parentid],[contextinfo],[actionname],[parentactionname],[requestbody],[responsebody],[requesturi],[message],[root],[level],[createtime],[modifytime])
+                                                values (default,@parentid,@contextinfo,@actionname,@parentactionname,@requestbody,@responsebody,@requesturi,@message,@root,@level,GETUTCDATE(),GETUTCDATE()); 
+                                                SELECT @newid=[id] FROM [dbo].[CommonLog_Local] WHERE [sequence]=SCOPE_IDENTITY()");
 
                         parameter = new SqlParameter("@newid", SqlDbType.UniqueIdentifier)
                         {
@@ -286,8 +301,8 @@ namespace MSLibrary.Logger.DAL
                     }
                     else
                     {
-                        command.CommandText = string.Format(@"insert into CommonLog_Local ([id],[parentid],[contextinfo],[actionname],[parentactionname],[requestbody],[requesturi],[message],[root],[level],[createtime],[modifytime])
-                                                VALUES (@id,@parentid,@contextinfo,@actionname,@parentactionname,@requestbody,@requesturi,@message,@root,@level,GETUTCDATE(),GETUTCDATE())");
+                        command.CommandText = string.Format(@"insert into CommonLog_Local ([id],[parentid],[contextinfo],[actionname],[parentactionname],[requestbody],[responsebody],[requesturi],[message],[root],[level],[createtime],[modifytime])
+                                                VALUES (@id,@parentid,@contextinfo,@actionname,@parentactionname,@requestbody,@responsebody,@requesturi,@message,@root,@level,GETUTCDATE(),GETUTCDATE())");
 
                         parameter = new SqlParameter("@id", SqlDbType.UniqueIdentifier)
                         {
@@ -326,6 +341,13 @@ namespace MSLibrary.Logger.DAL
                         Value = log.RequestBody
                     };
                     command.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter("@responsebody", SqlDbType.NVarChar, log.ResponseBody.Length)
+                    {
+                        Value = log.ResponseBody
+                    };
+                    command.Parameters.Add(parameter);
+
 
                     parameter = new SqlParameter("@requesturi", SqlDbType.NVarChar, 500)
                     {
@@ -648,12 +670,13 @@ namespace MSLibrary.Logger.DAL
         }
         private async Task<HashGroup> getHashGroup(string parentAction)
         {
+            var hashGroupRepositoryFactory = HashGroupRepositoryHelperFactory.Create(_hashGroupRepository);
 
-            var group = await HashGroupRepositoryHelper.QueryByName(string.Format(_groupNameFormatting, parentAction));
+            var group = await hashGroupRepositoryFactory.QueryByName(string.Format(_groupNameFormatting, parentAction));
 
             if (group == null)
             {
-                group = await HashGroupRepositoryHelper.QueryByName(_commonLogDefaultHashGroupName);
+                group = await hashGroupRepositoryFactory.QueryByName(_commonLogDefaultHashGroupName);
             }
 
             if (group == null)

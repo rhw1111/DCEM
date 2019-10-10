@@ -29,7 +29,7 @@ namespace MSLibrary.AspNet.Middleware
 
         public async Task Invoke(HttpContext context)
         {
-
+            //context.Features.Get<IEndpointFeature>
             try
             {
                 await _nextMiddleware.Invoke(context);

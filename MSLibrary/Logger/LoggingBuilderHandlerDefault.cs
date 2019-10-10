@@ -12,7 +12,7 @@ namespace MSLibrary.Logger
     /// <summary>
     /// 日志构建器默认处理
     /// </summary>
-    [Injection(InterfaceType = typeof(ILoggerFactoryExtensionHandler), Scope = InjectionScope.Singleton)]
+    [Injection(InterfaceType = typeof(ILoggingBuilderHandler), Scope = InjectionScope.Singleton)]
     public class LoggingBuilderHandlerDefault : ILoggingBuilderHandler
     {
         private static Dictionary<string, IFactory<ILoggingBuilderProviderHandler>> _providerHandlerFactories = new Dictionary<string, IFactory<ILoggingBuilderProviderHandler>>();

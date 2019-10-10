@@ -20,15 +20,17 @@ namespace MSLibrary.Context.Filter
 {
     /// <summary>
     /// 用户授权过滤器
-    /// 负责授权验证、上下文的初始化
-    /// 如果允许匿名，则在用户未验证通过的情况下，初始化管理员上下文
+    /// 负责授权验证、上下文的初始化，按指定的userGeneratorName执行上下文生成
+    /// 如果允许匿名，并且认证未通过，按指定的anonymousGeneratorName执行上下文生成
+    /// 如果directGeneratorName不为空，则忽略其他条件，直接使用该生成器执行上下文生成
     /// </summary>
     [Injection(InterfaceType = typeof(UserAuthorizeFilter), Scope = InjectionScope.Transient)]
     public class UserAuthorizeFilter : AuthorizationFilterBase
     {
         private bool _allowAnonymous;
         private string _userGeneratorName;
-        private string _administratorGeneratorName;
+        private string _anonymousGeneratorName;
+        private string _directGeneratorName;
         private IAppUserAuthorize _appUserAuthorize;
 
         /// <summary>
@@ -44,15 +46,17 @@ namespace MSLibrary.Context.Filter
         /// </summary>
         /// <param name="allowAnonymous">是否允许匿名</param>
         /// <param name="matchPath">匹配的路径</param>
-        /// <param name="userGeneratorName">基于用户声明的上下文生成器的名称</param>
-        /// <param name="administratorGeneratorName">基于管理员的上下文生成器名称</param>
+        /// <param name="userGeneratorName">认证通过时，使用的用户声明上下文生成器的名称</param>
+        /// <param name="anonymousGeneratorName">认证不通过时，如果允许匿名，使用的用户声明上下文生成器名称</param>
+        /// <param name="directGeneratorName">忽略其他条件，直接使用该用户声明上下文生成器名称的生成器来生成上下文</param>
         /// <param name="appUserAuthorize">应用层用户验证应用</param>
 
-        public UserAuthorizeFilter(bool allowAnonymous,string matchPath, string userGeneratorName,string administratorGeneratorName, IAppUserAuthorize appUserAuthorize):base(matchPath)
+        public UserAuthorizeFilter(bool allowAnonymous,string matchPath, string userGeneratorName,string anonymousGeneratorName,string directGeneratorName, IAppUserAuthorize appUserAuthorize):base(matchPath)
         {
             _allowAnonymous = allowAnonymous;
             _userGeneratorName = userGeneratorName;
-            _administratorGeneratorName = administratorGeneratorName;
+            _anonymousGeneratorName = anonymousGeneratorName;
+            _directGeneratorName = directGeneratorName;
             _appUserAuthorize = appUserAuthorize;
         }
 
@@ -70,6 +74,14 @@ namespace MSLibrary.Context.Filter
 
             await HttpErrorHelper.ExecuteByAuthorizationFilterContextAsync(context, logger, async () =>
               {
+                  //如果_directGeneratorName不为空，则直接使用该生成器名称
+                  if (!string.IsNullOrEmpty(_directGeneratorName))
+                  {
+                      var authorizeResult = await _appUserAuthorize.Do(null, _directGeneratorName);
+                      //存储到http上下文中
+                      context.HttpContext.Items["AuthorizeResult"] = authorizeResult;
+                  }
+
                   //判断是否已经通过验证
                   if (context.HttpContext.User != null && context.HttpContext.User.Identity!=null && context.HttpContext.User.Identity.IsAuthenticated && context.HttpContext.User.Claims!=null)
                   {
@@ -83,8 +95,8 @@ namespace MSLibrary.Context.Filter
                   {
                       if (_allowAnonymous)
                       {
-                          //未通过验证，但允许匿名，则调用管理员上下文生成
-                          var authorizeResult = await _appUserAuthorize.Do(null, _administratorGeneratorName);
+                          //未通过验证，但允许匿名，则调用匿名上下文生成
+                          var authorizeResult = await _appUserAuthorize.Do(null, _anonymousGeneratorName);
                           //存储到http上下文中
                           context.HttpContext.Items["AuthorizeResult"] = authorizeResult;
                           //authorizeResult.Execute();

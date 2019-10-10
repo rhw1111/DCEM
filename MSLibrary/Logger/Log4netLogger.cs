@@ -4,7 +4,6 @@ using System.Text;
 using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
 using log4net;
 using log4net.Config;
 using log4net.Repository;
@@ -43,7 +42,7 @@ namespace MSLibrary.Logger
 
         public IDisposable BeginScope<TState>(TState state)
         {
-            return ConsoleLogScope.Push(this._loggerName, state);
+            return (new LoggerExternalScopeProvider()).Push(state);
         }
 
         public bool IsEnabled(LogLevel logLevel)
@@ -72,19 +71,20 @@ namespace MSLibrary.Logger
                     strContent = formatter(state, exception);
                 }
 
-                if (ConsoleLogScope.Current != null)
-                {
+                
+                //if (ConsoleLogScope.Current != null)
+                //{
+                //    strMessage = $@"{_loggerName}[{eventId.Id}]
+                //                    =>{ConsoleLogScope.Current.ToString()}
+                //                    {strContent}              
+                //               ";
+                //}
+                //else
+                //{
                     strMessage = $@"{_loggerName}[{eventId.Id}]
-                                    =>{ConsoleLogScope.Current.ToString()}
                                     {strContent}              
                                ";
-                }
-                else
-                {
-                    strMessage = $@"{_loggerName}[{eventId.Id}]
-                                    {strContent}              
-                               ";
-                }
+                //}
             }
 
 

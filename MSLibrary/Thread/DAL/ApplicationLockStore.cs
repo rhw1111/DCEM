@@ -44,7 +44,7 @@ namespace MSLibrary.Thread.DAL
 
         public async Task Lock(string lockName, int timeout)
         {
-            var storeInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService, _hashGroupName, lockName);
+            var storeInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService,_hashGroupRepository, _hashGroupName, lockName);
 
             if (!storeInfo.TableNames.TryGetValue(HashEntityNames.ApplicationLock, out string tableName))
             {
@@ -149,7 +149,7 @@ namespace MSLibrary.Thread.DAL
 
         public void LockSync(string lockName, int timeout)
         {
-            var storeInfo = StoreInfoHelper.GetHashStoreInfoSync(_storeInfoResolveService, _hashGroupName, lockName);
+            var storeInfo = StoreInfoHelper.GetHashStoreInfoSync(_storeInfoResolveService,_hashGroupRepository, _hashGroupName, lockName);
 
             if (!storeInfo.TableNames.TryGetValue(HashEntityNames.ApplicationLock, out string tableName))
             {
@@ -251,7 +251,7 @@ namespace MSLibrary.Thread.DAL
 
         public async Task UnLock(string lockName)
         {
-            var storeInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService, _hashGroupName, lockName);
+            var storeInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService,_hashGroupRepository, _hashGroupName, lockName);
 
             if (!storeInfo.TableNames.TryGetValue(HashEntityNames.ApplicationLock, out string tableName))
             {
@@ -331,7 +331,7 @@ namespace MSLibrary.Thread.DAL
 
         public void UnLockSync(string lockName)
         {
-            var storeInfo = StoreInfoHelper.GetHashStoreInfoSync(_storeInfoResolveService, _hashGroupName, lockName);
+            var storeInfo = StoreInfoHelper.GetHashStoreInfoSync(_storeInfoResolveService,_hashGroupRepository, _hashGroupName, lockName);
 
             if (!storeInfo.TableNames.TryGetValue(HashEntityNames.ApplicationLock, out string tableName))
             {

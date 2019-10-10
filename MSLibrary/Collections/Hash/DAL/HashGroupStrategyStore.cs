@@ -36,32 +36,72 @@ namespace MSLibrary.Collections.Hash.DAL
                 using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
-                    CommandType = CommandType.StoredProcedure,
-                    CommandText = "dbo.core_HashGroupStrategyAdd",
+                    CommandType = CommandType.Text, 
                     Transaction = sqlTran
                 })
-                {
-
-
-
+                { 
                     SqlParameter parameter;
+
                     if (strategy.ID != Guid.Empty)
                     {
+
+                        commond.CommandText = @"
+                                                insert into [dbo].[HashGroupStrategy](
+                                                    [id]
+                                                    ,[name]
+                                                    ,[strategyservicefactorytype]
+                                                    ,[strategyservicefactorytypeusedi]
+                                                    ,[createtime]
+                                                    ,[modifytime]
+                                                )
+                                                values(
+                                                    @id
+                                                    ,@name
+                                                    ,@strategyservicefactorytype
+                                                    ,@strategyservicefactorytypeusedi
+                                                    ,getutcdate()
+                                                    ,getutcdate()
+                                                ) 
+                                            ";
+
                         parameter = new SqlParameter("@id", SqlDbType.UniqueIdentifier)
                         {
                             Value = strategy.ID
                         };
+
                         commond.Parameters.Add(parameter);
                     }
                     else
                     {
-                        parameter = new SqlParameter("@id", SqlDbType.UniqueIdentifier)
+                        commond.CommandText = @"insert into [dbo].[HashGroupStrategy]
+                                                (
+                                                     [id]
+                                                    ,[name]
+                                                    ,[strategyservicefactorytype]
+                                                    ,[strategyservicefactorytypeusedi]
+                                                    ,[createtime]
+                                                    ,[modifytime]
+                                                )
+                                                values(
+                                                    default
+                                                    ,@name
+                                                    ,@strategyservicefactorytype
+                                                    ,@strategyservicefactorytypeusedi
+                                                    ,getutcdate()
+                                                    ,getutcdate()
+                                                )
+                                                select @newid=[id] from [dbo].[HashGroupStrategy] 
+                                                where [sequence]=SCOPE_IDENTITY()";
+
+                        parameter = new SqlParameter("@newid", SqlDbType.UniqueIdentifier)
                         {
-                            Value = DBNull.Value
+                            Direction = ParameterDirection.Output
                         };
+
                         commond.Parameters.Add(parameter);
 
                     }
+
 
                     parameter = new SqlParameter("@name", SqlDbType.VarChar, 100)
                     {
@@ -82,20 +122,10 @@ namespace MSLibrary.Collections.Hash.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-
-                    parameter = new SqlParameter("@newid", SqlDbType.UniqueIdentifier)
-                    {
-                        Direction = ParameterDirection.Output
-                    };
-                    commond.Parameters.Add(parameter);
-
-
                     commond.Prepare();
 
+                    await commond.ExecuteNonQueryAsync();
 
-
-                        await commond.ExecuteNonQueryAsync();
-                   
 
 
                     if (strategy.ID == Guid.Empty)
@@ -121,9 +151,10 @@ namespace MSLibrary.Collections.Hash.DAL
                 using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
-                    CommandType = CommandType.StoredProcedure,
+                    CommandType = CommandType.Text,
                     Transaction = sqlTran,
-                    CommandText = @"dbo.core_HashGroupStrategyDelete"
+                    CommandText = @"delete from [dbo].[HashGroupStrategy]		  
+		                            where [id]=@id"
                 })
                 {
 
@@ -138,8 +169,8 @@ namespace MSLibrary.Collections.Hash.DAL
                     commond.Prepare();
 
 
-                        await commond.ExecuteNonQueryAsync();
-                 
+                    await commond.ExecuteNonQueryAsync();
+
 
 
                 }
@@ -313,9 +344,14 @@ namespace MSLibrary.Collections.Hash.DAL
                 using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
-                    CommandType = CommandType.StoredProcedure,
+                    CommandType = CommandType.Text,
                     Transaction = sqlTran,
-                    CommandText = @"dbo.core_HashGroupStrategyUpdate"
+                    CommandText = @"update [dbo].[HashGroupStrategy]
+		                              set [name]=@name
+                                        ,[strategyservicefactorytype]=@strategyservicefactorytype
+                                        ,[strategyservicefactorytypeusedi]=@strategyservicefactorytypeusedi
+                                        ,[modifytime]=getutcdate()
+		                              where [id]=@id"
                 })
                 {
 
@@ -347,8 +383,8 @@ namespace MSLibrary.Collections.Hash.DAL
                     commond.Prepare();
 
 
-                        await commond.ExecuteNonQueryAsync();
-                  
+                    await commond.ExecuteNonQueryAsync();
+
 
                 }
             });
