@@ -71,7 +71,7 @@ var Toast = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-title text-center>登录</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n\r\n<ion-content>\r\n  <ion-avatar class=\"logo\">\r\n      <img src=\"assets/img/head_default.jpg\">\r\n  </ion-avatar>\r\n  <ion-list>\r\n      <ion-item>\r\n          <ion-label>用户名：</ion-label>\r\n          <ion-input type=\"text\" placeholder=\"由字母、数字、下划线组成\" [(ngModel)]=\"username\" (ionChange)=\"onChange(1)\" (ionBlur)=\"onBlur()\"></ion-input>\r\n      </ion-item>\r\n      <ion-item>\r\n          <ion-label>密&emsp;码：</ion-label>\r\n          <ion-input type=\"password\" placeholder=\"6-20位数字或字母\" [(ngModel)]=\"password\" (ionChange)=\"onChange(2)\" (ionBlur)=\"onBlur()\"></ion-input>\r\n      </ion-item>\r\n  </ion-list>\r\n  <ion-label *ngIf=\"errorMsg\" class=\"error-message\"> {{errorMsg}} </ion-label>\r\n  <ion-button class=\"login\" (click)=\"_login(username, password)\" color=\"primary\" fill=\"solid\" size=\"default\" type=\"button\" expand=\"block\" [disabled]='!status'> 登录</ion-button>\r\n</ion-content>\r\n\r\n<!-- \r\n<ion-content padding>\r\n\r\n  <ion-list inset>\r\n    <ion-item>\r\n      <ion-input type=\"text\" value=\"admin\" placeholder=\"用户名\" #username></ion-input>\r\n      <ion-icon ios=\"ios-person\" md=\"md-person\" item-end [ngStyle]=\"iconStyle\"></ion-icon>\r\n    </ion-item>\r\n\r\n    <ion-item>\r\n      <ion-input [type]=\"isShow ? 'text':'password'\" value=\"88888\" placeholder=\"密码\" #password></ion-input>\r\n      <ion-icon ios=\"ios-key\" md=\"md-key\" item-end [ngStyle]=\"iconStyle\"></ion-icon>\r\n    </ion-item>\r\n\r\n    <ion-item no-lines>\r\n      <ion-label>\r\n         控制字体图标的显示是由 ios 以及 md 两个属性控制的  \r\n        <ion-icon [ios]=\"isShow ? 'ios-eye' : 'ios-eye-off'\" [md]=\"isShow ? 'md-eye' : 'md-eye-off'\"></ion-icon>\r\n      </ion-label>\r\n      <ion-toggle checked=\"false\" [(ngModel)]=\"isShow\"></ion-toggle>\r\n    </ion-item>\r\n\r\n    <ion-item no-lines>\r\n      <ion-label>记住密码</ion-label>\r\n      <ion-toggle checked=\"false\" [(ngModel)]=\"isRemember\"></ion-toggle>\r\n    </ion-item>\r\n\r\n  </ion-list>\r\n\r\n  <div padding>\r\n    <ion-button (click)=\"_login(username, password)\"  expand=\"block\">登录</ion-button>\r\n  </div>\r\n</ion-content> -->"
+module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-title text-center>登录</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n\r\n<ion-content>\r\n  <ion-avatar class=\"logo\">\r\n      <img src=\"assets/img/head_default.jpg\">\r\n  </ion-avatar>\r\n  <ion-list>\r\n      <ion-item>\r\n          <ion-label>用户名：</ion-label>\r\n          <ion-input type=\"text\" placeholder=\"由字母、数字、下划线组成\" [(ngModel)]=\"username\" (ionChange)=\"onChange(1)\" (ionBlur)=\"onBlur()\" value=\"subuatcrmadmin\"></ion-input>\r\n      </ion-item>\r\n      <ion-item>\r\n          <ion-label>密&emsp;码：</ion-label>\r\n          <ion-input type=\"password\" placeholder=\"6-20位数字或字母\" [(ngModel)]=\"password\" (ionChange)=\"onChange(2)\" (ionBlur)=\"onBlur()\" value=\"P@ssw0rd\"></ion-input>\r\n      </ion-item>\r\n  </ion-list>\r\n  <ion-label *ngIf=\"errorMsg\" class=\"error-message\"> {{errorMsg}} </ion-label>\r\n  <ion-button class=\"login\" (click)=\"_login(username, password)\" color=\"primary\" fill=\"solid\" size=\"default\" type=\"button\" expand=\"block\" [disabled]='!status'> 登录</ion-button>\r\n</ion-content>\r\n\r\n<!-- \r\n<ion-content padding>\r\n\r\n  <ion-list inset>\r\n    <ion-item>\r\n      <ion-input type=\"text\" value=\"admin\" placeholder=\"用户名\" #username></ion-input>\r\n      <ion-icon ios=\"ios-person\" md=\"md-person\" item-end [ngStyle]=\"iconStyle\"></ion-icon>\r\n    </ion-item>\r\n\r\n    <ion-item>\r\n      <ion-input [type]=\"isShow ? 'text':'password'\" value=\"88888\" placeholder=\"密码\" #password></ion-input>\r\n      <ion-icon ios=\"ios-key\" md=\"md-key\" item-end [ngStyle]=\"iconStyle\"></ion-icon>\r\n    </ion-item>\r\n\r\n    <ion-item no-lines>\r\n      <ion-label>\r\n         控制字体图标的显示是由 ios 以及 md 两个属性控制的  \r\n        <ion-icon [ios]=\"isShow ? 'ios-eye' : 'ios-eye-off'\" [md]=\"isShow ? 'md-eye' : 'md-eye-off'\"></ion-icon>\r\n      </ion-label>\r\n      <ion-toggle checked=\"false\" [(ngModel)]=\"isShow\"></ion-toggle>\r\n    </ion-item>\r\n\r\n    <ion-item no-lines>\r\n      <ion-label>记住密码</ion-label>\r\n      <ion-toggle checked=\"false\" [(ngModel)]=\"isRemember\"></ion-toggle>\r\n    </ion-item>\r\n\r\n  </ion-list>\r\n\r\n  <div padding>\r\n    <ion-button (click)=\"_login(username, password)\"  expand=\"block\">登录</ion-button>\r\n  </div>\r\n</ion-content> -->"
 
 /***/ }),
 
@@ -197,8 +197,7 @@ var LoginPage = /** @class */ (function () {
             //密码校验
             //包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符
             //let pwdReg = /^.*(?=.{6,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$/;
-            //6-20个字母、数字、下划线
-            var pwdReg = /^(\w){6,20}$/;
+            var pwdReg = /^.*(?=.{6,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$/;
             if (this.password.length < 6 || this.password.length > 20) {
                 this.pwdMsg = '密码长度为6~20位';
             }
@@ -232,15 +231,24 @@ var LoginPage = /** @class */ (function () {
     };
     LoginPage.prototype._login = function (username, password) {
         var _this = this;
-        var userinfo = '用户名：' + username.value + '密码：' + password.value;
-        this.httpService.GET("/api/AliOss/Get", userinfo, function (authtoken) {
-            if (authtoken != "") {
-                _this.authService.login(authtoken);
-                _this.httpService.showLoading('登录成功，数据加载中...');
-                _this.navCtrl.navigateForward('tabs');
+        var userinfo = 'username=' + username + '&password=' + password;
+        console.log("开始登录" + username + " " + password);
+        this.httpService.showLoading('正在登录...');
+        this.httpService.GET("/api/Account/GetAuthToken?" + userinfo, null, function (res, err) {
+            _this.httpService.hideLoading();
+            console.log("请求成功:" + res + " error:" + err);
+            if (res != null) {
+                if (res.access_token != null && res.access_token != "") {
+                    _this.authService.login(res.access_token);
+                    _this.httpService.showLoading('登录成功，数据加载中...');
+                    _this.navCtrl.navigateForward('tabs');
+                }
+                else {
+                    _this.httpService.presentToastError("账户或密码错误!");
+                }
             }
             else {
-                _this.httpService.presentToastWarning("账户或密码错误!");
+                _this.httpService.presentToastError("登录失败!");
             }
         });
         // if(true){

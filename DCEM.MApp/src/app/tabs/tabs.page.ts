@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TabsPage implements OnInit {
 
+  private num:number=0;
   constructor() { }
 
   ngOnInit() {

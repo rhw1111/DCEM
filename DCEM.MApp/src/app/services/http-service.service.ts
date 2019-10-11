@@ -221,8 +221,8 @@ export class HttpService {
     if (!this.isLoadingOpen) {
       const loading = await this.loadingCtrl.create({
         message: content,
-        duration:500,
-        translucent: true
+        duration: 300,
+        translucent: false
       });
       console.log('showLoading....');
       return await loading.present();
@@ -242,12 +242,12 @@ export class HttpService {
    * Toast 提示
    * @param message 
    */
-  async presentToastWarning(message) {
+  async presentToastError(message) {
     const toast = await this.toastCtrl.create({
       message: message,
       duration: 2000,
-      color:"warning",
-      position:"middle"
+      color:"danger",
+      position:"top"
     });
     toast.present();
   }

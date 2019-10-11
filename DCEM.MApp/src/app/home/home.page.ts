@@ -73,4 +73,7 @@ export class HomePage {
     });
   }
 
+  toRedict(url){
+    this.navCtrl.navigateForward(url);
+  }
 }

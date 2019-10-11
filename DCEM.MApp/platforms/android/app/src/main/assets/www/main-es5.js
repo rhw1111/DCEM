@@ -28,6 +28,21 @@ var map = {
 		"./src/app/login/login.module.ts",
 		"login-login-module"
 	],
+	"./report/appointmentstatistics/appointmentstatistics.module": [
+		"./src/app/report/appointmentstatistics/appointmentstatistics.module.ts",
+		"default~report-appointmentstatistics-appointmentstatistics-module~report-appointmenttrend-appointmen~035197bd",
+		"report-appointmentstatistics-appointmentstatistics-module"
+	],
+	"./report/appointmenttrend/appointmenttrend.module": [
+		"./src/app/report/appointmenttrend/appointmenttrend.module.ts",
+		"default~report-appointmentstatistics-appointmentstatistics-module~report-appointmenttrend-appointmen~035197bd",
+		"report-appointmenttrend-appointmenttrend-module"
+	],
+	"./report/testdriverate/testdriverate.module": [
+		"./src/app/report/testdriverate/testdriverate.module.ts",
+		"default~report-appointmentstatistics-appointmentstatistics-module~report-appointmenttrend-appointmen~035197bd",
+		"report-testdriverate-testdriverate-module"
+	],
 	"./tabs/tabs.module": [
 		"./src/app/tabs/tabs.module.ts",
 		"tabs-tabs-module"
@@ -51,7 +66,7 @@ function webpackAsyncContext(req) {
 	}
 
 	var ids = map[req], id = ids[0];
-	return __webpack_require__.e(ids[1]).then(function() {
+	return Promise.all(ids.slice(1).map(__webpack_require__.e)).then(function() {
 		return __webpack_require__(id);
 	});
 }
@@ -522,7 +537,10 @@ var routes = [
     { path: 'tabs', loadChildren: './tabs/tabs.module#TabsPageModule' },
     { path: 'test-drive-add', loadChildren: './test-drive-add/test-drive-add.module#TestDriveAddPageModule' },
     { path: 'test-drive-detail', loadChildren: './test-drive-detail/test-drive-detail.module#TestDriveDetailPageModule' },
-    { path: 'appointment', loadChildren: './appointment/appointment.module#AppointmentPageModule' }
+    { path: 'appointment', loadChildren: './appointment/appointment.module#AppointmentPageModule' },
+    { path: 'appointmentstatistics', loadChildren: './report/appointmentstatistics/appointmentstatistics.module#AppointmentstatisticsPageModule' },
+    { path: 'appointmenttrend', loadChildren: './report/appointmenttrend/appointmenttrend.module#AppointmenttrendPageModule' },
+    { path: 'testdriverate', loadChildren: './report/testdriverate/testdriverate.module#TestdriveratePageModule' }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -678,11 +696,11 @@ __webpack_require__.r(__webpack_exports__);
 var AppConfig = /** @class */ (function () {
     function AppConfig() {
         //设置当前运行环境
-        this.Environment = "localhost";
+        this.Environment = "Dev";
         this.InterfacePreURL = "";
         switch (this.Environment) {
             case 'Dev':
-                this.InterfacePreURL = "";
+                this.InterfacePreURL = "https://subcrmdevapi.sokon.com/dcem";
                 break;
             case 'Sit':
                 this.InterfacePreURL = "";
@@ -1072,8 +1090,8 @@ var HttpService = /** @class */ (function () {
                         if (!!this.isLoadingOpen) return [3 /*break*/, 3];
                         return [4 /*yield*/, this.loadingCtrl.create({
                                 message: content,
-                                duration: 500,
-                                translucent: true
+                                duration: 300,
+                                translucent: false
                             })];
                     case 1:
                         loading = _a.sent();
@@ -1109,7 +1127,7 @@ var HttpService = /** @class */ (function () {
      * Toast 提示
      * @param message
      */
-    HttpService.prototype.presentToastWarning = function (message) {
+    HttpService.prototype.presentToastError = function (message) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var toast;
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
@@ -1117,8 +1135,8 @@ var HttpService = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.toastCtrl.create({
                             message: message,
                             duration: 2000,
-                            color: "warning",
-                            position: "middle"
+                            color: "danger",
+                            position: "top"
                         })];
                     case 1:
                         toast = _a.sent();

@@ -1,6 +1,6 @@
 export class AppConfig {
     //设置当前运行环境
-    private Environment:string="localhost";
+    private Environment:string="Dev";
     public InterfacePreURL:string="";
     //阿里云附件地址
     static OssUrl:string = 'http://ceo-oss.oss-cn-hangzhou.aliyuncs.com';
@@ -13,7 +13,7 @@ export class AppConfig {
     constructor() {
         switch (this.Environment) {
             case 'Dev':
-                this.InterfacePreURL="";
+                this.InterfacePreURL="https://subcrmdevapi.sokon.com/dcem";
                 break;
             case 'Sit':
                 this.InterfacePreURL="";
