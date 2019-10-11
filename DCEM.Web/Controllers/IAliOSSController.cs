@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace DCEM.Web.Controllers
 {
-    [EnableCors("any")]
     [Route("api/AliOss")]
     [ApiController]
     public class IAliOSSController: ControllerBase

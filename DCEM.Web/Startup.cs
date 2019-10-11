@@ -19,6 +19,7 @@ namespace DCEM.Web
         {
             Configuration = configuration;
         }
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
         public IConfiguration Configuration { get; }
 
@@ -26,17 +27,15 @@ namespace DCEM.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddCors(options =>
             {
-                options.AddPolicy("any", builder =>
+                options.AddPolicy(MyAllowSpecificOrigins,
+                builder =>
                 {
-                    builder.AllowAnyOrigin() //允许任何来源的主机访问
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .AllowCredentials();//指定处理cookie
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                 });
             });
+            services.AddMvc(option => option.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,9 +45,9 @@ namespace DCEM.Web
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseRouting();
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseMvc();
-
-            app.UseCors("any");
         }
     }
 }
