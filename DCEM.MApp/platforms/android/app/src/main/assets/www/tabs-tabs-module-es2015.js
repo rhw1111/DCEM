@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-tabs>\r\n  <ion-tab-bar slot=\"bottom\">\r\n      <ion-tab-button tab=\"home\">\r\n          <ion-icon name=\"home\"></ion-icon>\r\n          <ion-label>首页</ion-label>\r\n      </ion-tab-button>\r\n      <ion-tab-button tab=\"appointment\">\r\n        <ion-icon name=\"mail\"></ion-icon>\r\n          <ion-label>我的任务</ion-label>\r\n          <ion-badge color=\"danger\" >10</ion-badge>\r\n      </ion-tab-button>\r\n      <ion-tab-button tab=\"analytics\">\r\n          <ion-icon name=\"analytics\"></ion-icon>\r\n          <ion-label>统计报表</ion-label>\r\n      </ion-tab-button>\r\n  </ion-tab-bar>\r\n</ion-tabs>"
+module.exports = "<ion-tabs>\r\n  <ion-tab-bar slot=\"bottom\">\r\n      <ion-tab-button tab=\"home\">\r\n          <ion-icon name=\"home\"></ion-icon>\r\n          <ion-label>首页</ion-label>\r\n      </ion-tab-button>\r\n      <ion-tab-button tab=\"appointment\">\r\n        <ion-icon name=\"mail\"></ion-icon>\r\n          <ion-label>消息</ion-label>\r\n          <ion-badge color=\"danger\" >10</ion-badge>\r\n      </ion-tab-button>\r\n      <ion-tab-button tab=\"analytics\">\r\n          <ion-icon name=\"analytics\"></ion-icon>\r\n          <ion-label>统计报表</ion-label>\r\n      </ion-tab-button>\r\n  </ion-tab-bar>\r\n</ion-tabs>"
 
 /***/ }),
 
@@ -146,6 +146,15 @@ const routes = [
                     }
                 ]
             },
+            // {
+            //     path: 'appointmentstatistics',
+            //     children: [
+            //         {
+            //             path: '',
+            //             loadChildren: '../report/appointmentstatistics/appointmentstatistics.module#AppointmentstatisticsPageModule'
+            //         }
+            //     ]
+            // },
             {
                 path: '',
                 redirectTo: '/tabs/home',

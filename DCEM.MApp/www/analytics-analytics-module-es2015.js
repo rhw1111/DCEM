@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-title>analytics</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-menu-button></ion-menu-button>\r\n        </ion-buttons>\r\n        <ion-title>报表</ion-title>\r\n      </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content fullscreen>\r\n<ion-list>\r\n    <ion-item (click)=\"toRedict('appointmentstatistics')\">\r\n      <ion-icon size=\"large\" slot=\"start\" name=\"stats\"></ion-icon>\r\n      <ion-label>\r\n        <h3>预约统计</h3>\r\n      </ion-label>\r\n      <ion-icon class=\"item-detail-icon ios hydrated\" role=\"img\" aria-label=\"arrow forward\"></ion-icon>\r\n    </ion-item>\r\n    <ion-item (click)=\"toRedict('testdriverate')\">\r\n        <ion-icon size=\"large\" slot=\"start\" name=\"car\" ></ion-icon>\r\n        <ion-label>\r\n          <h3>试驾率</h3>\r\n        </ion-label>\r\n        <ion-icon class=\"item-detail-icon ios hydrated\" role=\"img\" aria-label=\"arrow forward\"></ion-icon>\r\n      </ion-item>\r\n    <ion-item (click)=\"toRedict('appointmenttrend')\">\r\n      <ion-icon size=\"large\" slot=\"start\" name=\"pulse\"></ion-icon>\r\n      <ion-label>\r\n        <h3>预约趋势</h3>\r\n      </ion-label>\r\n      <ion-icon class=\"item-detail-icon ios hydrated\" role=\"img\" aria-label=\"arrow forward\"></ion-icon>\r\n    </ion-item>\r\n</ion-list>\r\n</ion-content>"
 
 /***/ }),
 
@@ -82,20 +82,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AnalyticsPage", function() { return AnalyticsPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+
+
 
 
 let AnalyticsPage = class AnalyticsPage {
-    constructor() { }
+    constructor(navCtrl, router) {
+        this.navCtrl = navCtrl;
+        this.router = router;
+    }
     ngOnInit() {
     }
+    toRedict(url) {
+        this.navCtrl.navigateForward(url);
+    }
 };
+AnalyticsPage.ctorParameters = () => [
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
+];
 AnalyticsPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-analytics',
         template: __webpack_require__(/*! raw-loader!./analytics.page.html */ "./node_modules/raw-loader/index.js!./src/app/analytics/analytics.page.html"),
         styles: [__webpack_require__(/*! ./analytics.page.scss */ "./src/app/analytics/analytics.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
 ], AnalyticsPage);
 
 

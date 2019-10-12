@@ -34,6 +34,15 @@ const routes: Routes = [
                     }
                 ]
             },
+            // {
+            //     path: 'appointmentstatistics',
+            //     children: [
+            //         {
+            //             path: '',
+            //             loadChildren: '../report/appointmentstatistics/appointmentstatistics.module#AppointmentstatisticsPageModule'
+            //         }
+            //     ]
+            // },
             {
                 path: '',
                 redirectTo: '/tabs/home',

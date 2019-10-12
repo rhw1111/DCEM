@@ -44,8 +44,7 @@ export class LoginPage implements OnInit {
       //密码校验
       //包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符
       //let pwdReg = /^.*(?=.{6,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$/;
-      //6-20个字母、数字、下划线
-      let pwdReg = /^(\w){6,20}$/;
+      let pwdReg = /^.*(?=.{6,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$/;
       if (this.password.length < 6 || this.password.length > 20) {
         this.pwdMsg = '密码长度为6~20位';
       } else if (!pwdReg.test(this.password)) {
@@ -77,17 +76,25 @@ export class LoginPage implements OnInit {
   }
 
   _login(username:HTMLInputElement,password:HTMLInputElement ) {
-    let userinfo: string = '用户名：' + username.value  + '密码：' + password.value;  
-    
-    this.httpService.GET("/api/AliOss/Get",userinfo,(authtoken)=>{
-      if(authtoken!=""){
-        this.authService.login(authtoken);
-        this.httpService.showLoading('登录成功，数据加载中...');
-        this.navCtrl.navigateForward('tabs');
+    let userinfo: string = 'username=' + username  + '&password=' + password;  
+    console.log("开始登录"+username+" "+password);
+    this.httpService.showLoading('正在登录...');
+    this.httpService.GET("/api/Account/GetAuthToken?"+userinfo,null,(res,err)=>{
+      this.httpService.hideLoading();
+      console.log("请求成功:"+res+" error:"+err);
+      if(res!=null){
+        if(res.access_token!=null && res.access_token!=""){
+          this.authService.login(res.access_token);
+          this.httpService.showLoading('登录成功，数据加载中...');
+          this.navCtrl.navigateForward('tabs');
+        }
+        else{
+          this.httpService.presentToastError("账户或密码错误!");
+        }
       }
       else{
-        this.httpService.presentToastWarning("账户或密码错误!");
-      }  
+        this.httpService.presentToastError("登录失败!");
+      }          
     });
     
     // if(true){

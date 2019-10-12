@@ -64,6 +64,7 @@ export class AppointmentPage implements OnInit {
   constructor(public router: Router) { }
 
   ngOnInit() {
+    this.enableTemplate('');
   }
 
   addAppointment(){

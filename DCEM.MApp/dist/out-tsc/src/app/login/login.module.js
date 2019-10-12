@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { Toast } from '@ionic-native/toast/ngx';
 import { IonicModule } from '@ionic/angular';
 import { LoginPage } from './login.page';
 const routes = [
@@ -21,7 +22,8 @@ LoginPageModule = tslib_1.__decorate([
             IonicModule,
             RouterModule.forChild(routes)
         ],
-        declarations: [LoginPage]
+        declarations: [LoginPage],
+        providers: [Toast]
     })
 ], LoginPageModule);
 export { LoginPageModule };

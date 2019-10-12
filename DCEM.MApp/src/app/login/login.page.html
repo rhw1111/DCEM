@@ -12,11 +12,11 @@
   <ion-list>
       <ion-item>
           <ion-label>用户名：</ion-label>
-          <ion-input type="text" placeholder="由字母、数字、下划线组成" [(ngModel)]="username" (ionChange)="onChange(1)" (ionBlur)="onBlur()"></ion-input>
+          <ion-input type="text" placeholder="由字母、数字、下划线组成" [(ngModel)]="username" (ionChange)="onChange(1)" (ionBlur)="onBlur()" value="subuatcrmadmin"></ion-input>
       </ion-item>
       <ion-item>
           <ion-label>密&emsp;码：</ion-label>
-          <ion-input type="password" placeholder="6-20位数字或字母" [(ngModel)]="password" (ionChange)="onChange(2)" (ionBlur)="onBlur()"></ion-input>
+          <ion-input type="password" placeholder="6-20位数字或字母" [(ngModel)]="password" (ionChange)="onChange(2)" (ionBlur)="onBlur()" value="P@ssw0rd"></ion-input>
       </ion-item>
   </ion-list>
   <ion-label *ngIf="errorMsg" class="error-message"> {{errorMsg}} </ion-label>
