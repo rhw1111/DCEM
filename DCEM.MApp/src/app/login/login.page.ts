@@ -2,7 +2,9 @@ import { HttpService } from './../services/http-service.service';
 import { Component, OnInit } from '@angular/core';
 import { NavController,NavParams } from '@ionic/angular';
 import { AuthenticationService } from '../services/authentication.service';
+import { AppConfig } from '../app.config';
 //import { Toast } from '@ionic-native/toast/ngx';
+
 
 @Component({
   selector: 'app-login',
@@ -16,11 +18,11 @@ export class LoginPage implements OnInit {
   nameMsg: string = '';
   pwdMsg: string = '';
   status: boolean = false;
+  environment: string ='';
 
   constructor(private navCtrl:NavController,
     private httpService: HttpService,
     private authService:AuthenticationService
-
     ) { }
 
   ngOnInit() {
@@ -77,6 +79,8 @@ export class LoginPage implements OnInit {
   }
 
   _login(username:HTMLInputElement,password:HTMLInputElement ) {
+    debugger;
+    this.httpService.setEnvironmentUrl(this.environment);
     let userinfo: string = 'username=' + username  + '&password='+encodeURIComponent(this.password);  
     console.log("开始登录"+username+" "+password+" 转义后："+encodeURIComponent(this.password));
     this.httpService.showLoading('正在登录...');

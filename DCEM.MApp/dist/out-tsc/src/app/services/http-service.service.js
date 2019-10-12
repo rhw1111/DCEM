@@ -1,7 +1,6 @@
 import * as tslib_1 from "tslib";
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { isObject } from 'util';
 import { LoadingController } from '@ionic/angular';
 import { AppConfig } from '../app.config';
 import { ToastController } from '@ionic/angular';
@@ -17,8 +16,8 @@ let HttpService = class HttpService {
     postForToaken(url, params, successCallback, errorCallback) {
         // 此处使用的post模式为非严格模式，如果要使用严格模式，请把参数放在第二个位置 覆盖null
         return this.http
-            .post(this.InterfacePreURL + url, {
-            params: this.encodeComplexHttpParams(params),
+            .post(this.InterfacePreURL + url, null, {
+            params: this.encodeHttpParams(params),
             headers: this.getHeaders()
         })
             .subscribe((res) => {
@@ -64,54 +63,51 @@ let HttpService = class HttpService {
             callback && callback(null, err);
         });
     }
-    //  将复杂的参数组装成字符串
-    paramsString(params) {
+    // //  将复杂的参数组装成字符串
+    // private paramsString(params: any): string {
+    //   if (!params) return null;
+    //   let str = '';
+    //   for (let key in params) {
+    //     if (params.hasOwnProperty(key)) {
+    //       let value = params[key];
+    //       if (value === null) continue;
+    //       if (Array.isArray(value)) {
+    //         if (value.length === 0) continue;
+    //         for (let index = 0; index < value.length; index++) {
+    //           let k = key + '[' + index + ']';
+    //           let v = value[index];
+    //           if (str.length > 1) str += '&';
+    //           str += k + '=' + v;
+    //         }
+    //       } else if (isObject(value)) {
+    //         for (let subKey in value) {
+    //           if (value.hasOwnProperty(subKey)) {
+    //             let v = value[subKey];
+    //             if (v === null) continue;
+    //             let k = key + '[' + subKey + ']';
+    //             if (str.length > 1) str += '&';
+    //             str += k + '=' + v;
+    //           }
+    //         }
+    //       } else {
+    //         if (str.length > 1) str += '&';
+    //         str += key + '=' + value;
+    //       }
+    //     }
+    //   }
+    //   return str;
+    // }
+    encodeHttpParams(params) {
         if (!params)
             return null;
-        let str = '';
-        for (let key in params) {
-            if (params.hasOwnProperty(key)) {
-                let value = params[key];
-                if (value === null)
-                    continue;
-                if (Array.isArray(value)) {
-                    if (value.length === 0)
-                        continue;
-                    for (let index = 0; index < value.length; index++) {
-                        let k = key + '[' + index + ']';
-                        let v = value[index];
-                        if (str.length > 1)
-                            str += '&';
-                        str += k + '=' + v;
-                    }
-                }
-                else if (isObject(value)) {
-                    for (let subKey in value) {
-                        if (value.hasOwnProperty(subKey)) {
-                            let v = value[subKey];
-                            if (v === null)
-                                continue;
-                            let k = key + '[' + subKey + ']';
-                            if (str.length > 1)
-                                str += '&';
-                            str += k + '=' + v;
-                        }
-                    }
-                }
-                else {
-                    if (str.length > 1)
-                        str += '&';
-                    str += key + '=' + value;
-                }
-            }
-        }
-        return str;
+        return new HttpParams({ fromObject: params });
     }
     //参数封装
     encodeComplexHttpParams(params) {
         if (!params)
             return null;
-        return new HttpParams({ fromString: this.paramsString(params) });
+        //console.log(this.paramsString("请求参数："+this.paramsString(params)));
+        return new HttpParams({ fromString: params });
     }
     /**
      * 处理响应的事件
@@ -125,11 +121,13 @@ let HttpService = class HttpService {
                 callback({ code: res.code, msg: res.msg });
             }
             else {
-                const data = res.data;
-                let errorMsg = '操作失败！';
-                data.map(i => {
-                    errorMsg = i.errorMsg + '\n';
-                });
+                const data = res.datas;
+                let errorMsg = res.message;
+                if (data != null) {
+                    data.map(i => {
+                        errorMsg = i.errorMsg + '\n';
+                    });
+                }
                 callback({ code: res.code, msg: errorMsg });
             }
         }
@@ -166,7 +164,11 @@ let HttpService = class HttpService {
     getHeaders() {
         const token = this.getToken();
         console.log(token);
-        return token ? new HttpHeaders({ token: token }) : null;
+        return token ? new HttpHeaders({
+            token: token,
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Accept': 'application/json'
+        }) : null;
     }
     /*
      * 使用本地缓存的方式来获取token信息
@@ -181,7 +183,7 @@ let HttpService = class HttpService {
     setToken(token) {
         // 目前只解析token字段，缓存先只存该字段
         // JSON.stringify(token)
-        window.localStorage.setItem('auth-token', token.token);
+        window.localStorage.setItem('auth-token', token);
     }
     /**
      * 清理token
@@ -229,6 +231,17 @@ let HttpService = class HttpService {
                 duration: 2000,
                 color: "danger",
                 position: "top"
+            });
+            toast.present();
+        });
+    }
+    presentToastSucess(message) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            const toast = yield this.toastCtrl.create({
+                message: message,
+                duration: 1500,
+                color: "success",
+                position: "middle"
             });
             toast.present();
         });

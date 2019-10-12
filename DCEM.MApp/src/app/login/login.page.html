@@ -18,6 +18,16 @@
           <ion-label>密&emsp;码：</ion-label>
           <ion-input type="password" placeholder="6-20位数字或字母" [(ngModel)]="password" (ionChange)="onChange(2)" (ionBlur)="onBlur()" value="P@ssw0rd"></ion-input>
       </ion-item>
+      <ion-item>
+        <ion-label>登录环境</ion-label>
+        <ion-select value="localhost" okText="确定" cancelText="取消" [(ngModel)]="environment" name="environment" id="environment">
+          <ion-select-option value="localhost">localhost</ion-select-option>
+          <ion-select-option value="Dev">Dev</ion-select-option>
+          <ion-select-option value="Sit">Sit</ion-select-option>
+          <ion-select-option value="Uat">Uat</ion-select-option>
+          <ion-select-option value="Prod">Prod</ion-select-option>
+        </ion-select>
+      </ion-item>
   </ion-list>
   <ion-label *ngIf="errorMsg" class="error-message"> {{errorMsg}} </ion-label>
   <ion-button class="login" (click)="_login(username, password)" color="primary" fill="solid" size="default" type="button" expand="block" [disabled]='!status'> 登录</ion-button>

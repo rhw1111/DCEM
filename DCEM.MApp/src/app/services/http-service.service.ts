@@ -16,7 +16,7 @@ export class HttpService {
     private loadingCtrl: LoadingController,
     private toastCtrl:ToastController
   ) {
-    this.InterfacePreURL=new AppConfig().GetInterfacePreURL();
+
   }
   public postForToaken(
     url: string,
@@ -26,7 +26,7 @@ export class HttpService {
   ): any {
     // 此处使用的post模式为非严格模式，如果要使用严格模式，请把参数放在第二个位置 覆盖null
     return this.http
-      .post(this.InterfacePreURL+url,null, {
+      .post(this.getEnvironmentUrl()+url,null, {
         params: this.encodeHttpParams(params),
         headers: this.getHeaders()
       })
@@ -49,7 +49,7 @@ export class HttpService {
 
   //get数据
   getForToaken(url: string, params?: any): any {
-    return this.http.get(this.InterfacePreURL+url, {
+    return this.http.get(this.getEnvironmentUrl()+url, {
       params: this.encodeComplexHttpParams(params),
       headers: this.getHeaders()
     });
@@ -60,7 +60,7 @@ export class HttpService {
     callback?: (res: any, err: any) => void
   ): void {
     this.http
-      .get(this.InterfacePreURL+url, { params: this.encodeComplexHttpParams(params) })
+      .get(this.getEnvironmentUrl()+url, { params: this.encodeComplexHttpParams(params) })
       .subscribe(
         res => {
           console.log('get res=' + res);
@@ -78,7 +78,7 @@ export class HttpService {
     callback?: (res: any, error: any) => void
   ): void {
     console.log('POST...');
-    this.http.post(this.InterfacePreURL+url, this.encodeComplexHttpParams(params)).subscribe(
+    this.http.post(this.getEnvironmentUrl()+url, this.encodeComplexHttpParams(params)).subscribe(
       (res: any) => {
         console.log('POST res=' + res);
         console.log(res);
@@ -218,6 +218,30 @@ export class HttpService {
     window.localStorage.setItem('auth-token', token);
   }
 
+  getEnvironmentUrl() {
+    return  window.localStorage.getItem('environmenturl');
+  }
+  setEnvironmentUrl(environment) {
+    let url="";
+    switch (environment) {
+      case 'Dev':
+        url="https://subcrmdevapi.sokon.com/dcem";
+          break;
+      case 'Sit':
+        url="https://subcrmdevapi.sokon.com/dcem";
+          break;
+      case 'Uat':
+        url="https://subcrmuatapi.sokon.com/dcem";
+          break;
+      case 'Pro':
+        url="https://mscrm.sokon.com/dcem";
+          break;    
+      default:
+        url="http://localhost:52151";
+          break;
+  }
+    window.localStorage.setItem('environmenturl', url);
+  }
   /**
    * 清理token
    */

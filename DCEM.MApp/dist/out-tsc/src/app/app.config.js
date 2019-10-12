@@ -1,7 +1,7 @@
 export class AppConfig {
     constructor() {
         //设置当前运行环境
-        this.Environment = "Dev";
+        this.Environment = "localhost";
         this.InterfacePreURL = "";
         switch (this.Environment) {
             case 'Dev':

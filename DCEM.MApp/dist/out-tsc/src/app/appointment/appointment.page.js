@@ -1,60 +1,20 @@
 import * as tslib_1 from "tslib";
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpService } from './../services/http-service.service';
+import { NavController } from '@ionic/angular';
 let AppointmentPage = class AppointmentPage {
-    constructor(router) {
+    constructor(router, navCtrl, httpService) {
         this.router = router;
-        this.appointmentList = [
-            {
-                Id: 1,
-                UserName: "张一帆",
-                PhoneNumber: "1802890098",
-                Date: "2019-11-01",
-                StartTime: "14:00:00",
-                EndTime: "17:00:00",
-                VehicleType: "S01",
-                Remark: "试乘试驾",
-                Status: 1
-            },
-            {
-                Id: 2,
-                UserName: "张一帆",
-                PhoneNumber: "1802890098",
-                Date: "2019-11-01",
-                StartTime: "14:00:00",
-                EndTime: "17:00:00",
-                VehicleType: "S01",
-                Remark: "试乘试驾",
-                Status: 0
-            },
-            {
-                Id: 3,
-                UserName: "张一帆",
-                PhoneNumber: "1802890098",
-                Date: "2019-11-01",
-                StartTime: "14:00:00",
-                EndTime: "17:00:00",
-                VehicleType: "S01",
-                Remark: "试乘试驾",
-                Status: 1
-            },
-            {
-                Id: 4,
-                UserName: "张一帆",
-                PhoneNumber: "1802890098",
-                Date: "2019-11-01",
-                StartTime: "14:00:00",
-                EndTime: "17:00:00",
-                VehicleType: "S01",
-                Remark: "试乘试驾",
-                Status: 2
-            }
-        ];
+        this.navCtrl = navCtrl;
+        this.httpService = httpService;
+        this.ListAll = [];
     }
     ngOnInit() {
-        this.enableTemplate('');
+        this.showlist(0);
     }
-    addAppointment() {
+    addTestDrive() {
+        this.navCtrl.navigateForward('test-drive-add');
     }
     showDetail(item) {
         this.router.navigate(['test-drive-detail'], {
@@ -63,37 +23,49 @@ let AppointmentPage = class AppointmentPage {
             }
         });
     }
-    enableTemplate(startID) {
-        this.isTrue = 'true1';
-        this.settabcolor(1);
-    }
-    applicationTemplate(suspend) {
-        this.isTrue = 'true2';
-        this.settabcolor(2);
-    }
-    recordTemplate(record) {
-        this.isTrue = 'true3';
-        this.settabcolor(3);
-    }
-    settabcolor(id) {
-        this.spanColor1 = "";
-        this.spanColor2 = "";
-        this.spanColor3 = "";
-        this.spanColor4 = "";
-        switch (id) {
-            case 1:
-                this.spanColor1 = "success";
-                break;
-            case 2:
-                this.spanColor2 = "success";
-                break;
-            case 3:
-                this.spanColor3 = "success";
-                break;
-            case 4:
-                this.spanColor4 = "success";
-                break;
-        }
+    // enableTemplate(startID: string) {
+    //   this.isTrue = 'true1';
+    //   this.settabcolor(1);
+    // }
+    // applicationTemplate(suspend: string) {
+    //   this.isTrue = 'true2';
+    //   this.settabcolor(2);
+    // }
+    // recordTemplate(record: string) {
+    //   this.isTrue = 'true3';
+    //   this.settabcolor(3);
+    // }
+    showlist(id) {
+        //加载全部试乘试驾
+        // this.httpService.GET("/api/TestDrive/get?status="+id,null,(res,error)=>{
+        //   if(res!=null && res.success==true){
+        //     this.ListAll=res.datas;
+        //   }
+        // });
+        var response = this.httpService.getForToaken("/api/TestDrive/get?status=" + id, null);
+        response.subscribe((res) => {
+            if (res != null && res.success == true) {
+                this.ListAll = res.datas;
+                this.spanColor1 = "";
+                this.spanColor2 = "";
+                this.spanColor3 = "";
+                this.spanColor4 = "";
+                switch (id) {
+                    case 0:
+                        this.spanColor1 = "success";
+                        break;
+                    case 1:
+                        this.spanColor2 = "success";
+                        break;
+                    case 2:
+                        this.spanColor3 = "success";
+                        break;
+                    case 3:
+                        this.spanColor4 = "success";
+                        break;
+                }
+            }
+        });
     }
 };
 AppointmentPage = tslib_1.__decorate([
@@ -102,7 +74,7 @@ AppointmentPage = tslib_1.__decorate([
         templateUrl: './appointment.page.html',
         styleUrls: ['./appointment.page.scss'],
     }),
-    tslib_1.__metadata("design:paramtypes", [Router])
+    tslib_1.__metadata("design:paramtypes", [Router, NavController, HttpService])
 ], AppointmentPage);
 export { AppointmentPage };
 //# sourceMappingURL=appointment.page.js.map

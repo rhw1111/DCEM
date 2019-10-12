@@ -40,7 +40,8 @@ let LoginPage = class LoginPage {
             //密码校验
             //包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符
             //let pwdReg = /^.*(?=.{6,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$/;
-            let pwdReg = /^.*(?=.{6,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$/;
+            //let pwdReg = /^.*(?=.{6,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$/;
+            let pwdReg = /^.*.$/;
             if (this.password.length < 6 || this.password.length > 20) {
                 this.pwdMsg = '密码长度为6~20位';
             }
@@ -73,8 +74,8 @@ let LoginPage = class LoginPage {
         }
     }
     _login(username, password) {
-        let userinfo = 'username=' + username + '&password=' + password;
-        console.log("开始登录" + username + " " + password);
+        let userinfo = 'username=' + username + '&password=' + encodeURIComponent(this.password);
+        console.log("开始登录" + username + " " + password + " 转义后：" + encodeURIComponent(this.password));
         this.httpService.showLoading('正在登录...');
         this.httpService.GET("/api/Account/GetAuthToken?" + userinfo, null, (res, err) => {
             this.httpService.hideLoading();
