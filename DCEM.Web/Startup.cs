@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DCEM.Web.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,6 @@ namespace DCEM.Web
         {
             Configuration = configuration;
         }
-        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
         public IConfiguration Configuration { get; }
 
@@ -29,7 +29,7 @@ namespace DCEM.Web
             services.AddControllers();
             services.AddCors(options =>
             {
-                options.AddPolicy(MyAllowSpecificOrigins,
+                options.AddPolicy("any",
                 builder =>
                 {
                     builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
@@ -46,8 +46,9 @@ namespace DCEM.Web
                 app.UseDeveloperExceptionPage();
             }
             app.UseRouting();
-            app.UseCors(MyAllowSpecificOrigins);
+            app.UseCors("any");
             app.UseMvc();
+           
         }
     }
 }
