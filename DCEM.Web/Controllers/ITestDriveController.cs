@@ -132,9 +132,10 @@ namespace DCEM.Web.Controllers
 
             return res;
         }
+        
         [HttpPost]
         [Route("Add")]
-        public ActionResult<TestDriveResponse> Add(TestDriveModel testdrive)
+        public ActionResult<TestDriveResponse> Add([FromQuery]TestDriveModel testdrive)
         {
 
             var token = string.Empty;
@@ -254,7 +255,7 @@ namespace DCEM.Web.Controllers
         /// <summary>
         /// 状态试驾状态（待确认-0、试驾中-1、已试驾-2）
         /// </summary>        
-        public int Status { get; set; }
+        public int? Status { get; set; }
     }
 
     /// <summary>

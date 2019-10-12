@@ -1,7 +1,9 @@
 import * as tslib_1 from "tslib";
 import { Component } from '@angular/core';
 let TabsPage = class TabsPage {
-    constructor() { }
+    constructor() {
+        this.num = 0;
+    }
     ngOnInit() {
     }
 };

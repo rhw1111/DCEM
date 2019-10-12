@@ -62,9 +62,6 @@ export class HomePage {
 
   }
 
-  addTestDrive(){
-    this.navCtrl.navigateForward('test-drive-add');
-  }
   showDetail(item){
     this.router.navigate(['test-drive-detail'], {
       queryParams: {

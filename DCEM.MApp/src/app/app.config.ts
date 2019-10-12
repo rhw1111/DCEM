@@ -1,6 +1,6 @@
 export class AppConfig {
     //设置当前运行环境
-    private Environment:string="Dev";
+    private Environment:string="localhost";
     public InterfacePreURL:string="";
     //阿里云附件地址
     static OssUrl:string = 'http://ceo-oss.oss-cn-hangzhou.aliyuncs.com';

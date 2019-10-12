@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthenticationService } from './services/authentication.service';
 import { Router } from '@angular/router';
-import { AppConfig } from './app.config';
 let AppComponent = class AppComponent {
     constructor(platform, splashScreen, statusBar, authService, router, menu) {
         this.platform = platform;
@@ -51,7 +50,7 @@ let AppComponent = class AppComponent {
                 console.log(state);
                 if (state) {
                     this.router.navigate(['tabs']);
-                    this.headpicture = AppConfig.OssUrl + "/test.jpg";
+                    this.headpicture = "assets/img/head_default.jpg"; //AppConfig.OssUrl+"/test.jpg";
                 }
                 else {
                     this.router.navigate(['login']);

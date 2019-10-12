@@ -20,6 +20,7 @@ export class AuthenticationService {
   }
 
   login(token) {
+    this.httpService.setToken(token);
     return this.storage.set(TOKEN_KEY, token).then(
       res => {
          this.authenticationState.next(true);
