@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { isObject, isFunction, debug } from 'util';
 import { LoadingController } from '@ionic/angular';
-import { AppConfig } from '../app.config';
+import { AppConfig } from '../../app.config';
 import { ToastController } from '@ionic/angular';
 
 @Injectable({

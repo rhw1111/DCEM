@@ -1,8 +1,8 @@
-import { HttpService } from './../services/http-service.service';
+import { HttpService } from '../../base.ser/http-service.service';
 import { Component, OnInit } from '@angular/core';
 import { NavController,NavParams } from '@ionic/angular';
-import { AuthenticationService } from '../services/authentication.service';
-import { AppConfig } from '../app.config';
+import { AuthenticationService } from '../../base.ser/authentication.service';
+import { AppConfig } from '../../../app.config';
 //import { Toast } from '@ionic-native/toast/ngx';
 
 

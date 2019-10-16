@@ -2,7 +2,7 @@ import { Platform } from '@ionic/angular';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Storage } from '@ionic/storage';
-import { HttpService } from '../services/http-service.service';
+import { HttpService } from './http-service.service';
 
 const TOKEN_KEY = 'auth-token';
 
