@@ -7,39 +7,6 @@
           <ion-title>首页</ion-title>
         </ion-toolbar>
   </ion-header>
-<!-- 
-<ion-content padding>
-     <ion-list auto-hide="false" *ngFor="let r of testDriveList">
-        <ion-item (click)="showDetail(r)">
-            <ion-grid>
-              <ion-row>
-                <ion-col size="9">
-                    <ion-label>
-                      <h3><ion-icon name="timer"></ion-icon>  {{r.Date}}</h3>
-                    </ion-label>
-                </ion-col>
-                <ion-col size="3">
-                    <ion-label>
-                      <h3 *ngIf="r.Status==0">待完成</h3>
-                      <h3 *ngIf="r.Status==1">已完成</h3>
-                      <h3 *ngIf="r.Status==2">已关闭</h3>
-                    </ion-label>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                      <ion-label>
-                        <h2>{{r.UserName}}</h2>
-                        <h3>试驾时间：{{r.StartTime}}-{{r.EndTime}}</h3>
-                        <p>车型：{{r.VehicleType}}</p>
-                      </ion-label>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-item>
-      </ion-list>
-</ion-content> -->
-
 <ion-content fullscreen>
   <ion-list>
       <ion-item (click)="toRedict('appointment')">

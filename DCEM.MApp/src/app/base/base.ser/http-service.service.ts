@@ -93,53 +93,15 @@ export class HttpService {
     );
   }
 
-  // //  将复杂的参数组装成字符串
-  // private paramsString(params: any): string {
-  //   if (!params) return null;
-  //   let str = '';
-  //   for (let key in params) {
-  //     if (params.hasOwnProperty(key)) {
-  //       let value = params[key];
-  //       if (value === null) continue;
-
-  //       if (Array.isArray(value)) {
-  //         if (value.length === 0) continue;
-
-  //         for (let index = 0; index < value.length; index++) {
-  //           let k = key + '[' + index + ']';
-  //           let v = value[index];
-  //           if (str.length > 1) str += '&';
-  //           str += k + '=' + v;
-  //         }
-  //       } else if (isObject(value)) {
-  //         for (let subKey in value) {
-  //           if (value.hasOwnProperty(subKey)) {
-  //             let v = value[subKey];
-  //             if (v === null) continue;
-
-  //             let k = key + '[' + subKey + ']';
-  //             if (str.length > 1) str += '&';
-  //             str += k + '=' + v;
-  //           }
-  //         }
-  //       } else {
-  //         if (str.length > 1) str += '&';
-  //         str += key + '=' + value;
-  //       }
-  //     }
-  //   }
-  //   return str;
-  // }
-
+  //对象参数请求
   private encodeHttpParams(params: any): any {
     if (!params) return null;
     return new HttpParams({fromObject: params});
   }
 
-  //参数封装
+  //字符串参数封装
   private encodeComplexHttpParams(params: any): any {
     if (!params) return null;
-    //console.log(this.paramsString("请求参数："+this.paramsString(params)));
     return new HttpParams({ fromString: params });
   }
 
@@ -217,10 +179,11 @@ export class HttpService {
     // JSON.stringify(token)
     window.localStorage.setItem('auth-token', token);
   }
-
+  //获取接口请求地址
   getEnvironmentUrl() {
     return  window.localStorage.getItem('environmenturl');
   }
+  //跟进环境设置请求地址
   setEnvironmentUrl(environment) {
     let url="";
     switch (environment) {

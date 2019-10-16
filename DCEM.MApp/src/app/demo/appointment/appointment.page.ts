@@ -35,29 +35,8 @@ export class AppointmentPage implements OnInit {
     });
   }
 
-  // enableTemplate(startID: string) {
-  //   this.isTrue = 'true1';
-  //   this.settabcolor(1);
-  // }
-  
-  // applicationTemplate(suspend: string) {
-  //   this.isTrue = 'true2';
-  //   this.settabcolor(2);
-  // }
-  
-  // recordTemplate(record: string) {
-  //   this.isTrue = 'true3';
-  //   this.settabcolor(3);
-  // }
   
   showlist(id){
-    //加载全部试乘试驾
-    // this.httpService.GET("/api/TestDrive/get?status="+id,null,(res,error)=>{
-    //   if(res!=null && res.success==true){
-    //     this.ListAll=res.datas;
-    //   }
-    // });
-
     var response=this.httpService.getForToaken("/api/TestDrive/get?status="+id,null);
     response.subscribe((res)=>{
       if(res!=null && res.success==true){

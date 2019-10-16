@@ -64,7 +64,7 @@ export class AppComponent {
         console.log(state);
         if(state){
           this.router.navigate(['tabs']);
-          this.headpicture="assets/img/head_default.jpg";//AppConfig.OssUrl+"/test.jpg";
+          this.headpicture="assets/img/head_default.jpg";
         }
         else{
           this.router.navigate(['login']);

@@ -18,7 +18,7 @@ export class AuthenticationService {
       this.checkToken();
     });
   }
-
+  //登录设置登录状态
   login(token) {
     this.httpService.setToken(token);
     return this.storage.set(TOKEN_KEY, token).then(
@@ -27,7 +27,7 @@ export class AuthenticationService {
       }
     );
   }
-
+  //注销，清空登录状态
   logout() {
     return this.storage.remove(TOKEN_KEY).then(() => {
       this.authenticationState.next(false);

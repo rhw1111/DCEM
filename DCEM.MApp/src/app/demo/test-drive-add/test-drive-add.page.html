@@ -24,13 +24,11 @@
             </ion-item>
             <ion-item>
               <ion-label>试驾日期<ion-text color="danger">*</ion-text></ion-label>
-            <!-- <ion-datetime value="" placeholder="选择日期"></ion-datetime> -->
             <ion-datetime value="YYYY-MM-DD" display-format="YYYY-MM-DD" picker-format="YYYY-MM-DD" placeholder="选择日期"  [(ngModel)]="CurrentTestDrive.OrderTime" id="OrderTime" name="OrderTime"  ></ion-datetime>
           </ion-item>
             <ion-item>
               <ion-label>试驾时间<ion-text color="danger">*</ion-text></ion-label>
               <ion-datetime value="hh:mm" display-format="hh:mm" picker-format="hh:mm"  placeholder="选择时间段" [(ngModel)]="CurrentTestDrive.TestDriveTimeId" id="TestDriveTimeId" name="TestDriveTimeId"></ion-datetime>
-              <!-- <ion-datetime display-format="h:mm A" picker-format="h:mm A" value="1990-02-19T07:43Z"></ion-datetime> -->
             </ion-item>
             
         <ion-item>

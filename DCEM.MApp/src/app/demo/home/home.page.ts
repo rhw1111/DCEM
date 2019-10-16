@@ -9,55 +9,6 @@ import { Router } from '@angular/router';
 })
 export class HomePage {
 
-  public testDriveList:any=[
-    {
-      Id:1,
-      UserName:"张一帆",
-      PhoneNumber:"1802890098",
-      Date:"2019-11-01",
-      StartTime:"14:00:00",
-      EndTime:"17:00:00",
-      VehicleType:"S01",
-      Remark:"试乘试驾",
-      Status:1
-    },
-    {
-      Id:2,
-      UserName:"张一帆",
-      PhoneNumber:"1802890098",
-      Date:"2019-11-01",
-      StartTime:"14:00:00",
-      EndTime:"17:00:00",
-      VehicleType:"S01",
-      Remark:"试乘试驾",
-      Status:0
-    },
-    {
-      Id:3,
-      UserName:"张一帆",
-      PhoneNumber:"1802890098",
-      Date:"2019-11-01",
-      StartTime:"14:00:00",
-      EndTime:"17:00:00",
-      VehicleType:"S01",
-      Remark:"试乘试驾",
-      Status:1
-    },
-    {
-      Id:4,
-      UserName:"张一帆",
-      PhoneNumber:"1802890098",
-      Date:"2019-11-01",
-      StartTime:"14:00:00",
-      EndTime:"17:00:00",
-      VehicleType:"S01",
-      Remark:"试乘试驾",
-      Status:2
-    }
-  ];
-
-  
-  
   constructor(private navCtrl:NavController,public router: Router) {
 
   }

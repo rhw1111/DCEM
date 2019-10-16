@@ -37,8 +37,6 @@ export class TestDriveAddPage implements OnInit {
     this.CurrentTestDrive.ID="";
     this.CurrentTestDrive.Status=1;
     this.CurrentTestDrive.OrderTime = sd.format(this.CurrentTestDrive.OrderTime, 'YYYY-MM-DD');
-    //this.CurrentTestDrive.OrderTime=this.CurrentTestDrive.OrderTime.toString("yyyy-MM-dd");
-    //this.CurrentTestDrive.TestDriveTimeId="09:10";
     if(erroMessage!="")
     {
       this.httpService.presentToastError(erroMessage);
