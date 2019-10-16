@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../base/base.ser/http-service.service';
+import { HttpService } from '../../base/base.ser/http-service.service';
 import { NavController,NavParams } from '@ionic/angular';
 import sd from 'silly-datetime';
 

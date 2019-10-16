@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpService } from '../base/base.ser/http-service.service';
+import { HttpService } from '../../base/base.ser/http-service.service';
 import { NavController,NavParams } from '@ionic/angular';
 
 @Component({
