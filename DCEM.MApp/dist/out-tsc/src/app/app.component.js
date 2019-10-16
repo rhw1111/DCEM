@@ -1,9 +1,10 @@
 import * as tslib_1 from "tslib";
+var _a, _b, _c, _d, _e;
 import { Component } from '@angular/core';
 import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { AuthenticationService } from './services/authentication.service';
+import { AuthenticationService } from './base/base.ser/authentication.service';
 import { Router } from '@angular/router';
 let AppComponent = class AppComponent {
     constructor(platform, splashScreen, statusBar, authService, router, menu) {
@@ -50,7 +51,7 @@ let AppComponent = class AppComponent {
                 console.log(state);
                 if (state) {
                     this.router.navigate(['tabs']);
-                    this.headpicture = "assets/img/head_default.jpg"; //AppConfig.OssUrl+"/test.jpg";
+                    this.headpicture = "assets/img/head_default.jpg";
                 }
                 else {
                     this.router.navigate(['login']);
@@ -69,12 +70,7 @@ AppComponent = tslib_1.__decorate([
         templateUrl: 'app.component.html',
         styleUrls: ['app.component.scss']
     }),
-    tslib_1.__metadata("design:paramtypes", [Platform,
-        SplashScreen,
-        StatusBar,
-        AuthenticationService,
-        Router,
-        MenuController])
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof Platform !== "undefined" && Platform) === "function" ? _a : Object, typeof (_b = typeof SplashScreen !== "undefined" && SplashScreen) === "function" ? _b : Object, typeof (_c = typeof StatusBar !== "undefined" && StatusBar) === "function" ? _c : Object, AuthenticationService, typeof (_d = typeof Router !== "undefined" && Router) === "function" ? _d : Object, typeof (_e = typeof MenuController !== "undefined" && MenuController) === "function" ? _e : Object])
 ], AppComponent);
 export { AppComponent };
 //# sourceMappingURL=app.component.js.map
