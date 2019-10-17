@@ -1,8 +1,3 @@
-* {
-    margin: 0px;
-    padding: 0px;
-}
-
 ion-list {
     height: 30%;
 
@@ -38,11 +33,4 @@ ion-grid:nth-child(even) {
     }
 }
 
-ion-grid:nth-child(odd) {
-    ion-col {
-        text-align: center;
-        height: 100px;
-        padding: 15px;
 
-    }
-}
