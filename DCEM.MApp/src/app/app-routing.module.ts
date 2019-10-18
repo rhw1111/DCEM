@@ -22,13 +22,20 @@ const routes: Routes = [
                 path: 'home',
                 children: [
                     { path: 'index', loadChildren: './serving/home.com/index/index.module#IndexPageModule' },
-                    { path: 'tabs', loadChildren: './serving/home.com/tabs/tabs.module#TabsPageModule' }
+                    { path: 'tabs', loadChildren: './serving/home.com/tabs/tabs.module#TabsPageModule' },
+                    { path: 'mywork', loadChildren: './serving/home.com/mywork/mywork.module#MyworkPageModule' },
                 ]
             },
-            { path: '', loadChildren: './serving/home.com/tabs/tabs.module#TabsPageModule' }
+            {
+                path: 'mycustomer',
+                children: [
+                    { path: 'list', loadChildren: './serving/my-customer.com/list/list.module#ListPageModule' }
+                ]
+            }
         ],
-    },  { path: 'message', loadChildren: './serving/home.com/message/message.module#MessagePageModule' },
-  { path: 'mywork', loadChildren: './serving/home.com/mywork/mywork.module#MyworkPageModule' }
+    }    //{ path: 'message', loadChildren: './serving/home.com/message/message.module#MessagePageModule' },
+    //{ path: 'mywork', loadChildren: './serving/home.com/mywork/mywork.module#MyworkPageModule' },
+    //{ path: 'list', loadChildren: './serving/my-customer.com/list/list.module#ListPageModule' }
 
 
 

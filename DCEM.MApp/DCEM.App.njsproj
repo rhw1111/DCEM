@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{f26cede4-f02d-4382-a6bd-49c0cb89d2aa}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <ProjectView>ShowAllFiles</ProjectView>
+    <ProjectView>ProjectFiles</ProjectView>
     <StartupFile />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -62,6 +62,8 @@
     <Content Include="src\app\serving\home.com\mywork\mywork.page.scss" />
     <Content Include="src\app\serving\home.com\tabs\tabs.page.html" />
     <Content Include="src\app\serving\home.com\tabs\tabs.page.scss" />
+    <Content Include="src\app\serving\my-customer.com\list\list.page.html" />
+    <Content Include="src\app\serving\my-customer.com\list\list.page.scss" />
     <Content Include="src\assets\img\aperture.png" />
     <Content Include="src\assets\img\avatar-ben.png" />
     <Content Include="src\assets\img\bookshelf.png" />
@@ -120,19 +122,6 @@
     <TypeScriptCompile Include="src\app\demo\test-drive-detail\test-drive-detail.module.ts" />
     <TypeScriptCompile Include="src\app\demo\test-drive-detail\test-drive-detail.page.spec.ts" />
     <TypeScriptCompile Include="src\app\demo\test-drive-detail\test-drive-detail.page.ts" />
-    <TypeScriptCompile Include="src\app\serving\home.com\index\index.module.ts" />
-    <TypeScriptCompile Include="src\app\serving\home.com\index\index.page.spec.ts" />
-    <TypeScriptCompile Include="src\app\serving\home.com\index\index.page.ts" />
-    <TypeScriptCompile Include="src\app\serving\home.com\message\message.module.ts" />
-    <TypeScriptCompile Include="src\app\serving\home.com\message\message.page.spec.ts" />
-    <TypeScriptCompile Include="src\app\serving\home.com\message\message.page.ts" />
-    <TypeScriptCompile Include="src\app\serving\home.com\mywork\mywork.module.ts" />
-    <TypeScriptCompile Include="src\app\serving\home.com\mywork\mywork.page.spec.ts" />
-    <TypeScriptCompile Include="src\app\serving\home.com\mywork\mywork.page.ts" />
-    <TypeScriptCompile Include="src\app\serving\home.com\tabs\tabs.module.ts" />
-    <TypeScriptCompile Include="src\app\serving\home.com\tabs\tabs.page.spec.ts" />
-    <TypeScriptCompile Include="src\app\serving\home.com\tabs\tabs.page.ts" />
-    <TypeScriptCompile Include="src\app\serving\home.com\tabs\tabs.router.module.ts" />
     <TypeScriptCompile Include="src\main.ts" />
     <TypeScriptCompile Include="src\polyfills.ts" />
     <TypeScriptCompile Include="src\test.ts" />
@@ -172,15 +161,12 @@
     <Folder Include="src\app\sales\" />
     <Folder Include="src\app\sales\sales.ser\" />
     <Folder Include="src\app\serving\" />
-    <Folder Include="src\app\serving\home.com\" />
-    <Folder Include="src\app\serving\home.com\index\" />
-    <Folder Include="src\app\serving\home.com\message\" />
-    <Folder Include="src\app\serving\home.com\mywork\" />
-    <Folder Include="src\app\serving\home.com\tabs\" />
     <Folder Include="src\app\serving\mc-order.com\" />
     <Folder Include="src\app\serving\mc-reservation.com\" />
     <Folder Include="src\app\serving\mc-resume.com\" />
     <Folder Include="src\app\serving\my-customer.com\" />
+    <Folder Include="src\app\serving\home.com\" />
+    <Folder Include="src\app\serving\my-customer.com\list\" />
     <Folder Include="src\app\serving\reception-interrogation.com\" />
     <Folder Include="src\app\serving\serving.ser\" />
     <Folder Include="src\app\serving\technical-support.com\" />
