@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{f26cede4-f02d-4382-a6bd-49c0cb89d2aa}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <ProjectView>ShowAllFiles</ProjectView>
+    <ProjectView>ProjectFiles</ProjectView>
     <StartupFile />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -30,6 +30,10 @@
     <Content Include="src\app\app.component.scss" />
     <Content Include="src\app\base\login.com\login\login.page.html" />
     <Content Include="src\app\base\login.com\login\login.page.scss" />
+    <Content Include="src\app\base\uc.com\login\login.page.html" />
+    <Content Include="src\app\base\uc.com\login\login.page.scss" />
+    <Content Include="src\app\base\uc.com\welcome\welcome.page.html" />
+    <Content Include="src\app\base\uc.com\welcome\welcome.page.scss" />
     <Content Include="src\app\demo\analytics\analytics.page.html" />
     <Content Include="src\app\demo\analytics\analytics.page.scss" />
     <Content Include="src\app\demo\appointment\appointment.page.html" />
@@ -50,6 +54,16 @@
     <Content Include="src\app\demo\test-drive-add\test-drive-add.page.scss" />
     <Content Include="src\app\demo\test-drive-detail\test-drive-detail.page.html" />
     <Content Include="src\app\demo\test-drive-detail\test-drive-detail.page.scss" />
+    <Content Include="src\app\serving\home.com\index\index.page.html" />
+    <Content Include="src\app\serving\home.com\index\index.page.scss" />
+    <Content Include="src\app\serving\home.com\message\message.page.html" />
+    <Content Include="src\app\serving\home.com\message\message.page.scss" />
+    <Content Include="src\app\serving\home.com\mywork\mywork.page.html" />
+    <Content Include="src\app\serving\home.com\mywork\mywork.page.scss" />
+    <Content Include="src\app\serving\home.com\tabs\tabs.page.html" />
+    <Content Include="src\app\serving\home.com\tabs\tabs.page.scss" />
+    <Content Include="src\app\serving\my-customer.com\list\list.page.html" />
+    <Content Include="src\app\serving\my-customer.com\list\list.page.scss" />
     <Content Include="src\assets\img\aperture.png" />
     <Content Include="src\assets\img\avatar-ben.png" />
     <Content Include="src\assets\img\bookshelf.png" />
@@ -71,6 +85,12 @@
     <TypeScriptCompile Include="src\app\base\login.com\login\login.module.ts" />
     <TypeScriptCompile Include="src\app\base\login.com\login\login.page.spec.ts" />
     <TypeScriptCompile Include="src\app\base\login.com\login\login.page.ts" />
+    <TypeScriptCompile Include="src\app\base\uc.com\login\login.module.ts" />
+    <TypeScriptCompile Include="src\app\base\uc.com\login\login.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\base\uc.com\login\login.page.ts" />
+    <TypeScriptCompile Include="src\app\base\uc.com\welcome\welcome.module.ts" />
+    <TypeScriptCompile Include="src\app\base\uc.com\welcome\welcome.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\base\uc.com\welcome\welcome.page.ts" />
     <TypeScriptCompile Include="src\app\demo\analytics\analytics.module.ts" />
     <TypeScriptCompile Include="src\app\demo\analytics\analytics.page.spec.ts" />
     <TypeScriptCompile Include="src\app\demo\analytics\analytics.page.ts" />
@@ -123,6 +143,9 @@
     <Folder Include="src\app\base\base.ser\" />
     <Folder Include="src\app\base\login.com\" />
     <Folder Include="src\app\base\login.com\login\" />
+    <Folder Include="src\app\base\uc.com\" />
+    <Folder Include="src\app\base\uc.com\login\" />
+    <Folder Include="src\app\base\uc.com\welcome\" />
     <Folder Include="src\app\demo\" />
     <Folder Include="src\app\demo\analytics\" />
     <Folder Include="src\app\demo\appointment\" />
@@ -142,6 +165,8 @@
     <Folder Include="src\app\serving\mc-reservation.com\" />
     <Folder Include="src\app\serving\mc-resume.com\" />
     <Folder Include="src\app\serving\my-customer.com\" />
+    <Folder Include="src\app\serving\home.com\" />
+    <Folder Include="src\app\serving\my-customer.com\list\" />
     <Folder Include="src\app\serving\reception-interrogation.com\" />
     <Folder Include="src\app\serving\serving.ser\" />
     <Folder Include="src\app\serving\technical-support.com\" />

@@ -69,7 +69,7 @@ export class LoginPage implements OnInit {
                 } else {
                     /* this.presentAlert('消息提示', 'token:' + res.access_token);
                     this.presentAlert('消息提示', '登录认证通过'); */
-                    this.navCtr.navigateRoot('tabs');
+                    this.navCtr.navigateRoot('serving/home/tabs');
                 }
                 loading.then(a => { a.dismiss(); });
             },
