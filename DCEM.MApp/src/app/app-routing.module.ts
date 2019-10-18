@@ -29,25 +29,70 @@ const routes: Routes = [
             {
                 path: 'mycustomer',
                 children: [
-                    { path: 'list', loadChildren: './serving/my-customer.com/list/list.module#ListPageModule' }
+                    { path: 'list', loadChildren: './serving/my-customer.com/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './serving/my-customer.com/detail/detail.module#DetailPageModule' },
+                    { path: 'select', loadChildren: './serving/my-customer.com/select/select.module#SelectPageModule' }
+                ]
+            },
+            {
+                path: 'reservation',
+                children: [
+                    { path: 'list', loadChildren: './serving/mc-reservation.com/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './serving/mc-reservation.com/detail/detail.module#DetailPageModule' },
+                    { path: 'edit', loadChildren: './serving/mc-reservation.com/edit/edit.module#EditPageModule' },
+                    { path: 'success', loadChildren: './serving/mc-reservation.com/success/success.module#SuccessPageModule' },
+                    { path: 'cancel', loadChildren: './serving/mc-reservation.com/cancel/cancel.module#CancelPageModule' },
+                    { path: 'calendar', loadChildren: './serving/mc-reservation.com/calendar/calendar.module#CalendarPageModule' }
+                ]
+            },
+            {
+                path: 'sc',
+                children: [
+                    { path: 'list', loadChildren: './serving/mc-sc.com/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './serving/mc-sc.com/detail/detail.module#DetailPageModule' }
+                ]
+            },
+            {
+                path: 'resume',
+                children: [
+                    { path: 'list', loadChildren: './serving/mc-resume.com/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './serving/mc-resume.com/detail/detail.module#DetailPageModule' },
+                    { path: 'edit', loadChildren: './serving/mc-resume.com/edit/edit.module#EditPageModule' },
+                    { path: 'success', loadChildren: './serving/mc-resume.com/success/success.module#SuccessPageModule' }
+                ]
+            },
+            {
+                path: 'ri',
+                children: [
+                    { path: 'list', loadChildren: './serving/reception-interrogation.com/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './serving/reception-interrogation.com/detail/detail.module#DetailPageModule' },
+                    { path: 'edit', loadChildren: './serving/reception-interrogation.com/edit/edit.module#EditPageModule' }
+                ]
+            },
+            {
+                path: 'ts',
+                children: [
+                    { path: 'list', loadChildren: './serving/technical-support.com/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './serving/technical-support.com/detail/detail.module#DetailPageModule' },
+                    { path: 'edit', loadChildren: './serving/technical-support.com/edit/edit.module#EditPageModule' }
+                ]
+            },
+        ],
+    },
+    {
+        path: 'demo',
+        children: [
+            { path: 'analytics', loadChildren: './demo/analytics/analytics.module#AnalyticsPageModule' },
+            {
+                path: 'report',
+                children: [
+                    { path: 'appointmentstatistics', loadChildren: './demo/report/appointmentstatistics/appointmentstatistics.module#AppointmentstatisticsPageModule' },
+                    { path: 'appointmenttrend', loadChildren: './demo/report/appointmenttrend/appointmenttrend.module#AppointmenttrendPageModule' },
+                    { path: 'testdriverate', loadChildren: './demo/report/testdriverate/testdriverate.module#TestdriveratePageModule' }
                 ]
             }
         ],
-    }    //{ path: 'message', loadChildren: './serving/home.com/message/message.module#MessagePageModule' },
-    //{ path: 'mywork', loadChildren: './serving/home.com/mywork/mywork.module#MyworkPageModule' },
-    //{ path: 'list', loadChildren: './serving/my-customer.com/list/list.module#ListPageModule' }
-
-
-
-
-    //{ path: 'login', loadChildren: './base/login.com/login/login.module#LoginPageModule' },
-    //{ path: 'tabs', loadChildren: './demo/tabs/tabs.module#TabsPageModule' },
-    //{ path: 'test-drive-add', loadChildren: './demo/test-drive-add/test-drive-add.module#TestDriveAddPageModule' },
-    //{ path: 'test-drive-detail', loadChildren: './demo/test-drive-detail/test-drive-detail.module#TestDriveDetailPageModule' },
-    //{ path: 'appointment', loadChildren: './demo/appointment/appointment.module#AppointmentPageModule' },
-    //{ path: 'appointmentstatistics', loadChildren: './demo/report/appointmentstatistics/appointmentstatistics.module#AppointmentstatisticsPageModule' },
-    //{ path: 'appointmenttrend', loadChildren: './demo/report/appointmenttrend/appointmenttrend.module#AppointmenttrendPageModule' },
-    //{ path: 'testdriverate', loadChildren: './demo/report/testdriverate/testdriverate.module#TestdriveratePageModule' }
+    }
 ];
 
 @NgModule({
