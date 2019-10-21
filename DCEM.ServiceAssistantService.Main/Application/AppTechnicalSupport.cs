@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DCEM.ServiceAssistantService.Main.DTOModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,9 +16,9 @@ namespace DCEM.ServiceAssistantService.Main.Application
             _technicalSupportService = technicalSupportService;
         }
 
-        public void QueryListByPage()
+        public IList<TechnicalSupportModel> QueryListByPage(string filterstr, int pageSize, int pageNum, string sort, string token = "")
         {
-            _technicalSupportService.QueryListByPage();
+            return _technicalSupportService.QueryListByPage(filterstr, pageSize, pageNum,  sort, token);
         }
     }
 }
