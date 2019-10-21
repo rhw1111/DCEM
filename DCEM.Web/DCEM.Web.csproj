@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DCEM.ServiceAssistantService.Main\DCEM.ServiceAssistantService.Main.csproj" />
     <ProjectReference Include="..\MSLibrary\MSLibrary.csproj" />
   </ItemGroup>
 

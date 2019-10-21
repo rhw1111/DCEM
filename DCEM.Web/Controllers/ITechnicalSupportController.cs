@@ -9,6 +9,8 @@ using Newtonsoft.Json.Linq;
 using MSLibrary.Serializer;
 using System.Text;
 using System.Net;
+using DCEM.ServiceAssistantService.Main.DAL;
+using DCEM.ServiceAssistantService.Main.Application;
 
 namespace DCEM.Web.Controllers
 {
@@ -17,26 +19,47 @@ namespace DCEM.Web.Controllers
     [ApiController]
     public class ITechnicalSupportController : ControllerBase
     {
-
+        public IAppTechnicalSupport app = null;
+        public ITechnicalSupportController()
+        {
+            if (app == null)
+            {
+                app = new TechnicalSupportFactory().Create().Result;
+            }
+        }
 
 
         // GET api/values
         [HttpGet]
         [Route("GetList")]
-        public ActionResult<TestDriveResponse> GetList(int status)
+        public ActionResult<BaseResponse<TechnicalSupportModel>> GetList()
         {
-            var res = new TestDriveResponse()
+            Request.Headers.TryGetValue("token", out var traceValue);
+            var list = app.QueryListByPage("",10,1, "mcs_supportorderid desc", traceValue);
+            var res = new BaseResponse<TechnicalSupportModel>()
             {
-                Datas = new List<TestDriveModel>(),
+                Datas = new List<TechnicalSupportModel>(),
                 Success = true,
                 Mssage = "查询成功"
             };
             
             return res;
-           
         }
 
     }
 
+    public class TechnicalSupportModel 
+    { 
+
+    }
+
+
+    public class BaseResponse<T>
+    {
+        public List<T> Datas { get; set; }
+
+        public bool Success { get; set; }
+        public string Mssage { get; set; }
+    }
 }
 
