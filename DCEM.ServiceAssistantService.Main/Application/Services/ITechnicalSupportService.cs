@@ -1,5 +1,4 @@
 ﻿using DCEM.ServiceAssistantService.Main.DTOModel;
-using Microsoft.Xrm.Sdk;
 using MSLibrary.Xrm;
 using System;
 using System.Collections.Generic;
