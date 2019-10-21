@@ -33,7 +33,8 @@ const routes: Routes = [
                 ]
             }
         ],
-    }    //{ path: 'message', loadChildren: './serving/home.com/message/message.module#MessagePageModule' },
+    },    { path: 'testpage', loadChildren: './demo/testpage/testpage.module#TestpagePageModule' },
+    //{ path: 'message', loadChildren: './serving/home.com/message/message.module#MessagePageModule' },
     //{ path: 'mywork', loadChildren: './serving/home.com/mywork/mywork.module#MyworkPageModule' },
     //{ path: 'list', loadChildren: './serving/my-customer.com/list/list.module#ListPageModule' }
 
