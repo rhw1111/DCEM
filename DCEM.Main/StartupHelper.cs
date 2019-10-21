@@ -12,8 +12,64 @@ using MSLibrary.DI;
 using MSLibrary.Context;
 using MSLibrary.Context.HttpClaimGeneratorServices;
 using MSLibrary.Xrm;
+using MSLibrary.Xrm.Token;
+using MSLibrary.Xrm.Message;
+using MSLibrary.Xrm.Message.AssociateCollection;
+using MSLibrary.Xrm.Message.AssociateCollectionMultiple;
+using MSLibrary.Xrm.Message.AssociateLookup;
+using MSLibrary.Xrm.Message.Batch;
+using MSLibrary.Xrm.Message.BoundAction;
+using MSLibrary.Xrm.Message.BoundFunction;
+using MSLibrary.Xrm.Message.Create;
+using MSLibrary.Xrm.Message.CreateRetrieve;
+using MSLibrary.Xrm.Message.Delete;
+using MSLibrary.Xrm.Message.DisAssociateCollection;
+using MSLibrary.Xrm.Message.DisAssociateLookup;
+using MSLibrary.Xrm.Message.Retrieve;
+using MSLibrary.Xrm.Message.RetrieveAggregation;
+using MSLibrary.Xrm.Message.RetrieveCollectionAttribute;
+using MSLibrary.Xrm.Message.RetrieveCollectionAttributeAggregation;
+using MSLibrary.Xrm.Message.RetrieveCollectionAttributeReference;
+using MSLibrary.Xrm.Message.RetrieveCollectionAttributeSavedQuery;
+using MSLibrary.Xrm.Message.RetrieveCollectionAttributeUserQuery;
+using MSLibrary.Xrm.Message.RetrieveEntityAttributeMetadata;
+using MSLibrary.Xrm.Message.RetrieveEntityAttributeMetadataMultiple;
+using MSLibrary.Xrm.Message.RetrieveEntityMetadata;
+using MSLibrary.Xrm.Message.RetrieveEntityMetadataMultiple;
+using MSLibrary.Xrm.Message.RetrieveEntityN2NRelationMetadataMultiple;
+using MSLibrary.Xrm.Message.RetrieveEntityO2NRelationMetadataMultiple;
+using MSLibrary.Xrm.Message.RetrieveGlobalOptionSetMetadata;
+using MSLibrary.Xrm.Message.RetrieveLookupAttribute;
+using MSLibrary.Xrm.Message.RetrieveLookupAttributeReference;
+using MSLibrary.Xrm.Message.RetrieveMultiple;
+using MSLibrary.Xrm.Message.RetrieveMultipleFetch;
+using MSLibrary.Xrm.Message.RetrieveMultiplePage;
+using MSLibrary.Xrm.Message.RetrieveMultipleSavedQuery;
+using MSLibrary.Xrm.Message.RetrieveMultipleUserQuery;
+using MSLibrary.Xrm.Message.RetrieveN2NRelationMetadata;
+using MSLibrary.Xrm.Message.RetrieveN2NRelationMetadataMultiple;
+using MSLibrary.Xrm.Message.RetrieveO2NRelationMetadata;
+using MSLibrary.Xrm.Message.RetrieveO2NRelationMetadataMultiple;
+using MSLibrary.Xrm.Message.RetrieveRelationMetadata;
+using MSLibrary.Xrm.Message.RetrieveRelationMetadataMultiple;
+using MSLibrary.Xrm.Message.RetrieveSignleAttribute;
+using MSLibrary.Xrm.Message.UnBoundAction;
+using MSLibrary.Xrm.Message.UnBoundFunction;
+using MSLibrary.Xrm.Message.Update;
+using MSLibrary.Xrm.Message.UpdateRetrieve;
+using MSLibrary.Xrm.Message.Upsert;
+using MSLibrary.Xrm.Message.UpsertRetrieve;
+using MSLibrary.Xrm.MessageHandle;
+using MSLibrary.Xrm.MessageHandle.CrmAttributeMetadataHandle;
+using MSLibrary.Xrm.Convert;
+using MSLibrary.Xrm.Convert.CrmRetrieveJTokenHandle;
+using MSLibrary.Xrm.CrmServiceFactoryServices;
 using MSLibrary.Logger;
 using MSLibrary.Logger.LoggingBuilderProviderHandlers;
+using MSLibrary.Xrm.Convert.CrmFunctionParameterHandle;
+using MSLibrary.Xrm.Convert.CrmExecuteEntityTypeHandle;
+using MSLibrary.Xrm.Convert.CrmAlternateKeyTypeHandle;
+using MSLibrary.Xrm.Convert.CrmActionParameterHandle;
 using DCEM.Main;
 using DCEM.Main.Context;
 using DCEM.Main.Context.HttpClaimGeneratorServices;
@@ -89,6 +145,8 @@ namespace DCEM.Main
 
         }
 
+
+
         /// <summary>
         /// 初始化上下文
         /// </summary>
@@ -136,6 +194,8 @@ namespace DCEM.Main
         /// </summary>
         public static void InitStaticInfo()
         {
+            InitCrmStaticInfo();
+
             //为HttpClinetHelper的HttpClientFactory赋值
             HttpClinetHelper.HttpClientFactory = DIContainerContainer.Get<IHttpClientFactory>();
 
@@ -155,6 +215,124 @@ namespace DCEM.Main
 
 
         }
+
+        /// <summary>
+        /// 初始化Crm静态信息
+        /// </summary>
+        public static void InitCrmStaticInfo()
+        {
+            //为CrmMessageHandleSelector.HandleFactories赋值，键为Message类型的全名
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmAssociateCollectionRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForAssociateCollectionFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmAssociateCollectionMultipleRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForAssociateCollectionMultipleFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmAssociateLookupRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForAssociateLookupFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmBatchRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForBatchFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmBoundActionRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForBoundActionFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmBoundFunctionRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForBoundFunctionFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmCreateRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForCreateFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmCreateRetrieveRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForCreateRetrieveFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmDeleteRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForDeleteFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmDisAssociateCollectionRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForDisAssociateCollectionFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmDisAssociateLookupRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForDisAssociateLookupFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveAggregationRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveAggregationFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveCollectionAttributeRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveCollectionAttributeFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveCollectionAttributeAggregationRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveCollectionAttributeAggregationFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveCollectionAttributeReferenceRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveCollectionAttributeReferenceFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveCollectionAttributeSavedQueryRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveCollectionAttributeSavedQueryFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveCollectionAttributeUserQueryRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveCollectionAttributeUserQueryFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveEntityAttributeMetadataRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveEntityAttributeMetadataFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveEntityAttributeMetadataMultipleRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveEntityAttributeMetadataMultipleFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveEntityMetadataRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveEntityMetadataFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveEntityMetadataMultipleRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveEntityMetadataMultipleFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveEntityN2NRelationMetadataMultipleRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveEntityN2NRelationMetadataMultipleFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveEntityO2NRelationMetadataMultipleRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveEntityO2NRelationMetadataMultipleFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveGlobalOptionSetMetadataRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveGlobalOptionSetMetadataFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveLookupAttributeRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveLookupAttributeFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveLookupAttributeReferenceRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveLookupAttributeReferenceFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveMultipleRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveMultipleFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveMultipleFetchRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveMultipleFetchFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveMultiplePageRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveMultiplePageFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveMultipleSavedQueryRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveMultipleSavedQueryFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveMultipleUserQueryRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveMultipleUserQueryFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveN2NRelationMetadataRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveN2NRelationMetadataFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveN2NRelationMetadataMultipleRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveN2NRelationMetadataMultipleFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveO2NRelationMetadataRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveO2NRelationMetadataFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveO2NRelationMetadataMultipleRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveO2NRelationMetadataMultipleFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveRelationMetadataRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveRelationMetadataFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveRelationMetadataMultipleRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveRelationMetadataMultipleFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmRetrieveSignleAttributeRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForRetrieveSignleAttributeFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmUnBoundActionRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForUnBoundActionFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmUnBoundFunctionRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForUnBoundFunctionFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmUpdateRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForUpdateFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmUpdateRetrieveRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForUpdateRetrieveFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmUpsertRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForUpsertFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmUpsertRetrieveRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForUpsertRetrieveFactory>();
+
+
+            //为CrmAttributeMetadataHandleSelector.HandleFactories赋值
+            CrmAttributeMetadataHandleSelector.HandleFactories[CrmAttributeReturnTypes.OptionSet]= DIContainerContainer.Get<CrmAttributeMetadataHandleForOptionSetFactory>();
+            CrmAttributeMetadataHandleSelector.HandleFactories[CrmAttributeReturnTypes.PickList] = DIContainerContainer.Get<CrmAttributeMetadataHandleForPickListFactory>();
+
+
+            //为CrmServiceTokenGenerateServiceSelector.ServiceFactories赋值
+            CrmServiceTokenGenerateServiceSelector.ServiceFactories[CrmServiceTokenGenerateServiceTypes.ADFS]= DIContainerContainer.Get<CrmServiceTokenGenerateServiceForADFSFactory>();
+            CrmServiceTokenGenerateServiceSelector.ServiceFactories[CrmServiceTokenGenerateServiceTypes.ADFSPassword] = DIContainerContainer.Get<CrmServiceTokenGenerateServiceForADFSPasswordFactory>();
+            CrmServiceTokenGenerateServiceSelector.ServiceFactories[CrmServiceTokenGenerateServiceTypes.S2S] = DIContainerContainer.Get<CrmServiceTokenGenerateServiceForS2SFactory>();
+
+
+            //为 CrmServiceFactoryIMP.ServiceFactories赋值
+            CrmServiceFactoryIMP.ServiceFactories[CrmServiceFactoryServiceTypes.Common]= DIContainerContainer.Get<CrmServiceFactoryServiceForCommonFactory>();
+
+            //为 CrmRetrieveJTokenConvertService.HandleFactories赋值
+            CrmRetrieveJTokenConvertService.HandleFactories[typeof(CrmEntity)]= DIContainerContainer.Get<CrmRetrieveJTokenHandleForCrmEntityFactory>();
+            CrmRetrieveJTokenConvertService.HandleFactories[typeof(CrmEntityCollection)] = DIContainerContainer.Get<CrmRetrieveJTokenHandleForCrmEntityCollectionFactory>();
+            CrmRetrieveJTokenConvertService.HandleFactories[typeof(List<CrmEntity>)] = DIContainerContainer.Get<CrmRetrieveJTokenHandleForCrmEntityListFactory>();
+            CrmRetrieveJTokenConvertService.HandleFactories[typeof(CrmEntityReference)] = DIContainerContainer.Get<CrmRetrieveJTokenHandleForCrmEntityReferenceCollectionFactory>();
+            CrmRetrieveJTokenConvertService.HandleFactories[typeof(CrmEntityReferenceCollection)] = DIContainerContainer.Get<CrmRetrieveJTokenHandleForCrmEntityReferenceCollectionFactory>();
+            CrmRetrieveJTokenConvertService.HandleFactories[typeof(List<CrmEntityReference>)] = DIContainerContainer.Get<CrmRetrieveJTokenHandleForCrmEntityReferenceListFactory>();
+           
+            //为CrmFunctionParameterMainHandle.HandleFactories赋值
+            CrmFunctionParameterMainHandle.HandleFactories[typeof(bool)]= DIContainerContainer.Get<CrmFunctionParameterHandleForBoolFactory>();
+            CrmFunctionParameterMainHandle.HandleFactories[typeof(CrmEntityReference)] = DIContainerContainer.Get<CrmFunctionParameterHandleForCrmEntityReferenceFactory>();
+            CrmFunctionParameterMainHandle.HandleFactories[typeof(CrmEntityReferenceNull)] = DIContainerContainer.Get<CrmFunctionParameterHandleForCrmEntityReferenceNullFactory>();
+            CrmFunctionParameterMainHandle.HandleFactories[typeof(DateTime)] = DIContainerContainer.Get<CrmFunctionParameterHandleForDateTimeFactory>();
+            CrmFunctionParameterMainHandle.HandleFactories[typeof(CrmFunctionEnumTypeParameter)] = DIContainerContainer.Get<CrmFunctionParameterHandleForEnumTypeFactory>();
+            CrmFunctionParameterMainHandle.HandleFactories[typeof(int)] = DIContainerContainer.Get<CrmFunctionParameterHandleForNumberFactory>();
+            CrmFunctionParameterMainHandle.HandleFactories[typeof(long)] = DIContainerContainer.Get<CrmFunctionParameterHandleForNumberFactory>();
+            CrmFunctionParameterMainHandle.HandleFactories[typeof(decimal)] = DIContainerContainer.Get<CrmFunctionParameterHandleForNumberFactory>();
+            CrmFunctionParameterMainHandle.HandleFactories[typeof(float)] = DIContainerContainer.Get<CrmFunctionParameterHandleForNumberFactory>();
+            CrmFunctionParameterMainHandle.HandleFactories[typeof(string)] = DIContainerContainer.Get<CrmFunctionParameterHandleForStringFactory>();
+
+            //为CrmExecuteEntityTypemMainHandle.ServiceFactories赋值
+            CrmExecuteEntityTypemMainHandle.ServiceFactories[typeof(CrmEntityReference)] = DIContainerContainer.Get<CrmExecuteEntityTypeHandleForCrmEntityReferenceFactory>();
+            CrmExecuteEntityTypemMainHandle.ServiceFactories[typeof(IList<CrmEntityReference>)] = DIContainerContainer.Get<CrmExecuteEntityTypeHandleForCrmEntityReferenceListFactory>();
+            CrmExecuteEntityTypemMainHandle.ServiceFactories[typeof(IList<CrmEntityReferenceNull>)] = DIContainerContainer.Get<CrmExecuteEntityTypeHandleForCrmEntityReferenceNullFactory>();
+            CrmExecuteEntityTypemMainHandle.ServiceFactories[typeof(CrmExecuteEntity)] = DIContainerContainer.Get<CrmExecuteEntityTypeHandleForCrmExecuteEntityFactory>();
+            CrmExecuteEntityTypemMainHandle.ServiceFactories[typeof(IList<CrmExecuteEntity>)] = DIContainerContainer.Get<CrmExecuteEntityTypeHandleForCrmExecuteEntityListFactory>();
+
+            //为CrmAlternateKeyTypeMainHandle.ServiceFactories赋值
+            CrmAlternateKeyTypeMainHandle.ServiceFactories[typeof(CrmEntityReference)]= DIContainerContainer.Get<CrmAlternateKeyTypeHandleForCrmEntityReferenceFactory>();
+            CrmAlternateKeyTypeMainHandle.ServiceFactories[typeof(int)] = DIContainerContainer.Get<CrmAlternateKeyTypeHandleForNumberFactory>();
+            CrmAlternateKeyTypeMainHandle.ServiceFactories[typeof(float)] = DIContainerContainer.Get<CrmAlternateKeyTypeHandleForNumberFactory>();
+            CrmAlternateKeyTypeMainHandle.ServiceFactories[typeof(decimal)] = DIContainerContainer.Get<CrmAlternateKeyTypeHandleForNumberFactory>();
+            CrmAlternateKeyTypeMainHandle.ServiceFactories[typeof(string)] = DIContainerContainer.Get<CrmAlternateKeyTypeHandleForStringFactory>();
+
+            //为 CrmActionParameterMainHandle.HandleFactories赋值
+            CrmActionParameterMainHandle.HandleFactories[typeof(CrmEntityReference)]= DIContainerContainer.Get<CrmActionParameterHandleForCrmEntityReferenceFactory>();
+            CrmActionParameterMainHandle.HandleFactories[typeof(IList<CrmEntityReference>)] = DIContainerContainer.Get<CrmActionParameterHandleForCrmEntityReferenceListFactory>();
+            CrmActionParameterMainHandle.HandleFactories[typeof(CrmEntityReferenceNull)] = DIContainerContainer.Get<CrmActionParameterHandleForCrmEntityReferenceNullFactory>();
+            CrmActionParameterMainHandle.HandleFactories[typeof(CrmExecuteEntity)] = DIContainerContainer.Get<CrmActionParameterHandleForCrmExecuteEntityFactory>();
+            CrmActionParameterMainHandle.HandleFactories[typeof(IList<CrmExecuteEntity>)] = DIContainerContainer.Get<CrmActionParameterHandleForCrmExecuteEntityListFactory>();
+            CrmActionParameterMainHandle.HandleFactories[typeof(int)] = DIContainerContainer.Get<CrmActionParameterHandleForOtherFactory>();
+            CrmActionParameterMainHandle.HandleFactories[typeof(long)] = DIContainerContainer.Get<CrmActionParameterHandleForOtherFactory>();
+            CrmActionParameterMainHandle.HandleFactories[typeof(decimal)] = DIContainerContainer.Get<CrmActionParameterHandleForOtherFactory>();
+            CrmActionParameterMainHandle.HandleFactories[typeof(float)] = DIContainerContainer.Get<CrmActionParameterHandleForOtherFactory>();
+            CrmActionParameterMainHandle.HandleFactories[typeof(string)] = DIContainerContainer.Get<CrmActionParameterHandleForOtherFactory>();
+            CrmActionParameterMainHandle.HandleFactories[typeof(DateTime)] = DIContainerContainer.Get<CrmActionParameterHandleForOtherFactory>();
+            CrmActionParameterMainHandle.HandleFactories[typeof(bool)] = DIContainerContainer.Get<CrmActionParameterHandleForOtherFactory>();
+
+        }
+
 
         /// <summary>
         /// 初始化日志

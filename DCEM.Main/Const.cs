@@ -186,4 +186,96 @@ namespace DCEM.Main
         /// </summary>
         public const string AddCommonLog = "AddCommonLog";
     }
+
+    /// <summary>
+    /// Crm服务令牌生成服务类型集
+    /// </summary>
+    public static class CrmServiceTokenGenerateServiceTypes
+    {
+        /// <summary>
+        /// 基于ADFS Oauth的Code模式
+        /// </summary>
+        public const string ADFS = "ADFS";
+        /// <summary>
+        /// 基于ADFS Oauth的Password模式
+        /// </summary>
+        public const string ADFSPassword = "ADFSPassword";
+        /// <summary>
+        /// 基于AAD Oauth的客户端模式
+        /// </summary>
+        public const string S2S = "S2S";
+    }
+
+    /// <summary>
+    /// Crm消息名称集
+    /// </summary>
+    public static class CrmMessageNames
+    {
+        public const string AssociateCollection = "AssociateCollection";
+        public const string AssociateCollectionMultiple = "AssociateCollectionMultiple";
+        public const string AssociateLookup = "AssociateLookup";
+        public const string Batch = "Batch";
+        public const string BoundAction = "BoundAction";
+        public const string BoundFunction = "BoundFunction";
+        public const string Create = "Create";
+        public const string CreateRetrieve = "CreateRetrieve";
+        public const string Delete = "Delete";
+        public const string DisAssociateCollection = "DisAssociateCollection";
+        public const string DisAssociateLookup = "DisAssociateLookup";
+        public const string Retrieve = "Retrieve";
+        public const string RetrieveAggregation = "RetrieveAggregation";
+        public const string RetrieveCollectionAttribute = "RetrieveCollectionAttribute";
+        public const string RetrieveCollectionAttributeAggregation = "RetrieveCollectionAttributeAggregation";
+        public const string RetrieveCollectionAttributeReference = "RetrieveCollectionAttributeReference";
+        public const string RetrieveCollectionAttributeSavedQuery = "RetrieveCollectionAttributeSavedQuery";
+        public const string RetrieveCollectionAttributeUserQuery = "RetrieveCollectionAttributeUserQuery";
+        public const string RetrieveEntityAttributeMetadata = "RetrieveEntityAttributeMetadata";
+        public const string RetrieveEntityAttributeMetadataMultiple = "RetrieveEntityAttributeMetadataMultiple";
+        public const string RetrieveEntityMetadata = "RetrieveEntityMetadata";
+        public const string RetrieveEntityMetadataMultiple = "RetrieveEntityMetadataMultiple";
+        public const string RetrieveEntityN2NRelationMetadataMultiple = "RetrieveEntityN2NRelationMetadataMultiple";
+        public const string RetrieveEntityO2NRelationMetadataMultiple = "RetrieveEntityO2NRelationMetadataMultiple";
+        public const string RetrieveGlobalOptionSetMetadata = "RetrieveGlobalOptionSetMetadata";
+        public const string RetrieveLookupAttribute = "RetrieveLookupAttribute";
+        public const string RetrieveLookupAttributeReference = "RetrieveLookupAttributeReference";
+        public const string RetrieveMultiple = "RetrieveMultiple";
+        public const string RetrieveMultipleFetch = "RetrieveMultipleFetch";
+        public const string RetrieveMultiplePage = "RetrieveMultiplePage";
+        public const string RetrieveMultipleSavedQuery = "RetrieveMultipleSavedQuery";
+        public const string RetrieveMultipleUserQuery = "RetrieveMultipleUserQuery";
+        public const string RetrieveN2NRelationMetadata = "RetrieveN2NRelationMetadata";
+        public const string RetrieveN2NRelationMetadataMultiple = "RetrieveN2NRelationMetadataMultiple";
+        public const string RetrieveO2NRelationMetadata = "RetrieveO2NRelationMetadata";
+        public const string RetrieveO2NRelationMetadataMultiple = "RetrieveO2NRelationMetadataMultiple";
+        public const string RetrieveRelationMetadata = "RetrieveRelationMetadata";
+        public const string RetrieveRelationMetadataMultiple = "RetrieveRelationMetadataMultiple";
+        public const string RetrieveSignleAttribute = "RetrieveSignleAttribute";
+        public const string UnBoundAction = "UnBoundAction";
+        public const string UnBoundFunction = "UnBoundFunction";
+        public const string Update = "Update";
+        public const string UpdateRetrieve = "UpdateRetrieve";
+        public const string Upsert = "Upsert";
+        public const string UpsertRetrieve = "UpsertRetrieve";
+
+
+    }
+
+    /// <summary>
+    /// Crm属性返回类型集
+    /// </summary>
+    public static class CrmAttributeReturnTypes
+    {
+        public const string OptionSet = "OptionSet";
+
+        public const string PickList = "PickList";
+    }
+
+    /// <summary>
+    /// Crm服务工厂的服务类型集
+    /// </summary>
+    public static class CrmServiceFactoryServiceTypes
+    {
+        public const string Common = "Common";
+    }
+
 }
