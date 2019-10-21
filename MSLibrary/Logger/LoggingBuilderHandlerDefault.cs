@@ -37,7 +37,7 @@ namespace MSLibrary.Logger
             //处理每一个提供方
             foreach(var providerItem in configuration.Providers)
             {
-                var providerHandler = getProviderHandler(providerItem.Value.Type);
+                var providerHandler = getProviderHandler(providerItem.Key);
                 await providerHandler.Execute(builder, providerItem.Value);
 
             }

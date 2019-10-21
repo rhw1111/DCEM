@@ -27,20 +27,28 @@ namespace DCEM.Web
             _baseUrl = Path.GetDirectoryName(typeof(Program).Assembly.Location);
             Environment.CurrentDirectory = _baseUrl ?? Environment.CurrentDirectory;
 
+            //获取运行环境名称
+            var environmentName= Environment.GetEnvironmentVariable("ASPNETCORE_APPLICATIONNAME");
+            if (environmentName==null)
+            {
+                environmentName = string.Empty;
+            }
+            //初始化配置容器
+            MainStartupHelper.InitConfigurationContainer(environmentName, _baseUrl);
+
+
             //初始化上下文容器
             MainStartupHelper.InitContext();
 
             CreateWebHostBuilder(args).Build().Run();
+            
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-            
+          
             .ConfigureServices((context,services) =>
             {
-                //初始化配置容器
-                MainStartupHelper.InitConfigurationContainer(context.HostingEnvironment.EnvironmentName, _baseUrl);
-
                 //获取核心配置
                 var coreConfiguration = ConfigurationContainer.Get<CoreConfiguration>(ConfigurationNames.Application);
 
@@ -50,7 +58,6 @@ namespace DCEM.Web
 
                 //初始化静态设置
                 MainStartupHelper.InitStaticInfo();
-                StartupHelper.InitStaticInfo();
             })
            .ConfigureLogging((builder) =>
                         {
@@ -59,11 +66,12 @@ namespace DCEM.Web
                         })
            .ConfigureAppConfiguration((context,builder)=>
            {
-              
-                //context.HostingEnvironment.EnvironmentName
+
+               //context.HostingEnvironment.EnvironmentName
            })
+            
            .UseConfiguration(ConfigurationContainer.GetConfiguration(ConfigurationNames.Host))
-            //.UseConfiguration()
+            
             .UseStartup<Startup>();
     }
 }

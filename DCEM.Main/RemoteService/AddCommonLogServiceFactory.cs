@@ -9,9 +9,9 @@ namespace DCEM.Main.RemoteService
     [Injection(InterfaceType = typeof(IFactory<IAddCommonLogService>), Scope = InjectionScope.Singleton)]
     public class AddCommonLogServiceFactory : IFactory<IAddCommonLogService>
     {
-        private AddCommonLogService _addCommonLogService;
+        private IAddCommonLogService _addCommonLogService;
 
-        public AddCommonLogServiceFactory(AddCommonLogService addCommonLogService)
+        public AddCommonLogServiceFactory(IAddCommonLogService addCommonLogService)
         {
             _addCommonLogService=addCommonLogService;
         }

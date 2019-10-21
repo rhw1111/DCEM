@@ -12,8 +12,8 @@ namespace MSLibrary.Xrm.Convert.CrmRetrieveJTokenHandle
     [Injection(InterfaceType = typeof(CrmRetrieveJTokenHandleForCrmEntityReferenceCollection), Scope = InjectionScope.Singleton)]
     public class CrmRetrieveJTokenHandleForCrmEntityReferenceCollection : ICrmRetrieveJTokenHandle
     {
-        private IFactory<CrmRetrieveJTokenHandleForCrmEntityReferenceList> _crmRetrieveJTokenHandleForCrmEntityReferenceListFactory;
-        public CrmRetrieveJTokenHandleForCrmEntityReferenceCollection(IFactory<CrmRetrieveJTokenHandleForCrmEntityReferenceList> crmRetrieveJTokenHandleForCrmEntityReferenceListFactory)
+        private CrmRetrieveJTokenHandleForCrmEntityReferenceListFactory _crmRetrieveJTokenHandleForCrmEntityReferenceListFactory;
+        public CrmRetrieveJTokenHandleForCrmEntityReferenceCollection(CrmRetrieveJTokenHandleForCrmEntityReferenceListFactory crmRetrieveJTokenHandleForCrmEntityReferenceListFactory)
         {
             _crmRetrieveJTokenHandleForCrmEntityReferenceListFactory = crmRetrieveJTokenHandleForCrmEntityReferenceListFactory;
         }

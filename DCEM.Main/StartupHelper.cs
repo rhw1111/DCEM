@@ -136,7 +136,7 @@ namespace DCEM.Main
             ConfigurationContainer.Add(ConfigurationNames.Application, configuration);
 
             //向配置容器增加日志配置
-            ConfigurationContainer.Add(ConfigurationNames.Logger, configuration);
+            ConfigurationContainer.Add(ConfigurationNames.Logger, loggerConfiguration);
 
 
 
