@@ -22,27 +22,27 @@
     <ion-grid>
         <ion-row>
             <ion-col>
-                <ion-tab-button>
+                <ion-tab-button [routerLink]="['/serving/reservation/list']">
                     <ion-icon color="primary" size="large" name="document"></ion-icon>
                     <ion-badge color="danger">6</ion-badge>
-                    <ion-label>维修履历</ion-label>
+                    <ion-label>预约单</ion-label>
                 </ion-tab-button>
             </ion-col>
             <ion-col>
-                <ion-tab-button>
+                <ion-tab-button [routerLink]="['/serving/ri/list']">
                     <ion-icon color="primary" size="large" name="document"></ion-icon>
                     <ion-label>问诊单</ion-label>
                 </ion-tab-button>
             </ion-col>
             <ion-col>
-                <ion-tab-button>
+                <ion-tab-button [routerLink]="['/serving/resume/list']">
                     <ion-icon color="primary" size="large" name="card"></ion-icon>
                     <ion-badge color="danger">6</ion-badge>
                     <ion-label>维修履历</ion-label>
                 </ion-tab-button>
             </ion-col>
             <ion-col>
-                <ion-tab-button>
+                <ion-tab-button [routerLink]="['/serving/mycustomer/list']">
                     <ion-icon color="primary" size="large" name="contacts"></ion-icon>
                     <ion-label>客户</ion-label>
                 </ion-tab-button>
@@ -51,12 +51,16 @@
 
         <ion-row>
             <ion-col>
-                <ion-tab-button>
+                <ion-tab-button [routerLink]="['/serving/ts/list']">
                     <ion-icon color="primary" size="large" name="document"></ion-icon>
                     <ion-label>技术支持</ion-label>
                 </ion-tab-button>
             </ion-col>
             <ion-col>
+                <ion-tab-button [routerLink]="['/demo/analytics']">
+                    <ion-icon color="primary" size="large" name="analytics"></ion-icon>
+                    <ion-label>报表</ion-label>
+                </ion-tab-button>
             </ion-col>
             <ion-col>
             </ion-col>
@@ -74,31 +78,32 @@
     <ion-grid>
         <ion-row>
             <ion-col>
-                <ion-tab-button>
+                <ion-tab-button [routerLink]="['/serving/reservation/edit']">
                     <ion-icon color="primary" size="large" name="calendar"></ion-icon>
-                    <ion-label>快速问诊</ion-label>
+                    <ion-label>快速预约</ion-label>
                 </ion-tab-button>
             </ion-col>
             <ion-col>
-                <ion-tab-button>
+                <ion-tab-button [routerLink]="['/serving/ri/edit']">
                     <ion-icon color="primary" size="large" name="archive"></ion-icon>
                     <ion-label>快速问诊</ion-label>
                     <ion-badge color="danger">6</ion-badge>
                 </ion-tab-button>
             </ion-col>
             <ion-col>
-                <ion-tab-button>
+                <ion-tab-button [routerLink]="['/serving/resume/edit']">
                     <ion-icon color="primary" size="large" name="book"></ion-icon>
                     <ion-label>快速开单</ion-label>
                 </ion-tab-button>
             </ion-col>
             <ion-col>
-                <ion-tab-button>
+                <ion-tab-button [routerLink]="['/serving/ts/edit']">
                     <ion-icon color="primary" size="large" name="cog"></ion-icon>
                     <ion-label>技术支持</ion-label>
                 </ion-tab-button>
             </ion-col>
         </ion-row>
+        
     </ion-grid>
 
 </ion-content>
