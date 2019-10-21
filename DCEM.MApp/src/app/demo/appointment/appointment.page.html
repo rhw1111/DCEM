@@ -1,0 +1,78 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>全部试乘试驾记录</ion-title>
+
+        <ion-buttons slot="primary">
+          <ion-button (click)="addTestDrive()">
+            <ion-icon slot="icon-only" name="add"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div>
+      <ion-tabs>
+          <ion-tab-bar slot="top">
+                <ion-tab-button selected="{{IsSelect}}" (click)="showlist(0)">
+                  <ion-label color="{{spanColor1}}">全部</ion-label>
+                </ion-tab-button>
+                <ion-tab-button (click)="showlist(1)">
+                  <ion-label color="{{spanColor2}}">待确认</ion-label>
+                </ion-tab-button>
+                <ion-tab-button (click)="showlist(2)">
+                  <ion-label color="{{spanColor3}}">试驾中</ion-label>
+                </ion-tab-button>
+                <ion-tab-button (click)="showlist(3)">
+                    <ion-label color="{{spanColor4}}">已试驾</ion-label>
+                </ion-tab-button>
+          </ion-tab-bar>
+        </ion-tabs>
+        
+  </div>
+<div style="margin-top:45px;">
+    <ion-list>
+        <ion-item-sliding *ngIf="startID==undefined" #slide  (click)="close()">
+          <ion-list auto-hide="false" *ngFor="let r of ListAll">
+                <ion-item (click)="showDetail(r)">
+                    <ion-grid>
+                      <ion-row>
+                        <ion-col size="9">
+                            <ion-label>
+                              <h3><ion-icon name="timer"></ion-icon>  {{r.orderTime}}</h3>
+                            </ion-label>
+                        </ion-col>
+                        <ion-col size="3">
+                            <ion-label>
+                              <h3 *ngIf="r.status==1">待确认</h3>
+                              <h3 *ngIf="r.status==2">已确认</h3>
+                              <h3 *ngIf="r.status==3">试驾中</h3>
+                              <h3 *ngIf="r.status==4">已试驾</h3>
+                              <h3 *ngIf="r.status==5">已取消</h3>
+                            </ion-label>
+                        </ion-col>
+                      </ion-row>
+                      <ion-row>
+                        <ion-col>
+                              <ion-label>
+                                <h2>{{r.userName}}</h2>
+                                <h2>{{r.userPhone}}</h2>
+                                <h3>预约时间：{{r.testDriveTimeId}}</h3>
+                                <p>预约车型：{{r.carModel}}</p>
+                              </ion-label>
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                  </ion-item>
+              </ion-list>
+        </ion-item-sliding>
+      </ion-list>
+    
+        
+</div>
+    
+   
+</ion-content>

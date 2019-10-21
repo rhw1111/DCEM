@@ -8,25 +8,29 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"../analytics/analytics.module": [
-		"./src/app/analytics/analytics.module.ts",
-		"analytics-analytics-module"
+	"./base/uc.com/login/login.module": [
+		"./src/app/base/uc.com/login/login.module.ts",
+		"base-uc-com-login-login-module"
 	],
-	"../home/home.module": [
-		"./src/app/home/home.module.ts",
-		"home-home-module"
+	"./base/uc.com/welcome/welcome.module": [
+		"./src/app/base/uc.com/welcome/welcome.module.ts",
+		"base-uc-com-welcome-welcome-module"
 	],
-	"../message/message.module": [
-		"./src/app/message/message.module.ts",
+	"./serving/home.com/index/index.module": [
+		"./src/app/serving/home.com/index/index.module.ts",
+		"index-index-module"
+	],
+	"./serving/home.com/message/message.module": [
+		"./src/app/serving/home.com/message/message.module.ts",
 		"message-message-module"
 	],
-	"./login/login.module": [
-		"./src/app/login/login.module.ts",
-		"login-login-module"
+	"./serving/home.com/mywork/mywork.module": [
+		"./src/app/serving/home.com/mywork/mywork.module.ts",
+		"mywork-mywork-module"
 	],
-	"./tabs/tabs.module": [
-		"./src/app/tabs/tabs.module.ts",
-		"tabs-tabs-module"
+	"./serving/home.com/tabs/tabs.module": [
+		"./src/app/serving/home.com/tabs/tabs.module.ts",
+		"serving-home-com-tabs-tabs-module"
 	]
 };
 function webpackAsyncContext(req) {
@@ -483,7 +487,7 @@ module.exports = webpackAsyncContext;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\r\n  <ion-router-outlet></ion-router-outlet>\r\n</ion-app>\r\n"
+module.exports = "<!--<ion-app>\r\n    <ion-split-pane>\r\n      <ion-menu type=\"overlay\" menuId=\"homeMenu\">\r\n        <ion-header>\r\n          <ion-toolbar>\r\n            <ion-title><img src=\"{{headpicture}}\" height=\"50px\" width=\"50px\"/>张云，你好!</ion-title>\r\n          </ion-toolbar>\r\n        </ion-header>\r\n        <ion-content>\r\n          <ion-list>\r\n            <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of appPages\">\r\n              <ion-item [routerDirection]=\"'root'\" [routerLink]=\"[p.url]\">\r\n                <ion-icon slot=\"start\" [name]=\"p.icon\"></ion-icon>\r\n                <ion-label>\r\n                  {{p.title}}\r\n                </ion-label>\r\n                <ion-badge *ngIf=\"p.num>0\" color=\"danger\" >{{p.num}}</ion-badge>\r\n              </ion-item>\r\n            </ion-menu-toggle>\r\n            <ion-item (click)=\"loginout()\">\r\n                <ion-icon slot=\"start\" name=\"log-out\"></ion-icon>\r\n                <ion-label>\r\n                  注销\r\n                </ion-label>\r\n            </ion-item>\r\n          </ion-list>\r\n        </ion-content>\r\n      </ion-menu>\r\n      <ion-router-outlet main></ion-router-outlet>\r\n    </ion-split-pane>\r\n  </ion-app>-->\r\n\r\n<ion-app>\r\n    <ion-router-outlet></ion-router-outlet>\r\n</ion-app>\r\n\r\n"
 
 /***/ }),
 
@@ -504,10 +508,42 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var routes = [
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
-    //{ path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
-    { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
-    { path: 'tabs', loadChildren: './tabs/tabs.module#TabsPageModule' }
+    { path: '', loadChildren: './base/uc.com/welcome/welcome.module#WelcomePageModule' },
+    {
+        path: 'base',
+        children: [
+            {
+                path: 'uc',
+                children: [
+                    { path: 'login', loadChildren: './base/uc.com/login/login.module#LoginPageModule' },
+                    { path: 'welcome', loadChildren: './base/uc.com/welcome/welcome.module#WelcomePageModule' }
+                ]
+            }
+        ],
+    },
+    {
+        path: 'serving',
+        children: [
+            {
+                path: 'home',
+                children: [
+                    { path: 'index', loadChildren: './serving/home.com/index/index.module#IndexPageModule' },
+                    { path: 'tabs', loadChildren: './serving/home.com/tabs/tabs.module#TabsPageModule' }
+                ]
+            },
+            { path: '', loadChildren: './serving/home.com/tabs/tabs.module#TabsPageModule' }
+        ],
+    },
+    { path: 'message', loadChildren: './serving/home.com/message/message.module#MessagePageModule' },
+    { path: 'mywork', loadChildren: './serving/home.com/mywork/mywork.module#MyworkPageModule' }
+    //{ path: 'login', loadChildren: './base/login.com/login/login.module#LoginPageModule' },
+    //{ path: 'tabs', loadChildren: './demo/tabs/tabs.module#TabsPageModule' },
+    //{ path: 'test-drive-add', loadChildren: './demo/test-drive-add/test-drive-add.module#TestDriveAddPageModule' },
+    //{ path: 'test-drive-detail', loadChildren: './demo/test-drive-detail/test-drive-detail.module#TestDriveDetailPageModule' },
+    //{ path: 'appointment', loadChildren: './demo/appointment/appointment.module#AppointmentPageModule' },
+    //{ path: 'appointmentstatistics', loadChildren: './demo/report/appointmentstatistics/appointmentstatistics.module#AppointmentstatisticsPageModule' },
+    //{ path: 'appointmenttrend', loadChildren: './demo/report/appointmenttrend/appointmenttrend.module#AppointmenttrendPageModule' },
+    //{ path: 'testdriverate', loadChildren: './demo/report/testdriverate/testdriverate.module#TestdriveratePageModule' }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -553,7 +589,79 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "./node_modules/@ionic-native/splash-screen/ngx/index.js");
 /* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
+//import { Component } from '@angular/core';
 
+//import { Platform,MenuController } from '@ionic/angular';
+//import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+//import { StatusBar } from '@ionic-native/status-bar/ngx';
+//import { AuthenticationService } from './base/base.ser/authentication.service'
+//import { Router } from '@angular/router';
+//import { AppConfig } from './app.config';
+//@Component({
+//  selector: 'app-root',
+//  templateUrl: 'app.component.html',
+//  styleUrls: ['app.component.scss']
+//})
+//export class AppComponent {
+//  //定义左侧快速导航菜单
+//  public appPages = [
+//    {
+//      title: '首页',
+//      url: '/tabs',
+//      icon: 'home',
+//      num:1
+//    },
+//    {
+//      title: '个人信息',
+//      url: '/tabs',
+//      icon: 'person',
+//      num:0,
+//    },
+//    {
+//      title: '消息中心',
+//      url: '/tabs',
+//      icon: 'alert',
+//      num:10
+//    },
+//    {
+//      title: '设置',
+//      url: '/tabs',
+//      icon: 'settings',
+//      num:0
+//    }
+//  ];
+//  public headpicture:string;
+//  constructor(
+//    private platform: Platform,
+//    private splashScreen: SplashScreen,
+//    private statusBar: StatusBar,
+//    private authService:AuthenticationService,
+//    private router:Router,
+//    private menu:MenuController
+//  ) {
+//    this.initializeApp();
+//  }
+//  initializeApp() {
+//    this.platform.ready().then(() => {
+//      this.statusBar.styleDefault();
+//      this.splashScreen.hide();
+//      this.authService.authenticationState.subscribe(state=>{
+//        console.log(state);
+//        if(state){
+//          this.router.navigate(['tabs']);
+//          this.headpicture="assets/img/head_default.jpg";
+//        }
+//        else{
+//          this.router.navigate(['login']);
+//        }
+//      });
+//    });
+//  }
+//  loginout(){
+//    this.menu.close("homeMenu");
+//    this.authService.logout();
+//  }
+//}
 
 
 
@@ -613,6 +721,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+
+
 
 
 
@@ -629,7 +741,11 @@ var AppModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]],
             entryComponents: [],
-            imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"]],
+            imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
+                _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(),
+                _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HttpClientModule"],
+                _ionic_storage__WEBPACK_IMPORTED_MODULE_10__["IonicStorageModule"].forRoot()],
             providers: [
                 _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],
                 _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"],
@@ -706,7 +822,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! F:\MSProject\GitHub\APPDemoNew\DCEM.MApp\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! E:\AppProject\DCEM\DCEM.MApp\src\main.ts */"./src/main.ts");
 
 
 /***/ })

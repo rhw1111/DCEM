@@ -1,0 +1,34 @@
+ion-list {
+    height: 30%;
+
+    ion-list-header {
+        height: 100%;
+        text-align: center;
+        background-color: rgb(249, 249, 249);
+
+        img {
+            left: 50%;
+            position: relative;
+            transform: translateX(-50%);
+            max-width: 50%;
+            max-height: 50%;
+        }
+    }
+}
+
+ion-grid:nth-child(even) {
+    ion-col {
+        border-bottom: 2px solid rgb(230, 230, 230);
+        border-top: 2px solid rgb(230, 230, 230);
+        padding-left: 15px;
+        height: 55px;
+        padding-top: 15px;
+
+        ion-label {
+            font-size: 14px;
+            font-weight: bold;
+        }
+    }
+}
+
+

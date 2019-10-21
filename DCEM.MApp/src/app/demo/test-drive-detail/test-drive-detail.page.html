@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/"></ion-back-button>
+      </ion-buttons>
+    <ion-title>试乘试驾详情</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-list-header>
+            {{DetailItem.UserName}}
+        </ion-list-header>
+        <ion-item>
+          <ion-icon slot="end" name="call"></ion-icon>
+          <ion-label>{{DetailItem.PhoneNumber}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon slot="end" name="calendar"></ion-icon>
+          <ion-label>预约日期：{{DetailItem.Date}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon slot="end" name="timer"></ion-icon>
+          <ion-label>预约时间：{{DetailItem.StartTime}}-{{DetailItem.EndTime}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>车型：{{DetailItem.VehicleType}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label *ngIf="DetailItem.Status==0">状态：未完成</ion-label>
+          <ion-label *ngIf="DetailItem.Status==0">状态：已完成</ion-label>
+          <ion-label *ngIf="DetailItem.Status==0">状态：已关闭</ion-label>
+        </ion-item>
+      </ion-list>
+      <ion-card>
+          <ion-card-header>
+            <ion-card-title>备注信息：</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+              {{DetailItem.Remark}}
+          </ion-card-content>
+      </ion-card>
+</ion-content>

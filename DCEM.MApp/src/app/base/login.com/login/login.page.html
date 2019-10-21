@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title text-center>登录</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-avatar class="logo">
+      <img src="assets/img/head_default.jpg">
+  </ion-avatar>
+  <ion-list>
+      <ion-item>
+          <ion-label>用户名：</ion-label>
+          <ion-input type="text" placeholder="由字母、数字、下划线组成" [(ngModel)]="username" (ionChange)="onChange(1)" (ionBlur)="onBlur()" value="subuatcrmadmin"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>密&emsp;码：</ion-label>
+          <ion-input type="password" placeholder="6-20位数字或字母" [(ngModel)]="password" (ionChange)="onChange(2)" (ionBlur)="onBlur()" value="P@ssw0rd"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>登录环境</ion-label>
+        <ion-select value="localhost" okText="确定" cancelText="取消" [(ngModel)]="environment" name="environment" id="environment">
+          <ion-select-option value="localhost">localhost</ion-select-option>
+          <ion-select-option value="Dev">Dev</ion-select-option>
+          <ion-select-option value="Sit">Sit</ion-select-option>
+          <ion-select-option value="Uat">Uat</ion-select-option>
+          <ion-select-option value="Prod">Prod</ion-select-option>
+        </ion-select>
+      </ion-item>
+  </ion-list>
+  <ion-label *ngIf="errorMsg" class="error-message"> {{errorMsg}} </ion-label>
+  <ion-button class="login" (click)="_login(username, password)" color="primary" fill="solid" size="default" type="button" expand="block" [disabled]='!status'> 登录</ion-button>
+</ion-content>
+
+<!-- 
+<ion-content padding>
+
+  <ion-list inset>
+    <ion-item>
+      <ion-input type="text" value="admin" placeholder="用户名" #username></ion-input>
+      <ion-icon ios="ios-person" md="md-person" item-end [ngStyle]="iconStyle"></ion-icon>
+    </ion-item>
+
+    <ion-item>
+      <ion-input [type]="isShow ? 'text':'password'" value="88888" placeholder="密码" #password></ion-input>
+      <ion-icon ios="ios-key" md="md-key" item-end [ngStyle]="iconStyle"></ion-icon>
+    </ion-item>
+
+    <ion-item no-lines>
+      <ion-label>
+         控制字体图标的显示是由 ios 以及 md 两个属性控制的  
+        <ion-icon [ios]="isShow ? 'ios-eye' : 'ios-eye-off'" [md]="isShow ? 'md-eye' : 'md-eye-off'"></ion-icon>
+      </ion-label>
+      <ion-toggle checked="false" [(ngModel)]="isShow"></ion-toggle>
+    </ion-item>
+
+    <ion-item no-lines>
+      <ion-label>记住密码</ion-label>
+      <ion-toggle checked="false" [(ngModel)]="isRemember"></ion-toggle>
+    </ion-item>
+
+  </ion-list>
+
+  <div padding>
+    <ion-button (click)="_login(username, password)"  expand="block">登录</ion-button>
+  </div>
+</ion-content> -->

@@ -1,20 +1,20 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["message-message-module"],{
 
-/***/ "./node_modules/raw-loader/index.js!./src/app/message/message.page.html":
-/*!*********************************************************************!*\
-  !*** ./node_modules/raw-loader!./src/app/message/message.page.html ***!
-  \*********************************************************************/
+/***/ "./node_modules/raw-loader/index.js!./src/app/serving/home.com/message/message.page.html":
+/*!**************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/serving/home.com/message/message.page.html ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-title>message</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-title>消息</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n\r\n</ion-content>\r\n"
 
 /***/ }),
 
-/***/ "./src/app/message/message.module.ts":
-/*!*******************************************!*\
-  !*** ./src/app/message/message.module.ts ***!
-  \*******************************************/
+/***/ "./src/app/serving/home.com/message/message.module.ts":
+/*!************************************************************!*\
+  !*** ./src/app/serving/home.com/message/message.module.ts ***!
+  \************************************************************/
 /*! exports provided: MessagePageModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -27,7 +27,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _message_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./message.page */ "./src/app/message/message.page.ts");
+/* harmony import */ var _message_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./message.page */ "./src/app/serving/home.com/message/message.page.ts");
 
 
 
@@ -62,21 +62,21 @@ var MessagePageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/message/message.page.scss":
-/*!*******************************************!*\
-  !*** ./src/app/message/message.page.scss ***!
-  \*******************************************/
+/***/ "./src/app/serving/home.com/message/message.page.scss":
+/*!************************************************************!*\
+  !*** ./src/app/serving/home.com/message/message.page.scss ***!
+  \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL21lc3NhZ2UvbWVzc2FnZS5wYWdlLnNjc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NlcnZpbmcvaG9tZS5jb20vbWVzc2FnZS9tZXNzYWdlLnBhZ2Uuc2NzcyJ9 */"
 
 /***/ }),
 
-/***/ "./src/app/message/message.page.ts":
-/*!*****************************************!*\
-  !*** ./src/app/message/message.page.ts ***!
-  \*****************************************/
+/***/ "./src/app/serving/home.com/message/message.page.ts":
+/*!**********************************************************!*\
+  !*** ./src/app/serving/home.com/message/message.page.ts ***!
+  \**********************************************************/
 /*! exports provided: MessagePage */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -95,8 +95,8 @@ var MessagePage = /** @class */ (function () {
     MessagePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-message',
-            template: __webpack_require__(/*! raw-loader!./message.page.html */ "./node_modules/raw-loader/index.js!./src/app/message/message.page.html"),
-            styles: [__webpack_require__(/*! ./message.page.scss */ "./src/app/message/message.page.scss")]
+            template: __webpack_require__(/*! raw-loader!./message.page.html */ "./node_modules/raw-loader/index.js!./src/app/serving/home.com/message/message.page.html"),
+            styles: [__webpack_require__(/*! ./message.page.scss */ "./src/app/serving/home.com/message/message.page.scss")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
     ], MessagePage);

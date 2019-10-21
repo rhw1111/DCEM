@@ -1,0 +1,34 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+        </ion-buttons>
+        <ion-title>报表</ion-title>
+      </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+<ion-list>
+    <ion-item [routerLink]="['/demo/report/appointmentstatistics']">
+      <ion-icon size="large" slot="start" name="stats"></ion-icon>
+      <ion-label>
+        <h3>预约统计</h3>
+      </ion-label>
+      <ion-icon class="item-detail-icon ios hydrated" role="img" aria-label="arrow forward"></ion-icon>
+    </ion-item>
+    <ion-item [routerLink]="['/demo/report/testdriverate']" >
+        <ion-icon size="large" slot="start" name="car" ></ion-icon>
+        <ion-label>
+          <h3>试驾率</h3>
+        </ion-label>
+        <ion-icon class="item-detail-icon ios hydrated" role="img" aria-label="arrow forward"></ion-icon>
+      </ion-item>
+    <ion-item [routerLink]="['/demo/report/appointmenttrend']">
+      <ion-icon size="large" slot="start" name="pulse"></ion-icon>
+      <ion-label>
+        <h3>预约趋势</h3>
+      </ion-label>
+      <ion-icon class="item-detail-icon ios hydrated" role="img" aria-label="arrow forward"></ion-icon>
+    </ion-item>
+</ion-list>
+</ion-content>

@@ -258,3 +258,5 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/DCEM.MApp/dist/out-tsc/src/app/base/uc.com/login
+/DCEM.MApp/dist/out-tsc/src/app/base/uc.com/welcome
