@@ -13,7 +13,7 @@ const routes: Routes = [
                     { path: 'welcome', loadChildren: './base/uc.com/welcome/welcome.module#WelcomePageModule' }
                 ]
             }
-        ],
+        ]
     },
     {
         path: 'serving',

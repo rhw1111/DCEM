@@ -1,5 +1,4 @@
 import * as tslib_1 from "tslib";
-var _a, _b, _c;
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { LoadingController } from '@ionic/angular';
@@ -242,7 +241,9 @@ HttpService = tslib_1.__decorate([
     Injectable({
         providedIn: 'root'
     }),
-    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof HttpClient !== "undefined" && HttpClient) === "function" ? _a : Object, typeof (_b = typeof LoadingController !== "undefined" && LoadingController) === "function" ? _b : Object, typeof (_c = typeof ToastController !== "undefined" && ToastController) === "function" ? _c : Object])
+    tslib_1.__metadata("design:paramtypes", [HttpClient,
+        LoadingController,
+        ToastController])
 ], HttpService);
 export { HttpService };
 //# sourceMappingURL=http-service.service.js.map

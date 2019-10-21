@@ -161,6 +161,10 @@
     <Folder Include="src\app\sales\" />
     <Folder Include="src\app\sales\sales.ser\" />
     <Folder Include="src\app\serving\" />
+    <Folder Include="src\app\serving\home.com\index\" />
+    <Folder Include="src\app\serving\home.com\message\" />
+    <Folder Include="src\app\serving\home.com\mywork\" />
+    <Folder Include="src\app\serving\home.com\tabs\" />
     <Folder Include="src\app\serving\mc-order.com\" />
     <Folder Include="src\app\serving\mc-reservation.com\" />
     <Folder Include="src\app\serving\mc-resume.com\" />

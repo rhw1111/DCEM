@@ -1,5 +1,4 @@
 import * as tslib_1 from "tslib";
-var _a;
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 let TestDriveDetailPage = class TestDriveDetailPage {
@@ -20,7 +19,7 @@ TestDriveDetailPage = tslib_1.__decorate([
         templateUrl: './test-drive-detail.page.html',
         styleUrls: ['./test-drive-detail.page.scss'],
     }),
-    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof ActivatedRoute !== "undefined" && ActivatedRoute) === "function" ? _a : Object])
+    tslib_1.__metadata("design:paramtypes", [ActivatedRoute])
 ], TestDriveDetailPage);
 export { TestDriveDetailPage };
 //# sourceMappingURL=test-drive-detail.page.js.map

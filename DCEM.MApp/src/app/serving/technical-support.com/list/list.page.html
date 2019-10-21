@@ -5,8 +5,126 @@
     </ion-buttons>
     <ion-title>技术支持</ion-title>
   </ion-toolbar>
+  <ion-toolbar>
+      <ion-searchbar></ion-searchbar>
+  </ion-toolbar>
+  <ion-toolbar>
+      <ion-segment>
+          <ion-segment-button checked>
+              <ion-label>全部</ion-label>
+          </ion-segment-button>
+          <ion-segment-button>
+              <ion-label>处理中</ion-label>
+          </ion-segment-button>
+          <ion-segment-button>
+              <ion-label>已完成</ion-label>
+          </ion-segment-button>
+      </ion-segment>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    <ion-list lines="full">
+        <!-- <ion-item-divider>
+            <ion-label>
+                2019-10
+            </ion-label>
+        </ion-item-divider> -->
+        <ion-item [routerLink]="[ '/path', routeParam ]">
+            <ion-icon slot="start" color="primary" name="hammer" size="large"></ion-icon>
+            <ion-label>
+                <h2>JS201900900012323123123</h2>
+                <p>施工项目：ABS故障灯亮</p>
+                <p>施工日期：2019-10-15 80:20</p>
+                <p>施工状态：处理中</p>
+            </ion-label>
+        </ion-item>
+        <ion-item [routerLink]="[ '/path', routeParam ]">
+            <ion-icon slot="start" color="primary" name="hammer" size="large"></ion-icon>
+            <ion-label>
+                <h2>JS201900900012323123123</h2>
+                <p>施工项目：ABS故障灯亮</p>
+                <p>施工日期：2019-10-15 80:20</p>
+                <p>施工状态：处理中</p>
+            </ion-label>
+        </ion-item>
+        <ion-item [routerLink]="[ '/path', routeParam ]">
+            <ion-icon slot="start" color="primary" name="hammer" size="large"></ion-icon>
+            <ion-label>
+                <h2>JS201900900012323123123</h2>
+                <p>施工项目：ABS故障灯亮</p>
+                <p>施工日期：2019-10-15 80:20</p>
+                <p>施工状态：处理中</p>
+            </ion-label>
+        </ion-item>
+        <ion-item [routerLink]="[ '/path', routeParam ]">
+            <ion-icon slot="start" color="primary" name="hammer" size="large"></ion-icon>
+            <ion-label>
+                <h2>JS201900900012323123123</h2>
+                <p>施工项目：ABS故障灯亮</p>
+                <p>施工日期：2019-10-15 80:20</p>
+                <p>施工状态：处理中</p>
+            </ion-label>
+        </ion-item>
+        <ion-item [routerLink]="[ '/path', routeParam ]">
+            <ion-icon slot="start" color="primary" name="hammer" size="large"></ion-icon>
+            <ion-label>
+                <h2>JS201900900012323123123</h2>
+                <p>施工项目：ABS故障灯亮</p>
+                <p>施工日期：2019-10-15 80:20</p>
+                <p>施工状态：处理中</p>
+            </ion-label>
+        </ion-item>
+        <ion-item [routerLink]="[ '/path', routeParam ]">
+            <ion-icon slot="start" color="primary" name="hammer" size="large"></ion-icon>
+            <ion-label>
+                <h2>JS201900900012323123123</h2>
+                <p>施工项目：ABS故障灯亮</p>
+                <p>施工日期：2019-10-15 80:20</p>
+                <p>施工状态：处理中</p>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-icon slot="start" color="danger" name="hammer" size="large"></ion-icon>
+            <ion-label>
+                <h2>张三</h2>
+                <p>15088888888</p>
+            </ion-label>
+        </ion-item>
+        <ion-item-divider></ion-item-divider>
+        <ion-item>
+            <ion-icon slot="start" color="danger" name="hammer" size="large"></ion-icon>
+            <ion-label>
+                <h2>张三</h2>
+                <p>15088888888</p>
+            </ion-label>
+        </ion-item>
+        <ion-item-divider>
+            <ion-label>
+                2019-09-11
+            </ion-label>
+        </ion-item-divider>
+        <ion-item>
+            <ion-icon slot="start" color="primary" name="construct" size="large"></ion-icon>
+            <ion-label>
+                <h2>张三</h2>
+                <p>15088888888</p>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-icon slot="start" color="danger" name="construct" size="large"></ion-icon>
+            <ion-label>
+                <h2>张三</h2>
+                <p>15088888888</p>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-icon slot="start" color="danger" name="construct" size="large"></ion-icon>
+            <ion-label>
+                <h2>张三</h2>
+                <p>15088888888</p>
+            </ion-label>
+        </ion-item>
 
+    </ion-list>
 </ion-content>

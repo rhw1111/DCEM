@@ -1,5 +1,4 @@
 import * as tslib_1 from "tslib";
-var _a, _b;
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from '../../base/base.ser/http-service.service';
@@ -57,7 +56,7 @@ AppointmentPage = tslib_1.__decorate([
         templateUrl: './appointment.page.html',
         styleUrls: ['./appointment.page.scss'],
     }),
-    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof Router !== "undefined" && Router) === "function" ? _a : Object, typeof (_b = typeof NavController !== "undefined" && NavController) === "function" ? _b : Object, HttpService])
+    tslib_1.__metadata("design:paramtypes", [Router, NavController, HttpService])
 ], AppointmentPage);
 export { AppointmentPage };
 //# sourceMappingURL=appointment.page.js.map

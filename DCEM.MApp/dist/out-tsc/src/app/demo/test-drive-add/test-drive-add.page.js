@@ -1,5 +1,4 @@
 import * as tslib_1 from "tslib";
-var _a;
 import { Component } from '@angular/core';
 import { HttpService } from '../../base/base.ser/http-service.service';
 import { NavController } from '@ionic/angular';
@@ -61,7 +60,7 @@ TestDriveAddPage = tslib_1.__decorate([
         templateUrl: './test-drive-add.page.html',
         styleUrls: ['./test-drive-add.page.scss'],
     }),
-    tslib_1.__metadata("design:paramtypes", [HttpService, typeof (_a = typeof NavController !== "undefined" && NavController) === "function" ? _a : Object])
+    tslib_1.__metadata("design:paramtypes", [HttpService, NavController])
 ], TestDriveAddPage);
 export { TestDriveAddPage };
 export class TestDriveInfo {

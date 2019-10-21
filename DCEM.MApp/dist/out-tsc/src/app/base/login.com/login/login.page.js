@@ -1,5 +1,4 @@
 import * as tslib_1 from "tslib";
-var _a;
 import { HttpService } from '../../base.ser/http-service.service';
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
@@ -127,7 +126,8 @@ LoginPage = tslib_1.__decorate([
         templateUrl: './login.page.html',
         styleUrls: ['./login.page.scss'],
     }),
-    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof NavController !== "undefined" && NavController) === "function" ? _a : Object, HttpService,
+    tslib_1.__metadata("design:paramtypes", [NavController,
+        HttpService,
         AuthenticationService])
 ], LoginPage);
 export { LoginPage };

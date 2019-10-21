@@ -1,5 +1,4 @@
 import * as tslib_1 from "tslib";
-var _a, _b;
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -25,7 +24,7 @@ HomePage = tslib_1.__decorate([
         templateUrl: 'home.page.html',
         styleUrls: ['home.page.scss'],
     }),
-    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof NavController !== "undefined" && NavController) === "function" ? _a : Object, typeof (_b = typeof Router !== "undefined" && Router) === "function" ? _b : Object])
+    tslib_1.__metadata("design:paramtypes", [NavController, Router])
 ], HomePage);
 export { HomePage };
 //# sourceMappingURL=home.page.js.map
