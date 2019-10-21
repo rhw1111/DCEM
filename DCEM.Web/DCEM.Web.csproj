@@ -11,7 +11,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DCEM.ServiceAssistantService.Main\DCEM.ServiceAssistantService.Main.csproj" />
+    <ProjectReference Include="..\DCEM.Main\DCEM.Main.csproj" />
     <ProjectReference Include="..\MSLibrary\MSLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Configurations\Langs\language.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

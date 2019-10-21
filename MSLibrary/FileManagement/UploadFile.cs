@@ -279,12 +279,23 @@ namespace MSLibrary.FileManagement
         }
 
         /// <summary>
-        /// 读取流
+        /// 读取指定范围的流
+        /// 如果范围超出文件长度，返回false
         /// </summary>
         /// <returns></returns>
-        public async Task<Stream> Read()
+        public async Task<ValidateResult<Stream>> Read(long start,long? end)
         {
-            return await _imp.Read(this);
+            return await _imp.Read(this,start,end);
+        }
+
+        /// <summary>
+        /// 读取文件流
+        /// </summary>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public async Task Read(Func<Stream,Task> action)
+        {
+            await _imp.Read(this, action);
         }
 
         /// <summary>
@@ -346,8 +357,21 @@ namespace MSLibrary.FileManagement
         /// 读取流
         /// </summary>
         /// <param name="uploadFile"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
         /// <returns></returns>
-        Task<Stream> Read(UploadFile uploadFile);
+        Task<ValidateResult<Stream>> Read(UploadFile uploadFile, long start, long? end);
+
+        /// <summary>
+        /// 读取流
+        /// </summary>
+        /// <param name="uploadFile"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        Task Read(UploadFile uploadFile, Func<Stream,Task> action);
+
+
         /// <summary>
         /// 获取上传文件对应的MimeType
         /// </summary>
@@ -430,11 +454,18 @@ namespace MSLibrary.FileManagement
             return await Task.FromResult(FileSuffixMimeMapContainer.GetMime(uploadFile.Suffix));
         }
 
-        public async Task<Stream> Read(UploadFile uploadFile)
+        public async Task<ValidateResult<Stream>> Read(UploadFile uploadFile,long start,long? end)
         {
             var sourceService = GetSourceService(uploadFile.SourceType);
-            return await sourceService.Read(uploadFile);
+            return await sourceService.Read(uploadFile,start,end);
         }
+
+        public async Task Read(UploadFile uploadFile, Func<Stream,Task> action)
+        {
+            var sourceService = GetSourceService(uploadFile.SourceType);
+            await sourceService.Read(uploadFile,action);
+        }
+
 
         public async Task Submit(UploadFile uploadFile)
         {
@@ -481,7 +512,23 @@ namespace MSLibrary.FileManagement
     /// </summary>
     public interface IUploadFileSourceExecuteService
     {
-        Task<Stream> Read(UploadFile uploadFile);
+        /// <summary>
+        /// 读取指定范围的流
+        /// 如果范围超出实际文件长度，返回false
+        /// </summary>
+        /// <param name="uploadFile"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        Task<ValidateResult<Stream>> Read(UploadFile uploadFile,long start,long? end);
+        /// <summary>
+        /// 读取文件流
+        /// 会多次调用action
+        /// </summary>
+        /// <param name="uploadFile"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        Task Read(UploadFile uploadFile, Func<Stream,Task> action);
         Task Write(UploadFile uploadFile, Stream stream);
         Task Delete(UploadFile uploadFile);
     }
