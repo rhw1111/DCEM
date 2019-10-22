@@ -42,7 +42,7 @@ namespace MSLibrary.Xrm.MessageHandle
 
             var realRequest = request as CrmUnBoundFunctionRequestMessage;
 
-            var url = $"{realRequest.OrganizationURI}/api/v{realRequest.ApiVersion}/{realRequest.FunctionName}";
+            var url = $"{realRequest.OrganizationURI}/api/data/v{realRequest.ApiVersion}/{realRequest.FunctionName}";
  
             if (realRequest.Parameters == null && realRequest.Parameters.Count == 0)
             {

@@ -35,7 +35,7 @@ namespace MSLibrary.Xrm.MessageHandle
 
             var realRequest = request as CrmRetrieveEntityMetadataMultipleRequestMessage;
 
-            var url = $"{realRequest.OrganizationURI}/api/v{realRequest.ApiVersion}/EntityDefinitions";
+            var url = $"{realRequest.OrganizationURI}/api/data/v{realRequest.ApiVersion}/EntityDefinitions";
 
 
             if (!string.IsNullOrEmpty(realRequest.QueryExpression))
