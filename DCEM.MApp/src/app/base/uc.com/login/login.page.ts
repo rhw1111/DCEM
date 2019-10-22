@@ -67,8 +67,9 @@ export class LoginPage implements OnInit {
                 if (res.access_token === null || res.access_token === '') {
                     this.presentAlert('消息提示', '登录认证失败');
                 } else {
-                    /* this.presentAlert('消息提示', 'token:' + res.access_token);
-                    this.presentAlert('消息提示', '登录认证通过'); */
+                    //this.presentAlert('消息提示', 'token:' + res.access_token);
+                    console.log(res.access_token);
+                    //this.presentAlert('消息提示', '登录认证通过'); 
                     this.navCtr.navigateRoot('serving/home/tabs');
                 }
                 loading.then(a => { a.dismiss(); });

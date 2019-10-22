@@ -25,7 +25,13 @@ namespace DCEM.ServiceAssistantService.Main.DAL
             {
                 throw new UtilityException((int)Errors.NotFountCrmServiceFactorybyName, null);
             }
-            ICrmService _crmService = await serviceFactory.Create();
+            //ICrmService _crmService = await serviceFactory.Create();
+            var crmService=DIContainerContainer.Get<CrmService>();
+            crmService.CrmApiMaxRetry = 10;
+            crmService.CrmApiVersion = "1.0";
+            crmService.CrmUrl = "";
+            crmService.TokenServiceType = "";
+            //crmService.TokenServiceParameters = null;
             //ICrmService _crmService = new CrmService(null, null, null, null) {
             //    CrmApiVersion = "1.0.0.0",
             //    CrmApiMaxRetry = 10,
@@ -34,7 +40,7 @@ namespace DCEM.ServiceAssistantService.Main.DAL
             //};
 
             ITechnicalSupportRepository followRepository = new TechnicalSupportRepository();
-            ITechnicalSupportService technicalSupportService = new TechnicalSupportService(_crmService);
+            ITechnicalSupportService technicalSupportService = new TechnicalSupportService(crmService);
             IAppTechnicalSupport app = new AppTechnicalSupport(technicalSupportService);
             
             return  app;
