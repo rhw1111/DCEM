@@ -49,6 +49,7 @@ namespace DCEM.Web
           
             .ConfigureServices((context,services) =>
             {
+                
                 //获取核心配置
                 var coreConfiguration = ConfigurationContainer.Get<CoreConfiguration>(ConfigurationNames.Application);
 

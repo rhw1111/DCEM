@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MSLibrary.DI;
+using MSLibrary.Xrm;
 
 namespace DCEM.Web.Controllers
 {
@@ -14,6 +16,7 @@ namespace DCEM.Web.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
+            var service= DIContainerContainer.Get<CrmService>();
             return new string[] { "value1", "value2" };
         }
 

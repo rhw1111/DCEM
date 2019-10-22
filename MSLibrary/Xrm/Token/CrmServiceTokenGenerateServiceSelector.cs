@@ -6,6 +6,7 @@ using MSLibrary.LanguageTranslate;
 
 namespace MSLibrary.Xrm.Token
 {
+    [Injection(InterfaceType = typeof(ICrmServiceTokenGenerateServiceSelector), Scope = InjectionScope.Singleton)]
     public class CrmServiceTokenGenerateServiceSelector : ICrmServiceTokenGenerateServiceSelector
     {
         private static Dictionary<string, IFactory<ICrmServiceTokenGenerateService>> _serviceFactories = new Dictionary<string, IFactory<ICrmServiceTokenGenerateService>>();
