@@ -14,15 +14,11 @@ namespace DCEM.Web.Controllers
     [ApiController]
     public class CustomerController : Controller
     {
-        /// <summary>
-        /// 获取我的客户列表
-        /// </summary>
-        /// <returns></returns>
         [HttpGet]
         [Route("GetMyCustomerList")]
         public ActionResult<string> GetMyCustomerList()
         {
-            return "";
+            return "11";
         }
 
 
