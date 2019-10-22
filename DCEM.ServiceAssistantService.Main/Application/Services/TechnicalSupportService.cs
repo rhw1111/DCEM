@@ -10,7 +10,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
 {
     public class TechnicalSupportService : ITechnicalSupportService
     {
-        private const string EntityName= "mcs_supportorders";
+        private const string EntityName= "mcs_supportorder";
         private ICrmService _crmService;
         public TechnicalSupportService(ICrmService crmService)
         {
@@ -22,12 +22,8 @@ namespace DCEM.ServiceAssistantService.Main.Application
             try
             {
                 List<TechnicalSupportModel> list = new List<TechnicalSupportModel>();
-                //var result=CRMApi.GetPageRecord<TechnicalSupportModel>(EntityName,filterstr, pageSize, pageNum, sort, token: token);
                 var list2=_crmService.RetrieveMultiple(EntityName,filterstr);
-                //if (result.value!=null)
-                //{
-                //    list = result.value.ToList();
-                //}
+                
                 return list;
             }
             catch (Exception ex)
