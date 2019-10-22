@@ -1,11 +1,13 @@
-﻿using System;
+﻿using DCEM.Main;
+using MSLibrary.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace DCEM.ServiceAssistantService.Main
 {
     /// <summary>
-    /// 日志目录名称集
+    /// crm配置信息
     /// </summary>
     public static class CrmConfirguration
     {
@@ -20,7 +22,6 @@ namespace DCEM.ServiceAssistantService.Main
         public const int CrmApiMaxRetry = 10;
         public const string TokenServiceType = "ADFSPassword";
         public const string CrmUrl = "https://subcrmdev.sokon.com";
-        public const string CrmApiUrl = "https://subcrmdev.sokon.com/api/data/v8.2/";
         public const string AdfsUrl = "https://subcrmadfs.sokon.com/";
         public const string ClientId = "e5e014c7-b1ff-45a3-8c0a-991f5aa7ce8f";
         public const string ClientSecret = "A5V2S3Wn1NAir6igX2kr_Cm8hULdKOPnuXdruj4O";
