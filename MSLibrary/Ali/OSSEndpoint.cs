@@ -496,12 +496,21 @@ namespace MSLibrary.Ali
 
     public class OSSEndpointIMP : IOSSEndpointIMP
     {
-        public Task CompleteMultipart(OSSEndpoint endpoint, string filePath, string uploadID, List<(int, string)> parts)
+
+        public async Task CompleteMultipart(OSSEndpoint endpoint, string filePath, string uploadID, List<(int, string)> parts)
         {
-            throw new NotImplementedException();
+            var client= GetOssClient(endpoint);
+            CompleteMultipartUploadRequest request = new CompleteMultipartUploadRequest(endpoint.Bucket, filePath, uploadID);
+            foreach(var item in parts)
+            {
+                request.PartETags.Add(new PartETag(item.Item1, item.Item2));
+            }
+
+            client.CompleteMultipartUpload(request);
+            await Task.FromResult(0);
         }
 
-        public Task CompleteMultipartInfoDetail(OSSEndpoint endpoint, Guid infoID, Guid detailID, string etag)
+        public async Task CompleteMultipartInfoDetail(OSSEndpoint endpoint, Guid infoID, Guid detailID, string etag)
         {
             throw new NotImplementedException();
         }
@@ -604,6 +613,26 @@ namespace MSLibrary.Ali
         public Task Write(OSSEndpoint endpoint, string filePath, string credentialInfo, Stream stream, ObjectMetadata metadata)
         {
             throw new NotImplementedException();
+        }
+
+
+        private OssClient GetOssClient(OSSEndpoint endpoint)
+        {
+            var conf = new ClientConfiguration();
+            OssClient client;
+            if (endpoint.Type == 0)
+            {
+                conf.IsCname = false;
+                client = new OssClient(endpoint.Address, endpoint.AccessKeyId, endpoint.AccessKeySecret, conf);
+            }
+            else
+            {
+
+                conf.IsCname = true;
+                client = new OssClient(endpoint.CName, endpoint.AccessKeyId, endpoint.AccessKeySecret, conf);
+            }
+
+            return client;
         }
     }
 }
