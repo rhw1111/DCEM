@@ -22,12 +22,12 @@ namespace DCEM.ServiceAssistantService.Main.Application
             try
             {
                 List<TechnicalSupportModel> list = new List<TechnicalSupportModel>();
-                var result=CRMApi.GetPageRecord<TechnicalSupportModel>(EntityName,filterstr, pageSize, pageNum, sort, token: token);
-
-                if (result.value!=null)
-                {
-                    list = result.value.ToList();
-                }
+                //var result=CRMApi.GetPageRecord<TechnicalSupportModel>(EntityName,filterstr, pageSize, pageNum, sort, token: token);
+                var list2=_crmService.RetrieveMultiple(EntityName,filterstr);
+                //if (result.value!=null)
+                //{
+                //    list = result.value.ToList();
+                //}
                 return list;
             }
             catch (Exception ex)
