@@ -493,4 +493,117 @@ namespace MSLibrary.Ali
 
         Task CompleteMultipart(OSSEndpoint endpoint, string filePath, string uploadID,List<(int,string)> parts);
     }
+
+    public class OSSEndpointIMP : IOSSEndpointIMP
+    {
+        public Task CompleteMultipart(OSSEndpoint endpoint, string filePath, string uploadID, List<(int, string)> parts)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task CompleteMultipartInfoDetail(OSSEndpoint endpoint, Guid infoID, Guid detailID, string etag)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Copy(OSSEndpoint endpoint, string sourceFilePath, string targetFilePathy, ObjectMetadata newMetadata = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> CreateFileName(OSSEndpoint endpoint)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Dictionary<string, string>> CreateMultipartHeaderCallbackParameters(OSSEndpoint endpoint, string filePath, string credentialInfo, Dictionary<string, string> extensionInfos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<MultipartStorgeInfo> CreateMultipartinfo(OSSEndpoint endpoint, string filePath, string displayName, string credentialInfo, long size)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Dictionary<string, string>> CreatePostCallbackParameters(OSSEndpoint endpoint, string filePath, Dictionary<string, string> extensionInfos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> CreatePostCallbackPolicy(OSSEndpoint endpoint, string filePath, Dictionary<string, string> extensionInfos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> CreatePostCallbackPolicySignature(OSSEndpoint endpoint, string policy)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> CreatePresignedUri(OSSEndpoint endpoint, string filePath, SignHttpMethod method)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> CreatePresignedUri(OSSEndpoint endpoint, string filePath, SignHttpMethod method, long minutes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Delete(OSSEndpoint endpoint, string filePath)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ObjectMetadata> GetMetadata(OSSEndpoint endpoint, string filePath)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<MultipartStorgeInfo> GetMultipartinfo(OSSEndpoint endpoint, Guid infoID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<QueryResult<MultipartStorgeInfo>> GetMultipartinfo(OSSEndpoint endpoint, int page, int size)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task ModifyMetadata(OSSEndpoint endpoint, string filePath, ObjectMetadata metadata)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> NeedMultipart(OSSEndpoint endpoint, long size)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Stream> Read(OSSEndpoint endpoint, string filePath, long start, long? end)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Read(OSSEndpoint endpoint, Func<Stream, Task> action)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> UploadMultipart(OSSEndpoint endpoint, string filePath, string uploadID, int number, byte[] bytes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Write(OSSEndpoint endpoint, string filePath, string credentialInfo, Stream stream)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Write(OSSEndpoint endpoint, string filePath, string credentialInfo, Stream stream, ObjectMetadata metadata)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
