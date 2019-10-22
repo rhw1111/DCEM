@@ -20,7 +20,7 @@ namespace DCEM.Web.Controllers
         string client_id = "e5e014c7-b1ff-45a3-8c0a-991f5aa7ce8f";//客户端明文id
         string client_secret = "A5V2S3Wn1NAir6igX2kr_Cm8hULdKOPnuXdruj4O";//客户端密文
         string state = "bill";//状态，用于传输到adfs端进行认证后，会原样返回
-        string crmurl = "https://subcrmdev.sokon.com/api/data/v8.2";//模拟登陆的资源地址
+        string crmurl = "https://subcrmdev.sokon.com/api/data";//模拟登陆的资源地址
         [HttpGet]
         [Route("GetAuthToken")]
         public ActionResult<TokenModel> GetAuthToken(string username, string password)

@@ -11,6 +11,7 @@ using System.Text;
 using System.Net;
 using DCEM.ServiceAssistantService.Main.DAL;
 using DCEM.ServiceAssistantService.Main.Application;
+using DCEM.ServiceAssistantService.Main.DTOModel;
 
 namespace DCEM.Web.Controllers
 {
@@ -38,18 +39,13 @@ namespace DCEM.Web.Controllers
             var list = app.QueryListByPage("",10,1, "mcs_supportorderid desc", traceValue);
             var res = new BaseResponse<TechnicalSupportModel>()
             {
-                Datas = new List<TechnicalSupportModel>(),
+                Datas = list.ToList(),
                 Success = true,
                 Mssage = "查询成功"
             };
             
             return res;
         }
-
-    }
-
-    public class TechnicalSupportModel 
-    { 
 
     }
 

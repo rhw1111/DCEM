@@ -22,8 +22,18 @@ namespace DCEM.ServiceAssistantService.Main.Application
             try
             {
                 List<TechnicalSupportModel> list = new List<TechnicalSupportModel>();
-                var list2=_crmService.RetrieveMultiple(EntityName,filterstr);
-                
+                var result=_crmService.RetrieveMultiple(EntityName,filterstr).Result;
+                if (result!=null && result.Results!=null)
+                {
+                    foreach (var item in result.Results)
+                    {
+                        list.Add(new TechnicalSupportModel()
+                        {
+                            Name = item.Attributes.GetValue("mcs_name").ToString()
+                        }) ;
+                    }
+                }
+               
                 return list;
             }
             catch (Exception ex)
