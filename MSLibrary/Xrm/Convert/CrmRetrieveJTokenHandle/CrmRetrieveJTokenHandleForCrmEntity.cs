@@ -74,12 +74,12 @@ namespace MSLibrary.Xrm.Convert.CrmRetrieveJTokenHandle
             bool isActivity = false;
             if (json["activityid"] != null)
             {
-                entityId = json["activityid"].Value<Guid>();
+                entityId = Guid.Parse(json["activityid"].Value<string>());
                 isActivity = true;
             }
             else if (json[$"{entityName}id"] != null)
             {
-                entityId = json[$"{entityName}id"].Value<Guid>();
+                entityId = Guid.Parse(json[$"{entityName}id"].Value<string>());
             }
             else
             {

@@ -43,7 +43,7 @@ namespace MSLibrary.Xrm.MessageHandle
             var realRequest = request as CrmRetrieveMultiplePageRequestMessage;
 
 
-            var url = $"{realRequest.OrganizationURI}/api/v{realRequest.ApiVersion}/{realRequest.EntityName.ToPlural()}?{realRequest.QueryExpression}";
+            var url = $"{realRequest.OrganizationURI}/api/data/v{realRequest.ApiVersion}/{realRequest.EntityName.ToPlural()}?{realRequest.QueryExpression}";
 
             var headers = new Dictionary<string, IEnumerable<string>>();
             headers["OData-MaxVersion"] = new List<string> { "4.0" };

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
+using System.Net.Http;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging.Console;
 using MSLibrary.Thread;
@@ -13,6 +14,11 @@ namespace DCEM.ConsoleApp
     {
         async static Task  Main(string[] args)
         {
+            HttpClient httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("aa", new List<string> { "vv","bb"});
+            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
+            await httpClient.GetAsync("http://www.163.com");
+
 
             MemoryCache cache = new MemoryCache(new MemoryCacheOptions()
             {

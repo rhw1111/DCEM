@@ -40,7 +40,7 @@ namespace MSLibrary.Xrm.MessageHandle
 
             //获取实体记录的json对象
             var entityJObject = await _crmExecuteEntityConvertJObjectService.Convert(realRequest.Entity);
-            var url = $"{realRequest.OrganizationURI}/api/v{realRequest.ApiVersion}/{realRequest.Entity.EntityName.ToPlural()}";
+            var url = $"{realRequest.OrganizationURI}/api/data/v{realRequest.ApiVersion}/{realRequest.Entity.EntityName.ToPlural()}";
             var headers = new Dictionary<string, IEnumerable<string>>();
             headers["OData-MaxVersion"] = new List<string> { "4.0" };
             headers["OData-Version"] = new List<string> { "4.0" };

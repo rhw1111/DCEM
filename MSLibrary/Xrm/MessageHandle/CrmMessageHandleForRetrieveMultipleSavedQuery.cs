@@ -43,7 +43,7 @@ namespace MSLibrary.Xrm.MessageHandle
             var realRequest = request as CrmRetrieveMultipleSavedQueryRequestMessage;
 
 
-            var url = $"{realRequest.OrganizationURI}/api/v{realRequest.ApiVersion}/{realRequest.EntityName.ToPlural()}?savedQuery={realRequest.SavedQueryId.ToString()}";
+            var url = $"{realRequest.OrganizationURI}/api/data/v{realRequest.ApiVersion}/{realRequest.EntityName.ToPlural()}?savedQuery={realRequest.SavedQueryId.ToString()}";
             if (!string.IsNullOrEmpty(realRequest.AdditionalQueryExpression))
             {
                 url = $"{url}&{realRequest.AdditionalQueryExpression}";

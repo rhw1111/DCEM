@@ -43,7 +43,7 @@ namespace MSLibrary.Xrm.MessageHandle
             var realRequest = request as CrmRetrieveMultipleUserQueryRequestMessage;
 
 
-            var url = $"{realRequest.OrganizationURI}/api/v{realRequest.ApiVersion}/{realRequest.EntityName.ToPlural()}?userQuery={realRequest.UserQueryId.ToString()}";
+            var url = $"{realRequest.OrganizationURI}/api/data/v{realRequest.ApiVersion}/{realRequest.EntityName.ToPlural()}?userQuery={realRequest.UserQueryId.ToString()}";
             if (!string.IsNullOrEmpty(realRequest.AdditionalQueryExpression))
             {
                 url = $"{url}&{realRequest.AdditionalQueryExpression}";
