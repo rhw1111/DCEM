@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
 using MSLibrary.DI;
 using MSLibrary.LanguageTranslate;
@@ -181,12 +182,38 @@ namespace MSLibrary.Xrm
 
             var handle = _crmMessageHandleSelector.Choose(request.GetType().FullName);
             var requestResult = await handle.ExecuteRequest(request);
-           
+
+            string strContentType = null;
             HttpClient httpClient = _httpClientFactory.CreateClient();
             foreach (var headerItem in requestResult.Headers)
             {
-                httpClient.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
+                switch(headerItem.Key.ToLower())
+                {
+                   case "content-type":
+                        strContentType =await headerItem.Value.ToDisplayString(
+                            async (item) =>
+                            {
+                                return await Task.FromResult(item);
+                            },
+                            async () =>
+                            {
+                                return await Task.FromResult(";");
+                            }
+                            );
+                        break;
+                    case "accept":
+                        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(headerItem.Value.First()));
+                        break;
+                    default:
+                        httpClient.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
+                        break;
+
+                }
             }
+
+           
+
+
 
             //判断是否需要加入代理
             if (request.ProxyUserId!=null)
@@ -206,22 +233,39 @@ namespace MSLibrary.Xrm
 
                     httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {strToken}");
 
-                   
+
+                    StringContent strContent;
                     switch (requestResult.Method.Method.ToLower())
                     {
                         case "get":
                             responseMessage = await httpClient.GetAsync(requestResult.Url);
                             break;
                         case "post":
-                            responseMessage = await httpClient.PostAsync(requestResult.Url, new StringContent(requestResult.Body));
+                            strContent = new StringContent(requestResult.Body);
+                            if (strContentType != null)
+                            {
+                                strContent.Headers.ContentType = new MediaTypeHeaderValue(strContentType);
+                            }
+                            responseMessage = await httpClient.PostAsync(requestResult.Url, strContent);
                             break;
                         case "put":
-                            responseMessage = await httpClient.PutAsync(requestResult.Url, new StringContent(requestResult.Body));
+                            strContent = new StringContent(requestResult.Body);
+                            if (strContentType != null)
+                            {
+                                strContent.Headers.ContentType = new MediaTypeHeaderValue(strContentType);
+                            }
+                            responseMessage = await httpClient.PutAsync(requestResult.Url, strContent);
                             break;
                         case "patch":
+                            strContent = new StringContent(requestResult.Body);
+                            if (strContentType != null)
+                            {
+                                strContent.Headers.ContentType = new MediaTypeHeaderValue(strContentType);
+                            }
+
                             HttpRequestMessage httpRequest = new HttpRequestMessage(new HttpMethod("Patch"), requestResult.Url)
                             {
-                                Content = new StringContent(requestResult.Body)
+                                Content = strContent
                             };
                             responseMessage = await httpClient.SendAsync(httpRequest);
                             break;
