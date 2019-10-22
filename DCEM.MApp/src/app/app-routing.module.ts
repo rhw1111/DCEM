@@ -27,7 +27,7 @@ const routes: Routes = [
                 ]
             },
             {
-                path: 'mycustomer',
+                path: 'mycustomer',  //我的客户
                 children: [
                     { path: 'list', loadChildren: './serving/my-customer.com/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './serving/my-customer.com/detail/detail.module#DetailPageModule' },
@@ -46,7 +46,7 @@ const routes: Routes = [
                 ]
             },
             {
-                path: 'sc',
+                path: 'sc',  //我的维修
                 children: [
                     { path: 'list', loadChildren: './serving/mc-sc.com/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './serving/mc-sc.com/detail/detail.module#DetailPageModule' }
@@ -62,7 +62,7 @@ const routes: Routes = [
                 ]
             },
             {
-                path: 'ri',
+                path: 'ri',  //我的问诊
                 children: [
                     { path: 'list', loadChildren: './serving/reception-interrogation.com/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './serving/reception-interrogation.com/detail/detail.module#DetailPageModule' },
