@@ -1,4 +1,5 @@
-﻿using Microsoft.Xrm.Sdk;
+﻿using DCEM.ServiceAssistantService.Main.DTOModel;
+using MSLibrary.Xrm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,12 @@ namespace DCEM.ServiceAssistantService.Main.Application
         /// <summary>
         /// 分页查询技术支持
         /// </summary>
-        void QueryListByPage();
-
+        IList<TechnicalSupportModel> QueryListByPage(string filterstr, int pageSize, int pageNum, string sort,string token="");
+        /// <summary>
+        /// 通过Id获取数据
+        /// </summary>
+        /// <param name="entityId"></param>
+        /// <returns></returns>
+        Task<CrmEntity> QueryById(Guid entityId);
     }
 }

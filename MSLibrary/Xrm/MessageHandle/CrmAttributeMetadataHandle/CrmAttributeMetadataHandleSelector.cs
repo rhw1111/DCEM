@@ -6,7 +6,7 @@ using MSLibrary.LanguageTranslate;
 
 namespace MSLibrary.Xrm.MessageHandle.CrmAttributeMetadataHandle
 {
-    [Injection(InterfaceType = typeof(CrmAttributeMetadataHandleSelector), Scope = InjectionScope.Singleton)]
+    [Injection(InterfaceType = typeof(ICrmAttributeMetadataHandleSelector), Scope = InjectionScope.Singleton)]
     public class CrmAttributeMetadataHandleSelector : ICrmAttributeMetadataHandleSelector
     {
         private static Dictionary<string, IFactory<ICrmAttributeMetadataHandle>> _handleFactories = new Dictionary<string, IFactory<ICrmAttributeMetadataHandle>>();

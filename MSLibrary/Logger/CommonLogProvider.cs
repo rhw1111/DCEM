@@ -33,7 +33,7 @@ namespace MSLibrary.Logger
 
     }
 
-    [Injection(InterfaceType = typeof(CommonLogLoggerFactory), Scope = InjectionScope.Singleton)]
+    [Injection(InterfaceType = typeof(ICommonLogLoggerFactory), Scope = InjectionScope.Singleton)]
     public class CommonLogLoggerFactory : ICommonLogLoggerFactory
     {
         public CommonLogLogger _commonLogLogger;

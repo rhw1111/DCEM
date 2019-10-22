@@ -13,6 +13,7 @@ namespace DCEM.Main.Logger
     /// 通用日志处理实现
     /// 调用日志服务的远程方法
     /// </summary>
+    [Injection(InterfaceType = typeof(ICommonLogExecute), Scope = InjectionScope.Singleton)]
     public class CommonLogExecute : ICommonLogExecute
     {
         private IFactory<IAddCommonLogService> _addCommonLogServiceFactory;
