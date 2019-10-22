@@ -35,7 +35,7 @@ namespace MSLibrary.Xrm.MessageHandle
 
             var realRequest = request as CrmRetrieveGlobalOptionSetMetadataRequestMessage;
 
-            var url = $"{realRequest.OrganizationURI}/api/v{realRequest.ApiVersion}/GlobalOptionSetDefinitions";
+            var url = $"{realRequest.OrganizationURI}/api/data/v{realRequest.ApiVersion}/GlobalOptionSetDefinitions";
             if (realRequest.MetadataId != Guid.Empty)
             {
                 url = $"{url}({realRequest.MetadataId.ToString()})";

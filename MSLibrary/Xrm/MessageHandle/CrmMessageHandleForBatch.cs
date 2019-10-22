@@ -112,7 +112,7 @@ namespace MSLibrary.Xrm.MessageHandle
             }
 
 
-            var url = $"{realRequest.OrganizationURI}/api/v{realRequest.ApiVersion}/$batch";
+            var url = $"{realRequest.OrganizationURI}/api/data/v{realRequest.ApiVersion}/$batch";
             var headers = new Dictionary<string, IEnumerable<string>>();
             headers["OData-MaxVersion"] = new List<string> { "4.0" };
             headers["OData-Version"] = new List<string> { "4.0" };

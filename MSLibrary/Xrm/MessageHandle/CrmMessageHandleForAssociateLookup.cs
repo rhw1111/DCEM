@@ -43,7 +43,7 @@ namespace MSLibrary.Xrm.MessageHandle
             var realRequest = request as CrmAssociateLookupRequestMessage;
 
             //如果唯一键集合不为空，则使用唯一键作为主键，否则，使用Entity的Id作为主键
-            var url = $"{realRequest.OrganizationURI}/api/v{realRequest.ApiVersion}/{realRequest.EntityName.ToPlural()}";
+            var url = $"{realRequest.OrganizationURI}/api/data/v{realRequest.ApiVersion}/{realRequest.EntityName.ToPlural()}";
             if (realRequest.AlternateKeys != null && realRequest.AlternateKeys.Count > 0)
             {
                 StringBuilder strAlternateKey = new StringBuilder();

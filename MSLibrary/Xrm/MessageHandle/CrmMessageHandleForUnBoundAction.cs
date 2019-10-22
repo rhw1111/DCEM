@@ -42,7 +42,7 @@ namespace MSLibrary.Xrm.MessageHandle
 
             var realRequest = request as CrmUnBoundActionRequestMessage;
 
-            var url = $"{realRequest.OrganizationURI}/api/v{realRequest.ApiVersion}/{realRequest.ActionName}";
+            var url = $"{realRequest.OrganizationURI}/api/data/v{realRequest.ApiVersion}/{realRequest.ActionName}";
 
 
             JObject parameterJObject = new JObject();

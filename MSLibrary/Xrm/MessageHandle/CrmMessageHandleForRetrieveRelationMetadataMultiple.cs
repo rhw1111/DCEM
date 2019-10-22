@@ -35,7 +35,7 @@ namespace MSLibrary.Xrm.MessageHandle
 
             var realRequest = request as CrmRetrieveRelationMetadataMultipleRequestMessage;
 
-            var url = $"{realRequest.OrganizationURI}/api/v{realRequest.ApiVersion}/RelationshipDefinitions";
+            var url = $"{realRequest.OrganizationURI}/api/data/v{realRequest.ApiVersion}/RelationshipDefinitions";
 
             if (!string.IsNullOrEmpty(realRequest.QueryExpression))
             {

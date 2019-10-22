@@ -248,7 +248,7 @@ namespace MSLibrary.Xrm.Token
                 },
                 async () =>
                 {
-                    var auth = await AdfsHelper.GetAdfsAuthDirect(adfsUrl, crmUrl, clientId, clientSecret, userName, password);
+                    var auth = await AdfsHelper.GetAdfsAuthDirect(adfsUrl, $"{crmUrl}/api/data", clientId, clientSecret, userName, password);
                     AdfsAuthWrapper wrapper = new AdfsAuthWrapper()
                     {
                         AdfsAuth = auth,

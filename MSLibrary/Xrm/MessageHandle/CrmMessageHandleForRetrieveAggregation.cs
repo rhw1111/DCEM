@@ -36,7 +36,7 @@ namespace MSLibrary.Xrm.MessageHandle
             var realRequest = request as CrmRetrieveAggregationRequestMessage;
 
 
-            var url = $"{realRequest.OrganizationURI}/api/v{realRequest.ApiVersion}/{realRequest.EntityName.ToPlural()}/{realRequest.Aggregation}";
+            var url = $"{realRequest.OrganizationURI}/api/data/v{realRequest.ApiVersion}/{realRequest.EntityName.ToPlural()}/{realRequest.Aggregation}";
 
             var headers = new Dictionary<string, IEnumerable<string>>();
             headers["OData-MaxVersion"] = new List<string> { "4.0" };

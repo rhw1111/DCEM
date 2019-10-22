@@ -44,7 +44,7 @@ namespace MSLibrary.Xrm.MessageHandle
             var realRequest = request as CrmRetrieveMultipleFetchRequestMessage;
 
 
-            var url = $"{realRequest.OrganizationURI}/api/v{realRequest.ApiVersion}/{realRequest.EntityName.ToPlural()}?fetchXml={WebUtility.UrlEncode(realRequest.FetchXml.ToString())}";
+            var url = $"{realRequest.OrganizationURI}/api/data/v{realRequest.ApiVersion}/{realRequest.EntityName.ToPlural()}?fetchXml={WebUtility.UrlEncode(realRequest.FetchXml.ToString())}";
             if (!string.IsNullOrEmpty(realRequest.AdditionalQueryExpression))
             {
                 url = $"{url}&{realRequest.AdditionalQueryExpression}";

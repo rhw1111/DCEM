@@ -35,7 +35,7 @@ namespace MSLibrary.Xrm.MessageHandle
 
             var realRequest = request as CrmRetrieveO2NRelationMetadataMultipleRequestMessage;
 
-            var url = $"{realRequest.OrganizationURI}/api/v{realRequest.ApiVersion}/RelationshipDefinitions/Microsoft.Dynamics.CRM.OneToManyRelationshipMetadata";
+            var url = $"{realRequest.OrganizationURI}/api/data/v{realRequest.ApiVersion}/RelationshipDefinitions/Microsoft.Dynamics.CRM.OneToManyRelationshipMetadata";
 
             if (!string.IsNullOrEmpty(realRequest.QueryExpression))
             {
