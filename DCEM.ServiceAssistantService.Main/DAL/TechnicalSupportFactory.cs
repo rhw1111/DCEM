@@ -29,7 +29,7 @@ namespace DCEM.ServiceAssistantService.Main.DAL
             var crmService=DIContainerContainer.Get<CrmService>();
             crmService.CrmApiMaxRetry = 10;
             crmService.CrmApiVersion = "1.0";
-            crmService.CrmUrl="":
+            crmService.CrmUrl = "";
             crmService.TokenServiceType = "";
             //crmService.TokenServiceParameters = null;
             //ICrmService _crmService = new CrmService(null, null, null, null) {
