@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+            <ion-back-button text="返回" defaultHref="/serving/home/mywork"></ion-back-button>
         </ion-buttons>
         <ion-title>预约单</ion-title>
     </ion-toolbar>
@@ -10,39 +10,39 @@
     </ion-toolbar>
     <ion-toolbar>
         <ion-segment>
-            <ion-segment-button checked>
-                <ion-label>全部</ion-label>
+            <ion-segment-button checked (click)="showlist">
+                <ion-label color="{{spanColor1}}">全部</ion-label>
+            </ion-segment-button >
+            <ion-segment-button (click)="showlist(10)">
+                <ion-label color="{{spanColor1}}">待跟进</ion-label>
             </ion-segment-button>
-            <ion-segment-button>
-                <ion-label>待跟进(10)</ion-label>
-            </ion-segment-button>
-            <ion-segment-button>
-                <ion-label>已跟进(2)</ion-label>
+            <ion-segment-button (click)="showlist(20)">
+                <ion-label color="{{spanColor1}}">已跟进</ion-label>
             </ion-segment-button>
         </ion-segment>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-list lines="full">
-        <ion-item-divider>
+    <ion-list lines="full"  *ngFor="let r of ListAll">
+        <!--<ion-item-divider>
             <ion-label>
                10月07日
             </ion-label>
-        </ion-item-divider>
-        <ion-item button="true" mode="ios" >
-            <ion-icon slot="start" color="primary" name="man" size="large"></ion-icon>
+        </ion-item-divider>-->
+        <ion-item button="true" mode="ios" (click)="showDetail(r)" >
             <ion-label>
-                <h2>渝B00002</h2>
-                <p>郑建成</p>
+                <h2>{{r.mcs_carplate}}</h2>
+                <p>{{r.mcs_customername}}</p>
             </ion-label>
             <div>
-                <span>2019-10-07</span>
-                <span>08:30-90:00</span>
-                <span>待跟进</span>
+                <h3>{{r.mcs_appointmentat}}</h3>
+                <h3>{{r.mcs_appointmentconfigid}}</h3>
+                <h3 *ngIf="{{r.mcs_status}}==10">待跟进</h3>
+                <h3 *ngIf="{{r.mcs_status}}==20">已跟进</h3>
             </div>
         </ion-item>
-        <ion-item button="true" mode="ios">
+        <!--<ion-item button="true" mode="ios">
             <ion-icon slot="start" color="danger" name="woman" size="large"></ion-icon>
             <ion-label>
                 <h2>渝B00002</h2>
@@ -65,48 +65,6 @@
                 <span>08:30-90:00</span>
                 <span>待跟进</span>
             </div>
-        </ion-item>
-        <ion-item-divider>
-            <ion-label>
-                10月08日
-            </ion-label>
-        </ion-item-divider>
-        <ion-item button="true" mode="ios">
-            <ion-icon slot="start" color="primary" name="man" size="large"></ion-icon>
-            <ion-label>
-                <h2>渝B00002</h2>
-                <p>郑建成</p>
-            </ion-label>
-            <div>
-                <span>2019-10-08</span>
-                <span>08:30-90:00</span>
-                <span>已跟进</span>
-            </div>
-        </ion-item>
-        <ion-item button="true" mode="ios">
-            <ion-icon slot="start" color="danger" name="woman" size="large"></ion-icon>
-            <ion-label>
-                <h2>渝B00002</h2>
-                <p>郑建成</p>
-            </ion-label>
-            <div>
-                <span>2019-10-08</span>
-                <span>08:30-90:00</span>
-                <span>已跟进</span>
-            </div>
-        </ion-item>
-        <ion-item button="true" mode="ios">
-            <ion-icon slot="start" color="danger" name="woman" size="large"></ion-icon>
-            <ion-label>
-                <h2>渝B00002</h2>
-                <p>郑建成</p>
-            </ion-label>
-            <div>
-                <span>2019-10-08</span>
-                <span>08:30-90:00</span>
-                <span>已跟进</span>
-            </div>
-        </ion-item>
-
+        </ion-item>-->
     </ion-list>
 </ion-content>

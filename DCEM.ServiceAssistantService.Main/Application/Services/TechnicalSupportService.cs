@@ -21,15 +21,36 @@ namespace DCEM.ServiceAssistantService.Main.Application
         {
             try
             {
+                //filterstr = string.Format($@"<fetch version=""1.0"" output-format=""xml-platform"" mapping=""logical"" distinct=""false"" count=""{pageSize}"" page=""{pageNum}"">
+                //                <entity name = ""mcs_supportorder"" >
+                //                    <attribute name = ""mcs_supportorderid"" />
+                //                    <attribute name = ""mcs_title"" />
+                //                    <attribute name = ""mcs_orderstatus"" />
+                //                    <attribute name = ""mcs_title"" />    
+                //                <filter type = ""and"" >
+                //                  <condition attribute='statecode' operator='eq' value='0' />
+                //               </filter>
+                //                </entity>
+                //            </fetch>");
+
                 List<TechnicalSupportModel> list = new List<TechnicalSupportModel>();
-                var result=_crmService.RetrieveMultiple(EntityName,filterstr).Result;
+                var result=_crmService.RetrieveMultipleNextPage(EntityName,filterstr, pageSize).Result;
                 if (result!=null && result.Results!=null)
                 {
                     foreach (var item in result.Results)
                     {
+                        DateTime? mcs_repairdate=null;
+                        if (item.Attributes.GetValue("mcs_repairdate")!=null)
+                        {
+                            mcs_repairdate=DateTime.Parse(item.Attributes.GetValue("mcs_repairdate").ToString());
+                        }
                         list.Add(new TechnicalSupportModel()
                         {
-                            Name = item.Attributes.GetValue("mcs_name").ToString()
+                            Id=item.Id,
+                            mcs_name = item.Attributes.GetValue("mcs_name").ToString(),
+                            mcs_title = item.Attributes.GetValue("mcs_title").ToString(),
+                            mcs_orderstatus = int.Parse(item.Attributes.GetValue("mcs_orderstatus").ToString()),
+                            mcs_repairdate = mcs_repairdate
                         }) ;
                     }
                 }

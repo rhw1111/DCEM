@@ -29,33 +29,21 @@ namespace DCEM.Web.Controllers
             }
         }
 
-
         // GET api/values
         [HttpGet]
         [Route("GetList")]
-        public ActionResult<BaseResponse<TechnicalSupportModel>> GetList()
+        public ActionResult<ResultResponse<TechnicalSupportModel>> GetList()
         {
             Request.Headers.TryGetValue("token", out var traceValue);
             var list = app.QueryListByPage("",10,1, "mcs_supportorderid desc", traceValue);
-            var res = new BaseResponse<TechnicalSupportModel>()
+            var res = new ResultResponse<TechnicalSupportModel>()
             {
-                Datas = list.ToList(),
+                Data = list.ToList(),
                 Success = true,
                 Mssage = "查询成功"
             };
-            
             return res;
         }
-
-    }
-
-
-    public class BaseResponse<T>
-    {
-        public List<T> Datas { get; set; }
-
-        public bool Success { get; set; }
-        public string Mssage { get; set; }
     }
 }
 

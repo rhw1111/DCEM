@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>登录</ion-title>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content fullscreen scroll-y=\"false\">\r\n    <ion-list lines=\"none\">\r\n        <ion-list-header text-center>\r\n            <img src=\"./assets/img/userhead.png\" />\r\n        </ion-list-header>\r\n        <ion-item>\r\n            <ion-icon slot=\"start\" name=\"phone-portrait\"></ion-icon>\r\n            <ion-input [(ngModel)]=\"mod.username\" placeholder=\"手机号码\" no-lines></ion-input>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-icon slot=\"start\" name=\"lock\"></ion-icon>\r\n            <ion-input [(ngModel)]=\"mod.password\" type=\"password\" placeholder=\"登录密码\"></ion-input>\r\n            <ion-toggle slot=\"end\"></ion-toggle>\r\n        </ion-item>\r\n        <ion-item color=\"none\">\r\n            <label slot=\"end\">记住密码</label>\r\n            <ion-toggle slot=\"end\"></ion-toggle>\r\n        </ion-item>\r\n        <ion-button expand=\"block\" type=\"button\" (click)=\"submit()\">登录</ion-button>\r\n    </ion-list>\r\n</ion-content>"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>登录</ion-title>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content fullscreen scroll-y=\"false\">\r\n    <ion-list lines=\"none\">\r\n        <ion-list-header text-center>\r\n            <img src=\"./assets/img/userhead.png\" />\r\n        </ion-list-header>\r\n        <ion-item>\r\n            <ion-icon slot=\"start\" name=\"phone-portrait\"></ion-icon>\r\n            <ion-input [(ngModel)]=\"mod.username\" placeholder=\"手机号码\" no-lines></ion-input>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-icon slot=\"start\" name=\"lock\"></ion-icon>\r\n            <ion-input [(ngModel)]=\"mod.password\" type=\"password\" placeholder=\"登录密码\"></ion-input>\r\n            <ion-toggle slot=\"end\"></ion-toggle>\r\n        </ion-item>\r\n        <ion-item color=\"none\">\r\n            <label slot=\"end\">记住密码</label>\r\n            <ion-toggle slot=\"end\"></ion-toggle>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>登录环境</ion-label>\r\n            <ion-select value=\"localhost\" okText=\"确定\" cancelText=\"取消\" [(ngModel)]=\"environment\" name=\"environment\" id=\"environment\">\r\n              <ion-select-option value=\"localhost\">localhost</ion-select-option>\r\n              <ion-select-option value=\"Dev\">Dev</ion-select-option>\r\n              <ion-select-option value=\"Sit\">Sit</ion-select-option>\r\n              <ion-select-option value=\"Uat\">Uat</ion-select-option>\r\n              <ion-select-option value=\"Prod\">Prod</ion-select-option>\r\n            </ion-select>\r\n          </ion-item>\r\n        <ion-button expand=\"block\" type=\"button\" (click)=\"submit()\">登录</ion-button>\r\n    </ion-list>\r\n</ion-content>"
 
 /***/ }),
 
@@ -87,17 +87,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _base_ser_http_service_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../base.ser/http-service.service */ "./src/app/base/base.ser/http-service.service.ts");
+
 
 
 
 
 let LoginPage = class LoginPage {
     // 定义控制器
-    constructor(alertCtr, loadingCtr, navCtr, httpClient) {
+    constructor(alertCtr, loadingCtr, navCtr, httpClient, httpService) {
         this.alertCtr = alertCtr;
         this.loadingCtr = loadingCtr;
         this.navCtr = navCtr;
         this.httpClient = httpClient;
+        this.httpService = httpService;
+        this.environment = '';
         // 定义模型
         this.mod = {
             username: '',
@@ -139,8 +143,11 @@ let LoginPage = class LoginPage {
                 this.presentAlert('消息提示', '登录认证失败');
             }
             else {
-                /* this.presentAlert('消息提示', 'token:' + res.access_token);
-                this.presentAlert('消息提示', '登录认证通过'); */
+                //设置登录环境
+                this.httpService.setEnvironmentUrl(this.environment);
+                //this.presentAlert('消息提示', 'token:' + res.access_token);
+                console.log(res.access_token);
+                //this.presentAlert('消息提示', '登录认证通过'); 
                 this.navCtr.navigateRoot('serving/home/tabs');
             }
             loading.then(a => { a.dismiss(); });
@@ -165,7 +172,8 @@ LoginPage.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"] },
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] },
+    { type: _base_ser_http_service_service__WEBPACK_IMPORTED_MODULE_4__["HttpService"] }
 ];
 LoginPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -176,7 +184,8 @@ LoginPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"],
-        _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
+        _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"],
+        _base_ser_http_service_service__WEBPACK_IMPORTED_MODULE_4__["HttpService"]])
 ], LoginPage);
 
 
