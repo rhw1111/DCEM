@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using MSLibrary.Xrm;
 using System.Threading.Tasks;
 
 namespace DCEM.ServiceAssistantService.Main.Application
@@ -11,6 +8,6 @@ namespace DCEM.ServiceAssistantService.Main.Application
         /// <summary>
         /// 查询客户列表
         /// </summary>
-        void QueryList();
+        Task<CrmEntityCollection> QueryList();
     }
 }

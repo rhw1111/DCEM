@@ -1,12 +1,112 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button text="返回" defaultHref="/"></ion-back-button>
-    </ion-buttons>
-    <ion-title>预约单</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+        </ion-buttons>
+        <ion-title>预约单</ion-title>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-searchbar></ion-searchbar>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-segment>
+            <ion-segment-button checked>
+                <ion-label>全部</ion-label>
+            </ion-segment-button>
+            <ion-segment-button>
+                <ion-label>待跟进(10)</ion-label>
+            </ion-segment-button>
+            <ion-segment-button>
+                <ion-label>已跟进(2)</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    <ion-list lines="full">
+        <ion-item-divider>
+            <ion-label>
+               10月07日
+            </ion-label>
+        </ion-item-divider>
+        <ion-item button="true" mode="ios" >
+            <ion-icon slot="start" color="primary" name="man" size="large"></ion-icon>
+            <ion-label>
+                <h2>渝B00002</h2>
+                <p>郑建成</p>
+            </ion-label>
+            <div>
+                <span>2019-10-07</span>
+                <span>08:30-90:00</span>
+                <span>待跟进</span>
+            </div>
+        </ion-item>
+        <ion-item button="true" mode="ios">
+            <ion-icon slot="start" color="danger" name="woman" size="large"></ion-icon>
+            <ion-label>
+                <h2>渝B00002</h2>
+                <p>郑建成</p>
+            </ion-label>
+            <div>
+                <span>2019-10-07</span>
+                <span>08:30-90:00</span>
+                <span>待跟进</span>
+            </div>
+        </ion-item>
+        <ion-item button="true" mode="ios">
+            <ion-icon slot="start" color="danger" name="woman" size="large"></ion-icon>
+            <ion-label>
+                <h2>渝B00002</h2>
+                <p>郑建成</p>
+            </ion-label>
+            <div>
+                <span>2019-10-07</span>
+                <span>08:30-90:00</span>
+                <span>待跟进</span>
+            </div>
+        </ion-item>
+        <ion-item-divider>
+            <ion-label>
+                10月08日
+            </ion-label>
+        </ion-item-divider>
+        <ion-item button="true" mode="ios">
+            <ion-icon slot="start" color="primary" name="man" size="large"></ion-icon>
+            <ion-label>
+                <h2>渝B00002</h2>
+                <p>郑建成</p>
+            </ion-label>
+            <div>
+                <span>2019-10-08</span>
+                <span>08:30-90:00</span>
+                <span>已跟进</span>
+            </div>
+        </ion-item>
+        <ion-item button="true" mode="ios">
+            <ion-icon slot="start" color="danger" name="woman" size="large"></ion-icon>
+            <ion-label>
+                <h2>渝B00002</h2>
+                <p>郑建成</p>
+            </ion-label>
+            <div>
+                <span>2019-10-08</span>
+                <span>08:30-90:00</span>
+                <span>已跟进</span>
+            </div>
+        </ion-item>
+        <ion-item button="true" mode="ios">
+            <ion-icon slot="start" color="danger" name="woman" size="large"></ion-icon>
+            <ion-label>
+                <h2>渝B00002</h2>
+                <p>郑建成</p>
+            </ion-label>
+            <div>
+                <span>2019-10-08</span>
+                <span>08:30-90:00</span>
+                <span>已跟进</span>
+            </div>
+        </ion-item>
 
+    </ion-list>
 </ion-content>
