@@ -12,7 +12,13 @@ const routes: Routes = [
                     { path: 'login', loadChildren: './base/uc.com/login/login.module#LoginPageModule' },
                     { path: 'welcome', loadChildren: './base/uc.com/welcome/welcome.module#WelcomePageModule' }
                 ]
-            }
+            },
+            // {
+            //     path: 'login',
+            //     children: [
+            //         { path: 'login', loadChildren: './base/login.com/login/login.module#LoginPageModule' },
+            //     ]
+            // }
         ]
     },
     {
@@ -27,7 +33,7 @@ const routes: Routes = [
                 ]
             },
             {
-                path: 'mycustomer',  //�ҵĿͻ�
+                path: 'mycustomer',  //我的客户
                 children: [
                     { path: 'list', loadChildren: './serving/my-customer.com/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './serving/my-customer.com/detail/detail.module#DetailPageModule' },
@@ -35,7 +41,7 @@ const routes: Routes = [
                 ]
             },
             {
-                path: 'reservation',
+                path: 'reservation',//预约
                 children: [
                     { path: 'list', loadChildren: './serving/mc-reservation.com/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './serving/mc-reservation.com/detail/detail.module#DetailPageModule' },
@@ -46,7 +52,7 @@ const routes: Routes = [
                 ]
             },
             {
-                path: 'sc',  //�ҵ�ά��
+                path: 'sc',  //服务委托书
                 children: [
                     { path: 'list', loadChildren: './serving/mc-sc.com/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './serving/mc-sc.com/detail/detail.module#DetailPageModule' }
@@ -62,7 +68,7 @@ const routes: Routes = [
                 ]
             },
             {
-                path: 'ri',  //�ҵ�����
+                path: 'ri',  //维保接待问诊
                 children: [
                     { path: 'list', loadChildren: './serving/reception-interrogation.com/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './serving/reception-interrogation.com/detail/detail.module#DetailPageModule' },
@@ -70,7 +76,7 @@ const routes: Routes = [
                 ]
             },
             {
-                path: 'ts',
+                path: 'ts',//技术支持
                 children: [
                     { path: 'list', loadChildren: './serving/technical-support.com/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './serving/technical-support.com/detail/detail.module#DetailPageModule' },
