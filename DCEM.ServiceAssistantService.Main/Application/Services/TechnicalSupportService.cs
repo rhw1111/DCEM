@@ -21,6 +21,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
         {
             try
             {
+               
                 List<TechnicalSupportModel> list = new List<TechnicalSupportModel>();
                 var result=_crmService.RetrieveMultiple(EntityName,filterstr).Result;
                 if (result!=null && result.Results!=null)
@@ -29,7 +30,8 @@ namespace DCEM.ServiceAssistantService.Main.Application
                     {
                         list.Add(new TechnicalSupportModel()
                         {
-                            Name = item.Attributes.GetValue("mcs_name").ToString()
+                            mcs_name = item.Attributes.GetValue("mcs_name").ToString(),
+                            mcs_title = item.Attributes.GetValue("mcs_title").ToString(),
                         }) ;
                     }
                 }
