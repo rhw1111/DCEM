@@ -613,6 +613,326 @@ const blockedTags = ['script', 'style', 'iframe', 'meta', 'link', 'object', 'emb
 
 
 
+/***/ }),
+
+/***/ "./src/app/base/base.ser/http-service.service.ts":
+/*!*******************************************************!*\
+  !*** ./src/app/base/base.ser/http-service.service.ts ***!
+  \*******************************************************/
+/*! exports provided: HttpService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HttpService", function() { return HttpService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+
+
+
+
+
+let HttpService = class HttpService {
+    constructor(http, loadingCtrl, toastCtrl) {
+        this.http = http;
+        this.loadingCtrl = loadingCtrl;
+        this.toastCtrl = toastCtrl;
+        this.isLoadingOpen = false;
+        this.InterfacePreURL = "";
+    }
+    postForToaken(url, params, successCallback, errorCallback) {
+        // 此处使用的post模式为非严格模式，如果要使用严格模式，请把参数放在第二个位置 覆盖null
+        return this.http
+            .post(this.getEnvironmentUrl() + url, null, {
+            params: this.encodeHttpParams(params),
+            headers: this.getHeaders()
+        })
+            .subscribe((res) => {
+            console.log(res);
+            this.responseSuccess(res, function (msg) {
+                if (successCallback) {
+                    successCallback(res, msg);
+                }
+            });
+        }, err => {
+            if (errorCallback) {
+                errorCallback(err);
+            }
+        });
+    }
+    //get数据
+    getForToaken(url, params) {
+        return this.http.get(this.getEnvironmentUrl() + url, {
+            params: this.encodeComplexHttpParams(params),
+            headers: this.getHeaders()
+        });
+    }
+    GET(url, params, callback) {
+        this.http
+            .get(this.getEnvironmentUrl() + url, { params: this.encodeComplexHttpParams(params) })
+            .subscribe(res => {
+            console.log('get res=' + res);
+            callback && callback(res, null);
+        }, error => {
+            callback && callback(null, error);
+        });
+    }
+    POST(url, params, callback) {
+        console.log('POST...');
+        this.http.post(this.getEnvironmentUrl() + url, this.encodeComplexHttpParams(params)).subscribe((res) => {
+            console.log('POST res=' + res);
+            console.log(res);
+            callback && callback(res, null);
+        }, err => {
+            console.log('POST err=');
+            console.log(err);
+            this.requestFailed(err);
+            callback && callback(null, err);
+        });
+    }
+    //对象参数请求
+    encodeHttpParams(params) {
+        if (!params)
+            return null;
+        return new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]({ fromObject: params });
+    }
+    //字符串参数封装
+    encodeComplexHttpParams(params) {
+        if (!params)
+            return null;
+        return new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]({ fromString: params });
+    }
+    /**
+     * 处理响应的事件
+     * @param res
+     * @param {Function} error
+     */
+    responseSuccess(res, callback) {
+        if (res.code !== '0') {
+            // 失败
+            if (res.msg) {
+                callback({ code: res.code, msg: res.msg });
+            }
+            else {
+                const data = res.datas;
+                let errorMsg = res.message;
+                if (data != null) {
+                    data.map(i => {
+                        errorMsg = i.errorMsg + '\n';
+                    });
+                }
+                callback({ code: res.code, msg: errorMsg });
+            }
+        }
+        else {
+            callback(res);
+        }
+    }
+    /**
+     * 处理请求失败事件
+     * @param url
+     * @param err
+     */
+    requestFailed(err) {
+        let msg = '请求发生异常';
+        const status = err.status;
+        console.log('status=' + status);
+        if (status === 0) {
+            msg = '请求失败，请求响应出错';
+        }
+        else if (status === 404) {
+            msg = '请求失败，未找到请求地址';
+        }
+        else if (status === 500) {
+            msg = '请求失败，服务器出错，请稍后再试';
+        }
+        else {
+            msg = '未知错误，请检查网络';
+        }
+        return msg;
+    }
+    /**
+     * 头部信息获取，主要用于处理token
+    **/
+    getHeaders() {
+        const token = this.getToken();
+        console.log(token);
+        return token ? new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+            token: token,
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Accept': 'application/json'
+        }) : null;
+    }
+    /*
+     * 使用本地缓存的方式来获取token信息
+     */
+    getToken() {
+        return window.localStorage.getItem('auth-token');
+    }
+    /**
+     * 将token信息保存到本地缓存中 用缓存的形式实现token验证
+     * @param token
+     */
+    setToken(token) {
+        // 目前只解析token字段，缓存先只存该字段
+        // JSON.stringify(token)
+        window.localStorage.setItem('auth-token', token);
+    }
+    //获取接口请求地址
+    getEnvironmentUrl() {
+        return window.localStorage.getItem('environmenturl');
+    }
+    //跟进环境设置请求地址
+    setEnvironmentUrl(environment) {
+        let url = "";
+        console.log("environment:" + environment);
+        switch (environment) {
+            case 'Dev':
+                url = "https://subcrmdevapi.sokon.com/dcem";
+                break;
+            case 'Sit':
+                url = "https://subcrmdevapi.sokon.com/dcem";
+                break;
+            case 'Uat':
+                url = "https://subcrmuatapi.sokon.com/dcem";
+                break;
+            case 'Pro':
+                url = "https://mscrm.sokon.com/dcem";
+                break;
+            default:
+                url = "http://localhost:52151";
+                break;
+        }
+        window.localStorage.setItem('environmenturl', url);
+    }
+    /**
+     * 清理token
+     */
+    clearToken() {
+        window.localStorage.setItem('auth-token', null);
+    }
+    /**
+     * 统一调用此方法显示loading
+     * @param content 显示的内容
+     */
+    showLoading(content) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            if (!this.isLoadingOpen) {
+                const loading = yield this.loadingCtrl.create({
+                    message: content,
+                    duration: 300,
+                    translucent: false
+                });
+                console.log('showLoading....');
+                return yield loading.present();
+            }
+        });
+    }
+    /**
+     * 关闭loading
+    */
+    hideLoading() {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            console.log('hideLoading....');
+            if (this.isLoadingOpen) {
+                yield this.loadingCtrl.dismiss();
+                this.isLoadingOpen = false;
+            }
+        });
+    }
+    /**
+     * Toast 提示
+     * @param message
+     */
+    presentToastError(message) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            const toast = yield this.toastCtrl.create({
+                message: message,
+                duration: 2000,
+                color: "danger",
+                position: "top"
+            });
+            toast.present();
+        });
+    }
+    presentToastSucess(message) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            const toast = yield this.toastCtrl.create({
+                message: message,
+                duration: 1500,
+                color: "success",
+                position: "middle"
+            });
+            toast.present();
+        });
+    }
+    /*------------------------------------------------------- */
+    /*
+    api/focus
+    */
+    ajaxGet(url) {
+        var api = this.getEnvironmentUrl() + url;
+        return new Promise((resove, reject) => {
+            this.http.get(api).subscribe((response) => {
+                resove(response);
+            }, (error) => {
+                reject(error);
+            });
+        });
+    }
+    /*
+   api/focus
+   */
+    ajaxPost(url, json) {
+        var api = this.getEnvironmentUrl() + url;
+        return new Promise((resove, reject) => {
+            this.http.post(api, json).subscribe((response) => {
+                resove(response);
+            }, (error) => {
+                reject(error);
+            });
+        });
+    }
+    /*本地缓存处理*/
+    /*
+     * 使用本地缓存的方式来获取数据
+     */
+    GetDataCache(name) {
+        return window.localStorage.getItem('datacache-' + name);
+    }
+    /**
+     *  将数据存储到本地缓存中
+     * @param name
+     * @param data
+     */
+    SetDataCache(name, data) {
+        window.localStorage.setItem('datacache-' + name, data);
+    }
+    /*
+     * 清楚本地缓存数据
+     */
+    ClearDataCache(name) {
+        return window.localStorage.setItem('datacache-' + name, "");
+    }
+};
+HttpService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"] }
+];
+HttpService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"]])
+], HttpService);
+
+
+
 /***/ })
 
 }]);

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-
+import { HttpService } from '../../base.ser/http-service.service';
 
 @Component({
     selector: 'app-login',
@@ -12,12 +12,14 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 export class LoginPage implements OnInit {
 
+    private environment: string ='';
     // 定义控制器
     constructor(
         private alertCtr: AlertController,
         private loadingCtr: LoadingController,
         private navCtr: NavController,
         private httpClient: HttpClient,
+        private httpService:HttpService
     ) {
     }
     // 定义模型
@@ -67,6 +69,8 @@ export class LoginPage implements OnInit {
                 if (res.access_token === null || res.access_token === '') {
                     this.presentAlert('消息提示', '登录认证失败');
                 } else {
+                    //设置登录环境
+                    this.httpService.setEnvironmentUrl(this.environment);
                     //this.presentAlert('消息提示', 'token:' + res.access_token);
                     console.log(res.access_token);
                     //this.presentAlert('消息提示', '登录认证通过'); 

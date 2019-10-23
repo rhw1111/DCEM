@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-title>我的</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>我的</ion-title>\r\n    </ion-toolbar>\r\n</ion-header>\r\n<ion-content color=\"light\">\r\n    <ion-list lines=\"full\">\r\n        <ion-item>\r\n            <ion-icon slot=\"start\" name=\"person\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h2>张三</h2>\r\n                <p>15088888888</p>\r\n            </ion-label>\r\n        </ion-item>\r\n\r\n    </ion-list>\r\n\r\n    <ion-list lines=\"full\">\r\n        <ion-item [routerLink]=\"['/serving/mycustomer/list']\">\r\n            <ion-icon slot=\"start\" name=\"contacts\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>我的客户</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n\r\n    <ion-list lines=\"full\">\r\n        <ion-item>\r\n            <ion-icon slot=\"start\" name=\"alarm\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>我的预约</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item [routerLink]=\"['/serving/ri/list']\">\r\n            <ion-icon slot=\"start\" name=\"clipboard\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>我的问诊</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item [routerLink]=\"['/serving/sc/list']\">\r\n            <ion-icon slot=\"start\" name=\"hammer\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>我的维修</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-icon slot=\"start\" name=\"happy\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>技术支持</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n\r\n    <ion-list lines=\"full\">\r\n        <ion-item>\r\n            <ion-icon slot=\"start\" name=\"settings\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>系统设置</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -66,7 +66,7 @@ MyworkPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NlcnZpbmcvaG9tZS5jb20vbXl3b3JrL215d29yay5wYWdlLnNjc3MifQ== */"
+module.exports = "ion-content {\n  background-color: #f9f9f9; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2VydmluZy9ob21lLmNvbS9teXdvcmsvRTpcXEFwcFByb2plY3RcXERDRU1cXERDRU0uTUFwcC9zcmNcXGFwcFxcc2VydmluZ1xcaG9tZS5jb21cXG15d29ya1xcbXl3b3JrLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLHlCQUFvQyxFQUFBIiwiZmlsZSI6InNyYy9hcHAvc2VydmluZy9ob21lLmNvbS9teXdvcmsvbXl3b3JrLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1jb250ZW50IHtcclxuICAgIGJhY2tncm91bmQtY29sb3I6IHJnYigyNDksIDI0OSwgMjQ5KTtcclxufVxyXG4iXX0= */"
 
 /***/ }),
 
