@@ -13,7 +13,8 @@ namespace DCEM.ServiceAssistantService.Main.Application
 
         public Task<CrmEntityCollection> QueryList()
         {
-            return _crmService.RetrieveMultiple("mcs_carserviceadvisor", string.Empty);
+            var queryExpression = @"$select=_mcs_customerid_value&$expand=mcs_customerid($select=mcs_fullname,mcs_gender,mcs_motormodel,mcs_vehplate)";
+            return _crmService.RetrieveMultiple("mcs_carserviceadvisor", queryExpression);
         }
     }
 }
