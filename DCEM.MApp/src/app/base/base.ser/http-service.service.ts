@@ -49,7 +49,7 @@ export class HttpService {
 
   //get数据
   getForToaken(url: string, params?: any): any {
-      return this.http.get("http://localhost:9099"+url, {
+      return this.http.get(this.getEnvironmentUrl()+url, {
       params: this.encodeComplexHttpParams(params),
       headers: this.getHeaders()
     });
@@ -60,7 +60,7 @@ export class HttpService {
     callback?: (res: any, err: any) => void
   ): void {
     this.http
-        .get("http://localhost:9099"+url, { params: this.encodeComplexHttpParams(params) })
+        .get(this.getEnvironmentUrl()+url, { params: this.encodeComplexHttpParams(params) })
       .subscribe(
         res => {
           console.log('get res=' + res);
