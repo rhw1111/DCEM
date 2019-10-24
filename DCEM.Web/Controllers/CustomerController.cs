@@ -29,11 +29,18 @@ namespace DCEM.Web.Controllers
         #endregion
 
         #region 获取我的客户列表
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type">1全部 2保修到期 3保险到期</param>
+        /// <param name="pageindex"></param>
+        /// <param name="search"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetMyCustomerList")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetMyCustomerList()
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetMyCustomerList(int type = 1, int pageindex = 1, string search = "")
         {
-            return await _customerService.QueryList();
+            return await _customerService.QueryList(type, pageindex, search);
         }
         #endregion
 

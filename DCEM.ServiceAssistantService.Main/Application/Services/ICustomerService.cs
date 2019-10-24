@@ -9,6 +9,6 @@ namespace DCEM.ServiceAssistantService.Main.Application
         /// <summary>
         /// 查询客户列表
         /// </summary>
-        Task<QueryResult<CrmEntity>> QueryList();
+        Task<QueryResult<CrmEntity>> QueryList(int type, int pageindex, string search);
     }
 }
