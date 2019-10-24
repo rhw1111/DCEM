@@ -5,13 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\DCEM.ConfigurationService.Main\DCEM.ConfigurationService.Main.csproj" />
     <ProjectReference Include="..\DCEM.Main\DCEM.Main.csproj" />
     <ProjectReference Include="..\MSLibrary\MSLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Entities\" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿using MSLibrary.Xrm;
 using System.Threading.Tasks;
 using MSLibrary;
-
+using DCEM.ServiceAssistantService.Main.DTOModel;
 namespace DCEM.ServiceAssistantService.Main.Application
 {
     public interface ICustomerService
@@ -9,6 +9,6 @@ namespace DCEM.ServiceAssistantService.Main.Application
         /// <summary>
         /// 查询客户列表
         /// </summary>
-        Task<QueryResult<CrmEntity>> QueryList(int type, int pageindex, string search);
+        Task<CustomerQueryListResponse<CrmEntity>> QueryList(int type, int pageindex, string search);
     }
 }

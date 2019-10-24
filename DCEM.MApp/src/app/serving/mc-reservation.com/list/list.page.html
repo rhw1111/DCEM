@@ -29,7 +29,7 @@
             <ion-label>
                 <h2>车牌号：{{r.mcs_carplate}}</h2>
                 <p>车主姓名：{{r.mcs_customername}}</p>
-                <p>预约日期：{{r.mcs_appointmentat}}</p>
+                <p>预约日期：{{FormatToDate(r.mcs_appointmentat)}}</p>
                 <p>预约时段：{{r.mcs_appointmentconfigid}}</p>
                 <p *ngIf="r.mcs_status==10">跟进状态：待跟进</p>
                 <p *ngIf="r.mcs_status==20">跟进状态：已跟进</p>

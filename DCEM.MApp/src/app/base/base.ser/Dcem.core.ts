@@ -60,15 +60,21 @@ export namespace Dcem.Core {
         }
 
         //等待动画
-        loading = this.loadingCtr.create({ translucent: false });
+        private loading: any;
         //打开等待动画
         loadingShow() {
+            if (this.loading !== null) {
+                this.loading = this.loadingCtr.create({ translucent: true });
+            }
             this.loading.then(a => { a.present(); });
         }
         //关闭等待动画
         loadingHide() {
-            this.loading.then(a => { a.dismiss(); });
+            if (this.loading !== null) {
+                this.loading.then(a => { a.dismiss(); });
+            }
         }
+
         //跳转到指定页
         goto(url: any) {
             this.navCtr.navigateRoot('serving/home/tabs');

@@ -8,10 +8,14 @@ import { Dcem } from 'app/base/base.ser/Dcem.core';
 })
 export class ListPage implements OnInit {
 
-
     mod = {
         apiUrl: '',
-        data: []
+        data: [],
+        searchData: {
+            type: 1,
+            pageindex: 1,
+            search: ""
+        }
     };
 
     constructor(
@@ -25,15 +29,31 @@ export class ListPage implements OnInit {
         this.listOnBind();
     }
 
+    tagOnClick(type) {
+        this.mod.searchData.type = type;
+        this.mod.searchData.pageindex = 1;
+        this.listOnBind();
+    }
+
+    searchOnClick() {
+        this.listOnBind();
+    }
 
     listOnBind() {
         this._page.loadingShow();
+        this.mod.data = [];
         this._http.get(
             this.mod.apiUrl,
-            {},
+            {
+                params: {
+                    type: this.mod.searchData.type,
+                    pageindex: this.mod.searchData.pageindex,
+                    search: this.mod.searchData.search
+                }
+            },
             (res: any) => {
                 if (res.Results !== null) {
-                    console.log(res.Results);
+                    console.log(res);
                     for (var key in res.Results) {
                         var obj = {};
                         obj["Id"] = res.Results[key]["Id"];
