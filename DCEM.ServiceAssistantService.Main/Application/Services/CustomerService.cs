@@ -17,11 +17,11 @@ namespace DCEM.ServiceAssistantService.Main.Application
         public async Task<QueryResult<CrmEntity>> QueryList(int type, int pageindex, string search)
         {
             var filter = string.Empty;
-            if (listType == 2)
+            if (type == 2)
             {
                 filter += $"<condition attribute='mcs_warrantyendtime' operator='le' value='{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}' />";
             }
-            else if (listType == 3)
+            else if (type == 3)
             {
                 filter += $"<condition attribute='mcs_insuranceexpirationdate' operator='le' value='{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}' />";
             }
@@ -41,7 +41,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 filter = filter + "</filter>";
             }
 
-            var fetchString = @"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+            var fetchString = $@"<fetch version='1.0' count='{10}' page='{pageindex}' output-format='xml-platform' mapping='logical' distinct='false'>
   <entity name='mcs_carserviceadvisor'>
     <attribute name='mcs_name' />
     <attribute name='createdon' />
@@ -56,10 +56,10 @@ namespace DCEM.ServiceAssistantService.Main.Application
       <attribute name='mcs_insuranceexpirationdate' />
       <attribute name='mcs_guaranteestartdate' />
       <attribute name='mcs_name' />
+      {filter}
     </link-entity>
   </entity>
 </fetch>";
-
 
             var fetchXdoc = XDocument.Parse(fetchString);
             var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
