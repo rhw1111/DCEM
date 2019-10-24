@@ -11,7 +11,7 @@ using System;
 using Microsoft.AspNetCore.Mvc.Core;
 using System.Reflection;
 using MSLibrary;
-
+using DCEM.ServiceAssistantService.Main.DTOModel;
 namespace DCEM.Web.Controllers
 {
     #region 控制器
@@ -38,7 +38,7 @@ namespace DCEM.Web.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetMyCustomerList")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetMyCustomerList(int type = 1, int pageindex = 1, string search = "")
+        public async Task<NewtonsoftJsonActionResult<CustomerQueryListResponse<CrmEntity>>> GetMyCustomerList(int type = 1, int pageindex = 1, string search = "")
         {
             return await _customerService.QueryList(type, pageindex, search);
         }
