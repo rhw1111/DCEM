@@ -181,7 +181,13 @@ export class HttpService {
   }
   //获取接口请求地址
   getEnvironmentUrl() {
-    return  window.localStorage.getItem('environmenturl');
+    console.log("sdad:"+url);
+    var url=  window.localStorage.getItem('environmenturl');
+    
+    if(url==null || url==undefined){
+      url="https://subcrmdevapi.sokon.com/dcem";
+    }
+    return url;
   }
   //跟进环境设置请求地址
   setEnvironmentUrl(environment) {
