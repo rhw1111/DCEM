@@ -45,8 +45,8 @@ namespace DCEM.ServiceAssistantService.Main.Application
 
             var queryResult = new QueryResult<CrmEntity>();
             queryResult.Results = fetchResponseResult.Value.Results;
-            queryResult.CurrentPage = 10;
-            queryResult.TotalCount = 20;
+            queryResult.CurrentPage = 0;
+            queryResult.TotalCount = 0;
             return queryResult;
         }
     }
