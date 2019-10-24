@@ -122,6 +122,9 @@
     <TypeScriptCompile Include="src\app\app.config.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\authentication.service.spec.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\authentication.service.ts" />
+    <TypeScriptCompile Include="src\app\base\base.ser\dcem.core.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="src\app\base\base.ser\http-service.service.spec.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\http-service.service.ts" />
     <TypeScriptCompile Include="src\app\base\login.com\login\login.module.ts" />

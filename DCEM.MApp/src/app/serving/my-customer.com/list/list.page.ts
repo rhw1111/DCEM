@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { AlertController, LoadingController, NavController } from '@ionic/angular';
+import { Dcem } from 'app/base/base.ser/Dcem.core';
 
 @Component({
     selector: 'app-list',
@@ -9,40 +8,52 @@ import { AlertController, LoadingController, NavController } from '@ionic/angula
 })
 export class ListPage implements OnInit {
 
+
+    mod = {
+        apiUrl: '',
+        data: []
+    };
+
     constructor(
-        private httpClient: HttpClient,
-        private alertCtr: AlertController,
+        private _http: Dcem.Core.Http,
+        private _page: Dcem.Core.Page
     ) {
+        this.mod.apiUrl = "/Api/Customer/GetMyCustomerList";
     }
 
     ngOnInit() {
-        const httpGet = this.httpClient.get('https://subcrmdevapi.sokon.com/dcem/api/test/Test1',
-            {
-                params: {
-                }
-            });
+        this.listOnBind();
+    }
 
 
-        httpGet.subscribe(
+    listOnBind() {
+        this._page.loadingShow();
+        this._http.get(
+            this.mod.apiUrl,
+            {},
             (res: any) => {
-                this.presentAlert('消息提示', '请输入手机号码');
+                if (res.Results !== null) {
+                    for (var key in res.Results) {
+                        var obj = {};
+                        obj["Id"] = res.Results[key]["Id"];
+                        obj["fullname"] = res.Results[key]["Attributes"]["mcs_customerid"]["mcs_fullname"];
+                        obj["gender"] = res.Results[key]["Attributes"]["mcs_customerid"]["mcs_gender"];
+                        obj["motormodel"] = res.Results[key]["Attributes"]["mcs_customerid"]["mcs_motormodel"];
+                        obj["vehplate"] = res.Results[key]["Attributes"]["mcs_customerid"]["mcs_vehplate"];
+                        this.mod.data.push(obj);
+                    }
+                    this._page.loadingHide();
+                }
+                else {
+                    this._page.alert("消息提示", "客户数据加载异常");
+                    this._page.loadingHide();
+                }
             },
             (err: any) => {
-
-
-            });
+                this._page.alert("消息提示", "客户数据加载异常");
+                this._page.loadingHide();
+            }
+        );
     }
 
-
-    // 弹出提示
-    presentAlert(header: any, message: any) {
-        const alert = this.alertCtr.create({
-            header,
-            message,
-            buttons: ['确定']
-        });
-        alert.then(a => {
-            a.present();
-        });
-    }
 }

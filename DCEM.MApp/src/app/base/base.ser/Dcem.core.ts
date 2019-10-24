@@ -1,0 +1,68 @@
+﻿import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { AlertController, LoadingController, NavController } from '@ionic/angular';
+
+export namespace Dcem.Core {
+
+    export class Config {
+        public serverUrl = "http://localhost:9099";
+        //public serverUrl = "https://subcrmdevapi.sokon.com/dcem";
+    }
+
+    export class Http {
+        constructor(
+            private _httpClient: HttpClient,
+            private _config: Dcem.Core.Config
+        ) {
+        }
+
+        //get请求
+        get(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
+            this._httpClient.get(this._config.serverUrl + url, params).subscribe(
+                (res: any) => {
+                    rescallback && rescallback(res);
+                },
+                (err: any) => {
+                    errcallback && errcallback(err);
+                });
+        }
+    }
+
+    export class Page {
+
+        constructor(
+            private alertCtr: AlertController,
+            private loadingCtr: LoadingController,
+            private navCtr: NavController,
+        ) {
+
+        }
+
+        //弹出提示
+        alert(header: any, message: any) {
+            const alert = this.alertCtr.create({
+                header,
+                message,
+                buttons: ['确定']
+            });
+            alert.then(a => {
+                a.present();
+            });
+        }
+
+        //等待动画
+        loading = this.loadingCtr.create({ translucent: false });
+        //打开等待动画
+        loadingShow() {
+            this.loading.then(a => { a.present(); });
+        }
+        //关闭等待动画
+        loadingHide() {
+            this.loading.then(a => { a.dismiss(); });
+        }
+
+        //跳转到指定页
+        goto(url: any) {
+            this.navCtr.navigateRoot('serving/home/tabs');
+        }
+    }
+}

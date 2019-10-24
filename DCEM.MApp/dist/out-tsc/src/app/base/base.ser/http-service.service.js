@@ -156,6 +156,7 @@ let HttpService = class HttpService {
     //跟进环境设置请求地址
     setEnvironmentUrl(environment) {
         let url = "";
+        console.log("environment:" + environment);
         switch (environment) {
             case 'Dev':
                 url = "https://subcrmdevapi.sokon.com/dcem";
@@ -235,6 +236,54 @@ let HttpService = class HttpService {
             });
             toast.present();
         });
+    }
+    /*------------------------------------------------------- */
+    /*
+    api/focus
+    */
+    ajaxGet(url) {
+        var api = this.getEnvironmentUrl() + url;
+        return new Promise((resove, reject) => {
+            this.http.get(api).subscribe((response) => {
+                resove(response);
+            }, (error) => {
+                reject(error);
+            });
+        });
+    }
+    /*
+   api/focus
+   */
+    ajaxPost(url, json) {
+        var api = this.getEnvironmentUrl() + url;
+        return new Promise((resove, reject) => {
+            this.http.post(api, json).subscribe((response) => {
+                resove(response);
+            }, (error) => {
+                reject(error);
+            });
+        });
+    }
+    /*本地缓存处理*/
+    /*
+     * 使用本地缓存的方式来获取数据
+     */
+    GetDataCache(name) {
+        return window.localStorage.getItem('datacache-' + name);
+    }
+    /**
+     *  将数据存储到本地缓存中
+     * @param name
+     * @param data
+     */
+    SetDataCache(name, data) {
+        window.localStorage.setItem('datacache-' + name, data);
+    }
+    /*
+     * 清楚本地缓存数据
+     */
+    ClearDataCache(name) {
+        return window.localStorage.setItem('datacache-' + name, "");
     }
 };
 HttpService = tslib_1.__decorate([
