@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using MSLibrary.Xrm.Message.RetrieveMultipleFetch;
 using System.Xml.Linq;
 using MSLibrary;
-
+using System;
 namespace DCEM.ServiceAssistantService.Main.Application
 {
     public class CustomerService : ICustomerService
@@ -14,9 +14,34 @@ namespace DCEM.ServiceAssistantService.Main.Application
             _crmService = crmService;
         }
 
-        public async Task<QueryResult<CrmEntity>> QueryList()
+        public async Task<QueryResult<CrmEntity>> QueryList(int type, int pageindex, string search)
         {
-            var fetchString = @"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+            var filter = string.Empty;
+            if (type == 2)
+            {
+                filter += $"<condition attribute='mcs_warrantyendtime' operator='le' value='{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}' />";
+            }
+            else if (type == 3)
+            {
+                filter += $"<condition attribute='mcs_insuranceexpirationdate' operator='le' value='{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}' />";
+            }
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                filter += $"<filter type='or'>";
+                filter += $"<condition attribute='mcs_vehplate' operator='like' value='%{search}%' />";
+                filter += $"<condition attribute='mcs_mobilephone' operator='like' value='%{search}%' />";
+                filter += $"<condition attribute='mcs_fullname' operator='like' value='%{search}%' />";
+                filter += $"</filter>";
+            }
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                filter = "<filter type='and'>" + filter;
+                filter = filter + "</filter>";
+            }
+
+            var fetchString = $@"<fetch version='1.0' count='{10}' page='{pageindex}' output-format='xml-platform' mapping='logical' distinct='false'>
   <entity name='mcs_carserviceadvisor'>
     <attribute name='mcs_name' />
     <attribute name='createdon' />
@@ -31,9 +56,11 @@ namespace DCEM.ServiceAssistantService.Main.Application
       <attribute name='mcs_insuranceexpirationdate' />
       <attribute name='mcs_guaranteestartdate' />
       <attribute name='mcs_name' />
+      {filter}
     </link-entity>
   </entity>
 </fetch>";
+
             var fetchXdoc = XDocument.Parse(fetchString);
             var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
             {
@@ -45,8 +72,8 @@ namespace DCEM.ServiceAssistantService.Main.Application
 
             var queryResult = new QueryResult<CrmEntity>();
             queryResult.Results = fetchResponseResult.Value.Results;
-            queryResult.CurrentPage = 10;
-            queryResult.TotalCount = 20;
+            queryResult.CurrentPage = 0;
+            queryResult.TotalCount = 0;
             return queryResult;
         }
     }

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using DCEM.ServiceAssistantService.Main.Application.Services;
 using DCEM.ServiceAssistantService.Main.DTOModel;
+using MSLibrary;
+using MSLibrary.Xrm;
 
 namespace DCEM.ServiceAssistantService.Main.Application
 {
@@ -15,9 +18,9 @@ namespace DCEM.ServiceAssistantService.Main.Application
             _appointmentInfoService = appointmentInfoService;
         }
 
-        public IList<AppointmentInfoModel> QueryListByPage(AppointmentInfoRequest filterstr, int pageSize, int pageNum, string sort, string token = "")
+        public async Task<QueryResult<CrmEntity>> QueryListByPage(AppointmentInfoRequest filterstr, int pageSize, int pageNum)
         {
-            return _appointmentInfoService.QueryListByPage(filterstr, pageSize, pageNum, sort, token);
+            return await _appointmentInfoService.QueryListByPage(filterstr, pageSize, pageNum);
         }
     }
 }

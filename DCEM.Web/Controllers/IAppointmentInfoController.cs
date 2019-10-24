@@ -10,6 +10,9 @@ using DCEM.ServiceAssistantService.Main.Application;
 using DCEM.ServiceAssistantService.Main.DAL;
 using DCEM.ServiceAssistantService.Main.DTOModel;
 using System.Linq;
+using System.Threading.Tasks;
+using MSLibrary.Xrm;
+using MSLibrary;
 
 namespace DCEM.Web.Controllers
 {
@@ -30,7 +33,7 @@ namespace DCEM.Web.Controllers
         // GET api/values
         [HttpGet]
         [Route("GetList")]
-        public ActionResult<ResultResponse<AppointmentInfoModel>> GetList(string status="",string search = "")
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetList(string status="", string search = "", int pageindex = 1)
         {
             var appointmentInfoRequest = new AppointmentInfoRequest()
             {
@@ -39,15 +42,12 @@ namespace DCEM.Web.Controllers
             };
 
             Request.Headers.TryGetValue("token", out var traceValue);
-            var list = app.QueryListByPage(appointmentInfoRequest, 10, 1, "", traceValue);
-            var res = new ResultResponse<AppointmentInfoModel>()
-            {
-                Data = list.ToList(),
-                Success = true,
-                Mssage = "查询成功"
-            };
-            return res;
+            var list = await app.QueryListByPage(appointmentInfoRequest, 10, pageindex);
+            return list;
         }
 
     }
+
+
+
 }

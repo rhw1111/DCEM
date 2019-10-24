@@ -5,9 +5,12 @@
     作者：黄贤顺
 */
 using DCEM.ServiceAssistantService.Main.DTOModel;
+using MSLibrary;
+using MSLibrary.Xrm;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DCEM.ServiceAssistantService.Main.Application
 {
@@ -17,6 +20,6 @@ namespace DCEM.ServiceAssistantService.Main.Application
         /// 获取预约跟进记录
         /// </summary>
         /// <param name="entityId"></param>
-        IList<AppointmentInfoModel> QueryListByPage(AppointmentInfoRequest filterstr, int pageSize, int pageNum, string sort, string token = "");
+        Task<QueryResult<CrmEntity>> QueryListByPage(AppointmentInfoRequest filterstr, int pageSize, int pageNum);
     }
 }
