@@ -21,7 +21,7 @@ namespace DCEM.ServiceAssistantService.Main.DAL
             {
                 var crmService = StartupHelper.CreateCrmService();
                 IAppointmentInfoRepository appointmentInfoRepository = new AppointmentInfoRepository();
-                IAppointmentInfoService appointmentInfoService = new AppointmentInfoService(crmService);
+                IAppointmentInfoService appointmentInfoService = new AppointmentInfoService(crmService, appointmentInfoRepository);
                 IAppAppointmentInfo app = new AppAppointmentInfo(appointmentInfoService);
 
                 return app;

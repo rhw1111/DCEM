@@ -30,7 +30,13 @@ namespace DCEM.Web.Controllers
             }
         }
 
-        // GET api/values
+        /// <summary>
+        /// 预约记录列表查询
+        /// </summary>
+        /// <param name="status"></param>
+        /// <param name="search"></param>
+        /// <param name="pageindex"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetList")]
         public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetList(string status="", string search = "", int pageindex = 1)
@@ -40,11 +46,20 @@ namespace DCEM.Web.Controllers
                 mcs_status = status,
                 search = search
             };
-
-            Request.Headers.TryGetValue("token", out var traceValue);
             var list = await app.QueryListByPage(appointmentInfoRequest, 10, pageindex);
             return list;
         }
+
+        /// <summary>
+        /// 查询预约单详情
+        /// </summary>
+        /// <param name="entityid"></param>
+        /// <returns></returns>
+        public async Task<CrmEntity> GetDetail(string entityid) 
+        {
+            return await app.QueryDetail(entityid);
+        }
+
 
     }
 

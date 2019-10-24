@@ -21,5 +21,12 @@ namespace DCEM.ServiceAssistantService.Main.Application
         /// </summary>
         /// <param name="entityId"></param>
         Task<QueryResult<CrmEntity>> QueryListByPage(AppointmentInfoRequest filterstr, int pageSize, int pageNum);
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entityid"></param>
+        /// <returns></returns>
+        Task<CrmEntity> QueryDetail(string entityid);
     }
 }
