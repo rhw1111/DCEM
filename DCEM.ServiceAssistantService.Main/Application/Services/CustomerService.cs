@@ -35,7 +35,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 filter += $"</filter>";
             }
 
-            if (string.IsNullOrEmpty(filter))
+            if (!string.IsNullOrEmpty(filter))
             {
                 filter = "<filter type='and'>" + filter;
                 filter = filter + "</filter>";

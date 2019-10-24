@@ -27,7 +27,7 @@ export namespace Dcem.Core {
         //get请求
         get(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
             console.log(this._config.getDomain() + url);
-            this._httpClient.get(this._config.getDomain() + url, { params: params }).subscribe(
+            this._httpClient.get(this._config.getDomain() + url, params).subscribe(
                 (res: any) => {
                     rescallback && rescallback(res);
                 },

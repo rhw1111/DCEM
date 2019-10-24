@@ -79,8 +79,10 @@ export class LoginPage implements OnInit {
         this._http.get(
             this.mod.apiurl,
             {
-                username: encodeURIComponent(this.mod.username),
-                password: encodeURIComponent(this.mod.password)
+                params: {
+                    username: encodeURIComponent(this.mod.username),
+                    password: encodeURIComponent(this.mod.password)
+                }
             },
             (res: any) => {
                 console.log(res);
