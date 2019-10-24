@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using DCEM.ServiceAssistantService.Main.DTOModel;
 using MSLibrary.Xrm;
@@ -16,7 +17,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
             _crmService = crmService;
         }
 
-        public IList<AppointmentInfoModel> QueryListByPage(AppointmentInfoRequest filterstr, int pageSize, int pageNum, string sort, string token = "")
+        public async Task<IList<AppointmentInfoModel>> QueryListByPage(AppointmentInfoRequest filterstr, int pageSize, int pageNum, string sort, string token = "")
         {
             try
             {
@@ -32,7 +33,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
                     strQuery.Append($" and (mcs_carplate eq '{ filterstr.search}' or mcs_customerphone eq '{filterstr.search}' or mcs_customername eq '{filterstr.search}')");
                 }
                 List<AppointmentInfoModel> list = new List<AppointmentInfoModel>();
-                var result = _crmService.RetrieveMultiple("mcs_appointmentinfo", strQuery.ToString()).Result;
+                var result = await _crmService.RetrieveMultiple("mcs_appointmentinfo", strQuery.ToString());
                 if (result != null && result.Results != null)
                 {
                     foreach (var item in result.Results)
