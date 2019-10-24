@@ -34,9 +34,9 @@ namespace DCEM.Web.Controllers
         // GET api/values
         [HttpGet]
         [Route("GetList")]
-        public async Task<QueryResult<CrmEntity>> GetList()
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetList(int orderstatus=0,string seachkey = "",string sort="",int pageSize=10,int page=1)
         {
-            var result = await app.QueryListByPage("",10,1, "mcs_supportorderid desc");
+            var result = await app.QueryListByPage(orderstatus, seachkey, pageSize, page, sort);
             return result;
         }
     }

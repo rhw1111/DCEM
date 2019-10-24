@@ -20,18 +20,33 @@ namespace DCEM.ServiceAssistantService.Main.Application
             _crmService=crmService;
         }
 
-        public async Task<QueryResult<CrmEntity>> QueryListByPage(string filterstr,int pageSize,int pageNum,string sort,string token= "")
+        public async Task<QueryResult<CrmEntity>> QueryListByPage(int orderstauts=0,string searchkey="",int pageSize=10,int pageNum=1,string sort="",string token= "")
         {
             try
             {
+                string filterstr = "";
+                if (orderstauts>0)
+                {
+                    filterstr += $"<condition attribute='mcs_orderstatus' operator='eq' value='{orderstauts}' />";
+                }
+
+                if (!string.IsNullOrEmpty(searchkey))
+                {
+                    filterstr += $"<filter type='or' >";
+                    filterstr += $"<condition attribute='mcs_name' operator='like' value='%{searchkey}%' />";
+                    filterstr += $"<condition attribute='mcs_title' operator='like' value='%{searchkey}%' />";
+                    filterstr += $"</filter>";
+                }
+
                 var fetchxml = string.Format($@"<fetch version=""1.0"" output-format=""xml-platform"" mapping=""logical"" distinct=""false"" count=""{pageSize}"" page=""{pageNum}"">
                                 <entity name = ""mcs_supportorder"" >
                                     <attribute name = ""mcs_supportorderid"" />
-                                    <attribute name = ""mcs_title"" />
+                                    <attribute name = ""mcs_name"" />
                                     <attribute name = ""mcs_orderstatus"" />
                                     <attribute name = ""mcs_title"" />    
                                 <filter type = ""and"" >
                                   <condition attribute='statecode' operator='eq' value='0' />
+                                  {filterstr}
                                </filter>
                                 </entity>
                             </fetch>");
@@ -40,7 +55,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 var request = new CrmRetrieveMultipleFetchRequestMessage()
                 {
                     EntityName= EntityName,
-                    FetchXml= xmlDoc,
+                    FetchXml = xmlDoc,
                 };
                 var crmResponse= await _crmService.Execute(request);
                 CrmRetrieveMultipleFetchResponseMessage response = crmResponse as CrmRetrieveMultipleFetchResponseMessage;
@@ -52,28 +67,6 @@ namespace DCEM.ServiceAssistantService.Main.Application
                     queryResult.TotalCount = response.Value.Count;
                     queryResult.CurrentPage = pageNum;
                 }
-                //List<TechnicalSupportModel> list = new List<TechnicalSupportModel>();
-                ////var result= await _crmService.RetrieveMultipleNextPage(EntityName,filterstr, pageSize);
-                //if (dataList != null)
-                //{
-                //    foreach (var item in dataList.Results)
-                //    {
-                //        DateTime? mcs_repairdate=null;
-                //        if (item.Attributes.GetValue("mcs_repairdate")!=null)
-                //        {
-                //            mcs_repairdate=DateTime.Parse(item.Attributes.GetValue("mcs_repairdate").ToString());
-                //        }
-                //        list.Add(new TechnicalSupportModel()
-                //        {
-                //            Id=item.Id,
-                //            mcs_name = item.Attributes.GetValue("mcs_name").ToString(),
-                //            mcs_title = item.Attributes.GetValue("mcs_title").ToString(),
-                //            mcs_orderstatus = int.Parse(item.Attributes.GetValue("mcs_orderstatus").ToString()),
-                //            mcs_repairdate = mcs_repairdate
-                //        }) ;
-                //    }
-                //}
-
                 return queryResult;
             }
             catch (Exception ex)
