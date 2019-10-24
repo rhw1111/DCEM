@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-detail',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailPage implements OnInit {
 
-  constructor() { }
+  constructor(public activeRoute: ActivatedRoute) { 
+    
+  }
 
   ngOnInit() {
+    this.activeRoute.queryParams.subscribe((data: any) => {   
+      alert(data.id);
+    })
   }
 
 }

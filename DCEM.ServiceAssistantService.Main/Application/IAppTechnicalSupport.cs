@@ -15,5 +15,11 @@ namespace DCEM.ServiceAssistantService.Main.Application
         /// </summary>
         /// <param name="entityId"></param>
         Task<QueryResult<CrmEntity>> QueryListByPage(int orderstauts = 0, string searchkey = "", int pageSize=10, int pageNum=0, string sort="",string token="");
+        /// <summary>
+        /// 通过ID获取详情数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<CrmEntity> QueryById(Guid id);
     }
 }

@@ -35,12 +35,12 @@
         </ion-refresher-content> 
     </ion-refresher>
     <ion-list lines="full">
-        <ion-item *ngFor="let item of model.data" [routerLink]="['/serving/ts/detail']" [queryParams]="{id:item.id}">
+        <ion-item *ngFor="let item of model.data" [routerLink]="['/serving/ts/detail']" [queryParams]="{id:item.Id}">
             <ion-icon slot="start" color="primary" name="hammer" size="large"></ion-icon>
             <ion-label>
                 <h2>{{item.mcs_name}}</h2>
                 <p>施工项目：{{item.mcs_title}}</p>
-                <p>施工日期：{{FormatToDateTime(mcs_repairdate)}}</p>
+                <p>施工日期：{{FormatToDateTime(item.mcs_repairdate)}}</p>
                 <p *ngIf="item.mcs_orderstatus==10">施工状态：未处理</p>
                 <p *ngIf="item.mcs_orderstatus==30">施工状态：处理中</p>
                 <p *ngIf="item.mcs_orderstatus==40">施工状态：已关闭</p>
@@ -55,9 +55,19 @@
         </ion-col>
     </ion-row>
 
+    <ion-row *ngIf="this.model.nodata">
+        <ion-col class="nodata" text-center>
+            没有查询到数据
+        </ion-col>
+    </ion-row>
+    
     <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doLoading($event)"> 
         <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多..."> 
         </ion-infinite-scroll-content>
     </ion-infinite-scroll>
-
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button [routerLink]="['/serving/ts/edit']">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>

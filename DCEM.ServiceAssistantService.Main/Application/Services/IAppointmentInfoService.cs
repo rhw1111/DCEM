@@ -11,8 +11,15 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
     public interface IAppointmentInfoService
     {
         /// <summary>
-        /// 分页查询技术支持
+        /// 分页查询
         /// </summary>
         Task<QueryResult<CrmEntity>> QueryListByPage(AppointmentInfoRequest filterstr, int pageSize, int pageNum);
+        
+        /// <summary>
+        /// 预约记录查询
+        /// </summary>
+        /// <param name="entityid"></param>
+        /// <returns></returns>
+        Task<CrmEntity> QueryDetail(string entityid);
     }
 }

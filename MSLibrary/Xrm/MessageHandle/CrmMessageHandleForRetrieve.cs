@@ -114,11 +114,11 @@ namespace MSLibrary.Xrm.MessageHandle
             Guid entityId;
             if (jObject["activityid"] != null)
             {
-                entityId = jObject["activityid"].Value<Guid>();
+                entityId = Guid.Parse(jObject["activityid"].Value<string>());
             }
             else
             {
-                entityId = jObject[$"{request.EntityName}id"].Value<Guid>();
+                entityId = Guid.Parse(jObject[$"{request.EntityName}id"].Value<string>());
             }
             var version = jObject["@odata.etag"].Value<string>();
 

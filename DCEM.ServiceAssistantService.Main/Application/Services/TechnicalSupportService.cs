@@ -42,6 +42,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
                                 <entity name = ""mcs_supportorder"" >
                                     <attribute name = ""mcs_supportorderid"" />
                                     <attribute name = ""mcs_name"" />
+                                    <attribute name = ""mcs_repairdate"" />
                                     <attribute name = ""mcs_orderstatus"" />
                                     <attribute name = ""mcs_title"" />    
                                 <filter type = ""and"" >
