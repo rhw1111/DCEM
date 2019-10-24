@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpService } from '../../../base/base.ser/http-service.service';
 import { NavController, NavParams } from '@ionic/angular';
 import { Dcem } from 'app/base/base.ser/Dcem.core';
+import sd from 'silly-datetime';
 
 @Component({
   selector: 'app-list',
@@ -59,36 +60,12 @@ export class ListPage implements OnInit {
         );
     }
 
-    //showlist(id) {
-    //    this._page.loadingShow();
-    //    var response = this.httpService.getForToaken("/api/appointment-info/GetList?status=" + id +"&search=", null);
-    //    response.subscribe((res) => {
-    //        if (res != null && res.success == true) {
-    //            console.log('get res=' + res.data);
-    //            this.ListAll = res.data;
-    //            this._page.loadingHide();
-    //        }
-    //        else {
-    //            this._page.alert("消息提示", "客户数据加载异常");
-    //            this._page.loadingHide();
-    //        }
-
-    //    }, (err: any) => {
-    //        this._page.alert("消息提示", "客户数据加载异常");
-    //        this._page.loadingHide();
-    //    });
-    //}
-
-    //const searchbar = document.querySelector('ion-searchbar');
-    //const items = Array.from(document.querySelector('ion-list').children);
-    //searchbar.addEventListener('ionInput', handleInput);
-    //function handleInput(event) {
-    //const query = event.target.value.toLowerCase();
-    //requestAnimationFrame(() => {
-    //    items.forEach(item => {
-    //        const shouldShow = item.textContent.toLowerCase().indexOf(query) > -1;
-    //        item.style.display = shouldShow ? 'block' : 'none';
-    //    });
-    //});
-//}
+    FormatToDate(date) {
+        if (date != null && date != undefined) {
+            return sd.format(date, 'YYYY-MM-DD');
+        }
+        else {
+            return '';
+        }
+    }
 }
