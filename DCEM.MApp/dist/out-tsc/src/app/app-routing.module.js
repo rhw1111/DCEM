@@ -12,7 +12,7 @@ const routes = [
                     { path: 'login', loadChildren: './base/uc.com/login/login.module#LoginPageModule' },
                     { path: 'welcome', loadChildren: './base/uc.com/welcome/welcome.module#WelcomePageModule' }
                 ]
-            }
+            },
         ]
     },
     {
