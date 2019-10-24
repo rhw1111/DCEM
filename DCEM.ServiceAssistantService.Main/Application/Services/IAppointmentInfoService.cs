@@ -10,6 +10,6 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         /// <summary>
         /// 分页查询技术支持
         /// </summary>
-        IList<AppointmentInfoModel> QueryListByPage(string filterstr, int pageSize, int pageNum, string sort, string token = "");
+        IList<AppointmentInfoModel> QueryListByPage(AppointmentInfoRequest filterstr, int pageSize, int pageNum, string sort, string token = "");
     }
 }
