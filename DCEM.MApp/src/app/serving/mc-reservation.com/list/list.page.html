@@ -6,7 +6,7 @@
         <ion-title>预约单</ion-title>
     </ion-toolbar>
     <ion-toolbar>
-        <ion-searchbar></ion-searchbar>
+        <ion-searchbar placeholder="支持姓名\手机号\车牌号搜索"></ion-searchbar>
     </ion-toolbar>
     <ion-toolbar>
         <ion-segment>
@@ -24,7 +24,7 @@
 </ion-header>
 
 <ion-content>
-    <ion-list lines="full"  *ngFor="let r of ListAll">
+    <ion-list lines="full"  *ngFor="let r of mod.data">
         <ion-item button="true" mode="ios" [routerLink]="['/serving/reservation/detail']" [queryParams]="{id:r.mcs_appointmentinfoid}" >
             <ion-label>
                 <h2>车牌号：{{r.mcs_carplate}}</h2>

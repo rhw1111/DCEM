@@ -10,6 +10,7 @@ using DCEM.ServiceAssistantService.Main.Application;
 using DCEM.ServiceAssistantService.Main.DAL;
 using DCEM.ServiceAssistantService.Main.DTOModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DCEM.Web.Controllers
 {
@@ -30,7 +31,7 @@ namespace DCEM.Web.Controllers
         // GET api/values
         [HttpGet]
         [Route("GetList")]
-        public ActionResult<ResultResponse<AppointmentInfoModel>> GetList(string status="",string search = "")
+        public async Task<ActionResult<ResultResponse<AppointmentInfoModel>>> GetList(string status="",string search = "")
         {
             var appointmentInfoRequest = new AppointmentInfoRequest()
             {
@@ -39,7 +40,7 @@ namespace DCEM.Web.Controllers
             };
 
             Request.Headers.TryGetValue("token", out var traceValue);
-            var list = app.QueryListByPage(appointmentInfoRequest, 10, 1, "", traceValue);
+            var list = await app.QueryListByPage(appointmentInfoRequest, 10, 1, "", traceValue);
             var res = new ResultResponse<AppointmentInfoModel>()
             {
                 Data = list.ToList(),
