@@ -1,4 +1,6 @@
 ﻿using DCEM.ServiceAssistantService.Main.DTOModel;
+using MSLibrary;
+using MSLibrary.Xrm;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,6 +13,6 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         /// <summary>
         /// 分页查询技术支持
         /// </summary>
-        Task<IList<AppointmentInfoModel>> QueryListByPage(AppointmentInfoRequest filterstr, int pageSize, int pageNum, string sort, string token = "");
+        Task<QueryResult<CrmEntity>> QueryListByPage(AppointmentInfoRequest filterstr, int pageSize, int pageNum);
     }
 }

@@ -33,8 +33,18 @@ export class ListPage implements OnInit {
             {},
             (res: any) => {
                 if (res.Results !== null) {
+                    this.mod.data = [];
                     //console.log('get res=' + res.data);
-                    this.mod.data = res.data;
+                    for (var key in res.Results) {
+                        var obj = {};
+                        obj["mcs_appointmentinfoid"] = res.Results[key]["Id"];
+                        obj["mcs_carplate"] = res.Results[key]["Attributes"]["mcs_carplate"];
+                        obj["mcs_customername"] = res.Results[key]["Attributes"]["mcs_customername"];
+                        obj["mcs_appointmentat"] = res.Results[key]["Attributes"]["mcs_appointmentat"];
+                        obj["mcs_appointmentconfigid"] = res.Results[key]["Attributes"]["appointmentconfig_x002e_mcs_name"];
+                        obj["mcs_status"] = res.Results[key]["Attributes"]["mcs_status"];
+                        this.mod.data.push(obj);
+                    }
                     this._page.loadingHide();
                 }
                 else {
