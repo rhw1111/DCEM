@@ -10,6 +10,7 @@ using System.Text;
 using System;
 using Microsoft.AspNetCore.Mvc.Core;
 using System.Reflection;
+using MSLibrary;
 
 namespace DCEM.Web.Controllers
 {
@@ -30,10 +31,9 @@ namespace DCEM.Web.Controllers
         #region 获取我的客户列表
         [HttpGet]
         [Route("GetMyCustomerList")]
-        public NewtonsoftJsonActionResult<CrmEntityCollection> GetMyCustomerList()
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetMyCustomerList()
         {
-            var result = _customerService.QueryList().Result;
-            return result;
+            return await _customerService.QueryList();
         }
         #endregion
 
