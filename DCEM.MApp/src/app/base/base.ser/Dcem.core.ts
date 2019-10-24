@@ -1,5 +1,6 @@
 ﻿import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 export namespace Dcem.Core {
 
@@ -43,6 +44,8 @@ export namespace Dcem.Core {
             private alertCtr: AlertController,
             private loadingCtr: LoadingController,
             private navCtr: NavController,
+            private router: Router,
+            private activeRoute: ActivatedRoute
         ) {
 
         }
@@ -76,9 +79,17 @@ export namespace Dcem.Core {
         }
 
         //跳转到指定页
-        goto(url: any) {
-            this.navCtr.navigateRoot('serving/home/tabs');
+        goto(url: any, params: any) {
+            //this.navCtr.navigateRoot(url);
+            this.router.navigate([url], params);
         }
+
+        //获取指定参数
+        //getParams(paramName: string, callback?: (val: Params) => void) {
+        //    this.activeRoute.queryParams.subscribe((params: Params) => {
+        //        callback(params[paramName]);
+        //    });
+        //}
     }
 
     export class Window {

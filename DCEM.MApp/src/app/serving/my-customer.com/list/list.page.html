@@ -35,7 +35,7 @@
         </ion-item-divider>-->
 
         <ion-item-sliding *ngFor="let item of mod.data;let key=index">
-            <ion-item [routerLink]="['/serving/mycustomer/detail']">
+            <ion-item [routerLink]="['/serving/mycustomer/detail']" [queryParams]="{id:item.Id}">
                 <ion-icon slot="start" color="primary" name="man" size="large"></ion-icon>
                 <ion-label>
                     <h2>{{item.fullname}}</h2>
