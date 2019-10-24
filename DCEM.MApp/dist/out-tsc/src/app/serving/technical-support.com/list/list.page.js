@@ -11,14 +11,18 @@ let ListPage = class ListPage {
         this.model = {
             name: 'technicalsupportlist',
             apiUrl: '/api/tech-support/GetList',
-            condition: '',
+            seachkey: '',
+            orderstatus: 0,
             data: [],
-            pageSize: 5,
+            pageSize: 10,
             page: 1,
-            sort: 'mcs_supportorderid desc' //排序的参数
+            sort: 'mcs_supportorderid desc',
+            isending: false,
+            nodata: false
         };
     }
     ngOnInit() {
+        this.model.page = 1;
         var cachedata = this.httpService.GetDataCache(this.model.name);
         if (cachedata == "") {
             this.getList(null);
@@ -28,24 +32,37 @@ let ListPage = class ListPage {
         }
     }
     //搜索方法
-    search(name) {
-        this.getList(null);
+    search(event) {
+        var keyCode = event ? event.keyCode : "";
+        if (keyCode == 13) {
+            this.model.data = [];
+            this.model.page = 1;
+            this.model.isending = false;
+            this.getList(event);
+        }
     }
-    //下来刷新
+    //下拉刷新
     doRefresh(event) {
         this.model.data = [];
+        this.model.page = 1;
+        this.model.isending = false;
         this.getList(event);
     }
     //加载下一页
     doLoading(event) {
-        debugger;
         this.model.page++;
         this.getList(event);
     }
     //切换tab
     selectTab(status) {
+        this.model.data = [];
+        this.model.page = 1;
+        this.model.isending = false;
         if (status != "" && status != undefined) {
-            this.model.condition = "mcs_orderstatus=" + status;
+            this.model.orderstatus = status;
+        }
+        else {
+            this.model.orderstatus = 0;
         }
         this.getList(null);
     }
@@ -53,31 +70,45 @@ let ListPage = class ListPage {
     getList(event) {
         this._page.loadingShow();
         this._http.get(this.model.apiUrl, {
-            condition: this.model.condition,
-            sort: this.model.sort,
-            pageSize: this.model.pageSize,
-            page: this.model.page
+            params: {
+                orderstatus: this.model.orderstatus,
+                seachkey: this.model.seachkey,
+                sort: this.model.sort,
+                pageSize: this.model.pageSize,
+                page: this.model.page
+            }
         }, (res) => {
             if (res.Results !== null) {
-                //绑定数据
-                res.Results.forEach(item => {
-                    var value = item["Attributes"];
-                    this.model.data.push({
-                        "Id": value.mcs_supportorderid,
-                        "mcs_name": value.mcs_name,
-                        "mcs_repairdate": value.mcs_repairdate,
-                        "mcs_orderstatus": value.mcs_orderstatus,
-                        "mcs_title": value.mcs_title
-                    });
-                });
-                //设置数据存储到本地
-                this.httpService.SetDataCache(this.model.name, JSON.stringify(this.model.data).toString());
                 event ? event.target.complete() : '';
-                //判断是否有新数据
-                if (res.Results.length < 2) {
-                    event ? event.target.disabled = true : "";
+                if (res.Results.length > 0) {
+                    //绑定数据
+                    res.Results.forEach(item => {
+                        var value = item["Attributes"];
+                        this.model.data.push({
+                            "Id": value.mcs_supportorderid,
+                            "mcs_name": value.mcs_name,
+                            "mcs_repairdate": value.mcs_repairdate,
+                            "mcs_orderstatus": value.mcs_orderstatus,
+                            "mcs_title": value.mcs_title
+                        });
+                    });
+                    //设置数据存储到本地
+                    if (this.model.page == 1) {
+                        this.httpService.SetDataCache(this.model.name, JSON.stringify(this.model.data).toString());
+                    }
+                    //判断是否有新数据
+                    if (res.Results.length < 2) {
+                        event ? event.target.disabled = true : "";
+                        this.model.isending = true;
+                    }
+                    this._page.loadingHide();
                 }
-                this._page.loadingHide();
+                if (this.model.data.length == 0) {
+                    this.model.nodata = true;
+                }
+                else {
+                    this.model.nodata = false;
+                }
             }
             else {
                 this._page.alert("消息提示", "数据加载异常");

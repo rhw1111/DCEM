@@ -17,10 +17,11 @@ export class ListPage implements OnInit {
     seachkey:'',//搜索关键字
     orderstatus:0,//订单状态
     data: [],//列表数据
-    pageSize:2,//页数
+    pageSize:10,//页数
     page:1,//分页
     sort:'mcs_supportorderid desc',//排序的参数
-    isending:false//是否加载完成
+    isending:false,//是否加载完成
+    nodata:false
   };
 
   constructor(
@@ -47,7 +48,7 @@ export class ListPage implements OnInit {
     this.model.data=[];
     this.model.page=1;
     this.model.isending=false;
-    this.getList(null);
+    this.getList(event);
    }
   }
 
@@ -81,41 +82,48 @@ export class ListPage implements OnInit {
     this._page.loadingShow();
       this._http.get(this.model.apiUrl,
         {
-          orderstatus:this.model.orderstatus,
-          seachkey: this.model.seachkey,
-          sort: this.model.sort,
-          pageSize: this.model.pageSize,
-          page: this.model.page
+          params:{
+            orderstatus:this.model.orderstatus,
+            seachkey: this.model.seachkey,
+            sort: this.model.sort,
+            pageSize: this.model.pageSize,
+            page: this.model.page
+          }
         },
         (res: any) => {
           if (res.Results !== null) {
-            //绑定数据
-            res.Results.forEach(item => {
-              var value=item["Attributes"]; 
-              this.model.data.push({
-                "Id":value.mcs_supportorderid,
-                "mcs_name":value.mcs_name,
-                "mcs_repairdate":value.mcs_repairdate,
-                "mcs_orderstatus":value.mcs_orderstatus,
-                "mcs_title":value.mcs_title
+            event ? event.target.complete() : '';
+            if(res.Results.length>0){
+              //绑定数据
+              res.Results.forEach(item => {
+                var value = item["Attributes"];
+                this.model.data.push({
+                  "Id": value.mcs_supportorderid,
+                  "mcs_name": value.mcs_name,
+                  "mcs_repairdate": value.mcs_repairdate,
+                  "mcs_orderstatus": value.mcs_orderstatus,
+                  "mcs_title": value.mcs_title
+                });
               });
-            });
-            //设置数据存储到本地
-            if(this.model.page==1){
-              this.httpService.SetDataCache(this.model.name,JSON.stringify(this.model.data).toString());
+              //设置数据存储到本地
+              if (this.model.page == 1) {
+                this.httpService.SetDataCache(this.model.name, JSON.stringify(this.model.data).toString());
+              }
+              
+              //判断是否有新数据
+              if (res.Results.length < 2) {
+                event ? event.target.disabled = true : "";
+                this.model.isending = true;
+              }
+              this._page.loadingHide();
             }
 
-            event?event.target.complete():'';
-            //判断是否有新数据
-            if(res.Results.length<2){
-              event?event.target.disabled=true:"";
-              this.model.isending=true;
+            if(this.model.data.length==0){
+              this.model.nodata=true;
             }
             else{
-              this.model.isending=false;
+              this.model.nodata=false;
             }
-            
-            this._page.loadingHide();
           }
           else {
             this._page.alert("消息提示", "数据加载异常");

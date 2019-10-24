@@ -18,6 +18,11 @@ namespace DCEM.ServiceAssistantService.Main.Application
             _technicalSupportService = technicalSupportService;
         }
 
+        public async Task<CrmEntity> QueryById(Guid id)
+        {
+            return await _technicalSupportService.QueryById(id);
+        }
+
         public async Task<QueryResult<CrmEntity>> QueryListByPage(int orderstauts, string searchkey , int pageSize, int pageNum, string sort, string token = "")
         {
             return await _technicalSupportService.QueryListByPage(orderstauts, searchkey, pageSize, pageNum,  sort, token);

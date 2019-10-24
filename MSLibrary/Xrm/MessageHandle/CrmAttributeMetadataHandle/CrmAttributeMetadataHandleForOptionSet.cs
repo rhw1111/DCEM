@@ -17,7 +17,7 @@ namespace MSLibrary.Xrm.MessageHandle.CrmAttributeMetadataHandle
             CrmPicklistAttributeMetadata result = new CrmPicklistAttributeMetadata();
             var jObject = JsonSerializerHelper.Deserialize<JObject>(body);
             result.OptionSet= JsonSerializerHelper.Deserialize<CrmOptionSetMetadata>(body);
-            result.MetadataId = jObject["MetadataId"].Value<Guid>();
+            result.MetadataId = Guid.Parse(jObject["MetadataId"].Value<string>());
 
             return await Task.FromResult(result);
         }

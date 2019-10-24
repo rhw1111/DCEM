@@ -96,7 +96,7 @@ namespace MSLibrary.Xrm.MessageHandle
         {
             var request = (CrmUpsertRetrieveRequestMessage)extension;
             var jObject = JsonSerializerHelper.Deserialize<JObject>(responseBody);
-            var entityId = jObject[$"{request.Entity.EntityName}id"].Value<Guid>();
+            var entityId = Guid.Parse(jObject[$"{request.Entity.EntityName}id"].Value<string>());
             var version = jObject["@odata.etag"].Value<string>();
 
             CrmUpsertRetrieveResponseMessage response = new CrmUpsertRetrieveResponseMessage()
