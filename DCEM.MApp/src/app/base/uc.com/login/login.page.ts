@@ -20,23 +20,27 @@ export class LoginPage implements OnInit {
         //private navCtr: NavController,
         //private httpClient: HttpClient,
         private _http: Dcem.Core.Http,
-        private _page: Dcem.Core.Page
+        private _page: Dcem.Core.Page,
+        private _window: Dcem.Core.Window
     ) {
     }
     // 定义模型
     mod = {
         username: '',
-        password: ''
+        password: '',
+        apiurl: '',
+        domainType: '',
+        domain: ''
     };
 
-    apiurl = '';
 
     // 初始化
     ngOnInit() {
         // 加入测试参数
         this.mod.username = 'subdevcrmadmin';
         this.mod.password = 'password01#';
-        this.apiurl = '/api/Account/GetAuthToken';
+        this.mod.apiurl = '/api/Account/GetAuthToken';
+        this.mod.domainType = 'local';
     }
 
     // 提交
@@ -50,9 +54,30 @@ export class LoginPage implements OnInit {
             return;
         }
 
+        switch (this.mod.domainType) {
+            case 'Dev':
+                this.mod.domain = "https://subcrmdevapi.sokon.com/dcem";
+                break;
+            case 'Sit':
+                this.mod.domain = "https://subcrmdevapi.sokon.com/dcem";
+                break;
+            case 'Uat':
+                this.mod.domain = "https://subcrmuatapi.sokon.com/dcem";
+                break;
+            case 'Pro':
+                this.mod.domain = "https://mscrm.sokon.com/dcem";
+                break;
+            default:
+                this.mod.domain = "http://localhost:9099";
+                break;
+        }
+
+        this._window.storageSet("apiDomainUrl", this.mod.domain);
+
+
         this._page.loadingShow();
         this._http.get(
-            this.apiurl,
+            this.mod.apiurl,
             {
                 username: encodeURIComponent(this.mod.username),
                 password: encodeURIComponent(this.mod.password)
@@ -66,12 +91,15 @@ export class LoginPage implements OnInit {
             },
             (err: any) => {
                 this._page.loadingHide();
+                //this._page.goto("serving/home/tabs");
                 this._page.alert('消息提示', '登录认证失败');
 
             }
         );
         //this.httpGet();
     }
+
+
 
     // http请求
     //httpGet() {

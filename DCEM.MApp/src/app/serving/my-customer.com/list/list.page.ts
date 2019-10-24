@@ -33,12 +33,13 @@ export class ListPage implements OnInit {
             {},
             (res: any) => {
                 if (res.Results !== null) {
+                    console.log(res.Results);
                     for (var key in res.Results) {
                         var obj = {};
                         obj["Id"] = res.Results[key]["Id"];
                         obj["fullname"] = res.Results[key]["Attributes"]["mcs_customerid"]["mcs_fullname"];
                         obj["gender"] = res.Results[key]["Attributes"]["mcs_customerid"]["mcs_gender"];
-                        obj["motormodel"] = res.Results[key]["Attributes"]["mcs_customerid"]["mcs_motormodel"];
+                        obj["mobilephone"] = res.Results[key]["Attributes"]["mcs_customerid"]["mcs_mobilephone"];
                         obj["vehplate"] = res.Results[key]["Attributes"]["mcs_customerid"]["mcs_vehplate"];
                         this.mod.data.push(obj);
                     }
