@@ -22,7 +22,7 @@ export var Dcem;
             //get请求
             get(url, params, rescallback, errcallback) {
                 console.log(this._config.getDomain() + url);
-                this._httpClient.get(this._config.getDomain() + url, { params: params }).subscribe((res) => {
+                this._httpClient.get(this._config.getDomain() + url, params).subscribe((res) => {
                     rescallback && rescallback(res);
                 }, (err) => {
                     errcallback && errcallback(err);

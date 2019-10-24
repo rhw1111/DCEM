@@ -1,25 +1,46 @@
 import * as tslib_1 from "tslib";
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpService } from '../../../base/base.ser/http-service.service';
-import { NavController } from '@ionic/angular';
+import { Dcem } from 'app/base/base.ser/Dcem.core';
 let ListPage = class ListPage {
-    constructor(router, navCtrl, httpService) {
+    constructor(router, _http, _page) {
         this.router = router;
-        this.navCtrl = navCtrl;
-        this.httpService = httpService;
-        this.ListAll = [];
+        this._http = _http;
+        this._page = _page;
+        this.mod = {
+            apiUrl: '',
+            data: []
+        };
+        this.mod.apiUrl = "/api/appointment-info/GetList";
     }
     ngOnInit() {
         this.showlist("");
     }
     showlist(id) {
-        var response = this.httpService.getForToaken("/api/appointment-info/GetList?status=" + id + "&search=", null);
-        response.subscribe((res) => {
-            if (res != null && res.success == true) {
-                console.log('get res=' + res.data);
-                this.ListAll = res.data;
+        this._page.loadingShow();
+        this._http.get(this.mod.apiUrl + "?status=" + id + "&search=", {}, (res) => {
+            if (res.Results !== null) {
+                this.mod.data = [];
+                //console.log('get res=' + res.data);
+                for (var key in res.Results) {
+                    var obj = {};
+                    obj["mcs_appointmentinfoid"] = res.Results[key]["Id"];
+                    obj["mcs_carplate"] = res.Results[key]["Attributes"]["mcs_carplate"];
+                    obj["mcs_customername"] = res.Results[key]["Attributes"]["mcs_customername"];
+                    obj["mcs_appointmentat"] = res.Results[key]["Attributes"]["mcs_appointmentat"];
+                    obj["mcs_appointmentconfigid"] = res.Results[key]["Attributes"]["appointmentconfig_x002e_mcs_name"];
+                    obj["mcs_status"] = res.Results[key]["Attributes"]["mcs_status"];
+                    this.mod.data.push(obj);
+                }
+                this._page.loadingHide();
             }
+            else {
+                this._page.alert("��Ϣ��ʾ", "�ͻ����ݼ����쳣");
+                this._page.loadingHide();
+            }
+        }, (err) => {
+            this._page.alert("��Ϣ��ʾ", "�ͻ����ݼ����쳣");
+            this._page.loadingHide();
         });
     }
 };
@@ -29,7 +50,7 @@ ListPage = tslib_1.__decorate([
         templateUrl: './list.page.html',
         styleUrls: ['./list.page.scss'],
     }),
-    tslib_1.__metadata("design:paramtypes", [Router, NavController, HttpService])
+    tslib_1.__metadata("design:paramtypes", [Router, Dcem.Core.Http, Dcem.Core.Page])
 ], ListPage);
 export { ListPage };
 //# sourceMappingURL=list.page.js.map
