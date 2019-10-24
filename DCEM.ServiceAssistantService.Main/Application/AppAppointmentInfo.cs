@@ -15,7 +15,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
             _appointmentInfoService = appointmentInfoService;
         }
 
-        public IList<AppointmentInfoModel> QueryListByPage(string filterstr, int pageSize, int pageNum, string sort, string token = "")
+        public IList<AppointmentInfoModel> QueryListByPage(AppointmentInfoRequest filterstr, int pageSize, int pageNum, string sort, string token = "")
         {
             return _appointmentInfoService.QueryListByPage(filterstr, pageSize, pageNum, sort, token);
         }
