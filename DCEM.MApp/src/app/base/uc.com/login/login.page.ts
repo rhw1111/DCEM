@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { HttpService } from '../../base.ser/http-service.service';
+import { Dcem } from 'app/base/base.ser/Dcem.core';
 
 @Component({
     selector: 'app-login',
@@ -12,14 +12,13 @@ import { HttpService } from '../../base.ser/http-service.service';
 
 export class LoginPage implements OnInit {
 
-    private environment: string ='';
     // 定义控制器
     constructor(
         private alertCtr: AlertController,
         private loadingCtr: LoadingController,
         private navCtr: NavController,
         private httpClient: HttpClient,
-        private httpService:HttpService
+        private _http: Dcem.Core.Http
     ) {
     }
     // 定义模型
@@ -35,6 +34,7 @@ export class LoginPage implements OnInit {
         // 加入测试参数
         this.mod.username = 'subdevcrmadmin';
         this.mod.password = 'password01#';
+        //this.apiurl = '/api/Account/GetAuthToken';
         this.apiurl = 'https://subcrmdevapi.sokon.com/dcem/api/Account/GetAuthToken';
     }
 
@@ -49,7 +49,22 @@ export class LoginPage implements OnInit {
             return;
         }
 
-        this.httpGet();
+        this._http.get(
+            this.apiurl,
+            {
+                username: encodeURIComponent(this.mod.username),
+                password: encodeURIComponent(this.mod.password)
+            },
+            (res: any) => {
+                console.log(res);
+                this.presentAlert('消息提示', '登录认证通过');
+            },
+            (err: any) => {
+                this.presentAlert('消息提示', '登录认证失败');
+            }
+        );
+
+        //this.httpGet();
     }
 
     // http请求
@@ -66,20 +81,19 @@ export class LoginPage implements OnInit {
 
         httpGet.subscribe(
             (res: any) => {
+                console.log(res);
                 if (res.access_token === null || res.access_token === '') {
                     this.presentAlert('消息提示', '登录认证失败');
                 } else {
-                    //设置登录环境
-                    this.httpService.setEnvironmentUrl(this.environment);
                     //this.presentAlert('消息提示', 'token:' + res.access_token);
-                    console.log(res.access_token);
+                    console.log(res);
                     //this.presentAlert('消息提示', '登录认证通过'); 
                     this.navCtr.navigateRoot('serving/home/tabs');
                 }
                 loading.then(a => { a.dismiss(); });
             },
             (err: any) => {
-                this.presentAlert('消息提示', '登录认证失败');
+                this.presentAlert('消息提示', '登录认证失败11');
                 loading.then(a => { a.dismiss(); });
             });
     }
