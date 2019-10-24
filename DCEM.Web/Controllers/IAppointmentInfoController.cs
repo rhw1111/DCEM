@@ -34,19 +34,24 @@ namespace DCEM.Web.Controllers
         /// 预约记录列表查询
         /// </summary>
         /// <param name="status"></param>
-        /// <param name="search"></param>
-        /// <param name="pageindex"></param>
+        /// <param name="seachkey"></param>
+        /// <param name="sort"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="page"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("GetList")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetList(string status="", string search = "", int pageindex = 1)
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetList(int status, string seachkey = "", string sort = "", int pageSize = 10, int page = 1)
         {
             var appointmentInfoRequest = new AppointmentInfoRequest()
             {
-                mcs_status = status,
-                search = search
+                status = status,
+                search = seachkey,
+                page = page,
+                pageSize = pageSize,
+                sort = sort
             };
-            var list = await app.QueryListByPage(appointmentInfoRequest, 10, pageindex);
+            var list = await app.QueryListByPage(appointmentInfoRequest);
             return list;
         }
 

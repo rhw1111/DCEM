@@ -12,29 +12,85 @@ import sd from 'silly-datetime';
 })
 export class ListPage implements OnInit {
 
-    mod = {
-        apiUrl: '',
-        data: []
+    model = {
+        name: 'appointmentlistinfo',//模块实体名称
+        apiUrl: '/api/appointment-info/GetList',
+        seachkey: '',//搜索关键字
+        status: 0,//预约状态
+        data: [],//列表数据
+        pageSize: 2,//页数
+        page: 1,//分页
+        sort: 'mcs_appointmentinfoid desc',//排序的参数
+        isending: false//是否加载完成
     };
 
     constructor(
         public router: Router,
         private _http: Dcem.Core.Http,
-        private _page: Dcem.Core.Page
-    ) { this.mod.apiUrl = "/api/appointment-info/GetList";}
+        private _page: Dcem.Core.Page,
+        private httpService: HttpService
+    ) { }
 
     ngOnInit() {
-        this.showlist("");
-  }
+        this.model.page = 1;
+        var cachedata = this.httpService.GetDataCache(this.model.name);
+        if (cachedata == "") {
+            this.showlist(null);
+        }
+        else {
+            this.model.data = JSON.parse(cachedata);
+        }
+    }
 
-    showlist(id) {
+    //搜索方法
+    search(event) {
+        var keyCode = event ? event.keyCode : "";
+        if (keyCode == 13) {
+            this.model.data = [];
+            this.model.page = 1;
+            this.model.isending = false;
+            this.showlist(null);
+        }
+    }
+    //下拉刷新
+    doRefresh(event) {
+        this.model.data = [];
+        this.model.page = 1;
+        this.model.isending = false;
+        this.showlist(event);
+    }
+    //加载下一页
+    doLoading(event) {
+        this.model.page++;
+        this.showlist(event);
+    }
+    //切换tab
+    selectTab(status) {
+        this.model.data = [];
+        this.model.page = 1;
+        this.model.isending = false;
+        if (status != "" && status != undefined) {
+            this.model.status = status;
+        }
+        else {
+            this.model.status = 0;
+        }
+        this.showlist(null);
+    }
+    //展示数据
+    showlist(event) {
         this._page.loadingShow();
-        this._http.get(
-            this.mod.apiUrl + "?status=" + id +"&search=",
-            {},
+        this._http.get(this.model.apiUrl,
+            {
+                status: this.model.status,
+                seachkey: this.model.seachkey,
+                sort: this.model.sort,
+                pageSize: this.model.pageSize,
+                page: this.model.page
+            },
             (res: any) => {
                 if (res.Results !== null) {
-                    this.mod.data = [];
+                    this.model.data = [];
                     //console.log('get res=' + res.data);
                     for (var key in res.Results) {
                         var obj = {};
@@ -44,7 +100,21 @@ export class ListPage implements OnInit {
                         obj["mcs_appointmentat"] = res.Results[key]["Attributes"]["mcs_appointmentat"];
                         obj["mcs_appointmentconfigid"] = res.Results[key]["Attributes"]["appointmentconfig_x002e_mcs_name"];
                         obj["mcs_status"] = res.Results[key]["Attributes"]["mcs_status"];
-                        this.mod.data.push(obj);
+                        this.model.data.push(obj);
+                    }
+                    //设置数据存储到本地
+                    if (this.model.page == 1) {
+                        this.httpService.SetDataCache(this.model.name, JSON.stringify(this.model.data).toString());
+                    }
+
+                    event ? event.target.complete() : '';
+                    //判断是否有新数据
+                    if (res.Results.length < 2) {
+                        event ? event.target.disabled = true : "";
+                        this.model.isending = true;
+                    }
+                    else {
+                        this.model.isending = false;
                     }
                     this._page.loadingHide();
                 }
@@ -60,6 +130,7 @@ export class ListPage implements OnInit {
         );
     }
 
+    //日期格式
     FormatToDate(date) {
         if (date != null && date != undefined) {
             return sd.format(date, 'YYYY-MM-DD');
