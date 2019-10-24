@@ -83,7 +83,8 @@ namespace MSLibrary.Xrm.Convert.CrmRetrieveJTokenHandle
             }
             else
             {
-                var fragment = new TextFragment()
+                entityId = Guid.Empty;
+                /*var fragment = new TextFragment()
                 {
                     Code = TextCodes.CrmJTokenConvertEntityNotFoundAttribute,
                     DefaultFormatting = "在Crm的JToken转换服务{0}中，传入的JToken中找不到属性{1}，实体名称为{2}，JToken值为{3}",
@@ -91,6 +92,7 @@ namespace MSLibrary.Xrm.Convert.CrmRetrieveJTokenHandle
                 };
 
                 throw new UtilityException((int)Errors.CrmJTokenConvertEntityNotFoundAttribute, fragment);
+                */
             }
             string version = null;
             if (json["@odata.etag"] != null)
