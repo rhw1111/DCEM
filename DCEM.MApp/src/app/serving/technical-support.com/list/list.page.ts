@@ -29,13 +29,9 @@ export class ListPage implements OnInit {
   }
   //加载下一页
   doLoading(event){
-    this.getList(null);
     this.page++;
-    event?event.target.complete():'';
-    //判断是否有新数据
-    if(true){
-      event?event.target.disabled=true:"";
-    }
+    this.httpService.ClearDataCache("technicalsupportlist")
+    this.getList(event);
   }
   getList(event){
     var api='/api/tech-support/GetList';

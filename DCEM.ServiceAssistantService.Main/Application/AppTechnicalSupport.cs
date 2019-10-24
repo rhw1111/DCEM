@@ -1,4 +1,6 @@
 ﻿using DCEM.ServiceAssistantService.Main.DTOModel;
+using MSLibrary;
+using MSLibrary.Xrm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +18,9 @@ namespace DCEM.ServiceAssistantService.Main.Application
             _technicalSupportService = technicalSupportService;
         }
 
-        public IList<TechnicalSupportModel> QueryListByPage(string filterstr, int pageSize, int pageNum, string sort, string token = "")
+        public async Task<QueryResult<CrmEntity>> QueryListByPage(string filterstr, int pageSize, int pageNum, string sort, string token = "")
         {
-            return _technicalSupportService.QueryListByPage(filterstr, pageSize, pageNum,  sort, token);
+            return await _technicalSupportService.QueryListByPage(filterstr, pageSize, pageNum,  sort, token);
         }
     }
 }
