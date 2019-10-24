@@ -12,6 +12,8 @@ using System.Net;
 using DCEM.ServiceAssistantService.Main.DAL;
 using DCEM.ServiceAssistantService.Main.Application;
 using DCEM.ServiceAssistantService.Main.DTOModel;
+using MSLibrary.Xrm;
+using MSLibrary;
 
 namespace DCEM.Web.Controllers
 {
@@ -32,17 +34,10 @@ namespace DCEM.Web.Controllers
         // GET api/values
         [HttpGet]
         [Route("GetList")]
-        public ActionResult<ResultResponse<TechnicalSupportModel>> GetList()
+        public async Task<QueryResult<CrmEntity>> GetList()
         {
-            Request.Headers.TryGetValue("token", out var traceValue);
-            var list = app.QueryListByPage("",10,1, "mcs_supportorderid desc", traceValue);
-            var res = new ResultResponse<TechnicalSupportModel>()
-            {
-                Data = list.ToList(),
-                Success = true,
-                Mssage = "查询成功"
-            };
-            return res;
+            var result = await app.QueryListByPage("",10,1, "mcs_supportorderid desc");
+            return result;
         }
     }
 }
