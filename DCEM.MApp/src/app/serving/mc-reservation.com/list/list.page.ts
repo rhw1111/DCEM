@@ -12,45 +12,33 @@ export class ListPage implements OnInit {
 
     public ListAll: any = [];
 
-    private isTrue: string;
-    private spanColor1: string;
-    private spanColor2: string;
-    private spanColor3: string;
 
     constructor(public router: Router, private navCtrl: NavController, private httpService: HttpService) { }
 
     ngOnInit() {
-        this.showlist(0);
+        this.showlist("");
   }
 
-    showDetail(item) {
-        this.router.navigate(['detail'], {
-            queryParams: {
-                Item: JSON.stringify(item)
+    showlist(id) {
+        var response = this.httpService.getForToaken("/api/appointment-info/GetList?status=" + id +"&search=", null);
+        response.subscribe((res) => {
+            if (res != null && res.success == true) {
+                console.log('get res=' + res.data);
+                this.ListAll = res.data;
             }
         });
     }
 
-    showlist(id) {
-        var response = this.httpService.getForToaken("/api/appointment-info/GetList?status=" + id, null);
-        response.subscribe((res) => {
-            if (res != null && res.success == true) {
-                this.ListAll = res.datas;
-                this.spanColor1 = "";
-                this.spanColor2 = "";
-                this.spanColor3 = "";
-                switch (id) {
-                    case 0:
-                        this.spanColor1 = "success";
-                        break;
-                    case 1:
-                        this.spanColor2 = "success";
-                        break;
-                    case 2:
-                        this.spanColor3 = "success";
-                        break;
-                }
-            }
-        });
-    }
+    //const searchbar = document.querySelector('ion-searchbar');
+    //const items = Array.from(document.querySelector('ion-list').children);
+    //searchbar.addEventListener('ionInput', handleInput);
+    //function handleInput(event) {
+    //const query = event.target.value.toLowerCase();
+    //requestAnimationFrame(() => {
+    //    items.forEach(item => {
+    //        const shouldShow = item.textContent.toLowerCase().indexOf(query) > -1;
+    //        item.style.display = shouldShow ? 'block' : 'none';
+    //    });
+    //});
+//}
 }

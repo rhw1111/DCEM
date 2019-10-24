@@ -30,11 +30,16 @@ namespace DCEM.Web.Controllers
         // GET api/values
         [HttpGet]
         [Route("GetList")]
-        public ActionResult<ResultResponse<AppointmentInfoModel>> GetList()
+        public ActionResult<ResultResponse<AppointmentInfoModel>> GetList(string status="",string search = "")
         {
-            Request.Headers.TryGetValue("token", out var traceValue);
+            var appointmentInfoRequest = new AppointmentInfoRequest()
+            {
+                mcs_status = status,
+                search = search
+            };
 
-            var list = app.QueryListByPage("", 10, 1, "", traceValue);
+            Request.Headers.TryGetValue("token", out var traceValue);
+            var list = app.QueryListByPage(appointmentInfoRequest, 10, 1, "", traceValue);
             var res = new ResultResponse<AppointmentInfoModel>()
             {
                 Data = list.ToList(),

@@ -17,6 +17,6 @@ namespace DCEM.ServiceAssistantService.Main.Application
         /// 获取预约跟进记录
         /// </summary>
         /// <param name="entityId"></param>
-        IList<AppointmentInfoModel> QueryListByPage(string filterstr, int pageSize, int pageNum, string sort, string token = "");
+        IList<AppointmentInfoModel> QueryListByPage(AppointmentInfoRequest filterstr, int pageSize, int pageNum, string sort, string token = "");
     }
 }
