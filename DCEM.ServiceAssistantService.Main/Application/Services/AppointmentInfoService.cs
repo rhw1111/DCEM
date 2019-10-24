@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Xml.Linq;
 using DCEM.ServiceAssistantService.Main.DTOModel;
+using MSLibrary;
 using MSLibrary.Xrm;
+using MSLibrary.Xrm.Message.RetrieveMultipleFetch;
 
 namespace DCEM.ServiceAssistantService.Main.Application.Services
 {
@@ -17,42 +20,69 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
             _crmService = crmService;
         }
 
-        public async Task<IList<AppointmentInfoModel>> QueryListByPage(AppointmentInfoRequest filterstr, int pageSize, int pageNum, string sort, string token = "")
+        public async Task<QueryResult<CrmEntity>> QueryListByPage(AppointmentInfoRequest filterstr, int pageSize, int pageNum)
         {
             try
             {
-                var strQuery = new StringBuilder();
-                strQuery.Append($"$select=mcs_appointmentat,_mcs_appointmentconfigid_value,mcs_appointmentinfoid,mcs_carplate,mcs_customername,mcs_customerphone,mcs_name,mcs_status&$expand=mcs_appointmentconfigid($select=mcs_name)&$filter=statecode eq 0");
-                //预约状态
+                var filter = string.Empty;
                 if (!string.IsNullOrWhiteSpace(filterstr.mcs_status))
                 {
-                    strQuery.Append($" and  mcs_status eq {filterstr.mcs_status}");
+                    filter += $"<condition attribute='mcs_status' operator='eq' value='{filterstr.mcs_status}' />";
                 }
                 if (!string.IsNullOrWhiteSpace(filterstr.search))
                 {
-                    strQuery.Append($" and (mcs_carplate eq '{ filterstr.search}' or mcs_customerphone eq '{filterstr.search}' or mcs_customername eq '{filterstr.search}')");
+                    filter += $"<filter type='or'>";
+                    filter += $"<condition attribute='mcs_carplate' operator='like' value='%{filterstr.search}%' />";
+                    filter += $"<condition attribute='mcs_customerphone' operator='like' value='%{filterstr.search}%' />";
+                    filter += $"<condition attribute='mcs_customername' operator='like' value='%{filterstr.search}%' />";
+                    filter += $"</filter>";
                 }
-                List<AppointmentInfoModel> list = new List<AppointmentInfoModel>();
-                var result = await _crmService.RetrieveMultiple("mcs_appointmentinfo", strQuery.ToString());
-                if (result != null && result.Results != null)
+                var fetchString = $@"<fetch version='1.0' count='{pageSize}' page='{pageNum}' output-format='xml-platform' mapping='logical' distinct='false'>
+                  <entity name='mcs_appointmentinfo'>
+                    <attribute name='mcs_name' />
+                    <attribute name='createdon' />
+                    <attribute name='mcs_appointmentat' />
+                    <attribute name='mcs_status' />
+                    <attribute name='mcs_appointmentsource' />
+                    <attribute name='mcs_ordertype' />
+                    <attribute name='mcs_appointmenttype' />
+                    <attribute name='mcs_customerphone' />
+                    <attribute name='createdby' />
+                    <attribute name='mcs_customeraddr' />
+                    <attribute name='mcs_customerid' />
+                    <attribute name='mcs_serviceadvisorid' />
+                    <attribute name='mcs_dealerid' />
+                    <attribute name='mcs_cartype' />
+                    <attribute name='mcs_carplate' />
+                    <attribute name='mcs_customername' />
+                    <attribute name='mcs_appointmentconfigid' />
+                    <attribute name='mcs_appointmentinfoid' />
+                    <order attribute='mcs_appointmentat' descending='false' />
+                    <order attribute='mcs_appointmentconfigid' descending='false' />
+                    <filter type='and'>
+                      <condition attribute='statecode' operator='eq' value='0' />
+                      {filter}
+                    </filter>
+                    <link-entity name='mcs_appointmentconfig' from='mcs_appointmentconfigid' to='mcs_appointmentconfigid' visible='false' link-type='outer' alias='appointmentconfig'>
+                      <attribute name='mcs_name' />
+                    </link-entity>
+                  </entity>
+                </fetch>";
+
+                var fetchXdoc = XDocument.Parse(fetchString);
+                var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {
-                    foreach (var item in result.Results)
-                    {
-                        list.Add(new AppointmentInfoModel()
-                        {
-                            mcs_appointmentinfoid = item.Id,
-                            mcs_appointmentat = item.Attributes["mcs_appointmentat"] != null ? DateTime.Parse(item.Attributes["mcs_appointmentat"].ToString()).ToString("yyyy-MM-dd") : null,
-                            mcs_appointmentconfigid = item.Attributes["mcs_appointmentconfigid"].HasValues==true? item.Attributes["mcs_appointmentconfigid"]["mcs_name"].ToString() : null,
-                            mcs_carplate = item.Attributes["mcs_carplate"] != null ? item.Attributes["mcs_carplate"].ToString() : null,
-                            mcs_customername = item.Attributes["mcs_customername"] != null ? item.Attributes["mcs_customername"].ToString() : null,
-                            mcs_name = item.Attributes["mcs_name"] != null ? item.Attributes["mcs_name"].ToString() : null,
-                            mcs_status = item.Attributes["mcs_status"] != null ? item.Attributes["mcs_status"].ToString() : null,
+                    EntityName = "mcs_appointmentinfo",
+                    FetchXml = fetchXdoc
+                };
+                var fetchResponse = await _crmService.Execute(fetchRequest);
+                var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
 
-                        });
-                    }
-                }
-
-                return list;
+                var queryResult = new QueryResult<CrmEntity>();
+                queryResult.Results = fetchResponseResult.Value.Results;
+                queryResult.CurrentPage = 0;
+                queryResult.TotalCount = 0;
+                return queryResult;
             }
             catch (Exception ex)
             {
