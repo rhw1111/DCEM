@@ -45,20 +45,16 @@ namespace DCEM.Web.Controllers
     #region 自定义ActionResult
     public sealed class NewtonsoftJsonActionResult<TValue> : IConvertToActionResult
     {
+        public ActionResult Result { get; }
+        public TValue Value { get; }
         public NewtonsoftJsonActionResult(TValue value)
         {
             Value = value;
         }
-
         public NewtonsoftJsonActionResult(ActionResult result)
         {
             Result = result ?? throw new ArgumentNullException(nameof(result));
         }
-
-
-        public ActionResult Result { get; }
-        public TValue Value { get; }
-
 
         public static implicit operator NewtonsoftJsonActionResult<TValue>(TValue value)
         {

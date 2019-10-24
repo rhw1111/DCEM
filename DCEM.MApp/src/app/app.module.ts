@@ -24,6 +24,7 @@ import { Dcem } from 'app/base/base.ser/Dcem.core';
     providers: [
         Dcem.Core.Config,
         Dcem.Core.Http,
+        Dcem.Core.Page,
         StatusBar,
         SplashScreen,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
