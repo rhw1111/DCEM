@@ -18,7 +18,7 @@ export class ListPage implements OnInit {
         seachkey: '',//搜索关键字
         status: 0,//预约状态
         data: [],//列表数据
-        pageSize: 2,//页数
+        pageSize: 10,//页数
         page: 1,//分页
         sort: 'mcs_appointmentinfoid desc',//排序的参数
         isending: false//是否加载完成
@@ -80,17 +80,21 @@ export class ListPage implements OnInit {
     //展示数据
     showlist(event) {
         this._page.loadingShow();
+        console.log("地址:" + this.model.apiUrl, "预约状态:" + this.model.status, "搜索:" + this.model.seachkey, "排序:" + this.model.sort, "页条数:" + this.model.pageSize, "页数:" + this.model.page);
         this._http.get(this.model.apiUrl,
             {
-                status: this.model.status,
-                seachkey: this.model.seachkey,
-                sort: this.model.sort,
-                pageSize: this.model.pageSize,
-                page: this.model.page
+                params: {
+                    status: this.model.status,
+                    seachkey: this.model.seachkey,
+                    sort: this.model.sort,
+                    pageSize: this.model.pageSize,
+                    page: this.model.page
+                }
             },
             (res: any) => {
+                event ? event.target.complete() : '';
                 if (res.Results !== null) {
-                    this.model.data = [];
+                    //this.model.data = [];
                     //console.log('get res=' + res.data);
                     for (var key in res.Results) {
                         var obj = {};
