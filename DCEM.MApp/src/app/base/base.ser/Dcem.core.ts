@@ -4,8 +4,18 @@ import { AlertController, LoadingController, NavController } from '@ionic/angula
 export namespace Dcem.Core {
 
     export class Config {
-        public serverUrl = "http://localhost:9099";
-        //public serverUrl = "https://subcrmdevapi.sokon.com/dcem";
+        public serverUrl: string = "http://localhost:9099";
+        constructor(
+            private _window: Dcem.Core.Window
+        ) {
+            this.serverUrl = _window.storageGet("apiDomainUrl");
+        }
+
+
+        getDomain() {
+            this.serverUrl = this._window.storageGet("apiDomainUrl");
+            return this.serverUrl;
+        }
     }
 
     export class Http {
@@ -16,10 +26,8 @@ export namespace Dcem.Core {
         }
         //get请求
         get(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
-
-            console.log(this._config.serverUrl + url);
-
-            this._httpClient.get(this._config.serverUrl + url, { params: params }).subscribe(
+            console.log(this._config.getDomain() + url);
+            this._httpClient.get(this._config.getDomain() + url, { params: params }).subscribe(
                 (res: any) => {
                     rescallback && rescallback(res);
                 },
@@ -61,10 +69,19 @@ export namespace Dcem.Core {
         loadingHide() {
             this.loading.then(a => { a.dismiss(); });
         }
-
         //跳转到指定页
         goto(url: any) {
             this.navCtr.navigateRoot('serving/home/tabs');
         }
+    }
+
+    export class Window {
+        storageSet(key: any, val: any) {
+            window.localStorage.setItem(key, val);
+        }
+        storageGet(key: any) {
+            return window.localStorage.getItem(key);
+        }
+
     }
 }
