@@ -6,19 +6,25 @@
     <ion-title>技术支持</ion-title>
   </ion-toolbar>
   <ion-toolbar>
-      <ion-searchbar></ion-searchbar>
+      <ion-searchbar [(ngModel)]="this.model.seachkey" placeholder="支持项目名称和编号模糊查找" (keyup)="search($event)" ></ion-searchbar>
   </ion-toolbar>
   <ion-toolbar>
       <ion-segment>
-          <ion-segment-button checked>
-              <ion-label>全部</ion-label>
-          </ion-segment-button>
-          <ion-segment-button>
-              <ion-label>处理中</ion-label>
-          </ion-segment-button>
-          <ion-segment-button>
-              <ion-label>已完成</ion-label>
-          </ion-segment-button>
+        <ion-segment-button checked (click)="selectTab(0)">
+            <ion-label>全部</ion-label>
+        </ion-segment-button>
+        <ion-segment-button (click)="selectTab(10)">
+            <ion-label>未处理</ion-label>
+        </ion-segment-button>
+        <ion-segment-button (click)="selectTab(30)">
+            <ion-label>处理中</ion-label>
+        </ion-segment-button>
+        <ion-segment-button (click)="selectTab(40)">
+            <ion-label>已关闭</ion-label>
+        </ion-segment-button>
+        <ion-segment-button (click)="selectTab(50)">
+            <ion-label>已取消</ion-label>
+        </ion-segment-button>
       </ion-segment>
   </ion-toolbar>
 </ion-header>
@@ -29,16 +35,11 @@
         </ion-refresher-content> 
     </ion-refresher>
     <ion-list lines="full">
-        <ion-item-divider>
-            <ion-label>
-                2019-10
-            </ion-label>
-        </ion-item-divider>
-        <ion-item *ngFor="let item of dataList" [routerLink]="['/serving/ts/detail']" [queryParams]="{id:item.id}">
+        <ion-item *ngFor="let item of model.data" [routerLink]="['/serving/ts/detail']" [queryParams]="{id:item.id}">
             <ion-icon slot="start" color="primary" name="hammer" size="large"></ion-icon>
             <ion-label>
                 <h2>{{item.mcs_name}}</h2>
-                <p>施工项目：{{item.mcs_name}}</p>
+                <p>施工项目：{{item.mcs_title}}</p>
                 <p>施工日期：{{FormatToDateTime(mcs_repairdate)}}</p>
                 <p *ngIf="item.mcs_orderstatus==10">施工状态：未处理</p>
                 <p *ngIf="item.mcs_orderstatus==30">施工状态：处理中</p>
@@ -46,10 +47,17 @@
                 <p *ngIf="item.mcs_orderstatus==50">施工状态：已取消</p>
             </ion-label>
         </ion-item>
-        <ion-item-divider></ion-item-divider>
     </ion-list>
-    <ion-infinite-scroll #myInfiniteScroll threshold="100px"(ionInfinite)="doLoading($event)"> 
+
+    <ion-row *ngIf="model.isending">
+        <ion-col class="nodata" text-center>
+            没有更多内容啦
+        </ion-col>
+    </ion-row>
+
+    <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doLoading($event)"> 
         <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多..."> 
         </ion-infinite-scroll-content>
     </ion-infinite-scroll>
+
 </ion-content>

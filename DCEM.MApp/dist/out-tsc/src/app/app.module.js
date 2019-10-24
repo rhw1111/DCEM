@@ -26,6 +26,7 @@ AppModule = tslib_1.__decorate([
             Dcem.Core.Config,
             Dcem.Core.Http,
             Dcem.Core.Page,
+            Dcem.Core.Window,
             StatusBar,
             SplashScreen,
             { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
