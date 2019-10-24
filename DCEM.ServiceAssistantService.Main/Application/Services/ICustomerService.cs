@@ -1,5 +1,6 @@
 ﻿using MSLibrary.Xrm;
 using System.Threading.Tasks;
+using MSLibrary;
 
 namespace DCEM.ServiceAssistantService.Main.Application
 {
@@ -8,6 +9,6 @@ namespace DCEM.ServiceAssistantService.Main.Application
         /// <summary>
         /// 查询客户列表
         /// </summary>
-        Task<CrmEntityCollection> QueryList();
+        Task<QueryResult<CrmEntity>> QueryList();
     }
 }

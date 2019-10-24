@@ -15,9 +15,19 @@ let ListPage = class ListPage {
     search(name) {
         this.getList(null);
     }
+    //下来刷新
+    doRefresh(event) {
+        this.httpService.ClearDataCache("technicalsupportlist");
+        this.getList(event);
+    }
+    //加载下一页
+    doLoading(event) {
+        this.page++;
+        this.httpService.ClearDataCache("technicalsupportlist");
+        this.getList(event);
+    }
     getList(event) {
         var api = '/api/tech-support/GetList';
-        //this.httpService.ClearDataCache("technicalsupportlist")
         var cachedata = this.httpService.GetDataCache("technicalsupportlist");
         console.log("cachedata:" + cachedata);
         if (cachedata == "") {
@@ -25,10 +35,9 @@ let ListPage = class ListPage {
             response.subscribe((res) => {
                 this.dataList = res.data;
                 console.log("stringify:" + JSON.stringify(res.data));
-                this.page++;
                 event ? event.target.complete() : '';
                 //判断是否有新数据
-                if (res.data.length < 10) {
+                if (res.data.leangth < 10) {
                     event ? event.target.disabled = true : "";
                 }
                 //设置数据存储到本地
@@ -38,17 +47,6 @@ let ListPage = class ListPage {
         else {
             this.dataList = JSON.parse(cachedata);
         }
-        // this.httpService.ajaxGet(api).then((response:any)=>{
-        //   debugger;
-        //   console.log(response);
-        //   this.dataList=this.dataList.concat(response.result);
-        //   this.page++;
-        //   event?event.target.complete():'';
-        //   //判断是否有新数据
-        //   if(response.result.length<10){
-        //     event?event.target.disabled=true:"";
-        //   }
-        // })
     }
     FormatToDate(date) {
         return sd.format(date, 'YYYY-MM-DD');
