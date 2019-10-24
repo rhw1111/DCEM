@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+锘縤mport { Component, OnInit } from '@angular/core';
 import { Dcem } from 'app/base/base.ser/Dcem.core';
 
 @Component({
@@ -45,12 +45,12 @@ export class ListPage implements OnInit {
                     this._page.loadingHide();
                 }
                 else {
-                    this._page.alert("消息提示", "客户数据加载异常");
+                    this._page.alert("娑堟伅鎻愮ず", "瀹㈡埛鏁版嵁鍔犺浇寮傚父");
                     this._page.loadingHide();
                 }
             },
             (err: any) => {
-                this._page.alert("消息提示", "客户数据加载异常");
+                this._page.alert("娑堟伅鎻愮ず", "瀹㈡埛鏁版嵁鍔犺浇寮傚父");
                 this._page.loadingHide();
             }
         );

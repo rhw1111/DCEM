@@ -14,10 +14,12 @@ export namespace Dcem.Core {
             private _config: Dcem.Core.Config
         ) {
         }
-
         //get请求
         get(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
-            this._httpClient.get(this._config.serverUrl + url, params).subscribe(
+
+            console.log(this._config.serverUrl + url);
+
+            this._httpClient.get(this._config.serverUrl + url, { params: params }).subscribe(
                 (res: any) => {
                     rescallback && rescallback(res);
                 },
