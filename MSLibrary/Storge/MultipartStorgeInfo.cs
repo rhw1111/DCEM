@@ -6,6 +6,9 @@ using MSLibrary.DI;
 
 namespace MSLibrary.Storge
 {
+    /// <summary>
+    /// 分片存储信息
+    /// </summary>
     public class MultipartStorgeInfo : EntityBase<IMultipartStorgeInfoIMP>
     {
         private static IFactory<IMultipartStorgeInfoIMP> _multipartStorgeInfoIMPFactory;
@@ -198,6 +201,40 @@ namespace MSLibrary.Storge
                 SetAttribute<DateTime>("ModifyTime", value);
             }
         }
+
+
+        public async Task Add()
+        {
+            await _imp.Add(this);
+        }
+        public async Task Delete()
+        {
+            await _imp.Delete(this);
+        }
+        public async Task AddDetails(long size, int startSize, long perSize, int number)
+        {
+            await _imp.AddDetails(this, size, startSize, perSize, number);
+        }
+        public async Task Complete(string extensionInfo)
+        {
+            await _imp.Complete(this, extensionInfo);
+        }
+        public async Task CompleteDetail(Guid detailId, string extensionInfo)
+        {
+            await _imp.CompleteDetail(this,detailId, extensionInfo);
+        }
+
+        public async Task GetDetailAll(int status, Func<MultipartStorgeInfoDetail, Task> action)
+        {
+            await _imp.GetDetailAll(this, status, action);
+        }
+
+        public async Task<QueryResult<MultipartStorgeInfoDetail>> GetDetails(int page, int pageSize)
+        {
+            return await _imp.GetDetails(this, page, pageSize);
+        }
+
+
     }
 
     public interface IMultipartStorgeInfoIMP

@@ -30,11 +30,11 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         /// <param name="pageSize"></param>
         /// <param name="pageNum"></param>
         /// <returns></returns>
-        public async Task<QueryResult<CrmEntity>> QueryListByPage(AppointmentInfoRequest filterstr, int pageSize, int pageNum)
+        public async Task<QueryResult<CrmEntity>> QueryListByPage(AppointmentInfoRequest filterstr)
         {
             try
             {
-                var fetchString = _appointmentInfoRepository.QueryListByPage(filterstr, pageSize, pageNum);
+                var fetchString = _appointmentInfoRepository.QueryListByPage(filterstr);
 
                 var fetchXdoc = XDocument.Parse(fetchString);
                 var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
@@ -47,7 +47,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
 
                 var queryResult = new QueryResult<CrmEntity>();
                 queryResult.Results = fetchResponseResult.Value.Results;
-                queryResult.CurrentPage = 0;
+                queryResult.CurrentPage = filterstr.page;
                 queryResult.TotalCount = 0;
                 return queryResult;
             }

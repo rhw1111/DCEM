@@ -3,9 +3,20 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using Microsoft.AspNetCore.WebUtilities;
+using Newtonsoft.Json.Linq;
 using Aliyun.OSS;
 using Aliyun.OSS.Common;
+using Aliyun.OSS.Util;
+using Aliyun.Acs.Sts;
+using Aliyun.Acs.Core;
+using Aliyun.Acs.Core.Http;
+using Aliyun.Acs.Core.Profile;
+using Aliyun.Acs.Core.Exceptions;
+using Aliyun.Acs.Sts.Model.V20150401;
 using MSLibrary.Storge;
+using MSLibrary.LanguageTranslate;
+using MSLibrary.Serializer;
 
 namespace MSLibrary.Ali
 {
@@ -411,7 +422,7 @@ namespace MSLibrary.Ali
         /// <param name="targetKey"></param>
         /// <param name="newMetadata"></param>
         /// <returns></returns>
-        Task Copy(OSSEndpoint endpoint, string sourceFilePath, string targetFilePathy, ObjectMetadata newMetadata = null);
+        Task Copy(OSSEndpoint endpoint, string sourceFilePath, string targetFilePath, ObjectMetadata newMetadata = null);
         /// <summary>
         /// 获取文件元数据
         /// </summary>
@@ -496,10 +507,15 @@ namespace MSLibrary.Ali
 
     public class OSSEndpointIMP : IOSSEndpointIMP
     {
+        private IMultipartStorgeInfoRepository _multipartStorgeInfoRepository;
 
+        public OSSEndpointIMP(IMultipartStorgeInfoRepository multipartStorgeInfoRepository)
+        {
+            _multipartStorgeInfoRepository = multipartStorgeInfoRepository;
+        }
         public async Task CompleteMultipart(OSSEndpoint endpoint, string filePath, string uploadID, List<(int, string)> parts)
         {
-            var client= GetOssClient(endpoint);
+            var client= getOssClient(endpoint);
             CompleteMultipartUploadRequest request = new CompleteMultipartUploadRequest(endpoint.Bucket, filePath, uploadID);
             foreach(var item in parts)
             {
@@ -512,17 +528,46 @@ namespace MSLibrary.Ali
 
         public async Task CompleteMultipartInfoDetail(OSSEndpoint endpoint, Guid infoID, Guid detailID, string etag)
         {
-            throw new NotImplementedException();
+            var strSourceInfo = generateSourceInfo(endpoint);
+            var storgeInfo=await _multipartStorgeInfoRepository.QueryBySourceID(strSourceInfo, infoID);
+            if (storgeInfo==null)
+            {
+                var fragment = new TextFragment()
+                {
+                    Code = TextCodes.NotFoundMultipartStorgeInfoBySourceInfoAndID,
+                    DefaultFormatting = "找不到源信息为{0}，Id为{1}的分片存储信息",
+                    ReplaceParameters = new List<object>() { strSourceInfo, infoID.ToString()}
+                };
+
+                throw new UtilityException((int)Errors.NotFoundMultipartStorgeInfoBySourceInfoAndID, fragment);
+            }
+
+            await storgeInfo.CompleteDetail(detailID, etag);
+       
         }
 
-        public Task Copy(OSSEndpoint endpoint, string sourceFilePath, string targetFilePathy, ObjectMetadata newMetadata = null)
+        public async Task Copy(OSSEndpoint endpoint, string sourceFilePath, string targetFilePath, ObjectMetadata newMetadata = null)
         {
-            throw new NotImplementedException();
+            var client = getOssClient(endpoint);
+            var task = new TaskCompletionSource<int>();
+            CopyObjectRequest request = new CopyObjectRequest(endpoint.Bucket, sourceFilePath, endpoint.Bucket, targetFilePath);
+            if (newMetadata!=null)
+            {
+                request.NewObjectMetadata = newMetadata;
+            }
+            var asyncResult= client.BeginCopyObject(request, result =>
+                 {
+                     var response= client.EndCopyResult(result);
+                     task.SetResult(0);
+                 }, null);
+
+
+            await task.Task;
         }
 
-        public Task<string> CreateFileName(OSSEndpoint endpoint)
+        public async Task<string> CreateFileName(OSSEndpoint endpoint)
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(Guid.NewGuid().ToString());
         }
 
         public Task<Dictionary<string, string>> CreateMultipartHeaderCallbackParameters(OSSEndpoint endpoint, string filePath, string credentialInfo, Dictionary<string, string> extensionInfos)
@@ -535,8 +580,28 @@ namespace MSLibrary.Ali
             throw new NotImplementedException();
         }
 
-        public Task<Dictionary<string, string>> CreatePostCallbackParameters(OSSEndpoint endpoint, string filePath, Dictionary<string, string> extensionInfos)
+        public async Task<Dictionary<string, string>> CreatePostCallbackParameters(OSSEndpoint endpoint, string filePath, Dictionary<string, string> extensionInfos)
         {
+            Dictionary<string, string> result = new Dictionary<string, string>();
+
+            StringBuilder strExtension = new StringBuilder();
+            foreach(var item in extensionInfos)
+            {
+                strExtension.Append($"&{item.Key}={item.Value.ToUrlEncode()}");
+            }
+            
+            String strBody = $"bucket=${{bucket}}&object=${{object}}&etag=${{etag}}&size=${{size}}&mimeType=${{mimeType}}{strExtension.ToString()}";
+            JObject jObj = new JObject();
+            jObj.Add("callbackUrl", JToken.FromObject(endpoint.CallbackUrl));
+            jObj.Add("callbackBody", JToken.FromObject(strBody));
+            //jObj.Add("callbackBodyType", JToken.FromObject("application/json"));
+
+
+
+
+
+
+
             throw new NotImplementedException();
         }
 
@@ -616,7 +681,7 @@ namespace MSLibrary.Ali
         }
 
 
-        private OssClient GetOssClient(OSSEndpoint endpoint)
+        private OssClient getOssClient(OSSEndpoint endpoint)
         {
             var conf = new ClientConfiguration();
             OssClient client;
@@ -633,6 +698,62 @@ namespace MSLibrary.Ali
             }
 
             return client;
+        }
+
+        private string generateSourceInfo(OSSEndpoint endpoint)
+        {
+            return $"AliOSS-{endpoint.ID.ToString()}";
+        }
+
+        private (string,string,string) generateSTS(OSSEndpoint endpoint, String accessKeyId, String accessKeySecret, String roleArn,
+            String roleSessionName, String policy, ProtocolType protocolType, long durationSeconds)
+        {
+            DefaultProfile.AddEndpoint("", "", "Sts", "sts.aliyuncs.com");
+            // 创建一个 Aliyun Acs Client, 用于发起 OpenAPI 请求
+            IClientProfile profile = DefaultProfile.GetProfile("", accessKeyId, accessKeySecret);
+            DefaultAcsClient client = new DefaultAcsClient(profile);
+
+            // 创建一个 AssumeRoleRequest 并设置请求参数
+            AssumeRoleRequest request = new AssumeRoleRequest();
+            //request.Version = STS_API_VERSION;
+            request.Method = MethodType.POST;
+            request.Protocol = protocolType;
+
+            request.RoleArn = roleArn;
+            request.RoleSessionName = roleSessionName;
+            request.Policy = policy;
+            request.DurationSeconds = durationSeconds;
+
+            // 发起请求，并得到response
+            AssumeRoleResponse response = client.GetAcsResponse(request);
+
+            return (response.Credentials.AccessKeyId,response.Credentials.AccessKeySecret,response.Credentials.SecurityToken);
+
+
+        }
+
+
+        private async Task<string> generatePostCallbackPolicypublic (OSSEndpoint endpoint,string filePath, string callback)
+        {
+            var client = getOssClient(endpoint);
+            PolicyConditions conds = new PolicyConditions();
+            //bucket精确匹配终结点中的Bucket
+            conds.AddConditionItem(MatchMode.Exact, "bucket", endpoint.Bucket);
+            //文件名起始匹配终结点的临时文件夹
+            conds.AddConditionItem(MatchMode.Exact, "key", filePath);
+            //文件大小范围0~1G
+            conds.AddConditionItem("content-length-range", 0, 1073741824);
+            //callback精确匹配该终结点的callback参数
+            conds.AddConditionItem(MatchMode.Exact, "callback", callback);
+
+            //Content-Type起始匹配空，目的是为了保证存在该域
+            conds.AddConditionItem(MatchMode.StartWith, "Content-Type", "");
+            //Content-Disposition起始匹配空，目的是为了保证存在该域
+            conds.AddConditionItem(MatchMode.StartWith, "Content-Disposition", "");
+
+            var strPolicy = client.GeneratePostPolicy(DateTime.UtcNow.AddMinutes(20), conds);
+
+            return strPolicy;
         }
     }
 }

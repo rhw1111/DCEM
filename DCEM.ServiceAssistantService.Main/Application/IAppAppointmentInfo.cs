@@ -20,7 +20,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
         /// 获取预约跟进记录
         /// </summary>
         /// <param name="entityId"></param>
-        Task<QueryResult<CrmEntity>> QueryListByPage(AppointmentInfoRequest filterstr, int pageSize, int pageNum);
+        Task<QueryResult<CrmEntity>> QueryListByPage(AppointmentInfoRequest filterstr);
         
         /// <summary>
         /// 

@@ -14,7 +14,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
         /// <param name="pageSize"></param>
         /// <param name="pageNum"></param>
         /// <returns></returns>
-        string QueryListByPage(AppointmentInfoRequest filterstr, int pageSize, int pageNum);
+        string QueryListByPage(AppointmentInfoRequest filterstr);
 
         /// <summary>
         /// 预约记录详情
