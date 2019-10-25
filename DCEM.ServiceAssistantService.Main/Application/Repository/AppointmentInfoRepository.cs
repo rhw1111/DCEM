@@ -71,41 +71,8 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
         /// <returns></returns>
         public string QueryDetail(string entityid)
         {
-            //var fetchString = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
-            //  <entity name='mcs_appointmentinfo'>
-            //    <attribute name='mcs_name' />
-            //    <attribute name='createdon' />
-            //    <attribute name='mcs_appointmentat' />
-            //    <attribute name='mcs_status' />
-            //    <attribute name='mcs_appointmentsource' />
-            //    <attribute name='mcs_ordertype' />
-            //    <attribute name='mcs_appointmenttype' />
-            //    <attribute name='mcs_customerphone' />
-            //    <attribute name='createdby' />
-            //    <attribute name='mcs_customeraddr' />
-            //    <attribute name='mcs_customerid' />
-            //    <attribute name='mcs_serviceadvisorid' />
-            //    <attribute name='mcs_dealerid' />
-            //    <attribute name='mcs_cartype' />
-            //    <attribute name='mcs_carplate' />
-            //    <attribute name='mcs_customername' />
-            //    <attribute name='mcs_appointmentconfigid' />
-            //    <attribute name='mcs_appointmentinfoid' />
-            //    <order attribute='mcs_appointmentat' descending='false' />
-            //    <order attribute='mcs_appointmentconfigid' descending='false' />
-            //    <filter type='and'>
-            //      <condition attribute='statecode' operator='eq' value='0' />
-            //     <condition attribute='mcs_appointmentinfoid' operator='eq' value='{}' />
-            //    </filter>
-            //    <link-entity name='mcs_appointmentconfig' from='mcs_appointmentconfigid' to='mcs_appointmentconfigid' visible='false' link-type='outer' alias='appointmentconfig'>
-            //      <attribute name='mcs_name' />
-            //    </link-entity>
-            //    <link-entity name='mcs_vehowner' from='mcs_vehownerid' to='mcs_customerid' visible='false' link-type='outer' alias='vehowner'>
-            //      <attribute name='mcs_name' />
-            //    </link-entity>
-            //  </entity>
-            //</fetch>";
-            return "";
+            string strQuery = string.Format($"$select=mcs_appointmentat,_mcs_appointmentconfigid_value,mcs_appointmentsource,mcs_appointmenttype,mcs_canceldes,mcs_cancelreasonnew,mcs_carplate,_mcs_cartype_value,mcs_customeraddr,mcs_customercomment,_mcs_customerid_value,mcs_customername,mcs_customerphone,_mcs_dealerid_value,mcs_name,mcs_nextmaintainat,mcs_nextmaintainmileage,mcs_status,mcs_tag&$expand=mcs_appointmentconfigid($select=mcs_name),mcs_cartype($select=mcs_name),mcs_dealerid($select=mcs_name),mcs_customerid($select=mcs_name)&$filter=statecode eq 0 and  mcs_appointmentinfoid eq {entityid}");
+            return strQuery;
         }
     }
 }

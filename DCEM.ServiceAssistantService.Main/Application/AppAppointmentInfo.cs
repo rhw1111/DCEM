@@ -18,6 +18,8 @@ namespace DCEM.ServiceAssistantService.Main.Application
             _appointmentInfoService = appointmentInfoService;
         }
 
+      
+
         /// <summary>
         /// 预约记录查询
         /// </summary>
@@ -38,6 +40,17 @@ namespace DCEM.ServiceAssistantService.Main.Application
         public async Task<QueryResult<CrmEntity>> QueryListByPage(AppointmentInfoRequest filterstr)
         {
             return await _appointmentInfoService.QueryListByPage(filterstr);
+        }
+
+        /// <summary>
+        /// 预约单跟进记录
+        /// </summary>
+        /// <param name="appointmentInfoLogRequest"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> GetLog(AppointmentInfoLogRequest appointmentInfoLogRequest)
+        {
+            //await _appointmentInfoService.QueryListByPage(filterstr);
+            return null;
         }
     }
 }

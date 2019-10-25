@@ -1,6 +1,6 @@
 ﻿/*
-    文件名：AppointmentInfoRequest.cs
-    功能描述：预约单请求参数类  
+    文件名：AppointmentInfoLogRequest.cs
+    功能描述：预约跟进请求参数类  
     创建时间：2019年10月23日
     作者：黄贤顺
 */
@@ -10,12 +10,12 @@ using System.Text;
 
 namespace DCEM.ServiceAssistantService.Main.DTOModel
 {
-    public class AppointmentInfoRequest
+    public class AppointmentInfoLogRequest
     {
         /// <summary>
         /// 搜索框参数
         /// </summary>
-        public string search { get; set; }
+        public string entityid { get; set; }
 
         /// <summary>
         /// 排序
@@ -31,10 +31,5 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
         /// 页数
         /// </summary>
         public int page { get; set; }
-
-        /// <summary>
-        /// 预约状态
-        /// </summary>
-        public int status { get; set; }
     }
 }
