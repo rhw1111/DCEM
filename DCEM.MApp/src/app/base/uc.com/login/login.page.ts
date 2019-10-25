@@ -1,8 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Dcem } from 'app/base/base.ser/Dcem.core';
-//import { AlertController, LoadingController, NavController } from '@ionic/angular';
-//import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-
 
 @Component({
     selector: 'app-login',
@@ -15,10 +12,6 @@ export class LoginPage implements OnInit {
 
     // 定义控制器
     constructor(
-        //private alertCtr: AlertController,
-        //private loadingCtr: LoadingController,
-        //private navCtr: NavController,
-        //private httpClient: HttpClient,
         private _http: Dcem.Core.Http,
         private _page: Dcem.Core.Page,
         private _window: Dcem.Core.Window
@@ -101,51 +94,6 @@ export class LoginPage implements OnInit {
 
             }
         );
-        //this.httpGet();
     }
 
-
-
-    // http请求
-    //httpGet() {
-    //    const loading = this.loadingCtr.create({ translucent: false });
-    //    loading.then(a => { a.present(); });
-    //    const httpGet = this.httpClient.get(this.apiurl,
-    //        {
-    //            params: {
-    //                username: encodeURIComponent(this.mod.username),
-    //                password: encodeURIComponent(this.mod.password)
-    //            }
-    //        });
-
-    //    httpGet.subscribe(
-    //        (res: any) => {
-    //            console.log(res);
-    //            if (res.access_token === null || res.access_token === '') {
-    //                this.presentAlert('消息提示', '登录认证失败');
-    //            } else {
-    //                //this.presentAlert('消息提示', 'token:' + res.access_token);
-    //                console.log(res);
-    //                //this.presentAlert('消息提示', '登录认证通过'); 
-    //                this.navCtr.navigateRoot('serving/home/tabs');
-    //            }
-    //            loading.then(a => { a.dismiss(); });
-    //        },
-    //        (err: any) => {
-    //            this.presentAlert('消息提示', '登录认证失败11');
-    //            loading.then(a => { a.dismiss(); });
-    //        });
-    //}
-
-    //// 弹出提示
-    //presentAlert(header: any, message: any) {
-    //    const alert = this.alertCtr.create({
-    //        header,
-    //        message,
-    //        buttons: ['确定']
-    //    });
-    //    alert.then(a => {
-    //        a.present();
-    //    });
-    //}
 }

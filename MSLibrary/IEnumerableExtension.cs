@@ -23,7 +23,7 @@ namespace MSLibrary
 
             if (strDisplay.Length>0)
             {
-                strDisplay.Remove(0, strDisplay.Length - strInterval.Length);
+                strDisplay.Remove(strDisplay.Length - strInterval.Length, strInterval.Length);
             }
 
             return strDisplay.ToString();

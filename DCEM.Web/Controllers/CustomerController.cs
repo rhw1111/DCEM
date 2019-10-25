@@ -45,15 +45,12 @@ namespace DCEM.Web.Controllers
         #endregion
 
         #region 获取我的客户详情
-        //[HttpGet]
-        //[Route("GetCustomerInfo")]
-        //public async Task<NewtonsoftJsonActionResult<string>> GetCustomerInfo(string guid)
-        //{
-
-
-
-
-        //}
+        [HttpGet]
+        [Route("GetCustomerInfo")]
+        public async Task<NewtonsoftJsonActionResult<CustomerQueryInfoResponse>> GetCustomerInfo(string guid = "A9378B40-6583-E911-A825-DC6B34A11DD7")
+        {
+            return await _customerService.QueryInfo(guid);
+        }
         #endregion
 
     }
