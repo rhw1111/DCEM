@@ -17,6 +17,8 @@ using Aliyun.Acs.Sts.Model.V20150401;
 using MSLibrary.Storge;
 using MSLibrary.LanguageTranslate;
 using MSLibrary.Serializer;
+using MSLibrary.Security;
+using log4net.Appender;
 
 namespace MSLibrary.Ali
 {
@@ -69,6 +71,22 @@ namespace MSLibrary.Ali
                 SetAttribute<string>("Name", value);
             }
         }
+
+        /// <summary>
+        /// 所处区域名称
+        /// </summary>
+        public string Region
+        {
+            get
+            {
+                return GetAttribute<string>("Region");
+            }
+            set
+            {
+                SetAttribute<string>("Region", value);
+            }
+        }
+        
 
         /// <summary>
         /// 终结点类型
@@ -164,6 +182,24 @@ namespace MSLibrary.Ali
                 SetAttribute<string>("AccessKeySecret", value);
             }
         }
+
+
+        /// <summary>
+        /// STS授权时用到的角色ID
+        /// </summary>
+        public string STSRole
+        {
+            get
+            {
+                return GetAttribute<string>("STSRole");
+            }
+            set
+            {
+                SetAttribute<string>("STSRole", value);
+            }
+        }
+
+
         /// <summary>
         /// 要操作的存储空间名称
         /// </summary>
@@ -508,10 +544,12 @@ namespace MSLibrary.Ali
     public class OSSEndpointIMP : IOSSEndpointIMP
     {
         private IMultipartStorgeInfoRepository _multipartStorgeInfoRepository;
+        private ISecurityService _securityService;
 
-        public OSSEndpointIMP(IMultipartStorgeInfoRepository multipartStorgeInfoRepository)
+        public OSSEndpointIMP(IMultipartStorgeInfoRepository multipartStorgeInfoRepository, ISecurityService securityService)
         {
             _multipartStorgeInfoRepository = multipartStorgeInfoRepository;
+            _securityService = securityService;
         }
         public async Task CompleteMultipart(OSSEndpoint endpoint, string filePath, string uploadID, List<(int, string)> parts)
         {
@@ -570,8 +608,28 @@ namespace MSLibrary.Ali
             return await Task.FromResult(Guid.NewGuid().ToString());
         }
 
-        public Task<Dictionary<string, string>> CreateMultipartHeaderCallbackParameters(OSSEndpoint endpoint, string filePath, string credentialInfo, Dictionary<string, string> extensionInfos)
+        public async Task<Dictionary<string, string>> CreateMultipartHeaderCallbackParameters(OSSEndpoint endpoint, string filePath, string credentialInfo, Dictionary<string, string> extensionInfos)
         {
+            Dictionary<string, string> result = new Dictionary<string, string>();
+
+            //构建Authorization参数
+            string strPolicy =$@"{{
+                                ""Statement"": [
+                                    {{
+                                    ""Action"": [
+                                        ""oss:PutObject""
+                                       ],
+                                    ""Effect"": ""Allow"",
+                                    ""Resource"": [""acs:oss:{endpoint.Region}:*:{endpoint.Bucket}/{filePath}""]
+                                    }}
+                                    ],
+                                ""Version"": ""1""
+                                }}";
+        
+            (string stsAccessKeyId,string stsAccessKeySecret,string stsToken)=generateSTS(endpoint, endpoint.AccessKeyId, endpoint.AccessKeySecret, endpoint.STSRole, "MSLibrary", strPolicy, ProtocolType.HTTPS, 20 * 60);
+
+
+
             throw new NotImplementedException();
         }
 
@@ -584,6 +642,7 @@ namespace MSLibrary.Ali
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
 
+            //构建callback参数
             StringBuilder strExtension = new StringBuilder();
             foreach(var item in extensionInfos)
             {
@@ -594,15 +653,26 @@ namespace MSLibrary.Ali
             JObject jObj = new JObject();
             jObj.Add("callbackUrl", JToken.FromObject(endpoint.CallbackUrl));
             jObj.Add("callbackBody", JToken.FromObject(strBody));
-            //jObj.Add("callbackBodyType", JToken.FromObject("application/json"));
 
+            var strCallback = JsonSerializerHelper.Serializer(jObj);
 
+            result.Add("callback", strCallback);
 
+            //构建OSSAccessKeyId参数
+            result.Add("OSSAccessKeyId", endpoint.AccessKeyId);
 
+            //构建policy参数
+            var strPolicy = await generatePostCallbackPolicypublic(endpoint, filePath, strCallback);
+            result.Add("policy", strPolicy);
 
+            //构建Signature参数
+            var strSignPolicy=_securityService.SignByKey(strPolicy, endpoint.AccessKeySecret);
+            result.Add("Signature", strSignPolicy);
 
+            //构建key参数
+            result.Add("key", filePath);
 
-            throw new NotImplementedException();
+            return result;
         }
 
         public Task<string> CreatePostCallbackPolicy(OSSEndpoint endpoint, string filePath, Dictionary<string, string> extensionInfos)
@@ -754,6 +824,20 @@ namespace MSLibrary.Ali
             var strPolicy = client.GeneratePostPolicy(DateTime.UtcNow.AddMinutes(20), conds);
 
             return strPolicy;
+        }
+
+        public async Task<string> generateAuthorization(OSSEndpoint endpoint,string accessKeyId,string accessKeySecret,string method,string strContentMD5,Dictionary<string,string> headers,string resource)
+        {
+            //拼装header
+            StringBuilder strHeader = new StringBuilder();
+            foreach(var item in headers)
+            {
+                strHeader.Append($"{item.Key}:{item.Value}\n");
+            }
+
+            var strSignature = _securityService.SignByKey($"{method}\n{DateTime.UtcNow.ToString("r")}\n{strHeader.ToString()}{resource}",endpoint.AccessKeySecret);
+
+            return await Task.FromResult($"OSS {accessKeyId}:{strSignature}");
         }
     }
 }

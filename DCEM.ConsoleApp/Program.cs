@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging.Console;
+using MSLibrary;
 using MSLibrary.Thread;
 using MSLibrary.Serializer;
 
@@ -14,6 +15,19 @@ namespace DCEM.ConsoleApp
     {
         async static Task  Main(string[] args)
         {
+            List<string> strList = new List<string>() { "aaa" };
+            var strDisplay=await strList.ToDisplayString(
+                async(item)=>
+                {
+                    return await Task.FromResult(item);
+                },
+                async()=>
+                {
+                    return await Task.FromResult(";_+");
+                }
+                );
+            var strDate= DateTime.UtcNow.ToString("r");
+
             HttpClient httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.TryAddWithoutValidation("aa", new List<string> { "vv","bb"});
             httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");

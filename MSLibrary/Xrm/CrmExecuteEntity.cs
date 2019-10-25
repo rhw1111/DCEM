@@ -12,6 +12,7 @@ namespace MSLibrary.Xrm
         {
             EntityName = entityName;
             Id = id;
+            Attributes = new Dictionary<string, object>();
         }
         [DataMember]
         public Guid Id { get; set; }

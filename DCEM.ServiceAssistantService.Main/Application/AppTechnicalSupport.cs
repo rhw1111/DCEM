@@ -27,5 +27,9 @@ namespace DCEM.ServiceAssistantService.Main.Application
         {
             return await _technicalSupportService.QueryListByPage(orderstauts, searchkey, pageSize, pageNum,  sort, token);
         }
+
+        public async Task<Guid> AddOrEditEntity(TechnicalSupportRequest request) {
+            return await _technicalSupportService.AddOrEditEntity(request);
+        }
     }
 }
