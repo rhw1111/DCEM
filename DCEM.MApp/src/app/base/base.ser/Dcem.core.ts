@@ -79,7 +79,10 @@ export namespace Dcem.Core {
         }
 
         //跳转到指定页
-        goto(url: any, params: any) {
+        goto(url: any, params?: any) {
+            if (params === null) {
+                params = {};
+            }
             //this.navCtr.navigateRoot(url);
             this.router.navigate([url], params);
         }

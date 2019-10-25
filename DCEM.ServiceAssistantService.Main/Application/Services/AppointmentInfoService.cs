@@ -64,29 +64,29 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         /// <returns></returns>
         public async Task<CrmEntity> QueryDetail(string entityid)
         {
-            try
-            {
-                //var fetchString = _appointmentInfoRepository.QueryDetail(entityid);
-                //var fetchXdoc = XDocument.Parse(fetchString);
-                //var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
-                //{
-                //    EntityName = "mcs_appointmentinfo",
-                //    FetchXml = fetchXdoc
-                //};
-                //var fetchResponse = await _crmService.r(fetchRequest);
-                //var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            //try
+            //{
+            //    //var fetchString = _appointmentInfoRepository.QueryDetail(entityid);
+            //    //var fetchXdoc = XDocument.Parse(fetchString);
+            //    //var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            //    //{
+            //    //    EntityName = "mcs_appointmentinfo",
+            //    //    FetchXml = fetchXdoc
+            //    //};
+            //    //var fetchResponse = await _crmService.r(fetchRequest);
+            //    //var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
 
-                //var queryResult = new QueryResult<CrmEntity>();
-                //queryResult.Results = fetchResponseResult.Value.Results;
+            //    //var queryResult = new QueryResult<CrmEntity>();
+            //    //queryResult.Results = fetchResponseResult.Value.Results;
            
-                //return queryResult;
+            //    //return queryResult;
 
-            }
-            catch (Exception)
-            {
+            //}
+            //catch (Exception)
+            //{
 
-                throw;
-            }
+            //    throw;
+            //}
             throw new NotImplementedException();
         }
 

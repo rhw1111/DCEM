@@ -44,6 +44,18 @@ namespace DCEM.Web.Controllers
         }
         #endregion
 
+        #region 获取我的客户详情
+        //[HttpGet]
+        //[Route("GetCustomerInfo")]
+        //public async Task<NewtonsoftJsonActionResult<string>> GetCustomerInfo(string guid)
+        //{
+
+
+
+
+        //}
+        #endregion
+
     }
     #endregion
 
@@ -83,6 +95,7 @@ namespace DCEM.Web.Controllers
         }
     }
     #endregion
-
     #endregion
 }
+
+
