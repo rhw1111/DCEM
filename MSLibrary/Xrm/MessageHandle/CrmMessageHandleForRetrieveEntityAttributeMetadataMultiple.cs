@@ -57,7 +57,8 @@ namespace MSLibrary.Xrm.MessageHandle
             var headers = new Dictionary<string, IEnumerable<string>>();
             headers["OData-MaxVersion"] = new List<string> { "4.0" };
             headers["OData-Version"] = new List<string> { "4.0" };
-            headers["Content-Type"] = new List<string> { "application/json", "charset=utf-8" };
+            headers["Content-Type"] = new List<string> { "application/json" };
+            headers["Content-Type-ChartSet"] = new List<string> { "charset=utf-8" };
             headers["Accept"] = new List<string> { "application/json" };
 
             foreach (var itemHeader in realRequest.Headers)
