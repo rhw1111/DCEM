@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>登录</ion-title>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content fullscreen scroll-y=\"false\">\r\n    <ion-list lines=\"none\">\r\n        <ion-list-header text-center>\r\n            <img src=\"./assets/img/userhead.png\" />\r\n        </ion-list-header>\r\n        <ion-item>\r\n            <ion-icon slot=\"start\" name=\"phone-portrait\"></ion-icon>\r\n            <ion-input [(ngModel)]=\"mod.username\" placeholder=\"手机号码\" no-lines></ion-input>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-icon slot=\"start\" name=\"lock\"></ion-icon>\r\n            <ion-input [(ngModel)]=\"mod.password\" type=\"password\" placeholder=\"登录密码\"></ion-input>\r\n            <ion-toggle slot=\"end\"></ion-toggle>\r\n        </ion-item>\r\n        <ion-item color=\"none\">\r\n            <label slot=\"end\">记住密码</label>\r\n            <ion-toggle slot=\"end\"></ion-toggle>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>登录环境</ion-label>\r\n            <ion-select value=\"localhost\" okText=\"确定\" cancelText=\"取消\" [(ngModel)]=\"environment\" name=\"environment\" id=\"environment\">\r\n              <ion-select-option value=\"localhost\">localhost</ion-select-option>\r\n              <ion-select-option value=\"Dev\">Dev</ion-select-option>\r\n              <ion-select-option value=\"Sit\">Sit</ion-select-option>\r\n              <ion-select-option value=\"Uat\">Uat</ion-select-option>\r\n              <ion-select-option value=\"Prod\">Prod</ion-select-option>\r\n            </ion-select>\r\n          </ion-item>\r\n        <ion-button expand=\"block\" type=\"button\" (click)=\"submit()\">登录</ion-button>\r\n    </ion-list>\r\n</ion-content>"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>登录</ion-title>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content fullscreen scroll-y=\"false\">\r\n    <ion-list lines=\"none\">\r\n        <ion-list-header text-center>\r\n            <img src=\"./assets/img/userhead.png\" />\r\n        </ion-list-header>\r\n        <ion-item>\r\n            <ion-icon slot=\"start\" name=\"phone-portrait\"></ion-icon>\r\n            <ion-input [(ngModel)]=\"mod.username\" placeholder=\"手机号码\" no-lines></ion-input>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-icon slot=\"start\" name=\"lock\"></ion-icon>\r\n            <ion-input [(ngModel)]=\"mod.password\" type=\"password\" placeholder=\"登录密码\"></ion-input>\r\n            <ion-toggle slot=\"end\"></ion-toggle>\r\n        </ion-item>\r\n        <ion-item color=\"none\">\r\n            <label slot=\"end\">记住密码</label>\r\n            <ion-toggle slot=\"end\"></ion-toggle>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>登录环境</ion-label>\r\n            <ion-select value=\"localhost\" okText=\"确定\" cancelText=\"取消\" [(ngModel)]=\"mod.domainType\">\r\n                <ion-select-option value=\"localhost\">localhost</ion-select-option>\r\n                <ion-select-option value=\"Dev\">Dev</ion-select-option>\r\n                <ion-select-option value=\"Sit\">Sit</ion-select-option>\r\n                <ion-select-option value=\"Uat\">Uat</ion-select-option>\r\n                <ion-select-option value=\"Prod\">Prod</ion-select-option>\r\n            </ion-select>\r\n        </ion-item>\r\n        <ion-button expand=\"block\" type=\"button\" (click)=\"submit()\">登录</ion-button>\r\n    </ion-list>\r\n</ion-content>"
 
 /***/ }),
 
@@ -85,95 +85,95 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginPage", function() { return LoginPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
-/* harmony import */ var _base_ser_http_service_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../base.ser/http-service.service */ "./src/app/base/base.ser/http-service.service.ts");
+/* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
 
 
 
-
-
+//import { AlertController, LoadingController, NavController } from '@ionic/angular';
+//import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 let LoginPage = class LoginPage {
     // 定义控制器
-    constructor(alertCtr, loadingCtr, navCtr, httpClient, httpService) {
-        this.alertCtr = alertCtr;
-        this.loadingCtr = loadingCtr;
-        this.navCtr = navCtr;
-        this.httpClient = httpClient;
-        this.httpService = httpService;
-        this.environment = '';
+    constructor(
+    //private alertCtr: AlertController,
+    //private loadingCtr: LoadingController,
+    //private navCtr: NavController,
+    //private httpClient: HttpClient,
+    _http, _page, _window) {
+        this._http = _http;
+        this._page = _page;
+        this._window = _window;
         // 定义模型
         this.mod = {
             username: '',
-            password: ''
+            password: '',
+            apiurl: '',
+            domainType: '',
+            domain: ''
         };
-        this.apiurl = '';
     }
     // 初始化
     ngOnInit() {
         // 加入测试参数
         this.mod.username = 'subdevcrmadmin';
         this.mod.password = 'password01#';
-        this.apiurl = 'https://subcrmdevapi.sokon.com/dcem/api/Account/GetAuthToken';
+        this.mod.apiurl = '/api/Account/GetAuthToken';
+        this.mod.domainType = 'local';
     }
     // 提交
     submit() {
         if (this.mod.username.length <= 0) {
-            this.presentAlert('消息提示', '请输入手机号码');
+            this._page.alert('消息提示', '请输入手机号码');
             return;
         }
         if (this.mod.password.length <= 0) {
-            this.presentAlert('消息提示', '请输入密码');
+            this._page.alert('消息提示', '请输入密码');
             return;
         }
-        this.httpGet();
-    }
-    // http请求
-    httpGet() {
-        const loading = this.loadingCtr.create({ translucent: false });
-        loading.then(a => { a.present(); });
-        const httpGet = this.httpClient.get(this.apiurl, {
+        switch (this.mod.domainType) {
+            case 'Dev':
+                this.mod.domain = "https://subcrmdevapi.sokon.com/dcem";
+                break;
+            case 'Sit':
+                this.mod.domain = "https://subcrmdevapi.sokon.com/dcem";
+                break;
+            case 'Uat':
+                this.mod.domain = "https://subcrmuatapi.sokon.com/dcem";
+                break;
+            case 'Pro':
+                this.mod.domain = "https://mscrm.sokon.com/dcem";
+                break;
+            case 'localhost':
+                this.mod.domain = "http://localhost:52151";
+                break;
+            default:
+                this.mod.domain = "http://localhost:9099";
+                break;
+        }
+        this._window.storageSet("apiDomainUrl", this.mod.domain);
+        this._page.loadingShow();
+        this._http.get(this.mod.apiurl, {
             params: {
                 username: encodeURIComponent(this.mod.username),
                 password: encodeURIComponent(this.mod.password)
             }
-        });
-        httpGet.subscribe((res) => {
-            if (res.access_token === null || res.access_token === '') {
-                this.presentAlert('消息提示', '登录认证失败');
-            }
-            else {
-                //设置登录环境
-                this.httpService.setEnvironmentUrl(this.environment);
-                //this.presentAlert('消息提示', 'token:' + res.access_token);
-                console.log(res.access_token);
-                //this.presentAlert('消息提示', '登录认证通过'); 
-                this.navCtr.navigateRoot('serving/home/tabs');
-            }
-            loading.then(a => { a.dismiss(); });
+        }, (res) => {
+            console.log(res);
+            this._page.loadingHide();
+            this._page.alert('消息提示', '登录认证成功');
+            this._page.goto("serving/home/tabs");
+            //this.navCtr.navigateRoot('serving/home/tabs');
         }, (err) => {
-            this.presentAlert('消息提示', '登录认证失败');
-            loading.then(a => { a.dismiss(); });
+            this._page.loadingHide();
+            //this._page.goto("serving/home/tabs");
+            this._page.alert('消息提示', '登录认证失败');
         });
-    }
-    // 弹出提示
-    presentAlert(header, message) {
-        const alert = this.alertCtr.create({
-            header,
-            message,
-            buttons: ['确定']
-        });
-        alert.then(a => {
-            a.present();
-        });
+        //this.httpGet();
     }
 };
 LoginPage.ctorParameters = () => [
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"] },
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] },
-    { type: _base_ser_http_service_service__WEBPACK_IMPORTED_MODULE_4__["HttpService"] }
+    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["Dcem"].Core.Http },
+    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["Dcem"].Core.Page },
+    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["Dcem"].Core.Window }
 ];
 LoginPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -181,11 +181,7 @@ LoginPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./login.page.html */ "./node_modules/raw-loader/index.js!./src/app/base/uc.com/login/login.page.html"),
         styles: [__webpack_require__(/*! ./login.page.scss */ "./src/app/base/uc.com/login/login.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"],
-        _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"],
-        _base_ser_http_service_service__WEBPACK_IMPORTED_MODULE_4__["HttpService"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["Dcem"].Core.Http, app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["Dcem"].Core.Page, app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["Dcem"].Core.Window])
 ], LoginPage);
 
 

@@ -48,7 +48,7 @@ export class ListPage implements OnInit {
     this.model.data=[];
     this.model.page=1;
     this.model.isending=false;
-    this.getList(event);
+    this.getList(null);
    }
   }
 
@@ -92,32 +92,28 @@ export class ListPage implements OnInit {
         },
         (res: any) => {
           if (res.Results !== null) {
-            event ? event.target.complete() : '';
-            if(res.Results.length>0){
-              //绑定数据
-              res.Results.forEach(item => {
-                var value = item["Attributes"];
-                this.model.data.push({
-                  "Id": value.mcs_supportorderid,
-                  "mcs_name": value.mcs_name,
-                  "mcs_repairdate": value.mcs_repairdate,
-                  "mcs_orderstatus": value.mcs_orderstatus,
-                  "mcs_title": value.mcs_title
-                });
+            //绑定数据
+            res.Results.forEach(item => {
+              var value = item["Attributes"];
+              this.model.data.push({
+                "Id": value.mcs_supportorderid,
+                "mcs_name": value.mcs_name,
+                "mcs_repairdate": value.mcs_repairdate,
+                "mcs_orderstatus": value.mcs_orderstatus,
+                "mcs_title": value.mcs_title
               });
-              //设置数据存储到本地
-              if (this.model.page == 1) {
-                this.httpService.SetDataCache(this.model.name, JSON.stringify(this.model.data).toString());
-              }
-              
-              //判断是否有新数据
-              if (res.Results.length < 2) {
-                event ? event.target.disabled = true : "";
-                this.model.isending = true;
-              }
-              this._page.loadingHide();
+            });
+            //设置数据存储到本地
+            if (this.model.page == 1) {
+              this.httpService.SetDataCache(this.model.name, JSON.stringify(this.model.data).toString());
             }
-
+            event?event.target.complete():'';
+            //判断是否有新数据
+            if (res.Results.length < 2) {
+              event ? event.target.disabled = true : "";
+              this.model.isending = true;
+            }
+            this._page.loadingHide();
             if(this.model.data.length==0){
               this.model.nodata=true;
             }
