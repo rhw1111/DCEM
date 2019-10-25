@@ -47,7 +47,7 @@ namespace MSLibrary.Xrm.MessageHandle
             headers["OData-MaxVersion"] = new List<string> { "4.0" };
             headers["OData-Version"] = new List<string> { "4.0" };
             headers["Content-Type"] = new List<string> { "application/json" };
-            headers["Content-Type-ChartSet"] = new List<string> { "charset=utf-8" };
+            headers["Content-Type-ChartSet"] = new List<string> { "utf-8" };
             headers["Accept"] = new List<string> { "application/json" };
 
             foreach (var itemHeader in realRequest.Headers)
