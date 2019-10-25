@@ -36,7 +36,7 @@
 
         <ion-item-sliding *ngFor="let item of mod.data;let key=index">
             <ion-item [routerLink]="['/serving/mycustomer/detail']" [queryParams]="{id:item.Id}">
-                <ion-icon slot="start" color="primary" name="man" size="large"></ion-icon>
+                <ion-icon slot="start" color="primary" name="contact" size="large" style="width:60px;height:60px"></ion-icon>
                 <ion-label>
                     <h2>{{item.fullname}}</h2>
                     <p>车牌:{{item.vehplate}}</p>

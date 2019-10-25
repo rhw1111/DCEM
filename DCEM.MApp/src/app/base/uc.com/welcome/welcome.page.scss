@@ -1,47 +1,56 @@
 * {
-  margin: 0px;
-  padding: 0px;
+    margin: 0px;
+    padding: 0px;
 }
+
 ion-slides {
-  height: 90%;
+    height: 90%;
 }
+
 ion-slide {
-  height: 100%;
+    height: 100%;
 }
+
 ion-grid {
-  height: 100%;
+    height: 100%;
 
-  ion-row:first-child {
-    height: 65%;
+    ion-row:first-child {
+        height: 60%;
 
-    ion-col {
-      background-color: rgb(52, 120, 247);
+        ion-col {
+            //background-color: rgb(52, 120, 247);
+            background-color: rgb(255, 255, 255);
 
-      img {
-        top: 50%;
-        position: relative;
-        transform: translateY(-50%);
-        max-width: 50%;
-        max-height: 50%;
-      }
+            img {
+                /*top: 50%;*/
+                position: relative;
+                /*transform: translateY(-50%);*/
+                max-width: 100%;
+                max-height: 100%;
+            }
+        }
     }
-  }
-  ion-row:last-child {
-    height: 35%;
-    padding-top: 15%;
-    ion-col {
-      background-color: rgb(255, 255, 255);
+
+    ion-row:last-child {
+        height: 35%;
+        padding-top: 15%;
+
+        ion-col {
+            background-color: rgb(255, 255, 255);
+        }
+
+        h3 {
+            color: rgb(165, 165, 165);
+        }
+
+        h4 {
+            color: rgb(165, 165, 165);
+            margin-top: 10px;
+        }
+
+        ion-button {
+            margin-top: 20px;
+            width: 50%;
+        }
     }
-    h3 {
-      color: rgb(165, 165, 165);
-    }
-    h4 {
-      color: rgb(165, 165, 165);
-      margin-top: 10px;
-    }
-    ion-button {
-      margin-top: 20px;
-      width: 50%;
-    }
-  }
 }
