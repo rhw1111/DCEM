@@ -46,6 +46,14 @@ namespace DCEM.Web.Controllers
             var result = await app.QueryById(id);
             return result;
         }
+
+        [HttpPost]
+        [Route("AddOrEdit")]
+        public async Task<NewtonsoftJsonActionResult<Guid>> AddOrEdit(TechnicalSupportRequest request)
+        {
+            var result = await app.AddOrEditEntity(request);
+            return result;
+        }
     }
 }
 

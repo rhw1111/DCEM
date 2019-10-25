@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MSLibrary.Xrm;
 using MSLibrary;
+using System;
 
 namespace DCEM.Web.Controllers
 {
@@ -60,12 +61,37 @@ namespace DCEM.Web.Controllers
         /// </summary>
         /// <param name="entityid"></param>
         /// <returns></returns>
-        public async Task<CrmEntity> GetDetail(string entityid) 
+        [HttpGet]
+        [Route("GetDetail")]
+        public async Task<NewtonsoftJsonActionResult<CrmEntity>> GetDetail(string entityid) 
         {
             return await app.QueryDetail(entityid);
         }
 
 
+        /// <summary>
+        /// 预约跟进记录
+        /// </summary>
+        /// <param name="status"></param>
+        /// <param name="seachkey"></param>
+        /// <param name="sort"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetLog")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetLog(string entityid = "", string sort = "", int pageSize = 10, int page = 1)
+        {
+            var appointmentInfoLogRequest = new AppointmentInfoLogRequest()
+            {
+                entityid= entityid,
+                page = page,
+                pageSize = pageSize,
+                sort = sort
+            };
+            var list = await app.GetLog(appointmentInfoLogRequest);
+            return list;
+        }
     }
 
 

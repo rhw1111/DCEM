@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { Dcem } from 'app/base/base.ser/Dcem.core';
+import { DCore_Http, DCore_Page, DCore_Window } from 'app/base/base.ser/Dcem.core';
 
 @Component({
     selector: 'app-login',
@@ -7,14 +7,13 @@ import { Dcem } from 'app/base/base.ser/Dcem.core';
     styleUrls: ['./login.page.scss'],
 })
 
-
 export class LoginPage implements OnInit {
 
     // 定义控制器
     constructor(
-        private _http: Dcem.Core.Http,
-        private _page: Dcem.Core.Page,
-        private _window: Dcem.Core.Window
+        private _http: DCore_Http,
+        private _page: DCore_Page,
+        private _window: DCore_Window
     ) {
     }
     // 定义模型

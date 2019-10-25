@@ -84,20 +84,6 @@ const routes: Routes = [
                 ]
             },
         ],
-    },
-    {
-        path: 'demo',
-        children: [
-            { path: 'analytics', loadChildren: './demo/analytics/analytics.module#AnalyticsPageModule' },
-            {
-                path: 'report',
-                children: [
-                    { path: 'appointmentstatistics', loadChildren: './demo/report/appointmentstatistics/appointmentstatistics.module#AppointmentstatisticsPageModule' },
-                    { path: 'appointmenttrend', loadChildren: './demo/report/appointmenttrend/appointmenttrend.module#AppointmenttrendPageModule' },
-                    { path: 'testdriverate', loadChildren: './demo/report/testdriverate/testdriverate.module#TestdriveratePageModule' }
-                ]
-            }
-        ],
     }
 ];
 

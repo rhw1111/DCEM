@@ -2,7 +2,7 @@
 import { Router } from '@angular/router';
 import { HttpService } from '../../../base/base.ser/http-service.service';
 import { NavController, NavParams } from '@ionic/angular';
-import { Dcem } from 'app/base/base.ser/Dcem.core';
+import { DCore_Page, DCore_Http } from 'app/base/base.ser/Dcem.core';
 import sd from 'silly-datetime';
 
 @Component({
@@ -26,8 +26,8 @@ export class ListPage implements OnInit {
 
     constructor(
         public router: Router,
-        private _http: Dcem.Core.Http,
-        private _page: Dcem.Core.Page,
+        private _http: DCore_Http,
+        private _page: DCore_Page,
         private httpService: HttpService
     ) { }
 
