@@ -31,10 +31,12 @@ export var Dcem;
         }
         Core.Http = Http;
         class Page {
-            constructor(alertCtr, loadingCtr, navCtr) {
+            constructor(alertCtr, loadingCtr, navCtr, router, activeRoute) {
                 this.alertCtr = alertCtr;
                 this.loadingCtr = loadingCtr;
                 this.navCtr = navCtr;
+                this.router = router;
+                this.activeRoute = activeRoute;
             }
             //弹出提示
             alert(header, message) {
@@ -61,8 +63,12 @@ export var Dcem;
                 }
             }
             //跳转到指定页
-            goto(url) {
-                this.navCtr.navigateRoot('serving/home/tabs');
+            goto(url, params) {
+                if (params === null) {
+                    params = {};
+                }
+                //this.navCtr.navigateRoot(url);
+                this.router.navigate([url], params);
             }
         }
         Core.Page = Page;
