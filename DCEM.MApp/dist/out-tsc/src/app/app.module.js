@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
-import { Dcem } from 'app/base/base.ser/Dcem.core';
 let AppModule = class AppModule {
 };
 AppModule = tslib_1.__decorate([
@@ -23,10 +22,6 @@ AppModule = tslib_1.__decorate([
             IonicStorageModule.forRoot(),
         ],
         providers: [
-            Dcem.Core.Config,
-            Dcem.Core.Http,
-            Dcem.Core.Page,
-            Dcem.Core.Window,
             StatusBar,
             SplashScreen,
             { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

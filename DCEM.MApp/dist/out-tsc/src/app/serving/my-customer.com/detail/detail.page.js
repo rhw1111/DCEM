@@ -1,6 +1,6 @@
 import * as tslib_1 from "tslib";
 import { Component } from '@angular/core';
-import { Dcem } from 'app/base/base.ser/Dcem.core';
+import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute } from '@angular/router';
 let DetailPage = class DetailPage {
     constructor(_http, _page, activeRoute) {
@@ -22,7 +22,9 @@ DetailPage = tslib_1.__decorate([
         templateUrl: './detail.page.html',
         styleUrls: ['./detail.page.scss'],
     }),
-    tslib_1.__metadata("design:paramtypes", [Dcem.Core.Http, Dcem.Core.Page, ActivatedRoute])
+    tslib_1.__metadata("design:paramtypes", [DCore_Http,
+        DCore_Page,
+        ActivatedRoute])
 ], DetailPage);
 export { DetailPage };
 //# sourceMappingURL=detail.page.js.map
