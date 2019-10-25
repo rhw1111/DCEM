@@ -2122,6 +2122,14 @@ namespace MSLibrary
         /// {1}：发生的位置
         /// </summary>
         public const string NotFoundLoggingBuilderProviderHandlerByType = "NotFoundLoggingBuilderProviderHandlerByType";
+        /// <summary>
+        /// 找不到指定源信息和Id的分片存储信息
+        /// 格式为“找不到源信息为{0}，Id为{1}的分片存储信息”
+        /// {0}：源信息
+        /// {1}：分片存储信息的id
+        /// </summary>
+
+        public const string NotFoundMultipartStorgeInfoBySourceInfoAndID = "NotFoundMultipartStorgeInfoBySourceInfoAndID";
     }
 
 

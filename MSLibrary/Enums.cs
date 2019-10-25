@@ -1004,6 +1004,10 @@ namespace MSLibrary
         /// 找不到指定名称的远程服务描述
         /// </summary>
         NotFoundRemoteServiceDescriptionByName= 314726501,
+        /// <summary>
+        /// 找不到指定源信息和Id的分片存储信息
+        /// </summary>
+        NotFoundMultipartStorgeInfoBySourceInfoAndID= 314726600,
 
     }
 

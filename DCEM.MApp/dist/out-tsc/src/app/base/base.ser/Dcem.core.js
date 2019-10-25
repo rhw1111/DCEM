@@ -35,8 +35,6 @@ export var Dcem;
                 this.alertCtr = alertCtr;
                 this.loadingCtr = loadingCtr;
                 this.navCtr = navCtr;
-                //等待动画
-                this.loading = this.loadingCtr.create({ translucent: false });
             }
             //弹出提示
             alert(header, message) {
@@ -51,11 +49,16 @@ export var Dcem;
             }
             //打开等待动画
             loadingShow() {
+                if (this.loading !== null) {
+                    this.loading = this.loadingCtr.create({ translucent: true });
+                }
                 this.loading.then(a => { a.present(); });
             }
             //关闭等待动画
             loadingHide() {
-                this.loading.then(a => { a.dismiss(); });
+                if (this.loading !== null) {
+                    this.loading.then(a => { a.dismiss(); });
+                }
             }
             //跳转到指定页
             goto(url) {

@@ -2,6 +2,7 @@ import * as tslib_1 from "tslib";
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Dcem } from 'app/base/base.ser/Dcem.core';
+import sd from 'silly-datetime';
 let ListPage = class ListPage {
     constructor(router, _http, _page) {
         this.router = router;
@@ -35,13 +36,21 @@ let ListPage = class ListPage {
                 this._page.loadingHide();
             }
             else {
-                this._page.alert("��Ϣ��ʾ", "�ͻ����ݼ����쳣");
+                this._page.alert("消息提示", "客户数据加载异常");
                 this._page.loadingHide();
             }
         }, (err) => {
-            this._page.alert("��Ϣ��ʾ", "�ͻ����ݼ����쳣");
+            this._page.alert("消息提示", "客户数据加载异常");
             this._page.loadingHide();
         });
+    }
+    FormatToDate(date) {
+        if (date != null && date != undefined) {
+            return sd.format(date, 'YYYY-MM-DD');
+        }
+        else {
+            return '';
+        }
     }
 };
 ListPage = tslib_1.__decorate([
