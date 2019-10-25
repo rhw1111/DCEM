@@ -89,6 +89,37 @@ namespace DCEM.ServiceAssistantService.Main.Application
             }
 
         }
+        /// <summary>
+        /// 创建或编辑实体
+        /// </summary>
+        /// <param name="crmEntity"></param>
+        /// <returns></returns>
+        public async Task<Guid> AddOrEditEntity(TechnicalSupportRequest request)
+        {
+            Guid guid = request.Id;
+            try
+            {
+                CrmExecuteEntity createorUpdateEntity = new CrmExecuteEntity(request.EntityName, request.Id);
+                createorUpdateEntity.Attributes.Add("mcs_name", request.mcs_name);
+                createorUpdateEntity.Attributes.Add("mcs_orderstatus", request.mcs_orderstatus);
+                createorUpdateEntity.Attributes.Add("mcs_repairdate", request.mcs_repairdate);
+                createorUpdateEntity.Attributes.Add("mcs_title", request.mcs_title);
 
+                if (createorUpdateEntity.Id != Guid.Empty)
+                {
+                    await _crmService.Update(createorUpdateEntity);
+                }
+                else
+                {
+                    guid = await _crmService.Create(createorUpdateEntity);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return guid;
+        }
     }
 }

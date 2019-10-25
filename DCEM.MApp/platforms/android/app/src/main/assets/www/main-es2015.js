@@ -65,7 +65,7 @@ var map = {
 	],
 	"./serving/mc-reservation.com/list/list.module": [
 		"./src/app/serving/mc-reservation.com/list/list.module.ts",
-		"common",
+		"default~serving-mc-reservation-com-list-list-module~serving-technical-support-com-list-list-module",
 		"serving-mc-reservation-com-list-list-module"
 	],
 	"./serving/mc-reservation.com/success/success.module": [
@@ -130,7 +130,7 @@ var map = {
 	],
 	"./serving/technical-support.com/list/list.module": [
 		"./src/app/serving/technical-support.com/list/list.module.ts",
-		"common",
+		"default~serving-mc-reservation-com-list-list-module~serving-technical-support-com-list-list-module",
 		"serving-technical-support-com-list-list-module"
 	]
 };
@@ -922,6 +922,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Dcem", function() { return Dcem; });
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+
 
 
 var Dcem;
@@ -964,10 +966,12 @@ var Dcem;
         ];
         Core.Http = Http;
         class Page {
-            constructor(alertCtr, loadingCtr, navCtr) {
+            constructor(alertCtr, loadingCtr, navCtr, router, activeRoute) {
                 this.alertCtr = alertCtr;
                 this.loadingCtr = loadingCtr;
                 this.navCtr = navCtr;
+                this.router = router;
+                this.activeRoute = activeRoute;
             }
             //弹出提示
             alert(header, message) {
@@ -994,14 +998,20 @@ var Dcem;
                 }
             }
             //跳转到指定页
-            goto(url) {
-                this.navCtr.navigateRoot('serving/home/tabs');
+            goto(url, params) {
+                if (params === null) {
+                    params = {};
+                }
+                //this.navCtr.navigateRoot(url);
+                this.router.navigate([url], params);
             }
         }
         Page.ctorParameters = () => [
             { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["AlertController"] },
             { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["LoadingController"] },
-            { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["NavController"] }
+            { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["NavController"] },
+            { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
+            { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"] }
         ];
         Core.Page = Page;
         class Window {
@@ -1080,7 +1090,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\AppProject\DCEM\DCEM.MApp\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! D:\工作目录\微软项目\代码\移动端\移动端(正式项目)\DCEM.MApp\src\main.ts */"./src/main.ts");
 
 
 /***/ })
