@@ -1,12 +1,85 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button text="返回" defaultHref="/"></ion-back-button>
-    </ion-buttons>
-    <ion-title>创建或编辑技术支持</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
-</ion-content>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+      </ion-buttons>
+      <ion-title>创建或编辑技术支持</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-list>
+      <ion-item-group>
+        <ion-item-divider>
+          <ion-label>基本信息</ion-label>
+        </ion-item-divider>
+        <ion-item>
+          <ion-label position="floating">
+            <ion-text color="danger">*</ion-text>主题
+          </ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">
+            <ion-text color="danger">*</ion-text>服务委托书
+          </ion-label>
+          <ion-button expand="block" (click)="presentModal()">Show Modal</ion-button>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">
+            <ion-text color="danger">*</ion-text>技术主管
+          </ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">
+            <ion-text color="danger">*</ion-text>维修时间
+          </ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">
+            <ion-text color="danger">*</ion-text>邮箱
+          </ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">
+            <ion-text color="danger">*</ion-text>电话
+          </ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+      </ion-item-group>
+    
+      <ion-item-group>
+        <ion-item-divider>
+          <ion-label>车辆信息</ion-label>
+        </ion-item-divider>
+        <ion-item>
+          <ion-label position="floating">
+            <ion-text color="danger">*</ion-text>日期
+          </ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">
+            <ion-text color="danger">*</ion-text>日期
+          </ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">
+            <ion-text color="danger">*</ion-text>日期
+          </ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">
+            <ion-text color="danger">*</ion-text>日期
+          </ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+      </ion-item-group>
+    </ion-list>
+  </ion-content>
+  
