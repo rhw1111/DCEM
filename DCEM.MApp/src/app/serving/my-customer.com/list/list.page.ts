@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { Dcem } from 'app/base/base.ser/Dcem.core';
+import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 
 @Component({
     selector: 'app-list',
@@ -19,8 +19,8 @@ export class ListPage implements OnInit {
     };
 
     constructor(
-        private _http: Dcem.Core.Http,
-        private _page: Dcem.Core.Page
+        private _http: DCore_Http,
+        private _page: DCore_Page
     ) {
         this.mod.apiUrl = "/Api/Customer/GetMyCustomerList";
     }

@@ -10,7 +10,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
-import { Dcem } from 'app/base/base.ser/Dcem.core';
 
 @NgModule({
     declarations: [AppComponent],
@@ -22,10 +21,6 @@ import { Dcem } from 'app/base/base.ser/Dcem.core';
         IonicStorageModule.forRoot(),
     ],
     providers: [
-        Dcem.Core.Config,
-        Dcem.Core.Http,
-        Dcem.Core.Page,
-        Dcem.Core.Window,
         StatusBar,
         SplashScreen,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
