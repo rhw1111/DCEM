@@ -14,12 +14,12 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
         /// <param name="pageSize"></param>
         /// <param name="pageNum"></param>
         /// <returns></returns>
-        public string QueryListByPage(AppointmentInfoRequest filterstr, int pageSize, int pageNum)
+        public string QueryListByPage(AppointmentInfoRequest filterstr)
         {
             var filter = string.Empty;
-            if (!string.IsNullOrWhiteSpace(filterstr.mcs_status))
+            if (filterstr.status!=0)
             {
-                filter += $"<condition attribute='mcs_status' operator='eq' value='{filterstr.mcs_status}' />";
+                filter += $"<condition attribute='mcs_status' operator='eq' value='{filterstr.status}' />";
             }
             if (!string.IsNullOrWhiteSpace(filterstr.search))
             {
@@ -29,7 +29,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
                 filter += $"<condition attribute='mcs_customername' operator='like' value='%{filterstr.search}%' />";
                 filter += $"</filter>";
             }
-            var fetchString = $@"<fetch version='1.0' count='{pageSize}' page='{pageNum}' output-format='xml-platform' mapping='logical' distinct='false'>
+            var fetchString = $@"<fetch version='1.0' count='{filterstr.pageSize}' page='{filterstr.page}' output-format='xml-platform' mapping='logical' distinct='false'>
                   <entity name='mcs_appointmentinfo'>
                     <attribute name='mcs_name' />
                     <attribute name='createdon' />

@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>预约单</ion-title>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-searchbar></ion-searchbar>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-segment>\r\n            <ion-segment-button checked>\r\n                <ion-label>全部</ion-label>\r\n            </ion-segment-button>\r\n            <ion-segment-button>\r\n                <ion-label>待跟进(10)</ion-label>\r\n            </ion-segment-button>\r\n            <ion-segment-button>\r\n                <ion-label>已跟进(2)</ion-label>\r\n            </ion-segment-button>\r\n        </ion-segment>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-divider>\r\n            <ion-label>\r\n               10月07日\r\n            </ion-label>\r\n        </ion-item-divider>\r\n        <ion-item button=\"true\" mode=\"ios\" >\r\n            <ion-icon slot=\"start\" color=\"primary\" name=\"man\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h2>渝B00002</h2>\r\n                <p>郑建成</p>\r\n            </ion-label>\r\n            <div>\r\n                <span>2019-10-07</span>\r\n                <span>08:30-90:00</span>\r\n                <span>待跟进</span>\r\n            </div>\r\n        </ion-item>\r\n        <ion-item button=\"true\" mode=\"ios\">\r\n            <ion-icon slot=\"start\" color=\"danger\" name=\"woman\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h2>渝B00002</h2>\r\n                <p>郑建成</p>\r\n            </ion-label>\r\n            <div>\r\n                <span>2019-10-07</span>\r\n                <span>08:30-90:00</span>\r\n                <span>待跟进</span>\r\n            </div>\r\n        </ion-item>\r\n        <ion-item button=\"true\" mode=\"ios\">\r\n            <ion-icon slot=\"start\" color=\"danger\" name=\"woman\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h2>渝B00002</h2>\r\n                <p>郑建成</p>\r\n            </ion-label>\r\n            <div>\r\n                <span>2019-10-07</span>\r\n                <span>08:30-90:00</span>\r\n                <span>待跟进</span>\r\n            </div>\r\n        </ion-item>\r\n        <ion-item-divider>\r\n            <ion-label>\r\n                10月08日\r\n            </ion-label>\r\n        </ion-item-divider>\r\n        <ion-item button=\"true\" mode=\"ios\">\r\n            <ion-icon slot=\"start\" color=\"primary\" name=\"man\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h2>渝B00002</h2>\r\n                <p>郑建成</p>\r\n            </ion-label>\r\n            <div>\r\n                <span>2019-10-08</span>\r\n                <span>08:30-90:00</span>\r\n                <span>已跟进</span>\r\n            </div>\r\n        </ion-item>\r\n        <ion-item button=\"true\" mode=\"ios\">\r\n            <ion-icon slot=\"start\" color=\"danger\" name=\"woman\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h2>渝B00002</h2>\r\n                <p>郑建成</p>\r\n            </ion-label>\r\n            <div>\r\n                <span>2019-10-08</span>\r\n                <span>08:30-90:00</span>\r\n                <span>已跟进</span>\r\n            </div>\r\n        </ion-item>\r\n        <ion-item button=\"true\" mode=\"ios\">\r\n            <ion-icon slot=\"start\" color=\"danger\" name=\"woman\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h2>渝B00002</h2>\r\n                <p>郑建成</p>\r\n            </ion-label>\r\n            <div>\r\n                <span>2019-10-08</span>\r\n                <span>08:30-90:00</span>\r\n                <span>已跟进</span>\r\n            </div>\r\n        </ion-item>\r\n\r\n    </ion-list>\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/home/mywork\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>预约单</ion-title>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-searchbar [(ngModel)]=\"this.model.seachkey\" placeholder=\"支持姓名\\手机号\\车牌号搜索模糊查找\" (keyup)=\"search($event)\"></ion-searchbar>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-segment>\r\n            <ion-segment-button checked (click)=\"selectTab(0)\">\r\n                <ion-label>全部</ion-label>\r\n            </ion-segment-button >\r\n            <ion-segment-button (click)=\"selectTab(10)\">\r\n                <ion-label>待跟进</ion-label>\r\n            </ion-segment-button>\r\n            <ion-segment-button (click)=\"selectTab(20)\">\r\n                <ion-label>已跟进</ion-label>\r\n            </ion-segment-button>\r\n        </ion-segment>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n        <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\" refreshingText=\"刷新中...\">\r\n        </ion-refresher-content>\r\n    </ion-refresher>\r\n    <ion-list lines=\"full\" *ngFor=\"let r of model.data\">\r\n        <ion-item button=\"true\" mode=\"ios\" [routerLink]=\"['/serving/reservation/detail']\" [queryParams]=\"{id:r.mcs_appointmentinfoid}\">\r\n            <ion-label>\r\n                <h2>车牌号：{{r.mcs_carplate}}</h2>\r\n                <p>车主姓名：{{r.mcs_customername}}</p>\r\n                <p>预约日期：{{FormatToDate(r.mcs_appointmentat)}}</p>\r\n                <p>预约时段：{{r.mcs_appointmentconfigid}}</p>\r\n                <p *ngIf=\"r.mcs_status==10\">跟进状态：待跟进</p>\r\n                <p *ngIf=\"r.mcs_status==20\">跟进状态：已跟进</p>\r\n                <p *ngIf=\"r.mcs_status==30\">跟进状态：已入场</p>\r\n                <p *ngIf=\"r.mcs_status==50\">跟进状态：已取消</p>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n    <ion-row *ngIf=\"model.isending\">\r\n        <ion-col class=\"nodata\" text-center>\r\n            没有更多内容啦\r\n        </ion-col>\r\n    </ion-row>\r\n\r\n    <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doLoading($event)\">\r\n        <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\">\r\n        </ion-infinite-scroll-content>\r\n    </ion-infinite-scroll>\r\n    <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\r\n        <ion-fab-button [routerLink]=\"['/serving/reservation/edit']\">\r\n            <ion-icon name=\"add\"></ion-icon>\r\n        </ion-fab-button>\r\n    </ion-fab>\r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -66,7 +66,7 @@ ListPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "ion-list ion-item div {\n  font-size: 15px; }\n  ion-list ion-item div span {\n    padding-left: 5px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2VydmluZy9tYy1yZXNlcnZhdGlvbi5jb20vbGlzdC9FOlxcQXBwUHJvamVjdFxcRENFTVxcRENFTS5NQXBwL3NyY1xcYXBwXFxzZXJ2aW5nXFxtYy1yZXNlcnZhdGlvbi5jb21cXGxpc3RcXGxpc3QucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBSVksZUFBYyxFQUFBO0VBSjFCO0lBT2dCLGlCQUFnQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvc2VydmluZy9tYy1yZXNlcnZhdGlvbi5jb20vbGlzdC9saXN0LnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1saXN0IHtcclxuICAgIGlvbi1pdGVte1xyXG5cclxuICAgICAgICBkaXZ7XHJcbiAgICAgICAgICAgIGZvbnQtc2l6ZToxNXB4O1xyXG5cclxuICAgICAgICAgICAgc3BhbntcclxuICAgICAgICAgICAgICAgIHBhZGRpbmctbGVmdDo1cHg7XHJcbiAgICAgICAgICAgIH1cclxuICAgICAgICB9XHJcbiAgICB9XHJcbn1cclxuIl19 */"
+module.exports = "ion-list ion-item div p {\n  padding-left: 5px;\n  font-size: 15px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2VydmluZy9tYy1yZXNlcnZhdGlvbi5jb20vbGlzdC9EOlxc5bel5L2c55uu5b2VXFzlvq7ova/pobnnm65cXOS7o+eggVxc56e75Yqo56uvXFznp7vliqjnq68o5q2j5byP6aG555uuKVxcRENFTS5NQXBwL3NyY1xcYXBwXFxzZXJ2aW5nXFxtYy1yZXNlcnZhdGlvbi5jb21cXGxpc3RcXGxpc3QucGFnZS5zY3NzIiwic3JjL2FwcC9zZXJ2aW5nL21jLXJlc2VydmF0aW9uLmNvbS9saXN0L2xpc3QucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUlZO0VBQ0ksaUJBQUE7RUFDQSxlQUFBO0FDSGhCIiwiZmlsZSI6InNyYy9hcHAvc2VydmluZy9tYy1yZXNlcnZhdGlvbi5jb20vbGlzdC9saXN0LnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1saXN0IHtcclxuICAgIGlvbi1pdGVtIHtcclxuXHJcbiAgICAgICAgZGl2IHtcclxuICAgICAgICAgICAgcCB7XHJcbiAgICAgICAgICAgICAgICBwYWRkaW5nLWxlZnQ6IDVweDtcclxuICAgICAgICAgICAgICAgIGZvbnQtc2l6ZTogMTVweDtcclxuICAgICAgICAgICAgfVxyXG4gICAgICAgIH1cclxuICAgIH1cclxufVxyXG4iLCJpb24tbGlzdCBpb24taXRlbSBkaXYgcCB7XG4gIHBhZGRpbmctbGVmdDogNXB4O1xuICBmb250LXNpemU6IDE1cHg7XG59Il19 */"
 
 /***/ }),
 
@@ -82,20 +82,154 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ListPage", function() { return ListPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _base_base_ser_http_service_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../base/base.ser/http-service.service */ "./src/app/base/base.ser/http-service.service.ts");
+/* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
+/* harmony import */ var silly_datetime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! silly-datetime */ "./node_modules/silly-datetime/dest/index.js");
+/* harmony import */ var silly_datetime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(silly_datetime__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
 
 
 let ListPage = class ListPage {
-    constructor() { }
+    constructor(router, _http, _page, httpService) {
+        this.router = router;
+        this._http = _http;
+        this._page = _page;
+        this.httpService = httpService;
+        this.model = {
+            name: 'appointmentlistinfo',
+            apiUrl: '/api/appointment-info/GetList',
+            seachkey: '',
+            status: 0,
+            data: [],
+            pageSize: 10,
+            page: 1,
+            sort: 'mcs_appointmentinfoid desc',
+            isending: false //是否加载完成
+        };
+    }
     ngOnInit() {
+        this.model.page = 1;
+        var cachedata = this.httpService.GetDataCache(this.model.name);
+        if (cachedata == "") {
+            this.showlist(null);
+        }
+        else {
+            this.model.data = JSON.parse(cachedata);
+        }
+    }
+    //搜索方法
+    search(event) {
+        var keyCode = event ? event.keyCode : "";
+        if (keyCode == 13) {
+            this.model.data = [];
+            this.model.page = 1;
+            this.model.isending = false;
+            this.showlist(null);
+        }
+    }
+    //下拉刷新
+    doRefresh(event) {
+        this.model.data = [];
+        this.model.page = 1;
+        this.model.isending = false;
+        this.showlist(event);
+    }
+    //加载下一页
+    doLoading(event) {
+        this.model.page++;
+        this.showlist(event);
+    }
+    //切换tab
+    selectTab(status) {
+        this.model.data = [];
+        this.model.page = 1;
+        this.model.isending = false;
+        if (status != "" && status != undefined) {
+            this.model.status = status;
+        }
+        else {
+            this.model.status = 0;
+        }
+        this.showlist(null);
+    }
+    //展示数据
+    showlist(event) {
+        this._page.loadingShow();
+        console.log("地址:" + this.model.apiUrl, "预约状态:" + this.model.status, "搜索:" + this.model.seachkey, "排序:" + this.model.sort, "页条数:" + this.model.pageSize, "页数:" + this.model.page);
+        this._http.get(this.model.apiUrl, {
+            params: {
+                status: this.model.status,
+                seachkey: this.model.seachkey,
+                sort: this.model.sort,
+                pageSize: this.model.pageSize,
+                page: this.model.page
+            }
+        }, (res) => {
+            event ? event.target.complete() : '';
+            if (res.Results !== null) {
+                //this.model.data = [];
+                //console.log('get res=' + res.data);
+                for (var key in res.Results) {
+                    var obj = {};
+                    obj["mcs_appointmentinfoid"] = res.Results[key]["Id"];
+                    obj["mcs_carplate"] = res.Results[key]["Attributes"]["mcs_carplate"];
+                    obj["mcs_customername"] = res.Results[key]["Attributes"]["mcs_customername"];
+                    obj["mcs_appointmentat"] = res.Results[key]["Attributes"]["mcs_appointmentat"];
+                    obj["mcs_appointmentconfigid"] = res.Results[key]["Attributes"]["appointmentconfig_x002e_mcs_name"];
+                    obj["mcs_status"] = res.Results[key]["Attributes"]["mcs_status"];
+                    this.model.data.push(obj);
+                }
+                //设置数据存储到本地
+                if (this.model.page == 1) {
+                    this.httpService.SetDataCache(this.model.name, JSON.stringify(this.model.data).toString());
+                }
+                event ? event.target.complete() : '';
+                //判断是否有新数据
+                if (res.Results.length < 2) {
+                    event ? event.target.disabled = true : "";
+                    this.model.isending = true;
+                }
+                else {
+                    this.model.isending = false;
+                }
+                this._page.loadingHide();
+            }
+            else {
+                this._page.alert("消息提示", "客户数据加载异常");
+                this._page.loadingHide();
+            }
+        }, (err) => {
+            this._page.alert("消息提示", "客户数据加载异常");
+            this._page.loadingHide();
+        });
+    }
+    //日期格式
+    FormatToDate(date) {
+        if (date != null && date != undefined) {
+            return silly_datetime__WEBPACK_IMPORTED_MODULE_5___default.a.format(date, 'YYYY-MM-DD');
+        }
+        else {
+            return '';
+        }
     }
 };
+ListPage.ctorParameters = () => [
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
+    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__["Dcem"].Core.Http },
+    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__["Dcem"].Core.Page },
+    { type: _base_base_ser_http_service_service__WEBPACK_IMPORTED_MODULE_3__["HttpService"] }
+];
 ListPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-list',
         template: __webpack_require__(/*! raw-loader!./list.page.html */ "./node_modules/raw-loader/index.js!./src/app/serving/mc-reservation.com/list/list.page.html"),
         styles: [__webpack_require__(/*! ./list.page.scss */ "./src/app/serving/mc-reservation.com/list/list.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__["Dcem"].Core.Http, app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__["Dcem"].Core.Page, _base_base_ser_http_service_service__WEBPACK_IMPORTED_MODULE_3__["HttpService"]])
 ], ListPage);
 
 

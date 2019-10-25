@@ -6,17 +6,17 @@
         <ion-title>预约单</ion-title>
     </ion-toolbar>
     <ion-toolbar>
-        <ion-searchbar placeholder="支持姓名\手机号\车牌号搜索"></ion-searchbar>
+        <ion-searchbar [(ngModel)]="this.model.seachkey" placeholder="支持姓名\手机号\车牌号搜索模糊查找" (keyup)="search($event)"></ion-searchbar>
     </ion-toolbar>
     <ion-toolbar>
         <ion-segment>
-            <ion-segment-button checked (click)="showlist('')">
+            <ion-segment-button checked (click)="selectTab(0)">
                 <ion-label>全部</ion-label>
             </ion-segment-button >
-            <ion-segment-button (click)="showlist(10)">
+            <ion-segment-button (click)="selectTab(10)">
                 <ion-label>待跟进</ion-label>
             </ion-segment-button>
-            <ion-segment-button (click)="showlist(20)">
+            <ion-segment-button (click)="selectTab(20)">
                 <ion-label>已跟进</ion-label>
             </ion-segment-button>
         </ion-segment>
@@ -24,8 +24,12 @@
 </ion-header>
 
 <ion-content>
-    <ion-list lines="full"  *ngFor="let r of mod.data">
-        <ion-item button="true" mode="ios" [routerLink]="['/serving/reservation/detail']" [queryParams]="{id:r.mcs_appointmentinfoid}" >
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <ion-list lines="full" *ngFor="let r of model.data">
+        <ion-item button="true" mode="ios" [routerLink]="['/serving/reservation/detail']" [queryParams]="{id:r.mcs_appointmentinfoid}">
             <ion-label>
                 <h2>车牌号：{{r.mcs_carplate}}</h2>
                 <p>车主姓名：{{r.mcs_customername}}</p>
@@ -38,4 +42,19 @@
             </ion-label>
         </ion-item>
     </ion-list>
+    <ion-row *ngIf="model.isending">
+        <ion-col class="nodata" text-center>
+            没有更多内容啦
+        </ion-col>
+    </ion-row>
+
+    <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doLoading($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button [routerLink]="['/serving/reservation/edit']">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>

@@ -5,6 +5,7 @@ using System.Xml.Linq;
 using MSLibrary;
 using System;
 using DCEM.ServiceAssistantService.Main.DTOModel;
+using System.Collections.Generic;
 namespace DCEM.ServiceAssistantService.Main.Application
 {
     public class CustomerService : ICustomerService
@@ -16,6 +17,8 @@ namespace DCEM.ServiceAssistantService.Main.Application
             _crmService = crmService;
         }
         #endregion
+
+        #region 获取客户列表
 
         #region filter组装
         public async Task<string> GetQueryListFilter(int type, string search)
@@ -153,5 +156,20 @@ namespace DCEM.ServiceAssistantService.Main.Application
         }
         #endregion
 
+        #endregion
+
+        #region 获取单个客户信息
+        public async Task<CustomerQueryInfoResponse> QueryInfo(string guid)
+        {
+            var carserviceadvisorGuid = Guid.Parse(guid);
+            var carserviceadvisorEntity = await _crmService.Retrieve("mcs_carserviceadvisor", carserviceadvisorGuid, string.Empty);
+            var vehownerGuid = Guid.Parse("");
+            var vehownerEntity = await _crmService.Retrieve("mcs_vehowner", carserviceadvisorGuid, string.Empty);
+
+            //mcs_customerfollowuplog
+            return new CustomerQueryInfoResponse();
+
+        }
+        #endregion
     }
 }

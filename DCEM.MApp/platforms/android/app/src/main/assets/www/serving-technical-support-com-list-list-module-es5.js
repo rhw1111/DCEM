@@ -7,163 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-back-button text=\"返回\" defaultHref=\"/\"></ion-back-button>\n    </ion-buttons>\n    <ion-title>技术支持</ion-title>\n  </ion-toolbar>\n  <ion-toolbar>\n      <ion-searchbar></ion-searchbar>\n  </ion-toolbar>\n  <ion-toolbar>\n      <ion-segment>\n          <ion-segment-button checked>\n              <ion-label>全部</ion-label>\n          </ion-segment-button>\n          <ion-segment-button>\n              <ion-label>处理中</ion-label>\n          </ion-segment-button>\n          <ion-segment-button>\n              <ion-label>已完成</ion-label>\n          </ion-segment-button>\n      </ion-segment>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <div class=\"list_content\" *ngIf=\"!flag\">\n        <ion-list lines=\"full\">\n            <ion-item-divider>\n                <ion-label>\n                    2019-10\n                </ion-label>\n            </ion-item-divider>\n            <ion-item *ngFor=\"let item of dataList\" [routerLink]=\"['/serving/ts/detail']\" [queryParams]=\"{id:item.id}\">\n                <ion-icon slot=\"start\" color=\"primary\" name=\"hammer\" size=\"large\"></ion-icon>\n                <ion-label>\n                    <h2>{{item.mcs_name}}</h2>\n                    <p>施工项目：{{item.mcs_name}}</p>\n                    <p>施工日期：{{FormatToDateTime(mcs_repairdate)}}</p>\n                    <p *ngIf=\"item.mcs_orderstatus==10\">施工状态：未处理</p>\n                    <p *ngIf=\"item.mcs_orderstatus==30\">施工状态：处理中</p>\n                    <p *ngIf=\"item.mcs_orderstatus==40\">施工状态：已关闭</p>\n                    <p *ngIf=\"item.mcs_orderstatus==50\">施工状态：已取消</p>\n                </ion-label>\n            </ion-item>\n            <ion-item-divider></ion-item-divider>\n        </ion-list>\n        <ion-infinite-scroll *ngIf=\"hasInfiniteData\" threshold=\"100px\" (ionInfinite)=\"getList($event)\">\n            <ion-infinite-scroll-content\n              loadingSpinner=\"bubbles\"\n              loadingText=\"努力加载中...\">\n            </ion-infinite-scroll-content>\n        </ion-infinite-scroll>\n  \n    </div>\n</ion-content>\n"
-
-/***/ }),
-
-/***/ "./node_modules/silly-datetime/dest/index.js":
-/*!***************************************************!*\
-  !*** ./node_modules/silly-datetime/dest/index.js ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * 将输入的任意对象转换成 Date，如果装换失败将返回当前时间
- * @param  {any} datetime 需要被格式化的时间
- * @return {Date}         转换好的 Date
- */
-function getDateObject(datetime) {
-  var t = datetime instanceof Date ? datetime : new Date(datetime);
-  if (!t.getDate()) {
-    t = new Date();
-  }
-  return t;
-}
-
-/**
- * 格式化时间
- * @param  {Date}   datetime  需要被格式化的时间
- * @param  {string} formatStr 格式化字符串，默认为 'YYYY-MM-DD HH:mm:ss'
- * @return {string}           格式化后的时间字符串
- */
-function format(datetime, formatStr) {
-  var t = getDateObject(datetime);
-  var hours = undefined,
-      o = undefined,
-      i = 0;
-  formatStr = formatStr || 'YYYY-MM-DD HH:mm:ss';
-  hours = t.getHours();
-  o = [['M+', t.getMonth() + 1], ['D+', t.getDate()],
-  // H 24小时制
-  ['H+', hours],
-  // h 12小时制
-  ['h+', hours > 12 ? hours - 12 : hours], ['m+', t.getMinutes()], ['s+', t.getSeconds()]];
-  // 替换 Y
-  if (/(Y+)/.test(formatStr)) {
-    formatStr = formatStr.replace(RegExp.$1, (t.getFullYear() + '').substr(4 - RegExp.$1.length));
-  }
-  // 替换 M, D, H, h, m, s
-  for (; i < o.length; i++) {
-    if (new RegExp('(' + o[i][0] + ')').test(formatStr)) {
-      formatStr = formatStr.replace(RegExp.$1, RegExp.$1.length === 1 ? o[i][1] : ('00' + o[i][1]).substr(('' + o[i][1]).length));
-    }
-  }
-  // 替换 a/A 为 am, pm
-  return formatStr.replace(/a/ig, hours > 11 ? 'pm' : 'am');
-}
-
-/**
- * CONST and VAR for .fromNow
- */
-// 预设语言：英语
-var LOCALE_EN = {
-  future: 'in %s',
-  past: '%s ago',
-  s: 'a few seconds',
-  mm: '%s minutes',
-  hh: '%s hours',
-  dd: '%s days',
-  MM: '%s months',
-  yy: '%s years'
-};
-// 预设语言：简体中文
-var LOCALE_ZH_CN = {
-  future: '%s内',
-  past: '%s前',
-  s: '几秒',
-  mm: '%s分钟',
-  hh: '%s小时',
-  dd: '%s天',
-  MM: '%s月',
-  yy: '%s年'
-};
-// 当前本地化语言对象
-var _curentLocale = undefined;
-
-/**
- * 修改本地化语言
- * @param  {string|Object}   string: 预设语言 `zh-cn` 或 `en`；Object: 自定义 locate 对象
- */
-function locate(arg) {
-  var newLocale = undefined,
-      prop = undefined;
-  if (typeof arg === 'string') {
-    newLocale = arg === 'zh-cn' ? LOCALE_ZH_CN : LOCALE_EN;
-  } else {
-    newLocale = arg;
-  }
-  if (!_curentLocale) {
-    _curentLocale = {};
-  }
-  for (prop in newLocale) {
-    if (newLocale.hasOwnProperty(prop) && typeof newLocale[prop] === 'string') {
-      _curentLocale[prop] = newLocale[prop];
-    }
-  }
-}
-
-/**
- * CONST for .fromNow
- */
-// 各计算区间
-var DET_STD = [['yy', 31536e6], // 1000 * 60 * 60 * 24 * 365 一年月按 365 天算
-['MM', 2592e6], // 1000 * 60 * 60 * 24 * 30 一个月按 30 天算
-['dd', 864e5], // 1000 * 60 * 60 * 24
-['hh', 36e5], // 1000 * 60 * 60
-['mm', 6e4], // 1000 * 60
-['s', 0]];
-
-/**
- * 计算给出时间和当前时间的时间距离
- * @param  {Date}   datetime 需要计算的时间
- * @return {string}          时间距离
- */
-// 只要大于等于 0 都是秒
-function fromNow(datetime) {
-  if (!_curentLocale) {
-    // 初始化本地化语言为 en
-    locate('');
-  }
-  var det = +new Date() - +getDateObject(datetime);
-  var format = undefined,
-      str = undefined,
-      i = 0,
-      detDef = undefined,
-      detDefVal = undefined;
-  if (det < 0) {
-    format = _curentLocale.future;
-    det = -det;
-  } else {
-    format = _curentLocale.past;
-  }
-  for (; i < DET_STD.length; i++) {
-    detDef = DET_STD[i];
-    detDefVal = detDef[1];
-    if (det >= detDefVal) {
-      str = _curentLocale[detDef[0]].replace('%s', parseInt(det / detDefVal, 0) || 1);
-      break;
-    }
-  }
-  return format.replace('%s', str);
-}
-
-exports.format = format;
-exports.locate = locate;
-exports.fromNow = fromNow;
+module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-buttons slot=\"start\">\r\n      <ion-back-button text=\"返回\" defaultHref=\"/\"></ion-back-button>\r\n    </ion-buttons>\r\n    <ion-title>技术支持</ion-title>\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n      <ion-searchbar [(ngModel)]=\"this.model.seachkey\" placeholder=\"支持项目名称和编号模糊查找\" (keyup)=\"search($event)\" ></ion-searchbar>\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n      <ion-segment>\r\n        <ion-segment-button checked (click)=\"selectTab(0)\">\r\n            <ion-label>全部</ion-label>\r\n        </ion-segment-button>\r\n        <ion-segment-button (click)=\"selectTab(10)\">\r\n            <ion-label>未处理</ion-label>\r\n        </ion-segment-button>\r\n        <ion-segment-button (click)=\"selectTab(30)\">\r\n            <ion-label>处理中</ion-label>\r\n        </ion-segment-button>\r\n        <ion-segment-button (click)=\"selectTab(40)\">\r\n            <ion-label>已关闭</ion-label>\r\n        </ion-segment-button>\r\n        <ion-segment-button (click)=\"selectTab(50)\">\r\n            <ion-label>已取消</ion-label>\r\n        </ion-segment-button>\r\n      </ion-segment>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n        <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\" refreshingText=\"刷新中...\">\r\n        </ion-refresher-content> \r\n    </ion-refresher>\r\n    <ion-list lines=\"full\">\r\n        <ion-item *ngFor=\"let item of model.data\" [routerLink]=\"['/serving/ts/detail']\" [queryParams]=\"{id:item.Id}\">\r\n            <ion-icon slot=\"start\" color=\"primary\" name=\"hammer\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h2>{{item.mcs_name}}</h2>\r\n                <p>施工项目：{{item.mcs_title}}</p>\r\n                <p>施工日期：{{FormatToDateTime(item.mcs_repairdate)}}</p>\r\n                <p *ngIf=\"item.mcs_orderstatus==10\">施工状态：未处理</p>\r\n                <p *ngIf=\"item.mcs_orderstatus==30\">施工状态：处理中</p>\r\n                <p *ngIf=\"item.mcs_orderstatus==40\">施工状态：已关闭</p>\r\n                <p *ngIf=\"item.mcs_orderstatus==50\">施工状态：已取消</p>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n\r\n    <ion-row *ngIf=\"model.isending\">\r\n        <ion-col class=\"nodata\" text-center>\r\n            没有更多内容啦\r\n        </ion-col>\r\n    </ion-row>\r\n\r\n    <ion-row *ngIf=\"this.model.nodata\">\r\n        <ion-col class=\"nodata\" text-center>\r\n            没有查询到数据\r\n        </ion-col>\r\n    </ion-row>\r\n    \r\n    <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doLoading($event)\"> \r\n        <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\"> \r\n        </ion-infinite-scroll-content>\r\n    </ion-infinite-scroll>\r\n    <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\r\n        <ion-fab-button [routerLink]=\"['/serving/ts/edit']\">\r\n            <ion-icon name=\"add\"></ion-icon>\r\n        </ion-fab-button>\r\n    </ion-fab>\r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -242,68 +86,148 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _base_base_ser_http_service_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../base/base.ser/http-service.service */ "./src/app/base/base.ser/http-service.service.ts");
-/* harmony import */ var silly_datetime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! silly-datetime */ "./node_modules/silly-datetime/dest/index.js");
-/* harmony import */ var silly_datetime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(silly_datetime__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
+/* harmony import */ var silly_datetime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! silly-datetime */ "./node_modules/silly-datetime/dest/index.js");
+/* harmony import */ var silly_datetime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(silly_datetime__WEBPACK_IMPORTED_MODULE_4__);
+
 
 
 
 
 var ListPage = /** @class */ (function () {
-    function ListPage(httpService) {
+    function ListPage(_http, _page, httpService) {
+        this._http = _http;
+        this._page = _page;
         this.httpService = httpService;
-        this.dataList = []; //列表数据
-        this.page = 1; //分页
-        this.sort = ''; //排序的参数
+        this.model = {
+            name: 'technicalsupportlist',
+            apiUrl: '/api/tech-support/GetList',
+            seachkey: '',
+            orderstatus: 0,
+            data: [],
+            pageSize: 10,
+            page: 1,
+            sort: 'mcs_supportorderid desc',
+            isending: false,
+            nodata: false
+        };
     }
     ListPage.prototype.ngOnInit = function () {
-        this.getList(null);
-    };
-    ListPage.prototype.search = function (name) {
-        this.getList(null);
-    };
-    ListPage.prototype.getList = function (event) {
-        var _this = this;
-        var api = '/api/tech-support/GetList';
-        //this.httpService.ClearDataCache("technicalsupportlist")
-        var cachedata = this.httpService.GetDataCache("technicalsupportlist");
-        console.log("cachedata:" + cachedata);
+        this.model.page = 1;
+        var cachedata = this.httpService.GetDataCache(this.model.name);
         if (cachedata == "") {
-            var response = this.httpService.getForToaken(api, null);
-            response.subscribe(function (res) {
-                _this.dataList = res.data;
-                console.log("stringify:" + JSON.stringify(res.data));
-                _this.page++;
-                event ? event.target.complete() : '';
-                //判断是否有新数据
-                if (res.data.length < 10) {
-                    event ? event.target.disabled = true : "";
-                }
-                //设置数据存储到本地
-                _this.httpService.SetDataCache("technicalsupportlist", JSON.stringify(res.data).toString());
-            });
+            this.getList(null);
         }
         else {
-            this.dataList = JSON.parse(cachedata);
+            this.model.data = JSON.parse(cachedata);
         }
-        // this.httpService.ajaxGet(api).then((response:any)=>{
-        //   debugger;
-        //   console.log(response);
-        //   this.dataList=this.dataList.concat(response.result);
-        //   this.page++;
-        //   event?event.target.complete():'';
-        //   //判断是否有新数据
-        //   if(response.result.length<10){
-        //     event?event.target.disabled=true:"";
-        //   }
-        // })
+    };
+    //搜索方法
+    ListPage.prototype.search = function (event) {
+        var keyCode = event ? event.keyCode : "";
+        if (keyCode == 13) {
+            this.model.data = [];
+            this.model.page = 1;
+            this.model.isending = false;
+            this.getList(null);
+        }
+    };
+    //下拉刷新
+    ListPage.prototype.doRefresh = function (event) {
+        this.model.data = [];
+        this.model.page = 1;
+        this.model.isending = false;
+        this.getList(event);
+    };
+    //加载下一页
+    ListPage.prototype.doLoading = function (event) {
+        this.model.page++;
+        this.getList(event);
+    };
+    //切换tab
+    ListPage.prototype.selectTab = function (status) {
+        this.model.data = [];
+        this.model.page = 1;
+        this.model.isending = false;
+        if (status != "" && status != undefined) {
+            this.model.orderstatus = status;
+        }
+        else {
+            this.model.orderstatus = 0;
+        }
+        this.getList(null);
+    };
+    //获取列表数据
+    ListPage.prototype.getList = function (event) {
+        var _this = this;
+        this._page.loadingShow();
+        this._http.get(this.model.apiUrl, {
+            params: {
+                orderstatus: this.model.orderstatus,
+                seachkey: this.model.seachkey,
+                sort: this.model.sort,
+                pageSize: this.model.pageSize,
+                page: this.model.page
+            }
+        }, function (res) {
+            if (res.Results !== null) {
+                //绑定数据
+                res.Results.forEach(function (item) {
+                    var value = item["Attributes"];
+                    _this.model.data.push({
+                        "Id": value.mcs_supportorderid,
+                        "mcs_name": value.mcs_name,
+                        "mcs_repairdate": value.mcs_repairdate,
+                        "mcs_orderstatus": value.mcs_orderstatus,
+                        "mcs_title": value.mcs_title
+                    });
+                });
+                //设置数据存储到本地
+                if (_this.model.page == 1) {
+                    _this.httpService.SetDataCache(_this.model.name, JSON.stringify(_this.model.data).toString());
+                }
+                event ? event.target.complete() : '';
+                //判断是否有新数据
+                if (res.Results.length < 2) {
+                    event ? event.target.disabled = true : "";
+                    _this.model.isending = true;
+                }
+                _this._page.loadingHide();
+                if (_this.model.data.length == 0) {
+                    _this.model.nodata = true;
+                }
+                else {
+                    _this.model.nodata = false;
+                }
+            }
+            else {
+                _this._page.alert("消息提示", "数据加载异常");
+                _this._page.loadingHide();
+            }
+        }, function (err) {
+            _this._page.alert("消息提示", "数据加载异常");
+            _this._page.loadingHide();
+        });
     };
     ListPage.prototype.FormatToDate = function (date) {
-        return silly_datetime__WEBPACK_IMPORTED_MODULE_3___default.a.format(date, 'YYYY-MM-DD');
+        if (date != null && date != undefined) {
+            return silly_datetime__WEBPACK_IMPORTED_MODULE_4___default.a.format(date, 'YYYY-MM-DD');
+        }
+        else {
+            return '';
+        }
     };
     ListPage.prototype.FormatToDateTime = function (date) {
-        return silly_datetime__WEBPACK_IMPORTED_MODULE_3___default.a.format(date, 'YYYY-MM-DD hh:mm:ss');
+        if (date != null && date != undefined) {
+            return silly_datetime__WEBPACK_IMPORTED_MODULE_4___default.a.format(date, 'YYYY-MM-DD hh:mm:ss');
+        }
+        else {
+            return '';
+        }
     };
     ListPage.ctorParameters = function () { return [
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["Dcem"].Core.Http },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["Dcem"].Core.Page },
         { type: _base_base_ser_http_service_service__WEBPACK_IMPORTED_MODULE_2__["HttpService"] }
     ]; };
     ListPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -312,7 +236,7 @@ var ListPage = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./list.page.html */ "./node_modules/raw-loader/index.js!./src/app/serving/technical-support.com/list/list.page.html"),
             styles: [__webpack_require__(/*! ./list.page.scss */ "./src/app/serving/technical-support.com/list/list.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_base_base_ser_http_service_service__WEBPACK_IMPORTED_MODULE_2__["HttpService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["Dcem"].Core.Http, app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["Dcem"].Core.Page, _base_base_ser_http_service_service__WEBPACK_IMPORTED_MODULE_2__["HttpService"]])
     ], ListPage);
     return ListPage;
 }());

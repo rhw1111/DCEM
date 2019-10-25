@@ -7,18 +7,38 @@ let ListPage = class ListPage {
         this._page = _page;
         this.mod = {
             apiUrl: '',
-            data: []
+            data: [],
+            searchData: {
+                type: 1,
+                pageindex: 1,
+                search: ""
+            }
         };
         this.mod.apiUrl = "/Api/Customer/GetMyCustomerList";
     }
     ngOnInit() {
         this.listOnBind();
     }
+    tagOnClick(type) {
+        this.mod.searchData.type = type;
+        this.mod.searchData.pageindex = 1;
+        this.listOnBind();
+    }
+    searchOnClick() {
+        this.listOnBind();
+    }
     listOnBind() {
         this._page.loadingShow();
-        this._http.get(this.mod.apiUrl, {}, (res) => {
+        this.mod.data = [];
+        this._http.get(this.mod.apiUrl, {
+            params: {
+                type: this.mod.searchData.type,
+                pageindex: this.mod.searchData.pageindex,
+                search: this.mod.searchData.search
+            }
+        }, (res) => {
             if (res.Results !== null) {
-                console.log(res.Results);
+                console.log(res);
                 for (var key in res.Results) {
                     var obj = {};
                     obj["Id"] = res.Results[key]["Id"];

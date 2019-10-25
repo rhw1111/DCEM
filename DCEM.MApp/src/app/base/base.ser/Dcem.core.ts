@@ -1,11 +1,12 @@
 ﻿import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Injectable } from '@angular/core';
 
-export namespace Dcem.Core {
-
+namespace Dcem.Core {
+    @Injectable()
     export class Config {
-        public serverUrl: string = "http://localhost:9099";
+        public serverUrl: string;
         constructor(
             private _window: Dcem.Core.Window
         ) {
@@ -19,6 +20,7 @@ export namespace Dcem.Core {
         }
     }
 
+    @Injectable()
     export class Http {
         constructor(
             private _httpClient: HttpClient,
@@ -38,6 +40,7 @@ export namespace Dcem.Core {
         }
     }
 
+    @Injectable()
     export class Page {
 
         constructor(
@@ -79,7 +82,10 @@ export namespace Dcem.Core {
         }
 
         //跳转到指定页
-        goto(url: any, params: any) {
+        goto(url: any, params?: any) {
+            if (params === null) {
+                params = {};
+            }
             //this.navCtr.navigateRoot(url);
             this.router.navigate([url], params);
         }
@@ -92,6 +98,7 @@ export namespace Dcem.Core {
         //}
     }
 
+    @Injectable()
     export class Window {
         storageSet(key: any, val: any) {
             window.localStorage.setItem(key, val);
@@ -101,4 +108,4 @@ export namespace Dcem.Core {
         }
 
     }
-}
+} export { Dcem }

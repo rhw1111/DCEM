@@ -30,11 +30,11 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         /// <param name="pageSize"></param>
         /// <param name="pageNum"></param>
         /// <returns></returns>
-        public async Task<QueryResult<CrmEntity>> QueryListByPage(AppointmentInfoRequest filterstr, int pageSize, int pageNum)
+        public async Task<QueryResult<CrmEntity>> QueryListByPage(AppointmentInfoRequest filterstr)
         {
             try
             {
-                var fetchString = _appointmentInfoRepository.QueryListByPage(filterstr, pageSize, pageNum);
+                var fetchString = _appointmentInfoRepository.QueryListByPage(filterstr);
 
                 var fetchXdoc = XDocument.Parse(fetchString);
                 var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
@@ -47,7 +47,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
 
                 var queryResult = new QueryResult<CrmEntity>();
                 queryResult.Results = fetchResponseResult.Value.Results;
-                queryResult.CurrentPage = 0;
+                queryResult.CurrentPage = filterstr.page;
                 queryResult.TotalCount = 0;
                 return queryResult;
             }
@@ -64,29 +64,29 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         /// <returns></returns>
         public async Task<CrmEntity> QueryDetail(string entityid)
         {
-            try
-            {
-                //var fetchString = _appointmentInfoRepository.QueryDetail(entityid);
-                //var fetchXdoc = XDocument.Parse(fetchString);
-                //var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
-                //{
-                //    EntityName = "mcs_appointmentinfo",
-                //    FetchXml = fetchXdoc
-                //};
-                //var fetchResponse = await _crmService.r(fetchRequest);
-                //var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            //try
+            //{
+            //    //var fetchString = _appointmentInfoRepository.QueryDetail(entityid);
+            //    //var fetchXdoc = XDocument.Parse(fetchString);
+            //    //var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            //    //{
+            //    //    EntityName = "mcs_appointmentinfo",
+            //    //    FetchXml = fetchXdoc
+            //    //};
+            //    //var fetchResponse = await _crmService.r(fetchRequest);
+            //    //var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
 
-                //var queryResult = new QueryResult<CrmEntity>();
-                //queryResult.Results = fetchResponseResult.Value.Results;
+            //    //var queryResult = new QueryResult<CrmEntity>();
+            //    //queryResult.Results = fetchResponseResult.Value.Results;
            
-                //return queryResult;
+            //    //return queryResult;
 
-            }
-            catch (Exception)
-            {
+            //}
+            //catch (Exception)
+            //{
 
-                throw;
-            }
+            //    throw;
+            //}
             throw new NotImplementedException();
         }
 
