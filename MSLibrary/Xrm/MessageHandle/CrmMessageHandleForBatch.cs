@@ -116,7 +116,9 @@ namespace MSLibrary.Xrm.MessageHandle
             var headers = new Dictionary<string, IEnumerable<string>>();
             headers["OData-MaxVersion"] = new List<string> { "4.0" };
             headers["OData-Version"] = new List<string> { "4.0" };
-            headers["Content-Type"] = new List<string> { "multipart/mixed", $"boundary={batchBoundary}" };
+            headers["Content-Type"] = new List<string> { "multipart/mixed" };
+            headers["Content-Type-boundary"]= new List<string> { batchBoundary };
+
             headers["Accept"] = new List<string> { "application/json" };
 
             foreach (var itemHeader in realRequest.Headers)

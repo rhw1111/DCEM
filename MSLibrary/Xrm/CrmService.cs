@@ -184,6 +184,8 @@ namespace MSLibrary.Xrm
             var requestResult = await handle.ExecuteRequest(request);
 
             string strContentType = null;
+            string strContentChartSet = null;
+            Dictionary<string, string> contentParameters =new Dictionary<string, string>();
             HttpClient httpClient = _httpClientFactory.CreateClient();
             foreach (var headerItem in requestResult.Headers)
             {
@@ -201,10 +203,18 @@ namespace MSLibrary.Xrm
                             }
                             );
                         break;
+                    case "content-type-chartset":
+                        strContentChartSet = headerItem.Value.First();
+                        break;
                     case "accept":
                         httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(headerItem.Value.First()));
                         break;
                     default:
+                        if (headerItem.Key.ToLower().StartsWith("content-type-"))
+                        {
+                            contentParameters[headerItem.Key.Substring(13)] = headerItem.Value.First();
+                            break;
+                        }              
                         httpClient.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         break;
 
@@ -245,6 +255,14 @@ namespace MSLibrary.Xrm
                             if (strContentType != null)
                             {
                                 strContent.Headers.ContentType = new MediaTypeHeaderValue(strContentType);
+                                if (strContentChartSet!=null)
+                                {
+                                    strContent.Headers.ContentType.CharSet = strContentChartSet;
+                                }
+                                foreach(var item in contentParameters)
+                                {
+                                    strContent.Headers.ContentType.Parameters.Add(new NameValueHeaderValue(item.Key, item.Value));
+                                }
                             }
                             responseMessage = await httpClient.PostAsync(requestResult.Url, strContent);
                             break;
@@ -253,6 +271,14 @@ namespace MSLibrary.Xrm
                             if (strContentType != null)
                             {
                                 strContent.Headers.ContentType = new MediaTypeHeaderValue(strContentType);
+                                if (strContentChartSet != null)
+                                {
+                                    strContent.Headers.ContentType.CharSet = strContentChartSet;
+                                }
+                                foreach (var item in contentParameters)
+                                {
+                                    strContent.Headers.ContentType.Parameters.Add(new NameValueHeaderValue(item.Key, item.Value));
+                                }
                             }
                             responseMessage = await httpClient.PutAsync(requestResult.Url, strContent);
                             break;
@@ -261,6 +287,14 @@ namespace MSLibrary.Xrm
                             if (strContentType != null)
                             {
                                 strContent.Headers.ContentType = new MediaTypeHeaderValue(strContentType);
+                                if (strContentChartSet != null)
+                                {
+                                    strContent.Headers.ContentType.CharSet = strContentChartSet;
+                                }
+                                foreach (var item in contentParameters)
+                                {
+                                    strContent.Headers.ContentType.Parameters.Add(new NameValueHeaderValue(item.Key, item.Value));
+                                }
                             }
 
                             HttpRequestMessage httpRequest = new HttpRequestMessage(new HttpMethod("Patch"), requestResult.Url)
