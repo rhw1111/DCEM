@@ -161,11 +161,10 @@ namespace DCEM.ServiceAssistantService.Main.Application
         #region 获取单个客户信息
         public async Task<CustomerQueryInfoResponse> QueryInfo(string guid)
         {
-           //_mcs_vin_value
             var carserviceadvisorGuid = Guid.Parse(guid);
             var carserviceadvisorEntity = await _crmService.Retrieve("mcs_carserviceadvisor", carserviceadvisorGuid, string.Empty);
-            var vehownerGuid = Guid.Parse("");
-            var vehownerEntity = await _crmService.Retrieve("mcs_vehowner", carserviceadvisorGuid, string.Empty);
+            var vehownerGuid = Guid.Parse(carserviceadvisorEntity.Attributes.Value<string>("_mcs_vin_value"));
+            var vehownerEntity = await _crmService.Retrieve("mcs_vehowner", vehownerGuid, string.Empty);
 
             //mcs_customerfollowuplog
             return new CustomerQueryInfoResponse();

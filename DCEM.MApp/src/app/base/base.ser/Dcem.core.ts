@@ -3,15 +3,11 @@ import { AlertController, LoadingController, NavController } from '@ionic/angula
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { Injectable } from '@angular/core';
 
-@NgModule({
-    declarations: [],
-    imports: [
-        CommonModule,
-    ],
-    providers: [
-        DCore_Window
-    ]
+
+@Injectable({
+    providedIn: 'root'
 })
 export class DCore_Window {
     storageSet(key: any, val: any) {
@@ -22,16 +18,8 @@ export class DCore_Window {
     }
 }
 
-
-@NgModule({
-    declarations: [],
-    imports: [
-        CommonModule,
-        DCore_Window
-    ],
-    providers: [
-        DCore_Config
-    ]
+@Injectable({
+    providedIn: 'root'
 })
 export class DCore_Config {
     public serverUrl: string;
@@ -48,15 +36,8 @@ export class DCore_Config {
     }
 }
 
-@NgModule({
-    declarations: [],
-    imports: [
-        CommonModule,
-        DCore_Config
-    ],
-    providers: [
-        DCore_Http
-    ]
+@Injectable({
+    providedIn: 'root'
 })
 export class DCore_Http {
     constructor(
@@ -77,14 +58,8 @@ export class DCore_Http {
     }
 }
 
-@NgModule({
-    declarations: [],
-    imports: [
-        CommonModule,
-    ],
-    providers: [
-        DCore_Page
-    ]
+@Injectable({
+    providedIn: 'root'
 })
 export class DCore_Page {
 
@@ -142,4 +117,5 @@ export class DCore_Page {
     //    });
     //}
 }
+
 
