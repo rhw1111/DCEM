@@ -1,6 +1,6 @@
 import * as tslib_1 from "tslib";
 import { Component } from '@angular/core';
-import { Dcem } from 'app/base/base.ser/Dcem.core';
+import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 let ListPage = class ListPage {
     constructor(_http, _page) {
         this._http = _http;
@@ -66,7 +66,8 @@ ListPage = tslib_1.__decorate([
         templateUrl: './list.page.html',
         styleUrls: ['./list.page.scss'],
     }),
-    tslib_1.__metadata("design:paramtypes", [Dcem.Core.Http, Dcem.Core.Page])
+    tslib_1.__metadata("design:paramtypes", [DCore_Http,
+        DCore_Page])
 ], ListPage);
 export { ListPage };
 //# sourceMappingURL=list.page.js.map

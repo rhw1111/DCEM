@@ -2,7 +2,7 @@ import * as tslib_1 from "tslib";
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from '../../../base/base.ser/http-service.service';
-import { Dcem } from 'app/base/base.ser/Dcem.core';
+import { DCore_Page, DCore_Http } from 'app/base/base.ser/Dcem.core';
 import sd from 'silly-datetime';
 let ListPage = class ListPage {
     constructor(router, _http, _page, httpService) {
@@ -134,7 +134,10 @@ ListPage = tslib_1.__decorate([
         templateUrl: './list.page.html',
         styleUrls: ['./list.page.scss'],
     }),
-    tslib_1.__metadata("design:paramtypes", [Router, Dcem.Core.Http, Dcem.Core.Page, HttpService])
+    tslib_1.__metadata("design:paramtypes", [Router,
+        DCore_Http,
+        DCore_Page,
+        HttpService])
 ], ListPage);
 export { ListPage };
 //# sourceMappingURL=list.page.js.map

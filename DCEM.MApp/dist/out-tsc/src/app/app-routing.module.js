@@ -12,7 +12,7 @@ const routes = [
                     { path: 'login', loadChildren: './base/uc.com/login/login.module#LoginPageModule' },
                     { path: 'welcome', loadChildren: './base/uc.com/welcome/welcome.module#WelcomePageModule' }
                 ]
-            },
+            }
         ]
     },
     {
@@ -77,20 +77,6 @@ const routes = [
                     { path: 'edit', loadChildren: './serving/technical-support.com/edit/edit.module#EditPageModule' }
                 ]
             },
-        ],
-    },
-    {
-        path: 'demo',
-        children: [
-            { path: 'analytics', loadChildren: './demo/analytics/analytics.module#AnalyticsPageModule' },
-            {
-                path: 'report',
-                children: [
-                    { path: 'appointmentstatistics', loadChildren: './demo/report/appointmentstatistics/appointmentstatistics.module#AppointmentstatisticsPageModule' },
-                    { path: 'appointmenttrend', loadChildren: './demo/report/appointmenttrend/appointmenttrend.module#AppointmenttrendPageModule' },
-                    { path: 'testdriverate', loadChildren: './demo/report/testdriverate/testdriverate.module#TestdriveratePageModule' }
-                ]
-            }
         ],
     }
 ];
