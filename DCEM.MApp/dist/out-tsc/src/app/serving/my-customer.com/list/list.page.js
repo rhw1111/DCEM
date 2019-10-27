@@ -12,7 +12,10 @@ let ListPage = class ListPage {
                 type: 1,
                 pageindex: 1,
                 search: ""
-            }
+            },
+            allTotalCount: 0,
+            warrantyTotalCount: 0,
+            insuranceTotalCount: 0
         };
         this.mod.apiUrl = "/Api/Customer/GetMyCustomerList";
     }
@@ -38,16 +41,20 @@ let ListPage = class ListPage {
             }
         }, (res) => {
             if (res.Results !== null) {
-                console.log(res);
                 for (var key in res.Results) {
                     var obj = {};
                     obj["Id"] = res.Results[key]["Id"];
                     obj["fullname"] = res.Results[key]["Attributes"]["a_x002e_mcs_fullname"];
-                    obj["gender"] = res.Results[key]["Attributes"]["a_x002e_mcs_gender"];
+                    obj["gender"] = res.Results[key]["Attributes"]["a_x002e_mcs_gender@OData.Community.Display.V1.FormattedValue"];
+                    obj["genderval"] = res.Results[key]["Attributes"]["a_x002e_mcs_gender"];
                     obj["mobilephone"] = res.Results[key]["Attributes"]["a_x002e_mcs_mobilephone"];
                     obj["vehplate"] = res.Results[key]["Attributes"]["a_x002e_mcs_vehplate"];
+                    obj["vehtype"] = res.Results[key]["Attributes"]["a_x002e_mcs_vehtype@OData.Community.Display.V1.FormattedValue"];
                     this.mod.data.push(obj);
                 }
+                this.mod.allTotalCount = res.ALLTotalCount;
+                this.mod.warrantyTotalCount = res.WarrantyTotalCount;
+                this.mod.insuranceTotalCount = res.InsuranceTotalCount;
                 this._page.loadingHide();
             }
             else {

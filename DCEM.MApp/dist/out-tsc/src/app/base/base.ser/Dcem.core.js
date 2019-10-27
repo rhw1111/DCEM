@@ -109,4 +109,4 @@ DCore_Page = tslib_1.__decorate([
         ActivatedRoute])
 ], DCore_Page);
 export { DCore_Page };
-//# sourceMappingURL=Dcem.core.js.map
+//# sourceMappingURL=dcem.core.js.map
