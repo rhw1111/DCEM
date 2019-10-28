@@ -9,11 +9,13 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
+//自定义组件
+import { ScSelectComponent } from './serving/serving.ser/components/sc-select/sc-select.component';
 let AppModule = class AppModule {
 };
 AppModule = tslib_1.__decorate([
     NgModule({
-        declarations: [AppComponent],
+        declarations: [AppComponent, ScSelectComponent],
         entryComponents: [],
         imports: [BrowserModule,
             IonicModule.forRoot(),

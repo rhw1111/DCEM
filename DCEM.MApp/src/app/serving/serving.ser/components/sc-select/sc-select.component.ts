@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-//import { ModalController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-sc-select',
@@ -8,17 +8,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ScSelectComponent implements OnInit {
 
+  public selectItemValue:any='';
+  public seachkey:string='';
+  public dataList:any=[];
+
   constructor(
-    //private modalCtrl:ModalController
+    private modalCtrl:ModalController
     ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    //搜索功能实现
 
-  // dismissModal() {
-  //   // using the injected ModalController this page
-  //   // can "dismiss" itself and optionally pass back data
-  //   this.modalCtrl.dismiss({
-  //     'dismissed': true
-  //   });
-  // }
+  }
+
+  search(){
+
+  }
+  
+  dismissModal() {
+    this.modalCtrl.dismiss({
+      'dismissed':true
+    });
+  }
+  //保存所选项
+  selectSave(){
+    this.modalCtrl.dismiss({
+      'id': this.selectItemValue.split(':')[0],
+      'name': this.selectItemValue.split(':')[1]
+    });
+  }
 }
