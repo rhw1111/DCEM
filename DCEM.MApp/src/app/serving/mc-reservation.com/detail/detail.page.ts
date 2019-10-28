@@ -10,9 +10,11 @@ import sd from 'silly-datetime';
 })
 export class DetailPage implements OnInit {
 
+    public tab: any = "infolist";
     model = {
         name: 'appointmentdetail',//模块实体名称
         apiUrl: '/api/appointment-info/GetDetail',
+        apiUrl2: '/api/appointment-info/GetLog',
         infolist: {
             mcs_customername: "",
             mcs_customerphone: "",
@@ -33,10 +35,14 @@ export class DetailPage implements OnInit {
             mcs_canceldes:""
 
         },//列表数据
+        datalist: [],
         pageSize: 10,//页数
         page: 1,//分页
         sort: ''//排序的参数
     };
+
+
+
 
 
     constructor(
@@ -50,6 +56,7 @@ export class DetailPage implements OnInit {
             //debugger;
             console.log(data.id);
             this.pageOnBind(data.id);
+            //this.pageOnlist(data.id);
         });
     }
 
@@ -87,13 +94,55 @@ export class DetailPage implements OnInit {
                     this._page.alert("消息提示", "预约单加载异常");
                 }
                 this._page.loadingHide();
+                this.pageOnlist(id);
             },
             (err: any) => {
                 this._page.alert("消息提示", "数据加载异常");
                 this._page.loadingHide();
             }
         );
+
     }
+
+    pageOnlist(id: any) {
+        this._page.loadingShow();
+        this._http.get(
+            this.model.apiUrl2,
+            {
+                params: {
+                    entityid: id,
+                    sort: this.model.sort,
+                    pageSize: this.model.pageSize,
+                    page: this.model.page
+                }
+            },
+            (res: any) => {
+                debugger;
+                if (res.Results !== null) {
+                    for (var key in res.Results) {
+                        var obj = {};
+                        obj["createdby"] = res.Results[key]["Attributes"]["systemuser_x002e_fullname"];
+                        obj["mcs_remark"] = res.Results[key]["Attributes"]["mcs_remark"];
+                        obj["createdon"] = res.Results[key]["Attributes"]["createdon"];
+                        this.model.datalist.push(obj);
+                    }
+                    //console.log(res);
+                    //this._page.loadingHide();
+                }
+                else {
+                    this._page.alert("消息提示", "预约跟进记录加载异常");
+                    //this._page.loadingHide();
+                }
+                this._page.loadingHide();
+            },
+            (err: any) => {
+                this._page.alert("消息提示", "数据加载异常");
+                this._page.loadingHide();
+            }
+        );
+
+    }
+
 
     FormatToDate(date) {
         if (date != null && date != undefined) {

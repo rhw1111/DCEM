@@ -98,6 +98,9 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
                       <condition attribute='statecode' operator='eq' value='0' />
                       {filter}
                     </filter>
+                    <link-entity name='systemuser' from='systemuserid' to='createdby' visible='false' link-type='outer' alias='systemuser'>
+                      <attribute name='fullname' />
+                    </link-entity>
                   </entity>
                 </fetch>";
 
