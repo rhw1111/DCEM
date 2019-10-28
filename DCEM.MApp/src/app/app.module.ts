@@ -10,10 +10,11 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
-
+//自定义组件
+import { ScSelectComponent } from './serving/serving.ser/components/sc-select/sc-select.component';
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [AppComponent,ScSelectComponent],//申明组件
     entryComponents: [],
     imports: [BrowserModule,
         IonicModule.forRoot(),

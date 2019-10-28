@@ -66,7 +66,7 @@ ListPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "ion-list ion-item div p {\n  padding-left: 5px;\n  font-size: 15px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2VydmluZy9tYy1yZXNlcnZhdGlvbi5jb20vbGlzdC9EOlxc5bel5L2c55uu5b2VXFzlvq7ova/pobnnm65cXOS7o+eggVxc56e75Yqo56uvXFznp7vliqjnq68o5q2j5byP6aG555uuKVxcRENFTS5NQXBwL3NyY1xcYXBwXFxzZXJ2aW5nXFxtYy1yZXNlcnZhdGlvbi5jb21cXGxpc3RcXGxpc3QucGFnZS5zY3NzIiwic3JjL2FwcC9zZXJ2aW5nL21jLXJlc2VydmF0aW9uLmNvbS9saXN0L2xpc3QucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUlZO0VBQ0ksaUJBQUE7RUFDQSxlQUFBO0FDSGhCIiwiZmlsZSI6InNyYy9hcHAvc2VydmluZy9tYy1yZXNlcnZhdGlvbi5jb20vbGlzdC9saXN0LnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1saXN0IHtcclxuICAgIGlvbi1pdGVtIHtcclxuXHJcbiAgICAgICAgZGl2IHtcclxuICAgICAgICAgICAgcCB7XHJcbiAgICAgICAgICAgICAgICBwYWRkaW5nLWxlZnQ6IDVweDtcclxuICAgICAgICAgICAgICAgIGZvbnQtc2l6ZTogMTVweDtcclxuICAgICAgICAgICAgfVxyXG4gICAgICAgIH1cclxuICAgIH1cclxufVxyXG4iLCJpb24tbGlzdCBpb24taXRlbSBkaXYgcCB7XG4gIHBhZGRpbmctbGVmdDogNXB4O1xuICBmb250LXNpemU6IDE1cHg7XG59Il19 */"
+module.exports = "ion-list ion-item div p {\n  padding-left: 5px;\n  font-size: 15px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2VydmluZy9tYy1yZXNlcnZhdGlvbi5jb20vbGlzdC9FOlxcQXBwUHJvamVjdFxcRENFTVxcRENFTS5NQXBwL3NyY1xcYXBwXFxzZXJ2aW5nXFxtYy1yZXNlcnZhdGlvbi5jb21cXGxpc3RcXGxpc3QucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBS2dCLGlCQUFpQjtFQUNqQixlQUFlLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9zZXJ2aW5nL21jLXJlc2VydmF0aW9uLmNvbS9saXN0L2xpc3QucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWxpc3Qge1xyXG4gICAgaW9uLWl0ZW0ge1xyXG5cclxuICAgICAgICBkaXYge1xyXG4gICAgICAgICAgICBwIHtcclxuICAgICAgICAgICAgICAgIHBhZGRpbmctbGVmdDogNXB4O1xyXG4gICAgICAgICAgICAgICAgZm9udC1zaXplOiAxNXB4O1xyXG4gICAgICAgICAgICB9XHJcbiAgICAgICAgfVxyXG4gICAgfVxyXG59XHJcbiJdfQ== */"
 
 /***/ }),
 
@@ -219,8 +219,8 @@ let ListPage = class ListPage {
 };
 ListPage.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
-    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__["Dcem"].Core.Http },
-    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__["Dcem"].Core.Page },
+    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__["DCore_Http"] },
+    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__["DCore_Page"] },
     { type: _base_base_ser_http_service_service__WEBPACK_IMPORTED_MODULE_3__["HttpService"] }
 ];
 ListPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -229,7 +229,10 @@ ListPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./list.page.html */ "./node_modules/raw-loader/index.js!./src/app/serving/mc-reservation.com/list/list.page.html"),
         styles: [__webpack_require__(/*! ./list.page.scss */ "./src/app/serving/mc-reservation.com/list/list.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__["Dcem"].Core.Http, app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__["Dcem"].Core.Page, _base_base_ser_http_service_service__WEBPACK_IMPORTED_MODULE_3__["HttpService"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+        app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__["DCore_Http"],
+        app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__["DCore_Page"],
+        _base_base_ser_http_service_service__WEBPACK_IMPORTED_MODULE_3__["HttpService"]])
 ], ListPage);
 
 

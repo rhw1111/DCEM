@@ -16,25 +16,6 @@ var map = {
 		"./src/app/base/uc.com/welcome/welcome.module.ts",
 		"base-uc-com-welcome-welcome-module"
 	],
-	"./demo/analytics/analytics.module": [
-		"./src/app/demo/analytics/analytics.module.ts",
-		"demo-analytics-analytics-module"
-	],
-	"./demo/report/appointmentstatistics/appointmentstatistics.module": [
-		"./src/app/demo/report/appointmentstatistics/appointmentstatistics.module.ts",
-		"default~demo-report-appointmentstatistics-appointmentstatistics-module~demo-report-appointmenttrend-~24adb42d",
-		"demo-report-appointmentstatistics-appointmentstatistics-module"
-	],
-	"./demo/report/appointmenttrend/appointmenttrend.module": [
-		"./src/app/demo/report/appointmenttrend/appointmenttrend.module.ts",
-		"default~demo-report-appointmentstatistics-appointmentstatistics-module~demo-report-appointmenttrend-~24adb42d",
-		"demo-report-appointmenttrend-appointmenttrend-module"
-	],
-	"./demo/report/testdriverate/testdriverate.module": [
-		"./src/app/demo/report/testdriverate/testdriverate.module.ts",
-		"default~demo-report-appointmentstatistics-appointmentstatistics-module~demo-report-appointmenttrend-~24adb42d",
-		"demo-report-testdriverate-testdriverate-module"
-	],
 	"./serving/home.com/index/index.module": [
 		"./src/app/serving/home.com/index/index.module.ts",
 		"index-index-module"
@@ -613,7 +594,7 @@ const routes = [
                     { path: 'login', loadChildren: './base/uc.com/login/login.module#LoginPageModule' },
                     { path: 'welcome', loadChildren: './base/uc.com/welcome/welcome.module#WelcomePageModule' }
                 ]
-            },
+            }
         ]
     },
     {
@@ -678,20 +659,6 @@ const routes = [
                     { path: 'edit', loadChildren: './serving/technical-support.com/edit/edit.module#EditPageModule' }
                 ]
             },
-        ],
-    },
-    {
-        path: 'demo',
-        children: [
-            { path: 'analytics', loadChildren: './demo/analytics/analytics.module#AnalyticsPageModule' },
-            {
-                path: 'report',
-                children: [
-                    { path: 'appointmentstatistics', loadChildren: './demo/report/appointmentstatistics/appointmentstatistics.module#AppointmentstatisticsPageModule' },
-                    { path: 'appointmenttrend', loadChildren: './demo/report/appointmenttrend/appointmenttrend.module#AppointmenttrendPageModule' },
-                    { path: 'testdriverate', loadChildren: './demo/report/testdriverate/testdriverate.module#TestdriveratePageModule' }
-                ]
-            }
         ],
     }
 ];
@@ -868,8 +835,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm2015/ionic-storage.js");
-/* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
-
 
 
 
@@ -894,10 +859,6 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _ionic_storage__WEBPACK_IMPORTED_MODULE_10__["IonicStorageModule"].forRoot(),
         ],
         providers: [
-            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_11__["Dcem"].Core.Config,
-            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_11__["Dcem"].Core.Http,
-            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_11__["Dcem"].Core.Page,
-            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_11__["Dcem"].Core.Window,
             _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],
             _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"],
             { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] }
@@ -906,125 +867,6 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     })
 ], AppModule);
 
-
-
-/***/ }),
-
-/***/ "./src/app/base/base.ser/Dcem.core.ts":
-/*!********************************************!*\
-  !*** ./src/app/base/base.ser/Dcem.core.ts ***!
-  \********************************************/
-/*! exports provided: Dcem */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Dcem", function() { return Dcem; });
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-
-
-
-var Dcem;
-(function (Dcem) {
-    var Core;
-    (function (Core) {
-        class Config {
-            constructor(_window) {
-                this._window = _window;
-                this.serverUrl = "http://localhost:9099";
-                this.serverUrl = _window.storageGet("apiDomainUrl");
-            }
-            getDomain() {
-                this.serverUrl = this._window.storageGet("apiDomainUrl");
-                return this.serverUrl;
-            }
-        }
-        Config.ctorParameters = () => [
-            { type: Dcem.Core.Window }
-        ];
-        Core.Config = Config;
-        class Http {
-            constructor(_httpClient, _config) {
-                this._httpClient = _httpClient;
-                this._config = _config;
-            }
-            //get请求
-            get(url, params, rescallback, errcallback) {
-                console.log(this._config.getDomain() + url);
-                this._httpClient.get(this._config.getDomain() + url, params).subscribe((res) => {
-                    rescallback && rescallback(res);
-                }, (err) => {
-                    errcallback && errcallback(err);
-                });
-            }
-        }
-        Http.ctorParameters = () => [
-            { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"] },
-            { type: Dcem.Core.Config }
-        ];
-        Core.Http = Http;
-        class Page {
-            constructor(alertCtr, loadingCtr, navCtr, router, activeRoute) {
-                this.alertCtr = alertCtr;
-                this.loadingCtr = loadingCtr;
-                this.navCtr = navCtr;
-                this.router = router;
-                this.activeRoute = activeRoute;
-            }
-            //弹出提示
-            alert(header, message) {
-                const alert = this.alertCtr.create({
-                    header,
-                    message,
-                    buttons: ['确定']
-                });
-                alert.then(a => {
-                    a.present();
-                });
-            }
-            //打开等待动画
-            loadingShow() {
-                if (this.loading !== null) {
-                    this.loading = this.loadingCtr.create({ translucent: true });
-                }
-                this.loading.then(a => { a.present(); });
-            }
-            //关闭等待动画
-            loadingHide() {
-                if (this.loading !== null) {
-                    this.loading.then(a => { a.dismiss(); });
-                }
-            }
-            //跳转到指定页
-            goto(url, params) {
-                if (params === null) {
-                    params = {};
-                }
-                //this.navCtr.navigateRoot(url);
-                this.router.navigate([url], params);
-            }
-        }
-        Page.ctorParameters = () => [
-            { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["AlertController"] },
-            { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["LoadingController"] },
-            { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["NavController"] },
-            { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
-            { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"] }
-        ];
-        Core.Page = Page;
-        class Window {
-            storageSet(key, val) {
-                window.localStorage.setItem(key, val);
-            }
-            storageGet(key) {
-                return window.localStorage.getItem(key);
-            }
-        }
-        Core.Window = Window;
-    })(Core = Dcem.Core || (Dcem.Core = {}));
-})(Dcem || (Dcem = {}));
 
 
 /***/ }),
@@ -1090,7 +932,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\工作目录\微软项目\代码\移动端\移动端(正式项目)\DCEM.MApp\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! E:\AppProject\DCEM\DCEM.MApp\src\main.ts */"./src/main.ts");
 
 
 /***/ })
