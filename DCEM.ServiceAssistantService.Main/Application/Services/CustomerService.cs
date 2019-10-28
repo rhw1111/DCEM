@@ -102,8 +102,10 @@ namespace DCEM.ServiceAssistantService.Main.Application
         #region 查询记录集
         public async Task<CustomerQueryListResponse<CrmEntity>> QueryList(int type, int pageindex, string search)
         {
+            #region 组装head
             var dicHead = new Dictionary<string, IEnumerable<string>>();
             dicHead.Add("Prefer", new List<string>() { "odata.include-annotations=\"*\"" });
+            #endregion
 
             #region 获取记录结果集
             var filter = await GetQueryListFilter(type, search);
@@ -126,7 +128,6 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 FetchXml = fetchXdoc
             };
             fetchRequest.Headers.Add("Prefer", dicHead["Prefer"]);
-
             fetchResponse = await _crmService.Execute(fetchRequest);
             var allTotalCountResults = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
             #endregion
@@ -200,7 +201,6 @@ namespace DCEM.ServiceAssistantService.Main.Application
             </fetch>";
                  return XDocument.Parse(fetchXml);
              });
-
             var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
             {
                 EntityName = "mcs_customerfollowuplog",

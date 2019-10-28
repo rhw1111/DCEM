@@ -5,6 +5,7 @@ using MSLibrary.Xrm;
 
 namespace DCEM.ServiceAssistantService.Main.DAL
 {
+    #region 客户
     public class CustomerFactory : IFactory<Task<ICustomerService>>
     {
         ICrmService _crmService;
@@ -19,4 +20,5 @@ namespace DCEM.ServiceAssistantService.Main.DAL
             });
         }
     }
+    #endregion
 }
