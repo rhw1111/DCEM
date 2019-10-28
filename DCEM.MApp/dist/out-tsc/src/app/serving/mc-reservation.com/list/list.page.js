@@ -2,7 +2,7 @@ import * as tslib_1 from "tslib";
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from '../../../base/base.ser/http-service.service';
-import { Dcem } from 'app/base/base.ser/Dcem.core';
+import { DCore_Page, DCore_Http } from 'app/base/base.ser/Dcem.core';
 import sd from 'silly-datetime';
 let ListPage = class ListPage {
     constructor(router, _http, _page, httpService) {
@@ -19,18 +19,21 @@ let ListPage = class ListPage {
             pageSize: 10,
             page: 1,
             sort: 'mcs_appointmentinfoid desc',
-            isending: false //是否加载完成
+            isending: false,
+            nodata: false
         };
     }
     ngOnInit() {
         this.model.page = 1;
-        var cachedata = this.httpService.GetDataCache(this.model.name);
-        if (cachedata == "") {
-            this.showlist(null);
-        }
-        else {
-            this.model.data = JSON.parse(cachedata);
-        }
+        //先不加缓存
+        this.showlist(null);
+        //var cachedata = this.httpService.GetDataCache(this.model.name);
+        //if (cachedata == "") {
+        //    this.showlist(null);
+        //}
+        //else {
+        //    this.model.data = JSON.parse(cachedata);
+        //}
     }
     //搜索方法
     search(event) {
@@ -80,10 +83,7 @@ let ListPage = class ListPage {
                 page: this.model.page
             }
         }, (res) => {
-            event ? event.target.complete() : '';
             if (res.Results !== null) {
-                //this.model.data = [];
-                //console.log('get res=' + res.data);
                 for (var key in res.Results) {
                     var obj = {};
                     obj["mcs_appointmentinfoid"] = res.Results[key]["Id"];
@@ -105,7 +105,13 @@ let ListPage = class ListPage {
                     this.model.isending = true;
                 }
                 else {
-                    this.model.isending = false;
+                    this.model.isending = true;
+                }
+                if (this.model.data.length == 0) {
+                    this.model.nodata = true;
+                }
+                else {
+                    this.model.nodata = false;
                 }
                 this._page.loadingHide();
             }
@@ -134,7 +140,10 @@ ListPage = tslib_1.__decorate([
         templateUrl: './list.page.html',
         styleUrls: ['./list.page.scss'],
     }),
-    tslib_1.__metadata("design:paramtypes", [Router, Dcem.Core.Http, Dcem.Core.Page, HttpService])
+    tslib_1.__metadata("design:paramtypes", [Router,
+        DCore_Http,
+        DCore_Page,
+        HttpService])
 ], ListPage);
 export { ListPage };
 //# sourceMappingURL=list.page.js.map

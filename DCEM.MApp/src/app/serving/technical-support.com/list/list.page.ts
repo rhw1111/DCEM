@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ViewChild } from '@angular/core';
 import { HttpService } from '../../../base/base.ser/http-service.service';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import sd from 'silly-datetime';
 import { debug } from 'util';
+import { IonInfiniteScroll } from '@ionic/angular';
 
 @Component({
     selector: 'app-list',
@@ -10,6 +11,7 @@ import { debug } from 'util';
     styleUrls: ['./list.page.scss'],
 })
 export class ListPage implements OnInit {
+    @ViewChild(IonInfiniteScroll,null) infiniteScroll: IonInfiniteScroll;
 
     public model: any = {
         name: 'technicalsupportlist',//模块实体名称
@@ -20,8 +22,7 @@ export class ListPage implements OnInit {
         pageSize: 10,//页数
         page: 1,//分页
         sort: 'mcs_supportorderid desc',//排序的参数
-        isending: false,//是否加载完成
-        nodata: false
+        isending: false//是否加载完成
     };
 
     constructor(
@@ -32,13 +33,14 @@ export class ListPage implements OnInit {
 
     ngOnInit() {
         this.model.page = 1;
-        var cachedata = this.httpService.GetDataCache(this.model.name);
-        if (cachedata == "") {
-            this.getList(null);
-        }
-        else {
-            this.model.data = JSON.parse(cachedata);
-        }
+        this.getList(null);
+        // var cachedata = this.httpService.GetDataCache(this.model.name);
+        // if (cachedata == "") {
+            
+        // }
+        // else {
+        //     this.model.data = JSON.parse(cachedata);
+        // }
     }
 
     //搜索方法
@@ -66,6 +68,7 @@ export class ListPage implements OnInit {
     }
     //切换tab
     selectTab(status) {
+        this.infiniteScroll.disabled = false;//切换标签初始化下拉控件事件
         this.model.data = [];
         this.model.page = 1;
         this.model.isending = false;
@@ -109,22 +112,15 @@ export class ListPage implements OnInit {
                     }
                     event ? event.target.complete() : '';
                     //判断是否有新数据
-                    if (res.Results.length < 2) {
+                    if (res.Results.length < 10) {
                         event ? event.target.disabled = true : "";
                         this.model.isending = true;
-                    }
-                    this._page.loadingHide();
-                    if (this.model.data.length == 0) {
-                        this.model.nodata = true;
-                    }
-                    else {
-                        this.model.nodata = false;
                     }
                 }
                 else {
                     this._page.alert("消息提示", "数据加载异常");
-                    this._page.loadingHide();
                 }
+                this._page.loadingHide();
             },
             (err: any) => {
                 this._page.alert("消息提示", "数据加载异常");

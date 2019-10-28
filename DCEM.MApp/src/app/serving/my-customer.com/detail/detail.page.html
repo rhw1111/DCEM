@@ -3,155 +3,168 @@
         <ion-buttons slot="start">
             <ion-back-button text="返回" defaultHref="/serving/mycustomer/list"></ion-back-button>
         </ion-buttons>
-        <ion-title>张三</ion-title>
+        <ion-title>{{mod.data.vehowner.fullname}}</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <ion-list lines="full">
-        <ion-item-divider>
+        <ion-item-divider color="primary">
             <ion-label>
                 车主信息
             </ion-label>
         </ion-item-divider>
         <ion-item>
             <ion-label>
-                <ion-note>
+                <h2>
                     姓名
-                </ion-note>
-                <h3>张三</h3>
+                </h2>
+                <p>{{mod.data.vehowner.fullname}}&nbsp;</p>
             </ion-label>
         </ion-item>
         <ion-item>
             <ion-label>
-                <ion-note>
+                <h2>
                     证件类型
-                </ion-note>
-                <h3>身份证</h3>
+                </h2>
+                <p>{{mod.data.vehowner.idtype}}&nbsp;</p>
             </ion-label>
         </ion-item>
         <ion-item>
             <ion-label>
-                <ion-note>
+                <h2>
                     证件号码
-                </ion-note>
-                <h3>510215198308180418</h3>
+                </h2>
+                <p>{{mod.data.vehowner.identitycard}}&nbsp;</p>
             </ion-label>
         </ion-item>
         <ion-item>
-            <ion-label>
-                <ion-note>
+            <ion-label text-wrap>
+                <h2>
                     客户标签
-                </ion-note>
-                <h3>510215198308180418</h3>
+                </h2>
+                <ion-text>
+                    <ion-chip *ngFor="let item of mod.data.tagArray;let key=index" color="success">
+                        {{item.name}}
+                    </ion-chip>
+                </ion-text>
+                &nbsp;
             </ion-label>
         </ion-item>
         <ion-item>
             <ion-label>
-                <ion-note>
+                <h2>
                     送修人
-                </ion-note>
-                <h3>张三</h3>
+                </h2>
+                <p>{{mod.data.vehowner.shuttlename}}&nbsp;</p>
             </ion-label>
         </ion-item>
         <ion-item>
             <ion-label>
-                <ion-note>
+                <h2>
                     送修人手机
-                </ion-note>
-                <h3>15023224233</h3>
+                </h2>
+                <p>{{mod.data.vehowner.shuttlephone}}&nbsp;</p>
             </ion-label>
         </ion-item>
 
-        <ion-item-divider>
+        <ion-item-divider color="primary">
             <ion-label>
                 车辆信息
             </ion-label>
         </ion-item-divider>
         <ion-item>
             <ion-label>
-                <ion-note>
+                <h2>
                     VIN
-                </ion-note>
-                <h3>张三</h3>
+                </h2>
+                <p>{{mod.data.vehowner.name}}&nbsp;</p>
             </ion-label>
         </ion-item>
         <ion-item>
             <ion-label>
-                <ion-note>
+                <h2>
                     发动机号
-                </ion-note>
-                <h3>张三</h3>
+                </h2>
+                <p>{{mod.data.vehowner.enginennumber}}&nbsp;</p>
             </ion-label>
         </ion-item>
         <ion-item>
             <ion-label>
-                <ion-note>
+                <h2>
                     车型
-                </ion-note>
-                <h3>张三</h3>
+                </h2>
+                <p>{{mod.data.vehowner.vehtype}}&nbsp;</p>
             </ion-label>
         </ion-item>
         <ion-item>
             <ion-label>
-                <ion-note>
+                <h2>
                     销售日期
-                </ion-note>
-                <h3>张三</h3>
+                </h2>
+                <p>{{mod.data.vehowner.salesdate}}&nbsp;</p>
             </ion-label>
         </ion-item>
         <ion-item>
             <ion-label>
-                <ion-note>
-                    生成日期
-                </ion-note>
-                <h3>张三</h3>
+                <h2>
+                    生产日期
+                </h2>
+                <p>{{mod.data.vehowner.prodtime}}&nbsp;</p>
             </ion-label>
         </ion-item>
         <ion-item>
             <ion-label>
-                <ion-note>
+                <h2>
                     下次保养日期
-                </ion-note>
-                <h3>张三</h3>
+                </h2>
+                <p>{{mod.data.vehowner.nextmaintainat}}&nbsp;</p>
             </ion-label>
         </ion-item>
         <ion-item>
             <ion-label>
-                <ion-note>
-                    下次保研里程
-                </ion-note>
-                <h3>张三</h3>
+                <h2>
+                    下次保养里程
+                </h2>
+                <p>{{mod.data.vehowner.nextmaintainmileage}}&nbsp;</p>
             </ion-label>
         </ion-item>
 
-        <ion-item-divider>
+        <ion-item-divider color="primary">
             <ion-label>
                 跟进记录
             </ion-label>
         </ion-item-divider>
-        <ion-item>
-            <ion-label>
-                <h3>跟进人</h3>
-            </ion-label>
-            <ion-label>
-                <h4>跟进内容</h4>
-            </ion-label>
-            <ion-label>
-                <h4>跟进时间</h4>
-            </ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-label>
-                <h3>张三</h3>
-            </ion-label>
-            <ion-label>
-                <h4>100</h4>
-            </ion-label>
-            <ion-label>
-                <h4>跟进时间</h4>
-            </ion-label>
-        </ion-item>
-
+        <ion-item-group>
+            <ion-item *ngFor="let item of mod.data.customerfollowuplogArray;let key=index">
+                <ion-label>
+                    <h2>
+                        跟进人
+                    </h2>
+                    <p>
+                        {{item.createdby}}
+                    </p>
+                    <h2>
+                        跟进时间
+                    </h2>
+                    <p>
+                        {{item.createdon}}&nbsp;
+                    </p>
+                    <h2>
+                        跟进内容
+                    </h2>
+                    <p text-wrap>
+                        {{item.remark}}&nbsp;
+                    </p>
+                </ion-label>
+            </ion-item>
+            <ion-item *ngIf="mod.data.customerfollowuplogArray.length===0">
+                <ion-label>
+                    <p>
+                        当前客户没有跟进记录
+                    </p>
+                </ion-label>
+            </ion-item>
+        </ion-item-group>
     </ion-list>
 </ion-content>

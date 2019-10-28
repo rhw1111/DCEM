@@ -74,5 +74,37 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
             string strQuery = string.Format($"$select=mcs_appointmentat,_mcs_appointmentconfigid_value,mcs_appointmentsource,mcs_appointmenttype,mcs_canceldes,mcs_cancelreasonnew,mcs_carplate,_mcs_cartype_value,mcs_customeraddr,mcs_customercomment,_mcs_customerid_value,mcs_customername,mcs_customerphone,_mcs_dealerid_value,mcs_name,mcs_nextmaintainat,mcs_nextmaintainmileage,mcs_status,mcs_tag&$expand=mcs_appointmentconfigid($select=mcs_name),mcs_cartype($select=mcs_name),mcs_dealerid($select=mcs_name),mcs_customerid($select=mcs_name)&$filter=statecode eq 0 and  mcs_appointmentinfoid eq {entityid}");
             return strQuery;
         }
+
+        /// <summary>
+        /// 预约单跟进记录
+        /// </summary>
+        /// <param name="logRequest"></param>
+        /// <returns></returns>
+        public string Querylog(AppointmentInfoLogRequest logRequest)
+        {
+            var filter = string.Empty;
+            if (!string.IsNullOrWhiteSpace(logRequest.entityid))
+            {
+                filter += $"<condition attribute='mcs_appointmentinfoid' operator='eq' value='{logRequest.entityid}' />";
+            }
+            var fetchString = $@"<fetch version='1.0' count='{logRequest.pageSize}' page='{logRequest.page}' output-format='xml-platform' mapping='logical' distinct='false'>
+                    <entity name='mcs_appointmentinfolog'>
+                    <attribute name='createdon' />
+                    <attribute name='mcs_remark' />
+                    <attribute name='createdby' />
+                    <attribute name='mcs_appointmentinfologid' />
+                    <order attribute='createdon' descending='false' />
+                    <filter type='and'>
+                      <condition attribute='statecode' operator='eq' value='0' />
+                      {filter}
+                    </filter>
+                    <link-entity name='systemuser' from='systemuserid' to='createdby' visible='false' link-type='outer' alias='systemuser'>
+                      <attribute name='fullname' />
+                    </link-entity>
+                  </entity>
+                </fetch>";
+
+            return fetchString;
+        }
     }
 }

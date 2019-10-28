@@ -1,17 +1,24 @@
-﻿ion-list {
+﻿/** {
+    margin: 0px;
+    padding: 0px;
+}*/
+
+ion-list {
+
     height: 30%;
 
     ion-list-header {
+
         height: 100%;
         text-align: center;
         background-color: rgb(249, 249, 249);
 
         img {
-            left: 50%;
+            /*left: 50%;*/
             position: relative;
-            transform: translateX(-50%);
-            max-width: 50%;
-            max-height: 50%;
+            /*transform: translateX(-50%);*/
+            width: 100%;
+            /*max-height: 100%;*/
         }
     }
 }

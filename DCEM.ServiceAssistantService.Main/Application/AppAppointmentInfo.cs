@@ -49,8 +49,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
         /// <returns></returns>
         public async Task<QueryResult<CrmEntity>> GetLog(AppointmentInfoLogRequest appointmentInfoLogRequest)
         {
-            //await _appointmentInfoService.QueryListByPage(filterstr);
-            return null;
+            return await _appointmentInfoService.GetLog(appointmentInfoLogRequest);
         }
     }
 }

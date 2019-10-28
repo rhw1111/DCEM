@@ -20,28 +20,28 @@ namespace DCEM.ServiceAssistantService.Main
         */
 
         //Dev
-        public const string CrmApiVersion = "8.2";
-        public const int CrmApiMaxRetry = 10;
-        public const string TokenServiceType = "ADFSPassword";
-        public const string CrmUrl = "https://subcrmdev.sokon.com";
-        public const string AdfsUrl = "https://subcrmadfs.sokon.com/";
-        public const string ClientId = "e5e014c7-b1ff-45a3-8c0a-991f5aa7ce8f";
-        public const string ClientSecret = "A5V2S3Wn1NAir6igX2kr_Cm8hULdKOPnuXdruj4O";
-        public const string UserName = @"sfmotors\subdevcrmadmin";
-        public const string Password = "password01#";
-        public const string RedirectUri = "";
-
-
-        //Uat
         //public const string CrmApiVersion = "8.2";
         //public const int CrmApiMaxRetry = 10;
         //public const string TokenServiceType = "ADFSPassword";
-        //public const string CrmUrl = "https://subcrmuat.sokon.com";
+        //public const string CrmUrl = "https://subcrmdev.sokon.com";
         //public const string AdfsUrl = "https://subcrmadfs.sokon.com/";
         //public const string ClientId = "e5e014c7-b1ff-45a3-8c0a-991f5aa7ce8f";
         //public const string ClientSecret = "A5V2S3Wn1NAir6igX2kr_Cm8hULdKOPnuXdruj4O";
-        //public const string UserName = @"sfmotors\subuatcrmadmin";
-        //public const string Password = "P@ssw0rd";
+        //public const string UserName = @"sfmotors\subdevcrmadmin";
+        //public const string Password = "password01#";
         //public const string RedirectUri = "";
+
+
+        //Uat
+        public const string CrmApiVersion = "8.2";
+        public const int CrmApiMaxRetry = 10;
+        public const string TokenServiceType = "ADFSPassword";
+        public const string CrmUrl = "https://subcrmuat.sokon.com";
+        public const string AdfsUrl = "https://subcrmadfs.sokon.com/";
+        public const string ClientId = "e5e014c7-b1ff-45a3-8c0a-991f5aa7ce8f";
+        public const string ClientSecret = "A5V2S3Wn1NAir6igX2kr_Cm8hULdKOPnuXdruj4O";
+        public const string UserName = @"sfmotors\subuatcrmadmin";
+        public const string Password = "P@ssw0rd";
+        public const string RedirectUri = "";
     }
 }

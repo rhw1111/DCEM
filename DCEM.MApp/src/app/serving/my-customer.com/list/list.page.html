@@ -14,13 +14,13 @@
     <ion-toolbar>
         <ion-segment>
             <ion-segment-button checked (click)="tagOnClick(1)">
-                <ion-label>全部</ion-label>
+                <ion-label>全部({{mod.allTotalCount}})</ion-label>
             </ion-segment-button>
             <ion-segment-button (click)="tagOnClick(2)">
-                <ion-label>保修到期(3)</ion-label>
+                <ion-label>保修到期({{mod.warrantyTotalCount}})</ion-label>
             </ion-segment-button>
             <ion-segment-button (click)="tagOnClick(3)">
-                <ion-label>保险到期(1)</ion-label>
+                <ion-label>保险到期({{mod.insuranceTotalCount}})</ion-label>
             </ion-segment-button>
         </ion-segment>
     </ion-toolbar>
@@ -36,13 +36,16 @@
 
         <ion-item-sliding *ngFor="let item of mod.data;let key=index">
             <ion-item [routerLink]="['/serving/mycustomer/detail']" [queryParams]="{id:item.Id}">
-                <ion-icon slot="start" color="primary" name="man" size="large"></ion-icon>
+                <ion-icon *ngIf="item.genderval===1" slot="start" color="primary" name="contact" size="large" style="width:60px;height:60px"></ion-icon>
+                <ion-icon *ngIf="item.genderval===2" slot="start" color="danger" name="contact" size="large" style="width:60px;height:60px"></ion-icon>
+                <ion-icon *ngIf="item.genderval===3" slot="start" color="medium" name="contact" size="large" style="width:60px;height:60px"></ion-icon>
+                <ion-icon *ngIf="!item.genderval" slot="start" color="medium" name="contact" size="large" style="width:60px;height:60px"></ion-icon>
                 <ion-label>
                     <h2>{{item.fullname}}</h2>
-                    <p>车牌:{{item.vehplate}}</p>
-                    <p>车型:{{item.motormodel}}</p>
+                    <p>{{item.vehplate}}</p>
+                    <p>{{item.vehtype}}</p>
                 </ion-label>
-                <ion-icon name="phone-portrait" size="small"></ion-icon>
+                <ion-icon *ngIf="item.mobilephone" name="phone-portrait" size="small"></ion-icon>
                 <ion-note slot="end">
                     {{item.mobilephone}}
                 </ion-note>

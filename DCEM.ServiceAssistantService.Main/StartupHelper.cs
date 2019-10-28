@@ -7,6 +7,8 @@ using System.IO;
 using System.Net.Http;
 using MSLibrary.Xrm;
 using MSLibrary.DI;
+using MSLibrary.Configuration;
+using DCEM.Main;
 
 namespace DCEM.ServiceAssistantService.Main
 {
@@ -18,22 +20,29 @@ namespace DCEM.ServiceAssistantService.Main
         /// <returns></returns>
         public static CrmService CreateCrmService()
         {
+            var coreConfiguration = ConfigurationContainer.Get<CoreConfiguration>(ConfigurationNames.Application);
+            
             var crmService = DIContainerContainer.Get<CrmService>();
-            if (crmService != null)
+            if (coreConfiguration.DyCRMSetting != null)
             {
-                crmService.CrmApiMaxRetry = CrmConfirguration.CrmApiMaxRetry;
-                crmService.CrmApiVersion = CrmConfirguration.CrmApiVersion;
-                crmService.CrmUrl = CrmConfirguration.CrmUrl;
-                crmService.TokenServiceType = CrmConfirguration.TokenServiceType;
-                crmService.TokenServiceParameters.Add("AdfsUrl", CrmConfirguration.AdfsUrl);
-                crmService.TokenServiceParameters.Add("CrmUrl", CrmConfirguration.CrmUrl);
-                crmService.TokenServiceParameters.Add("ClientId", CrmConfirguration.ClientId);
-                crmService.TokenServiceParameters.Add("ClientSecret", CrmConfirguration.ClientSecret);
-                crmService.TokenServiceParameters.Add("UserName", CrmConfirguration.UserName);
-                crmService.TokenServiceParameters.Add("Password", CrmConfirguration.Password);
-                crmService.TokenServiceParameters.Add("RedirectUri", CrmConfirguration.RedirectUri);
-                
+                var dyCRMSetting = coreConfiguration.DyCRMSetting;
+                if (crmService != null)
+                {
+                    crmService.CrmApiMaxRetry = dyCRMSetting.CrmApiMaxRetry;
+                    crmService.CrmApiVersion = dyCRMSetting.CrmApiVersion;
+                    crmService.CrmUrl = dyCRMSetting.CrmUrl;
+                    crmService.TokenServiceType = dyCRMSetting.TokenServiceType;
+                    crmService.TokenServiceParameters.Add("AdfsUrl", dyCRMSetting.AdfsUrl);
+                    crmService.TokenServiceParameters.Add("CrmUrl", dyCRMSetting.CrmUrl);
+                    crmService.TokenServiceParameters.Add("ClientId", dyCRMSetting.ClientId);
+                    crmService.TokenServiceParameters.Add("ClientSecret", dyCRMSetting.ClientSecret);
+                    crmService.TokenServiceParameters.Add("UserName", dyCRMSetting.UserName);
+                    crmService.TokenServiceParameters.Add("Password", dyCRMSetting.Password);
+                    crmService.TokenServiceParameters.Add("RedirectUri", dyCRMSetting.RedirectUri);
+
+                }
             }
+            
             return crmService;
         }
     }

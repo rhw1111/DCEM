@@ -1,6 +1,6 @@
 import * as tslib_1 from "tslib";
 import { Component } from '@angular/core';
-import { Dcem } from 'app/base/base.ser/Dcem.core';
+import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 let ListPage = class ListPage {
     constructor(_http, _page) {
         this._http = _http;
@@ -12,7 +12,10 @@ let ListPage = class ListPage {
                 type: 1,
                 pageindex: 1,
                 search: ""
-            }
+            },
+            allTotalCount: 0,
+            warrantyTotalCount: 0,
+            insuranceTotalCount: 0
         };
         this.mod.apiUrl = "/Api/Customer/GetMyCustomerList";
     }
@@ -38,16 +41,20 @@ let ListPage = class ListPage {
             }
         }, (res) => {
             if (res.Results !== null) {
-                console.log(res);
                 for (var key in res.Results) {
                     var obj = {};
                     obj["Id"] = res.Results[key]["Id"];
                     obj["fullname"] = res.Results[key]["Attributes"]["a_x002e_mcs_fullname"];
-                    obj["gender"] = res.Results[key]["Attributes"]["a_x002e_mcs_gender"];
+                    obj["gender"] = res.Results[key]["Attributes"]["a_x002e_mcs_gender@OData.Community.Display.V1.FormattedValue"];
+                    obj["genderval"] = res.Results[key]["Attributes"]["a_x002e_mcs_gender"];
                     obj["mobilephone"] = res.Results[key]["Attributes"]["a_x002e_mcs_mobilephone"];
                     obj["vehplate"] = res.Results[key]["Attributes"]["a_x002e_mcs_vehplate"];
+                    obj["vehtype"] = res.Results[key]["Attributes"]["a_x002e_mcs_vehtype@OData.Community.Display.V1.FormattedValue"];
                     this.mod.data.push(obj);
                 }
+                this.mod.allTotalCount = res.ALLTotalCount;
+                this.mod.warrantyTotalCount = res.WarrantyTotalCount;
+                this.mod.insuranceTotalCount = res.InsuranceTotalCount;
                 this._page.loadingHide();
             }
             else {
@@ -66,7 +73,8 @@ ListPage = tslib_1.__decorate([
         templateUrl: './list.page.html',
         styleUrls: ['./list.page.scss'],
     }),
-    tslib_1.__metadata("design:paramtypes", [Dcem.Core.Http, Dcem.Core.Page])
+    tslib_1.__metadata("design:paramtypes", [DCore_Http,
+        DCore_Page])
 ], ListPage);
 export { ListPage };
 //# sourceMappingURL=list.page.js.map
