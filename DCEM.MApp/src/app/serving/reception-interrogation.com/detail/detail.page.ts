@@ -34,14 +34,15 @@ export class DetailPage implements OnInit {
         private _page: DCore_Page,
         private activeRoute: ActivatedRoute
     ) {
+
+    }
+
+    ngOnInit() {
         this.activeRoute.queryParams.subscribe((params: Params) => {
             if (params['id'] != null && params['id'] != undefined) {
                 this.pageOnBind(params['id']);
             }
         });
-    }
-
-    ngOnInit() {
     }
 
 

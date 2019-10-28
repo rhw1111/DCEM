@@ -1,9 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
-import { RouteReuseStrategy } from '@angular/router';
 
-export class AppModule { }
 
 @Component({
     selector: 'app-list',
@@ -78,12 +76,12 @@ export class ListPage implements OnInit {
                     this._page.loadingHide();
                 }
                 else {
-                    this._page.alert("消息提示", "客户数据加载异常");
+                    this._page.alert("消息提示", "数据加载异常");
                     this._page.loadingHide();
                 }
             },
             (err: any) => {
-                this._page.alert("消息提示", "客户数据加载异常");
+                this._page.alert("消息提示", "数据加载异常");
                 this._page.loadingHide();
             }
         );
