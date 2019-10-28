@@ -1,0 +1,15 @@
+ion-content {
+    ion-list {
+        ion-item {
+            ion-label {
+                h2 {
+                    float: left;
+                }
+
+                span {
+                    float: right;
+                }
+            }
+        }
+    }
+}

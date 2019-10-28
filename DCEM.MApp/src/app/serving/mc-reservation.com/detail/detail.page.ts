@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
+import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import sd from 'silly-datetime';
 
 @Component({
@@ -8,11 +10,90 @@ import sd from 'silly-datetime';
 })
 export class DetailPage implements OnInit {
 
-    constructor() { }
+    model = {
+        name: 'appointmentdetail',//模块实体名称
+        apiUrl: '/api/appointment-info/GetDetail',
+        infolist: {
+            mcs_customername: "",
+            mcs_customerphone: "",
+            mcs_tag: "",
+            mcs_vin: "",
+            mcs_enginennumber:"",
+            mcs_cartype: "",
+            mcs_nextmaintainat: "",
+            mcs_nextmaintainmileage: "",
+            mcs_name: "",
+            mcs_ordertype: "",
+            mcs_appointmentat: "",
+            mcs_appointmentconfigid:"",
+            mcs_status: "",
+            mcs_customercomment:"",
+            mcs_appointmendescript: "",
+            mcs_cancelreasonnew: "",
+            mcs_canceldes:""
+
+        },//列表数据
+        pageSize: 10,//页数
+        page: 1,//分页
+        sort: ''//排序的参数
+    };
+
+
+    constructor(
+        private _http: DCore_Http,
+        private _page: DCore_Page,
+        private activeRoute: ActivatedRoute
+    ) {}
 
     ngOnInit() {
+        this.activeRoute.queryParams.subscribe((data: any) => {
+            //debugger;
+            console.log(data.id);
+            this.pageOnBind(data.id);
+        });
     }
 
+    pageOnBind(id: any) {
+        this._page.loadingShow();
+        this._http.get(
+            this.model.apiUrl,
+            {
+                params: {
+                    entityid: id,
+                }
+            },
+            (res: any) => {
+                if (res !== null) {
+                    this.model.infolist.mcs_customername = res["Attributes"]["mcs_customername"];
+                    this.model.infolist.mcs_customerphone = res["Attributes"]["mcs_customerphone"];
+                    this.model.infolist.mcs_tag = res["Attributes"]["mcs_tag"];
+                    this.model.infolist.mcs_vin = res["Attributes"]["mcs_customerid"]["mcs_name"];
+                    this.model.infolist.mcs_enginennumber = res["Attributes"]["mcs_enginennumberres"];
+                    this.model.infolist.mcs_cartype = res["Attributes"]["mcs_cartype"]["mcs_name"];
+                    this.model.infolist.mcs_nextmaintainat = res["Attributes"]["mcs_nextmaintainat"];
+                    this.model.infolist.mcs_nextmaintainmileage = res["Attributes"]["mcs_nextmaintainmileage"];
+                    this.model.infolist.mcs_name = res["Attributes"]["mcs_name"];
+                    this.model.infolist.mcs_ordertype = res["Attributes"]["mcs_ordertype"];
+                    this.model.infolist.mcs_appointmentat = res["Attributes"]["mcs_appointmentat"];
+                    this.model.infolist.mcs_appointmentconfigid = res["Attributes"]["mcs_appointmentconfigid"]["mcs_name"];
+                    this.model.infolist.mcs_status = res["Attributes"]["mcs_status"];
+                    this.model.infolist.mcs_customercomment = res["Attributes"]["mcs_customercomment"];
+                    this.model.infolist.mcs_appointmendescript = res["Attributes"]["mcs_appointmendescript"];
+                    this.model.infolist.mcs_cancelreasonnew = res["Attributes"]["mcs_cancelreasonnew"];
+                    this.model.infolist.mcs_canceldes = res["Attributes"]["mcs_canceldes"];
+                    console.log(res);
+                }
+                else {
+                    this._page.alert("消息提示", "预约单加载异常");
+                }
+                this._page.loadingHide();
+            },
+            (err: any) => {
+                this._page.alert("消息提示", "数据加载异常");
+                this._page.loadingHide();
+            }
+        );
+    }
 
     FormatToDate(date) {
         if (date != null && date != undefined) {
