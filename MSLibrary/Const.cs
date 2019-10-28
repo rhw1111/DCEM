@@ -2130,6 +2130,90 @@ namespace MSLibrary
         /// </summary>
 
         public const string NotFoundMultipartStorgeInfoBySourceInfoAndID = "NotFoundMultipartStorgeInfoBySourceInfoAndID";
+
+        /// <summary>
+        /// 阿里OSS分片单一文件超出最大限制
+        /// 格式为“阿里OSS分片单一文件超出最大限制，最大限制：{0}字节，文件名称：{1}，实际大小：{2}”
+        /// {0}：OSS单一文件最大字节数
+        /// {1}：文件名称
+        /// {2}：文件实际大小
+        /// </summary>
+        public const string AliOSSMultipartExceedTotalMaxSize = "AliOSSMultipartExceedTotalMaxSize";
+        /// <summary>
+        /// 阿里OSS分片数量超出最大限制
+        /// 格式为“阿里OSS分片数量超出最大限制，最大限制：{0}，文件名称：{1}，实际分片数量：{2}”
+        /// {0}：OSS分片上传最大分片数量
+        /// {1}：文件名称
+        /// {2}：实际分片数量
+        /// </summary>
+        public const string AliOSSMultipartExceedMaxNumer = "AliOSSMultipartExceedMaxNumer";
+        /// <summary>
+        /// 阿里OSS分片每片大小超出最大限制
+        /// 格式为“阿里OSS分片每片大小超出最大限制，最大限制：{0}，文件名称：{1}，实际每片大小：{2}”
+        /// {0}：OSS分片上传每片最大大小
+        /// {1}：文件名称
+        /// {2}：实际每片大小
+        /// </summary>
+        public const string AliOSSMultipartExceedMaxPerSize = "AliOSSMultipartExceedMaxPerSize";
+        /// <summary>
+        /// 阿里OSS分片每片大小低于最小限制
+        /// 格式为“阿里OSS分片每片大小低于最小限制，最小限制：{0}，文件名称：{1}，实际每片大小：{2}”
+        /// {0}：OSS分片上传每片最小大小
+        /// {1}：文件名称
+        /// {2}：实际每片大小
+        /// </summary>
+        public const string AliOSSMultipartLessMaxPerSize = "AliOSSMultipartLessMaxPerSize";
+        /// <summary>
+        /// 阿里OSS分片存储信息明细中的数据位置不正确
+        /// 格式为“阿里OSS分片存储信息明细中的数据位置不正确，分片存储Id：{0}，分片存储明细编号：{1}，实际文件长度：{2}”
+        /// {0}：分片存储Id
+        /// {1}：分片存储明细编号
+        /// {2}：文件实际长度
+        /// </summary>
+        public const string AliOSSMultiparStorgeInfoDetailDataPositionNotCorrect = "AliOSSMultiparStorgeInfoDetailDataPositionNotCorrect";
+        /// <summary>
+        /// 阿里OSS中找不到指定名称的文件
+        /// 格式为“阿里OSS中找不到Bucket为{0}，Key为{1}的文件”
+        /// {1}：Bucket名称
+        /// {2}：文件名称
+        /// </summary>
+        public const string AliOSSNotFoundObject = "AliOSSNotFoundObject";
+        /// <summary>
+        /// 阿里OSS分片存储信息的状态不允许上传
+        /// 格式为“阿里OSS分片存储信息的状态不允许上传，分片存储Id：{0}，状态：{1}”
+        /// {0}：分片存储Id
+        /// {1}：分片存储状态
+        /// </summary>
+        public const string AliOSSMultiparStorgeInfoStatusNotAllowUpload = "AliOSSMultiparStorgeInfoStatusNotAllowUpload";
+
+        /// <summary>
+        /// 阿里OSS分片存储信息的状态不允许复制
+        /// 格式为“阿里OSS分片存储信息的状态不允许复制，分片存储Id：{0}，状态：{1}”
+        /// {0}：分片存储Id
+        /// {1}：分片存储状态
+        /// </summary>
+        public const string AliOSSMultiparStorgeInfoStatusNotAllowCopy = "AliOSSMultiparStorgeInfoStatusNotAllowCopy";
+
+        /// <summary>
+        /// 阿里OSS分片存储信息的状态不允许执行完成操作
+        /// 格式为“阿里OSS分片存储信息的状态不允许执行完成操作，分片存储Id：{0}，状态：{1}”
+        /// {0}：分片存储Id
+        /// {1}：分片存储状态 
+        /// </summary>
+        public const string AliOSSMultiparStorgeInfoStatusNotAllowComplete = "AliOSSMultiparStorgeInfoStatusNotAllowComplete";
+        /// <summary>
+        /// 阿里OSS分片存储信息不允许执行完成操作,原因为包含有未完成的明细
+        /// 格式为“阿里OSS分片存储信息不允许执行完成操作,原因为包含有未完成的明细，分片存储Id：{0}”
+        /// {0}：分片存储Id
+        /// </summary>
+        public const string AliOSSMultiparStorgeInfoNotAllowCompleteForUnDoDetail = "AliOSSMultiparStorgeInfoNotAllowCompleteForUnDoDetail";
+        /// <summary>
+        /// 存在相同名称的未完成分片存储信息
+        /// 格式为“已经存在名称为{0}的未完成分片存储信息”
+        /// {0}:分片存储名称
+        /// </summary>
+        public const string ExistRunMultipartStorgeInfoByName = "ExistRunMultipartStorgeInfoByName";
+
     }
 
 

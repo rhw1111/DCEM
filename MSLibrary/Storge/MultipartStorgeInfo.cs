@@ -8,6 +8,7 @@ namespace MSLibrary.Storge
 {
     /// <summary>
     /// 分片存储信息
+    /// status=0+Name为唯一键
     /// </summary>
     public class MultipartStorgeInfo : EntityBase<IMultipartStorgeInfoIMP>
     {
@@ -72,7 +73,21 @@ namespace MSLibrary.Storge
             }
         }
 
+        /// <summary>
+        /// 后缀名
+        /// </summary>
+        public string Suffix
+        {
+            get
+            {
 
+                return GetAttribute<string>("Suffix");
+            }
+            set
+            {
+                SetAttribute<string>("Suffix", value);
+            }
+        }
 
         /// <summary>
         /// 长度
@@ -157,6 +172,7 @@ namespace MSLibrary.Storge
         /// 状态
         /// 0：未完成
         /// 1：已完成
+        /// 2：已取消
         /// </summary>
         public int Status
         {
@@ -211,13 +227,18 @@ namespace MSLibrary.Storge
         {
             await _imp.Delete(this);
         }
-        public async Task AddDetails(long size, int startSize, long perSize, int number)
+        public async Task AddDetails(long size,int number)
         {
-            await _imp.AddDetails(this, size, startSize, perSize, number);
+            await _imp.AddDetails(this, size,number);
         }
         public async Task Complete(string extensionInfo)
         {
             await _imp.Complete(this, extensionInfo);
+        }
+
+        public async Task Cancel()
+        {
+            await _imp.Cancel(this);
         }
         public async Task CompleteDetail(Guid detailId, string extensionInfo)
         {
@@ -234,6 +255,11 @@ namespace MSLibrary.Storge
             return await _imp.GetDetails(this, page, pageSize);
         }
 
+        public async Task<List<MultipartStorgeInfoDetail>> GetDetailTop(int status, int top)
+        {
+            return await _imp.GetDetailTop(this,status, top);
+        }
+
 
     }
 
@@ -241,11 +267,13 @@ namespace MSLibrary.Storge
     {
         Task Add(MultipartStorgeInfo info);
         Task Delete(MultipartStorgeInfo info);
-        Task AddDetails(MultipartStorgeInfo info,long size,int startSize, long perSize,int number);
+        Task AddDetails(MultipartStorgeInfo info,long size,int number);
         Task Complete(MultipartStorgeInfo info, string extensionInfo);
+        Task Cancel(MultipartStorgeInfo info);
         Task CompleteDetail(MultipartStorgeInfo info,Guid detailId,string extensionInfo);
 
         Task GetDetailAll(MultipartStorgeInfo info,int status,Func<MultipartStorgeInfoDetail,Task> action);
+        Task<List<MultipartStorgeInfoDetail>> GetDetailTop(MultipartStorgeInfo info, int status, int top);
 
         Task<QueryResult<MultipartStorgeInfoDetail>> GetDetails(MultipartStorgeInfo info,int page,int pageSize);
     }

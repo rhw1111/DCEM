@@ -1008,7 +1008,51 @@ namespace MSLibrary
         /// 找不到指定源信息和Id的分片存储信息
         /// </summary>
         NotFoundMultipartStorgeInfoBySourceInfoAndID= 314726600,
+        /// <summary>
+        /// 存在相同名称的未完成分片存储信息
+        /// </summary>
+        ExistRunMultipartStorgeInfoByName = 314726601,
 
+        /// <summary>
+        /// 阿里OSS分片单一文件超出最大限制
+        /// </summary>
+        AliOSSMultipartExceedTotalMaxSize = 314726700,
+        /// <summary>
+        /// 阿里OSS分片数量超出最大限制
+        /// </summary>
+        AliOSSMultipartExceedMaxNumer = 314726701,
+        /// <summary>
+        /// 阿里OSS分片每片大小超出最大限制
+        /// </summary>
+        AliOSSMultipartExceedMaxPerSize = 314726702,
+        /// <summary>
+        ///  阿里OSS分片每片大小低于最小限制
+        /// </summary>
+        AliOSSMultipartLessMaxPerSize = 314726703,
+        /// <summary>
+        /// 阿里OSS分片存储信息明细中的数据位置不正确
+        /// </summary>
+        AliOSSMultiparStorgeInfoDetailDataPositionNotCorrect= 314726704,
+        /// <summary>
+        /// 阿里OSS分片存储信息的状态不允许上传
+        /// </summary>
+        AliOSSMultiparStorgeInfoStatusNotAllowUpload = 314726705,
+        /// <summary>
+        /// 阿里OSS分片存储信息的状态不允许执行完成操作
+        /// </summary>
+        AliOSSMultiparStorgeInfoStatusNotAllowComplete = 314726706,
+        /// <summary>
+        /// 阿里OSS分片存储信息不允许执行完成操作,原因为包含有未完成的明细
+        /// </summary>
+        AliOSSMultiparStorgeInfoNotAllowCompleteForUnDoDetail = 314726707,
+        /// <summary>
+        /// 阿里OSS分片存储信息的状态不允许上传
+        /// </summary>
+        AliOSSMultiparStorgeInfoStatusNotAllowCopy = 314726708,
+        /// <summary>
+        /// 阿里OSS中找不到指定名称的文件
+        /// </summary>
+        AliOSSNotFoundObject= 314726709,
     }
 
     /// <summary>
