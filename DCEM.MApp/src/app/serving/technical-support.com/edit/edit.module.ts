@@ -6,7 +6,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { EditPage } from './edit.page';
-import { ScSelectComponent } from '../../serving.ser/components/sc-select/sc-select.component';
 
 const routes: Routes = [
   {
@@ -22,7 +21,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  entryComponents:[ScSelectComponent],
+  entryComponents:[],
   declarations: [EditPage]
 })
 export class EditPageModule {}

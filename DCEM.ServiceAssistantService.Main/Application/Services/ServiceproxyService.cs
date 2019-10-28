@@ -40,7 +40,10 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 }
                 else if (type == 2)
                 {
-                    filter += $"<condition attribute='mcs_currenttype' operator='eq' value='20' />";
+                    filter += @$"
+        <condition attribute='statecode' operator='eq' value='0' />
+        <condition attribute='mcs_currenttype' operator='eq' value='20' />
+        <condition attribute='mcs_isdelete' operator='ne' value='1' />";
                 }
 
                 if (!string.IsNullOrEmpty(search))
@@ -48,6 +51,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
                     filter += $"<filter type='or'>";
                     filter += $"<condition attribute='mcs_carplate' operator='like' value='%{search}%' />";
                     filter += $"<condition attribute='mcs_customername' operator='like' value='%{search}%' />";
+                    filter += $"<condition attribute='mcs_name' operator='like' value='%{search}%' />";
                     filter += $"</filter>";
                 }
 
@@ -126,6 +130,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
             var serviceproxyGuid = Guid.Parse(guid);
             var serviceproxyEntity = await _crmService.Retrieve("mcs_serviceproxy", serviceproxyGuid, string.Empty, null, dicHead);
 
+            #region 环检
             var xdoc = await Task<XDocument>.Run(() =>
             {
                 var fetchXml = string.Empty;
@@ -148,9 +153,63 @@ namespace DCEM.ServiceAssistantService.Main.Application
             fetchRequest.Headers.Add("Prefer", dicHead["Prefer"]);
             var fetchResponse = await _crmService.Execute(fetchRequest);
             var serviceordercheckresultList = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            #endregion
+
+            #region 工时
+            xdoc = await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = string.Empty;
+                fetchXml = $@"
+            <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false' >
+              <entity name='mcs_serviceorderrepairitem'>
+                <order attribute='mcs_name' descending='false' />
+                <filter type='and'>
+                <condition attribute='mcs_serviceorderid' operator='eq' value='{serviceproxyGuid}' />
+                </filter>
+              </entity>
+            </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+            fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_serviceorderrepairitem",
+                FetchXml = xdoc
+            };
+            fetchRequest.Headers.Add("Prefer", dicHead["Prefer"]);
+            fetchResponse = await _crmService.Execute(fetchRequest);
+            var serviceorderrepairitemList = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            #endregion
+
+            #region 零件
+            xdoc = await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = string.Empty;
+                fetchXml = $@"
+            <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false' >
+              <entity name='mcs_serviceorderpart'>
+                <order attribute='mcs_name' descending='false' />
+                <filter type='and'>
+                <condition attribute='mcs_serviceorderid' operator='eq' value='{serviceproxyGuid}' />
+                </filter>
+              </entity>
+            </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+            fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_serviceorderpart",
+                FetchXml = xdoc
+            };
+            fetchRequest.Headers.Add("Prefer", dicHead["Prefer"]);
+            fetchResponse = await _crmService.Execute(fetchRequest);
+            var serviceorderpartList = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            #endregion
+
 
             serviceproxyQueryInfoResponse.Serviceproxy = serviceproxyEntity;
             serviceproxyQueryInfoResponse.ServiceordercheckresultList = serviceordercheckresultList.Value.Results;
+            serviceproxyQueryInfoResponse.ServiceorderrepairitemList = serviceorderrepairitemList.Value.Results;
+            serviceproxyQueryInfoResponse.ServiceorderpartList = serviceorderpartList.Value.Results;
             return serviceproxyQueryInfoResponse;
 
         }
