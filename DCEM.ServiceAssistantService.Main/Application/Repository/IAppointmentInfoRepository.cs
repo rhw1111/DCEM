@@ -22,5 +22,12 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
         /// <param name="entityid"></param>
         /// <returns></returns>
         string QueryDetail(string entityid);
+
+        /// <summary>
+        /// 预约单跟进记录
+        /// </summary>
+        /// <param name="logRequest"></param>
+        /// <returns></returns>
+        string Querylog(AppointmentInfoLogRequest logRequest);
     }
 }

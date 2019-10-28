@@ -4,6 +4,14 @@
             <ion-back-button text="返回" defaultHref="/serving/mycustomer/list"></ion-back-button>
         </ion-buttons>
         <ion-title>预约单详情</ion-title>
+        <ion-segment [(ngModel)]="tab" color="danger">
+            <ion-segment-button value="infolist">
+                <ion-label>基础信息</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="loglist">
+                <ion-label>跟进记录</ion-label>
+            </ion-segment-button>
+        </ion-segment>
     </ion-toolbar>
 </ion-header>
 
@@ -19,124 +27,140 @@
                 <ion-note>
                     姓名
                 </ion-note>
-                <h3>张三</h3>
+                <p {{infolist.mcs_customername}}></p>
             </ion-label>
         </ion-item>
         <ion-item>
             <ion-label>
                 <ion-note>
-                    证件类型
+                    手机号
                 </ion-note>
-                <h3>身份证</h3>
+                <p {{infolist.mcs_customerphone}}></p>
             </ion-label>
         </ion-item>
         <ion-item>
             <ion-label>
                 <ion-note>
-                    证件号码
+                    客户标签
                 </ion-note>
-                <h3>510215198308180418</h3>
+                <p {{infolist.mcs_tag}}></p>
             </ion-label>
         </ion-item>
         <ion-item>
             <ion-label>
-                <h3>客户标签</h3>
-            </ion-label>
-            <ion-label>
-                <h4>大气</h4>
+                <ion-note>
+                    VIN
+                </ion-note>
+                <p {{infolist.mcs_tag}}></p>
             </ion-label>
         </ion-item>
         <ion-item>
             <ion-label>
-                <h3>客户标签</h3>
-            </ion-label>
-            <ion-label>
-                <h4>大气</h4>
+                <ion-note>
+                    发动机号
+                </ion-note>
+                <p {{infolist.mcs_enginennumber}}></p>
             </ion-label>
         </ion-item>
-
-
+        <ion-item>
+            <ion-label>
+                <ion-note>
+                    车型
+                </ion-note>
+                <p {{infolist.mcs_cartype}}></p>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <ion-note>
+                    下次保养日期
+                </ion-note>
+                <p {{FormatToDate(infolist.mcs_nextmaintainat)}}></p>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <ion-note>
+                    下次保养里程
+                </ion-note>
+                <p {{infolist.mcs_nextmaintainmileage}}></p>
+            </ion-label>
+        </ion-item>
         <ion-item-divider>
             <ion-label>
-                车辆信息
+                预约信息
             </ion-label>
         </ion-item-divider>
         <ion-item>
             <ion-label>
-                <h3>姓名</h3>
-            </ion-label>
-            <ion-label>
-                <h4>张三</h4>
-            </ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-label>
-                <h3>手机号</h3>
-            </ion-label>
-            <ion-label>
-                <h4>15088888888</h4>
+                <ion-note>
+                    预约单号
+                </ion-note>
+                <p {{infolist.mcs_name}}></p>
             </ion-label>
         </ion-item>
         <ion-item>
             <ion-label>
-                <h3>证件类型</h3>
-            </ion-label>
-            <ion-label>
-                <h4>身份证件</h4>
-            </ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-label>
-                <h3>证件号码</h3>
-            </ion-label>
-            <ion-label>
-                <h4>510215198808080088</h4>
+                <ion-note>
+                    服务类型
+                </ion-note>
+                <p *ngIf="infolist.mcs_ordertype==10"> 服务类型：汽车美容</p>
+                <p *ngIf="infolist.mcs_ordertype==20"> 服务类型：钣金喷漆</p>
+                <p *ngIf="infolist.mcs_ordertype==30"> 服务类型：常规保养</p>
+                <p *ngIf="infolist.mcs_ordertype==40"> 服务类型：一般维修</p>
+                <p *ngIf="infolist.mcs_ordertype==50"> 服务类型：保修</p>
+                <p *ngIf="infolist.mcs_ordertype==60"> 服务类型：其他</p>
             </ion-label>
         </ion-item>
         <ion-item>
             <ion-label>
-                <h3>客户标签</h3>
-            </ion-label>
-            <ion-label>
-                <h4>大气</h4>
-            </ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-label>
-                <h3>客户标签</h3>
-            </ion-label>
-            <ion-label>
-                <h4>大气</h4>
-            </ion-label>
-        </ion-item>
-
-        <ion-item-divider>
-            <ion-label>
-                跟进记录
-            </ion-label>
-        </ion-item-divider>
-        <ion-item>
-            <ion-label>
-                <h3>跟进人</h3>
-            </ion-label>
-            <ion-label>
-                <h4>跟进内容</h4>
-            </ion-label>
-            <ion-label>
-                <h4>跟进时间</h4>
+                <ion-note>
+                    预约时间
+                </ion-note>
+                <p {{infolist.mcs_appointmentat}}></p>
+                <p {{infolist.mcs_appointmentconfigid}}></p>
             </ion-label>
         </ion-item>
         <ion-item>
             <ion-label>
-                <h3>张三</h3>
-            </ion-label>
-            <ion-label>
-                <h4>100</h4>
-            </ion-label>
-            <ion-label>
-                <h4>跟进时间</h4>
+                <ion-note>
+                    状态
+                </ion-note>
+                <p *ngIf="infolist.mcs_status==10">  状态：待跟进</p>
+                <p *ngIf="infolist.mcs_status==20">  状态：已跟进</p>
+                <p *ngIf="infolist.mcs_status==30">  状态：已入场</p>
+                <p *ngIf="infolist.mcs_status==50">  状态：已取消</p>
             </ion-label>
         </ion-item>
 
     </ion-list>
+
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <ion-list lines="full" *ngFor="let r of model.data">
+        <ion-item>
+            <ion-label>
+                <h2>跟进人：{{r.createdby}}</h2>
+                <p>跟进内容：{{r.mcs_remark}}</p>
+                <p>跟进时间：{{FormatToDateTime(r.createdon)}}</p>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+    <ion-row *ngIf="model.isending">
+        <ion-col class="nodata" text-center>
+            没有更多内容啦
+        </ion-col>
+    </ion-row>
+
+    <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doLoading($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button [routerLink]="['/serving/reservation/edit']">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>

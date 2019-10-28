@@ -11,6 +11,153 @@ module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot
 
 /***/ }),
 
+/***/ "./src/app/base/base.ser/Dcem.core.ts":
+/*!********************************************!*\
+  !*** ./src/app/base/base.ser/Dcem.core.ts ***!
+  \********************************************/
+/*! exports provided: DCore_Window, DCore_Config, DCore_Http, DCore_Page */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DCore_Window", function() { return DCore_Window; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DCore_Config", function() { return DCore_Config; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DCore_Http", function() { return DCore_Http; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DCore_Page", function() { return DCore_Page; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+
+
+
+let DCore_Window = class DCore_Window {
+    storageSet(key, val) {
+        window.localStorage.setItem(key, val);
+    }
+    storageGet(key) {
+        return window.localStorage.getItem(key);
+    }
+};
+DCore_Window = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Injectable"])({
+        providedIn: 'root'
+    })
+], DCore_Window);
+
+let DCore_Config = class DCore_Config {
+    constructor(_window) {
+        this._window = _window;
+        this.serverUrl = _window.storageGet("apiDomainUrl");
+    }
+    getDomain() {
+        this.serverUrl = this._window.storageGet("apiDomainUrl");
+        return this.serverUrl;
+    }
+};
+DCore_Config.ctorParameters = () => [
+    { type: DCore_Window }
+];
+DCore_Config = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Injectable"])({
+        providedIn: 'root'
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [DCore_Window])
+], DCore_Config);
+
+let DCore_Http = class DCore_Http {
+    constructor(_httpClient, _config) {
+        this._httpClient = _httpClient;
+        this._config = _config;
+    }
+    //get请求
+    get(url, params, rescallback, errcallback) {
+        console.log(this._config.getDomain() + url);
+        this._httpClient.get(this._config.getDomain() + url, params).subscribe((res) => {
+            rescallback && rescallback(res);
+        }, (err) => {
+            errcallback && errcallback(err);
+        });
+    }
+};
+DCore_Http.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] },
+    { type: DCore_Config }
+];
+DCore_Http = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Injectable"])({
+        providedIn: 'root'
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
+        DCore_Config])
+], DCore_Http);
+
+let DCore_Page = class DCore_Page {
+    constructor(alertCtr, loadingCtr, navCtr, router, activeRoute) {
+        this.alertCtr = alertCtr;
+        this.loadingCtr = loadingCtr;
+        this.navCtr = navCtr;
+        this.router = router;
+        this.activeRoute = activeRoute;
+    }
+    //弹出提示
+    alert(header, message) {
+        const alert = this.alertCtr.create({
+            header,
+            message,
+            buttons: ['确定']
+        });
+        alert.then(a => {
+            a.present();
+        });
+    }
+    //打开等待动画
+    loadingShow() {
+        if (this.loading !== null) {
+            this.loading = this.loadingCtr.create({ translucent: true });
+        }
+        this.loading.then(a => { a.present(); });
+    }
+    //关闭等待动画
+    loadingHide() {
+        if (this.loading !== null) {
+            this.loading.then(a => { a.dismiss(); });
+        }
+    }
+    //跳转到指定页
+    goto(url, params) {
+        if (params === null) {
+            params = {};
+        }
+        //this.navCtr.navigateRoot(url);
+        this.router.navigate([url], params);
+    }
+};
+DCore_Page.ctorParameters = () => [
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] }
+];
+DCore_Page = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Injectable"])({
+        providedIn: 'root'
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"],
+        _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
+        _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]])
+], DCore_Page);
+
+
+
+/***/ }),
+
 /***/ "./src/app/serving/my-customer.com/detail/detail.module.ts":
 /*!*****************************************************************!*\
   !*** ./src/app/serving/my-customer.com/detail/detail.module.ts ***!
@@ -103,8 +250,8 @@ let DetailPage = class DetailPage {
     }
 };
 DetailPage.ctorParameters = () => [
-    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["Dcem"].Core.Http },
-    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["Dcem"].Core.Page },
+    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Http"] },
+    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Page"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] }
 ];
 DetailPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -113,7 +260,9 @@ DetailPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./detail.page.html */ "./node_modules/raw-loader/index.js!./src/app/serving/my-customer.com/detail/detail.page.html"),
         styles: [__webpack_require__(/*! ./detail.page.scss */ "./src/app/serving/my-customer.com/detail/detail.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["Dcem"].Core.Http, app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["Dcem"].Core.Page, _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Http"],
+        app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Page"],
+        _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]])
 ], DetailPage);
 
 
