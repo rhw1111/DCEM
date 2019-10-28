@@ -66,9 +66,12 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         {
             try
             {
+                var dicHead = new Dictionary<string, IEnumerable<string>>();
+                dicHead.Add("Prefer", new List<string>() { "odata.include-annotations=\"*\"" });
+
                 var fetchString = _appointmentInfoRepository.QueryDetail(entityid);
                 CrmEntity entity = null;
-                entity = await _crmService.Retrieve("mcs_appointmentinfo", Guid.Parse(entityid), fetchString);
+                entity = await _crmService.Retrieve("mcs_appointmentinfo", Guid.Parse(entityid), fetchString, null, dicHead);
                 return entity;
             }
             catch (Exception ex)

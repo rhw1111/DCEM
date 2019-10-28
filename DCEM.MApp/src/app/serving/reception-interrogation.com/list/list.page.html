@@ -1,12 +1,38 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-        <ion-back-button text="返回" defaultHref="/"></ion-back-button>
-    </ion-buttons>
-    <ion-title>问诊单</ion-title>
-  </ion-toolbar>
+﻿<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/serving/home/mywork"></ion-back-button>
+        </ion-buttons>
+        <ion-title>问诊单</ion-title>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-searchbar animated [(ngModel)]="mod.searchData.search" placeholder="请输入单号\姓名\车牌号搜索"></ion-searchbar>
+        <ion-button color="primary" slot="end" size="small">
+            搜索
+        </ion-button>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    
+    <ion-list lines="full">
+        <div *ngFor="let key of objectKeys(mod.data)">
+            <ion-item-divider color="primary">
+                <ion-label>
+                    {{mod.data[key].text}}
+                </ion-label>
+            </ion-item-divider>
+            <ion-item-sliding *ngFor="let item of mod.data[key].data;let key=index">
+                <ion-item [routerLink]="['/serving/ri/detail']" [queryParams]="{id:item.Id}">
+                    <ion-label>
+                        <p>{{item.carplate}}</p>
+                        <p>{{item.customername}}</p>
+                        <p>{{item.createdon}}</p>
+                    </ion-label>
+                    <ion-note slot="end">
+                        {{item.name}}
+                    </ion-note>
+                </ion-item>
+            </ion-item-sliding>
+        </div>
+    </ion-list>
 </ion-content>

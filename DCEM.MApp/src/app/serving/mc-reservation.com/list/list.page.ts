@@ -1,9 +1,10 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from '../../../base/base.ser/http-service.service';
 import { NavController, NavParams } from '@ionic/angular';
 import { DCore_Page, DCore_Http } from 'app/base/base.ser/Dcem.core';
 import sd from 'silly-datetime';
+import { IonInfiniteScroll } from '@ionic/angular';
 
 @Component({
   selector: 'app-list',
@@ -11,6 +12,7 @@ import sd from 'silly-datetime';
   styleUrls: ['./list.page.scss'],
 })
 export class ListPage implements OnInit {
+    @ViewChild(IonInfiniteScroll, null) infiniteScroll: IonInfiniteScroll;
 
     model = {
         name: 'appointmentlistinfo',//模块实体名称
@@ -21,7 +23,8 @@ export class ListPage implements OnInit {
         pageSize: 10,//页数
         page: 1,//分页
         sort: 'mcs_appointmentinfoid desc',//排序的参数
-        isending: false//是否加载完成
+        isending: false,//是否加载完成
+        nodata: false
     };
 
     constructor(
@@ -33,13 +36,15 @@ export class ListPage implements OnInit {
 
     ngOnInit() {
         this.model.page = 1;
-        var cachedata = this.httpService.GetDataCache(this.model.name);
-        if (cachedata == "") {
-            this.showlist(null);
-        }
-        else {
-            this.model.data = JSON.parse(cachedata);
-        }
+        //先不加缓存
+        this.showlist(null);
+        //var cachedata = this.httpService.GetDataCache(this.model.name);
+        //if (cachedata == "") {
+        //    this.showlist(null);
+        //}
+        //else {
+        //    this.model.data = JSON.parse(cachedata);
+        //}
     }
 
     //搜索方法
@@ -66,6 +71,7 @@ export class ListPage implements OnInit {
     }
     //切换tab
     selectTab(status) {
+        this.infiniteScroll.disabled = false;//切换标签初始化下拉控件事件
         this.model.data = [];
         this.model.page = 1;
         this.model.isending = false;
@@ -92,10 +98,7 @@ export class ListPage implements OnInit {
                 }
             },
             (res: any) => {
-                event ? event.target.complete() : '';
                 if (res.Results !== null) {
-                    //this.model.data = [];
-                    //console.log('get res=' + res.data);
                     for (var key in res.Results) {
                         var obj = {};
                         obj["mcs_appointmentinfoid"] = res.Results[key]["Id"];
@@ -110,25 +113,20 @@ export class ListPage implements OnInit {
                     if (this.model.page == 1) {
                         this.httpService.SetDataCache(this.model.name, JSON.stringify(this.model.data).toString());
                     }
-
                     event ? event.target.complete() : '';
                     //判断是否有新数据
-                    if (res.Results.length < 2) {
+                    if (res.Results.length < 10) {
                         event ? event.target.disabled = true : "";
                         this.model.isending = true;
                     }
-                    else {
-                        this.model.isending = false;
-                    }
-                    this._page.loadingHide();
                 }
                 else {
-                    this._page.alert("消息提示", "客户数据加载异常");
-                    this._page.loadingHide();
+                    this._page.alert("消息提示", "预约单数据加载异常");
                 }
+                this._page.loadingHide();
             },
             (err: any) => {
-                this._page.alert("消息提示", "客户数据加载异常");
+                this._page.alert("消息提示", "预约单数据加载异常");
                 this._page.loadingHide();
             }
         );

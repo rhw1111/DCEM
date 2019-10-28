@@ -37,17 +37,16 @@ export class DetailPage implements OnInit {
         private _page: DCore_Page,
         private activeRoute: ActivatedRoute
     ) {
+
+    }
+
+    ngOnInit() {
         this.activeRoute.queryParams.subscribe((params: Params) => {
             if (params['id'] != null && params['id'] != undefined) {
                 // this._page.alert("消息提示", params['id']);
                 this.pageOnBind(params['id']);
             }
         });
-
-    }
-
-    ngOnInit() {
-
     }
 
 
@@ -87,7 +86,7 @@ export class DetailPage implements OnInit {
 
                     }
                 }
-                if(res.TagList != null) {
+                if (res.TagList != null) {
 
                     for (var key in res.TagList) {
                         var obj = {};

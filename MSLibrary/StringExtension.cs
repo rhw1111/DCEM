@@ -16,13 +16,13 @@ namespace MSLibrary
         public static string ToFormat(this string str)
         {
             Regex regex = new Regex(@"\{(?!\d+})");
-            
+
             str = regex.Replace(str, "{{");
 
             regex = new Regex(@"(?<!\{\d+)}");
 
             str = regex.Replace(str, "}}");
-            
+
             return str;
         }
 
@@ -212,7 +212,7 @@ namespace MSLibrary
         /// <returns></returns>
         public static string ToSqlLike(this string text)
         {
-            return text.Replace("[", "[[]").Replace("_","[_]").Replace("%","[%]").Replace("^","[^]");
+            return text.Replace("[", "[[]").Replace("_", "[_]").Replace("%", "[%]").Replace("^", "[^]");
         }
 
 
@@ -234,10 +234,10 @@ namespace MSLibrary
         public static int ToInt(this string content)
         {
             int result = 0;
-            for(int index=0; index<=content.Length-1;index++)
+            for (int index = 0; index <= content.Length - 1; index++)
             {
                 result += Convert.ToInt32(content[index]);
-                
+
             }
 
             return result;
@@ -253,7 +253,7 @@ namespace MSLibrary
 
             if (word.ToLower()[word.Length - 1] == 'y')
             {
-                word.Remove(word.Length - 1, 1);
+                word = word.Remove(word.Length - 1, 1);
                 word = $"{word}ies";
             }
             else if (word.ToLower()[word.Length - 1] == 's')
