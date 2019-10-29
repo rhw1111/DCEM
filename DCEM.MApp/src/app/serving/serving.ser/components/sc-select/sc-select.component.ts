@@ -21,7 +21,7 @@ export class ScSelectComponent implements OnInit {
 
   }
 
-  search(){
+  search(event){
     // this._page.loadingShow();
     //     this.mod.data = [];
     //     this._http.get(
