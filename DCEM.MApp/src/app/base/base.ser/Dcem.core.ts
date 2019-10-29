@@ -119,18 +119,25 @@ export class DCore_Page {
 }
 
 
-//共享参数
+//共享对象
 @Injectable({
     providedIn: 'root'
 })
 
 export class DCore_ShareData {
-    public param: any;
-    set(key, param) {
-        this.param[key] = param;
+    public map: Map<string, any>
+    constructor(
+    ) {
+        this.map = new Map<string, any>();
     }
-    get(key) {
-        return this.param[key];
+    set(key: string, val: any) {
+        this.map.set(key, val);
+    }
+    get(key: string) {
+        return this.map.get(key);
+    }
+    delete(key) {
+        return this.map.delete(key);
     }
 }
 

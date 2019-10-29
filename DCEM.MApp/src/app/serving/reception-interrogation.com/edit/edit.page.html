@@ -16,15 +16,15 @@
         </ion-item-divider>
         <ion-item (click)="customerOnClick()">
             <ion-label position="stacked">姓名<ion-text color="danger">*</ion-text></ion-label>
-            <ion-input required type="text" [(ngModel)]="mod.data.vehowner.fullname"></ion-input>
+            <p>{{shareData.serviceproxy["fullname"]}}&nbsp;</p>
         </ion-item>
-        <ion-item>
+        <ion-item (click)="customerOnClick()">
             <ion-label position="stacked">车牌<ion-text color="danger">*</ion-text></ion-label>
-            <ion-input required type="text" [(ngModel)]="mod.data.vehowner.vehplate"></ion-input>
+            <p>{{shareData.serviceproxy["vehplate"]}}&nbsp;</p>
         </ion-item>
-        <ion-item>
+        <ion-item (click)="customerOnClick()">
             <ion-label position="stacked">手机<ion-text color="danger">*</ion-text></ion-label>
-            <ion-input required type="text" [(ngModel)]="mod.data.vehowner.mobilephone"></ion-input>
+            <p>{{shareData.serviceproxy["mobilephone"]}}&nbsp;</p>
         </ion-item>
         <ion-item-divider color="primary">
             <ion-label>
@@ -70,7 +70,7 @@
         </ion-item>
     </ion-list>
     <section style="text-align:center;">
-        <ion-button  style="width:40%" color="danger" [routerLink]="['/serving/ri/edit2']">下一步</ion-button>
+        <ion-button style="width:40%" color="danger" [routerLink]="['/serving/ri/edit2']">下一步</ion-button>
     </section>
     <br />
     <br />

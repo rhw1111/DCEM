@@ -14,13 +14,18 @@ namespace DCEM.ServiceAssistantService.Main.Application
     {
         #region 初始化 构造函数
         private ICrmService _crmService;
+        private string dicHeadKey;
+        private Dictionary<string, IEnumerable<string>> dicHead;
         public ServiceproxyService(ICrmService crmService)
         {
             _crmService = crmService;
+            dicHeadKey = "Prefer";
+            dicHead = new Dictionary<string, IEnumerable<string>>();
+            dicHead.Add(dicHeadKey, new List<string>() { "odata.include-annotations=\"*\"" });
         }
         #endregion
 
-        #region 获取列表
+        #region 获取服务委托书 问诊单 列表
 
         #region filter组装
         public async Task<string> GetQueryListFilter(int type, string search)
@@ -91,10 +96,6 @@ namespace DCEM.ServiceAssistantService.Main.Application
         /// <returns></returns>
         public async Task<QueryResult<CrmEntity>> QueryList(int type, int pageindex, string search)
         {
-            #region 组装head
-            var dicHead = new Dictionary<string, IEnumerable<string>>();
-            dicHead.Add("Prefer", new List<string>() { "odata.include-annotations=\"*\"" });
-            #endregion
 
             #region 获取记录结果集
             var filter = await GetQueryListFilter(type, search);
@@ -104,7 +105,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 EntityName = "mcs_serviceproxy",
                 FetchXml = fetchXdoc
             };
-            fetchRequest.Headers.Add("Prefer", dicHead["Prefer"]);
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
             var fetchResponse = await _crmService.Execute(fetchRequest);
             var resultsList = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
             #endregion;
@@ -123,9 +124,6 @@ namespace DCEM.ServiceAssistantService.Main.Application
         #region 获取详情
         public async Task<ServiceproxyQueryInfoResponse> QueryInfo(string guid)
         {
-            var dicHead = new Dictionary<string, IEnumerable<string>>();
-            dicHead.Add("Prefer", new List<string>() { "odata.include-annotations=\"*\"" });
-
             var serviceproxyQueryInfoResponse = new ServiceproxyQueryInfoResponse();
             var serviceproxyGuid = Guid.Parse(guid);
             var serviceproxyEntity = await _crmService.Retrieve("mcs_serviceproxy", serviceproxyGuid, string.Empty, null, dicHead);
@@ -150,7 +148,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 EntityName = "mcs_serviceordercheckresult",
                 FetchXml = xdoc
             };
-            fetchRequest.Headers.Add("Prefer", dicHead["Prefer"]);
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
             var fetchResponse = await _crmService.Execute(fetchRequest);
             var serviceordercheckresultList = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
             #endregion
@@ -175,7 +173,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 EntityName = "mcs_serviceorderrepairitem",
                 FetchXml = xdoc
             };
-            fetchRequest.Headers.Add("Prefer", dicHead["Prefer"]);
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
             fetchResponse = await _crmService.Execute(fetchRequest);
             var serviceorderrepairitemList = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
             #endregion
@@ -200,7 +198,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 EntityName = "mcs_serviceorderpart",
                 FetchXml = xdoc
             };
-            fetchRequest.Headers.Add("Prefer", dicHead["Prefer"]);
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
             fetchResponse = await _crmService.Execute(fetchRequest);
             var serviceorderpartList = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
             #endregion
@@ -212,6 +210,17 @@ namespace DCEM.ServiceAssistantService.Main.Application
             serviceproxyQueryInfoResponse.ServiceorderpartList = serviceorderpartList.Value.Results;
             return serviceproxyQueryInfoResponse;
 
+        }
+
+        #endregion
+
+        #region 查询所有环检项 配置信息
+        public async Task<QueryResult<CrmEntity>> QueryVehcheckresultList()
+        {
+            var queryResult = new QueryResult<CrmEntity>();
+            var result = await _crmService.RetrieveMultiple("mcs_vehcheckresult", string.Empty, null, dicHead);
+            queryResult.Results = result.Results;
+            return queryResult;
         }
         #endregion
 

@@ -14,24 +14,12 @@ export class EditPage implements OnInit {
     mod = {
         apiUrl: '/Api/Customer/GetCustomerInfo',
         data: {
-            vehowner: {
-                id: "",
-                fullname: "",
-                vehplate: "",
-                mobilephone: ""
-            },
-            customerfollowuplogArray: [],
-            tagArray: []
         }
     };
 
     //定义共享数据
-    public shareData = {
-        vehowner: {
-            id: "",
-            fullname: "",
-            vehplate: "",
-            mobilephone: ""
+    shareData = {
+        serviceproxy: {
         },
     }
 
@@ -52,10 +40,10 @@ export class EditPage implements OnInit {
         console.log(data);
         if (data != null && typeof data != "undefined") {
             if (data.vehowne != null && typeof data.vehowne != "undefined") {
-                this.mod.data.vehowner.id = data.vehowne.id;
-                this.mod.data.vehowner.fullname = data.vehowne.fullname;
-                this.mod.data.vehowner.vehplate = data.vehowne.vehplate;
-                this.mod.data.vehowner.mobilephone = data.vehowne.mobilephone;
+                this.shareData.serviceproxy["id"] = data.vehowne.id;
+                this.shareData.serviceproxy["fullname"] = data.vehowne.fullname;
+                this.shareData.serviceproxy["vehplate"] = data.vehowne.vehplate;
+                this.shareData.serviceproxy["mobilephone"] = data.vehowne.mobilephone;
             }
         }
     }
