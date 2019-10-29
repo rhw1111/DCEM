@@ -14,6 +14,11 @@ namespace DCEM.ServiceAssistantService.Main.Application
         Task<ServiceproxyQueryInfoResponse> QueryInfo(string guid);
         #endregion
 
+        #region 查询环检项 配置信息
+        Task<QueryResult<CrmEntity>> QueryVehcheckresultList();
+        #endregion
+        
+
 
     }
 }

@@ -1,45 +1,43 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
-    selector: 'app-list',
-    templateUrl: './list.page.html',
-    styleUrls: ['./list.page.scss'],
+    selector: 'app-select-customer',
+    templateUrl: './select-customer.component.html',
+    styleUrls: ['./select-customer.component.scss'],
 })
-export class ListPage implements OnInit {
+export class SelectCustomerComponent implements OnInit {
 
     mod = {
         apiUrl: '',
         data: [],
         searchData: {
-            type: 1,
             pageindex: 1,
             search: ""
         },
-        allTotalCount:0,
-        warrantyTotalCount:0,
-        insuranceTotalCount:0
     };
-
     constructor(
         private _http: DCore_Http,
-        private _page: DCore_Page
+        private _page: DCore_Page,
+        private _modalCtrl: ModalController
     ) {
-        this.mod.apiUrl = "/Api/Customer/GetMyCustomerList";
+        this.mod.apiUrl = "/Api/Vehowner/GetList";
     }
 
     ngOnInit() {
         this.listOnBind();
     }
 
-    tagOnClick(type) {
-        this.mod.searchData.type = type;
-        this.mod.searchData.pageindex = 1;
-        this.listOnBind();
+    itemClick(item: any) {
+        this._modalCtrl.dismiss({
+            vehowne: item
+        });
     }
 
-    searchOnClick() {
-        this.listOnBind();
+    dismissModal() {
+        this._modalCtrl.dismiss({
+        });
     }
 
     searchOnKeyup(event: any) {
@@ -56,32 +54,25 @@ export class ListPage implements OnInit {
             this.mod.apiUrl,
             {
                 params: {
-                    type: this.mod.searchData.type,
                     pageindex: this.mod.searchData.pageindex,
                     search: this.mod.searchData.search
                 }
             },
             (res: any) => {
                 if (res.Results !== null) {
-             
+
                     for (var key in res.Results) {
                         var obj = {};
-                        obj["Id"] = res.Results[key]["Id"];
-                        obj["fullname"] = res.Results[key]["Attributes"]["a_x002e_mcs_fullname"];
-                        obj["gender"] = res.Results[key]["Attributes"]["a_x002e_mcs_gender@OData.Community.Display.V1.FormattedValue"];
-                        obj["genderval"] = res.Results[key]["Attributes"]["a_x002e_mcs_gender"];
-                        obj["mobilephone"] = res.Results[key]["Attributes"]["a_x002e_mcs_mobilephone"];
-                        obj["vehplate"] = res.Results[key]["Attributes"]["a_x002e_mcs_vehplate"];
-                        obj["vehtype"] = res.Results[key]["Attributes"]["a_x002e_mcs_vehtype@OData.Community.Display.V1.FormattedValue"];
 
+                        obj["Id"] = res.Results[key]["Id"];
+                        obj["fullname"] = res.Results[key]["Attributes"]["mcs_fullname"];
+                        obj["gender"] = res.Results[key]["Attributes"]["mcs_gender@OData.Community.Display.V1.FormattedValue"];
+                        obj["genderval"] = res.Results[key]["Attributes"]["mcs_gender"];
+                        obj["mobilephone"] = res.Results[key]["Attributes"]["mcs_mobilephone"];
+                        obj["vehplate"] = res.Results[key]["Attributes"]["mcs_vehplate"];
+                        obj["vehtype"] = res.Results[key]["Attributes"]["_mcs_vehtype@OData.Community.Display.V1.FormattedValue"];
                         this.mod.data.push(obj);
                     }
-
-                    this.mod.allTotalCount = res.ALLTotalCount;
-                    this.mod.warrantyTotalCount = res.WarrantyTotalCount;
-                    this.mod.insuranceTotalCount = res.InsuranceTotalCount;
-
-
                     this._page.loadingHide();
                 }
                 else {
@@ -94,6 +85,6 @@ export class ListPage implements OnInit {
                 this._page.loadingHide();
             }
         );
-    }
 
+    }
 }

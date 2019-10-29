@@ -119,3 +119,26 @@ export class DCore_Page {
 }
 
 
+//共享对象
+@Injectable({
+    providedIn: 'root'
+})
+
+export class DCore_ShareData {
+    public map: Map<string, any>
+    constructor(
+    ) {
+        this.map = new Map<string, any>();
+    }
+    set(key: string, val: any) {
+        this.map.set(key, val);
+    }
+    get(key: string) {
+        return this.map.get(key);
+    }
+    delete(key) {
+        return this.map.delete(key);
+    }
+}
+
+

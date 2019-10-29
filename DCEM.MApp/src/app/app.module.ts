@@ -12,12 +12,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 //自定义组件
 import { ScSelectComponent } from './serving/serving.ser/components/sc-select/sc-select.component';
-import { FormsModule ,ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
-    declarations: [AppComponent,ScSelectComponent],//申明组件
+    declarations: [AppComponent, ScSelectComponent],//申明组件
     entryComponents: [ScSelectComponent],
     imports: [BrowserModule,
-        IonicModule.forRoot(),
+        IonicModule.forRoot({ mode: 'ios' }),
         AppRoutingModule,
         HttpClientModule,
         IonicStorageModule.forRoot(),

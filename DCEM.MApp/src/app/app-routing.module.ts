@@ -66,7 +66,9 @@ const routes: Routes = [
                 children: [
                     { path: 'list', loadChildren: './serving/reception-interrogation.com/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './serving/reception-interrogation.com/detail/detail.module#DetailPageModule' },
-                    { path: 'edit', loadChildren: './serving/reception-interrogation.com/edit/edit.module#EditPageModule' }
+                    { path: 'edit', loadChildren: './serving/reception-interrogation.com/edit/edit.module#EditPageModule' },
+                    { path: 'edit2', loadChildren: './serving/reception-interrogation.com/edit2/edit2.module#Edit2PageModule' },
+                    { path: 'success', loadChildren: './serving/reception-interrogation.com/success/success.module#SuccessPageModule' }
                 ]
             },
             {
@@ -79,6 +81,8 @@ const routes: Routes = [
             },
         ],
     }
+
+
 ];
 
 @NgModule({
