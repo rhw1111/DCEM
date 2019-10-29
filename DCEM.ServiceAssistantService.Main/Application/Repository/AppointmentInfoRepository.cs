@@ -106,5 +106,50 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
 
             return fetchString;
         }
+
+        /// <summary>
+        /// 预约时段配置
+        /// </summary>
+        /// <param name="appointmentConfiggRequest"></param>
+        /// <returns></returns>
+        public string GetConfig(AppointmentConfiggRequest configgRequest)
+        {
+            var filter = string.Empty;
+            if (configgRequest.mcs_dealerid != Guid.Empty)
+            {
+                filter += $"<condition attribute='mcs_dealerid' operator='eq' value='{configgRequest.mcs_dealerid}' />";
+            }
+            if (configgRequest.mcs_servetype != null)
+            {
+                filter += $"<condition attribute='mcs_servetype' operator='eq' value='{configgRequest.mcs_servetype}' />";
+            }
+            if (configgRequest.mcs_servedate != null)
+            {
+                filter += $"<condition attribute='mcs_servedate' operator='on' value='{configgRequest.mcs_servedate}' />";
+            }
+            var fetchString = $@"<fetch version='1.0' count='{configgRequest.pageSize}' page='{configgRequest.page}' output-format='xml-platform' mapping='logical' distinct='false'>
+                                 <entity name='mcs_appointmentconfig'>
+                                <attribute name='mcs_name' />
+                                <attribute name='createdon' />
+                                <attribute name='mcs_servetype' />
+                                <attribute name='mcs_maxcapacity' />
+                                <attribute name='mcs_servedate' />
+                                <attribute name='mcs_starttimeframe' />
+                                <attribute name='mcs_endtimeframe' />
+                                <attribute name='mcs_alreadynum' />
+                                <attribute name='mcs_arrivenum' />
+                                <attribute name='mcs_dealerid' />
+                                <attribute name='mcs_surplusnum' />
+                                <attribute name='mcs_appointmentconfigid' />
+                                <order attribute='mcs_name' descending='true' />
+                                <filter type='and'>
+                                  <condition attribute='statecode' operator='eq' value='0' />
+                                  {filter}
+                                </filter>
+                              </entity>
+                            </fetch>";
+
+            return fetchString;
+        }
     }
 }

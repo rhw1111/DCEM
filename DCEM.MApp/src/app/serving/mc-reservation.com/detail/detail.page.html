@@ -171,9 +171,9 @@
     </div>
     <div *ngSwitchCase="'loglist'">
         <!--<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-            <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中...">
-            </ion-refresher-content>
-        </ion-refresher>-->
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中...">
+        </ion-refresher-content>
+    </ion-refresher>-->
         <ion-list lines="full" *ngFor="let r of model.datalist">
             <ion-item>
                 <ion-label>
@@ -183,8 +183,12 @@
                 </ion-label>
             </ion-item>
         </ion-list>
-
-        </div>
+        <ion-row *ngIf="model.isending">
+            <ion-col class="nodata" text-center>
+                没有更多跟进
+            </ion-col>
+        </ion-row>
+    </div>
     </div>
         <ion-fab vertical="bottom" horizontal="end" slot="fixed">
             <ion-fab-button [routerLink]="['/serving/reservation/edit']">

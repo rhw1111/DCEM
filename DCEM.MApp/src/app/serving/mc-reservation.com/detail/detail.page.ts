@@ -38,7 +38,8 @@ export class DetailPage implements OnInit {
         datalist: [],
         pageSize: 10,//页数
         page: 1,//分页
-        sort: ''//排序的参数
+        sort: '',//排序的参数
+        isending: false,//是否加载完成
     };
 
     constructor(
@@ -114,15 +115,20 @@ export class DetailPage implements OnInit {
             },
             (res: any) => {
                 //debugger;
-                if (res.Results !== null) {
-                    for (var key in res.Results) {
-                        var obj = {};
-                        obj["createdby"] = res.Results[key]["Attributes"]["systemuser_x002e_fullname"];
-                        obj["mcs_remark"] = res.Results[key]["Attributes"]["mcs_remark"];
-                        obj["createdon"] = res.Results[key]["Attributes"]["createdon"];
-                        this.model.datalist.push(obj);
+                if (res !== null) {
+                    if (res.Results !== null) {
+                        for (var key in res.Results) {
+                            var obj = {};
+                            obj["createdby"] = res.Results[key]["Attributes"]["systemuser_x002e_fullname"];
+                            obj["mcs_remark"] = res.Results[key]["Attributes"]["mcs_remark"];
+                            obj["createdon"] = res.Results[key]["Attributes"]["createdon"];
+                            this.model.datalist.push(obj);
+                        }
+                        //console.log(res);
+                    }  //判断是否有新数据
+                    if (res.Results.length == 0) {
+                        this.model.isending = true;
                     }
-                    //console.log(res);
                 }
                 else {
                     this._page.alert("消息提示", "预约跟进记录加载异常");

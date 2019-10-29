@@ -28,5 +28,12 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         /// <param name="appointmentInfoLogRequest"></param>
         /// <returns></returns>
         Task<QueryResult<CrmEntity>> GetLog(AppointmentInfoLogRequest appointmentInfoLogRequest);
+       
+        /// <summary>
+        /// 获取预约时段
+        /// </summary>
+        /// <param name="appointmentConfiggRequest"></param>
+        /// <returns></returns>
+        Task<QueryResult<CrmEntity>> GetConfig(AppointmentConfiggRequest appointmentConfiggRequest);
     }
 }
