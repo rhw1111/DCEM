@@ -1,0 +1,56 @@
+<ion-header translucent>
+        <ion-toolbar>
+          <ion-title>选择服务委托书</ion-title>
+          <ion-buttons slot="end">
+            <ion-button expand="block" (click)="dismissModal()">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+        <ion-toolbar>
+          <ion-searchbar [(ngModel)]="seachkey" placeholder="支持名称\ID\编号查找" (keyup)="search($event)" ></ion-searchbar>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content fullscreen>
+        <ion-list>
+            <ion-radio-group [(ngModel)]="selectItemValue">
+                <ion-list-header>
+                    <ion-label>服务委托书</ion-label>
+                </ion-list-header>
+                <ion-item>
+                    <ion-avatar slot="start">
+                       <ion-icon color="primary" name="hourglass" size="large"></ion-icon>
+                    </ion-avatar>
+                    <ion-label>委托书1</ion-label>
+                    <ion-radio slot="end" value="123123:委托书1" checked></ion-radio>
+                </ion-item>
+                <ion-item>
+                        <ion-avatar slot="start">
+                           <ion-icon color="primary" name="hourglass" size="large"></ion-icon>
+                        </ion-avatar>
+                        <ion-label>委托书2</ion-label>
+                        <ion-radio slot="end" value="2:委托书2"></ion-radio>
+                    </ion-item>
+            </ion-radio-group>
+           
+            <!-- <ion-item>
+                <ion-avatar slot="start">
+        
+                </ion-avatar>
+                <ion-label>
+                    <h2>委托书1</h2>
+                    <p>Sneaky little hobbitses!</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-avatar slot="start">
+        
+                </ion-avatar>
+                <ion-label>
+                    <h2>委托书1</h2>
+                    <p>Sneaky little hobbitses!</p>
+                </ion-label>
+            </ion-item>
+            -->
+            <ion-button  expand="block" type="button"  (click)="selectSave()">保存</ion-button>
+        </ion-list>
+        
+      </ion-content>

@@ -1,8 +1,9 @@
 import * as tslib_1 from "tslib";
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { HttpService } from '../../../base/base.ser/http-service.service';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import sd from 'silly-datetime';
+import { IonInfiniteScroll } from '@ionic/angular';
 let ListPage = class ListPage {
     constructor(_http, _page, httpService) {
         this._http = _http;
@@ -17,19 +18,18 @@ let ListPage = class ListPage {
             pageSize: 10,
             page: 1,
             sort: 'mcs_supportorderid desc',
-            isending: false,
-            nodata: false
+            isending: false //是否加载完成
         };
     }
     ngOnInit() {
         this.model.page = 1;
-        var cachedata = this.httpService.GetDataCache(this.model.name);
-        if (cachedata == "") {
-            this.getList(null);
-        }
-        else {
-            this.model.data = JSON.parse(cachedata);
-        }
+        this.getList(null);
+        // var cachedata = this.httpService.GetDataCache(this.model.name);
+        // if (cachedata == "") {
+        // }
+        // else {
+        //     this.model.data = JSON.parse(cachedata);
+        // }
     }
     //搜索方法
     search(event) {
@@ -55,6 +55,7 @@ let ListPage = class ListPage {
     }
     //切换tab
     selectTab(status) {
+        this.infiniteScroll.disabled = false; //切换标签初始化下拉控件事件
         this.model.data = [];
         this.model.page = 1;
         this.model.isending = false;
@@ -96,22 +97,15 @@ let ListPage = class ListPage {
                 }
                 event ? event.target.complete() : '';
                 //判断是否有新数据
-                if (res.Results.length < 2) {
+                if (res.Results.length < 10) {
                     event ? event.target.disabled = true : "";
                     this.model.isending = true;
-                }
-                this._page.loadingHide();
-                if (this.model.data.length == 0) {
-                    this.model.nodata = true;
-                }
-                else {
-                    this.model.nodata = false;
                 }
             }
             else {
                 this._page.alert("消息提示", "数据加载异常");
-                this._page.loadingHide();
             }
+            this._page.loadingHide();
         }, (err) => {
             this._page.alert("消息提示", "数据加载异常");
             this._page.loadingHide();
@@ -134,6 +128,10 @@ let ListPage = class ListPage {
         }
     }
 };
+tslib_1.__decorate([
+    ViewChild(IonInfiniteScroll, null),
+    tslib_1.__metadata("design:type", IonInfiniteScroll)
+], ListPage.prototype, "infiniteScroll", void 0);
 ListPage = tslib_1.__decorate([
     Component({
         selector: 'app-list',

@@ -104,7 +104,7 @@ namespace MSLibrary.Storge
         /// <summary>
         /// 状态
         /// 0：未完成
-        /// 2：已完成
+        /// 1：已完成
         /// </summary>
         public int Status
         {

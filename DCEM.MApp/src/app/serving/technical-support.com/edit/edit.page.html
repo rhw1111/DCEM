@@ -20,11 +20,22 @@
           <ion-input></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">
-            <ion-text color="danger">*</ion-text>服务委托书
+          <ion-label>
+            <ion-text color="danger">*</ion-text>服务委托书: {{model.mcname}}
           </ion-label>
-          <ion-button expand="block" (click)="presentModal()">Show Modal</ion-button>
+          <ion-avatar slot="end">
+              <ion-icon color="primary" size="large" name="search" (click)="presentModal()"></ion-icon>
+          </ion-avatar>
         </ion-item>
+        <!-- <ion-item>
+            <ion-button expand="block" (click)="presentModal()">选择服务委托书</ion-button>
+        </ion-item> -->
+        <ion-item>
+            <ion-label position="floating">
+              <ion-text color="danger">*</ion-text>服务顾问
+            </ion-label>
+            <ion-input></ion-input>
+          </ion-item>
         <ion-item>
           <ion-label position="floating">
             <ion-text color="danger">*</ion-text>技术主管
@@ -35,19 +46,16 @@
           <ion-label position="floating">
             <ion-text color="danger">*</ion-text>维修时间
           </ion-label>
-          <ion-input></ion-input>
+          <ion-datetime displayFormat="YYYY-MM-DD HH:mm" min="1997" max="2010" value=""></ion-datetime>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">
-            <ion-text color="danger">*</ion-text>邮箱
-          </ion-label>
-          <ion-input></ion-input>
+          <ion-label><ion-icon name="mail" size="large"></ion-icon></ion-label>
+          <ion-input type="email" placeholder="请输入邮箱" maxlength="30" style="text-align:right;" (ionBlur)="changeEmail(model.email)"
+          [(ngModel)]="model.email" required></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">
-            <ion-text color="danger">*</ion-text>电话
-          </ion-label>
-          <ion-input></ion-input>
+          <ion-label><ion-icon name="phone-portrait" size="large"></ion-icon></ion-label>
+          <ion-input type="tel" placeholder="请输入手机号" maxlength="11" minlength="11" style="text-align:right;" (ionBlur)="changePhone(model.phone)" [(ngModel)]="model.phone" required onkeyup="this.value=this.value.replace(/\D/g,'')"></ion-input>
         </ion-item>
       </ion-item-group>
     
@@ -56,30 +64,92 @@
           <ion-label>车辆信息</ion-label>
         </ion-item-divider>
         <ion-item>
-          <ion-label position="floating">
-            <ion-text color="danger">*</ion-text>日期
+          <ion-label>
+            <ion-text color="danger">*</ion-text>车主姓名：{{model.mcname}}
           </ion-label>
-          <ion-input></ion-input>
+          <ion-avatar slot="end">
+            <ion-icon color="primary" size="large" name="search" (click)="presentModal()"></ion-icon>
+          </ion-avatar>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">
-            <ion-text color="danger">*</ion-text>日期
-          </ion-label>
-          <ion-input></ion-input>
+          <ion-label>车主手机</ion-label>
+          <ion-note slot="end">18027302264</ion-note>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">
-            <ion-text color="danger">*</ion-text>日期
-          </ion-label>
-          <ion-input></ion-input>
+          <ion-label>车牌号</ion-label>
+          <ion-note slot="end">渝A100211</ion-note>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">
-            <ion-text color="danger">*</ion-text>日期
-          </ion-label>
-          <ion-input></ion-input>
+          <ion-label>VIN</ion-label>
+          <ion-note slot="end">VIN1283123123213</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>发动机号</ion-label>
+          <ion-note slot="end">G23212</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>里程数</ion-label>
+          <ion-note slot="end">1000</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>电机型号</ion-label>
+          <ion-note slot="end">D12-12</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>电池序列号</ion-label>
+          <ion-note slot="end">2323231232</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>是否加装</ion-label>
+          <ion-toggle slot="end" color="secondary"></ion-toggle>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">加装描述</ion-label>
+          <ion-textarea rows="6" cols="20" placeholder="请输入加装描述信息"></ion-textarea>
         </ion-item>
       </ion-item-group>
+      <ion-item-group>
+        <ion-item-divider>
+          <ion-label>故障信息</ion-label>
+        </ion-item-divider>
+        <ion-item>
+            <ion-label>技术系统</ion-label>
+            <ion-select value="model.mcs_techsystem" okText="确认" cancelText="取消">
+              <ion-select-option value="10">车身</ion-select-option>
+              <ion-select-option value="20">底盘</ion-select-option>
+              <ion-select-option value="30">电器</ion-select-option>
+              <ion-select-option value="40">三电</ion-select-option>
+            </ion-select>
+          </ion-item>
+        <ion-item>
+            <ion-label>故障类别代码: {{model.mcname}}</ion-label>
+            <ion-avatar slot="end">
+                <ion-icon color="primary" size="large" name="search" (click)="presentModal()"></ion-icon>
+            </ion-avatar>
+          </ion-item>
+      </ion-item-group>
+      <ion-item-group>
+        <ion-item-divider>
+          <ion-label>其他</ion-label>
+        </ion-item-divider>
+        <ion-item>
+          <ion-label position="floating">技术疑问</ion-label>
+          <ion-textarea></ion-textarea>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">检测诊断描述</ion-label>
+          <ion-textarea></ion-textarea>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">已更换零件</ion-label>
+          <ion-textarea></ion-textarea>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">具体故障现象</ion-label>
+          <ion-textarea></ion-textarea>
+        </ion-item>
+      </ion-item-group>
+      <ion-button  expand="block" type="button"  (click)="save()">保存</ion-button>
     </ion-list>
   </ion-content>
   
