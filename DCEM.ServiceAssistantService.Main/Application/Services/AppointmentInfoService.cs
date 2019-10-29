@@ -80,7 +80,11 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
             }
         }
 
-
+        /// <summary>
+        /// 获取预约跟进记录
+        /// </summary>
+        /// <param name="logRequest"></param>
+        /// <returns></returns>
         public async Task<QueryResult<CrmEntity>> GetLog(AppointmentInfoLogRequest logRequest)
         {
             try
@@ -100,6 +104,39 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
                 queryResult.Results = fetchResponseResult.Value.Results;
                 queryResult.CurrentPage = logRequest.page;
                 queryResult.TotalCount = 0;
+                return queryResult;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 获取预约时段配置记录
+        /// </summary>
+        /// <param name="appointmentConfiggRequest"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> GetConfig(AppointmentConfiggRequest appointmentConfiggRequest)
+        {
+            try
+            {
+                var fetchString = _appointmentInfoRepository.GetConfig(appointmentConfiggRequest);
+
+                var fetchXdoc = XDocument.Parse(fetchString);
+                var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "mcs_appointmentconfig",
+                    FetchXml = fetchXdoc
+                };
+                var fetchResponse = await _crmService.Execute(fetchRequest);
+                var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+
+                var queryResult = new QueryResult<CrmEntity>();
+                queryResult.Results = fetchResponseResult.Value.Results;
+                queryResult.CurrentPage = appointmentConfiggRequest.page;
+                queryResult.TotalCount = 0;
+                
                 return queryResult;
             }
             catch (Exception ex)

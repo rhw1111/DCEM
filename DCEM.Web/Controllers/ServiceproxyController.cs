@@ -44,13 +44,31 @@ namespace DCEM.Web.Controllers
         }
         #endregion
 
-
         #region 获取问诊单 服务委托书详情
         [HttpGet]
         [Route("GetInfo")]
         public async Task<NewtonsoftJsonActionResult<ServiceproxyQueryInfoResponse>> GetInfo(string guid = "5A35949B-CEC7-E911-A81F-FB18ABF55380")
         {
             return await _serviceproxyService.QueryInfo(guid);
+        }
+        #endregion
+
+        #region 问诊单 服务委托书添加编辑接口
+        [HttpPost]
+        [Route("AddOrUpdate")]
+        public async Task<NewtonsoftJsonActionResult<string>> AddOrUpdate(ServiceproxyAddOrUpdateRequest request)
+        {
+            return "aa";
+            //return await _serviceproxyService.QueryInfo(guid);
+        }
+        #endregion
+
+        #region 查询所有环检项
+        [HttpGet]
+        [Route("GetVehcheckresultList")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetVehcheckresultList()
+        {
+            return await _serviceproxyService.QueryVehcheckresultList();
         }
         #endregion
     }

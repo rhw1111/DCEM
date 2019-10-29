@@ -29,5 +29,12 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
         /// <param name="logRequest"></param>
         /// <returns></returns>
         string Querylog(AppointmentInfoLogRequest logRequest);
+
+        /// <summary>
+        /// 预约时段配置
+        /// </summary>
+        /// <param name="appointmentConfiggRequest"></param>
+        /// <returns></returns>
+        string GetConfig(AppointmentConfiggRequest appointmentConfiggRequest);
     }
 }

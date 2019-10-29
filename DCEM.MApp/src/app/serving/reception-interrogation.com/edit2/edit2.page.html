@@ -1,0 +1,34 @@
+﻿<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/serving/ri/list"></ion-back-button>
+        </ion-buttons>
+        <ion-title>环检项</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list lines="full">
+        <div *ngFor="let key of objectKeys(shareData.vehcheckresultMap)">
+            <ion-item-divider color="primary">
+                <ion-label>
+                    {{shareData.vehcheckresultMap[key].text}}
+                </ion-label>
+            </ion-item-divider>
+            <ion-item-sliding *ngFor="let item of shareData.vehcheckresultMap[key].data;let key=index">
+                <ion-item>
+                    <ion-label>
+                        <h2>{{item.name}}</h2>
+                    </ion-label>
+                    <ion-toggle slot="end" color="success" checked [(ngModel)]="item['checked']"></ion-toggle>
+                </ion-item>
+            </ion-item-sliding>
+        </div>
+    </ion-list>
+    <section style="text-align:center;">
+        <ion-button style="width:40%" color="danger" [routerLink]="['/serving/ri/edit']">上一步</ion-button>
+        <ion-button style="width:40%" color="success"  (click)="saveOnClick()">保存</ion-button>
+    </section>
+    <br />
+    <br />
+</ion-content>

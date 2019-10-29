@@ -47,7 +47,6 @@ export class DCore_Http {
     }
     //get请求
     get(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
-        console.log(this._config.getDomain() + url);
         this._httpClient.get(this._config.getDomain() + url, params).subscribe(
             (res: any) => {
                 rescallback && rescallback(res);
@@ -56,6 +55,18 @@ export class DCore_Http {
                 errcallback && errcallback(err);
             });
     }
+
+    //post请求
+    post(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
+        this._httpClient.post(this._config.getDomain() + url, params).subscribe(
+            (res: any) => {
+                rescallback && rescallback(res);
+            },
+            (err: any) => {
+                errcallback && errcallback(err);
+            });
+    }
+
 }
 
 @Injectable({
@@ -116,6 +127,29 @@ export class DCore_Page {
     //        callback(params[paramName]);
     //    });
     //}
+}
+
+
+//共享对象
+@Injectable({
+    providedIn: 'root'
+})
+
+export class DCore_ShareData {
+    public map: Map<string, any>
+    constructor(
+    ) {
+        this.map = new Map<string, any>();
+    }
+    set(key: string, val: any) {
+        this.map.set(key, val);
+    }
+    get(key: string) {
+        return this.map.get(key);
+    }
+    delete(key) {
+        return this.map.delete(key);
+    }
 }
 
 

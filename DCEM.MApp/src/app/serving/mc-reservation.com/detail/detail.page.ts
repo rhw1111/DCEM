@@ -13,8 +13,8 @@ export class DetailPage implements OnInit {
     public tab: any = "infolist";
     model = {
         name: 'appointmentdetail',//模块实体名称
-        apiUrl: '/api/appointment-info/GetDetail',
-        apiUrl2: '/api/appointment-info/GetLog',
+        apiUrlDetail: '/api/appointment-info/GetDetail',
+        apiUrlLog: '/api/appointment-info/GetLog',
         infolist: {
             mcs_customername: "",
             mcs_customerphone: "",
@@ -38,12 +38,9 @@ export class DetailPage implements OnInit {
         datalist: [],
         pageSize: 10,//页数
         page: 1,//分页
-        sort: ''//排序的参数
+        sort: '',//排序的参数
+        isending: false,//是否加载完成
     };
-
-
-
-
 
     constructor(
         private _http: DCore_Http,
@@ -63,7 +60,7 @@ export class DetailPage implements OnInit {
     pageOnBind(id: any) {
         this._page.loadingShow();
         this._http.get(
-            this.model.apiUrl,
+            this.model.apiUrlDetail,
             {
                 params: {
                     entityid: id,
@@ -107,7 +104,7 @@ export class DetailPage implements OnInit {
     pageOnlist(id: any) {
         this._page.loadingShow();
         this._http.get(
-            this.model.apiUrl2,
+            this.model.apiUrlLog,
             {
                 params: {
                     entityid: id,
@@ -117,21 +114,24 @@ export class DetailPage implements OnInit {
                 }
             },
             (res: any) => {
-                debugger;
-                if (res.Results !== null) {
-                    for (var key in res.Results) {
-                        var obj = {};
-                        obj["createdby"] = res.Results[key]["Attributes"]["systemuser_x002e_fullname"];
-                        obj["mcs_remark"] = res.Results[key]["Attributes"]["mcs_remark"];
-                        obj["createdon"] = res.Results[key]["Attributes"]["createdon"];
-                        this.model.datalist.push(obj);
+                //debugger;
+                if (res !== null) {
+                    if (res.Results !== null) {
+                        for (var key in res.Results) {
+                            var obj = {};
+                            obj["createdby"] = res.Results[key]["Attributes"]["systemuser_x002e_fullname"];
+                            obj["mcs_remark"] = res.Results[key]["Attributes"]["mcs_remark"];
+                            obj["createdon"] = res.Results[key]["Attributes"]["createdon"];
+                            this.model.datalist.push(obj);
+                        }
+                        //console.log(res);
+                    }  //判断是否有新数据
+                    if (res.Results.length == 0) {
+                        this.model.isending = true;
                     }
-                    //console.log(res);
-                    //this._page.loadingHide();
                 }
                 else {
                     this._page.alert("消息提示", "预约跟进记录加载异常");
-                    //this._page.loadingHide();
                 }
                 this._page.loadingHide();
             },
@@ -161,4 +161,15 @@ export class DetailPage implements OnInit {
             return '';
         }
     }
+
+    //返回数据为空，默认“--”
+    SetDefaultValue(data) {
+        if (data == null || data == undefined) {
+            return '--';;
+        }
+        else {
+            return data;
+        }
+    }
+   
 }

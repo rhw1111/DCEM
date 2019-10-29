@@ -186,6 +186,14 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 createorUpdateEntity.Attributes.Add("mcs_orderstatus", request.mcs_orderstatus);
                 createorUpdateEntity.Attributes.Add("mcs_repairdate", request.mcs_repairdate);
                 createorUpdateEntity.Attributes.Add("mcs_title", request.mcs_title);
+                //createorUpdateEntity.Attributes.Add("mcs_title", request.mcs_title);
+                //createorUpdateEntity.Attributes.Add("mcs_title", request.mcs_title);
+                //createorUpdateEntity.Attributes.Add("mcs_title", request.mcs_title);
+                //createorUpdateEntity.Attributes.Add("mcs_title", request.mcs_title);
+                //createorUpdateEntity.Attributes.Add("mcs_title", request.mcs_title);
+                //createorUpdateEntity.Attributes.Add("mcs_title", request.mcs_title);
+                //createorUpdateEntity.Attributes.Add("mcs_title", request.mcs_title);
+
 
                 if (createorUpdateEntity.Id != Guid.Empty)
                 {

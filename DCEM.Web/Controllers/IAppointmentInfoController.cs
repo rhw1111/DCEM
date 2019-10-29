@@ -68,7 +68,6 @@ namespace DCEM.Web.Controllers
             return await app.QueryDetail(entityid);
         }
 
-
         /// <summary>
         /// 预约跟进记录
         /// </summary>
@@ -92,6 +91,47 @@ namespace DCEM.Web.Controllers
             var list = await app.GetLog(appointmentInfoLogRequest);
             return list;
         }
+
+        /// <summary>
+        /// 预约时段记录
+        /// </summary>
+        /// <param name="status"></param>
+        /// <param name="seachkey"></param>
+        /// <param name="sort"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetConfig")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetConfig( string mcs_dealerid,int? mcs_servetype,DateTime? mcs_servedate, string sort = "", int pageSize = 10, int page = 1)
+        {
+            var appointmentConfiggRequest = new AppointmentConfiggRequest()
+            {
+                page = page,
+                pageSize = pageSize,
+                sort = sort,
+                mcs_dealerid = Guid.Parse(mcs_dealerid),
+                mcs_servetype = mcs_servetype,
+                mcs_servedate = mcs_servedate
+            };
+            var list = await app.GetConfig(appointmentConfiggRequest);
+            return list;
+        }
+
+        /// <summary>
+        /// 预约单创建修改
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("AddOrEdit")]
+        public async Task<NewtonsoftJsonActionResult<Guid>> AddOrEdit(TechnicalSupportRequest request)
+        {
+            //var result = await app.AddOrEditEntity(request);
+            //return result;
+            return null;
+        }
+
     }
 
 

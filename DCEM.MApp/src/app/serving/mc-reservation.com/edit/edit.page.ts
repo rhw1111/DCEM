@@ -12,4 +12,11 @@ export class EditPage implements OnInit {
   ngOnInit() {
   }
 
+  presentModal(){
+
+  }
+
+  save(){
+    
+  }
 }

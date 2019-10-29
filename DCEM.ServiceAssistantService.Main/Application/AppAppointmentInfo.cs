@@ -51,5 +51,15 @@ namespace DCEM.ServiceAssistantService.Main.Application
         {
             return await _appointmentInfoService.GetLog(appointmentInfoLogRequest);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="appointmentConfiggRequest"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> GetConfig(AppointmentConfiggRequest appointmentConfiggRequest)
+        {
+            return await _appointmentInfoService.GetConfig(appointmentConfiggRequest);
+        }
     }
 }
