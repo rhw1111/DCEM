@@ -14,13 +14,15 @@ export class EditPage implements OnInit {
     mod = {
         apiUrl: '/Api/Customer/GetCustomerInfo',
         data: {
-        }
+        },
+        shareDataKey: "riEditData"
     };
 
     //定义共享数据
     shareData = {
         serviceproxy: {
         },
+        vehcheckresultMap: {},
     }
 
     constructor(
@@ -37,10 +39,9 @@ export class EditPage implements OnInit {
         });
         await modal.present();
         const { data } = await modal.onDidDismiss();
-        console.log(data);
         if (data != null && typeof data != "undefined") {
             if (data.vehowne != null && typeof data.vehowne != "undefined") {
-                this.shareData.serviceproxy["id"] = data.vehowne.id;
+                this.shareData.serviceproxy["customerid"] = data.vehowne.id;
                 this.shareData.serviceproxy["fullname"] = data.vehowne.fullname;
                 this.shareData.serviceproxy["vehplate"] = data.vehowne.vehplate;
                 this.shareData.serviceproxy["mobilephone"] = data.vehowne.mobilephone;
@@ -49,11 +50,19 @@ export class EditPage implements OnInit {
     }
 
     ngOnInit() {
-
+        var getShareData = this._shareData.get(this.mod.shareDataKey);
+        if (getShareData != null) {
+            this.shareData = getShareData;
+        }
     }
 
     public customerOnClick() {
         this.presentModal();
     }
 
+    public nextOnClick() {
+        console.log(this.shareData);
+        this._shareData.set(this.mod.shareDataKey, this.shareData);
+        this._page.goto("/serving/ri/edit2");
+    }
 }

@@ -33,31 +33,31 @@
         </ion-item-divider>
         <ion-item>
             <ion-label position="stacked">送修人</ion-label>
-            <ion-input required type="text"></ion-input>
+            <ion-input [(ngModel)]="shareData.serviceproxy['shuttlename']" required type="text"></ion-input>
         </ion-item>
         <ion-item>
             <ion-label position="stacked">送修人手机</ion-label>
-            <ion-input required type="text"></ion-input>
+            <ion-input [(ngModel)]="shareData.serviceproxy['shuttlephone']" required type="text"></ion-input>
         </ion-item>
         <ion-item>
             <ion-label position="stacked">进店电量</ion-label>
-            <ion-select>
+            <ion-input [(ngModel)]="shareData.serviceproxy['inpower']" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">进店油量</ion-label>
+            <ion-select [(ngModel)]="shareData.serviceproxy['oilquantity']">
                 <ion-select-option value="10">1/4</ion-select-option>
                 <ion-select-option value="20">1/2</ion-select-option>
                 <ion-select-option value="30">3/4</ion-select-option>
             </ion-select>
         </ion-item>
         <ion-item>
-            <ion-label position="stacked">进店油量</ion-label>
-            <ion-input required type="text"></ion-input>
-        </ion-item>
-        <ion-item>
             <ion-label position="stacked">进店里程</ion-label>
-            <ion-input required type="text"></ion-input>
+            <ion-input [(ngModel)]="shareData.serviceproxy['mileage']" type="text"></ion-input>
         </ion-item>
         <ion-item>
             <ion-label position="stacked">到店时间</ion-label>
-            <ion-datetime display-format="YYYY-MM-DD HH:mm"></ion-datetime>
+            <ion-datetime display-format="YYYY-MM-DD HH:mm" [(ngModel)]="shareData.serviceproxy['arrivalon']"></ion-datetime>
         </ion-item>
         <ion-item-divider color="primary">
             <ion-label>
@@ -66,11 +66,11 @@
         </ion-item-divider>
         <ion-item>
             <ion-label position="stacked">客户描述</ion-label>
-            <ion-textarea></ion-textarea>
+            <ion-textarea [(ngModel)]="shareData.serviceproxy['customercomment']"></ion-textarea>
         </ion-item>
     </ion-list>
     <section style="text-align:center;">
-        <ion-button style="width:40%" color="danger" [routerLink]="['/serving/ri/edit2']">下一步</ion-button>
+        <ion-button style="width:40%" color="danger" (click)="nextOnClick()">下一步</ion-button>
     </section>
     <br />
     <br />

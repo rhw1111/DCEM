@@ -53,6 +53,16 @@ namespace DCEM.Web.Controllers
         }
         #endregion
 
+        #region 问诊单 服务委托书添加编辑接口
+        [HttpPost]
+        [Route("AddOrUpdate")]
+        public async Task<NewtonsoftJsonActionResult<string>> AddOrUpdate(ServiceproxyAddOrUpdateRequest request)
+        {
+            return "aa";
+            //return await _serviceproxyService.QueryInfo(guid);
+        }
+        #endregion
+
         #region 查询所有环检项
         [HttpGet]
         [Route("GetVehcheckresultList")]
