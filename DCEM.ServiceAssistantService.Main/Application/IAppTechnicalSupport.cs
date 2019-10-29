@@ -21,6 +21,8 @@ namespace DCEM.ServiceAssistantService.Main.Application
         /// <param name="id"></param>
         /// <returns></returns>
         Task<CrmEntity> QueryById(Guid id);
+        Task<TechnicalSupportInfoResponse> QueryInfo(Guid id);
+        
         /// <summary>
         /// 创建或编辑实体
         /// </summary>

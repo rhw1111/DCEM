@@ -41,9 +41,9 @@ namespace DCEM.Web.Controllers
 
         [HttpGet]
         [Route("GetDetail")]
-        public async Task<NewtonsoftJsonActionResult<CrmEntity>> GetDetail(Guid id)
+        public async Task<NewtonsoftJsonActionResult<TechnicalSupportInfoResponse>> GetDetail(Guid id)
         {
-            var result = await app.QueryById(id);
+            var result = await app.QueryInfo(id);
             return result;
         }
 
