@@ -35,4 +35,19 @@
             </ion-item-sliding>
         </div>
     </ion-list>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+            <ion-icon name="arrow-dropup"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="top">
+            <ion-fab-button color="danger" [routerLink]="['/serving/ri/edit']"><ion-icon name="add"></ion-icon></ion-fab-button>
+        </ion-fab-list>
+    </ion-fab>
 </ion-content>
+
+<!--<ion-footer>
+    <ion-toolbar>
+        <ion-button slot="end" size="small" color="danger"><ion-icon name="add"></ion-icon>新建问诊单</ion-button>
+    </ion-toolbar>
+</ion-footer>-->
