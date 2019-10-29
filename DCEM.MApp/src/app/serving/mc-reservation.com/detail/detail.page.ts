@@ -13,8 +13,8 @@ export class DetailPage implements OnInit {
     public tab: any = "infolist";
     model = {
         name: 'appointmentdetail',//模块实体名称
-        apiUrl: '/api/appointment-info/GetDetail',
-        apiUrl2: '/api/appointment-info/GetLog',
+        apiUrlDetail: '/api/appointment-info/GetDetail',
+        apiUrlLog: '/api/appointment-info/GetLog',
         infolist: {
             mcs_customername: "",
             mcs_customerphone: "",
@@ -41,10 +41,6 @@ export class DetailPage implements OnInit {
         sort: ''//排序的参数
     };
 
-
-
-
-
     constructor(
         private _http: DCore_Http,
         private _page: DCore_Page,
@@ -63,7 +59,7 @@ export class DetailPage implements OnInit {
     pageOnBind(id: any) {
         this._page.loadingShow();
         this._http.get(
-            this.model.apiUrl,
+            this.model.apiUrlDetail,
             {
                 params: {
                     entityid: id,
@@ -107,7 +103,7 @@ export class DetailPage implements OnInit {
     pageOnlist(id: any) {
         this._page.loadingShow();
         this._http.get(
-            this.model.apiUrl2,
+            this.model.apiUrlLog,
             {
                 params: {
                     entityid: id,
@@ -117,7 +113,7 @@ export class DetailPage implements OnInit {
                 }
             },
             (res: any) => {
-                debugger;
+                //debugger;
                 if (res.Results !== null) {
                     for (var key in res.Results) {
                         var obj = {};
@@ -127,11 +123,9 @@ export class DetailPage implements OnInit {
                         this.model.datalist.push(obj);
                     }
                     //console.log(res);
-                    //this._page.loadingHide();
                 }
                 else {
                     this._page.alert("消息提示", "预约跟进记录加载异常");
-                    //this._page.loadingHide();
                 }
                 this._page.loadingHide();
             },
@@ -161,4 +155,15 @@ export class DetailPage implements OnInit {
             return '';
         }
     }
+
+    //返回数据为空，默认“--”
+    SetDefaultValue(data) {
+        if (data == null || data == undefined) {
+            return '--';;
+        }
+        else {
+            return data;
+        }
+    }
+   
 }

@@ -28,8 +28,8 @@
         <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中...">
         </ion-refresher-content>
     </ion-refresher>
-    <ion-list lines="full" *ngFor="let r of model.data">
-        <ion-item button="true" mode="ios" [routerLink]="['/serving/reservation/detail']" [queryParams]="{id:r.mcs_appointmentinfoid}">
+    <ion-list lines="full">
+        <ion-item  *ngFor="let r of model.data" button="true" [routerLink]="['/serving/reservation/detail']" [queryParams]="{id:r.mcs_appointmentinfoid}">
             <ion-label>
                 <h2>车牌号：{{r.mcs_carplate}}</h2>
                 <p>车主姓名：{{r.mcs_customername}}</p>

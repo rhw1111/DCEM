@@ -31,7 +31,7 @@
                     <h2>
                         姓名
                     </h2>
-                    <span>{{model.infolist.mcs_customername}}</span>
+                    <span>{{SetDefaultValue(model.infolist.mcs_customername)}}</span>
                 </ion-label>
             </ion-item>
             <ion-item>
@@ -39,7 +39,7 @@
                     <h2>
                         手机号
                     </h2>
-                    <span>{{model.infolist.mcs_customerphone}}</span>
+                    <span>{{SetDefaultValue(model.infolist.mcs_customerphone)}}</span>
                 </ion-label>
             </ion-item>
             <ion-item>
@@ -47,7 +47,7 @@
                     <h2>
                         客户标签
                     </h2>
-                    <span>{{model.infolist.mcs_tag}}</span>
+                    <span>{{SetDefaultValue(model.infolist.mcs_tag)}}</span>
                 </ion-label>
             </ion-item>
             <ion-item>
@@ -55,7 +55,7 @@
                     <h2>
                         VIN
                     </h2>
-                    <span>{{model.infolist.mcs_vin}}</span>
+                    <span>{{SetDefaultValue(model.infolist.mcs_vin)}}</span>
                 </ion-label>
             </ion-item>
             <ion-item>
@@ -63,7 +63,7 @@
                     <h2>
                         发动机号
                     </h2>
-                    <span>{{model.infolist.mcs_enginennumber}}</span>
+                    <span>{{SetDefaultValue(model.infolist.mcs_enginennumber)}}</span>
                 </ion-label>
             </ion-item>
             <ion-item>
@@ -71,7 +71,7 @@
                     <h2>
                         车型
                     </h2>
-                    <span>{{model.infolist.mcs_cartype}}</span>
+                    <span>{{SetDefaultValue(model.infolist.mcs_cartype)}}</span>
                 </ion-label>
             </ion-item>
             <ion-item>
@@ -87,7 +87,7 @@
                     <h2>
                         下次保养里程
                     </h2>
-                    <span>{{model.infolist.mcs_nextmaintainmileage}}</span>
+                    <span>{{SetDefaultValue(model.infolist.mcs_nextmaintainmileage)}}</span>
                 </ion-label>
             </ion-item>
             <ion-item-divider>
@@ -100,7 +100,7 @@
                     <h2>
                         预约单号
                     </h2>
-                    <span>{{model.infolist.mcs_name}}</span>
+                    <span>{{SetDefaultValue(model.infolist.mcs_name)}}</span>
                 </ion-label>
             </ion-item>
             <ion-item>
@@ -108,12 +108,12 @@
                     <h2>
                         服务类型
                     </h2>
-                    <span *ngIf="model.infolist.mcs_ordertype==10"> 服务类型：汽车美容</span>
-                    <span *ngIf="model.infolist.mcs_ordertype==20"> 服务类型：钣金喷漆</span>
-                    <span *ngIf="model.infolist.mcs_ordertype==30"> 服务类型：常规保养</span>
-                    <span *ngIf="model.infolist.mcs_ordertype==40"> 服务类型：一般维修</span>
-                    <span *ngIf="model.infolist.mcs_ordertype==50"> 服务类型：保修</span>
-                    <span *ngIf="model.infolist.mcs_ordertype==60"> 服务类型：其他</span>
+                    <span *ngIf="model.infolist.mcs_ordertype==10"> 汽车美容</span>
+                    <span *ngIf="model.infolist.mcs_ordertype==20"> 钣金喷漆</span>
+                    <span *ngIf="model.infolist.mcs_ordertype==30"> 常规保养</span>
+                    <span *ngIf="model.infolist.mcs_ordertype==40"> 一般维修</span>
+                    <span *ngIf="model.infolist.mcs_ordertype==50"> 保修</span>
+                    <span *ngIf="model.infolist.mcs_ordertype==60"> 其他</span>
                 </ion-label>
             </ion-item>
             <ion-item>
@@ -140,7 +140,7 @@
                     <h2>
                         客户要求
                     </h2>
-                    <span>{{model.infolist.mcs_customercomment}}</span>
+                    <span>{{SetDefaultValue(model.infolist.mcs_customercomment)}}</span>
                 </ion-label>
             </ion-item>
             <ion-item>
@@ -148,7 +148,7 @@
                     <h2>
                         问题描述
                     </h2>
-                    <span>{{model.infolist.mcs_appointmendescript}}</span>
+                    <span>{{SetDefaultValue(model.infolist.mcs_appointmendescript)}}</span>
                 </ion-label>
             </ion-item>
             <ion-item>
@@ -156,7 +156,7 @@
                     <h2>
                         取消原因
                     </h2>
-                    <span>{{model.infolist.mcs_cancelreasonnew}}</span>
+                    <span>{{SetDefaultValue(model.infolist.mcs_cancelreasonnew)}}</span>
                 </ion-label>
             </ion-item>
             <ion-item>
@@ -164,7 +164,7 @@
                     <h2>
                         取消备注
                     </h2>
-                    <span>{{model.infolist.mcs_canceldes}}</span>
+                    <span>{{SetDefaultValue(model.infolist.mcs_canceldes)}}</span>
                 </ion-label>
             </ion-item>
         </ion-list>

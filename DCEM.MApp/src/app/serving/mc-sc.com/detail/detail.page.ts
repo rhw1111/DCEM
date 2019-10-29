@@ -13,6 +13,28 @@ export class DetailPage implements OnInit {
         apiUrl: '/Api/Serviceproxy/GetInfo',
         data: {
             serviceproxy: {
+                customername: "",
+                carplate: "",
+                customerphone: "",
+                name: "",
+                shuttlename: "",
+                shuttlephone: "",
+                ordertype: "",
+                inpower: "",
+                outpower: "",
+                oilquantity: "",
+                departureoil: "",
+                mileage: "",
+                departuremileage: "",
+                arrivalon: "",
+                finishat: "",
+                repairlocationid: "",
+                status: "",
+                hoursamount: "",
+                partsamount: "",
+                discountamount: "",
+                amounttotal: ""
+
             },
             serviceorderrepairitemArray: [],
             serviceorderpartArray: []
@@ -66,8 +88,8 @@ export class DetailPage implements OnInit {
                     this.mod.data.serviceproxy["partsamount"] = res["Serviceproxy"]["Attributes"]["mcs_partsamount"];
                     this.mod.data.serviceproxy["discountamount"] = res["Serviceproxy"]["Attributes"]["mcs_discountamount"];
                     this.mod.data.serviceproxy["amounttotal"] = res["Serviceproxy"]["Attributes"]["mcs_amounttotal"];
-                    
-                    
+
+
                 }
 
                 if (res.ServiceorderrepairitemList !== null) {

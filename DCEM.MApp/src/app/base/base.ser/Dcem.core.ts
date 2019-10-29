@@ -119,3 +119,19 @@ export class DCore_Page {
 }
 
 
+//共享参数
+@Injectable({
+    providedIn: 'root'
+})
+
+export class DCore_ShareData {
+    public param: any;
+    set(key, param) {
+        this.param[key] = param;
+    }
+    get(key) {
+        return this.param[key];
+    }
+}
+
+
