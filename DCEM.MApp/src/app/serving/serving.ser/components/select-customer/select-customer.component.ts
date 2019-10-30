@@ -30,6 +30,7 @@ export class SelectCustomerComponent implements OnInit {
     }
 
     itemClick(item: any) {
+        console.log(item);
         this._modalCtrl.dismiss({
             vehowne: item
         });
@@ -64,13 +65,15 @@ export class SelectCustomerComponent implements OnInit {
                     for (var key in res.Results) {
                         var obj = {};
                         console.log(res.Results[key]);
-                        obj["vehownerid"] = res.Results[key]["mcs_vehownerid"];
+                        obj["vehownerid"] = res.Results[key]["Attributes"]["mcs_vehownerid"];
                         obj["fullname"] = res.Results[key]["Attributes"]["mcs_fullname"];
                         obj["gender"] = res.Results[key]["Attributes"]["mcs_gender@OData.Community.Display.V1.FormattedValue"];
                         obj["genderval"] = res.Results[key]["Attributes"]["mcs_gender"];
                         obj["mobilephone"] = res.Results[key]["Attributes"]["mcs_mobilephone"];
                         obj["vehplate"] = res.Results[key]["Attributes"]["mcs_vehplate"];
-                        obj["vehtype"] = res.Results[key]["Attributes"]["_mcs_vehtype@OData.Community.Display.V1.FormattedValue"];
+                        obj["vehtype"] = res.Results[key]["Attributes"]["_mcs_vehtype_value@OData.Community.Display.V1.FormattedValue"];
+                        
+                        obj["model"] = res.Results[key]["Attributes"];
                         this.mod.data.push(obj);
                     }
                     this._page.loadingHide();
