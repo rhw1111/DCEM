@@ -78,7 +78,7 @@ export class DetailPage implements OnInit {
                 }
             },
             (res: any) => {
-                if (res.Carserviceadvisor !== null) { 
+                if (res.TechnicalSupport != null) { 
                     this.mod.data.TechnicalSupport.mcs_title = res["TechnicalSupport"]["Attributes"]["mcs_title"];
                     this.mod.data.TechnicalSupport.mcs_serviceorderid = res["TechnicalSupport"]["Attributes"]["_mcs_serviceorderid_value@OData.Community.Display.V1.FormattedValue"];
                     this.mod.data.TechnicalSupport.mcs_repairnameid = res["TechnicalSupport"]["Attributes"]["_mcs_repairnameid_value@OData.Community.Display.V1.FormattedValue"];

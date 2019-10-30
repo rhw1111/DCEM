@@ -15,13 +15,13 @@ namespace DCEM.ServiceAssistantService.Main.Application
         #endregion
 
         #region 添加服务委托书 问诊单
-        Task<string> AddOrUpdate(ServiceproxyAddOrUpdateRequest request);
+        Task<ValidateResult<CrmParameter>> AddOrUpdate(ServiceproxyAddOrUpdateRequest request);
         #endregion
 
         #region 查询环检项 配置信息
         Task<QueryResult<CrmEntity>> QueryVehcheckresultList();
         #endregion
-        
+
 
 
     }
