@@ -252,17 +252,18 @@
       
 
 
-      <ion-list lines="full">
-          <ion-item *ngFor="let item of mod.data.DealerAttachment" [routerLink]="item.mcs_fileurl"  >
+      <ion-list  >
+          <ion-item *ngFor="let item of mod.data.DealerAttachment"   >
                 <ion-icon name="document" size="large"></ion-icon>
               <ion-label>
                   <h2>{{item.mcs_filename}}</h2>
                   <p>大小：{{item.mcs_filesize}}</p> 
               </ion-label>
-              <ion-note slot="end"  >
-                  <ion-icon color="primary" name="arrow-down" size="small"></ion-icon> 
-                  下载
-              </ion-note>
+             
+                 <ion-button size="default"  color="primary" class="button-outline" (click)="down(item.fileurl)">
+                    下载  <ion-icon color="primary" name="arrow-down"  ></ion-icon> 
+                  </ion-button>
+              
              
               
           </ion-item>
