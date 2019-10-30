@@ -1,4 +1,5 @@
 ﻿using DCEM.ServiceAssistantService.Main.DTOModel;
+using Microsoft.AspNetCore.Mvc;
 using MSLibrary;
 using MSLibrary.Xrm;
 using System;
@@ -35,5 +36,12 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         /// <param name="appointmentConfiggRequest"></param>
         /// <returns></returns>
         Task<QueryResult<CrmEntity>> GetConfig(AppointmentConfiggRequest appointmentConfiggRequest);
+
+        /// <summary>
+        /// 预约单创建与修改(包括取消预约)
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ActionResult<string>> AddOrEdit(AppointmentInfoAddOrEditRequest request);
     }
 }
