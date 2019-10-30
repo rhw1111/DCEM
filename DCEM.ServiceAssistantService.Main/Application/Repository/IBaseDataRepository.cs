@@ -20,5 +20,33 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
         /// <param name="repairItemInfoRequest"></param>
         /// <returns></returns>
         string QueryRepairItemInfo(RepairItemInfoRequest repairItemInfoRequest);
+
+        /// <summary>
+        /// 维修配件基础数据
+        /// </summary>
+        /// <param name="repairItemPartRequest"></param>
+        /// <returns></returns>
+        string QueryRepairItemPart(RepairItemPartRequest repairItemPartRequest);
+
+        /// <summary>
+        /// 故障类别代码
+        /// </summary>
+        /// <param name="malFunctionTypeRequest"></param>
+        /// <returns></returns>
+        string QueryMalFunctionType(MalFunctionTypeRequest malFunctionTypeRequest);
+
+        /// <summary>
+        /// 维修类型基础数据
+        /// </summary>
+        /// <param name="repairItemTypeDetailRequest"></param>
+        /// <returns></returns>
+        string QueryRepairItemTypeDetail(RepairItemTypeDetailRequest repairItemTypeDetailRequest);
+        
+        /// <summary>
+        /// 查询个人用户信息
+        /// </summary>
+        /// <param name="systemuserid"></param>
+        /// <returns></returns>
+        string QyerySystemUser(string systemuserid);
     }
 }

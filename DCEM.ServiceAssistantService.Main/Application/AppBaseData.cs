@@ -24,19 +24,64 @@ namespace DCEM.ServiceAssistantService.Main.Application
             _baseDataService = baseDataService;
         }
 
+        /// <summary>
+        /// 查询故障类别代码
+        /// </summary>
+        /// <param name="malFunctionTypeRequest"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> QueryMalFunctionType(MalFunctionTypeRequest malFunctionTypeRequest)
+        {
+            return await _baseDataService.QueryMalFunctionType(malFunctionTypeRequest);
+        }
+
+        /// <summary>
+        /// 查询维修项目基础数据
+        /// </summary>
+        /// <param name="repairItemInfoRequest"></param>
+        /// <returns></returns>
         public async Task<QueryResult<CrmEntity>> QueryRepairItemInfo(RepairItemInfoRequest repairItemInfoRequest)
         {
             return await _baseDataService.QueryRepairItemInfo(repairItemInfoRequest);
         }
 
         /// <summary>
-        /// 维修类别基础
+        /// 查询维修配件基础数据
+        /// </summary>
+        /// <param name="repairItemPartRequest"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> QueryRepairItemPart(RepairItemPartRequest repairItemPartRequest)
+        {
+            return await _baseDataService.QueryRepairItemPart(repairItemPartRequest);
+        }
+
+        /// <summary>
+        /// 维修类别基础数据
         /// </summary>
         /// <param name="repairItemTypeRequest"></param>
         /// <returns></returns>
         public async Task<QueryResult<CrmEntity>> QueryRepairItemType(RepairItemTypeRequest repairItemTypeRequest)
         {
             return await _baseDataService.QueryRepairItemType(repairItemTypeRequest);
+        }
+
+        /// <summary>
+        /// 维修类型基础数据
+        /// </summary>
+        /// <param name="repairItemTypeDetailRequest"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> QueryRepairItemTypeDetail(RepairItemTypeDetailRequest repairItemTypeDetailRequest)
+        {
+            return await _baseDataService.QueryRepairItemTypeDetail(repairItemTypeDetailRequest);
+        }
+
+        /// <summary>
+        /// 查询用户个人信息
+        /// </summary>
+        /// <param name="systemuserid"></param>
+        /// <returns></returns>
+        public async Task<CrmEntity> QyerySystemUser(string systemuserid)
+        {
+            return await _baseDataService.QyerySystemUser(systemuserid);
         }
     }
 }
