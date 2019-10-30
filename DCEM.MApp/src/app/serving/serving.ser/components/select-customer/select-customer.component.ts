@@ -63,8 +63,8 @@ export class SelectCustomerComponent implements OnInit {
 
                     for (var key in res.Results) {
                         var obj = {};
-
-                        obj["Id"] = res.Results[key]["Id"];
+                        console.log(res.Results[key]);
+                        obj["vehownerid"] = res.Results[key]["mcs_vehownerid"];
                         obj["fullname"] = res.Results[key]["Attributes"]["mcs_fullname"];
                         obj["gender"] = res.Results[key]["Attributes"]["mcs_gender@OData.Community.Display.V1.FormattedValue"];
                         obj["genderval"] = res.Results[key]["Attributes"]["mcs_gender"];
