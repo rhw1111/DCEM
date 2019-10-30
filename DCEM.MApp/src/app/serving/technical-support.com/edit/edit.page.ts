@@ -93,6 +93,10 @@ export class EditPage implements OnInit {
     }
   }
 
+  presentModal(){
+
+  }
+
   save(){
     this._page.loadingShow();
     //数据验证

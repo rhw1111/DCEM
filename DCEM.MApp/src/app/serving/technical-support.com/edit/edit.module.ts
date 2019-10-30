@@ -4,8 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
-import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
-
 import { EditPage } from './edit.page';
 
 const routes: Routes = [
@@ -22,7 +20,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  entryComponents:[SelectCustomerComponent],
-  declarations: [EditPage,SelectCustomerComponent]
+  entryComponents:[],
+  declarations: [EditPage]
 })
 export class EditPageModule {}

@@ -2,8 +2,8 @@ import * as tslib_1 from "tslib";
 import { Component } from '@angular/core';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { ModalController } from '@ionic/angular';
-import { ScSelectComponent } from '../../serving.ser/components/sc-select/sc-select.component';
-import { SelectCustomerComponent } from '../../serving.ser/components/select-customer/select-customer.component';
+import { ScSelectComponent } from 'app/serving/serving.ser/components/sc-select/sc-select.component';
+import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
 let EditPage = class EditPage {
     constructor(_http, _page, modalCtrl) {
         this._http = _http;
@@ -14,7 +14,6 @@ let EditPage = class EditPage {
             viewData: {
                 mcs_serviceorderid_name: '',
                 vin: '',
-                fullname: '',
                 mcs_batterymodel: '',
                 mcs_batteryserialnumber: '',
                 mcs_carplate: '',
@@ -22,6 +21,7 @@ let EditPage = class EditPage {
                 mcs_customerphone: '',
                 mcs_enginenumber: '',
                 mcs_modifiedpartscontent: '',
+                mcs_motormodel: '',
                 mcs_mileage: 0
             },
             postData: {
@@ -73,17 +73,16 @@ let EditPage = class EditPage {
             const { data } = yield modal.onDidDismiss();
             if (data != null && data != undefined) {
                 this.model.postData.mcs_customerid = data.model.Id;
-                this.model.viewData.fullname = data.model.fullname;
-                this.model.viewData.vin = data.model.name;
+                this.model.viewData.vin = data.model.mcs_name;
                 this.model.viewData.mcs_batterymodel = data.model.mcs_batterymodel;
-                this.model.viewData.mcs_batteryserialnumber = data.model.mcs_batteryserialnumber;
-                this.model.viewData.mcs_carplate = data.model.mcs_carplate;
-                this.model.viewData.mcs_customername = data.model.mcs_customername;
-                this.model.viewData.mcs_customerphone = data.model.mobilephone;
-                this.model.viewData.mcs_enginenumber = data.model.mcs_enginenumber;
+                this.model.viewData.mcs_batteryserialnumber = data.model.mcs_motorserialnumber;
+                this.model.viewData.mcs_carplate = data.model.mcs_vehplate;
+                this.model.viewData.mcs_customername = data.model.mcs_fullname;
+                this.model.viewData.mcs_customerphone = data.model.mcs_mobilephone;
+                this.model.viewData.mcs_enginenumber = data.model.mcs_enginennumber;
                 this.model.viewData.mcs_modifiedpartscontent = data.model.mcs_modifiedpartscontent;
-                //this.model.viewData.mcs_ismodifiedparts = data.mcs_ismodifiedparts;
-                this.model.viewData.mcs_mileage = data.mcs_mileage;
+                this.model.viewData.mcs_motormodel = data.model.mcs_motormodel;
+                this.model.viewData.mcs_mileage = data.model.mcs_netmileage;
             }
         });
     }

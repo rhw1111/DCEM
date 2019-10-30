@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
 import { EditPage } from './edit.page';
-import { SelectCustomerComponent } from '../../serving.ser/components/select-customer/select-customer.component';
 const routes = [
     {
         path: '',
