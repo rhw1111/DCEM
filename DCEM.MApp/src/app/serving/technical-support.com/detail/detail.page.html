@@ -237,40 +237,7 @@
     <div *ngSwitchCase="'att'">
       
       <ion-grid class="ionatt">
-        <ion-row class="titleborder"  >
-          <ion-col class="bodyborder">
-            <div class="ionatttitle">
-              附件名称  
-            </div>
-          </ion-col>
-          <ion-col  class="bodyborder">
-            <div class="ionatttitle">
-               附件大小  
-            </div>
-          </ion-col>
-          <ion-col  class="bodyborder">
-            <div class="ionatttitle">
-              操作  
-            </div>
-          </ion-col>
-        </ion-row>
-        <ion-row class="titleborders" *ngFor="let item of mod.data.DealerAttachment;let key=index">
-          <ion-col class="bodyborder">
-            <div class="ionattbody">
-               {{item.mcs_filename}}  
-            </div>
-          </ion-col>
-          <ion-col class="bodyborder">
-            <div class="ionattbody">
-              {{item.mcs_filesize}}  
-            </div>
-          </ion-col>
-          <ion-col class="bodyborder">
-            <div class="ionattbody">
-                <ion-button color="tertiary" style="height: 30px; width: 5.5em;" (click)="down(item.mcs_fileurl)"  >下载</ion-button>
-            </div>
-          </ion-col>
-        </ion-row>
+     
 
         <ion-row *ngIf="mod.data.DealerAttachment.length===0">
             <ion-col>
@@ -283,6 +250,25 @@
       </ion-grid>
 
       
+
+
+      <ion-list  >
+          <ion-item *ngFor="let item of mod.data.DealerAttachment"   >
+                <ion-icon name="document" size="large"></ion-icon>
+              <ion-label>
+                  <h2>{{item.mcs_filename}}</h2>
+                  <p>大小：{{item.mcs_filesize}}</p> 
+              </ion-label>
+             
+                 <ion-button size="default"  color="primary" class="button-outline" (click)="down(item.fileurl)">
+                    下载  <ion-icon color="primary" name="arrow-down"  ></ion-icon> 
+                  </ion-button>
+              
+             
+              
+          </ion-item>
+      </ion-list>
+
     </div>
 
   </div>
