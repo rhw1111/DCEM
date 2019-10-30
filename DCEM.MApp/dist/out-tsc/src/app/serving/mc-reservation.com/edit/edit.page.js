@@ -4,6 +4,10 @@ let EditPage = class EditPage {
     constructor() { }
     ngOnInit() {
     }
+    presentModal() {
+    }
+    save() {
+    }
 };
 EditPage = tslib_1.__decorate([
     Component({

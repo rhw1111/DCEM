@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { ListPage } from './list.page';
+import { DatePipe } from '@angular/common';
 const routes = [
     {
         path: '',
@@ -20,6 +21,9 @@ ListPageModule = tslib_1.__decorate([
             FormsModule,
             IonicModule,
             RouterModule.forChild(routes)
+        ],
+        providers: [
+            DatePipe
         ],
         declarations: [ListPage]
     })

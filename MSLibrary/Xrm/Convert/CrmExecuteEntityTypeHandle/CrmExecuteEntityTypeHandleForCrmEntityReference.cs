@@ -27,7 +27,7 @@ namespace MSLibrary.Xrm.Convert.CrmExecuteEntityTypeHandle
 
             var realValue = value as CrmEntityReference;
             CrmExecuteEntityTypeHandleResult result = new CrmExecuteEntityTypeHandleResult();
-            result.Name = $"{realValue.EntityName}@odata.bind";
+            result.Name = $"{name}@odata.bind";
             result.Value=JToken.Parse($@"""/{realValue.EntityName.ToLower().ToPlural()}({realValue.Id.ToString()})""");
 
             return await Task.FromResult(result);

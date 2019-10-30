@@ -66,7 +66,9 @@ const routes = [
                 children: [
                     { path: 'list', loadChildren: './serving/reception-interrogation.com/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './serving/reception-interrogation.com/detail/detail.module#DetailPageModule' },
-                    { path: 'edit', loadChildren: './serving/reception-interrogation.com/edit/edit.module#EditPageModule' }
+                    { path: 'edit', loadChildren: './serving/reception-interrogation.com/edit/edit.module#EditPageModule' },
+                    { path: 'edit2', loadChildren: './serving/reception-interrogation.com/edit2/edit2.module#Edit2PageModule' },
+                    { path: 'success', loadChildren: './serving/reception-interrogation.com/success/success.module#SuccessPageModule' }
                 ]
             },
             {
@@ -75,6 +77,15 @@ const routes = [
                     { path: 'list', loadChildren: './serving/technical-support.com/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './serving/technical-support.com/detail/detail.module#DetailPageModule' },
                     { path: 'edit', loadChildren: './serving/technical-support.com/edit/edit.module#EditPageModule' }
+                ]
+            },
+            {
+                path: 'report',
+                children: [
+                    { path: 'analytics', loadChildren: './serving/report/analytics/analytics.module#AnalyticsPageModule' },
+                    { path: 'appointmentstatistics', loadChildren: './serving/report/appointmentstatistics/appointmentstatistics.module#AppointmentstatisticsPageModule' },
+                    { path: 'appointmenttrend', loadChildren: './serving/report/appointmenttrend/appointmenttrend.module#AppointmenttrendPageModule' },
+                    { path: 'testdriverate', loadChildren: './serving/report/testdriverate/testdriverate.module#TestdriveratePageModule' }
                 ]
             },
         ],
