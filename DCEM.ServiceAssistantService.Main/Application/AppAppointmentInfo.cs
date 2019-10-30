@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DCEM.ServiceAssistantService.Main.Application.Services;
 using DCEM.ServiceAssistantService.Main.DTOModel;
+using Microsoft.AspNetCore.Mvc;
 using MSLibrary;
 using MSLibrary.Xrm;
 
@@ -17,8 +18,6 @@ namespace DCEM.ServiceAssistantService.Main.Application
         {
             _appointmentInfoService = appointmentInfoService;
         }
-
-      
 
         /// <summary>
         /// 预约记录查询
@@ -60,6 +59,16 @@ namespace DCEM.ServiceAssistantService.Main.Application
         public async Task<QueryResult<CrmEntity>> GetConfig(AppointmentConfiggRequest appointmentConfiggRequest)
         {
             return await _appointmentInfoService.GetConfig(appointmentConfiggRequest);
+        }
+
+        /// <summary>
+        /// 预约单创建与修改(包括取消预约)
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ActionResult<string>> AddOrEdit(AppointmentInfoAddOrEditRequest request)
+        {
+            return await _appointmentInfoService.AddOrEdit(request);
         }
     }
 }

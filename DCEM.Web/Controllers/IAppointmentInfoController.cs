@@ -119,17 +119,15 @@ namespace DCEM.Web.Controllers
         }
 
         /// <summary>
-        /// 预约单创建修改
+        /// 预约单创建与修改(包括取消预约)
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
         [Route("AddOrEdit")]
-        public async Task<NewtonsoftJsonActionResult<Guid>> AddOrEdit(TechnicalSupportRequest request)
+        public async Task<ActionResult<string>> AddOrEdit(AppointmentInfoAddOrEditRequest request)
         {
-            //var result = await app.AddOrEditEntity(request);
-            //return result;
-            return null;
+            return await app.AddOrEdit(request);
         }
 
     }
