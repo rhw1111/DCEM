@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-back-button text=\"返回\" defaultHref=\"/\"></ion-back-button>\n    </ion-buttons>\n    <ion-title>技术支持</ion-title>\n  </ion-toolbar>\n  <ion-toolbar>\n      <ion-searchbar [(ngModel)]=\"this.model.seachkey\" placeholder=\"支持项目名称和编号模糊查找\" (keyup)=\"search($event)\" ></ion-searchbar>\n  </ion-toolbar>\n  <ion-toolbar>\n      <ion-segment>\n        <ion-segment-button checked (click)=\"selectTab(0)\">\n            <ion-label>全部</ion-label>\n        </ion-segment-button>\n        <ion-segment-button (click)=\"selectTab(10)\">\n            <ion-label>未处理</ion-label>\n        </ion-segment-button>\n        <ion-segment-button (click)=\"selectTab(30)\">\n            <ion-label>处理中</ion-label>\n        </ion-segment-button>\n        <ion-segment-button (click)=\"selectTab(40)\">\n            <ion-label>已关闭</ion-label>\n        </ion-segment-button>\n        <ion-segment-button (click)=\"selectTab(50)\">\n            <ion-label>已取消</ion-label>\n        </ion-segment-button>\n      </ion-segment>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n        <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\" refreshingText=\"刷新中...\">\n        </ion-refresher-content> \n    </ion-refresher>\n    <ion-list lines=\"full\">\n        <ion-item *ngFor=\"let item of model.data\" [routerLink]=\"['/serving/ts/detail']\" [queryParams]=\"{id:item.Id}\">\n            <ion-icon slot=\"start\" color=\"primary\" name=\"hammer\" size=\"large\"></ion-icon>\n            <ion-label>\n                <h2>{{item.mcs_name}}</h2>\n                <p>施工项目：{{item.mcs_title}}</p>\n                <p>施工日期：{{FormatToDateTime(item.mcs_repairdate)}}</p>\n                <p *ngIf=\"item.mcs_orderstatus==10\">施工状态：未处理</p>\n                <p *ngIf=\"item.mcs_orderstatus==30\">施工状态：处理中</p>\n                <p *ngIf=\"item.mcs_orderstatus==40\">施工状态：已关闭</p>\n                <p *ngIf=\"item.mcs_orderstatus==50\">施工状态：已取消</p>\n            </ion-label>\n        </ion-item>\n    </ion-list>\n\n    <ion-row *ngIf=\"model.isending\">\n        <ion-col class=\"nodata\" text-center>\n            没有更多内容啦\n        </ion-col>\n    </ion-row>\n\n    <ion-row *ngIf=\"this.model.nodata\">\n        <ion-col class=\"nodata\" text-center>\n            没有查询到数据\n        </ion-col>\n    </ion-row>\n    \n    <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doLoading($event)\"> \n        <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\"> \n        </ion-infinite-scroll-content>\n    </ion-infinite-scroll>\n    <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\n        <ion-fab-button [routerLink]=\"['/serving/ts/edit']\">\n            <ion-icon name=\"add\"></ion-icon>\n        </ion-fab-button>\n    </ion-fab>\n</ion-content>\n"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-back-button text=\"返回\" defaultHref=\"/\"></ion-back-button>\n    </ion-buttons>\n    <ion-title>技术支持</ion-title>\n  </ion-toolbar>\n  <ion-toolbar>\n      <ion-searchbar [(ngModel)]=\"this.model.seachkey\" placeholder=\"支持项目名称和编号模糊查找\" (keyup)=\"search($event)\" ></ion-searchbar>\n  </ion-toolbar>\n  <ion-toolbar>\n      <ion-segment>\n        <ion-segment-button checked (click)=\"selectTab(0)\">\n            <ion-label>全部</ion-label>\n        </ion-segment-button>\n        <!-- <ion-segment-button (click)=\"selectTab(10)\">\n            <ion-label>未处理</ion-label>\n        </ion-segment-button> -->\n        <ion-segment-button (click)=\"selectTab(30)\">\n            <ion-label>处理中</ion-label>\n        </ion-segment-button>\n        <ion-segment-button (click)=\"selectTab(40)\">\n            <ion-label>已关闭</ion-label>\n        </ion-segment-button>\n        <ion-segment-button (click)=\"selectTab(50)\">\n            <ion-label>已取消</ion-label>\n        </ion-segment-button>\n      </ion-segment>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n        <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\" refreshingText=\"刷新中...\">\n        </ion-refresher-content> \n    </ion-refresher>\n    <ion-list lines=\"full\">\n        <ion-item *ngFor=\"let item of model.data\" [routerLink]=\"['/serving/ts/detail']\" [queryParams]=\"{id:item.Id}\">\n            <ion-icon slot=\"start\" name=\"hammer\" size=\"large\"></ion-icon>\n            <ion-label>\n                <h2>{{item.mcs_name}}</h2>\n                <p>项目名称：{{item.mcs_title}}</p>\n                <p>\n                    <ion-icon name=\"calendar\" size=\"small\" color=\"primary\"></ion-icon> {{FormatToDate(item.mcs_repairdate)}}\n                </p>\n            </ion-label>\n            <ion-note slot=\"end\" *ngIf=\"item.mcs_orderstatus==10\">\n                <ion-icon color=\"primary\" name=\"hourglass\" size=\"small\"></ion-icon>\n                未处理\n            </ion-note>\n            <ion-note slot=\"end\" *ngIf=\"item.mcs_orderstatus==30\">\n                <ion-icon color=\"warning\" name=\"build\" size=\"small\"></ion-icon>\n                处理中\n            </ion-note>\n            <ion-note slot=\"end\" *ngIf=\"item.mcs_orderstatus==40\">\n                <ion-icon color=\"success\" name=\"checkmark-circle-outline\" size=\"small\"></ion-icon>\n                <label>已关闭</label>\n            </ion-note>\n            <ion-note slot=\"end\" *ngIf=\"item.mcs_orderstatus==50\">\n                <ion-icon name=\"close-circle-outline\" size=\"small\"></ion-icon>\n                已取消\n            </ion-note>\n        </ion-item>\n    </ion-list>\n\n    <ion-row *ngIf=\"model.isending\">\n        <ion-col class=\"nodata\" text-center>\n            <label>没有更多内容啦</label>\n        </ion-col>\n    </ion-row>\n    \n    <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doLoading($event)\"> \n        <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\"> \n        </ion-infinite-scroll-content>\n    </ion-infinite-scroll>\n    <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\n        <ion-fab-button [routerLink]=\"['/serving/ts/edit']\">\n            <ion-icon name=\"add\"></ion-icon>\n        </ion-fab-button>\n    </ion-fab>\n</ion-content>\n"
 
 /***/ }),
 
@@ -69,7 +69,7 @@ var ListPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NlcnZpbmcvdGVjaG5pY2FsLXN1cHBvcnQuY29tL2xpc3QvbGlzdC5wYWdlLnNjc3MifQ== */"
+module.exports = ".nodata label {\n  color: rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.4);\n  font-size: 14px;\n  text-align: center;\n  padding-bottom: 10px;\n  margin-bottom: 10px; }\n\nion-note {\n  vertical-align: middle; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2VydmluZy90ZWNobmljYWwtc3VwcG9ydC5jb20vbGlzdC9FOlxcQXBwUHJvamVjdFxcRENFTVxcRENFTS5NQXBwL3NyY1xcYXBwXFxzZXJ2aW5nXFx0ZWNobmljYWwtc3VwcG9ydC5jb21cXGxpc3RcXGxpc3QucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBRU8sb0RBQStDO0VBQy9DLGVBQWU7RUFDZixrQkFBaUI7RUFDakIsb0JBQW9CO0VBQ3BCLG1CQUFtQixFQUFBOztBQUcxQjtFQUNJLHNCQUFzQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvc2VydmluZy90ZWNobmljYWwtc3VwcG9ydC5jb20vbGlzdC9saXN0LnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5ub2RhdGF7XHJcbiAgICBsYWJlbHtcclxuICAgICAgIGNvbG9yOiByZ2JhKHZhcigtLWlvbi10ZXh0LWNvbG9yLXJnYiwwLDAsMCksLjQpOyBcclxuICAgICAgIGZvbnQtc2l6ZTogMTRweDtcclxuICAgICAgIHRleHQtYWxpZ246Y2VudGVyO1xyXG4gICAgICAgcGFkZGluZy1ib3R0b206IDEwcHg7XHJcbiAgICAgICBtYXJnaW4tYm90dG9tOiAxMHB4O1xyXG4gICAgfVxyXG59XHJcbmlvbi1ub3Rle1xyXG4gICAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -89,6 +89,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
 /* harmony import */ var silly_datetime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! silly-datetime */ "./node_modules/silly-datetime/dest/index.js");
 /* harmony import */ var silly_datetime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(silly_datetime__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+
 
 
 
@@ -108,19 +110,18 @@ var ListPage = /** @class */ (function () {
             pageSize: 10,
             page: 1,
             sort: 'mcs_supportorderid desc',
-            isending: false,
-            nodata: false
+            isending: false //是否加载完成
         };
     }
     ListPage.prototype.ngOnInit = function () {
         this.model.page = 1;
-        var cachedata = this.httpService.GetDataCache(this.model.name);
-        if (cachedata == "") {
-            this.getList(null);
-        }
-        else {
-            this.model.data = JSON.parse(cachedata);
-        }
+        this.getList(null);
+        // var cachedata = this.httpService.GetDataCache(this.model.name);
+        // if (cachedata == "") {
+        // }
+        // else {
+        //     this.model.data = JSON.parse(cachedata);
+        // }
     };
     //搜索方法
     ListPage.prototype.search = function (event) {
@@ -146,6 +147,7 @@ var ListPage = /** @class */ (function () {
     };
     //切换tab
     ListPage.prototype.selectTab = function (status) {
+        this.infiniteScroll.disabled = false; //切换标签初始化下拉控件事件
         this.model.data = [];
         this.model.page = 1;
         this.model.isending = false;
@@ -188,22 +190,15 @@ var ListPage = /** @class */ (function () {
                 }
                 event ? event.target.complete() : '';
                 //判断是否有新数据
-                if (res.Results.length < 2) {
+                if (res.Results.length < _this.model.pageSize) {
                     event ? event.target.disabled = true : "";
                     _this.model.isending = true;
-                }
-                _this._page.loadingHide();
-                if (_this.model.data.length == 0) {
-                    _this.model.nodata = true;
-                }
-                else {
-                    _this.model.nodata = false;
                 }
             }
             else {
                 _this._page.alert("消息提示", "数据加载异常");
-                _this._page.loadingHide();
             }
+            _this._page.loadingHide();
         }, function (err) {
             _this._page.alert("消息提示", "数据加载异常");
             _this._page.loadingHide();
@@ -230,6 +225,10 @@ var ListPage = /** @class */ (function () {
         { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"] },
         { type: _base_base_ser_http_service_service__WEBPACK_IMPORTED_MODULE_2__["HttpService"] }
     ]; };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonInfiniteScroll"], null),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonInfiniteScroll"])
+    ], ListPage.prototype, "infiniteScroll", void 0);
     ListPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-list',

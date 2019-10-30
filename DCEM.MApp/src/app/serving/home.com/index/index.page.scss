@@ -9,18 +9,19 @@ ion-list {
 
     ion-list-header {
 
-        height: 100%;
+        height: auto;
         text-align: center;
         background-color: rgb(249, 249, 249);
-
-        img {
-            /*left: 50%;*/
-            position: relative;
-            /*transform: translateX(-50%);*/
-            width: 100%;
-            /*max-height: 100%;*/
-        }
+        padding: 0px 0px;
+        
     }
+}
+img {
+    /*left: 50%;*/
+    position: relative;
+    /*transform: translateX(-50%);*/
+    width: 100%;
+    /*max-height: 100%;*/
 }
 
 ion-grid:nth-child(even) {

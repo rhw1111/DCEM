@@ -7,154 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/mycustomer/list\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>张三</ion-title>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-divider>\r\n            <ion-label>\r\n                车主信息\r\n            </ion-label>\r\n        </ion-item-divider>\r\n        <ion-item>\r\n            <ion-label>\r\n                <ion-note>\r\n                    姓名\r\n                </ion-note>\r\n                <h3>张三</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <ion-note>\r\n                    证件类型\r\n                </ion-note>\r\n                <h3>身份证</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <ion-note>\r\n                    证件号码\r\n                </ion-note>\r\n                <h3>510215198308180418</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <ion-note>\r\n                    客户标签\r\n                </ion-note>\r\n                <h3>510215198308180418</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <ion-note>\r\n                    送修人\r\n                </ion-note>\r\n                <h3>张三</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <ion-note>\r\n                    送修人手机\r\n                </ion-note>\r\n                <h3>15023224233</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n\r\n        <ion-item-divider>\r\n            <ion-label>\r\n                车辆信息\r\n            </ion-label>\r\n        </ion-item-divider>\r\n        <ion-item>\r\n            <ion-label>\r\n                <ion-note>\r\n                    VIN\r\n                </ion-note>\r\n                <h3>张三</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <ion-note>\r\n                    发动机号\r\n                </ion-note>\r\n                <h3>张三</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <ion-note>\r\n                    车型\r\n                </ion-note>\r\n                <h3>张三</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <ion-note>\r\n                    销售日期\r\n                </ion-note>\r\n                <h3>张三</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <ion-note>\r\n                    生成日期\r\n                </ion-note>\r\n                <h3>张三</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <ion-note>\r\n                    下次保养日期\r\n                </ion-note>\r\n                <h3>张三</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <ion-note>\r\n                    下次保研里程\r\n                </ion-note>\r\n                <h3>张三</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n\r\n        <ion-item-divider>\r\n            <ion-label>\r\n                跟进记录\r\n            </ion-label>\r\n        </ion-item-divider>\r\n        <ion-item>\r\n            <ion-label>\r\n                <h3>跟进人</h3>\r\n            </ion-label>\r\n            <ion-label>\r\n                <h4>跟进内容</h4>\r\n            </ion-label>\r\n            <ion-label>\r\n                <h4>跟进时间</h4>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <h3>张三</h3>\r\n            </ion-label>\r\n            <ion-label>\r\n                <h4>100</h4>\r\n            </ion-label>\r\n            <ion-label>\r\n                <h4>跟进时间</h4>\r\n            </ion-label>\r\n        </ion-item>\r\n\r\n    </ion-list>\r\n</ion-content>\r\n"
-
-/***/ }),
-
-/***/ "./src/app/base/base.ser/Dcem.core.ts":
-/*!********************************************!*\
-  !*** ./src/app/base/base.ser/Dcem.core.ts ***!
-  \********************************************/
-/*! exports provided: DCore_Window, DCore_Config, DCore_Http, DCore_Page */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DCore_Window", function() { return DCore_Window; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DCore_Config", function() { return DCore_Config; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DCore_Http", function() { return DCore_Http; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DCore_Page", function() { return DCore_Page; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-
-
-
-
-
-let DCore_Window = class DCore_Window {
-    storageSet(key, val) {
-        window.localStorage.setItem(key, val);
-    }
-    storageGet(key) {
-        return window.localStorage.getItem(key);
-    }
-};
-DCore_Window = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Injectable"])({
-        providedIn: 'root'
-    })
-], DCore_Window);
-
-let DCore_Config = class DCore_Config {
-    constructor(_window) {
-        this._window = _window;
-        this.serverUrl = _window.storageGet("apiDomainUrl");
-    }
-    getDomain() {
-        this.serverUrl = this._window.storageGet("apiDomainUrl");
-        return this.serverUrl;
-    }
-};
-DCore_Config.ctorParameters = () => [
-    { type: DCore_Window }
-];
-DCore_Config = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Injectable"])({
-        providedIn: 'root'
-    }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [DCore_Window])
-], DCore_Config);
-
-let DCore_Http = class DCore_Http {
-    constructor(_httpClient, _config) {
-        this._httpClient = _httpClient;
-        this._config = _config;
-    }
-    //get请求
-    get(url, params, rescallback, errcallback) {
-        console.log(this._config.getDomain() + url);
-        this._httpClient.get(this._config.getDomain() + url, params).subscribe((res) => {
-            rescallback && rescallback(res);
-        }, (err) => {
-            errcallback && errcallback(err);
-        });
-    }
-};
-DCore_Http.ctorParameters = () => [
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] },
-    { type: DCore_Config }
-];
-DCore_Http = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Injectable"])({
-        providedIn: 'root'
-    }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
-        DCore_Config])
-], DCore_Http);
-
-let DCore_Page = class DCore_Page {
-    constructor(alertCtr, loadingCtr, navCtr, router, activeRoute) {
-        this.alertCtr = alertCtr;
-        this.loadingCtr = loadingCtr;
-        this.navCtr = navCtr;
-        this.router = router;
-        this.activeRoute = activeRoute;
-    }
-    //弹出提示
-    alert(header, message) {
-        const alert = this.alertCtr.create({
-            header,
-            message,
-            buttons: ['确定']
-        });
-        alert.then(a => {
-            a.present();
-        });
-    }
-    //打开等待动画
-    loadingShow() {
-        if (this.loading !== null) {
-            this.loading = this.loadingCtr.create({ translucent: true });
-        }
-        this.loading.then(a => { a.present(); });
-    }
-    //关闭等待动画
-    loadingHide() {
-        if (this.loading !== null) {
-            this.loading.then(a => { a.dismiss(); });
-        }
-    }
-    //跳转到指定页
-    goto(url, params) {
-        if (params === null) {
-            params = {};
-        }
-        //this.navCtr.navigateRoot(url);
-        this.router.navigate([url], params);
-    }
-};
-DCore_Page.ctorParameters = () => [
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] }
-];
-DCore_Page = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Injectable"])({
-        providedIn: 'root'
-    }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"],
-        _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
-        _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]])
-], DCore_Page);
-
-
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/mycustomer/list\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>{{mod.data.vehowner.fullname}}</ion-title>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-divider color=\"primary\">\r\n            <ion-label>\r\n                车主信息\r\n            </ion-label>\r\n        </ion-item-divider>\r\n        <ion-item>\r\n            <ion-label>\r\n                <h2>\r\n                    姓名\r\n                </h2>\r\n                <p>{{mod.data.vehowner.fullname}}&nbsp;</p>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <h2>\r\n                    证件类型\r\n                </h2>\r\n                <p>{{mod.data.vehowner.idtype}}&nbsp;</p>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <h2>\r\n                    证件号码\r\n                </h2>\r\n                <p>{{mod.data.vehowner.identitycard}}&nbsp;</p>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label text-wrap>\r\n                <h2>\r\n                    客户标签\r\n                </h2>\r\n                <ion-text>\r\n                    <ion-chip *ngFor=\"let item of mod.data.tagArray;let key=index\" color=\"success\">\r\n                        {{item.name}}\r\n                    </ion-chip>\r\n                </ion-text>\r\n                &nbsp;\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <h2>\r\n                    送修人\r\n                </h2>\r\n                <p>{{mod.data.vehowner.shuttlename}}&nbsp;</p>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <h2>\r\n                    送修人手机\r\n                </h2>\r\n                <p>{{mod.data.vehowner.shuttlephone}}&nbsp;</p>\r\n            </ion-label>\r\n        </ion-item>\r\n\r\n        <ion-item-divider color=\"primary\">\r\n            <ion-label>\r\n                车辆信息\r\n            </ion-label>\r\n        </ion-item-divider>\r\n        <ion-item>\r\n            <ion-label>\r\n                <h2>\r\n                    VIN\r\n                </h2>\r\n                <p>{{mod.data.vehowner.name}}&nbsp;</p>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <h2>\r\n                    发动机号\r\n                </h2>\r\n                <p>{{mod.data.vehowner.enginennumber}}&nbsp;</p>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <h2>\r\n                    车型\r\n                </h2>\r\n                <p>{{mod.data.vehowner.vehtype}}&nbsp;</p>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <h2>\r\n                    销售日期\r\n                </h2>\r\n                <p>{{mod.data.vehowner.salesdate}}&nbsp;</p>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <h2>\r\n                    生产日期\r\n                </h2>\r\n                <p>{{mod.data.vehowner.prodtime}}&nbsp;</p>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <h2>\r\n                    下次保养日期\r\n                </h2>\r\n                <p>{{mod.data.vehowner.nextmaintainat}}&nbsp;</p>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <h2>\r\n                    下次保养里程\r\n                </h2>\r\n                <p>{{mod.data.vehowner.nextmaintainmileage}}&nbsp;</p>\r\n            </ion-label>\r\n        </ion-item>\r\n\r\n        <ion-item-divider color=\"primary\">\r\n            <ion-label>\r\n                跟进记录\r\n            </ion-label>\r\n        </ion-item-divider>\r\n        <ion-item-group>\r\n            <ion-item *ngFor=\"let item of mod.data.customerfollowuplogArray;let key=index\">\r\n                <ion-label>\r\n                    <h2>\r\n                        跟进人\r\n                    </h2>\r\n                    <p>\r\n                        {{item.createdby}}\r\n                    </p>\r\n                    <h2>\r\n                        跟进时间\r\n                    </h2>\r\n                    <p>\r\n                        {{item.createdon}}&nbsp;\r\n                    </p>\r\n                    <h2>\r\n                        跟进内容\r\n                    </h2>\r\n                    <p text-wrap>\r\n                        {{item.remark}}&nbsp;\r\n                    </p>\r\n                </ion-label>\r\n            </ion-item>\r\n            <ion-item *ngIf=\"mod.data.customerfollowuplogArray.length===0\">\r\n                <ion-label>\r\n                    <p>\r\n                        当前客户没有跟进记录\r\n                    </p>\r\n                </ion-label>\r\n            </ion-item>\r\n        </ion-item-group>\r\n    </ion-list>\r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -240,13 +93,78 @@ let DetailPage = class DetailPage {
         this._http = _http;
         this._page = _page;
         this.activeRoute = activeRoute;
+        this.mod = {
+            apiUrl: '/Api/Customer/GetCustomerInfo',
+            data: {
+                vehowner: {
+                    fullname: "",
+                    idtype: "",
+                    identitycard: "",
+                    shuttlename: "",
+                    shuttlephone: "",
+                    name: "",
+                    enginennumber: "",
+                    vehtype: "",
+                    salesdate: "",
+                    prodtime: "",
+                    nextmaintainmileage: "",
+                    nextmaintainat: ""
+                },
+                customerfollowuplogArray: [],
+                tagArray: []
+            }
+        };
+    }
+    ngOnInit() {
         this.activeRoute.queryParams.subscribe((params) => {
             if (params['id'] != null && params['id'] != undefined) {
-                this._page.alert("消息提示", params['id']);
+                // this._page.alert("消息提示", params['id']);
+                this.pageOnBind(params['id']);
             }
         });
     }
-    ngOnInit() {
+    pageOnBind(id) {
+        this._page.loadingShow();
+        this._http.get(this.mod.apiUrl, {
+            params: {
+                guid: id,
+            }
+        }, (res) => {
+            if (res.Carserviceadvisor !== null) {
+                this.mod.data.vehowner.fullname = res["Vehowner"]["Attributes"]["mcs_fullname"];
+                this.mod.data.vehowner.idtype = res["Vehowner"]["Attributes"]["mcs_idtype@OData.Community.Display.V1.FormattedValue"];
+                this.mod.data.vehowner.identitycard = res["Vehowner"]["Attributes"]["mcs_identitycard"];
+                this.mod.data.vehowner.shuttlename = res["Vehowner"]["Attributes"]["mcs_shuttlename"];
+                this.mod.data.vehowner.shuttlephone = res["Vehowner"]["Attributes"]["mcs_shuttlephone"];
+                this.mod.data.vehowner.name = res["Vehowner"]["Attributes"]["mcs_name"];
+                this.mod.data.vehowner.enginennumber = res["Vehowner"]["Attributes"]["mcs_enginennumber"];
+                this.mod.data.vehowner.vehtype = res["Vehowner"]["Attributes"]["_mcs_vehtype_value@OData.Community.Display.V1.FormattedValue"];
+                this.mod.data.vehowner.salesdate = res["Vehowner"]["Attributes"]["mcs_salesdate@OData.Community.Display.V1.FormattedValue"];
+                this.mod.data.vehowner.prodtime = res["Vehowner"]["Attributes"]["mcs_prodtime@OData.Community.Display.V1.FormattedValue"];
+                this.mod.data.vehowner.nextmaintainmileage = res["Vehowner"]["Attributes"]["mcs_nextmaintainmileage"];
+                this.mod.data.vehowner.nextmaintainat = res["Vehowner"]["Attributes"]["mcs_nextmaintainat@OData.Community.Display.V1.FormattedValue"];
+            }
+            if (res.CustomerfollowuplogList != null) {
+                for (var key in res.CustomerfollowuplogList) {
+                    var obj = {};
+                    obj["remark"] = res.CustomerfollowuplogList[key]["Attributes"]["mcs_remark"];
+                    obj["createdon"] = res.CustomerfollowuplogList[key]["Attributes"]["createdon@OData.Community.Display.V1.FormattedValue"];
+                    obj["createdby"] = res.CustomerfollowuplogList[key]["Attributes"]["_createdby_value@OData.Community.Display.V1.FormattedValue"];
+                    this.mod.data.customerfollowuplogArray.push(obj);
+                }
+            }
+            if (res.TagList != null) {
+                for (var key in res.TagList) {
+                    var obj = {};
+                    obj["name"] = res.TagList[key]["Attributes"]["_mcs_taggroupid_value@OData.Community.Display.V1.FormattedValue"];
+                    this.mod.data.tagArray.push(obj);
+                }
+            }
+            this._page.loadingHide();
+        }, (err) => {
+            this._page.alert("消息提示", "数据加载异常");
+            this._page.loadingHide();
+        });
     }
 };
 DetailPage.ctorParameters = () => [

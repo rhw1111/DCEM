@@ -79,6 +79,15 @@ const routes: Routes = [
                     { path: 'edit', loadChildren: './serving/technical-support.com/edit/edit.module#EditPageModule' }
                 ]
             },
+            {
+                path: 'report',//技术支持
+                children: [
+                    { path: 'analytics', loadChildren: './serving/report/analytics/analytics.module#AnalyticsPageModule' },
+                    { path: 'appointmentstatistics', loadChildren: './serving/report/appointmentstatistics/appointmentstatistics.module#AppointmentstatisticsPageModule' },
+                    { path: 'appointmenttrend', loadChildren: './serving/report/appointmenttrend/appointmenttrend.module#AppointmenttrendPageModule' },
+                    { path: 'testdriverate', loadChildren: './serving/report/testdriverate/testdriverate.module#TestdriveratePageModule' }
+                ]
+            },
         ],
     }
 
