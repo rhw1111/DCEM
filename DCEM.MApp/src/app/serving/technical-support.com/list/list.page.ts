@@ -112,7 +112,7 @@ export class ListPage implements OnInit {
                     }
                     event ? event.target.complete() : '';
                     //判断是否有新数据
-                    if (res.Results.length < 10) {
+                    if (res.Results.length < this.model.pageSize) {
                         event ? event.target.disabled = true : "";
                         this.model.isending = true;
                     }

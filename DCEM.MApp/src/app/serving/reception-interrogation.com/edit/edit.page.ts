@@ -41,10 +41,11 @@ export class EditPage implements OnInit {
         const { data } = await modal.onDidDismiss();
         if (data != null && typeof data != "undefined") {
             if (data.vehowne != null && typeof data.vehowne != "undefined") {
-                this.shareData.serviceproxy["customerid"] = data.vehowne.id;
-                this.shareData.serviceproxy["fullname"] = data.vehowne.fullname;
-                this.shareData.serviceproxy["vehplate"] = data.vehowne.vehplate;
-                this.shareData.serviceproxy["mobilephone"] = data.vehowne.mobilephone;
+                console.log(data.vehowne);
+                this.shareData.serviceproxy["customerid"] = data.vehowne.vehownerid;
+                this.shareData.serviceproxy["customername"] = data.vehowne.fullname;
+                this.shareData.serviceproxy["carplate"] = data.vehowne.vehplate;
+                this.shareData.serviceproxy["customerphone"] = data.vehowne.mobilephone;
             }
         }
     }

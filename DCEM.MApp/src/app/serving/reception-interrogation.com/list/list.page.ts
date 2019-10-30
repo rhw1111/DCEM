@@ -47,8 +47,6 @@ export class ListPage implements OnInit {
             this.listOnBind();
         }
     }
-
-
     listOnBind() {
         this._page.loadingShow();
         this.mod.data = {};
@@ -62,7 +60,6 @@ export class ListPage implements OnInit {
                 }
             },
             (res: any) => {
-                console.log(res);
                 if (res.Results !== null) {
                     for (var key in res.Results) {
                         var date = res.Results[key]["Attributes"]["createdon"];
@@ -82,7 +79,6 @@ export class ListPage implements OnInit {
                         obj["name"] = res.Results[key]["Attributes"]["mcs_name"];
                         this.mod.data[dateKey].data.push(obj);
                     }
-                    console.log(this.mod.data);
                     this._page.loadingHide();
                 }
                 else {

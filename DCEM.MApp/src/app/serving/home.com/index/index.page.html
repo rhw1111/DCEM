@@ -1,24 +1,24 @@
-﻿<ion-header>
+﻿<!-- <ion-header>
     <ion-toolbar>
         <ion-title>首页</ion-title>
     </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content fullscreen scroll-y="true">
-    <ion-list lines="none">
-        <ion-list-header text-center>
-            <img src="./assets/img/index.jpg" />
-        </ion-list-header>
-    </ion-list>
-
-    <ion-grid>
+    <!-- <ion-list lines="none">
+        
+    </ion-list> -->
+    <img src="./assets/img/index.jpg" />
+    <!-- <ion-grid>
         <ion-row>
             <ion-col>
                 <ion-label>待办项</ion-label>
             </ion-col>
         </ion-row>
-    </ion-grid>
-
+    </ion-grid> -->
+    <ion-item-divider>
+        <ion-label>待办项</ion-label>
+    </ion-item-divider>
     <ion-grid>
         <ion-row>
             <ion-col>
@@ -35,7 +35,7 @@
                 </ion-tab-button>
             </ion-col>
             <ion-col>
-                <ion-tab-button [routerLink]="['/serving/resume/list']">
+                <ion-tab-button [routerLink]="['/serving/sc/list']">
                     <ion-icon color="tertiary" size="large" name="card"></ion-icon>
                     <ion-badge color="danger">6</ion-badge>
                     <ion-label>维修履历</ion-label>
@@ -57,7 +57,7 @@
                 </ion-tab-button>
             </ion-col>
             <ion-col>
-                <ion-tab-button [routerLink]="['/demo/analytics']">
+                <ion-tab-button [routerLink]="['/serving/report/analytics']">
                     <ion-icon color="danger" size="large" name="analytics"></ion-icon>
                     <ion-label>报表</ion-label>
                 </ion-tab-button>
@@ -68,13 +68,16 @@
             </ion-col>
         </ion-row>
     </ion-grid>
-    <ion-grid>
+    <!-- <ion-grid>
         <ion-row>
             <ion-col>
                 <ion-label>工作台</ion-label>
             </ion-col>
         </ion-row>
-    </ion-grid>
+    </ion-grid> -->
+    <ion-item-divider>
+        <ion-label>工作台</ion-label>
+    </ion-item-divider>
     <ion-grid>
         <ion-row>
             <ion-col>
