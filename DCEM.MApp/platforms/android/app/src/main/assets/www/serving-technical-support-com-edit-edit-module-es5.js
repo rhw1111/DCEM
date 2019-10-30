@@ -1,16 +1,5 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["serving-technical-support-com-edit-edit-module"],{
 
-/***/ "./node_modules/raw-loader/index.js!./src/app/serving/serving.ser/components/sc-select/sc-select.component.html":
-/*!*************************************************************************************************************!*\
-  !*** ./node_modules/raw-loader!./src/app/serving/serving.ser/components/sc-select/sc-select.component.html ***!
-  \*************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ""
-
-/***/ }),
-
 /***/ "./node_modules/raw-loader/index.js!./src/app/serving/technical-support.com/edit/edit.page.html":
 /*!*********************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/serving/technical-support.com/edit/edit.page.html ***!
@@ -18,207 +7,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n    <ion-toolbar>\n      <ion-buttons slot=\"start\">\n        <ion-back-button text=\"返回\" defaultHref=\"/\"></ion-back-button>\n      </ion-buttons>\n      <ion-title>创建或编辑技术支持</ion-title>\n    </ion-toolbar>\n  </ion-header>\n  \n  <ion-content>\n    <ion-list>\n      <ion-item-group>\n        <ion-item-divider>\n          <ion-label>基本信息</ion-label>\n        </ion-item-divider>\n        <ion-item>\n          <ion-label position=\"floating\">\n            <ion-text color=\"danger\">*</ion-text>主题\n          </ion-label>\n          <ion-input></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"floating\">\n            <ion-text color=\"danger\">*</ion-text>服务委托书\n          </ion-label>\n          <ion-button expand=\"block\" (click)=\"presentModal()\">Show Modal</ion-button>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"floating\">\n            <ion-text color=\"danger\">*</ion-text>技术主管\n          </ion-label>\n          <ion-input></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"floating\">\n            <ion-text color=\"danger\">*</ion-text>维修时间\n          </ion-label>\n          <ion-input></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"floating\">\n            <ion-text color=\"danger\">*</ion-text>邮箱\n          </ion-label>\n          <ion-input></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"floating\">\n            <ion-text color=\"danger\">*</ion-text>电话\n          </ion-label>\n          <ion-input></ion-input>\n        </ion-item>\n      </ion-item-group>\n    \n      <ion-item-group>\n        <ion-item-divider>\n          <ion-label>车辆信息</ion-label>\n        </ion-item-divider>\n        <ion-item>\n          <ion-label position=\"floating\">\n            <ion-text color=\"danger\">*</ion-text>日期\n          </ion-label>\n          <ion-input></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"floating\">\n            <ion-text color=\"danger\">*</ion-text>日期\n          </ion-label>\n          <ion-input></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"floating\">\n            <ion-text color=\"danger\">*</ion-text>日期\n          </ion-label>\n          <ion-input></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"floating\">\n            <ion-text color=\"danger\">*</ion-text>日期\n          </ion-label>\n          <ion-input></ion-input>\n        </ion-item>\n      </ion-item-group>\n    </ion-list>\n  </ion-content>\n  "
-
-/***/ }),
-
-/***/ "./src/app/base/base.ser/Dcem.core.ts":
-/*!********************************************!*\
-  !*** ./src/app/base/base.ser/Dcem.core.ts ***!
-  \********************************************/
-/*! exports provided: DCore_Window, DCore_Config, DCore_Http, DCore_Page */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DCore_Window", function() { return DCore_Window; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DCore_Config", function() { return DCore_Config; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DCore_Http", function() { return DCore_Http; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DCore_Page", function() { return DCore_Page; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-
-
-
-
-
-var DCore_Window = /** @class */ (function () {
-    function DCore_Window() {
-    }
-    DCore_Window.prototype.storageSet = function (key, val) {
-        window.localStorage.setItem(key, val);
-    };
-    DCore_Window.prototype.storageGet = function (key) {
-        return window.localStorage.getItem(key);
-    };
-    DCore_Window = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Injectable"])({
-            providedIn: 'root'
-        })
-    ], DCore_Window);
-    return DCore_Window;
-}());
-
-var DCore_Config = /** @class */ (function () {
-    function DCore_Config(_window) {
-        this._window = _window;
-        this.serverUrl = _window.storageGet("apiDomainUrl");
-    }
-    DCore_Config.prototype.getDomain = function () {
-        this.serverUrl = this._window.storageGet("apiDomainUrl");
-        return this.serverUrl;
-    };
-    DCore_Config.ctorParameters = function () { return [
-        { type: DCore_Window }
-    ]; };
-    DCore_Config = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [DCore_Window])
-    ], DCore_Config);
-    return DCore_Config;
-}());
-
-var DCore_Http = /** @class */ (function () {
-    function DCore_Http(_httpClient, _config) {
-        this._httpClient = _httpClient;
-        this._config = _config;
-    }
-    //get请求
-    DCore_Http.prototype.get = function (url, params, rescallback, errcallback) {
-        console.log(this._config.getDomain() + url);
-        this._httpClient.get(this._config.getDomain() + url, params).subscribe(function (res) {
-            rescallback && rescallback(res);
-        }, function (err) {
-            errcallback && errcallback(err);
-        });
-    };
-    DCore_Http.ctorParameters = function () { return [
-        { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] },
-        { type: DCore_Config }
-    ]; };
-    DCore_Http = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
-            DCore_Config])
-    ], DCore_Http);
-    return DCore_Http;
-}());
-
-var DCore_Page = /** @class */ (function () {
-    function DCore_Page(alertCtr, loadingCtr, navCtr, router, activeRoute) {
-        this.alertCtr = alertCtr;
-        this.loadingCtr = loadingCtr;
-        this.navCtr = navCtr;
-        this.router = router;
-        this.activeRoute = activeRoute;
-    }
-    //弹出提示
-    DCore_Page.prototype.alert = function (header, message) {
-        var alert = this.alertCtr.create({
-            header: header,
-            message: message,
-            buttons: ['确定']
-        });
-        alert.then(function (a) {
-            a.present();
-        });
-    };
-    //打开等待动画
-    DCore_Page.prototype.loadingShow = function () {
-        if (this.loading !== null) {
-            this.loading = this.loadingCtr.create({ translucent: true });
-        }
-        this.loading.then(function (a) { a.present(); });
-    };
-    //关闭等待动画
-    DCore_Page.prototype.loadingHide = function () {
-        if (this.loading !== null) {
-            this.loading.then(function (a) { a.dismiss(); });
-        }
-    };
-    //跳转到指定页
-    DCore_Page.prototype.goto = function (url, params) {
-        if (params === null) {
-            params = {};
-        }
-        //this.navCtr.navigateRoot(url);
-        this.router.navigate([url], params);
-    };
-    DCore_Page.ctorParameters = function () { return [
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"] },
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] }
-    ]; };
-    DCore_Page = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]])
-    ], DCore_Page);
-    return DCore_Page;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/serving/serving.ser/components/sc-select/sc-select.component.scss":
-/*!***********************************************************************************!*\
-  !*** ./src/app/serving/serving.ser/components/sc-select/sc-select.component.scss ***!
-  \***********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NlcnZpbmcvc2VydmluZy5zZXIvY29tcG9uZW50cy9zYy1zZWxlY3Qvc2Mtc2VsZWN0LmNvbXBvbmVudC5zY3NzIn0= */"
-
-/***/ }),
-
-/***/ "./src/app/serving/serving.ser/components/sc-select/sc-select.component.ts":
-/*!*********************************************************************************!*\
-  !*** ./src/app/serving/serving.ser/components/sc-select/sc-select.component.ts ***!
-  \*********************************************************************************/
-/*! exports provided: ScSelectComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ScSelectComponent", function() { return ScSelectComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-
-
-//import { ModalController } from '@ionic/angular';
-var ScSelectComponent = /** @class */ (function () {
-    function ScSelectComponent(
-    //private modalCtrl:ModalController
-    ) {
-    }
-    ScSelectComponent.prototype.ngOnInit = function () { };
-    ScSelectComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-sc-select',
-            template: __webpack_require__(/*! raw-loader!./sc-select.component.html */ "./node_modules/raw-loader/index.js!./src/app/serving/serving.ser/components/sc-select/sc-select.component.html"),
-            styles: [__webpack_require__(/*! ./sc-select.component.scss */ "./src/app/serving/serving.ser/components/sc-select/sc-select.component.scss")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
-    ], ScSelectComponent);
-    return ScSelectComponent;
-}());
-
-
+module.exports = "<ion-header>\n    <ion-toolbar>\n      <ion-buttons slot=\"start\">\n        <ion-back-button text=\"返回\" defaultHref=\"/\"></ion-back-button>\n      </ion-buttons>\n      <ion-title>创建或编辑技术支持</ion-title>\n    </ion-toolbar>\n  </ion-header>\n  \n  <ion-content>\n    <ion-list>\n      <ion-item-group>\n        <ion-item-divider>\n          <ion-label>基本信息</ion-label>\n        </ion-item-divider>\n        <ion-item>\n          <ion-label position=\"floating\">\n            <ion-text color=\"danger\">*</ion-text>主题\n          </ion-label>\n          <ion-input></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label>\n            <ion-text color=\"danger\">*</ion-text>服务委托书: {{model.mcname}}\n          </ion-label>\n          <ion-avatar slot=\"end\">\n              <ion-icon color=\"primary\" size=\"large\" name=\"search\" (click)=\"presentModal()\"></ion-icon>\n          </ion-avatar>\n        </ion-item>\n        <!-- <ion-item>\n            <ion-button expand=\"block\" (click)=\"presentModal()\">选择服务委托书</ion-button>\n        </ion-item> -->\n        <ion-item>\n            <ion-label position=\"floating\">\n              <ion-text color=\"danger\">*</ion-text>服务顾问\n            </ion-label>\n            <ion-input></ion-input>\n          </ion-item>\n        <ion-item>\n          <ion-label position=\"floating\">\n            <ion-text color=\"danger\">*</ion-text>技术主管\n          </ion-label>\n          <ion-input></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"floating\">\n            <ion-text color=\"danger\">*</ion-text>维修时间\n          </ion-label>\n          <ion-datetime displayFormat=\"YYYY-MM-DD HH:mm\" min=\"1997\" max=\"2010\" value=\"\"></ion-datetime>\n        </ion-item>\n        <ion-item>\n          <ion-label><ion-icon name=\"mail\" size=\"large\"></ion-icon></ion-label>\n          <ion-input type=\"email\" placeholder=\"请输入邮箱\" maxlength=\"30\" style=\"text-align:right;\" (ionBlur)=\"changeEmail(model.email)\"\n          [(ngModel)]=\"model.email\" required></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-label><ion-icon name=\"phone-portrait\" size=\"large\"></ion-icon></ion-label>\n          <ion-input type=\"tel\" placeholder=\"请输入手机号\" maxlength=\"11\" minlength=\"11\" style=\"text-align:right;\" (ionBlur)=\"changePhone(model.phone)\" [(ngModel)]=\"model.phone\" required onkeyup=\"this.value=this.value.replace(/\\D/g,'')\"></ion-input>\n        </ion-item>\n      </ion-item-group>\n    \n      <ion-item-group>\n        <ion-item-divider>\n          <ion-label>车辆信息</ion-label>\n        </ion-item-divider>\n        <ion-item>\n          <ion-label>\n            <ion-text color=\"danger\">*</ion-text>车主姓名：{{model.mcname}}\n          </ion-label>\n          <ion-avatar slot=\"end\">\n            <ion-icon color=\"primary\" size=\"large\" name=\"search\" (click)=\"presentModal()\"></ion-icon>\n          </ion-avatar>\n        </ion-item>\n        <ion-item>\n          <ion-label>车主手机</ion-label>\n          <ion-note slot=\"end\">18027302264</ion-note>\n        </ion-item>\n        <ion-item>\n          <ion-label>车牌号</ion-label>\n          <ion-note slot=\"end\">渝A100211</ion-note>\n        </ion-item>\n        <ion-item>\n          <ion-label>VIN</ion-label>\n          <ion-note slot=\"end\">VIN1283123123213</ion-note>\n        </ion-item>\n        <ion-item>\n          <ion-label>发动机号</ion-label>\n          <ion-note slot=\"end\">G23212</ion-note>\n        </ion-item>\n        <ion-item>\n          <ion-label>里程数</ion-label>\n          <ion-note slot=\"end\">1000</ion-note>\n        </ion-item>\n        <ion-item>\n          <ion-label>电机型号</ion-label>\n          <ion-note slot=\"end\">D12-12</ion-note>\n        </ion-item>\n        <ion-item>\n          <ion-label>电池序列号</ion-label>\n          <ion-note slot=\"end\">2323231232</ion-note>\n        </ion-item>\n        <ion-item>\n          <ion-label>是否加装</ion-label>\n          <ion-toggle slot=\"end\" color=\"secondary\"></ion-toggle>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"floating\">加装描述</ion-label>\n          <ion-textarea rows=\"6\" cols=\"20\" placeholder=\"请输入加装描述信息\"></ion-textarea>\n        </ion-item>\n      </ion-item-group>\n      <ion-item-group>\n        <ion-item-divider>\n          <ion-label>故障信息</ion-label>\n        </ion-item-divider>\n        <ion-item>\n            <ion-label>技术系统</ion-label>\n            <ion-select value=\"model.mcs_techsystem\" okText=\"确认\" cancelText=\"取消\">\n              <ion-select-option value=\"10\">车身</ion-select-option>\n              <ion-select-option value=\"20\">底盘</ion-select-option>\n              <ion-select-option value=\"30\">电器</ion-select-option>\n              <ion-select-option value=\"40\">三电</ion-select-option>\n            </ion-select>\n          </ion-item>\n        <ion-item>\n            <ion-label>故障类别代码: {{model.mcname}}</ion-label>\n            <ion-avatar slot=\"end\">\n                <ion-icon color=\"primary\" size=\"large\" name=\"search\" (click)=\"presentModal()\"></ion-icon>\n            </ion-avatar>\n          </ion-item>\n      </ion-item-group>\n      <ion-item-group>\n        <ion-item-divider>\n          <ion-label>其他</ion-label>\n        </ion-item-divider>\n        <ion-item>\n          <ion-label position=\"floating\">技术疑问</ion-label>\n          <ion-textarea></ion-textarea>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"floating\">检测诊断描述</ion-label>\n          <ion-textarea></ion-textarea>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"floating\">已更换零件</ion-label>\n          <ion-textarea></ion-textarea>\n        </ion-item>\n        <ion-item>\n          <ion-label position=\"floating\">具体故障现象</ion-label>\n          <ion-textarea></ion-textarea>\n        </ion-item>\n      </ion-item-group>\n      <ion-button  expand=\"block\" type=\"button\"  (click)=\"save()\">保存</ion-button>\n    </ion-list>\n  </ion-content>\n  "
 
 /***/ }),
 
@@ -239,8 +28,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _edit_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./edit.page */ "./src/app/serving/technical-support.com/edit/edit.page.ts");
-/* harmony import */ var _serving_ser_components_sc_select_sc_select_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../serving.ser/components/sc-select/sc-select.component */ "./src/app/serving/serving.ser/components/sc-select/sc-select.component.ts");
-
 
 
 
@@ -265,7 +52,7 @@ var EditPageModule = /** @class */ (function () {
                 _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"].forChild(routes)
             ],
-            entryComponents: [_serving_ser_components_sc_select_sc_select_component__WEBPACK_IMPORTED_MODULE_7__["ScSelectComponent"]],
+            entryComponents: [],
             declarations: [_edit_page__WEBPACK_IMPORTED_MODULE_6__["EditPage"]]
         })
     ], EditPageModule);
@@ -308,28 +95,62 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var EditPage = /** @class */ (function () {
-    function EditPage(_http, _page, modelCtr) {
+    function EditPage(_http, _page, modalCtrl) {
         this._http = _http;
         this._page = _page;
-        this.modelCtr = modelCtr;
+        this.modalCtrl = modalCtrl;
+        this.model = {
+            mcid: '',
+            mcname: '',
+            phone: '',
+            email: '',
+            mcs_techsystem: '' //技术系统
+        };
     }
     EditPage.prototype.ngOnInit = function () {
     };
     EditPage.prototype.presentModal = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var modal;
+            var modal, data;
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.modelCtr.create({
+                    case 0: return [4 /*yield*/, this.modalCtrl.create({
                             component: _serving_ser_components_sc_select_sc_select_component__WEBPACK_IMPORTED_MODULE_4__["ScSelectComponent"]
                         })];
                     case 1:
                         modal = _a.sent();
                         return [4 /*yield*/, modal.present()];
-                    case 2: return [2 /*return*/, _a.sent()];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, modal.onDidDismiss()];
+                    case 3:
+                        data = (_a.sent()).data;
+                        if (data != null && data != undefined) {
+                            this.model.mcid = data.id;
+                            this.model.mcname = data.name;
+                        }
+                        return [2 /*return*/];
                 }
             });
         });
+    };
+    EditPage.prototype.save = function () {
+    };
+    EditPage.prototype.changePhone = function (value) {
+        // 去除空格
+        var phone = value.replace(/\s/g, '');
+        var ischeck = /^(13[0-9]|14[5|7|9]|15[0|1|2|3|5|6|7|8|9]|16[6]|17[0|1|2|3|5|6|7|8]|18[0-9]|19[8|9])\d{8}$/;
+        if (!ischeck.test(phone)) {
+            this.model.phone = '';
+            //super.showToast(this.toastCtrl, '请输入正确的手机号');
+        }
+    };
+    EditPage.prototype.changeEmail = function (value) {
+        var ischeck = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(value);
+        if (!ischeck) {
+            this.model.email = '';
+            //super.showToast(this.toastCtrl, '请输入正确的邮箱格式');
+        }
     };
     EditPage.ctorParameters = function () { return [
         { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Http"] },

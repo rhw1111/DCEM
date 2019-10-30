@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/home/mywork\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>预约单</ion-title>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-searchbar [(ngModel)]=\"this.model.seachkey\" placeholder=\"支持姓名\\手机号\\车牌号搜索模糊查找\" (keyup)=\"search($event)\"></ion-searchbar>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-segment>\r\n            <ion-segment-button checked (click)=\"selectTab(0)\">\r\n                <ion-label>全部</ion-label>\r\n            </ion-segment-button >\r\n            <ion-segment-button (click)=\"selectTab(10)\">\r\n                <ion-label>待跟进</ion-label>\r\n            </ion-segment-button>\r\n            <ion-segment-button (click)=\"selectTab(20)\">\r\n                <ion-label>已跟进</ion-label>\r\n            </ion-segment-button>\r\n        </ion-segment>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n        <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\" refreshingText=\"刷新中...\">\r\n        </ion-refresher-content>\r\n    </ion-refresher>\r\n    <ion-list lines=\"full\" *ngFor=\"let r of model.data\">\r\n        <ion-item button=\"true\" mode=\"ios\" [routerLink]=\"['/serving/reservation/detail']\" [queryParams]=\"{id:r.mcs_appointmentinfoid}\">\r\n            <ion-label>\r\n                <h2>车牌号：{{r.mcs_carplate}}</h2>\r\n                <p>车主姓名：{{r.mcs_customername}}</p>\r\n                <p>预约日期：{{FormatToDate(r.mcs_appointmentat)}}</p>\r\n                <p>预约时段：{{r.mcs_appointmentconfigid}}</p>\r\n                <p *ngIf=\"r.mcs_status==10\">跟进状态：待跟进</p>\r\n                <p *ngIf=\"r.mcs_status==20\">跟进状态：已跟进</p>\r\n                <p *ngIf=\"r.mcs_status==30\">跟进状态：已入场</p>\r\n                <p *ngIf=\"r.mcs_status==50\">跟进状态：已取消</p>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n    <ion-row *ngIf=\"model.isending\">\r\n        <ion-col class=\"nodata\" text-center>\r\n            没有更多内容啦\r\n        </ion-col>\r\n    </ion-row>\r\n\r\n    <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doLoading($event)\">\r\n        <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\">\r\n        </ion-infinite-scroll-content>\r\n    </ion-infinite-scroll>\r\n    <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\r\n        <ion-fab-button [routerLink]=\"['/serving/reservation/edit']\">\r\n            <ion-icon name=\"add\"></ion-icon>\r\n        </ion-fab-button>\r\n    </ion-fab>\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/home/mywork\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>预约单</ion-title>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-searchbar [(ngModel)]=\"this.model.seachkey\" placeholder=\"支持姓名\\手机号\\车牌号搜索模糊查找\" (keyup)=\"search($event)\"></ion-searchbar>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-segment>\r\n            <ion-segment-button checked (click)=\"selectTab(0)\">\r\n                <ion-label>全部</ion-label>\r\n            </ion-segment-button >\r\n            <ion-segment-button (click)=\"selectTab(10)\">\r\n                <ion-label>待跟进</ion-label>\r\n            </ion-segment-button>\r\n            <ion-segment-button (click)=\"selectTab(20)\">\r\n                <ion-label>已跟进</ion-label>\r\n            </ion-segment-button>\r\n        </ion-segment>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n        <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\" refreshingText=\"刷新中...\">\r\n        </ion-refresher-content>\r\n    </ion-refresher>\r\n    <ion-list lines=\"full\">\r\n        <ion-item  *ngFor=\"let r of model.data\" button=\"true\" [routerLink]=\"['/serving/reservation/detail']\" [queryParams]=\"{id:r.mcs_appointmentinfoid}\">\r\n            <ion-label>\r\n                <h2>车牌号：{{r.mcs_carplate}}</h2>\r\n                <p>车主姓名：{{r.mcs_customername}}</p>\r\n                <p>预约日期：{{FormatToDate(r.mcs_appointmentat)}}</p>\r\n                <p>预约时段：{{r.mcs_appointmentconfigid}}</p>\r\n                <p *ngIf=\"r.mcs_status==10\">跟进状态：待跟进</p>\r\n                <p *ngIf=\"r.mcs_status==20\">跟进状态：已跟进</p>\r\n                <p *ngIf=\"r.mcs_status==30\">跟进状态：已入场</p>\r\n                <p *ngIf=\"r.mcs_status==50\">跟进状态：已取消</p>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n    <ion-row *ngIf=\"model.isending\">\r\n        <ion-col class=\"nodata\" text-center>\r\n            没有更多内容啦\r\n        </ion-col>\r\n    </ion-row>\r\n    <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doLoading($event)\">\r\n        <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\">\r\n        </ion-infinite-scroll-content>\r\n    </ion-infinite-scroll>\r\n    <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\r\n        <ion-fab-button [routerLink]=\"['/serving/reservation/edit']\">\r\n            <ion-icon name=\"add\"></ion-icon>\r\n        </ion-fab-button>\r\n    </ion-fab>\r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -87,6 +87,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
 /* harmony import */ var silly_datetime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! silly-datetime */ "./node_modules/silly-datetime/dest/index.js");
 /* harmony import */ var silly_datetime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(silly_datetime__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+
 
 
 
@@ -108,18 +110,21 @@ let ListPage = class ListPage {
             pageSize: 10,
             page: 1,
             sort: 'mcs_appointmentinfoid desc',
-            isending: false //是否加载完成
+            isending: false,
+            nodata: false
         };
     }
     ngOnInit() {
         this.model.page = 1;
-        var cachedata = this.httpService.GetDataCache(this.model.name);
-        if (cachedata == "") {
-            this.showlist(null);
-        }
-        else {
-            this.model.data = JSON.parse(cachedata);
-        }
+        //先不加缓存
+        this.showlist(null);
+        //var cachedata = this.httpService.GetDataCache(this.model.name);
+        //if (cachedata == "") {
+        //    this.showlist(null);
+        //}
+        //else {
+        //    this.model.data = JSON.parse(cachedata);
+        //}
     }
     //搜索方法
     search(event) {
@@ -145,6 +150,7 @@ let ListPage = class ListPage {
     }
     //切换tab
     selectTab(status) {
+        this.infiniteScroll.disabled = false; //切换标签初始化下拉控件事件
         this.model.data = [];
         this.model.page = 1;
         this.model.isending = false;
@@ -169,10 +175,7 @@ let ListPage = class ListPage {
                 page: this.model.page
             }
         }, (res) => {
-            event ? event.target.complete() : '';
             if (res.Results !== null) {
-                //this.model.data = [];
-                //console.log('get res=' + res.data);
                 for (var key in res.Results) {
                     var obj = {};
                     obj["mcs_appointmentinfoid"] = res.Results[key]["Id"];
@@ -189,21 +192,17 @@ let ListPage = class ListPage {
                 }
                 event ? event.target.complete() : '';
                 //判断是否有新数据
-                if (res.Results.length < 2) {
+                if (res.Results.length < 10) {
                     event ? event.target.disabled = true : "";
                     this.model.isending = true;
                 }
-                else {
-                    this.model.isending = false;
-                }
-                this._page.loadingHide();
             }
             else {
-                this._page.alert("消息提示", "客户数据加载异常");
-                this._page.loadingHide();
+                this._page.alert("消息提示", "预约单数据加载异常");
             }
+            this._page.loadingHide();
         }, (err) => {
-            this._page.alert("消息提示", "客户数据加载异常");
+            this._page.alert("消息提示", "预约单数据加载异常");
             this._page.loadingHide();
         });
     }
@@ -223,6 +222,10 @@ ListPage.ctorParameters = () => [
     { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__["DCore_Page"] },
     { type: _base_base_ser_http_service_service__WEBPACK_IMPORTED_MODULE_3__["HttpService"] }
 ];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_6__["IonInfiniteScroll"], null),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["IonInfiniteScroll"])
+], ListPage.prototype, "infiniteScroll", void 0);
 ListPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-list',

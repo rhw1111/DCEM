@@ -1,12 +1,296 @@
 <ion-header>
-  <ion-toolbar>
-      <ion-buttons slot="start">
-          <ion-back-button text="返回" defaultHref="/"></ion-back-button>
-        </ion-buttons>
-        <ion-title>技术支持详情页面</ion-title>
-  </ion-toolbar>
-</ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+          </ion-buttons>
+          <ion-title>技术支持详情页面</ion-title>
+    </ion-toolbar>
+    
+     
+    <ion-toolbar>
+        <ion-segment [(ngModel)]="tab" color="danger">
+            <ion-segment-button value="info" >
+                <ion-label>基础信息</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="att">
+            <ion-label>附件信息</ion-label>
+        </ion-segment-button>
+        </ion-segment>
+</ion-toolbar>
+  </ion-header> 
+    
+  
+  
+  <ion-content  > 
+      <div [ngSwitch]="tab">
+          <div *ngSwitchCase="'info'">
 
-<ion-content>
+              <ion-list lines="full">
+                  <ion-item-divider color="primary">
+                      <ion-label>
+                          基础信息
+                      </ion-label>
+                  </ion-item-divider>
+                  <ion-item>
+                      <ion-label>
+                          <h2>
+                            主题
+                          </h2>
+                          <p>{{mod.data.TechnicalSupport.mcs_title}}&nbsp;</p>
+                      </ion-label>
+                  </ion-item>
+                  <ion-item>
+                      <ion-label>
+                          <h2>
+                            服务委托书
+                          </h2>
+                          <p>{{mod.data.TechnicalSupport.mcs_serviceorderid}}&nbsp;</p>
+                      </ion-label>
+                  </ion-item>
+                  <ion-item>
+                      <ion-label>
+                          <h2>
+                            技术主管
+                          </h2>
+                          <p>{{mod.data.TechnicalSupport.mcs_repairnameid}}&nbsp;</p>
+                      </ion-label>
+                  </ion-item>
+                 
+                  <ion-item>
+                      <ion-label>
+                          <h2>
+                            维修日期
+                          </h2>
+                          <p>{{mod.data.TechnicalSupport.mcs_repairdate}}&nbsp;</p>
+                      </ion-label>
+                  </ion-item>
+                  <ion-item>
+                      <ion-label>
+                          <h2>
+                            邮箱
+                          </h2>
+                          <p>{{mod.data.TechnicalSupport.mcs_email}}&nbsp;</p>
+                      </ion-label>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label>
+                        <h2>
+                          电话
+                        </h2>
+                        <p>{{mod.data.TechnicalSupport.mcs_phone}}&nbsp;</p>
+                    </ion-label>
+                </ion-item>
+                 
+            
+                  <ion-item-divider color="primary">
+                      <ion-label>
+                          车辆信息
+                      </ion-label>
+                  </ion-item-divider>
+                  <ion-item>
+                      <ion-label>
+                          <h2>
+                              车主
+                          </h2>
+                          <p>{{mod.data.TechnicalSupport.mcs_customername}}&nbsp;</p>
+                      </ion-label>
+                  </ion-item>
+                  <ion-item>
+                      <ion-label>
+                          <h2>
+                              车主电话
+                          </h2>
+                          <p>{{mod.data.TechnicalSupport.mcs_customerphone}}&nbsp;</p>
+                      </ion-label>
+                  </ion-item>
+                
+                  <ion-item>
+                      <ion-label>
+                          <h2>
+                            车牌号
+                          </h2>
+                          <p>{{mod.data.TechnicalSupport.mcs_carplate}}&nbsp;</p>
+                      </ion-label>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label>
+                        <h2>
+                          VIN
+                        </h2>
+                        <p>{{mod.data.TechnicalSupport.mcs_customerid}}&nbsp;</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label>
+                      <h2>
+                        发动机号
+                      </h2>
+                      <p>{{mod.data.TechnicalSupport.mcs_enginenumber}}&nbsp;</p>
+                  </ion-label>
+              </ion-item>
+                  <ion-item>
+                      <ion-label>
+                          <h2>
+                            里程数
+                          </h2>
+                          <p>{{mod.data.TechnicalSupport.mcs_mileage}}&nbsp;</p>
+                      </ion-label>
+                  </ion-item>
+                  <ion-item>
+                      <ion-label>
+                          <h2>
+                            电机型号
+                          </h2>
+                          <p>{{mod.data.TechnicalSupport.mcs_motormodel}}&nbsp;</p>
+                      </ion-label>
+                  </ion-item>
+                  <ion-item>
+                      <ion-label>
+                          <h2>
+                            电池型号
+                          </h2>
+                          <p>{{mod.data.TechnicalSupport.mcs_batterymodel}}&nbsp;</p>
+                      </ion-label>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label>
+                        <h2>
+                          电池序列号
+                        </h2>
+                        <p>{{mod.data.TechnicalSupport.mcs_batteryserialnumber}}&nbsp;</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label>
+                      <h2>
+                        是否加装
+                      </h2>
+                      <p>{{mod.data.TechnicalSupport.mcs_ismodifiedparts}}&nbsp;</p>
+                  </ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                    <h2>
+                      加装描述
+                    </h2>
+                    <p>{{mod.data.TechnicalSupport.mcs_modifiedpartscontent}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+            
+            <ion-item-divider color="primary">
+              <ion-label>
+                  故障描述
+              </ion-label>
+            </ion-item-divider>
+            <ion-item>
+              <ion-label>
+                  <h2>
+                    技术系统
+                  </h2>
+                  <p>{{mod.data.TechnicalSupport.mcs_customername}}&nbsp;</p>
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>
+                  <h2>
+                    故障类别代码
+                  </h2>
+                  <p>{{mod.data.TechnicalSupport.mcs_malfunctiontypeid}}&nbsp;</p>
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>
+                  <h2>
+                    故障描述
+                  </h2>
+                  <p>{{mod.data.TechnicalSupport.mcs_malfunctiontypecontent}}&nbsp;</p>
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>
+                  <h2>
+                    检查诊断描述
+                  </h2>
+                  <p>{{mod.data.TechnicalSupport.mcs_diagnosiscontent}}&nbsp;</p>
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>
+                  <h2>
+                    已更换零件
+                  </h2>
+                  <p>{{mod.data.TechnicalSupport.mcs_replacedparts}}&nbsp;</p>
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>
+                  <h2>
+                    具体故障现象
+                  </h2>
+                  <p>{{mod.data.TechnicalSupport.mcs_malfunctioncontent}}&nbsp;</p>
+              </ion-label>
+            </ion-item>
+            
+              </ion-list>  
+          </div>
 
-</ion-content>
+          <div *ngSwitchCase="'att'">
+
+<ion-list>
+
+    <ion-item-divider color="primary">
+        <ion-label>
+            附件列表
+        </ion-label>
+    </ion-item-divider>
+ 
+    <ion-item-group>
+        <ion-item  >
+            <ion-label>
+                <h2>
+                    附件名称 &nbsp;
+                </h2> 
+                <h2>
+                    附件大小   &nbsp;
+                </h2> 
+                <h2  >
+                  操作
+                </h2>
+            </ion-label>
+        </ion-item>
+        <ion-item *ngFor="let item of mod.data.DealerAttachment;let key=index">
+            <ion-label>
+                <p> 
+                     {{item.mcs_filename}}&nbsp;
+                </p>
+                
+                <p>
+                   {{item.mcs_filesize}}&nbsp;
+                </p> 
+                <p text-wrap>
+                  预览
+                </p>
+            </ion-label>
+        </ion-item>
+        <ion-item *ngIf="mod.data.DealerAttachment.length===0">
+            <ion-label>
+                <p>
+                    当前附件记录
+                </p>
+            </ion-label>
+        </ion-item>
+    </ion-item-group>
+</ion-list>
+            </div>
+  
+      </div>
+  
+   
+
+
+  </ion-content>
+  
+  
+  
+  
+  
