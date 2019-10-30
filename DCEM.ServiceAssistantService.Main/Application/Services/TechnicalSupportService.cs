@@ -178,39 +178,52 @@ namespace DCEM.ServiceAssistantService.Main.Application
         /// <returns></returns>
         public async Task<Guid> AddOrEditEntity(TechnicalSupportRequest request)
         {
-            Guid guid = request.Id;
+            Guid guid =Guid.Empty;
             try
             {
-                guid = request.Id==null ? Guid.NewGuid():request.Id;
+                guid = string.IsNullOrEmpty(request.Id) ? Guid.NewGuid():Guid.Parse(request.Id);
                 CrmExecuteEntity createorUpdateEntity = new CrmExecuteEntity(request.EntityName, guid);
-                createorUpdateEntity.Attributes.Add("mcs_name", request.mcs_name);
-                createorUpdateEntity.Attributes.Add("mcs_orderstatus", request.mcs_orderstatus);
-                createorUpdateEntity.Attributes.Add("mcs_repairdate", request.mcs_repairdate);
-                createorUpdateEntity.Attributes.Add("mcs_title", request.mcs_title);
-                if (!string.IsNullOrEmpty(request.mcs_batterymodel))
-                {
-                    createorUpdateEntity.Attributes.Add("mcs_batterymodel", request.mcs_batterymodel);
+               
+                if (!string.IsNullOrEmpty(request.mcs_title)) {
+                    createorUpdateEntity.Attributes.Add("mcs_title", request.mcs_title);
                 }
-                if (!string.IsNullOrEmpty(request.mcs_batteryserialnumber))
+
+                if (!string.IsNullOrEmpty(request.mcs_serviceadvisorid))
                 {
-                    createorUpdateEntity.Attributes.Add("mcs_batteryserialnumber", request.mcs_batteryserialnumber);
+                    createorUpdateEntity.Attributes.Add("mcs_serviceadvisorid", new CrmEntityReference("systemuser", Guid.Parse(request.mcs_serviceadvisorid)));
                 }
-                if (!string.IsNullOrEmpty(request.mcs_carplate))
+
+                if (!string.IsNullOrEmpty(request.mcs_repairnameid))
                 {
-                    createorUpdateEntity.Attributes.Add("mcs_carplate", request.mcs_carplate);
+                    createorUpdateEntity.Attributes.Add("mcs_repairnameid", new CrmEntityReference("systemuser", Guid.Parse(request.mcs_repairnameid)));
                 }
-                if (request.mcs_customerid.HasValue)
+                if (!string.IsNullOrEmpty(request.mcs_serviceorderid)) {
+                    createorUpdateEntity.Attributes.Add("mcs_serviceorderid", new CrmEntityReference("mcs_serviceproxy", Guid.Parse(request.mcs_serviceorderid)));
+                }
+                //if (!string.IsNullOrEmpty(request.mcs_batterymodel))
+                //{
+                //    createorUpdateEntity.Attributes.Add("mcs_batterymodel", request.mcs_batterymodel);
+                //}
+                //if (!string.IsNullOrEmpty(request.mcs_batteryserialnumber))
+                //{
+                //    createorUpdateEntity.Attributes.Add("mcs_batteryserialnumber", request.mcs_batteryserialnumber);
+                //}
+                //if (!string.IsNullOrEmpty(request.mcs_carplate))
+                //{
+                //    createorUpdateEntity.Attributes.Add("mcs_carplate", request.mcs_carplate);
+                //}
+                if (!string.IsNullOrEmpty(request.mcs_customerid))
                 {
-                    createorUpdateEntity.Attributes.Add("mcs_carplate", new CrmEntityReference("mcs_customer", request.mcs_customerid.Value));
+                    createorUpdateEntity.Attributes.Add("mcs_customerid", new CrmEntityReference("mcs_vehowner", Guid.Parse(request.mcs_customerid)));
                 }
-                if (!string.IsNullOrEmpty(request.mcs_customername))
-                {
-                    createorUpdateEntity.Attributes.Add("mcs_customername", request.mcs_customername);
-                }
-                if (!string.IsNullOrEmpty(request.mcs_customerphone))
-                {
-                    createorUpdateEntity.Attributes.Add("mcs_customerphone", request.mcs_customerphone);
-                }
+                //if (!string.IsNullOrEmpty(request.mcs_customername))
+                //{
+                //    createorUpdateEntity.Attributes.Add("mcs_customername", request.mcs_customername);
+                //}
+                //if (!string.IsNullOrEmpty(request.mcs_customerphone))
+                //{
+                //    createorUpdateEntity.Attributes.Add("mcs_customerphone", request.mcs_customerphone);
+                //}
                 if (!string.IsNullOrEmpty(request.mcs_diagnosiscontent))
                 {
                     createorUpdateEntity.Attributes.Add("mcs_diagnosiscontent", request.mcs_diagnosiscontent);
@@ -219,10 +232,10 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 {
                     createorUpdateEntity.Attributes.Add("mcs_email", request.mcs_email);
                 }
-                if (!string.IsNullOrEmpty(request.mcs_enginenumber))
-                {
-                    createorUpdateEntity.Attributes.Add("mcs_enginenumber", request.mcs_enginenumber);
-                }
+                //if (!string.IsNullOrEmpty(request.mcs_enginenumber))
+                //{
+                //    createorUpdateEntity.Attributes.Add("mcs_enginenumber", request.mcs_enginenumber);
+                //}
                 if (request.mcs_ismodifiedparts.HasValue)
                 {
                     createorUpdateEntity.Attributes.Add("mcs_ismodifiedparts", request.mcs_ismodifiedparts.Value);
@@ -231,14 +244,14 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 {
                     createorUpdateEntity.Attributes.Add("mcs_malfunctioncontent", request.mcs_malfunctioncontent);
                 }
-                if (request.mcs_malfunctiontypeid.HasValue)
+                if (!string.IsNullOrEmpty(request.mcs_malfunctiontypeid))
                 {
-                    createorUpdateEntity.Attributes.Add("mcs_malfunctiontypeid", new CrmEntityReference("mcs_malfunctiontype", request.mcs_malfunctiontypeid.Value));
+                    createorUpdateEntity.Attributes.Add("mcs_malfunctiontypeid", new CrmEntityReference("mcs_malfunctiontype", Guid.Parse(request.mcs_malfunctiontypeid)));
                 }
-                if (request.mcs_mileage.HasValue)
-                {
-                    createorUpdateEntity.Attributes.Add("mcs_mileage", request.mcs_mileage.Value);
-                }
+                //if (request.mcs_mileage.HasValue)
+                //{
+                //    createorUpdateEntity.Attributes.Add("mcs_mileage", request.mcs_mileage.Value);
+                //}
                 if (!string.IsNullOrEmpty(request.mcs_modifiedpartscontent))
                 {
                     createorUpdateEntity.Attributes.Add("mcs_modifiedpartscontent", request.mcs_modifiedpartscontent);
@@ -251,8 +264,13 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 {
                     createorUpdateEntity.Attributes.Add("mcs_repairdate", request.mcs_repairdate.Value);
                 }
+                if (!string.IsNullOrEmpty(request.mcs_techsystem))
+                {
+                    createorUpdateEntity.Attributes.Add("mcs_techsystem", int.Parse(request.mcs_techsystem));
+                }
+                
 
-                if (createorUpdateEntity.Id != Guid.Empty)
+                if (!string.IsNullOrEmpty(request.Id))
                 {
                     await _crmService.Update(createorUpdateEntity);
                 }
