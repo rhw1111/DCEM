@@ -62,6 +62,15 @@ namespace MSLibrary.Xrm.Convert.CrmExecuteEntityTypeHandle
                     case string v:
                         result[entityItem.Key] = JToken.Parse(JsonConvert.SerializeObject(v));
                         break;
+                    case decimal v:
+                        result[entityItem.Key] = JToken.Parse(JsonConvert.SerializeObject(v));
+                        break;
+                    case double v:
+                        result[entityItem.Key] = JToken.Parse(JsonConvert.SerializeObject(v));
+                        break;
+                    case long v:
+                        result[entityItem.Key] = JToken.Parse(JsonConvert.SerializeObject(v));
+                        break;
                     default:
                         var convertResult = await _crmExecuteEntityTypeHandle.Convert(entityItem.Key, entityItem.Value);
                         result[convertResult.Name] = convertResult.Value;

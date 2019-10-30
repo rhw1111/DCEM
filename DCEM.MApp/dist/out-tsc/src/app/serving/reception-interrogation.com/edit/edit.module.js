@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { EditPage } from './edit.page';
+import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
 const routes = [
     {
         path: '',
@@ -15,13 +16,14 @@ let EditPageModule = class EditPageModule {
 };
 EditPageModule = tslib_1.__decorate([
     NgModule({
+        declarations: [EditPage, SelectCustomerComponent],
+        entryComponents: [SelectCustomerComponent],
         imports: [
             CommonModule,
             FormsModule,
             IonicModule,
             RouterModule.forChild(routes)
-        ],
-        declarations: [EditPage]
+        ]
     })
 ], EditPageModule);
 export { EditPageModule };

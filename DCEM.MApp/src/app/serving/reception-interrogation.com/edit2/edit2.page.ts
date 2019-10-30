@@ -96,13 +96,39 @@ export class Edit2Page implements OnInit {
 
     public saveOnClick() {
 
-        //提交数据
-        console.log(this.shareData);
+        this.mod.postData["actioncode"] = 1;
+        this.mod.postData["serviceproxy"] = this.shareData.serviceproxy;
 
-        //var postData = {};
-        //postData = this.shareData.serviceproxy;
-        this.mod.postData = this.shareData.serviceproxy;
+        //组装服务委托书
+        this.mod.postData["serviceproxy"] = {};
+        this.mod.postData["serviceproxy"]["customerid"] = this.shareData.serviceproxy["customerid"];     //车辆VIN
+        this.mod.postData["serviceproxy"]["customername"] = this.shareData.serviceproxy["fullname"];     //用户名
+        this.mod.postData["serviceproxy"]["carplate"] = this.shareData.serviceproxy["vehplate"];         //车牌
+        this.mod.postData["serviceproxy"]["customerphone"] = this.shareData.serviceproxy["customerphone"]; //手机
+        this.mod.postData["serviceproxy"]["shuttlename"] = this.shareData.serviceproxy["shuttlename"];   //送修人
+        this.mod.postData["serviceproxy"]["shuttlephone"] = this.shareData.serviceproxy["shuttlephone"];   //送修人手机
+        this.mod.postData["serviceproxy"]["inpower"] = Number(this.shareData.serviceproxy["inpower"]);                //进店电量
+        this.mod.postData["serviceproxy"]["oilquantity"] = Number(this.shareData.serviceproxy["oilquantity"]);        //进店油量
+        this.mod.postData["serviceproxy"]["mileage"] = Number(this.shareData.serviceproxy["mileage"]);                //进店里程
+        this.mod.postData["serviceproxy"]["arrivalon"] = this.shareData.serviceproxy["arrivalon"];                    //到店时间
+        this.mod.postData["serviceproxy"]["customercomment"] = this.shareData.serviceproxy["customercomment"];            //客户描述
+
+        //组装环检项
+        this.mod.postData["serviceordercheckresultArray"] = [];
+        for (var groupKey in this.shareData.vehcheckresultMap) {
+            for (var key in this.shareData.vehcheckresultMap[groupKey].data) {
+                var obj = {};
+                obj["checkreultid"] = this.shareData.vehcheckresultMap[groupKey].data[key]["Id"];
+                obj["name"] = this.shareData.vehcheckresultMap[groupKey].data[key]["name"];
+                obj["checkreult"] = this.shareData.vehcheckresultMap[groupKey].data[key]["checkreult"];
+                if (this.shareData.vehcheckresultMap[groupKey].data[key]["checked"] != true)
+                    obj["checkreult"] = "异常";
+                this.mod.postData["serviceordercheckresultArray"].push(obj);
+            }
+        }
         console.log(this.mod.postData);
+
+
 
         this._http.post(
             this.mod.postApiUrl, this.mod.postData,

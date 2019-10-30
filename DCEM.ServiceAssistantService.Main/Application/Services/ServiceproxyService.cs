@@ -33,7 +33,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
             return await Task<string>.Run(() =>
             {
                 var filter = string.Empty;
-                if (type == 1)
+                if (type == 1)  //查问诊单
                 {
                     filter += @$"
         <condition attribute='statecode' operator='eq' value='0' />
@@ -43,7 +43,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
             </filter>
         <condition attribute='mcs_isdelete' operator='ne' value='1' />";
                 }
-                else if (type == 2)
+                else if (type == 2) //查服务委托书
                 {
                     filter += @$"
         <condition attribute='statecode' operator='eq' value='0' />
@@ -212,6 +212,52 @@ namespace DCEM.ServiceAssistantService.Main.Application
 
         }
 
+        #endregion
+
+        #region 添加服务委托书 问诊单
+        public async Task<string> AddOrUpdate(ServiceproxyAddOrUpdateRequest request)
+        {
+
+            if (request.actioncode == 1)
+            {
+                //加入服务委托书
+                var serviceproxyGuid = Guid.NewGuid();
+                var serviceproxyEntity = new CrmExecuteEntity("mcs_serviceproxy", serviceproxyGuid);
+                var vinEntityRef = new CrmEntityReference("mcs_vehowner", Guid.Parse(request.serviceproxy.customerid));
+                serviceproxyEntity.Attributes.Add("mcs_customerid", vinEntityRef);
+                serviceproxyEntity.Attributes.Add("mcs_customername", request.serviceproxy.customername);           //车主姓名
+                serviceproxyEntity.Attributes.Add("mcs_carplate", request.serviceproxy.carplate);               //车牌号
+                serviceproxyEntity.Attributes.Add("mcs_customerphone", request.serviceproxy.customerphone);       //车主手机
+                serviceproxyEntity.Attributes.Add("mcs_shuttlename", request.serviceproxy.shuttlename);         //送修人
+                serviceproxyEntity.Attributes.Add("mcs_shuttlephone", request.serviceproxy.shuttlephone);       //送修人手机
+                serviceproxyEntity.Attributes.Add("mcs_inpower", request.serviceproxy.inpower);                 //进店电量
+                serviceproxyEntity.Attributes.Add("mcs_oilquantity", request.serviceproxy.oilquantity);         //进店油量
+                serviceproxyEntity.Attributes.Add("mcs_mileage", request.serviceproxy.mileage);                 //进店里程数
+                serviceproxyEntity.Attributes.Add("mcs_arrivalon", request.serviceproxy.arrivalon);             //到店时间
+                serviceproxyEntity.Attributes.Add("mcs_customercomment", request.serviceproxy.customercomment); //客服描述
+                serviceproxyEntity.Attributes.Add("mcs_currenttype", 10);
+                serviceproxyEntity.Attributes.Add("mcs_ifchange", false);
+                serviceproxyEntity.Attributes.Add("mcs_isdelete", false);
+                var reuset = await _crmService.Create(serviceproxyEntity);
+
+                //加入环检项目
+                foreach (var serviceordercheckresult in request.serviceordercheckresultArray)
+                {
+                    //var serviceordercheckresultGuid = Guid.NewGuid();
+                    //var serviceordercheckresultEntity = new CrmExecuteEntity("mcs_serviceordercheckresult", serviceordercheckresultGuid);
+                    //serviceordercheckresultEntity.Attributes.Add("mcs_checkreultid", serviceordercheckresult.checkreultid);
+                    //serviceordercheckresultEntity.Attributes.Add("mcs_name", serviceordercheckresult.name);
+                    //serviceordercheckresultEntity.Attributes.Add("mcs_checkreult", serviceordercheckresult.checkreult);
+                    //serviceordercheckresultEntity.Attributes.Add("mcs_serviceorderid", serviceproxyGuid);
+                    //_crmService.Create(serviceordercheckresultEntity);
+                }
+
+            }
+            return "ok";
+
+
+
+        }
         #endregion
 
         #region 查询所有环检项 配置信息

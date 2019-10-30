@@ -16,15 +16,15 @@
         </ion-item-divider>
         <ion-item (click)="customerOnClick()">
             <ion-label position="stacked">姓名<ion-text color="danger">*</ion-text></ion-label>
-            <p>{{shareData.serviceproxy["fullname"]}}&nbsp;</p>
+            <p>{{shareData.serviceproxy["customername"]}}&nbsp;</p>
         </ion-item>
         <ion-item (click)="customerOnClick()">
             <ion-label position="stacked">车牌<ion-text color="danger">*</ion-text></ion-label>
-            <p>{{shareData.serviceproxy["vehplate"]}}&nbsp;</p>
+            <p>{{shareData.serviceproxy["carplate"]}}&nbsp;</p>
         </ion-item>
         <ion-item (click)="customerOnClick()">
             <ion-label position="stacked">手机<ion-text color="danger">*</ion-text></ion-label>
-            <p>{{shareData.serviceproxy["mobilephone"]}}&nbsp;</p>
+            <p>{{shareData.serviceproxy["customerphone"]}}&nbsp;</p>
         </ion-item>
         <ion-item-divider color="primary">
             <ion-label>
@@ -37,11 +37,11 @@
         </ion-item>
         <ion-item>
             <ion-label position="stacked">送修人手机</ion-label>
-            <ion-input [(ngModel)]="shareData.serviceproxy['shuttlephone']" required type="text"></ion-input>
+            <ion-input type="tel" [(ngModel)]="shareData.serviceproxy['shuttlephone']" required type="text"></ion-input>
         </ion-item>
         <ion-item>
             <ion-label position="stacked">进店电量</ion-label>
-            <ion-input [(ngModel)]="shareData.serviceproxy['inpower']" type="text"></ion-input>
+            <ion-input type="number" [(ngModel)]="shareData.serviceproxy['inpower']" type="text"></ion-input>
         </ion-item>
         <ion-item>
             <ion-label position="stacked">进店油量</ion-label>
@@ -53,7 +53,7 @@
         </ion-item>
         <ion-item>
             <ion-label position="stacked">进店里程</ion-label>
-            <ion-input [(ngModel)]="shareData.serviceproxy['mileage']" type="text"></ion-input>
+            <ion-input type="number" [(ngModel)]="shareData.serviceproxy['mileage']" type="text"></ion-input>
         </ion-item>
         <ion-item>
             <ion-label position="stacked">到店时间</ion-label>

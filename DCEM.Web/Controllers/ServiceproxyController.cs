@@ -56,10 +56,9 @@ namespace DCEM.Web.Controllers
         #region 问诊单 服务委托书添加编辑接口
         [HttpPost]
         [Route("AddOrUpdate")]
-        public async Task<NewtonsoftJsonActionResult<string>> AddOrUpdate(ServiceproxyAddOrUpdateRequest request)
+        public async Task<ActionResult<string>> AddOrUpdate(ServiceproxyAddOrUpdateRequest request)
         {
-            return "aa";
-            //return await _serviceproxyService.QueryInfo(guid);
+            return await _serviceproxyService.AddOrUpdate(request);
         }
         #endregion
 
