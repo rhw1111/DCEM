@@ -15,7 +15,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
         #endregion
 
         #region 添加服务委托书 问诊单
-        Task<ValidateResult<CrmParameter>> AddOrUpdate(ServiceproxyAddOrUpdateRequest request);
+        Task<ValidateResult<CrmEntity>> AddOrUpdate(ServiceproxyAddOrUpdateRequest request);
         #endregion
 
         #region 查询环检项 配置信息

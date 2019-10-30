@@ -118,7 +118,7 @@ export class DCore_Page {
             params = {};
         }
         //this.navCtr.navigateRoot(url);
-        this.router.navigate([url], params);
+        this.router.navigate([url], { queryParams: params });
     }
 
     //获取指定参数
@@ -151,5 +151,25 @@ export class DCore_ShareData {
         return this.map.delete(key);
     }
 }
+
+
+//验证对象
+@Injectable({
+    providedIn: 'root'
+})
+
+export class DCore_Valid {
+    constructor(
+    ) {
+    }
+    isNull = function (val: any) {
+        if (typeof val == "undefined" || val == null)
+            return true;
+        return false;
+    }
+
+}
+
+
 
 

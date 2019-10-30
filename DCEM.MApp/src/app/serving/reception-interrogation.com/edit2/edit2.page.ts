@@ -41,7 +41,7 @@ export class Edit2Page implements OnInit {
     ngOnInit() {
 
         var getShareData = this._shareData.get(this.mod.shareDataKey);
-        if (getShareData != null) {
+        if (getShareData !== null) {
             this.shareData = getShareData;
             if (this.objectKeys(this.shareData.vehcheckresultMap).length === 0) {
                 this.listOnBind();
@@ -113,6 +113,9 @@ export class Edit2Page implements OnInit {
         this.mod.postData["serviceproxy"]["arrivalon"] = this.shareData.serviceproxy["arrivalon"];                    //到店时间
         this.mod.postData["serviceproxy"]["customercomment"] = this.shareData.serviceproxy["customercomment"];            //客户描述
 
+
+        console.log("shareData");
+        console.log(this.shareData);
         //组装环检项
         this.mod.postData["serviceordercheckresultArray"] = [];
         for (var groupKey in this.shareData.vehcheckresultMap) {
@@ -126,18 +129,28 @@ export class Edit2Page implements OnInit {
                 this.mod.postData["serviceordercheckresultArray"].push(obj);
             }
         }
+        console.log("postData");
         console.log(this.mod.postData);
 
-
-
+        this._page.loadingShow();
         this._http.post(
             this.mod.postApiUrl, this.mod.postData,
             (res: any) => {
-
+                this._page.loadingHide();
+                if (res.Result == true) {
+                    console.log("res");
+                    console.log(res);
+                    var guid = res["Data"]["Id"];
+                    this._shareData.delete(this.mod.shareDataKey);
+                    this._page.goto("/serving/ri/success", { guid: guid });
+                }
+                else {
+                    this._page.alert("消息提示", "操作失败");
+                }
             },
             (err: any) => {
-
                 this._page.loadingHide();
+                this._page.alert("消息提示", "操作失败");
             }
         );
 
