@@ -102,8 +102,8 @@ export class Edit2Page implements OnInit {
         //组装服务委托书
         this.mod.postData["serviceproxy"] = {};
         this.mod.postData["serviceproxy"]["customerid"] = this.shareData.serviceproxy["customerid"];     //车辆VIN
-        this.mod.postData["serviceproxy"]["customername"] = this.shareData.serviceproxy["fullname"];     //用户名
-        this.mod.postData["serviceproxy"]["carplate"] = this.shareData.serviceproxy["vehplate"];         //车牌
+        this.mod.postData["serviceproxy"]["customername"] = this.shareData.serviceproxy["customername"];     //用户名
+        this.mod.postData["serviceproxy"]["carplate"] = this.shareData.serviceproxy["carplate"];         //车牌
         this.mod.postData["serviceproxy"]["customerphone"] = this.shareData.serviceproxy["customerphone"]; //手机
         this.mod.postData["serviceproxy"]["shuttlename"] = this.shareData.serviceproxy["shuttlename"];   //送修人
         this.mod.postData["serviceproxy"]["shuttlephone"] = this.shareData.serviceproxy["shuttlephone"];   //送修人手机
