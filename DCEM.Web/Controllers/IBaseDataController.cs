@@ -80,6 +80,90 @@ namespace DCEM.Web.Controllers
             return list;
         }
 
+        /// <summary>
+        /// 维修配件基础数据查询接口
+        /// </summary>
+        /// <param name="status"></param>
+        /// <param name="seachkey"></param>
+        /// <param name="sort"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("QueryRepairItemPart")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> QueryRepairItemPart(string seachkey = "", string sort = "", int pageSize = 10, int page = 1)
+        {
+            var repairItemPartRequest = new RepairItemPartRequest()
+            {
+                search = seachkey,
+                page = page,
+                pageSize = pageSize,
+                sort = sort
+            };
+            var list = await app.QueryRepairItemPart(repairItemPartRequest);
+            return list;
+        }
+
+        /// <summary>
+        /// 维修类型查询接口
+        /// </summary>
+        /// <param name="status"></param>
+        /// <param name="seachkey"></param>
+        /// <param name="sort"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("QueryRepairItemTypeDetail")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> QueryRepairItemTypeDetail(string seachkey = "", string sort = "", int pageSize = 10, int page = 1)
+        {
+            var repairItemTypeDetailRequest = new RepairItemTypeDetailRequest()
+            {
+                search = seachkey,
+                page = page,
+                pageSize = pageSize,
+                sort = sort
+            };
+            var list = await app.QueryRepairItemTypeDetail(repairItemTypeDetailRequest);
+            return list;
+        }
+
+        /// <summary>
+        /// 故障类别代码查询接口
+        /// </summary>
+        /// <param name="status"></param>
+        /// <param name="seachkey"></param>
+        /// <param name="sort"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("QueryMalFunctionType")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> QueryMalFunctionType(string seachkey = "", string sort = "", int pageSize = 10, int page = 1)
+        {
+            var malFunctionTypeRequest = new MalFunctionTypeRequest()
+            {
+                search = seachkey,
+                page = page,
+                pageSize = pageSize,
+                sort = sort
+            };
+            var list = await app.QueryMalFunctionType(malFunctionTypeRequest);
+            return list;
+        }
+
+
+        /// <summary>
+        /// 查询用户个人信息
+        /// </summary>
+        /// <param name="entityid"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("QyerySystemUser")]
+        public async Task<NewtonsoftJsonActionResult<CrmEntity>> QyerySystemUser(string systemuserid)
+        {
+            return await app.QyerySystemUser(systemuserid);
+        }
 
     }
 }

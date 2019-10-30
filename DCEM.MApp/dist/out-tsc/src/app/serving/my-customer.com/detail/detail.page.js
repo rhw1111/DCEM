@@ -28,14 +28,14 @@ let DetailPage = class DetailPage {
                 tagArray: []
             }
         };
+    }
+    ngOnInit() {
         this.activeRoute.queryParams.subscribe((params) => {
             if (params['id'] != null && params['id'] != undefined) {
                 // this._page.alert("消息提示", params['id']);
                 this.pageOnBind(params['id']);
             }
         });
-    }
-    ngOnInit() {
     }
     pageOnBind(id) {
         this._page.loadingShow();

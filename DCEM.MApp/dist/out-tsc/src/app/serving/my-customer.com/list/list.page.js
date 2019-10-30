@@ -30,6 +30,12 @@ let ListPage = class ListPage {
     searchOnClick() {
         this.listOnBind();
     }
+    searchOnKeyup(event) {
+        var keyCode = event ? event.keyCode : "";
+        if (keyCode == 13) {
+            this.listOnBind();
+        }
+    }
     listOnBind() {
         this._page.loadingShow();
         this.mod.data = [];

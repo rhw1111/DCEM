@@ -6,7 +6,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { EditPage } from './edit.page';
-import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
 
 const routes: Routes = [
     {
@@ -16,8 +15,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    declarations: [EditPage, SelectCustomerComponent],
-    entryComponents: [SelectCustomerComponent],
+    declarations: [EditPage],
+    entryComponents: [],
     imports: [
         CommonModule,
         FormsModule,

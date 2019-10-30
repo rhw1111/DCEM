@@ -41,8 +41,15 @@ let DCore_Http = class DCore_Http {
     }
     //get请求
     get(url, params, rescallback, errcallback) {
-        console.log(this._config.getDomain() + url);
         this._httpClient.get(this._config.getDomain() + url, params).subscribe((res) => {
+            rescallback && rescallback(res);
+        }, (err) => {
+            errcallback && errcallback(err);
+        });
+    }
+    //post请求
+    post(url, params, rescallback, errcallback) {
+        this._httpClient.post(this._config.getDomain() + url, params).subscribe((res) => {
             rescallback && rescallback(res);
         }, (err) => {
             errcallback && errcallback(err);
@@ -109,4 +116,26 @@ DCore_Page = tslib_1.__decorate([
         ActivatedRoute])
 ], DCore_Page);
 export { DCore_Page };
+//共享对象
+let DCore_ShareData = class DCore_ShareData {
+    constructor() {
+        this.map = new Map();
+    }
+    set(key, val) {
+        this.map.set(key, val);
+    }
+    get(key) {
+        return this.map.get(key);
+    }
+    delete(key) {
+        return this.map.delete(key);
+    }
+};
+DCore_ShareData = tslib_1.__decorate([
+    Injectable({
+        providedIn: 'root'
+    }),
+    tslib_1.__metadata("design:paramtypes", [])
+], DCore_ShareData);
+export { DCore_ShareData };
 //# sourceMappingURL=Dcem.core.js.map
