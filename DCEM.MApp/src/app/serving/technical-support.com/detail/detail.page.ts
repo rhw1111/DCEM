@@ -62,6 +62,11 @@ export class DetailPage implements OnInit {
         });
     }
 
+    //下载
+    down(url:any){
+        debugger;
+     console.log(url);
+    }
 
     pageOnBind(id: any) {
         this._page.loadingShow();
@@ -73,8 +78,7 @@ export class DetailPage implements OnInit {
                 }
             },
             (res: any) => {
-                if (res.Carserviceadvisor !== null) {
-                  debugger;
+                if (res.Carserviceadvisor !== null) { 
                     this.mod.data.TechnicalSupport.mcs_title = res["TechnicalSupport"]["Attributes"]["mcs_title"];
                     this.mod.data.TechnicalSupport.mcs_serviceorderid = res["TechnicalSupport"]["Attributes"]["_mcs_serviceorderid_value@OData.Community.Display.V1.FormattedValue"];
                     this.mod.data.TechnicalSupport.mcs_repairnameid = res["TechnicalSupport"]["Attributes"]["_mcs_repairnameid_value@OData.Community.Display.V1.FormattedValue"];
@@ -106,6 +110,7 @@ export class DetailPage implements OnInit {
                         var obj = {};
                         obj["mcs_filename"] = res.DealerAttachment[key]["Attributes"]["mcs_filename"];
                         obj["mcs_filesize"] = res.DealerAttachment[key]["Attributes"]["mcs_filesize"]; 
+                        obj["mcs_fileurl"] = res.DealerAttachment[key]["Attributes"]["mcs_fileurl"]; 
                         this.mod.data.DealerAttachment.push(obj);
 
                     }
@@ -116,6 +121,7 @@ export class DetailPage implements OnInit {
                         var obj = {};
                         obj["mcs_filename"] = res.Warrantyattachment[key]["Attributes"]["mcs_name"];
                         obj["mcs_filesize"] = res.Warrantyattachment[key]["Attributes"]["mcs_filesize"]; 
+                        obj["mcs_fileurl"] = res.Warrantyattachment[key]["Attributes"]["mcs_fileurl"]; 
                          this.mod.data.Warrantyattachment.push(obj); 
                     }
                 }
