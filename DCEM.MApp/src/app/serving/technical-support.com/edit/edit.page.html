@@ -21,10 +21,10 @@
         </ion-item>
         <ion-item>
           <ion-label>
-            <ion-text color="danger">*</ion-text>服务委托书: {{model.mcname}}
+            <ion-text color="danger">*</ion-text>服务委托书: {{model.viewData.mcs_serviceorderid_name}}
           </ion-label>
           <ion-avatar slot="end">
-              <ion-icon color="primary" size="large" name="search" (click)="presentModal()"></ion-icon>
+              <ion-icon color="primary" size="large" name="search" (click)="presentServiceModal()"></ion-icon>
           </ion-avatar>
         </ion-item>
         <!-- <ion-item>
@@ -65,43 +65,47 @@
         </ion-item-divider>
         <ion-item>
           <ion-label>
-            <ion-text color="danger">*</ion-text>车主姓名：{{model.mcname}}
+            <ion-text color="danger">*</ion-text>车主姓名：{{model.viewData.fullname}}
           </ion-label>
           <ion-avatar slot="end">
-            <ion-icon color="primary" size="large" name="search" (click)="presentModal()"></ion-icon>
+            <ion-icon color="primary" size="large" name="search" (click)="presentCustomerModal()"></ion-icon>
           </ion-avatar>
         </ion-item>
         <ion-item>
           <ion-label>车主手机</ion-label>
-          <ion-note slot="end">18027302264</ion-note>
+          <ion-note slot="end">{{model.viewData.mcs_customerphone}}</ion-note>
         </ion-item>
         <ion-item>
           <ion-label>车牌号</ion-label>
-          <ion-note slot="end">渝A100211</ion-note>
+          <ion-note slot="end">{{model.viewData.mcs_carplate}}</ion-note>
         </ion-item>
         <ion-item>
           <ion-label>VIN</ion-label>
-          <ion-note slot="end">VIN1283123123213</ion-note>
+          <ion-note slot="end">{{model.viewData.vin}}</ion-note>
         </ion-item>
         <ion-item>
           <ion-label>发动机号</ion-label>
-          <ion-note slot="end">G23212</ion-note>
+          <ion-note slot="end">{{model.viewData.mcs_enginenumber}}</ion-note>
         </ion-item>
         <ion-item>
           <ion-label>里程数</ion-label>
-          <ion-note slot="end">1000</ion-note>
+          <ion-note slot="end">{{model.viewData.mcs_mileage}}</ion-note>
         </ion-item>
         <ion-item>
           <ion-label>电机型号</ion-label>
-          <ion-note slot="end">D12-12</ion-note>
+          <ion-note slot="end">{{model.viewData.mcs_motormodel}}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>电池型号</ion-label>
+          <ion-note slot="end">{{model.viewData.mcs_batterymodel}}</ion-note>
         </ion-item>
         <ion-item>
           <ion-label>电池序列号</ion-label>
-          <ion-note slot="end">2323231232</ion-note>
+          <ion-note slot="end">{{model.viewData.mcs_batteryserialnumber}}</ion-note>
         </ion-item>
         <ion-item>
           <ion-label>是否加装</ion-label>
-          <ion-toggle slot="end" color="secondary"></ion-toggle>
+          <ion-toggle slot="end" color="secondary" checked [(ngModel)]="model.postData.mcs_batteryserialnumber"></ion-toggle>
         </ion-item>
         <ion-item>
           <ion-label position="floating">加装描述</ion-label>

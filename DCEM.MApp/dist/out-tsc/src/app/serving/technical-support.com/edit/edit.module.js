@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { EditPage } from './edit.page';
-import { ScSelectComponent } from '../../serving.ser/components/sc-select/sc-select.component';
+import { SelectCustomerComponent } from '../../serving.ser/components/select-customer/select-customer.component';
 const routes = [
     {
         path: '',
@@ -22,8 +22,8 @@ EditPageModule = tslib_1.__decorate([
             IonicModule,
             RouterModule.forChild(routes)
         ],
-        entryComponents: [ScSelectComponent],
-        declarations: [EditPage]
+        entryComponents: [SelectCustomerComponent],
+        declarations: [EditPage, SelectCustomerComponent]
     })
 ], EditPageModule);
 export { EditPageModule };

@@ -25,13 +25,13 @@ let DetailPage = class DetailPage {
                 serviceordercheckresultArray: []
             }
         };
+    }
+    ngOnInit() {
         this.activeRoute.queryParams.subscribe((params) => {
             if (params['id'] != null && params['id'] != undefined) {
                 this.pageOnBind(params['id']);
             }
         });
-    }
-    ngOnInit() {
     }
     pageOnBind(id) {
         this._page.loadingShow();
@@ -49,10 +49,17 @@ let DetailPage = class DetailPage {
                 this.mod.data.serviceproxy.shuttlephone = res["Serviceproxy"]["Attributes"]["mcs_shuttlephone"];
                 this.mod.data.serviceproxy.inpower = res["Serviceproxy"]["Attributes"]["mcs_inpower"];
                 this.mod.data.serviceproxy.mileage = res["Serviceproxy"]["Attributes"]["mcs_mileage"];
-                this.mod.data.serviceproxy.arrivalon = res["Serviceproxy"]["Attributes"]["mcs_arrivalon"];
+                this.mod.data.serviceproxy.arrivalon = res["Serviceproxy"]["Attributes"]["mcs_arrivalon@OData.Community.Display.V1.FormattedValue"];
                 this.mod.data.serviceproxy.customercomment = res["Serviceproxy"]["Attributes"]["mcs_customercomment"];
             }
-            if (res.serviceordercheckresultList != null) {
+            if (res.ServiceordercheckresultList != null) {
+                for (var key in res.ServiceordercheckresultList) {
+                    var obj = {};
+                    obj["checkreultid"] = res.ServiceordercheckresultList[key]["Attributes"]["_mcs_checkreultid_value@OData.Community.Display.V1.FormattedValue"];
+                    obj["name"] = res.ServiceordercheckresultList[key]["Attributes"]["mcs_name"];
+                    obj["checkreult"] = res.ServiceordercheckresultList[key]["Attributes"]["mcs_checkreult"];
+                    this.mod.data.serviceordercheckresultArray.push(obj);
+                }
             }
             this._page.loadingHide();
         }, (err) => {

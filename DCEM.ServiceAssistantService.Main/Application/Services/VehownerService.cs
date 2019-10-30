@@ -57,11 +57,17 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 fetchXml = $@"
             <fetch version='1.0' output-format='xml-platform' mapping='logical' count='{500}' page='{pageindex}' >
               <entity name='mcs_vehowner'>
+                  <attribute name='mcs_name' />
                   <attribute name='mcs_vehtype' />
                   <attribute name='mcs_fullname' />
                   <attribute name='mcs_gender' />
                   <attribute name='mcs_mobilephone' />
                   <attribute name='mcs_vehplate' />
+                  <attribute name='mcs_enginennumber' />
+                  <attribute name='mcs_netmileage' />
+                  <attribute name='mcs_motormodel' />
+                  <attribute name='mcs_batterymodel' />
+                  <attribute name='mcs_motorserialnumber' />
                   <order attribute='mcs_fullname' descending='true' />
                   {filter}
               </entity>
