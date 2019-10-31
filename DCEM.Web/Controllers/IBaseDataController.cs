@@ -159,10 +159,10 @@ namespace DCEM.Web.Controllers
         /// <param name="entityid"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("QyerySystemUser")]
-        public async Task<NewtonsoftJsonActionResult<CrmEntity>> QyerySystemUser(string systemuserid)
+        [Route("QuerySystemUser")]
+        public async Task<NewtonsoftJsonActionResult<CrmEntity>> QuerySystemUser(string systemuserid)
         {
-            return await app.QyerySystemUser(systemuserid);
+            return await app.QuerySystemUser(systemuserid);
         }
 
         /// <summary>

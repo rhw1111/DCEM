@@ -50,7 +50,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         /// </summary>
         /// <param name="systemuserid"></param>
         /// <returns></returns>
-        Task<CrmEntity> QyerySystemUser(string systemuserid);
+        Task<CrmEntity> QuerySystemUser(string systemuserid);
         /// <summary>
         /// 查询个人用户列表信息
         /// </summary>

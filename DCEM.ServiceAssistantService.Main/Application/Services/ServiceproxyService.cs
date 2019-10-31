@@ -265,11 +265,21 @@ namespace DCEM.ServiceAssistantService.Main.Application
         }
         #endregion
 
-        #region 查询所有环检项 配置信息
+        #region 查询所有环检项 列表
         public async Task<QueryResult<CrmEntity>> QueryVehcheckresultList()
         {
             var queryResult = new QueryResult<CrmEntity>();
             var result = await _crmService.RetrieveMultiple("mcs_vehcheckresult", string.Empty, null, dicHead);
+            queryResult.Results = result.Results;
+            return queryResult;
+        }
+        #endregion
+
+        #region 查询厅店工位 列表
+        public async Task<QueryResult<CrmEntity>> QueryRepairlocationresultList()
+        {
+            var queryResult = new QueryResult<CrmEntity>();
+            var result = await _crmService.RetrieveMultiple("mcs_repairlocation", string.Empty, null, dicHead);
             queryResult.Results = result.Results;
             return queryResult;
         }

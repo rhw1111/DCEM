@@ -12,7 +12,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
         /// </summary>
         /// <param name="systemuserid"></param>
         /// <returns></returns>
-        public string QyerySystemUser(string systemuserid)
+        public string QuerySystemUser(string systemuserid)
         {
             string strQuery = string.Format($"$select=domainname,fullname,internalemailaddress,isdisabled,jobtitle,_mcs_dealer_value,mcs_post,mcs_sex,mcs_staffid,mcs_usercode,mcs_userid,mobilephone,nickname,systemuserid&$filter=systemuserid eq { systemuserid}");
             return strQuery;

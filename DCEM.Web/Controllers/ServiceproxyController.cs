@@ -70,6 +70,15 @@ namespace DCEM.Web.Controllers
             return await _serviceproxyService.QueryVehcheckresultList();
         }
         #endregion
+
+        #region 查询工位信息 
+        [HttpGet]
+        [Route("GetRepairlocationresultList")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetRepairlocationresultList()
+        {
+            return await _serviceproxyService.QueryRepairlocationresultList();
+        }
+        #endregion
     }
     #endregion
 

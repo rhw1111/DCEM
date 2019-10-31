@@ -7,6 +7,7 @@ import { ScSelectComponent } from 'app/serving/serving.ser/components/sc-select/
 import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
 import { SelectSystemuserComponent } from 'app/base/base.ser/components/select-systemuser/select-systemuser.component';
 
+import{SelectMalFunctionTypeComponent} from'app/serving/serving.ser/components/select-malfunctiontype/select.malfunctiontype.component';
 import { mcall } from 'q';
 import { noUndefined } from '@angular/compiler/src/util';
 import { debug } from 'util';
@@ -158,6 +159,19 @@ export class EditPage implements OnInit {
     }
   }
 
+  async presentMalFunctionTypeModal(){
+     
+    const modal = await this.modalCtrl.create({
+      component: SelectMalFunctionTypeComponent
+    });
+    await modal.present();
+    //监听销毁的事件
+    const { data } = await modal.onDidDismiss();
+    debugger;
+    if (data != null && data != undefined) { 
+      this.model.postData.mcs_malfunctiontypeid = data.id;
+      this.model.viewData.mcs_malfunctiontype_value = data.name; 
+    }
   async presentSystemUserModal(){
     const modal = await this.modalCtrl.create({
       component: SelectSystemuserComponent

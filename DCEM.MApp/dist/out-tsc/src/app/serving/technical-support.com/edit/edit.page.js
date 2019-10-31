@@ -20,8 +20,8 @@ let EditPage = class EditPage {
                 username: '' //当前登录用户
             },
             postData: {
-                EntityName: "mcs_supportorder",
                 Id: '',
+                name: '',
                 mcs_title: '',
                 mcs_repairnameid: '',
                 mcs_serviceadvisorid: '',
@@ -30,6 +30,7 @@ let EditPage = class EditPage {
                 mcs_phone: '',
                 mcs_customerid: '',
                 mcs_ismodifiedparts: false,
+                mcs_mileage: '',
                 mcs_malfunctiontypeid: '',
                 mcs_diagnosiscontent: '',
                 mcs_malfunctioncontent: '',
@@ -162,7 +163,6 @@ let EditPage = class EditPage {
             }
             this._page.loadingHide();
         }, (err) => {
-            debugger;
             this._page.alert("消息提示", "请求异常");
             this._page.loadingHide();
         });

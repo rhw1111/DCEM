@@ -1,13 +1,12 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { ModalController } from '@ionic/angular';
-
 @Component({
-    selector: 'app-select-customer',
-    templateUrl: './select-customer.component.html',
-    styleUrls: ['./select-customer.component.scss'],
+    selector: 'app-select-repairlocation',
+    templateUrl: './select-repairlocation.component.html',
+    styleUrls: ['./select-repairlocation.component.scss'],
 })
-export class SelectCustomerComponent implements OnInit {
+export class SelectRepairlocationComponent implements OnInit {
 
     mod = {
         apiUrl: '',
@@ -22,7 +21,7 @@ export class SelectCustomerComponent implements OnInit {
         private _page: DCore_Page,
         private _modalCtrl: ModalController
     ) {
-        this.mod.apiUrl = "/Api/Vehowner/GetList";
+        this.mod.apiUrl = "/Api/Serviceproxy/GetRepairlocationresultList";
     }
 
     ngOnInit() {
@@ -31,7 +30,7 @@ export class SelectCustomerComponent implements OnInit {
 
     itemClick(item: any) {
         this._modalCtrl.dismiss({
-            vehowne: item
+            repairlocation: item
         });
     }
 
@@ -63,14 +62,6 @@ export class SelectCustomerComponent implements OnInit {
 
                     for (var key in res.Results) {
                         var obj = {};
-                        obj["vehownerid"] = res.Results[key]["Attributes"]["mcs_vehownerid"];
-                        obj["fullname"] = res.Results[key]["Attributes"]["mcs_fullname"];
-                        obj["gender"] = res.Results[key]["Attributes"]["mcs_gender@OData.Community.Display.V1.FormattedValue"];
-                        obj["genderval"] = res.Results[key]["Attributes"]["mcs_gender"];
-                        obj["mobilephone"] = res.Results[key]["Attributes"]["mcs_mobilephone"];
-                        obj["vehplate"] = res.Results[key]["Attributes"]["mcs_vehplate"];
-                        obj["vehtype"] = res.Results[key]["Attributes"]["_mcs_vehtype_value@OData.Community.Display.V1.FormattedValue"];
-                        
                         obj["model"] = res.Results[key]["Attributes"];
                         this.mod.data.push(obj);
                     }
@@ -88,4 +79,5 @@ export class SelectCustomerComponent implements OnInit {
         );
 
     }
+
 }

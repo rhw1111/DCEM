@@ -187,14 +187,14 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         /// </summary>
         /// <param name="systemuserid"></param>
         /// <returns></returns>
-        public async Task<CrmEntity> QyerySystemUser(string systemuserid)
+        public async Task<CrmEntity> QuerySystemUser(string systemuserid)
         {
             try
             {
                 var dicHead = new Dictionary<string, IEnumerable<string>>();
                 dicHead.Add("Prefer", new List<string>() { "odata.include-annotations=\"*\"" });
 
-                var fetchString = _baseDataRepository.QyerySystemUser(systemuserid);
+                var fetchString = _baseDataRepository.QuerySystemUser(systemuserid);
                 CrmEntity entity = null;
                 entity = await _crmService.Retrieve("systemuser", Guid.Parse(systemuserid), fetchString, null, dicHead);
                 return entity;
