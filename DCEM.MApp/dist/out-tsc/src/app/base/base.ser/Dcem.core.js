@@ -102,7 +102,7 @@ let DCore_Page = class DCore_Page {
             params = {};
         }
         //this.navCtr.navigateRoot(url);
-        this.router.navigate([url], params);
+        this.router.navigate([url], { queryParams: params });
     }
 };
 DCore_Page = tslib_1.__decorate([
@@ -138,4 +138,21 @@ DCore_ShareData = tslib_1.__decorate([
     tslib_1.__metadata("design:paramtypes", [])
 ], DCore_ShareData);
 export { DCore_ShareData };
+//验证对象
+let DCore_Valid = class DCore_Valid {
+    constructor() {
+        this.isNull = function (val) {
+            if (typeof val == "undefined" || val == null)
+                return true;
+            return false;
+        };
+    }
+};
+DCore_Valid = tslib_1.__decorate([
+    Injectable({
+        providedIn: 'root'
+    }),
+    tslib_1.__metadata("design:paramtypes", [])
+], DCore_Valid);
+export { DCore_Valid };
 //# sourceMappingURL=Dcem.core.js.map

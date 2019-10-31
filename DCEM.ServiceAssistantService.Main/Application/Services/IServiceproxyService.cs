@@ -18,8 +18,12 @@ namespace DCEM.ServiceAssistantService.Main.Application
         Task<ValidateResult<CrmEntity>> AddOrUpdate(ServiceproxyAddOrUpdateRequest request);
         #endregion
 
-        #region 查询环检项 配置信息
+        #region 查询环检项 列表
         Task<QueryResult<CrmEntity>> QueryVehcheckresultList();
+        #endregion
+
+        #region 查询厅店工位信息 列表
+        Task<QueryResult<CrmEntity>> QueryRepairlocationresultList();
         #endregion
 
 
