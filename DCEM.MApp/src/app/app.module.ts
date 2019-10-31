@@ -13,11 +13,12 @@ import { IonicStorageModule } from '@ionic/storage';
 //自定义组件
 import { ScSelectComponent } from './serving/serving.ser/components/sc-select/sc-select.component';
 import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
+import { SelectRepairlocationComponent } from 'app/serving/serving.ser/components/select-repairlocation/select-repairlocation.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
-    declarations: [AppComponent, ScSelectComponent,SelectCustomerComponent],//申明组件
-    entryComponents: [ScSelectComponent,SelectCustomerComponent],
+    declarations: [AppComponent, ScSelectComponent, SelectCustomerComponent, SelectRepairlocationComponent],//申明组件
+    entryComponents: [ScSelectComponent, SelectCustomerComponent, SelectRepairlocationComponent],
     imports: [BrowserModule,
         IonicModule.forRoot({ mode: 'ios' }),
         AppRoutingModule,
