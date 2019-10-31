@@ -1,0 +1,29 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>选择客户</ion-title>
+        <ion-buttons slot="end">
+            <ion-button expand="block" (click)="dismissModal()">关闭</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-searchbar animated [(ngModel)]="mod.searchData.search" placeholder="请输入姓名\手机号\车牌号搜索" (keyup)="searchOnKeyup($event)"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list lines="full">
+        <ion-item-sliding *ngFor="let item of mod.data;let key=index">
+            <ion-item (click)="itemClick(item)">
+                <ion-label>
+                    <h2>{{item["model"]["mcs_name"]}}</h2>
+                    <p>{{item["model"]["mcs_repairlocationtype"]}}</p>
+                    <p>{{item["model"]["mcs_repairlocationcode"]}}</p>
+                </ion-label>
+                <ion-icon *ngIf="item.mobilephone" name="phone-portrait" size="small"></ion-icon>
+                <ion-note slot="end">
+                    {{item["model"]["mcs_dealerid"]}}
+                </ion-note>
+            </ion-item>
+        </ion-item-sliding>
+    </ion-list>
+</ion-content>

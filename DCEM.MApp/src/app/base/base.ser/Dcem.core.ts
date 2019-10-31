@@ -4,6 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Injectable } from '@angular/core';
+import { isFunction } from 'util';
 
 
 @Injectable({
@@ -87,7 +88,7 @@ export class DCore_Page {
     }
 
     //弹出提示
-    alert(header: any, message: any) {
+    alert(header: any, message: any,callback=null) {
         const alert = this.alertCtr.create({
             header,
             message,
@@ -95,6 +96,9 @@ export class DCore_Page {
         });
         alert.then(a => {
             a.present();
+            if(isFunction(callback)){
+                callback();
+            }
         });
     }
 

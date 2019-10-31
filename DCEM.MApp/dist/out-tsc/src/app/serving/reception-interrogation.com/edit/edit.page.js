@@ -2,14 +2,15 @@ import * as tslib_1 from "tslib";
 import { Component } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
 import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
-import { DCore_Http, DCore_Page, DCore_ShareData } from 'app/base/base.ser/Dcem.core';
+import { DCore_Http, DCore_Page, DCore_ShareData, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 let EditPage = class EditPage {
-    constructor(_modalCtrl, _navCtrl, _http, _page, _shareData) {
+    constructor(_modalCtrl, _navCtrl, _http, _page, _shareData, _valid) {
         this._modalCtrl = _modalCtrl;
         this._navCtrl = _navCtrl;
         this._http = _http;
         this._page = _page;
         this._shareData = _shareData;
+        this._valid = _valid;
         this.mod = {
             apiUrl: '/Api/Customer/GetCustomerInfo',
             data: {},
@@ -49,7 +50,10 @@ let EditPage = class EditPage {
         this.presentModal();
     }
     nextOnClick() {
-        console.log(this.shareData);
+        if (this._valid.isNull(this.shareData.serviceproxy["customerid"])) {
+            this._page.alert("消息提示", "请先选择客户");
+            return;
+        }
         this._shareData.set(this.mod.shareDataKey, this.shareData);
         this._page.goto("/serving/ri/edit2");
     }
@@ -64,7 +68,8 @@ EditPage = tslib_1.__decorate([
         NavController,
         DCore_Http,
         DCore_Page,
-        DCore_ShareData])
+        DCore_ShareData,
+        DCore_Valid])
 ], EditPage);
 export { EditPage };
 //# sourceMappingURL=edit.page.js.map
