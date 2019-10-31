@@ -126,9 +126,11 @@
             </ion-select>
           </ion-item>
         <ion-item>
-            <ion-label>故障类别代码: {{model.mcname}}</ion-label>
-            <ion-avatar slot="end">
-                <ion-icon color="primary" size="large" name="search" (click)="presentModal()"></ion-icon>
+            <ion-label>故障类别代码: 
+                <ion-note slot="end">{{model.viewData.mcs_malfunctiontype_value}}</ion-note> 
+              </ion-label>
+            <ion-avatar slot="end"> 
+                <ion-icon color="primary" size="large" name="search" (click)="presentMalFunctionTypeModal()"></ion-icon>
             </ion-avatar>
           </ion-item>
       </ion-item-group>

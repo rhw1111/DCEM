@@ -4,10 +4,10 @@ import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 
 @Component({
   selector: 'app-sc-select',
-  templateUrl: './sc-select.component.html',
-  styleUrls: ['./sc-select.component.scss'],
+  templateUrl: './select.malfunctiontype.component.html',
+  styleUrls: ['./select.malfunctiontype.component.scss'],
 })
-export class ScSelectComponent implements OnInit {
+export class SelectMalFunctionTypeComponent implements OnInit {
 
   public selectItemValue: any = '';
   public seachkey: string = '';
@@ -15,11 +15,11 @@ export class ScSelectComponent implements OnInit {
 
   public mod: any = {
     apiUrl: '',
-    data:[],
-    searchData: {
-      type: 1,
+    data: [],
+    searchData: { 
       pageindex: 1,
-      search: ""
+      search: "",
+      pagesize:10
     }
   };
 
@@ -30,10 +30,10 @@ export class ScSelectComponent implements OnInit {
     private _http: DCore_Http,
     private _page: DCore_Page
   ) {
-    this.mod.apiUrl = "/Api/Serviceproxy/GetList";
-    this.mod.searchData.type = 2;
+    this.mod.apiUrl = "/Api/basedata/QueryMalFunctionType"; 
     this.mod.searchData.search = "";
     this.mod.searchData.pageindex = 1;
+    this.mod.searchData.pagesize = 10;
   }
 
   ngOnInit() {
@@ -53,24 +53,22 @@ export class ScSelectComponent implements OnInit {
     this._http.get(
       this.mod.apiUrl,
       {
-        params: {
-          type: this.mod.searchData.type,
+        params: {  
           pageindex: this.mod.searchData.pageindex,
-          search: this.mod.searchData.search
+          seachkey: this.mod.searchData.search,
+          pageSize:this.mod.searchData.pagesize
         }
       },
       (res: any) => {
         console.log(res);
-        if (res.Results !== null) {
+        if (res.Results !== null) { 
           for (var key in res.Results) {
-            var obj = {};
-         
+            var obj = {}; 
             obj["Id"] = res.Results[key]["Id"];
-            obj["carplate"] = res.Results[key]["Attributes"]["mcs_carplate"];
-            obj["customername"] = res.Results[key]["Attributes"]["mcs_customername"];
-            obj["createdon"] = res.Results[key]["Attributes"]["createdon@OData.Community.Display.V1.FormattedValue"];
-            obj["name"] = res.Results[key]["Attributes"]["mcs_name"];
-            obj["model"] = res.Results[key]["Attributes"];
+            obj["mcs_malfunctiontypename"] = res.Results[key]["Attributes"]["mcs_malfunctiontypename"];
+            obj["mcs_malfunctiontypeid"] = res.Results[key]["Attributes"]["mcs_malfunctiontypeid"];
+            obj["createdon"] = res.Results[key]["Attributes"]["createdon"];
+            obj["name"] = res.Results[key]["Attributes"]["mcs_name"]; 
             this.mod.data.push(obj);
           }
           this._page.loadingHide();
@@ -90,11 +88,11 @@ export class ScSelectComponent implements OnInit {
 
   dismissModal() {
     this.modalCtrl.dismiss({
-      'dismissed':true
+      'dismissed': true
     });
   }
   //保存所选项
-  itemClick(item){
+  itemClick(item) {
     this.modalCtrl.dismiss({
       'id': item.Id,
       'name': item.name

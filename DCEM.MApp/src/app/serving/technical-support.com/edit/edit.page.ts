@@ -3,7 +3,7 @@ import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { ModalController } from '@ionic/angular';
 import { ScSelectComponent } from 'app/serving/serving.ser/components/sc-select/sc-select.component';
 import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
-
+import{SelectMalFunctionTypeComponent} from'app/serving/serving.ser/components/select-malfunctiontype/select.malfunctiontype.component';
 import { mcall } from 'q';
 import { noUndefined } from '@angular/compiler/src/util';
 import { debug } from 'util';
@@ -28,7 +28,8 @@ export class EditPage implements OnInit {
       mcs_enginenumber:'',
       mcs_modifiedpartscontent:'',
       mcs_motormodel:'',//电机型号
-      mcs_mileage:0
+      mcs_mileage:0,
+      mcs_malfunctiontype_value:''//故障类别代码
     },
     postData:{
       EntityName:"mcs_supportorder",
@@ -150,8 +151,19 @@ export class EditPage implements OnInit {
     }
   }
 
-  presentModal(){
-
+  async presentMalFunctionTypeModal(){
+     
+    const modal = await this.modalCtrl.create({
+      component: SelectMalFunctionTypeComponent
+    });
+    await modal.present();
+    //监听销毁的事件
+    const { data } = await modal.onDidDismiss();
+    debugger;
+    if (data != null && data != undefined) { 
+      this.model.postData.mcs_malfunctiontypeid = data.id;
+      this.model.viewData.mcs_malfunctiontype_value = data.name; 
+    }
   }
 
   save(){
