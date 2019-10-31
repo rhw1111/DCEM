@@ -1,9 +1,9 @@
-+<ion-header>
+<ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button text="返回" defaultHref="/serving/ri/list"></ion-back-button>
+            <ion-back-button text="返回" defaultHref="/serving/sc/list"></ion-back-button>
         </ion-buttons>
-        <ion-title>创建问诊单</ion-title>
+        <ion-title>创建服务委托书</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -33,7 +33,7 @@
         </ion-item-divider>
         <ion-item>
             <ion-label position="stacked">送修人</ion-label>
-            <ion-input [(ngModel)]="shareData.serviceproxy['shuttlename']" required></ion-input>
+            <ion-input type="text" [(ngModel)]="shareData.serviceproxy['shuttlename']" required></ion-input>
         </ion-item>
         <ion-item>
             <ion-label position="stacked">送修人手机</ion-label>
@@ -53,11 +53,19 @@
         </ion-item>
         <ion-item>
             <ion-label position="stacked">进店里程</ion-label>
-            <ion-input type="number" [(ngModel)]="shareData.serviceproxy['mileage']" type="text"></ion-input>
+            <ion-input type="number" [(ngModel)]="shareData.serviceproxy['mileage']"></ion-input>
         </ion-item>
         <ion-item>
             <ion-label position="stacked">到店时间</ion-label>
             <ion-datetime display-format="YYYY-MM-DD HH:mm" [(ngModel)]="shareData.serviceproxy['arrivalon']"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">预计交车时间</ion-label>
+            <ion-datetime display-format="YYYY-MM-DD HH:mm" [(ngModel)]="shareData.serviceproxy['expectfinishat']"></ion-datetime>
+        </ion-item>
+        <ion-item (click)="repairlocationOnClick()">
+            <ion-label position="stacked">工位</ion-label>
+            <p>{{shareData.serviceproxy["repairlocationname"]}}&nbsp;</p>
         </ion-item>
         <ion-item-divider color="primary">
             <ion-label>
@@ -67,6 +75,14 @@
         <ion-item>
             <ion-label position="stacked">客户描述</ion-label>
             <ion-textarea [(ngModel)]="shareData.serviceproxy['customercomment']"></ion-textarea>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">故障信息</ion-label>
+            <ion-textarea [(ngModel)]="shareData.serviceproxy['customercontent']"></ion-textarea>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">检查结果</ion-label>
+            <ion-textarea [(ngModel)]="shareData.serviceproxy['testresult']"></ion-textarea>
         </ion-item>
     </ion-list>
     <section style="text-align:center;">

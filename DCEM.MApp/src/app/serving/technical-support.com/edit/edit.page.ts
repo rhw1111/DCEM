@@ -65,9 +65,44 @@ export class EditPage implements OnInit {
     await modal.present();
     //监听销毁的事件
     const { data } = await modal.onDidDismiss();
+    debugger;
     if (data != null && data != undefined) {
+      var serviceproxymodel=data.model;
       this.model.postData.mcs_serviceorderid = data.id;
       this.model.viewData.mcs_serviceorderid_name = data.name;
+      //绑定车辆信息
+      if(serviceproxymodel!=null && serviceproxymodel!=undefined){
+        this.model.postData.mcs_customerid = serviceproxymodel.mcs_vehownerid;
+        this.model.viewData.vin=serviceproxymodel.mcs_name;
+        if(serviceproxymodel.mcs_batterymodel!=undefined){
+          this.model.viewData.mcs_batterymodel = serviceproxymodel.mcs_batterymodel;
+        }
+        if(serviceproxymodel.mcs_motorserialnumber!=undefined){
+          this.model.viewData.mcs_batteryserialnumber = serviceproxymodel.mcs_motorserialnumber;
+        }
+        if(serviceproxymodel.mcs_vehplate!=undefined){
+          this.model.viewData.mcs_carplate = serviceproxymodel.mcs_vehplate;
+        }
+        if(serviceproxymodel.mcs_fullname!=undefined){
+          this.model.viewData.mcs_customername = serviceproxymodel.mcs_fullname;
+        }
+        if(serviceproxymodel.mcs_mobilephone!=undefined){
+          this.model.viewData.mcs_customerphone = serviceproxymodel.mcs_mobilephone;
+        }
+        if(serviceproxymodel.mcs_enginennumber!=undefined){
+          this.model.viewData.mcs_enginenumber = serviceproxymodel.mcs_enginennumber;
+        }
+        if(serviceproxymodel.mcs_modifiedpartscontent!=undefined){
+          this.model.viewData.mcs_modifiedpartscontent = serviceproxymodel.mcs_modifiedpartscontent;
+        }
+        if(serviceproxymodel.mcs_motormodel!=undefined){
+          this.model.viewData.mcs_motormodel = serviceproxymodel.mcs_motormodel;
+        }
+        if(serviceproxymodel.mcs_netmileage!=undefined){
+          this.model.viewData.mcs_mileage =serviceproxymodel.mcs_netmileage;
+        }
+      }  
+      
     }
   }
 
@@ -127,7 +162,10 @@ export class EditPage implements OnInit {
       this.model.postApiUrl, this.model.postData,
       (res: any) => {
         if(res!=""){
-          this._page.alert("消息提示", "保存成功");
+          debugger;
+          this._page.alert("消息提示", "保存成功",function(){
+            this._page.goto("/serving/ts/success", { guid: res });
+          });
         }
         else{
 
@@ -145,19 +183,23 @@ export class EditPage implements OnInit {
   
   changePhone(value) {
     // 去除空格
-    const phone = value.replace(/\s/g, '');
-    const ischeck = /^(13[0-9]|14[5|7|9]|15[0|1|2|3|5|6|7|8|9]|16[6]|17[0|1|2|3|5|6|7|8]|18[0-9]|19[8|9])\d{8}$/;
-    if (!ischeck.test(phone)) {
-      this.model.phone = '';
-      //super.showToast(this.toastCtrl, '请输入正确的手机号');
+    if(value!=null && value!=""){
+      const phone = value.replace(/\s/g, '');
+      const ischeck = /^(13[0-9]|14[5|7|9]|15[0|1|2|3|5|6|7|8|9]|16[6]|17[0|1|2|3|5|6|7|8]|18[0-9]|19[8|9])\d{8}$/;
+      if (!ischeck.test(phone)) {
+        this.model.phone = '';
+        //super.showToast(this.toastCtrl, '请输入正确的手机号');
+      }
     }
   }
 
   changeEmail(value) {
-    const ischeck = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(value);
-    if (!ischeck) {
-      this.model.email = '';
-      //super.showToast(this.toastCtrl, '请输入正确的邮箱格式');
+    if(value!=null && value!=""){
+      const ischeck = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(value);
+      if (!ischeck) {
+        this.model.email = '';
+        //super.showToast(this.toastCtrl, '请输入正确的邮箱格式');
+      }
     }
   }
 }

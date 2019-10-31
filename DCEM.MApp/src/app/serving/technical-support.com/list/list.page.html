@@ -38,8 +38,8 @@
         <ion-item *ngFor="let item of model.data" [routerLink]="['/serving/ts/detail']" [queryParams]="{id:item.Id}">
             <ion-icon slot="start" name="hammer" size="large"></ion-icon>
             <ion-label>
-                <h2>{{item.mcs_name}}</h2>
-                <p>项目名称：{{item.mcs_title}}</p>
+                <h3>{{item.mcs_name}}</h3>
+                <p>{{item.mcs_title}}</p>
                 <p>
                     <ion-icon name="calendar" size="small" color="primary"></ion-icon> {{FormatToDate(item.mcs_repairdate)}}
                 </p>

@@ -23,9 +23,9 @@ namespace DCEM.Web.Controllers
         string crmurl = "https://subcrmdev.sokon.com/api/data/v8.2";//模拟登陆的资源地址
         [HttpGet]
         [Route("GetAuthToken")]
-        public ActionResult<TokenModel> GetAuthToken(string username, string password)
+        public ActionResult<LoginModel> GetAuthToken(string username, string password)
         {
-
+            LoginModel result = new LoginModel();
             string url = oauthurl;
             HttpClient httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Accept.Clear();
@@ -37,34 +37,111 @@ namespace DCEM.Web.Controllers
                 response.EnsureSuccessStatusCode();
                 var ret = response.Content.ReadAsStringAsync().Result;
                 var data = JsonSerializerHelper.Deserialize<JObject>(ret);
-                //验证合法
-                HttpClient httpClient2 = new HttpClient();
-                httpClient2.DefaultRequestHeaders.Accept.Clear();
-                httpClient2.DefaultRequestHeaders.Add("Accept", "application/json");
-                httpClient2.DefaultRequestHeaders.Add("OData-MaxVersion", "4.0");
-                httpClient2.DefaultRequestHeaders.Add("OData-Version", "4.0");
-                httpClient2.DefaultRequestHeaders.Add("Authorization", $"Bearer {data["access_token"].ToString()}");
-                HttpResponseMessage response2 = httpClient2.GetAsync(crmurl).Result;
+
+
+
                 try
                 {
-                    response2.EnsureSuccessStatusCode();
-                    var ret2 = response2.Content.ReadAsStringAsync().Result;
-                    string token = data["access_token"].ToString();// "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6ImFXX2tmMjE3bVlVSkpIWDZXZ0M3cTZENXdHcyJ9.eyJhdWQiOiJ1cm46bWljcm9zb2Z0OnVzZXJpbmZvIiwiaXNzIjoiaHR0cDovL3N1YmNybWFkZnMuc29rb24uY29tL2FkZnMvc2VydmljZXMvdHJ1c3QiLCJpYXQiOjE1NzA2OTcyNjgsImV4cCI6MTU3MDcwMDg2OCwiYXBwdHlwZSI6IkNvbmZpZGVudGlhbCIsImFwcGlkIjoiZTVlMDE0YzctYjFmZi00NWEzLThjMGEtOTkxZjVhYTdjZThmIiwiYXV0aG1ldGhvZCI6InVybjpvYXNpczpuYW1lczp0YzpTQU1MOjIuMDphYzpjbGFzc2VzOlBhc3N3b3JkUHJvdGVjdGVkVHJhbnNwb3J0IiwiYXV0aF90aW1lIjoiMjAxOS0xMC0xMFQwODo0Nzo0OC40NjJaIiwidmVyIjoiMS4wIiwic3ViIjoieGxiUytucnpma05DRkROR3IzSFRqMWp0WElub1pMZnhwZlJteGxTUnVJTT0ifQ.MxGLdCBE3lI1jpcyZAwHPpnTf5wYyEUTgAJboAPUtmQRkB-PBJUUWL4AHxk2v50W8dlYNR0YywIfeEdHq7EXriBpb7m8X6L89fYkr1jUn-B4Ke7CyCFgX-5atOfm8uCTFWLt0f5JgEVQDE36cRGJ1QAUiSoVoPKUBEie9wEQAT0-XmHSXN7fmroH3JyGEQ7n3ZzxDZFWpjsM5Q31CQWYGww6vyB44Q3RSmc3KxPv9uvucE8OZBjGD_Vv7cGfGByiwEgL-YTA52X-ImHJOPmieVCpFl04BiAsD2sgutK4cvIeSHryjGNqGn1vMLa0yKPvHD0Mvm3Ixt0kPiIbc0Li_Q";
-                    return new TokenModel { access_token = token };
+                    string geturl = crmurl + GetUserFetchXml(@"sfmotors\" + username);
+                    var datauser = QueryCrmData(geturl, data["access_token"].ToString());
+                    if (datauser != null)
+                    {
+                        if (datauser["value"][0]["systemuserid"] != null)
+                            result.systemuserid = datauser["value"][0]["systemuserid"].ToString();
+                        if (datauser["value"][0]["domainname"] != null)
+                            result.domainname = datauser["value"][0]["domainname"].ToString();
+                        if (datauser["value"][0]["lastname"] != null)
+                            result.lastname = datauser["value"][0]["lastname"].ToString();
+                        if (datauser["value"][0]["firstname"] != null)
+                            result.firstname = datauser["value"][0]["firstname"].ToString();
+                        if (datauser["value"][0]["mcs_staffid"] != null)
+                            result.mcs_staffid = datauser["value"][0]["mcs_staffid"].ToString();
+                        if (datauser["value"][0]["_mcs_dealer_value"] != null)
+                            result.mcs_dealerid = datauser["value"][0]["_mcs_dealer_value"].ToString();
+                        if (datauser["value"][0]["dealer_x002e_mcs_name"] != null)
+                            result.mcs_dealername = datauser["value"][0]["dealer_x002e_mcs_name"].ToString();
+                        result.access_token = data["access_token"].ToString();
+                        // "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6ImFXX2tmMjE3bVlVSkpIWDZXZ0M3cTZENXdHcyJ9.eyJhdWQiOiJ1cm46bWljcm9zb2Z0OnVzZXJpbmZvIiwiaXNzIjoiaHR0cDovL3N1YmNybWFkZnMuc29rb24uY29tL2FkZnMvc2VydmljZXMvdHJ1c3QiLCJpYXQiOjE1NzA2OTcyNjgsImV4cCI6MTU3MDcwMDg2OCwiYXBwdHlwZSI6IkNvbmZpZGVudGlhbCIsImFwcGlkIjoiZTVlMDE0YzctYjFmZi00NWEzLThjMGEtOTkxZjVhYTdjZThmIiwiYXV0aG1ldGhvZCI6InVybjpvYXNpczpuYW1lczp0YzpTQU1MOjIuMDphYzpjbGFzc2VzOlBhc3N3b3JkUHJvdGVjdGVkVHJhbnNwb3J0IiwiYXV0aF90aW1lIjoiMjAxOS0xMC0xMFQwODo0Nzo0OC40NjJaIiwidmVyIjoiMS4wIiwic3ViIjoieGxiUytucnpma05DRkROR3IzSFRqMWp0WElub1pMZnhwZlJteGxTUnVJTT0ifQ.MxGLdCBE3lI1jpcyZAwHPpnTf5wYyEUTgAJboAPUtmQRkB-PBJUUWL4AHxk2v50W8dlYNR0YywIfeEdHq7EXriBpb7m8X6L89fYkr1jUn-B4Ke7CyCFgX-5atOfm8uCTFWLt0f5JgEVQDE36cRGJ1QAUiSoVoPKUBEie9wEQAT0-XmHSXN7fmroH3JyGEQ7n3ZzxDZFWpjsM5Q31CQWYGww6vyB44Q3RSmc3KxPv9uvucE8OZBjGD_Vv7cGfGByiwEgL-YTA52X-ImHJOPmieVCpFl04BiAsD2sgutK4cvIeSHryjGNqGn1vMLa0yKPvHD0Mvm3Ixt0kPiIbc0Li_Q";
+
+                    }
+                    return result;
                 }
                 catch (Exception ex)
                 {
-                    return new TokenModel { access_token = string.Empty };
+                    return result;
                 }
             }
             catch (Exception ex)
             {
-                    return new TokenModel { access_token = string.Empty };
+                return result;
             }
         }
+
+
+        public JObject QueryCrmData(string crmurl, string token)
+        {
+            //验证合法
+            HttpClient httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+            httpClient.DefaultRequestHeaders.Add("OData-MaxVersion", "4.0");
+            httpClient.DefaultRequestHeaders.Add("OData-Version", "4.0");
+            httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+            HttpResponseMessage response = httpClient.GetAsync(crmurl).Result;
+            try
+            {
+                response.EnsureSuccessStatusCode();
+                var ret = response.Content.ReadAsStringAsync().Result;
+                var res = JsonSerializerHelper.Deserialize<JObject>(ret);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+        }
+
+        public string GetUserFetchXml(string name)
+        {
+            var strFetch = "/systemusers?fetchXml=<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>" +
+            "<entity name='systemuser'>" +
+              "<attribute name='systemuserid' />" +
+              "<attribute name='domainname' />" +
+              "<attribute name='lastname' />" +
+              "<attribute name='firstname' />" +
+              "<attribute name='mcs_staffid' />" +
+              "<attribute name='mcs_dealer' />" +
+              "<order attribute='createdon' descending='true' />" +
+              "<filter type='and'>" +
+              "<condition attribute='domainname' operator='eq' value='" + name + "' />" +
+              "</filter>" +
+              "<link-entity name='mcs_dealer' from='mcs_dealerid' to='mcs_dealer' visible='false' link-type='outer' alias='dealer'>" +
+                "<attribute name='mcs_name' />" +
+              "</link-entity>" +
+            "</entity>" +
+          "</fetch>";
+            return strFetch;
+        }
     }
-    public class TokenModel
+
+
+    public class LoginModel
     {
+        public LoginModel()
+        {
+            access_token = string.Empty;
+        }
         public string access_token { get; set; }
+        public string systemuserid { get; set; }
+        public string domainname { get; set; }
+        public string lastname { get; set; }
+        public string firstname { get; set; }
+        public string mcs_staffid { get; set; }
+        public string mcs_dealerid { get; set; }
+        public string mcs_dealername { get; set; }
     }
+
+
+
 }

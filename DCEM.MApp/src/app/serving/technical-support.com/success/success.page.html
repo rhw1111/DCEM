@@ -1,10 +1,11 @@
 ﻿<ion-header>
     <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-back-button text="返回" defaultHref="/serving/ri/list"></ion-back-button>
-        </ion-buttons>
-        <ion-title>开单成功</ion-title>
+            <ion-buttons slot="start">
+                    <ion-back-button text="返回" defaultHref="/serving/ts/list"></ion-back-button>
+                </ion-buttons>
+                <ion-title>技术支持开单成功</ion-title>
     </ion-toolbar>
+    
 </ion-header>
 
 <ion-content fullscreen scroll-y="false">
@@ -30,27 +31,27 @@
                 </ion-row>
                 <ion-row>
                     <ion-col class="title">
-                        问诊开单成功
+                        技术支持申请成功
                     </ion-col>
                 </ion-row>
                 <ion-row>
                     <ion-col>
                         <div class="orderno">
-                            <!--单号:D00142019225567-->
+                            单号:
                         </div>
                     </ion-col>
                 </ion-row>
                 <ion-row>
                     <ion-col>
-                        <ion-button color="primary" class="button-outline" [routerLink]="['/serving/ri/detail']" [queryParams]="{id:mod.id}">
+                        <ion-button color="primary" class="button-outline" [routerLink]="['/serving/ts/detail']" [queryParams]="{id:mod.id}">
                             查看详情
                         </ion-button>
                     </ion-col>
                     <ion-col>
                     </ion-col>
                     <ion-col>
-                        <ion-button color="primary" class="button-outline" [routerLink]="['/serving/ri/edit']">
-                            接待问诊
+                        <ion-button color="primary" class="button-outline" [routerLink]="['/serving/ts/edit']">
+                            技术申请
                         </ion-button>
                     </ion-col>
                 </ion-row>

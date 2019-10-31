@@ -1,7 +1,9 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
+import { SelectRepairlocationComponent } from 'app/serving/serving.ser/components/select-repairlocation/select-repairlocation.component';
 import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
 import { DCore_Http, DCore_Page, DCore_ShareData, DCore_Valid } from 'app/base/base.ser/Dcem.core';
+
 
 @Component({
     selector: 'app-edit',
@@ -14,7 +16,7 @@ export class EditPage implements OnInit {
         apiUrl: '/Api/Customer/GetCustomerInfo',
         data: {
         },
-        shareDataKey: "riEditData"
+        shareDataKey: "scEditData"
     };
 
     //定义共享数据
@@ -33,7 +35,7 @@ export class EditPage implements OnInit {
         private _valid: DCore_Valid
     ) { }
 
-    async presentModal() {
+    async presentCustomerModal() {
         const modal = await this._modalCtrl.create({
             component: SelectCustomerComponent
         });
@@ -41,7 +43,6 @@ export class EditPage implements OnInit {
         const { data } = await modal.onDidDismiss();
         if (data != null && typeof data != "undefined") {
             if (data.vehowne != null && typeof data.vehowne != "undefined") {
-                console.log(data.vehowne);
                 this.shareData.serviceproxy["customerid"] = data.vehowne.vehownerid;
                 this.shareData.serviceproxy["customername"] = data.vehowne.fullname;
                 this.shareData.serviceproxy["carplate"] = data.vehowne.vehplate;
@@ -49,6 +50,22 @@ export class EditPage implements OnInit {
             }
         }
     }
+
+
+    async presentRepairlocationModal() {
+        const modal = await this._modalCtrl.create({
+            component: SelectRepairlocationComponent
+        });
+        await modal.present();
+        const { data } = await modal.onDidDismiss();
+        if (data != null && typeof data != "undefined") {
+            if (data.repairlocation != null && typeof data.repairlocation != "undefined") {
+                this.shareData.serviceproxy["repairlocationid"] = data.repairlocation["model"]["mcs_repairlocationid"];
+                this.shareData.serviceproxy["repairlocationname"] = data.repairlocation["model"]["mcs_name"];
+            }
+        }
+    }
+
 
     ngOnInit() {
         var getShareData = this._shareData.get(this.mod.shareDataKey);
@@ -58,16 +75,26 @@ export class EditPage implements OnInit {
     }
 
     public customerOnClick() {
-        this.presentModal();
+        this.presentCustomerModal();
+    }
+
+    public repairlocationOnClick() {
+        this.presentRepairlocationModal();
     }
 
     public nextOnClick() {
+
         if (this._valid.isNull(this.shareData.serviceproxy["customerid"])) {
-            this._page.alert("消息提示", "请先选择客户");
+            this._page.alert("消息提示", "请选择客户");
+            return;
+        }
+
+        if (this._valid.isNull(this.shareData.serviceproxy["repairlocationid"])) {
+            this._page.alert("消息提示", "请选择工位");
             return;
         }
 
         this._shareData.set(this.mod.shareDataKey, this.shareData);
-        this._page.goto("/serving/ri/edit2");
+        this._page.goto("/serving/sc/edit2");
     }
 }
