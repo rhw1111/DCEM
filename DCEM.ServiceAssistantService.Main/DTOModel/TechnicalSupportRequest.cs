@@ -10,7 +10,7 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
         /// <summary>
         /// 主键GUID
         /// </summary>
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         /// <summary>
         /// 实体名称
         /// </summary>
@@ -18,11 +18,23 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
         /// <summary>
         /// 技术支持申请单ID
         /// </summary>
-        public Guid mcs_supportorderid { get; set; }
+        public string mcs_supportorderid { get; set; }
+        /// <summary>
+        /// 服务委托书
+        /// </summary>
+        public string mcs_serviceorderid { get; set; }
         /// <summary>
         /// 编号
         /// </summary>
         public string mcs_name { get; set; }
+        /// <summary>
+        /// 技术主管
+        /// </summary>
+        public string mcs_repairnameid { get; set; }
+        /// <summary>
+        /// 服务顾问
+        /// </summary>
+        public string mcs_serviceadvisorid { get; set; }
         /// <summary>
         /// 维修日期
         /// </summary>
@@ -46,32 +58,32 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
         /// <summary>
         /// VIN码    查找
         /// </summary>
-        public Guid? mcs_customerid { get; set; }
-        /// <summary>
-        /// 电池型号 单行文本
-        /// </summary>
-        public string mcs_batterymodel { get; set; }
-        /// <summary>
-        /// 电池序列号   单行文本
-        /// </summary>
-        public string mcs_batteryserialnumber { get; set; }
-        /// <summary>
-        /// 车牌号 单行文本
-        /// </summary>
-        public string mcs_carplate { get; set; }
-        /// <summary>
-        /// 车主姓名    单行文本
-        /// </summary>
-        public string mcs_customername { get; set; }
-        /// <summary>
-        /// 车主手机 单行文本
-        /// </summary>
-        public string mcs_customerphone { get; set; }
+        public string mcs_customerid { get; set; }
+        ///// <summary>
+        ///// 电池型号 单行文本
+        ///// </summary>
+        //public string mcs_batterymodel { get; set; }
+        ///// <summary>
+        ///// 电池序列号   单行文本
+        ///// </summary>
+        //public string mcs_batteryserialnumber { get; set; }
+        ///// <summary>
+        ///// 车牌号 单行文本
+        ///// </summary>
+        //public string mcs_carplate { get; set; }
+        ///// <summary>
+        ///// 车主姓名    单行文本
+        ///// </summary>
+        //public string mcs_customername { get; set; }
+        ///// <summary>
+        ///// 车主手机 单行文本
+        ///// </summary>
+        //public string mcs_customerphone { get; set; }
 
-        /// <summary>
-        /// 发动机号    单行文本
-        /// </summary>
-        public string mcs_enginenumber { get; set; }
+        ///// <summary>
+        ///// 发动机号    单行文本
+        ///// </summary>
+        //public string mcs_enginenumber { get; set; }
 
         /// <summary>
         /// 加装零件描述 多行文本
@@ -83,15 +95,15 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
         /// </summary>
         public bool? mcs_ismodifiedparts { get; set; }
 
-        /// <summary>
-        /// 里程数（KM)	十进制数
-        /// </summary>
-        public int? mcs_mileage { get; set; }
+        ///// <summary>
+        ///// 里程数（KM)	十进制数
+        ///// </summary>
+        //public int? mcs_mileage { get; set; }
 
         /// <summary>
         /// 故障类别代码 查找
         /// </summary>
-        public Guid? mcs_malfunctiontypeid { get; set; }
+        public string mcs_malfunctiontypeid { get; set; }
 
         /// <summary>
         ///  检查诊断描述  多行文本
@@ -116,7 +128,7 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
         /// <summary>
         /// 技术系统    选项集
         /// </summary>
-        public int? mcs_techsystem { get; set; }
+        public string mcs_techsystem { get; set; }
 
 
     }

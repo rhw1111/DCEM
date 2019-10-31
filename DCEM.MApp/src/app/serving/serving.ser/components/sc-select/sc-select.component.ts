@@ -64,11 +64,13 @@ export class ScSelectComponent implements OnInit {
         if (res.Results !== null) {
           for (var key in res.Results) {
             var obj = {};
+            debugger;
             obj["Id"] = res.Results[key]["Id"];
             obj["carplate"] = res.Results[key]["Attributes"]["mcs_carplate"];
             obj["customername"] = res.Results[key]["Attributes"]["mcs_customername"];
             obj["createdon"] = res.Results[key]["Attributes"]["createdon@OData.Community.Display.V1.FormattedValue"];
             obj["name"] = res.Results[key]["Attributes"]["mcs_name"];
+            obj["model"] = res.Results[key]["Attributes"];
             this.mod.data.push(obj);
           }
           this._page.loadingHide();

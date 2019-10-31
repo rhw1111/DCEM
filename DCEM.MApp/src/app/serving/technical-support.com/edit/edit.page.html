@@ -17,7 +17,7 @@
           <ion-label position="floating">
             <ion-text color="danger">*</ion-text>主题
           </ion-label>
-          <ion-input></ion-input>
+          <ion-input [(ngModel)]="model.postData.mcs_title"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>
@@ -34,28 +34,28 @@
             <ion-label position="floating">
               <ion-text color="danger">*</ion-text>服务顾问
             </ion-label>
-            <ion-input></ion-input>
+            <ion-input [(ngModel)]="model.postData.mcs_serviceadvisorid"></ion-input>
           </ion-item>
         <ion-item>
           <ion-label position="floating">
             <ion-text color="danger">*</ion-text>技术主管
           </ion-label>
-          <ion-input></ion-input>
+          <ion-input [(ngModel)]="model.postData.mcs_repairnameid"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">
             <ion-text color="danger">*</ion-text>维修时间
           </ion-label>
-          <ion-datetime displayFormat="YYYY-MM-DD HH:mm" min="1997" max="2010" value=""></ion-datetime>
+          <ion-datetime [(ngModel)]="model.postData.mcs_repairdate" displayFormat="YYYY-MM-DD HH:mm" min="1997" max="2010" value=""></ion-datetime>
         </ion-item>
         <ion-item>
           <ion-label><ion-icon name="mail" size="large"></ion-icon></ion-label>
-          <ion-input type="email" placeholder="请输入邮箱" maxlength="30" style="text-align:right;" (ionBlur)="changeEmail(model.email)"
+          <ion-input [(ngModel)]="model.postData.mcs_email" type="email" placeholder="请输入邮箱" maxlength="30" style="text-align:right;" (ionBlur)="changeEmail(model.email)"
           [(ngModel)]="model.email" required></ion-input>
         </ion-item>
         <ion-item>
           <ion-label><ion-icon name="phone-portrait" size="large"></ion-icon></ion-label>
-          <ion-input type="tel" placeholder="请输入手机号" maxlength="11" minlength="11" style="text-align:right;" (ionBlur)="changePhone(model.phone)" [(ngModel)]="model.phone" required onkeyup="this.value=this.value.replace(/\D/g,'')"></ion-input>
+          <ion-input [(ngModel)]="model.postData.mcs_phone" type="tel" placeholder="请输入手机号" maxlength="11" minlength="11" style="text-align:right;" (ionBlur)="changePhone(model.phone)" [(ngModel)]="model.phone" required onkeyup="this.value=this.value.replace(/\D/g,'')"></ion-input>
         </ion-item>
       </ion-item-group>
     
@@ -65,7 +65,7 @@
         </ion-item-divider>
         <ion-item>
           <ion-label>
-            <ion-text color="danger">*</ion-text>车主姓名：{{model.viewData.fullname}}
+            <ion-text color="danger">*</ion-text>车主姓名：{{model.viewData.mcs_customername}}
           </ion-label>
           <ion-avatar slot="end">
             <ion-icon color="primary" size="large" name="search" (click)="presentCustomerModal()"></ion-icon>
@@ -105,11 +105,11 @@
         </ion-item>
         <ion-item>
           <ion-label>是否加装</ion-label>
-          <ion-toggle slot="end" color="secondary" checked [(ngModel)]="model.postData.mcs_batteryserialnumber"></ion-toggle>
+          <ion-toggle slot="end" color="secondary" checked [(ngModel)]="model.postData.mcs_ismodifiedparts"></ion-toggle>
         </ion-item>
         <ion-item>
           <ion-label position="floating">加装描述</ion-label>
-          <ion-textarea rows="6" cols="20" placeholder="请输入加装描述信息"></ion-textarea>
+          <ion-textarea rows="6" cols="20" placeholder="请输入加装描述信息" [(ngModel)]="model.postData.mcs_modifiedpartscontent"></ion-textarea>
         </ion-item>
       </ion-item-group>
       <ion-item-group>
@@ -117,8 +117,8 @@
           <ion-label>故障信息</ion-label>
         </ion-item-divider>
         <ion-item>
-            <ion-label>技术系统</ion-label>
-            <ion-select value="model.mcs_techsystem" okText="确认" cancelText="取消">
+            <ion-label><ion-text color="danger">*</ion-text>技术系统</ion-label>
+            <ion-select [(ngModel)]="model.postData.mcs_techsystem" value="" okText="确认" cancelText="取消">
               <ion-select-option value="10">车身</ion-select-option>
               <ion-select-option value="20">底盘</ion-select-option>
               <ion-select-option value="30">电器</ion-select-option>
@@ -137,20 +137,20 @@
           <ion-label>其他</ion-label>
         </ion-item-divider>
         <ion-item>
-          <ion-label position="floating">技术疑问</ion-label>
-          <ion-textarea></ion-textarea>
+          <ion-label position="floating">技师疑问</ion-label>
+          <ion-textarea [(ngModel)]="model.postData.mcs_techqueries"></ion-textarea>
         </ion-item>
         <ion-item>
           <ion-label position="floating">检测诊断描述</ion-label>
-          <ion-textarea></ion-textarea>
+          <ion-textarea [(ngModel)]="model.postData.mcs_diagnosiscontent"></ion-textarea>
         </ion-item>
         <ion-item>
           <ion-label position="floating">已更换零件</ion-label>
-          <ion-textarea></ion-textarea>
+          <ion-textarea [(ngModel)]="model.postData.mcs_replacedparts"></ion-textarea>
         </ion-item>
         <ion-item>
           <ion-label position="floating">具体故障现象</ion-label>
-          <ion-textarea></ion-textarea>
+          <ion-textarea [(ngModel)]="model.postData.mcs_malfunctioncontent"></ion-textarea>
         </ion-item>
       </ion-item-group>
       <ion-button  expand="block" type="button"  (click)="save()">保存</ion-button>
