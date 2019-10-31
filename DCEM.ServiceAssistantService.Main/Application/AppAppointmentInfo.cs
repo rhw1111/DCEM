@@ -66,7 +66,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<ActionResult<string>> AddOrEdit(AppointmentInfoAddOrEditRequest request)
+        public async Task<ValidateResult<CrmEntity>> AddOrEdit(AppointmentInfoAddOrEditRequest request)
         {
             return await _appointmentInfoService.AddOrEdit(request);
         }

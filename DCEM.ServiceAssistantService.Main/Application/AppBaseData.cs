@@ -79,9 +79,14 @@ namespace DCEM.ServiceAssistantService.Main.Application
         /// </summary>
         /// <param name="systemuserid"></param>
         /// <returns></returns>
-        public async Task<CrmEntity> QyerySystemUser(string systemuserid)
+        public async Task<CrmEntity> QuerySystemUser(string systemuserid)
         {
-            return await _baseDataService.QyerySystemUser(systemuserid);
+            return await _baseDataService.QuerySystemUser(systemuserid);
+        }
+
+        public async Task<QueryResult<CrmEntity>> QuerySystemUserByPage(string searchkey = "", string prxyUserId = "", string dealerId = "", int pageSize = 10, int pageNum = 1, string sort = "")
+        {
+            return await _baseDataService.QuerySystemUserByPage(searchkey, prxyUserId,dealerId ,pageSize, pageNum, sort);
         }
     }
 }

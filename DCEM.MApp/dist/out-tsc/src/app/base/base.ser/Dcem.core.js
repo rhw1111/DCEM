@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
+import { isFunction } from 'util';
 let DCore_Window = class DCore_Window {
     storageSet(key, val) {
         window.localStorage.setItem(key, val);
@@ -73,7 +74,7 @@ let DCore_Page = class DCore_Page {
         this.activeRoute = activeRoute;
     }
     //弹出提示
-    alert(header, message) {
+    alert(header, message, callback = null) {
         const alert = this.alertCtr.create({
             header,
             message,
@@ -81,6 +82,9 @@ let DCore_Page = class DCore_Page {
         });
         alert.then(a => {
             a.present();
+            if (isFunction(callback)) {
+                callback();
+            }
         });
     }
     //打开等待动画

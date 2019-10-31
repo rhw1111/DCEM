@@ -16,6 +16,7 @@ export class DetailPage implements OnInit {
         apiUrlDetail: '/api/appointment-info/GetDetail',
         apiUrlLog: '/api/appointment-info/GetLog',
         infolist: {
+            mcs_appointmentinfoid:"",
             mcs_customername: "",
             mcs_customerphone: "",
             mcs_tag: "",
@@ -50,7 +51,7 @@ export class DetailPage implements OnInit {
 
     ngOnInit() {
         this.activeRoute.queryParams.subscribe((data: any) => {
-            //debugger;
+            debugger;
             console.log(data.id);
             this.pageOnBind(data.id);
             //this.pageOnlist(data.id);
@@ -68,6 +69,7 @@ export class DetailPage implements OnInit {
             },
             (res: any) => {
                 if (res !== null) {
+                    this.model.infolist.mcs_appointmentinfoid = res.Id;
                     this.model.infolist.mcs_customername = res["Attributes"]["mcs_customername"];
                     this.model.infolist.mcs_customerphone = res["Attributes"]["mcs_customerphone"];
                     this.model.infolist.mcs_tag = res["Attributes"]["mcs_tag"];

@@ -49,6 +49,6 @@ namespace DCEM.ServiceAssistantService.Main.Application
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<ActionResult<string>> AddOrEdit(AppointmentInfoAddOrEditRequest request);
+        Task<ValidateResult<CrmEntity>> AddOrEdit(AppointmentInfoAddOrEditRequest request);
     }
 }

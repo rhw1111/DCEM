@@ -81,8 +81,7 @@ export class LoginPage implements OnInit {
                     password: encodeURIComponent(this.mod.password)
                 }
             },
-            (res: any) => {
-                debugger; 
+            (res: any) => { 
                 if(res.access_token==""){ 
                 this._page.alert('消息提示', '登录认证失败');
                 return false;

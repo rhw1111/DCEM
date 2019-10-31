@@ -187,17 +187,81 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         /// </summary>
         /// <param name="systemuserid"></param>
         /// <returns></returns>
-        public async Task<CrmEntity> QyerySystemUser(string systemuserid)
+        public async Task<CrmEntity> QuerySystemUser(string systemuserid)
         {
             try
             {
                 var dicHead = new Dictionary<string, IEnumerable<string>>();
                 dicHead.Add("Prefer", new List<string>() { "odata.include-annotations=\"*\"" });
 
-                var fetchString = _baseDataRepository.QyerySystemUser(systemuserid);
+                var fetchString = _baseDataRepository.QuerySystemUser(systemuserid);
                 CrmEntity entity = null;
                 entity = await _crmService.Retrieve("systemuser", Guid.Parse(systemuserid), fetchString, null, dicHead);
                 return entity;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        /// <summary>
+        /// 分页查询用户列表数据
+        /// </summary>
+        /// <param name="searchkey"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="pageNum"></param>
+        /// <param name="sort"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> QuerySystemUserByPage(string searchkey = "", string proxyUserId = "", string dealerId = "", int pageSize = 10, int pageNum = 1, string sort = "")
+        {
+            try
+            {
+                string filterstr = "";
+
+                //if (!string.IsNullOrEmpty(dealerId))
+                //{
+                //    filterstr += $"<condition attribute='mcs_dealer' operator='eq' value='{dealerId}' />";
+                //}
+
+                if (!string.IsNullOrEmpty(searchkey))
+                {
+                    filterstr += $"<filter type='or' >";
+                    filterstr += $"<condition attribute='fullname' operator='like' value='%{searchkey}%' />";
+                    filterstr += $"</filter>";
+                }
+
+                var fetchxml = string.Format($@"<fetch version=""1.0"" output-format=""xml-platform"" mapping=""logical"" distinct=""false"" count=""{pageSize}"" page=""{pageNum}"">
+                                <entity name = ""systemuser"" >
+                                    <attribute name = ""systemuserid"" />
+                                    <attribute name = ""firstname"" />
+                                    <attribute name = ""lastname"" />
+                                    <attribute name = ""mcs_dealer"" />
+                                    <attribute name = ""fullname"" />
+                                <filter type = ""and"" >
+                                  <condition attribute='isdisabled' operator='eq' value='0' />
+                                  {filterstr}
+                               </filter>
+                                </entity>
+                            </fetch>");
+                XDocument xmlDoc = XDocument.Parse(fetchxml);
+
+                var request = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "systemuser",
+                    FetchXml = xmlDoc,
+                    ProxyUserId= string.IsNullOrEmpty(proxyUserId)?Guid.Empty:Guid.Parse(proxyUserId)
+                };
+                var crmResponse = await _crmService.Execute(request);
+                CrmRetrieveMultipleFetchResponseMessage response = crmResponse as CrmRetrieveMultipleFetchResponseMessage;
+
+                QueryResult<CrmEntity> queryResult = new QueryResult<CrmEntity>();
+                if (response.Value != null)
+                {
+                    queryResult.Results = response.Value.Results;
+                    queryResult.TotalCount = response.Value.Count;
+                    queryResult.CurrentPage = pageNum;
+                }
+                return queryResult;
             }
             catch (Exception ex)
             {

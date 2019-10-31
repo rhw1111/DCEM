@@ -151,8 +151,10 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<ActionResult<string>> AddOrEdit(AppointmentInfoAddOrEditRequest request)
+        public async Task<ValidateResult<CrmEntity>> AddOrEdit(AppointmentInfoAddOrEditRequest request)
         {
+            var validateResult = new ValidateResult<CrmEntity>();
+            var reusetCrmEntity = new CrmEntity("mcs_appointmentinfo", new Guid());
             //新增预约单
             if (request.actioncode == 1)
             {
@@ -160,6 +162,10 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
 
                 BasicAssignment(createEntity,request);
                 var reuset = await _crmService.Create(createEntity);
+                reusetCrmEntity.Id = createEntity.Id;
+                validateResult.Data = reusetCrmEntity;
+                validateResult.Result = true;
+                validateResult.Description = "操作成功";
             }
             //编辑预约单
             if (request.actioncode == 2)
@@ -167,8 +173,9 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
                 var updateEntity = new CrmExecuteEntity("mcs_appointmentinfo", request.appointmentinfo.mcs_appointmentinfoid);
                 BasicAssignment(updateEntity, request);
                 await _crmService.Update(updateEntity);
+
             }
-            return "ok";
+            return validateResult;
         }
 
         /// <summary>

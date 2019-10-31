@@ -125,7 +125,7 @@ namespace DCEM.Web.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("AddOrEdit")]
-        public async Task<ActionResult<string>> AddOrEdit(AppointmentInfoAddOrEditRequest request)
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<CrmEntity>>> AddOrEdit(AppointmentInfoAddOrEditRequest request)
         {
             return await app.AddOrEdit(request);
         }

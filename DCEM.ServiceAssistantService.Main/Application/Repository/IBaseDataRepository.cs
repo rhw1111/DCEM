@@ -47,6 +47,6 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
         /// </summary>
         /// <param name="systemuserid"></param>
         /// <returns></returns>
-        string QyerySystemUser(string systemuserid);
+        string QuerySystemUser(string systemuserid);
     }
 }

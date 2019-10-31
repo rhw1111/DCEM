@@ -159,11 +159,22 @@ namespace DCEM.Web.Controllers
         /// <param name="entityid"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("QyerySystemUser")]
-        public async Task<NewtonsoftJsonActionResult<CrmEntity>> QyerySystemUser(string systemuserid)
+        [Route("QuerySystemUser")]
+        public async Task<NewtonsoftJsonActionResult<CrmEntity>> QuerySystemUser(string systemuserid)
         {
-            return await app.QyerySystemUser(systemuserid);
+            return await app.QuerySystemUser(systemuserid);
         }
 
+        /// <summary>
+        /// 查询用户个人信息
+        /// </summary>
+        /// <param name="entityid"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("QuerySystemUserList")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> QuerySystemUserList(string seachkey = "",string prxyUserId="",string dealerId="", int pageSize = 10, int page = 1,string sort = "")
+        {
+            return await app.QuerySystemUserByPage(seachkey, prxyUserId, dealerId, pageSize,page,sort);
+        }
     }
 }

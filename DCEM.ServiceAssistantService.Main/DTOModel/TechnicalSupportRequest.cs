@@ -59,31 +59,31 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
         /// VIN码    查找
         /// </summary>
         public string mcs_customerid { get; set; }
-        ///// <summary>
-        ///// 电池型号 单行文本
-        ///// </summary>
-        //public string mcs_batterymodel { get; set; }
-        ///// <summary>
-        ///// 电池序列号   单行文本
-        ///// </summary>
-        //public string mcs_batteryserialnumber { get; set; }
-        ///// <summary>
-        ///// 车牌号 单行文本
-        ///// </summary>
-        //public string mcs_carplate { get; set; }
-        ///// <summary>
-        ///// 车主姓名    单行文本
-        ///// </summary>
-        //public string mcs_customername { get; set; }
-        ///// <summary>
-        ///// 车主手机 单行文本
-        ///// </summary>
-        //public string mcs_customerphone { get; set; }
+        /// <summary>
+        /// 电池型号 单行文本
+        /// </summary>
+        public string mcs_batterymodel { get; set; }
+        /// <summary>
+        /// 电池序列号   单行文本
+        /// </summary>
+        public string mcs_batteryserialnumber { get; set; }
+        /// <summary>
+        /// 车牌号 单行文本
+        /// </summary>
+        public string mcs_carplate { get; set; }
+        /// <summary>
+        /// 车主姓名    单行文本
+        /// </summary>
+        public string mcs_customername { get; set; }
+        /// <summary>
+        /// 车主手机 单行文本
+        /// </summary>
+        public string mcs_customerphone { get; set; }
 
-        ///// <summary>
-        ///// 发动机号    单行文本
-        ///// </summary>
-        //public string mcs_enginenumber { get; set; }
+        /// <summary>
+        /// 发动机号    单行文本
+        /// </summary>
+        public string mcs_enginenumber { get; set; }
 
         /// <summary>
         /// 加装零件描述 多行文本
@@ -95,10 +95,10 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
         /// </summary>
         public bool? mcs_ismodifiedparts { get; set; }
 
-        ///// <summary>
-        ///// 里程数（KM)	十进制数
-        ///// </summary>
-        //public int? mcs_mileage { get; set; }
+        /// <summary>
+        /// 里程数（KM)	十进制数
+        /// </summary>
+        public int? mcs_mileage { get; set; }
 
         /// <summary>
         /// 故障类别代码 查找
