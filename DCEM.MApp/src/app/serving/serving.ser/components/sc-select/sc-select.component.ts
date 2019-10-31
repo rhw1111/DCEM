@@ -14,7 +14,7 @@ export class ScSelectComponent implements OnInit {
     searchData: {
       type: 1,
       pageindex: 1,
-      search: ""
+      searchkey: ""
     }
   };
 
@@ -49,7 +49,7 @@ export class ScSelectComponent implements OnInit {
         params: {
           type: this.mod.searchData.type,
           pageindex: this.mod.searchData.pageindex,
-          search: this.mod.searchData.search
+          search: this.mod.searchData.searchkey
         }
       },
       (res: any) => {

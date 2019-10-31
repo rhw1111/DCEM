@@ -6,21 +6,13 @@
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar>
-          <ion-searchbar [(ngModel)]="seachkey" placeholder="支持名称\ID\编号查找" (keyup)="searchOnKeyup($event)" ></ion-searchbar>
+          <ion-searchbar [(ngModel)]="mod.searchData.searchkey" placeholder="支持名称\ID\编号查找" (keyup)="searchOnKeyup($event)" ></ion-searchbar>
         </ion-toolbar>
       </ion-header>
       <ion-content fullscreen>
         <ion-list>
             <ion-item-sliding *ngFor="let item of mod.data;let key=index">
                 <ion-item (click)="itemClick(item)">
-                    <!-- <ion-icon *ngIf="item.genderval===1" slot="start" color="primary" name="contact" size="large" style="width:60px;height:60px"></ion-icon>
-                    <ion-icon *ngIf="item.genderval===2" slot="start" color="danger" name="contact" size="large" style="width:60px;height:60px"></ion-icon>
-                    <ion-icon *ngIf="item.genderval===3" slot="start" color="medium" name="contact" size="large" style="width:60px;height:60px"></ion-icon>
-                    <ion-icon *ngIf="!item.genderval" slot="start" color="medium" name="contact" size="large" style="width:60px;height:60px"></ion-icon> -->
-                    <!-- <ion-label>
-                        <h2>{{item.name}}</h2>
-                       
-                    </ion-label> -->
                     <ion-label>
                         <p>{{item.carplate}}</p>
                         <p>{{item.customername}}</p>
@@ -29,54 +21,8 @@
                     <ion-note slot="end">
                         {{item.name}}
                     </ion-note>
-                    <!-- <ion-icon *ngIf="item.mobilephone" name="phone-portrait" size="small"></ion-icon>
-                    <ion-note slot="end">
-                        {{item.name}}
-                    </ion-note> -->
                 </ion-item>
             </ion-item-sliding>
-            <ion-radio-group [(ngModel)]="selectItemValue">
-                <!-- <ion-list-header>
-                    <ion-label>服务委托书</ion-label>
-                </ion-list-header> -->
-                <!-- <ion-item *ngFor="let item of mod.data" (click)="selectSave(item)")>
-                    <ion-avatar slot="start">
-                       <ion-icon color="primary" name="hourglass" size="large"></ion-icon>
-                    </ion-avatar>
-                    <ion-label>{{item.name}}</ion-label>
-                    <ion-note slot="end">
-                        {{item.name}}
-                    </ion-note>
-                </ion-item> -->
-                <!-- <ion-item>
-                        <ion-avatar slot="start">
-                           <ion-icon color="primary" name="hourglass" size="large"></ion-icon>
-                        </ion-avatar>
-                        <ion-label>委托书2</ion-label>
-                        <ion-radio slot="end" value="2:委托书2"></ion-radio>
-                    </ion-item> -->
-            </ion-radio-group>
-           
-            <!-- <ion-item>
-                <ion-avatar slot="start">
-        
-                </ion-avatar>
-                <ion-label>
-                    <h2>委托书1</h2>
-                    <p>Sneaky little hobbitses!</p>
-                </ion-label>
-            </ion-item>
-            <ion-item>
-                <ion-avatar slot="start">
-        
-                </ion-avatar>
-                <ion-label>
-                    <h2>委托书1</h2>
-                    <p>Sneaky little hobbitses!</p>
-                </ion-label>
-            </ion-item>
-            -->
-            <!-- <ion-button  expand="block" type="button"  (click)="selectSave()">保存</ion-button> -->
         </ion-list>
         
       </ion-content>
