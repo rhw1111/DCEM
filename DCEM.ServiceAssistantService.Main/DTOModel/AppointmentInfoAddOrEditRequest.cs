@@ -27,12 +27,12 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
         /// <summary>
         /// 预约单记录ID
         /// </summary>
-        public Guid mcs_appointmentinfoid { get; set; }
+        public Guid? mcs_appointmentinfoid { get; set; }
 
         /// <summary>
         /// VIN码关联实体ID
         /// </summary>
-        public Guid mcs_customerid { get; set; }
+        public Guid? mcs_customerid { get; set; }
 
         /// <summary>
         /// 车主
@@ -47,7 +47,7 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
         /// <summary>
         /// 车型
         /// </summary>
-        public Guid mcs_cartype { get; set; }
+        public Guid? mcs_cartype { get; set; }
 
         /// <summary>
         /// 手机号
@@ -72,7 +72,7 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
         /// <summary>
         /// 预约时段
         /// </summary>
-        public Guid mcs_appointmentconfigid { get; set; }
+        public Guid? mcs_appointmentconfigid { get; set; }
 
         /// <summary>
         /// 可预约数量
@@ -107,12 +107,12 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
         /// <summary>
         /// 预约厅店
         /// </summary>
-        public Guid mcs_dealerid { get; set; }
+        public Guid? mcs_dealerid { get; set; }
 
         /// <summary>
         /// 服务顾问
         /// </summary>
-        public Guid mcs_serviceadvisorid { get; set; }
+        public Guid? mcs_serviceadvisorid { get; set; }
 
     }
 }

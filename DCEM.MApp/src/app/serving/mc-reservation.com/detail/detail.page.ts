@@ -50,11 +50,14 @@ export class DetailPage implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.activeRoute.queryParams.subscribe((data: any) => {
-            debugger;
-            console.log(data.id);
-            this.pageOnBind(data.id);
-            //this.pageOnlist(data.id);
+        debugger;
+        this.activeRoute.queryParams.subscribe((data: Params) => {
+            if (data['id'] != null && data['id'] != undefined) {
+                console.log("记录Id:" + this.model.infolist.mcs_appointmentinfoid);
+                this.model.infolist.mcs_appointmentinfoid = data['id'];
+                this.pageOnBind(this.model.infolist.mcs_appointmentinfoid);
+            }
+            //this.pageOnBind(data.id);
         });
     }
 
@@ -73,15 +76,15 @@ export class DetailPage implements OnInit {
                     this.model.infolist.mcs_customername = res["Attributes"]["mcs_customername"];
                     this.model.infolist.mcs_customerphone = res["Attributes"]["mcs_customerphone"];
                     this.model.infolist.mcs_tag = res["Attributes"]["mcs_tag"];
-                    this.model.infolist.mcs_vin = res["Attributes"]["mcs_customerid"]["mcs_name"];
+                    this.model.infolist.mcs_vin = res["Attributes"]["mcs_customerid"] != null ? res["Attributes"]["mcs_customerid"]["mcs_name"] : "--";
                     this.model.infolist.mcs_enginennumber = res["Attributes"]["mcs_enginennumberres"];
-                    this.model.infolist.mcs_cartype = res["Attributes"]["mcs_cartype"]["mcs_name"];
+                    this.model.infolist.mcs_cartype = res["Attributes"]["mcs_cartype"] != null ? res["Attributes"]["mcs_cartype"]["mcs_name"]:"--";
                     this.model.infolist.mcs_nextmaintainat = res["Attributes"]["mcs_nextmaintainat"];
                     this.model.infolist.mcs_nextmaintainmileage = res["Attributes"]["mcs_nextmaintainmileage"];
                     this.model.infolist.mcs_name = res["Attributes"]["mcs_name"];
                     this.model.infolist.mcs_ordertype = res["Attributes"]["mcs_ordertype"];
                     this.model.infolist.mcs_appointmentat = res["Attributes"]["mcs_appointmentat"];
-                    this.model.infolist.mcs_appointmentconfigid = res["Attributes"]["mcs_appointmentconfigid"]["mcs_name"];
+                    this.model.infolist.mcs_appointmentconfigid = res["Attributes"]["mcs_appointmentconfigid"] != null ? res["Attributes"]["mcs_appointmentconfigid"]["mcs_name"] : null;
                     this.model.infolist.mcs_status = res["Attributes"]["mcs_status"];
                     this.model.infolist.mcs_customercomment = res["Attributes"]["mcs_customercomment"];
                     this.model.infolist.mcs_appointmendescript = res["Attributes"]["mcs_appointmendescript"];
