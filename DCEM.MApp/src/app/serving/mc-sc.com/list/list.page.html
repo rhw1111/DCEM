@@ -7,9 +7,9 @@
     </ion-toolbar>
     <ion-toolbar>
         <ion-searchbar animated [(ngModel)]="mod.searchData.search" placeholder="请输入单号\姓名\车牌号搜索" (keyup)="searchOnKeyup($event)"></ion-searchbar>
-        <ion-button color="primary" slot="end" size="small">
+        <!--<ion-button color="primary" slot="end" size="small">
             搜索
-        </ion-button>
+        </ion-button>-->
     </ion-toolbar>
 </ion-header>
 
@@ -35,6 +35,29 @@
             </ion-item-sliding>
         </div>
     </ion-list>
+
+    <!--<ion-card *ngFor="let key of objectKeys(mod.data)">
+        <ion-card-header>
+            <ion-card-title>
+                {{mod.data[key].text}}
+            </ion-card-title>
+        </ion-card-header>
+        <ion-list lines="full">
+            <ion-item-sliding *ngFor="let item of mod.data[key].data;let key=index">
+                <ion-item [routerLink]="['/serving/sc/detail']" [queryParams]="{id:item.Id}">
+                    <ion-label>
+                        <p>{{item.carplate}}</p>
+                        <p>{{item.customername}}</p>
+                        <p>{{item.createdon}}</p>
+                    </ion-label>
+                    <ion-note slot="end">
+                        {{item.name}}
+                    </ion-note>
+                </ion-item>
+            </ion-item-sliding>
+        </ion-list>
+        <br />
+    </ion-card>-->
 
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button>

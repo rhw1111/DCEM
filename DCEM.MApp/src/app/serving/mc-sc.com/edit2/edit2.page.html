@@ -1,33 +1,157 @@
 ﻿<ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button text="返回" defaultHref="/serving/ri/list"></ion-back-button>
+            <ion-back-button text="返回" defaultHref="/serving/sc/list"></ion-back-button>
         </ion-buttons>
         <ion-title>选择维修项目及配件</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-list lines="full">
-        <div *ngFor="let key of objectKeys(shareData.vehcheckresultMap)">
-            <ion-item-divider color="primary">
+
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>
+                <ion-icon name="search" size="small"></ion-icon>
+                保养项
+            </ion-card-title>
+        </ion-card-header>
+
+        <ion-list lines="full">
+            <ion-item (click)="presentCarmodelModal()">
                 <ion-label>
-                    {{shareData.vehcheckresultMap[key].text}}
+                    <h2>
+                        车型
+                    </h2>
+                    <p>
+                        &nbsp;
+                    </p>
                 </ion-label>
-            </ion-item-divider>
-            <ion-item-sliding *ngFor="let item of shareData.vehcheckresultMap[key].data;let key=index">
+                <ion-icon slot="end" name="search"></ion-icon>
+            </ion-item>
+
+            <ion-item (click)="presentMaintenanceModal()">
+                <ion-label>
+                    <h2>
+                        保修项
+                    </h2>
+                    <p>
+                        &nbsp;
+                    </p>
+                </ion-label>
+                <ion-icon slot="end" name="search"></ion-icon>
+            </ion-item>
+        </ion-list>
+
+        <ion-card-content>
+            <ion-button color="primary" class="button-outline">
+                查询
+            </ion-button>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>
+                <ion-icon name="phone-portrait" size="small"></ion-icon>
+                维修项目
+                <ion-icon name="add-circle-outline" style="float: right"></ion-icon>
+            </ion-card-title>
+        </ion-card-header>
+        <ion-list lines="full">
+            <ion-item-sliding>
                 <ion-item>
                     <ion-label>
-                        <h2>{{item.name}}</h2>
+                        <h2>
+                            项目名称
+                        </h2>
+                        <p>
+                            项目1
+                        </p>
+                        <h2>
+                            项目代码
+                        </h2>
+                        <p>
+                            203300
+                        </p>
+                        <h2>
+                            维修类别
+                        </h2>
+                        <p>
+                            保修
+                        </p>
+                        <h2>
+                            费用明细
+                        </h2>
+                        <p>
+                            1小时 X 1.1  X 1  =  ￥3333
+                        </p>
                     </ion-label>
-                    <ion-toggle slot="end" color="success" checked [(ngModel)]="item['checked']"></ion-toggle>
                 </ion-item>
+                <ion-item-options side="end">
+                    <ion-item-option color="tertiary" expandable>
+                        移除
+                    </ion-item-option>
+                </ion-item-options>
             </ion-item-sliding>
-        </div>
-    </ion-list>
+            <ion-item-sliding>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            项目名称
+                        </h2>
+                        <p>
+                            项目1
+                        </p>
+                        <h2>
+                            项目代码
+                        </h2>
+                        <p>
+                            203300
+                        </p>
+                        <h2>
+                            维修类别
+                        </h2>
+                        <p>
+                            保修
+                        </p>
+                        <h2>
+                            费用明细
+                        </h2>
+                        <p>
+                            1小时 X 1.1  X 1  =  ￥3333
+                        </p>
+                    </ion-label>
+                </ion-item>
+                <ion-item-options side="end">
+                    <ion-item-option color="tertiary" expandable>
+                        移除
+                    </ion-item-option>
+                </ion-item-options>
+            </ion-item-sliding>
+        </ion-list>
+        <br />
+    </ion-card>
+
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>维修配件</ion-card-title>
+        </ion-card-header>
+
+        <ion-item>
+            <ion-label>保养项</ion-label>
+            <ion-label slot="end"></ion-label>
+            <ion-icon slot="end" name="search"></ion-icon>
+        </ion-item>
+        <br />
+    </ion-card>
+
+
+
+
     <section style="text-align:center;">
         <ion-button style="width:40%" color="danger" [routerLink]="['/serving/ri/edit']">上一步</ion-button>
-        <ion-button style="width:40%" color="success"  (click)="saveOnClick()">保存</ion-button>
+        <ion-button style="width:40%" color="success" (click)="saveOnClick()">保存</ion-button>
     </section>
     <br />
     <br />

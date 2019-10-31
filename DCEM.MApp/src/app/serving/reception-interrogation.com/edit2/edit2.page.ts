@@ -10,7 +10,7 @@ export class Edit2Page implements OnInit {
 
     //定义数据模型
     mod = {
-        apiUrl: '/Api/Serviceproxy/GetVehcheckresultList',
+        apiUrl: '/Api/Serviceproxy/GetVehcheckList',
         postApiUrl: '/Api/Serviceproxy/AddOrUpdate',
         data: {
 

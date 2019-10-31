@@ -14,9 +14,14 @@ namespace DCEM.ServiceAssistantService.Main.Application
     {
         #region 初始化 构造函数
         private ICrmService _crmService;
+        private string dicHeadKey;
+        private Dictionary<string, IEnumerable<string>> dicHead;
         public VehownerService(ICrmService crmService)
         {
             _crmService = crmService;
+            dicHeadKey = "Prefer";
+            dicHead = new Dictionary<string, IEnumerable<string>>();
+            dicHead.Add(dicHeadKey, new List<string>() { "odata.include-annotations=\"*\"" });
         }
         #endregion
 
@@ -80,11 +85,6 @@ namespace DCEM.ServiceAssistantService.Main.Application
         #region 查询记录集
         public async Task<QueryResult<CrmEntity>> QueryList(int pageindex, string search)
         {
-            #region 组装head
-            var dicHead = new Dictionary<string, IEnumerable<string>>();
-            dicHead.Add("Prefer", new List<string>() { "odata.include-annotations=\"*\"" });
-            #endregion
-
             #region 获取记录结果集
             var filter = await GetQueryListFilter(search);
             var fetchXdoc = await GetGetQueryListFetchXml(pageindex, filter);
@@ -108,6 +108,16 @@ namespace DCEM.ServiceAssistantService.Main.Application
         }
         #endregion
 
+        #endregion
+
+        #region 查询车型 列表
+        public async Task<QueryResult<CrmEntity>> QueryCarmodelList()
+        {
+            var queryResult = new QueryResult<CrmEntity>();
+            var result = await _crmService.RetrieveMultiple("mcs_carmodel", string.Empty, null, dicHead);
+            queryResult.Results = result.Results;
+            return queryResult;
+        }
         #endregion
 
     }

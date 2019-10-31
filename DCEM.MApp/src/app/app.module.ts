@@ -10,19 +10,17 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //自定义组件
 import { ScSelectComponent } from './serving/serving.ser/components/sc-select/sc-select.component';
 import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
-import{SelectMalFunctionTypeComponent} from'app/serving/serving.ser/components/select-malfunctiontype/select.malfunctiontype.component';
 import { SelectRepairlocationComponent } from 'app/serving/serving.ser/components/select-repairlocation/select-repairlocation.component';
-import { SelectAppointmentconfigComponent } from 'app/serving/serving.ser/components/select-appointmentconfig/select-appointmentconfig.component';
-import { SelectSystemuserComponent } from 'app/base/base.ser/components/select-systemuser/select-systemuser.component';
+import { SelectCarmodelComponent } from 'app/serving/serving.ser/components/select-carmodel/select-carmodel.component';
+import { SelectMaintenanceComponent } from 'app/serving/serving.ser/components/select-maintenance/select-maintenance.component';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
-    declarations: [AppComponent, ScSelectComponent, SelectCustomerComponent, SelectRepairlocationComponent, SelectAppointmentconfigComponent, SelectMalFunctionTypeComponent, SelectSystemuserComponent],//申明组件
-    entryComponents: [AppComponent, ScSelectComponent, SelectCustomerComponent, SelectRepairlocationComponent, SelectAppointmentconfigComponent, SelectMalFunctionTypeComponent, SelectSystemuserComponent],
-    
+    declarations: [AppComponent, ScSelectComponent, SelectCustomerComponent, SelectRepairlocationComponent, SelectCarmodelComponent, SelectMaintenanceComponent],//申明组件
+    entryComponents: [ScSelectComponent, SelectCustomerComponent, SelectRepairlocationComponent, SelectCarmodelComponent, SelectMaintenanceComponent],
     imports: [BrowserModule,
         IonicModule.forRoot({ mode: 'ios' }),
         AppRoutingModule,

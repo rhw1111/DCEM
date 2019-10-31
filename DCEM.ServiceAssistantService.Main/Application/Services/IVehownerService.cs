@@ -6,9 +6,15 @@ namespace DCEM.ServiceAssistantService.Main.Application
 {
     public interface IVehownerService
     {
+        #region 查询车辆档案列表
         /// <summary>
         /// 查询车辆档案
         /// </summary>
         Task<QueryResult<CrmEntity>> QueryList(int pageindex, string search);
+        #endregion
+
+        #region 查询车型列表
+        Task<QueryResult<CrmEntity>> QueryCarmodelList();
+        #endregion
     }
 }

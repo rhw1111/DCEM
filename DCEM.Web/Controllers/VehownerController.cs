@@ -38,9 +38,25 @@ namespace DCEM.Web.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetList")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetMyCustomerList(int pageindex = 1, string search = "")
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetList(int pageindex = 1, string search = "")
         {
             return await _vehownerService.QueryList(pageindex, search);
+        }
+        #endregion
+
+        #region 获取车型
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type">1全部 2保修到期 3保险到期</param>
+        /// <param name="pageindex"></param>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetCarmodelList")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetCarmodelList()
+        {
+            return await _vehownerService.QueryCarmodelList();
         }
         #endregion
     }

@@ -28,8 +28,6 @@
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
     <Content Include="src\app\app.component.scss" />
-    <Content Include="src\app\base\base.ser\components\select-systemuser\select-systemuser.component.html" />
-    <Content Include="src\app\base\base.ser\components\select-systemuser\select-systemuser.component.scss" />
     <Content Include="src\app\base\uc.com\login\login.page.html" />
     <Content Include="src\app\base\uc.com\login\login.page.scss" />
     <Content Include="src\app\base\uc.com\welcome\welcome.page.html" />
@@ -96,10 +94,12 @@
     <Content Include="src\app\serving\report\testdriverate\testdriverate.page.scss" />
     <Content Include="src\app\serving\serving.ser\components\sc-select\sc-select.component.html" />
     <Content Include="src\app\serving\serving.ser\components\sc-select\sc-select.component.scss" />
-    <Content Include="src\app\serving\serving.ser\components\select-appointmentconfig\select-appointmentconfig.component.html" />
-    <Content Include="src\app\serving\serving.ser\components\select-appointmentconfig\select-appointmentconfig.component.scss" />
+    <Content Include="src\app\serving\serving.ser\components\select-carmodel\select-carmodel.component.html" />
+    <Content Include="src\app\serving\serving.ser\components\select-carmodel\select-carmodel.component.scss" />
     <Content Include="src\app\serving\serving.ser\components\select-customer\select-customer.component.html" />
     <Content Include="src\app\serving\serving.ser\components\select-customer\select-customer.component.scss" />
+    <Content Include="src\app\serving\serving.ser\components\select-maintenance\select-maintenance.component.html" />
+    <Content Include="src\app\serving\serving.ser\components\select-maintenance\select-maintenance.component.scss" />
     <Content Include="src\app\serving\serving.ser\components\select-repairlocation\select-repairlocation.component.html" />
     <Content Include="src\app\serving\serving.ser\components\select-repairlocation\select-repairlocation.component.scss" />
     <Content Include="src\app\serving\technical-support.com\detail\detail.page.html" />
@@ -132,14 +132,11 @@
     <TypeScriptCompile Include="src\app\app.config.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\authentication.service.spec.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\authentication.service.ts" />
-    <TypeScriptCompile Include="src\app\base\base.ser\components\select-systemuser\select-systemuser.component.spec.ts" />
-    <TypeScriptCompile Include="src\app\base\base.ser\components\select-systemuser\select-systemuser.component.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\dcem.core.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\app\base\base.ser\http-service.service.spec.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\http-service.service.ts" />
-    <TypeScriptCompile Include="src\app\base\base.ser\logininfo.storage.ts" />
     <TypeScriptCompile Include="src\app\base\uc.com\login\login.module.ts" />
     <TypeScriptCompile Include="src\app\base\uc.com\login\login.page.spec.ts" />
     <TypeScriptCompile Include="src\app\base\uc.com\login\login.page.ts" />
@@ -241,10 +238,12 @@
     <TypeScriptCompile Include="src\app\serving\serving.ser\basedata.service.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\sc-select\sc-select.component.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\sc-select\sc-select.component.ts" />
-    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-appointmentconfig\select-appointmentconfig.component.spec.ts" />
-    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-appointmentconfig\select-appointmentconfig.component.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-carmodel\select-carmodel.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-carmodel\select-carmodel.component.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-customer\select-customer.component.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-customer\select-customer.component.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-maintenance\select-maintenance.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-maintenance\select-maintenance.component.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-repairlocation\select-repairlocation.component.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-repairlocation\select-repairlocation.component.ts" />
     <TypeScriptCompile Include="src\app\serving\technical-support.com\detail\detail.module.ts" />
@@ -275,8 +274,6 @@
     <Folder Include="src\app" />
     <Folder Include="src\app\base\" />
     <Folder Include="src\app\base\base.ser\" />
-    <Folder Include="src\app\base\base.ser\components\" />
-    <Folder Include="src\app\base\base.ser\components\select-systemuser\" />
     <Folder Include="src\app\base\uc.com\" />
     <Folder Include="src\app\base\uc.com\login\" />
     <Folder Include="src\app\base\uc.com\welcome\" />
@@ -323,8 +320,9 @@
     <Folder Include="src\app\serving\serving.ser\" />
     <Folder Include="src\app\serving\serving.ser\components\" />
     <Folder Include="src\app\serving\serving.ser\components\sc-select\" />
-    <Folder Include="src\app\serving\serving.ser\components\select-appointmentconfig\" />
+    <Folder Include="src\app\serving\serving.ser\components\select-carmodel\" />
     <Folder Include="src\app\serving\serving.ser\components\select-customer\" />
+    <Folder Include="src\app\serving\serving.ser\components\select-maintenance\" />
     <Folder Include="src\app\serving\serving.ser\components\select-repairlocation\" />
     <Folder Include="src\app\serving\technical-support.com\" />
     <Folder Include="src\app\serving\technical-support.com\detail\" />

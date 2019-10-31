@@ -21,7 +21,7 @@ export class SelectRepairlocationComponent implements OnInit {
         private _page: DCore_Page,
         private _modalCtrl: ModalController
     ) {
-        this.mod.apiUrl = "/Api/Serviceproxy/GetRepairlocationresultList";
+        this.mod.apiUrl = "/Api/Serviceproxy/GetRepairlocationList";
     }
 
     ngOnInit() {
@@ -68,12 +68,12 @@ export class SelectRepairlocationComponent implements OnInit {
                     this._page.loadingHide();
                 }
                 else {
-                    this._page.alert("消息提示", "客户数据加载异常");
+                    this._page.alert("消息提示", "数据加载异常");
                     this._page.loadingHide();
                 }
             },
             (err: any) => {
-                this._page.alert("消息提示", "客户数据加载异常");
+                this._page.alert("消息提示", "数据加载异常");
                 this._page.loadingHide();
             }
         );
