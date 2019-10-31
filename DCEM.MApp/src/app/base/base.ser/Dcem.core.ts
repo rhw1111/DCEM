@@ -18,6 +18,8 @@ export class DCore_Window {
     }
 }
 
+ 
+
 @Injectable({
     providedIn: 'root'
 })

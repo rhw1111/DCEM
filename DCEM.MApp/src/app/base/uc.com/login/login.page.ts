@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page, DCore_Window } from 'app/base/base.ser/Dcem.core';
+import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 
 @Component({
     selector: 'app-login',
@@ -13,7 +14,8 @@ export class LoginPage implements OnInit {
     constructor(
         private _http: DCore_Http,
         private _page: DCore_Page,
-        private _window: DCore_Window
+        private _window: DCore_Window,
+        private _logininfo: Storage_LoginInfo
     ) {
     }
     // 定义模型
@@ -80,7 +82,11 @@ export class LoginPage implements OnInit {
                 }
             },
             (res: any) => {
-                console.log(res);
+                debugger;
+                var data = eval(res);
+                this._logininfo.SetInfo(data);
+               var vv= this._logininfo.GetToken();
+ 
                 this._page.loadingHide();
                 this._page.alert('消息提示', '登录认证成功');
                 this._page.goto("serving/home/tabs");
