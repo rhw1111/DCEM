@@ -50,7 +50,7 @@
                 <ion-label>
                     <ion-text color="danger">*</ion-text>预约日期
                 </ion-label>
-                <ion-datetime displayFormat="YYYY-MM-DD" min="1997" max="2010" [(ngModel)]="shareData.appointmentinfo['mcs_appointmentat']"></ion-datetime>
+                <ion-datetime displayFormat="YYYY-MM-DD" min="1997"  [(ngModel)]="shareData.appointmentinfo['mcs_appointmentat']"></ion-datetime>
             </ion-item>
           
             <ion-item (click)="appointmentconfigOnClick()">
@@ -70,6 +70,6 @@
                 <ion-textarea [(ngModel)]="shareData.appointmentinfo['mcs_appointmendescript']"></ion-textarea>
             </ion-item>
         </ion-item-group>
-        <ion-button expand="block" type="button" (click)="saveOnClick">确定</ion-button>
+        <ion-button expand="block" type="button" (click)="saveOnClick()">确定</ion-button>
     </ion-list>
 </ion-content>

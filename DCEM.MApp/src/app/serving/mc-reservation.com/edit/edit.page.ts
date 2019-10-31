@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+ï»¿import { Component, OnInit } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
 import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
 import { DCore_Http, DCore_Page, DCore_ShareData, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { SelectAppointmentconfigComponent } from 'app/serving/serving.ser/components/select-appointmentconfig/select-appointmentconfig.component';
+import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
+import sd from 'silly-datetime';
 
 @Component({
     selector: 'app-edit',
@@ -16,10 +18,14 @@ export class EditPage implements OnInit {
         postApiUrl: '/Api/appointment-info/AddOrEdit',
         data: {
         },
-        postData: {}
+        postData: {},
+        systemuserid: "",//å½“å‰ç”¨æˆ·id
+        mcs_dealerid: "",//å½“å‰å…åº—id
+
+
     };
 
-    //¶¨Òå¹²ÏíÊı¾İ
+    //å®šä¹‰å…±äº«æ•°æ®
     shareData = {
         appointmentinfo: {
 
@@ -31,6 +37,7 @@ export class EditPage implements OnInit {
         public _navCtrl: NavController,
         private _http: DCore_Http,
         private _page: DCore_Page,
+        private _logininfo: Storage_LoginInfo,
         private _shareData: DCore_ShareData,
         private _valid: DCore_Valid
     ) { }
@@ -38,7 +45,7 @@ export class EditPage implements OnInit {
     ngOnInit() {
     }
 
-    //µ÷ÓÃÑ¡Ôñ¿Í»§×é¼ş
+    //è°ƒç”¨é€‰æ‹©å®¢æˆ·ç»„ä»¶
     async presentModal() {
         const modal = await this._modalCtrl.create({
             component: SelectCustomerComponent
@@ -52,28 +59,27 @@ export class EditPage implements OnInit {
                 this.shareData.appointmentinfo["mcs_customername"] = data.vehowne.fullname;
                 this.shareData.appointmentinfo["mcs_carplate"] = data.vehowne.vehplate;
                 this.shareData.appointmentinfo["mcs_customerphone"] = data.vehowne.mobilephone;
-                //this.shareData.appointmentinfo["mcs_tag"] = data.vehowne.mcs_tag;
+                this.shareData.appointmentinfo["mcs_cartype"] = data.vehowne.model["_mcs_vehtype_value"];
+                this.shareData.appointmentinfo["mcs_tag"] = "";
             }
         }
     }
 
-    //µ÷ÓÃÑ¡ÔñÊ±¶Î×é¼ş
+    //è°ƒç”¨é€‰æ‹©æ—¶æ®µç»„ä»¶
     async configPresentModal() {
         var mcs_ordertype = this.shareData.appointmentinfo["mcs_ordertype"];
-        var mcs_appointmentat = this.shareData.appointmentinfo["mcs_appointmentat"];
-        console.log(mcs_ordertype + " " + mcs_appointmentat);
+        var mcs_appointmentat = this.FormatToDate(this.shareData.appointmentinfo["mcs_appointmentat"]);
+        this.model.systemuserid = this._logininfo.GetSystemUserId();  //"65AD644C-64F7-E811-A81E-9A16184AF7BF"//  
+        this.model.mcs_dealerid = this._logininfo.GetDealerid();//"b30fefc4-e9f9-e811-a81e-9a16184af7bf"//
+        console.log(mcs_ordertype + " " + mcs_appointmentat + " " + this.model.systemuserid);
         const modal = await this._modalCtrl.create({
             component: SelectAppointmentconfigComponent,
             componentProps: {
-                'mcs_dealerid': "",
+                'mcs_dealerid': this.model.mcs_dealerid,
                 'mcs_servetype': mcs_ordertype,
                 'mcs_servedate': mcs_appointmentat
             }
         });
-        // const modal = await this._modalCtrl.create({
-        //    component: SelectAppointmentconfigComponent,
-        //});
-
         await modal.present();
         const { data } = await modal.onDidDismiss();
         if (data != null && typeof data != "undefined") {
@@ -86,40 +92,41 @@ export class EditPage implements OnInit {
         }
     }
 
-    //É¸Ñ¡¿Í»§
+    //ç­›é€‰å®¢æˆ·
     public customerOnClick() {
         this.presentModal();
     }
 
-    //Ñ¡ÔñÊ±¶Î
+    //é€‰æ‹©æ—¶æ®µ
     public appointmentconfigOnClick() {
         this.configPresentModal();
     }
 
-    //µã»÷±£´æ
+    //ç‚¹å‡»ä¿å­˜
     saveOnClick() {
-
+        debugger;
         this.model.postData["actioncode"] = 1;
         this.model.postData["appointmentinfo"] = this.shareData.appointmentinfo;
 
-        //×é×°Ô¤Ô¼µ¥Î¯ÍĞÊé
+        //ç»„è£…é¢„çº¦å•å§”
         this.model.postData["appointmentinfo"] = {};
-        this.model.postData["appointmentinfo"]["customerid"] = this.shareData.appointmentinfo["customerid"];     //³µÁ¾VIN
-        this.model.postData["serviceproxy"]["customername"] = this.shareData.appointmentinfo["customername"];     //ÓÃ»§Ãû
-        //this.mod.postData["serviceproxy"]["carplate"] = this.shareData.serviceproxy["carplate"];         //³µÅÆ
-        //this.mod.postData["serviceproxy"]["customerphone"] = this.shareData.serviceproxy["customerphone"]; //ÊÖ»ú
-        //this.mod.postData["serviceproxy"]["shuttlename"] = this.shareData.serviceproxy["shuttlename"];   //ËÍĞŞÈË
-        //this.mod.postData["serviceproxy"]["shuttlephone"] = this.shareData.serviceproxy["shuttlephone"];   //ËÍĞŞÈËÊÖ»ú
-        //this.mod.postData["serviceproxy"]["inpower"] = Number(this.shareData.serviceproxy["inpower"]);                //½øµêµçÁ¿
-        //this.mod.postData["serviceproxy"]["oilquantity"] = Number(this.shareData.serviceproxy["oilquantity"]);        //½øµêÓÍÁ¿
-        //this.mod.postData["serviceproxy"]["mileage"] = Number(this.shareData.serviceproxy["mileage"]);                //½øµêÀï³Ì
-        //this.mod.postData["serviceproxy"]["arrivalon"] = this.shareData.serviceproxy["arrivalon"];                    //µ½µêÊ±¼ä
-        //this.mod.postData["serviceproxy"]["customercomment"] = this.shareData.serviceproxy["customercomment"];            //¿Í»§ÃèÊö
+        this.model.postData["appointmentinfo"]["mcs_dealerid"] = this.model.mcs_dealerid;// å…åº—ID
+        this.model.postData["appointmentinfo"]["mcs_serviceadvisorid"] = this.model.systemuserid;// æœåŠ¡é¡¾é—®(å½“å‰ç”¨æˆ·)
+        this.model.postData["appointmentinfo"]["mcs_customerid"] = this.shareData.appointmentinfo["mcs_customerid"]; // VINç å…³è”å®ä½“ID
+        this.model.postData["appointmentinfo"]["mcs_customername"] = this.shareData.appointmentinfo["mcs_customername"];// è½¦ä¸»
+        this.model.postData["appointmentinfo"]["mcs_carplate"] = this.shareData.appointmentinfo["mcs_carplate"];// è½¦ç‰Œ
+        this.model.postData["appointmentinfo"]["mcs_cartype"] = this.shareData.appointmentinfo["mcs_cartype"];// è½¦å‹
+        this.model.postData["appointmentinfo"]["mcs_customerphone"] = this.shareData.appointmentinfo["mcs_customerphone"];//æ‰‹æœºå·
+        this.model.postData["appointmentinfo"]["mcs_tag"] = this.shareData.appointmentinfo["mcs_tag"];//å®¢æˆ·æ ‡ç­¾
+        this.model.postData["appointmentinfo"]["mcs_ordertype"] = Number(this.shareData.appointmentinfo["mcs_ordertype"]);//é¢„çº¦æœåŠ¡ç±»å‹
+        this.model.postData["appointmentinfo"]["mcs_appointmentat"] = this.shareData.appointmentinfo["mcs_appointmentat"];//é¢„çº¦æ—¥æœŸ
+        this.model.postData["appointmentinfo"]["mcs_appointmentconfigid"] = this.shareData.appointmentinfo["mcs_appointmentconfigid"];//é¢„çº¦æ—¶æ®µ
+        this.model.postData["appointmentinfo"]["mcs_surplusnum"] = Number(this.shareData.appointmentinfo["mcs_surplusnum"]);//å¯é¢„çº¦æ•°é‡
+        this.model.postData["appointmentinfo"]["mcs_customercomment"] = this.shareData.appointmentinfo["mcs_customercomment"];//å®¢æˆ·è¦æ±‚
+        this.model.postData["appointmentinfo"]["mcs_appointmendescript"] = this.shareData.appointmentinfo["mcs_appointmendescript"];//é—®é¢˜æè¿°
+        this.model.postData["appointmentinfo"]["mcs_status"] =10;//é¢„çº¦çŠ¶æ€
 
-
-        console.log("shareData");
         console.log(this.shareData);
-
         console.log(this.model.postData);
 
         this._page.loadingShow();
@@ -132,17 +139,26 @@ export class EditPage implements OnInit {
                     console.log(res);
                     var guid = res["Data"]["Id"];
                     //this._shareData.delete(this.mod.shareDataKey);
-                    this._page.goto("/serving/ri/success", { guid: guid });
+                    this._page.goto("/serving/reservation/success", { guid: guid });
                 }
                 else {
-                    this._page.alert("ÏûÏ¢ÌáÊ¾", "²Ù×÷Ê§°Ü");
+                    this._page.alert("æ¶ˆæ¯æç¤º", "æ“ä½œå¤±è´¥");
                 }
             },
             (err: any) => {
                 this._page.loadingHide();
-                this._page.alert("ÏûÏ¢ÌáÊ¾", "²Ù×÷Ê§°Ü");
+                this._page.alert("æ¶ˆæ¯æç¤º", "æ“ä½œå¤±è´¥");
             }
         );
     }
 
+    //æ—¥æœŸæ ¼å¼
+    FormatToDate(date) {
+        if (date != null && date != undefined) {
+            return sd.format(date, 'YYYY-MM-DD');
+        }
+        else {
+            return '';
+        }
+    }
 }

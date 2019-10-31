@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-select-appointmentconfig',
@@ -17,14 +17,20 @@ export class SelectAppointmentconfigComponent implements OnInit {
         mcs_servedate: "",
         sort: "",
         pageSize: "",
-        page:""
+        page: "",
+        nodata: false//是否有数据
 
     };
     constructor(
         private _http: DCore_Http,
         private _page: DCore_Page,
-        private _modalCtrl: ModalController
-    ) { }
+        private _modalCtrl: ModalController,
+        private _navParams: NavParams
+    ) {
+        this.mod.mcs_dealerid = _navParams.get('mcs_dealerid');
+        this.mod.mcs_servetype = _navParams.get('mcs_servetype');
+        this.mod.mcs_servedate = _navParams.get('mcs_servedate');
+    }
 
     ngOnInit() {
         this.listOnBind();
@@ -50,9 +56,9 @@ export class SelectAppointmentconfigComponent implements OnInit {
             this.mod.apiUrl,
             {
                 params: {
-                    mcs_dealerid: "B30FEFC4-E9F9-E811-A81E-9A16184AF7BF",
-                    mcs_servetype: 30,
-                    mcs_servedate:"2019-09-05"
+                    mcs_dealerid: this.mod.mcs_dealerid,
+                    mcs_servetype: this.mod.mcs_servetype,
+                    mcs_servedate: this.mod.mcs_servedate
                 }
             },
             (res: any) => {
@@ -74,6 +80,10 @@ export class SelectAppointmentconfigComponent implements OnInit {
                 else {
                     this._page.alert("消息提示", "客户数据加载异常");
                     this._page.loadingHide();
+                }
+                //判断是否有数据
+                if (res.Results.length == 0) {
+                    this.mod.nodata = true;
                 }
             },
             (err: any) => {

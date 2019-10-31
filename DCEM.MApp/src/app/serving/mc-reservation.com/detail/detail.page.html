@@ -190,9 +190,14 @@
         </ion-row>
     </div>
     </div>
-        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-            <ion-fab-button [routerLink]="['/serving/reservation/edit']">
-                <ion-icon name="add"></ion-icon>
-            </ion-fab-button>
-        </ion-fab>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+            <ion-icon name="arrow-dropup"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="top">
+            <ion-fab-button color="danger" [routerLink]="['/serving/reservation/edit']"><ion-icon name="create" [queryParams]="{id:model.infolist.mcs_appointmentinfoid}"></ion-icon></ion-fab-button>
+            <ion-fab-button [routerLink]="['/serving/reservation/cancel']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid}"><ion-icon name="close"></ion-icon></ion-fab-button>
+        </ion-fab-list>
+      
+    </ion-fab>
 </ion-content>

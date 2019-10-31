@@ -135,6 +135,7 @@
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\app\base\base.ser\http-service.service.spec.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\http-service.service.ts" />
+    <TypeScriptCompile Include="src\app\base\base.ser\logininfo.storage.ts" />
     <TypeScriptCompile Include="src\app\base\uc.com\login\login.module.ts" />
     <TypeScriptCompile Include="src\app\base\uc.com\login\login.page.spec.ts" />
     <TypeScriptCompile Include="src\app\base\uc.com\login\login.page.ts" />
