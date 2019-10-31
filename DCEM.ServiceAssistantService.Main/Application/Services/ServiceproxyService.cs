@@ -215,10 +215,10 @@ namespace DCEM.ServiceAssistantService.Main.Application
         #endregion
 
         #region 添加服务委托书 问诊单
-        public async Task<ValidateResult<CrmParameter>> AddOrUpdate(ServiceproxyAddOrUpdateRequest request)
+        public async Task<ValidateResult<CrmEntity>> AddOrUpdate(ServiceproxyAddOrUpdateRequest request)
         {
-            var validateResult = new ValidateResult<CrmParameter>();
-            var reusetCrmParameter = new CrmParameter();
+            var validateResult = new ValidateResult<CrmEntity>();
+            var reusetCrmEntity = new CrmEntity("mcs_serviceproxy", new Guid());
 
             if (request.actioncode == 1)
             {
@@ -254,10 +254,9 @@ namespace DCEM.ServiceAssistantService.Main.Application
                     reuset = await _crmService.Create(serviceordercheckresultEntity);
                 }
 
-                reusetCrmParameter.Type = "Guid";
-                reusetCrmParameter.Value = reuset;
+                reusetCrmEntity.Id = serviceproxyGuid;
 
-                validateResult.Data = reusetCrmParameter;
+                validateResult.Data = reusetCrmEntity;
                 validateResult.Result = true;
                 validateResult.Description = "操作成功";
             }
