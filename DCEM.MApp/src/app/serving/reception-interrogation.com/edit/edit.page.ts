@@ -1,7 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
 import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
-import { Edit2Page } from 'app/serving/reception-interrogation.com/edit2/edit2.page';
 import { DCore_Http, DCore_Page, DCore_ShareData, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 
 @Component({
@@ -26,8 +25,8 @@ export class EditPage implements OnInit {
     }
 
     constructor(
-        public _modalCtrl: ModalController,
-        public _navCtrl: NavController,
+        private _modalCtrl: ModalController,
+        private _navCtrl: NavController,
         private _http: DCore_Http,
         private _page: DCore_Page,
         private _shareData: DCore_ShareData,

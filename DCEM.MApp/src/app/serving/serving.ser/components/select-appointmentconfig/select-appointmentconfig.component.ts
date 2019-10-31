@@ -1,36 +1,39 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { ModalController } from '@ionic/angular';
+
 @Component({
-    selector: 'app-select-repairlocation',
-    templateUrl: './select-repairlocation.component.html',
-    styleUrls: ['./select-repairlocation.component.scss'],
+  selector: 'app-select-appointmentconfig',
+  templateUrl: './select-appointmentconfig.component.html',
+  styleUrls: ['./select-appointmentconfig.component.scss'],
 })
-export class SelectRepairlocationComponent implements OnInit {
+export class SelectAppointmentconfigComponent implements OnInit {
 
     mod = {
-        apiUrl: '',
+        apiUrl: '/api/appointment-info/GetConfig',
         data: [],
-        searchData: {
-            pageindex: 1,
-            search: ""
-        },
+        mcs_dealerid: "",
+        mcs_servetype: "",
+        mcs_servedate: "",
+        sort: "",
+        pageSize: "",
+        page:""
+
     };
     constructor(
         private _http: DCore_Http,
         private _page: DCore_Page,
         private _modalCtrl: ModalController
-    ) {
-        this.mod.apiUrl = "/Api/Serviceproxy/GetRepairlocationresultList";
-    }
+    ) { }
 
     ngOnInit() {
         this.listOnBind();
     }
 
     itemClick(item: any) {
+        console.log(item);
         this._modalCtrl.dismiss({
-            repairlocation: item
+            appointmentconfig: item
         });
     }
 
@@ -39,22 +42,17 @@ export class SelectRepairlocationComponent implements OnInit {
         });
     }
 
-    searchOnKeyup(event: any) {
-        var keyCode = event ? event.keyCode : "";
-        if (keyCode == 13) {
-            this.listOnBind();
-        }
-    }
-
     listOnBind() {
+        debugger;
         this._page.loadingShow();
         this.mod.data = [];
         this._http.get(
             this.mod.apiUrl,
             {
                 params: {
-                    pageindex: this.mod.searchData.pageindex,
-                    search: this.mod.searchData.search
+                    mcs_dealerid: "B30FEFC4-E9F9-E811-A81E-9A16184AF7BF",
+                    mcs_servetype: 30,
+                    mcs_servedate:"2019-09-05"
                 }
             },
             (res: any) => {
@@ -62,6 +60,12 @@ export class SelectRepairlocationComponent implements OnInit {
 
                     for (var key in res.Results) {
                         var obj = {};
+                        console.log(res.Results[key]);
+                        obj["mcs_appointmentconfigid"] = res.Results[key]["Attributes"]["mcs_appointmentconfigid"];
+                        obj["mcs_name"] = res.Results[key]["Attributes"]["mcs_name"];
+                        obj["mcs_maxcapacity"] = res.Results[key]["Attributes"]["mcs_maxcapacity"];
+                        obj["mcs_surplusnum"] = res.Results[key]["Attributes"]["mcs_surplusnum"];
+                        obj["mcs_alreadynum"] = res.Results[key]["Attributes"]["mcs_alreadynum"];
                         obj["model"] = res.Results[key]["Attributes"];
                         this.mod.data.push(obj);
                     }
@@ -79,5 +83,4 @@ export class SelectRepairlocationComponent implements OnInit {
         );
 
     }
-
 }

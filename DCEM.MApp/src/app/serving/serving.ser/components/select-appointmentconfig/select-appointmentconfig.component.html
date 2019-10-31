@@ -1,0 +1,23 @@
+﻿<ion-header>
+    <ion-toolbar>
+        <ion-title>选择预约时段</ion-title>
+        <ion-buttons slot="end">
+            <ion-button expand="block" (click)="dismissModal()">关闭</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list lines="full">
+        <ion-item-sliding *ngFor="let item of mod.data;let key=index">
+            <ion-item (click)="itemClick(item)">
+                <ion-label>
+                    <h2>预约时段:{{item.mcs_name}}</h2>
+                    <p>预约最大容量：{{item.mcs_maxcapacity}}</p>
+                    <p>已预约数量:{{item.mcs_alreadynum}}</p>
+                    <p>剩余预约数量:{{item.mcs_surplusnum}}</p>
+                </ion-label>
+                </ion-item>
+        </ion-item-sliding>
+    </ion-list>
+</ion-content>

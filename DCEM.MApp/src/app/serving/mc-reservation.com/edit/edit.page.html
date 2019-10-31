@@ -13,25 +13,21 @@
             <ion-item-divider>
                 <ion-label>车主资料</ion-label>
             </ion-item-divider>
-            <ion-item>
-                <ion-label>
-                    <ion-text color="danger">*</ion-text>姓名：<!--{{model.mcname}}-->
-                </ion-label>
-                <ion-avatar slot="end">
-                    <ion-icon color="primary" size="large" name="search" (click)="presentModal()"></ion-icon>
-                </ion-avatar>
+            <ion-item (click)="customerOnClick()">
+                <ion-label position="stacked">姓名<ion-text color="danger">*</ion-text></ion-label>
+                <p>{{shareData.appointmentinfo["mcs_customername"]}}&nbsp;</p>
             </ion-item>
             <ion-item>
                 <ion-label>车牌号</ion-label>
-                <ion-note slot="end">渝A100211</ion-note>
+                <ion-note slot="end">{{shareData.appointmentinfo["mcs_carplate"]}}</ion-note>
             </ion-item>
             <ion-item>
                 <ion-label>车主手机</ion-label>
-                <ion-note slot="end">18027302264</ion-note>
+                <ion-note slot="end">{{shareData.appointmentinfo["mcs_customerphone"]}}</ion-note>
             </ion-item>
             <ion-item>
                 <ion-label>客户标签</ion-label>
-                <ion-note slot="end">汽车达人</ion-note>
+                <ion-note slot="end">无</ion-note>
             </ion-item>
           
         </ion-item-group>
@@ -41,7 +37,7 @@
             </ion-item-divider>
             <ion-item>
                 <ion-text color="danger">*</ion-text><ion-label>服务类型</ion-label>
-                <ion-select value="mode.mcs_ordertype" okText="确认" cancelText="取消">
+                <ion-select [(ngModel)]="shareData.appointmentinfo['mcs_ordertype']" okText="确认" cancelText="取消">
                     <ion-select-option value="10">汽车美容</ion-select-option>
                     <ion-select-option value="20">钣金喷漆</ion-select-option>
                     <ion-select-option value="30">常规保养</ion-select-option>
@@ -54,29 +50,26 @@
                 <ion-label>
                     <ion-text color="danger">*</ion-text>预约日期
                 </ion-label>
-                <ion-datetime displayFormat="YYYY-MM-DD HH:mm" min="1997" max="2010" value=""></ion-datetime>
+                <ion-datetime displayFormat="YYYY-MM-DD" min="1997" max="2010" [(ngModel)]="shareData.appointmentinfo['mcs_appointmentat']"></ion-datetime>
             </ion-item>
-            <ion-item>
-                <ion-label>
-                    <ion-text color="danger">*</ion-text>预约时段: <!--{{model.mcname}}-->
-                </ion-label>
-                <ion-avatar slot="end">
-                    <ion-icon color="primary" size="large" name="search" (click)="presentModal()"></ion-icon>
-                </ion-avatar>
+          
+            <ion-item (click)="appointmentconfigOnClick()">
+                <ion-label position="stacked">预约时段<ion-text color="danger">*</ion-text></ion-label>
+                <p>{{shareData.appointmentinfo["mcs_appointmentconfigname"]}}&nbsp;</p>
             </ion-item>
             <ion-item>
                 <ion-label>可预约数量</ion-label>
-                <ion-note slot="end">10</ion-note>
+                <ion-note slot="end">{{shareData.appointmentinfo["mcs_surplusnum"]}}</ion-note>
             </ion-item>
             <ion-item>
                 <ion-label position="floating">客户要求</ion-label>
-                <ion-textarea></ion-textarea>
+                <ion-textarea [(ngModel)]="shareData.appointmentinfo['mcs_customercomment']"></ion-textarea>
             </ion-item>
             <ion-item>
                 <ion-label position="floating">问题描述</ion-label>
-                <ion-textarea></ion-textarea>
+                <ion-textarea [(ngModel)]="shareData.appointmentinfo['mcs_appointmendescript']"></ion-textarea>
             </ion-item>
         </ion-item-group>
-        <ion-button expand="block" type="button" (click)="save()">确定</ion-button>
+        <ion-button expand="block" type="button" (click)="saveOnClick">确定</ion-button>
     </ion-list>
 </ion-content>

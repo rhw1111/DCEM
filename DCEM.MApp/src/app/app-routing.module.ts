@@ -51,6 +51,7 @@ const routes: Routes = [
                     { path: 'list', loadChildren: './serving/mc-sc.com/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './serving/mc-sc.com/detail/detail.module#DetailPageModule' },
                     { path: 'edit', loadChildren: './serving/mc-sc.com/edit/edit.module#EditPageModule' },
+                    { path: 'edit2', loadChildren: './serving/mc-sc.com/edit2/edit2.module#Edit2PageModule' }
                 ]
             },
             {

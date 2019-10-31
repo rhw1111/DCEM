@@ -63,10 +63,9 @@
             <ion-label position="stacked">预计交车时间</ion-label>
             <ion-datetime display-format="YYYY-MM-DD HH:mm" [(ngModel)]="shareData.serviceproxy['expectfinishat']"></ion-datetime>
         </ion-item>
-        <ion-item>
+        <ion-item (click)="repairlocationOnClick()">
             <ion-label position="stacked">工位</ion-label>
-            <!--<p>{{shareData.serviceproxy["customerphone"]}}&nbsp;</p>
-            <ion-datetime display-format="YYYY-MM-DD HH:mm" [(ngModel)]="shareData.serviceproxy['repairlocationid']"></ion-datetime>-->
+            <p>{{shareData.serviceproxy["repairlocationname"]}}&nbsp;</p>
         </ion-item>
         <ion-item-divider color="primary">
             <ion-label>
