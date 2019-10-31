@@ -19,8 +19,6 @@ import { SelectRepairlocationComponent } from 'app/serving/serving.ser/component
 import { SelectAppointmentconfigComponent } from 'app/serving/serving.ser/components/select-appointmentconfig/select-appointmentconfig.component';
 import { SelectSystemuserComponent } from 'app/base/base.ser/components/select-systemuser/select-systemuser.component';
 
-
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
     declarations: [AppComponent, ScSelectComponent, SelectCustomerComponent, SelectRepairlocationComponent, SelectAppointmentconfigComponent, SelectMalFunctionTypeComponent, SelectSystemuserComponent],//申明组件
     entryComponents: [AppComponent, ScSelectComponent, SelectCustomerComponent, SelectRepairlocationComponent, SelectAppointmentconfigComponent, SelectMalFunctionTypeComponent, SelectSystemuserComponent],
