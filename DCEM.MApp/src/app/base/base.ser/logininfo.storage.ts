@@ -1,61 +1,79 @@
- 
+
 import { Injectable } from '@angular/core';
 
- 
+
 @Injectable({
     providedIn: 'root'
 })
-export class  Storage_LoginInfo{
-    private access_token: string="access_token";
-    private systemuserid: string="systemuserid";
-    private domainname: string="domainname";
-    private lastname: string="lastname";
-    private firstname: string="firstname";
-    private mcs_staffid: string="mcs_staffid";
-    private mcs_dealerid: string="mcs_dealerid";
-    private mcs_dealername: string="mcs_dealername";
-     SetInfo(data: any) { 
-        window.localStorage.setItem(this.access_token, data.access_token); 
-        window.localStorage.setItem(this.systemuserid, data.systemuserid); 
-        window.localStorage.setItem(this.domainname, data.domainname); 
-        window.localStorage.setItem(this.lastname, data.lastname); 
-        window.localStorage.setItem(this.firstname, data.firstname); 
-        window.localStorage.setItem(this.mcs_staffid, data.mcs_staffid); 
-        window.localStorage.setItem(this.mcs_dealerid, data.mcs_dealerid);  
-        window.localStorage.setItem(this.mcs_dealername, data.mcs_dealername); 
+/*
+用户信息
+*/
+export class Storage_LoginInfo {
+
+    private userinfo: string = "logo_userinfo";
+    SetInfo(data: any) {
+        window.localStorage.setItem(this.userinfo, data);
+    }
+    GetUserInfo() {
+        var data = window.localStorage.getItem(this.userinfo);
+        return JSON.parse(data);
     }
     //获取token
-     GetToken() {
-        return window.localStorage.getItem(this.access_token); 
-    } 
-     //获取用户userid
-    GetSystemUserId( ) {
-        return window.localStorage.getItem(this.systemuserid); 
-    } 
+    GetToken() {
+        var data = this.GetUserInfo();
+        if (data != null)
+            return data.access_token;
+        return null;
+    }
+    //获取用户userid
+    GetSystemUserId() {
+        var data = this.GetUserInfo();
+        if (data != null)
+            return data.systemuserid;
+        return null;
+    }
     //获取用户名称
-    GetDomainname( ) {
-        return window.localStorage.getItem(this.domainname); 
+    GetDomainname() {
+        var data = this.GetUserInfo();
+        if (data != null)
+            return data.domainname;
+        return null;
     }
     //用户名
-     GetLastname( ) {
-        return window.localStorage.getItem(this.lastname); 
-    } 
-    //姓
-    GetFirstname( ) {
-        return window.localStorage.getItem(this.firstname); 
+    GetLastname() {
+        var data = this.GetUserInfo();
+        if (data != null)
+            return data.lastname;
+        return null;
     }
-     //工号
-     GetStaffid( ) {
-        return window.localStorage.getItem(this.mcs_staffid); 
+    //姓
+    GetFirstname() {
+        var data = this.GetUserInfo();
+        if (data != null)
+            return data.firstname;
+        return null;
+    }
+    //工号
+    GetStaffid() {
+        var data = this.GetUserInfo();
+        if (data != null)
+            return data.mcs_staffid;
+        return null;
     }
     //经销商编码
-    GetDealerid( ) {
-        return window.localStorage.getItem(this.mcs_dealerid); 
+    GetDealerid() {
+        var data = this.GetUserInfo();
+        if (data != null)
+            return data.mcs_dealerid;
+        return null;
     }
     //经销商名称
-    GetDealername( ) {
-        return window.localStorage.getItem(this.mcs_dealername); 
+    GetDealername() {
+        var data = this.GetUserInfo();
+        if (data != null)
+            return data.mcs_dealername;
+        return null;
     }
 }
- 
+
 
