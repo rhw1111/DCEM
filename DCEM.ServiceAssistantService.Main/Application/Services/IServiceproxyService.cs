@@ -19,14 +19,16 @@ namespace DCEM.ServiceAssistantService.Main.Application
         #endregion
 
         #region 查询环检项 列表
-        Task<QueryResult<CrmEntity>> QueryVehcheckresultList();
+        Task<QueryResult<CrmEntity>> QueryVehcheckList();
         #endregion
 
         #region 查询厅店工位信息 列表
-        Task<QueryResult<CrmEntity>> QueryRepairlocationresultList();
+        Task<QueryResult<CrmEntity>> QueryRepairlocationList();
         #endregion
 
-
+        #region 查询保养项 列表
+        Task<QueryResult<CrmEntity>> QueryMaintenanceList();
+        #endregion
 
     }
 }

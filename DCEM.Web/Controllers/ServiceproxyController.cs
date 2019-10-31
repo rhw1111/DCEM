@@ -62,21 +62,30 @@ namespace DCEM.Web.Controllers
         }
         #endregion
 
-        #region 查询所有环检项
+        #region 查询 环检项 列表
         [HttpGet]
-        [Route("GetVehcheckresultList")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetVehcheckresultList()
+        [Route("GetVehcheckList")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetVehcheckList()
         {
-            return await _serviceproxyService.QueryVehcheckresultList();
+            return await _serviceproxyService.QueryVehcheckList();
         }
         #endregion
 
-        #region 查询工位信息 
+        #region 查询工位 列表
         [HttpGet]
-        [Route("GetRepairlocationresultList")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetRepairlocationresultList()
+        [Route("GetRepairlocationList")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetRepairlocationList()
         {
-            return await _serviceproxyService.QueryRepairlocationresultList();
+            return await _serviceproxyService.QueryRepairlocationList();
+        }
+        #endregion
+
+        #region 查询保养项 列表
+        [HttpGet]
+        [Route("GetMaintenanceList")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetMaintenanceList()
+        {
+            return await _serviceproxyService.QueryMaintenanceList();
         }
         #endregion
     }

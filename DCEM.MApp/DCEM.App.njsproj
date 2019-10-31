@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{f26cede4-f02d-4382-a6bd-49c0cb89d2aa}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <StartupFile />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -94,8 +94,12 @@
     <Content Include="src\app\serving\report\testdriverate\testdriverate.page.scss" />
     <Content Include="src\app\serving\serving.ser\components\sc-select\sc-select.component.html" />
     <Content Include="src\app\serving\serving.ser\components\sc-select\sc-select.component.scss" />
+    <Content Include="src\app\serving\serving.ser\components\select-carmodel\select-carmodel.component.html" />
+    <Content Include="src\app\serving\serving.ser\components\select-carmodel\select-carmodel.component.scss" />
     <Content Include="src\app\serving\serving.ser\components\select-customer\select-customer.component.html" />
     <Content Include="src\app\serving\serving.ser\components\select-customer\select-customer.component.scss" />
+    <Content Include="src\app\serving\serving.ser\components\select-maintenance\select-maintenance.component.html" />
+    <Content Include="src\app\serving\serving.ser\components\select-maintenance\select-maintenance.component.scss" />
     <Content Include="src\app\serving\serving.ser\components\select-repairlocation\select-repairlocation.component.html" />
     <Content Include="src\app\serving\serving.ser\components\select-repairlocation\select-repairlocation.component.scss" />
     <Content Include="src\app\serving\technical-support.com\detail\detail.page.html" />
@@ -234,8 +238,12 @@
     <TypeScriptCompile Include="src\app\serving\serving.ser\basedata.service.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\sc-select\sc-select.component.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\sc-select\sc-select.component.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-carmodel\select-carmodel.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-carmodel\select-carmodel.component.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-customer\select-customer.component.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-customer\select-customer.component.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-maintenance\select-maintenance.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-maintenance\select-maintenance.component.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-repairlocation\select-repairlocation.component.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-repairlocation\select-repairlocation.component.ts" />
     <TypeScriptCompile Include="src\app\serving\technical-support.com\detail\detail.module.ts" />
@@ -312,7 +320,9 @@
     <Folder Include="src\app\serving\serving.ser\" />
     <Folder Include="src\app\serving\serving.ser\components\" />
     <Folder Include="src\app\serving\serving.ser\components\sc-select\" />
+    <Folder Include="src\app\serving\serving.ser\components\select-carmodel\" />
     <Folder Include="src\app\serving\serving.ser\components\select-customer\" />
+    <Folder Include="src\app\serving\serving.ser\components\select-maintenance\" />
     <Folder Include="src\app\serving\serving.ser\components\select-repairlocation\" />
     <Folder Include="src\app\serving\technical-support.com\" />
     <Folder Include="src\app\serving\technical-support.com\detail\" />
