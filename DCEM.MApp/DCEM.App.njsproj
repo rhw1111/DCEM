@@ -98,6 +98,8 @@
     <Content Include="src\app\serving\technical-support.com\edit\edit.page.scss" />
     <Content Include="src\app\serving\technical-support.com\list\list.page.html" />
     <Content Include="src\app\serving\technical-support.com\list\list.page.scss" />
+    <Content Include="src\app\serving\technical-support.com\success\success.page.html" />
+    <Content Include="src\app\serving\technical-support.com\success\success.page.scss" />
     <Content Include="src\assets\img\01.jpg" />
     <Content Include="src\assets\img\02.jpg" />
     <Content Include="src\assets\img\03.jpg" />
@@ -233,6 +235,9 @@
     <TypeScriptCompile Include="src\app\serving\technical-support.com\list\list.module.ts" />
     <TypeScriptCompile Include="src\app\serving\technical-support.com\list\list.page.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\technical-support.com\list\list.page.ts" />
+    <TypeScriptCompile Include="src\app\serving\technical-support.com\success\success.module.ts" />
+    <TypeScriptCompile Include="src\app\serving\technical-support.com\success\success.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\serving\technical-support.com\success\success.page.ts" />
     <TypeScriptCompile Include="src\main.ts" />
     <TypeScriptCompile Include="src\polyfills.ts" />
     <TypeScriptCompile Include="src\test.ts" />
@@ -301,6 +306,7 @@
     <Folder Include="src\app\serving\technical-support.com\detail\" />
     <Folder Include="src\app\serving\technical-support.com\edit\" />
     <Folder Include="src\app\serving\technical-support.com\list\" />
+    <Folder Include="src\app\serving\technical-support.com\success\" />
     <Folder Include="src\assets" />
     <Folder Include="src\assets\icon" />
     <Folder Include="src\assets\img\" />
