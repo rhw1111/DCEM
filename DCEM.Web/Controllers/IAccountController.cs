@@ -26,19 +26,10 @@ namespace DCEM.Web.Controllers
         public ActionResult<LoginModel> GetAuthToken(string username, string password)
         {
             LoginModel result = new LoginModel();
-            string url = oauthurl;
-            HttpClient httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Accept.Clear();
 
-            StringContent content = new StringContent(@$"grant_type=password&client_id={client_id}&client_secret={client_secret}&username=sfmotors\{username}&password={password}&resource={crmurl}", Encoding.UTF8, "application/json");
-            HttpResponseMessage response = httpClient.PostAsync(url, content).Result;
             try
             {
-                response.EnsureSuccessStatusCode();
-                var ret = response.Content.ReadAsStringAsync().Result;
-                var data = JsonSerializerHelper.Deserialize<JObject>(ret);
-
-
+                var data = GetToken(client_id, client_secret, username, password, crmurl, oauthurl);
 
                 try
                 {
@@ -75,6 +66,29 @@ namespace DCEM.Web.Controllers
             {
                 return result;
             }
+        }
+
+
+
+        /// <summary>
+        /// 验证token获取
+        /// </summary>
+        /// <param name="clientid"></param>
+        /// <param name="clientsecret"></param>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <param name="crmurl"></param>
+        /// <param name="oauturl"></param>
+        /// <returns></returns>
+        public JObject GetToken(string clientid, string clientsecret, string username, string password, string crmurl, string oauturl)
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            StringContent content = new StringContent(@$"grant_type=password&client_id={clientid}&client_secret={clientsecret}&username=sfmotors\{username}&password={password}&resource={crmurl}", Encoding.UTF8, "application/json");
+            HttpResponseMessage response = httpClient.PostAsync(oauturl, content).Result;
+            response.EnsureSuccessStatusCode();
+            var ret = response.Content.ReadAsStringAsync().Result;
+            return JsonSerializerHelper.Deserialize<JObject>(ret);
         }
 
 

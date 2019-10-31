@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{f26cede4-f02d-4382-a6bd-49c0cb89d2aa}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <StartupFile />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -28,6 +28,8 @@
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
     <Content Include="src\app\app.component.scss" />
+    <Content Include="src\app\base\base.ser\components\select-systemuser\select-systemuser.component.html" />
+    <Content Include="src\app\base\base.ser\components\select-systemuser\select-systemuser.component.scss" />
     <Content Include="src\app\base\uc.com\login\login.page.html" />
     <Content Include="src\app\base\uc.com\login\login.page.scss" />
     <Content Include="src\app\base\uc.com\welcome\welcome.page.html" />
@@ -130,6 +132,8 @@
     <TypeScriptCompile Include="src\app\app.config.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\authentication.service.spec.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\authentication.service.ts" />
+    <TypeScriptCompile Include="src\app\base\base.ser\components\select-systemuser\select-systemuser.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\base\base.ser\components\select-systemuser\select-systemuser.component.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\dcem.core.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -271,6 +275,8 @@
     <Folder Include="src\app" />
     <Folder Include="src\app\base\" />
     <Folder Include="src\app\base\base.ser\" />
+    <Folder Include="src\app\base\base.ser\components\" />
+    <Folder Include="src\app\base\base.ser\components\select-systemuser\" />
     <Folder Include="src\app\base\uc.com\" />
     <Folder Include="src\app\base\uc.com\login\" />
     <Folder Include="src\app\base\uc.com\welcome\" />

@@ -51,5 +51,9 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         /// <param name="systemuserid"></param>
         /// <returns></returns>
         Task<CrmEntity> QuerySystemUser(string systemuserid);
+        /// <summary>
+        /// 查询个人用户列表信息
+        /// </summary>
+        Task<QueryResult<CrmEntity>> QuerySystemUserByPage(string searchkey = "", string prxyUserId = "", string dealerId = "", int pageSize = 10, int pageNum = 1, string sort = "");
     }
 }

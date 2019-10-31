@@ -165,5 +165,16 @@ namespace DCEM.Web.Controllers
             return await app.QuerySystemUser(systemuserid);
         }
 
+        /// <summary>
+        /// 查询用户个人信息
+        /// </summary>
+        /// <param name="entityid"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("QuerySystemUserList")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> QuerySystemUserList(string seachkey = "",string prxyUserId="",string dealerId="", int pageSize = 10, int page = 1,string sort = "")
+        {
+            return await app.QuerySystemUserByPage(seachkey, prxyUserId, dealerId, pageSize,page,sort);
+        }
     }
 }

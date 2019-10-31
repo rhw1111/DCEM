@@ -83,5 +83,10 @@ namespace DCEM.ServiceAssistantService.Main.Application
         {
             return await _baseDataService.QuerySystemUser(systemuserid);
         }
+
+        public async Task<QueryResult<CrmEntity>> QuerySystemUserByPage(string searchkey = "", string prxyUserId = "", string dealerId = "", int pageSize = 10, int pageNum = 1, string sort = "")
+        {
+            return await _baseDataService.QuerySystemUserByPage(searchkey, prxyUserId,dealerId ,pageSize, pageNum, sort);
+        }
     }
 }
