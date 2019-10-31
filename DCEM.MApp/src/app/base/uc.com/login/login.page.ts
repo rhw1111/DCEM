@@ -82,11 +82,12 @@ export class LoginPage implements OnInit {
                 }
             },
             (res: any) => {
-                debugger;
-                var data = eval(res);
-                this._logininfo.SetInfo(data);
-               var vv= this._logininfo.GetToken();
- 
+                debugger; 
+                if(res.access_token==""){ 
+                this._page.alert('消息提示', '登录认证失败');
+                return false;
+                }
+                this._logininfo.SetInfo(JSON.stringify(res));    
                 this._page.loadingHide();
                 this._page.alert('消息提示', '登录认证成功');
                 this._page.goto("serving/home/tabs");
