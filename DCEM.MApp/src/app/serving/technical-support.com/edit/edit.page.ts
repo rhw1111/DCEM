@@ -159,8 +159,8 @@ export class EditPage implements OnInit {
     }
   }
 
-  async presentMalFunctionTypeModal(){
-     
+  async presentMalFunctionTypeModal() {
+
     const modal = await this.modalCtrl.create({
       component: SelectMalFunctionTypeComponent
     });
@@ -168,10 +168,12 @@ export class EditPage implements OnInit {
     //监听销毁的事件
     const { data } = await modal.onDidDismiss();
     debugger;
-    if (data != null && data != undefined) { 
+    if (data != null && data != undefined) {
       this.model.postData.mcs_malfunctiontypeid = data.id;
-      this.model.viewData.mcs_malfunctiontype_value = data.name; 
+      this.model.viewData.mcs_malfunctiontype_value = data.name;
     }
+  }
+
   async presentSystemUserModal(){
     const modal = await this.modalCtrl.create({
       component: SelectSystemuserComponent

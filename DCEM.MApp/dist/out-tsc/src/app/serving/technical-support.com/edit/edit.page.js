@@ -5,6 +5,8 @@ import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 import { ModalController } from '@ionic/angular';
 import { ScSelectComponent } from 'app/serving/serving.ser/components/sc-select/sc-select.component';
 import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
+import { SelectSystemuserComponent } from 'app/base/base.ser/components/select-systemuser/select-systemuser.component';
+import { SelectMalFunctionTypeComponent } from 'app/serving/serving.ser/components/select-malfunctiontype/select.malfunctiontype.component';
 let EditPage = class EditPage {
     constructor(_http, _page, _userInfo, modalCtrl) {
         this._http = _http;
@@ -17,11 +19,12 @@ let EditPage = class EditPage {
                 mcs_serviceorderid_name: '',
                 vin: '',
                 mcs_customername: '',
-                username: '' //当前登录用户
+                username: '',
+                mcs_repairnameidname: ''
             },
             postData: {
+                EntityName: "mcs_supportorder",
                 Id: '',
-                name: '',
                 mcs_title: '',
                 mcs_repairnameid: '',
                 mcs_serviceadvisorid: '',
@@ -30,7 +33,6 @@ let EditPage = class EditPage {
                 mcs_phone: '',
                 mcs_customerid: '',
                 mcs_ismodifiedparts: false,
-                mcs_mileage: '',
                 mcs_malfunctiontypeid: '',
                 mcs_diagnosiscontent: '',
                 mcs_malfunctioncontent: '',
@@ -146,46 +148,77 @@ let EditPage = class EditPage {
             }
         });
     }
-    presentModal() {
-    }
-    save() {
-        this._page.loadingShow();
-        //数据验证
-        //请求
-        this._http.post(this.model.postApiUrl, this.model.postData, (res) => {
-            if (res != "") {
-                debugger;
-                this._page.alert("消息提示", "保存成功", function () {
-                    this._page.goto("/serving/ts/success", { guid: res });
+    presentMalFunctionTypeModal() {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            const modal = yield this.modalCtrl.create({
+                component: SelectMalFunctionTypeComponent
+            });
+            yield modal.present();
+            //监听销毁的事件
+            const { data } = yield modal.onDidDismiss();
+            debugger;
+            if (data != null && data != undefined) {
+                this.model.postData.mcs_malfunctiontypeid = data.id;
+                this.model.viewData.mcs_malfunctiontype_value = data.name;
+            }
+            async;
+            presentSystemUserModal();
+            {
+                const modal = yield this.modalCtrl.create({
+                    component: SelectSystemuserComponent
+                });
+                yield modal.present();
+                //监听销毁的事件
+                const { data } = yield modal.onDidDismiss();
+                if (data != null && data != undefined) {
+                    this.model.postData.mcs_repairnameid = data.Id;
+                    this.model.viewData.mcs_repairnameidname = data.fullname;
+                }
+            }
+            save();
+            {
+                this._page.loadingShow();
+                //数据验证
+                //请求
+                this._http.post(this.model.postApiUrl, this.model.postData, (res) => {
+                    if (res != "") {
+                        debugger;
+                        this._page.alert("消息提示", "保存成功", function () {
+                            this._page.goto("/serving/ts/success", { guid: res });
+                        });
+                    }
+                    else {
+                    }
+                    this._page.loadingHide();
+                }, (err) => {
+                    debugger;
+                    this._page.alert("消息提示", "请求异常");
+                    this._page.loadingHide();
                 });
             }
-            else {
+            changePhone(value);
+            {
+                // 去除空格
+                if (value != null && value != "") {
+                    const phone = value.replace(/\s/g, '');
+                    const ischeck = /^(13[0-9]|14[5|7|9]|15[0|1|2|3|5|6|7|8|9]|16[6]|17[0|1|2|3|5|6|7|8]|18[0-9]|19[8|9])\d{8}$/;
+                    if (!ischeck.test(phone)) {
+                        this.model.phone = '';
+                        //super.showToast(this.toastCtrl, '请输入正确的手机号');
+                    }
+                }
             }
-            this._page.loadingHide();
-        }, (err) => {
-            this._page.alert("消息提示", "请求异常");
-            this._page.loadingHide();
+            changeEmail(value);
+            {
+                if (value != null && value != "") {
+                    const ischeck = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(value);
+                    if (!ischeck) {
+                        this.model.email = '';
+                        //super.showToast(this.toastCtrl, '请输入正确的邮箱格式');
+                    }
+                }
+            }
         });
-    }
-    changePhone(value) {
-        // 去除空格
-        if (value != null && value != "") {
-            const phone = value.replace(/\s/g, '');
-            const ischeck = /^(13[0-9]|14[5|7|9]|15[0|1|2|3|5|6|7|8|9]|16[6]|17[0|1|2|3|5|6|7|8]|18[0-9]|19[8|9])\d{8}$/;
-            if (!ischeck.test(phone)) {
-                this.model.phone = '';
-                //super.showToast(this.toastCtrl, '请输入正确的手机号');
-            }
-        }
-    }
-    changeEmail(value) {
-        if (value != null && value != "") {
-            const ischeck = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(value);
-            if (!ischeck) {
-                this.model.email = '';
-                //super.showToast(this.toastCtrl, '请输入正确的邮箱格式');
-            }
-        }
     }
 };
 EditPage = tslib_1.__decorate([
