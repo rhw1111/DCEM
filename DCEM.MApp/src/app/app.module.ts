@@ -19,8 +19,8 @@ import { SelectAppointmentconfigComponent } from 'app/serving/serving.ser/compon
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
-    declarations: [AppComponent, ScSelectComponent, SelectCustomerComponent, SelectRepairlocationComponent],//申明组件
-    entryComponents: [ScSelectComponent, SelectCustomerComponent, SelectRepairlocationComponent],
+    declarations: [AppComponent, ScSelectComponent, SelectCustomerComponent, SelectRepairlocationComponent, SelectAppointmentconfigComponent],//申明组件
+    entryComponents: [ScSelectComponent, SelectCustomerComponent, SelectRepairlocationComponent, SelectAppointmentconfigComponent],
     imports: [BrowserModule,
         IonicModule.forRoot({ mode: 'ios' }),
         AppRoutingModule,
