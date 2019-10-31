@@ -90,6 +90,8 @@
     <Content Include="src\app\serving\report\testdriverate\testdriverate.page.scss" />
     <Content Include="src\app\serving\serving.ser\components\sc-select\sc-select.component.html" />
     <Content Include="src\app\serving\serving.ser\components\sc-select\sc-select.component.scss" />
+    <Content Include="src\app\serving\serving.ser\components\select-appointmentconfig\select-appointmentconfig.component.html" />
+    <Content Include="src\app\serving\serving.ser\components\select-appointmentconfig\select-appointmentconfig.component.scss" />
     <Content Include="src\app\serving\serving.ser\components\select-customer\select-customer.component.html" />
     <Content Include="src\app\serving\serving.ser\components\select-customer\select-customer.component.scss" />
     <Content Include="src\app\serving\technical-support.com\detail\detail.page.html" />
@@ -222,6 +224,8 @@
     <TypeScriptCompile Include="src\app\serving\serving.ser\basedata.service.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\sc-select\sc-select.component.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\sc-select\sc-select.component.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-appointmentconfig\select-appointmentconfig.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-appointmentconfig\select-appointmentconfig.component.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-customer\select-customer.component.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-customer\select-customer.component.ts" />
     <TypeScriptCompile Include="src\app\serving\technical-support.com\detail\detail.module.ts" />
@@ -296,6 +300,7 @@
     <Folder Include="src\app\serving\serving.ser\" />
     <Folder Include="src\app\serving\serving.ser\components\" />
     <Folder Include="src\app\serving\serving.ser\components\sc-select\" />
+    <Folder Include="src\app\serving\serving.ser\components\select-appointmentconfig\" />
     <Folder Include="src\app\serving\serving.ser\components\select-customer\" />
     <Folder Include="src\app\serving\technical-support.com\" />
     <Folder Include="src\app\serving\technical-support.com\detail\" />

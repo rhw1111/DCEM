@@ -79,9 +79,9 @@ namespace DCEM.ServiceAssistantService.Main.Application
         /// </summary>
         /// <param name="systemuserid"></param>
         /// <returns></returns>
-        public async Task<CrmEntity> QyerySystemUser(string systemuserid)
+        public async Task<CrmEntity> QuerySystemUser(string systemuserid)
         {
-            return await _baseDataService.QyerySystemUser(systemuserid);
+            return await _baseDataService.QuerySystemUser(systemuserid);
         }
     }
 }
