@@ -13,23 +13,16 @@ import { IonicStorageModule } from '@ionic/storage';
 //自定义组件
 import { ScSelectComponent } from './serving/serving.ser/components/sc-select/sc-select.component';
 import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
-<<<<<<< HEAD
 import{SelectMalFunctionTypeComponent} from'app/serving/serving.ser/components/select-malfunctiontype/select.malfunctiontype.component';
-
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-@NgModule({
-    declarations: [AppComponent, ScSelectComponent,SelectCustomerComponent,SelectMalFunctionTypeComponent],//申明组件
-    entryComponents: [ScSelectComponent,SelectCustomerComponent,SelectMalFunctionTypeComponent],
-=======
 import { SelectRepairlocationComponent } from 'app/serving/serving.ser/components/select-repairlocation/select-repairlocation.component';
 import { SelectAppointmentconfigComponent } from 'app/serving/serving.ser/components/select-appointmentconfig/select-appointmentconfig.component';
 
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
-    declarations: [AppComponent, ScSelectComponent, SelectCustomerComponent, SelectRepairlocationComponent, SelectAppointmentconfigComponent],//申明组件
-    entryComponents: [ScSelectComponent, SelectCustomerComponent, SelectRepairlocationComponent, SelectAppointmentconfigComponent],
->>>>>>> ba605e50b056ed9be05e38e0fdcce2071a463386
+    declarations: [AppComponent, ScSelectComponent, SelectCustomerComponent, SelectRepairlocationComponent, SelectAppointmentconfigComponent,SelectMalFunctionTypeComponent],//申明组件
+    entryComponents: [AppComponent,ScSelectComponent, SelectCustomerComponent, SelectRepairlocationComponent, SelectAppointmentconfigComponent,SelectMalFunctionTypeComponent],
+    
     imports: [BrowserModule,
         IonicModule.forRoot({ mode: 'ios' }),
         AppRoutingModule,

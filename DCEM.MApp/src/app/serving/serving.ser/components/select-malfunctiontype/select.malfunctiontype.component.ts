@@ -40,7 +40,7 @@ export class SelectMalFunctionTypeComponent implements OnInit {
     this.listOnBind();
   }
 
-  searchOnKeyup(event: any) {
+  searchOnKeyup(event: any) { 
     var keyCode = event ? event.keyCode : "";
     if (keyCode == 13) {
       this.listOnBind();

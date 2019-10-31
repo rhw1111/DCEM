@@ -6,7 +6,7 @@
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar>
-          <ion-searchbar [(ngModel)]="seachkey" placeholder="支持名称\ID\编号查找" (keyup)="searchOnKeyup($event)" ></ion-searchbar>
+          <ion-searchbar [(ngModel)]="mod.searchData.search" placeholder="支持名称\ID\编号查找" (keyup)="searchOnKeyup($event)" ></ion-searchbar>
         </ion-toolbar>
       </ion-header>
       <ion-content fullscreen>
