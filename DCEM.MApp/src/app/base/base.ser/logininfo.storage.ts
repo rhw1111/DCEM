@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
     providedIn: 'root'
 })
+
 export class  Storage_LoginInfo{
     private access_token: string="access_token";
     private systemuserid: string="systemuserid";

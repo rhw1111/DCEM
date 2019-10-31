@@ -76,7 +76,8 @@ const routes = [
                 children: [
                     { path: 'list', loadChildren: './serving/technical-support.com/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './serving/technical-support.com/detail/detail.module#DetailPageModule' },
-                    { path: 'edit', loadChildren: './serving/technical-support.com/edit/edit.module#EditPageModule' }
+                    { path: 'edit', loadChildren: './serving/technical-support.com/edit/edit.module#EditPageModule' },
+                    { path: 'success', loadChildren: './serving/technical-support.com/success/success.module#SuccessPageModule' }
                 ]
             },
             {

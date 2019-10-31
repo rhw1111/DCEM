@@ -21,7 +21,7 @@
         </ion-item>
         <ion-item>
           <ion-label>
-            <ion-text color="danger">*</ion-text>服务委托书: {{model.viewData.mcs_serviceorderid_name}}
+            服务委托书: {{model.viewData.mcs_serviceorderid_name}}
           </ion-label>
           <ion-avatar slot="end">
               <ion-icon color="primary" size="large" name="search" (click)="presentServiceModal()"></ion-icon>
@@ -31,16 +31,19 @@
             <ion-button expand="block" (click)="presentModal()">选择服务委托书</ion-button>
         </ion-item> -->
         <ion-item>
-            <ion-label position="floating">
+            <ion-label>
               <ion-text color="danger">*</ion-text>服务顾问
             </ion-label>
-            <ion-input [(ngModel)]="model.postData.mcs_serviceadvisorid"></ion-input>
+            <ion-note slot="end">{{model.viewData.username}}</ion-note>
           </ion-item>
         <ion-item>
-          <ion-label position="floating">
+          <ion-label>
             <ion-text color="danger">*</ion-text>技术主管
           </ion-label>
-          <ion-input [(ngModel)]="model.postData.mcs_repairnameid"></ion-input>
+          <ion-note slot="end">{{model.viewData.mcs_repairnameidname}}</ion-note>
+          <ion-avatar slot="end">
+              <ion-icon color="primary" size="large" name="search" (click)="presentSystemUserModal()"></ion-icon>
+          </ion-avatar>
         </ion-item>
         <ion-item>
           <ion-label position="floating">
@@ -50,12 +53,12 @@
         </ion-item>
         <ion-item>
           <ion-label><ion-icon name="mail" size="large"></ion-icon></ion-label>
-          <ion-input [(ngModel)]="model.postData.mcs_email" type="email" placeholder="请输入邮箱" maxlength="30" style="text-align:right;" (ionBlur)="changeEmail(model.email)"
+          <ion-input [(ngModel)]="model.postData.mcs_email" type="email" placeholder="--" maxlength="30" style="text-align:right;" (ionBlur)="changeEmail(model.email)"
           [(ngModel)]="model.email" required></ion-input>
         </ion-item>
         <ion-item>
           <ion-label><ion-icon name="phone-portrait" size="large"></ion-icon></ion-label>
-          <ion-input [(ngModel)]="model.postData.mcs_phone" type="tel" placeholder="请输入手机号" maxlength="11" minlength="11" style="text-align:right;" (ionBlur)="changePhone(model.phone)" [(ngModel)]="model.phone" required onkeyup="this.value=this.value.replace(/\D/g,'')"></ion-input>
+          <ion-input [(ngModel)]="model.postData.mcs_phone" type="tel" placeholder="--" maxlength="11" minlength="11" style="text-align:right;" (ionBlur)="changePhone(model.phone)" [(ngModel)]="model.phone" required onkeyup="this.value=this.value.replace(/\D/g,'')"></ion-input>
         </ion-item>
       </ion-item-group>
     
@@ -73,11 +76,11 @@
         </ion-item>
         <ion-item>
           <ion-label>车主手机</ion-label>
-          <ion-note slot="end">{{model.viewData.mcs_customerphone}}</ion-note>
+          <ion-note slot="end">{{model.postData.mcs_customerphone}}</ion-note>
         </ion-item>
         <ion-item>
           <ion-label>车牌号</ion-label>
-          <ion-note slot="end">{{model.viewData.mcs_carplate}}</ion-note>
+          <ion-note slot="end">{{model.postData.mcs_carplate}}</ion-note>
         </ion-item>
         <ion-item>
           <ion-label>VIN</ion-label>
@@ -85,23 +88,23 @@
         </ion-item>
         <ion-item>
           <ion-label>发动机号</ion-label>
-          <ion-note slot="end">{{model.viewData.mcs_enginenumber}}</ion-note>
+          <ion-note slot="end">{{model.postData.mcs_enginenumber}}</ion-note>
         </ion-item>
         <ion-item>
           <ion-label>里程数</ion-label>
-          <ion-note slot="end">{{model.viewData.mcs_mileage}}</ion-note>
+          <ion-note slot="end">{{model.postData.mcs_mileage}}</ion-note>
         </ion-item>
         <ion-item>
           <ion-label>电机型号</ion-label>
-          <ion-note slot="end">{{model.viewData.mcs_motormodel}}</ion-note>
+          <ion-note slot="end">{{model.postData.mcs_motormodel}}</ion-note>
         </ion-item>
         <ion-item>
           <ion-label>电池型号</ion-label>
-          <ion-note slot="end">{{model.viewData.mcs_batterymodel}}</ion-note>
+          <ion-note slot="end">{{model.postData.mcs_batterymodel}}</ion-note>
         </ion-item>
         <ion-item>
           <ion-label>电池序列号</ion-label>
-          <ion-note slot="end">{{model.viewData.mcs_batteryserialnumber}}</ion-note>
+          <ion-note slot="end">{{model.postData.mcs_batteryserialnumber}}</ion-note>
         </ion-item>
         <ion-item>
           <ion-label>是否加装</ion-label>

@@ -3,30 +3,26 @@ import { ModalController } from '@ionic/angular';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 
 @Component({
-  selector: 'app-sc-select',
-  templateUrl: './sc-select.component.html',
-  styleUrls: ['./sc-select.component.scss'],
+  selector: 'app-select-systemuser',
+  templateUrl: './select-systemuser.component.html',
+  styleUrls: ['./select-systemuser.component.scss'],
 })
-export class ScSelectComponent implements OnInit {
+export class SelectSystemuserComponent implements OnInit {
   public mod: any = {
-    apiUrl: '',
+    apiUrl: '/api/basedata/QuerySystemUserList',
     data:[],
     searchData: {
-      type: 1,
-      pageindex: 1,
-      search: ""
+      page: 1,
+      pageSize:10,
+      seachkey: "",
+      prxyUserId:"",
+      dealerId:""
     }
   };
-
-  constructor(
-    private modalCtrl: ModalController,
+  constructor(private modalCtrl: ModalController,
     private _http: DCore_Http,
     private _page: DCore_Page
-  ) {
-    this.mod.apiUrl = "/Api/Serviceproxy/GetList";
-    this.mod.searchData.type = 2;
-    this.mod.searchData.search = "";
-    this.mod.searchData.pageindex = 1;
+    ) {
   }
 
   ngOnInit() {
@@ -47,9 +43,10 @@ export class ScSelectComponent implements OnInit {
       this.mod.apiUrl,
       {
         params: {
-          type: this.mod.searchData.type,
-          pageindex: this.mod.searchData.pageindex,
-          search: this.mod.searchData.search
+          page: this.mod.searchData.page,
+          pageSize: this.mod.searchData.pageSize,
+          seachkey: this.mod.searchData.seachkey,
+          dealerId:this.mod.searchData.dealerId
         }
       },
       (res: any) => {
@@ -58,13 +55,8 @@ export class ScSelectComponent implements OnInit {
           for (var key in res.Results) {
             var obj = {};
             obj["Id"] = res.Results[key]["Id"];
-            obj["carplate"] = res.Results[key]["Attributes"]["mcs_carplate"];
-            obj["customername"] = res.Results[key]["Attributes"]["mcs_customername"];
-            obj["createdon"] = res.Results[key]["Attributes"]["createdon@OData.Community.Display.V1.FormattedValue"];
-            obj["name"] = res.Results[key]["Attributes"]["mcs_name"];
-            obj["vin"]=res.Results[key]["Attributes"]["_mcs_customerid_value@OData.Community.Display.V1.FormattedValue"];
-
-            obj["model"] = res.Results[key]["Attributes"];
+            obj["fullname"] = res.Results[key]["Attributes"]["fullname"];
+           
             this.mod.data.push(obj);
           }
           this._page.loadingHide();
@@ -90,10 +82,8 @@ export class ScSelectComponent implements OnInit {
   //保存所选项
   itemClick(item){
     this.modalCtrl.dismiss({
-      'id': item.Id,
-      'name': item.name,
-      'vin':item.vin,
-      'model':item.model
+      'Id': item.Id,
+      'fullname': item.fullname
     });
   }
 }

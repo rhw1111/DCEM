@@ -1,0 +1,25 @@
+<ion-header translucent>
+    <ion-toolbar>
+      <ion-title>选择用户</ion-title>
+      <ion-buttons slot="end">
+        <ion-button expand="block" (click)="dismissModal()">关闭</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar>
+      <ion-searchbar [(ngModel)]="seachkey" placeholder="支持名称\账户查找" (keyup)="searchOnKeyup($event)" ></ion-searchbar>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content fullscreen>
+    <ion-list>
+        <ion-item-sliding *ngFor="let item of mod.data;let key=index">
+            <ion-item (click)="itemClick(item)">
+                <ion-label>
+                    <p>{{item.fullname}}</p>
+                </ion-label>
+                <!-- <ion-note slot="end">
+                    {{item.name}}
+                </ion-note> -->
+            </ion-item>
+        </ion-item-sliding>
+    </ion-list>
+  </ion-content>
