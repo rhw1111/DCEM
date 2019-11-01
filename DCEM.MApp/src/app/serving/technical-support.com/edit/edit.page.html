@@ -21,8 +21,9 @@
         </ion-item>
         <ion-item>
           <ion-label>
-            服务委托书: {{model.viewData.mcs_serviceorderid_name}}
+            服务委托书
           </ion-label>
+          <ion-note slot="end">{{model.viewData.mcs_serviceorderid_name}}</ion-note>
           <ion-avatar slot="end">
               <ion-icon color="primary" size="large" name="search" (click)="presentServiceModal()"></ion-icon>
           </ion-avatar>
@@ -68,8 +69,9 @@
         </ion-item-divider>
         <ion-item>
           <ion-label>
-            <ion-text color="danger">*</ion-text>车主姓名：{{model.viewData.mcs_customername}}
+            <ion-text color="danger">*</ion-text>车主姓名
           </ion-label>
+          <ion-note slot="end">{{model.viewData.mcs_customername}}</ion-note>
           <ion-avatar slot="end">
             <ion-icon color="primary" size="large" name="search" (click)="presentCustomerModal()"></ion-icon>
           </ion-avatar>
@@ -129,9 +131,8 @@
             </ion-select>
           </ion-item>
         <ion-item>
-            <ion-label>故障类别代码: 
-                <ion-note slot="end">{{model.viewData.mcs_malfunctiontype_value}}</ion-note> 
-              </ion-label>
+            <ion-label>故障类别代码</ion-label>
+            <ion-note slot="end">{{model.viewData.mcs_malfunctiontype_value}}</ion-note> 
             <ion-avatar slot="end"> 
                 <ion-icon color="primary" size="large" name="search" (click)="presentMalFunctionTypeModal()"></ion-icon>
             </ion-avatar>

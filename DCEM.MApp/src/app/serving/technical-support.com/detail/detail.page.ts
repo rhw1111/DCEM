@@ -14,6 +14,7 @@ export class DetailPage implements OnInit {
         apiUrl: '/Api/tech-support/GetDetail',
         data: {
           TechnicalSupport: {
+            Id:"",
             mcs_title: "",//主题
             mcs_serviceorderid: "",//服务委托书
             mcs_repairnameid: "",//技术主管
@@ -55,8 +56,7 @@ export class DetailPage implements OnInit {
     ngOnInit() {
         this.activeRoute.queryParams.subscribe((params: Params) => {
             if (params['id'] != null && params['id'] != undefined) {
-             
-                // this._page.alert("消息提示", params['id']);
+                this.mod.data.TechnicalSupport.Id=params['id'];
                 this.pageOnBind(params['id']);
             }
         });

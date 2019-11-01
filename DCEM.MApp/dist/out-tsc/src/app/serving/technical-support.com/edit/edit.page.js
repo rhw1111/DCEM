@@ -2,19 +2,22 @@ import * as tslib_1 from "tslib";
 import { Component } from '@angular/core';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
+import { ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { ScSelectComponent } from 'app/serving/serving.ser/components/sc-select/sc-select.component';
 import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
 import { SelectSystemuserComponent } from 'app/base/base.ser/components/select-systemuser/select-systemuser.component';
 import { SelectMalFunctionTypeComponent } from 'app/serving/serving.ser/components/select-malfunctiontype/select.malfunctiontype.component';
 let EditPage = class EditPage {
-    constructor(_http, _page, _userInfo, modalCtrl) {
+    constructor(_http, _page, _userInfo, modalCtrl, activeRoute) {
         this._http = _http;
         this._page = _page;
         this._userInfo = _userInfo;
         this.modalCtrl = modalCtrl;
+        this.activeRoute = activeRoute;
         this.model = {
             postApiUrl: '/api/tech-support/AddOrEdit',
+            detailApiUrl: '/api/tech-support/GetDetail',
             viewData: {
                 mcs_serviceorderid_name: '',
                 vin: '',
@@ -46,13 +49,64 @@ let EditPage = class EditPage {
                 mcs_enginenumber: '',
                 mcs_modifiedpartscontent: '',
                 mcs_motormodel: '',
-                mcs_mileage: 0
+                mcs_mileage: 0,
+                mcs_repairdate: '',
+                mcs_cartypeid: '',
             }
         };
     }
     ngOnInit() {
+        this.activeRoute.queryParams.subscribe((params) => {
+            if (params['id'] != null && params['id'] != undefined) {
+                this.GetDetail(params['id']);
+            }
+        });
         this.model.postData.mcs_serviceadvisorid = this._userInfo.GetSystemUserId();
         this.model.viewData.username = this._userInfo.GetFirstname() + this._userInfo.GetLastname();
+    }
+    GetDetail(id) {
+        this._page.loadingShow();
+        this._http.get(this.model.detailApiUrl, {
+            params: {
+                id: id,
+            }
+        }, (res) => {
+            if (res.TechnicalSupport != null) {
+                this.model.postData.mcs_title = res["TechnicalSupport"]["Attributes"]["mcs_title"];
+                this.model.postData.mcs_serviceorderid = res["TechnicalSupport"]["Attributes"]["_mcs_serviceorderid_value"];
+                this.model.viewData.mcs_serviceorderid_name = res["TechnicalSupport"]["Attributes"]["_mcs_serviceorderid_value@OData.Community.Display.V1.FormattedValue"];
+                this.model.postData.mcs_repairnameid = res["TechnicalSupport"]["Attributes"]["_mcs_repairnameid_value"];
+                this.model.viewData.mcs_repairnameidname = res["TechnicalSupport"]["Attributes"]["_mcs_repairnameid_value@OData.Community.Display.V1.FormattedValue"];
+                this.model.postData.mcs_repairdate = res["TechnicalSupport"]["Attributes"]["mcs_repairdate@OData.Community.Display.V1.FormattedValue"];
+                this.model.postData.mcs_email = res["TechnicalSupport"]["Attributes"]["mcs_email"];
+                this.model.postData.mcs_phone = res["TechnicalSupport"]["Attributes"]["mcs_phone"];
+                this.model.postData.mcs_customername = res["TechnicalSupport"]["Attributes"]["mcs_customername"];
+                this.model.postData.mcs_customerphone = res["TechnicalSupport"]["Attributes"]["mcs_customerphone"];
+                this.model.postData.mcs_customerid = res["TechnicalSupport"]["Attributes"]["_mcs_customerid_value"];
+                this.model.viewData.vin = res["TechnicalSupport"]["Attributes"]["_mcs_customerid_value@OData.Community.Display.V1.FormattedValue"];
+                this.model.postData.mcs_carplate = res["TechnicalSupport"]["Attributes"]["mcs_carplate"];
+                this.model.postData.mcs_enginenumber = res["TechnicalSupport"]["Attributes"]["mcs_enginenumber"];
+                this.model.postData.mcs_mileage = res["TechnicalSupport"]["Attributes"]["mcs_mileage"];
+                this.model.postData.mcs_motormodel = res["TechnicalSupport"]["Attributes"]["mcs_motormodel"];
+                this.model.postData.mcs_batteryserialnumber = res["TechnicalSupport"]["Attributes"]["mcs_batteryserialnumber"];
+                this.model.postData.mcs_batterymodel = res["TechnicalSupport"]["Attributes"]["mcs_batterymodel"];
+                this.model.postData.mcs_ismodifiedparts = res["TechnicalSupport"]["Attributes"]["mcs_ismodifiedparts@OData.Community.Display.V1.FormattedValue"];
+                this.model.postData.mcs_modifiedpartscontent = res["TechnicalSupport"]["Attributes"]["mcs_modifiedpartscontent"];
+                this.model.postData.mcs_techsystem = res["TechnicalSupport"]["Attributes"]["mcs_techsystem"];
+                this.model.postData.mcs_malfunctiontypeid = res["TechnicalSupport"]["Attributes"]["_mcs_malfunctiontypeid_value"];
+                this.model.viewData.mcs_malfunctiontype_value = res["TechnicalSupport"]["Attributes"]["_mcs_malfunctiontypeid_value@OData.Community.Display.V1.FormattedValue"];
+                this.model.postData.mcs_malfunctiontypecontent = res["TechnicalSupport"]["Attributes"]["mcs_malfunctiontypecontent"];
+                this.model.postData.mcs_diagnosiscontent = res["TechnicalSupport"]["Attributes"]["mcs_diagnosiscontent"];
+                this.model.postData.mcs_replacedparts = res["TechnicalSupport"]["Attributes"]["mcs_replacedparts"];
+                this.model.postData.mcs_malfunctioncontent = res["TechnicalSupport"]["Attributes"]["mcs_malfunctioncontent"];
+                this.model.postData.mcs_cartypeid = res["TechnicalSupport"]["Attributes"]["_mcs_cartypeid_value"];
+                this.model.viewData.mcs_cartypeid_vale = res["TechnicalSupport"]["Attributes"]["_mcs_mcs_cartypeid_value@OData.Community.Display.V1.FormattedValue"];
+            }
+            this._page.loadingHide();
+        }, (err) => {
+            this._page.alert("消息提示", "数据加载异常");
+            this._page.loadingHide();
+        });
     }
     //选择服务委托书模式窗口
     presentServiceModal() {
@@ -63,7 +117,6 @@ let EditPage = class EditPage {
             yield modal.present();
             //监听销毁的事件
             const { data } = yield modal.onDidDismiss();
-            debugger;
             if (data != null && data != undefined) {
                 var serviceproxymodel = data.model;
                 this.model.postData.mcs_serviceorderid = data.id;
@@ -144,6 +197,9 @@ let EditPage = class EditPage {
                     if (customerModel.mcs_netmileage != undefined) {
                         this.model.postData.mcs_mileage = customerModel.mcs_netmileage;
                     }
+                    if (customerModel.mcs_cartypeid != undefined) {
+                        this.model.postData.mcs_cartypeid = customerModel.mcs_cartypeid;
+                    }
                 }
             }
         });
@@ -156,7 +212,6 @@ let EditPage = class EditPage {
             yield modal.present();
             //监听销毁的事件
             const { data } = yield modal.onDidDismiss();
-            debugger;
             if (data != null && data != undefined) {
                 this.model.postData.mcs_malfunctiontypeid = data.id;
                 this.model.viewData.mcs_malfunctiontype_value = data.name;
@@ -183,12 +238,11 @@ let EditPage = class EditPage {
         //请求
         this._http.post(this.model.postApiUrl, this.model.postData, (res) => {
             if (res != "") {
-                debugger;
-                this._page.alert("消息提示", "保存成功", function () {
-                    this._page.goto("/serving/ts/success", { guid: res });
-                });
+                this._page.alert("消息提示", "保存成功！");
+                this._page.goto("/serving/ts/success", { guid: res });
             }
             else {
+                this._page.alert("消息提示", "保存失败！");
             }
             this._page.loadingHide();
         }, (err) => {
@@ -227,7 +281,8 @@ EditPage = tslib_1.__decorate([
     tslib_1.__metadata("design:paramtypes", [DCore_Http,
         DCore_Page,
         Storage_LoginInfo,
-        ModalController])
+        ModalController,
+        ActivatedRoute])
 ], EditPage);
 export { EditPage };
 //# sourceMappingURL=edit.page.js.map
