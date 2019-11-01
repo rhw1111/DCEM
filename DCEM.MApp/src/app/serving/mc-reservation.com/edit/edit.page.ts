@@ -134,7 +134,7 @@ export class EditPage implements OnInit {
         this.model.postData["appointmentinfo"]["mcs_surplusnum"] = Number(this.shareData.appointmentinfo["mcs_surplusnum"]);//可预约数量
         this.model.postData["appointmentinfo"]["mcs_customercomment"] = this.shareData.appointmentinfo["mcs_customercomment"];//客户要求
         this.model.postData["appointmentinfo"]["mcs_appointmendescript"] = this.shareData.appointmentinfo["mcs_appointmendescript"];//问题描述
-        this.model.postData["appointmentinfo"]["mcs_status"] =10;//预约状态
+        //this.model.postData["appointmentinfo"]["mcs_status"] =10;//预约状态
 
         console.log(this.shareData);
         console.log(this.model.postData);

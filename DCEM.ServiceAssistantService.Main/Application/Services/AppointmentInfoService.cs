@@ -159,16 +159,21 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
             if (request.actioncode == 1)
             {
                 var createEntity = new CrmExecuteEntity("mcs_appointmentinfo", Guid.NewGuid());
-
-                BasicAssignment(createEntity,request);
+                //预约状态 创建默认是待跟进
+                createEntity.Attributes.Add("mcs_status", 10);
+                BasicAssignment(createEntity, request);
                 var reuset = await _crmService.Create(createEntity);
                 reusetCrmEntity.Id = createEntity.Id;
-                
             }
             //编辑预约单
-            if (request.actioncode == 2&& request.appointmentinfo.mcs_appointmentinfoid!=Guid.Empty)
+            if (request.actioncode == 2 && request.appointmentinfo.mcs_appointmentinfoid != Guid.Empty)
             {
                 var updateEntity = new CrmExecuteEntity("mcs_appointmentinfo", (Guid)request.appointmentinfo.mcs_appointmentinfoid);
+                //预约状态
+                if (request.appointmentinfo.mcs_status != null)
+                {
+                    updateEntity.Attributes.Add("mcs_status", request.appointmentinfo.mcs_status);
+                }
                 BasicAssignment(updateEntity, request);
                 await _crmService.Update(updateEntity);
                 reusetCrmEntity.Id = (Guid)request.appointmentinfo.mcs_appointmentinfoid;
@@ -261,11 +266,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
             {
                 entity.Attributes.Add("mcs_canceldes", request.appointmentinfo.mcs_canceldes);
             }
-            //预约状态
-            if (request.appointmentinfo.mcs_status != null)
-            {
-                entity.Attributes.Add("mcs_status", request.appointmentinfo.mcs_status);
-            }
+          
             //预约厅店
             if (request.appointmentinfo.mcs_dealerid != Guid.Empty)
             {
