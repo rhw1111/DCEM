@@ -268,6 +268,10 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 {
                     createorUpdateEntity.Attributes.Add("mcs_techsystem", int.Parse(request.mcs_techsystem));
                 }
+                if (!string.IsNullOrEmpty(request.mcs_cartypeid))
+                {
+                    createorUpdateEntity.Attributes.Add("mcs_cartypeid", new CrmEntityReference("mcs_cartype", Guid.Parse(request.mcs_cartypeid)));
+                }
 
                 if (!string.IsNullOrEmpty(request.Id))
                 {

@@ -3,7 +3,7 @@
         <ion-buttons slot="start">
             <ion-back-button text="返回" defaultHref="/serving/reservation/list"></ion-back-button>
         </ion-buttons>
-        <ion-title>创建成功</ion-title>
+        <ion-title>操作成功</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -30,16 +30,16 @@
                 </ion-row>
                 <ion-row>
                     <ion-col class="title">
-                        预约单创建成功
+                        预约单操作成功
                     </ion-col>
                 </ion-row>
-                <ion-row>
+                <!--<ion-row>
                     <ion-col>
                         <div class="orderno">
                             单号:D00142019225567
                         </div>
                     </ion-col>
-                </ion-row>
+                </ion-row>-->
                 <ion-row>
                     <ion-col>
                         <ion-button color="primary" class="button-outline" [routerLink]="['/serving/reservation/detail']" [queryParams]="{id:mod.id}">
@@ -50,7 +50,7 @@
                     </ion-col>
                     <ion-col>
                         <ion-button color="primary" class="button-outline" [routerLink]="['/serving/reservation/edit']">
-                            修改预约单
+                            新建预约单
                         </ion-button>
                     </ion-col>
                 </ion-row>

@@ -159,22 +159,28 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
             if (request.actioncode == 1)
             {
                 var createEntity = new CrmExecuteEntity("mcs_appointmentinfo", Guid.NewGuid());
-
-                BasicAssignment(createEntity,request);
+                //预约状态 创建默认是待跟进
+                createEntity.Attributes.Add("mcs_status", 10);
+                BasicAssignment(createEntity, request);
                 var reuset = await _crmService.Create(createEntity);
                 reusetCrmEntity.Id = createEntity.Id;
-                validateResult.Data = reusetCrmEntity;
-                validateResult.Result = true;
-                validateResult.Description = "操作成功";
             }
             //编辑预约单
-            if (request.actioncode == 2)
+            if (request.actioncode == 2 && request.appointmentinfo.mcs_appointmentinfoid != Guid.Empty)
             {
-                var updateEntity = new CrmExecuteEntity("mcs_appointmentinfo", request.appointmentinfo.mcs_appointmentinfoid);
+                var updateEntity = new CrmExecuteEntity("mcs_appointmentinfo", (Guid)request.appointmentinfo.mcs_appointmentinfoid);
+                //预约状态
+                if (request.appointmentinfo.mcs_status != null)
+                {
+                    updateEntity.Attributes.Add("mcs_status", request.appointmentinfo.mcs_status);
+                }
                 BasicAssignment(updateEntity, request);
                 await _crmService.Update(updateEntity);
-
+                reusetCrmEntity.Id = (Guid)request.appointmentinfo.mcs_appointmentinfoid;
             }
+            validateResult.Data = reusetCrmEntity;
+            validateResult.Result = true;
+            validateResult.Description = "操作成功";
             return validateResult;
         }
 
@@ -188,7 +194,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
             //VIN码
             if (request.appointmentinfo.mcs_customerid != Guid.Empty)
             {
-                var vinEntityRef = new CrmEntityReference("mcs_vehowner", request.appointmentinfo.mcs_customerid);
+                var vinEntityRef = new CrmEntityReference("mcs_vehowner", (Guid)request.appointmentinfo.mcs_customerid);
                 entity.Attributes.Add("mcs_customerid", vinEntityRef);
             }
             //车主
@@ -205,7 +211,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
             //车型
             if (request.appointmentinfo.mcs_cartype != Guid.Empty)
             {
-                var carTypeEntityRef = new CrmEntityReference("mcs_carmodel", request.appointmentinfo.mcs_cartype);
+                var carTypeEntityRef = new CrmEntityReference("mcs_carmodel", (Guid)request.appointmentinfo.mcs_cartype);
                 entity.Attributes.Add("mcs_cartype", carTypeEntityRef);
             }
             //手机号
@@ -232,7 +238,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
             //预约时段
             if (request.appointmentinfo.mcs_appointmentconfigid != Guid.Empty)
             {
-                var configEntityRef = new CrmEntityReference("mcs_appointmentconfig", request.appointmentinfo.mcs_appointmentconfigid);
+                var configEntityRef = new CrmEntityReference("mcs_appointmentconfig", (Guid)request.appointmentinfo.mcs_appointmentconfigid);
                 entity.Attributes.Add("mcs_appointmentconfigid", configEntityRef);
             }
             //可预约数量
@@ -260,21 +266,17 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
             {
                 entity.Attributes.Add("mcs_canceldes", request.appointmentinfo.mcs_canceldes);
             }
-            //预约状态
-            if (request.appointmentinfo.mcs_status != null)
-            {
-                entity.Attributes.Add("mcs_status", request.appointmentinfo.mcs_status);
-            }
+          
             //预约厅店
             if (request.appointmentinfo.mcs_dealerid != Guid.Empty)
             {
-                var dealerEntityEF = new CrmEntityReference("mcs_dealer", request.appointmentinfo.mcs_dealerid);
+                var dealerEntityEF = new CrmEntityReference("mcs_dealer", (Guid)request.appointmentinfo.mcs_dealerid);
                 entity.Attributes.Add("mcs_dealerid", dealerEntityEF);
             }
             //服务顾问
             if (request.appointmentinfo.mcs_serviceadvisorid != Guid.Empty)
             {
-                var systemUserEntityEF = new CrmEntityReference("systemuser", request.appointmentinfo.mcs_serviceadvisorid);
+                var systemUserEntityEF = new CrmEntityReference("systemuser", (Guid)request.appointmentinfo.mcs_serviceadvisorid);
                 entity.Attributes.Add("mcs_serviceadvisorid", systemUserEntityEF);
                 //owner
                 entity.Attributes.Add("ownerid", systemUserEntityEF);

@@ -5,6 +5,7 @@ import { DCore_Http, DCore_Page, DCore_ShareData, DCore_Valid } from 'app/base/b
 import { SelectAppointmentconfigComponent } from 'app/serving/serving.ser/components/select-appointmentconfig/select-appointmentconfig.component';
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 import sd from 'silly-datetime';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
     selector: 'app-edit',
@@ -14,15 +15,14 @@ import sd from 'silly-datetime';
 export class EditPage implements OnInit {
 
     model = {
-        apiUrl: '/Api/Customer/GetCustomerInfo',
+        apiUrl: '/api/appointment-info/GetDetail',
         postApiUrl: '/Api/appointment-info/AddOrEdit',
         data: {
         },
         postData: {},
         systemuserid: "",//当前用户id
         mcs_dealerid: "",//当前厅店id
-
-
+        appointmentinfoid: null,//当前记录id
     };
 
     //定义共享数据
@@ -39,10 +39,19 @@ export class EditPage implements OnInit {
         private _page: DCore_Page,
         private _logininfo: Storage_LoginInfo,
         private _shareData: DCore_ShareData,
-        private _valid: DCore_Valid
+        private _valid: DCore_Valid,
+        private activeRoute: ActivatedRoute
     ) { }
 
     ngOnInit() {
+        debugger;
+        this.activeRoute.queryParams.subscribe((params: Params) => {
+            if (params['id'] != null && params['id'] != undefined) {
+                console.log("记录Id:" + this.model.appointmentinfoid);
+                this.model.appointmentinfoid = params['id'];
+                this.pageOnBind(this.model.appointmentinfoid);
+            }
+        });
     }
 
     //调用选择客户组件
@@ -108,8 +117,9 @@ export class EditPage implements OnInit {
         this.model.postData["actioncode"] = 1;
         this.model.postData["appointmentinfo"] = this.shareData.appointmentinfo;
 
-        //组装预约单委
+        //组装预约单
         this.model.postData["appointmentinfo"] = {};
+        this.model.postData["appointmentinfo"]["mcs_appointmentinfoid"] = this.model.appointmentinfoid
         this.model.postData["appointmentinfo"]["mcs_dealerid"] = this.model.mcs_dealerid;// 厅店ID
         this.model.postData["appointmentinfo"]["mcs_serviceadvisorid"] = this.model.systemuserid;// 服务顾问(当前用户)
         this.model.postData["appointmentinfo"]["mcs_customerid"] = this.shareData.appointmentinfo["mcs_customerid"]; // VIN码关联实体ID
@@ -124,7 +134,7 @@ export class EditPage implements OnInit {
         this.model.postData["appointmentinfo"]["mcs_surplusnum"] = Number(this.shareData.appointmentinfo["mcs_surplusnum"]);//可预约数量
         this.model.postData["appointmentinfo"]["mcs_customercomment"] = this.shareData.appointmentinfo["mcs_customercomment"];//客户要求
         this.model.postData["appointmentinfo"]["mcs_appointmendescript"] = this.shareData.appointmentinfo["mcs_appointmendescript"];//问题描述
-        this.model.postData["appointmentinfo"]["mcs_status"] =10;//预约状态
+        //this.model.postData["appointmentinfo"]["mcs_status"] =10;//预约状态
 
         console.log(this.shareData);
         console.log(this.model.postData);
@@ -150,6 +160,44 @@ export class EditPage implements OnInit {
                 this._page.alert("消息提示", "操作失败");
             }
         );
+    }
+
+    //编辑绑定数据
+    pageOnBind(id: any) {
+        this._page.loadingShow();
+        this._http.get(
+            this.model.apiUrl,
+            {
+                params: {
+                    entityid: id,
+                }
+            },
+            (res: any) => {
+                if (res !== null) {
+                    this.shareData.appointmentinfo["mcs_appointmentinfoid"] = res.Id;
+                    this.shareData.appointmentinfo["mcs_customername"] = res["Attributes"]["mcs_customername"];
+                    this.shareData.appointmentinfo["mcs_carplate"] = res["Attributes"]["mcs_carplate"];
+                    this.shareData.appointmentinfo["mcs_customerphone"] = res["Attributes"]["mcs_customerphone"];
+                    this.shareData.appointmentinfo["mcs_tag"] = res["Attributes"]["mcs_tag"];
+                    this.shareData.appointmentinfo["mcs_ordertype"] = res["Attributes"]["mcs_ordertype"];
+                    this.shareData.appointmentinfo["mcs_appointmentat"] = res["Attributes"]["mcs_appointmentat"];
+                    this.shareData.appointmentinfo["mcs_appointmentconfigname"] = res["Attributes"]["mcs_appointmentconfigid"] != null ? res["Attributes"]["mcs_appointmentconfigid"]["mcs_name"] : null;
+                    this.shareData.appointmentinfo["mcs_surplusnum"] = res["Attributes"]["mcs_appointmentconfigid"] != null ? res["Attributes"]["mcs_appointmentconfigid"]["mcs_surplusnum"] : 0;
+                    this.shareData.appointmentinfo["mcs_customercomment"] = res["Attributes"]["mcs_customercomment"];
+                    this.shareData.appointmentinfo["mcs_appointmendescript"] = res["Attributes"]["mcs_appointmendescript"];
+                    console.log(res);
+                }
+                else {
+                    this._page.alert("消息提示", "预约单加载异常");
+                }
+                this._page.loadingHide();
+            },
+            (err: any) => {
+                this._page.alert("消息提示", "数据加载异常");
+                this._page.loadingHide();
+            }
+        );
+
     }
 
     //日期格式

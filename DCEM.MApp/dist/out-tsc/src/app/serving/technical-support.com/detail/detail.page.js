@@ -12,6 +12,7 @@ let DetailPage = class DetailPage {
             apiUrl: '/Api/tech-support/GetDetail',
             data: {
                 TechnicalSupport: {
+                    Id: "",
                     mcs_title: "",
                     mcs_serviceorderid: "",
                     mcs_repairnameid: "",
@@ -44,7 +45,7 @@ let DetailPage = class DetailPage {
     ngOnInit() {
         this.activeRoute.queryParams.subscribe((params) => {
             if (params['id'] != null && params['id'] != undefined) {
-                // this._page.alert("消息提示", params['id']);
+                this.mod.data.TechnicalSupport.Id = params['id'];
                 this.pageOnBind(params['id']);
             }
         });

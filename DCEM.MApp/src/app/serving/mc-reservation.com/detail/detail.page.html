@@ -156,7 +156,12 @@
                     <h2>
                         取消原因
                     </h2>
-                    <span>{{SetDefaultValue(model.infolist.mcs_cancelreasonnew)}}</span>
+                    <span *ngIf="model.infolist.mcs_cancelreasonnew==10">待料</span>
+                    <span *ngIf="model.infolist.mcs_cancelreasonnew==20">价格太高</span>
+                    <span *ngIf="model.infolist.mcs_cancelreasonnew==30"> 设备不足</span>
+                    <span *ngIf="model.infolist.mcs_cancelreasonnew==40"> 堵车</span>
+                    <span *ngIf="model.infolist.mcs_cancelreasonnew==50"> 技术不足</span>
+                    <span *ngIf="model.infolist.mcs_cancelreasonnew==60"> 天气不好</span>
                 </ion-label>
             </ion-item>
             <ion-item>
@@ -195,9 +200,8 @@
             <ion-icon name="arrow-dropup"></ion-icon>
         </ion-fab-button>
         <ion-fab-list side="top">
-            <ion-fab-button color="danger" [routerLink]="['/serving/reservation/edit']"><ion-icon name="create" [queryParams]="{id:model.infolist.mcs_appointmentinfoid}"></ion-icon></ion-fab-button>
+            <ion-fab-button color="danger" [routerLink]="['/serving/reservation/edit']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid}"><ion-icon name="create" ></ion-icon></ion-fab-button>
             <ion-fab-button [routerLink]="['/serving/reservation/cancel']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid}"><ion-icon name="close"></ion-icon></ion-fab-button>
         </ion-fab-list>
-      
     </ion-fab>
 </ion-content>

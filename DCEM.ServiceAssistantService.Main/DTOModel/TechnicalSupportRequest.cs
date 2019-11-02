@@ -129,7 +129,11 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
         /// 技术系统    选项集
         /// </summary>
         public string mcs_techsystem { get; set; }
-
+        /// <summary>
+        /// 车型
+        /// </summary>
+        public string mcs_cartypeid { get; set; }
+        
 
     }
 }
