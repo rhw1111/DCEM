@@ -19,7 +19,7 @@ export class DCore_Window {
     }
 }
 
- 
+
 
 @Injectable({
     providedIn: 'root'
@@ -88,7 +88,7 @@ export class DCore_Page {
     }
 
     //弹出提示
-    alert(header: any, message: any,callback=null) {
+    alert(header: any, message: any, callback = null) {
         const alert = this.alertCtr.create({
             header,
             message,
@@ -96,7 +96,7 @@ export class DCore_Page {
         });
         alert.then(a => {
             a.present();
-            if(isFunction(callback)){
+            if (isFunction(callback)) {
                 callback();
             }
         });
