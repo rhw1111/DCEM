@@ -1,0 +1,80 @@
+﻿<ion-header>
+    <ion-toolbar>
+        <ion-title>维修项目</ion-title>
+        <ion-buttons slot="end">
+            <ion-button expand="block" (click)="dismissModal()">关闭</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>
+                <ion-label>维修项目</ion-label>
+            </ion-card-title>
+        </ion-card-header>
+        <ion-list lines="full">
+
+            <ion-item (click)="presentWorkingModal()">
+                <ion-label>
+                    <h2>代码</h2>
+                    <p>-</p>
+                </ion-label>
+            </ion-item>
+            <ion-item (click)="presentWorkingModal()">
+                <ion-label>
+                    <h2>名称</h2>
+                    <p>-</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>维修类别</h2>
+                    <p>-</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>维修类型</h2>
+                    <p>-</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>工时</h2>
+                    <p>-</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>单价</h2>
+                    <p>-</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>折扣</h2>
+                    <p>-</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>优惠金额</h2>
+                    <p>-</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>维修费用</h2>
+                    <p>-</p>
+                </ion-label>
+            </ion-item>
+
+        </ion-list>
+        <br />
+    </ion-card>
+    <section style="text-align:center;">
+        <ion-button style="width:40%" color="success">确定</ion-button>
+    </section>
+</ion-content>

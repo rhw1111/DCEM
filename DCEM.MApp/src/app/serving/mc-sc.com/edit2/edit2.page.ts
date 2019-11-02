@@ -3,7 +3,8 @@ import { ModalController, NavController } from '@ionic/angular';
 import { DCore_Http, DCore_Page, DCore_ShareData } from 'app/base/base.ser/Dcem.core';
 import { SelectCarmodelComponent } from 'app/serving/serving.ser/components/select-carmodel/select-carmodel.component';
 import { SelectMaintenanceComponent } from 'app/serving/serving.ser/components/select-maintenance/select-maintenance.component';
-
+import { SubeditworkingPage } from 'app/serving/mc-sc.com/subeditworking/subeditworking.page';
+import { SubeditpartPage } from '../subeditpart/subeditpart.page';
 
 @Component({
     selector: 'app-edit2',
@@ -71,6 +72,25 @@ export class Edit2Page implements OnInit {
             //}
         }
     }
+
+    //添加 编辑 工时
+    async presentSubeditWorkingModal() {
+        const modal = await this._modalCtrl.create({
+            component: SubeditworkingPage
+        });
+        await modal.present();
+
+    }
+
+    //添加 编辑 零件
+    async presentSubeditPartModal() {
+        const modal = await this._modalCtrl.create({
+            component: SubeditpartPage
+        });
+        await modal.present();
+
+    }
+
 
 
     ngOnInit() {

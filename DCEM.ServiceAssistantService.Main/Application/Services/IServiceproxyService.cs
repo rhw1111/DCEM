@@ -30,5 +30,13 @@ namespace DCEM.ServiceAssistantService.Main.Application
         Task<QueryResult<CrmEntity>> QueryMaintenanceList();
         #endregion
 
+        #region 查询维修项目
+        Task<QueryResult<CrmEntity>> QueryRepairitemList();
+        #endregion
+
+        #region 查询维修配件项目
+        Task<QueryResult<CrmEntity>> QueryPartsList();
+        #endregion
+
     }
 }

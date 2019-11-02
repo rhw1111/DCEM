@@ -13,11 +13,16 @@
     <ion-card>
         <ion-card-header>
             <ion-card-title>
-                <ion-label>保养项</ion-label>
+                保养项
             </ion-card-title>
         </ion-card-header>
 
         <ion-list lines="full">
+            <ion-item-divider>
+                <ion-label>
+                    保养项
+                </ion-label>
+            </ion-item-divider>
             <ion-item>
                 <ion-label>
                     <h2>
@@ -49,7 +54,7 @@
     <ion-card>
         <ion-card-header>
             <ion-card-title>
-                <ion-label>委托信息</ion-label>
+                委托信息
             </ion-card-title>
         </ion-card-header>
 
@@ -171,7 +176,7 @@
                     <h2>
                         工时费用
                     </h2>
-                    <p>￥{{mod.data.serviceproxy.hoursamount}}&nbsp;</p>
+                    <p>{{mod.data.serviceproxy.hoursamount}}&nbsp;</p>
                 </ion-label>
             </ion-item>
             <ion-item>
@@ -179,7 +184,7 @@
                     <h2>
                         零件费用
                     </h2>
-                    <p>￥{{mod.data.serviceproxy.partsamount}}&nbsp;</p>
+                    <p>{{mod.data.serviceproxy.partsamount}}&nbsp;</p>
                 </ion-label>
             </ion-item>
             <ion-item>
@@ -187,7 +192,7 @@
                     <h2>
                         优惠金额
                     </h2>
-                    <p>￥{{mod.data.serviceproxy.discountamount}}&nbsp;</p>
+                    <p>{{mod.data.serviceproxy.discountamount}}&nbsp;</p>
                 </ion-label>
             </ion-item>
             <ion-item>
@@ -195,7 +200,7 @@
                     <h2>
                         费用合计
                     </h2>
-                    <p>￥{{mod.data.serviceproxy.amounttotal}}&nbsp;</p>
+                    <p>{{mod.data.serviceproxy.amounttotal}}&nbsp;</p>
                 </ion-label>
             </ion-item>
         </ion-list>
@@ -205,7 +210,8 @@
     <ion-card>
         <ion-card-header>
             <ion-card-title>
-                <ion-label>维修项目</ion-label>
+                <ion-icon name="search" size="small"></ion-icon>
+                维修项目
             </ion-card-title>
         </ion-card-header>
 
@@ -253,7 +259,8 @@
     <ion-card>
         <ion-card-header>
             <ion-card-title>
-                <ion-label>维修项目</ion-label>
+                <ion-icon name="search" size="small"></ion-icon>
+                维修配件
             </ion-card-title>
         </ion-card-header>
 

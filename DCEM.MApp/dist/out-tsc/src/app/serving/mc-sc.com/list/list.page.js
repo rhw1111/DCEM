@@ -49,7 +49,7 @@ let ListPage = class ListPage {
                 for (var key in res.Results) {
                     var date = res.Results[key]["Attributes"]["createdon"];
                     var dateKey = this._datePipe.transform(date, "_yyyyMM");
-                    var dateText = this._datePipe.transform(date, "yyyy年MM月");
+                    var dateText = this._datePipe.transform(date, "yy年MM月");
                     if (typeof this.mod.data[dateKey] === "undefined") {
                         this.mod.data[dateKey] = {};
                         this.mod.data[dateKey]["text"] = dateText;

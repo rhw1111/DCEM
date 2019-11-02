@@ -16,22 +16,32 @@
 <ion-content>
     <ion-list lines="full">
         <div *ngFor="let key of objectKeys(mod.data)">
-            <ion-item-divider color="primary">
+            <ion-item-divider>
                 <ion-label>
                     {{mod.data[key].text}}
                 </ion-label>
             </ion-item-divider>
             <ion-item-sliding *ngFor="let item of mod.data[key].data;let key=index">
                 <ion-item [routerLink]="['/serving/sc/detail']" [queryParams]="{id:item.Id}">
+                    <ion-icon color="{{item.statuscolor}}" name="document"></ion-icon>
                     <ion-label>
-                        <p>{{item.carplate}}</p>
-                        <p>{{item.customername}}</p>
-                        <p>{{item.createdon}}</p>
+                        <h2>{{item.name}}</h2>
+                        <p>{{item.carplate}}&nbsp;&nbsp;{{item.customername}}</p>
+                        <p>{{item.createdonformat}}</p>
                     </ion-label>
-                    <ion-note slot="end">
-                        {{item.name}}
-                    </ion-note>
+                    <ion-label>
+                        {{item.statusformat}}
+                    </ion-label>
                 </ion-item>
+                <ion-item-options side="end">
+                    <ion-item-option color="tertiary" expandable>
+                        编辑
+                    </ion-item-option>
+                    <ion-item-option color="danger" expandable>
+                        删除
+                    </ion-item-option>
+                </ion-item-options>
+
             </ion-item-sliding>
         </div>
     </ion-list>
@@ -39,26 +49,31 @@
     <!--<ion-card *ngFor="let key of objectKeys(mod.data)">
         <ion-card-header>
             <ion-card-title>
-                {{mod.data[key].text}}
+                <ion-label>{{mod.data[key].text}}</ion-label>
             </ion-card-title>
         </ion-card-header>
         <ion-list lines="full">
             <ion-item-sliding *ngFor="let item of mod.data[key].data;let key=index">
                 <ion-item [routerLink]="['/serving/sc/detail']" [queryParams]="{id:item.Id}">
+                    <ion-icon color="{{item.statuscolor}}" name="document"></ion-icon>
                     <ion-label>
-                        <p>{{item.carplate}}</p>
-                        <p>{{item.customername}}</p>
-                        <p>{{item.createdon}}</p>
+                        <ion-label>{{item.name}}</ion-label>
+                        <p>{{item.carplate}}&nbsp;&nbsp;{{item.customername}}</p>
+                        <p>{{item.createdonformat}}</p>
                     </ion-label>
-                    <ion-note slot="end">
-                        {{item.name}}
-                    </ion-note>
+                    <ion-label>
+                        {{item.statusformat}}
+                    </ion-label>
+                    <ion-item-options side="end">
+                        <ion-item-option color="tertiary" expandable>
+                            删除
+                        </ion-item-option>
+                    </ion-item-options>
                 </ion-item>
             </ion-item-sliding>
         </ion-list>
         <br />
     </ion-card>-->
-
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button>
             <ion-icon name="arrow-dropup"></ion-icon>

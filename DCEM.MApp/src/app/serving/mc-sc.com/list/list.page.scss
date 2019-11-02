@@ -1,1 +1,27 @@
 ﻿
+
+ion-list {
+    ion-item-divider {
+        ion-label {
+            font-size: 0.6rem;
+        }
+    }
+
+    ion-label:first-of-type {
+        margin-left: 0.6rem;
+
+        h2 {
+            margin-left: 0rem;
+            font-size: 0.5rem;
+        }
+
+        p {
+            font-size: 0.3rem;
+        }
+    }
+
+    ion-label:last-child {
+        font-size: 0.5rem;
+        text-align: right;
+    }
+}

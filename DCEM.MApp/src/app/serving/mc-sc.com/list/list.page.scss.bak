@@ -22,17 +22,18 @@
     }
 }
 
+
 ion-list {
-    ion-item-divider {
+    ion-item-divider ion-item {
         ion-label {
             font-size: 0.6rem;
         }
     }
 
     ion-label:first-of-type {
-        font-size: 0.5rem;
+        margin-left: 0.6rem;
 
-        h2 {
+        ion-label {
             margin-left: 0rem;
             font-size: 0.5rem;
         }
@@ -42,23 +43,8 @@ ion-list {
         }
     }
 
-    ion-input {
-        font-size: 0.3rem;
-    }
-
-    ion-select {
-        font-size: 0.3rem;
-    }
-
-    ion-datetime {
-        font-size: 0.3rem;
-    }
-
-    ion-textarea {
-        font-size: 0.3rem;
-    }
-    /*ion-label:last-child {
+    ion-label:last-child {
         font-size: 0.5rem;
         text-align: right;
-    }*/
+    }
 }

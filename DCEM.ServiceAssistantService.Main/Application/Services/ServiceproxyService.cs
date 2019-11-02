@@ -77,7 +77,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
             {
                 var fetchXml = string.Empty;
                 fetchXml = $@"
-            <fetch version='1.0' output-format='xml-platform' mapping='logical' count='{500}' page='{pageindex}' >
+            <fetch version='1.0' output-format='xml-platform' mapping='logical' count='{5}' page='{pageindex}' >
               <entity name='mcs_serviceproxy'>
                   <order attribute='createdon' descending='true' />
                   {filter}
@@ -294,6 +294,29 @@ namespace DCEM.ServiceAssistantService.Main.Application
             return queryResult;
         }
         #endregion
+
+        #region 查询维修项目
+        public async Task<QueryResult<CrmEntity>> QueryRepairitemList()
+        {
+            var queryResult = new QueryResult<CrmEntity>();
+            var result = await _crmService.RetrieveMultiple("mcs_repairiteminfo", string.Empty, null, dicHead);
+            queryResult.Results = result.Results;
+            return queryResult;
+        }
+        #endregion
+
+        #region 查询维修配件
+        public async Task<QueryResult<CrmEntity>> QueryPartsList()
+        {
+            var queryResult = new QueryResult<CrmEntity>();
+            var result = await _crmService.RetrieveMultiple("mcs_parts", string.Empty, null, dicHead);
+            queryResult.Results = result.Results;
+            return queryResult;
+        }
+        #endregion
+
+
+
 
     }
 }
