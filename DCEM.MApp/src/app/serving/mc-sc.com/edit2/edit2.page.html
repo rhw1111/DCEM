@@ -26,7 +26,7 @@
                         车型
                     </h2>
                     <p>
-                        &nbsp;
+                        {{mod.searchData["carmodel"]["name"]}}&nbsp;
                     </p>
                 </ion-label>
             </ion-item>
@@ -35,17 +35,17 @@
                 <ion-label>
                     <h2>
                         <ion-icon slot="end" name="search"></ion-icon>
-                        保修项
+                        保养项
                     </h2>
                     <p>
-                        &nbsp;
+                        {{mod.searchData["maintenance"]["name"]}}&nbsp;
                     </p>
                 </ion-label>
 
             </ion-item>
         </ion-list>
         <ion-card-content>
-            <ion-button color="primary" class="button-outline" size="small">
+            <ion-button color="primary" class="button-outline" (click)="searchOnClick()" size="small">
                 查询
             </ion-button>
         </ion-card-content>
@@ -60,67 +60,28 @@
             </ion-card-title>
         </ion-card-header>
         <ion-list lines="full">
-            <ion-item-sliding>
+            <ion-item-sliding *ngFor="let key of objectKeys(shareData.serviceorderrepairitemMap)">
                 <ion-item>
                     <ion-label>
                         <h2>
-                            项目名称
+                            项目名称(编码)
                         </h2>
                         <p>
-                            项目1
+                            {{shareData.serviceorderrepairitemMap[key]["name"]}}
+                            ({{shareData.serviceorderrepairitemMap[key]["repairitemid_formatte"]}})
                         </p>
                         <h2>
-                            项目代码
+                            维修类别(类型)
                         </h2>
                         <p>
-                            203300
-                        </p>
-                        <h2>
-                            维修类别
-                        </h2>
-                        <p>
-                            保修
+                            {{shareData.serviceorderrepairitemMap[key]["repairitemtypeid_formatted"]}}
+                            ({{shareData.serviceorderrepairitemMap[key]["repairitemtypedetailid_formatted"]}})
                         </p>
                         <h2>
                             费用明细
                         </h2>
                         <p>
-                            1小时 X 1.1  X 1  =  ￥3333
-                        </p>
-                    </ion-label>
-                </ion-item>
-                <ion-item-options side="end">
-                    <ion-item-option color="tertiary" expandable>
-                        移除
-                    </ion-item-option>
-                </ion-item-options>
-            </ion-item-sliding>
-            <ion-item-sliding>
-                <ion-item>
-                    <ion-label>
-                        <h2>
-                            项目名称
-                        </h2>
-                        <p>
-                            项目1
-                        </p>
-                        <h2>
-                            项目代码
-                        </h2>
-                        <p>
-                            203300
-                        </p>
-                        <h2>
-                            维修类别
-                        </h2>
-                        <p>
-                            保修
-                        </p>
-                        <h2>
-                            费用明细
-                        </h2>
-                        <p>
-                            1小时 X 1.1  X 1  =  ￥3333
+                            {{shareData.serviceorderrepairitemMap[key]["workinghour"]}}小时 X {{shareData.serviceorderrepairitemMap[key]["price"]}}  X {{shareData.serviceorderrepairitemMap[key]["discount"]}}  =  ￥{{shareData.serviceorderrepairitemMap[key]["repairamount"]}}
                         </p>
                     </ion-label>
                 </ion-item>
@@ -148,67 +109,28 @@
         </ion-card-header>
 
         <ion-list lines="full">
-            <ion-item-sliding>
+            <ion-item-sliding *ngFor="let key of objectKeys(shareData.serviceorderpartMap)">
                 <ion-item>
                     <ion-label>
                         <h2>
-                            项目名称
+                            零件名称(编码)
                         </h2>
                         <p>
-                            项目1
+                            {{shareData.serviceorderpartMap[key]["partsname"]}}
+                            ({{shareData.serviceorderpartMap[key]["partscode"]}})
                         </p>
                         <h2>
-                            项目代码
+                            维修类别(类型)
                         </h2>
                         <p>
-                            203300
-                        </p>
-                        <h2>
-                            维修类别
-                        </h2>
-                        <p>
-                            保修
+                            {{shareData.serviceorderpartMap[key]["repairitemtypeid_formatted"]}}
+                            ({{shareData.serviceorderpartMap[key]["repairitemtypedetailid_formatted"]}})
                         </p>
                         <h2>
                             费用明细
                         </h2>
                         <p>
-                            1小时 X 1.1  X 1  =  ￥3333
-                        </p>
-                    </ion-label>
-                </ion-item>
-                <ion-item-options side="end">
-                    <ion-item-option color="tertiary" expandable>
-                        移除
-                    </ion-item-option>
-                </ion-item-options>
-            </ion-item-sliding>
-            <ion-item-sliding>
-                <ion-item>
-                    <ion-label>
-                        <h2>
-                            项目名称
-                        </h2>
-                        <p>
-                            项目1
-                        </p>
-                        <h2>
-                            项目代码
-                        </h2>
-                        <p>
-                            203300
-                        </p>
-                        <h2>
-                            维修类别
-                        </h2>
-                        <p>
-                            保修
-                        </p>
-                        <h2>
-                            费用明细
-                        </h2>
-                        <p>
-                            1小时 X 1.1  X 1  =  ￥3333
+                            {{shareData.serviceorderpartMap[key]["quantity"]}} X {{shareData.serviceorderpartMap[key]["price"]}}  X {{shareData.serviceorderpartMap[key]["discount"]}}  =  ￥{{shareData.serviceorderpartMap[key]["amount"]}}
                         </p>
                     </ion-label>
                 </ion-item>
@@ -225,10 +147,6 @@
             </ion-button>
         </ion-card-content>
     </ion-card>
-
-
-
-
     <section style="text-align:center;">
         <ion-button style="width:40%" color="danger" [routerLink]="['/serving/sc/edit']">上一步</ion-button>
         <ion-button style="width:40%" color="success" (click)="saveOnClick()">保存</ion-button>

@@ -128,6 +128,9 @@ let DCore_ShareData = class DCore_ShareData {
     set(key, val) {
         this.map.set(key, val);
     }
+    has(key) {
+        return this.map.has(key);
+    }
     get(key) {
         return this.map.get(key);
     }

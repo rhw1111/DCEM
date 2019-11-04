@@ -30,8 +30,12 @@ namespace DCEM.ServiceAssistantService.Main.Application
         Task<QueryResult<CrmEntity>> QueryMaintenanceList();
         #endregion
 
+        #region 查询服务 保养项 详细信息
+        Task<MaintenanceQueryInfoResponse> QueryMaintenanceInfo(string maintenanceGuid, string dealeridGuid);
+        #endregion
+
         #region 查询维修项目
-        Task<QueryResult<CrmEntity>> QueryRepairitemList();
+        Task<QueryResult<CrmEntity>> QueryRepairitemList(string dealeridGuid);
         #endregion
 
         #region 查询维修配件项目

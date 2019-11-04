@@ -150,6 +150,9 @@ export class DCore_ShareData {
     set(key: string, val: any) {
         this.map.set(key, val);
     }
+    has(key: string) {
+        return this.map.has(key)
+    }
     get(key: string) {
         return this.map.get(key);
     }

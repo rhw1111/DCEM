@@ -4,8 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { Edit2Page } from './edit2.page';
-import { SubeditworkingPage } from 'app/serving/mc-sc.com/subeditworking/subeditworking.page';
-import { SubeditpartPage } from 'app/serving/mc-sc.com/subeditpart/subeditpart.page';
+
 const routes: Routes = [
     {
         path: '',
@@ -20,7 +19,7 @@ const routes: Routes = [
         IonicModule,
         RouterModule.forChild(routes)
     ],
-    declarations: [Edit2Page, SubeditworkingPage, SubeditpartPage],
-    entryComponents: [SubeditworkingPage, SubeditpartPage],
+    declarations: [Edit2Page],
+    entryComponents: [],
 })
 export class Edit2PageModule { }

@@ -89,12 +89,21 @@ namespace DCEM.Web.Controllers
         }
         #endregion
 
+        #region 查询 保养项 详情
+        [HttpGet]
+        [Route("GetMaintenanceInfo")]
+        public async Task<NewtonsoftJsonActionResult<MaintenanceQueryInfoResponse>> GetMaintenanceInfo(string maintenanceGuid = "B48C1BD2-FB93-E911-A81F-FB18ABF55380", string dealeridGuid = "D2B7AE95-72F4-E911-A821-F2106C4094A1")
+        {
+            return await _serviceproxyService.QueryMaintenanceInfo(maintenanceGuid, dealeridGuid);
+        }
+        #endregion
+
         #region 查询 维修项目 列表
         [HttpGet]
         [Route("GetRepairitemList")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetRepairitemList()
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetRepairitemList(string dealeridGuid = "D2B7AE95-72F4-E911-A821-F2106C4094A1")
         {
-            return await _serviceproxyService.QueryRepairitemList();
+            return await _serviceproxyService.QueryRepairitemList(dealeridGuid);
         }
         #endregion
 

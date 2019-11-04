@@ -31,7 +31,8 @@ let DetailPage = class DetailPage {
                     hoursamount: "",
                     partsamount: "",
                     discountamount: "",
-                    amounttotal: ""
+                    amounttotal: "",
+                    dealerid: ""
                 },
                 serviceorderrepairitemArray: [],
                 serviceorderpartArray: []
@@ -52,7 +53,8 @@ let DetailPage = class DetailPage {
                 guid: id,
             }
         }, (res) => {
-            if (res.Carserviceadvisor !== null) {
+            if (res.Serviceproxy !== null) {
+                console.log(res["Serviceproxy"]);
                 this.mod.data.serviceproxy["customername"] = res["Serviceproxy"]["Attributes"]["mcs_customername"];
                 this.mod.data.serviceproxy["carplate"] = res["Serviceproxy"]["Attributes"]["mcs_carplate"];
                 this.mod.data.serviceproxy["customerphone"] = res["Serviceproxy"]["Attributes"]["mcs_customerphone"];
@@ -74,6 +76,7 @@ let DetailPage = class DetailPage {
                 this.mod.data.serviceproxy["partsamount"] = res["Serviceproxy"]["Attributes"]["mcs_partsamount"];
                 this.mod.data.serviceproxy["discountamount"] = res["Serviceproxy"]["Attributes"]["mcs_discountamount"];
                 this.mod.data.serviceproxy["amounttotal"] = res["Serviceproxy"]["Attributes"]["mcs_amounttotal"];
+                this.mod.data.serviceproxy["dealerid"] = res["Serviceproxy"]["Attributes"]["_mcs_dealerid_value@OData.Community.Display.V1.FormattedValue"];
             }
             if (res.ServiceorderrepairitemList !== null) {
                 for (var key in res.ServiceorderrepairitemList) {

@@ -17,22 +17,45 @@
         <ion-list lines="full">
             <ion-item (click)="customerOnClick()">
                 <ion-label>
-                    <h2>姓名<ion-text color="danger">*</ion-text> </h2>
+                    <h2>
+                        <ion-icon slot="end" name="search"></ion-icon>
+                        姓名
+                        <ion-text color="danger">*</ion-text>
+                    </h2>
                     <p>{{shareData.serviceproxy["customername"]}}&nbsp;</p>
                 </ion-label>
             </ion-item>
             <ion-item (click)="customerOnClick()">
                 <ion-label>
-                    <h2>车牌<ion-text color="danger">*</ion-text> </h2>
+                    <h2>
+                        <ion-icon slot="end" name="search"></ion-icon>
+                        车牌
+                        <ion-text color="danger">*</ion-text>
+                    </h2>
                     <p>{{shareData.serviceproxy["carplate"]}}&nbsp;</p>
                 </ion-label>
             </ion-item>
             <ion-item (click)="customerOnClick()">
                 <ion-label>
-                    <h2>手机<ion-text color="danger">*</ion-text> </h2>
+                    <h2>
+                        <ion-icon slot="end" name="search"></ion-icon>
+                        手机
+                        <ion-text color="danger">*</ion-text>
+                    </h2>
                     <p>{{shareData.serviceproxy["customerphone"]}}&nbsp;</p>
                 </ion-label>
             </ion-item>
+            <ion-item (click)="customerOnClick()">
+                <ion-label>
+                    <h2>
+                        <ion-icon slot="end" name="search"></ion-icon>
+                        厅店名称
+                        <ion-text color="danger">*</ion-text>
+                    </h2>
+                    <p>{{shareData.serviceproxy["dealerid_formatted"]}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+
         </ion-list>
         <br />
     </ion-card>
