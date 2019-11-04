@@ -1,9 +1,9 @@
 ﻿<ion-header>
     <ion-toolbar>
-        <ion-title>维修项目</ion-title>
-        <ion-buttons slot="end">
-            <ion-button expand="block" (click)="dismissModal()">关闭</ion-button>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/serving/sc/edit2"></ion-back-button>
         </ion-buttons>
+        <ion-title>维修项目</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -18,56 +18,62 @@
 
             <ion-item (click)="presentWorkingModal()">
                 <ion-label>
-                    <h2>代码</h2>
-                    <p>-</p>
+                    <h2>
+                        <ion-icon slot="end" name="search"></ion-icon>
+                        代码
+                    </h2>
+                    <p>{{mod.data["repairitemid_formatte"]}}&nbsp;</p>
                 </ion-label>
             </ion-item>
             <ion-item (click)="presentWorkingModal()">
                 <ion-label>
-                    <h2>名称</h2>
-                    <p>-</p>
+                    <h2>
+                        <ion-icon slot="end" name="search"></ion-icon>
+                        名称
+                    </h2>
+                    <p>{{mod.data["name"]}}&nbsp;</p>
                 </ion-label>
             </ion-item>
             <ion-item>
                 <ion-label>
-                    <h2>维修类别</h2>
-                    <p>-</p>
+                    <h2>
+                        <ion-icon slot="end" name="search"></ion-icon>
+                        维修类别
+                    </h2>
+                    <p>{{mod.data["repairitemtypeid_formatted"]}}&nbsp;</p>
                 </ion-label>
             </ion-item>
             <ion-item>
                 <ion-label>
-                    <h2>维修类型</h2>
-                    <p>-</p>
+                    <h2>
+                        <ion-icon slot="end" name="search"></ion-icon>
+                        维修类型
+                    </h2>
+                    <p>{{mod.data["repairitemtypedetailid_formatted"]}}&nbsp;</p>
                 </ion-label>
             </ion-item>
             <ion-item>
                 <ion-label>
                     <h2>工时</h2>
-                    <p>-</p>
                 </ion-label>
+                <p> <ion-input type="text" [(ngModel)]="mod.data['workinghour']" required></ion-input></p>
             </ion-item>
             <ion-item>
                 <ion-label>
                     <h2>单价</h2>
-                    <p>-</p>
                 </ion-label>
+                <ion-input type="text" [(ngModel)]="mod.data['price']" required></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label>
                     <h2>折扣</h2>
-                    <p>-</p>
                 </ion-label>
-            </ion-item>
-            <ion-item>
-                <ion-label>
-                    <h2>优惠金额</h2>
-                    <p>-</p>
-                </ion-label>
+                <ion-input type="text" [(ngModel)]="mod.data['discount']" required></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label>
                     <h2>维修费用</h2>
-                    <p>-</p>
+                    <p>{{mod.data["repairamount"]}}&nbsp;</p>
                 </ion-label>
             </ion-item>
 

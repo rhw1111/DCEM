@@ -13,7 +13,6 @@ import { SubeditpartPage } from 'app/serving/mc-sc.com/subeditpart/subeditpart.p
 })
 export class Edit2Page implements OnInit {
 
-
     //定义数据模型
     mod = {
         searchApiUrl: '/Api/Serviceproxy/GetMaintenanceInfo',
@@ -53,7 +52,6 @@ export class Edit2Page implements OnInit {
         if (this._shareData.has(this.mod.shareDataKey)) {
             this.shareData = this._shareData.get(this.mod.shareDataKey);
         }
-        console.log(this.shareData);
     }
 
     //ng初始化
@@ -83,7 +81,6 @@ export class Edit2Page implements OnInit {
         await modal.present();
         const { data } = await modal.onDidDismiss();
         if (!this._valid.isNull(data) && !this._valid.isNull(data["maintenance"])) {
-            console.log(data);
             this.mod.searchData["maintenance"] = {};
             this.mod.searchData["maintenance"]["name"] = data["maintenance"]["model"]["mcs_name"];
             this.mod.searchData["maintenance"]["id"] = data["maintenance"]["model"]["mcs_maintenanceid"];
@@ -172,23 +169,27 @@ export class Edit2Page implements OnInit {
 
     }
 
-    //添加 编辑 工时
-    async presentSubeditWorkingModal() {
-        const modal = await this._modalCtrl.create({
-            component: SubeditworkingPage
-        });
-        await modal.present();
-
+    workingEditClick() {
+        this._page.goto("/serving/sc/subeditworking");
     }
+
+    //添加 编辑 工时
+    //async presentSubeditWorkingModal() {
+    //    const modal = await this._modalCtrl.create({
+    //        component: SubeditworkingPage
+    //    });
+    //    await modal.present();
+
+    //}
 
     //添加 编辑 零件
-    async presentSubeditPartModal() {
-        const modal = await this._modalCtrl.create({
-            component: SubeditpartPage
-        });
-        await modal.present();
+    //async presentSubeditPartModal() {
+    //    const modal = await this._modalCtrl.create({
+    //        component: SubeditpartPage
+    //    });
+    //    await modal.present();
 
-    }
+    //}
 
     //移除工时
     workRemoveOnClick() {

@@ -17,13 +17,19 @@
         <ion-list lines="full">
             <ion-item (click)="presentPartModal()">
                 <ion-label>
-                    <h2>代码</h2>
-                    <p>-</p>
+                    <h2>
+                        <ion-icon slot="end" name="search"></ion-icon>
+                        代码
+                    </h2>
+                    <p>{{mod.data["repairitemid_formatte"]}}</p>
                 </ion-label>
             </ion-item>
             <ion-item (click)="presentPartModal()">
                 <ion-label>
-                    <h2>名称</h2>
+                    <h2>
+                        <ion-icon slot="end" name="search"></ion-icon>
+                        名称
+                    </h2>
                     <p>-</p>
                 </ion-label>
             </ion-item>
