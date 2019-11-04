@@ -1,11 +1,12 @@
 ﻿<ion-header>
     <ion-toolbar>
-        <ion-title>维修配件</ion-title>
-        <ion-buttons slot="end">
-            <ion-button expand="block" (click)="dismissModal()">关闭</ion-button>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/serving/sc/edit2"></ion-back-button>
         </ion-buttons>
+        <ion-title>维修配件</ion-title>
     </ion-toolbar>
 </ion-header>
+
 
 <ion-content>
     <ion-card>
@@ -17,56 +18,56 @@
         <ion-list lines="full">
             <ion-item (click)="presentPartModal()">
                 <ion-label>
-                    <h2>代码</h2>
-                    <p>-</p>
+                    <h2>
+                        <ion-icon slot="end" name="search"></ion-icon>
+                        代码
+                    </h2>
+                    <p>{{mod.data["partscode"]}}&nbsp;</p>
                 </ion-label>
             </ion-item>
             <ion-item (click)="presentPartModal()">
                 <ion-label>
-                    <h2>名称</h2>
-                    <p>-</p>
+                    <h2>
+                        <ion-icon slot="end" name="search"></ion-icon>
+                        名称
+                    </h2>
+                    <p>{{mod.data["partsname"]}}&nbsp;</p>
                 </ion-label>
             </ion-item>
             <ion-item>
                 <ion-label>
                     <h2>维修类别</h2>
-                    <p>-</p>
+                    <p>{{mod.data["repairitemtypeid_formatted"]}}&nbsp;</p>
                 </ion-label>
             </ion-item>
             <ion-item>
                 <ion-label>
                     <h2>维修类型</h2>
-                    <p>-</p>
+                    <p>{{mod.data["repairitemtypedetailid_formatted"]}}&nbsp;</p>
                 </ion-label>
             </ion-item>
             <ion-item>
                 <ion-label>
                     <h2>数量</h2>
-                    <p>-</p>
+                    <p>{{mod.data["quantity"]}}&nbsp;</p>
                 </ion-label>
             </ion-item>
             <ion-item>
                 <ion-label>
                     <h2>单价</h2>
-                    <p>-</p>
+                    <p>{{mod.data["price"]}}&nbsp;</p>
                 </ion-label>
             </ion-item>
             <ion-item>
                 <ion-label>
                     <h2>折扣</h2>
-                    <p>-</p>
-                </ion-label>
-            </ion-item>
-            <ion-item>
-                <ion-label>
-                    <h2>优惠金额</h2>
-                    <p>-</p>
+                    <p>{{mod.data["discount"]}}&nbsp;</p>
                 </ion-label>
             </ion-item>
             <ion-item>
                 <ion-label>
                     <h2>配件费用</h2>
-                    <p>-</p>
+                    <p>{{mod.data["amount"]}}&nbsp;</p>
                 </ion-label>
             </ion-item>
 
@@ -74,6 +75,6 @@
         <br />
     </ion-card>
     <section style="text-align:center;">
-        <ion-button style="width:40%" color="success">确定</ion-button>
+        <ion-button style="width:40%" color="success" (click)="saveOnClick()">确定</ion-button>
     </section>
 </ion-content>

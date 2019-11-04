@@ -30,7 +30,7 @@ export class SelectRepairitemComponent implements OnInit {
 
     itemClick(item: any) {
         this._modalCtrl.dismiss({
-            workingmodel: item
+            repairitem: item
         });
     }
 

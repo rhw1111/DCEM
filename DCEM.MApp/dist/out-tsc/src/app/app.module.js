@@ -17,8 +17,6 @@ import { SelectCarmodelComponent } from 'app/serving/serving.ser/components/sele
 import { SelectMaintenanceComponent } from 'app/serving/serving.ser/components/select-maintenance/select-maintenance.component';
 import { SelectPartsComponent } from 'app/serving/serving.ser/components/select-parts/select-parts.component';
 import { SelectRepairitemComponent } from 'app/serving/serving.ser/components/select-repairitem/select-repairitem.component';
-import { SubeditworkingPage } from 'app/serving/mc-sc.com/subeditworking/subeditworking.page';
-import { SubeditpartPage } from 'app/serving/mc-sc.com/subeditpart/subeditpart.page';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 let AppModule = class AppModule {
 };
@@ -32,9 +30,7 @@ AppModule = tslib_1.__decorate([
             SelectCarmodelComponent,
             SelectMaintenanceComponent,
             SelectPartsComponent,
-            SelectRepairitemComponent,
-            SubeditworkingPage,
-            SubeditpartPage
+            SelectRepairitemComponent
         ],
         entryComponents: [
             ScSelectComponent,
@@ -43,9 +39,7 @@ AppModule = tslib_1.__decorate([
             SelectCarmodelComponent,
             SelectMaintenanceComponent,
             SelectPartsComponent,
-            SelectRepairitemComponent,
-            SubeditworkingPage,
-            SubeditpartPage
+            SelectRepairitemComponent
         ],
         imports: [BrowserModule,
             IonicModule.forRoot({ mode: 'ios' }),
