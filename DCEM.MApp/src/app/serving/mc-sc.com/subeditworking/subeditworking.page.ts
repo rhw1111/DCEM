@@ -14,6 +14,7 @@ export class SubeditworkingPage implements OnInit {
         searchData: {
 
         },
+        shareDataKey: "scEditData"
     };
     constructor(
         private _http: DCore_Http,
@@ -25,9 +26,26 @@ export class SubeditworkingPage implements OnInit {
     ngOnInit() {
     }
 
-    dismissModal() {
-        this._modalCtrl.dismiss({
-        });
+    //定义共享数据
+    shareData = {
+        serviceproxy: {
+        },
+        serviceorderrepairitemMap: {},
+        serviceorderpartMap: {},
+    }
+
+    ionViewWillEnter() {
+        if (this._shareData.has(this.mod.shareDataKey)) {
+            this.shareData = this._shareData.get(this.mod.shareDataKey);
+        }
+        console.log(this.shareData);
+    }
+
+    //保存
+    saveOnClick() {
+        console.log(this.shareData);
+        this._shareData.set(this.mod.shareDataKey, this.shareData);
+        this._page.goto("/serving/sc/edit2");
     }
 
     //选择维修配件
@@ -38,23 +56,21 @@ export class SubeditworkingPage implements OnInit {
         await modal.present();
         const { data } = await modal.onDidDismiss();
         if (!this._valid.isNull(data) && !this._valid.isNull(data["repairitem"])) {
-            this.mod.data = data["repairitem"]["model"];
             var obj = {};
-            var mapkey = "";//生成唯一编码
+            var mapkey = Math.random();//生成唯一编码
             obj["name"] = data["repairitem"]["model"]["mcs_repairitemcode"];  //名称
             obj["repairitemid"] = data["repairitem"]["model"]["mcs_repairiteminfoid"];
             obj["repairitemid_formatte"] = data["repairitem"]["model"]["mcs_name"];  //代码
             obj["workinghour"] = data["repairitem"]["model"]["mcs_workinghour"];     //工时
             obj["price"] = data["repairitem"]["model"]["ext_price"];          //单价
             obj["discount"] = 1;                                                                  //折扣
-            obj["repairamount"] = obj["price"] * obj["workinghour"];                              //总价
+            obj["repairamount"] = obj["repairitem"] * obj["workinghour"];                              //总价
             obj["repairitemtypeid"] = data["repairitem"]["model"]["ext_repairitemtypeid"];                                      //维修类别  
             obj["repairitemtypeid_formatted"] = data["repairitem"]["model"]["ext_repairitemtypeid_formatted"];                  //维修类别 
             obj["repairitemtypedetailid"] = data["repairitem"]["model"]["ext_repairitemtypedetailid"];                          //维修类型 
             obj["repairitemtypedetailid_formatted"] = data["repairitem"]["model"]["ext_repairitemtypedetailid_formatted"];      //维修类型
             this.mod.data = obj;
-
-            console.log(this.mod.data);
+            this.shareData.serviceorderrepairitemMap[mapkey] = obj;
         }
 
     }

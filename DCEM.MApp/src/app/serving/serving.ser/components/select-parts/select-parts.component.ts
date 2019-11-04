@@ -30,7 +30,7 @@ export class SelectPartsComponent implements OnInit {
 
     itemClick(item: any) {
         this._modalCtrl.dismiss({
-            partsmodel: item
+            parts: item
         });
     }
 

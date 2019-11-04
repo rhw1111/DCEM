@@ -14,6 +14,7 @@ export class SubeditpartPage implements OnInit {
         searchData: {
 
         },
+        shareDataKey: "scEditData"
     };
     constructor(
         private _http: DCore_Http,
@@ -25,10 +26,26 @@ export class SubeditpartPage implements OnInit {
 
     ngOnInit() {
     }
+    //定义共享数据
+    shareData = {
+        serviceproxy: {
+        },
+        serviceorderrepairitemMap: {},
+        serviceorderpartMap: {},
+    }
 
-    dismissModal() {
-        this._modalCtrl.dismiss({
-        });
+    ionViewWillEnter() {
+        if (this._shareData.has(this.mod.shareDataKey)) {
+            this.shareData = this._shareData.get(this.mod.shareDataKey);
+        }
+        console.log(this.shareData);
+    }
+
+    //保存
+    saveOnClick() {
+        console.log(this.shareData);
+        this._shareData.set(this.mod.shareDataKey, this.shareData);
+        this._page.goto("/serving/sc/edit2");
     }
 
     //选择维修配件
@@ -38,26 +55,24 @@ export class SubeditpartPage implements OnInit {
         });
         await modal.present();
         const { data } = await modal.onDidDismiss();
-        if (!this._valid.isNull(data) && !this._valid.isNull(data["maintenance"])) {
-
-            this.mod.searchData["maintenance"] = {};
-            this.mod.searchData["maintenance"]["name"] = data["maintenance"]["model"]["mcs_name"];
-            this.mod.searchData["maintenance"]["id"] = data["maintenance"]["model"]["mcs_maintenanceid"];
-
+        console.log(data);
+        if (!this._valid.isNull(data) && !this._valid.isNull(data["parts"])) {
+            console.log(data);
             var obj = {};
-            var mapkey = "";//生成唯一编码
-            obj["name"] = data["maintenance"]["model"]["mcs_repairitemcode"];  //名称
-            obj["repairitemid"] = data["maintenance"]["model"]["mcs_repairiteminfoid"];
-            obj["repairitemid_formatte"] = data["maintenance"]["model"]["mcs_name"];  //代码
-            obj["workinghour"] = data["maintenance"]["model"]["mcs_workinghour"];     //工时
-            obj["price"] = data["maintenance"]["model"]["ext_price"];          //单价
-            obj["discount"] = 1;                                                                  //折扣
-            obj["repairamount"] = obj["price"] * obj["workinghour"];                              //总价
-            obj["repairitemtypeid"] = data["maintenance"]["model"]["ext_repairitemtypeid"];                                      //维修类别  
-            obj["repairitemtypeid_formatted"] = data["maintenance"]["model"]["ext_repairitemtypeid_formatted"];                  //维修类别 
-            obj["repairitemtypedetailid"] = data["maintenance"]["model"]["ext_repairitemtypedetailid"];                          //维修类型 
-            obj["repairitemtypedetailid_formatted"] = data["maintenance"]["model"]["ext_repairitemtypedetailid_formatted"];      //维修类型
+            var mapkey = Math.random();//生成唯一编码
+            obj["partsid"] = data["parts"]["model"]["Id"];
+            obj["partsname"] = data["parts"]["model"]["mcs_partscode"];          //零件名称
+            obj["partscode"] = data["parts"]["model"]["mcs_name"];              //零件代码
+            obj["price"] = data["parts"]["model"]["ext_price"];                 //单价
+            obj["quantity"] = 1;                                                                   //数量
+            obj["amount"] = data["parts"]["model"]["ext_price"];                                                          //总金额
+            obj["discount"] = 1;                                                                   //折扣
+            obj["repairitemtypeid"] = data["parts"]["model"]["ext_repairitemtypeid"];                                      //维修类别  
+            obj["repairitemtypeid_formatted"] = data["parts"]["model"]["ext_repairitemtypeid_formatted"];                  //维修类别 
+            obj["repairitemtypedetailid"] = data["parts"]["model"]["ext_repairitemtypedetailid"];                          //维修类型 
+            obj["repairitemtypedetailid_formatted"] = data["parts"]["model"]["ext_repairitemtypedetailid_formatted"];      //维修类型
             this.mod.data = obj;
+            this.shareData.serviceorderpartMap[mapkey] = obj;
         }
     }
 

@@ -117,7 +117,7 @@ export class Edit2Page implements OnInit {
                     //加维修项目
                     for (var key in res.MaintenanceiteminfoList) {
                         var obj = {};
-                        var mapkey = "";//生成唯一编码
+                        var mapkey = Math.random();//生成唯一编码
                         obj["name"] = res.MaintenanceiteminfoList[key]["Attributes"]["mcs_repairitemcode"];  //名称
                         obj["repairitemid"] = res.MaintenanceiteminfoList[key]["Id"];
                         obj["repairitemid_formatte"] = res.MaintenanceiteminfoList[key]["Attributes"]["mcs_name"];  //代码
@@ -129,15 +129,13 @@ export class Edit2Page implements OnInit {
                         obj["repairitemtypeid_formatted"] = res.MaintenanceiteminfoList[key]["Attributes"]["ext_repairitemtypeid_formatted"];                  //维修类别 
                         obj["repairitemtypedetailid"] = res.MaintenanceiteminfoList[key]["Attributes"]["ext_repairitemtypedetailid"];                          //维修类型 
                         obj["repairitemtypedetailid_formatted"] = res.MaintenanceiteminfoList[key]["Attributes"]["ext_repairitemtypedetailid_formatted"];      //维修类型
-                        this.shareData.serviceorderrepairitemMap[res.MaintenanceiteminfoList[key]["Id"]] = obj;
-
-
+                        this.shareData.serviceorderrepairitemMap[mapkey] = obj;
                     }
                     this.shareData.serviceorderpartMap = {};
                     //加零件
                     for (var key in res.RepairitempartList) {
                         var obj = {};
-                        console.log(res.RepairitempartList[key]);
+                        var mapkey = Math.random();//生成唯一编码
                         obj["partsid"] = res.RepairitempartList[key]["Id"];
                         obj["partsname"] = res.RepairitempartList[key]["Attributes"]["mcs_partscode"];          //零件名称
                         obj["partscode"] = res.RepairitempartList[key]["Attributes"]["mcs_name"];              //零件代码
@@ -149,7 +147,7 @@ export class Edit2Page implements OnInit {
                         obj["repairitemtypeid_formatted"] = res.RepairitempartList[key]["Attributes"]["ext_repairitemtypeid_formatted"];                  //维修类别 
                         obj["repairitemtypedetailid"] = res.RepairitempartList[key]["Attributes"]["ext_repairitemtypedetailid"];                          //维修类型 
                         obj["repairitemtypedetailid_formatted"] = res.RepairitempartList[key]["Attributes"]["ext_repairitemtypedetailid_formatted"];      //维修类型
-                        this.shareData.serviceorderpartMap[res.RepairitempartList[key]["Id"]] = obj;
+                        this.shareData.serviceorderpartMap[mapkey] = obj;
                     }
 
                     this._page.loadingHide();
@@ -169,32 +167,21 @@ export class Edit2Page implements OnInit {
 
     }
 
+    //维修项目新增 编辑
     workingEditClick() {
+        this._shareData.set(this.mod.shareDataKey, this.shareData);
         this._page.goto("/serving/sc/subeditworking");
     }
 
-    //添加 编辑 工时
-    //async presentSubeditWorkingModal() {
-    //    const modal = await this._modalCtrl.create({
-    //        component: SubeditworkingPage
-    //    });
-    //    await modal.present();
 
-    //}
-
-    //添加 编辑 零件
-    //async presentSubeditPartModal() {
-    //    const modal = await this._modalCtrl.create({
-    //        component: SubeditpartPage
-    //    });
-    //    await modal.present();
-
-    //}
-
-    //移除工时
-    workRemoveOnClick() {
-
+    //维修配件新增 编辑
+    partEditClick() {
+        this._shareData.set(this.mod.shareDataKey, this.shareData);
+        this._page.goto("/serving/sc/subeditpart");
     }
+
+
+
     //移除零件
 
 
