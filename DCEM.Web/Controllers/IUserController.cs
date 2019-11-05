@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace DCEM.Web.Controllers
 {
-    [Route("api/account")]
+    [Route("api/user")]
     [EnableCors("any")]
     [ApiController]
-    public class IAccountController : ControllerBase
+    public class IUserController : ControllerBase
     {
         string oauthurl = "https://subcrmadfs.sokon.com/adfs/oauth2/token";//adfs oauth2 认证地址
         string client_id = "e5e014c7-b1ff-45a3-8c0a-991f5aa7ce8f";//客户端明文id

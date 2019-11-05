@@ -32,7 +32,6 @@ let EditPage = class EditPage {
         };
     }
     ngOnInit() {
-        debugger;
         this.activeRoute.queryParams.subscribe((params) => {
             if (params['id'] != null && params['id'] != undefined) {
                 console.log("记录Id:" + this.model.appointmentinfoid);

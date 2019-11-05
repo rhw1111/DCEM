@@ -1,12 +1,14 @@
 import * as tslib_1 from "tslib";
-import { Component } from '@angular/core';
-import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
+import { Component, ViewChild } from '@angular/core';
+import { IonContent, IonInfiniteScroll } from '@ionic/angular';
+import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 let ListPage = class ListPage {
-    constructor(_http, _page) {
+    constructor(_http, _page, _valid) {
         this._http = _http;
         this._page = _page;
+        this._valid = _valid;
         this.mod = {
-            apiUrl: '',
+            apiUrl: '/Api/Customer/GetMyCustomerList',
             data: [],
             searchData: {
                 type: 1,
@@ -17,28 +19,36 @@ let ListPage = class ListPage {
             warrantyTotalCount: 0,
             insuranceTotalCount: 0
         };
-        this.mod.apiUrl = "/Api/Customer/GetMyCustomerList";
     }
     ngOnInit() {
         this.listOnBind();
     }
-    tagOnClick(type) {
-        this.mod.searchData.type = type;
-        this.mod.searchData.pageindex = 1;
+    //下拉刷新
+    doInfinite(event) {
+        this.mod.searchData.pageindex = this.mod.searchData.pageindex + 1;
         this.listOnBind();
     }
-    searchOnClick() {
+    tagOnClick(type) {
+        this.mod.searchData.type = type;
+        this.mod.data = [];
+        this.mod.searchData.pageindex = 1;
+        this.ionInfiniteScroll.disabled = false;
+        this.ionContent.scrollToTop(200);
         this.listOnBind();
     }
     searchOnKeyup(event) {
         var keyCode = event ? event.keyCode : "";
         if (keyCode == 13) {
+            this.mod.data = [];
+            this.mod.searchData.pageindex = 1;
+            this.ionInfiniteScroll.disabled = false;
+            this.ionContent.scrollToTop(200);
             this.listOnBind();
         }
     }
     listOnBind() {
-        this._page.loadingShow();
-        this.mod.data = [];
+        if (this.mod.searchData.pageindex == 1)
+            this._page.loadingShow();
         this._http.get(this.mod.apiUrl, {
             params: {
                 type: this.mod.searchData.type,
@@ -46,33 +56,54 @@ let ListPage = class ListPage {
                 search: this.mod.searchData.search
             }
         }, (res) => {
-            if (res.Results !== null) {
+            if (!this._valid.isNull(res.Results) !== null && res.Results.length > 0) {
                 for (var key in res.Results) {
                     var obj = {};
                     obj["Id"] = res.Results[key]["Id"];
                     obj["fullname"] = res.Results[key]["Attributes"]["a_x002e_mcs_fullname"];
-                    obj["gender"] = res.Results[key]["Attributes"]["a_x002e_mcs_gender@OData.Community.Display.V1.FormattedValue"];
-                    obj["genderval"] = res.Results[key]["Attributes"]["a_x002e_mcs_gender"];
+                    obj["genderformat"] = res.Results[key]["Attributes"]["a_x002e_mcs_gender@OData.Community.Display.V1.FormattedValue"];
+                    obj["gender"] = res.Results[key]["Attributes"]["a_x002e_mcs_gender"];
                     obj["mobilephone"] = res.Results[key]["Attributes"]["a_x002e_mcs_mobilephone"];
                     obj["vehplate"] = res.Results[key]["Attributes"]["a_x002e_mcs_vehplate"];
                     obj["vehtype"] = res.Results[key]["Attributes"]["a_x002e_mcs_vehtype@OData.Community.Display.V1.FormattedValue"];
+                    obj["gendercolor"] = "medium";
+                    if (obj["gender"] === 1) {
+                        obj["gendercolor"] = "primary";
+                    }
+                    else if (obj["gender"] === 2) {
+                        obj["gendercolor"] = "danger";
+                    }
+                    else if (obj["gender"] === 3) {
+                        obj["gendercolor"] = "medium";
+                    }
                     this.mod.data.push(obj);
                 }
                 this.mod.allTotalCount = res.ALLTotalCount;
                 this.mod.warrantyTotalCount = res.WarrantyTotalCount;
                 this.mod.insuranceTotalCount = res.InsuranceTotalCount;
-                this._page.loadingHide();
             }
             else {
-                this._page.alert("消息提示", "客户数据加载异常");
-                this._page.loadingHide();
+                this.ionInfiniteScroll.disabled = true;
             }
+            if (this.mod.searchData.pageindex == 1)
+                this._page.loadingHide();
+            this.ionInfiniteScroll.complete();
         }, (err) => {
-            this._page.alert("消息提示", "客户数据加载异常");
-            this._page.loadingHide();
+            this._page.alert("消息提示", "数据加载异常");
+            if (this.mod.searchData.pageindex == 1)
+                this._page.loadingHide();
+            this.ionInfiniteScroll.complete();
         });
     }
 };
+tslib_1.__decorate([
+    ViewChild(IonContent, null),
+    tslib_1.__metadata("design:type", IonContent)
+], ListPage.prototype, "ionContent", void 0);
+tslib_1.__decorate([
+    ViewChild(IonInfiniteScroll, null),
+    tslib_1.__metadata("design:type", IonInfiniteScroll)
+], ListPage.prototype, "ionInfiniteScroll", void 0);
 ListPage = tslib_1.__decorate([
     Component({
         selector: 'app-list',
@@ -80,7 +111,8 @@ ListPage = tslib_1.__decorate([
         styleUrls: ['./list.page.scss'],
     }),
     tslib_1.__metadata("design:paramtypes", [DCore_Http,
-        DCore_Page])
+        DCore_Page,
+        DCore_Valid])
 ], ListPage);
 export { ListPage };
 //# sourceMappingURL=list.page.js.map

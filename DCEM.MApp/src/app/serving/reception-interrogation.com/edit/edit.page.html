@@ -26,6 +26,10 @@
             <ion-label position="stacked">手机<ion-text color="danger">*</ion-text></ion-label>
             <p>{{shareData.serviceproxy["customerphone"]}}&nbsp;</p>
         </ion-item>
+        <ion-item (click)="customerOnClick()">
+            <ion-label position="stacked">厅店<ion-text color="danger">*</ion-text></ion-label>
+            <p>{{shareData.serviceproxy["dealerid_formatted"]}}&nbsp;</p>
+        </ion-item>
         <ion-item-divider color="primary">
             <ion-label>
                 委托信息

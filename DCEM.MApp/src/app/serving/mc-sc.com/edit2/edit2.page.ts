@@ -180,7 +180,15 @@ export class Edit2Page implements OnInit {
         this._page.goto("/serving/sc/subeditpart");
     }
 
+    //移除维修项目
+    workingDeleteClick(mapkey) {
+        delete this.shareData.serviceorderrepairitemMap[mapkey];
+    }
 
+    //移除维修配件
+    partDeleteClick(mapkey) {
+        delete this.shareData.serviceorderpartMap[mapkey];
+    }
 
     //移除零件
 

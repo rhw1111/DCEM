@@ -33,7 +33,7 @@ export class LoginPage implements OnInit {
         // 加入测试参数
         this.mod.username = 'subdevcrmadmin';
         this.mod.password = 'password01#';
-        this.mod.apiurl = '/api/Account/GetAuthToken';
+        this.mod.apiurl = '/api/User/GetAuthToken';
         this.mod.domainType = 'local';
     }
 

@@ -55,12 +55,11 @@ export class SubeditpartPage implements OnInit {
         });
         await modal.present();
         const { data } = await modal.onDidDismiss();
-        console.log(data);
         if (!this._valid.isNull(data) && !this._valid.isNull(data["parts"])) {
             console.log(data);
             var obj = {};
             var mapkey = Math.random();//生成唯一编码
-            obj["partsid"] = data["parts"]["model"]["Id"];
+            obj["partsid"] = data["parts"]["model"]["mcs_partsid"];
             obj["partsname"] = data["parts"]["model"]["mcs_partscode"];          //零件名称
             obj["partscode"] = data["parts"]["model"]["mcs_name"];              //零件代码
             obj["price"] = data["parts"]["model"]["ext_price"];                 //单价

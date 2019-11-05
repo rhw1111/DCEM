@@ -16,5 +16,14 @@ namespace DCEM.SalesAssistant.Main.Application.App.Contrac
         /// <param name="onlyLeadRequest"></param>
         /// <returns></returns>
         Task<QueryResult<CrmEntity>> QueryList(OnlyLeadRequest onlyLeadRequest);
+
+
+        /// <summary>
+        /// 唯一线索详情查询接口
+        /// </summary>
+        /// <param name="entityid"></param>
+        /// <returns></returns>
+        Task<CrmEntity> GetOnlyLeadDetail(string entityid);
+
     }
 }
