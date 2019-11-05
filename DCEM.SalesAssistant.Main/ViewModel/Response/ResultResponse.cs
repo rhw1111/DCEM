@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DCEM.SalesAssistant.Main.DTOModel
+namespace DCEM.SalesAssistant.Main.ViewModel.Response
 {
     public class ResultResponse<T>
     {

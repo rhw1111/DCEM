@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DCEM.SalesAssistant.Main.Application
+namespace DCEM.SalesAssistant.Main.Application.App
 {
     public class AppBaseData : IAppBaseData
     {

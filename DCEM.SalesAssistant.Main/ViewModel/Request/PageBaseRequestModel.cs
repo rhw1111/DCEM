@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DCEM.SalesAssistant.Main.DTOModel
+namespace DCEM.SalesAssistant.Main.ViewModel.Request
 {
-    public class PageBaseModel
+    public class PageBaseRequestModel
     {
         /// <summary>
         /// 排序
