@@ -10,12 +10,16 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 //自定义组件
 import { ScSelectComponent } from './serving/serving.ser/components/sc-select/sc-select.component';
 import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
 import { SelectRepairlocationComponent } from 'app/serving/serving.ser/components/select-repairlocation/select-repairlocation.component';
 import { SelectCarmodelComponent } from 'app/serving/serving.ser/components/select-carmodel/select-carmodel.component';
+import { SelectSystemuserComponent } from 'app/base/base.ser/components/select-systemuser/select-systemuser.component';
 import { SelectMaintenanceComponent } from 'app/serving/serving.ser/components/select-maintenance/select-maintenance.component';
+import { SelectAppointmentconfigComponent } from 'app/serving/serving.ser/components/select-appointmentconfig/select-appointmentconfig.component';
 import { SelectPartsComponent } from 'app/serving/serving.ser/components/select-parts/select-parts.component';
 import { SelectRepairitemComponent } from 'app/serving/serving.ser/components/select-repairitem/select-repairitem.component';
 import { SelectMalFunctionTypeComponent } from 'app/serving/serving.ser/components/select-malfunctiontype/select.malfunctiontype.component';
@@ -25,16 +29,17 @@ import { SelectSysareaComponent } from 'app/serving/serving.ser/components/selec
 import { SelectVehiclecolorComponent } from 'app/serving/serving.ser/components/select-vehiclecolor/select-vehiclecolor.component';
 import { SelectVehicletypeComponent } from 'app/serving/serving.ser/components/select-vehicletype/select-vehicletype.component';
 
-
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
-    declarations: [
-        AppComponent,
-        ScSelectComponent,
-        SelectCustomerComponent,
-        SelectRepairlocationComponent,
-        SelectCarmodelComponent,
-        SelectMaintenanceComponent,
+    declarations: [//申明组件
+        AppComponent, //全局公共组件
+        ScSelectComponent, //服务委托书选择组件
+        SelectCustomerComponent, //客户选择组件
+        SelectRepairlocationComponent, //选择工位
+        SelectCarmodelComponent, //选择车型
+        SelectMaintenanceComponent,//选择保养项
+        SelectSystemuserComponent,//选择系统用户
+        SelectAppointmentconfigComponent,//选择预约记录
+        SelectMalFunctionTypeComponent,
         SelectPartsComponent,
         SelectRepairitemComponent,
         SelectMalFunctionTypeComponent,
@@ -46,12 +51,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
     ],
+
     entryComponents: [
-        ScSelectComponent,
-        SelectCustomerComponent,
-        SelectRepairlocationComponent,
-        SelectCarmodelComponent,
+        ScSelectComponent, 
+        SelectCustomerComponent, 
+        SelectRepairlocationComponent, 
+        SelectCarmodelComponent, 
         SelectMaintenanceComponent,
+        SelectSystemuserComponent,
+        SelectAppointmentconfigComponent,
+        SelectMalFunctionTypeComponent,
         SelectPartsComponent,
         SelectRepairitemComponent,
         SelectMalFunctionTypeComponent,
@@ -61,6 +70,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         SelectSysareaComponent,
         SelectVehiclecolorComponent
     ],
+
     imports: [BrowserModule,
         IonicModule.forRoot({ mode: 'ios' }),
         AppRoutingModule,
