@@ -69,7 +69,6 @@ export class DCore_Http {
                 errcallback && errcallback(err);
             });
     }
-
 }
 
 @Injectable({
@@ -88,19 +87,56 @@ export class DCore_Page {
     }
 
     //弹出提示
-    alert(header: any, message: any, callback = null) {
+    async alert(header: any, message: any, callback: any = null) {
         const alert = this.alertCtr.create({
             header,
             message,
-            buttons: ['确定']
+            buttons: [
+                {
+                    text: '确定',
+                    handler: () => {
+                        if (isFunction(callback)) {
+                            callback();
+                        }
+                    }
+                }
+            ]
         });
-        alert.then(a => {
+        await alert.then(a => {
             a.present();
-            if (isFunction(callback)) {
-                callback();
-            }
         });
     }
+
+    //确认提示
+    async confirm(header: any, message: any, callback: any = null, cancelCallBack: any = null) {
+        const box = this.alertCtr.create({
+            header,
+            message,
+            buttons: [
+                {
+                    text: '取消',
+                    role: 'cancel',
+                    cssClass: 'secondary',
+                    handler: (blah) => {
+                        if (isFunction(cancelCallBack)) {
+                            cancelCallBack();
+                        }
+                    }
+                }, {
+                    text: '确定',
+                    handler: () => {
+                        if (isFunction(callback)) {
+                            callback();
+                        }
+                    }
+                }
+            ]
+        });
+        await box.then(a => {
+            a.present();
+        });
+    }
+
 
     //等待动画
     private loading: any;
@@ -129,8 +165,17 @@ export class DCore_Page {
         if (params === null) {
             params = {};
         }
-        //this.navCtr.navigateRoot(url);
         this.router.navigate([url], { queryParams: params });
+    }
+
+
+    //跳转到指定页
+    navigateRoot(url: any, params?: any) {
+        if (params === null) {
+            params = {};
+        }
+        this.navCtr.navigateRoot(url, { queryParams: params });
+
     }
 
     //获取指定参数

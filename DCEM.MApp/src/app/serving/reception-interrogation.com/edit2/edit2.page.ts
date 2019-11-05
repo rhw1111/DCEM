@@ -111,7 +111,10 @@ export class Edit2Page implements OnInit {
         this.mod.postData["serviceproxy"]["oilquantity"] = Number(this.shareData.serviceproxy["oilquantity"]);        //进店油量
         this.mod.postData["serviceproxy"]["mileage"] = Number(this.shareData.serviceproxy["mileage"]);                //进店里程
         this.mod.postData["serviceproxy"]["arrivalon"] = this.shareData.serviceproxy["arrivalon"];                    //到店时间
+        this.mod.postData["serviceproxy"]["dealerid"] = this.shareData.serviceproxy["dealerid"];                    //厅店
         this.mod.postData["serviceproxy"]["customercomment"] = this.shareData.serviceproxy["customercomment"];            //客户描述
+        this.mod.postData["serviceproxy"]["currenttype"] = 10;            //单据类型 10问诊单
+        
 
 
         //组装环检项
@@ -139,7 +142,7 @@ export class Edit2Page implements OnInit {
                     console.log(res);
                     var guid = res["Data"]["Id"];
                     this._shareData.delete(this.mod.shareDataKey);
-                    this._page.goto("/serving/ri/success", { guid: guid });
+                    this._page.navigateRoot("/serving/ri/success", { guid: guid });
                 }
                 else {
                     this._page.alert("消息提示", "操作失败");
