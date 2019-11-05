@@ -6,14 +6,8 @@
 */
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
-using DCEM.ServiceAssistantService.Main.Application;
-using DCEM.ServiceAssistantService.Main.DAL;
-using DCEM.ServiceAssistantService.Main.DTOModel;
-using System.Linq;
-using System.Threading.Tasks;
-using MSLibrary.Xrm;
-using MSLibrary;
-using System;
+using DCEM.SalesAssistant.Main.Application.App.Contrac;
+using DCEM.SalesAssistant.Main.Factory;
 
 namespace DCEM.Web.Controllers
 {
@@ -23,6 +17,13 @@ namespace DCEM.Web.Controllers
     [ApiController]
     public class IOnlyLeadController : ControllerBase
     {
-
+        public IAppOnlyLead app = null;
+        public IOnlyLeadController()
+        {
+            if (app == null)
+            {
+                app = new OnlyLeadFactory().Create().Result;
+            }
+        }
     }
 }
