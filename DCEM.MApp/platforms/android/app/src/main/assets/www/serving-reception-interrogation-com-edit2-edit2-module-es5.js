@@ -96,7 +96,7 @@ var Edit2Page = /** @class */ (function () {
         this._shareData = _shareData;
         //定义数据模型
         this.mod = {
-            apiUrl: '/Api/Serviceproxy/GetVehcheckresultList',
+            apiUrl: '/Api/Serviceproxy/GetVehcheckList',
             postApiUrl: '/Api/Serviceproxy/AddOrUpdate',
             data: {},
             postData: {},
@@ -111,7 +111,7 @@ var Edit2Page = /** @class */ (function () {
     }
     Edit2Page.prototype.ngOnInit = function () {
         var getShareData = this._shareData.get(this.mod.shareDataKey);
-        if (getShareData != null) {
+        if (getShareData !== null) {
             this.shareData = getShareData;
             if (this.objectKeys(this.shareData.vehcheckresultMap).length === 0) {
                 this.listOnBind();
@@ -156,15 +156,54 @@ var Edit2Page = /** @class */ (function () {
     };
     Edit2Page.prototype.saveOnClick = function () {
         var _this = this;
-        //提交数据
+        this.mod.postData["actioncode"] = 1;
+        this.mod.postData["serviceproxy"] = this.shareData.serviceproxy;
+        //组装服务委托书
+        this.mod.postData["serviceproxy"] = {};
+        this.mod.postData["serviceproxy"]["customerid"] = this.shareData.serviceproxy["customerid"]; //车辆VIN
+        this.mod.postData["serviceproxy"]["customername"] = this.shareData.serviceproxy["customername"]; //用户名
+        this.mod.postData["serviceproxy"]["carplate"] = this.shareData.serviceproxy["carplate"]; //车牌
+        this.mod.postData["serviceproxy"]["customerphone"] = this.shareData.serviceproxy["customerphone"]; //手机
+        this.mod.postData["serviceproxy"]["shuttlename"] = this.shareData.serviceproxy["shuttlename"]; //送修人
+        this.mod.postData["serviceproxy"]["shuttlephone"] = this.shareData.serviceproxy["shuttlephone"]; //送修人手机
+        this.mod.postData["serviceproxy"]["inpower"] = Number(this.shareData.serviceproxy["inpower"]); //进店电量
+        this.mod.postData["serviceproxy"]["oilquantity"] = Number(this.shareData.serviceproxy["oilquantity"]); //进店油量
+        this.mod.postData["serviceproxy"]["mileage"] = Number(this.shareData.serviceproxy["mileage"]); //进店里程
+        this.mod.postData["serviceproxy"]["arrivalon"] = this.shareData.serviceproxy["arrivalon"]; //到店时间
+        this.mod.postData["serviceproxy"]["customercomment"] = this.shareData.serviceproxy["customercomment"]; //客户描述
+        console.log("shareData");
         console.log(this.shareData);
-        //var postData = {};
-        //postData = this.shareData.serviceproxy;
-        this.mod.postData = this.shareData.serviceproxy;
+        //组装环检项
+        this.mod.postData["serviceordercheckresultArray"] = [];
+        for (var groupKey in this.shareData.vehcheckresultMap) {
+            for (var key in this.shareData.vehcheckresultMap[groupKey].data) {
+                var obj = {};
+                obj["checkreultid"] = this.shareData.vehcheckresultMap[groupKey].data[key]["Id"];
+                obj["name"] = this.shareData.vehcheckresultMap[groupKey].data[key]["name"];
+                obj["checkreult"] = this.shareData.vehcheckresultMap[groupKey].data[key]["checkreult"];
+                if (this.shareData.vehcheckresultMap[groupKey].data[key]["checked"] != true)
+                    obj["checkreult"] = "异常";
+                this.mod.postData["serviceordercheckresultArray"].push(obj);
+            }
+        }
+        console.log("postData");
         console.log(this.mod.postData);
+        this._page.loadingShow();
         this._http.post(this.mod.postApiUrl, this.mod.postData, function (res) {
+            _this._page.loadingHide();
+            if (res.Result == true) {
+                console.log("res");
+                console.log(res);
+                var guid = res["Data"]["Id"];
+                _this._shareData.delete(_this.mod.shareDataKey);
+                _this._page.goto("/serving/ri/success", { guid: guid });
+            }
+            else {
+                _this._page.alert("消息提示", "操作失败");
+            }
         }, function (err) {
             _this._page.loadingHide();
+            _this._page.alert("消息提示", "操作失败");
         });
         //this._shareData.set(this.mod.shareDataKey, this.shareData);
         //this._page.goto("/serving/ri/success");

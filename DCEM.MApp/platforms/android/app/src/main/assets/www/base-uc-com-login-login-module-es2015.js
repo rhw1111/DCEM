@@ -86,15 +86,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
+/* harmony import */ var app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/base/base.ser/logininfo.storage */ "./src/app/base/base.ser/logininfo.storage.ts");
+
 
 
 
 let LoginPage = class LoginPage {
     // 定义控制器
-    constructor(_http, _page, _window) {
+    constructor(_http, _page, _window, _logininfo) {
         this._http = _http;
         this._page = _page;
         this._window = _window;
+        this._logininfo = _logininfo;
         // 定义模型
         this.mod = {
             username: '',
@@ -150,7 +153,11 @@ let LoginPage = class LoginPage {
                 password: encodeURIComponent(this.mod.password)
             }
         }, (res) => {
-            console.log(res);
+            if (res.access_token == "") {
+                this._page.alert('消息提示', '登录认证失败');
+                return false;
+            }
+            this._logininfo.SetInfo(JSON.stringify(res));
             this._page.loadingHide();
             this._page.alert('消息提示', '登录认证成功');
             this._page.goto("serving/home/tabs");
@@ -165,7 +172,8 @@ let LoginPage = class LoginPage {
 LoginPage.ctorParameters = () => [
     { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Http"] },
     { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Page"] },
-    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Window"] }
+    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Window"] },
+    { type: app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_3__["Storage_LoginInfo"] }
 ];
 LoginPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -175,7 +183,8 @@ LoginPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Http"],
         app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Page"],
-        app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Window"]])
+        app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Window"],
+        app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_3__["Storage_LoginInfo"]])
 ], LoginPage);
 
 
