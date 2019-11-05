@@ -14,7 +14,7 @@ using MSLibrary;
 using System;
 using System.Threading.Tasks;
 
-namespace DCEM.SalesAssistant.Main.DAL
+namespace DCEM.SalesAssistant.Main.Factory
 {
     public class OnlyLeadFactory : IFactory<Task<IAppOnlyLead>>
     {
