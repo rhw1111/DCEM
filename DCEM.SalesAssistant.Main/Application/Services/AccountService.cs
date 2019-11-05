@@ -11,41 +11,41 @@ using System.Collections.Generic;
 
 namespace DCEM.SalesAssistant.Main.Application.Services
 {
-    public class OnlyLeadService : IOnlyLeadService
+    public class AccountService : IAccountService
     {
+        private const string EntityName = "mcs_account";
         private CrmService _crmService;
-        private IOnlyLeadRepository _onlyLeadRepository;
+        private IAccountRepository _AccountRepository;
 
-        public OnlyLeadService(CrmService crmService, IOnlyLeadRepository onlyLeadRepository)
+        public AccountService(CrmService crmService, IAccountRepository accountRepository)
         {
             _crmService = crmService;
-            _onlyLeadRepository = onlyLeadRepository;
+            _AccountRepository = accountRepository;
         }
 
         /// <summary>
-        /// 唯一线索列表查询
+        /// 销售机会列表查询
         /// </summary>
-        /// <param name="onlyLeadRequest"></param>
+        /// <param name="AccountRequest"></param>
         /// <returns></returns>
-        public async Task<QueryResult<CrmEntity>> QueryList(OnlyLeadRequest onlyLeadRequest)
+        public async Task<QueryResult<CrmEntity>> QueryList(AccountRequest AccountRequest)
         {
             try
             {
-                var fetchString = _onlyLeadRepository.QueryList(onlyLeadRequest);
+                var fetchString = _AccountRepository.QueryList(AccountRequest);
 
                 var fetchXdoc = XDocument.Parse(fetchString);
                 var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {
-                    EntityName = "mcs_onlylead",
-                    FetchXml = fetchXdoc,
-                    ProxyUserId = Guid.Parse(onlyLeadRequest.UserId)
+                    EntityName = EntityName,
+                    FetchXml = fetchXdoc
                 };
                 var fetchResponse = await _crmService.Execute(fetchRequest);
                 var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
 
                 var queryResult = new QueryResult<CrmEntity>();
                 queryResult.Results = fetchResponseResult.Value.Results;
-                queryResult.CurrentPage = onlyLeadRequest.PageIndex;
+                queryResult.CurrentPage = AccountRequest.PageIndex;
                 queryResult.TotalCount = 0;
                 return queryResult;
             }
@@ -55,30 +55,38 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             }
         }
 
-        /// <summary>
-        /// 唯一线索详情查询
-        /// </summary>
-        /// <param name="entityid"></param>
-        /// <returns></returns>
-        public async Task<CrmEntity> GetOnlyLeadDetail(string entityid)
+        public async Task<CrmEntity> QueryById(Guid entityId)
         {
             try
             {
-                var dicHead = new Dictionary<string, IEnumerable<string>>();
-                dicHead.Add("Prefer", new List<string>() { "odata.include-annotations=\"*\"" });
-
-                //var fetchString = _onlyLeadRepository.GetOnlyLeadDetail(entityid);
                 CrmEntity entity = null;
-                entity = await _crmService.Retrieve("mcs_onlylead", Guid.Parse(entityid), "", null, dicHead);
+                entity = await _crmService.Retrieve(EntityName, entityId, "");
                 return entity;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+
         }
+        /// <summary>
+        /// 创建或编辑实体
+        /// </summary>
+        /// <param name="crmEntity"></param>
+        /// <returns></returns>
+        public async Task<Guid> AddOrEditEntity(AccountRequest request)
+        {
+            Guid guid = Guid.Empty;
+            try
+            {
+               
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
-
-
+            return guid;
+        }
     }
 }

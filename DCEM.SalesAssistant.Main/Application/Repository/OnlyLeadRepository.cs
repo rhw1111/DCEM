@@ -9,23 +9,23 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
         public string QueryList(OnlyLeadRequest onlyLeadRequest)
         {
             var filter = string.Empty;
-            if (!string.IsNullOrWhiteSpace(onlyLeadRequest.search))
+            if (!string.IsNullOrWhiteSpace(onlyLeadRequest.Search))
             {
                 filter += $"<filter type='or'>";
-                filter += $"<condition attribute='mcs_name' operator='like' value='%{onlyLeadRequest.search}%' />";
-                filter += $"<condition attribute='mcs_userid' operator='like' value='%{onlyLeadRequest.search}%' />";
-                filter += $"<condition attribute='mcs_mobilephone' operator='like' value='%{onlyLeadRequest.search}%' />";
-                filter += $"<condition attribute='mcs_emailaddress1' operator='like' value='%{onlyLeadRequest.search}%' />";
+                filter += $"<condition attribute='mcs_name' operator='like' value='%{onlyLeadRequest.Search}%' />";
+                filter += $"<condition attribute='mcs_userid' operator='like' value='%{onlyLeadRequest.Search}%' />";
+                filter += $"<condition attribute='mcs_mobilephone' operator='like' value='%{onlyLeadRequest.Search}%' />";
+                filter += $"<condition attribute='mcs_emailaddress1' operator='like' value='%{onlyLeadRequest.Search}%' />";
                 filter += $"</filter>";
             }
-            if (onlyLeadRequest.mcs_dealerid!=null)
+            if (onlyLeadRequest.DealerId!=null)
             {
                 filter += $"<filter type='and'>";
-                filter += $"<condition attribute='mcs_dealerid' operator='eq' value='{onlyLeadRequest.mcs_dealerid}' />";
+                filter += $"<condition attribute='mcs_dealerid' operator='eq' value='{onlyLeadRequest.DealerId}' />";
                 filter += $"</filter>";
             }
 
-            var fetchString = $@"<fetch version='1.0' count='{onlyLeadRequest.pageSize}' page='{onlyLeadRequest.page}' output-format='xml-platform' mapping='logical' distinct='false'>
+            var fetchString = $@"<fetch version='1.0' count='{onlyLeadRequest.PageSize}' page='{onlyLeadRequest.PageIndex}' output-format='xml-platform' mapping='logical' distinct='false'>
                    <entity name='mcs_onlylead'>
                 <attribute name='mcs_name' />
                 <attribute name='createdon' />
@@ -38,6 +38,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
                 <attribute name='mcs_vehcolorid' />
                 <attribute name='mcs_vehtypeid' />
                 <attribute name='mcs_accountpoints' />
+                <attribute name='mcs_leadorigin' />
                 <attribute name='mcs_provinceid' />
                 <attribute name='mcs_cityid' />
                 <attribute name='mcs_countryid' />

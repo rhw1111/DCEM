@@ -1,6 +1,7 @@
-﻿import { Component, OnInit } from '@angular/core';
-import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
-import { ModalController } from '@ionic/angular';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
+import { NavController, IonContent, IonInfiniteScroll, ModalController } from '@ionic/angular';
+import { DatePipe } from '@angular/common';
+import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 
 @Component({
     selector: 'app-select-customer',
@@ -9,8 +10,11 @@ import { ModalController } from '@ionic/angular';
 })
 export class SelectCustomerComponent implements OnInit {
 
+    @ViewChild(IonContent, null) ionContent: IonContent;
+    @ViewChild(IonInfiniteScroll, null) ionInfiniteScroll: IonInfiniteScroll;
+
     mod = {
-        apiUrl: '',
+        apiUrl: '/Api/Vehowner/GetList',
         data: [],
         searchData: {
             pageindex: 1,
@@ -20,9 +24,10 @@ export class SelectCustomerComponent implements OnInit {
     constructor(
         private _http: DCore_Http,
         private _page: DCore_Page,
+        private _valid: DCore_Valid,
         private _modalCtrl: ModalController
     ) {
-        this.mod.apiUrl = "/Api/Vehowner/GetList";
+
     }
 
     ngOnInit() {
@@ -40,16 +45,29 @@ export class SelectCustomerComponent implements OnInit {
         });
     }
 
+    //下拉刷新
+    doInfinite(event) {
+        this.mod.searchData.pageindex = this.mod.searchData.pageindex + 1;
+        this.listOnBind();
+    }
+
+
     searchOnKeyup(event: any) {
         var keyCode = event ? event.keyCode : "";
         if (keyCode == 13) {
+            this.mod.data = [];
+            this.mod.searchData.pageindex = 1;
+            this.ionInfiniteScroll.disabled = false;
+            this.ionContent.scrollToTop(200);
             this.listOnBind();
         }
     }
 
     listOnBind() {
-        this._page.loadingShow();
-        this.mod.data = [];
+
+        if (this.mod.searchData.pageindex == 1)
+            this._page.loadingShow();
+
         this._http.get(
             this.mod.apiUrl,
             {
@@ -59,33 +77,46 @@ export class SelectCustomerComponent implements OnInit {
                 }
             },
             (res: any) => {
-                if (res.Results !== null) {
-
+                if (!this._valid.isNull(res.Results) !== null && res.Results.length > 0) {
                     for (var key in res.Results) {
                         var obj = {};
                         obj["vehownerid"] = res.Results[key]["Attributes"]["mcs_vehownerid"];
                         obj["fullname"] = res.Results[key]["Attributes"]["mcs_fullname"];
-                        obj["gender"] = res.Results[key]["Attributes"]["mcs_gender@OData.Community.Display.V1.FormattedValue"];
-                        obj["genderval"] = res.Results[key]["Attributes"]["mcs_gender"];
+                        obj["gender"] = res.Results[key]["Attributes"]["mcs_gender"];
+                        obj["genderformat"] = res.Results[key]["Attributes"]["mcs_gender@OData.Community.Display.V1.FormattedValue"];
                         obj["mobilephone"] = res.Results[key]["Attributes"]["mcs_mobilephone"];
                         obj["vehplate"] = res.Results[key]["Attributes"]["mcs_vehplate"];
                         obj["vehtype"] = res.Results[key]["Attributes"]["_mcs_vehtype_value@OData.Community.Display.V1.FormattedValue"];
-                        
                         obj["model"] = res.Results[key]["Attributes"];
+                        obj["gendercolor"] = "medium";
+                        if (obj["gender"] === 1) {
+                            obj["gendercolor"] = "primary";
+                        }
+                        else if (obj["gender"] === 2) {
+                            obj["gendercolor"] = "danger";
+                        }
+                        else if (obj["gender"] === 3) {
+                            obj["gendercolor"] = "medium";
+                        }
                         this.mod.data.push(obj);
                     }
-                    this._page.loadingHide();
+
                 }
                 else {
-                    this._page.alert("消息提示", "数据加载异常");
-                    this._page.loadingHide();
+                    this.ionInfiniteScroll.disabled = true;
                 }
+
+                if (this.mod.searchData.pageindex == 1)
+                    this._page.loadingHide();
+                this.ionInfiniteScroll.complete();
+
             },
             (err: any) => {
                 this._page.alert("消息提示", "数据加载异常");
-                this._page.loadingHide();
+                if (this.mod.searchData.pageindex == 1)
+                    this._page.loadingHide();
+                this.ionInfiniteScroll.complete();
             }
         );
-
     }
 }

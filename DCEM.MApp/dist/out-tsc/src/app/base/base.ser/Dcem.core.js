@@ -90,9 +90,15 @@ let DCore_Page = class DCore_Page {
     //打开等待动画
     loadingShow() {
         if (this.loading !== null) {
-            this.loading = this.loadingCtr.create({ translucent: true });
+            this.loading = this.loadingCtr.create({
+                message: "请稍后...",
+                translucent: true,
+                duration: 8000
+            });
+            this.loading.then(a => {
+                a.present();
+            });
         }
-        this.loading.then(a => { a.present(); });
     }
     //关闭等待动画
     loadingHide() {

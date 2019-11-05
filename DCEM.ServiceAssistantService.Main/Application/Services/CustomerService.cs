@@ -14,9 +14,16 @@ namespace DCEM.ServiceAssistantService.Main.Application
     {
         #region 初始化 构造函数
         private ICrmService _crmService;
+        private string dicHeadKey;
+        private Dictionary<string, IEnumerable<string>> dicHead;
+        private int pageCount;
         public CustomerService(ICrmService crmService)
         {
             _crmService = crmService;
+            dicHeadKey = "Prefer";
+            dicHead = new Dictionary<string, IEnumerable<string>>();
+            dicHead.Add(dicHeadKey, new List<string>() { "odata.include-annotations=\"*\"" });
+            pageCount = 10;
         }
         #endregion
 
@@ -66,7 +73,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 {
 
                     fetchXml = $@"
-            <fetch version='1.0' output-format='xml-platform' mapping='logical' count='{500}' page='{pageindex}' >
+            <fetch version='1.0' output-format='xml-platform' mapping='logical' count='{pageCount}' page='{pageindex}' >
               <entity name='mcs_carserviceadvisor'>
                 <attribute name='mcs_customerid' />
                 <link-entity name='mcs_vehowner' from='mcs_vehownerid' to='mcs_customerid'  visible='false'  alias='a'>
@@ -102,10 +109,6 @@ namespace DCEM.ServiceAssistantService.Main.Application
         #region 查询记录集
         public async Task<CustomerQueryListResponse<CrmEntity>> QueryList(int type, int pageindex, string search)
         {
-            #region 组装head
-            var dicHead = new Dictionary<string, IEnumerable<string>>();
-            dicHead.Add("Prefer", new List<string>() { "odata.include-annotations=\"*\"" });
-            #endregion
 
             #region 获取记录结果集
             var filter = await GetQueryListFilter(type, search);
@@ -127,7 +130,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 EntityName = "mcs_carserviceadvisor",
                 FetchXml = fetchXdoc
             };
-            fetchRequest.Headers.Add("Prefer", dicHead["Prefer"]);
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
             fetchResponse = await _crmService.Execute(fetchRequest);
             var allTotalCountResults = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
             #endregion
@@ -140,7 +143,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 EntityName = "mcs_carserviceadvisor",
                 FetchXml = fetchXdoc
             };
-            fetchRequest.Headers.Add("Prefer", dicHead["Prefer"]);
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
             fetchResponse = await _crmService.Execute(fetchRequest);
 
             var wrrantyTotalCountResults = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
@@ -154,7 +157,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 EntityName = "mcs_carserviceadvisor",
                 FetchXml = fetchXdoc
             };
-            fetchRequest.Headers.Add("Prefer", dicHead["Prefer"]);
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
             fetchResponse = await _crmService.Execute(fetchRequest);
 
             var insuranceTotalCountResults = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
@@ -177,9 +180,6 @@ namespace DCEM.ServiceAssistantService.Main.Application
         #region 获取单个客户信息
         public async Task<CustomerQueryInfoResponse> QueryInfo(string guid)
         {
-            var dicHead = new Dictionary<string, IEnumerable<string>>();
-            dicHead.Add("Prefer", new List<string>() { "odata.include-annotations=\"*\"" });
-
             var customerQueryInfoResponse = new CustomerQueryInfoResponse();
             var carserviceadvisorGuid = Guid.Parse(guid);
             var carserviceadvisorEntity = await _crmService.Retrieve("mcs_carserviceadvisor", carserviceadvisorGuid, string.Empty, null, dicHead);
@@ -206,7 +206,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 EntityName = "mcs_customerfollowuplog",
                 FetchXml = xdoc
             };
-            fetchRequest.Headers.Add("Prefer", dicHead["Prefer"]);
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
             var fetchResponse = await _crmService.Execute(fetchRequest);
             var customerfollowuplogList = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
 
@@ -233,7 +233,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 EntityName = "mcs_tag",
                 FetchXml = xdoc
             };
-            fetchRequest.Headers.Add("Prefer", dicHead["Prefer"]);
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
             fetchResponse = await _crmService.Execute(fetchRequest);
             var tagList = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
 
