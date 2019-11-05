@@ -13,7 +13,6 @@ import { DCore_Http, DCore_Page, DCore_ShareData, DCore_Valid } from 'app/base/b
 export class EditPage implements OnInit {
 
     mod = {
-        apiUrl: '/Api/Customer/GetCustomerInfo',
         data: {
         },
         shareDataKey: "scEditData"
@@ -23,7 +22,8 @@ export class EditPage implements OnInit {
     shareData = {
         serviceproxy: {
         },
-        vehcheckresultMap: {},
+        serviceorderrepairitemMap: {},
+        serviceorderpartMap: {},
     }
 
     constructor(
@@ -42,11 +42,14 @@ export class EditPage implements OnInit {
         await modal.present();
         const { data } = await modal.onDidDismiss();
         if (data != null && typeof data != "undefined") {
+            console.log(data);
             if (data.vehowne != null && typeof data.vehowne != "undefined") {
                 this.shareData.serviceproxy["customerid"] = data.vehowne.vehownerid;
                 this.shareData.serviceproxy["customername"] = data.vehowne.fullname;
                 this.shareData.serviceproxy["carplate"] = data.vehowne.vehplate;
                 this.shareData.serviceproxy["customerphone"] = data.vehowne.mobilephone;
+                this.shareData.serviceproxy["dealerid"] = data.vehowne["model"]["_mcs_dealer_value"];
+                this.shareData.serviceproxy["dealerid_formatted"] = data.vehowne["model"]["_mcs_dealer_value@OData.Community.Display.V1.FormattedValue"];
             }
         }
     }
@@ -89,11 +92,17 @@ export class EditPage implements OnInit {
             return;
         }
 
-        if (this._valid.isNull(this.shareData.serviceproxy["repairlocationid"])) {
-            this._page.alert("消息提示", "请选择工位");
+        //if (this._valid.isNull(this.shareData.serviceproxy["repairlocationid"])) {
+        //    this._page.alert("消息提示", "请选择工位");
+        //    return;
+        //}
+
+        if (this._valid.isNull(this.shareData.serviceproxy["dealerid"])) {
+            this._page.alert("消息提示", "您选择的客户未包含厅店信息");
             return;
         }
 
+        console.log(this.shareData);
         this._shareData.set(this.mod.shareDataKey, this.shareData);
         this._page.goto("/serving/sc/edit2");
     }

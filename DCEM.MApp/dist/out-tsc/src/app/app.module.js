@@ -15,13 +15,32 @@ import { SelectCustomerComponent } from 'app/serving/serving.ser/components/sele
 import { SelectRepairlocationComponent } from 'app/serving/serving.ser/components/select-repairlocation/select-repairlocation.component';
 import { SelectCarmodelComponent } from 'app/serving/serving.ser/components/select-carmodel/select-carmodel.component';
 import { SelectMaintenanceComponent } from 'app/serving/serving.ser/components/select-maintenance/select-maintenance.component';
+import { SelectPartsComponent } from 'app/serving/serving.ser/components/select-parts/select-parts.component';
+import { SelectRepairitemComponent } from 'app/serving/serving.ser/components/select-repairitem/select-repairitem.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 let AppModule = class AppModule {
 };
 AppModule = tslib_1.__decorate([
     NgModule({
-        declarations: [AppComponent, ScSelectComponent, SelectCustomerComponent, SelectRepairlocationComponent, SelectCarmodelComponent, SelectMaintenanceComponent],
-        entryComponents: [ScSelectComponent, SelectCustomerComponent, SelectRepairlocationComponent, SelectCarmodelComponent, SelectMaintenanceComponent],
+        declarations: [
+            AppComponent,
+            ScSelectComponent,
+            SelectCustomerComponent,
+            SelectRepairlocationComponent,
+            SelectCarmodelComponent,
+            SelectMaintenanceComponent,
+            SelectPartsComponent,
+            SelectRepairitemComponent
+        ],
+        entryComponents: [
+            ScSelectComponent,
+            SelectCustomerComponent,
+            SelectRepairlocationComponent,
+            SelectCarmodelComponent,
+            SelectMaintenanceComponent,
+            SelectPartsComponent,
+            SelectRepairitemComponent
+        ],
         imports: [BrowserModule,
             IonicModule.forRoot({ mode: 'ios' }),
             AppRoutingModule,

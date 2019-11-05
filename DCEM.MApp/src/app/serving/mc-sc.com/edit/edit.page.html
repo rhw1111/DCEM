@@ -8,86 +8,138 @@
 </ion-header>
 
 <ion-content>
-    <ion-list lines="full">
-        <ion-item-divider color="primary">
-            <ion-label>
-                车主资料
-            </ion-label>
-        </ion-item-divider>
-        <ion-item (click)="customerOnClick()">
-            <ion-label position="stacked">姓名<ion-text color="danger">*</ion-text></ion-label>
-            <p>{{shareData.serviceproxy["customername"]}}&nbsp;</p>
-        </ion-item>
-        <ion-item (click)="customerOnClick()">
-            <ion-label position="stacked">车牌<ion-text color="danger">*</ion-text></ion-label>
-            <p>{{shareData.serviceproxy["carplate"]}}&nbsp;</p>
-        </ion-item>
-        <ion-item (click)="customerOnClick()">
-            <ion-label position="stacked">手机<ion-text color="danger">*</ion-text></ion-label>
-            <p>{{shareData.serviceproxy["customerphone"]}}&nbsp;</p>
-        </ion-item>
-        <ion-item-divider color="primary">
-            <ion-label>
-                委托信息
-            </ion-label>
-        </ion-item-divider>
-        <ion-item>
-            <ion-label position="stacked">送修人</ion-label>
-            <ion-input type="text" [(ngModel)]="shareData.serviceproxy['shuttlename']" required></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label position="stacked">送修人手机</ion-label>
-            <ion-input type="tel" [(ngModel)]="shareData.serviceproxy['shuttlephone']" required></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label position="stacked">进店电量</ion-label>
-            <ion-input type="number" [(ngModel)]="shareData.serviceproxy['inpower']"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label position="stacked">进店油量</ion-label>
-            <ion-select [(ngModel)]="shareData.serviceproxy['oilquantity']">
-                <ion-select-option value="10">1/4</ion-select-option>
-                <ion-select-option value="20">1/2</ion-select-option>
-                <ion-select-option value="30">3/4</ion-select-option>
-            </ion-select>
-        </ion-item>
-        <ion-item>
-            <ion-label position="stacked">进店里程</ion-label>
-            <ion-input type="number" [(ngModel)]="shareData.serviceproxy['mileage']"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label position="stacked">到店时间</ion-label>
-            <ion-datetime display-format="YYYY-MM-DD HH:mm" [(ngModel)]="shareData.serviceproxy['arrivalon']"></ion-datetime>
-        </ion-item>
-        <ion-item>
-            <ion-label position="stacked">预计交车时间</ion-label>
-            <ion-datetime display-format="YYYY-MM-DD HH:mm" [(ngModel)]="shareData.serviceproxy['expectfinishat']"></ion-datetime>
-        </ion-item>
-        <ion-item (click)="repairlocationOnClick()">
-            <ion-label position="stacked">工位</ion-label>
-            <p>{{shareData.serviceproxy["repairlocationname"]}}&nbsp;</p>
-        </ion-item>
-        <ion-item-divider color="primary">
-            <ion-label>
-                其它
-            </ion-label>
-        </ion-item-divider>
-        <ion-item>
-            <ion-label position="stacked">客户描述</ion-label>
-            <ion-textarea [(ngModel)]="shareData.serviceproxy['customercomment']"></ion-textarea>
-        </ion-item>
-        <ion-item>
-            <ion-label position="stacked">故障信息</ion-label>
-            <ion-textarea [(ngModel)]="shareData.serviceproxy['customercontent']"></ion-textarea>
-        </ion-item>
-        <ion-item>
-            <ion-label position="stacked">检查结果</ion-label>
-            <ion-textarea [(ngModel)]="shareData.serviceproxy['testresult']"></ion-textarea>
-        </ion-item>
-    </ion-list>
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>
+                <ion-label>车主资料</ion-label>
+            </ion-card-title>
+        </ion-card-header>
+        <ion-list lines="full">
+            <ion-item (click)="customerOnClick()">
+                <ion-label position="stacked">
+                    <h2>
+                        <ion-icon name="search"></ion-icon>
+                        姓名
+                        <ion-text color="danger">*</ion-text>
+                    </h2>
+                    <p>{{shareData.serviceproxy["customername"]}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+            <ion-item (click)="customerOnClick()">
+                <ion-label position="stacked">
+                    <h2>
+                        <ion-icon name="search"></ion-icon>
+                        车牌
+                        <ion-text color="danger">*</ion-text>
+                    </h2>
+                    <p>{{shareData.serviceproxy["carplate"]}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+            <ion-item (click)="customerOnClick()">
+                <ion-label position="stacked">
+                    <h2>
+                        <ion-icon name="search"></ion-icon>
+                        手机
+                        <ion-text color="danger">*</ion-text>
+                    </h2>
+                    <p>{{shareData.serviceproxy["customerphone"]}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+            <ion-item (click)="customerOnClick()">
+                <ion-label position="stacked">
+                    <h2>
+                        <ion-icon name="search"></ion-icon>
+                        厅店名称
+                        <ion-text color="danger">*</ion-text>
+                    </h2>
+                    <p>{{shareData.serviceproxy["dealerid_formatted"]}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+
+        </ion-list>
+        <br />
+    </ion-card>
+
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>
+                <ion-label>委托信息</ion-label>
+            </ion-card-title>
+        </ion-card-header>
+        <ion-list lines="full">
+            <ion-item>
+                <ion-label position="stacked">
+                    送修人
+                </ion-label>
+                <ion-input type="text" [(ngModel)]="shareData.serviceproxy['shuttlename']" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">送修人手机</ion-label>
+                <ion-input type="tel" [(ngModel)]="shareData.serviceproxy['shuttlephone']" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">进店电量</ion-label>
+                <ion-input type="number" [(ngModel)]="shareData.serviceproxy['inpower']"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">进店油量</ion-label>
+                <ion-select [(ngModel)]="shareData.serviceproxy['oilquantity']">
+                    <ion-select-option value="10">1/4</ion-select-option>
+                    <ion-select-option value="20">1/2</ion-select-option>
+                    <ion-select-option value="30">3/4</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">进店里程</ion-label>
+                <ion-input type="number" [(ngModel)]="shareData.serviceproxy['mileage']"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">到店时间</ion-label>
+                <ion-datetime display-format="YYYY-MM-DD HH:mm" [(ngModel)]="shareData.serviceproxy['arrivalon']"></ion-datetime>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">预计交车时间</ion-label>
+                <ion-datetime display-format="YYYY-MM-DD HH:mm" [(ngModel)]="shareData.serviceproxy['expectfinishat']"></ion-datetime>
+            </ion-item>
+            <ion-item (click)="repairlocationOnClick()">
+                <ion-label>
+                    <h2>
+                        <ion-icon name="search"></ion-icon>
+                        工位
+                        <ion-text color="danger">*</ion-text>
+                    </h2>
+                    <p>{{shareData.serviceproxy["repairlocationname"]}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+        <br />
+    </ion-card>
+
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>
+                <ion-label>其它</ion-label>
+            </ion-card-title>
+        </ion-card-header>
+        <ion-list lines="full">
+            <ion-item>
+                <ion-label position="stacked">客户描述</ion-label>
+                <ion-textarea [(ngModel)]="shareData.serviceproxy['customercomment']"></ion-textarea>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">故障信息</ion-label>
+                <ion-textarea [(ngModel)]="shareData.serviceproxy['customercontent']"></ion-textarea>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">检查结果</ion-label>
+                <ion-textarea [(ngModel)]="shareData.serviceproxy['testresult']"></ion-textarea>
+            </ion-item>
+        </ion-list>
+        <br />
+    </ion-card>
+
     <section style="text-align:center;">
         <ion-button style="width:40%" color="danger" (click)="nextOnClick()">下一步</ion-button>
     </section>
-    <br />
     <br />
 </ion-content>

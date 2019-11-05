@@ -114,8 +114,6 @@ export class Edit2Page implements OnInit {
         this.mod.postData["serviceproxy"]["customercomment"] = this.shareData.serviceproxy["customercomment"];            //客户描述
 
 
-        console.log("shareData");
-        console.log(this.shareData);
         //组装环检项
         this.mod.postData["serviceordercheckresultArray"] = [];
         for (var groupKey in this.shareData.vehcheckresultMap) {
@@ -129,8 +127,7 @@ export class Edit2Page implements OnInit {
                 this.mod.postData["serviceordercheckresultArray"].push(obj);
             }
         }
-        console.log("postData");
-        console.log(this.mod.postData);
+
 
         this._page.loadingShow();
         this._http.post(

@@ -8,6 +8,8 @@ using DCEM.ServiceAssistantService.Main.DTOModel;
 using System.Collections.Generic;
 using MSLibrary.Xrm.Message.Retrieve;
 using MSLibrary.Xrm.Message.RetrieveSignleAttribute;
+using Newtonsoft.Json.Linq;
+using System.Linq;
 namespace DCEM.ServiceAssistantService.Main.Application
 {
     public class ServiceproxyService : IServiceproxyService
@@ -77,7 +79,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
             {
                 var fetchXml = string.Empty;
                 fetchXml = $@"
-            <fetch version='1.0' output-format='xml-platform' mapping='logical' count='{500}' page='{pageindex}' >
+            <fetch version='1.0' output-format='xml-platform' mapping='logical' count='{5}' page='{pageindex}' >
               <entity name='mcs_serviceproxy'>
                   <order attribute='createdon' descending='true' />
                   {filter}
@@ -121,7 +123,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
         #endregion
         #endregion
 
-        #region 获取详情
+        #region 获取服务委托书 问诊单 详情
         public async Task<ServiceproxyQueryInfoResponse> QueryInfo(string guid)
         {
             var serviceproxyQueryInfoResponse = new ServiceproxyQueryInfoResponse();
@@ -222,10 +224,12 @@ namespace DCEM.ServiceAssistantService.Main.Application
 
             if (request.actioncode == 1)
             {
+                #region 加入服务委托书
                 //加入服务委托书
                 var serviceproxyGuid = Guid.NewGuid();
                 var serviceproxyEntity = new CrmExecuteEntity("mcs_serviceproxy", serviceproxyGuid);
                 serviceproxyEntity.Attributes.Add("mcs_customerid", new CrmEntityReference("mcs_vehowner", Guid.Parse(request.serviceproxy.customerid)));
+                serviceproxyEntity.Attributes.Add("mcs_dealerid", new CrmEntityReference("mcs_dealer", Guid.Parse(request.serviceproxy.dealerid)));           //厅店
                 serviceproxyEntity.Attributes.Add("mcs_customername", request.serviceproxy.customername);           //车主姓名
                 serviceproxyEntity.Attributes.Add("mcs_carplate", request.serviceproxy.carplate);                   //车牌号
                 serviceproxyEntity.Attributes.Add("mcs_customerphone", request.serviceproxy.customerphone);         //车主手机
@@ -237,11 +241,13 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 if (request.serviceproxy.arrivalon != null)
                     serviceproxyEntity.Attributes.Add("mcs_arrivalon", Convert.ToDateTime(request.serviceproxy.arrivalon).ToUniversalTime());                 //到店时间
                 serviceproxyEntity.Attributes.Add("mcs_customercomment", request.serviceproxy.customercomment);     //客服描述
-                serviceproxyEntity.Attributes.Add("mcs_currenttype", 10);
+                serviceproxyEntity.Attributes.Add("mcs_currenttype", request.serviceproxy.currenttype);
                 serviceproxyEntity.Attributes.Add("mcs_ifchange", false);
                 serviceproxyEntity.Attributes.Add("mcs_isdelete", false);
                 var reuset = await _crmService.Create(serviceproxyEntity);
+                #endregion
 
+                #region 加入环检项目
                 //加入环检项目
                 foreach (var serviceordercheckresult in request.serviceordercheckresultArray)
                 {
@@ -253,9 +259,50 @@ namespace DCEM.ServiceAssistantService.Main.Application
                     serviceordercheckresultEntity.Attributes.Add("mcs_serviceorderid", new CrmEntityReference("mcs_serviceproxy", serviceproxyGuid));
                     reuset = await _crmService.Create(serviceordercheckresultEntity);
                 }
+                #endregion
+
+                #region 加入维修项目
+                foreach (var serviceorderrepairitem in request.serviceorderrepairitemArray)
+                {
+                    var serviceorderrepairitemGuid = Guid.NewGuid();
+                    var serviceorderrepairitemEntity = new CrmExecuteEntity("mcs_serviceorderrepairitem", serviceorderrepairitemGuid);
+                    serviceorderrepairitemEntity.Attributes.Add("mcs_repairitemid", new CrmEntityReference("mcs_repairiteminfo", Guid.Parse(serviceorderrepairitem.repairitemid)));        //维修项目代码
+                    serviceorderrepairitemEntity.Attributes.Add("mcs_name", serviceorderrepairitem.name);                  //维修项目名称
+                    serviceorderrepairitemEntity.Attributes.Add("mcs_workinghour", serviceorderrepairitem.workinghour);    //工时数
+                    serviceorderrepairitemEntity.Attributes.Add("mcs_price", serviceorderrepairitem.price);                //单价
+                    serviceorderrepairitemEntity.Attributes.Add("mcs_discount", serviceorderrepairitem.discount);          //折扣
+                    //维修类别
+                    serviceorderrepairitemEntity.Attributes.Add("mcs_repairitemtypeid", new CrmEntityReference("mcs_repairitemtype", Guid.Parse(serviceorderrepairitem.repairitemtypeid)));
+                    //维修类别
+                    serviceorderrepairitemEntity.Attributes.Add("mcs_repairitemtypedetailid", new CrmEntityReference("mcs_repairitemtypedetail", Guid.Parse(serviceorderrepairitem.repairitemtypedetailid)));
+                    //总价
+                    serviceorderrepairitemEntity.Attributes.Add("mcs_repairamount", serviceorderrepairitem.price * serviceorderrepairitem.discount * serviceorderrepairitem.workinghour);
+                    serviceorderrepairitemEntity.Attributes.Add("mcs_serviceorderid", new CrmEntityReference("mcs_serviceproxy", serviceproxyGuid));
+                    reuset = await _crmService.Create(serviceorderrepairitemEntity);
+                }
+                #endregion
+
+                #region 加入维修配件
+                //加入维修配件
+                foreach (var serviceorderpart in request.serviceorderpartArray)
+                {
+                    var serviceorderpartGuid = Guid.NewGuid();
+                    var serviceorderpartEntity = new CrmExecuteEntity("mcs_serviceorderpart", serviceorderpartGuid);
+                    serviceorderpartEntity.Attributes.Add("mcs_partsid", new CrmEntityReference("mcs_parts", Guid.Parse(serviceorderpart.partsid)));
+                    serviceorderpartEntity.Attributes.Add("mcs_partsname", serviceorderpart.partsname);
+                    serviceorderpartEntity.Attributes.Add("mcs_price", serviceorderpart.price);
+                    serviceorderpartEntity.Attributes.Add("mcs_quantity", serviceorderpart.quantity);
+                    serviceorderpartEntity.Attributes.Add("mcs_discount", serviceorderpart.discount);
+                    serviceorderpartEntity.Attributes.Add("mcs_repairitemtypeid", new CrmEntityReference("mcs_repairitemtype", Guid.Parse(serviceorderpart.repairitemtypeid)));  //维修类别
+                    serviceorderpartEntity.Attributes.Add("mcs_repairitemtypedetailid", new CrmEntityReference("mcs_repairitemtypedetail", Guid.Parse(serviceorderpart.repairitemtypedetailid)));
+                    serviceorderpartEntity.Attributes.Add("mcs_amount", serviceorderpart.price * serviceorderpart.discount * serviceorderpart.quantity);        //总价
+                    serviceorderpartEntity.Attributes.Add("mcs_serviceorderid", new CrmEntityReference("mcs_serviceproxy", serviceproxyGuid));
+                    reuset = await _crmService.Create(serviceorderpartEntity);
+                }
+                #endregion
+
 
                 reusetCrmEntity.Id = serviceproxyGuid;
-
                 validateResult.Data = reusetCrmEntity;
                 validateResult.Result = true;
                 validateResult.Description = "操作成功";
@@ -291,6 +338,261 @@ namespace DCEM.ServiceAssistantService.Main.Application
             var queryResult = new QueryResult<CrmEntity>();
             var result = await _crmService.RetrieveMultiple("mcs_maintenance", string.Empty, null, dicHead);
             queryResult.Results = result.Results;
+            return queryResult;
+        }
+        #endregion
+
+        #region 查询保养项 详情
+        public async Task<MaintenanceQueryInfoResponse> QueryMaintenanceInfo(string maintenanceGuid, string dealeridGuid)
+        {
+            var queryResult = new MaintenanceQueryInfoResponse();
+            var maintenanceEntity = await _crmService.Retrieve("mcs_maintenance", Guid.Parse(maintenanceGuid), null, null, dicHead);
+
+            #region 维修项目 
+            var maintenanceiteminfofilter = $@"    
+            <link-entity name='mcs_maintenanceiteminfo' from='mcs_repairiteminfoid' to='mcs_repairiteminfoid'>
+                <filter type='and'>
+                <condition attribute='mcs_maintenanceid' operator='eq' value='{maintenanceGuid}' />
+                </filter>
+            </link-entity>";
+            var queryRepairitemList = await QueryRepairitemListByFilter(dealeridGuid, maintenanceiteminfofilter);
+            #endregion
+
+            #region 维修配件
+            var repairitempartfilter = $@"    
+            <link-entity name='mcs_repairitempart' from='mcs_partsid' to='mcs_partsid'>
+              <link-entity name='mcs_repairiteminfo' from='mcs_repairiteminfoid' to='mcs_repairitemid'>
+                <link-entity name='mcs_maintenanceiteminfo' from='mcs_repairiteminfoid' to='mcs_repairiteminfoid'>
+                  <filter type='and'>
+                    <condition attribute='mcs_maintenanceid' operator='eq' value='{maintenanceGuid}' />
+                  </filter>
+                </link-entity>
+              </link-entity>
+            </link-entity>";
+            var queryPartsList = await QueryPartsListByFilter(1, repairitempartfilter);
+            #endregion
+
+            queryResult.Maintenance = maintenanceEntity;
+            queryResult.MaintenanceiteminfoList = queryRepairitemList.Results;
+            queryResult.RepairitempartList = queryPartsList.Results;
+
+            return queryResult;
+        }
+        #endregion
+
+        #region 查询维修项目
+        public async Task<QueryResult<CrmEntity>> QueryRepairitemList(string dealeridGuid)
+        {
+            return await QueryRepairitemListByFilter(dealeridGuid, string.Empty);
+        }
+
+        public async Task<QueryResult<CrmEntity>> QueryRepairitemListByFilter(string dealeridGuid, string filter)
+        {
+            #region 查询维修项目基本信息
+            var repairitemMap = new Dictionary<Guid, CrmEntity>();
+            var xdoc = await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = string.Empty;
+                fetchXml = $@"
+                <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+                    <entity name='mcs_repairiteminfo'>
+                        <order attribute='mcs_name' descending='false' />
+                        {filter}
+                    </entity>
+                </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+            var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_repairiteminfo",
+                FetchXml = xdoc
+            };
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+            var fetchResponse = await _crmService.Execute(fetchRequest);
+            var repairiteminfoResponse = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            #endregion
+
+            #region 查询费用 来源厅店索赔设置
+            xdoc = await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = string.Empty;
+                fetchXml = $@"
+            <fetch version='1.0' output-format='xml-platform' mapping='logical' count='1' distinct='false'>
+                <entity name='mcs_dealerwarrantysetting'>
+                    <filter type='and'>
+                        <condition attribute='mcs_dealername' operator='eq'  value='{dealeridGuid}' />
+                        <condition attribute='mcs_startdate' operator='on-or-before' value='" + DateTime.Now.ToString("yyyy-MM-dd") + @"' />
+                        <condition attribute='mcs_enddate' operator='on-or-after' value='" + DateTime.Now.ToString("yyyy-MM-dd") + @"' />
+                    </filter>
+                </entity>
+            </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+            fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_dealerwarrantysetting",
+                FetchXml = xdoc
+            };
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+            fetchResponse = await _crmService.Execute(fetchRequest);
+            var dealerwarrantysettingResponse = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            #endregion
+
+            #region 组装map
+            //查询维修类型
+            var repairitemtypeEntity = await _crmService.RetrieveMultiple("mcs_repairitemtype", "$filter=mcs_name eq '自费'", null, dicHead);
+            //查询维修类别
+            var repairitemtypedetailEntity = await _crmService.RetrieveMultiple("mcs_repairitemtypedetail", "$filter=mcs_name eq '一般维修'", null, dicHead);
+            //组装map
+            foreach (var repairitem in repairiteminfoResponse.Value.Results)
+            {
+                repairitem.Attributes.Add("ext_price", JToken.FromObject(0)); //默认费用
+
+                if (repairitemtypeEntity.Results.Count > 0)
+                {
+                    repairitem.Attributes.Add("ext_repairitemtypeid_formatted", repairitemtypeEntity.Results[0].Attributes["mcs_name"]); // 默认维修类型
+                    repairitem.Attributes.Add("ext_repairitemtypeid", JToken.FromObject(repairitemtypeEntity.Results[0].Id));
+                }
+
+                if (repairitemtypedetailEntity.Results.Count > 0)
+                {
+                    repairitem.Attributes.Add("ext_repairitemtypedetailid_formatted", repairitemtypedetailEntity.Results[0].Attributes["mcs_name"]); //默认维修类别
+                    repairitem.Attributes.Add("ext_repairitemtypedetailid", JToken.FromObject(repairitemtypedetailEntity.Results[0].Id));
+                }
+
+                if (dealerwarrantysettingResponse.Value.Results.Count > 0)
+                {
+                    if (dealerwarrantysettingResponse.Value.Results[0].Attributes.ContainsKey("mcs_price"))
+                    {
+                        repairitem.Attributes["ext_price"] = dealerwarrantysettingResponse.Value.Results[0].Attributes["mcs_price"];
+                    }
+                }
+
+                repairitemMap.Add(repairitem.Id, repairitem);
+            }
+            #endregion
+
+            var queryResult = new QueryResult<CrmEntity>();
+            queryResult.Results = repairitemMap.Values.ToList();
+            return queryResult;
+
+
+        }
+
+
+        #endregion
+
+        #region 查询维修配件
+        public async Task<QueryResult<CrmEntity>> QueryPartsList()
+        {
+            var result = await QueryPartsListByFilter(1, string.Empty);
+            return result;
+        }
+
+        public async Task<QueryResult<CrmEntity>> QueryPartsListByFilter(int pageIndex, string filter)
+        {
+            #region 查询备件基本信息
+            var partsMap = new Dictionary<Guid, CrmEntity>();
+            var xdoc = await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"
+                <fetch version='1.0' output-format='xml-platform' mapping='logical' count='{15}' page='{1}' distinct='true'>
+                    <entity name='mcs_parts'>
+                        <order attribute='mcs_name' descending='false' />
+                        {filter}
+                    </entity>
+                </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+            var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_parts",
+                FetchXml = xdoc
+            };
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+            var fetchResponse = await _crmService.Execute(fetchRequest);
+            var partsResponse = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+
+            //查询维修类型
+            var repairitemtypeEntity = await _crmService.RetrieveMultiple("mcs_repairitemtype", "$filter=mcs_name eq '自费'", null, dicHead);
+            //查询维修类别
+            var repairitemtypedetailEntity = await _crmService.RetrieveMultiple("mcs_repairitemtypedetail", "$filter=mcs_name eq '一般维修'", null, dicHead);
+
+
+            //组装map
+            foreach (var parts in partsResponse.Value.Results)
+            {
+                parts.Attributes.Add("ext_price", JToken.FromObject(0)); //默认费用
+
+                if (repairitemtypeEntity.Results.Count > 0)
+                {
+                    parts.Attributes.Add("ext_repairitemtypeid_formatted", repairitemtypeEntity.Results[0].Attributes["mcs_name"]); // 默认维修类型
+                    parts.Attributes.Add("ext_repairitemtypeid", JToken.FromObject(repairitemtypeEntity.Results[0].Id));
+                }
+
+                if (repairitemtypedetailEntity.Results.Count > 0)
+                {
+                    parts.Attributes.Add("ext_repairitemtypedetailid_formatted", repairitemtypedetailEntity.Results[0].Attributes["mcs_name"]); //默认维修类别
+                    parts.Attributes.Add("ext_repairitemtypedetailid", JToken.FromObject(repairitemtypedetailEntity.Results[0].Id));
+                }
+                partsMap.Add(parts.Id, parts);
+            }
+
+            #endregion
+
+            #region 查询备件价格
+            xdoc = await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"
+                <fetch version='1.0' output-format='xml-platform' mapping='logical'  distinct='false'>
+                  <entity name='mcs_spmpartspricemanagement'>
+                    <filter type='or'>";
+                foreach (var parts in partsMap)
+                    fetchXml += $@"<condition attribute='mcs_partid' operator='eq'  value='{parts.Key}' />";
+                fetchXml += @"
+                    </filter>
+                  </entity>
+                </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+            fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_spmpartspricemanagement",
+                FetchXml = xdoc
+            };
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+            fetchResponse = await _crmService.Execute(fetchRequest);
+            var spmpartspricemanagementResponse = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            #endregion
+
+            #region 组装数据
+            foreach (var spmpartspricemanagement in spmpartspricemanagementResponse.Value.Results)
+            {
+                var partid = JToken.FromObject(string.Empty);
+                var ext_price = JToken.FromObject(0);
+                if (spmpartspricemanagement.Attributes.ContainsKey("_mcs_partid_value"))
+                {
+                    partid = spmpartspricemanagement.Attributes["_mcs_partid_value"];
+                }
+                if (spmpartspricemanagement.Attributes.ContainsKey("mcs_wholesalesprice_base"))
+                {
+                    ext_price = spmpartspricemanagement.Attributes["mcs_wholesalesprice_base"];
+                }
+
+
+                if (!string.IsNullOrEmpty(partid.ToObject<string>()))
+                {
+                    var partGuid = Guid.Parse(partid.ToObject<string>());
+                    if (partsMap.ContainsKey(partGuid))
+                    {
+                        partsMap[partGuid].Attributes["ext_price"] = ext_price;
+                    }
+                }
+            }
+            #endregion
+
+            var queryResult = new QueryResult<CrmEntity>();
+            queryResult.Results = partsMap.Values.ToList();
             return queryResult;
         }
         #endregion

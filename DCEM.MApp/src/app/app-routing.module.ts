@@ -51,7 +51,10 @@ const routes: Routes = [
                     { path: 'list', loadChildren: './serving/mc-sc.com/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './serving/mc-sc.com/detail/detail.module#DetailPageModule' },
                     { path: 'edit', loadChildren: './serving/mc-sc.com/edit/edit.module#EditPageModule' },
-                    { path: 'edit2', loadChildren: './serving/mc-sc.com/edit2/edit2.module#Edit2PageModule' }
+                    { path: 'edit2', loadChildren: './serving/mc-sc.com/edit2/edit2.module#Edit2PageModule' },
+                    { path: 'subeditworking', loadChildren: './serving/mc-sc.com/subeditworking/subeditworking.module#SubeditworkingPageModule' },
+                    { path: 'subeditpart', loadChildren: './serving/mc-sc.com/subeditpart/subeditpart.module#SubeditpartPageModule' },
+                    { path: 'success', loadChildren: './serving/mc-sc.com/success/success.module#SuccessPageModule' }
                 ]
             },
             {
@@ -93,8 +96,6 @@ const routes: Routes = [
             },
         ],
     }
-
-
 ];
 
 @NgModule({

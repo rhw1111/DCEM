@@ -28,7 +28,7 @@ namespace DCEM.Web.Controllers
         }
         #endregion
 
-        #region 获取问诊单 服务委托书列表
+        #region 查询 问诊单 服务委托书 列表
         /// <summary>
         /// 
         /// </summary>
@@ -44,7 +44,7 @@ namespace DCEM.Web.Controllers
         }
         #endregion
 
-        #region 获取问诊单 服务委托书详情
+        #region 查询 问诊单 服务委托书 详情
         [HttpGet]
         [Route("GetInfo")]
         public async Task<NewtonsoftJsonActionResult<ServiceproxyQueryInfoResponse>> GetInfo(string guid = "5A35949B-CEC7-E911-A81F-FB18ABF55380")
@@ -53,7 +53,7 @@ namespace DCEM.Web.Controllers
         }
         #endregion
 
-        #region 问诊单 服务委托书添加编辑接口
+        #region 添加编辑 问诊单 服务委托书
         [HttpPost]
         [Route("AddOrUpdate")]
         public async Task<NewtonsoftJsonActionResult<ValidateResult<CrmEntity>>> AddOrUpdate(ServiceproxyAddOrUpdateRequest request)
@@ -71,7 +71,7 @@ namespace DCEM.Web.Controllers
         }
         #endregion
 
-        #region 查询工位 列表
+        #region 查询 工位 列表
         [HttpGet]
         [Route("GetRepairlocationList")]
         public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetRepairlocationList()
@@ -80,12 +80,39 @@ namespace DCEM.Web.Controllers
         }
         #endregion
 
-        #region 查询保养项 列表
+        #region 查询 保养项 列表
         [HttpGet]
         [Route("GetMaintenanceList")]
         public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetMaintenanceList()
         {
             return await _serviceproxyService.QueryMaintenanceList();
+        }
+        #endregion
+
+        #region 查询 保养项 详情
+        [HttpGet]
+        [Route("GetMaintenanceInfo")]
+        public async Task<NewtonsoftJsonActionResult<MaintenanceQueryInfoResponse>> GetMaintenanceInfo(string maintenanceGuid = "B48C1BD2-FB93-E911-A81F-FB18ABF55380", string dealeridGuid = "D2B7AE95-72F4-E911-A821-F2106C4094A1")
+        {
+            return await _serviceproxyService.QueryMaintenanceInfo(maintenanceGuid, dealeridGuid);
+        }
+        #endregion
+
+        #region 查询 维修项目 列表
+        [HttpGet]
+        [Route("GetRepairitemList")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetRepairitemList(string dealeridGuid = "D2B7AE95-72F4-E911-A821-F2106C4094A1")
+        {
+            return await _serviceproxyService.QueryRepairitemList(dealeridGuid);
+        }
+        #endregion
+
+        #region 查询 维修配件 列表
+        [HttpGet]
+        [Route("GetPartsList")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetPartsList()
+        {
+            return await _serviceproxyService.QueryPartsList();
         }
         #endregion
     }

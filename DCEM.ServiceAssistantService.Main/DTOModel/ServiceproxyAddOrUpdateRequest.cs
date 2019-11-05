@@ -13,11 +13,14 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
         public int actioncode { get; set; }
         public Serviceproxy serviceproxy { get; set; }
         public List<Serviceordercheckresult> serviceordercheckresultArray { get; set; }
-
+        public List<Serviceorderrepairitem> serviceorderrepairitemArray { get; set; }
+        public List<Serviceorderpart> serviceorderpartArray { get; set; }
         public ServiceproxyAddOrUpdateRequest()
         {
             serviceproxy = new Serviceproxy();
             serviceordercheckresultArray = new List<Serviceordercheckresult>();
+            serviceorderrepairitemArray = new List<Serviceorderrepairitem>();
+            serviceorderpartArray = new List<Serviceorderpart>();
         }
 
 
@@ -70,6 +73,14 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
         /// 客户描述
         /// </summary>
         public string customercomment { get; set; }
+        /// <summary>
+        /// 单据类型 10=问诊单  20=服务委托书
+        /// </summary>
+        public int currenttype { get; set; }
+        /// <summary>
+        /// 厅店
+        /// </summary>
+        public string dealerid { get; set; }
     }
     #endregion
 
@@ -92,5 +103,82 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
     }
     #endregion
 
+    #region 维修项目
+    public class Serviceorderrepairitem
+    {
+        /// <summary>
+        /// 项目代码
+        /// </summary>
+        public string repairitemid { get; set; }
+        /// <summary>
+        /// 项目名称
+        /// </summary>
+        public string name { get; set; }
+        /// <summary>
+        /// 维修类别
+        /// </summary>
+        public string repairitemtypeid { get; set; }
+        /// <summary>
+        /// 维修类型
+        /// </summary>
+        public string repairitemtypedetailid { get; set; }
+        /// <summary>
+        /// 工时单价
+        /// </summary>
+        public decimal price { get; set; }
+        /// <summary>
+        /// 工时数量
+        /// </summary>
+        public decimal workinghour { get; set; }
+        /// <summary>
+        /// 折扣
+        /// </summary>
+        public decimal discount { get; set; }
+        /// <summary>
+        /// 维修费用(总价)
+        /// </summary>
+        public string repairamount { get; set; }
+
+    }
+    #endregion
+
+    #region 维修配件
+    public class Serviceorderpart
+    {
+        /// <summary>
+        /// 零件代码
+        /// </summary>
+        public string partsid { get; set; }
+        /// <summary>
+        /// 零件名称
+        /// </summary>
+        public string partsname { get; set; }
+        /// <summary>
+        /// 维修类别
+        /// </summary>
+        public string repairitemtypeid { get; set; }
+        /// <summary>
+        /// 维修类型
+        /// </summary>
+        public string repairitemtypedetailid { get; set; }
+        /// <summary>
+        /// 零件单价
+        /// </summary>
+        public decimal price { get; set; }
+        /// <summary>
+        /// 零件数量
+        /// </summary>
+        public decimal quantity { get; set; }
+        /// <summary>
+        /// 折扣
+        /// </summary>
+        public decimal discount { get; set; }
+        /// <summary>
+        /// 总金额
+        /// </summary>
+        public decimal amount { get; set; }
+
+    }
+    #endregion
 
 }

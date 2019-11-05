@@ -1,0 +1,306 @@
+﻿<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/serving/sc/list"></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            <ion-label>服务委托书明细</ion-label>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>
+                保养项
+            </ion-card-title>
+        </ion-card-header>
+
+        <ion-list lines="full">
+            <ion-item-divider>
+                <ion-label>
+                    保养项
+                </ion-label>
+            </ion-item-divider>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        姓名
+                    </h2>
+                    <p>{{mod.data.serviceproxy.customername}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        车牌
+                    </h2>
+                    <p>{{mod.data.serviceproxy.carplate}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        手机
+                    </h2>
+                    <p>{{mod.data.serviceproxy.customerphone}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+        <br />
+    </ion-card>
+
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>
+                委托信息
+            </ion-card-title>
+        </ion-card-header>
+
+        <ion-list lines="full">
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        单号
+                    </h2>
+                    <p>{{mod.data.serviceproxy.name}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        送修人
+                    </h2>
+                    <p>{{mod.data.serviceproxy.shuttlename}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        送修人手机
+                    </h2>
+                    <p>{{mod.data.serviceproxy.shuttlephone}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        工单类型
+                    </h2>
+                    <p>{{mod.data.serviceproxy.ordertype}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        进店电量
+                    </h2>
+                    <p>{{mod.data.serviceproxy.inpower}}%&nbsp;</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        离店电量
+                    </h2>
+                    <p>{{mod.data.serviceproxy.outpower}}%&nbsp;</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        进店油量
+                    </h2>
+                    <p>{{mod.data.serviceproxy.oilquantity}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        离店油量
+                    </h2>
+                    <p>{{mod.data.serviceproxy.departureoil}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        进店里程
+                    </h2>
+                    <p>{{mod.data.serviceproxy.mileage}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        离店里程
+                    </h2>
+                    <p>{{mod.data.serviceproxy.departuremileage}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        到店时间
+                    </h2>
+                    <p>{{mod.data.serviceproxy.arrivalon}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        完工时间
+                    </h2>
+                    <p>{{mod.data.serviceproxy.finishat}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        维修工位
+                    </h2>
+                    <p>{{mod.data.serviceproxy.repairlocationid}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        状态
+                    </h2>
+                    <p>{{mod.data.serviceproxy.status}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        工时费用
+                    </h2>
+                    <p>{{mod.data.serviceproxy.hoursamount}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        零件费用
+                    </h2>
+                    <p>{{mod.data.serviceproxy.partsamount}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        优惠金额
+                    </h2>
+                    <p>{{mod.data.serviceproxy.discountamount}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        费用合计
+                    </h2>
+                    <p>{{mod.data.serviceproxy.amounttotal}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+        <br />
+    </ion-card>
+
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>
+                <ion-icon name="search" size="small"></ion-icon>
+                维修项目
+            </ion-card-title>
+        </ion-card-header>
+
+        <ion-list lines="full">
+            <ion-item *ngFor="let item of mod.data.serviceorderrepairitemArray;let key=index">
+                <ion-label>
+                    <h2>
+                        项目名称
+                    </h2>
+                    <p>
+                        {{item.name}}
+                    </p>
+                    <h2>
+                        项目代码
+                    </h2>
+                    <p>
+                        {{item.repairitemid}}
+                    </p>
+                    <h2>
+                        维修类别
+                    </h2>
+                    <p text-wrap>
+                        {{item.repairitemtypeid}}
+                    </p>
+                    <h2>
+                        费用明细
+                    </h2>
+                    <p>
+                        {{item.workinghour}}小时 X {{item.price}}  X {{item.discount}}  =  ￥{{item.repairamount}}
+                    </p>
+                </ion-label>
+            </ion-item>
+            <ion-item *ngIf="mod.data.serviceorderrepairitemArray.length===0">
+                <ion-label>
+                    <p>
+                        当前单据没有维修项目
+                    </p>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+        <br />
+    </ion-card>
+
+
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>
+                <ion-icon name="search" size="small"></ion-icon>
+                维修配件
+            </ion-card-title>
+        </ion-card-header>
+
+        <ion-list lines="full">
+            <ion-item *ngFor="let item of mod.data.serviceorderpartArray;let key=index">
+                <ion-label>
+                    <h2>
+                        零件名称
+                    </h2>
+                    <p>
+                        {{item.partsname}}
+                    </p>
+                    <h2>
+                        零件代码
+                    </h2>
+                    <p>
+                        {{item.partsid}}
+                    </p>
+                    <h2>
+                        维修类别
+                    </h2>
+                    <p text-wrap>
+                        {{item.repairitemtypeid}}
+                    </p>
+                    <h2>
+                        费用明细
+                    </h2>
+                    <p>
+                        {{item.quantity}} X {{item.price}}  X {{item.discount}}  =  ￥{{item.amount}}
+                    </p>
+                </ion-label>
+            </ion-item>
+            <ion-item *ngIf="mod.data.serviceorderpartArray.length===0">
+                <ion-label>
+                    <p>
+                        当前单据没有维修零件
+                    </p>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+        <br />
+    </ion-card>
+</ion-content>

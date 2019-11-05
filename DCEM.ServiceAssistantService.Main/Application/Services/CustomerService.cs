@@ -20,7 +20,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
         }
         #endregion
 
-        #region 获取客户列表
+        #region 获取 客户列表
 
         #region filter组装
         public async Task<string> GetQueryListFilter(int type, string search)

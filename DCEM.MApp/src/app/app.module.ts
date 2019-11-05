@@ -21,7 +21,11 @@ import { SelectSystemuserComponent } from 'app/base/base.ser/components/select-s
 import { SelectMaintenanceComponent } from 'app/serving/serving.ser/components/select-maintenance/select-maintenance.component';
 import { SelectAppointmentconfigComponent } from 'app/serving/serving.ser/components/select-appointmentconfig/select-appointmentconfig.component';
 import { SelectMalFunctionTypeComponent } from 'app/serving/serving.ser/components/select-malfunctiontype/select.malfunctiontype.component';
+import { SelectPartsComponent } from 'app/serving/serving.ser/components/select-parts/select-parts.component';
+import { SelectRepairitemComponent } from 'app/serving/serving.ser/components/select-repairitem/select-repairitem.component';
 
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
     declarations: [//申明组件
         AppComponent, //全局公共组件
@@ -33,6 +37,8 @@ import { SelectMalFunctionTypeComponent } from 'app/serving/serving.ser/componen
         SelectSystemuserComponent,//选择系统用户
         SelectAppointmentconfigComponent,//选择预约记录
         SelectMalFunctionTypeComponent],//选择故障类别代码
+        SelectPartsComponent,
+        SelectRepairitemComponent
     entryComponents: [
         ScSelectComponent, 
         SelectCustomerComponent, 
@@ -41,7 +47,9 @@ import { SelectMalFunctionTypeComponent } from 'app/serving/serving.ser/componen
         SelectMaintenanceComponent,
         SelectSystemuserComponent,
         SelectAppointmentconfigComponent,
-        SelectMalFunctionTypeComponent],
+        SelectMalFunctionTypeComponent,
+        SelectPartsComponent,
+        SelectRepairitemComponent],
     imports: [BrowserModule,
         IonicModule.forRoot({ mode: 'ios' }),
         AppRoutingModule,

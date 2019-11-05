@@ -59,8 +59,21 @@ let ListPage = class ListPage {
                     obj["Id"] = res.Results[key]["Id"];
                     obj["carplate"] = res.Results[key]["Attributes"]["mcs_carplate"];
                     obj["customername"] = res.Results[key]["Attributes"]["mcs_customername"];
-                    obj["createdon"] = res.Results[key]["Attributes"]["createdon@OData.Community.Display.V1.FormattedValue"];
+                    obj["createdonformat"] = res.Results[key]["Attributes"]["createdon@OData.Community.Display.V1.FormattedValue"];
                     obj["name"] = res.Results[key]["Attributes"]["mcs_name"];
+                    obj["status"] = res.Results[key]["Attributes"]["mcs_status"];
+                    obj["statusformat"] = res.Results[key]["Attributes"]["mcs_status@OData.Community.Display.V1.FormattedValue"];
+                    //设置颜色
+                    obj["statuscolor"] = "primary";
+                    if (obj["status"] < 100) {
+                        obj["statuscolor"] = "primary";
+                    }
+                    else if (obj["status"] < 180) {
+                        obj["statuscolor"] = "tertiary";
+                    }
+                    else {
+                        obj["statuscolor"] = "success";
+                    }
                     this.mod.data[dateKey].data.push(obj);
                 }
                 console.log(this.mod.data);
