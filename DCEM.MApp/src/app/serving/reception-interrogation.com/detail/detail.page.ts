@@ -25,7 +25,7 @@ export class DetailPage implements OnInit {
                 mileage: "",
                 arrivalon: "",
                 customercomment: "",
-                status: "",
+                status: 0,
             },
             serviceordercheckresultArray: []
         }
