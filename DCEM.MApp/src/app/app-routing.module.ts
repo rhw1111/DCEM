@@ -95,7 +95,55 @@ const routes: Routes = [
                 ]
             },
         ],
+    },
+    {
+        path:'saleing',//销售助手
+        children:[
+            {
+                path:'lead',//原始线索
+                children:[
+                    { path: 'list', loadChildren: './saleing/lead.com/list/list.module#ListPageModule' },
+                    { path: 'edit', loadChildren: './saleing/lead.com/edit/edit.module#EditPageModule' },
+                    { path: 'detail', loadChildren: './saleing/lead.com/detail/detail.module#DetailPageModule' },
+                    { path: 'sucess', loadChildren: './saleing/lead.com/sucess/sucess.module#SucessPageModule' }
+                ]
+            },
+            {
+                path:'onlylead',//唯一线索
+                children:[
+                    { path: 'list', loadChildren: './saleing/mcs-onlylead.com/list/list.module#ListPageModule' },
+                    { path: 'edit', loadChildren: './saleing/mcs-onlylead.com/edit/edit.module#EditPageModule' },
+                    { path: 'detail', loadChildren: './saleing/mcs-onlylead.com/detail/detail.module#DetailPageModule' },
+                    { path: 'sucess', loadChildren: './saleing/mcs-onlylead.com/sucess/sucess.module#SucessPageModule' }
+                ]
+            },
+            {
+                path:'contactrecord',//联络记录
+                children:[
+                    { path: 'list', loadChildren: './saleing/mcs-contactrecord/list/list.module#ListPageModule' },
+                    { path: 'edit', loadChildren: './saleing/mcs-contactrecord/edit/edit.module#EditPageModule' },
+                ]
+            },
+            {
+                path:'cultivatetask',//培育任务
+                children:[
+                    { path: 'list', loadChildren: './saleing/mcs-cultivatetask.com/list/list.module#ListPageModule' },
+                    { path: 'edit', loadChildren: './saleing/mcs-cultivatetask.com/edit/edit.module#EditPageModule' },
+                    { path: 'detail', loadChildren: './saleing/mcs-cultivatetask.com/detail/detail.module#DetailPageModule' },
+                    { path: 'sucess', loadChildren: './saleing/mcs-cultivatetask.com/sucess/sucess.module#SucessPageModule' },
+                ]
+            },
+            {
+                path:'customer',//门店销售机会
+                children:[
+                    { path: 'list', loadChildren: './saleing/mcs-customer.com/list/list.module#ListPageModule' },
+                    { path: 'edit', loadChildren: './saleing/mcs-customer.com/edit/edit.module#EditPageModule' },
+                    { path: 'detail', loadChildren: './saleing/mcs-customer.com/detail/detail.module#DetailPageModule' }
+                ]
+            }
+        ]
     }
+
 ];
 
 @NgModule({

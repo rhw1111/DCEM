@@ -24,8 +24,6 @@ import { SelectMalFunctionTypeComponent } from 'app/serving/serving.ser/componen
 import { SelectPartsComponent } from 'app/serving/serving.ser/components/select-parts/select-parts.component';
 import { SelectRepairitemComponent } from 'app/serving/serving.ser/components/select-repairitem/select-repairitem.component';
 
-
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
     declarations: [//申明组件
         AppComponent, //全局公共组件
@@ -36,9 +34,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         SelectMaintenanceComponent,//选择保养项
         SelectSystemuserComponent,//选择系统用户
         SelectAppointmentconfigComponent,//选择预约记录
-        SelectMalFunctionTypeComponent],//选择故障类别代码
+        SelectMalFunctionTypeComponent,
         SelectPartsComponent,
-        SelectRepairitemComponent
+        SelectRepairitemComponent],//选择故障类别代码
     entryComponents: [
         ScSelectComponent, 
         SelectCustomerComponent, 
