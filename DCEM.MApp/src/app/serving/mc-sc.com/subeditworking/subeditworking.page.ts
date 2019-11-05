@@ -38,7 +38,6 @@ export class SubeditworkingPage implements OnInit {
         if (this._shareData.has(this.mod.shareDataKey)) {
             this.shareData = this._shareData.get(this.mod.shareDataKey);
         }
-        console.log(this.shareData);
     }
 
     //保存
@@ -64,7 +63,7 @@ export class SubeditworkingPage implements OnInit {
             obj["workinghour"] = data["repairitem"]["model"]["mcs_workinghour"];     //工时
             obj["price"] = data["repairitem"]["model"]["ext_price"];          //单价
             obj["discount"] = 1;                                                                  //折扣
-            obj["repairamount"] = obj["repairitem"] * obj["workinghour"];                              //总价
+            obj["repairamount"] = obj["price"] * obj["workinghour"];                              //总价
             obj["repairitemtypeid"] = data["repairitem"]["model"]["ext_repairitemtypeid"];                                      //维修类别  
             obj["repairitemtypeid_formatted"] = data["repairitem"]["model"]["ext_repairitemtypeid_formatted"];                  //维修类别 
             obj["repairitemtypedetailid"] = data["repairitem"]["model"]["ext_repairitemtypedetailid"];                          //维修类型 

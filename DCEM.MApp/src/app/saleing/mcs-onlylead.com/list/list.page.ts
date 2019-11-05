@@ -1,9 +1,10 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+ï»¿import { Component, OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from '../../../base/base.ser/http-service.service';
 import { DCore_Page, DCore_Http } from 'app/base/base.ser/Dcem.core';
 import sd from 'silly-datetime';
 import { IonInfiniteScroll } from '@ionic/angular';
+import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 
 @Component({
   selector: 'app-list',
@@ -14,30 +15,34 @@ export class ListPage implements OnInit {
     @ViewChild(IonInfiniteScroll, null) infiniteScroll: IonInfiniteScroll;
 
     model = {
-        name: 'appointmentlistinfo',//Ä£¿éÊµÌåÃû³Æ
+        name: 'onlylead',//æ¨¡å—å®ä½“åç§°
         apiUrl: '/api/only-lead/QueryList',
-        seachkey: '',//ËÑË÷¹Ø¼ü×Ö
-        data: [],//ÁĞ±íÊı¾İ
-        pageSize: 10,//Ò³Êı
-        page: 1,//·ÖÒ³
-        sort: '',//ÅÅĞòµÄ²ÎÊı
-        isending: false,//ÊÇ·ñ¼ÓÔØÍê³É
+        seachkey: '',//æœç´¢å…³é”®å­—
+        data: [],//åˆ—è¡¨æ•°æ®
+        pageSize: 10,//é¡µæ•°
+        page: 1,//åˆ†é¡µ
+        sort: '',//æ’åºçš„å‚æ•°
+        systemUserId: "",//å½“å‰ç”¨æˆ·id
+        dealerId: "",//å½“å‰å…åº—id
+        isending: false,//æ˜¯å¦åŠ è½½å®Œæˆ
         nodata: false
     };
-
 
     constructor(
         public router: Router,
         private _http: DCore_Http,
         private _page: DCore_Page,
-        private httpService: HttpService
+        private httpService: HttpService,
+        private _logininfo: Storage_LoginInfo
     ) { }
 
     ngOnInit() {
-
-        //this.showlist();
+        //debugger;
+        this.model.systemUserId = this._logininfo.GetSystemUserId(); 
+        //this.model.dealerId = this._logininfo.GetDealerid();
+        this.showlist(null);
   }
-    //ËÑË÷·½·¨
+    //æœç´¢æ–¹æ³•
     search(event) {
         var keyCode = event ? event.keyCode : "";
         if (keyCode == 13) {
@@ -48,15 +53,29 @@ export class ListPage implements OnInit {
         }
     }
 
-    //Õ¹Ê¾Êı¾İ
+    //ä¸‹æ‹‰åˆ·æ–°
+    doRefresh(event) {
+        this.model.data = [];
+        this.model.page = 1;
+        this.model.isending = false;
+        this.showlist(event);
+    }
+    //åŠ è½½ä¸‹ä¸€é¡µ
+    doLoading(event) {
+        this.model.page++;
+        this.showlist(event);
+    }
+
+    //å±•ç¤ºæ•°æ®
     showlist(event) {
         this._page.loadingShow();
-        console.log("µØÖ·:" + this.model.apiUrl,"ËÑË÷:" + this.model.seachkey, "ÅÅĞò:" + this.model.sort, "Ò³ÌõÊı:" + this.model.pageSize, "Ò³Êı:" + this.model.page);
+        console.log("åœ°å€:" + this.model.apiUrl,"æœç´¢:" + this.model.seachkey, "æ’åº:" + this.model.sort, "é¡µæ¡æ•°:" + this.model.pageSize, "é¡µæ•°:" + this.model.page);
         this._http.get(this.model.apiUrl,
             {
                 params: {
+                    dealerid: this.model.dealerId,
+                    systemuserid: this.model.systemUserId,
                     seachkey: this.model.seachkey,
-                    sort: this.model.sort,
                     pageSize: this.model.pageSize,
                     page: this.model.page
                 }
@@ -65,34 +84,43 @@ export class ListPage implements OnInit {
                 if (res.Results !== null) {
                     for (var key in res.Results) {
                         var obj = {};
-                        obj["mcs_appointmentinfoid"] = res.Results[key]["Id"];
-                        obj["mcs_carplate"] = res.Results[key]["Attributes"]["mcs_carplate"];
-                        obj["mcs_customername"] = res.Results[key]["Attributes"]["mcs_customername"];
-                        obj["mcs_appointmentat"] = res.Results[key]["Attributes"]["mcs_appointmentat"];
-                        obj["mcs_appointmentconfigid"] = res.Results[key]["Attributes"]["appointmentconfig_x002e_mcs_name"];
-                        obj["mcs_status"] = res.Results[key]["Attributes"]["mcs_status"];
+                        obj["mcs_onlyleadid"] = res.Results[key]["Id"];
+                        obj["mcs_gender"] = res.Results[key]["Attributes"]["mcs_gender"];
+                        obj["mcs_leadorigin"] = res.Results[key]["Attributes"]["mcs_leadorigin"];
+                        obj["mcs_mobilephone"] = res.Results[key]["Attributes"]["mcs_mobilephone"];
+                        obj["mcs_name"] = res.Results[key]["Attributes"]["mcs_name"];
                         this.model.data.push(obj);
                     }
-                    //ÉèÖÃÊı¾İ´æ´¢µ½±¾µØ
+                    //è®¾ç½®æ•°æ®å­˜å‚¨åˆ°æœ¬åœ°
                     if (this.model.page == 1) {
                         this.httpService.SetDataCache(this.model.name, JSON.stringify(this.model.data).toString());
                     }
                     event ? event.target.complete() : '';
-                    //ÅĞ¶ÏÊÇ·ñÓĞĞÂÊı¾İ
+                    //åˆ¤æ–­æ˜¯å¦æœ‰æ–°æ•°æ®
                     if (res.Results.length < 10) {
                         event ? event.target.disabled = true : "";
                         this.model.isending = true;
                     }
                 }
                 else {
-                    this._page.alert("ÏûÏ¢ÌáÊ¾", "Ô¤Ô¼µ¥Êı¾İ¼ÓÔØÒì³£");
+                    this._page.alert("æ¶ˆæ¯æç¤º", "å”¯ä¸€çº¿ç´¢æ•°æ®åŠ è½½å¼‚å¸¸");
                 }
                 this._page.loadingHide();
             },
             (err: any) => {
-                this._page.alert("ÏûÏ¢ÌáÊ¾", "Ô¤Ô¼µ¥Êı¾İ¼ÓÔØÒì³£");
+                this._page.alert("æ¶ˆæ¯æç¤º", "å”¯ä¸€çº¿ç´¢æ•°æ®åŠ è½½å¼‚å¸¸");
                 this._page.loadingHide();
             }
         );
+    }
+
+    //è¿”å›æ•°æ®ä¸ºç©ºï¼Œé»˜è®¤â€œ--â€
+    SetDefaultValue(data) {
+        if (data == null || data == undefined) {
+            return '--';;
+        }
+        else {
+            return data;
+        }
     }
 }

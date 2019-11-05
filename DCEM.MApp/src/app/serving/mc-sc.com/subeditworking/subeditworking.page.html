@@ -56,25 +56,25 @@
                 <ion-label>
                     <h2>工时</h2>
                 </ion-label>
-                <p> <ion-input type="text" [(ngModel)]="mod.data['workinghour']" required></ion-input></p>
+                <p>{{mod.data["workinghour"]}}&nbsp;</p>
             </ion-item>
             <ion-item>
                 <ion-label>
                     <h2>单价</h2>
                 </ion-label>
-                <ion-input type="text" [(ngModel)]="mod.data['price']" required></ion-input>
+                <p>{{mod.data["price"]}}&nbsp;</p>
             </ion-item>
             <ion-item>
                 <ion-label>
                     <h2>折扣</h2>
                 </ion-label>
-                <ion-input type="text" [(ngModel)]="mod.data['discount']" required></ion-input>
+                <p>{{mod.data["discount"]}}&nbsp;</p>
             </ion-item>
             <ion-item>
                 <ion-label>
                     <h2>维修费用</h2>
-                    <p>{{mod.data["repairamount"]}}&nbsp;</p>
                 </ion-label>
+                <p>{{mod.data["repairamount"]}}&nbsp;</p>
             </ion-item>
 
         </ion-list>
