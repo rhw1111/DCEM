@@ -4,21 +4,21 @@ using System.Text;
 
 namespace DCEM.SalesAssistant.Main.ViewModel.Request
 {
-    public class PageBaseRequestModel
+    public class PageBaseRequestModel: BaseRequest
     {
         /// <summary>
         /// 排序
         /// </summary>
-        public string sort { get; set; }
+        public string Sort { get; set; }
 
         /// <summary>
         /// 每页条数
         /// </summary>
-        public int pageSize { get; set; }
+        public int PageSize { get; set; }
 
         /// <summary>
         /// 页数
         /// </summary>
-        public int page { get; set; }
+        public int PageIndex { get; set; }
     }
 }
