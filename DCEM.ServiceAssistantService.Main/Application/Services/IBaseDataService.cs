@@ -31,6 +31,38 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         /// <returns></returns>
         Task<QueryResult<CrmEntity>> QueryMalFunctionType(MalFunctionTypeRequest malFunctionTypeRequest);
 
+
+        /// <summary>
+        /// 车型
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<QueryResult<CrmEntity>> QueryVehicletype(VehicleTypeRequest request);
+        /// <summary>
+        /// 车型颜色
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<QueryResult<CrmEntity>> QueryVehicleColor(VehicleColorRequest request);
+        /// <summary>
+        /// 试驾时段
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<QueryResult<CrmEntity>> QueryReservationconfig(ReservationconfigRequest request);
+        /// <summary>
+        /// 接待专员
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<QueryResult<CrmEntity>> QueryReceptioncommissioner(ReceptioncommissionerRequest request);
+        /// <summary>
+        /// 省市区
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<QueryResult<CrmEntity>> QuerySysarea(SysareaRequest request);
+
         /// <summary>
         /// 查询维修配件基础数据
         /// </summary>
