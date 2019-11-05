@@ -49,8 +49,8 @@ namespace DCEM.Web.Controllers
             {
                 search = seachkey,
                 mcs_dealerid = mcs_dealerid,
-                page = page,
-                pageSize = pageSize,
+                PageIndex = page,
+                PageSize = pageSize,
             };
             var list = await app.QueryList(onlyLeadRequest);
             return list;
