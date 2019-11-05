@@ -30,12 +30,12 @@ export class DetailPage implements OnInit {
                 arrivalon: "",
                 finishat: "",
                 repairlocationid: "",
-                status: "",
                 hoursamount: "",
                 partsamount: "",
                 discountamount: "",
                 amounttotal: "",
-                dealerid: ""
+                dealerid: "",
+                status: 0,
 
             },
             serviceorderrepairitemArray: [],
@@ -96,6 +96,7 @@ export class DetailPage implements OnInit {
                     this.mod.data.serviceproxy["partsamount"] = res["Serviceproxy"]["Attributes"]["mcs_partsamount"];
                     this.mod.data.serviceproxy["discountamount"] = res["Serviceproxy"]["Attributes"]["mcs_discountamount"];
                     this.mod.data.serviceproxy["amounttotal"] = res["Serviceproxy"]["Attributes"]["mcs_amounttotal"];
+                    this.mod.data.serviceproxy.status = res["Serviceproxy"]["Attributes"]["mcs_status"];
                     this.mod.data.serviceproxy["dealerid"] = res["Serviceproxy"]["Attributes"]["_mcs_dealerid_value@OData.Community.Display.V1.FormattedValue"];
 
                 }

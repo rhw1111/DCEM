@@ -361,4 +361,15 @@
             </ion-card>
         </div>
     </div>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+            <ion-icon name="arrow-dropup"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="top">
+            <ion-fab-button color="success" [routerLink]="['/serving/ri/edit']"><ion-icon name="add"></ion-icon></ion-fab-button>
+            <ion-fab-button *ngIf="mod.data.serviceproxy.status===100" color="danger" (click)="deleteOnClick()"><ion-icon name="trash"></ion-icon></ion-fab-button>
+            <ion-fab-button *ngIf="mod.data.serviceproxy.status===100" color="warning" [routerLink]="['/serving/ri/edit']"><ion-icon name="create"></ion-icon></ion-fab-button>
+        </ion-fab-list>
+    </ion-fab>
 </ion-content>
