@@ -66,9 +66,9 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 var dicHead = new Dictionary<string, IEnumerable<string>>();
                 dicHead.Add("Prefer", new List<string>() { "odata.include-annotations=\"*\"" });
 
-                var fetchString = _onlyLeadRepository.GetOnlyLeadDetail(entityid);
+                //var fetchString = _onlyLeadRepository.GetOnlyLeadDetail(entityid);
                 CrmEntity entity = null;
-                entity = await _crmService.Retrieve("mcs_appointmentinfo", Guid.Parse(entityid), fetchString, null, dicHead);
+                entity = await _crmService.Retrieve("mcs_onlylead", Guid.Parse(entityid), "", null, dicHead);
                 return entity;
             }
             catch (Exception ex)
