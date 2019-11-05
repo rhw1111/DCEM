@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using DCEM.SalesAssistant.Main.Application.Repository.Contrac;
 
 namespace DCEM.SalesAssistant.Main.Application.Repository
 {
