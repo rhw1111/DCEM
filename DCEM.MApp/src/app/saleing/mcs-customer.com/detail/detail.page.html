@@ -1,6 +1,24 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>detail</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>销售机会详情</ion-title>
+  </ion-toolbar>
+
+
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="tab" color="danger">
+      <ion-segment-button value="info">
+        <ion-label>基础信息</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="att">
+        <ion-label>LogCall</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="att">
+        <ion-label>Activity</ion-label>
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
