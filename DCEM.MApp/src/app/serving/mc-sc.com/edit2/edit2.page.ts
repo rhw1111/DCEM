@@ -78,4 +78,8 @@ export class Edit2Page implements OnInit {
 
     }
 
+    saveOnClick(){
+        
+    }
+
 }

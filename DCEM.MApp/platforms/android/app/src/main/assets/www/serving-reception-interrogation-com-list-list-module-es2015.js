@@ -134,7 +134,6 @@ let ListPage = class ListPage {
                 search: this.mod.searchData.search
             }
         }, (res) => {
-            console.log(res);
             if (res.Results !== null) {
                 for (var key in res.Results) {
                     var date = res.Results[key]["Attributes"]["createdon"];
@@ -153,7 +152,6 @@ let ListPage = class ListPage {
                     obj["name"] = res.Results[key]["Attributes"]["mcs_name"];
                     this.mod.data[dateKey].data.push(obj);
                 }
-                console.log(this.mod.data);
                 this._page.loadingHide();
             }
             else {

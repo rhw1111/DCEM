@@ -138,7 +138,6 @@ var ListPage = /** @class */ (function () {
                 search: this.mod.searchData.search
             }
         }, function (res) {
-            console.log(res);
             if (res.Results !== null) {
                 for (var key in res.Results) {
                     var date = res.Results[key]["Attributes"]["createdon"];
@@ -157,7 +156,6 @@ var ListPage = /** @class */ (function () {
                     obj["name"] = res.Results[key]["Attributes"]["mcs_name"];
                     _this.mod.data[dateKey].data.push(obj);
                 }
-                console.log(_this.mod.data);
                 _this._page.loadingHide();
             }
             else {

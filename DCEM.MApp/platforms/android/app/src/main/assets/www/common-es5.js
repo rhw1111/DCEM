@@ -370,6 +370,102 @@ var blockedTags = ['script', 'style', 'iframe', 'meta', 'link', 'object', 'embed
 
 
 
+/***/ }),
+
+/***/ "./src/app/base/base.ser/logininfo.storage.ts":
+/*!****************************************************!*\
+  !*** ./src/app/base/base.ser/logininfo.storage.ts ***!
+  \****************************************************/
+/*! exports provided: Storage_LoginInfo */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Storage_LoginInfo", function() { return Storage_LoginInfo; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var Storage_LoginInfo = /** @class */ (function () {
+    function Storage_LoginInfo() {
+        this.userinfo = "logo_userinfo";
+    }
+    Storage_LoginInfo.prototype.SetInfo = function (data) {
+        window.localStorage.setItem(this.userinfo, data);
+    };
+    Storage_LoginInfo.prototype.GetUserInfo = function () {
+        var data = window.localStorage.getItem(this.userinfo);
+        return JSON.parse(data);
+    };
+    //获取token
+    Storage_LoginInfo.prototype.GetToken = function () {
+        var data = this.GetUserInfo();
+        if (data != null)
+            return data.access_token;
+        return null;
+    };
+    //获取用户userid
+    Storage_LoginInfo.prototype.GetSystemUserId = function () {
+        var data = this.GetUserInfo();
+        if (data != null)
+            return data.systemuserid;
+        return null;
+    };
+    //获取用户名称
+    Storage_LoginInfo.prototype.GetDomainname = function () {
+        var data = this.GetUserInfo();
+        if (data != null)
+            return data.domainname;
+        return null;
+    };
+    //用户名
+    Storage_LoginInfo.prototype.GetLastname = function () {
+        var data = this.GetUserInfo();
+        if (data != null)
+            return data.lastname;
+        return null;
+    };
+    //姓
+    Storage_LoginInfo.prototype.GetFirstname = function () {
+        var data = this.GetUserInfo();
+        if (data != null)
+            return data.firstname;
+        return null;
+    };
+    //工号
+    Storage_LoginInfo.prototype.GetStaffid = function () {
+        var data = this.GetUserInfo();
+        if (data != null)
+            return data.mcs_staffid;
+        return null;
+    };
+    //经销商编码
+    Storage_LoginInfo.prototype.GetDealerid = function () {
+        var data = this.GetUserInfo();
+        if (data != null)
+            return data.mcs_dealerid;
+        return null;
+    };
+    //经销商名称
+    Storage_LoginInfo.prototype.GetDealername = function () {
+        var data = this.GetUserInfo();
+        if (data != null)
+            return data.mcs_dealername;
+        return null;
+    };
+    Storage_LoginInfo = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        })
+        /*
+        用户信息
+        */
+    ], Storage_LoginInfo);
+    return Storage_LoginInfo;
+}());
+
+
+
 /***/ })
 
 }]);
