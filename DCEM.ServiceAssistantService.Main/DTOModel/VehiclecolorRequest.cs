@@ -11,6 +11,9 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
         /// </summary>
         public string search { get; set; }
 
+
+        public string carmodel { get; set; }
+
         /// <summary>
         /// 排序
         /// </summary>

@@ -117,6 +117,9 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
                 filter += $"<condition attribute='mcs_name' operator='like' value='%{request.search}%' />";
                 filter += $"</filter>";
             }
+            if (!string.IsNullOrWhiteSpace(request.carmodel))
+                filter += $"<condition attribute='mcs_vehtypeid' operator='eq' value='{request.carmodel}' />";
+
 
             var fetchString = $@"<fetch version='1.0' count='{request.pageSize}' page='{request.page}' output-format='xml-platform' mapping='logical' distinct='false'>
                   <entity name='mcs_vehiclecolor'>
@@ -145,23 +148,27 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
         {
             var filter = string.Empty;
             if (!string.IsNullOrWhiteSpace(request.search))
-            {
-                filter += $"<filter type='or'>";
-                filter += $"<condition attribute='mcs_code' operator='like' value='%{request.search}%' />";
-                filter += $"<condition attribute='mcs_name' operator='like' value='%{request.search}%' />";
-                filter += $"</filter>";
+            { 
+                //filter += $"<filter type='or'>";
+                filter += $"<condition attribute='mcs_reservationdate' operator='on' value='{request.search.Split('T')[0]}' />";
+                //filter += $"<condition attribute='mcs_name' operator='like' value='%{dt.ToString("HH:mm")}%' />";
+                //filter += $"</filter>";
             }
-            if (!string.IsNullOrWhiteSpace(request.carmodel)) 
+            if (!string.IsNullOrWhiteSpace(request.carmodel))
                 filter += $"<condition attribute='mcs_carmodel' operator='eq' value='{request.carmodel}' />";
             if (!string.IsNullOrWhiteSpace(request.dealerid))
-                filter += $"<condition attribute='mcs_dealerid' operator='eq' value='{request.dealerid}' />"; 
+                filter += $"<condition attribute='mcs_dealerid' operator='eq' value='{request.dealerid}' />";
 
             var fetchString = $@"<fetch version='1.0' count='{request.pageSize}' page='{request.page}' output-format='xml-platform' mapping='logical' distinct='false'>
-                  <entity name='mcs_reservationconfiguration'>
-                    <attribute name='mcs_name' /> 
-                    <attribute name='mcs_code' />  
-                    <attribute name='mcs_num' />  
+                  <entity name='mcs_reservationconfiguration'> 
+                    <attribute name='mcs_name' />  
+                    <attribute name='createdon' />  
                     <attribute name='mcs_usednum' />  
+                    <attribute name='mcs_reservationdate' />  
+                    <attribute name='mcs_begintime' />  
+                    <attribute name='mcs_endtime' />  
+                    <order attribute='mcs_reservationdate' descending='true' />
+                    <order attribute='mcs_begintime' descending='false' />
                     <filter type='and'>
                       <condition attribute='statecode' operator='eq' value='0' />
                         {filter}
@@ -188,7 +195,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
                 filter += $"<condition attribute='mcs_code' operator='like' value='%{request.search}%' />";
                 filter += $"<condition attribute='mcs_name' operator='like' value='%{request.search}%' />";
                 filter += $"</filter>";
-            } 
+            }
 
             var fetchString = $@"<fetch version='1.0' count='{request.pageSize}' page='{request.page}' output-format='xml-platform' mapping='logical' distinct='false'>
                   <entity name='mcs_receptioncommissioner'>
