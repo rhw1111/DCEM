@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DCEM.SalesAssistant.Main.DAL
+namespace DCEM.SalesAssistant.Main.Factory
 {
     public class OnlyLeadFactory 
     {
