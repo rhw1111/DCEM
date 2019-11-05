@@ -169,7 +169,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
                 var fetchXdoc = XDocument.Parse(fetchString);
                 var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {
-                    EntityName = "mcs_reservationconfiguration",
+                    EntityName = "mcs_receptioncommissioner",
                     FetchXml = fetchXdoc
                 };
                 var fetchResponse = await _crmService.Execute(fetchRequest);

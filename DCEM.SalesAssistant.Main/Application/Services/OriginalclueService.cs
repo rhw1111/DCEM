@@ -30,9 +30,11 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             var response = new OriginalclueListResponse() { };
             var fetchXdoc = await _originalclueRepository.GetGetQueryListFetchXml(originalclueListRequest);
             var crmRequestHelper = new CrmRequestHelper();
-            var entities = await crmRequestHelper.ExecuteAsync(_crmService, "lead", fetchXdoc);
+            var entities = await crmRequestHelper.ExecuteAsync(_crmService, "lead", fetchXdoc, Guid.Parse(originalclueListRequest.UserId));
             response.originalclues = entities.Results;
             response.ALLTotalCount = entities.Count;
+            response.PageSize = originalclueListRequest.PageSize;
+            response.CurrentPage = originalclueListRequest.PageIndex;
             return response;
         }
         #region 私有方法

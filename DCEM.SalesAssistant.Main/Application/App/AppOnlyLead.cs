@@ -25,5 +25,16 @@ namespace DCEM.SalesAssistant.Main.Application.App
         {
             return await _onlyLeadService.QueryList(onlyLeadRequest);
         }
+
+        /// <summary>
+        /// 唯一线索详情查询接口
+        /// </summary>
+        /// <param name="entityid"></param>
+        /// <returns></returns>
+        public async Task<CrmEntity> GetOnlyLeadDetail(string entityid)
+        {
+            return await _onlyLeadService.GetOnlyLeadDetail(entityid);
+        }
+
     }
 }

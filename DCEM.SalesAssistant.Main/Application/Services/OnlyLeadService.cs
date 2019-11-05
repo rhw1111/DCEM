@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using MSLibrary.Xrm.Message.RetrieveMultipleFetch;
 using System;
+using System.Collections.Generic;
 
 namespace DCEM.SalesAssistant.Main.Application.Services
 {
@@ -53,5 +54,31 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 throw ex;
             }
         }
+
+        /// <summary>
+        /// 唯一线索详情查询
+        /// </summary>
+        /// <param name="entityid"></param>
+        /// <returns></returns>
+        public async Task<CrmEntity> GetOnlyLeadDetail(string entityid)
+        {
+            try
+            {
+                var dicHead = new Dictionary<string, IEnumerable<string>>();
+                dicHead.Add("Prefer", new List<string>() { "odata.include-annotations=\"*\"" });
+
+                //var fetchString = _onlyLeadRepository.GetOnlyLeadDetail(entityid);
+                CrmEntity entity = null;
+                entity = await _crmService.Retrieve("mcs_onlylead", Guid.Parse(entityid), "", null, dicHead);
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+
     }
 }
