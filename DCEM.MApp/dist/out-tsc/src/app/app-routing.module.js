@@ -134,11 +134,11 @@ const routes = [
                 ]
             },
             {
-                path: 'customer',
+                path: 'account',
                 children: [
-                    { path: 'list', loadChildren: './saleing/mcs-customer.com/list/list.module#ListPageModule' },
-                    { path: 'edit', loadChildren: './saleing/mcs-customer.com/edit/edit.module#EditPageModule' },
-                    { path: 'detail', loadChildren: './saleing/mcs-customer.com/detail/detail.module#DetailPageModule' }
+                    { path: 'list', loadChildren: './saleing/mcs-account.com/list/list.module#ListPageModule' },
+                    { path: 'edit', loadChildren: './saleing/mcs-account.com/edit/edit.module#EditPageModule' },
+                    { path: 'detail', loadChildren: './saleing/mcs-account.com/detail/detail.module#DetailPageModule' }
                 ]
             }
         ]
