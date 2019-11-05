@@ -17,43 +17,35 @@
         <ion-list lines="full">
             <ion-item (click)="customerOnClick()">
                 <ion-label position="stacked">
-                    <h2>
-                        <ion-icon name="search"></ion-icon>
-                        姓名
-                        <ion-text color="danger">*</ion-text>
-                    </h2>
-                    <p>{{shareData.serviceproxy["customername"]}}&nbsp;</p>
+                    <ion-icon name="search"></ion-icon>
+                    姓名
+                    <ion-text color="danger">*</ion-text>
                 </ion-label>
+                <p>{{shareData.serviceproxy["customername"]}}&nbsp;</p>
             </ion-item>
-            <ion-item (click)="customerOnClick()">
+            <ion-item>
                 <ion-label position="stacked">
-                    <h2>
-                        <ion-icon name="search"></ion-icon>
-                        车牌
-                        <ion-text color="danger">*</ion-text>
-                    </h2>
-                    <p>{{shareData.serviceproxy["carplate"]}}&nbsp;</p>
+                    <ion-icon name="lock"></ion-icon>
+                    车牌
+                    <ion-text color="danger">*</ion-text>
                 </ion-label>
+                <p>{{shareData.serviceproxy["carplate"]}}&nbsp;</p>
             </ion-item>
-            <ion-item (click)="customerOnClick()">
+            <ion-item>
                 <ion-label position="stacked">
-                    <h2>
-                        <ion-icon name="search"></ion-icon>
-                        手机
-                        <ion-text color="danger">*</ion-text>
-                    </h2>
-                    <p>{{shareData.serviceproxy["customerphone"]}}&nbsp;</p>
+                    <ion-icon name="lock"></ion-icon>
+                    手机
+                    <ion-text color="danger">*</ion-text>
                 </ion-label>
+                <p>{{shareData.serviceproxy["customerphone"]}}&nbsp;</p>
             </ion-item>
-            <ion-item (click)="customerOnClick()">
+            <ion-item>
                 <ion-label position="stacked">
-                    <h2>
-                        <ion-icon name="search"></ion-icon>
-                        厅店名称
-                        <ion-text color="danger">*</ion-text>
-                    </h2>
-                    <p>{{shareData.serviceproxy["dealerid_formatted"]}}&nbsp;</p>
+                    <ion-icon name="lock"></ion-icon>
+                    厅店名称
+                    <ion-text color="danger">*</ion-text>
                 </ion-label>
+                <p>{{shareData.serviceproxy["dealerid_formatted"]}}&nbsp;</p>
             </ion-item>
 
         </ion-list>
@@ -102,14 +94,12 @@
                 <ion-datetime display-format="YYYY-MM-DD HH:mm" [(ngModel)]="shareData.serviceproxy['expectfinishat']"></ion-datetime>
             </ion-item>
             <ion-item (click)="repairlocationOnClick()">
-                <ion-label>
-                    <h2>
-                        <ion-icon name="search"></ion-icon>
-                        工位
-                        <ion-text color="danger">*</ion-text>
-                    </h2>
-                    <p>{{shareData.serviceproxy["repairlocationname"]}}&nbsp;</p>
+                <ion-label position="stacked">
+                    <ion-icon name="search"></ion-icon>
+                    工位
+                    <ion-text color="danger">*</ion-text>
                 </ion-label>
+                <p>{{shareData.serviceproxy["repairlocationname"]}}&nbsp;</p>
             </ion-item>
         </ion-list>
         <br />

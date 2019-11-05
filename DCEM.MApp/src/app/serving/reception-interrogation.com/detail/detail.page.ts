@@ -9,6 +9,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 })
 export class DetailPage implements OnInit {
 
+    public tab: any = "info";
     mod = {
         apiUrl: '/Api/Serviceproxy/GetInfo',
         delUrl: '/Api/Serviceproxy/Delete',
@@ -27,7 +28,8 @@ export class DetailPage implements OnInit {
                 customercomment: "",
                 status: 0,
             },
-            serviceordercheckresultArray: []
+            serviceordercheckresultArray: [],
+            serviceproxyResumeArray:[]
         }
     };
 
@@ -62,8 +64,10 @@ export class DetailPage implements OnInit {
                 }
             },
             (res: any) => {
+
+                console.log(res);
                 if (res.Serviceproxy !== null) {
-                    console.log(res.Serviceproxy);
+             
                     this.mod.data.serviceproxy.customername = res["Serviceproxy"]["Attributes"]["mcs_customername"];
                     this.mod.data.serviceproxy.carplate = res["Serviceproxy"]["Attributes"]["mcs_carplate"];
                     this.mod.data.serviceproxy.customerphone = res["Serviceproxy"]["Attributes"]["mcs_customerphone"];
@@ -75,6 +79,8 @@ export class DetailPage implements OnInit {
                     this.mod.data.serviceproxy.arrivalon = res["Serviceproxy"]["Attributes"]["mcs_arrivalon@OData.Community.Display.V1.FormattedValue"];
                     this.mod.data.serviceproxy.customercomment = res["Serviceproxy"]["Attributes"]["mcs_customercomment"];
                     this.mod.data.serviceproxy.status = res["Serviceproxy"]["Attributes"]["mcs_status"];
+                    this.mod.data.serviceproxy["dealerid_formatted"] = res["Serviceproxy"]["Attributes"]["_mcs_dealerid_value@OData.Community.Display.V1.FormattedValue"];
+                    
                 }
                 if (res.ServiceordercheckresultList != null) {
                     for (var key in res.ServiceordercheckresultList) {
@@ -85,6 +91,9 @@ export class DetailPage implements OnInit {
                         this.mod.data.serviceordercheckresultArray.push(obj);
                     }
                 }
+
+
+                this.mod.data.serviceproxyResumeArray = res.ServiceproxyResumeList;
 
 
                 this._page.loadingHide();

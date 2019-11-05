@@ -25,7 +25,7 @@
             <ion-item-sliding *ngFor="let item of mod.data[groupkey].data;let key=index">
                 <ion-item [routerLink]="['/serving/ri/detail']" [queryParams]="{id:item.Id}">
                     <ion-icon color="{{item.statuscolor}}" name="document"></ion-icon>
-                    <ion-label>
+                    <ion-label style="margin-left:10px">
                         <h6>{{item.name}}</h6>
                         <p>{{item.carplate}}&nbsp;&nbsp;{{item.customername}}</p>
                         <p>{{item.createdonformat}}</p>

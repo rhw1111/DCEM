@@ -9,6 +9,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 })
 export class DetailPage implements OnInit {
 
+    public tab: any = "info";
     mod = {
         apiUrl: '/Api/Serviceproxy/GetInfo',
         data: {
@@ -38,7 +39,8 @@ export class DetailPage implements OnInit {
 
             },
             serviceorderrepairitemArray: [],
-            serviceorderpartArray: []
+            serviceorderpartArray: [],
+            serviceproxyResumeArray: []
         }
     };
     constructor(
@@ -46,6 +48,10 @@ export class DetailPage implements OnInit {
         private _page: DCore_Page,
         private activeRoute: ActivatedRoute
     ) {
+
+    }
+
+    ionViewWillEnter() {
 
     }
 
@@ -124,6 +130,11 @@ export class DetailPage implements OnInit {
 
                     }
                 }
+
+
+                this.mod.data.serviceproxyResumeArray = res.ServiceproxyResumeList;
+
+
                 this._page.loadingHide();
             },
             (err: any) => {

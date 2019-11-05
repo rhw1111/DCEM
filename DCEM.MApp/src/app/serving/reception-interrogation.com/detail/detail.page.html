@@ -1,159 +1,212 @@
 ﻿<ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button text="返回" defaultHref="/serving/sc/list"></ion-back-button>
+            <ion-back-button text="返回" defaultHref="/serving/ri/list"></ion-back-button>
         </ion-buttons>
         <ion-title>
             <ion-label>问诊单明细</ion-label>
         </ion-title>
     </ion-toolbar>
+
+    <ion-toolbar>
+        <ion-segment [(ngModel)]="tab" color="primary">
+            <ion-segment-button value="info">
+                <ion-label>基础信息</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="check">
+                <ion-label>环检项</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="att">
+                <ion-label>维修履历</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-list lines="full">
-        <ion-item-divider color="primary">
-            <ion-label>
-                车主资料
-            </ion-label>
-        </ion-item-divider>
-        <ion-item>
-            <ion-label>
-                <h2>
-                    姓名
-                </h2>
-                <p>{{mod.data.serviceproxy.customername}}&nbsp;</p>
-            </ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-label>
-                <h2>
-                    车牌号
-                </h2>
-                <p>{{mod.data.serviceproxy.carplate}}&nbsp;</p>
-            </ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-label>
-                <h2>
-                    手机
-                </h2>
-                <p>{{mod.data.serviceproxy.customerphone}}&nbsp;</p>
-            </ion-label>
-        </ion-item>
-        <ion-item-divider color="primary">
-            <ion-label>
-                委托信息
-            </ion-label>
-        </ion-item-divider>
-        <ion-item>
-            <ion-label>
-                <h2>
-                    问诊单号
-                </h2>
-                <p>{{mod.data.serviceproxy.name}}&nbsp;</p>
-            </ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-label>
-                <h2>
-                    送修人
-                </h2>
-                <p>{{mod.data.serviceproxy.shuttlename}}&nbsp;</p>
-            </ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-label>
-                <h2>
-                    送修人
-                </h2>
-                <p>{{mod.data.serviceproxy.shuttlename}}&nbsp;</p>
-            </ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-label>
-                <h2>
-                    送修人手机
-                </h2>
-                <p>{{mod.data.serviceproxy.shuttlephone}}&nbsp;</p>
-            </ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-label>
-                <h2>
-                    进店电量
-                </h2>
-                <p>{{mod.data.serviceproxy.inpower}}%&nbsp;</p>
-            </ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-label>
-                <h2>
-                    进店里程
-                </h2>
-                <p>{{mod.data.serviceproxy.mileage}}&nbsp;</p>
-            </ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-label>
-                <h2>
-                    到店时间
-                </h2>
-                <p>{{mod.data.serviceproxy.arrivalon}}&nbsp;</p>
-            </ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-label>
-                <h2>
-                    客户描述
-                </h2>
-                <p text-wrap>{{mod.data.serviceproxy.customercomment}}&nbsp;</p>
-            </ion-label>
-        </ion-item>
-        <ion-item-divider color="primary">
-            <ion-label>
-                环检项
-            </ion-label>
-        </ion-item-divider>
-        <ion-item-group>
-            <ion-item *ngFor="let item of mod.data.serviceordercheckresultArray;let key=index">
-                <ion-label>
-                    <h2>
+
+    <div [ngSwitch]="tab">
+        <div *ngSwitchCase="'info'">
+            <ion-list lines="full">
+                <ion-item-divider color="primary">
+                    <ion-label>
+                        车主资料
+                    </ion-label>
+                </ion-item-divider>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            姓名
+                        </h2>
+                        <p>{{mod.data.serviceproxy.customername}}&nbsp;</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            车牌号
+                        </h2>
+                        <p>{{mod.data.serviceproxy.carplate}}&nbsp;</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            手机
+                        </h2>
+                        <p>{{mod.data.serviceproxy.customerphone}}&nbsp;</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            厅店
+                        </h2>
+                        <p>{{mod.data.serviceproxy.dealerid_formatted}}&nbsp;</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item-divider color="primary">
+                    <ion-label>
+                        委托信息
+                    </ion-label>
+                </ion-item-divider>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            问诊单号
+                        </h2>
+                        <p>{{mod.data.serviceproxy.name}}&nbsp;</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            送修人
+                        </h2>
+                        <p>{{mod.data.serviceproxy.shuttlename}}&nbsp;</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            送修人手机
+                        </h2>
+                        <p>{{mod.data.serviceproxy.shuttlephone}}&nbsp;</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            进店电量
+                        </h2>
+                        <p>{{mod.data.serviceproxy.inpower}}%&nbsp;</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            进店里程
+                        </h2>
+                        <p>{{mod.data.serviceproxy.mileage}}&nbsp;</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            到店时间
+                        </h2>
+                        <p>{{mod.data.serviceproxy.arrivalon}}&nbsp;</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            客户描述
+                        </h2>
+                        <p text-wrap>{{mod.data.serviceproxy.customercomment}}&nbsp;</p>
+                    </ion-label>
+                </ion-item>
+
+            </ion-list>
+        </div>
+        <div *ngSwitchCase="'check'">
+            <ion-list lines="full">
+                <ion-item-divider color="primary">
+                    <ion-label>
                         环检项
-                    </h2>
-                    <p>
-                        {{item.checkreultid}}&nbsp;
-                    </p>
-                    <h2>
-                        车辆位置
-                    </h2>
-                    <p>
-                        {{item.name}}&nbsp;
-                    </p>
-                    <h2>
-                        检查结果
-                    </h2>
-                    <p text-wrap>
-                        {{item.checkreult}}&nbsp;
-                    </p>
-                </ion-label>
-            </ion-item>
-            <ion-item *ngIf="mod.data.serviceordercheckresultArray.length===0">
-                <ion-label>
-                    <p>
-                        当前单据没有环检项
-                    </p>
-                </ion-label>
-            </ion-item>
-        </ion-item-group>
-    </ion-list>
+                    </ion-label>
+                </ion-item-divider>
+                <ion-item-group>
+                    <ion-item *ngFor="let item of mod.data.serviceordercheckresultArray;let key=index">
+                        <ion-label>
+                            <h2>
+                                环检项
+                            </h2>
+                            <p>
+                                {{item.checkreultid}}&nbsp;
+                            </p>
+                            <h2>
+                                车辆位置
+                            </h2>
+                            <p>
+                                {{item.name}}&nbsp;
+                            </p>
+                            <h2>
+                                检查结果
+                            </h2>
+                            <p text-wrap>
+                                {{item.checkreult}}&nbsp;
+                            </p>
+                        </ion-label>
+                    </ion-item>
+                    <ion-item *ngIf="mod.data.serviceordercheckresultArray.length===0">
+                        <ion-label>
+                            <p>
+                                当前单据没有环检项
+                            </p>
+                        </ion-label>
+                    </ion-item>
+                </ion-item-group>
+            </ion-list>
+        </div>
+        <div *ngSwitchCase="'att'">
+            <ion-list lines="full">
+                <ion-item-divider color="primary">
+                    <ion-label>
+                        维修履历
+                    </ion-label>
+                </ion-item-divider>
+                <ion-item *ngFor="let item of mod.data.serviceproxyResumeArray;let key=index" [routerLink]="['/serving/sc/detail']" [queryParams]="{id:item.Id}">
+                    <ion-icon color="success" name="document"></ion-icon>
+                    <ion-label style="margin-left:10px">
+                        <h6>{{item["Attributes"]["mcs_name"]}}</h6>
+                        <p>{{item["Attributes"]["mcs_carplate"]}}&nbsp;&nbsp;</p>
+                        <p>{{item["Attributes"]["createdon@OData.Community.Display.V1.FormattedValue"]}}</p>
+                        <p>{{item["Attributes"]["_mcs_dealerid_value@OData.Community.Display.V1.FormattedValue"]}}</p>
+                    </ion-label>
+                    <ion-label style="text-align:right;">
+                        <p>{{item["Attributes"]["mcs_ordertype@OData.Community.Display.V1.FormattedValue"]}}</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item *ngIf="mod.data.serviceproxyResumeArray.length===0">
+                    <ion-label>
+                        <p>
+                            当前车辆没有维修履历
+                        </p>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+
+        </div>
+    </div>
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button>
             <ion-icon name="arrow-dropup"></ion-icon>
         </ion-fab-button>
         <ion-fab-list side="top">
-            <ion-fab-button  color="success" [routerLink]="['/serving/ri/edit']"><ion-icon name="add"></ion-icon></ion-fab-button>
+            <ion-fab-button color="success" [routerLink]="['/serving/ri/edit']"><ion-icon name="add"></ion-icon></ion-fab-button>
             <ion-fab-button *ngIf="mod.data.serviceproxy.status===100" color="danger" (click)="deleteOnClick()"><ion-icon name="trash"></ion-icon></ion-fab-button>
-            <ion-fab-button *ngIf="mod.data.serviceproxy.status===100" color="warning" (click)="testOnClick()"><ion-icon name="create"></ion-icon></ion-fab-button>
+            <ion-fab-button *ngIf="mod.data.serviceproxy.status===100" color="warning" [routerLink]="['/serving/ri/edit']"><ion-icon name="create"></ion-icon></ion-fab-button>
         </ion-fab-list>
     </ion-fab>
 </ion-content>
