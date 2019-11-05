@@ -41,20 +41,23 @@ export class EditPage implements OnInit {
         const { data } = await modal.onDidDismiss();
         if (data != null && typeof data != "undefined") {
             if (data.vehowne != null && typeof data.vehowne != "undefined") {
-                console.log(data.vehowne);
                 this.shareData.serviceproxy["customerid"] = data.vehowne.vehownerid;
                 this.shareData.serviceproxy["customername"] = data.vehowne.fullname;
                 this.shareData.serviceproxy["carplate"] = data.vehowne.vehplate;
                 this.shareData.serviceproxy["customerphone"] = data.vehowne.mobilephone;
+                this.shareData.serviceproxy["dealerid"] = data.vehowne["model"]["_mcs_dealer_value"];
+                this.shareData.serviceproxy["dealerid_formatted"] = data.vehowne["model"]["_mcs_dealer_value@OData.Community.Display.V1.FormattedValue"];
             }
         }
     }
 
-    ngOnInit() {
-        var getShareData = this._shareData.get(this.mod.shareDataKey);
-        if (getShareData != null) {
-            this.shareData = getShareData;
+    ionViewWillEnter() {
+        if (this._shareData.has(this.mod.shareDataKey)) {
+            this.shareData = this._shareData.get(this.mod.shareDataKey);
         }
+    }
+
+    ngOnInit() {
     }
 
     public customerOnClick() {

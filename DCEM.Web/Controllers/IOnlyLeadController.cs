@@ -43,19 +43,32 @@ namespace DCEM.Web.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("QueryList")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetList(string mcs_dealerid = "", string ownerid="", string seachkey = "", string sort = "", int pageSize = 10, int page = 1)
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetList(Guid? dealerid, string systemuserid, string seachkey = "", int pageSize = 10, int page = 1)
         {
             var onlyLeadRequest = new OnlyLeadRequest()
             {
-                search = seachkey,
-                mcs_dealerid = Guid.Parse(mcs_dealerid),
-                ownerid=Guid.Parse(ownerid),
-                page = page,
-                pageSize = pageSize,
-                sort = sort
+                Search = seachkey,
+                DealerId = dealerid,
+                UserId= systemuserid,
+                PageIndex = page,
+                PageSize = pageSize,
             };
             var list = await app.QueryList(onlyLeadRequest);
             return list;
+        }
+
+
+
+        /// <summary>
+        /// 查询唯一线索详情
+        /// </summary>
+        /// <param name="entityid"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetOnlyLeadDetail")]
+        public async Task<NewtonsoftJsonActionResult<CrmEntity>> GetOnlyLeadDetail(string entityid)
+        {
+            return await app.GetOnlyLeadDetail(entityid);
         }
 
     }

@@ -1,6 +1,7 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
+import { NavController, IonContent, IonInfiniteScroll } from '@ionic/angular';
 import { DatePipe } from '@angular/common';
-import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
+import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 
 @Component({
     selector: 'app-list',
@@ -9,47 +10,56 @@ import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 })
 export class ListPage implements OnInit {
 
+    @ViewChild(IonContent, null) ionContent: IonContent;
+    @ViewChild(IonInfiniteScroll, null) ionInfiniteScroll: IonInfiniteScroll;
+
     mod = {
-        apiUrl: '',
+        apiUrl: '/Api/Serviceproxy/GetList',
         data: {},
         searchData: {
-            type: 1,
+            type: 2,
             pageindex: 1,
             search: ""
-        }
+        },
+        objectKeys: Object.keys
     };
-
-    objectKeys = Object.keys;
-
     constructor(
         private _http: DCore_Http,
         private _page: DCore_Page,
+        private _valid: DCore_Valid,
         private _datePipe: DatePipe
     ) {
-        this.mod.apiUrl = "/Api/Serviceproxy/GetList";
-        this.mod.searchData.type = 2;
-        this.mod.searchData.search = "";
-        this.mod.searchData.pageindex = 1;
+
     }
 
     ngOnInit() {
         this.listOnBind();
     }
 
-    searchOnClick() {
+    //下拉刷新
+    doInfinite(event) {
+        this.mod.searchData.pageindex = this.mod.searchData.pageindex + 1;
         this.listOnBind();
     }
 
+
+    //搜索事件
     searchOnKeyup(event: any) {
         var keyCode = event ? event.keyCode : "";
         if (keyCode == 13) {
+            this.mod.data = {};
+            this.mod.searchData.pageindex = 1;
+            this.ionInfiniteScroll.disabled = false;
+            this.ionContent.scrollToTop(200);
             this.listOnBind();
         }
     }
-
+    //列表绑定
     listOnBind() {
-        this._page.loadingShow();
-        this.mod.data = {};
+
+        if (this.mod.searchData.pageindex == 1)
+            this._page.loadingShow();
+
         this._http.get(
             this.mod.apiUrl,
             {
@@ -60,8 +70,7 @@ export class ListPage implements OnInit {
                 }
             },
             (res: any) => {
-                console.log(res);
-                if (res.Results !== null) {
+                if (!this._valid.isNull(res.Results) !== null && res.Results.length > 0) {
                     for (var key in res.Results) {
                         var date = res.Results[key]["Attributes"]["createdon"];
                         var dateKey = this._datePipe.transform(date, "_yyyyMM");
@@ -92,20 +101,22 @@ export class ListPage implements OnInit {
                         else {
                             obj["statuscolor"] = "success";
                         }
-
                         this.mod.data[dateKey].data.push(obj);
+
                     }
-                    console.log(this.mod.data);
-                    this._page.loadingHide();
                 }
                 else {
-                    this._page.alert("消息提示", "数据加载异常");
-                    this._page.loadingHide();
+                    this.ionInfiniteScroll.disabled = true;
                 }
+                this.ionInfiniteScroll.complete();
+                if (this.mod.searchData.pageindex == 1)
+                    this._page.loadingHide();
             },
             (err: any) => {
                 this._page.alert("消息提示", "数据加载异常");
-                this._page.loadingHide();
+                if (this.mod.searchData.pageindex == 1)
+                    this._page.loadingHide();
+                this.ionInfiniteScroll.complete();
             }
         );
     }

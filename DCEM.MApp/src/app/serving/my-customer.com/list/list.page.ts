@@ -1,5 +1,8 @@
-﻿import { Component, OnInit } from '@angular/core';
-import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
+import { NavController, IonContent, IonInfiniteScroll } from '@ionic/angular';
+import { DatePipe } from '@angular/common';
+import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
+
 
 @Component({
     selector: 'app-list',
@@ -8,50 +11,64 @@ import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 })
 export class ListPage implements OnInit {
 
+    @ViewChild(IonContent, null) ionContent: IonContent;
+    @ViewChild(IonInfiniteScroll, null) ionInfiniteScroll: IonInfiniteScroll;
+
     mod = {
-        apiUrl: '',
+        apiUrl: '/Api/Customer/GetMyCustomerList',
         data: [],
         searchData: {
             type: 1,
             pageindex: 1,
             search: ""
         },
-        allTotalCount:0,
-        warrantyTotalCount:0,
-        insuranceTotalCount:0
+        allTotalCount: 0,
+        warrantyTotalCount: 0,
+        insuranceTotalCount: 0
     };
 
     constructor(
         private _http: DCore_Http,
-        private _page: DCore_Page
+        private _page: DCore_Page,
+        private _valid: DCore_Valid,
     ) {
-        this.mod.apiUrl = "/Api/Customer/GetMyCustomerList";
     }
 
     ngOnInit() {
         this.listOnBind();
     }
 
-    tagOnClick(type) {
-        this.mod.searchData.type = type;
-        this.mod.searchData.pageindex = 1;
+    //下拉刷新
+    doInfinite(event) {
+        this.mod.searchData.pageindex = this.mod.searchData.pageindex + 1;
         this.listOnBind();
     }
 
-    searchOnClick() {
+    tagOnClick(type) {
+        this.mod.searchData.type = type;
+        this.mod.data = [];
+        this.mod.searchData.pageindex = 1;
+        this.ionInfiniteScroll.disabled = false;
+        this.ionContent.scrollToTop(200);
         this.listOnBind();
     }
 
     searchOnKeyup(event: any) {
         var keyCode = event ? event.keyCode : "";
         if (keyCode == 13) {
+            this.mod.data = [];
+            this.mod.searchData.pageindex = 1;
+            this.ionInfiniteScroll.disabled = false;
+            this.ionContent.scrollToTop(200);
             this.listOnBind();
         }
     }
 
     listOnBind() {
-        this._page.loadingShow();
-        this.mod.data = [];
+
+        if (this.mod.searchData.pageindex == 1)
+            this._page.loadingShow();
+
         this._http.get(
             this.mod.apiUrl,
             {
@@ -62,18 +79,27 @@ export class ListPage implements OnInit {
                 }
             },
             (res: any) => {
-                if (res.Results !== null) {
-             
+                if (!this._valid.isNull(res.Results) !== null && res.Results.length > 0) {
                     for (var key in res.Results) {
                         var obj = {};
                         obj["Id"] = res.Results[key]["Id"];
                         obj["fullname"] = res.Results[key]["Attributes"]["a_x002e_mcs_fullname"];
-                        obj["gender"] = res.Results[key]["Attributes"]["a_x002e_mcs_gender@OData.Community.Display.V1.FormattedValue"];
-                        obj["genderval"] = res.Results[key]["Attributes"]["a_x002e_mcs_gender"];
+                        obj["genderformat"] = res.Results[key]["Attributes"]["a_x002e_mcs_gender@OData.Community.Display.V1.FormattedValue"];
+                        obj["gender"] = res.Results[key]["Attributes"]["a_x002e_mcs_gender"];
                         obj["mobilephone"] = res.Results[key]["Attributes"]["a_x002e_mcs_mobilephone"];
                         obj["vehplate"] = res.Results[key]["Attributes"]["a_x002e_mcs_vehplate"];
                         obj["vehtype"] = res.Results[key]["Attributes"]["a_x002e_mcs_vehtype@OData.Community.Display.V1.FormattedValue"];
 
+                        obj["gendercolor"] = "medium";
+                        if (obj["gender"] === 1) {
+                            obj["gendercolor"] = "primary";
+                        }
+                        else if (obj["gender"] === 2) {
+                            obj["gendercolor"] = "danger";
+                        }
+                        else if (obj["gender"] === 3) {
+                            obj["gendercolor"] = "medium";
+                        }
                         this.mod.data.push(obj);
                     }
 
@@ -81,17 +107,21 @@ export class ListPage implements OnInit {
                     this.mod.warrantyTotalCount = res.WarrantyTotalCount;
                     this.mod.insuranceTotalCount = res.InsuranceTotalCount;
 
-
-                    this._page.loadingHide();
                 }
                 else {
-                    this._page.alert("消息提示", "客户数据加载异常");
-                    this._page.loadingHide();
+                    this.ionInfiniteScroll.disabled = true;
                 }
+
+                if (this.mod.searchData.pageindex == 1)
+                    this._page.loadingHide();
+                this.ionInfiniteScroll.complete();
+
             },
             (err: any) => {
-                this._page.alert("消息提示", "客户数据加载异常");
-                this._page.loadingHide();
+                this._page.alert("消息提示", "数据加载异常");
+                if (this.mod.searchData.pageindex == 1)
+                    this._page.loadingHide();
+                this.ionInfiniteScroll.complete();
             }
         );
     }

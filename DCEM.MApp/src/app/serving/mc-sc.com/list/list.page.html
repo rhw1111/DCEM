@@ -7,16 +7,13 @@
     </ion-toolbar>
     <ion-toolbar>
         <ion-searchbar animated [(ngModel)]="mod.searchData.search" placeholder="请输入单号\姓名\车牌号搜索" (keyup)="searchOnKeyup($event)"></ion-searchbar>
-        <!--<ion-button color="primary" slot="end" size="small">
-            搜索
-        </ion-button>-->
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <ion-list lines="full">
-        <div *ngFor="let key of objectKeys(mod.data)">
-            <ion-item-divider>
+        <div *ngFor="let key of mod.objectKeys(mod.data)">
+            <ion-item-divider color="primary">
                 <ion-label>
                     {{mod.data[key].text}}
                 </ion-label>
@@ -44,36 +41,17 @@
 
             </ion-item-sliding>
         </div>
+        <ion-item *ngIf="ionInfiniteScroll.disabled">
+            <ion-label>
+                <p>
+                    没有更多的记录显示啦
+                </p>
+            </ion-label>
+        </ion-item>
     </ion-list>
-
-    <!--<ion-card *ngFor="let key of objectKeys(mod.data)">
-        <ion-card-header>
-            <ion-card-title>
-                <ion-label>{{mod.data[key].text}}</ion-label>
-            </ion-card-title>
-        </ion-card-header>
-        <ion-list lines="full">
-            <ion-item-sliding *ngFor="let item of mod.data[key].data;let key=index">
-                <ion-item [routerLink]="['/serving/sc/detail']" [queryParams]="{id:item.Id}">
-                    <ion-icon color="{{item.statuscolor}}" name="document"></ion-icon>
-                    <ion-label>
-                        <ion-label>{{item.name}}</ion-label>
-                        <p>{{item.carplate}}&nbsp;&nbsp;{{item.customername}}</p>
-                        <p>{{item.createdonformat}}</p>
-                    </ion-label>
-                    <ion-label>
-                        {{item.statusformat}}
-                    </ion-label>
-                    <ion-item-options side="end">
-                        <ion-item-option color="tertiary" expandable>
-                            删除
-                        </ion-item-option>
-                    </ion-item-options>
-                </ion-item>
-            </ion-item-sliding>
-        </ion-list>
-        <br />
-    </ion-card>-->
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button>
             <ion-icon name="arrow-dropup"></ion-icon>
