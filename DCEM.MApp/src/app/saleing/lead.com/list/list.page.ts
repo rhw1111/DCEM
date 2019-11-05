@@ -15,7 +15,8 @@ export class ListPage implements OnInit {
     searchData: { 
         pageindex: 1,
         pagesize:10,
-        dealerid:this._userinfo.GetDealerid()
+        userId:this._userinfo.GetSystemUserId(),
+        dealerid:"3EFBFFF6-EF1A-E911-A821-A4A314186A20",//this._userinfo.GetDealerid()
     },
     allTotalCount:0
 };
@@ -26,47 +27,52 @@ export class ListPage implements OnInit {
     this.mod.apiUrl = "/api/Originalclue/getlist";
   }
 
-  ngOnInit() {
-    debugger;
+  ngOnInit() { 
     this.listOnBind();
   }
   searchOnClick() {
     this.listOnBind();
-}
+  }  
+  searchOnKeyup(event: any) {
+    var keyCode = event ? event.keyCode : "";
+    if (keyCode == 13) {
+        this.listOnBind();
+    }
+  }
 listOnBind() {
   this._page.loadingShow();
   this.mod.data = [];
-  this._http.get(
+  this._http.post(
       this.mod.apiUrl,
-      {
-          params: {
-              pagesize: this.mod.searchData.type,
-              pageindex: this.mod.searchData.pageindex,
-              dealerid: "344101CE-29EB-E911-A821-F2106C4094A1"//this.mod.searchData.dealerid,
-          }
-      },
-      (res: any) => {
-        debugger;
+      this.mod.searchData,
+      (res: any) => { 
           if (res.Results !== null) {
-       
-              for (var key in res.Results) {
+            var data=res.originalclues;
+              for (var i in data) { 
+                var attr=data[i]["Attributes"];
                   var obj = {}; 
-
+                  obj["username"]=attr["fullname"];
+                  if(attr["mcs_gender@OData.Community.Display.V1.FormattedValue"]==null)
+                  {
+                    obj["gender"]="--";
+                  }
+                  else{ 
+                  obj["gender"]=attr["mcs_gender@OData.Community.Display.V1.FormattedValue"];
+                  }
+                  obj["mobilephone"]=attr["mobilephone"];
+                  obj["clues"]=attr["_mcs_terminalid_value@OData.Community.Display.V1.FormattedValue"];
+                  obj["id"]=attr["Id"];
                   this.mod.data.push(obj);
               }
-
-              this.mod.allTotalCount = res.ALLTotalCount;
-
-
               this._page.loadingHide();
           }
           else {
-              this._page.alert("消息提示", "客户数据加载异常");
+              this._page.alert("消息提示", "原始线索数据加载异常");
               this._page.loadingHide();
           }
       },
       (err: any) => {
-          this._page.alert("消息提示", "客户数据加载异常");
+          this._page.alert("消息提示", "原始线索数据加载异常");
           this._page.loadingHide();
       }
   );

@@ -10,7 +10,7 @@ namespace DCEM.SalesAssistant.Main.Common
 {
     public class CrmRequestHelper
     {
-        public async Task<CrmEntityCollection> ExecuteAsync(ICrmService crmService, string entityName, XDocument document)
+        public async Task<CrmEntityCollection> ExecuteAsync(ICrmService crmService, string entityName, XDocument document,Guid userId)
         {
             try
             {
@@ -19,7 +19,8 @@ namespace DCEM.SalesAssistant.Main.Common
                 var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {
                     EntityName = entityName,
-                    FetchXml = document
+                    FetchXml = document,
+                    ProxyUserId= userId
                 };
                 fetchRequest.Headers.Add("Prefer", dicHead["Prefer"]);
                 var crmResponseMessage = await crmService.Execute(fetchRequest);
