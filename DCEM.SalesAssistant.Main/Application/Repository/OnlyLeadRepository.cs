@@ -25,7 +25,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
                 filter += $"</filter>";
             }
 
-            var fetchString = $@"<fetch version='1.0' count='{onlyLeadRequest.pageSize}' page='{onlyLeadRequest.page}' output-format='xml-platform' mapping='logical' distinct='false'>
+            var fetchString = $@"<fetch version='1.0' count='{onlyLeadRequest.PageSize}' page='{onlyLeadRequest.PageIndex}' output-format='xml-platform' mapping='logical' distinct='false'>
                    <entity name='mcs_onlylead'>
                 <attribute name='mcs_name' />
                 <attribute name='createdon' />

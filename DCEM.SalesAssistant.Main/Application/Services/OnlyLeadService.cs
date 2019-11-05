@@ -43,7 +43,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
 
                 var queryResult = new QueryResult<CrmEntity>();
                 queryResult.Results = fetchResponseResult.Value.Results;
-                queryResult.CurrentPage = onlyLeadRequest.page;
+                queryResult.CurrentPage = onlyLeadRequest.PageIndex;
                 queryResult.TotalCount = 0;
                 return queryResult;
             }
