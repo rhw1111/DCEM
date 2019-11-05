@@ -613,6 +613,105 @@ const blockedTags = ['script', 'style', 'iframe', 'meta', 'link', 'object', 'emb
 
 
 
+/***/ }),
+
+/***/ "./src/app/base/base.ser/logininfo.storage.ts":
+/*!****************************************************!*\
+  !*** ./src/app/base/base.ser/logininfo.storage.ts ***!
+  \****************************************************/
+/*! exports provided: Storage_LoginInfo */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Storage_LoginInfo", function() { return Storage_LoginInfo; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+let Storage_LoginInfo = 
+/*
+用户信息
+*/
+class Storage_LoginInfo {
+    constructor() {
+        this.userinfo = "logo_userinfo";
+    }
+    SetInfo(data) {
+        window.localStorage.setItem(this.userinfo, data);
+    }
+    GetUserInfo() {
+        var data = window.localStorage.getItem(this.userinfo);
+        return JSON.parse(data);
+    }
+    //获取token
+    GetToken() {
+        var data = this.GetUserInfo();
+        if (data != null)
+            return data.access_token;
+        return null;
+    }
+    //获取用户userid
+    GetSystemUserId() {
+        var data = this.GetUserInfo();
+        if (data != null)
+            return data.systemuserid;
+        return null;
+    }
+    //获取用户名称
+    GetDomainname() {
+        var data = this.GetUserInfo();
+        if (data != null)
+            return data.domainname;
+        return null;
+    }
+    //用户名
+    GetLastname() {
+        var data = this.GetUserInfo();
+        if (data != null)
+            return data.lastname;
+        return null;
+    }
+    //姓
+    GetFirstname() {
+        var data = this.GetUserInfo();
+        if (data != null)
+            return data.firstname;
+        return null;
+    }
+    //工号
+    GetStaffid() {
+        var data = this.GetUserInfo();
+        if (data != null)
+            return data.mcs_staffid;
+        return null;
+    }
+    //经销商编码
+    GetDealerid() {
+        var data = this.GetUserInfo();
+        if (data != null)
+            return data.mcs_dealerid;
+        return null;
+    }
+    //经销商名称
+    GetDealername() {
+        var data = this.GetUserInfo();
+        if (data != null)
+            return data.mcs_dealername;
+        return null;
+    }
+};
+Storage_LoginInfo = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    })
+    /*
+    用户信息
+    */
+], Storage_LoginInfo);
+
+
+
 /***/ })
 
 }]);

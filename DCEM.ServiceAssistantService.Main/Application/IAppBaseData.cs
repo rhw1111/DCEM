@@ -36,7 +36,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
         /// <param name="repairItemPartRequest"></param>
         /// <returns></returns>
         Task<QueryResult<CrmEntity>> QueryRepairItemPart(RepairItemPartRequest repairItemPartRequest);
-        
+
         /// <summary>
         /// 查询维修类型基础数据
         /// </summary>
@@ -51,6 +51,45 @@ namespace DCEM.ServiceAssistantService.Main.Application
         /// <returns></returns>
         Task<QueryResult<CrmEntity>> QueryMalFunctionType(MalFunctionTypeRequest malFunctionTypeRequest);
 
+
+
+        /// <summary>
+        /// 车型
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<QueryResult<CrmEntity>> QueryVehicletype(VehicleTypeRequest request);
+
+
+        /// <summary>
+        /// 车型颜色
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<QueryResult<CrmEntity>> QueryVehicleColor(VehicleColorRequest request);
+
+        /// <summary>
+        /// 试驾时段
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<QueryResult<CrmEntity>> QueryReservationconfig(ReservationconfigRequest request);
+
+        /// <summary>
+        /// 接待员
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<QueryResult<CrmEntity>> QueryReceptioncommissioner(ReceptioncommissionerRequest request);
+
+        /// <summary>
+        /// 省市区
+        /// </summary>
+        /// <param name="malFunctionTypeRequest"></param>
+        /// <returns></returns>
+        Task<QueryResult<CrmEntity>> QuerySysarea(SysareaRequest request);
+
+
         /// <summary>
         /// 查询用户个人信息
         /// </summary>
@@ -63,6 +102,6 @@ namespace DCEM.ServiceAssistantService.Main.Application
         /// </summary>
         /// <param name="systemuserid"></param>
         /// <returns></returns>
-        Task<QueryResult<CrmEntity>> QuerySystemUserByPage(string searchkey = "", string prxyUserId="", string dealerId = "", int pageSize = 10, int pageNum = 1, string sort = "");
+        Task<QueryResult<CrmEntity>> QuerySystemUserByPage(string searchkey = "", string prxyUserId = "", string dealerId = "", int pageSize = 10, int pageNum = 1, string sort = "");
     }
 }

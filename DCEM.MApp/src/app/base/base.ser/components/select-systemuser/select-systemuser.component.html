@@ -8,7 +8,7 @@
     <ion-toolbar>
       <ion-searchbar [(ngModel)]="mod.searchData.seachkey" placeholder="支持名称\账户查找" (keyup)="searchOnKeyup($event)" ></ion-searchbar>
     </ion-toolbar>
-  </ion-header>
+  </ion-header> 
   <ion-content fullscreen>
     <ion-list>
         <ion-item-sliding *ngFor="let item of mod.data;let key=index">

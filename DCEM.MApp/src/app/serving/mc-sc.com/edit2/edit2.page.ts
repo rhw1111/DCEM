@@ -269,6 +269,5 @@ export class Edit2Page implements OnInit {
                 this._page.alert("消息提示", "操作失败");
             }
         );
-
     }
 }

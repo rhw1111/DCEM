@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DCEM.ConfigurationService.Main\DCEM.ConfigurationService.Main.csproj" />
+    <ProjectReference Include="..\DCEM.Main\DCEM.Main.csproj" />
+    <ProjectReference Include="..\MSLibrary\MSLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DTOModel\" />
+    <Folder Include="Enum\" />
+    <Folder Include="Entities\" />
+  </ItemGroup>
+
+</Project>

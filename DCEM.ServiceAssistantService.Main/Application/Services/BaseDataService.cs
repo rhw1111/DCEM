@@ -54,6 +54,173 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
             }
         }
 
+
+
+        /// <summary>
+        /// 查询车型
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> QueryVehicletype  (VehicleTypeRequest request)
+        {
+            try
+            {
+                var fetchString = _baseDataRepository.QueryVehicletype( request);
+
+                var fetchXdoc = XDocument.Parse(fetchString);
+                var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "mcs_vehicletype",
+                    FetchXml = fetchXdoc
+                };
+                var fetchResponse = await _crmService.Execute(fetchRequest);
+                var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+
+                var queryResult = new QueryResult<CrmEntity>();
+                queryResult.Results = fetchResponseResult.Value.Results;
+                queryResult.CurrentPage = request.page;
+                queryResult.TotalCount = 0;
+                return queryResult;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+     
+        /// <summary>
+        /// 查询车型颜色
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> QueryVehicleColor(VehicleColorRequest request)
+        {
+            try
+            {
+                var fetchString = _baseDataRepository.QueryVehicleColor(request);
+
+                var fetchXdoc = XDocument.Parse(fetchString);
+                var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "mcs_vehiclecolor",
+                    FetchXml = fetchXdoc
+                };
+                var fetchResponse = await _crmService.Execute(fetchRequest);
+                var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+
+                var queryResult = new QueryResult<CrmEntity>();
+                queryResult.Results = fetchResponseResult.Value.Results;
+                queryResult.CurrentPage = request.page;
+                queryResult.TotalCount = 0;
+                return queryResult;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        /// <summary>
+        /// 查询预约时段
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> QueryReservationconfig(ReservationconfigRequest request)
+        {
+            try
+            {
+                var fetchString = _baseDataRepository.QueryReservationconfig(request);
+
+                var fetchXdoc = XDocument.Parse(fetchString);
+                var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "mcs_reservationconfiguration",
+                    FetchXml = fetchXdoc
+                };
+                var fetchResponse = await _crmService.Execute(fetchRequest);
+                var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+
+                var queryResult = new QueryResult<CrmEntity>();
+                queryResult.Results = fetchResponseResult.Value.Results;
+                queryResult.CurrentPage = request.page;
+                queryResult.TotalCount = 0;
+                return queryResult;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        /// <summary>
+        /// 接待员
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> QueryReceptioncommissioner(ReceptioncommissionerRequest request)
+        {
+            try
+            {
+                var fetchString = _baseDataRepository.QueryReceptioncommissioner(request);
+
+                var fetchXdoc = XDocument.Parse(fetchString);
+                var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "mcs_reservationconfiguration",
+                    FetchXml = fetchXdoc
+                };
+                var fetchResponse = await _crmService.Execute(fetchRequest);
+                var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+
+                var queryResult = new QueryResult<CrmEntity>();
+                queryResult.Results = fetchResponseResult.Value.Results;
+                queryResult.CurrentPage = request.page;
+                queryResult.TotalCount = 0;
+                return queryResult;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        /// <summary>
+        /// 行政区域
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> QuerySysarea(SysareaRequest request)
+        {
+            try
+            {
+                var fetchString = _baseDataRepository.QuerySysarea(request);
+
+                var fetchXdoc = XDocument.Parse(fetchString);
+                var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "mcs_sysarea",
+                    FetchXml = fetchXdoc
+                };
+                var fetchResponse = await _crmService.Execute(fetchRequest);
+                var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+
+                var queryResult = new QueryResult<CrmEntity>();
+                queryResult.Results = fetchResponseResult.Value.Results;
+                queryResult.CurrentPage = request.page;
+                queryResult.TotalCount = 0;
+                return queryResult;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
         /// <summary>
         /// 维修项目基础数据
         /// </summary>

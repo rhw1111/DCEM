@@ -66,7 +66,7 @@ namespace DCEM.Web.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("QueryRepairItemInfo")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> QueryRepairItemInfo(string dealerid,string seachkey = "", string sort = "", int pageSize = 10, int page = 1)
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> QueryRepairItemInfo(string dealerid, string seachkey = "", string sort = "", int pageSize = 10, int page = 1)
         {
             var repairItemInfoRequest = new RepairItemInfoRequest()
             {
@@ -74,7 +74,7 @@ namespace DCEM.Web.Controllers
                 page = page,
                 pageSize = pageSize,
                 sort = sort,
-                 mcs_dealerid= dealerid
+                mcs_dealerid = dealerid
             };
             var list = await app.QueryRepairItemInfo(repairItemInfoRequest);
             return list;
@@ -152,6 +152,130 @@ namespace DCEM.Web.Controllers
             return list;
         }
 
+        /// <summary>
+        /// 车型
+        /// </summary>
+        /// <param name="seachkey"></param>
+        /// <param name="sort"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("QueryVehicletype")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> QueryVehicletype(string seachkey = "", string sort = "", int pageSize = 10, int page = 1)
+        {
+            var req = new VehicleTypeRequest()
+            {
+                search = seachkey,
+                page = page,
+                pageSize = pageSize,
+                sort = sort
+            };
+            var list = await app.QueryVehicletype(req);
+            return list;
+        }
+
+        /// <summary>
+        /// 车型颜色
+        /// </summary>
+        /// <param name="seachkey"></param>
+        /// <param name="sort"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("QueryVehicleColor")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> QueryVehicleColor(string seachkey = "", string sort = "", int pageSize = 10, int page = 1)
+        {
+            var req = new VehicleColorRequest()
+            {
+                search = seachkey,
+                page = page,
+                pageSize = pageSize,
+                sort = sort
+            };
+            var list = await app.QueryVehicleColor(req);
+            return list;
+        }
+
+
+        /// <summary>
+        /// 预约时段
+        /// </summary>
+        /// <param name="carmodel"></param>
+        /// <param name="dealerid"></param>
+        /// <param name="seachkey"></param>
+        /// <param name="sort"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("QueryReservationconfig")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> QueryReservationconfig(string carmodel, string dealerid, string seachkey = "", string sort = "", int pageSize = 10, int page = 1)
+        {
+            var req = new ReservationconfigRequest()
+            {
+                dealerid = dealerid,
+                carmodel = carmodel,
+                search = seachkey,
+                page = page,
+                pageSize = pageSize,
+                sort = sort
+            };
+            var list = await app.QueryReservationconfig(req);
+            return list;
+        }
+
+        /// <summary>
+        /// 接待员
+        /// </summary>
+        /// <param name="seachkey"></param>
+        /// <param name="sort"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("QueryReceptioncommissioner")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> QueryReceptioncommissioner(string seachkey = "", string sort = "", int pageSize = 10, int page = 1)
+        {
+            var req = new ReceptioncommissionerRequest()
+            {
+                search = seachkey,
+                page = page,
+                pageSize = pageSize,
+                sort = sort
+            };
+            var list = await app.QueryReceptioncommissioner(req);
+            return list;
+        }
+
+        /// <summary>
+        /// 行政区域
+        /// </summary>
+        /// <param name="pid">父id</param>
+        /// <param name="level">级别</param>
+        /// <param name="seachkey"></param>
+        /// <param name="sort"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("QuerySysarea")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> QuerySysarea(string pid, string level, string seachkey = "", string sort = "", int pageSize = 10, int page = 1)
+        {
+            var req = new SysareaRequest()
+            {
+                pid = pid,
+                level = level,
+                search = seachkey,
+                page = page,
+                pageSize = pageSize,
+                sort = sort
+            };
+            var list = await app.QuerySysarea(req);
+            return list;
+        } 
+
 
         /// <summary>
         /// 查询用户个人信息
@@ -172,9 +296,9 @@ namespace DCEM.Web.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("QuerySystemUserList")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> QuerySystemUserList(string seachkey = "",string prxyUserId="",string dealerId="", int pageSize = 10, int page = 1,string sort = "")
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> QuerySystemUserList(string seachkey = "", string prxyUserId = "", string dealerId = "", int pageSize = 10, int page = 1, string sort = "")
         {
-            return await app.QuerySystemUserByPage(seachkey, prxyUserId, dealerId, pageSize,page,sort);
+            return await app.QuerySystemUserByPage(seachkey, prxyUserId, dealerId, pageSize, page, sort);
         }
     }
 }
