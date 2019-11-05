@@ -43,12 +43,13 @@ namespace DCEM.Web.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("QueryList")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetList(Guid? mcs_dealerid, string seachkey = "", int pageSize = 10, int page = 1)
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetList(Guid? dealerid, string systemuserid, string seachkey = "", int pageSize = 10, int page = 1)
         {
             var onlyLeadRequest = new OnlyLeadRequest()
             {
-                search = seachkey,
-                mcs_dealerid = mcs_dealerid,
+                Search = seachkey,
+                DealerId = dealerid,
+                UserId= systemuserid,
                 PageIndex = page,
                 PageSize = pageSize,
             };

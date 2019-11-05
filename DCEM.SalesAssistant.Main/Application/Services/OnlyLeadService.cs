@@ -36,7 +36,8 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {
                     EntityName = "mcs_onlylead",
-                    FetchXml = fetchXdoc
+                    FetchXml = fetchXdoc,
+                    ProxyUserId = Guid.Parse(onlyLeadRequest.UserId)
                 };
                 var fetchResponse = await _crmService.Execute(fetchRequest);
                 var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
