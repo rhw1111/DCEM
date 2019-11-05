@@ -32,7 +32,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
                 filter += $"<condition attribute='mcs_name' operator='like' value='%{malFunctionTypeRequest.search}%' />";
                 filter += $"</filter>";
             }
-           
+
             var fetchString = $@"<fetch version='1.0' count='{malFunctionTypeRequest.pageSize}' page='{malFunctionTypeRequest.page}' output-format='xml-platform' mapping='logical' distinct='false'>
                   <entity name='mcs_malfunctiontype'>
                     <attribute name='mcs_name' />
@@ -59,6 +59,191 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
             return fetchString;
         }
 
+
+        /// <summary>
+        /// 获取车型
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public string QueryVehicletype(VehicleTypeRequest request)
+        {
+            var filter = string.Empty;
+            if (!string.IsNullOrWhiteSpace(request.search))
+            {
+                filter += $"<filter type='or'>";
+                filter += $"<condition attribute='mcs_code' operator='like' value='%{request.search}%' />";
+                filter += $"<condition attribute='mcs_name' operator='like' value='%{request.search}%' />";
+                filter += $"</filter>";
+            }
+
+            var fetchString = $@"<fetch version='1.0' count='{request.pageSize}' page='{request.page}' output-format='xml-platform' mapping='logical' distinct='false'>
+                  <entity name='mcs_vehicletype'>
+                    <attribute name='mcs_name' />
+                    <attribute name='createdon' />
+                    <attribute name='mcs_effectivestarton' />
+                    <attribute name='mcs_effectiveendon' />
+                    <attribute name='mcs_saleseffectiveendon' />
+                    <attribute name='mcs_saleseffectivestarton' />
+                    <attribute name='mcs_salesenable' />
+                    <attribute name='mcs_brandid' />
+                    <attribute name='mcs_code' />
+                    <attribute name='mcs_vehicletypeid' />
+                    <order attribute='createdon' descending='true' />
+                    <filter type='and'>
+                      <condition attribute='statecode' operator='eq' value='0' />
+                        {filter}
+                    </filter>
+                    <link-entity name='mcs_brand' from='mcs_brandid' to='mcs_brandid' visible='false' link-type='inner' >
+                      <attribute name='mcs_name' alias='brandname'/>
+                    </link-entity> 
+                  </entity>
+                </fetch>";
+
+            return fetchString;
+        }
+
+        /// <summary>
+        /// 获取车型颜色
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public string QueryVehicleColor(VehicleColorRequest request)
+        {
+            var filter = string.Empty;
+            if (!string.IsNullOrWhiteSpace(request.search))
+            {
+                filter += $"<filter type='or'>";
+                filter += $"<condition attribute='mcs_code' operator='like' value='%{request.search}%' />";
+                filter += $"<condition attribute='mcs_name' operator='like' value='%{request.search}%' />";
+                filter += $"</filter>";
+            }
+
+            var fetchString = $@"<fetch version='1.0' count='{request.pageSize}' page='{request.page}' output-format='xml-platform' mapping='logical' distinct='false'>
+                  <entity name='mcs_vehiclecolor'>
+                    <attribute name='mcs_name' /> 
+                    <attribute name='mcs_code' />  
+                    <filter type='and'>
+                      <condition attribute='statecode' operator='eq' value='0' />
+                        {filter}
+                    </filter>
+                    <link-entity name='mcs_vehicletype' from='mcs_vehicletypeid' to='mcs_vehtypeid' visible='false' link-type='outer' >
+                      <attribute name='mcs_name' alias='vehicletypename'/>
+                    </link-entity> 
+                  </entity>
+                </fetch>";
+
+            return fetchString;
+        }
+
+
+        /// <summary>
+        /// 获取试驾时段
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public string QueryReservationconfig(ReservationconfigRequest request)
+        {
+            var filter = string.Empty;
+            if (!string.IsNullOrWhiteSpace(request.search))
+            {
+                filter += $"<filter type='or'>";
+                filter += $"<condition attribute='mcs_code' operator='like' value='%{request.search}%' />";
+                filter += $"<condition attribute='mcs_name' operator='like' value='%{request.search}%' />";
+                filter += $"</filter>";
+            }
+            if (!string.IsNullOrWhiteSpace(request.carmodel)) 
+                filter += $"<condition attribute='mcs_carmodel' operator='eq' value='{request.carmodel}' />";
+            if (!string.IsNullOrWhiteSpace(request.dealerid))
+                filter += $"<condition attribute='mcs_dealerid' operator='eq' value='{request.dealerid}' />"; 
+
+            var fetchString = $@"<fetch version='1.0' count='{request.pageSize}' page='{request.page}' output-format='xml-platform' mapping='logical' distinct='false'>
+                  <entity name='mcs_reservationconfiguration'>
+                    <attribute name='mcs_name' /> 
+                    <attribute name='mcs_code' />  
+                    <attribute name='mcs_num' />  
+                    <attribute name='mcs_usednum' />  
+                    <filter type='and'>
+                      <condition attribute='statecode' operator='eq' value='0' />
+                        {filter}
+                    </filter>
+                    <link-entity name='mcs_carmodel' from='mcs_carmodelid' to='mcs_carmodel' visible='false' link-type='outer' >
+                      <attribute name='mcs_name' alias='carmodelname'/>
+                    </link-entity> 
+                  </entity>
+                </fetch>";
+
+            return fetchString;
+        }
+        /// <summary>
+        /// 接待专员
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public string QueryReceptioncommissioner(ReceptioncommissionerRequest request)
+        {
+            var filter = string.Empty;
+            if (!string.IsNullOrWhiteSpace(request.search))
+            {
+                filter += $"<filter type='or'>";
+                filter += $"<condition attribute='mcs_code' operator='like' value='%{request.search}%' />";
+                filter += $"<condition attribute='mcs_name' operator='like' value='%{request.search}%' />";
+                filter += $"</filter>";
+            } 
+
+            var fetchString = $@"<fetch version='1.0' count='{request.pageSize}' page='{request.page}' output-format='xml-platform' mapping='logical' distinct='false'>
+                  <entity name='mcs_receptioncommissioner'>
+                    <attribute name='mcs_name' /> 
+                    <attribute name='mcs_code' />   
+                    <filter type='and'>
+                      <condition attribute='statecode' operator='eq' value='0' />
+                        {filter}
+                    </filter> 
+                  </entity>
+                </fetch>";
+
+            return fetchString;
+        }
+
+
+        /// <summary>
+        /// 省市区
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public string QuerySysarea(SysareaRequest request)
+        {
+            var filter = string.Empty;
+            if (!string.IsNullOrWhiteSpace(request.search))
+            {
+                filter += $"<filter type='or'>";
+                filter += $"<condition attribute='mcs_code' operator='like' value='%{request.search}%' />";
+                filter += $"<condition attribute='mcs_name' operator='like' value='%{request.search}%' />";
+                filter += $"</filter>";
+            }
+
+            if (!string.IsNullOrWhiteSpace(request.pid))
+                filter += $"<condition attribute='mcs_pid' operator='eq' value='{request.pid}' />";
+
+            if (!string.IsNullOrWhiteSpace(request.level))
+                filter += $"<condition attribute='mcs_level' operator='eq' value='{request.level}' />";
+
+            var fetchString = $@"<fetch version='1.0' count='{request.pageSize}' page='{request.page}' output-format='xml-platform' mapping='logical' distinct='false'>
+                  <entity name='mcs_sysarea'>
+                    <attribute name='mcs_name' /> 
+                    <attribute name='mcs_code' />   
+                    <filter type='and'>
+                      <condition attribute='statecode' operator='eq' value='0' />
+                        {filter}
+                    </filter> 
+                  </entity>
+                </fetch>";
+
+            return fetchString;
+        }
+
+
+
+
         /// <summary>
         /// 维修项目基础数据
         /// </summary>
@@ -74,7 +259,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
                 filter += $"<condition attribute='mcs_pinyincode' operator='like' value='%{repairItemInfoRequest.search}%' />";
                 filter += $"</filter>";
             }
-           
+
             if (!string.IsNullOrWhiteSpace(repairItemInfoRequest.mcs_dealerid))
             {
                 filter += $"<filter type='or'>";

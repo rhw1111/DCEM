@@ -20,9 +20,14 @@ import { SelectCarmodelComponent } from 'app/serving/serving.ser/components/sele
 import { SelectSystemuserComponent } from 'app/base/base.ser/components/select-systemuser/select-systemuser.component';
 import { SelectMaintenanceComponent } from 'app/serving/serving.ser/components/select-maintenance/select-maintenance.component';
 import { SelectAppointmentconfigComponent } from 'app/serving/serving.ser/components/select-appointmentconfig/select-appointmentconfig.component';
-import { SelectMalFunctionTypeComponent } from 'app/serving/serving.ser/components/select-malfunctiontype/select.malfunctiontype.component';
 import { SelectPartsComponent } from 'app/serving/serving.ser/components/select-parts/select-parts.component';
 import { SelectRepairitemComponent } from 'app/serving/serving.ser/components/select-repairitem/select-repairitem.component';
+import { SelectMalFunctionTypeComponent } from 'app/serving/serving.ser/components/select-malfunctiontype/select.malfunctiontype.component';
+import { SelectReceptioncommissionerComponent } from 'app/serving/serving.ser/components/select-receptioncommissioner/select-receptioncommissioner.component';
+import { SelectReservationconfigurationComponent } from 'app/serving/serving.ser/components/select-reservationconfiguration/select-reservationconfiguration.component';
+import { SelectSysareaComponent } from 'app/serving/serving.ser/components/select-sysarea/select-sysarea.component';
+import { SelectVehiclecolorComponent } from 'app/serving/serving.ser/components/select-vehiclecolor/select-vehiclecolor.component';
+import { SelectVehicletypeComponent } from 'app/serving/serving.ser/components/select-vehicletype/select-vehicletype.component';
 
 @NgModule({
     declarations: [//申明组件
@@ -36,7 +41,17 @@ import { SelectRepairitemComponent } from 'app/serving/serving.ser/components/se
         SelectAppointmentconfigComponent,//选择预约记录
         SelectMalFunctionTypeComponent,
         SelectPartsComponent,
-        SelectRepairitemComponent],//选择故障类别代码
+        SelectRepairitemComponent,
+        SelectMalFunctionTypeComponent,
+        SelectVehicletypeComponent,
+        SelectReceptioncommissionerComponent,
+        SelectReservationconfigurationComponent,
+        SelectSysareaComponent,
+        SelectVehiclecolorComponent
+
+
+    ],
+
     entryComponents: [
         ScSelectComponent, 
         SelectCustomerComponent, 
@@ -47,7 +62,15 @@ import { SelectRepairitemComponent } from 'app/serving/serving.ser/components/se
         SelectAppointmentconfigComponent,
         SelectMalFunctionTypeComponent,
         SelectPartsComponent,
-        SelectRepairitemComponent],
+        SelectRepairitemComponent,
+        SelectMalFunctionTypeComponent,
+        SelectVehicletypeComponent,
+        SelectReceptioncommissionerComponent,
+        SelectReservationconfigurationComponent,
+        SelectSysareaComponent,
+        SelectVehiclecolorComponent
+    ],
+
     imports: [BrowserModule,
         IonicModule.forRoot({ mode: 'ios' }),
         AppRoutingModule,
