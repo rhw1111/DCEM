@@ -44,7 +44,6 @@ export class EditPage implements OnInit {
     ) { }
 
     ngOnInit() {
-        debugger;
         this.activeRoute.queryParams.subscribe((params: Params) => {
             if (params['id'] != null && params['id'] != undefined) {
                 console.log("记录Id:" + this.model.appointmentinfoid);
