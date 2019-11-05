@@ -1,7 +1,5 @@
-﻿using DCEM.SalesAssistant.Main.Application.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using DCEM.SalesAssistant.Main.Application.App.Contrac;
+using DCEM.SalesAssistant.Main.Application.Services.Contrac;
 
 namespace DCEM.SalesAssistant.Main.Application.App
 {
