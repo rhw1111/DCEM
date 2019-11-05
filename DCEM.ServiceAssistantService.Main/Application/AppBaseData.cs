@@ -33,6 +33,46 @@ namespace DCEM.ServiceAssistantService.Main.Application
         {
             return await _baseDataService.QueryMalFunctionType(malFunctionTypeRequest);
         }
+        /// <summary>
+        /// 车型
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> QueryVehicletype(VehicleTypeRequest request) =>
+            await _baseDataService.QueryVehicletype(request);
+
+        /// <summary>
+        /// 车型颜色
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> QueryVehicleColor(VehicleColorRequest request) =>
+            await _baseDataService.QueryVehicleColor(request);
+
+        /// <summary>
+        /// 试驾时段
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> QueryReservationconfig(ReservationconfigRequest request) =>
+            await _baseDataService.QueryReservationconfig(request);
+
+        /// <summary>
+        /// 接待员
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> QueryReceptioncommissioner(ReceptioncommissionerRequest request) =>
+            await _baseDataService.QueryReceptioncommissioner(request);
+
+        /// <summary>
+        /// 省市区
+        /// </summary>
+        /// <param name="malFunctionTypeRequest"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> QuerySysarea(SysareaRequest request) =>
+            await _baseDataService.QuerySysarea(request);
+
 
         /// <summary>
         /// 查询维修项目基础数据
@@ -86,7 +126,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
 
         public async Task<QueryResult<CrmEntity>> QuerySystemUserByPage(string searchkey = "", string prxyUserId = "", string dealerId = "", int pageSize = 10, int pageNum = 1, string sort = "")
         {
-            return await _baseDataService.QuerySystemUserByPage(searchkey, prxyUserId,dealerId ,pageSize, pageNum, sort);
+            return await _baseDataService.QuerySystemUserByPage(searchkey, prxyUserId, dealerId, pageSize, pageNum, sort);
         }
     }
 }

@@ -18,6 +18,12 @@ import { SelectCarmodelComponent } from 'app/serving/serving.ser/components/sele
 import { SelectMaintenanceComponent } from 'app/serving/serving.ser/components/select-maintenance/select-maintenance.component';
 import { SelectPartsComponent } from 'app/serving/serving.ser/components/select-parts/select-parts.component';
 import { SelectRepairitemComponent } from 'app/serving/serving.ser/components/select-repairitem/select-repairitem.component';
+import { SelectMalFunctionTypeComponent } from 'app/serving/serving.ser/components/select-malfunctiontype/select.malfunctiontype.component';
+import { SelectReceptioncommissionerComponent } from 'app/serving/serving.ser/components/select-receptioncommissioner/select-receptioncommissioner.component';
+import { SelectReservationconfigurationComponent } from 'app/serving/serving.ser/components/select-reservationconfiguration/select-reservationconfiguration.component';
+import { SelectSysareaComponent } from 'app/serving/serving.ser/components/select-sysarea/select-sysarea.component';
+import { SelectVehiclecolorComponent } from 'app/serving/serving.ser/components/select-vehiclecolor/select-vehiclecolor.component';
+import { SelectVehicletypeComponent } from 'app/serving/serving.ser/components/select-vehicletype/select-vehicletype.component';
 
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -30,7 +36,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         SelectCarmodelComponent,
         SelectMaintenanceComponent,
         SelectPartsComponent,
-        SelectRepairitemComponent
+        SelectRepairitemComponent,
+        SelectMalFunctionTypeComponent,
+        SelectVehicletypeComponent,
+        SelectReceptioncommissionerComponent,
+        SelectReservationconfigurationComponent,
+        SelectSysareaComponent,
+        SelectVehiclecolorComponent
+
 
     ],
     entryComponents: [
@@ -40,7 +53,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         SelectCarmodelComponent,
         SelectMaintenanceComponent,
         SelectPartsComponent,
-        SelectRepairitemComponent
+        SelectRepairitemComponent,
+        SelectMalFunctionTypeComponent,
+        SelectVehicletypeComponent,
+        SelectReceptioncommissionerComponent,
+        SelectReservationconfigurationComponent,
+        SelectSysareaComponent,
+        SelectVehiclecolorComponent
     ],
     imports: [BrowserModule,
         IonicModule.forRoot({ mode: 'ios' }),

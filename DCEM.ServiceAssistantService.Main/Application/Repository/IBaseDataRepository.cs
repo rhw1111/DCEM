@@ -35,6 +35,18 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
         /// <returns></returns>
         string QueryMalFunctionType(MalFunctionTypeRequest malFunctionTypeRequest);
 
+
+        /// <summary>
+        /// 车型
+        /// </summary>
+        /// <param name="VehicleTypeRequest"></param>
+        /// <returns></returns>
+        string QueryVehicletype(VehicleTypeRequest request);
+        string QueryVehicleColor(VehicleColorRequest request);
+        string QueryReservationconfig(ReservationconfigRequest request);
+        string QueryReceptioncommissioner(ReceptioncommissionerRequest request);
+        string QuerySysarea(SysareaRequest request);
+
         /// <summary>
         /// 维修类型基础数据
         /// </summary>
