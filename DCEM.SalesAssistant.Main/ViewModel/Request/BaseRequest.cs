@@ -4,8 +4,8 @@ using System.Text;
 
 namespace DCEM.SalesAssistant.Main.ViewModel.Request
 {
-    public class OriginalclueListRequest: PageBaseRequestModel
+    public class BaseRequest
     {
-        public string DealerId { get; set; }
+        public string UserId { get; set; }
     }
 }

@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DCEM.SalesAssistant.Main.Application.App.Contrac
+namespace DCEM.SalesAssistant.Main.Application.Services.Contrac
 {
-    public interface IAppOriginalclue
+   public interface IOriginalclueService
     {
         Task<OriginalclueListResponse> GetOriginalclueList(OriginalclueListRequest originalclueListRequest);
     }
