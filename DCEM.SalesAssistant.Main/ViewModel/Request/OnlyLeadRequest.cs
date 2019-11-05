@@ -14,11 +14,11 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         /// <summary>
         /// 厅店Id
         /// </summary>
-        public Guid mcs_dealerid { get; set; }
+        public Guid? mcs_dealerid { get; set; }
 
         /// <summary>
         /// ownerId
         /// </summary>
-        public Guid ownerid { get; set; }
+        public Guid? ownerid { get; set; }
     }
 }
