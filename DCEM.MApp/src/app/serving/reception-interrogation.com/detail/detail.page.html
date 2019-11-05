@@ -1,7 +1,7 @@
 ﻿<ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button text="返回" defaultHref="/serving/ri/list"></ion-back-button>
+            <ion-back-button text="返回" defaultHref="/serving/sc/list"></ion-back-button>
         </ion-buttons>
         <ion-title>
             <ion-label>问诊单明细</ion-label>
@@ -146,4 +146,14 @@
             </ion-item>
         </ion-item-group>
     </ion-list>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+            <ion-icon name="arrow-dropup"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="top">
+            <ion-fab-button  color="success" [routerLink]="['/serving/ri/edit']"><ion-icon name="add"></ion-icon></ion-fab-button>
+            <ion-fab-button *ngIf="mod.data.serviceproxy.status===100" color="danger" (click)="deleteOnClick()"><ion-icon name="trash"></ion-icon></ion-fab-button>
+            <ion-fab-button *ngIf="mod.data.serviceproxy.status===100" color="warning" (click)="testOnClick()"><ion-icon name="create"></ion-icon></ion-fab-button>
+        </ion-fab-list>
+    </ion-fab>
 </ion-content>

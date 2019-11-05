@@ -14,8 +14,12 @@ namespace DCEM.ServiceAssistantService.Main.Application
         Task<ServiceproxyQueryInfoResponse> QueryInfo(string guid);
         #endregion
 
-        #region 添加服务委托书 问诊单
+        #region 添加 编辑 服务委托书 问诊单
         Task<ValidateResult<CrmEntity>> AddOrUpdate(ServiceproxyAddOrUpdateRequest request);
+        #endregion
+
+        #region 删除 服务委托书 问诊单
+        Task<ValidateResult<string>> Delete(string serviceproxyGuid);
         #endregion
 
         #region 查询环检项 列表

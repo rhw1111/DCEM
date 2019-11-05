@@ -62,6 +62,15 @@ namespace DCEM.Web.Controllers
         }
         #endregion
 
+        #region 删除 问诊单 服务委托书
+        [HttpGet]
+        [Route("Delete")]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<string>>> Delete(string serviceproxyGuid)
+        {
+            return await _serviceproxyService.Delete(serviceproxyGuid);
+        }
+        #endregion
+
         #region 查询 环检项 列表
         [HttpGet]
         [Route("GetVehcheckList")]

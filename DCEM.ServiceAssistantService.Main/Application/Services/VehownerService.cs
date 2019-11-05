@@ -16,12 +16,15 @@ namespace DCEM.ServiceAssistantService.Main.Application
         private ICrmService _crmService;
         private string dicHeadKey;
         private Dictionary<string, IEnumerable<string>> dicHead;
+        private int pageCount;
+
         public VehownerService(ICrmService crmService)
         {
             _crmService = crmService;
             dicHeadKey = "Prefer";
             dicHead = new Dictionary<string, IEnumerable<string>>();
             dicHead.Add(dicHeadKey, new List<string>() { "odata.include-annotations=\"*\"" });
+            pageCount = 10;
         }
         #endregion
 
@@ -60,7 +63,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
             {
                 var fetchXml = string.Empty;
                 fetchXml = $@"
-            <fetch version='1.0' output-format='xml-platform' mapping='logical' count='{500}' page='{pageindex}' >
+            <fetch version='1.0' output-format='xml-platform' mapping='logical' count='{pageCount}' page='{pageindex}' >
               <entity name='mcs_vehowner'>
                   <order attribute='mcs_fullname' descending='true' />
                   {filter}

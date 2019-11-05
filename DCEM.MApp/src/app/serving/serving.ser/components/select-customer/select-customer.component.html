@@ -14,10 +14,7 @@
     <ion-list lines="full">
         <ion-item-sliding *ngFor="let item of mod.data;let key=index">
             <ion-item (click)="itemClick(item)">
-                <ion-icon *ngIf="item.genderval===1" slot="start" color="primary" name="contact" size="large" style="width:60px;height:60px"></ion-icon>
-                <ion-icon *ngIf="item.genderval===2" slot="start" color="danger" name="contact" size="large" style="width:60px;height:60px"></ion-icon>
-                <ion-icon *ngIf="item.genderval===3" slot="start" color="medium" name="contact" size="large" style="width:60px;height:60px"></ion-icon>
-                <ion-icon *ngIf="!item.genderval" slot="start" color="medium" name="contact" size="large" style="width:60px;height:60px"></ion-icon>
+                <ion-icon  slot="start" color="{{item.gendercolor}}" name="contact" size="large" style="width:60px;height:60px"></ion-icon>
                 <ion-label>
                     <h2>{{item.fullname}}</h2>
                     <p>{{item.vehplate}}</p>
@@ -29,5 +26,15 @@
                 </ion-note>
             </ion-item>
         </ion-item-sliding>
+        <ion-item *ngIf="ionInfiniteScroll.disabled">
+            <ion-label>
+                <p>
+                    没有更多的记录显示啦
+                </p>
+            </ion-label>
+        </ion-item>
     </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>
