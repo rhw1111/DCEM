@@ -1,9 +1,68 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>edit</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/saleing/onlylead/detail"></ion-back-button>
+        </ion-buttons>
+        <ion-title>编辑唯一线索</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    <!--<ion-list>
+        <ion-item-group>
+            <ion-item-divider>
+                <ion-label>基本信息</ion-label>
+            </ion-item-divider>
+            <ion-item>
+                <ion-label position="stacked">姓名<ion-text color="danger">*</ion-text></ion-label>
+                <p>{{shareData.onlylead[mcs_name"]}}&nbsp;</p>
+            </ion-item>
+            <ion-item>
+                <ion-label>手机<ion-text color="danger">*</ion-text></ion-label>
+                <ion-note slot="end">{{shareData.onlylead["mcs_mobilephone"]}}</ion-note>
+            </ion-item>
+            <ion-item>
+                <ion-text color="danger">*</ion-text><ion-label>线索来源</ion-label>
+                <ion-select [(ngModel)]="shareData.onlylead['mcs_leadorigin']" okText="确认" cancelText="取消">
+                    <ion-select-option value="1">WEB官网</ion-select-option>
+                    <ion-select-option value="2">Event-Online</ion-select-option>
+                    <ion-select-option value="3">Event-OffLine</ion-select-option>
+                    <ion-select-option value="4">Store展厅</ion-select-option>
+                    <ion-select-option value="5">400电话</ion-select-option>
+                    <ion-select-option value="6">APP</ion-select-option>
+                    <ion-select-option value="7">小程序</ion-select-option>
+                    <ion-select-option value="8">车机</ion-select-option>
+                    <ion-select-option value="9">H5落地页</ion-select-option>
+                    <ion-select-option value="10">3D展厅</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-text color="danger">*</ion-text><ion-label>称呼</ion-label>
+                <ion-select [(ngModel)]="shareData.onlylead['mcs_gender']" okText="确认" cancelText="取消">
+                    <ion-select-option value="1">先生</ion-select-option>
+                    <ion-select-option value="2">女士</ion-select-option>
+                    <ion-select-option value="3">未知</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label>邮箱</ion-label>
+                <ion-note slot="end">{{shareData.onlylead["mcs_emailaddress1"]}}</ion-note>
+            </ion-item>
+            <ion-item>
+                <ion-text color="danger">*</ion-text><ion-label>评分</ion-label>
+                <ion-select [(ngModel)]="shareData.onlylead['mcs_accountpoints']" okText="确认" cancelText="取消">
+                    <ion-select-option value="1">1分</ion-select-option>
+                    <ion-select-option value="2">2分</ion-select-option>
+                    <ion-select-option value="3">3分</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item (click)="appointmentconfigOnClick()">
+                <ion-label position="stacked">预约时段<ion-text color="danger">*</ion-text></ion-label>
+                <p>{{shareData.appointmentinfo["mcs_appointmentconfigname"]}}&nbsp;</p>
+            </ion-item>
 
+        </ion-item-group>
+        
+        <ion-button expand="block" type="button" (click)="saveOnClick()">确定</ion-button>
+    </ion-list>-->
 </ion-content>

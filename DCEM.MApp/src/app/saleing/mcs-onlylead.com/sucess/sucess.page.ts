@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-sucess',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SucessPage implements OnInit {
 
-  constructor() { }
+    mod = {
+        id: ""
+    };
+    constructor(
+        private activeRoute: ActivatedRoute
+    ) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+        this.activeRoute.queryParams.subscribe((params: Params) => {
+            if (params['guid'] != null && params['guid'] != undefined) {
+                this.mod.id = params['guid'];
+            }
+        });
+    }
 
 }
