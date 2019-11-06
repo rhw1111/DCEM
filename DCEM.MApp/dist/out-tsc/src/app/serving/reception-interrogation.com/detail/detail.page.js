@@ -27,7 +27,8 @@ let DetailPage = class DetailPage {
                     customercomment: "",
                     status: 0,
                 },
-                serviceordercheckresultArray: []
+                serviceordercheckresultArray: [],
+                serviceproxyResumeArray: []
             }
         };
     }
@@ -46,8 +47,8 @@ let DetailPage = class DetailPage {
                 guid: id,
             }
         }, (res) => {
+            console.log(res);
             if (res.Serviceproxy !== null) {
-                console.log(res.Serviceproxy);
                 this.mod.data.serviceproxy.customername = res["Serviceproxy"]["Attributes"]["mcs_customername"];
                 this.mod.data.serviceproxy.carplate = res["Serviceproxy"]["Attributes"]["mcs_carplate"];
                 this.mod.data.serviceproxy.customerphone = res["Serviceproxy"]["Attributes"]["mcs_customerphone"];
@@ -70,6 +71,7 @@ let DetailPage = class DetailPage {
                     this.mod.data.serviceordercheckresultArray.push(obj);
                 }
             }
+            this.mod.data.serviceproxyResumeArray = res.ServiceproxyResumeList;
             this._page.loadingHide();
         }, (err) => {
             this._page.alert("消息提示", "数据加载异常");
