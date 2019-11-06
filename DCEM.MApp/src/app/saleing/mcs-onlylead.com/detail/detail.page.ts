@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-
+import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.page.html',
   styleUrls: ['./detail.page.scss'],
 })
 export class DetailPage implements OnInit {
+  public tab: any = "infolist";
   mod = {
-    apiUrlInfo: '/api/only-lead/only-lead', //唯一线索基本信息
-    apiUrlList1: '/api/appointment-info/GetLog',//联络记录
-    apiUrlList2: '/api/appointment-info/GetLog',//培育任务
+    apiUrlInfo: '/api/only-lead/GetOnlyLeadDetail', //唯一线索基本信息
+    apiUrlList1: '/api/only-lead/GetLogCallList',//logcall
+    apiUrlList2: '/api/only-lead/GetActivityList',//培育任务
     data: {
         mcs_name:"",
         mcs_mobilephone: "",
@@ -26,6 +27,8 @@ export class DetailPage implements OnInit {
         mcs_usecarprovince: "",
         mcs_usecarcity: ""      
     },
+     
+    systemUserId: "",//当前用户id
 
     //联络记录参数
     datalist: [],
@@ -44,27 +47,31 @@ export class DetailPage implements OnInit {
 constructor(
     private _http: DCore_Http,
     private _page: DCore_Page,
-    private activeRoute: ActivatedRoute
-) {
+    private activeRoute: ActivatedRoute,
+    private _logininfo: Storage_LoginInfo,
 
-}
+) {}
 
 ngOnInit() {
+    debugger;
     this.activeRoute.queryParams.subscribe((params: Params) => {
         if (params['id'] != null && params['id'] != undefined) {
             this.pageOnBind(params['id']);
         }
     });
+
+    this.mod.systemUserId = this._logininfo.GetSystemUserId(); 
 }
 
 //加载唯一线索基本信息
 pageOnBind(id: any) {
+    debugger;
     this._page.loadingShow();
     this._http.get(
         this.mod.apiUrlInfo,
         {
             params: {
-                guid: id,
+                entityid: id,
             }
         },
         (res: any) => {
@@ -102,7 +109,7 @@ pageOnBind(id: any) {
     );
 }
 
-//加载联络记录
+//加载联络记录(logcall)
 pageOnLogCalllist(id: any) {
     this._page.loadingShow();
     this._http.get(
@@ -112,7 +119,8 @@ pageOnLogCalllist(id: any) {
                 entityid: id,
                 sort: this.mod.sort,
                 pageSize: this.mod.pageSize,
-                page: this.mod.page
+                page: this.mod.page,
+                systemuserid: this.mod.systemUserId,
             }
         },
         (res: any) => {
@@ -121,9 +129,9 @@ pageOnLogCalllist(id: any) {
                 if (res.Results !== null) {
                     for (var key in res.Results) {
                         var obj = {};
-                        obj["createdby"] = res.Results[key]["Attributes"]["systemuser_x002e_fullname"];
-                        obj["mcs_remark"] = res.Results[key]["Attributes"]["mcs_remark"];
-                        obj["createdon"] = res.Results[key]["Attributes"]["createdon"];
+                        obj["mcs_fullname"] = res.Results[key]["Attributes"]["mcs_fullname"];
+                        obj["mcs_visittime"] = res.Results[key]["Attributes"]["mcs_visittime"];
+                        obj["mcs_content"] = res.Results[key]["Attributes"]["mcs_content"];
                         this.mod.datalist.push(obj);
                     }
                     //console.log(res);
@@ -155,7 +163,8 @@ pageOnActivitylist(id: any) {
                 entityid: id,
                 sort: this.mod.sort2,
                 pageSize: this.mod.pageSize2,
-                page: this.mod.page2
+                page: this.mod.page2,
+                systemuserid: this.mod.systemUserId,
             }
         },
         (res: any) => {
@@ -164,9 +173,10 @@ pageOnActivitylist(id: any) {
                 if (res.Results !== null) {
                     for (var key in res.Results) {
                         var obj = {};
-                        obj["createdby"] = res.Results[key]["Attributes"]["systemuser_x002e_fullname"];
-                        obj["mcs_remark"] = res.Results[key]["Attributes"]["mcs_remark"];
+                        obj["mcs_thisfollowupcontent"] = res.Results[key]["Attributes"]["mcs_thisfollowupcontent"];
                         obj["createdon"] = res.Results[key]["Attributes"]["createdon"];
+                        obj["mcs_activitystatus"] = res.Results[key]["Attributes"]["mcs_activitystatus"];
+                        obj["mcs_importantlevel"] = res.Results[key]["Attributes"]["mcs_importantlevel"];
                         this.mod.datalist2.push(obj);
                     }
                     //console.log(res);
