@@ -1,68 +1,83 @@
-<ion-header>
+ï»¿<ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button text="·µ»Ø" defaultHref="/saleing/onlylead/detail"></ion-back-button>
+            <ion-back-button text="è¿”å›" defaultHref="/saleing/onlylead/detail"></ion-back-button>
         </ion-buttons>
-        <ion-title>±à¼­Î¨Ò»ÏßË÷</ion-title>
+        <ion-title>ç¼–è¾‘å”¯ä¸€çº¿ç´¢</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <!--<ion-list>
+    <ion-list>
         <ion-item-group>
             <ion-item-divider>
-                <ion-label>»ù±¾ĞÅÏ¢</ion-label>
+                <ion-label>åŸºæœ¬ä¿¡æ¯</ion-label>
             </ion-item-divider>
             <ion-item>
-                <ion-label position="stacked">ĞÕÃû<ion-text color="danger">*</ion-text></ion-label>
-                <p>{{shareData.onlylead[mcs_name"]}}&nbsp;</p>
+                <ion-label>å§“å<ion-text color="danger">*</ion-text></ion-label>
+                <ion-input type="text" slot="end" [(ngModel)]="onlylead['mcs_name']" required></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label>ÊÖ»ú<ion-text color="danger">*</ion-text></ion-label>
-                <ion-note slot="end">{{shareData.onlylead["mcs_mobilephone"]}}</ion-note>
+                <ion-label>æ‰‹æœº<ion-text color="danger">*</ion-text></ion-label>
+                <ion-input type="tel" slot="end" [(ngModel)]="onlylead['mcs_mobilephone']" required></ion-input>
             </ion-item>
             <ion-item>
-                <ion-text color="danger">*</ion-text><ion-label>ÏßË÷À´Ô´</ion-label>
-                <ion-select [(ngModel)]="shareData.onlylead['mcs_leadorigin']" okText="È·ÈÏ" cancelText="È¡Ïû">
-                    <ion-select-option value="1">WEB¹ÙÍø</ion-select-option>
+                <ion-text color="danger">*</ion-text><ion-label>çº¿ç´¢æ¥æº</ion-label>
+                <ion-select [(ngModel)]="onlylead['mcs_leadorigin']" okText="ç¡®è®¤" cancelText="å–æ¶ˆ" required>
+                    <ion-select-option value="1">WEBå®˜ç½‘</ion-select-option>
                     <ion-select-option value="2">Event-Online</ion-select-option>
                     <ion-select-option value="3">Event-OffLine</ion-select-option>
-                    <ion-select-option value="4">StoreÕ¹Ìü</ion-select-option>
-                    <ion-select-option value="5">400µç»°</ion-select-option>
+                    <ion-select-option value="4">Storeå±•å…</ion-select-option>
+                    <ion-select-option value="5">400ç”µè¯</ion-select-option>
                     <ion-select-option value="6">APP</ion-select-option>
-                    <ion-select-option value="7">Ğ¡³ÌĞò</ion-select-option>
-                    <ion-select-option value="8">³µ»ú</ion-select-option>
-                    <ion-select-option value="9">H5ÂäµØÒ³</ion-select-option>
-                    <ion-select-option value="10">3DÕ¹Ìü</ion-select-option>
+                    <ion-select-option value="7">å°ç¨‹åº</ion-select-option>
+                    <ion-select-option value="8">è½¦æœº</ion-select-option>
+                    <ion-select-option value="9">H5è½åœ°é¡µ</ion-select-option>
+                    <ion-select-option value="10">3Då±•å…</ion-select-option>
                 </ion-select>
             </ion-item>
             <ion-item>
-                <ion-text color="danger">*</ion-text><ion-label>³Æºô</ion-label>
-                <ion-select [(ngModel)]="shareData.onlylead['mcs_gender']" okText="È·ÈÏ" cancelText="È¡Ïû">
-                    <ion-select-option value="1">ÏÈÉú</ion-select-option>
-                    <ion-select-option value="2">Å®Ê¿</ion-select-option>
-                    <ion-select-option value="3">Î´Öª</ion-select-option>
+                <ion-text color="danger">*</ion-text><ion-label>ç§°å‘¼</ion-label>
+                <ion-select [(ngModel)]="onlylead['mcs_gender']" okText="ç¡®è®¤" cancelText="å–æ¶ˆ" required>
+                    <ion-select-option value="1">å…ˆç”Ÿ</ion-select-option>
+                    <ion-select-option value="2">å¥³å£«</ion-select-option>
+                    <ion-select-option value="3">æœªçŸ¥</ion-select-option>
                 </ion-select>
             </ion-item>
             <ion-item>
-                <ion-label>ÓÊÏä</ion-label>
-                <ion-note slot="end">{{shareData.onlylead["mcs_emailaddress1"]}}</ion-note>
+                <ion-label>é‚®ç®±</ion-label>
+                <ion-input type="email" slot="end" [(ngModel)]="onlylead['mcs_emailaddress1']"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-text color="danger">*</ion-text><ion-label>ÆÀ·Ö</ion-label>
-                <ion-select [(ngModel)]="shareData.onlylead['mcs_accountpoints']" okText="È·ÈÏ" cancelText="È¡Ïû">
-                    <ion-select-option value="1">1·Ö</ion-select-option>
-                    <ion-select-option value="2">2·Ö</ion-select-option>
-                    <ion-select-option value="3">3·Ö</ion-select-option>
+                <ion-text color="danger">*</ion-text><ion-label>è¯„åˆ†</ion-label>
+                <ion-select [(ngModel)]="onlylead['mcs_accountpoints']" okText="ç¡®è®¤" cancelText="å–æ¶ˆ">
+                    <ion-select-option value="1">1åˆ†</ion-select-option>
+                    <ion-select-option value="2">2åˆ†</ion-select-option>
+                    <ion-select-option value="3">3åˆ†</ion-select-option>
                 </ion-select>
             </ion-item>
-            <ion-item (click)="appointmentconfigOnClick()">
-                <ion-label position="stacked">Ô¤Ô¼Ê±¶Î<ion-text color="danger">*</ion-text></ion-label>
-                <p>{{shareData.appointmentinfo["mcs_appointmentconfigname"]}}&nbsp;</p>
+            <ion-item (click)="provinceOnClick()">
+                <ion-label position="stacked">çœ<ion-text color="danger">*</ion-text></ion-label>
+                <p>{{onlylead["provincename"]}}&nbsp;</p>
             </ion-item>
-
+            <ion-item (click)="cityOnClick()">
+                <ion-label position="stacked">å¸‚<ion-text color="danger">*</ion-text></ion-label>
+                <p>{{onlylead["cityname"]}}&nbsp;</p>
+            </ion-item>
+            <ion-item (click)="districtOnClick()">
+                <ion-label position="stacked">åŒº<ion-text color="danger">*</ion-text></ion-label>
+                <p>{{onlylead["districtname"]}}&nbsp;</p>
+            </ion-item>
+            <ion-item>
+                <ion-label>ç”¨è½¦çœä»½</ion-label>
+                <ion-input type="text" slot="end" [(ngModel)]="onlylead['mcs_usecarprovince']"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>ç”¨è½¦åŸå¸‚</ion-label>
+                <ion-input type="text" slot="end" [(ngModel)]="onlylead['mcs_usecarcity']"></ion-input>
+            </ion-item>
         </ion-item-group>
         
-        <ion-button expand="block" type="button" (click)="saveOnClick()">È·¶¨</ion-button>
-    </ion-list>-->
+        <ion-button expand="block" type="button" (click)="saveOnClick()">ç¡®å®š</ion-button>
+    </ion-list>
 </ion-content>
