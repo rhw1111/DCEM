@@ -3,10 +3,216 @@
     <ion-buttons slot="start">
       <ion-back-button text="返回" defaultHref="/"></ion-back-button>
     </ion-buttons>
-    <ion-title></ion-title>
+    <ion-title>销售机会详情</ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="tab">
+      <ion-segment-button value="info">
+        <ion-label>基础信息</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="logcall">
+        <ion-label>联络记录</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="activity">
+        <ion-label>培育任务</ion-label>
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div [ngSwitch]="tab">
+    <div *ngSwitchCase="'info'">
+      <ion-item-group>
+        <ion-item-divider color="primary">
+          <ion-label>客户信息</ion-label>
+        </ion-item-divider>
+        <ion-item>
+          <ion-label>
+            <h2>机会编号</h2>
+          </ion-label>
+          <ion-note slot="end">
+            <p>{{this.mod.data.Account.accountnumber}}</p>
+          </ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>姓名</h2>
+          </ion-label>
+          <ion-note slot="end">
+            <p>{{this.mod.data.Account.name}}</p>
+          </ion-note>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+              <h2>手机号</h2>
+            </ion-label>
+            <ion-note slot="end">
+              <p>{{this.mod.data.Account.mcs_mobilephone}}</p>
+            </ion-note>
+          </ion-item>
+        <ion-item>
+            <ion-label>
+              <h2>称呼</h2>
+            </ion-label>
+            <ion-note slot="end">
+              <p *ngIf="this.mod.data.Account.mcs_gender==0">先生</p>
+              <p *ngIf="this.mod.data.Account.mcs_gender==1">女士</p>
+              <p *ngIf="this.mod.data.Account.mcs_gender==2">未知</p>
+            </ion-note>
+          </ion-item>
+          
+            <ion-item>
+                <ion-label>
+                  <h2>引荐车主</h2>
+                </ion-label>
+                <ion-note slot="end">
+                  <p>{{this.mod.data.Account.mcs_introducecarowner}}</p>
+                </ion-note>
+              </ion-item>
+              <ion-item>
+                  <ion-label>
+                    <h2>小订单号</h2>
+                  </ion-label>
+                  <ion-note slot="end">
+                    <p>{{this.mod.data.Account.mcs_smallorderid}}</p>
+                  </ion-note>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                      <h2>大订单号</h2>
+                    </ion-label>
+                    <ion-note slot="end">
+                      <p>{{this.mod.data.Account.mcs_ordernumber}}</p>
+                    </ion-note>
+                  </ion-item>
+      </ion-item-group>
+      <ion-item-group>
+        <ion-item-divider color="primary">
+          <ion-label>购车意向</ion-label>
+        </ion-item-divider>
+        <ion-item>
+          <ion-label>
+            <h2>意向等级</h2>
+          </ion-label>
+          <ion-note slot="end">
+            <p>{{this.mod.data.Account.mcs_mobilephone}}</p>
+          </ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>预测成交日期</h2>
+          </ion-label>
+          <ion-note slot="end">
+            <p>{{this.mod.data.Account.mcs_mobilephone}}</p>
+          </ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>意向颜色</h2>
+          </ion-label>
+          <ion-note slot="end">
+            <p>{{this.mod.data.Account.mcs_mobilephone}}</p>
+          </ion-note>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+              <h2>意向车型</h2>
+            </ion-label>
+            <ion-note slot="end">
+              <p>{{this.mod.data.Account.mcs_mobilephone}}</p>
+            </ion-note>
+          </ion-item>
+          <ion-item>
+              <ion-label>
+                <h2>购车用途</h2>
+              </ion-label>
+              <ion-note slot="end">
+                <p>{{this.mod.data.Account.mcs_mobilephone}}</p>
+              </ion-note>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                  <h2>车辆使用人</h2>
+                </ion-label>
+                <ion-note slot="end">
+                  <p>{{this.mod.data.Account.mcs_mobilephone}}</p>
+                </ion-note>
+              </ion-item>
+              <ion-item>
+                  <ion-label>
+                    <h2>购车关注</h2>
+                  </ion-label>
+                  <ion-note slot="end">
+                    <p>{{this.mod.data.Account.mcs_mobilephone}}</p>
+                  </ion-note>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                      <h2>年龄段</h2>
+                    </ion-label>
+                    <ion-note slot="end">
+                      <p>{{this.mod.data.Account.mcs_mobilephone}}</p>
+                    </ion-note>
+                  </ion-item>
+                  <ion-item>
+                      <ion-label>
+                        <h2>购买方式</h2>
+                      </ion-label>
+                      <ion-note slot="end">
+                        <p>{{this.mod.data.Account.mcs_mobilephone}}</p>
+                      </ion-note>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>
+                          <h2>竞品车型</h2>
+                        </ion-label>
+                        <ion-note slot="end">
+                          <p>{{this.mod.data.Account.mcs_mobilephone}}</p>
+                        </ion-note>
+                      </ion-item>
+                      <ion-item>
+                          <ion-label>
+                            <h2>关注原因</h2>
+                          </ion-label>
+                          <ion-note slot="end">
+                            <p>{{this.mod.data.Account.mcs_mobilephone}}</p>
+                          </ion-note>
+                        </ion-item>
+                        
+      </ion-item-group>
+      <ion-item-group>
+          <ion-item-divider color="primary">
+              <ion-label>特殊备注</ion-label>
+            </ion-item-divider>
+            <ion-item detail>
+                <ion-label>
+                  {{this.mod.data.Account.mcs_mobilephone}}
+                </ion-label>
+              </ion-item>
+      </ion-item-group>
 
+    </div>
+    <div *ngSwitchCase="'logcall'">
+      <ion-list>
+
+      </ion-list>
+    </div>
+    <div *ngSwitchCase="'activity'">
+      <ion-list>
+
+      </ion-list>
+    </div>
+  </div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="arrow-dropup"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button color="danger" [routerLink]="['/saleing/account/edit']" [queryParams]="{id:mod.data.Account.Id}">
+        <ion-icon name="create"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>

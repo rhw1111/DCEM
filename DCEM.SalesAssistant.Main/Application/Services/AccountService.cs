@@ -13,7 +13,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
 {
     public class AccountService : IAccountService
     {
-        private const string EntityName = "mcs_account";
+        private const string EntityName = "account";
         private CrmService _crmService;
         private IAccountRepository _AccountRepository;
 
