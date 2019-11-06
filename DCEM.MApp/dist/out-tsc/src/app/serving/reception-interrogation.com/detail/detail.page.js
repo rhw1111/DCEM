@@ -8,6 +8,7 @@ let DetailPage = class DetailPage {
         this._page = _page;
         this._valid = _valid;
         this.activeRoute = activeRoute;
+        this.tab = "info";
         this.mod = {
             apiUrl: '/Api/Serviceproxy/GetInfo',
             delUrl: '/Api/Serviceproxy/Delete',
@@ -58,6 +59,7 @@ let DetailPage = class DetailPage {
                 this.mod.data.serviceproxy.arrivalon = res["Serviceproxy"]["Attributes"]["mcs_arrivalon@OData.Community.Display.V1.FormattedValue"];
                 this.mod.data.serviceproxy.customercomment = res["Serviceproxy"]["Attributes"]["mcs_customercomment"];
                 this.mod.data.serviceproxy.status = res["Serviceproxy"]["Attributes"]["mcs_status"];
+                this.mod.data.serviceproxy["dealerid_formatted"] = res["Serviceproxy"]["Attributes"]["_mcs_dealerid_value@OData.Community.Display.V1.FormattedValue"];
             }
             if (res.ServiceordercheckresultList != null) {
                 for (var key in res.ServiceordercheckresultList) {

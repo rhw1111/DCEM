@@ -185,10 +185,11 @@ namespace DCEM.Web.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("QueryVehicleColor")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> QueryVehicleColor(string seachkey = "", string sort = "", int pageSize = 10, int page = 1)
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> QueryVehicleColor(string carmodel, string seachkey = "", string sort = "", int pageSize = 10, int page = 1)
         {
             var req = new VehicleColorRequest()
             {
+                carmodel= carmodel,
                 search = seachkey,
                 page = page,
                 pageSize = pageSize,

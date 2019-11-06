@@ -20,28 +20,23 @@
 
         <ion-list lines="full">
             <ion-item (click)="presentCarmodelModal()">
-                <ion-label>
-                    <h2>
-                        <ion-icon slot="end" name="search"></ion-icon>
-                        车型
-                    </h2>
-                    <p>
-                        {{mod.searchData["carmodel"]["name"]}}&nbsp;
-                    </p>
+                <ion-label position="stacked">
+                    <ion-icon slot="end" name="search"></ion-icon>
+                    车型
                 </ion-label>
+                <p>
+                    {{mod.searchData["carmodel"]["name"]}}&nbsp;
+                </p>
             </ion-item>
 
             <ion-item (click)="presentMaintenanceModal()">
-                <ion-label>
-                    <h2>
-                        <ion-icon slot="end" name="search"></ion-icon>
-                        保养项
-                    </h2>
-                    <p>
-                        {{mod.searchData["maintenance"]["name"]}}&nbsp;
-                    </p>
+                <ion-label position="stacked">
+                    <ion-icon slot="end" name="search"></ion-icon>
+                    保养项
                 </ion-label>
-
+                <p>
+                    {{mod.searchData["maintenance"]["name"]}}&nbsp;
+                </p>
             </ion-item>
         </ion-list>
         <ion-card-content>
@@ -86,7 +81,7 @@
                     </ion-label>
                 </ion-item>
                 <ion-item-options side="end">
-                    <ion-item-option color="tertiary" expandable (click)="workingDeleteClick(key)" >
+                    <ion-item-option color="tertiary" expandable (click)="workingDeleteClick(key)">
                         移除
                     </ion-item-option>
                 </ion-item-options>
@@ -135,7 +130,7 @@
                     </ion-label>
                 </ion-item>
                 <ion-item-options side="end">
-                    <ion-item-option color="tertiary" expandable (click)="partDeleteClick(key)" >
+                    <ion-item-option color="tertiary" expandable (click)="partDeleteClick(key)">
                         移除
                     </ion-item-option>
                 </ion-item-options>
