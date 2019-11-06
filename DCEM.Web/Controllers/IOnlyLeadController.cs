@@ -68,8 +68,12 @@ namespace DCEM.Web.Controllers
         [Route("GetOnlyLeadDetail")]
         public async Task<NewtonsoftJsonActionResult<CrmEntity>> GetOnlyLeadDetail(string entityid)
         {
-            return await app.GetOnlyLeadDetail(entityid);
+            return await app.GetOnlyLeadDetail(entityid);//
+
         }
+
+
+
 
     }
 }
