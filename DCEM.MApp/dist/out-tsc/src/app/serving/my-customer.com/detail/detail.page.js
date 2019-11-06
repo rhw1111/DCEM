@@ -7,6 +7,7 @@ let DetailPage = class DetailPage {
         this._http = _http;
         this._page = _page;
         this.activeRoute = activeRoute;
+        this.tab = "info";
         this.mod = {
             apiUrl: '/Api/Customer/GetCustomerInfo',
             data: {
@@ -25,7 +26,8 @@ let DetailPage = class DetailPage {
                     nextmaintainat: ""
                 },
                 customerfollowuplogArray: [],
-                tagArray: []
+                tagArray: [],
+                serviceproxyResumeArray: []
             }
         };
     }
@@ -74,6 +76,7 @@ let DetailPage = class DetailPage {
                     this.mod.data.tagArray.push(obj);
                 }
             }
+            this.mod.data.serviceproxyResumeArray = res.ServiceproxyResumeList;
             this._page.loadingHide();
         }, (err) => {
             this._page.alert("消息提示", "数据加载异常");

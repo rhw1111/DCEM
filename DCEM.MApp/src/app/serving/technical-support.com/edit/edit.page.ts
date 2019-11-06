@@ -6,11 +6,7 @@ import { ModalController } from '@ionic/angular';
 import { ScSelectComponent } from 'app/serving/serving.ser/components/sc-select/sc-select.component';
 import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
 import { SelectSystemuserComponent } from 'app/base/base.ser/components/select-systemuser/select-systemuser.component';
-
 import{SelectMalFunctionTypeComponent} from'app/serving/serving.ser/components/select-malfunctiontype/select.malfunctiontype.component';
-import { mcall } from 'q';
-import { noUndefined } from '@angular/compiler/src/util';
-import { debug } from 'util';
  
 @Component({
   selector: 'app-edit',

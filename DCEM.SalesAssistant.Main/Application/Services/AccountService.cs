@@ -8,6 +8,7 @@ using System.Xml.Linq;
 using MSLibrary.Xrm.Message.RetrieveMultipleFetch;
 using System;
 using System.Collections.Generic;
+using DCEM.SalesAssistant.Main.Common;
 
 namespace DCEM.SalesAssistant.Main.Application.Services
 {
@@ -59,8 +60,8 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         {
             try
             {
-                CrmEntity entity = null;
-                entity = await _crmService.Retrieve(EntityName, entityId, "");
+                var crmRequestHelper = new CrmRequestHelper();
+                var entity = await crmRequestHelper.Retrieve(_crmService, EntityName, entityId,Guid.Empty);
                 return entity;
             }
             catch (Exception ex)
