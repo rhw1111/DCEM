@@ -75,16 +75,55 @@ let DCore_Page = class DCore_Page {
     }
     //弹出提示
     alert(header, message, callback = null) {
-        const alert = this.alertCtr.create({
-            header,
-            message,
-            buttons: ['确定']
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            const alert = this.alertCtr.create({
+                header,
+                message,
+                buttons: [
+                    {
+                        text: '确定',
+                        handler: () => {
+                            if (isFunction(callback)) {
+                                callback();
+                            }
+                        }
+                    }
+                ]
+            });
+            yield alert.then(a => {
+                a.present();
+            });
         });
-        alert.then(a => {
-            a.present();
-            if (isFunction(callback)) {
-                callback();
-            }
+    }
+    //确认提示
+    confirm(header, message, callback = null, cancelCallBack = null) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            const box = this.alertCtr.create({
+                header,
+                message,
+                buttons: [
+                    {
+                        text: '取消',
+                        role: 'cancel',
+                        cssClass: 'secondary',
+                        handler: (blah) => {
+                            if (isFunction(cancelCallBack)) {
+                                cancelCallBack();
+                            }
+                        }
+                    }, {
+                        text: '确定',
+                        handler: () => {
+                            if (isFunction(callback)) {
+                                callback();
+                            }
+                        }
+                    }
+                ]
+            });
+            yield box.then(a => {
+                a.present();
+            });
         });
     }
     //打开等待动画
@@ -93,7 +132,7 @@ let DCore_Page = class DCore_Page {
             this.loading = this.loadingCtr.create({
                 message: "请稍后...",
                 translucent: true,
-                duration: 8000
+                duration: 30000
             });
             this.loading.then(a => {
                 a.present();
@@ -111,8 +150,14 @@ let DCore_Page = class DCore_Page {
         if (params === null) {
             params = {};
         }
-        //this.navCtr.navigateRoot(url);
         this.router.navigate([url], { queryParams: params });
+    }
+    //跳转到指定页
+    navigateRoot(url, params) {
+        if (params === null) {
+            params = {};
+        }
+        this.navCtr.navigateRoot(url, { queryParams: params });
     }
 };
 DCore_Page = tslib_1.__decorate([

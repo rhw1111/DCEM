@@ -10,6 +10,7 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
         public CustomerQueryInfoResponse() {
             CustomerfollowuplogList = new List<CrmEntity>();
             TagList = new List<CrmEntity>();
+            ServiceproxyResumeList = new List<CrmEntity>();
         }
 
         //服务顾问分派
@@ -23,5 +24,7 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
 
         //标签
         public List<CrmEntity> TagList { get; set; }
+        //维修履历
+        public List<CrmEntity> ServiceproxyResumeList { get; set; }
     }
 }

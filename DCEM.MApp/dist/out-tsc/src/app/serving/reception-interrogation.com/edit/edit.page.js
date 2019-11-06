@@ -41,11 +41,12 @@ let EditPage = class EditPage {
             }
         });
     }
-    ngOnInit() {
-        var getShareData = this._shareData.get(this.mod.shareDataKey);
-        if (getShareData != null) {
-            this.shareData = getShareData;
+    ionViewWillEnter() {
+        if (this._shareData.has(this.mod.shareDataKey)) {
+            this.shareData = this._shareData.get(this.mod.shareDataKey);
         }
+    }
+    ngOnInit() {
     }
     customerOnClick() {
         this.presentModal();
