@@ -57,5 +57,23 @@ namespace DCEM.Web.Controllers
             return list;
         }
 
+
+
+        /// <summary>
+        /// 查询唯一线索详情
+        /// </summary>
+        /// <param name="entityid"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetOnlyLeadDetail")]
+        public async Task<NewtonsoftJsonActionResult<CrmEntity>> GetOnlyLeadDetail(string entityid)
+        {
+            return await app.GetOnlyLeadDetail(entityid);//
+
+        }
+
+
+
+
     }
 }

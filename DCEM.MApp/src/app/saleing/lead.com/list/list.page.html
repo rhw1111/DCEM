@@ -1,9 +1,50 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>list</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/serving/home/index"></ion-back-button>
+        </ion-buttons>
+        <ion-title>我的留资</ion-title>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-searchbar animated [(ngModel)]="mod.searchData.search" placeholder="请输入姓名\手机号搜索" (keyup)="searchOnKeyup($event)"></ion-searchbar>  
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
-</ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中...">
+        </ion-refresher-content>
+    </ion-refresher>
+  <ion-list lines="full">  
+      <ion-item-sliding *ngFor="let item of mod.data;let key=index">
+          <ion-item [routerLink]="['/serving/mycustomer/detail']" [queryParams]="{id:item.Id}">
+            <ion-icon *ngIf="item.mcs_gender===1" slot="start" color="primary" name="contact" size="large" style="width:60px;height:60px"></ion-icon>
+            <ion-icon *ngIf="item.mcs_gender===2" slot="start" color="danger" name="contact" size="large" style="width:60px;height:60px"></ion-icon>
+            <ion-icon *ngIf="item.mcs_gender===3" slot="start" color="medium" name="contact" size="large" style="width:60px;height:60px"></ion-icon>
+            <ion-icon *ngIf="!item.mcs_gender" slot="start" color="medium" name="contact" size="large" style="width:60px;height:60px"></ion-icon>
+            <ion-label> 
+                 <h2>{{item.username}}</h2> 
+                    <ion-icon *ngIf="item.mobilephone" name="phone-portrait" size="small"></ion-icon> 
+                    <ion-note slot="end">
+                            {{item.mobilephone}}
+                        </ion-note>
+                <p> 线索终端：{{item.clues}}</p>
+            </ion-label>
+          </ion-item>
+          <ion-item-options side="end">
+                <ion-item-option color="tertiary" expandable [routerLink]="['/saleing/lead/edit']" [queryParams]="{id:item.Id}">
+                    编辑
+                </ion-item-option>  
+            </ion-item-options> 
+      </ion-item-sliding> 
+  </ion-list>
+  <ion-row *ngIf="this.mod.isending">
+        <ion-col class="nodata" text-center>
+            没有更多内容啦
+        </ion-col>
+    </ion-row>
+    <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doLoading($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content> 

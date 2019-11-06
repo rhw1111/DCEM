@@ -9,6 +9,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 })
 export class DetailPage implements OnInit {
 
+    public tab: any = "info";
     mod = {
         apiUrl: '/Api/Serviceproxy/GetInfo',
         data: {
@@ -29,16 +30,17 @@ export class DetailPage implements OnInit {
                 arrivalon: "",
                 finishat: "",
                 repairlocationid: "",
-                status: "",
                 hoursamount: "",
                 partsamount: "",
                 discountamount: "",
                 amounttotal: "",
-                dealerid: ""
+                dealerid: "",
+                status: 0,
 
             },
             serviceorderrepairitemArray: [],
-            serviceorderpartArray: []
+            serviceorderpartArray: [],
+            serviceproxyResumeArray: []
         }
     };
     constructor(
@@ -46,6 +48,10 @@ export class DetailPage implements OnInit {
         private _page: DCore_Page,
         private activeRoute: ActivatedRoute
     ) {
+
+    }
+
+    ionViewWillEnter() {
 
     }
 
@@ -90,6 +96,7 @@ export class DetailPage implements OnInit {
                     this.mod.data.serviceproxy["partsamount"] = res["Serviceproxy"]["Attributes"]["mcs_partsamount"];
                     this.mod.data.serviceproxy["discountamount"] = res["Serviceproxy"]["Attributes"]["mcs_discountamount"];
                     this.mod.data.serviceproxy["amounttotal"] = res["Serviceproxy"]["Attributes"]["mcs_amounttotal"];
+                    this.mod.data.serviceproxy.status = res["Serviceproxy"]["Attributes"]["mcs_status"];
                     this.mod.data.serviceproxy["dealerid"] = res["Serviceproxy"]["Attributes"]["_mcs_dealerid_value@OData.Community.Display.V1.FormattedValue"];
 
                 }
@@ -124,6 +131,11 @@ export class DetailPage implements OnInit {
 
                     }
                 }
+
+
+                this.mod.data.serviceproxyResumeArray = res.ServiceproxyResumeList;
+
+
                 this._page.loadingHide();
             },
             (err: any) => {

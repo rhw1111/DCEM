@@ -177,7 +177,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
 
         #endregion
 
-        #region 获取单个客户信息
+        #region 获取 单个客户信息
         public async Task<CustomerQueryInfoResponse> QueryInfo(string guid)
         {
             var customerQueryInfoResponse = new CustomerQueryInfoResponse();
@@ -186,7 +186,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
             var vehownerGuid = Guid.Parse(carserviceadvisorEntity.Attributes.Value<string>("_mcs_customerid_value"));
             var vehownerEntity = await _crmService.Retrieve("mcs_vehowner", vehownerGuid, string.Empty, null, dicHead);
 
-
+            #region 跟进记录
             var xdoc = await Task<XDocument>.Run(() =>
              {
                  var fetchXml = string.Empty;
@@ -209,8 +209,9 @@ namespace DCEM.ServiceAssistantService.Main.Application
             fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
             var fetchResponse = await _crmService.Execute(fetchRequest);
             var customerfollowuplogList = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            #endregion
 
-            
+            #region 标签
             xdoc = await Task<XDocument>.Run(() =>
             {
                 var fetchXml = string.Empty;
@@ -236,12 +237,40 @@ namespace DCEM.ServiceAssistantService.Main.Application
             fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
             fetchResponse = await _crmService.Execute(fetchRequest);
             var tagList = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            #endregion
 
+            #region 维修履历
+            xdoc = await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = string.Empty;
+                fetchXml = $@"
+            <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false' >
+              <entity name='mcs_serviceproxy'>
+                <order attribute='mcs_name' descending='false' />
+                <filter type='and'>
+                    <condition attribute='mcs_customerid' operator='eq' value='{vehownerGuid}' />
+                    <condition attribute='mcs_currenttype' operator='eq' value='20' />
+                    <condition attribute='mcs_status' operator='eq' value='180' />
+                </filter>
+              </entity>
+            </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+            fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_serviceproxy",
+                FetchXml = xdoc
+            };
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+            fetchResponse = await _crmService.Execute(fetchRequest);
+            var serviceproxyResumeResponse = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            #endregion
 
             customerQueryInfoResponse.Carserviceadvisor = carserviceadvisorEntity;
             customerQueryInfoResponse.Vehowner = vehownerEntity;
             customerQueryInfoResponse.CustomerfollowuplogList = customerfollowuplogList.Value.Results;
             customerQueryInfoResponse.TagList = tagList.Value.Results;
+            customerQueryInfoResponse.ServiceproxyResumeList = serviceproxyResumeResponse.Value.Results;
             return customerQueryInfoResponse;
 
         }

@@ -1,0 +1,33 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>选择车型颜色</ion-title>
+    <ion-buttons slot="end">
+      <ion-button expand="block" (click)="dismissModal()">关闭</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar [(ngModel)]="mod.searchData.search" placeholder="支持名称\ID\编号查找" (keyup)="searchOnKeyup($event)" ></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+  <ion-list>
+      <ion-item-sliding *ngFor="let item of mod.data;let key=index">
+          <ion-item (click)="itemClick(item)"> 
+              <ion-label>
+                  <p>{{item.mcs_code}}</p> 
+                  <p>{{item.vehicletypename}}</p>
+              </ion-label> 
+              <ion-note slot="end">
+                {{item.name}}
+            </ion-note>
+          </ion-item>
+          
+      </ion-item-sliding>
+      <ion-radio-group [(ngModel)]="selectItemValue">
+           
+      </ion-radio-group>
+     
+     
+  </ion-list>
+  
+</ion-content>

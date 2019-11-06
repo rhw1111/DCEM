@@ -9,6 +9,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 })
 export class DetailPage implements OnInit {
 
+    public tab: any = "info";
     mod = {
         apiUrl: '/Api/Customer/GetCustomerInfo',
         data: {
@@ -27,7 +28,8 @@ export class DetailPage implements OnInit {
                 nextmaintainat: ""
             },
             customerfollowuplogArray: [],
-            tagArray: []
+            tagArray: [],
+            serviceproxyResumeArray: []
 
         }
     };
@@ -96,7 +98,7 @@ export class DetailPage implements OnInit {
                     }
                 }
 
-
+                this.mod.data.serviceproxyResumeArray = res.ServiceproxyResumeList;
 
                 this._page.loadingHide();
             },

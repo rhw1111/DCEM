@@ -23,11 +23,11 @@ import { SelectAppointmentconfigComponent } from 'app/serving/serving.ser/compon
 import { SelectPartsComponent } from 'app/serving/serving.ser/components/select-parts/select-parts.component';
 import { SelectRepairitemComponent } from 'app/serving/serving.ser/components/select-repairitem/select-repairitem.component';
 import { SelectMalFunctionTypeComponent } from 'app/serving/serving.ser/components/select-malfunctiontype/select.malfunctiontype.component';
-import { SelectReceptioncommissionerComponent } from 'app/serving/serving.ser/components/select-receptioncommissioner/select-receptioncommissioner.component';
-import { SelectReservationconfigurationComponent } from 'app/serving/serving.ser/components/select-reservationconfiguration/select-reservationconfiguration.component';
-import { SelectSysareaComponent } from 'app/serving/serving.ser/components/select-sysarea/select-sysarea.component';
-import { SelectVehiclecolorComponent } from 'app/serving/serving.ser/components/select-vehiclecolor/select-vehiclecolor.component';
-import { SelectVehicletypeComponent } from 'app/serving/serving.ser/components/select-vehicletype/select-vehicletype.component';
+import { SelectReceptioncommissionerComponent } from 'app/saleing/saleing.ser/components/select-receptioncommissioner/select-receptioncommissioner.component';
+import { SelectReservationconfigurationComponent } from 'app/saleing/saleing.ser/components/select-reservationconfiguration/select-reservationconfiguration.component';
+import { SelectSysareaComponent } from 'app/saleing/saleing.ser/components/select-sysarea/select-sysarea.component';
+import { SelectVehiclecolorComponent } from 'app/saleing/saleing.ser/components/select-vehiclecolor/select-vehiclecolor.component';
+import { SelectVehicletypeComponent } from 'app/saleing/saleing.ser/components/select-vehicletype/select-vehicletype.component';
 
 @NgModule({
     declarations: [//申明组件
@@ -42,12 +42,12 @@ import { SelectVehicletypeComponent } from 'app/serving/serving.ser/components/s
         SelectMalFunctionTypeComponent,
         SelectPartsComponent,
         SelectRepairitemComponent,
-        SelectMalFunctionTypeComponent,
-        SelectVehicletypeComponent,
-        SelectReceptioncommissionerComponent,
-        SelectReservationconfigurationComponent,
-        SelectSysareaComponent,
-        SelectVehiclecolorComponent
+        SelectMalFunctionTypeComponent,//故障代码选择
+        SelectVehicletypeComponent,//车型选择
+        SelectReceptioncommissionerComponent,//接待员选择
+        SelectReservationconfigurationComponent,//预约时段选择
+        SelectSysareaComponent,//省份选择
+        SelectVehiclecolorComponent//车型颜色
 
 
     ],

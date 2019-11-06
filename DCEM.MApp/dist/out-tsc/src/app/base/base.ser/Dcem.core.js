@@ -132,7 +132,7 @@ let DCore_Page = class DCore_Page {
             this.loading = this.loadingCtr.create({
                 message: "请稍后...",
                 translucent: true,
-                duration: 8000
+                duration: 30000
             });
             this.loading.then(a => {
                 a.present();

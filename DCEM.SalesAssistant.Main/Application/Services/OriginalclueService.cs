@@ -17,6 +17,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
     {
         private ICrmService _crmService;
         private IOriginalclueRepository _originalclueRepository;
+        private const string entityName = "lead";
         public OriginalclueService(ICrmService crmService, IOriginalclueRepository originalclueRepository)
         {
             _crmService = crmService;
@@ -30,13 +31,31 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             var response = new OriginalclueListResponse() { };
             var fetchXdoc = await _originalclueRepository.GetGetQueryListFetchXml(originalclueListRequest);
             var crmRequestHelper = new CrmRequestHelper();
-            var entities = await crmRequestHelper.ExecuteAsync(_crmService, "lead", fetchXdoc);
+            var entities = await crmRequestHelper.ExecuteAsync(_crmService, entityName, fetchXdoc, Guid.Parse(originalclueListRequest.UserId));
             response.originalclues = entities.Results;
             response.ALLTotalCount = entities.Count;
+            response.PageSize = originalclueListRequest.PageSize;
+            response.CurrentPage = originalclueListRequest.PageIndex;
             return response;
         }
+        /// <summary>
+        /// 获取原始线索详情
+        /// </summary>  
+        public async Task<CrmEntity> Get(OriginalclueDetailRequest originalclueDetailRequest)
+        {
+            try
+            {
+                var crmRequestHelper = new CrmRequestHelper(); 
+                var entity = await crmRequestHelper.Retrieve(_crmService, entityName, Guid.Parse(originalclueDetailRequest.Id), Guid.Parse(originalclueDetailRequest.UserId));
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            } 
+        }
         #region 私有方法
-   
+
         #endregion
     }
 }

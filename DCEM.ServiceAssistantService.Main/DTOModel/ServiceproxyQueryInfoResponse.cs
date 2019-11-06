@@ -11,6 +11,7 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
             ServiceordercheckresultList = new List<CrmEntity>();
             ServiceorderrepairitemList = new List<CrmEntity>();
             ServiceorderpartList = new List<CrmEntity>();
+            ServiceproxyResumeList = new List<CrmEntity>();
         }
 
         //服务委托书
@@ -27,6 +28,8 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
         /// 零件
         /// </summary>
         public List<CrmEntity> ServiceorderpartList { get; set; }
+
+        public List<CrmEntity> ServiceproxyResumeList { get; set; }
 
     }
 }

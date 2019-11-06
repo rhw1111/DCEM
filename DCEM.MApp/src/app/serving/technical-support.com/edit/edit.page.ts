@@ -11,7 +11,7 @@ import{SelectMalFunctionTypeComponent} from'app/serving/serving.ser/components/s
 import { mcall } from 'q';
 import { noUndefined } from '@angular/compiler/src/util';
 import { debug } from 'util';
-
+ 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.page.html',

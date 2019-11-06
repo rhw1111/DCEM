@@ -16,19 +16,28 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
         {
             return await Task<XDocument>.Run(() =>
             {
+                var filterStr = "";
+                if (!string.IsNullOrEmpty(originalclueListRequest.Search))
+                {
+                    filterStr = $@"<filter type='or'>
+<condition attribute = 'mobilephone' operator= 'like' value = '%{originalclueListRequest.Search}%' />
+<condition attribute = 'fullname' operator= 'like' value = '%{originalclueListRequest.Search}%' />
+</filter >";
+                }
                 var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false' count='{originalclueListRequest.PageSize}' page='{originalclueListRequest.PageIndex}'>
   <entity name='lead'>
     <attribute name='fullname' />
     <attribute name='leadid' />
-    <attribute name='leap_terminalid' />
-    <attribute name='leap_gender' />
+    <attribute name='mcs_terminalid' />
+    <attribute name='mcs_gender' />
     <attribute name='mobilephone' />
     <order attribute='fullname' descending='false' />
     <filter type='and'>
-      <condition attribute='leap_dealerid' operator='eq' />
+      <condition attribute='mcs_dealerid' operator='eq'  value='{originalclueListRequest.DealerId}'/>
+{filterStr}
     </filter>
- <link-entity name='leap_terminal' from='leap_terminalid' to='leap_terminalid' visible='false' link-type='outer' alias='leap_terminal'>
-      <attribute name='leap_name' />
+    <link-entity name='mcs_terminal' from='mcs_terminalid' to='mcs_terminalid' visible='false' link-type='outer' alias='mcs_terminal'>
+      <attribute name='mcs_name' />
     </link-entity>
   </entity>
 </fetch>";

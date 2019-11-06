@@ -1,9 +1,178 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>detail</ion-title>
+      <ion-buttons slot="start">
+          <ion-back-button text="返回" defaultHref="/saleing/onlylead/list"></ion-back-button>
+      </ion-buttons>
+      <ion-title>
+          <ion-label>唯一线索明细</ion-label>
+      </ion-title>
   </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="tab" color="danger">
+        <ion-segment-button value="infolist">
+            <ion-label>基础信息</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Linklist">
+            <ion-label>跟进记录</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Breedlist">
+            <ion-label>培育任务</ion-label>
+        </ion-segment-button>
+    </ion-segment>
+</ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+    <div [ngSwitch]="tab">
+     <div *ngSwitchCase="'infolist'">
+        <ion-list lines="full">
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        姓名
+                    </h2>
+                    <p>{{mod.data.mcs_name}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        手机
+                    </h2>
+                    <p>{{mod.data.mcs_mobilephone}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        线索来源
+                    </h2>
+                    <p>{{mod.data.mcs_leadorigin}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        称呼
+                    </h2>
+                    <p>{{mod.data.mcs_gender}}&nbsp;</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>
+                  <h2>
+                      邮箱
+                  </h2>
+                  <p>{{mod.data.mcs_emailaddress1}}&nbsp;</p>
+              </ion-label>
+          </ion-item>
+          <ion-item>
+              <ion-label>
+                  <h2>
+                      评分
+                  </h2>
+                  <p>{{mod.data.mcs_accountpoints}}&nbsp;</p>
+              </ion-label>
+          </ion-item>
+          <ion-item>
+              <ion-label>
+                  <h2>
+                      省
+                  </h2>
+                  <p>{{mod.data.mcs_provinceid}}&nbsp;</p>
+              </ion-label>
+          </ion-item>
+          <ion-item>
+              <ion-label>
+                  <h2>
+                      市
+                  </h2>
+                  <p>{{mod.data.mcs_cityid}}&nbsp;</p>
+              </ion-label>
+          </ion-item>
+          <ion-item>
+              <ion-label>
+                  <h2>
+                      区
+                  </h2>
+                  <p>{{mod.data.mcs_districtid}}&nbsp;</p>
+              </ion-label>
+          </ion-item>
+          <ion-item>
+              <ion-label>
+                  <h2>
+                      接待专员
+                  </h2>
+                  <p>{{mod.data.mcs_mainowner}}&nbsp;</p>
+              </ion-label>
+          </ion-item>
+          <ion-item>
+              <ion-label>
+                  <h2>
+                      用车省份
+                  </h2>
+                  <p>{{mod.data.mcs_usecarprovince}}&nbsp;</p>
+              </ion-label>
+          </ion-item>
+          <ion-item>
+              <ion-label>
+                  <h2>
+                      用车城市
+                  </h2>
+                  <p>{{mod.data.mcs_usecarcity}}&nbsp;</p>
+              </ion-label>
+          </ion-item>
+        </ion-list>
+     </div>
+     <div *ngSwitchCase="'Linklist'">
+            <!--<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+            <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中...">
+            </ion-refresher-content>
+        </ion-refresher>-->
+            <ion-list lines="full" *ngFor="let r of mod.datalist">
+                <ion-item>
+                    <ion-label>
+                        <p>跟进人：{{r.createdby}}</p>
+                        <p>跟进内容：{{r.mcs_remark}}</p>
+                        <p>跟进时间：{{FormatToDateTime(r.createdon)}}</p>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+            <ion-row *ngIf="mod.isending">
+                <ion-col class="nodata" text-center>
+                    没有更多logcall
+                </ion-col>
+            </ion-row>
+     </div>
+     <div *ngSwitchCase="'Breedlist'">
+            <!--<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+            <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中...">
+            </ion-refresher-content>
+        </ion-refresher>-->
+            <ion-list lines="full" *ngFor="let r of mod.datalist2">
+                <ion-item>
+                    <ion-label>
+                        <p>跟进人：{{r.createdby}}</p>
+                        <p>跟进内容：{{r.mcs_remark}}</p>
+                        <p>跟进时间：{{FormatToDateTime(r.createdon)}}</p>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+            <ion-row *ngIf="mod.isending">
+                <ion-col class="nodata" text-center>
+                    没有更多培育任务
+                </ion-col>
+            </ion-row>
+     </div>
+    </div>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+            <ion-icon name="arrow-dropup"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="top">
+            <ion-fab-button color="danger" [routerLink]="['/serving/reservation/edit']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid}"><ion-icon name="create" ></ion-icon></ion-fab-button>
+            <ion-fab-button [routerLink]="['/serving/reservation/cancel']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid}"><ion-icon name="close"></ion-icon></ion-fab-button>
+        </ion-fab-list>
+    </ion-fab>
 </ion-content>
+

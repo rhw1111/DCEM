@@ -1,0 +1,34 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>选择试驾时段</ion-title>
+    <ion-buttons slot="end">
+      <ion-button expand="block" (click)="dismissModal()">关闭</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+          <ion-datetime max-height="36px"  class="titledate"  [(ngModel)]="mod.searchData.search" placeholder="支持预约开始时段查找" displayFormat="YYYY-MM-DD" minuteValues="0,30" cancelText="取消"
+          doneText="检索" (ngModelChange)="searchOnKeyup($event)" min="1997"   value=""></ion-datetime>
+    </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+  <ion-list>
+      <ion-item-sliding *ngFor="let item of mod.data;let key=index">
+          <ion-item (click)="itemClick(item)"> 
+              <ion-label>
+                  <p style="color: black;font-size: 17px;">{{item.mcs_reservationdate}} {{item.mcs_begintime}}-{{item.mcs_endtime}}</p> 
+                  <p>预约数量：{{item.mcs_usednum}}</p>
+              </ion-label>
+              <ion-note slot="end" style="font-size: 14px;    padding-top: 7%;">
+                  {{item.carmodelname}}
+              </ion-note>
+            
+          </ion-item>
+      </ion-item-sliding>
+      <ion-radio-group [(ngModel)]="selectItemValue">
+           
+      </ion-radio-group>
+     
+     
+  </ion-list>
+  
+</ion-content>

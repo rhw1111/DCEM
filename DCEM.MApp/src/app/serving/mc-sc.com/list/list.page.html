@@ -21,8 +21,8 @@
             <ion-item-sliding *ngFor="let item of mod.data[key].data;let key=index">
                 <ion-item [routerLink]="['/serving/sc/detail']" [queryParams]="{id:item.Id}">
                     <ion-icon color="{{item.statuscolor}}" name="document"></ion-icon>
-                    <ion-label>
-                        <h2>{{item.name}}</h2>
+                    <ion-label style="margin-left:10px">
+                        <h6>{{item.name}}</h6>
                         <p>{{item.carplate}}&nbsp;&nbsp;{{item.customername}}</p>
                         <p>{{item.createdonformat}}</p>
                     </ion-label>
@@ -33,9 +33,6 @@
                 <ion-item-options side="end">
                     <ion-item-option color="tertiary" expandable>
                         编辑
-                    </ion-item-option>
-                    <ion-item-option color="danger" expandable>
-                        删除
                     </ion-item-option>
                 </ion-item-options>
 
