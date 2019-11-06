@@ -12,7 +12,7 @@ import { IonInfiniteScroll } from '@ionic/angular';
 export class ListPage implements OnInit {
   @ViewChild(IonInfiniteScroll, null) infiniteScroll: IonInfiniteScroll;
   public mod:any = {
-    apiUrl: '',
+    apiUrl: '/api/Originalclue/getlist',
     data: [],
     isending:false,
     searchData: { 
@@ -27,7 +27,6 @@ export class ListPage implements OnInit {
     private _http: DCore_Http,
     private _page: DCore_Page,
     private _userinfo:Storage_LoginInfo) { 
-    this.mod.apiUrl = "/api/Originalclue/getlist";
   }
 
   ngOnInit() { 
@@ -69,7 +68,7 @@ listOnBind(event) {
                   obj["gender"]=attr["mcs_gender"]; 
                   obj["mobilephone"]=attr["mobilephone"];
                   obj["clues"]=attr["_mcs_terminalid_value@OData.Community.Display.V1.FormattedValue"];
-                  obj["id"]=attr["Id"];
+                  obj["Id"]=data[i]["Id"];
                   this.mod.data.push(obj);
               }
               event ? event.target.complete() : '';

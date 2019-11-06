@@ -27,6 +27,13 @@ namespace DCEM.Web.Controllers
         {
             return await _appOriginalclue.GetOriginalclueList(originalclueListRequest);
         }
+
+        [Route("get")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<CrmEntity>> get(OriginalclueDetailRequest originalclueDetailRequest)
+        {
+            return await _appOriginalclue.Get(originalclueDetailRequest);
+        }
     }
 }
 

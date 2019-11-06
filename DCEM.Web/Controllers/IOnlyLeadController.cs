@@ -68,12 +68,43 @@ namespace DCEM.Web.Controllers
         [Route("GetOnlyLeadDetail")]
         public async Task<NewtonsoftJsonActionResult<CrmEntity>> GetOnlyLeadDetail(string entityid)
         {
-            return await app.GetOnlyLeadDetail(entityid);//
+            return await app.GetOnlyLeadDetail(entityid);
 
         }
 
+        //查询与唯一线索关联的跟进记录（logcall）
+        [HttpGet]
+        [Route("GetLogCallList")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetLogCallList(string entityid = "", string systemuserid="", string sort = "", int pageSize = 10, int page = 1)
+        {
+            var logcallrequest = new LogCallRequest()
+            {
+                entityid = entityid,
+                UserId = systemuserid,
+                PageIndex = page,
+                PageSize = pageSize,
+                Sort = sort
+            };
+            var list = await app.GetLogCallList(logcallrequest);
+            return list;
+        }
 
-
+        //查询与唯一线索关联的培育任务
+        [HttpGet]
+        [Route("GetActivityList")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetActivityList(string entityid = "", string systemuserid = "", string sort = "", int pageSize = 10, int page = 1)
+        {
+            var activityrequest = new ActivityRequest()
+            {
+                entityid = entityid,
+                UserId = systemuserid,
+                PageIndex = page,
+                PageSize = pageSize,
+                Sort = sort
+            };
+            var list = await app.GetActivityList(activityrequest);
+            return list;
+        }
 
     }
 }
