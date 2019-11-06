@@ -68,7 +68,7 @@ listOnBind(event) {
                   obj["gender"]=attr["mcs_gender"]; 
                   obj["mobilephone"]=attr["mobilephone"];
                   obj["clues"]=attr["_mcs_terminalid_value@OData.Community.Display.V1.FormattedValue"];
-                  obj["id"]=attr["Id"];
+                  obj["Id"]=data[i]["Id"];
                   this.mod.data.push(obj);
               }
               event ? event.target.complete() : '';
