@@ -1,9 +1,110 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>detail</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/saleing/lead/list"></ion-back-button>
+        </ion-buttons>
+        <ion-title>留资详情</ion-title>
+    </ion-toolbar> 
 </ion-header>
 
 <ion-content>
-
+    <div [ngSwitch]="tab">
+    <div *ngSwitchCase="'info'">
+        <ion-list lines="full">
+            <ion-item-divider>
+                <ion-label>
+                    姓名
+                </ion-label>
+            </ion-item-divider>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        姓名
+                    </h2>
+                    <span>{{SetDefaultValue(model.info.username)}}</span>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        手机号
+                    </h2>
+                    <span>{{SetDefaultValue(model.info.mobile)}}</span>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        线索来源
+                    </h2>
+                    <span>{{SetDefaultValue(model.info.clues)}}</span>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        称呼
+                    </h2>
+                    <span>{{SetDefaultValue(model.info.gender)}}</span>
+                </ion-label>
+            </ion-item> 
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        邮箱
+                    </h2>
+                    <span>{{SetDefaultValue(model.info.mail)}}</span>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        评分
+                    </h2>
+                    <span>{{SetDefaultValue(model.info.score)}}</span>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        省
+                    </h2>
+                    <span>{{SetDefaultValue(model.info.province)}}</span>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        市
+                    </h2>
+                    <span>{{SetDefaultValue(model.info.city)}}</span>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        区
+                    </h2>
+                    <span>{{SetDefaultValue(model.info.area)}}</span>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>
+                        线索描述
+                    </h2>
+                    <textarea>{{SetDefaultValue(model.info.describe)}}</textarea>>
+                </ion-label>
+            </ion-item> 
+        </ion-list>
+    </div> 
+    </div>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+            <ion-icon name="arrow-dropup"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="top">
+            <ion-fab-button color="danger" [routerLink]="['/saleing/lead/edit']" [queryParams]="{id:model.info.id}"><ion-icon name="create" ></ion-icon></ion-fab-button> 
+        </ion-fab-list>
+    </ion-fab>
 </ion-content>
