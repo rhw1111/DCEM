@@ -17,8 +17,8 @@ export class DetailPage implements OnInit {
   }
   public model = { 
     apiUrlDetail: '/api/Originalclue/get', 
-    info: {
-        id:"",
+    id:"",
+    info: { 
         username:"",
         mobile: "",
         clues: "", 
@@ -34,31 +34,28 @@ export class DetailPage implements OnInit {
   ngOnInit() {
     this.activeRoute.queryParams.subscribe((data: Params) => {
       if (data['id'] != null && data['id'] != undefined) { 
-          this.model.info.id = data['id'];
-          this.pageOnBind(this.model.info.id);
+          this.model.id = data['id'];
+          this.pageOnBind(this.model.id);
       } 
   });
   }
   pageOnBind(id: any) {
+    debugger;
     this._page.loadingShow();
-    this._http.get(
-        this.model.apiUrlDetail,
-        {
-            params: {
-                entityid: id,
-            }
-        },
+    this._http.post(
+      this.model.apiUrlDetail,
+      {'id':this.model.id}, 
         (res: any) => {
             if (res !== null) {
                 
             }
             else {
-                this._page.alert("消息提示", "预约单加载异常");
+                this._page.alert("消息提示", "原始线索详情加载异常");
             }
             this._page.loadingHide(); 
         },
         (err: any) => {
-            this._page.alert("消息提示", "数据加载异常");
+            this._page.alert("消息提示", "原始线索详情加载异常");
             this._page.loadingHide();
         }
     );
