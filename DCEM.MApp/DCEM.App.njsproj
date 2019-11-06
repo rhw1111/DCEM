@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{f26cede4-f02d-4382-a6bd-49c0cb89d2aa}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <StartupFile />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -66,6 +66,16 @@
     <Content Include="src\app\saleing\mcs-onlylead.com\list\list.page.scss" />
     <Content Include="src\app\saleing\mcs-onlylead.com\sucess\sucess.page.html" />
     <Content Include="src\app\saleing\mcs-onlylead.com\sucess\sucess.page.scss" />
+    <Content Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.html" />
+    <Content Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.scss" />
+    <Content Include="src\app\saleing\saleing.ser\components\select-reservationconfiguration\select-reservationconfiguration.component.html" />
+    <Content Include="src\app\saleing\saleing.ser\components\select-reservationconfiguration\select-reservationconfiguration.component.scss" />
+    <Content Include="src\app\saleing\saleing.ser\components\select-sysarea\select-sysarea.component.html" />
+    <Content Include="src\app\saleing\saleing.ser\components\select-sysarea\select-sysarea.component.scss" />
+    <Content Include="src\app\saleing\saleing.ser\components\select-vehiclecolor\select-vehiclecolor.component.html" />
+    <Content Include="src\app\saleing\saleing.ser\components\select-vehiclecolor\select-vehiclecolor.component.scss" />
+    <Content Include="src\app\saleing\saleing.ser\components\select-vehicletype\select-vehicletype.component.html" />
+    <Content Include="src\app\saleing\saleing.ser\components\select-vehicletype\select-vehicletype.component.scss" />
     <Content Include="src\app\serving\home.com\index\index.page.html" />
     <Content Include="src\app\serving\home.com\index\index.page.scss" />
     <Content Include="src\app\serving\home.com\message\message.page.html" />
@@ -587,6 +597,16 @@
     <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\sucess\sucess.module.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\sucess\sucess.page.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\sucess\sucess.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.ts" />
+    <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-reservationconfiguration\select-reservationconfiguration.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-reservationconfiguration\select-reservationconfiguration.component.ts" />
+    <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-sysarea\select-sysarea.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-sysarea\select-sysarea.component.ts" />
+    <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-vehiclecolor\select-vehiclecolor.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-vehiclecolor\select-vehiclecolor.component.ts" />
+    <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-vehicletype\select-vehicletype.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-vehicletype\select-vehicletype.component.ts" />
     <TypeScriptCompile Include="src\app\serving\home.com\index\index.module.ts" />
     <TypeScriptCompile Include="src\app\serving\home.com\index\index.page.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\home.com\index\index.page.ts" />
@@ -723,12 +743,15 @@
     <TypeScriptCompile Include="src\polyfills.ts" />
     <TypeScriptCompile Include="src\test.ts" />
     <TypeScriptCompile Include="src\zone-flags.ts" />
+    <Content Include="src\app\app.component.html" />
     <TypeScriptCompile Include="src\app\app-routing.module.ts" />
     <TypeScriptCompile Include="src\app\app.component.spec.ts" />
     <TypeScriptCompile Include="src\app\app.component.ts" />
     <TypeScriptCompile Include="src\app\app.module.ts" />
+    <Content Include="src\assets\shapes.svg" />
     <TypeScriptCompile Include="src\environments\environment.prod.ts" />
     <TypeScriptCompile Include="src\environments\environment.ts" />
+    <Content Include="src\assets\icon\favicon.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="dist\" />
@@ -827,6 +850,12 @@
     <Folder Include="src\app\saleing\mcs-onlylead.com\list\" />
     <Folder Include="src\app\saleing\mcs-onlylead.com\sucess\" />
     <Folder Include="src\app\saleing\saleing.ser\" />
+    <Folder Include="src\app\saleing\saleing.ser\components\" />
+    <Folder Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\" />
+    <Folder Include="src\app\saleing\saleing.ser\components\select-reservationconfiguration\" />
+    <Folder Include="src\app\saleing\saleing.ser\components\select-sysarea\" />
+    <Folder Include="src\app\saleing\saleing.ser\components\select-vehiclecolor\" />
+    <Folder Include="src\app\saleing\saleing.ser\components\select-vehicletype\" />
     <Folder Include="src\app\serving\" />
     <Folder Include="src\app\serving\home.com\index\" />
     <Folder Include="src\app\serving\home.com\message\" />
@@ -889,56 +918,9 @@
     <Folder Include="src\assets\img\" />
     <Folder Include="src\environments" />
     <Folder Include="src\theme" />
-    <Folder Include="dist\out-tsc\src\app\saleing\lead.com\list\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\lead.com\sucess\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-account.com\detail\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-account.com\edit\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-account.com\list\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-onlylead.com\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-onlylead.com\detail\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-onlylead.com\edit\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-onlylead.com\list\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-onlylead.com\sucess\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-contactrecord\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-contactrecord\edit\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-contactrecord\list\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-cultivatetask.com\edit\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\lead.com\edit\" />
-    <Folder Include="dist\out-tsc\src\app\base\base.ser\components\" />
-    <Folder Include="dist\out-tsc\src\app\base\base.ser\components\select-systemuser\" />
-    <Folder Include="dist\out-tsc\src\app\serving\serving.ser\components\select-parts\" />
-    <Folder Include="dist\out-tsc\src\app\serving\serving.ser\components\select-malfunctiontype\" />
-    <Folder Include="dist\out-tsc\src\app\serving\serving.ser\components\select-vehicletype\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\lead.com\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\lead.com\detail\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\lead.com\edit\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\lead.com\list\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\lead.com\sucess\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-account.com\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-account.com\detail\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-account.com\edit\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-account.com\list\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-contactrecord\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-contactrecord\edit\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-contactrecord\list\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-cultivatetask.com\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-cultivatetask.com\detail\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-cultivatetask.com\edit\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-cultivatetask.com\list\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-cultivatetask.com\sucess\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-onlylead.com\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-onlylead.com\detail\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-onlylead.com\edit\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-onlylead.com\list\" />
-    <Folder Include="dist\out-tsc\src\app\saleing\mcs-onlylead.com\sucess\" />
-    <Folder Include="dist\out-tsc\src\app\serving\mc-sc.com\edit\" />
-    <Folder Include="dist\out-tsc\src\app\serving\mc-sc.com\subeditpart\" />
-    <Folder Include="dist\out-tsc\src\app\serving\mc-sc.com\edit2\" />
-    <Folder Include="dist\out-tsc\src\app\serving\mc-sc.com\success\" />
-    <Folder Include="dist\out-tsc\src\app\serving\technical-support.com\success\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <!--Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them.-->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
   <ProjectExtensions>

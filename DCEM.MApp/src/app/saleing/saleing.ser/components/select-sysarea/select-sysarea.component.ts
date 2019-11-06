@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController,NavParams } from '@ionic/angular';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 @Component({
   selector: 'app-select-sysarea',
@@ -27,16 +27,20 @@ export class SelectSysareaComponent implements OnInit {
 
   objectKeys = Object.keys;
 
-  constructor(
-    private modalCtrl: ModalController,
-    private _http: DCore_Http,
-    private _page: DCore_Page
-  ) {
-    this.mod.apiUrl = "/Api/basedata/QuerySysarea"; 
-    this.mod.searchData.search = "";
-    this.mod.searchData.pageindex = 1;
-    this.mod.searchData.pagesize = 10;
-  }
+    constructor(
+        private modalCtrl: ModalController,
+        private _http: DCore_Http,
+        private _page: DCore_Page,
+        private _navParams: NavParams
+
+    ) {
+        this.mod.apiUrl = "/Api/basedata/QuerySysarea";
+        this.mod.searchData.search = "";
+        this.mod.searchData.pageindex = 1;
+        this.mod.searchData.pagesize = 10;
+        this.mod.searchData.pid = _navParams.get('pid');
+        this.mod.searchData.level = _navParams.get('level');
+    }
 
   ngOnInit() {
     this.listOnBind();
