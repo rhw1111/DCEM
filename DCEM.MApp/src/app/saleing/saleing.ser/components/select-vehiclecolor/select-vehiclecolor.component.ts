@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 @Component({
-  selector: 'app-select-reservationconfiguration',
-  templateUrl: './select-reservationconfiguration.component.html',
-  styleUrls: ['./select-reservationconfiguration.component.scss'],
+  selector: 'app-select-vehiclecolor',
+  templateUrl: './select-vehiclecolor.component.html',
+  styleUrls: ['./select-vehiclecolor.component.scss'],
 })
-export class SelectReservationconfigurationComponent implements OnInit {
+export class SelectVehiclecolorComponent implements OnInit {
 
 
   public selectItemValue: any = '';
@@ -16,12 +16,11 @@ export class SelectReservationconfigurationComponent implements OnInit {
   public mod: any = {
     apiUrl: '',
     data: [],
-    searchData: {
+    searchData: { 
       pageindex: 1,
-      carmodel: '',
-      dealerid: '',
+      carmodel: '', //车型
       search: "",
-      pagesize: 10
+      pagesize:10
     }
   };
 
@@ -32,7 +31,7 @@ export class SelectReservationconfigurationComponent implements OnInit {
     private _http: DCore_Http,
     private _page: DCore_Page
   ) {
-    this.mod.apiUrl = "/Api/basedata/QueryReservationconfig";
+    this.mod.apiUrl = "/Api/basedata/QueryVehicleColor"; 
     this.mod.searchData.search = "";
     this.mod.searchData.pageindex = 1;
     this.mod.searchData.pagesize = 10;
@@ -42,14 +41,12 @@ export class SelectReservationconfigurationComponent implements OnInit {
     this.listOnBind();
   }
 
-  searchOnKeyup(event: any) {
-    
-    this.listOnBind();
-
+  searchOnKeyup(event: any) { 
+    var keyCode = event ? event.keyCode : "";
+    if (keyCode == 13) {
+      this.listOnBind();
+    }
   }
-
-
-
 
   listOnBind() {
     this._page.loadingShow();
@@ -57,25 +54,22 @@ export class SelectReservationconfigurationComponent implements OnInit {
     this._http.get(
       this.mod.apiUrl,
       {
-        params: {
-          dealerid: this.mod.searchData.dealerid,
+        params: {   
           carmodel: this.mod.searchData.carmodel,
           pageindex: this.mod.searchData.pageindex,
           seachkey: this.mod.searchData.search,
-          pageSize: this.mod.searchData.pagesize
+          pageSize:this.mod.searchData.pagesize
         }
       },
       (res: any) => {
-        if (res.Results !== null) {
+        
+        if (res.Results !== null) { 
           for (var key in res.Results) {
-            var obj = {};
+            var obj = {}; 
             obj["Id"] = res.Results[key]["Id"];
             obj["name"] = res.Results[key]["Attributes"]["mcs_name"];
-            obj["mcs_reservationdate"] = res.Results[key]["Attributes"]["mcs_reservationdate"].split('T')[0];
-            obj["mcs_begintime"] = res.Results[key]["Attributes"]["mcs_begintime"];
-            obj["mcs_endtime"] = res.Results[key]["Attributes"]["mcs_endtime"];
-            obj["mcs_usednum"] = res.Results[key]["Attributes"]["mcs_usednum"];
-            obj["carmodelname"] = res.Results[key]["Attributes"]["carmodelname"];
+            obj["mcs_code"] = res.Results[key]["Attributes"]["mcs_code"]; 
+            obj["vehicletypename"] = res.Results[key]["Attributes"]["vehicletypename"]==null?"":res.Results[key]["Attributes"]["vehicletypename"]; 
             this.mod.data.push(obj);
           } 
           this._page.loadingHide();

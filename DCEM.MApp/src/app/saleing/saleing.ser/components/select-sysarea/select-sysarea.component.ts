@@ -18,8 +18,8 @@ export class SelectSysareaComponent implements OnInit {
     data: [],
     searchData: { 
       pageindex: 1,
-      pid: 0,
-      level: 1,
+      pid: "",//父ID 外部传入 未实现
+      level: "",//级别
       search: "",
       pagesize:10
     }
@@ -63,8 +63,7 @@ export class SelectSysareaComponent implements OnInit {
           pageSize:this.mod.searchData.pagesize
         }
       },
-      (res: any) => {
-        console.log(res);
+      (res: any) => { 
         if (res.Results !== null) { 
           for (var key in res.Results) {
             var obj = {}; 

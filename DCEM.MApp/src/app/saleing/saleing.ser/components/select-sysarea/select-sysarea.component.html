@@ -1,6 +1,6 @@
 <ion-header translucent>
   <ion-toolbar>
-    <ion-title>选择试驾时段</ion-title>
+    <ion-title>选择省市区</ion-title>
     <ion-buttons slot="end">
       <ion-button expand="block" (click)="dismissModal()">关闭</ion-button>
     </ion-buttons>
@@ -14,11 +14,10 @@
       <ion-item-sliding *ngFor="let item of mod.data;let key=index">
           <ion-item (click)="itemClick(item)"> 
               <ion-label>
-                  <p>{{item.mcs_name}}</p> 
-                  <p>{{item.mcs_usednum}}</p>
+                  <p>{{item.mcs_code}}</p> 
               </ion-label> 
-              <ion-note slot="end">
-                {{item.brandname}}
+              <ion-note slot="end" >
+                {{item.name}}
             </ion-note>
           </ion-item>
       </ion-item-sliding>
