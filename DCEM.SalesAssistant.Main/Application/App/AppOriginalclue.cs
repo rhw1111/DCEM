@@ -28,7 +28,13 @@ namespace DCEM.SalesAssistant.Main.Application.App
         {
            return await _service.GetOriginalclueList(originalclueListRequest);
         }
-
+        /// <summary>
+        /// 获取原始线索详情
+        /// </summary>
+        public async Task<CrmEntity> Get(OriginalclueDetailRequest originalclueDetailRequest)
+        {
+            return await _service.Get(originalclueDetailRequest);
+        }
 
     }
 }

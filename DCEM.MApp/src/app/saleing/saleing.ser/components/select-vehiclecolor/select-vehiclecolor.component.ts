@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 @Component({
-  selector: 'app-select-sysarea',
-  templateUrl: './select-sysarea.component.html',
-  styleUrls: ['./select-sysarea.component.scss'],
+  selector: 'app-select-vehiclecolor',
+  templateUrl: './select-vehiclecolor.component.html',
+  styleUrls: ['./select-vehiclecolor.component.scss'],
 })
-export class SelectSysareaComponent implements OnInit {
+export class SelectVehiclecolorComponent implements OnInit {
 
 
   public selectItemValue: any = '';
@@ -18,8 +18,7 @@ export class SelectSysareaComponent implements OnInit {
     data: [],
     searchData: { 
       pageindex: 1,
-      pid: 0,
-      level: 1,
+      carmodel: '', //车型
       search: "",
       pagesize:10
     }
@@ -32,7 +31,7 @@ export class SelectSysareaComponent implements OnInit {
     private _http: DCore_Http,
     private _page: DCore_Page
   ) {
-    this.mod.apiUrl = "/Api/basedata/QuerySysarea"; 
+    this.mod.apiUrl = "/Api/basedata/QueryVehicleColor"; 
     this.mod.searchData.search = "";
     this.mod.searchData.pageindex = 1;
     this.mod.searchData.pagesize = 10;
@@ -55,24 +54,24 @@ export class SelectSysareaComponent implements OnInit {
     this._http.get(
       this.mod.apiUrl,
       {
-        params: {  
-          pid: this.mod.searchData.pid,
-          level: this.mod.searchData.level,
+        params: {   
+          carmodel: this.mod.searchData.carmodel,
           pageindex: this.mod.searchData.pageindex,
           seachkey: this.mod.searchData.search,
           pageSize:this.mod.searchData.pagesize
         }
       },
       (res: any) => {
-        console.log(res);
+        
         if (res.Results !== null) { 
           for (var key in res.Results) {
             var obj = {}; 
             obj["Id"] = res.Results[key]["Id"];
             obj["name"] = res.Results[key]["Attributes"]["mcs_name"];
             obj["mcs_code"] = res.Results[key]["Attributes"]["mcs_code"]; 
+            obj["vehicletypename"] = res.Results[key]["Attributes"]["vehicletypename"]==null?"":res.Results[key]["Attributes"]["vehicletypename"]; 
             this.mod.data.push(obj);
-          }
+          } 
           this._page.loadingHide();
         }
         else {
