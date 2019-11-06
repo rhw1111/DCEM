@@ -7,6 +7,7 @@ let DetailPage = class DetailPage {
         this._http = _http;
         this._page = _page;
         this.activeRoute = activeRoute;
+        this.tab = "info";
         this.mod = {
             apiUrl: '/Api/Serviceproxy/GetInfo',
             data: {
@@ -27,17 +28,20 @@ let DetailPage = class DetailPage {
                     arrivalon: "",
                     finishat: "",
                     repairlocationid: "",
-                    status: "",
                     hoursamount: "",
                     partsamount: "",
                     discountamount: "",
                     amounttotal: "",
-                    dealerid: ""
+                    dealerid: "",
+                    status: 0,
                 },
                 serviceorderrepairitemArray: [],
-                serviceorderpartArray: []
+                serviceorderpartArray: [],
+                serviceproxyResumeArray: []
             }
         };
+    }
+    ionViewWillEnter() {
     }
     ngOnInit() {
         this.activeRoute.queryParams.subscribe((params) => {
@@ -76,6 +80,7 @@ let DetailPage = class DetailPage {
                 this.mod.data.serviceproxy["partsamount"] = res["Serviceproxy"]["Attributes"]["mcs_partsamount"];
                 this.mod.data.serviceproxy["discountamount"] = res["Serviceproxy"]["Attributes"]["mcs_discountamount"];
                 this.mod.data.serviceproxy["amounttotal"] = res["Serviceproxy"]["Attributes"]["mcs_amounttotal"];
+                this.mod.data.serviceproxy.status = res["Serviceproxy"]["Attributes"]["mcs_status"];
                 this.mod.data.serviceproxy["dealerid"] = res["Serviceproxy"]["Attributes"]["_mcs_dealerid_value@OData.Community.Display.V1.FormattedValue"];
             }
             if (res.ServiceorderrepairitemList !== null) {
@@ -104,6 +109,7 @@ let DetailPage = class DetailPage {
                     this.mod.data.serviceorderpartArray.push(obj);
                 }
             }
+            this.mod.data.serviceproxyResumeArray = res.ServiceproxyResumeList;
             this._page.loadingHide();
         }, (err) => {
             this._page.alert("消息提示", "数据加载异常");
