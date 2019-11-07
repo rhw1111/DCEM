@@ -94,6 +94,7 @@ export class DetailPage implements OnInit {
         mcs_channel: 0,//渠道
         mcs_constellation: 0,//星座
         mcs_contactlevel: 0,//客户级别
+        mcs_customerstatusname:"",//状态名称
         mcs_customerstatus: 0,//销售机会状态
         mcs_depositpaymentstatus: 0,//定金支付状态
         mcs_gender: 0,//称呼
@@ -207,6 +208,7 @@ export class DetailPage implements OnInit {
             //this.mod.data.Account.mcs_constellation = res["Attributes"]["mcs_constellation"];//星座
             //this.mod.data.Account.mcs_contactlevel = this.optionset.GetOptionSetNameByValue("mcs_level",res["Attributes"]["mcs_contactlevel"]);//客户级别
             this.mod.data.Account.mcs_customerstatus = res["Attributes"]["mcs_customerstatus"];//销售机会状态
+            this.mod.data.Account.mcs_customerstatusname=this.optionset.GetOptionSetNameByValue("mcs_customerstatus",res["Attributes"]["mcs_customerstatus"]);//销售机会状态名称
             this.mod.data.Account.mcs_depositpaymentstatus = res["Attributes"]["mcs_depositpaymentstatus"];//定金支付状态
             this.mod.data.Account.mcs_gender = this.optionset.GetOptionSetNameByValue("mcs_gender",res["Attributes"]["mcs_gender"]);//称呼
             this.mod.data.Account.mcs_generation = this.optionset.GetOptionSetNameByValue("mcs_generation",res["Attributes"]["mcs_generation"]);//年龄段

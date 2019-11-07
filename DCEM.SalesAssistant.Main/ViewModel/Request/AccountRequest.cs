@@ -400,4 +400,22 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         /// </summary>
         public Guid? ownerid { get; set; }
     }
+    /// <summary>
+    /// 列表请求参数
+    /// </summary>
+    public class AccountSearhRequest: PageBaseRequestModel
+    {
+        /// <summary>
+        /// 查询关键字
+        /// </summary>
+        public string SearchKey { set; get; }
+        /// <summary>
+        /// 厅店ID
+        /// </summary>
+        public string mcs_dealerid { set; get; }
+        /// <summary>
+        /// 销售机会状态
+        /// </summary>
+        public int? mcs_customerstatus{ set; get; }
+}
 }

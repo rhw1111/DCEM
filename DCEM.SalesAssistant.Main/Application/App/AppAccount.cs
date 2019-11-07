@@ -22,7 +22,7 @@ namespace DCEM.SalesAssistant.Main.Application.App
         /// </summary>
         /// <param name="accountRequest"></param>
         /// <returns></returns>
-        public async Task<QueryResult<CrmEntity>> QueryList(AccountRequest accountRequest)
+        public async Task<QueryResult<CrmEntity>> QueryList(AccountSearhRequest accountRequest)
         {
             return await _accountService.QueryList(accountRequest);
         }

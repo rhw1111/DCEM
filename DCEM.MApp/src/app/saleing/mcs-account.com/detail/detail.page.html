@@ -37,6 +37,14 @@
           </ion-note>
         </ion-item>
         <ion-item>
+            <ion-label>
+              <h2>状态</h2>
+            </ion-label>
+            <ion-note slot="end">
+              <p>{{this.mod.data.Account.mcs_customerstatusname}}</p>
+            </ion-note>
+          </ion-item>
+        <ion-item>
           <ion-label>
             <h2>姓名</h2>
           </ion-label>
@@ -205,9 +213,9 @@
                 </ion-note>
             </ion-item>
             <ion-item *ngIf="mod.LogcallModel.isending">
-                <ion-note class="nodata" text-center>
+                <ion-label class="nodata" text-center>
                     没有更多内容啦
-                </ion-note>
+                </ion-label>
             </ion-item>
         </ion-list>
        
@@ -232,13 +240,19 @@
     </div>
   </div>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
-      <ion-icon name="arrow-dropup"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-list side="top">
-      <ion-fab-button color="danger" [routerLink]="['/saleing/account/edit']" [queryParams]="{id:mod.data.Account.Id}">
-        <ion-icon name="create"></ion-icon>
+      <ion-fab-button>
+        <ion-icon name="arrow-dropup"></ion-icon>
       </ion-fab-button>
-    </ion-fab-list>
-  </ion-fab>
+      <ion-fab-list side="top">
+        <ion-fab-button *ngIf="mod.data.Account.mcs_customerstatus<4" title="成交" color="success">
+            成交
+        </ion-fab-button>
+        <ion-fab-button *ngIf="mod.data.Account.mcs_customerstatus<4" title="战败"  color="danger">
+            战败
+        </ion-fab-button>
+        <ion-fab-button color="warning" [routerLink]="['/saleing/account/edit']">
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+      </ion-fab-list>
+    </ion-fab>
 </ion-content>

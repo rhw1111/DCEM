@@ -54,6 +54,42 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 throw ex;
             } 
         }
+        /// <summary>
+        /// 创建原始线索
+        /// </summary>
+        public async Task<originalclueCreateResponse> create(OriginalclueCreateRequest originalclueCreateRequest)
+        {
+            var createEntity = new CrmExecuteEntity(entityName, Guid.NewGuid());
+            createEntity.Attributes.Add("lastname", originalclueCreateRequest.username);
+            createEntity.Attributes.Add("mobilephone", originalclueCreateRequest.mobile);
+            createEntity.Attributes.Add("emailaddress1", originalclueCreateRequest.mail);
+            createEntity.Attributes.Add("mcs_leadorigin", Int32.Parse(originalclueCreateRequest.clues));
+            createEntity.Attributes.Add("mcs_accountpoints", Int32.Parse(originalclueCreateRequest.score));
+            createEntity.Attributes.Add("description", originalclueCreateRequest.describe);
+            if (!string.IsNullOrWhiteSpace(originalclueCreateRequest.gender))
+            {
+                createEntity.Attributes.Add("mcs_gender", Int32.Parse(originalclueCreateRequest.gender));
+            }
+            if (originalclueCreateRequest.province != null)
+            {
+                var salesarea = new CrmEntityReference("mcs_salesarea", Guid.Parse(originalclueCreateRequest.province));
+                createEntity.Attributes.Add("mcs_provinceid", salesarea);
+            }
+            if (originalclueCreateRequest.city != null)
+            {
+                var salesarea = new CrmEntityReference("mcs_salesarea", Guid.Parse(originalclueCreateRequest.city));
+                createEntity.Attributes.Add("mcs_cityid", salesarea);
+            }
+            if (originalclueCreateRequest.area != null)
+            {
+                var salesarea = new CrmEntityReference("mcs_salesarea", Guid.Parse(originalclueCreateRequest.area));
+                createEntity.Attributes.Add("mcs_districtid", salesarea);
+            }
+            var dealer = new CrmEntityReference("mcs_dealer", Guid.Parse(originalclueCreateRequest.dealerid));
+            createEntity.Attributes.Add("mcs_dealerid", dealer);
+            var entityId = await _crmService.Create(createEntity, Guid.Parse(originalclueCreateRequest.UserId));
+            return new originalclueCreateResponse() { Id=entityId.ToString()};
+        }
         #region 私有方法
 
         #endregion
