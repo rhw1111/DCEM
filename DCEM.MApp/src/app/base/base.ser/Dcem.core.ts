@@ -144,7 +144,7 @@ export class DCore_Page {
     loadingShow() {
         if (this.loading !== null) {
             this.loading = this.loadingCtr.create({
-                //message: "请稍后...",
+                message: "请稍后...",
                 translucent: true,
                 duration: 30000
             });
