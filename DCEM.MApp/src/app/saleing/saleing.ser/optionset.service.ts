@@ -114,6 +114,22 @@ export class OptionSetService {
                 { "name": "3D展厅", "value": 10 }
             ];
             break;
+         
+            case "mcs_importantlevel"://培育任务-重要级别
+            optionlist = [
+                { "name": "高", "value": 0 },
+                { "name": "中", "value": 1 },
+                { "name": "低", "value": 2 }
+            ];
+            break;
+
+            case "mcs_activitystatus"://培育任务-任务状态
+            optionlist = [
+                { "name": "open", "value": 0 },
+                { "name": "closed", "value": 1 }          
+            ];
+            break;
+
             default:
                 optionlist = [];
                 break;

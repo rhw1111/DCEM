@@ -16,6 +16,7 @@ export class DetailPage implements OnInit {
     apiUrlList1: '/api/only-lead/GetLogCallList',//logcall
     apiUrlList2: '/api/only-lead/GetActivityList',//培育任务
     data: {
+        mcs_onlyleadid:null,
         mcs_name:"",
         mcs_mobilephone: "",
         mcs_leadorigin: "",
@@ -56,9 +57,11 @@ constructor(
 ) {}
 
 ngOnInit() {
-    debugger;
+    //debugger;
     this.activeRoute.queryParams.subscribe((params: Params) => {
         if (params['id'] != null && params['id'] != undefined) {
+
+            this.mod.data.mcs_onlyleadid=params['id'];
             this.pageOnBind(params['id']);
         }
     });
@@ -68,7 +71,7 @@ ngOnInit() {
 
 //加载唯一线索基本信息
 pageOnBind(id: any) {
-    debugger;
+    //debugger;
     this._page.loadingShow();
     this._http.get(
         this.mod.apiUrlInfo,
@@ -112,9 +115,9 @@ pageOnBind(id: any) {
     );
 }
 
-//加载联络记录(logcall)
+//加载联络记录(logcall)列表
 pageOnLogCalllist(id: any) {
-    debugger;
+    ///debugger;
     this._page.loadingShow();
     this._http.get(
         this.mod.apiUrlList1,
@@ -128,7 +131,7 @@ pageOnLogCalllist(id: any) {
             }
         },
         (res: any) => {
-            debugger;
+           // debugger;
             if (res !== null) {
                 if (res.Results !== null) {
                     for (var key in res.Results) {
@@ -157,7 +160,7 @@ pageOnLogCalllist(id: any) {
 
 }
 
-//加载培育任务
+//加载培育任务列表
 pageOnActivitylist(id: any) {
     this._page.loadingShow();
     this._http.get(
@@ -172,15 +175,15 @@ pageOnActivitylist(id: any) {
             }
         },
         (res: any) => {
-            debugger;
+            //debugger;
             if (res !== null) {
                 if (res.Results !== null) {
                     for (var key in res.Results) {
                         var obj = {};
                         obj["mcs_thisfollowupcontent"] = res.Results[key]["Attributes"]["mcs_thisfollowupcontent"];
-                        obj["createdon"] = res.Results[key]["Attributes"]["createdon"];
-                        obj["mcs_activitystatus"] = res.Results[key]["Attributes"]["mcs_activitystatus"];
-                        obj["mcs_importantlevel"] = res.Results[key]["Attributes"]["mcs_importantlevel"];
+                        obj["createdon"] = res.Results[key]["Attributes"]["createdon"];              
+                        obj["mcs_activitystatus"] =this.optionset.GetOptionSetNameByValue("mcs_activitystatus",res.Results[key]["Attributes"]["mcs_activitystatus"]);
+                        obj["mcs_importantlevel"] =this.optionset.GetOptionSetNameByValue("mcs_importantlevel",res.Results[key]["Attributes"]["mcs_importantlevel"]);
                         this.mod.datalist2.push(obj);
                     }
                     //console.log(res);
@@ -200,6 +203,18 @@ pageOnActivitylist(id: any) {
         }
     );
 
+}
+
+ //logcall加载下一页
+ doNextLoadingLog(event) {
+    this.mod.page++;
+    this.pageOnLogCalllist(event);
+}
+
+ //培育任务加载下一页
+ doNextLoadingAc(event) {
+    this.mod.page2++;
+    this.pageOnActivitylist(event);
 }
 
 FormatToDateTime(date) {

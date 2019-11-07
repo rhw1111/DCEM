@@ -21,9 +21,10 @@ namespace DCEM.ServiceAssistantService.Main.DAL
             try
             {
                 var crmService = StartupHelper.CreateCrmService();
+                IAuthService authService = new AuthService();
                 IBaseDataRepository baseDataRepository = new BaseDataRepository();
                 IBaseDataService baseDataService = new BaseDataService(crmService, baseDataRepository);
-                IAppBaseData app = new AppBaseData(baseDataService);
+                IAppBaseData app = new AppBaseData(baseDataService, authService);
 
                 return app;
             }

@@ -17,6 +17,13 @@ namespace DCEM.ServiceAssistantService.Main.Application
     public interface IAppBaseData
     {
         /// <summary>
+        /// 获取token
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        Task<LoginModel> GetAuthToken(string username, string password);
+        /// <summary>
         /// 查询维修类别基础
         /// </summary>
         /// <param name="repairItemTypeRequest"></param>
