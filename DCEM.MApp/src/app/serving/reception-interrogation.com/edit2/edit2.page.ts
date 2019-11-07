@@ -39,10 +39,8 @@ export class Edit2Page implements OnInit {
     objectKeys = Object.keys;
 
     ngOnInit() {
-
-        var getShareData = this._shareData.get(this.mod.shareDataKey);
-        if (getShareData !== null) {
-            this.shareData = getShareData;
+        if (this._shareData.has(this.mod.shareDataKey)) {
+            this.shareData = this._shareData.get(this.mod.shareDataKey);
             if (this.objectKeys(this.shareData.vehcheckresultMap).length === 0) {
                 this.listOnBind();
             }
@@ -94,6 +92,11 @@ export class Edit2Page implements OnInit {
         );
     }
 
+    goBackOnClick() {
+        this._shareData.set(this.mod.shareDataKey, this.shareData);
+        this._page.goBack();
+    }
+
     public saveOnClick() {
 
         this.mod.postData["actioncode"] = 1;
@@ -131,6 +134,10 @@ export class Edit2Page implements OnInit {
             }
         }
 
+        if (this.shareData["actionCode"] === 2) {
+            this._page.alert("消息提示", "编辑尚未实现 无法保存数据");
+            return;
+        }
 
         this._page.loadingShow();
         this._http.post(

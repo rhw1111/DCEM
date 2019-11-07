@@ -11,7 +11,7 @@
       <ion-segment-button value="info">
         <ion-label>基础信息</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="logcall">
+      <ion-segment-button value="logcall" (click)="LoadLogcallTabLoading()">
         <ion-label>联络记录</ion-label>
       </ion-segment-button>
       <ion-segment-button value="activity">
@@ -194,21 +194,31 @@
     </div>
     <div *ngSwitchCase="'logcall'">
         <ion-list lines="full">
-            <ion-item *ngFor="let item of mod.data.LogcallList" [routerLink]="['/saleing/account/detail']" [queryParams]="{id:item.Id}">
+            <ion-item *ngFor="let item of mod.LogcallModel.list" [routerLink]="['/saleing/account/detail']" [queryParams]="{id:item.Id}">
                 <ion-icon slot="start" name="call" size="large"></ion-icon>
                 <ion-label>
                     <h3>{{item.mcs_name}}</h3>
-                    <p>{{item.mcs_title}}</p>
+                    <p>{{item.mcs_content}}</p>
                 </ion-label>
                 <ion-note slot="end">
-                    
+                    {{item.mcs_visittime}}
+                </ion-note>
+            </ion-item>
+            <ion-item *ngIf="mod.LogcallModel.isending">
+                <ion-note class="nodata" text-center>
+                    没有更多内容啦
                 </ion-note>
             </ion-item>
         </ion-list>
+       
+        <ion-infinite-scroll #localcallInfiniteScroll threshold="100px" (ionInfinite)="LoadLogcall($event)"> 
+            <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多..."> 
+            </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
     </div>
     <div *ngSwitchCase="'activity'">
         <ion-list>
-            <ion-item *ngFor="let item of mod.data.ActivityList" [routerLink]="['/saleing/account/detail']" [queryParams]="{id:item.Id}">
+            <ion-item *ngFor="let item of mod.ActivityModel.list" [routerLink]="['/saleing/account/detail']" [queryParams]="{id:item.Id}">
                 <ion-icon slot="start" name="logo-whatsapp" size="large"></ion-icon>
                 <ion-label>
                     <h3>{{item.mcs_name}}</h3>

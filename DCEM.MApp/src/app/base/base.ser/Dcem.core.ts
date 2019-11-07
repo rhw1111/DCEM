@@ -1,10 +1,10 @@
 ﻿import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { AlertController, LoadingController, NavController } from '@ionic/angular';
+import { AlertController, LoadingController, NavController, ToastController } from '@ionic/angular';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { isFunction } from 'util';
+import { isFunction, isNumber } from 'util';
 
 
 @Injectable({
@@ -81,10 +81,40 @@ export class DCore_Page {
         private loadingCtr: LoadingController,
         private navCtr: NavController,
         private router: Router,
-        private activeRoute: ActivatedRoute
+        private activeRoute: ActivatedRoute,
+        private toastCtrl: ToastController,
     ) {
 
     }
+
+    //顶部错误提示
+    async presentToastError(msg: string) {
+        const toast = await this.toastCtrl.create({
+            header: '错误提示',
+            message: msg,
+            position: 'top',
+            color: 'dark',
+            duration: 10000,
+            buttons: [
+                {
+                    side: 'start',
+                    //icon: 'alert',
+                    text: '',
+                    handler: () => {
+
+                    }
+                }, {
+                    text: '关闭',
+                    role: 'cancel',
+                    handler: () => {
+
+                    }
+                }
+            ]
+        });
+        toast.present();
+    }
+
 
     //弹出提示
     async alert(header: any, message: any, callback: any = null) {
@@ -144,7 +174,7 @@ export class DCore_Page {
     loadingShow() {
         if (this.loading !== null) {
             this.loading = this.loadingCtr.create({
-                //message: "请稍后...",
+                message: "请稍后...",
                 translucent: true,
                 duration: 30000
             });
@@ -167,17 +197,27 @@ export class DCore_Page {
             params = {};
         }
         this.router.navigate([url], { queryParams: params });
+
+
     }
 
 
     //跳转到指定页
-    navigateRoot(url: any, params?: any) {
+    navigateRoot(url: any, params?: any, animation?: any) {
         if (params === null) {
             params = {};
         }
-        this.navCtr.navigateRoot(url, { queryParams: params });
+        if (animation === null) {
+            animation = "forward";
+        }
+        this.navCtr.navigateRoot(url, { queryParams: params, animationDirection: animation });
 
     }
+
+    goBack() {
+        this.navCtr.back();
+    }
+
 
     //获取指定参数
     //getParams(paramName: string, callback?: (val: Params) => void) {
@@ -226,6 +266,26 @@ export class DCore_Valid {
     isNull = function (val: any) {
         if (typeof val == "undefined" || val == null)
             return true;
+        return false;
+    }
+
+    isNullOrEmpty = function (val: any) {
+        if (typeof val == "undefined" || val == null || val == "")
+            return true;
+        return false;
+    }
+
+
+    isNumber = function (val: any) {
+        return isNumber(val);
+    }
+
+    isPhone = function (val: any) {
+        //let reg = /^1[3|4|5|7|8][0-9]{9}/;
+        let reg = /^1[0-9][0-9]{9}/;
+        if (reg.test(val)) {
+            return true;
+        }
         return false;
     }
 

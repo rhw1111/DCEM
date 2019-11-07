@@ -133,33 +133,20 @@ namespace DCEM.ServiceAssistantService.Main.Application
             var serviceproxyGuid = Guid.Parse(guid);
             var serviceproxyEntity = await _crmService.Retrieve("mcs_serviceproxy", serviceproxyGuid, string.Empty, null, dicHead);
 
-            #region 环检
-            var xdoc = await Task<XDocument>.Run(() =>
-            {
-                var fetchXml = string.Empty;
-                fetchXml = $@"
-            <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false' >
-              <entity name='mcs_serviceordercheckresult'>
-                <order attribute='mcs_name' descending='false' />
-                <filter type='and'>
-                <condition attribute='mcs_serviceorderid' operator='eq' value='{serviceproxyGuid}' />
-                </filter>
-              </entity>
-            </fetch>";
-                return XDocument.Parse(fetchXml);
-            });
-            var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
-            {
-                EntityName = "mcs_serviceordercheckresult",
-                FetchXml = xdoc
-            };
-            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
-            var fetchResponse = await _crmService.Execute(fetchRequest);
-            var serviceordercheckresultResponse = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            #region 环检项
+            var vehcheckFilter = $@"
+                <link-entity name='mcs_serviceordercheckresult' from='mcs_checkreultid' to='mcs_vehcheckresultid' link-type='outer' alias='a'>
+                    <attribute name='mcs_serviceordercheckresultid' />
+                    <attribute name='mcs_checkreult' />
+                    <filter>
+                      <condition attribute='mcs_serviceorderid' operator='eq' value='{serviceproxyGuid}' />
+                    </filter>
+                </link-entity>";
+            var vehcheckResponse = await QueryVehcheckListByExpression(vehcheckFilter);
             #endregion
 
             #region 工时
-            xdoc = await Task<XDocument>.Run(() =>
+            var xdoc = await Task<XDocument>.Run(() =>
             {
                 var fetchXml = string.Empty;
                 fetchXml = $@"
@@ -173,13 +160,13 @@ namespace DCEM.ServiceAssistantService.Main.Application
             </fetch>";
                 return XDocument.Parse(fetchXml);
             });
-            fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
             {
                 EntityName = "mcs_serviceorderrepairitem",
                 FetchXml = xdoc
             };
             fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
-            fetchResponse = await _crmService.Execute(fetchRequest);
+            var fetchResponse = await _crmService.Execute(fetchRequest);
             var serviceorderrepairitemResponse = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
             #endregion
 
@@ -238,7 +225,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
 
 
             serviceproxyQueryInfoResponse.Serviceproxy = serviceproxyEntity;
-            serviceproxyQueryInfoResponse.ServiceordercheckresultList = serviceordercheckresultResponse.Value.Results;
+            serviceproxyQueryInfoResponse.ServiceordercheckresultList = vehcheckResponse.Results;
             serviceproxyQueryInfoResponse.ServiceorderrepairitemList = serviceorderrepairitemResponse.Value.Results;
             serviceproxyQueryInfoResponse.ServiceorderpartList = serviceorderpartResponse.Value.Results;
             serviceproxyQueryInfoResponse.ServiceproxyResumeList = serviceproxyResumeResponse.Value.Results;

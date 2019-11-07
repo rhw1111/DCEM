@@ -1,9 +1,9 @@
 import * as tslib_1 from "tslib";
 import { HttpClient } from '@angular/common/http';
-import { AlertController, LoadingController, NavController } from '@ionic/angular';
+import { AlertController, LoadingController, NavController, ToastController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { isFunction } from 'util';
+import { isFunction, isNumber } from 'util';
 let DCore_Window = class DCore_Window {
     storageSet(key, val) {
         window.localStorage.setItem(key, val);
@@ -66,12 +66,40 @@ DCore_Http = tslib_1.__decorate([
 ], DCore_Http);
 export { DCore_Http };
 let DCore_Page = class DCore_Page {
-    constructor(alertCtr, loadingCtr, navCtr, router, activeRoute) {
+    constructor(alertCtr, loadingCtr, navCtr, router, activeRoute, toastCtrl) {
         this.alertCtr = alertCtr;
         this.loadingCtr = loadingCtr;
         this.navCtr = navCtr;
         this.router = router;
         this.activeRoute = activeRoute;
+        this.toastCtrl = toastCtrl;
+    }
+    //顶部错误提示
+    presentToastError(msg) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            const toast = yield this.toastCtrl.create({
+                header: '错误提示',
+                message: msg,
+                position: 'top',
+                color: 'dark',
+                duration: 10000,
+                buttons: [
+                    {
+                        side: 'start',
+                        icon: 'alert',
+                        text: '',
+                        handler: () => {
+                        }
+                    }, {
+                        text: '关闭',
+                        role: 'cancel',
+                        handler: () => {
+                        }
+                    }
+                ]
+            });
+            toast.present();
+        });
     }
     //弹出提示
     alert(header, message, callback = null) {
@@ -168,7 +196,8 @@ DCore_Page = tslib_1.__decorate([
         LoadingController,
         NavController,
         Router,
-        ActivatedRoute])
+        ActivatedRoute,
+        ToastController])
 ], DCore_Page);
 export { DCore_Page };
 //共享对象
@@ -203,6 +232,14 @@ let DCore_Valid = class DCore_Valid {
             if (typeof val == "undefined" || val == null)
                 return true;
             return false;
+        };
+        this.isNullOrEmpty = function (val) {
+            if (typeof val == "undefined" || val == null || val == "")
+                return true;
+            return false;
+        };
+        this.isNumber = function (val) {
+            return isNumber(val);
         };
     }
 };

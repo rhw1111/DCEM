@@ -100,6 +100,20 @@ export class OptionSetService {
                 { "name": "子女", "value": 3 }
             ];
             break;
+            case "mcs_leadorigin"://线索来源
+            optionlist = [
+                { "name": "WEB官网", "value": 1 },
+                { "name": "Event-Online", "value": 2 },
+                { "name": "Event-OffLine", "value": 3 },
+                { "name": "Store展厅", "value": 4 },
+                { "name": "400电话", "value": 5 },
+                { "name": "APP", "value": 6 },
+                { "name": "小程序", "value": 7 },
+                { "name": "车机", "value": 8 },
+                { "name": "H5落地页", "value": 9 },
+                { "name": "3D展厅", "value": 10 }
+            ];
+            break;
             default:
                 optionlist = [];
                 break;
