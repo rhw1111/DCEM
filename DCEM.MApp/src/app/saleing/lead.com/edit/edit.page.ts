@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DCore_Page, DCore_Http } from 'app/base/base.ser/Dcem.core';
+import { DCore_Page, DCore_Http,DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 import { ModalController, NavController } from '@ionic/angular';
 import { SelectSysareaComponent } from 'app/saleing/saleing.ser/components/select-sysarea/select-sysarea.component';
@@ -15,24 +15,26 @@ export class EditPage implements OnInit {
         public _modalCtrl: ModalController,
         private _http: DCore_Http,
         private _page: DCore_Page,
+        private _valid: DCore_Valid,
         private _userinfo: Storage_LoginInfo,
         private _optionset: OptionSetService,
     ) {
     }
 
     public model: any = {
-        apiUrlDetail: '/api/Originalclue/get',
+        apiUrl: '/api/Originalclue/create',
         //国家默认中国
         countryId: "7E83801C-795B-E911-A824-B53F780FAC1C",
         level: null,//行政区域级别 0:全球、1:国家、2:省、3:市、4:地区
         scoreoption: [],
         genderoption: [],
         leadoriginoption: [],
+
         info: {
             username: "",
             mobile: "",
-            clues: "1",
-            gender: "1",
+            clues: -1,
+            gender: 1,
             mail: "",
             province: "",
             provincename: "",
@@ -40,8 +42,10 @@ export class EditPage implements OnInit {
             cityname: "",
             area: "",
             areaname: "",
-            score: "1",
-            describe: ""
+            score: -1,
+            describe: "",
+            userid: this._userinfo.GetSystemUserId(),
+            dealerid: "3EFBFFF6-EF1A-E911-A821-A4A314186A20",//this._userinfo.GetDealerid()
         }
     }
     ngOnInit() {
@@ -160,7 +164,48 @@ export class EditPage implements OnInit {
 
     //保存
     saveOnClick() {
-        var modelpr=this.model;
-        debugger;
+        if (this.model.info.username == "") {
+            this._page.alert("消息提示", "请输入用户姓名");
+            return;
+        }
+        if (this.model.info.mobile == "") {
+            this._page.alert("消息提示", "请输入用户手机号");
+            return;
+        }
+        if(!this._valid.isPhone(this.model.info.mobile))
+        {
+            this._page.alert("消息提示", "请输入正确格式的手机号");
+            return;
+        }
+        if (this.model.info.clues == -1) {
+            this._page.alert("消息提示", "请选择线索来源");
+            return;
+        }
+        if (this.model.info.score == -1) {
+            this._page.alert("消息提示", "请选择评分");
+            return;
+        }
+        this._page.loadingShow();
+        this._http.post(
+            this.model.apiUrl,
+            this.model.info,
+            (res: any) => {
+                if (res.Results !== null) {
+                    this._page.alert("消息提示", "创建留资记录成功",()=>{
+                        this._page.goto("/saleing/lead/list");
+                    });
+                   
+                }
+                else {
+                    this._page.alert("消息提示", "创建留资记录失败");
+                }
+                this._page.loadingHide();
+            },
+            (err: any) => {
+                this._page.alert("消息提示", "创建留资记录失败");
+                this._page.loadingHide();
+            }
+        );
+      
     }
 }

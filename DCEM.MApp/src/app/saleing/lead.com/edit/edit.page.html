@@ -10,24 +10,27 @@
 <ion-content>
     <ion-list lines="full">
         <ion-item>
+            <ion-text color="danger">*</ion-text>
             <ion-label>
                 <h2>姓名：</h2>
             </ion-label>
-            <ion-input type="text" [(ngModel)]="model.info.username"></ion-input>
+            <ion-input type="text" name="username" [(ngModel)]="model.info.username"  placeholder="请输入用户姓名">
+            </ion-input>
         </ion-item>
         <ion-item>
+            <ion-text color="danger">*</ion-text>
             <ion-label>
                 <h2>手机号：</h2>
             </ion-label>
-            <ion-input type="text" [(ngModel)]="model.info.mobile"></ion-input>
+            <ion-input type="text" name="mobile" [(ngModel)]="model.info.mobile"  placeholder="请输入用户手机号"></ion-input>
         </ion-item>
         <ion-item>
             <ion-text color="danger">*</ion-text>
             <ion-label>
                 <h2>线索来源：</h2>
             </ion-label>
-            <ion-select okText="确认" cancelText="取消" [(ngModel)]="model.info.clues">
-                <ion-select-option *ngFor="let item of model.leadoriginoption" value="item.value">{{item.name}}
+            <ion-select name="clues" okText="确认" cancelText="取消" [(ngModel)]="model.info.clues">
+                <ion-select-option *ngFor="let item of model.leadoriginoption" value="{{item.value}}">{{item.name}}
                 </ion-select-option>
             </ion-select>
         </ion-item>
@@ -35,8 +38,8 @@
             <ion-label>
                 <h2>称呼：</h2>
             </ion-label>
-            <ion-select okText="确认" cancelText="取消" [(ngModel)]="model.info.gender">
-                <ion-select-option *ngFor="let item of model.genderoption" value="item.value">{{item.name}}
+            <ion-select name="gender" okText="确认" cancelText="取消" [(ngModel)]="model.info.gender">
+                <ion-select-option *ngFor="let item of model.genderoption" value="{{item.value}}">{{item.name}}
                 </ion-select-option>
             </ion-select>
         </ion-item>
@@ -44,13 +47,13 @@
             <ion-label>
                 <h2>邮箱：</h2>
             </ion-label>
-            <ion-input type="text" [(ngModel)]="model.info.mail"></ion-input>
+            <ion-input type="text" name="mail" [(ngModel)]="model.info.mail" placeholder="请输入用户邮箱"></ion-input>
         </ion-item>
         <ion-item>
             <ion-text color="danger">*</ion-text>
             <ion-label>评分：</ion-label>
-            <ion-select okText="确认" cancelText="取消" [(ngModel)]="model.info.scoreoption">
-                <ion-select-option *ngFor="let item of model.scoreoption" value="item.value">{{item.name}}
+            <ion-select name="score" okText="确认" cancelText="取消" [(ngModel)]="model.info.score">
+                <ion-select-option *ngFor="let item of model.scoreoption" value="{{item.value}}">{{item.name}}
                 </ion-select-option>
             </ion-select>
         </ion-item>
@@ -72,8 +75,8 @@
                     线索描述：
                 </h2>
             </ion-label>
-            <ion-textarea [(ngModel)]="model.info.describe"></ion-textarea>
+            <ion-textarea [(ngModel)]="model.info.describe" name="describe"></ion-textarea>
         </ion-item>
-        <ion-button expand="block" type="button" (click)="saveOnClick()">确定</ion-button>
-    </ion-list> 
+        <ion-button expand="block"  color="danger" (click)="saveOnClick()">确定</ion-button> 
+    </ion-list>
 </ion-content>
