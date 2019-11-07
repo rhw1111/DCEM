@@ -86,7 +86,7 @@ let DCore_Page = class DCore_Page {
                 buttons: [
                     {
                         side: 'start',
-                        icon: 'alert',
+                        //icon: 'alert',
                         text: '',
                         handler: () => {
                         }
@@ -158,7 +158,7 @@ let DCore_Page = class DCore_Page {
     loadingShow() {
         if (this.loading !== null) {
             this.loading = this.loadingCtr.create({
-                //message: "请稍后...",
+                message: "请稍后...",
                 translucent: true,
                 duration: 30000
             });
@@ -181,11 +181,17 @@ let DCore_Page = class DCore_Page {
         this.router.navigate([url], { queryParams: params });
     }
     //跳转到指定页
-    navigateRoot(url, params) {
+    navigateRoot(url, params, animation) {
         if (params === null) {
             params = {};
         }
-        this.navCtr.navigateRoot(url, { queryParams: params });
+        if (animation === null) {
+            animation = "forward";
+        }
+        this.navCtr.navigateRoot(url, { queryParams: params, animationDirection: animation });
+    }
+    goBack() {
+        this.navCtr.back();
     }
 };
 DCore_Page = tslib_1.__decorate([
@@ -240,6 +246,14 @@ let DCore_Valid = class DCore_Valid {
         };
         this.isNumber = function (val) {
             return isNumber(val);
+        };
+        this.isPhone = function (val) {
+            //let reg = /^1[3|4|5|7|8][0-9]{9}/;
+            let reg = /^1[0-9][0-9]{9}/;
+            if (reg.test(val)) {
+                return true;
+            }
+            return false;
         };
     }
 };
