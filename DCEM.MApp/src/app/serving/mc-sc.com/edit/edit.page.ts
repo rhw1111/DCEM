@@ -85,8 +85,7 @@ export class EditPage implements OnInit {
         this.presentRepairlocationModal();
     }
 
-    public nextOnClick() {
-
+    public nextOnClick() { 
         if (this._valid.isNull(this.shareData.serviceproxy["customerid"])) {
             this._page.alert("消息提示", "请选择客户");
             return;

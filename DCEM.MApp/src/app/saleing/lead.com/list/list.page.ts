@@ -17,7 +17,7 @@ export class ListPage implements OnInit {
     isending:false,
     searchData: { 
         pageindex: 1,
-        pagesize:3,
+        pagesize:10,
         search:"",
         userId:this._userinfo.GetSystemUserId(),
         dealerid:"3EFBFFF6-EF1A-E911-A821-A4A314186A20",//this._userinfo.GetDealerid()
@@ -41,7 +41,6 @@ export class ListPage implements OnInit {
 }
 //加载下一页
 doLoading(event) { 
-  debugger;
     this.mod.searchData.pageindex++;
     this.mod.isending = false; 
     this.listOnBind(event); 

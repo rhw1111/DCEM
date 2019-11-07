@@ -11,10 +11,10 @@
 </ion-header>
 
 <ion-content>
-   <!--  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
         <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中...">
         </ion-refresher-content>
-    </ion-refresher> -->
+    </ion-refresher>
   <ion-list lines="full">  
       <ion-item-sliding *ngFor="let item of mod.data;let key=index">
           <ion-item [routerLink]="['/saleing/lead/detail']" [queryParams]="{id:item.Id}" >

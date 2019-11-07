@@ -13,5 +13,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services.Contrac
         Task<OriginalclueListResponse> GetOriginalclueList(OriginalclueListRequest originalclueListRequest);
 
         Task<CrmEntity> Get(OriginalclueDetailRequest originalclueDetailRequest);
+
+        Task<originalclueCreateResponse> create(OriginalclueCreateRequest originalclueCreateRequest);
     }
 }
