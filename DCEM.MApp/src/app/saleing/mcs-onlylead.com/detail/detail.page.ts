@@ -81,7 +81,7 @@ pageOnBind(id: any) {
             }
         },
         (res: any) => {
-            debugger;
+            //debugger;
             if (res !== null) {
                 console.log(res["Attributes"]);
                 this.mod.data.mcs_name = res["Attributes"]["mcs_name"]; //姓名
@@ -90,9 +90,9 @@ pageOnBind(id: any) {
                 this.mod.data.mcs_gender = this.optionset.GetOptionSetNameByValue("mcs_gender",res["Attributes"]["mcs_gender"]);
                 this.mod.data.mcs_emailaddress1 = res["Attributes"]["mcs_emailaddress1"]; //邮箱
                 this.mod.data.mcs_accountpoints= res["Attributes"]["mcs_accountpoints"]; //评分
-                this.mod.data.mcs_provinceid = res["Attributes"]["mcs_provinceid"];//省
-                this.mod.data.mcs_cityid = res["Attributes"]["mcs_cityid"]; //市
-                this.mod.data.mcs_districtid= res["Attributes"]["mcs_districtid"];//区
+                this.mod.data.mcs_provinceid = res["Attributes"]["_mcs_provinceid_value@OData.Community.Display.V1.FormattedValue"];//省
+                this.mod.data.mcs_cityid = res["Attributes"]["_mcs_cityid_value@OData.Community.Display.V1.FormattedValue"]; //市
+                this.mod.data.mcs_districtid= res["Attributes"]["_mcs_districtid_value@OData.Community.Display.V1.FormattedValue"];//区
                
                 this.mod.data.mcs_usecarprovince = res["Attributes"]["mcs_usecarprovince"];//用车省份
                 this.mod.data.mcs_usecarcity= res["Attributes"]["mcs_usecarcity"];//用车城市
