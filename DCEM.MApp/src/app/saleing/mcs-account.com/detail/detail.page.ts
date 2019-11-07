@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild} from '@angular/core';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { OptionSetService } from '../../saleing.ser/optionset.service';
 import { Dateformat } from '../../../base/base.ser/dateformat';
 import { Storage_LoginInfo } from '../../../base/base.ser/logininfo.storage';
+import { IonContent, IonInfiniteScroll } from '@ionic/angular';
 
 @Component({
   selector: 'app-detail',
@@ -11,6 +12,9 @@ import { Storage_LoginInfo } from '../../../base/base.ser/logininfo.storage';
   styleUrls: ['./detail.page.scss'],
 })
 export class DetailPage implements OnInit {
+  @ViewChild(IonContent, null) ionContent: IonContent;
+  @ViewChild(IonInfiniteScroll, null) ionInfiniteScroll: IonInfiniteScroll;
+
   public tab: any = "info";
   mod = {
     apiUrl: '/Api/account/GetDetail',
@@ -19,7 +23,7 @@ export class DetailPage implements OnInit {
       list:[],
       isending:false,
       page:1,
-      pageSize:1,
+      pageSize:10,
       sort:''
     },
     ActivityModel:{//培育任务
@@ -129,6 +133,8 @@ export class DetailPage implements OnInit {
   }
 
   ngOnInit() {
+    this.mod.LogcallModel.list=[];
+    this.mod.LogcallModel.page=1;
     this.BindInfo(this.mod.data.Account.Id);
   }
   //绑定数据
@@ -233,14 +239,23 @@ export class DetailPage implements OnInit {
         }
     );
   }
-  LoadLogcallTabLoading(){
+  LogcallTabLoading(){
     this.mod.LogcallModel.list=[];
-    this.LoadLogcall(null);
+    this.mod.LogcallModel.page=1;
+    this.ionInfiniteScroll.disabled=false;
+    this.ionContent.scrollToTop(0);
+    this.LoadLogcall();
   }
+  //下拉事件
+  DownLoadLogcall(){
+    this.mod.LogcallModel.page+=1;
+    this.LoadLogcall();
+  }
+ 
   /**
    * 加载logcall记录
    */
-  LoadLogcall(event){
+  LoadLogcall(){
     this._page.loadingShow();
     this._http.get(
         this.mod.LogcallModel.apiUrl,
@@ -255,22 +270,23 @@ export class DetailPage implements OnInit {
         },
         (res: any) => {
           if (res != null) {
-            res.Results.forEach(item => {
-              var value = item["Attributes"];
-              this.mod.LogcallModel.list.push({
-                "Id":value.mcs_logcallid,
-                "mcs_name":value.mcs_name,
-                "mcs_visittime":this.dateformat.FormatToDateTime(value.mcs_visittime),//回访时间
-                "mcs_content":value.mcs_content,//内容
-                "mcs_results":value.mcs_results//结果备注
-              });    
-          });
-            event ? event.target.complete() : '';
+            if (res.Results.length > 0) {
+              res.Results.forEach(item => {
+                var value = item["Attributes"];
+                this.mod.LogcallModel.list.push({
+                  "Id": value.mcs_logcallid,
+                  "mcs_name": value.mcs_name,
+                  "mcs_visittime": this.dateformat.FormatToDateTime(value.mcs_visittime),//回访时间
+                  "mcs_content": value.mcs_content,//内容
+                  "mcs_results": value.mcs_results//结果备注
+                });
+              });
+            }
+            this.ionInfiniteScroll.complete();
             //判断是否有新数据
             if (res.Results.length < this.mod.LogcallModel.pageSize) {
-              event ? event.target.disabled = true : "";
-              this.mod.LogcallModel.isending = true;
-            }         
+              this.ionInfiniteScroll.disabled = true;
+            }
           }
           this._page.loadingHide();
         },
