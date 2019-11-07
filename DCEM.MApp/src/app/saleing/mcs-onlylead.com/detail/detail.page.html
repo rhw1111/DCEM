@@ -115,12 +115,24 @@
               </ion-label>
           </ion-item>
         </ion-list>
+
+        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+            <ion-fab-button>
+                <ion-icon name="arrow-dropup"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-list side="top">
+                <ion-fab-button [routerLink]="['/saleing/contactrecord/edit']" [queryParams]="{id:mod.data.mcs_onlyleadid}"><ion-icon name="create" ></ion-icon></ion-fab-button>
+                <ion-fab-button [routerLink]="['/saleing/cultivatetask/edit']" [queryParams]="{id:mod.data.mcs_onlyleadid}"><ion-icon name="create"></ion-icon></ion-fab-button>
+                <ion-fab-button [routerLink]="['/saleing/account/edit']" [queryParams]="{id:mod.data.mcs_onlyleadid}"><ion-icon name="create"></ion-icon></ion-fab-button>
+            </ion-fab-list>
+        </ion-fab>
+
      </div>
      <div *ngSwitchCase="'Linklist'">
             <!--<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
             <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中...">
             </ion-refresher-content>
-        </ion-refresher>-->
+            </ion-refresher>-->
             <ion-list lines="full" *ngFor="let r of mod.datalist">
                 <ion-item>
                     <ion-label>
@@ -135,12 +147,21 @@
                     没有更多logcall
                 </ion-col>
             </ion-row>
+            <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doNextLoadingLog($event)"> 
+                <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多..."> 
+                </ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+            <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+                <ion-fab-button [routerLink]="['/saleing/contactrecord/edit']" [queryParams]="{id:mod.data.mcs_onlyleadid}">
+                    <ion-icon name="add"></ion-icon>
+                </ion-fab-button>
+            </ion-fab>
      </div>
      <div *ngSwitchCase="'Breedlist'">
             <!--<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
             <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中...">
             </ion-refresher-content>
-        </ion-refresher>-->
+            </ion-refresher>-->
             <ion-list lines="full" *ngFor="let r of mod.datalist2">
                 <ion-item>
                     <ion-label>
@@ -156,17 +177,17 @@
                     没有更多培育任务
                 </ion-col>
             </ion-row>
+            <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doNextLoadingAc($event)"> 
+                <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多..."> 
+                </ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+            <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+                <ion-fab-button [routerLink]="['/saleing/cultivatetask/edit']" [queryParams]="{id:mod.data.mcs_onlyleadid}">
+                    <ion-icon name="add"></ion-icon>
+                </ion-fab-button>
+            </ion-fab>
      </div>
     </div>
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button>
-            <ion-icon name="arrow-dropup"></ion-icon>
-        </ion-fab-button>
-        <ion-fab-list side="top">
-            <!-- <ion-fab-button color="danger" [routerLink]="['/serving/reservation/edit']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid}"><ion-icon name="create" ></ion-icon></ion-fab-button>
-            <ion-fab-button [routerLink]="['/serving/reservation/cancel']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid}"><ion-icon name="close"></ion-icon></ion-fab-button>
-            -->
-        </ion-fab-list>
-    </ion-fab>
+    
 </ion-content>
 
