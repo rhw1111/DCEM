@@ -11,10 +11,10 @@
 </ion-header>
 
 <ion-content>
-    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+   <!--  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
         <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中...">
         </ion-refresher-content>
-    </ion-refresher>
+    </ion-refresher> -->
   <ion-list lines="full">  
       <ion-item-sliding *ngFor="let item of mod.data;let key=index">
           <ion-item [routerLink]="['/saleing/lead/detail']" [queryParams]="{id:item.Id}" >
@@ -33,7 +33,7 @@
           </ion-item>
           <ion-item-options side="end">
                 <ion-item-option color="tertiary" expandable [routerLink]="['/saleing/lead/detail']" [queryParams]="{id:item.Id}">
-                    编辑
+                    详情
                 </ion-item-option>  
             </ion-item-options> 
       </ion-item-sliding> 
@@ -46,5 +46,10 @@
     <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doLoading($event)">
         <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
         </ion-infinite-scroll-content>
-    </ion-infinite-scroll>
+    </ion-infinite-scroll>  
+        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+                <ion-fab-button [routerLink]="['/saleing/lead/edit']">
+                    <ion-icon name="add"></ion-icon>
+                </ion-fab-button>
+            </ion-fab>
 </ion-content> 

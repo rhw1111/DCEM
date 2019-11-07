@@ -117,6 +117,34 @@ export class OptionSetService {
             default:
                 optionlist = [];
                 break;
+            case "lead_mcs_accountpoints"://原始线索评分
+                optionlist = [
+                    { "name": "1分", "value": 1 },
+                    { "name": "2分", "value": 2 },
+                    { "name": "3分", "value": 3 }
+                ];
+                break;
+            case "lead_mcs_leadorigin"://原始线索来源
+                optionlist = [
+                    { "name": "WEB官网", "value": 1 },
+                    { "name": "Event-Online", "value": 2 },
+                    { "name": "Event-OffLine", "value": 3 },
+                    { "name": "Store展厅", "value": 4 },
+                    { "name": "400电话", "value": 5 },
+                    { "name": "APP", "value": 6 },
+                    { "name": "小程序", "value": 7 },
+                    { "name": "车机", "value": 8 },
+                    { "name": "H5落地页", "value": 9 },
+                    { "name": "3D展厅", "value": 10 }
+                ];
+                break;
+            case "lead_mcs_gender"://原始线索称呼
+                optionlist = [
+                    { "name": "先生", "value": 1 },
+                    { "name": "女士", "value": 2 },
+                    { "name": "未知", "value": 3 }
+                ];
+                break;
         }
         return optionlist;
     }

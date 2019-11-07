@@ -17,7 +17,7 @@ export class ListPage implements OnInit {
     isending:false,
     searchData: { 
         pageindex: 1,
-        pagesize:10,
+        pagesize:3,
         search:"",
         userId:this._userinfo.GetSystemUserId(),
         dealerid:"3EFBFFF6-EF1A-E911-A821-A4A314186A20",//this._userinfo.GetDealerid()
@@ -33,16 +33,17 @@ export class ListPage implements OnInit {
     this.listOnBind(null);
   }
   //下拉刷新
-  doRefresh(event) {
+  doRefresh(event) { 
     this.mod.data = [];
     this.mod.isending = false;
     this.mod.searchData.pageindex = 1; 
     this.listOnBind(event);
 }
 //加载下一页
-doLoading(event) {
+doLoading(event) { 
+  debugger;
     this.mod.searchData.pageindex++;
-    this.mod.isending = false;
+    this.mod.isending = false; 
     this.listOnBind(event); 
 }
 //搜索
@@ -71,8 +72,8 @@ listOnBind(event) {
                   obj["Id"]=data[i]["Id"];
                   this.mod.data.push(obj);
               }
-              event ? event.target.complete() : '';
-              if (data.length < 10) {
+              event ? event.target.complete() : ''; 
+              if (data.length < this.mod.searchData.pagesize) { 
                 event ? event.target.disabled = true : "";
                 this.mod.isending = true;
             }
