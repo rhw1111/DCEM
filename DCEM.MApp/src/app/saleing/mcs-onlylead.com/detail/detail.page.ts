@@ -58,6 +58,9 @@ constructor(
 
 ngOnInit() {
     //debugger;
+    this.mod.datalist= [];
+    this.mod.datalist2= [];
+    
     this.activeRoute.queryParams.subscribe((params: Params) => {
         if (params['id'] != null && params['id'] != undefined) {
 
@@ -138,7 +141,7 @@ pageOnLogCalllist(id: any) {
                         var obj = {};
                         obj["mcs_fullname"] = res.Results[key]["Attributes"]["mcs_fullname"];
                         obj["mcs_visittime"] = res.Results[key]["Attributes"]["mcs_visittime"];
-                        obj["mcs_content"] = res.Results[key]["Attributes"]["mcs_content"];
+                        obj["mcs_content"] = res.Results[key]["Attributes"]["mcs_content"];                      
                         this.mod.datalist.push(obj);
                     }
                     //console.log(res);
