@@ -7,6 +7,6 @@ namespace DCEM.SalesAssistant.Main.Application.Repository.Contrac
 {
     public interface IAccountRepository
     {
-        string QueryList(AccountRequest accountRequest);
+        string QueryList(AccountSearhRequest accountRequest);
     }
 }

@@ -29,11 +29,11 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         /// </summary>
         /// <param name="AccountRequest"></param>
         /// <returns></returns>
-        public async Task<QueryResult<CrmEntity>> QueryList(AccountRequest AccountRequest)
+        public async Task<QueryResult<CrmEntity>> QueryList(AccountSearhRequest accountRequest)
         {
             try
             {
-                var fetchString = _AccountRepository.QueryList(AccountRequest);
+                var fetchString = _AccountRepository.QueryList(accountRequest);
 
                 var fetchXdoc = XDocument.Parse(fetchString);
                 var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
@@ -46,7 +46,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
 
                 var queryResult = new QueryResult<CrmEntity>();
                 queryResult.Results = fetchResponseResult.Value.Results;
-                queryResult.CurrentPage = AccountRequest.PageIndex;
+                queryResult.CurrentPage = accountRequest.PageIndex;
                 queryResult.TotalCount = 0;
                 return queryResult;
             }
