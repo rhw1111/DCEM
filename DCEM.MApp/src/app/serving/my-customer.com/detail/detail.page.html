@@ -157,37 +157,36 @@
                         跟进记录
                     </ion-label>
                 </ion-item-divider>
-                <ion-item-group>
-                    <ion-item *ngFor="let item of mod.data.customerfollowuplogArray;let key=index">
-                        <ion-label>
-                            <h2>
-                                跟进人
-                            </h2>
-                            <p>
-                                {{item.createdby}}
-                            </p>
-                            <h2>
-                                跟进时间
-                            </h2>
-                            <p>
-                                {{item.createdon}}&nbsp;
-                            </p>
-                            <h2>
-                                跟进内容
-                            </h2>
-                            <p text-wrap>
-                                {{item.remark}}&nbsp;
-                            </p>
-                        </ion-label>
-                    </ion-item>
-                    <ion-item *ngIf="mod.data.customerfollowuplogArray.length===0">
-                        <ion-label>
-                            <p>
-                                当前客户没有跟进记录
-                            </p>
-                        </ion-label>
-                    </ion-item>
-                </ion-item-group>
+                <ion-item *ngFor="let item of mod.data.customerfollowuplogArray;let key=index">
+                    <ion-label>
+                        <h2>
+                            跟进人
+                        </h2>
+                        <p>
+                            {{item.createdby}}
+                        </p>
+                        <h2>
+                            跟进时间
+                        </h2>
+                        <p>
+                            {{item.createdon}}&nbsp;
+                        </p>
+                        <h2>
+                            跟进内容
+                        </h2>
+                        <p text-wrap>
+                            {{item.remark}}&nbsp;
+                        </p>
+                    </ion-label>
+                </ion-item>
+                <ion-item *ngIf="mod.data.customerfollowuplogArray.length===0">
+                    <ion-label>
+                        <p>
+                            当前客户没有跟进记录
+                        </p>
+                    </ion-label>
+                </ion-item>
+
             </ion-list>
         </div>
         <div *ngSwitchCase="'att'">

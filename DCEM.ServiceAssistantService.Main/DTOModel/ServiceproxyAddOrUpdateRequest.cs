@@ -30,6 +30,10 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
     public class Serviceproxy
     {
         /// <summary>
+        /// 服务委托书id
+        /// </summary>
+        public string serviceproxyid { get; set; }
+        /// <summary>
         /// 车辆VIN
         /// </summary>
         public string customerid { get; set; }

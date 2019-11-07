@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
+import { OptionSetService } from '../../saleing.ser/optionset.service';
+import sd from 'silly-datetime';
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.page.html',
@@ -49,6 +51,7 @@ constructor(
     private _page: DCore_Page,
     private activeRoute: ActivatedRoute,
     private _logininfo: Storage_LoginInfo,
+    private optionset:OptionSetService,
 
 ) {}
 
@@ -80,14 +83,14 @@ pageOnBind(id: any) {
                 console.log(res["Attributes"]);
                 this.mod.data.mcs_name = res["Attributes"]["mcs_name"]; //姓名
                 this.mod.data.mcs_mobilephone = res["Attributes"]["mcs_mobilephone"]; //手机
-                this.mod.data.mcs_leadorigin = res["Attributes"]["mcs_leadorigin"]; //线索来源
-                this.mod.data.mcs_gender= res["Attributes"]["mcs_gender"];  //称呼
-                this.mod.data.mcs_emailaddress1 = res["mcs_emailaddress1"]; //邮箱
+                this.mod.data.mcs_leadorigin= this.optionset.GetOptionSetNameByValue("mcs_leadorigin",res["Attributes"]["mcs_leadorigin"]);//线索来源          
+                this.mod.data.mcs_gender = this.optionset.GetOptionSetNameByValue("mcs_gender",res["Attributes"]["mcs_gender"]);
+                this.mod.data.mcs_emailaddress1 = res["Attributes"]["mcs_emailaddress1"]; //邮箱
                 this.mod.data.mcs_accountpoints= res["Attributes"]["mcs_accountpoints"]; //评分
                 this.mod.data.mcs_provinceid = res["Attributes"]["mcs_provinceid"];//省
                 this.mod.data.mcs_cityid = res["Attributes"]["mcs_cityid"]; //市
                 this.mod.data.mcs_districtid= res["Attributes"]["mcs_districtid"];//区
-                this.mod.data.mcs_mainowner = res["Attributes"]["mcs_mainowner"]; //接待专员
+               
                 this.mod.data.mcs_usecarprovince = res["Attributes"]["mcs_usecarprovince"];//用车省份
                 this.mod.data.mcs_usecarcity= res["Attributes"]["mcs_usecarcity"];//用车城市
    
@@ -111,6 +114,7 @@ pageOnBind(id: any) {
 
 //加载联络记录(logcall)
 pageOnLogCalllist(id: any) {
+    debugger;
     this._page.loadingShow();
     this._http.get(
         this.mod.apiUrlList1,
@@ -196,6 +200,15 @@ pageOnActivitylist(id: any) {
         }
     );
 
+}
+
+FormatToDateTime(date) {
+    if (date != null && date != undefined) {
+        return sd.format(date, 'YYYY-MM-DD hh:mm:ss');
+    }
+    else {
+        return '';
+    }
 }
 
 }
