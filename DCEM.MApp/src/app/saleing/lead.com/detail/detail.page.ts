@@ -31,7 +31,7 @@ export class DetailPage implements OnInit {
         describe:""
     }
 };
-  ngOnInit() { 
+  ngOnInit() {  
     this.activeRoute.queryParams.subscribe((data: Params) => {
       if (data['id'] != null && data['id'] != undefined) { 
           this.model.id = data['id'];
@@ -44,7 +44,7 @@ export class DetailPage implements OnInit {
     this._http.post(
       this.model.apiUrlDetail,
       {'id':this.model.id,'userid': this._userinfo.GetSystemUserId()}, 
-        (res: any) => {
+        (res: any) => { 
             if (res !== null) {
               var attr=res["Attributes"];
                 this.model.info.username=attr["fullname"];
@@ -56,15 +56,15 @@ export class DetailPage implements OnInit {
                 this.model.info.city=attr["_mcs_cityid_value@OData.Community.Display.V1.FormattedValue"];
                 this.model.info.area=attr["_mcs_districtid_value@OData.Community.Display.V1.FormattedValue"];
                 this.model.info.describe=attr["description"];
-                this.model.info.score=attr["mcs_accountpoints"];
+                this.model.info.score=attr["mcs_accountpoints"]; 
             }
             else {
-                this._page.alert("消息提示", "原始线索详情加载异常");
+                this._page.alert("消息提示", "原始线索编辑信息加载异常");
             }
             this._page.loadingHide(); 
         },
         (err: any) => {
-            this._page.alert("消息提示", "原始线索详情加载异常");
+            this._page.alert("消息提示", "原始线索编辑信息加载异常");
             this._page.loadingHide();
         }
     );
