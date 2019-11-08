@@ -15,7 +15,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services.Contrac
         /// </summary>
         /// <param name="accountRequest"></param>
         /// <returns></returns>
-        Task<QueryResult<CrmEntity>> QueryList(AccountRequest accountRequest);
+        Task<QueryResult<CrmEntity>> QueryList(AccountSearhRequest accountRequest);
         /// <summary>
         /// 通过Id获取数据
         /// </summary>

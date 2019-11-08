@@ -20,7 +20,7 @@ namespace DCEM.Web.Controllers
     [EnableCors("any")]
     [Route("api/only-lead")]
     [ApiController]
-    public class IOnlyLeadController : ControllerBase
+    public class IOnlyLeadController : ApiController
     {
         public IAppOnlyLead app = null;
         public IOnlyLeadController()
@@ -43,7 +43,7 @@ namespace DCEM.Web.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("QueryList")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetList(Guid? dealerid, string systemuserid, string seachkey = "", int pageSize = 10, int page = 1)
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetList(Guid? dealerid, string systemuserid="", string seachkey = "", int pageSize = 10, int page = 1)
         {
             var onlyLeadRequest = new OnlyLeadRequest()
             {
@@ -69,6 +69,71 @@ namespace DCEM.Web.Controllers
         public async Task<NewtonsoftJsonActionResult<CrmEntity>> GetOnlyLeadDetail(string entityid)
         {
             return await app.GetOnlyLeadDetail(entityid);
+
+        }
+
+        //查询与唯一线索关联的跟进记录（logcall）
+        [HttpGet]
+        [Route("GetLogCallList")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetLogCallList(string entityid = "", string systemuserid="", string sort = "", int pageSize = 10, int page = 1)
+        {
+            var logcallrequest = new LogCallRequest()
+            {
+                entityid = entityid,
+                UserId = systemuserid,
+                PageIndex = page,
+                PageSize = pageSize,
+                Sort = sort
+            };
+            var list = await app.GetLogCallList(logcallrequest);
+            return list;
+        }
+
+        //查询与唯一线索关联的培育任务
+        [HttpGet]
+        [Route("GetActivityList")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetActivityList(string entityid = "", string systemuserid = "", string sort = "", int pageSize = 10, int page = 1)
+        {
+            var activityrequest = new ActivityRequest()
+            {
+                entityid = entityid,
+                UserId = systemuserid,
+                PageIndex = page,
+                PageSize = pageSize,
+                Sort = sort
+            };
+            var list = await app.GetActivityList(activityrequest);
+            return list;
+        }
+
+
+
+        /// <summary>
+        /// logcall 新增或编辑
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("AddOrEditLogcall")]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<CrmEntity>>> AddOrEditLogcall(LogCallRequest request)
+        {
+            var result = await app.AddOrEditEntity(request);
+            return result;
+        }
+
+        //根据主键查询跟进记录（logcall）
+        [HttpGet]
+        [Route("GetLogCallById")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetLogCallById(string mcs_logcallid = "", string systemuserid = "")
+        {
+            var logcallrequest = new LogCallRequest()
+            {
+                mcs_logcallid = mcs_logcallid,
+                UserId = systemuserid
+              
+            };
+            var list = await app.GetLogCallList(logcallrequest);
+            return list;
         }
 
     }

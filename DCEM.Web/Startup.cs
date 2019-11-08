@@ -17,7 +17,7 @@ using Microsoft.AspNetCore;
 using MSLibrary.Configuration;
 using MSLibrary.Logger;
 using DCEM.Main;
-
+using Microsoft.AspNetCore.Http;
 
 namespace DCEM.Web
 {
@@ -43,6 +43,7 @@ namespace DCEM.Web
                 });
             });
             services.AddMvc(option => option.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

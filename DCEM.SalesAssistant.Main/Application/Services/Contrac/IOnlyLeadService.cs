@@ -24,5 +24,28 @@ namespace DCEM.SalesAssistant.Main.Application.Services.Contrac
         /// <param name="entityid"></param>
         /// <returns></returns>
         Task<CrmEntity> GetOnlyLeadDetail(string entityid);
+
+        /// <summary>
+        /// 查询与唯一线索关联的跟进记录（logcall）
+        /// </summary>
+        /// <param name="logcallrequest"></param>
+        /// <returns></returns>
+        Task<QueryResult<CrmEntity>> GetLogCallList(LogCallRequest logcallrequest);
+
+        /// <summary>
+        /// 查询与唯一线索关联的培育任务
+        /// </summary>
+        /// <param name="activityrequest"></param>
+        /// <returns></returns>
+        Task<QueryResult<CrmEntity>> GetActivityList(ActivityRequest activityrequest);
+
+
+        /// <summary>
+        /// logcall 新增或编辑
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ValidateResult<CrmEntity>> AddOrEditEntity(LogCallRequest request);
+
     }
 }

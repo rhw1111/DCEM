@@ -118,6 +118,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 EntityName = "mcs_carserviceadvisor",
                 FetchXml = fetchXdoc
             };
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
             var fetchResponse = await _crmService.Execute(fetchRequest);
             var resultsList = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
             #endregion;

@@ -30,6 +30,10 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
     public class Serviceproxy
     {
         /// <summary>
+        /// 服务委托书id
+        /// </summary>
+        public string serviceproxyid { get; set; }
+        /// <summary>
         /// 车辆VIN
         /// </summary>
         public string customerid { get; set; }
@@ -81,6 +85,26 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
         /// 厅店
         /// </summary>
         public string dealerid { get; set; }
+
+        //服务委托书额外的字段
+        /// <summary>
+        /// 工位
+        /// </summary>
+        public string repairlocationid { get; set; }
+        /// <summary>
+        /// 预计交车时间
+        /// </summary>
+        public DateTime? expectfinishat { get; set; }
+        /// <summary>
+        /// 故障信息
+        /// </summary>
+        public string customercontent { get; set; }
+        /// <summary>
+        /// 检查结果
+        /// </summary>
+        public string testresult { get; set; }
+
+
     }
     #endregion
 

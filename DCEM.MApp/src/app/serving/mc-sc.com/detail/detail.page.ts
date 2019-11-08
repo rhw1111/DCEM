@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
+import { DCore_Http, DCore_Page, DCore_ShareData, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
@@ -12,8 +12,10 @@ export class DetailPage implements OnInit {
     public tab: any = "info";
     mod = {
         apiUrl: '/Api/Serviceproxy/GetInfo',
+        delUrl: '/Api/Serviceproxy/Delete',
         data: {
             serviceproxy: {
+                id: "",
                 customername: "",
                 carplate: "",
                 customerphone: "",
@@ -46,6 +48,8 @@ export class DetailPage implements OnInit {
     constructor(
         private _http: DCore_Http,
         private _page: DCore_Page,
+        private _shareData: DCore_ShareData,
+        private _valid: DCore_Valid,
         private activeRoute: ActivatedRoute
     ) {
 
@@ -64,6 +68,7 @@ export class DetailPage implements OnInit {
     }
 
     pageOnBind(id: any) {
+        this.mod.data.serviceproxy.id = id;
         this._page.loadingShow();
         this._http.get(
             this.mod.apiUrl,
@@ -73,8 +78,7 @@ export class DetailPage implements OnInit {
                 }
             },
             (res: any) => {
-                if (res.Serviceproxy !== null) {
-                    console.log(res["Serviceproxy"]);
+                if (!this._valid.isNull(res.Serviceproxy)) {
                     this.mod.data.serviceproxy["customername"] = res["Serviceproxy"]["Attributes"]["mcs_customername"];
                     this.mod.data.serviceproxy["carplate"] = res["Serviceproxy"]["Attributes"]["mcs_carplate"];
                     this.mod.data.serviceproxy["customerphone"] = res["Serviceproxy"]["Attributes"]["mcs_customerphone"];
@@ -101,37 +105,42 @@ export class DetailPage implements OnInit {
 
                 }
 
-                if (res.ServiceorderrepairitemList !== null) {
+                if (!this._valid.isNull(res.ServiceorderrepairitemList)) {
                     for (var key in res.ServiceorderrepairitemList) {
                         var obj = {};
-                        obj["name"] = res.ServiceorderrepairitemList[key]["Attributes"]["mcs_name"];
-                        obj["repairitemid"] = res.ServiceorderrepairitemList[key]["Attributes"]["_mcs_repairitemid_value@OData.Community.Display.V1.FormattedValue"];
-                        obj["repairitemtypeid"] = res.ServiceorderrepairitemList[key]["Attributes"]["_mcs_repairitemtypeid_value@OData.Community.Display.V1.FormattedValue"];
-                        obj["workinghour"] = res.ServiceorderrepairitemList[key]["Attributes"]["mcs_workinghour"];
-                        obj["price"] = res.ServiceorderrepairitemList[key]["Attributes"]["mcs_price"];
-                        obj["discount"] = res.ServiceorderrepairitemList[key]["Attributes"]["mcs_discount"];
-                        obj["repairamount"] = res.ServiceorderrepairitemList[key]["Attributes"]["mcs_repairamount"];
+
+                        obj["name"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_name"];
+                        obj["code"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemid@OData.Community.Display.V1.FormattedValue"];
+
+                        obj["repairitemtypeid_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemtypeid@OData.Community.Display.V1.FormattedValue"];
+                        obj["repairitemtypedetailid_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemtypedetailid@OData.Community.Display.V1.FormattedValue"];
+                        
+                        obj["workinghour_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_workinghour@OData.Community.Display.V1.FormattedValue"];
+                        obj["price_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_price@OData.Community.Display.V1.FormattedValue"];
+                        obj["discount_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_discount@OData.Community.Display.V1.FormattedValue"];
+                        obj["repairamount_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairamount@OData.Community.Display.V1.FormattedValue"];
+
                         this.mod.data.serviceorderrepairitemArray.push(obj);
                     }
                 }
 
-                if (res.ServiceorderpartList !== null) {
+                if (!this._valid.isNull(res.ServiceorderpartList)) {
                     for (var key in res.ServiceorderpartList) {
                         var obj = {};
-                        obj["partsname"] = res.ServiceorderpartList[key]["Attributes"]["mcs_partsname"];
-                        obj["partsid"] = res.ServiceorderpartList[key]["Attributes"]["_mcs_partsid_value@OData.Community.Display.V1.FormattedValue"];
-                        obj["repairitemtypeid"] = res.ServiceorderpartList[key]["Attributes"]["_mcs_repairitemtypeid_value@OData.Community.Display.V1.FormattedValue"];
-                        obj["quantity"] = res.ServiceorderpartList[key]["Attributes"]["mcs_quantity"];
-                        obj["price"] = res.ServiceorderpartList[key]["Attributes"]["mcs_price"];
-                        obj["discount"] = res.ServiceorderpartList[key]["Attributes"]["mcs_discount"];
-                        obj["amount"] = res.ServiceorderpartList[key]["Attributes"]["mcs_amount"];
+                        obj["name"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_partsname"];
+                        obj["code"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_partsid@OData.Community.Display.V1.FormattedValue"];
 
+                        obj["repairitemtypeid_Formatted"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_repairitemtypeid@OData.Community.Display.V1.FormattedValue"];
+                        obj["repairitemtypedetailid_Formatted"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_repairitemtypedetailid@OData.Community.Display.V1.FormattedValue"];
+
+                        obj["quantity_Formatted"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_quantity@OData.Community.Display.V1.FormattedValue"];
+                        obj["price_Formatted"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_price@OData.Community.Display.V1.FormattedValue"];
+                        obj["discount_Formatted"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_discount@OData.Community.Display.V1.FormattedValue"];
+                        obj["amount"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_amount@OData.Community.Display.V1.FormattedValue"];
 
                         this.mod.data.serviceorderpartArray.push(obj);
-
                     }
                 }
-
 
                 this.mod.data.serviceproxyResumeArray = res.ServiceproxyResumeList;
 
@@ -143,6 +152,28 @@ export class DetailPage implements OnInit {
                 this._page.loadingHide();
             }
         );
+    }
+
+    //删除事件
+    deleteOnClick() {
+        this._page.confirm("确认提示", "您确认要执行此操作吗？",
+            () => {
+                this._http.get(
+                    this.mod.delUrl,
+                    {
+                        params: {
+                            serviceproxyGuid: this.mod.data.serviceproxy.id
+                        }
+                    },
+                    (res: any) => {
+                        this._page.navigateRoot("/serving/sc/list");
+                    },
+                    (err: any) => {
+                        this._page.alert("消息提示", "删除失败!");
+                    }
+                );
+            }
+        )
     }
 
 }

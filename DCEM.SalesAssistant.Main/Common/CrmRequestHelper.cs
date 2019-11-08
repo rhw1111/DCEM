@@ -32,5 +32,14 @@ namespace DCEM.SalesAssistant.Main.Common
                 return new CrmEntityCollection();
             }
         }
+
+        public async Task<CrmEntity> Retrieve(ICrmService crmService, string entityName,  Guid id, Guid userId)
+        {
+            var dicHead = new Dictionary<string, IEnumerable<string>>();
+            dicHead.Add("Prefer", new List<string>() { "odata.include-annotations=\"*\"" }); 
+            CrmEntity entity = null;
+            entity = await crmService.Retrieve(entityName, id,"", userId, dicHead);
+            return entity;
+        }
     }
 }

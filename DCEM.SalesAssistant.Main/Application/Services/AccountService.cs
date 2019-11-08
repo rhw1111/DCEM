@@ -8,12 +8,13 @@ using System.Xml.Linq;
 using MSLibrary.Xrm.Message.RetrieveMultipleFetch;
 using System;
 using System.Collections.Generic;
+using DCEM.SalesAssistant.Main.Common;
 
 namespace DCEM.SalesAssistant.Main.Application.Services
 {
     public class AccountService : IAccountService
     {
-        private const string EntityName = "mcs_account";
+        private const string EntityName = "account";
         private CrmService _crmService;
         private IAccountRepository _AccountRepository;
 
@@ -28,11 +29,11 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         /// </summary>
         /// <param name="AccountRequest"></param>
         /// <returns></returns>
-        public async Task<QueryResult<CrmEntity>> QueryList(AccountRequest AccountRequest)
+        public async Task<QueryResult<CrmEntity>> QueryList(AccountSearhRequest accountRequest)
         {
             try
             {
-                var fetchString = _AccountRepository.QueryList(AccountRequest);
+                var fetchString = _AccountRepository.QueryList(accountRequest);
 
                 var fetchXdoc = XDocument.Parse(fetchString);
                 var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
@@ -45,7 +46,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
 
                 var queryResult = new QueryResult<CrmEntity>();
                 queryResult.Results = fetchResponseResult.Value.Results;
-                queryResult.CurrentPage = AccountRequest.PageIndex;
+                queryResult.CurrentPage = accountRequest.PageIndex;
                 queryResult.TotalCount = 0;
                 return queryResult;
             }
@@ -59,8 +60,8 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         {
             try
             {
-                CrmEntity entity = null;
-                entity = await _crmService.Retrieve(EntityName, entityId, "");
+                var crmRequestHelper = new CrmRequestHelper();
+                var entity = await crmRequestHelper.Retrieve(_crmService, EntityName, entityId,Guid.Empty);
                 return entity;
             }
             catch (Exception ex)

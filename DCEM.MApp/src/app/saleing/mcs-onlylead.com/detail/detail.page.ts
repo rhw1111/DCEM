@@ -1,121 +1,115 @@
 import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-
+import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
+import { OptionSetService } from '../../saleing.ser/optionset.service';
+import sd from 'silly-datetime';
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.page.html',
   styleUrls: ['./detail.page.scss'],
 })
 export class DetailPage implements OnInit {
+  public tab: any = "infolist";
   mod = {
-    apiUrl: '/api/only-lead/only-lead',
+    apiUrlInfo: '/api/only-lead/GetOnlyLeadDetail', //唯一线索基本信息
+    apiUrlList1: '/api/only-lead/GetLogCallList',//logcall
+    apiUrlList2: '/api/only-lead/GetActivityList',//培育任务
     data: {
-        serviceproxy: {
-            customername: "",
-            carplate: "",
-            customerphone: "",
-            name: "",
-            shuttlename: "",
-            shuttlephone: "",
-            ordertype: "",
-            inpower: "",
-            outpower: "",
-            oilquantity: "",
-            departureoil: "",
-            mileage: "",
-            departuremileage: "",
-            arrivalon: "",
-            finishat: "",
-            repairlocationid: "",
-            status: "",
-            hoursamount: "",
-            partsamount: "",
-            discountamount: "",
-            amounttotal: "",
-            dealerid: ""
+        mcs_onlyleadid:null,
+        mcs_name:"",
+        mcs_mobilephone: "",
+        mcs_leadorigin: "",
+        mcs_gender: "",
+        mcs_emailaddress1: "",
+        mcs_accountpoints:"",
+        mcs_provinceid: "",
+        mcs_cityid: "",
+        mcs_districtid: "",
+        mcs_mainowner: "",
+        mcs_usecarprovince: "",
+        mcs_usecarcity: ""      
+    },
+     
+    systemUserId: "",//当前用户id
 
-        },
-        serviceorderrepairitemArray: [],
-        serviceorderpartArray: []
-    }
+    //联络记录参数
+    datalist: [],
+    pageSize: 10,//页数
+    page: 1,//分页
+    sort: '',//排序的参数
+    isending: false,//是否加载完成
+
+    //培育任务参数
+    datalist2: [],
+    pageSize2: 10,//页数
+    page2: 1,//分页
+    sort2: '',//排序的参数
+    isending2: false,//是否加载完成
 };
 constructor(
     private _http: DCore_Http,
     private _page: DCore_Page,
-    private activeRoute: ActivatedRoute
-) {
+    private activeRoute: ActivatedRoute,
+    private _logininfo: Storage_LoginInfo,
+    private optionset:OptionSetService,
 
-}
+) {}
 
 ngOnInit() {
+    //debugger;
+    this.mod.datalist= [];
+    this.mod.datalist2= [];
+    
     this.activeRoute.queryParams.subscribe((params: Params) => {
         if (params['id'] != null && params['id'] != undefined) {
+
+            this.mod.data.mcs_onlyleadid=params['id'];
             this.pageOnBind(params['id']);
         }
     });
+
+    this.mod.systemUserId = this._logininfo.GetSystemUserId(); 
 }
 
+//加载唯一线索基本信息
 pageOnBind(id: any) {
+    //debugger;
     this._page.loadingShow();
     this._http.get(
-        this.mod.apiUrl,
+        this.mod.apiUrlInfo,
         {
             params: {
-                guid: id,
+                entityid: id,
             }
         },
         (res: any) => {
-            if (res.Serviceproxy !== null) {
+            //debugger;
+            if (res !== null) {
                 console.log(res["Attributes"]);
-                this.mod.data.serviceproxy["customername"] = res["Serviceproxy"]["Attributes"]["mcs_name"];
-                this.mod.data.serviceproxy["carplate"] = res["Serviceproxy"]["Attributes"]["mcs_mobilephone"];
-                this.mod.data.serviceproxy["customerphone"] = res["Serviceproxy"]["Attributes"]["mcs_leadorigin"];
-                this.mod.data.serviceproxy["name"] = res["Serviceproxy"]["Attributes"]["mcs_gender"];
-                this.mod.data.serviceproxy["shuttlename"] = res["Serviceproxy"]["Attributes"]["mcs_emailaddress1"];
-                this.mod.data.serviceproxy["shuttlephone"] = res["Serviceproxy"]["Attributes"]["mcs_accountpoints"];
-                this.mod.data.serviceproxy["ordertype"] = res["Serviceproxy"]["Attributes"]["mcs_provinceid"];
-                this.mod.data.serviceproxy["inpower"] = res["Serviceproxy"]["Attributes"]["mcs_cityid"];
-                this.mod.data.serviceproxy["outpower"] = res["Serviceproxy"]["Attributes"]["mcs_districtid"];
-                this.mod.data.serviceproxy["oilquantity"] = res["Serviceproxy"]["Attributes"]["mcs_mainowner"];
-                this.mod.data.serviceproxy["departureoil"] = res["Serviceproxy"]["Attributes"]["mcs_usecarprovince"];
-                this.mod.data.serviceproxy["mileage"] = res["Serviceproxy"]["Attributes"]["mcs_usecarcity"];
+                this.mod.data.mcs_name = res["Attributes"]["mcs_name"]; //姓名
+                this.mod.data.mcs_mobilephone = res["Attributes"]["mcs_mobilephone"]; //手机
+                this.mod.data.mcs_leadorigin= this.optionset.GetOptionSetNameByValue("mcs_leadorigin",res["Attributes"]["mcs_leadorigin"]);//线索来源          
+                this.mod.data.mcs_gender = this.optionset.GetOptionSetNameByValue("mcs_gender",res["Attributes"]["mcs_gender"]);
+                this.mod.data.mcs_emailaddress1 = res["Attributes"]["mcs_emailaddress1"]; //邮箱
+                this.mod.data.mcs_accountpoints= res["Attributes"]["mcs_accountpoints"]; //评分
+                this.mod.data.mcs_provinceid = res["Attributes"]["_mcs_provinceid_value@OData.Community.Display.V1.FormattedValue"];//省
+                this.mod.data.mcs_cityid = res["Attributes"]["_mcs_cityid_value@OData.Community.Display.V1.FormattedValue"]; //市
+                this.mod.data.mcs_districtid= res["Attributes"]["_mcs_districtid_value@OData.Community.Display.V1.FormattedValue"];//区
+               
+                this.mod.data.mcs_usecarprovince = res["Attributes"]["mcs_usecarprovince"];//用车省份
+                this.mod.data.mcs_usecarcity= res["Attributes"]["mcs_usecarcity"];//用车城市
    
                 //this.mod.data.serviceproxy["arrivalon"] = res["Serviceproxy"]["Attributes"]["mcs_arrivalon@OData.Community.Display.V1.FormattedValue"];
              
             }
 
-            if (res.ServiceorderrepairitemList !== null) {
-                for (var key in res.ServiceorderrepairitemList) {
-                    var obj = {};
-                    obj["name"] = res.ServiceorderrepairitemList[key]["Attributes"]["mcs_name"];
-                    obj["repairitemid"] = res.ServiceorderrepairitemList[key]["Attributes"]["_mcs_repairitemid_value@OData.Community.Display.V1.FormattedValue"];
-                    obj["repairitemtypeid"] = res.ServiceorderrepairitemList[key]["Attributes"]["_mcs_repairitemtypeid_value@OData.Community.Display.V1.FormattedValue"];
-                    obj["workinghour"] = res.ServiceorderrepairitemList[key]["Attributes"]["mcs_workinghour"];
-                    obj["price"] = res.ServiceorderrepairitemList[key]["Attributes"]["mcs_price"];
-                    obj["discount"] = res.ServiceorderrepairitemList[key]["Attributes"]["mcs_discount"];
-                    obj["repairamount"] = res.ServiceorderrepairitemList[key]["Attributes"]["mcs_repairamount"];
-                    this.mod.data.serviceorderrepairitemArray.push(obj);
-                }
-            }
-
-            if (res.ServiceorderpartList !== null) {
-                for (var key in res.ServiceorderpartList) {
-                    var obj = {};
-                    obj["partsname"] = res.ServiceorderpartList[key]["Attributes"]["mcs_partsname"];
-                    obj["partsid"] = res.ServiceorderpartList[key]["Attributes"]["_mcs_partsid_value@OData.Community.Display.V1.FormattedValue"];
-                    obj["repairitemtypeid"] = res.ServiceorderpartList[key]["Attributes"]["_mcs_repairitemtypeid_value@OData.Community.Display.V1.FormattedValue"];
-                    obj["quantity"] = res.ServiceorderpartList[key]["Attributes"]["mcs_quantity"];
-                    obj["price"] = res.ServiceorderpartList[key]["Attributes"]["mcs_price"];
-                    obj["discount"] = res.ServiceorderpartList[key]["Attributes"]["mcs_discount"];
-                    obj["amount"] = res.ServiceorderpartList[key]["Attributes"]["mcs_amount"];
-
-
-                    this.mod.data.serviceorderpartArray.push(obj);
-
-                }
+            else {
+                this._page.alert("消息提示", "基础数据加载异常");
             }
             this._page.loadingHide();
+            this.pageOnLogCalllist(id);
+            this.pageOnActivitylist(id);
         },
         (err: any) => {
             this._page.alert("消息提示", "数据加载异常");
@@ -124,5 +118,118 @@ pageOnBind(id: any) {
     );
 }
 
+//加载联络记录(logcall)列表
+pageOnLogCalllist(id: any) {
+    ///debugger;
+    this._page.loadingShow();
+    this._http.get(
+        this.mod.apiUrlList1,
+        {
+            params: {
+                entityid: id,
+                sort: this.mod.sort,
+                pageSize: this.mod.pageSize,
+                page: this.mod.page,
+                systemuserid: this.mod.systemUserId,
+            }
+        },
+        (res: any) => {
+           // debugger;
+            if (res !== null) {
+                if (res.Results !== null) {
+                    for (var key in res.Results) {
+                        var obj = {};
+                        obj["mcs_fullname"] = res.Results[key]["Attributes"]["mcs_fullname"];
+                        obj["mcs_visittime"] = res.Results[key]["Attributes"]["mcs_visittime"];
+                        obj["mcs_content"] = res.Results[key]["Attributes"]["mcs_content"];   
+                        obj["mcs_results"] = res.Results[key]["Attributes"]["mcs_results"];    
+                        obj["mcs_logcallid"] = res.Results[key]["Attributes"]["mcs_logcallid"];                        
+                        this.mod.datalist.push(obj);
+                    }
+                    //console.log(res);
+                }  //判断是否有新数据
+                if (res.Results.length == 0) {
+                    this.mod.isending = true;
+                }
+            }
+            else {
+                this._page.alert("消息提示", "联络记录加载异常");
+            }
+            this._page.loadingHide();
+        },
+        (err: any) => {
+            this._page.alert("消息提示", "数据加载异常");
+            this._page.loadingHide();
+        }
+    );
+
+}
+
+//加载培育任务列表
+pageOnActivitylist(id: any) {
+    this._page.loadingShow();
+    this._http.get(
+        this.mod.apiUrlList2,
+        {
+            params: {
+                entityid: id,
+                sort: this.mod.sort2,
+                pageSize: this.mod.pageSize2,
+                page: this.mod.page2,
+                systemuserid: this.mod.systemUserId,
+            }
+        },
+        (res: any) => {
+           // debugger;
+            if (res !== null) {
+                if (res.Results !== null) {
+                    for (var key in res.Results) {
+                        var obj = {};
+                        obj["mcs_thisfollowupcontent"] = res.Results[key]["Attributes"]["mcs_thisfollowupcontent"];
+                        obj["createdon"] = res.Results[key]["Attributes"]["createdon"];              
+                        obj["mcs_activitystatus"] =this.optionset.GetOptionSetNameByValue("mcs_activitystatus",res.Results[key]["Attributes"]["mcs_activitystatus"]);
+                        obj["mcs_importantlevel"] =this.optionset.GetOptionSetNameByValue("mcs_importantlevel",res.Results[key]["Attributes"]["mcs_importantlevel"]);
+                        obj["mcs_activityid"] = res.Results[key]["Attributes"]["mcs_activityid"];    
+                        this.mod.datalist2.push(obj);
+                    }
+                    //console.log(res);
+                }  //判断是否有新数据
+                if (res.Results.length == 0) {
+                    this.mod.isending2 = true;
+                }
+            }
+            else {
+                this._page.alert("消息提示", "联络记录加载异常");
+            }
+            this._page.loadingHide();
+        },
+        (err: any) => {
+            this._page.alert("消息提示", "数据加载异常");
+            this._page.loadingHide();
+        }
+    );
+
+}
+
+ //logcall加载下一页
+ doNextLoadingLog(event) {
+    this.mod.page++;
+    this.pageOnLogCalllist(event);
+}
+
+ //培育任务加载下一页
+ doNextLoadingAc(event) {
+    this.mod.page2++;
+    this.pageOnActivitylist(event);
+}
+
+FormatToDateTime(date) {
+    if (date != null && date != undefined) {
+        return sd.format(date, 'YYYY-MM-DD');
+    }
+    else {
+        return '';
+    }
+}
 
 }

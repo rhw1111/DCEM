@@ -242,28 +242,22 @@
                     <ion-item *ngFor="let item of mod.data.serviceorderrepairitemArray;let key=index">
                         <ion-label>
                             <h2>
-                                项目名称
+                                项目名称(编码)
                             </h2>
                             <p>
-                                {{item.name}}
+                                {{item.name}}({{item.code}})
                             </p>
                             <h2>
-                                项目代码
-                            </h2>
-                            <p>
-                                {{item.repairitemid}}
-                            </p>
-                            <h2>
-                                维修类别
+                                维修类别(类型)
                             </h2>
                             <p text-wrap>
-                                {{item.repairitemtypeid}}
+                                {{item.repairitemtypeid_Formatted}}({{item.repairitemtypedetailid_Formatted}})
                             </p>
                             <h2>
                                 费用明细
                             </h2>
                             <p>
-                                {{item.workinghour}}小时 X {{item.price}}  X {{item.discount}}  =  ￥{{item.repairamount}}
+                                {{item.workinghour_Formatted}}小时 X {{item.price_Formatted}}  X {{item.discount_Formatted}}  =  {{item.repairamount_Formatted}}
                             </p>
                         </ion-label>
                     </ion-item>
@@ -289,28 +283,22 @@
                     <ion-item *ngFor="let item of mod.data.serviceorderpartArray;let key=index">
                         <ion-label>
                             <h2>
-                                零件名称
+                                零件名称(编码)
                             </h2>
                             <p>
-                                {{item.partsname}}
+                                {{item.name}}({{item.code}})
                             </p>
                             <h2>
-                                零件代码
-                            </h2>
-                            <p>
-                                {{item.partsid}}
-                            </p>
-                            <h2>
-                                维修类别
+                                维修类别(类型)
                             </h2>
                             <p text-wrap>
-                                {{item.repairitemtypeid}}
+                                {{item.repairitemtypeid_Formatted}}({{item.repairitemtypedetailid_Formatted}})
                             </p>
                             <h2>
                                 费用明细
                             </h2>
                             <p>
-                                {{item.quantity}} X {{item.price}}  X {{item.discount}}  =  ￥{{item.amount}}
+                                {{item.quantity_Formatted}} X {{item.price_Formatted}}  X {{item.discount_Formatted}}  =  {{item.amount}}
                             </p>
                         </ion-label>
                     </ion-item>
@@ -369,7 +357,7 @@
         <ion-fab-list side="top">
             <ion-fab-button color="success" [routerLink]="['/serving/ri/edit']"><ion-icon name="add"></ion-icon></ion-fab-button>
             <ion-fab-button *ngIf="mod.data.serviceproxy.status===100" color="danger" (click)="deleteOnClick()"><ion-icon name="trash"></ion-icon></ion-fab-button>
-            <ion-fab-button *ngIf="mod.data.serviceproxy.status===100" color="warning" [routerLink]="['/serving/ri/edit']"><ion-icon name="create"></ion-icon></ion-fab-button>
+            <ion-fab-button *ngIf="mod.data.serviceproxy.status===100" color="warning" [routerLink]="['/serving/sc/edit']" [queryParams]="{id:mod.data.serviceproxy.id,actionCode:2}"><ion-icon name="create"></ion-icon></ion-fab-button>
         </ion-fab-list>
     </ion-fab>
 </ion-content>

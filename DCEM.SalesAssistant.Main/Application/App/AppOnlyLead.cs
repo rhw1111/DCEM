@@ -36,5 +36,36 @@ namespace DCEM.SalesAssistant.Main.Application.App
             return await _onlyLeadService.GetOnlyLeadDetail(entityid);
         }
 
+        /// <summary>
+        /// 查询与唯一线索关联的跟进记录（logcall）
+        /// </summary>
+        /// <param name="logcallrequest"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> GetLogCallList(LogCallRequest logcallrequest)
+        {
+            return await _onlyLeadService.GetLogCallList(logcallrequest);
+        }
+
+        /// <summary>
+        /// 查询与唯一线索关联的培育任务
+        /// </summary>
+        /// <param name="activityrequest"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> GetActivityList(ActivityRequest activityrequest)
+        {
+            return await _onlyLeadService.GetActivityList(activityrequest);
+        }
+
+        /// <summary>
+        /// logcall 新增或编辑
+        /// </summary>
+        /// <param name="activityrequest"></param>
+        /// <returns></returns>
+        public async Task<ValidateResult<CrmEntity>> AddOrEditEntity(LogCallRequest request)
+        {
+            return await _onlyLeadService.AddOrEditEntity(request);
+        }
+
+
     }
 }

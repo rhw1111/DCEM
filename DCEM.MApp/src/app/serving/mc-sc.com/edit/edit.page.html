@@ -3,7 +3,7 @@
         <ion-buttons slot="start">
             <ion-back-button text="返回" defaultHref="/serving/sc/list"></ion-back-button>
         </ion-buttons>
-        <ion-title>创建服务委托书</ion-title>
+        <ion-title>{{shareData.viewTitle}}</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -51,7 +51,6 @@
         </ion-list>
         <br />
     </ion-card>
-
     <ion-card>
         <ion-card-header>
             <ion-card-title>
@@ -62,36 +61,55 @@
             <ion-item>
                 <ion-label position="stacked">
                     送修人
+                    <ion-text color="danger">*</ion-text>
                 </ion-label>
-                <ion-input type="text" [(ngModel)]="shareData.serviceproxy['shuttlename']" required></ion-input>
+                <ion-input placeholder="请输入送修人姓名" type="text" [(ngModel)]="shareData.serviceproxy['shuttlename']" required></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label position="stacked">送修人手机</ion-label>
-                <ion-input type="tel" [(ngModel)]="shareData.serviceproxy['shuttlephone']" required></ion-input>
+                <ion-label position="stacked">
+                    送修人手机
+                    <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <ion-input placeholder="请输入11位手机号" type="tel" [(ngModel)]="shareData.serviceproxy['shuttlephone']" required></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label position="stacked">进店电量</ion-label>
-                <ion-input type="number" [(ngModel)]="shareData.serviceproxy['inpower']"></ion-input>
+                <ion-label position="stacked">
+                    进店电量(%)
+                    <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <ion-input placeholder="请输入0-100之间的数字" type="number" [(ngModel)]="shareData.serviceproxy['inpower']"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label position="stacked">进店油量</ion-label>
-                <ion-select [(ngModel)]="shareData.serviceproxy['oilquantity']">
+                <ion-label position="stacked">
+                    进店油量
+                    <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <ion-select cancelText="取消" okText="确定" placeholder="请选择进店油量" [(ngModel)]="shareData.serviceproxy['oilquantity']">
                     <ion-select-option value="10">1/4</ion-select-option>
                     <ion-select-option value="20">1/2</ion-select-option>
                     <ion-select-option value="30">3/4</ion-select-option>
                 </ion-select>
             </ion-item>
             <ion-item>
-                <ion-label position="stacked">进店里程</ion-label>
-                <ion-input type="number" [(ngModel)]="shareData.serviceproxy['mileage']"></ion-input>
+                <ion-label position="stacked">
+                    进店里程
+                    <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <ion-input placeholder="请输入进店里程" type="number" [(ngModel)]="shareData.serviceproxy['mileage']"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label position="stacked">到店时间</ion-label>
-                <ion-datetime display-format="YYYY-MM-DD HH:mm" [(ngModel)]="shareData.serviceproxy['arrivalon']"></ion-datetime>
+                <ion-label position="stacked">
+                    到店时间
+                    <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <ion-datetime cancelText="取消" doneText="确定" placeholder="请选择到店时间" display-format="YYYY-MM-DD HH:mm" [(ngModel)]="shareData.serviceproxy['arrivalon']"></ion-datetime>
             </ion-item>
             <ion-item>
-                <ion-label position="stacked">预计交车时间</ion-label>
-                <ion-datetime display-format="YYYY-MM-DD HH:mm" [(ngModel)]="shareData.serviceproxy['expectfinishat']"></ion-datetime>
+                <ion-label position="stacked">
+                    预计交车时间
+                    <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <ion-datetime cancelText="取消" doneText="确定" placeholder="请选择预计交车时间" display-format="YYYY-MM-DD HH:mm" [(ngModel)]="shareData.serviceproxy['expectfinishat']"></ion-datetime>
             </ion-item>
             <ion-item (click)="repairlocationOnClick()">
                 <ion-label position="stacked">

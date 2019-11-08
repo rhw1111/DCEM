@@ -3,11 +3,11 @@ import { Component } from '@angular/core';
 import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute } from '@angular/router';
 let DetailPage = class DetailPage {
-    constructor(_http, _page, _valid, activeRoute) {
+    constructor(_http, _page, _valid, _activeRoute) {
         this._http = _http;
         this._page = _page;
         this._valid = _valid;
-        this.activeRoute = activeRoute;
+        this._activeRoute = _activeRoute;
         this.tab = "info";
         this.mod = {
             apiUrl: '/Api/Serviceproxy/GetInfo',
@@ -27,12 +27,14 @@ let DetailPage = class DetailPage {
                     customercomment: "",
                     status: 0,
                 },
-                serviceordercheckresultArray: []
+                vehcheckresultMap: {},
+                serviceproxyResumeArray: []
             }
         };
+        this.objectKeys = Object.keys;
     }
     ngOnInit() {
-        this.activeRoute.queryParams.subscribe((params) => {
+        this._activeRoute.queryParams.subscribe((params) => {
             if (params['id'] != null && params['id'] != undefined) {
                 this.pageOnBind(params['id']);
             }
@@ -46,8 +48,7 @@ let DetailPage = class DetailPage {
                 guid: id,
             }
         }, (res) => {
-            if (res.Serviceproxy !== null) {
-                console.log(res.Serviceproxy);
+            if (!this._valid.isNull(res.Serviceproxy)) {
                 this.mod.data.serviceproxy.customername = res["Serviceproxy"]["Attributes"]["mcs_customername"];
                 this.mod.data.serviceproxy.carplate = res["Serviceproxy"]["Attributes"]["mcs_carplate"];
                 this.mod.data.serviceproxy.customerphone = res["Serviceproxy"]["Attributes"]["mcs_customerphone"];
@@ -60,16 +61,24 @@ let DetailPage = class DetailPage {
                 this.mod.data.serviceproxy.customercomment = res["Serviceproxy"]["Attributes"]["mcs_customercomment"];
                 this.mod.data.serviceproxy.status = res["Serviceproxy"]["Attributes"]["mcs_status"];
                 this.mod.data.serviceproxy["dealerid_formatted"] = res["Serviceproxy"]["Attributes"]["_mcs_dealerid_value@OData.Community.Display.V1.FormattedValue"];
+                this.mod.data.serviceproxy["oilquantity_formatted"] = res["Serviceproxy"]["Attributes"]["mcs_oilquantity@OData.Community.Display.V1.FormattedValue"];
             }
-            if (res.ServiceordercheckresultList != null) {
+            if (!this._valid.isNull(res.ServiceordercheckresultList)) {
                 for (var key in res.ServiceordercheckresultList) {
+                    var groupKey = res.ServiceordercheckresultList[key]["Attributes"]["mcs_checktype"];
+                    if (typeof this.mod.data.vehcheckresultMap[groupKey] === "undefined") {
+                        this.mod.data.vehcheckresultMap[groupKey] = {};
+                        this.mod.data.vehcheckresultMap[groupKey]["text"] = res.ServiceordercheckresultList[key]["Attributes"]["mcs_checktype@OData.Community.Display.V1.FormattedValue"];
+                        this.mod.data.vehcheckresultMap[groupKey].data = [];
+                    }
                     var obj = {};
-                    obj["checkreultid"] = res.ServiceordercheckresultList[key]["Attributes"]["_mcs_checkreultid_value@OData.Community.Display.V1.FormattedValue"];
+                    obj["checkreultid"] = res.ServiceordercheckresultList[key]["Attributes"]["mcs_name"];
                     obj["name"] = res.ServiceordercheckresultList[key]["Attributes"]["mcs_name"];
-                    obj["checkreult"] = res.ServiceordercheckresultList[key]["Attributes"]["mcs_checkreult"];
-                    this.mod.data.serviceordercheckresultArray.push(obj);
+                    obj["checkreult"] = res.ServiceordercheckresultList[key]["Attributes"]["a_x002e_mcs_checkreult"];
+                    this.mod.data.vehcheckresultMap[groupKey].data.push(obj);
                 }
             }
+            this.mod.data.serviceproxyResumeArray = res.ServiceproxyResumeList;
             this._page.loadingHide();
         }, (err) => {
             this._page.alert("消息提示", "数据加载异常");
@@ -89,9 +98,6 @@ let DetailPage = class DetailPage {
                 this._page.alert("消息提示", "删除失败!");
             });
         });
-    }
-    testOnClick() {
-        this._page.goto("/serving/ri/list");
     }
 };
 DetailPage = tslib_1.__decorate([

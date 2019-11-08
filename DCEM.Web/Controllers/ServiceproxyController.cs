@@ -18,7 +18,7 @@ namespace DCEM.Web.Controllers
     [Route("Api/Serviceproxy")]
     [EnableCors("any")]
     [ApiController]
-    public class ServiceproxyController : ControllerBase
+    public class ServiceproxyController : ApiController
     {
         #region 初始化
         IServiceproxyService _serviceproxyService;
@@ -110,18 +110,18 @@ namespace DCEM.Web.Controllers
         #region 查询 维修项目 列表
         [HttpGet]
         [Route("GetRepairitemList")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetRepairitemList(string dealeridGuid = "D2B7AE95-72F4-E911-A821-F2106C4094A1")
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetRepairitemList(int pageIndex, string search, string dealeridGuid = "D2B7AE95-72F4-E911-A821-F2106C4094A1")
         {
-            return await _serviceproxyService.QueryRepairitemList(dealeridGuid);
+            return await _serviceproxyService.QueryRepairitemList(dealeridGuid, pageIndex, search);
         }
         #endregion
 
         #region 查询 维修配件 列表
         [HttpGet]
         [Route("GetPartsList")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetPartsList()
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetPartsList(int pageIndex, string search)
         {
-            return await _serviceproxyService.QueryPartsList();
+            return await _serviceproxyService.QueryPartsList(pageIndex, search);
         }
         #endregion
 

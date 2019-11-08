@@ -1,9 +1,105 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>edit</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/saleing/lead/list"></ion-back-button>
+        </ion-buttons>
+        <ion-title>新增留资</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    <ion-list lines="full">
+        <ion-card>
+            <ion-card-content>
+                <ion-item-divider color="primary">
+                    <ion-label>基本信息</ion-label>
+                </ion-item-divider>
+                <ion-item>
+                    <ion-text color="danger">*</ion-text>
+                    <ion-label>
+                        <h2>姓名：</h2>
+                    </ion-label>
+                    <ion-input type="text" name="username" [(ngModel)]="model.info.username" placeholder="请输入用户姓名">
+                    </ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-text color="danger">*</ion-text>
+                    <ion-label>
+                        <h2>手机号：</h2>
+                    </ion-label>
+                    <ion-input type="text" name="mobile" [(ngModel)]="model.info.mobile" placeholder="请输入用户手机号">
+                    </ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-text color="danger">*</ion-text>
+                    <ion-label>
+                        <h2>线索来源：</h2>
+                    </ion-label>
+                    <ion-select name="clues" okText="确认" cancelText="取消" [(ngModel)]="model.info.clues">
+                        <ion-select-option *ngFor="let item of model.leadoriginoption" value="{{item.value}}">
+                            {{item.name}}
+                        </ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>称呼：</h2>
+                    </ion-label>
+                    <ion-select name="gender" okText="确认" cancelText="取消" [(ngModel)]="model.info.gender">
+                        <ion-select-option *ngFor="let item of model.genderoption" value="{{item.value}}">{{item.name}}
+                        </ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>邮箱：</h2>
+                    </ion-label>
+                    <ion-input type="text" name="mail" [(ngModel)]="model.info.mail" placeholder="请输入用户邮箱"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-text color="danger">*</ion-text>
+                    <ion-label>评分：</ion-label>
+                    <ion-select name="score" okText="确认" cancelText="取消" [(ngModel)]="model.info.score">
+                        <ion-select-option *ngFor="let item of model.scoreoption" value="{{item.value}}">{{item.name}}
+                        </ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item (click)="provinceOnClick()">
+                    <ion-label position="stacked">省：</ion-label>
+                    <p>{{model.info.provincename}}&nbsp;</p>
+                </ion-item>
+                <ion-item (click)="cityOnClick()">
+                    <ion-label position="stacked">市：</ion-label>
+                    <p>{{model.info.cityname}}&nbsp;</p>
+                </ion-item>
+                <ion-item (click)="districtOnClick()">
+                    <ion-label position="stacked">区：</ion-label>
+                    <p>{{model.info.areaname}}&nbsp;</p>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            线索描述：
+                        </h2>
+                    </ion-label>
+                    <ion-textarea [(ngModel)]="model.info.describe" name="describe"></ion-textarea>
+                </ion-item>
+            </ion-card-content>
+        </ion-card> 
+        <ion-card>
+            <ion-card-content>
+                <ion-list>
+                    <ion-item-divider color="primary">
+                        <ion-label>客户标签</ion-label>
+                    </ion-item-divider>
+                    <ion-item *ngFor="let item of CustomerTagModel.CustomerTags">
+                        <ion-checkbox  color="{{item.customcolor}}" value="{{item.value}}" slot="start" (ionChange)="checkClick($event)" ></ion-checkbox>
+                        <ion-label slot="end">{{item.name}}</ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card-content>
+        </ion-card>
 
+        <ion-button expand="block" color="danger" (click)="saveOnClick()">确定</ion-button>
+    </ion-list>
 </ion-content>
