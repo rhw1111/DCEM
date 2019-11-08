@@ -15,14 +15,13 @@ let EditPage = class EditPage {
         this._valid = _valid;
         this._activeRoute = _activeRoute;
         this.mod = {
-            apiUrl: '/Api/Customer/GetCustomerInfo',
             queryUrl: '/Api/Serviceproxy/GetInfo',
             data: {},
             shareDataKey: "riEditData",
         };
         //定义共享数据
         this.shareData = {
-            actionCode: 1,
+            actioncode: 1,
             viewTitle: "",
             serviceproxy: {},
             vehcheckresultMap: {},
@@ -36,16 +35,16 @@ let EditPage = class EditPage {
         };
     }
     ionViewWillEnter() {
-        if (this._shareData.has(this.mod.shareDataKey)) {
-            this.shareData = this._shareData.get(this.mod.shareDataKey);
-        }
-        else {
-            this._activeRoute.queryParams.subscribe((params) => {
+        this._activeRoute.queryParams.subscribe((params) => {
+            if (this._shareData.has(this.mod.shareDataKey)) {
+                this.shareData = this._shareData.get(this.mod.shareDataKey);
+            }
+            else {
                 if (!this._valid.isNull(params['id']) && !this._valid.isNull(params['actionCode'])) {
-                    this.shareData.actionCode = Number(params['actionCode']);
+                    this.shareData.actioncode = Number(params['actionCode']);
                     this.shareData.serviceproxy["serviceproxyid"] = params['id'];
                 }
-                if (this.shareData.actionCode === 2) {
+                if (this.shareData.actioncode === 2) {
                     if (!this._shareData.has(this.mod.shareDataKey)) {
                         this.shareData.viewTitle = "编辑问诊单";
                         this.pageOnBind(this.shareData.serviceproxy["serviceproxyid"]);
@@ -54,9 +53,8 @@ let EditPage = class EditPage {
                 else {
                     this.shareData.viewTitle = "创建问诊单";
                 }
-                console.log(this._activeRoute.queryParams);
-            });
-        }
+            }
+        });
     }
     //选择客户
     presentModal() {
@@ -87,8 +85,9 @@ let EditPage = class EditPage {
             }
         }, (res) => {
             if (!this._valid.isNull(res.Serviceproxy)) {
+                console.log(res.Serviceproxy);
                 this.shareData.serviceproxy["serviceproxyid"] = id;
-                this.shareData.serviceproxy["customerid"] = res["Serviceproxy"]["Attributes"]["mcs_customerphone"];
+                this.shareData.serviceproxy["customerid"] = res["Serviceproxy"]["Attributes"]["_mcs_customerid_value"];
                 this.shareData.serviceproxy["customername"] = res["Serviceproxy"]["Attributes"]["mcs_customername"];
                 this.shareData.serviceproxy["carplate"] = res["Serviceproxy"]["Attributes"]["mcs_carplate"];
                 this.shareData.serviceproxy["customerphone"] = res["Serviceproxy"]["Attributes"]["mcs_customerphone"];
@@ -99,7 +98,7 @@ let EditPage = class EditPage {
                 this.shareData.serviceproxy["inpower"] = res["Serviceproxy"]["Attributes"]["mcs_inpower"];
                 this.shareData.serviceproxy["mileage"] = res["Serviceproxy"]["Attributes"]["mcs_mileage"];
                 this.shareData.serviceproxy["oilquantity"] = String(res["Serviceproxy"]["Attributes"]["mcs_oilquantity"]);
-                this.shareData.serviceproxy["arrivalon"] = res["Serviceproxy"]["Attributes"]["mcs_arrivalon@OData.Community.Display.V1.FormattedValue"];
+                this.shareData.serviceproxy["arrivalon"] = res["Serviceproxy"]["Attributes"]["mcs_arrivalon"];
                 this.shareData.serviceproxy["customercomment"] = res["Serviceproxy"]["Attributes"]["mcs_customercomment"];
             }
             if (!this._valid.isNull(res.ServiceordercheckresultList)) {

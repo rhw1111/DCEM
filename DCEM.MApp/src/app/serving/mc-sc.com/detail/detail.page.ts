@@ -12,8 +12,10 @@ export class DetailPage implements OnInit {
     public tab: any = "info";
     mod = {
         apiUrl: '/Api/Serviceproxy/GetInfo',
+        delUrl: '/Api/Serviceproxy/Delete',
         data: {
             serviceproxy: {
+                id: "",
                 customername: "",
                 carplate: "",
                 customerphone: "",
@@ -64,6 +66,7 @@ export class DetailPage implements OnInit {
     }
 
     pageOnBind(id: any) {
+        this.mod.data.serviceproxy.id = id;
         this._page.loadingShow();
         this._http.get(
             this.mod.apiUrl,
@@ -73,6 +76,7 @@ export class DetailPage implements OnInit {
                 }
             },
             (res: any) => {
+           
                 if (res.Serviceproxy !== null) {
                     console.log(res["Serviceproxy"]);
                     this.mod.data.serviceproxy["customername"] = res["Serviceproxy"]["Attributes"]["mcs_customername"];
@@ -103,20 +107,24 @@ export class DetailPage implements OnInit {
 
                 if (res.ServiceorderrepairitemList !== null) {
                     for (var key in res.ServiceorderrepairitemList) {
+
+                        console.log(res.ServiceorderrepairitemList[key]);
                         var obj = {};
-                        obj["name"] = res.ServiceorderrepairitemList[key]["Attributes"]["mcs_name"];
-                        obj["repairitemid"] = res.ServiceorderrepairitemList[key]["Attributes"]["_mcs_repairitemid_value@OData.Community.Display.V1.FormattedValue"];
-                        obj["repairitemtypeid"] = res.ServiceorderrepairitemList[key]["Attributes"]["_mcs_repairitemtypeid_value@OData.Community.Display.V1.FormattedValue"];
-                        obj["workinghour"] = res.ServiceorderrepairitemList[key]["Attributes"]["mcs_workinghour"];
-                        obj["price"] = res.ServiceorderrepairitemList[key]["Attributes"]["mcs_price"];
-                        obj["discount"] = res.ServiceorderrepairitemList[key]["Attributes"]["mcs_discount"];
-                        obj["repairamount"] = res.ServiceorderrepairitemList[key]["Attributes"]["mcs_repairamount"];
+                        obj["name"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_name"];
+                        obj["repairitemid_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemtypedetailid@OData.Community.Display.V1.FormattedValue"];
+                        obj["repairitemtypeid_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemtypeid@OData.Community.Display.V1.FormattedValue"];
+                        obj["workinghour_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_workinghour@OData.Community.Display.V1.FormattedValue"];
+                        obj["price_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_price@OData.Community.Display.V1.FormattedValue"];
+                        obj["discount_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_discount@OData.Community.Display.V1.FormattedValue"];
+                        obj["repairamount_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairamount@OData.Community.Display.V1.FormattedValue"];
                         this.mod.data.serviceorderrepairitemArray.push(obj);
                     }
                 }
 
                 if (res.ServiceorderpartList !== null) {
                     for (var key in res.ServiceorderpartList) {
+                        console.log(res.ServiceorderpartList[key]);
+
                         var obj = {};
                         obj["partsname"] = res.ServiceorderpartList[key]["Attributes"]["mcs_partsname"];
                         obj["partsid"] = res.ServiceorderpartList[key]["Attributes"]["_mcs_partsid_value@OData.Community.Display.V1.FormattedValue"];
@@ -132,7 +140,6 @@ export class DetailPage implements OnInit {
                     }
                 }
 
-
                 this.mod.data.serviceproxyResumeArray = res.ServiceproxyResumeList;
 
 
@@ -143,6 +150,28 @@ export class DetailPage implements OnInit {
                 this._page.loadingHide();
             }
         );
+    }
+
+    //删除事件
+    deleteOnClick() {
+        this._page.confirm("确认提示", "您确认要执行此操作吗？",
+            () => {
+                this._http.get(
+                    this.mod.delUrl,
+                    {
+                        params: {
+                            serviceproxyGuid: this.mod.data.serviceproxy.id
+                        }
+                    },
+                    (res: any) => {
+                        this._page.navigateRoot("/serving/sc/list");
+                    },
+                    (err: any) => {
+                        this._page.alert("消息提示", "删除失败!");
+                    }
+                );
+            }
+        )
     }
 
 }
