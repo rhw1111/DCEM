@@ -20,7 +20,7 @@ namespace DCEM.Web.Controllers
     [EnableCors("any")]
     [Route("api/appointment-info")]
     [ApiController]
-    public class IAppointmentInfoController : ControllerBase
+    public class IAppointmentInfoController : ApiController
     {
         public IAppAppointmentInfo app = null;
         public IAppointmentInfoController()

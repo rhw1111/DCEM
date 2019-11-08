@@ -20,7 +20,7 @@ namespace DCEM.Web.Controllers
     [EnableCors("any")]
     [Route("api/tech-support")]
     [ApiController]
-    public class ITechnicalSupportController : ControllerBase
+    public class ITechnicalSupportController : ApiController
     {
         public IAppTechnicalSupport app = null;
         public ITechnicalSupportController()

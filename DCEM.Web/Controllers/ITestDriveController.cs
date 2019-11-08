@@ -15,7 +15,7 @@ namespace DCEM.Web.Controllers
     [EnableCors("any")]
     [Route("api/TestDrive")]
     [ApiController]
-    public class ITestDriveController : ControllerBase
+    public class ITestDriveController : ApiController
     {
         // GET api/values
         [HttpGet]

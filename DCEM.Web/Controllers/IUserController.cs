@@ -18,7 +18,7 @@ namespace DCEM.Web.Controllers
     [Route("api/user")]
     [EnableCors("any")]
     [ApiController]
-    public class IUserController : ControllerBase
+    public class IUserController : ApiController
     {
         public IAppBaseData app = null;
         public IUserController()

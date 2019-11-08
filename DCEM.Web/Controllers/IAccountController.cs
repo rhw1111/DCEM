@@ -21,7 +21,7 @@ namespace DCEM.Web.Controllers
     [EnableCors("any")]
     [Route("api/account")]
     [ApiController]
-    public class IAccountController : ControllerBase
+    public class IAccountController : ApiController
     {
         public IAppAccount app = null;
         public IAccountController()
