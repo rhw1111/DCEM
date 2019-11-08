@@ -30,6 +30,7 @@ using MSLibrary.Xrm.Message.Create;
 using MSLibrary.Xrm.Message.CreateRetrieve;
 using MSLibrary.Xrm.Message.Delete;
 using MSLibrary.Xrm.Message.DisAssociateCollection;
+using Microsoft.AspNetCore.Http;
 
 namespace MSLibrary.Xrm
 {
@@ -221,10 +222,15 @@ namespace MSLibrary.Xrm
                 }
             }
 
-           
-
-
-
+            IHttpContextAccessor _accessor = new HttpContextAccessor();
+            if (_accessor.HttpContext.Request.Headers!=null)
+            {
+                var userId = _accessor.HttpContext.Request.Headers["UserId"];
+                if (!string.IsNullOrEmpty(userId))
+                {
+                    request.ProxyUserId = Guid.Parse(userId);
+                }
+            }
             //判断是否需要加入代理
             if (request.ProxyUserId!=null)
             {
