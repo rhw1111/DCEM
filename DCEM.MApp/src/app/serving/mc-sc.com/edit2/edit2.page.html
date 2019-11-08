@@ -63,20 +63,20 @@
                         </h2>
                         <p>
                             {{shareData.serviceorderrepairitemMap[key]["name"]}}
-                            ({{shareData.serviceorderrepairitemMap[key]["repairitemid_formatte"]}})
+                            ({{shareData.serviceorderrepairitemMap[key]["code"]}})
                         </p>
                         <h2>
                             维修类别(类型)
                         </h2>
                         <p>
-                            {{shareData.serviceorderrepairitemMap[key]["repairitemtypeid_formatted"]}}
-                            ({{shareData.serviceorderrepairitemMap[key]["repairitemtypedetailid_formatted"]}})
+                            {{shareData.serviceorderrepairitemMap[key]["repairitemtypeid_Formatted"]}}
+                            ({{shareData.serviceorderrepairitemMap[key]["repairitemtypedetailid_Formatted"]}})
                         </p>
                         <h2>
                             费用明细
                         </h2>
                         <p>
-                            {{shareData.serviceorderrepairitemMap[key]["workinghour"]}}小时 X {{shareData.serviceorderrepairitemMap[key]["price"]}}  X {{shareData.serviceorderrepairitemMap[key]["discount"]}}  =  ￥{{shareData.serviceorderrepairitemMap[key]["repairamount"]}}
+                            {{shareData.serviceorderrepairitemMap[key]["workinghour_Formatted"]}}小时 X {{shareData.serviceorderrepairitemMap[key]["price_Formatted"]}}  X {{shareData.serviceorderrepairitemMap[key]["discount_Formatted"]}}  =  {{shareData.serviceorderrepairitemMap[key]["repairamount_Formatted"]}}
                         </p>
                     </ion-label>
                 </ion-item>
@@ -111,21 +111,21 @@
                             零件名称(编码)
                         </h2>
                         <p>
-                            {{shareData.serviceorderpartMap[key]["partsname"]}}
-                            ({{shareData.serviceorderpartMap[key]["partscode"]}})
+                            {{shareData.serviceorderpartMap[key]["name"]}}
+                            ({{shareData.serviceorderpartMap[key]["code"]}})
                         </p>
                         <h2>
                             维修类别(类型)
                         </h2>
                         <p>
-                            {{shareData.serviceorderpartMap[key]["repairitemtypeid_formatted"]}}
-                            ({{shareData.serviceorderpartMap[key]["repairitemtypedetailid_formatted"]}})
+                            {{shareData.serviceorderpartMap[key]["repairitemtypeid_Formatted"]}}
+                            ({{shareData.serviceorderpartMap[key]["repairitemtypedetailid_Formatted"]}})
                         </p>
                         <h2>
                             费用明细
                         </h2>
                         <p>
-                            {{shareData.serviceorderpartMap[key]["quantity"]}} X {{shareData.serviceorderpartMap[key]["price"]}}  X {{shareData.serviceorderpartMap[key]["discount"]}}  =  ￥{{shareData.serviceorderpartMap[key]["amount"]}}
+                            {{shareData.serviceorderpartMap[key]["quantity_Formatted"]}} X {{shareData.serviceorderpartMap[key]["price_Formatted"]}}  X {{shareData.serviceorderpartMap[key]["discount_Formatted"]}}  =  {{shareData.serviceorderpartMap[key]["amount_Formatted"]}}
                         </p>
                     </ion-label>
                 </ion-item>

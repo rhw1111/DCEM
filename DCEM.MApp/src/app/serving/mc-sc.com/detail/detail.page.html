@@ -242,22 +242,16 @@
                     <ion-item *ngFor="let item of mod.data.serviceorderrepairitemArray;let key=index">
                         <ion-label>
                             <h2>
-                                项目名称
+                                项目名称(编码)
                             </h2>
                             <p>
-                                {{item.name}}
+                                {{item.name}}({{item.code}})
                             </p>
                             <h2>
-                                项目代码
-                            </h2>
-                            <p>
-                                {{item.repairitemid_Formatted}}
-                            </p>
-                            <h2>
-                                维修类别
+                                维修类别(类型)
                             </h2>
                             <p text-wrap>
-                                {{item.repairitemtypeid_Formatted}}
+                                {{item.repairitemtypeid_Formatted}}({{item.repairitemtypedetailid_Formatted}})
                             </p>
                             <h2>
                                 费用明细
@@ -289,28 +283,22 @@
                     <ion-item *ngFor="let item of mod.data.serviceorderpartArray;let key=index">
                         <ion-label>
                             <h2>
-                                零件名称
+                                零件名称(编码)
                             </h2>
                             <p>
-                                {{item.partsname}}
+                                {{item.name}}({{item.code}})
                             </p>
                             <h2>
-                                零件代码
-                            </h2>
-                            <p>
-                                {{item.partsid}}
-                            </p>
-                            <h2>
-                                维修类别
+                                维修类别(类型)
                             </h2>
                             <p text-wrap>
-                                {{item.repairitemtypeid}}
+                                {{item.repairitemtypeid_Formatted}}({{item.repairitemtypedetailid_Formatted}})
                             </p>
                             <h2>
                                 费用明细
                             </h2>
                             <p>
-                                {{item.quantity}} X {{item.price}}  X {{item.discount}}  =  ￥{{item.amount}}
+                                {{item.quantity_Formatted}} X {{item.price_Formatted}}  X {{item.discount_Formatted}}  =  {{item.amount}}
                             </p>
                         </ion-label>
                     </ion-item>
