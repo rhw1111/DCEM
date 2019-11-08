@@ -18,7 +18,7 @@ namespace DCEM.Web.Controllers
     [Route("Api/Serviceproxy")]
     [EnableCors("any")]
     [ApiController]
-    public class ServiceproxyController : ControllerBase
+    public class ServiceproxyController : ApiController
     {
         #region 初始化
         IServiceproxyService _serviceproxyService;

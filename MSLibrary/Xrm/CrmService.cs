@@ -222,9 +222,6 @@ namespace MSLibrary.Xrm
             }
 
            
-
-
-
             //判断是否需要加入代理
             if (request.ProxyUserId!=null)
             {

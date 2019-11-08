@@ -3,21 +3,22 @@ using Microsoft.AspNetCore.Mvc;
 using MSLibrary.Xrm;
 using MSLibrary;
 using MSLibrary.DI;
+using System;
+using Microsoft.AspNetCore.Http;
 
 namespace DCEM.Web.Controllers
 {
     [Route("api/test")]
     [EnableCors("any")]
     [ApiController]
-    public class TestController : Controller
+    public class TestController : ApiController
     {
 
-        [Route("test1")]
+        [Route("action")]
         [HttpGet]
         public ActionResult<string> Test1()
         {
-            var crmService= DIContainerContainer.Get<CrmService>();
-            return "ok";
+            return this.UserId.ToString();
         }
     }
 }

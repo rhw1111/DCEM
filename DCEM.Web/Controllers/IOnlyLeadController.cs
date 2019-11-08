@@ -20,7 +20,7 @@ namespace DCEM.Web.Controllers
     [EnableCors("any")]
     [Route("api/only-lead")]
     [ApiController]
-    public class IOnlyLeadController : ControllerBase
+    public class IOnlyLeadController : ApiController
     {
         public IAppOnlyLead app = null;
         public IOnlyLeadController()

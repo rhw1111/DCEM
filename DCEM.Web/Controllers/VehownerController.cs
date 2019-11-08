@@ -18,7 +18,7 @@ namespace DCEM.Web.Controllers
     [Route("Api/Vehowner")]
     [EnableCors("any")]
     [ApiController]
-    public class VehownerController : ControllerBase
+    public class VehownerController : ApiController
     {
         #region 初始化
         IVehownerService _vehownerService;

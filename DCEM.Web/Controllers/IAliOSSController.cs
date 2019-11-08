@@ -9,7 +9,7 @@ namespace DCEM.Web.Controllers
 {
     [Route("api/AliOss")]
     [ApiController]
-    public class IAliOSSController: ControllerBase
+    public class IAliOSSController: ApiController
     {
         [HttpGet]
         [Route("Get")]

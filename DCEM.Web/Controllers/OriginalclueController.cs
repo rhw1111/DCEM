@@ -14,7 +14,7 @@ namespace DCEM.Web.Controllers
     [Route("api/Originalclue")]
     [EnableCors("any")]
     [ApiController]
-    public class OriginalclueController : Controller
+    public class OriginalclueController : ApiController
     { 
         private IAppOriginalclue _appOriginalclue;
         public OriginalclueController()

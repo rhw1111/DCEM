@@ -105,7 +105,7 @@ const routes: Routes = [
                     { path: 'list', loadChildren: './saleing/lead.com/list/list.module#ListPageModule' },
                     { path: 'edit', loadChildren: './saleing/lead.com/edit/edit.module#EditPageModule' },
                     { path: 'detail', loadChildren: './saleing/lead.com/detail/detail.module#DetailPageModule' },
-                    { path: 'sucess', loadChildren: './saleing/lead.com/sucess/sucess.module#SucessPageModule' }
+                    { path: 'success', loadChildren: './saleing/lead.com/success/success.module#successPageModule' }
                 ]
             },
             {
@@ -114,7 +114,7 @@ const routes: Routes = [
                     { path: 'list', loadChildren: './saleing/mcs-onlylead.com/list/list.module#ListPageModule' },
                     { path: 'edit', loadChildren: './saleing/mcs-onlylead.com/edit/edit.module#EditPageModule' },
                     { path: 'detail', loadChildren: './saleing/mcs-onlylead.com/detail/detail.module#DetailPageModule' },
-                    { path: 'sucess', loadChildren: './saleing/mcs-onlylead.com/sucess/sucess.module#SucessPageModule' }
+                    { path: 'success', loadChildren: './saleing/mcs-onlylead.com/success/success.module#successPageModule' }
                 ]
             },
             {
@@ -130,7 +130,7 @@ const routes: Routes = [
                     { path: 'list', loadChildren: './saleing/mcs-cultivatetask.com/list/list.module#ListPageModule' },
                     { path: 'edit', loadChildren: './saleing/mcs-cultivatetask.com/edit/edit.module#EditPageModule' },
                     { path: 'detail', loadChildren: './saleing/mcs-cultivatetask.com/detail/detail.module#DetailPageModule' },
-                    { path: 'sucess', loadChildren: './saleing/mcs-cultivatetask.com/sucess/sucess.module#SucessPageModule' },
+                    { path: 'success', loadChildren: './saleing/mcs-cultivatetask.com/success/success.module#successPageModule' },
                 ]
             },
             {
