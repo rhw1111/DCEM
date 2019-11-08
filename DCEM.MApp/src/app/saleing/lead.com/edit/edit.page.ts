@@ -208,7 +208,7 @@ export class EditPage implements OnInit {
         if (this.model.info.city != "") {
             this.districtModal()
         }
-    } 
+    }
     //保存
     saveOnClick() {
         if (this.model.info.username == "") {
@@ -230,30 +230,29 @@ export class EditPage implements OnInit {
         if (this.model.info.score == -1) {
             this._page.alert("消息提示", "请选择评分");
             return;
-        } 
-        var tagName=this.model.info.describe+"，客户标签：";
-        for (var i in this.model.ChoiceTag) { 
-            var tagid=this.model.ChoiceTag[i];
-            for (var x in this.CustomerTagModel.CustomerTags) { 
-                var id=this.CustomerTagModel.CustomerTags[x]["value"];
-                var name=this.CustomerTagModel.CustomerTags[x]["name"];
-                if(id==tagid)
-                {
-                    tagName+=name+",";
+        }
+        var tagName = this.model.info.describe + "，客户标签：";
+        for (var i in this.model.ChoiceTag) {
+            var tagid = this.model.ChoiceTag[i];
+            for (var x in this.CustomerTagModel.CustomerTags) {
+                var id = this.CustomerTagModel.CustomerTags[x]["value"];
+                var name = this.CustomerTagModel.CustomerTags[x]["name"];
+                if (id == tagid) {
+                    tagName += name + ",";
                     break;
                 }
             }
         }
-        this.model.info.describe=tagName; 
+        this.model.info.describe = tagName;
         this._page.loadingShow();
         this._http.post(
             this.model.apiUrl,
             this.model.info,
             (res: any) => {
-                if (res.Results !== null) {
-                    this._page.alert("消息提示", "创建留资记录成功", () => {
-                        this._page.goto("/saleing/lead/list");
-                    });
+                debugger;
+                if (res !== null) {
+                    var guid = res["Id"];
+                    this._page.goto("/saleing/lead/success", { guid: guid });
                 }
                 else {
                     this._page.alert("消息提示", "创建留资记录失败");
