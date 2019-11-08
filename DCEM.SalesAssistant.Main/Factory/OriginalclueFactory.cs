@@ -20,7 +20,8 @@ namespace DCEM.SalesAssistant.Main.Factory
             {
                 var crmService = StartupHelper.CreateCrmService();
                 IOriginalclueRepository originalclueRepository = new OriginalclueRepository();
-                IOriginalclueService originalclueService = new OriginalclueService(crmService, originalclueRepository);
+                ICustomerLabelRepository customerLabelRepository = new CustomerLabelRepository();
+                IOriginalclueService originalclueService = new OriginalclueService(crmService, originalclueRepository, customerLabelRepository);
                 IAppOriginalclue app = new AppOriginalclue(originalclueService);
 
                 return app;

@@ -31,7 +31,7 @@
                     </ion-note>
                 </ion-item>
                 <ion-item-options side="end">
-                    <ion-item-option color="tertiary" expandable>
+                    <ion-item-option color="tertiary" expandable [routerLink]="['/serving/sc/edit']" [queryParams]="{id:item.Id,actionCode:2}">
                         编辑
                     </ion-item-option>
                 </ion-item-options>

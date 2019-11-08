@@ -1,7 +1,7 @@
 ﻿<ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button text="返回列表"  [routerLink]="['/serving/ri/list']" defaultHref="/serving/sc/list"></ion-back-button>
+            <ion-back-button text="返回列表" [routerLink]="['/serving/ri/list']" defaultHref="/serving/sc/list"></ion-back-button>
         </ion-buttons>
         <ion-title>开单成功</ion-title>
     </ion-toolbar>
@@ -36,7 +36,7 @@
                 <ion-row>
                     <ion-col>
                         <div class="orderno">
-                            <!--单号:D00142019225567-->
+                            单号:{{mod.no}}
                         </div>
                     </ion-col>
                 </ion-row>

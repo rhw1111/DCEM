@@ -30,8 +30,8 @@
       <ion-item [routerLink]="['/saleing/account/detail']" [queryParams]="{id:item.Id}">
         <ion-icon slot="start" name="contact" size="large"></ion-icon>
         <ion-label>
-          <h2>{{item.accountnumber}}</h2>
-          <p>{{item.name}}</p>
+          <h2>{{item.name}}</h2>
+          <p>{{item.accountnumber}}</p>
           <p>
             <ion-icon *ngIf="item.mcs_mobilephone" name="phone-portrait" size="small"></ion-icon>
             {{item.mcs_mobilephone}}

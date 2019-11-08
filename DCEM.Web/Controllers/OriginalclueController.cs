@@ -40,6 +40,13 @@ namespace DCEM.Web.Controllers
         {
             return await _appOriginalclue.create(originalclueCreateRequest);
         }
+
+        [Route("GetCustomerTagList")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<CustomerlabelListResponse>> GetCustomerTagList(CustomerlabelListRequest customerlabelListRequest)
+        {
+            return await _appOriginalclue.GetCustomerLabelList(customerlabelListRequest);
+        }
     }
 }
 
