@@ -34,6 +34,12 @@ namespace DCEM.Web.Controllers
         {
             return await _appOriginalclue.Get(originalclueDetailRequest);
         }
+        [Route("create")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<originalclueCreateResponse>> create(OriginalclueCreateRequest originalclueCreateRequest)
+        {
+            return await _appOriginalclue.create(originalclueCreateRequest);
+        }
     }
 }
 

@@ -607,6 +607,7 @@
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-vehiclecolor\select-vehiclecolor.component.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-vehicletype\select-vehicletype.component.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-vehicletype\select-vehicletype.component.ts" />
+    <TypeScriptCompile Include="src\app\saleing\saleing.ser\optionset.service.ts" />
     <TypeScriptCompile Include="src\app\serving\home.com\index\index.module.ts" />
     <TypeScriptCompile Include="src\app\serving\home.com\index\index.page.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\home.com\index\index.page.ts" />

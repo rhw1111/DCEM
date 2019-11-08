@@ -106,5 +106,19 @@ namespace DCEM.Web.Controllers
             return list;
         }
 
+        /// <summary>
+        /// logcall 新增或编辑
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("AddOrEditLogcall")]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<CrmEntity>>> AddOrEditLogcall(LogCallRequest request)
+        {
+            var result = await app.AddOrEditEntity(request);
+            return result;
+        }
+
+
     }
 }

@@ -33,16 +33,16 @@ export class ListPage implements OnInit {
     this.listOnBind(null);
   }
   //下拉刷新
-  doRefresh(event) {
+  doRefresh(event) { 
     this.mod.data = [];
     this.mod.isending = false;
     this.mod.searchData.pageindex = 1; 
     this.listOnBind(event);
 }
 //加载下一页
-doLoading(event) {
+doLoading(event) { 
     this.mod.searchData.pageindex++;
-    this.mod.isending = false;
+    this.mod.isending = false; 
     this.listOnBind(event); 
 }
 //搜索
@@ -71,8 +71,8 @@ listOnBind(event) {
                   obj["Id"]=data[i]["Id"];
                   this.mod.data.push(obj);
               }
-              event ? event.target.complete() : '';
-              if (data.length < 10) {
+              event ? event.target.complete() : ''; 
+              if (data.length < this.mod.searchData.pagesize) { 
                 event ? event.target.disabled = true : "";
                 this.mod.isending = true;
             }

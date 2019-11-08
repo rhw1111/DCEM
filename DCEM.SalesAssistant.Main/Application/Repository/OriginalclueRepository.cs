@@ -31,7 +31,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
     <attribute name='mcs_terminalid' />
     <attribute name='mcs_gender' />
     <attribute name='mobilephone' />
-    <order attribute='fullname' descending='false' />
+    <order attribute='createdon' descending='true' />
     <filter type='and'>
       <condition attribute='mcs_dealerid' operator='eq'  value='{originalclueListRequest.DealerId}'/>
 {filterStr}
