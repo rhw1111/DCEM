@@ -82,17 +82,17 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 {
                     createEntity.Attributes.Add("mcs_gender", Int32.Parse(originalclueCreateRequest.gender));
                 }
-                if (originalclueCreateRequest.province != null)
+                if (!string.IsNullOrWhiteSpace(originalclueCreateRequest.province))
                 {
                     var salesarea = new CrmEntityReference("mcs_salesarea", Guid.Parse(originalclueCreateRequest.province));
                     createEntity.Attributes.Add("mcs_provinceid", salesarea);
                 }
-                if (originalclueCreateRequest.city != null)
+                if (!string.IsNullOrWhiteSpace(originalclueCreateRequest.city))
                 {
                     var salesarea = new CrmEntityReference("mcs_salesarea", Guid.Parse(originalclueCreateRequest.city));
                     createEntity.Attributes.Add("mcs_cityid", salesarea);
                 }
-                if (originalclueCreateRequest.area != null)
+                if (!string.IsNullOrWhiteSpace(originalclueCreateRequest.area))
                 {
                     var salesarea = new CrmEntityReference("mcs_salesarea", Guid.Parse(originalclueCreateRequest.area));
                     createEntity.Attributes.Add("mcs_districtid", salesarea);
