@@ -113,6 +113,11 @@ namespace MSLibrary.Cache
                         {
                             _linkedStrategy.Add(pair, _linked);
                         }
+                        else
+                        {
+                            tNode.Value = pair;
+                            _linkedStrategy.Hit(tNode, _linked);
+                        }
                     }
                 });
             }
@@ -152,14 +157,14 @@ namespace MSLibrary.Cache
 
         public void Clear()
         {
-            Task.Run(() =>
-            {
+            //Task.Run(() =>
+            //{
                 lock (_dict)
                 {
                     _dict.Clear();
                     _linked.Clear();
                 }
-            });
+            //});
         }
     }
 }

@@ -28,12 +28,18 @@ namespace MSLibrary.SystemToken.ThirdPartySystemPostExecuteServices
     /// </summary>
     public class ThirdPartySystemPostExecuteServiceForAdfsCrm : IThirdPartySystemPostExecuteService
     {
+        private CrmServiceFactoryRepositoryHelper _crmServiceFactoryRepositoryHelper;
+
+        public ThirdPartySystemPostExecuteServiceForAdfsCrm(CrmServiceFactoryRepositoryHelper crmServiceFactoryRepositoryHelper)
+        {
+            _crmServiceFactoryRepositoryHelper = crmServiceFactoryRepositoryHelper;
+        }
         public async Task<ThirdPartySystemPostExecuteResult> Execute(Dictionary<string, string> attributes, string configurationInfo)
         {
             TextFragment fragment;
             //获取指定的Crm服务
             PostExecuteServiceConfiguration configuration = JsonSerializerHelper.Deserialize<PostExecuteServiceConfiguration>(configurationInfo);
-            var serviceFactory= await CrmServiceFactoryRepositoryHelper.QueryByName(configuration.CrmServiceFactoryName);
+            var serviceFactory= await _crmServiceFactoryRepositoryHelper.QueryByName(configuration.CrmServiceFactoryName);
             if (serviceFactory==null)
             {
                 fragment = new TextFragment()
