@@ -251,19 +251,19 @@
                                 项目代码
                             </h2>
                             <p>
-                                {{item.repairitemid}}
+                                {{item.repairitemid_Formatted}}
                             </p>
                             <h2>
                                 维修类别
                             </h2>
                             <p text-wrap>
-                                {{item.repairitemtypeid}}
+                                {{item.repairitemtypeid_Formatted}}
                             </p>
                             <h2>
                                 费用明细
                             </h2>
                             <p>
-                                {{item.workinghour}}小时 X {{item.price}}  X {{item.discount}}  =  ￥{{item.repairamount}}
+                                {{item.workinghour_Formatted}}小时 X {{item.price_Formatted}}  X {{item.discount_Formatted}}  =  {{item.repairamount_Formatted}}
                             </p>
                         </ion-label>
                     </ion-item>
@@ -369,7 +369,7 @@
         <ion-fab-list side="top">
             <ion-fab-button color="success" [routerLink]="['/serving/ri/edit']"><ion-icon name="add"></ion-icon></ion-fab-button>
             <ion-fab-button *ngIf="mod.data.serviceproxy.status===100" color="danger" (click)="deleteOnClick()"><ion-icon name="trash"></ion-icon></ion-fab-button>
-            <ion-fab-button *ngIf="mod.data.serviceproxy.status===100" color="warning" [routerLink]="['/serving/ri/edit']"><ion-icon name="create"></ion-icon></ion-fab-button>
+            <ion-fab-button *ngIf="mod.data.serviceproxy.status===100" color="warning" [routerLink]="['/serving/sc/edit']" [queryParams]="{id:mod.data.serviceproxy.id,actionCode:2}"><ion-icon name="create"></ion-icon></ion-fab-button>
         </ion-fab-list>
     </ion-fab>
 </ion-content>

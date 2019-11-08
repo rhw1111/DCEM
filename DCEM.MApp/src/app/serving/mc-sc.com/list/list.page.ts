@@ -33,6 +33,17 @@ export class ListPage implements OnInit {
     }
 
     ngOnInit() {
+       // this.listOnBind();
+    }
+
+    //每次页面加载
+    ionViewWillEnter() {
+        this.mod.data = {};
+        this.mod.searchData = {
+            type: 1,
+            pageindex: 1,
+            search: ""
+        };
         this.listOnBind();
     }
 

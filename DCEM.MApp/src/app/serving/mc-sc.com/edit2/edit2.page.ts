@@ -213,6 +213,10 @@ export class Edit2Page implements OnInit {
         this.mod.postData["serviceproxy"]["mileage"] = Number(this.shareData.serviceproxy["mileage"]);                //进店里程
         this.mod.postData["serviceproxy"]["arrivalon"] = this.shareData.serviceproxy["arrivalon"];                    //到店时间
         this.mod.postData["serviceproxy"]["customercomment"] = this.shareData.serviceproxy["customercomment"];            //客户描述
+        this.mod.postData["serviceproxy"]["repairlocationid"] = this.shareData.serviceproxy["repairlocationid"];            //工位
+        this.mod.postData["serviceproxy"]["expectfinishat"] = this.shareData.serviceproxy["expectfinishat"];            //预计交车时间
+        this.mod.postData["serviceproxy"]["customercontent"] = this.shareData.serviceproxy["customercontent"];            //故障信息
+        this.mod.postData["serviceproxy"]["testresult"] = this.shareData.serviceproxy["testresult"];            //检查结果
 
         //组装维修项目
         this.mod.postData["serviceorderrepairitemArray"] = [];

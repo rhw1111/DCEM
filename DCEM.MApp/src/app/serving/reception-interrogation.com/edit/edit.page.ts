@@ -3,7 +3,7 @@ import { ModalController, NavController, ToastController, IonBackButton, IonBack
 import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
 import { DCore_Http, DCore_Page, DCore_ShareData, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { debug } from 'util';
+
 
 @Component({
     selector: 'app-edit',
@@ -17,7 +17,6 @@ export class EditPage implements OnInit {
     @ViewChild(IonBackButtonDelegate, null) ionBackButtonDelegate: IonBackButtonDelegate;
 
     mod = {
-        apiUrl: '/Api/Customer/GetCustomerInfo',
         queryUrl: '/Api/Serviceproxy/GetInfo',
         data: {
         },
@@ -26,7 +25,7 @@ export class EditPage implements OnInit {
 
     //定义共享数据
     shareData = {
-        actionCode: 1,
+        actioncode: 1,
         viewTitle: "",
         serviceproxy: {
         },
@@ -55,17 +54,16 @@ export class EditPage implements OnInit {
     }
 
     ionViewWillEnter() {
-
-        if (this._shareData.has(this.mod.shareDataKey)) {
-            this.shareData = this._shareData.get(this.mod.shareDataKey);
-        }
-        else {
-            this._activeRoute.queryParams.subscribe((params: Params) => {
+        this._activeRoute.queryParams.subscribe((params: Params) => {
+            if (this._shareData.has(this.mod.shareDataKey)) {
+                this.shareData = this._shareData.get(this.mod.shareDataKey);
+            }
+            else {
                 if (!this._valid.isNull(params['id']) && !this._valid.isNull(params['actionCode'])) {
-                    this.shareData.actionCode = Number(params['actionCode']);
+                    this.shareData.actioncode = Number(params['actionCode']);
                     this.shareData.serviceproxy["serviceproxyid"] = params['id']
                 }
-                if (this.shareData.actionCode === 2) {
+                if (this.shareData.actioncode === 2) {
                     if (!this._shareData.has(this.mod.shareDataKey)) {
                         this.shareData.viewTitle = "编辑问诊单";
                         this.pageOnBind(this.shareData.serviceproxy["serviceproxyid"]);
@@ -74,11 +72,10 @@ export class EditPage implements OnInit {
                 else {
                     this.shareData.viewTitle = "创建问诊单";
                 }
-
-                console.log(this._activeRoute.queryParams);
-            });
-        }
+            }
+        });
     }
+
 
     //选择客户
     async presentModal() {
@@ -110,12 +107,10 @@ export class EditPage implements OnInit {
                 }
             },
             (res: any) => {
-
-
                 if (!this._valid.isNull(res.Serviceproxy)) {
-
+                    console.log(res.Serviceproxy);
                     this.shareData.serviceproxy["serviceproxyid"] = id;
-                    this.shareData.serviceproxy["customerid"] = res["Serviceproxy"]["Attributes"]["mcs_customerphone"];
+                    this.shareData.serviceproxy["customerid"] = res["Serviceproxy"]["Attributes"]["_mcs_customerid_value"];
                     this.shareData.serviceproxy["customername"] = res["Serviceproxy"]["Attributes"]["mcs_customername"];
                     this.shareData.serviceproxy["carplate"] = res["Serviceproxy"]["Attributes"]["mcs_carplate"];
                     this.shareData.serviceproxy["customerphone"] = res["Serviceproxy"]["Attributes"]["mcs_customerphone"];
@@ -126,7 +121,7 @@ export class EditPage implements OnInit {
                     this.shareData.serviceproxy["inpower"] = res["Serviceproxy"]["Attributes"]["mcs_inpower"];
                     this.shareData.serviceproxy["mileage"] = res["Serviceproxy"]["Attributes"]["mcs_mileage"];
                     this.shareData.serviceproxy["oilquantity"] = String(res["Serviceproxy"]["Attributes"]["mcs_oilquantity"]);
-                    this.shareData.serviceproxy["arrivalon"] = res["Serviceproxy"]["Attributes"]["mcs_arrivalon@OData.Community.Display.V1.FormattedValue"];
+                    this.shareData.serviceproxy["arrivalon"] = res["Serviceproxy"]["Attributes"]["mcs_arrivalon"];
                     this.shareData.serviceproxy["customercomment"] = res["Serviceproxy"]["Attributes"]["mcs_customercomment"];
 
 
