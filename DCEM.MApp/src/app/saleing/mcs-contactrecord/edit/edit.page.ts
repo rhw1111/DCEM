@@ -69,7 +69,7 @@ pageOnBind(id: any) {
                       this.model.postData.mcs_content = res.Results[0]["Attributes"]["mcs_content"];
                       this.model.postData.mcs_visittime = res.Results[0]["Attributes"]["mcs_visittime"];
                       this.model.postData.mcs_results = res.Results[0]["Attributes"]["mcs_results"];                      
-                      this.model.postData.mcs_onlyleadid = res.Results[0]["Attributes"]["_mcs_onlyleadid_value"];                                  
+                      this.model.postData.entityid = res.Results[0]["Attributes"]["_mcs_onlyleadid_value"];                                  
               }
               else{
                 this._page.alert("消息提示", "数据加载异常");
