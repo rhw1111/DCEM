@@ -141,7 +141,8 @@ pageOnLogCalllist(id: any) {
                         var obj = {};
                         obj["mcs_fullname"] = res.Results[key]["Attributes"]["mcs_fullname"];
                         obj["mcs_visittime"] = res.Results[key]["Attributes"]["mcs_visittime"];
-                        obj["mcs_content"] = res.Results[key]["Attributes"]["mcs_content"];                      
+                        obj["mcs_content"] = res.Results[key]["Attributes"]["mcs_content"];   
+                        obj["mcs_results"] = res.Results[key]["Attributes"]["mcs_results"];                          
                         this.mod.datalist.push(obj);
                     }
                     //console.log(res);
