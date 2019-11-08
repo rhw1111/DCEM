@@ -2,11 +2,11 @@
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-sucess',
-  templateUrl: './sucess.page.html',
-  styleUrls: ['./sucess.page.scss'],
+  selector: 'app-success',
+  templateUrl: './success.page.html',
+  styleUrls: ['./success.page.scss'],
 })
-export class SucessPage implements OnInit {
+export class successPage implements OnInit {
 
     mod = {
         id: ""

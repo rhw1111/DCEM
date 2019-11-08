@@ -141,7 +141,9 @@ pageOnLogCalllist(id: any) {
                         var obj = {};
                         obj["mcs_fullname"] = res.Results[key]["Attributes"]["mcs_fullname"];
                         obj["mcs_visittime"] = res.Results[key]["Attributes"]["mcs_visittime"];
-                        obj["mcs_content"] = res.Results[key]["Attributes"]["mcs_content"];                      
+                        obj["mcs_content"] = res.Results[key]["Attributes"]["mcs_content"];   
+                        obj["mcs_results"] = res.Results[key]["Attributes"]["mcs_results"];    
+                        obj["mcs_logcallid"] = res.Results[key]["Attributes"]["mcs_logcallid"];                        
                         this.mod.datalist.push(obj);
                     }
                     //console.log(res);
@@ -178,7 +180,7 @@ pageOnActivitylist(id: any) {
             }
         },
         (res: any) => {
-            //debugger;
+           // debugger;
             if (res !== null) {
                 if (res.Results !== null) {
                     for (var key in res.Results) {
@@ -187,6 +189,7 @@ pageOnActivitylist(id: any) {
                         obj["createdon"] = res.Results[key]["Attributes"]["createdon"];              
                         obj["mcs_activitystatus"] =this.optionset.GetOptionSetNameByValue("mcs_activitystatus",res.Results[key]["Attributes"]["mcs_activitystatus"]);
                         obj["mcs_importantlevel"] =this.optionset.GetOptionSetNameByValue("mcs_importantlevel",res.Results[key]["Attributes"]["mcs_importantlevel"]);
+                        obj["mcs_activityid"] = res.Results[key]["Attributes"]["mcs_activityid"];    
                         this.mod.datalist2.push(obj);
                     }
                     //console.log(res);
@@ -222,7 +225,7 @@ pageOnActivitylist(id: any) {
 
 FormatToDateTime(date) {
     if (date != null && date != undefined) {
-        return sd.format(date, 'YYYY-MM-DD hh:mm:ss');
+        return sd.format(date, 'YYYY-MM-DD');
     }
     else {
         return '';

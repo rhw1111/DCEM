@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{f26cede4-f02d-4382-a6bd-49c0cb89d2aa}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <StartupFile />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -38,6 +38,8 @@
     <Content Include="src\app\saleing\lead.com\edit\edit.page.scss" />
     <Content Include="src\app\saleing\lead.com\list\list.page.html" />
     <Content Include="src\app\saleing\lead.com\list\list.page.scss" />
+    <Content Include="src\app\saleing\lead.com\success\success.page.html" />
+    <Content Include="src\app\saleing\lead.com\success\success.page.scss" />
     <Content Include="src\app\saleing\lead.com\sucess\sucess.page.html" />
     <Content Include="src\app\saleing\lead.com\sucess\sucess.page.scss" />
     <Content Include="src\app\saleing\mcs-account.com\detail\detail.page.html" />
@@ -56,6 +58,8 @@
     <Content Include="src\app\saleing\mcs-cultivatetask.com\edit\edit.page.scss" />
     <Content Include="src\app\saleing\mcs-cultivatetask.com\list\list.page.html" />
     <Content Include="src\app\saleing\mcs-cultivatetask.com\list\list.page.scss" />
+    <Content Include="src\app\saleing\mcs-cultivatetask.com\success\success.page.html" />
+    <Content Include="src\app\saleing\mcs-cultivatetask.com\success\success.page.scss" />
     <Content Include="src\app\saleing\mcs-cultivatetask.com\sucess\sucess.page.html" />
     <Content Include="src\app\saleing\mcs-cultivatetask.com\sucess\sucess.page.scss" />
     <Content Include="src\app\saleing\mcs-onlylead.com\detail\detail.page.html" />
@@ -64,8 +68,8 @@
     <Content Include="src\app\saleing\mcs-onlylead.com\edit\edit.page.scss" />
     <Content Include="src\app\saleing\mcs-onlylead.com\list\list.page.html" />
     <Content Include="src\app\saleing\mcs-onlylead.com\list\list.page.scss" />
-    <Content Include="src\app\saleing\mcs-onlylead.com\sucess\sucess.page.html" />
-    <Content Include="src\app\saleing\mcs-onlylead.com\sucess\sucess.page.scss" />
+    <Content Include="src\app\saleing\mcs-onlylead.com\success\success.page.html" />
+    <Content Include="src\app\saleing\mcs-onlylead.com\success\success.page.scss" />
     <Content Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.html" />
     <Content Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.scss" />
     <Content Include="src\app\saleing\saleing.ser\components\select-reservationconfiguration\select-reservationconfiguration.component.html" />
@@ -555,6 +559,9 @@
     <TypeScriptCompile Include="src\app\saleing\lead.com\list\list.module.ts" />
     <TypeScriptCompile Include="src\app\saleing\lead.com\list\list.page.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\lead.com\list\list.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\lead.com\success\success.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\lead.com\success\success.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\lead.com\success\success.page.ts" />
     <TypeScriptCompile Include="src\app\saleing\lead.com\sucess\sucess.module.ts" />
     <TypeScriptCompile Include="src\app\saleing\lead.com\sucess\sucess.page.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\lead.com\sucess\sucess.page.ts" />
@@ -582,6 +589,9 @@
     <TypeScriptCompile Include="src\app\saleing\mcs-cultivatetask.com\list\list.module.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-cultivatetask.com\list\list.page.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-cultivatetask.com\list\list.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs-cultivatetask.com\success\success.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs-cultivatetask.com\success\success.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs-cultivatetask.com\success\success.page.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-cultivatetask.com\sucess\sucess.module.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-cultivatetask.com\sucess\sucess.page.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-cultivatetask.com\sucess\sucess.page.ts" />
@@ -594,9 +604,9 @@
     <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\list\list.module.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\list\list.page.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\list\list.page.ts" />
-    <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\sucess\sucess.module.ts" />
-    <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\sucess\sucess.page.spec.ts" />
-    <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\sucess\sucess.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\success\success.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\success\success.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\success\success.page.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-reservationconfiguration\select-reservationconfiguration.component.spec.ts" />
@@ -865,6 +875,7 @@
     <Folder Include="src\app\saleing\lead.com\detail\" />
     <Folder Include="src\app\saleing\lead.com\edit\" />
     <Folder Include="src\app\saleing\lead.com\list\" />
+    <Folder Include="src\app\saleing\lead.com\success\" />
     <Folder Include="src\app\saleing\lead.com\sucess\" />
     <Folder Include="src\app\saleing\mcs-account.com\" />
     <Folder Include="src\app\saleing\mcs-account.com\detail\" />
@@ -877,12 +888,13 @@
     <Folder Include="src\app\saleing\mcs-cultivatetask.com\detail\" />
     <Folder Include="src\app\saleing\mcs-cultivatetask.com\edit\" />
     <Folder Include="src\app\saleing\mcs-cultivatetask.com\list\" />
+    <Folder Include="src\app\saleing\mcs-cultivatetask.com\success\" />
     <Folder Include="src\app\saleing\mcs-cultivatetask.com\sucess\" />
     <Folder Include="src\app\saleing\mcs-onlylead.com\" />
     <Folder Include="src\app\saleing\mcs-onlylead.com\detail\" />
     <Folder Include="src\app\saleing\mcs-onlylead.com\edit\" />
     <Folder Include="src\app\saleing\mcs-onlylead.com\list\" />
-    <Folder Include="src\app\saleing\mcs-onlylead.com\sucess\" />
+    <Folder Include="src\app\saleing\mcs-onlylead.com\success\" />
     <Folder Include="src\app\saleing\saleing.ser\" />
     <Folder Include="src\app\saleing\saleing.ser\components\" />
     <Folder Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\" />

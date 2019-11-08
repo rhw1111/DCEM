@@ -72,7 +72,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
 
 
         /// <summary>
-        /// 根据唯一线索查询logcall的fetchString
+        /// 查询logcall的fetchString
         /// </summary>
         /// <param name="logcallrequest"></param>
         /// <returns></returns>
@@ -88,13 +88,14 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
             //    filter += $"<condition attribute='mcs_emailaddress1' operator='like' value='%{onlyLeadRequest.Search}%' />";
             //    filter += $"</filter>";
             //}
-            if (logcallrequest.entityid != null)
-            {
-                filter += $"<filter type='and'>";
-                filter += $"<condition attribute='mcs_onlyleadid' operator='eq' value='{logcallrequest.entityid}' />";
-                filter += $"</filter>";
+            if (logcallrequest.entityid != null)//唯一线索主键id
+            {             
+                filter += $"<condition attribute='mcs_onlyleadid' operator='eq' value='{logcallrequest.entityid}' />";            
             }
-
+            if (logcallrequest.mcs_logcallid != null)//logcall主键id
+            {
+                filter += $"<condition attribute='mcs_logcallid' operator='eq' value='{logcallrequest.mcs_logcallid}' />";
+            }
             var fetchString = $@"<fetch version='1.0' count='{logcallrequest.PageSize}' page='{logcallrequest.PageIndex}' output-format='xml-platform' mapping='logical' distinct='false'>
                <entity name='mcs_logcall'>
                 <attribute name='mcs_name' />

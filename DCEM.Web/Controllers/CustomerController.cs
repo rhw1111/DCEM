@@ -18,7 +18,7 @@ namespace DCEM.Web.Controllers
     [Route("Api/Customer")]
     [EnableCors("any")]
     [ApiController]
-    public class CustomerController : ControllerBase
+    public class CustomerController : ApiController
     {
         #region 初始化
         ICustomerService _customerService;

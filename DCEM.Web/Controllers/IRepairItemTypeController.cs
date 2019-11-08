@@ -17,7 +17,7 @@ namespace DCEM.Web.Controllers
     [EnableCors("any")]
     [Route("api/RepairItemType")]
     [ApiController]
-    public class IRepairItemTypeController : ControllerBase
+    public class IRepairItemTypeController : ApiController
     {
         /// <summary>
         /// 维修类别基础查询接口

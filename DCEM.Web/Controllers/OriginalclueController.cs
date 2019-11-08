@@ -14,7 +14,7 @@ namespace DCEM.Web.Controllers
     [Route("api/Originalclue")]
     [EnableCors("any")]
     [ApiController]
-    public class OriginalclueController : Controller
+    public class OriginalclueController : ApiController
     { 
         private IAppOriginalclue _appOriginalclue;
         public OriginalclueController()
@@ -39,6 +39,13 @@ namespace DCEM.Web.Controllers
         public async Task<NewtonsoftJsonActionResult<originalclueCreateResponse>> create(OriginalclueCreateRequest originalclueCreateRequest)
         {
             return await _appOriginalclue.create(originalclueCreateRequest);
+        }
+
+        [Route("GetCustomerTagList")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<CustomerlabelListResponse>> GetCustomerTagList(CustomerlabelListRequest customerlabelListRequest)
+        {
+            return await _appOriginalclue.GetCustomerLabelList(customerlabelListRequest);
         }
     }
 }

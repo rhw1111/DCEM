@@ -49,7 +49,7 @@ export class DetailPage implements OnInit {
               var attr=res["Attributes"];
                 this.model.info.username=attr["fullname"];
                 this.model.info.mobile=attr["mobilephone"];
-                this.model.info.clues=attr["_mcs_terminalid_value@OData.Community.Display.V1.FormattedValue"];
+                this.model.info.clues=attr["mcs_leadorigin@OData.Community.Display.V1.FormattedValue"];
                 this.model.info.gender=attr["mcs_gender@OData.Community.Display.V1.FormattedValue"];
                 this.model.info.mail=attr["emailaddress1"];
                 this.model.info.province=attr["_mcs_provinceid_value@OData.Community.Display.V1.FormattedValue"];

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-          <ion-back-button text="返回" defaultHref="/saleing/onlylead/detail"></ion-back-button>
+          <ion-back-button text="返回" defaultHref="/saleing/onlylead/detail" ></ion-back-button>
      </ion-buttons>
     <ion-title>创建或编辑logcall</ion-title>
   </ion-toolbar>
@@ -14,21 +14,21 @@
                 回访时间
                 <ion-text color="danger">*</ion-text>
             </ion-label>
-            <ion-datetime placeholder="请选择到店时间" display-format="YYYY-MM-DD HH:mm"  [(ngModel)]="data.mcs_visittime" required></ion-datetime>
+            <ion-datetime placeholder="请选择到店时间" display-format="YYYY-MM-DD HH:mm"  [(ngModel)]="model.postData.mcs_visittime" required></ion-datetime>
         </ion-item>
         <ion-item>
             <ion-label position="stacked">
                 回访内容
                 <ion-text color="danger">*</ion-text>
             </ion-label>
-            <ion-textarea placeholder="请输入回访内容" [(ngModel)]="data.mcs_content" required></ion-textarea>
+            <ion-textarea placeholder="请输入回访内容" [(ngModel)]="model.postData.mcs_content" required></ion-textarea>
         </ion-item>
         <ion-item>
             <ion-label position="stacked">
                 回访结果
                 <ion-text color="danger">*</ion-text>
             </ion-label>
-            <ion-textarea placeholder="请输入回访结果" [(ngModel)]="data.mcs_results" required></ion-textarea>
+            <ion-textarea placeholder="请输入回访结果" [(ngModel)]="model.postData.mcs_results" required></ion-textarea>
         </ion-item>
         
     </ion-list>

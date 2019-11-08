@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DCore_Page, DCore_Http,DCore_Valid } from 'app/base/base.ser/Dcem.core';
+import { DCore_Page, DCore_Http, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 import { ModalController, NavController } from '@ionic/angular';
 import { SelectSysareaComponent } from 'app/saleing/saleing.ser/components/select-sysarea/select-sysarea.component';
@@ -29,7 +29,7 @@ export class EditPage implements OnInit {
         scoreoption: [],
         genderoption: [],
         leadoriginoption: [],
-
+        ChoiceTag: [],//选择的客户标签id集合
         info: {
             username: "",
             mobile: "",
@@ -48,10 +48,58 @@ export class EditPage implements OnInit {
             dealerid: "3EFBFFF6-EF1A-E911-A821-A4A314186A20",//this._userinfo.GetDealerid()
         }
     }
+    public CustomerTagModel: any = {
+        apiCustomerTagUrl: "/api/Originalclue/GetCustomerTagList",
+        CustomerTags: [],//{"name":"","value":"","customcolor":""}
+        CustomColor: ["primary", "secondary", "tertiary", "success", "warning", "danger", "medium", "dark"],
+
+    }
     ngOnInit() {
         this.model.scoreoption = this._optionset.Get("lead_mcs_accountpoints");
         this.model.genderoption = this._optionset.Get("lead_mcs_gender");
         this.model.leadoriginoption = this._optionset.Get("lead_mcs_leadorigin");
+        this.getcustomertag();
+    }
+
+    //客户标签点击事件
+    checkClick(event) {
+        var checkstatus = event.detail.checked;
+        var id = event.detail.value;
+        if (checkstatus) {
+            var index = this.model.ChoiceTag.indexOf(id);
+            if (index < 0) {
+                this.model.ChoiceTag.push(id);
+            }
+        }
+        else {
+            var index = this.model.ChoiceTag.indexOf(id);
+            this.model.ChoiceTag.splice(index, 1)
+        }
+    }
+
+    //获取客户标签
+    async getcustomertag() {
+        this._http.post(
+            this.CustomerTagModel.apiCustomerTagUrl,
+            { "UserId": this._userinfo.GetSystemUserId() },
+            (res: any) => {
+                var colorindex = 0;
+                var data = res.customerlabels;
+                for (var i in data) {
+                    var attr = data[i]["Attributes"];
+                    var obj = {};
+                    obj["name"] = attr["mcs_name"];
+                    obj["value"] = attr["mcs_tagid"];
+                    if (colorindex == this.CustomerTagModel.CustomColor.length - 1) {
+                        colorindex = 0;
+                    }
+                    obj["customcolor"] = this.CustomerTagModel.CustomColor[colorindex];
+                    colorindex++;
+                    this.CustomerTagModel.CustomerTags.push(obj);
+
+                }
+            }
+        );
     }
     //获取省组件
     async provinceModal() {
@@ -161,7 +209,6 @@ export class EditPage implements OnInit {
             this.districtModal()
         }
     }
-
     //保存
     saveOnClick() {
         if (this.model.info.username == "") {
@@ -172,8 +219,7 @@ export class EditPage implements OnInit {
             this._page.alert("消息提示", "请输入用户手机号");
             return;
         }
-        if(!this._valid.isPhone(this.model.info.mobile))
-        {
+        if (!this._valid.isPhone(this.model.info.mobile)) {
             this._page.alert("消息提示", "请输入正确格式的手机号");
             return;
         }
@@ -185,16 +231,28 @@ export class EditPage implements OnInit {
             this._page.alert("消息提示", "请选择评分");
             return;
         }
+        var tagName = this.model.info.describe + "，客户标签：";
+        for (var i in this.model.ChoiceTag) {
+            var tagid = this.model.ChoiceTag[i];
+            for (var x in this.CustomerTagModel.CustomerTags) {
+                var id = this.CustomerTagModel.CustomerTags[x]["value"];
+                var name = this.CustomerTagModel.CustomerTags[x]["name"];
+                if (id == tagid) {
+                    tagName += name + ",";
+                    break;
+                }
+            }
+        }
+        this.model.info.describe = tagName;
         this._page.loadingShow();
         this._http.post(
             this.model.apiUrl,
             this.model.info,
             (res: any) => {
-                if (res.Results !== null) {
-                    this._page.alert("消息提示", "创建留资记录成功",()=>{
-                        this._page.goto("/saleing/lead/list");
-                    });
-                   
+                debugger;
+                if (res !== null) {
+                    var guid = res["Id"];
+                    this._page.goto("/saleing/lead/success", { guid: guid });
                 }
                 else {
                     this._page.alert("消息提示", "创建留资记录失败");
@@ -206,6 +264,6 @@ export class EditPage implements OnInit {
                 this._page.loadingHide();
             }
         );
-      
+
     }
 }

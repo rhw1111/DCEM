@@ -17,7 +17,7 @@ namespace DCEM.Web.Controllers
     [EnableCors("any")]
     [Route("api/SystemUser")]
     [ApiController]
-    public class ISystemUserController : ControllerBase
+    public class ISystemUserController : ApiController
     {
         /// <summary>
         /// 用户信息查询接口

@@ -28,7 +28,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
   <entity name='lead'>
     <attribute name='fullname' />
     <attribute name='leadid' />
-    <attribute name='mcs_terminalid' />
+    <attribute name='mcs_leadorigin' />
     <attribute name='mcs_gender' />
     <attribute name='mobilephone' />
     <order attribute='createdon' descending='true' />
