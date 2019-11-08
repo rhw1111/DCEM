@@ -8,17 +8,63 @@ using System.Text;
 using System.IO;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging.Console;
+using System.Runtime.Serialization;
 using MSLibrary;
 using MSLibrary.Thread;
 using MSLibrary.Serializer;
-using System.Runtime.Serialization;
+using MSLibrary.Configuration;
+using MSLibrary.DI;
+using DCEM.Main;
+using DCEM.ServiceAssistantService.Main.Entities;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DCEM.ConsoleApp
 {
+    using MainStartupHelper = DCEM.Main.StartupHelper;
     class Program
     {
+
+        private static string _baseUrl;
+
         async static Task  Main(string[] args)
         {
+
+
+            //设置编码，解决中文问题
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            //设置应用程序工作基目录
+            _baseUrl = Path.GetDirectoryName(typeof(Program).Assembly.Location);
+            Environment.CurrentDirectory = _baseUrl ?? Environment.CurrentDirectory;
+
+            //获取运行环境名称
+            var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_APPLICATIONNAME");
+            if (environmentName == null)
+            {
+                environmentName = string.Empty;
+            }
+            //初始化配置容器
+            MainStartupHelper.InitConfigurationContainer(environmentName, _baseUrl);
+
+            //初始化上下文容器
+            MainStartupHelper.InitContext();
+
+            //获取核心配置
+            var coreConfiguration = ConfigurationContainer.Get<CoreConfiguration>(ConfigurationNames.Application);
+
+            ServiceCollection services = new ServiceCollection();
+
+            //初始化DI容器
+            MainStartupHelper.InitDI(services, coreConfiguration.DISetting);
+
+
+            var helper=DIContainerContainer.Get<AdfsEndpointRepositoryHelper>();
+            var endpoint=await helper.QueryByName("Main");
+
+            var claims = await endpoint.ValidateJWT("eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkU2M29sLVNHbmhhQkE0VWItY0RSb1pqZnNqZyJ9.eyJhdWQiOiJodHRwczovL3N1YmNybWRldjIuc29rb24uY29tL2FwaS9kYXRhL3Y4LjIiLCJpc3MiOiJodHRwOi8vc3ViY3JtYWRmcy5zb2tvbi5jb20vYWRmcy9zZXJ2aWNlcy90cnVzdCIsImlhdCI6MTU3MzIxNjk4MSwiZXhwIjoxNTczMjIwNTgxLCJwcmltYXJ5c2lkIjoiUy0xLTUtMjEtNDIyMjk0OTIwMC0yMDY1Njc0Mjk5LTIwNDgyNjQ5OTItMTEwNSIsInVwbiI6InN1YmRldmNybWFkbWluQHNmbW90b3JzLmNvbSIsInVuaXF1ZV9uYW1lIjoiU0ZNT1RPUlNcXHN1YmRldmNybWFkbWluIiwiYXBwdHlwZSI6IkNvbmZpZGVudGlhbCIsImFwcGlkIjoiZTMwNTM2ODItOTM1ZC00MWRmLWJjYzMtZjdmYzRkZTM3MDQwIiwiYXV0aG1ldGhvZCI6InVybjpvYXNpczpuYW1lczp0YzpTQU1MOjIuMDphYzpjbGFzc2VzOlBhc3N3b3JkUHJvdGVjdGVkVHJhbnNwb3J0IiwiYXV0aF90aW1lIjoiMjAxOS0xMS0wOFQxMjo0MzowMS4wMzFaIiwidmVyIjoiMS4wIn0.bZh4Zeu60MC9XJOzHHYr5R9lpcUoBIh5DGzfAFkKL18nmzmSxVNtZVih0leoGsUbJDN3UJVozsxJtP04q-0YFGLQQSUavZfd2H7JV1LYdx56L-AgFeOAyVI_0pXxzY4tSeVvmNnq7Zn-DNCUL5Ibe_3HAY61dOq68rRp2KlxmjHkxwIeN7ts3O_yyKJPWLDzkQw1SMwoG7wDGmEcdlP3ocsrdxQqp9GRthK608AphzKbrVZzdtGuWZiP7297-4uPwEtw8TwdRfyWhhyVZMd0jjIHWGamYRlFOlxh7oxGj7W7iUhV1vxbjw16B98K6QAVh3_zHmKdlEXDanW2J22UPQ", new string[] { "https://subcrmdev2.sokon.com/api/data/v8.2" });
+            var userName=claims.FindFirst(System.Security.Claims.ClaimTypes.Name).Value;
+
+
+
             SerializerObj sObj = new SerializerObj()
             {
                  Name="A"

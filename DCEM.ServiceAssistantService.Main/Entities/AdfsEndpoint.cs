@@ -139,8 +139,11 @@ namespace DCEM.ServiceAssistantService.Main.Entities
             TokenValidationParameters validationParameters =
                 new TokenValidationParameters
                 {
-                    ValidIssuer = $"{endpoint.Uri}adfs/",
-                    ValidIssuers = new[] { $"{endpoint.Uri}adfs/", $"{endpoint.Uri}adfs/services/trust" },
+                    ValidateIssuer=false,
+                    //ValidIssuer = $"{endpoint.Uri}adfs/services/trust" ,
+                    //ValidIssuers = new[] { $"{endpoint.Uri}adfs/services/trust" },
+
+                
                     ValidAudiences = audiences,
                     IssuerSigningKeys = _securityKey
                 };

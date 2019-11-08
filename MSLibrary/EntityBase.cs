@@ -41,7 +41,14 @@ namespace MSLibrary
                 else
                 {
                     var di = ContextContainer.GetValue<IDIContainer>("DI");
-                    _imp = di.Get<T>();
+                    if (di == null)
+                    {
+                        _imp = DIContainerContainer.Get<T>();
+                    }
+                    else
+                    {
+                        _imp = di.Get<T>();
+                    }
                 }
             }
             else

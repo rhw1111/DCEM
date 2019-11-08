@@ -26,6 +26,16 @@ namespace DCEM.ServiceAssistantService.Main.Entities
             Dictionary<string, AdfsEndpoint> datas = new Dictionary<string, AdfsEndpoint>();
             //这里从配置中创建出对象键值对,请补充代码
 
+            datas.Add("Main", new AdfsEndpoint()
+            {
+                ID = Guid.NewGuid(),
+                CreateTime = DateTime.UtcNow,
+                ModifyTime = DateTime.UtcNow,
+                Name = "Main",
+                Uri = "https://subcrmadfs.sokon.com/"
+            });
+            
+
             return await Task.FromResult(datas);
         }
     }

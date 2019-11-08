@@ -12,7 +12,7 @@ namespace DCEM.ServiceAssistantService.Main.Entities
     public class AdfsEndpointRepositoryHelper
     {
         private IAdfsEndpointRepository _adfsEndpointRepository;
-        private static HashLinkedCache<string, CacheTimeContainer<AdfsEndpoint>> _nameEndpoints = new HashLinkedCache<string, CacheTimeContainer<AdfsEndpoint>>() { Length = CacheSize };
+        private static HashLinkedCache<string, CacheTimeContainer<AdfsEndpoint>> _nameEndpoints = new HashLinkedCache<string, CacheTimeContainer<AdfsEndpoint>>() { Length = 200 };
 
 
         public AdfsEndpointRepositoryHelper(IAdfsEndpointRepository adfsEndpointRepository)
