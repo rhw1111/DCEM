@@ -230,8 +230,7 @@ export class EditPage implements OnInit {
         if (this.model.info.score == -1) {
             this._page.alert("消息提示", "请选择评分");
             return;
-        }
-        debugger;
+        } 
         var tagName=this.model.info.describe+"，客户标签：";
         for (var i in this.model.ChoiceTag) { 
             var tagid=this.model.ChoiceTag[i];
@@ -245,8 +244,7 @@ export class EditPage implements OnInit {
                 }
             }
         }
-        this.model.info.describe=tagName;
-        debugger;
+        this.model.info.describe=tagName; 
         this._page.loadingShow();
         this._http.post(
             this.model.apiUrl,
