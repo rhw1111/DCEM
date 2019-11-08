@@ -115,6 +115,9 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         }
         #endregion
 
+        #region 根据主键id
+        #endregion
+
         #region 查询培育任务
         /// <summary>
         /// 查询与唯一线索关联的培育任务

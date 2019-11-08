@@ -136,8 +136,8 @@
             <ion-list lines="full" *ngFor="let r of mod.datalist">
                 <ion-item>
                     <ion-label>
-                        <h2>姓名:{{r.mcs_fullname}}</h2>
-                        <p>回访时间:{{FormatToDateTime(r.mcs_visittime)}}</p>
+                        <h2>回访时间:{{FormatToDateTime(r.mcs_visittime)}}</h2>
+                        <p>回访时间:{{r.mcs_results}}</p>
                         <p>回访内容:{{r.mcs_content}}</p>
                     </ion-label>
                 </ion-item>
