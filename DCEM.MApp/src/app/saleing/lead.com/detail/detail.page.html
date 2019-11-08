@@ -7,87 +7,94 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <ion-item-group>
-        <ion-item-divider color="primary">
-            <ion-label>基本信息</ion-label>
-        </ion-item-divider>
-        <ion-item>
-            <ion-label>
-                <h2>姓名</h2>
-            </ion-label>
-            <ion-note slot="end">
-                <p>{{model.info.username}}</p>
-            </ion-note>
-        </ion-item>
-        <ion-item>
-            <ion-label>
-                <h2>手机号</h2>
-            </ion-label>
-            <ion-note slot="end">
-                <p>{{model.info.mobile}}</p>
-            </ion-note>
-        </ion-item>
-        <ion-item>
-            <ion-label>
-                <h2>线索来源</h2>
-            </ion-label>
-            <ion-note slot="end">
-                <p>{{model.info.clues}}</p>
-            </ion-note>
-        </ion-item>
-        <ion-item>
-            <ion-label>
-                <h2>称呼</h2>
-            </ion-label>
-            <ion-note slot="end">
-                <p>{{model.info.gender}}</p>
-            </ion-note>
-        </ion-item>
-        <ion-item>
-            <ion-label>
-                <h2>邮箱</h2>
-            </ion-label>
-            <ion-note slot="end">
-                <p>{{model.info.mail}}</p>
-            </ion-note>
-        </ion-item>
-        <ion-item>
-            <ion-label>
-                <h2>评分</h2>
-            </ion-label>
-            <ion-note slot="end">
-                <p>{{model.info.score}}</p>
-            </ion-note>
-        </ion-item>
-        <ion-item>
-            <ion-label>
-                <h2>省</h2>
-            </ion-label>
-            <ion-note slot="end">
-                <p>{{model.info.province}}</p>
-            </ion-note>
-        </ion-item>
-        <ion-item>
-            <ion-label>
-                <h2>市</h2>
-            </ion-label>
-            <ion-note slot="end">
-                <p>{{model.info.city}}</p>
-            </ion-note>
-        </ion-item>
-        <ion-item>
-            <ion-label>
-                <h2>区</h2>
-            </ion-label>
-            <ion-note slot="end">
-                <p>{{model.info.area}}</p>
-            </ion-note>
-        </ion-item>
-        <ion-item>
-            <ion-label>
-                <h2>线索描述</h2>
-            </ion-label>
-            <ion-textarea readonly>{{model.info.describe}}</ion-textarea>
-        </ion-item>
-    </ion-item-group>
+    <ion-card>
+        <ion-card-content>
+            <ion-list>
+                <ion-item-group>
+                    <ion-item-divider color="primary">
+                        <ion-label>基本信息</ion-label>
+                    </ion-item-divider>
+                    <ion-item>
+                        <ion-label>
+                            <h2>姓名</h2>
+                        </ion-label>
+                        <ion-note slot="end">
+                            <p>{{model.info.username}}</p>
+                        </ion-note>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>
+                            <h2>手机号</h2>
+                        </ion-label>
+                        <ion-note slot="end">
+                            <p>{{model.info.mobile}}</p>
+                        </ion-note>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>
+                            <h2>线索来源</h2>
+                        </ion-label>
+                        <ion-note slot="end">
+                            <p>{{model.info.clues}}</p>
+                        </ion-note>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>
+                            <h2>称呼</h2>
+                        </ion-label>
+                        <ion-note slot="end">
+                            <p>{{model.info.gender}}</p>
+                        </ion-note>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>
+                            <h2>邮箱</h2>
+                        </ion-label>
+                        <ion-note slot="end">
+                            <p>{{model.info.mail}}</p>
+                        </ion-note>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>
+                            <h2>评分</h2>
+                        </ion-label>
+                        <ion-note slot="end">
+                            <p>{{model.info.score}}</p>
+                        </ion-note>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>
+                            <h2>省</h2>
+                        </ion-label>
+                        <ion-note slot="end">
+                            <p>{{model.info.province}}</p>
+                        </ion-note>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>
+                            <h2>市</h2>
+                        </ion-label>
+                        <ion-note slot="end">
+                            <p>{{model.info.city}}</p>
+                        </ion-note>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>
+                            <h2>区</h2>
+                        </ion-label>
+                        <ion-note slot="end">
+                            <p>{{model.info.area}}</p>
+                        </ion-note>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>
+                            <h2>线索描述</h2>
+                        </ion-label>
+                        <ion-textarea readonly>{{model.info.describe}}</ion-textarea>
+                    </ion-item>
+                </ion-item-group>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+
 </ion-content>
