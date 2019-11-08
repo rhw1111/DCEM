@@ -19,7 +19,7 @@ export class EditPage implements OnInit {
     mcs_visittime:null,
     systemUserId: "",//当前用户id
     mcs_logcallid:"",
-    mcs_onlyleadid:""  //唯一线索ID
+    entityid:""  //唯一线索ID
   }
 }
   constructor(
@@ -34,13 +34,20 @@ export class EditPage implements OnInit {
   ngOnInit() {
 
     this.activeRoute.queryParams.subscribe((params: Params) => {
-      if (params['id'] != null && params['id'] != undefined) { 
 
-          this.model.postData.mcs_logcallid = params['id'];
-          this.pageOnBind(params['id']);
+      this.model.postData.systemUserId = this._logininfo.GetSystemUserId(); 
+      if (params['id'] != null && params['id'] != undefined) {  //唯一线索主键id
+
+          this.model.postData.entityid = params['id'];         
       }
+      if (params['mcslogcallid'] != null && params['mcslogcallid'] != undefined) {  //联络任务 主键id
+
+        this.model.postData.mcs_logcallid = params['mcslogcallid'];
+        this.pageOnBind(params['mcslogcallid']);  
+    }
+
    });
-   this.model.postData.systemUserId = this._logininfo.GetSystemUserId(); 
+  
   }
    
 //根据主键加载联络记录(logcall)
@@ -58,15 +65,11 @@ pageOnBind(id: any) {
       (res: any) => {
           debugger;
           if (res !== null) {
-              if (res.Results !== null) {
-                  for (var key in res.Results[0]) {
-                     
-                      this.model.postData.mcs_content = res.Results[key]["Attributes"]["mcs_content"];
-                      this.model.postData.mcs_visittime = res.Results[key]["Attributes"]["mcs_visittime"];
-                      this.model.postData.mcs_results = res.Results[key]["Attributes"]["mcs_results"];                      
-                      this.model.postData.mcs_onlyleadid = res.Results[key]["Attributes"]["mcs_onlyleadid"]; 
-                  }
-                 
+              if (res.Results !== null) {                                   
+                      this.model.postData.mcs_content = res.Results[0]["Attributes"]["mcs_content"];
+                      this.model.postData.mcs_visittime = res.Results[0]["Attributes"]["mcs_visittime"];
+                      this.model.postData.mcs_results = res.Results[0]["Attributes"]["mcs_results"];                      
+                      this.model.postData.mcs_onlyleadid = res.Results[0]["Attributes"]["_mcs_onlyleadid_value"];                                  
               }
               else{
                 this._page.alert("消息提示", "数据加载异常");
@@ -115,10 +118,10 @@ pageOnBind(id: any) {
               if (res.Result == true) {              
                   console.log(res);              
                   //this._shareData.delete(this.mod.shareDataKey);
-                  this._page.goto("/saleing/onlylead/detail", { guid: this.model.postData.mcs_onlyleadid });
+                  this._page.goto("/saleing/onlylead/detail", {id: this.model.postData.mcs_onlyleadid });
               }
               else {
-                  this._page.alert("消息提示", "操作失败");
+                  this._page.alert("消息提示", res.Description);
               }
           },
           (err: any) => {
