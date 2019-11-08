@@ -9,7 +9,7 @@
     "CrmApiVersion": "8.2",
     "TokenServiceType": "ADFSPassword",
     "AdfsUrl": "https://subcrmadfs.sokon.com/",
-    "CrmUrl": "https://subcrmdev.sokon.com",
+    "CrmUrl": "https://subcrmdev2.sokon.com",
     "ClientId": "e3053682-935d-41df-bcc3-f7fc4de37040",
     "ClientSecret": "VfEqoCGnQ9p-pFFS2jUXmiYI0zzo8XzhQBYj18wD",
     "UserName": "sfmotors\\subdevcrmadmin",
