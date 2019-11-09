@@ -12,6 +12,7 @@ using Newtonsoft.Json.Linq;
 using System.Linq;
 namespace DCEM.ServiceAssistantService.Main.Application
 {
+    //服务委托书相关
     public class ServiceproxyService : IServiceproxyService
     {
         #region 初始化 构造函数
@@ -511,7 +512,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
         }
         #endregion
 
-        #region 加工额外的维修项目信息
+        #region 加工 额外维修项目信息
         public async Task<List<CrmEntity>> AddExtRepairitemList(List<CrmEntity> repairitemList, string dealeridGuid)
         {
             var repairitemMap = new Dictionary<Guid, CrmEntity>();
@@ -531,7 +532,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
             var repairitemtypedetailEntity = await _crmService.RetrieveMultiple("mcs_repairitemtypedetail", "$filter=mcs_name eq '一般维修'", null, dicHead);
             #endregion
 
-            #region 查询 厅店索赔设置 (自费维修项目费用)
+            #region 查询 厅店索赔设置 (保修的费用)
             var xdoc = await Task<XDocument>.Run(() =>
             {
                 var fetchXml = string.Empty;
@@ -592,7 +593,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
         }
         #endregion
 
-        #region 加工额外的工时费用信息
+        #region 加工 额外的配件信息
         public async Task<List<CrmEntity>> AddExtPartsList(List<CrmEntity> partsList)
         {
             var partsMap = new Dictionary<Guid, CrmEntity>();
@@ -788,6 +789,8 @@ namespace DCEM.ServiceAssistantService.Main.Application
             return queryResult;
         }
         #endregion
+
+        
 
     }
 }

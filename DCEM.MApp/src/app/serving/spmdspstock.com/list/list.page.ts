@@ -14,10 +14,11 @@ export class ListPage implements OnInit {
     @ViewChild(IonInfiniteScroll, null) ionInfiniteScroll: IonInfiniteScroll;
 
     mod = {
-        apiUrl: '/Api/Serviceproxy/GetList',
-        data: {},
+        apiUrl: '/Api/Stock/GetSpmdspStockList',
+        data: {
+            spmdspstockArray: []
+        },
         searchData: {
-            type: 2,
             pageindex: 1,
             search: ""
         },
@@ -33,19 +34,17 @@ export class ListPage implements OnInit {
     }
 
     ngOnInit() {
-       // this.listOnBind();
+        this.listOnBind();
     }
 
     //每次页面加载
-    ionViewWillEnter() {
-        this.mod.data = {};
-        this.mod.searchData = {
-            type: 2,
-            pageindex: 1,
-            search: ""
-        };
-        this.listOnBind();
-    }
+    //ionViewWillEnter() {
+    //    this.mod.searchData = {
+    //        pageindex: 1,
+    //        search: ""
+    //    };
+    //    this.listOnBind();
+    //}
 
     //下拉刷新
     doInfinite(event) {
@@ -58,7 +57,7 @@ export class ListPage implements OnInit {
     searchOnKeyup(event: any) {
         var keyCode = event ? event.keyCode : "";
         if (keyCode == 13) {
-            this.mod.data = {};
+            this.mod.data.spmdspstockArray = [];
             this.mod.searchData.pageindex = 1;
             this.ionInfiniteScroll.disabled = false;
             this.ionContent.scrollToTop(200);
@@ -74,7 +73,6 @@ export class ListPage implements OnInit {
             this.mod.apiUrl,
             {
                 params: {
-                    type: this.mod.searchData.type,
                     pageindex: this.mod.searchData.pageindex,
                     search: this.mod.searchData.search
                 }
@@ -82,36 +80,15 @@ export class ListPage implements OnInit {
             (res: any) => {
                 if (!this._valid.isNull(res.Results) !== null && res.Results.length > 0) {
                     for (var key in res.Results) {
-                        var date = res.Results[key]["Attributes"]["createdon"];
-                        var dateKey = this._datePipe.transform(date, "_yyyyMM");
-                        var dateText = this._datePipe.transform(date, "yyyy年MM月");
-                        if (typeof this.mod.data[dateKey] === "undefined") {
-                            this.mod.data[dateKey] = {};
-                            this.mod.data[dateKey]["text"] = dateText;
-                            this.mod.data[dateKey].data = [];
-                        }
 
                         var obj = {};
-                        obj["Id"] = res.Results[key]["Id"];
-                        obj["carplate"] = res.Results[key]["Attributes"]["mcs_carplate"];
-                        obj["customername"] = res.Results[key]["Attributes"]["mcs_customername"];
-                        obj["createdonformat"] = res.Results[key]["Attributes"]["createdon@OData.Community.Display.V1.FormattedValue"];
-                        obj["name"] = res.Results[key]["Attributes"]["mcs_name"];
-                        obj["status"] = res.Results[key]["Attributes"]["mcs_status"];
-                        obj["statusformat"] = res.Results[key]["Attributes"]["mcs_status@OData.Community.Display.V1.FormattedValue"];
-
+                        obj = res.Results[key]["Attributes"];
                         //设置颜色
-                        obj["statuscolor"] = "primary";
-                        if (obj["status"] < 100) {
-                            obj["statuscolor"] = "primary";
+                        obj["icoColor"] = "dark";
+                        if (obj["a_x002e_mcs_availableq"] > 0) {
+                            obj["icoColor"] = "primary";
                         }
-                        else if (obj["status"] < 180) {
-                            obj["statuscolor"] = "tertiary";
-                        }
-                        else {
-                            obj["statuscolor"] = "success";
-                        }
-                        this.mod.data[dateKey].data.push(obj);
+                        this.mod.data.spmdspstockArray.push(obj);
 
                     }
                 }
