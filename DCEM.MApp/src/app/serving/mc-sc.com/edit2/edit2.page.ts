@@ -267,13 +267,14 @@ export class Edit2Page implements OnInit {
             (res: any) => {
                 this._page.loadingHide();
                 if (res.Result == true) {
-                    console.log("res");
-                    console.log(res);
-                    var guid = res["Data"]["Id"];
-                    this._shareData.delete(this.mod.shareDataKey);
-
-                    //this._page.alert("消息提示", "操作成功" + guid);
-                    this._page.goto("/serving/sc/success", { guid: guid });
+                    if (this.shareData["actioncode"] === 1)
+                        this._page.navigateRoot("/serving/sc/success", { actioncode: this.shareData["actioncode"], id: id, no: no });
+                    else {
+                        const that = this;
+                        this._page.alert("消息提示", "单据信息更新成功,请单击确认返回服务委托书列表", function () {
+                            that._page.navigateRoot("/serving/sc/list", null, "back");
+                        });
+                    }
                 }
                 else {
                     this._page.alert("消息提示", "操作失败");

@@ -160,6 +160,8 @@
     <Content Include="src\app\serving\serving.ser\components\select-parts\select-parts.component.scss" />
     <Content Include="src\app\serving\serving.ser\components\select-repairitem\select-repairitem.component.html" />
     <Content Include="src\app\serving\serving.ser\components\select-repairitem\select-repairitem.component.scss" />
+    <Content Include="src\app\serving\spmdspstock.com\list\list.page.html" />
+    <Content Include="src\app\serving\spmdspstock.com\list\list.page.scss" />
     <Content Include="src\app\serving\technical-support.com\detail\detail.page.html" />
     <Content Include="src\app\serving\technical-support.com\detail\detail.page.scss" />
     <Content Include="src\app\serving\technical-support.com\edit\edit.page.html" />
@@ -728,6 +730,9 @@
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-parts\select-parts.component.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-repairitem\select-repairitem.component.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-repairitem\select-repairitem.component.ts" />
+    <TypeScriptCompile Include="src\app\serving\spmdspstock.com\list\list.module.ts" />
+    <TypeScriptCompile Include="src\app\serving\spmdspstock.com\list\list.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\serving\spmdspstock.com\list\list.page.ts" />
     <TypeScriptCompile Include="src\app\serving\technical-support.com\detail\detail.module.ts" />
     <TypeScriptCompile Include="src\app\serving\technical-support.com\detail\detail.page.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\technical-support.com\detail\detail.page.ts" />
@@ -920,6 +925,7 @@
     <Folder Include="src\app\serving\my-customer.com\detail\" />
     <Folder Include="src\app\serving\my-customer.com\list\" />
     <Folder Include="src\app\serving\my-customer.com\select\" />
+    <Folder Include="src\app\serving\spmdspstock.com\" />
     <Folder Include="src\app\serving\reception-interrogation.com\" />
     <Folder Include="src\app\serving\reception-interrogation.com\detail\" />
     <Folder Include="src\app\serving\reception-interrogation.com\edit2\" />
@@ -942,6 +948,7 @@
     <Folder Include="src\app\serving\serving.ser\components\select-repairlocation\" />
     <Folder Include="src\app\serving\serving.ser\components\select-parts\" />
     <Folder Include="src\app\serving\serving.ser\components\select-repairitem\" />
+    <Folder Include="src\app\serving\spmdspstock.com\list\" />
     <Folder Include="src\app\serving\technical-support.com\" />
     <Folder Include="src\app\serving\technical-support.com\detail\" />
     <Folder Include="src\app\serving\technical-support.com\edit\" />
