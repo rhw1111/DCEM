@@ -62,7 +62,7 @@ export class SubeditpartPage implements OnInit {
 
             obj["name"] = data["parts"]["model"]["mcs_partscode"];
             obj["code"] = data["parts"]["model"]["mcs_name"];
-            obj["partsid"] = data["parts"]["model"]["Id"];
+            obj["partsid"] = data["parts"]["model"]["mcs_partsid"];
 
             obj["repairitemtypeid"] = data["parts"]["model"]["ext_repairitemtypeid"];
             obj["repairitemtypedetailid"] = data["parts"]["model"]["ext_repairitemtypedetailid"];

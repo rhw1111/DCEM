@@ -30,6 +30,8 @@ export class Edit2Page implements OnInit {
 
     //定义共享数据
     shareData = {
+        actioncode: 1,
+        viewTitle: "",
         serviceproxy: {
         },
         serviceorderrepairitemMap: {},
@@ -113,6 +115,7 @@ export class Edit2Page implements OnInit {
             },
             (res: any) => {
                 if (res !== null) {
+
                     this.shareData.serviceorderrepairitemMap = {};
                     //加维修项目
                     for (var key in res.MaintenanceiteminfoList) {
@@ -145,8 +148,8 @@ export class Edit2Page implements OnInit {
                         obj["code"] = res.RepairitempartList[key]["Attributes"]["mcs_name"];
                         obj["partsid"] = res.RepairitempartList[key]["Id"];
 
-                        obj["repairitemtypeid"] = res.MaintenanceiteminfoList[key]["Attributes"]["ext_repairitemtypeid"];
-                        obj["repairitemtypedetailid"] = res.MaintenanceiteminfoList[key]["Attributes"]["ext_repairitemtypedetailid"];
+                        obj["repairitemtypeid"] = res.RepairitempartList[key]["Attributes"]["ext_repairitemtypeid"];
+                        obj["repairitemtypedetailid"] = res.RepairitempartList[key]["Attributes"]["ext_repairitemtypedetailid"];
                         obj["repairitemtypeid_Formatted"] = res.RepairitempartList[key]["Attributes"]["ext_repairitemtypeid_formatted"];
                         obj["repairitemtypedetailid_Formatted"] = res.RepairitempartList[key]["Attributes"]["ext_repairitemtypedetailid_formatted"];
 
@@ -202,10 +205,12 @@ export class Edit2Page implements OnInit {
     //提交保存
     public saveOnClick() {
 
-        this.mod.postData["actioncode"] = 1;
+        this.mod.postData["actioncode"] = this.shareData.actioncode;
 
         //组装服务委托书
         this.mod.postData["serviceproxy"] = {};
+        if (this.shareData["actioncode"] === 2)
+            this.mod.postData["serviceproxy"]["serviceproxyid"] = this.shareData.serviceproxy["serviceproxyid"];     //服务委托书ID
         this.mod.postData["serviceproxy"]["currenttype"] = 20;
         this.mod.postData["serviceproxy"]["customerid"] = this.shareData.serviceproxy["customerid"];     //车辆VIN
         this.mod.postData["serviceproxy"]["dealerid"] = this.shareData.serviceproxy["dealerid"];     //厅店Id

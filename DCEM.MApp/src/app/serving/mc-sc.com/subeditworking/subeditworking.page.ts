@@ -54,12 +54,14 @@ export class SubeditworkingPage implements OnInit {
         await modal.present();
         const { data } = await modal.onDidDismiss();
         if (!this._valid.isNull(data) && !this._valid.isNull(data["repairitem"])) {
+
+            console.log(data);
             var obj = {};
             var mapkey = Math.random();//生成唯一编码
 
             obj["name"] = data["repairitem"]["model"]["mcs_repairitemcode"];
             obj["code"] = data["repairitem"]["model"]["mcs_name"];
-            obj["repairitemid"] = data["repairitem"]["model"]["Id"];
+            obj["repairitemid"] = data["repairitem"]["model"]["mcs_repairiteminfoid"];
 
             obj["repairitemtypeid"] = data["repairitem"]["model"]["ext_repairitemtypeid"];
             obj["repairitemtypedetailid"] = data["repairitem"]["model"]["ext_repairitemtypedetailid"];

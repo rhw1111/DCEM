@@ -257,9 +257,6 @@ namespace DCEM.ServiceAssistantService.Main.Application
 
         }
 
-
-
-
         public async Task<ValidateResult<CrmEntity>> AddOrUpdate(ServiceproxyAddOrUpdateRequest request)
         {
             var validateResult = new ValidateResult<CrmEntity>();
@@ -274,57 +271,18 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 var serviceproxyEntity = await AddOrUpdateGetServiceproxyEntity(request, serviceproxyGuid);
                 var reuset = await _crmService.Create(serviceproxyEntity);
                 #endregion
-
-                #region 加入维修项目
-                foreach (var serviceorderrepairitem in request.serviceorderrepairitemArray)
-                {
-                    var serviceorderrepairitemGuid = Guid.NewGuid();
-                    var serviceorderrepairitemEntity = new CrmExecuteEntity("mcs_serviceorderrepairitem", serviceorderrepairitemGuid);
-                    serviceorderrepairitemEntity.Attributes.Add("mcs_repairitemid", new CrmEntityReference("mcs_repairiteminfo", Guid.Parse(serviceorderrepairitem.repairitemid)));        //维修项目代码
-                    serviceorderrepairitemEntity.Attributes.Add("mcs_name", serviceorderrepairitem.name);                  //维修项目名称
-                    serviceorderrepairitemEntity.Attributes.Add("mcs_workinghour", serviceorderrepairitem.workinghour);    //工时数
-                    serviceorderrepairitemEntity.Attributes.Add("mcs_price", serviceorderrepairitem.price);                //单价
-                    serviceorderrepairitemEntity.Attributes.Add("mcs_discount", serviceorderrepairitem.discount);          //折扣
-                    //维修类别
-                    serviceorderrepairitemEntity.Attributes.Add("mcs_repairitemtypeid", new CrmEntityReference("mcs_repairitemtype", Guid.Parse(serviceorderrepairitem.repairitemtypeid)));
-                    //维修类别
-                    serviceorderrepairitemEntity.Attributes.Add("mcs_repairitemtypedetailid", new CrmEntityReference("mcs_repairitemtypedetail", Guid.Parse(serviceorderrepairitem.repairitemtypedetailid)));
-                    //总价
-                    serviceorderrepairitemEntity.Attributes.Add("mcs_repairamount", serviceorderrepairitem.price * serviceorderrepairitem.discount * serviceorderrepairitem.workinghour);
-                    serviceorderrepairitemEntity.Attributes.Add("mcs_serviceorderid", new CrmEntityReference("mcs_serviceproxy", serviceproxyGuid));
-                    reuset = await _crmService.Create(serviceorderrepairitemEntity);
-                }
-                #endregion
-
-                #region 加入维修配件
-                //加入维修配件
-                foreach (var serviceorderpart in request.serviceorderpartArray)
-                {
-                    var serviceorderpartGuid = Guid.NewGuid();
-                    var serviceorderpartEntity = new CrmExecuteEntity("mcs_serviceorderpart", serviceorderpartGuid);
-                    serviceorderpartEntity.Attributes.Add("mcs_partsid", new CrmEntityReference("mcs_parts", Guid.Parse(serviceorderpart.partsid)));
-                    serviceorderpartEntity.Attributes.Add("mcs_partsname", serviceorderpart.partsname);
-                    serviceorderpartEntity.Attributes.Add("mcs_price", serviceorderpart.price);
-                    serviceorderpartEntity.Attributes.Add("mcs_quantity", serviceorderpart.quantity);
-                    serviceorderpartEntity.Attributes.Add("mcs_discount", serviceorderpart.discount);
-                    serviceorderpartEntity.Attributes.Add("mcs_repairitemtypeid", new CrmEntityReference("mcs_repairitemtype", Guid.Parse(serviceorderpart.repairitemtypeid)));  //维修类别
-                    serviceorderpartEntity.Attributes.Add("mcs_repairitemtypedetailid", new CrmEntityReference("mcs_repairitemtypedetail", Guid.Parse(serviceorderpart.repairitemtypedetailid)));
-                    serviceorderpartEntity.Attributes.Add("mcs_amount", serviceorderpart.price * serviceorderpart.discount * serviceorderpart.quantity);        //总价
-                    serviceorderpartEntity.Attributes.Add("mcs_serviceorderid", new CrmEntityReference("mcs_serviceproxy", serviceproxyGuid));
-                    reuset = await _crmService.Create(serviceorderpartEntity);
-                }
-                #endregion
-
             }
             else if (request.actioncode == 2)
             {
+                #region 更新服务委托书
                 serviceproxyGuid = Guid.Parse(request.serviceproxy.serviceproxyid);
                 var serviceproxyEntity = await AddOrUpdateGetServiceproxyEntity(request, serviceproxyGuid);
                 await _crmService.Update(serviceproxyEntity);
+                #endregion
 
             }
 
-            #region 更新环检项目(环检项目以前是通过插件更新的 所以这里只能更新)
+            #region 更新环检项目(环检项目以前是通过插件自动创建的 所以这里只能更新)
 
             #region 组装环检项Map
             var vehcheckFilter = $@"
@@ -356,7 +314,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
                     crmExecuteEntity.Attributes.Add("mcs_checkreult", serviceordercheckresult.checkreult);
                     await _crmService.Update(crmExecuteEntity);
                 }
-                else  //容错机制  如果没有找到记录 就创建
+                else  //简单容错机制  如果没有找到记录 就创建
                 {
                     var serviceordercheckresultGuid = Guid.NewGuid();
                     var serviceordercheckresultEntity = new CrmExecuteEntity("mcs_serviceordercheckresult", serviceordercheckresultGuid);
@@ -370,6 +328,61 @@ namespace DCEM.ServiceAssistantService.Main.Application
             }
             #endregion
 
+            #endregion
+
+            #region 删除旧的维修项目
+            var deletePairitemList = await _crmService.RetrieveMultiple("mcs_serviceorderrepairitem", $"$filter=_mcs_serviceorderid_value eq {serviceproxyGuid}");
+            foreach (var deletePairitem in deletePairitemList.Results)
+            {
+                await _crmService.Delete("mcs_serviceorderrepairitem", deletePairitem.Id);
+            }
+            #endregion
+
+            #region 更新维修项目
+            foreach (var serviceorderrepairitem in request.serviceorderrepairitemArray)
+            {
+                var serviceorderrepairitemGuid = Guid.NewGuid();
+                var serviceorderrepairitemEntity = new CrmExecuteEntity("mcs_serviceorderrepairitem", serviceorderrepairitemGuid);
+                serviceorderrepairitemEntity.Attributes.Add("mcs_repairitemid", new CrmEntityReference("mcs_repairiteminfo", Guid.Parse(serviceorderrepairitem.repairitemid)));        //维修项目代码
+                serviceorderrepairitemEntity.Attributes.Add("mcs_name", serviceorderrepairitem.name);                  //维修项目名称
+                serviceorderrepairitemEntity.Attributes.Add("mcs_workinghour", serviceorderrepairitem.workinghour);    //工时数
+                serviceorderrepairitemEntity.Attributes.Add("mcs_price", serviceorderrepairitem.price);                //单价
+                serviceorderrepairitemEntity.Attributes.Add("mcs_discount", serviceorderrepairitem.discount);          //折扣
+                                                                                                                       //维修类别
+                serviceorderrepairitemEntity.Attributes.Add("mcs_repairitemtypeid", new CrmEntityReference("mcs_repairitemtype", Guid.Parse(serviceorderrepairitem.repairitemtypeid)));
+                //维修类别
+                serviceorderrepairitemEntity.Attributes.Add("mcs_repairitemtypedetailid", new CrmEntityReference("mcs_repairitemtypedetail", Guid.Parse(serviceorderrepairitem.repairitemtypedetailid)));
+                //总价
+                serviceorderrepairitemEntity.Attributes.Add("mcs_repairamount", serviceorderrepairitem.price * serviceorderrepairitem.discount * serviceorderrepairitem.workinghour);
+                serviceorderrepairitemEntity.Attributes.Add("mcs_serviceorderid", new CrmEntityReference("mcs_serviceproxy", serviceproxyGuid));
+                await _crmService.Create(serviceorderrepairitemEntity);
+            }
+            #endregion
+
+            #region 删除旧的维修配件
+            var deletePartsList = await _crmService.RetrieveMultiple("mcs_serviceorderpart", $"$filter=_mcs_serviceorderid_value eq {serviceproxyGuid}");
+            foreach (var deleteParts in deletePartsList.Results)
+            {
+                await _crmService.Delete("mcs_serviceorderpart", deleteParts.Id);
+            }
+            #endregion
+
+            #region 更新维修配件
+            foreach (var serviceorderpart in request.serviceorderpartArray)
+            {
+                var serviceorderpartGuid = Guid.NewGuid();
+                var serviceorderpartEntity = new CrmExecuteEntity("mcs_serviceorderpart", serviceorderpartGuid);
+                serviceorderpartEntity.Attributes.Add("mcs_partsid", new CrmEntityReference("mcs_parts", Guid.Parse(serviceorderpart.partsid)));
+                serviceorderpartEntity.Attributes.Add("mcs_partsname", serviceorderpart.partsname);
+                serviceorderpartEntity.Attributes.Add("mcs_price", serviceorderpart.price);
+                serviceorderpartEntity.Attributes.Add("mcs_quantity", serviceorderpart.quantity);
+                serviceorderpartEntity.Attributes.Add("mcs_discount", serviceorderpart.discount);
+                serviceorderpartEntity.Attributes.Add("mcs_repairitemtypeid", new CrmEntityReference("mcs_repairitemtype", Guid.Parse(serviceorderpart.repairitemtypeid)));  //维修类别
+                serviceorderpartEntity.Attributes.Add("mcs_repairitemtypedetailid", new CrmEntityReference("mcs_repairitemtypedetail", Guid.Parse(serviceorderpart.repairitemtypedetailid)));
+                serviceorderpartEntity.Attributes.Add("mcs_amount", serviceorderpart.price * serviceorderpart.discount * serviceorderpart.quantity);        //总价
+                serviceorderpartEntity.Attributes.Add("mcs_serviceorderid", new CrmEntityReference("mcs_serviceproxy", serviceproxyGuid));
+                await _crmService.Create(serviceorderpartEntity);
+            }
             #endregion
 
             #region 组装数据返回

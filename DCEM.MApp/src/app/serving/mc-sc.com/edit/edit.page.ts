@@ -120,6 +120,7 @@ export class EditPage implements OnInit {
                 }
             },
             (res: any) => {
+
                 if (!this._valid.isNull(res.Serviceproxy)) {
                     this.shareData.serviceproxy["serviceproxyid"] = id;
                     this.shareData.serviceproxy["customerid"] = res["Serviceproxy"]["Attributes"]["_mcs_customerid_value"];
@@ -151,7 +152,7 @@ export class EditPage implements OnInit {
                         obj["code"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemid@OData.Community.Display.V1.FormattedValue"];
                         obj["repairitemid"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemid"];
 
-                        obj["repairitemtypeid"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_repairitemtypeid"];
+                        obj["repairitemtypeid"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemtypeid"];
                         obj["repairitemtypedetailid"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemtypedetailid"];
                         obj["repairitemtypeid_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemtypeid@OData.Community.Display.V1.FormattedValue"];
                         obj["repairitemtypedetailid_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemtypedetailid@OData.Community.Display.V1.FormattedValue"];
@@ -174,9 +175,9 @@ export class EditPage implements OnInit {
                         obj["partsid"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_partsid"];
 
                         obj["repairitemtypeid"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_repairitemtypeid"];
-                        obj["repairitemtypedetailid"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemtypedetailid"];
+                        obj["repairitemtypedetailid"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_repairitemtypedetailid"];
                         obj["repairitemtypeid_Formatted"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_repairitemtypeid@OData.Community.Display.V1.FormattedValue"];
-                        obj["repairitemtypedetailid_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemtypedetailid@OData.Community.Display.V1.FormattedValue"];
+                        obj["repairitemtypedetailid_Formatted"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_repairitemtypedetailid@OData.Community.Display.V1.FormattedValue"];
 
                         obj["quantity"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_quantity"];
                         obj["price"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_price"];
@@ -186,6 +187,7 @@ export class EditPage implements OnInit {
                         this.shareData.serviceorderpartMap[mapkey] = obj;
                     }
                 }
+
                 this._page.loadingHide();
             },
             (err: any) => {
