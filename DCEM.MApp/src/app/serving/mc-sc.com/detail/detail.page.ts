@@ -115,10 +115,10 @@ export class DetailPage implements OnInit {
                         obj["repairitemtypeid_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemtypeid@OData.Community.Display.V1.FormattedValue"];
                         obj["repairitemtypedetailid_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemtypedetailid@OData.Community.Display.V1.FormattedValue"];
                         
-                        obj["workinghour_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_workinghour@OData.Community.Display.V1.FormattedValue"];
-                        obj["price_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_price@OData.Community.Display.V1.FormattedValue"];
-                        obj["discount_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_discount@OData.Community.Display.V1.FormattedValue"];
-                        obj["repairamount_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairamount@OData.Community.Display.V1.FormattedValue"];
+                        obj["workinghou"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_workinghour"];
+                        obj["price"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_price"];
+                        obj["discount"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_discount"];
+                        obj["repairamount"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairamount"];
 
                         this.mod.data.serviceorderrepairitemArray.push(obj);
                     }
@@ -133,10 +133,10 @@ export class DetailPage implements OnInit {
                         obj["repairitemtypeid_Formatted"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_repairitemtypeid@OData.Community.Display.V1.FormattedValue"];
                         obj["repairitemtypedetailid_Formatted"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_repairitemtypedetailid@OData.Community.Display.V1.FormattedValue"];
 
-                        obj["quantity_Formatted"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_quantity@OData.Community.Display.V1.FormattedValue"];
-                        obj["price_Formatted"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_price@OData.Community.Display.V1.FormattedValue"];
-                        obj["discount_Formatted"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_discount@OData.Community.Display.V1.FormattedValue"];
-                        obj["amount"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_amount@OData.Community.Display.V1.FormattedValue"];
+                        obj["quantity"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_quantity"];
+                        obj["price"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_price"];
+                        obj["discount"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_discount"];
+                        obj["amount"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_amount"];
 
                         this.mod.data.serviceorderpartArray.push(obj);
                     }

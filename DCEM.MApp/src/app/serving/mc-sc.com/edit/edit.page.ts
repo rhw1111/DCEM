@@ -104,7 +104,7 @@ export class EditPage implements OnInit {
         const that = this;
         this.ionBackButtonDelegate.onClick = function (event) {
             that._shareData.delete(that.mod.shareDataKey);
-            that._page.goBack();
+            that._page.navigateRoot("/serving/sc/list", null, "back");
         }
     }
 
@@ -120,6 +120,7 @@ export class EditPage implements OnInit {
                 }
             },
             (res: any) => {
+
                 if (!this._valid.isNull(res.Serviceproxy)) {
                     this.shareData.serviceproxy["serviceproxyid"] = id;
                     this.shareData.serviceproxy["customerid"] = res["Serviceproxy"]["Attributes"]["_mcs_customerid_value"];
@@ -149,14 +150,17 @@ export class EditPage implements OnInit {
                         var mapkey = Math.random();//生成唯一编码
                         obj["name"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_name"];
                         obj["code"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemid@OData.Community.Display.V1.FormattedValue"];
+                        obj["repairitemid"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemid"];
 
+                        obj["repairitemtypeid"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemtypeid"];
+                        obj["repairitemtypedetailid"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemtypedetailid"];
                         obj["repairitemtypeid_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemtypeid@OData.Community.Display.V1.FormattedValue"];
                         obj["repairitemtypedetailid_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemtypedetailid@OData.Community.Display.V1.FormattedValue"];
 
-                        obj["workinghour_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_workinghour@OData.Community.Display.V1.FormattedValue"];
-                        obj["price_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_price@OData.Community.Display.V1.FormattedValue"];
-                        obj["discount_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_discount@OData.Community.Display.V1.FormattedValue"];
-                        obj["repairamount_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairamount@OData.Community.Display.V1.FormattedValue"];
+                        obj["workinghour"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_workinghour"];
+                        obj["price"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_price"];
+                        obj["discount"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_discount"];
+                        obj["repairamount"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairamount"];
 
                         this.shareData.serviceorderrepairitemMap[mapkey] = obj;
                     }
@@ -168,17 +172,22 @@ export class EditPage implements OnInit {
                         var mapkey = Math.random();//生成唯一编码
                         obj["name"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_partsname"];
                         obj["code"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_partsid@OData.Community.Display.V1.FormattedValue"];
+                        obj["partsid"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_partsid"];
 
+                        obj["repairitemtypeid"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_repairitemtypeid"];
+                        obj["repairitemtypedetailid"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_repairitemtypedetailid"];
                         obj["repairitemtypeid_Formatted"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_repairitemtypeid@OData.Community.Display.V1.FormattedValue"];
-                        obj["repairitemtypedetailid_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemtypedetailid@OData.Community.Display.V1.FormattedValue"];
+                        obj["repairitemtypedetailid_Formatted"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_repairitemtypedetailid@OData.Community.Display.V1.FormattedValue"];
 
-                        obj["quantity_Formatted"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_quantity@OData.Community.Display.V1.FormattedValue"];
-                        obj["price_Formatted"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_price@OData.Community.Display.V1.FormattedValue"];
-                        obj["discount_Formatted"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_discount@OData.Community.Display.V1.FormattedValue"];
-                        obj["amount_Formatted"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_amount@OData.Community.Display.V1.FormattedValue"];
+                        obj["quantity"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_quantity"];
+                        obj["price"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_price"];
+                        obj["discount"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_discount"];
+                        obj["amount"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_amount"];
+
                         this.shareData.serviceorderpartMap[mapkey] = obj;
                     }
                 }
+
                 this._page.loadingHide();
             },
             (err: any) => {
