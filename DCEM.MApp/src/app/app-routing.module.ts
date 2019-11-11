@@ -94,6 +94,12 @@ const routes: Routes = [
                     { path: 'testdriverate', loadChildren: './serving/report/testdriverate/testdriverate.module#TestdriveratePageModule' }
                 ]
             },
+            {
+                path: 'spmdspstock',//备件库存
+                children: [
+                    { path: 'list', loadChildren: './serving/spmdspstock.com/list/list.module#ListPageModule' },
+                ]
+            },
         ],
     },
     {

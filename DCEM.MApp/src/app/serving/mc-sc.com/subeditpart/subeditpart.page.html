@@ -6,8 +6,6 @@
         <ion-title>维修配件</ion-title>
     </ion-toolbar>
 </ion-header>
-
-
 <ion-content>
     <ion-card>
         <ion-card-header>
@@ -22,7 +20,7 @@
                     代码
                     <ion-text color="danger">*</ion-text>
                 </ion-label>
-                <p>{{mod.data["partscode"]}}&nbsp;</p>
+                <p>{{mod.data["code"]}}&nbsp;</p>
             </ion-item>
             <ion-item (click)="presentPartModal()">
 
@@ -31,25 +29,28 @@
                     名称
                     <ion-text color="danger">*</ion-text>
                 </ion-label>
-                <p>{{mod.data["partsname"]}}&nbsp;</p>
+                <p>{{mod.data["name"]}}&nbsp;</p>
 
             </ion-item>
             <ion-item>
                 <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
                     维修类别
                     <ion-text color="danger">*</ion-text>
                 </ion-label>
-                <p>{{mod.data["repairitemtypeid_formatted"]}}&nbsp;</p>
+                <p>{{mod.data["repairitemtypeid_Formatted"]}}&nbsp;</p>
             </ion-item>
             <ion-item>
                 <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
                     维修类型
                     <ion-text color="danger">*</ion-text>
                 </ion-label>
-                <p>{{mod.data["repairitemtypedetailid_formatted"]}}&nbsp;</p>
+                <p>{{mod.data["repairitemtypedetailid_Formatted"]}}&nbsp;</p>
             </ion-item>
             <ion-item>
                 <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
                     数量
                     <ion-text color="danger">*</ion-text>
                 </ion-label>
@@ -57,6 +58,7 @@
             </ion-item>
             <ion-item>
                 <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
                     单价
                     <ion-text color="danger">*</ion-text>
                 </ion-label>
@@ -64,6 +66,7 @@
             </ion-item>
             <ion-item>
                 <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
                     折扣
                     <ion-text color="danger">*</ion-text>
                 </ion-label>

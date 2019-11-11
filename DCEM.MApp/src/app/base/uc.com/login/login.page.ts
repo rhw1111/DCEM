@@ -81,12 +81,13 @@ export class LoginPage implements OnInit {
                     password: encodeURIComponent(this.mod.password)
                 }
             },
-            (res: any) => { 
-                if(res.access_token==""){ 
-                this._page.alert('消息提示', '登录认证失败');
-                return false;
-                }
-                this._logininfo.SetInfo(JSON.stringify(res));    
+            (res: any) => {
+                //if (res.access_token == "") {
+                //    this._page.alert('消息提示', '登录认证失败');
+                //    this._page.loadingHide();
+                //    return false;
+                //}
+                this._logininfo.SetInfo(JSON.stringify(res));
                 this._page.loadingHide();
                 this._page.alert('消息提示', '登录认证成功');
                 this._page.goto("serving/home/tabs");

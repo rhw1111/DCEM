@@ -40,7 +40,7 @@ export class ListPage implements OnInit {
     ionViewWillEnter() {
         this.mod.data = {};
         this.mod.searchData = {
-            type: 1,
+            type: 2,
             pageindex: 1,
             search: ""
         };
@@ -67,7 +67,6 @@ export class ListPage implements OnInit {
     }
     //列表绑定
     listOnBind() {
-
         if (this.mod.searchData.pageindex == 1)
             this._page.loadingShow();
 

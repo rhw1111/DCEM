@@ -1,0 +1,45 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/serving/home/index"></ion-back-button>
+        </ion-buttons>
+        <ion-title>备件库存</ion-title>
+        <ion-buttons slot="end">
+            <ion-button [routerLink]="['/serving/home/tabs']">
+                <ion-icon slot="icon-only" name="home" [routerLink]="['/serving/home/tabs']"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-searchbar animated [(ngModel)]="mod.searchData.search" placeholder="请输入备件名称\编码搜索" (keyup)="searchOnKeyup($event)"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list lines="full">
+        <ion-item-sliding *ngFor="let item of mod.data.spmdspstockArray;let key=index">
+            <ion-item>
+                <ion-icon color="{{item['icoColor']}}" name="cube"></ion-icon>
+                <ion-label style="margin-left:10px">
+                    <h6>{{item["mcs_partscode"]}}</h6>
+                    <p>{{item["mcs_name"]}}</p>
+                    <p>{{item["a_x002e_mcs_spmdspwarehouseid@OData.Community.Display.V1.FormattedValue"]}}</p>
+                    <p>{{item["a_x002e_mcs_spmdsplocationid@OData.Community.Display.V1.FormattedValue"]}}</p>
+                </ion-label>
+                <ion-note slot="end">
+                    {{item["a_x002e_mcs_availableq"]}}
+                </ion-note>
+            </ion-item>
+        </ion-item-sliding>
+        <ion-item *ngIf="ionInfiniteScroll.disabled">
+            <ion-label>
+                <p>
+                    没有更多的记录显示啦
+                </p>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

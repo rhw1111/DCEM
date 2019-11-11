@@ -464,6 +464,13 @@ namespace MSLibrary.Ali
         /// <returns></returns>
         Task Delete(OSSEndpoint endpoint, string filePath);
         /// <summary>
+        /// 批量删除文件
+        /// </summary>
+        /// <param name="endpoint"></param>
+        /// <param name="filePaths"></param>
+        /// <returns></returns>
+        Task DeleteBatch(OSSEndpoint endpoint, IList<string> filePaths);
+        /// <summary>
         /// 复制文件
         /// </summary>
         /// <param name="endpoint"></param>
@@ -1127,9 +1134,11 @@ namespace MSLibrary.Ali
             return await Task.FromResult(strUri);
         }
 
-        public Task Delete(OSSEndpoint endpoint, string filePath)
+        public async Task Delete(OSSEndpoint endpoint, string filePath)
         {
-            throw new NotImplementedException();
+            var client = getOssClient(endpoint);
+            //DeleteObjectsRequest request = new DeleteObjectsRequest(endpoint.Bucket, new List<string>() { filePath });
+            client.DeleteObject(endpoint.Bucket, filePath);
         }
 
         public async Task<ObjectMetadata> GetMetadata(OSSEndpoint endpoint, string filePath)
@@ -1137,14 +1146,16 @@ namespace MSLibrary.Ali
             return await getObjMetadata(endpoint, endpoint.Bucket, filePath);
         }
 
-        public Task<MultipartStorgeInfo> GetMultipartUploadInfo(OSSEndpoint endpoint, Guid infoID)
+        public async Task<MultipartStorgeInfo> GetMultipartUploadInfo(OSSEndpoint endpoint, Guid infoID)
         {
-            throw new NotImplementedException();
+            var sourceInfo=generateUploadPartSourceInfo(endpoint);
+            return await _multipartStorgeInfoRepository.QueryBySourceID(sourceInfo, infoID);
         }
 
-        public Task<QueryResult<MultipartStorgeInfo>> GetMultipartUploadInfo(OSSEndpoint endpoint, int page, int size)
+        public async Task<QueryResult<MultipartStorgeInfo>> GetMultipartUploadInfo(OSSEndpoint endpoint, int page, int size)
         {
-            throw new NotImplementedException();
+            var sourceInfo = generateUploadPartSourceInfo(endpoint);
+            return await _multipartStorgeInfoRepository.QueryBySourcePage(sourceInfo, 0, page, size);
         }
 
         public async Task ModifyMetadata(OSSEndpoint endpoint, string filePath, ObjectMetadata metadata)
@@ -1871,14 +1882,16 @@ namespace MSLibrary.Ali
             return storgeInfo;
         }
 
-        public Task<MultipartStorgeInfo> GetMultipartCopyInfo(OSSEndpoint endpoint, Guid infoID)
+        public async Task<MultipartStorgeInfo> GetMultipartCopyInfo(OSSEndpoint endpoint, Guid infoID)
         {
-            throw new NotImplementedException();
+            var copyPartSourceInfo= generateCopyPartSourceInfo(endpoint);
+            return await _multipartStorgeInfoRepository.QueryBySourceID(copyPartSourceInfo, infoID);
         }
 
-        public Task<QueryResult<MultipartStorgeInfo>> GetMultipartCopyInfo(OSSEndpoint endpoint, int page, int size)
+        public async Task<QueryResult<MultipartStorgeInfo>> GetMultipartCopyInfo(OSSEndpoint endpoint, int page, int size)
         {
-            throw new NotImplementedException();
+            var copyPartSourceInfo = generateCopyPartSourceInfo(endpoint);
+            return await _multipartStorgeInfoRepository.QueryBySourcePage(copyPartSourceInfo, 0, page, size);
         }
 
         public async Task AbortMultipart(OSSEndpoint endpoint, string filePath, string uploadID)
@@ -2222,6 +2235,14 @@ namespace MSLibrary.Ali
             }
             //执行storgeInfo的完成操作
             await storgeInfo.Complete(string.Empty);
+        }
+
+        public async Task DeleteBatch(OSSEndpoint endpoint, IList<string> filePaths)
+        {
+            var client = getOssClient(endpoint);
+            DeleteObjectsRequest request = new DeleteObjectsRequest(endpoint.Bucket, filePaths);
+            client.DeleteObjects(request);
+            await Task.FromResult(0);
         }
 
         /// <summary>

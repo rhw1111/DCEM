@@ -33,6 +33,15 @@ namespace DCEM.LoggerService
             _baseUrl = Path.GetDirectoryName(typeof(Program).Assembly.Location);
             Environment.CurrentDirectory = _baseUrl ?? Environment.CurrentDirectory;
 
+            //获取运行环境名称
+            var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_APPLICATIONNAME");
+            if (environmentName == null)
+            {
+                environmentName = string.Empty;
+            }
+            //初始化配置容器
+            MainStartupHelper.InitConfigurationContainer(environmentName, _baseUrl);
+
             //初始化上下文容器
             MainStartupHelper.InitContext();
             StartupHelper.InitContext();
@@ -45,8 +54,7 @@ namespace DCEM.LoggerService
             WebHost.CreateDefaultBuilder(args)
             .ConfigureServices((context, services) =>
             {
-                    //初始化配置容器
-                    MainStartupHelper.InitConfigurationContainer(context.HostingEnvironment.EnvironmentName, _baseUrl);
+                    //初始化配置容器                  
                     StartupHelper.InitConfigurationContainer(context.HostingEnvironment.EnvironmentName, _baseUrl);
 
                     //获取核心配置
@@ -68,6 +76,11 @@ namespace DCEM.LoggerService
                 //初始化日志配置
                 MainStartupHelper.InitLogger(builder);
             })
+            .ConfigureKestrel(opts=>
+            {
+                
+            })
+            
             .UseConfiguration(ConfigurationContainer.GetConfiguration(ConfigurationNames.Host))
             .UseStartup<Startup>();
     }
