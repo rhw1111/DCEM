@@ -2,6 +2,7 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 import { HttpService } from '../../../base/base.ser/http-service.service';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { IonInfiniteScroll } from '@ionic/angular';
+import { OptionSetService } from '../../saleing.ser/optionset.service';
 
 @Component({
   selector: 'app-list',
@@ -18,7 +19,7 @@ export class ListPage implements OnInit {
     mcs_rostatus: 0,//订单状态
     pageSize: 10,//页数
     page: 1,//分页
-    //sort: 'mcs_supportorderid desc',//排序的参数
+    sort: '',//排序的参数
     isending: false,//是否加载完成
     datalist: []//列表数据
 };
@@ -26,8 +27,9 @@ export class ListPage implements OnInit {
   constructor(
     private _http: DCore_Http,
     private _page: DCore_Page,
-    private httpService: HttpService) 
-    {}
+    private httpService: HttpService,
+    private optionset:OptionSetService
+    ) {}
 
   ngOnInit() {
     this.model.page = 1;
@@ -48,7 +50,7 @@ export class ListPage implements OnInit {
 
 //下拉刷新
 doRefresh(event) {
-    this.model.data = [];
+    this.model.datalist = [];
     this.model.page = 1;
     this.model.isending = false;
     this.getList(event);
@@ -61,7 +63,7 @@ doLoading(event) {
 //切换tab
 selectTab(status) {
     this.infiniteScroll.disabled = false;//切换标签初始化下拉控件事件
-    this.model.data = [];
+    this.model.datalist = [];
     this.model.page = 1;
     this.model.isending = false;
     if (status != "" && status != undefined) {
@@ -75,20 +77,20 @@ selectTab(status) {
 
  //获取列表数据
  getList(event) {
-  debugger;
+  //debugger;
   this._page.loadingShow();
   this._http.get(this.model.apiUrl,
       {
           params: {
               mcs_rostatus: this.model.mcs_rostatus,
-              SearchKey: this.model.seachkey,
-              Sort: this.model.sort,
-              PageSize: this.model.pageSize,
-              PageIndex: this.model.page
+              seachkey: this.model.seachkey,
+              sort: this.model.sort,
+              pageSize: this.model.pageSize,
+              page: this.model.page,
           }
       },
       (res: any) => {
-         debugger;
+         //debugger;
           if (res.Results !== null) {
               //绑定数据
               res.Results.forEach(item => {              
@@ -96,9 +98,8 @@ selectTab(status) {
                   obj["mcs_vehorderid"] = item["Attributes"].mcs_vehorderid;             
                   obj["mcs_contactname"] = item["Attributes"].mcs_contactname;
                   obj["mcs_contactphone"] = item["Attributes"].mcs_contactphone;
-                  obj["mcs_code"] = item["Attributes"].mcs_code;   
-                  obj["mcs_rostatus"] = item["Attributes"].mcs_rostatus;    
-                                
+                  obj["mcs_code"] = item["Attributes"].mcs_code;                    
+                  obj["mcs_rostatus"] =this.optionset.GetOptionSetNameByValue("mcs_rostatus",item["Attributes"].mcs_rostatus);              
                   this.model.datalist.push(obj);
 
               });

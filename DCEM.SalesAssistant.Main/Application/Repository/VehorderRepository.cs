@@ -19,10 +19,9 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
             var filter = string.Empty;
             if (!string.IsNullOrWhiteSpace(vehorderRequest.SearchKey))
             {
-                filter += $"<filter type='or'>";
-                filter += $"<condition attribute='name' operator='like' value='%{vehorderRequest.SearchKey}%' />";
-                filter += $"<condition attribute='accountnumber' operator='like' value='%{vehorderRequest.SearchKey}%' />";
-                filter += $"<condition attribute='mcs_mobilephone' operator='like' value='%{vehorderRequest.SearchKey}%' />";
+                filter += $"<filter type='or'>";               
+                filter += $"<condition attribute='mcs_contactname' operator='like' value='%{vehorderRequest.SearchKey}%' />";
+                filter += $"<condition attribute='mcs_contactphone' operator='like' value='%{vehorderRequest.SearchKey}%' />";
                 filter += $"</filter>";
             }
             if (vehorderRequest.mcs_rostatus.HasValue && vehorderRequest.mcs_rostatus.GetValueOrDefault(0) > 0)
@@ -31,12 +30,12 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
                 filter += $"<condition attribute='mcs_rostatus' operator='eq' value='{vehorderRequest.mcs_rostatus}' />";
                 filter += $"</filter>";
             }
-            if (!string.IsNullOrEmpty(vehorderRequest.mcs_dealerid))
-            {
-                filter += $"<filter type='and'>";
-                filter += $"<condition attribute='mcs_dealer' operator='eq' value='{vehorderRequest.mcs_dealerid}' />";
-                filter += $"</filter>";
-            }
+            //if (!string.IsNullOrEmpty(vehorderRequest.mcs_dealerid))
+            //{
+            //    filter += $"<filter type='and'>";
+            //    filter += $"<condition attribute='mcs_dealer' operator='eq' value='{vehorderRequest.mcs_dealerid}' />";
+            //    filter += $"</filter>";
+            //}
 
             var fetchString = $@"<fetch version='1.0' count='{vehorderRequest.PageSize}' page='{vehorderRequest.PageIndex}' output-format='xml-platform' mapping='logical' distinct='false'>
                 <entity name='mcs_vehorder'>

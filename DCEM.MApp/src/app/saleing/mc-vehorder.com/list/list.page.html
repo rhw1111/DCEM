@@ -6,7 +6,7 @@
     <ion-title>整车订单</ion-title>
   </ion-toolbar>
   <ion-toolbar>
-      <ion-searchbar [(ngModel)]="this.model.seachkey" placeholder="支持项目名称和编号模糊查找" (keyup)="search($event)" ></ion-searchbar>
+      <ion-searchbar [(ngModel)]="this.model.seachkey" placeholder="可根据姓名和手机号模糊查找" (keyup)="search($event)" ></ion-searchbar>
   </ion-toolbar>
   <ion-toolbar>
       <ion-segment>
@@ -37,12 +37,12 @@
                 <h3>{{item.mcs_contactname}}</h3>
                 <p>{{item.mcs_contactphone}}</p>            
             </ion-label>
-            <ion-note slot="end" >
-                <ion-icon color="primary" name="hourglass" size="small"></ion-icon>
+           <!--  <ion-note slot="end" >
+                 <ion-icon color="primary" name="hourglass" size="small"></ion-icon> 
                 <p>{{item.mcs_code}}</p>    
-            </ion-note>
+            </ion-note> -->
             <ion-note slot="end" >
-                <ion-icon color="primary" name="hourglass" size="small"></ion-icon>
+                <!-- <ion-icon color="primary" name="hourglass" size="small"></ion-icon>  -->
                 <p>{{item.mcs_rostatus}}</p>   
             </ion-note>
             
