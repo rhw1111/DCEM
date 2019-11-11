@@ -38,5 +38,12 @@ namespace DCEM.SalesAssistant.Main.Application.Services.Contrac
         /// <param name="activityrequest"></param>
         /// <returns></returns>
         Task<QueryResult<CrmEntity>> GetActivityList(ActivityRequest activityrequest);
+        
+        /// <summary>
+        /// 唯一线索编辑
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ValidateResult<CrmEntity>> Edit(OnlyLeadEditRequest request);
     }
 }

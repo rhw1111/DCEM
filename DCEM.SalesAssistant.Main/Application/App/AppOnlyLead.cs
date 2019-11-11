@@ -55,5 +55,15 @@ namespace DCEM.SalesAssistant.Main.Application.App
         {
             return await _onlyLeadService.GetActivityList(activityrequest);
         }
+
+        /// <summary>
+        /// 唯一线索编辑
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ValidateResult<CrmEntity>> Edit(OnlyLeadEditRequest request)
+        {
+            return await _onlyLeadService.Edit(request);
+        }
     }
 }
