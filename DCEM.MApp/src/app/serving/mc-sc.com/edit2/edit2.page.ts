@@ -267,8 +267,10 @@ export class Edit2Page implements OnInit {
             (res: any) => {
                 this._page.loadingHide();
                 if (res.Result == true) {
+                    var id = res["Data"]["Id"];
+                    var no = res["Data"]["Attributes"]["mcs_name"];
                     if (this.shareData["actioncode"] === 1)
-                        this._page.navigateRoot("/serving/sc/success", { actioncode: this.shareData["actioncode"], id: id, no: no });
+                        this._page.navigateRoot("/serving/sc/success", { actioncode: this.shareData["actioncode"], id: res["id"], no: no });
                     else {
                         const that = this;
                         this._page.alert("消息提示", "单据信息更新成功,请单击确认返回服务委托书列表", function () {

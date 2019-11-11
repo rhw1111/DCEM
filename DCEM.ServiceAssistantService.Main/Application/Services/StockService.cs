@@ -55,5 +55,9 @@ namespace DCEM.ServiceAssistantService.Main.Application
             return await _ServiceproxyService.QueryPartsListByFilter(pageindex, defaultpageCount, filter);
         }
         #endregion
+
+        #region 查询整车厅店库存台账
+
+        #endregion
     }
 }

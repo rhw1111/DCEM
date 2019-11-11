@@ -32,7 +32,6 @@ namespace DCEM.Web.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="type">1全部 2保修到期 3保险到期</param>
         /// <param name="pageindex"></param>
         /// <param name="search"></param>
         /// <returns></returns>
@@ -43,6 +42,8 @@ namespace DCEM.Web.Controllers
             return await _stockService.QuerySpmdspStockList(pageindex, search);
         }
         #endregion
+
+
 
 
     }
