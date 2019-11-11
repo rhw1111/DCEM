@@ -44,6 +44,8 @@ namespace DCEM.ServiceAssistantService.Main.Application
 
         #region 查询维修配件项目
         Task<QueryResult<CrmEntity>> QueryPartsList(int pageIndex, string search);
+
+        Task<QueryResult<CrmEntity>> QueryPartsListByFilter(int pageIndex, int pageCount, string filter);
         #endregion
 
     }

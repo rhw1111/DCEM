@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{f26cede4-f02d-4382-a6bd-49c0cb89d2aa}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <ProjectView>ShowAllFiles</ProjectView>
+    <ProjectView>ProjectFiles</ProjectView>
     <StartupFile />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -40,8 +40,6 @@
     <Content Include="src\app\saleing\lead.com\list\list.page.scss" />
     <Content Include="src\app\saleing\lead.com\success\success.page.html" />
     <Content Include="src\app\saleing\lead.com\success\success.page.scss" />
-    <Content Include="src\app\saleing\lead.com\sucess\sucess.page.html" />
-    <Content Include="src\app\saleing\lead.com\sucess\sucess.page.scss" />
     <Content Include="src\app\saleing\mcs-account.com\detail\detail.page.html" />
     <Content Include="src\app\saleing\mcs-account.com\detail\detail.page.scss" />
     <Content Include="src\app\saleing\mcs-account.com\edit\edit.page.html" />
@@ -60,8 +58,6 @@
     <Content Include="src\app\saleing\mcs-cultivatetask.com\list\list.page.scss" />
     <Content Include="src\app\saleing\mcs-cultivatetask.com\success\success.page.html" />
     <Content Include="src\app\saleing\mcs-cultivatetask.com\success\success.page.scss" />
-    <Content Include="src\app\saleing\mcs-cultivatetask.com\sucess\sucess.page.html" />
-    <Content Include="src\app\saleing\mcs-cultivatetask.com\sucess\sucess.page.scss" />
     <Content Include="src\app\saleing\mcs-onlylead.com\detail\detail.page.html" />
     <Content Include="src\app\saleing\mcs-onlylead.com\detail\detail.page.scss" />
     <Content Include="src\app\saleing\mcs-onlylead.com\edit\edit.page.html" />
@@ -164,6 +160,8 @@
     <Content Include="src\app\serving\serving.ser\components\select-parts\select-parts.component.scss" />
     <Content Include="src\app\serving\serving.ser\components\select-repairitem\select-repairitem.component.html" />
     <Content Include="src\app\serving\serving.ser\components\select-repairitem\select-repairitem.component.scss" />
+    <Content Include="src\app\serving\spmdspstock.com\list\list.page.html" />
+    <Content Include="src\app\serving\spmdspstock.com\list\list.page.scss" />
     <Content Include="src\app\serving\technical-support.com\detail\detail.page.html" />
     <Content Include="src\app\serving\technical-support.com\detail\detail.page.scss" />
     <Content Include="src\app\serving\technical-support.com\edit\edit.page.html" />
@@ -562,9 +560,6 @@
     <TypeScriptCompile Include="src\app\saleing\lead.com\success\success.module.ts" />
     <TypeScriptCompile Include="src\app\saleing\lead.com\success\success.page.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\lead.com\success\success.page.ts" />
-    <TypeScriptCompile Include="src\app\saleing\lead.com\sucess\sucess.module.ts" />
-    <TypeScriptCompile Include="src\app\saleing\lead.com\sucess\sucess.page.spec.ts" />
-    <TypeScriptCompile Include="src\app\saleing\lead.com\sucess\sucess.page.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-account.com\detail\detail.module.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-account.com\detail\detail.page.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-account.com\detail\detail.page.ts" />
@@ -592,9 +587,6 @@
     <TypeScriptCompile Include="src\app\saleing\mcs-cultivatetask.com\success\success.module.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-cultivatetask.com\success\success.page.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-cultivatetask.com\success\success.page.ts" />
-    <TypeScriptCompile Include="src\app\saleing\mcs-cultivatetask.com\sucess\sucess.module.ts" />
-    <TypeScriptCompile Include="src\app\saleing\mcs-cultivatetask.com\sucess\sucess.page.spec.ts" />
-    <TypeScriptCompile Include="src\app\saleing\mcs-cultivatetask.com\sucess\sucess.page.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\detail\detail.module.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\detail\detail.page.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\detail\detail.page.ts" />
@@ -738,6 +730,9 @@
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-parts\select-parts.component.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-repairitem\select-repairitem.component.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-repairitem\select-repairitem.component.ts" />
+    <TypeScriptCompile Include="src\app\serving\spmdspstock.com\list\list.module.ts" />
+    <TypeScriptCompile Include="src\app\serving\spmdspstock.com\list\list.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\serving\spmdspstock.com\list\list.page.ts" />
     <TypeScriptCompile Include="src\app\serving\technical-support.com\detail\detail.module.ts" />
     <TypeScriptCompile Include="src\app\serving\technical-support.com\detail\detail.page.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\technical-support.com\detail\detail.page.ts" />
@@ -876,7 +871,6 @@
     <Folder Include="src\app\saleing\lead.com\edit\" />
     <Folder Include="src\app\saleing\lead.com\list\" />
     <Folder Include="src\app\saleing\lead.com\success\" />
-    <Folder Include="src\app\saleing\lead.com\sucess\" />
     <Folder Include="src\app\saleing\mcs-account.com\" />
     <Folder Include="src\app\saleing\mcs-account.com\detail\" />
     <Folder Include="src\app\saleing\mcs-account.com\edit\" />
@@ -889,7 +883,6 @@
     <Folder Include="src\app\saleing\mcs-cultivatetask.com\edit\" />
     <Folder Include="src\app\saleing\mcs-cultivatetask.com\list\" />
     <Folder Include="src\app\saleing\mcs-cultivatetask.com\success\" />
-    <Folder Include="src\app\saleing\mcs-cultivatetask.com\sucess\" />
     <Folder Include="src\app\saleing\mcs-onlylead.com\" />
     <Folder Include="src\app\saleing\mcs-onlylead.com\detail\" />
     <Folder Include="src\app\saleing\mcs-onlylead.com\edit\" />
@@ -932,6 +925,7 @@
     <Folder Include="src\app\serving\my-customer.com\detail\" />
     <Folder Include="src\app\serving\my-customer.com\list\" />
     <Folder Include="src\app\serving\my-customer.com\select\" />
+    <Folder Include="src\app\serving\spmdspstock.com\" />
     <Folder Include="src\app\serving\reception-interrogation.com\" />
     <Folder Include="src\app\serving\reception-interrogation.com\detail\" />
     <Folder Include="src\app\serving\reception-interrogation.com\edit2\" />
@@ -954,6 +948,7 @@
     <Folder Include="src\app\serving\serving.ser\components\select-repairlocation\" />
     <Folder Include="src\app\serving\serving.ser\components\select-parts\" />
     <Folder Include="src\app\serving\serving.ser\components\select-repairitem\" />
+    <Folder Include="src\app\serving\spmdspstock.com\list\" />
     <Folder Include="src\app\serving\technical-support.com\" />
     <Folder Include="src\app\serving\technical-support.com\detail\" />
     <Folder Include="src\app\serving\technical-support.com\edit\" />

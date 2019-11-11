@@ -12,6 +12,7 @@ using MSLibrary.Logger;
 using MSLibrary.Context;
 using MSLibrary.Context.Middleware;
 using MSLibrary.Context.Filter;
+using Microsoft.AspNetCore.Mvc;
 using MSLibrary.Logger.Middleware;
 using MSLibrary.AspNet.Middleware;
 using DCEM.Main.Logger;
@@ -33,6 +34,8 @@ namespace DCEM.LoggerService
                     
                     //opts.MaxIAsyncEnumerableBufferLimit
                 });
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,12 +46,21 @@ namespace DCEM.LoggerService
                 app.UseDeveloperExceptionPage();
             }
 
+            /*app.Run(async(context)=>
+            {
+                await context.Response.WriteAsync("A");
+            }
+            );*/
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
+              
             });
-
+            
+ 
+       
             
 
             app.UseDIWrapper(ContextExtensionTypes.DI,LoggerCategoryNames.DIWrapper);

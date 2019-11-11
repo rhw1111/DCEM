@@ -55,12 +55,12 @@ export class EditPage implements OnInit {
                 }
                 if (this.shareData.actioncode === 2) {
                     if (!this._shareData.has(this.mod.shareDataKey)) {
-                        this.shareData.viewTitle = "编辑问诊单";
+                        this.shareData.viewTitle = "编辑服务委托书";
                         this.pageOnBind(this.shareData.serviceproxy["serviceproxyid"]);
                     }
                 }
                 else {
-                    this.shareData.viewTitle = "创建问诊单";
+                    this.shareData.viewTitle = "创建服务委托书";
                 }
             }
         });
@@ -73,7 +73,6 @@ export class EditPage implements OnInit {
         await modal.present();
         const { data } = await modal.onDidDismiss();
         if (data != null && typeof data != "undefined") {
-            console.log(data);
             if (data.vehowne != null && typeof data.vehowne != "undefined") {
                 this.shareData.serviceproxy["customerid"] = data.vehowne.vehownerid;
                 this.shareData.serviceproxy["customername"] = data.vehowne.fullname;
@@ -105,7 +104,7 @@ export class EditPage implements OnInit {
         const that = this;
         this.ionBackButtonDelegate.onClick = function (event) {
             that._shareData.delete(that.mod.shareDataKey);
-            that._page.goBack();
+            that._page.navigateRoot("/serving/sc/list", null, "back");
         }
     }
 
@@ -121,7 +120,7 @@ export class EditPage implements OnInit {
                 }
             },
             (res: any) => {
-                console.log(res);
+
                 if (!this._valid.isNull(res.Serviceproxy)) {
                     this.shareData.serviceproxy["serviceproxyid"] = id;
                     this.shareData.serviceproxy["customerid"] = res["Serviceproxy"]["Attributes"]["_mcs_customerid_value"];
@@ -145,22 +144,25 @@ export class EditPage implements OnInit {
                 }
 
                 if (!this._valid.isNull(res.ServiceorderrepairitemList)) {
+
                     for (var key in res.ServiceorderrepairitemList) {
+                        var obj = {};
                         var mapkey = Math.random();//生成唯一编码
-                        obj["name"] = res.MaintenanceiteminfoList[key]["Attributes"]["mcs_partsname"];  //名称
-                        obj["repairitemid"] = res.MaintenanceiteminfoList[key]["Id"];
-                        obj["repairitemid_formatte"] = res.MaintenanceiteminfoList[key]["Attributes"]["mcs_name"];  //代码
-                        obj["workinghour"] = res.MaintenanceiteminfoList[key]["Attributes"]["mcs_workinghour"];     //工时
-                        obj["price"] = res.MaintenanceiteminfoList[key]["Attributes"]["ext_price"];          //单价
-                        obj["discount"] = 1;                                                                  //折扣
-                        obj["repairamount"] = obj["price"] * obj["workinghour"];                              //总价
-                        obj["repairitemtypeid"] = res.MaintenanceiteminfoList[key]["Attributes"]["ext_repairitemtypeid"];                                      //维修类别  
-                        obj["repairitemtypeid_formatted"] = res.MaintenanceiteminfoList[key]["Attributes"]["ext_repairitemtypeid_formatted"];                  //维修类别 
-                        obj["repairitemtypedetailid"] = res.MaintenanceiteminfoList[key]["Attributes"]["ext_repairitemtypedetailid"];                          //维修类型 
-                        obj["repairitemtypedetailid_formatted"] = res.MaintenanceiteminfoList[key]["Attributes"]["ext_repairitemtypedetailid_formatted"];      //维修类型
+                        obj["name"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_name"];
+                        obj["code"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemid@OData.Community.Display.V1.FormattedValue"];
+                        obj["repairitemid"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemid"];
+
+                        obj["repairitemtypeid"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemtypeid"];
+                        obj["repairitemtypedetailid"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemtypedetailid"];
+                        obj["repairitemtypeid_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemtypeid@OData.Community.Display.V1.FormattedValue"];
+                        obj["repairitemtypedetailid_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemtypedetailid@OData.Community.Display.V1.FormattedValue"];
+
+                        obj["workinghour"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_workinghour"];
+                        obj["price"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_price"];
+                        obj["discount"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_discount"];
+                        obj["repairamount"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairamount"];
+
                         this.shareData.serviceorderrepairitemMap[mapkey] = obj;
-
-
                     }
                 }
 
@@ -168,20 +170,24 @@ export class EditPage implements OnInit {
                     for (var key in res.ServiceorderpartList) {
                         var obj = {};
                         var mapkey = Math.random();//生成唯一编码
-                        //obj["partsid"] = res.RepairitempartList[key]["Id"];
-                        //obj["partsname"] = res.RepairitempartList[key]["Attributes"]["mcs_partscode"];          //零件名称
-                        //obj["partscode"] = res.RepairitempartList[key]["Attributes"]["mcs_name"];              //零件代码
-                        //obj["price"] = res.RepairitempartList[key]["Attributes"]["ext_price"];                 //单价
-                        //obj["quantity"] = 1;                                                                   //数量
-                        //obj["amount"] = obj["price"];                                                          //总金额
-                        //obj["discount"] = 1;                                                                   //折扣
-                        //obj["repairitemtypeid"] = res.RepairitempartList[key]["Attributes"]["ext_repairitemtypeid"];                                      //维修类别  
-                        //obj["repairitemtypeid_formatted"] = res.RepairitempartList[key]["Attributes"]["ext_repairitemtypeid_formatted"];                  //维修类别 
-                        //obj["repairitemtypedetailid"] = res.RepairitempartList[key]["Attributes"]["ext_repairitemtypedetailid"];                          //维修类型 
-                        //obj["repairitemtypedetailid_formatted"] = res.RepairitempartList[key]["Attributes"]["ext_repairitemtypedetailid_formatted"];      //维修类型
-                        //this.shareData.serviceorderpartMap[mapkey] = obj;
+                        obj["name"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_partsname"];
+                        obj["code"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_partsid@OData.Community.Display.V1.FormattedValue"];
+                        obj["partsid"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_partsid"];
+
+                        obj["repairitemtypeid"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_repairitemtypeid"];
+                        obj["repairitemtypedetailid"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_repairitemtypedetailid"];
+                        obj["repairitemtypeid_Formatted"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_repairitemtypeid@OData.Community.Display.V1.FormattedValue"];
+                        obj["repairitemtypedetailid_Formatted"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_repairitemtypedetailid@OData.Community.Display.V1.FormattedValue"];
+
+                        obj["quantity"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_quantity"];
+                        obj["price"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_price"];
+                        obj["discount"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_discount"];
+                        obj["amount"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_amount"];
+
+                        this.shareData.serviceorderpartMap[mapkey] = obj;
                     }
                 }
+
                 this._page.loadingHide();
             },
             (err: any) => {

@@ -4,7 +4,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.IdentityModel.Protocols;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using MSLibrary.Serializer;
 using MSLibrary.LanguageTranslate;
 
@@ -171,6 +175,14 @@ namespace MSLibrary.Oauth.ADFS
                 }
             }
             
+        }
+
+        public static async Task<IEnumerable<SecurityKey>> GetAdfsSigningKeys(string adfsUri)
+        {
+            IConfigurationManager<OpenIdConnectConfiguration> configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>($"{adfsUri}adfs/.well-known/openid-configuration",
+                 new OpenIdConnectConfigurationRetriever());
+            OpenIdConnectConfiguration openIdConfig =  await configurationManager.GetConfigurationAsync(CancellationToken.None);
+            return openIdConfig.SigningKeys;
         }
 
         private static List<KeyValuePair<string, string>> BuildRefreshTokenParams(string refresh_token)
