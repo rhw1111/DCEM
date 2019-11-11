@@ -59,17 +59,21 @@ export class SubeditpartPage implements OnInit {
             console.log(data);
             var obj = {};
             var mapkey = Math.random();//生成唯一编码
+
+            obj["name"] = data["parts"]["model"]["mcs_partscode"];
+            obj["code"] = data["parts"]["model"]["mcs_name"];
             obj["partsid"] = data["parts"]["model"]["mcs_partsid"];
-            obj["partsname"] = data["parts"]["model"]["mcs_partscode"];          //零件名称
-            obj["partscode"] = data["parts"]["model"]["mcs_name"];              //零件代码
-            obj["price"] = data["parts"]["model"]["ext_price"];                 //单价
-            obj["quantity"] = 1;                                                                   //数量
-            obj["amount"] = data["parts"]["model"]["ext_price"];                                                          //总金额
-            obj["discount"] = 1;                                                                   //折扣
-            obj["repairitemtypeid"] = data["parts"]["model"]["ext_repairitemtypeid"];                                      //维修类别  
-            obj["repairitemtypeid_formatted"] = data["parts"]["model"]["ext_repairitemtypeid_formatted"];                  //维修类别 
-            obj["repairitemtypedetailid"] = data["parts"]["model"]["ext_repairitemtypedetailid"];                          //维修类型 
-            obj["repairitemtypedetailid_formatted"] = data["parts"]["model"]["ext_repairitemtypedetailid_formatted"];      //维修类型
+
+            obj["repairitemtypeid"] = data["parts"]["model"]["ext_repairitemtypeid"];
+            obj["repairitemtypedetailid"] = data["parts"]["model"]["ext_repairitemtypedetailid"];
+            obj["repairitemtypeid_Formatted"] = data["parts"]["model"]["ext_repairitemtypeid_formatted"];
+            obj["repairitemtypedetailid_Formatted"] = data["parts"]["model"]["ext_repairitemtypedetailid_formatted"];
+
+            obj["quantity"] = 1;
+            obj["price"] = data["parts"]["model"]["ext_price"];
+            obj["discount"] = 1;
+            obj["amount"] = data["parts"]["model"]["ext_price"];
+
             this.mod.data = obj;
             this.shareData.serviceorderpartMap[mapkey] = obj;
         }

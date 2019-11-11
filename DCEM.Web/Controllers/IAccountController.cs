@@ -21,7 +21,7 @@ namespace DCEM.Web.Controllers
     [EnableCors("any")]
     [Route("api/account")]
     [ApiController]
-    public class IAccountController : ControllerBase
+    public class IAccountController : ApiController
     {
         public IAppAccount app = null;
         public IAccountController()
@@ -32,11 +32,11 @@ namespace DCEM.Web.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("GetList")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetList(int orderstatus=0,string seachkey = "",string sort="",int pageSize=10,int page=1)
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetList(AccountSearhRequest accountSearhRequest)
         {
-            var result = await app.QueryList(null);
+            var result = await app.QueryList(accountSearhRequest);
             return result;
         }
 

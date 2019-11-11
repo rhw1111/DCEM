@@ -4,16 +4,16 @@
             <ion-back-button text="返回" defaultHref="/serving/home/mywork"></ion-back-button>
         </ion-buttons>
         <ion-title>问诊单</ion-title>
+        <ion-buttons slot="end">
+            <ion-button [routerLink]="['/serving/home/tabs']">
+                <ion-icon slot="icon-only" name="home" [routerLink]="['/serving/home/tabs']"></ion-icon>
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
     <ion-toolbar>
         <ion-searchbar animated [(ngModel)]="mod.searchData.search" placeholder="请输入单号\姓名\车牌号搜索" (keyup)="searchOnKeyup($event)"></ion-searchbar>
-        <!--<ion-button color="primary" slot="end" size="small">
-            搜索
-        </ion-button>-->
     </ion-toolbar>
 </ion-header>
-
-
 <ion-content>
     <ion-list lines="full">
         <div *ngFor="let groupkey of mod.objectKeys(mod.data)">
@@ -30,12 +30,12 @@
                         <p>{{item.carplate}}&nbsp;&nbsp;{{item.customername}}</p>
                         <p>{{item.createdonformat}}</p>
                     </ion-label>
-                    <ion-label style="text-align:right;">
+                    <ion-note slot="end">
                         {{item.statusformat}}
-                    </ion-label>
+                    </ion-note>
                 </ion-item>
                 <ion-item-options *ngIf="item.status===100" side="end">
-                    <ion-item-option color="tertiary" expandable [routerLink]="['/serving/ri/edit']">
+                    <ion-item-option color="tertiary" expandable [routerLink]="['/serving/ri/edit']" [queryParams]="{id:item.Id,actionCode:2}">
                         编辑
                     </ion-item-option>
                 </ion-item-options>

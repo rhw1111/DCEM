@@ -4,6 +4,11 @@
             <ion-back-button text="返回" defaultHref="/serving/home/mywork"></ion-back-button>
         </ion-buttons>
         <ion-title>服务委托书</ion-title>
+        <ion-buttons slot="end">
+            <ion-button [routerLink]="['/serving/home/tabs']">
+                <ion-icon slot="icon-only" name="home" [routerLink]="['/serving/home/tabs']"></ion-icon>
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
     <ion-toolbar>
         <ion-searchbar animated [(ngModel)]="mod.searchData.search" placeholder="请输入单号\姓名\车牌号搜索" (keyup)="searchOnKeyup($event)"></ion-searchbar>
@@ -26,12 +31,12 @@
                         <p>{{item.carplate}}&nbsp;&nbsp;{{item.customername}}</p>
                         <p>{{item.createdonformat}}</p>
                     </ion-label>
-                    <ion-label style="text-align:right;">
+                    <ion-note slot="end">
                         {{item.statusformat}}
-                    </ion-label>
+                    </ion-note>
                 </ion-item>
                 <ion-item-options side="end">
-                    <ion-item-option color="tertiary" expandable>
+                    <ion-item-option color="tertiary" expandable [routerLink]="['/serving/sc/edit']" [queryParams]="{id:item.Id,actionCode:2}">
                         编辑
                     </ion-item-option>
                 </ion-item-options>

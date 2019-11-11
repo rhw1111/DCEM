@@ -38,6 +38,15 @@ namespace DCEM.SalesAssistant.Main.Application.Services.Contrac
         /// <param name="activityrequest"></param>
         /// <returns></returns>
         Task<QueryResult<CrmEntity>> GetActivityList(ActivityRequest activityrequest);
+
+
+        /// <summary>
+        /// logcall 新增或编辑
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ValidateResult<CrmEntity>> AddOrEditEntity(LogCallRequest request);
+
         
         /// <summary>
         /// 唯一线索编辑

@@ -33,6 +33,17 @@ export class ListPage implements OnInit {
     }
 
     ngOnInit() {
+       // this.listOnBind();
+    }
+
+    //每次页面加载
+    ionViewWillEnter() {
+        this.mod.data = {};
+        this.mod.searchData = {
+            type: 2,
+            pageindex: 1,
+            search: ""
+        };
         this.listOnBind();
     }
 
@@ -56,7 +67,6 @@ export class ListPage implements OnInit {
     }
     //列表绑定
     listOnBind() {
-
         if (this.mod.searchData.pageindex == 1)
             this._page.loadingShow();
 

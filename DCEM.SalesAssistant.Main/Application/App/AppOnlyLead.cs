@@ -57,6 +57,18 @@ namespace DCEM.SalesAssistant.Main.Application.App
         }
 
         /// <summary>
+        /// logcall 新增或编辑
+        /// </summary>
+        /// <param name="activityrequest"></param>
+        /// <returns></returns>
+        public async Task<ValidateResult<CrmEntity>> AddOrEditEntity(LogCallRequest request)
+        {
+            return await _onlyLeadService.AddOrEditEntity(request);
+        }
+
+
+
+        /// <summary>
         /// 唯一线索编辑
         /// </summary>
         /// <param name="request"></param>

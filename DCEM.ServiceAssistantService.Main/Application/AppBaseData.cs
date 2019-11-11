@@ -18,10 +18,17 @@ namespace DCEM.ServiceAssistantService.Main.Application
     public class AppBaseData : IAppBaseData
     {
         private IBaseDataService _baseDataService;
+        private IAuthService _authService;
 
-        public AppBaseData(IBaseDataService baseDataService)
+        public AppBaseData(IBaseDataService baseDataService, IAuthService authService)
         {
             _baseDataService = baseDataService;
+            _authService = authService;
+        }
+
+        public async Task<LoginModel> GetAuthToken(string username, string password)
+        {
+            return await _authService.GetAuthToken(username,password);
         }
 
         /// <summary>
@@ -128,5 +135,6 @@ namespace DCEM.ServiceAssistantService.Main.Application
         {
             return await _baseDataService.QuerySystemUserByPage(searchkey, prxyUserId, dealerId, pageSize, pageNum, sort);
         }
+
     }
 }

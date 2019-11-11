@@ -38,7 +38,7 @@ namespace DCEM.SalesAssistant.Main.Common
             var dicHead = new Dictionary<string, IEnumerable<string>>();
             dicHead.Add("Prefer", new List<string>() { "odata.include-annotations=\"*\"" }); 
             CrmEntity entity = null;
-            entity = await crmService.Retrieve(entityName, id, "", null, dicHead);
+            entity = await crmService.Retrieve(entityName, id,"", userId, dicHead);
             return entity;
         }
     }

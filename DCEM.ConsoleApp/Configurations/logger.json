@@ -1,0 +1,19 @@
+{
+  "GlobalLogLevels": {
+    "DCEM.LoggerService": "0",
+    "DIWrapper": "0",
+    "HttpRequest": "0",
+    "SystemAuthentication": "0"
+  },
+  "Providers": {
+    "Console": {
+      "Configuration": null,
+      "LogLevels": {
+        "DCEM.Web": "0",
+        "DIWrapper": "0",
+        "HttpRequest": "0",
+        "SystemAuthentication": "0"
+      }
+    }
+  }
+}

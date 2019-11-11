@@ -4,6 +4,7 @@ import { DCore_Page, DCore_Http } from 'app/base/base.ser/Dcem.core';
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 import { debug } from 'util';
 import { IonInfiniteScroll } from '@ionic/angular';
+import { OptionSetService } from '../../saleing.ser/optionset.service';
 @Component({
   selector: 'app-list',
   templateUrl: './list.page.html',
@@ -26,23 +27,24 @@ export class ListPage implements OnInit {
   constructor(  
     private _http: DCore_Http,
     private _page: DCore_Page,
-    private _userinfo:Storage_LoginInfo) { 
+    private _userinfo:Storage_LoginInfo,
+    private _optionset: OptionSetService,) { 
   }
 
   ngOnInit() { 
     this.listOnBind(null);
   }
   //下拉刷新
-  doRefresh(event) {
+  doRefresh(event) { 
     this.mod.data = [];
     this.mod.isending = false;
     this.mod.searchData.pageindex = 1; 
     this.listOnBind(event);
 }
 //加载下一页
-doLoading(event) {
+doLoading(event) { 
     this.mod.searchData.pageindex++;
-    this.mod.isending = false;
+    this.mod.isending = false; 
     this.listOnBind(event); 
 }
 //搜索
@@ -66,13 +68,13 @@ listOnBind(event) {
                   var obj = {}; 
                   obj["username"]=attr["fullname"]; 
                   obj["gender"]=attr["mcs_gender"]; 
-                  obj["mobilephone"]=attr["mobilephone"];
-                  obj["clues"]=attr["_mcs_terminalid_value@OData.Community.Display.V1.FormattedValue"];
+                  obj["mobilephone"]=attr["mobilephone"]; 
+                  obj["clues"]= this._optionset.GetOptionSetNameByValue("mcs_leadorigin",attr["mcs_leadorigin"]);
                   obj["Id"]=data[i]["Id"];
                   this.mod.data.push(obj);
               }
-              event ? event.target.complete() : '';
-              if (data.length < 10) {
+              event ? event.target.complete() : ''; 
+              if (data.length < this.mod.searchData.pagesize) { 
                 event ? event.target.disabled = true : "";
                 this.mod.isending = true;
             }

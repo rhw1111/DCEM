@@ -35,6 +35,15 @@ namespace DCEM.SalesAssistant.Main.Application.App
         {
             return await _service.Get(originalclueDetailRequest);
         }
+        public async Task<originalclueCreateResponse> create(OriginalclueCreateRequest originalclueCreateRequest)
+        {
+            return await _service.create(originalclueCreateRequest);
+        }
 
+
+        public async Task<CustomerlabelListResponse> GetCustomerLabelList(CustomerlabelListRequest customerlabelListRequest)
+        {
+            return await _service.GetCustomerLabelList(customerlabelListRequest);
+        }
     }
 }

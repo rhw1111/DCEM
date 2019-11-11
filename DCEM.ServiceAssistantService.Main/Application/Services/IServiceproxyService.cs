@@ -39,11 +39,13 @@ namespace DCEM.ServiceAssistantService.Main.Application
         #endregion
 
         #region 查询维修项目
-        Task<QueryResult<CrmEntity>> QueryRepairitemList(string dealeridGuid);
+        Task<QueryResult<CrmEntity>> QueryRepairitemList(string dealeridGuid, int pageIndex, string search);
         #endregion
 
         #region 查询维修配件项目
-        Task<QueryResult<CrmEntity>> QueryPartsList();
+        Task<QueryResult<CrmEntity>> QueryPartsList(int pageIndex, string search);
+
+        Task<QueryResult<CrmEntity>> QueryPartsListByFilter(int pageIndex, int pageCount, string filter);
         #endregion
 
     }

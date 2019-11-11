@@ -55,6 +55,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             }
         }
 
+        #region 唯一线索详情查询
         /// <summary>
         /// 唯一线索详情查询
         /// </summary>
@@ -77,8 +78,9 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 throw ex;
             }
         }
+        #endregion
 
-
+        #region 查询跟进记录（logcall）
         /// <summary>
         /// 查询与唯一线索关联的跟进记录（logcall）
         /// </summary>
@@ -111,7 +113,12 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 throw ex;
             }
         }
+        #endregion
 
+        #region 根据主键id
+        #endregion
+
+        #region 查询培育任务
         /// <summary>
         /// 查询与唯一线索关联的培育任务
         /// </summary>
@@ -145,6 +152,70 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             }
         }
 
+        #endregion
+
+        #region 新增或编辑 logcall 
+        /// <summary>
+        /// 新增或编辑 logcall 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ValidateResult<CrmEntity>> AddOrEditEntity(LogCallRequest request)
+        {
+            var validateResult = new ValidateResult<CrmEntity>();
+
+            try
+            {
+                Guid guid = string.IsNullOrEmpty(request.mcs_logcallid) ? Guid.NewGuid() : Guid.Parse(request.mcs_logcallid);
+                CrmExecuteEntity Entity = new CrmExecuteEntity("mcs_logcall", guid);
+                if (!string.IsNullOrEmpty(request.entityid))
+                {
+                    Entity.Attributes.Add("mcs_onlyleadid", new CrmEntityReference("mcs_onlylead", Guid.Parse(request.entityid)));
+                }
+                if (!string.IsNullOrEmpty(request.mcs_content))
+                {
+                    Entity.Attributes.Add("mcs_content", request.mcs_content);
+                }
+                if (!string.IsNullOrEmpty(request.mcs_fullname))
+                {
+                    Entity.Attributes.Add("mcs_fullname", request.mcs_fullname);
+                }
+                if (!string.IsNullOrEmpty(request.mcs_mobilephone))
+                {
+                    Entity.Attributes.Add("mcs_mobilephone", request.mcs_mobilephone);
+                }
+                if (!string.IsNullOrEmpty(request.mcs_results))
+                {
+                    Entity.Attributes.Add("mcs_results", request.mcs_results);
+                }
+                if (request.mcs_visittime.HasValue)
+                {
+                    Entity.Attributes.Add("mcs_visittime", request.mcs_visittime.Value);
+                }
+
+                if (!string.IsNullOrEmpty(request.mcs_logcallid))
+                {
+                    await _crmService.Update(Entity);
+                }
+                else
+                {
+                    guid = await _crmService.Create(Entity);
+                }
+
+                validateResult.Result = true;
+                validateResult.Description = "操作成功";
+            }
+            catch (Exception ex)
+            {
+                validateResult.Result = false;
+                validateResult.Description = "操作失败，原因："+ex.Message;
+                throw ex;
+            }
+
+
+            return validateResult;
+        }
+        #endregion
         /// <summary>
         /// 唯一线索编辑
         /// </summary>

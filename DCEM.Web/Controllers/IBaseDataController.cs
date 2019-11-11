@@ -20,7 +20,7 @@ namespace DCEM.Web.Controllers
     [EnableCors("any")]
     [Route("api/basedata")]
     [ApiController]
-    public class IBaseDataController : ControllerBase
+    public class IBaseDataController : ApiController
     {
         public IAppBaseData app = null;
         public IBaseDataController()

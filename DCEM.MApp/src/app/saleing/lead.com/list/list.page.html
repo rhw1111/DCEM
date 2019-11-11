@@ -6,45 +6,53 @@
         <ion-title>我的留资</ion-title>
     </ion-toolbar>
     <ion-toolbar>
-        <ion-searchbar animated [(ngModel)]="mod.searchData.search" placeholder="请输入姓名\手机号搜索" (keyup)="searchOnKeyup($event)"></ion-searchbar>  
+        <ion-searchbar animated [(ngModel)]="mod.searchData.search" placeholder="请输入姓名\手机号搜索"
+            (keyup)="searchOnKeyup($event)"></ion-searchbar>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中...">
+    <!-- <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles"
+            refreshingText="刷新中...">
         </ion-refresher-content>
-    </ion-refresher>
-  <ion-list lines="full">  
-      <ion-item-sliding *ngFor="let item of mod.data;let key=index">
-          <ion-item [routerLink]="['/saleing/lead/detail']" [queryParams]="{id:item.Id}" >
-            <ion-icon *ngIf="item.mcs_gender===1" slot="start" color="primary" name="contact" size="large" style="width:60px;height:60px"></ion-icon>
-            <ion-icon *ngIf="item.mcs_gender===2" slot="start" color="danger" name="contact" size="large" style="width:60px;height:60px"></ion-icon>
-            <ion-icon *ngIf="item.mcs_gender===3" slot="start" color="medium" name="contact" size="large" style="width:60px;height:60px"></ion-icon>
-            <ion-icon *ngIf="!item.mcs_gender" slot="start" color="medium" name="contact" size="large" style="width:60px;height:60px"></ion-icon>
-            <ion-label> 
-                 <h2>{{item.username}}</h2> 
-                    <ion-icon *ngIf="item.mobilephone" name="phone-portrait" size="small"></ion-icon> 
+    </ion-refresher> -->
+    <ion-list lines="full">
+        <ion-item-sliding *ngFor="let item of mod.data;let key=index">
+            <ion-item [routerLink]="['/saleing/lead/detail']" [queryParams]="{id:item.Id}">
+                <ion-icon *ngIf="item.gender==1" slot="start" color="primary" name="contact" size="large"></ion-icon>
+                <ion-icon *ngIf="item.gender==2" slot="start" color="danger" name="contact" size="large"></ion-icon>
+                <ion-icon *ngIf="item.gender==3" slot="start" color="medium" name="contact" size="large"></ion-icon>
+                <ion-icon *ngIf="!item.gender" slot="start" color="medium" name="contact" size="large"></ion-icon>
+                <ion-label>
+                    <h2>{{item.username}}</h2>
+                    <ion-icon *ngIf="item.mobilephone" name="phone-portrait" size="small"></ion-icon>
                     <ion-note slot="end">
-                            {{item.mobilephone}}
-                        </ion-note>
-                <p> 线索终端：{{item.clues}}</p>
-            </ion-label>
-          </ion-item>
-          <ion-item-options side="end">
-                <ion-item-option color="tertiary" expandable [routerLink]="['/saleing/lead/detail']" [queryParams]="{id:item.Id}">
-                    编辑
-                </ion-item-option>  
-            </ion-item-options> 
-      </ion-item-sliding> 
-  </ion-list>
-  <ion-row *ngIf="this.mod.isending">
-        <ion-col class="nodata" text-center>
-            没有更多内容啦
-        </ion-col>
-    </ion-row>
+                        {{item.mobilephone}}
+                    </ion-note>
+                    <p> 线索来源：{{item.clues}}</p>
+                </ion-label>
+            </ion-item>
+            <ion-item-options side="end">
+                <ion-item-option color="tertiary" expandable [routerLink]="['/saleing/lead/detail']"
+                    [queryParams]="{id:item.Id}">
+                    详情
+                </ion-item-option>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list> 
+    <ion-label *ngIf="this.mod.isending" text-center>
+            <p>
+              没有更多的记录显示啦
+            </p>
+          </ion-label>
     <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doLoading($event)">
         <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
         </ion-infinite-scroll-content>
     </ion-infinite-scroll>
-</ion-content> 
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button [routerLink]="['/saleing/lead/edit']">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-content>

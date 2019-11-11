@@ -6,8 +6,6 @@
         <ion-title>维修配件</ion-title>
     </ion-toolbar>
 </ion-header>
-
-
 <ion-content>
     <ion-card>
         <ion-card-header>
@@ -17,64 +15,78 @@
         </ion-card-header>
         <ion-list lines="full">
             <ion-item (click)="presentPartModal()">
-                <ion-label>
-                    <h2>
-                        <ion-icon slot="end" name="search"></ion-icon>
-                        代码
-                    </h2>
-                    <p>{{mod.data["partscode"]}}&nbsp;</p>
+                <ion-label position="stacked">
+                    <ion-icon slot="end" name="search"></ion-icon>
+                    代码
+                    <ion-text color="danger">*</ion-text>
                 </ion-label>
+                <p>{{mod.data["code"]}}&nbsp;</p>
             </ion-item>
             <ion-item (click)="presentPartModal()">
-                <ion-label>
-                    <h2>
-                        <ion-icon slot="end" name="search"></ion-icon>
-                        名称
-                    </h2>
-                    <p>{{mod.data["partsname"]}}&nbsp;</p>
+
+                <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
+                    名称
+                    <ion-text color="danger">*</ion-text>
                 </ion-label>
+                <p>{{mod.data["name"]}}&nbsp;</p>
+
             </ion-item>
             <ion-item>
-                <ion-label>
-                    <h2>维修类别</h2>
-                    <p>{{mod.data["repairitemtypeid_formatted"]}}&nbsp;</p>
+                <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
+                    维修类别
+                    <ion-text color="danger">*</ion-text>
                 </ion-label>
+                <p>{{mod.data["repairitemtypeid_Formatted"]}}&nbsp;</p>
             </ion-item>
             <ion-item>
-                <ion-label>
-                    <h2>维修类型</h2>
-                    <p>{{mod.data["repairitemtypedetailid_formatted"]}}&nbsp;</p>
+                <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
+                    维修类型
+                    <ion-text color="danger">*</ion-text>
                 </ion-label>
+                <p>{{mod.data["repairitemtypedetailid_Formatted"]}}&nbsp;</p>
             </ion-item>
             <ion-item>
-                <ion-label>
-                    <h2>数量</h2>
-                    <p>{{mod.data["quantity"]}}&nbsp;</p>
+                <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
+                    数量
+                    <ion-text color="danger">*</ion-text>
                 </ion-label>
+                <ion-input type="number" [(ngModel)]="mod.data['quantity']"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label>
-                    <h2>单价</h2>
-                    <p>{{mod.data["price"]}}&nbsp;</p>
+                <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
+                    单价
+                    <ion-text color="danger">*</ion-text>
                 </ion-label>
+                <ion-input type="number" [(ngModel)]="mod.data['price']"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label>
-                    <h2>折扣</h2>
-                    <p>{{mod.data["discount"]}}&nbsp;</p>
+                <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
+                    折扣
+                    <ion-text color="danger">*</ion-text>
                 </ion-label>
+                <ion-input type="number" [(ngModel)]="mod.data['discount']"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label>
-                    <h2>配件费用</h2>
-                    <p>{{mod.data["amount"]}}&nbsp;</p>
+                <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
+                    配件费用
+                    <ion-text color="danger">*</ion-text>
                 </ion-label>
+                <p>{{mod.data["amount"]}}&nbsp;</p>
             </ion-item>
 
         </ion-list>
         <br />
     </ion-card>
     <section style="text-align:center;">
+        <ion-button style="width:40%" color="danger" [routerLink]="['/serving/sc/edit2']">取消</ion-button>
         <ion-button style="width:40%" color="success" (click)="saveOnClick()">确定</ion-button>
     </section>
+    <br />
 </ion-content>

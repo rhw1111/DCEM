@@ -1,20 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild} from '@angular/core';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { OptionSetService } from '../../saleing.ser/optionset.service';
 import { Dateformat } from '../../../base/base.ser/dateformat';
+import { Storage_LoginInfo } from '../../../base/base.ser/logininfo.storage';
+import { IonContent, IonInfiniteScroll } from '@ionic/angular';
+
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.page.html',
   styleUrls: ['./detail.page.scss'],
 })
 export class DetailPage implements OnInit {
+  @ViewChild(IonContent, null) ionContent: IonContent;
+  @ViewChild(IonInfiniteScroll, null) ionInfiniteScroll: IonInfiniteScroll;
+
   public tab: any = "info";
   mod = {
     apiUrl: '/Api/account/GetDetail',
+    LogcallModel:{//联络记录
+      apiUrl:'/api/only-lead/GetLogCallList',
+      list:[],
+      isending:false,
+      page:1,
+      pageSize:10,
+      sort:''
+    },
+    ActivityModel:{//培育任务
+      list:[],
+      page:1,
+      pageSize:10,
+      sort:''
+    },
     data: {
-      LogcallList:[],//联络记录
-      ActivityList:[],//培育任务
       Account: {
         Id: "",
         name: "",//姓名
@@ -80,6 +98,7 @@ export class DetailPage implements OnInit {
         mcs_channel: 0,//渠道
         mcs_constellation: 0,//星座
         mcs_contactlevel: 0,//客户级别
+        mcs_customerstatusname:"",//状态名称
         mcs_customerstatus: 0,//销售机会状态
         mcs_depositpaymentstatus: 0,//定金支付状态
         mcs_gender: 0,//称呼
@@ -104,7 +123,8 @@ export class DetailPage implements OnInit {
     private _page: DCore_Page,
     private activeRoute: ActivatedRoute,
     private optionset:OptionSetService,
-    private dateformat:Dateformat) {
+    private dateformat:Dateformat,
+    private userInfo:Storage_LoginInfo) {
     this.activeRoute.queryParams.subscribe((params: Params) => {
       if (params['id'] != null && params['id'] != undefined) {
         this.mod.data.Account.Id = params['id'];
@@ -113,6 +133,8 @@ export class DetailPage implements OnInit {
   }
 
   ngOnInit() {
+    this.mod.LogcallModel.list=[];
+    this.mod.LogcallModel.page=1;
     this.BindInfo(this.mod.data.Account.Id);
   }
   //绑定数据
@@ -139,7 +161,7 @@ export class DetailPage implements OnInit {
             //this.mod.data.Account.mcs_dealerid = res["Attributes"]["_mcs_dealerid_value@OData.Community.Display.V1.FormattedValue"];//所属厅/店
             //this.mod.data.Account.mcs_districtid = res["Attributes"]["_mcs_districtid_value@OData.Community.Display.V1.FormattedValue"];//区
             // this.mod.data.Account.mcs_mediaid = res["Attributes"]["_mcs_mediaid_value@OData.Community.Display.V1.FormattedValue"];//线索媒体
-            // this.mod.data.Account.mcs_onlyleadid = res["Attributes"]["_mcs_onlyleadid_value@OData.Community.Display.V1.FormattedValue"];//唯一线索
+            this.mod.data.Account.mcs_onlyleadid = res["Attributes"]["_mcs_onlyleadid_value"];//唯一线索
             // this.mod.data.Account.mcs_productid = res["Attributes"]["_mcs_productid_value@OData.Community.Display.V1.FormattedValue"];//产品
             // this.mod.data.Account.mcs_provinceid = res["Attributes"]["_mcs_provinceid_value@OData.Community.Display.V1.FormattedValue"];//省
             this.mod.data.Account.mcs_singleperson = res["Attributes"]["_mcs_singleperson_value@OData.Community.Display.V1.FormattedValue"];//成单人
@@ -192,6 +214,7 @@ export class DetailPage implements OnInit {
             //this.mod.data.Account.mcs_constellation = res["Attributes"]["mcs_constellation"];//星座
             //this.mod.data.Account.mcs_contactlevel = this.optionset.GetOptionSetNameByValue("mcs_level",res["Attributes"]["mcs_contactlevel"]);//客户级别
             this.mod.data.Account.mcs_customerstatus = res["Attributes"]["mcs_customerstatus"];//销售机会状态
+            this.mod.data.Account.mcs_customerstatusname=this.optionset.GetOptionSetNameByValue("mcs_customerstatus",res["Attributes"]["mcs_customerstatus"]);//销售机会状态名称
             this.mod.data.Account.mcs_depositpaymentstatus = res["Attributes"]["mcs_depositpaymentstatus"];//定金支付状态
             this.mod.data.Account.mcs_gender = this.optionset.GetOptionSetNameByValue("mcs_gender",res["Attributes"]["mcs_gender"]);//称呼
             this.mod.data.Account.mcs_generation = this.optionset.GetOptionSetNameByValue("mcs_generation",res["Attributes"]["mcs_generation"]);//年龄段
@@ -207,6 +230,63 @@ export class DetailPage implements OnInit {
             this.mod.data.Account.mcs_vehicleusers = this.optionset.GetOptionSetNameByValue("mcs_vehicleusers",res["Attributes"]["mcs_vehicleusers"]);//车辆使用人
             this.mod.data.Account.mcs_familymembernum = res["Attributes"]["mcs_familymembernum"];//家庭成员数量    
             this.mod.data.Account.description = res["Attributes"]["description"];//特殊备注           
+          }
+          this._page.loadingHide();
+        },
+        (err: any) => {
+            this._page.alert("消息提示", "数据加载异常");
+            this._page.loadingHide();
+        }
+    );
+  }
+  LogcallTabLoading(){
+    this.mod.LogcallModel.list=[];
+    this.mod.LogcallModel.page=1;
+    this.ionInfiniteScroll.disabled=false;
+    this.ionContent.scrollToTop(0);
+    this.LoadLogcall();
+  }
+  //下拉事件
+  DownLoadLogcall(){
+    this.mod.LogcallModel.page+=1;
+    this.LoadLogcall();
+  }
+ 
+  /**
+   * 加载logcall记录
+   */
+  LoadLogcall(){
+    this._page.loadingShow();
+    this._http.get(
+        this.mod.LogcallModel.apiUrl,
+        {
+            params: {
+                entityid: this.mod.data.Account.mcs_onlyleadid,//唯一线索Id
+                page:this.mod.LogcallModel.page,
+                pageSize:this.mod.LogcallModel.pageSize,
+                sort:this.mod.LogcallModel.sort,
+                systemuserid:this.userInfo.GetSystemUserId()//当前登录用户ID
+            }
+        },
+        (res: any) => {
+          if (res != null) {
+            if (res.Results.length > 0) {
+              res.Results.forEach(item => {
+                var value = item["Attributes"];
+                this.mod.LogcallModel.list.push({
+                  "Id": value.mcs_logcallid,
+                  "mcs_name": value.mcs_name,
+                  "mcs_visittime": this.dateformat.FormatToDateTime(value.mcs_visittime),//回访时间
+                  "mcs_content": value.mcs_content,//内容
+                  "mcs_results": value.mcs_results//结果备注
+                });
+              });
+            }
+            this.ionInfiniteScroll.complete();
+            //判断是否有新数据
+            if (res.Results.length < this.mod.LogcallModel.pageSize) {
+              this.ionInfiniteScroll.disabled = true;
+            }
           }
           this._page.loadingHide();
         },

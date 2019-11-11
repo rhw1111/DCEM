@@ -20,7 +20,7 @@ namespace DCEM.Web.Controllers
     [EnableCors("any")]
     [Route("api/only-lead")]
     [ApiController]
-    public class IOnlyLeadController : ControllerBase
+    public class IOnlyLeadController : ApiController
     {
         public IAppOnlyLead app = null;
         public IOnlyLeadController()
@@ -103,6 +103,36 @@ namespace DCEM.Web.Controllers
                 Sort = sort
             };
             var list = await app.GetActivityList(activityrequest);
+            return list;
+        }
+
+
+
+        /// <summary>
+        /// logcall 新增或编辑
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("AddOrEditLogcall")]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<CrmEntity>>> AddOrEditLogcall(LogCallRequest request)
+        {
+            var result = await app.AddOrEditEntity(request);
+            return result;
+        }
+
+        //根据主键查询跟进记录（logcall）
+        [HttpGet]
+        [Route("GetLogCallById")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetLogCallById(string mcs_logcallid = "", string systemuserid = "")
+        {
+            var logcallrequest = new LogCallRequest()
+            {
+                mcs_logcallid = mcs_logcallid,
+                UserId = systemuserid
+              
+            };
+            var list = await app.GetLogCallList(logcallrequest);
             return list;
         }
 

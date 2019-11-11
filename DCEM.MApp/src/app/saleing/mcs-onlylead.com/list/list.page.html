@@ -16,7 +16,7 @@
     </ion-refresher>
     <ion-list lines="full">
         <ion-item-sliding *ngFor="let item of model.data;let key=index">
-            <ion-item [routerLink]="['/saleing/onlylead/detail']" [queryParams]="{id:item.Id}">
+            <ion-item [routerLink]="['/saleing/onlylead/detail']" [queryParams]="{id:item.mcs_onlyleadid}">
                 <ion-icon *ngIf="item.mcs_gender===1" slot="start" color="primary" name="contact" size="large" style="width:60px;height:60px"></ion-icon>
                 <ion-icon *ngIf="item.mcs_gender===2" slot="start" color="danger" name="contact" size="large" style="width:60px;height:60px"></ion-icon>
                 <ion-icon *ngIf="item.mcs_gender===3" slot="start" color="medium" name="contact" size="large" style="width:60px;height:60px"></ion-icon>
