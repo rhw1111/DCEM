@@ -37,7 +37,7 @@ namespace MSLibrary.Security.BusinessSecurityRule.DAL
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
-                    Transaction=sqlTran
+                    Transaction = sqlTran
                 })
                 {
                     if (action.ID == Guid.Empty)
@@ -108,28 +108,10 @@ namespace MSLibrary.Security.BusinessSecurityRule.DAL
 
                     commond.Prepare();
 
-                    int reply = 3;
-                    while (true)
-                    {
-                        try
-                        {
-                            await commond.ExecuteNonQueryAsync();
-                            break;
-                        }
-                        catch (SqlException ex)
-                        {
 
-                            if (reply > 0 && (ex.Number == 41302 || ex.Number == 41305 || ex.Number == 41325 || ex.Number == 41301 || ex.Number == 1205))
-                            {
-                                reply--;
-                                System.Threading.Thread.Sleep(1);
-                            }
-                            else
-                            {
-                                throw;
-                            }
-                        }
-                    }
+                    await commond.ExecuteNonQueryAsync();
+
+
 
                     if (action.ID == Guid.Empty)
                     {
@@ -218,7 +200,7 @@ namespace MSLibrary.Security.BusinessSecurityRule.DAL
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
-                     Transaction=sqlTran,
+                    Transaction = sqlTran,
                     CommandText = @"declare @delnum int
                                     set @delnum=1000
                                     while @delnum=1000
@@ -247,28 +229,8 @@ namespace MSLibrary.Security.BusinessSecurityRule.DAL
 
                     commond.Prepare();
 
-                    int reply = 3;
-                    while (true)
-                    {
-                        try
-                        {
-                            await commond.ExecuteNonQueryAsync();
-                            break;
-                        }
-                        catch (SqlException ex)
-                        {
 
-                            if (reply > 0 && (ex.Number == 41302 || ex.Number == 41305 || ex.Number == 41325 || ex.Number == 41301 || ex.Number == 1205))
-                            {
-                                reply--;
-                                System.Threading.Thread.Sleep(1);
-                            }
-                            else
-                            {
-                                throw;
-                            }
-                        }
-                    }
+                    await commond.ExecuteNonQueryAsync();
                 }
             });
         }
@@ -287,7 +249,7 @@ namespace MSLibrary.Security.BusinessSecurityRule.DAL
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
-                    Transaction=sqlTran,
+                    Transaction = sqlTran,
                     CommandText = @"delete from BusinessActionGroupRelation WITH (SNAPSHOT) where [groupid]=@groupid and [actionid]=@actionid"
                 })
                 {
@@ -310,28 +272,7 @@ namespace MSLibrary.Security.BusinessSecurityRule.DAL
 
                     commond.Prepare();
 
-                    int reply = 3;
-                    while (true)
-                    {
-                        try
-                        {
-                            await commond.ExecuteNonQueryAsync();
-                            break;
-                        }
-                        catch (SqlException ex)
-                        {
-
-                            if (reply > 0 && (ex.Number == 41302 || ex.Number == 41305 || ex.Number == 41325 || ex.Number == 41301 || ex.Number == 1205))
-                            {
-                                reply--;
-                                System.Threading.Thread.Sleep(1);
-                            }
-                            else
-                            {
-                                throw;
-                            }
-                        }
-                    }
+                    await commond.ExecuteNonQueryAsync();
 
                 }
             });
@@ -395,43 +336,7 @@ namespace MSLibrary.Security.BusinessSecurityRule.DAL
 
                         commond.Prepare();
 
-                        int reply = 3;
-                        SqlDataReader reader = null;
-                        while (true)
-                        {
-                            if (reader != null && !reader.IsClosed)
-                            {
-                                try
-                                {
-                                    reader.Close();
-                                }
-                                catch
-                                {
-
-                                }
-                            }
-
-                            try
-                            {
-                                reader = await commond.ExecuteReaderAsync();
-                                break;
-                            }
-                            catch (SqlException ex)
-                            {
-
-                                if (reply > 0 && (ex.Number == 41302 || ex.Number == 41305 || ex.Number == 41325 || ex.Number == 41301 || ex.Number == 1205))
-                                {
-                                    reply--;
-                                    System.Threading.Thread.Sleep(1);
-                                }
-                                else
-                                {
-                                    throw;
-                                }
-                            }
-                        }
-
-                        using (reader)
+                        using (var reader = await commond.ExecuteReaderAsync())
                         {
                             while (await reader.ReadAsync())
                             {
@@ -536,43 +441,7 @@ namespace MSLibrary.Security.BusinessSecurityRule.DAL
 
                     commond.Prepare();
 
-                    int reply = 3;
-                    SqlDataReader reader = null;
-                    while (true)
-                    {
-                        if (reader != null && !reader.IsClosed)
-                        {
-                            try
-                            {
-                                reader.Close();
-                            }
-                            catch
-                            {
-
-                            }
-                        }
-
-                        try
-                        {
-                            reader = await commond.ExecuteReaderAsync();
-                            break;
-                        }
-                        catch (SqlException ex)
-                        {
-
-                            if (reply > 0 && (ex.Number == 41302 || ex.Number == 41305 || ex.Number == 41325 || ex.Number == 41301 || ex.Number == 1205))
-                            {
-                                reply--;
-                                System.Threading.Thread.Sleep(1);
-                            }
-                            else
-                            {
-                                throw;
-                            }
-                        }
-                    }
-
-                    using (reader)
+                    using (var reader = await commond.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
                         {
@@ -622,43 +491,7 @@ namespace MSLibrary.Security.BusinessSecurityRule.DAL
 
                     commond.Prepare();
 
-                    int reply = 3;
-                    SqlDataReader reader = null;
-                    while (true)
-                    {
-                        if (reader != null && !reader.IsClosed)
-                        {
-                            try
-                            {
-                                reader.Close();
-                            }
-                            catch
-                            {
-
-                            }
-                        }
-
-                        try
-                        {
-                            reader = await commond.ExecuteReaderAsync();
-                            break;
-                        }
-                        catch (SqlException ex)
-                        {
-
-                            if (reply > 0 && (ex.Number == 41302 || ex.Number == 41305 || ex.Number == 41325 || ex.Number == 41301 || ex.Number == 1205))
-                            {
-                                reply--;
-                                System.Threading.Thread.Sleep(1);
-                            }
-                            else
-                            {
-                                throw;
-                            }
-                        }
-                    }
-
-                    using (reader)
+                    using (var reader = await commond.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
@@ -703,43 +536,7 @@ namespace MSLibrary.Security.BusinessSecurityRule.DAL
 
                     commond.Prepare();
 
-                    int reply = 3;
-                    SqlDataReader reader = null;
-                    while (true)
-                    {
-                        if (reader != null && !reader.IsClosed)
-                        {
-                            try
-                            {
-                                reader.Close();
-                            }
-                            catch
-                            {
-
-                            }
-                        }
-
-                        try
-                        {
-                            reader = await commond.ExecuteReaderAsync();
-                            break;
-                        }
-                        catch (SqlException ex)
-                        {
-
-                            if (reply > 0 && (ex.Number == 41302 || ex.Number == 41305 || ex.Number == 41325 || ex.Number == 41301 || ex.Number == 1205))
-                            {
-                                reply--;
-                                System.Threading.Thread.Sleep(1);
-                            }
-                            else
-                            {
-                                throw;
-                            }
-                        }
-                    }
-
-                    using (reader)
+                    using (var reader = await commond.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
@@ -828,43 +625,7 @@ namespace MSLibrary.Security.BusinessSecurityRule.DAL
 
                     commond.Prepare();
 
-                    int reply = 3;
-                    SqlDataReader reader = null;
-                    while (true)
-                    {
-                        if (reader != null && !reader.IsClosed)
-                        {
-                            try
-                            {
-                                reader.Close();
-                            }
-                            catch
-                            {
-
-                            }
-                        }
-
-                        try
-                        {
-                            reader = await commond.ExecuteReaderAsync();
-                            break;
-                        }
-                        catch (SqlException ex)
-                        {
-
-                            if (reply > 0 && (ex.Number == 41302 || ex.Number == 41305 || ex.Number == 41325 || ex.Number == 41301 || ex.Number == 1205))
-                            {
-                                reply--;
-                                System.Threading.Thread.Sleep(1);
-                            }
-                            else
-                            {
-                                throw;
-                            }
-                        }
-                    }
-
-                    using (reader)
+                    using (var reader= await commond.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
                         {
@@ -899,7 +660,7 @@ namespace MSLibrary.Security.BusinessSecurityRule.DAL
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
-                     Transaction=sqlTran,
+                    Transaction = sqlTran,
                     CommandText = @"update BusinessAction WITH (SNAPSHOT) set [name]=@name,[rule]=@rule,[originalparametersfiltertype]=@originalparametersfiltertype,[errorreplacetext]=@errorreplacetext,[modifytime]=getutcdate()
                                     where [id]=@id"
                 })
@@ -949,28 +710,8 @@ namespace MSLibrary.Security.BusinessSecurityRule.DAL
 
                     commond.Prepare();
 
-                    int reply = 3;
-                    while (true)
-                    {
-                        try
-                        {
-                            await commond.ExecuteNonQueryAsync();
-                            break;
-                        }
-                        catch (SqlException ex)
-                        {
 
-                            if (reply > 0 && (ex.Number == 41302 || ex.Number == 41305 || ex.Number == 41325 || ex.Number == 41301 || ex.Number == 1205))
-                            {
-                                reply--;
-                                System.Threading.Thread.Sleep(1);
-                            }
-                            else
-                            {
-                                throw;
-                            }
-                        }
-                    }
+                    await commond.ExecuteNonQueryAsync();
                 }
             });
         }
@@ -1065,43 +806,7 @@ namespace MSLibrary.Security.BusinessSecurityRule.DAL
 
                     commond.Prepare();
 
-                    int reply = 3;
-                    SqlDataReader reader = null;
-                    while (true)
-                    {
-                        if (reader != null && !reader.IsClosed)
-                        {
-                            try
-                            {
-                                reader.Close();
-                            }
-                            catch
-                            {
-
-                            }
-                        }
-
-                        try
-                        {
-                            reader = await commond.ExecuteReaderAsync();
-                            break;
-                        }
-                        catch (SqlException ex)
-                        {
-
-                            if (reply > 0 && (ex.Number == 41302 || ex.Number == 41305 || ex.Number == 41325 || ex.Number == 41301 || ex.Number == 1205))
-                            {
-                                reply--;
-                                System.Threading.Thread.Sleep(1);
-                            }
-                            else
-                            {
-                                throw;
-                            }
-                        }
-                    }
-
-                    using (reader)
+                    using (var reader= await commond.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
                         {

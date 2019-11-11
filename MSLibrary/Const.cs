@@ -2214,6 +2214,24 @@ namespace MSLibrary
         /// </summary>
         public const string ExistRunMultipartStorgeInfoByName = "ExistRunMultipartStorgeInfoByName";
 
+        /// <summary>
+        /// 找不到指定类型的生成Jwt生成时使用的签名密钥服务
+        /// 格式为“找不到类型为{0}的生成Jwt生成时使用的签名密钥服务”
+        /// {0}：生成时使用的签名类型
+        /// </summary>
+        public const string NotFoundJwtGenerateCreateSignKeyServiceByType = "NotFoundJwtGenerateCreateSignKeyServiceByType";
+        /// <summary>
+        /// 找不到指定类型的生成Jwt验证时使用的签名密钥服务
+        /// 格式为“找不到类型为{0}的生成Jwt验证时使用的签名密钥服务”
+        /// {0}：验证时使用的签名类型
+        /// </summary>
+        public const string NotFoundJwtGenerateValidateSignKeyServiceByType = "NotFoundJwtGenerateValidateSignKeyServiceByType";
+        /// <summary>
+        /// 找不到指定类型的Jwt验证参数组装服务
+        /// 格式为“找不到类型为{0}的Jwt验证参数组装服务”
+        /// {0}：Jwt验证类型
+        /// </summary>
+        public const string NotFoundjwtValidateParameterBuildServiceByType = "NotFoundjwtValidateParameterBuildServiceByType";
     }
 
 
