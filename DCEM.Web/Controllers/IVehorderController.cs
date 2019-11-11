@@ -41,16 +41,9 @@ namespace DCEM.Web.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetVehorderList")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetVehorderList( string seachkey = "", int pageSize = 10, int page = 1)
-        {
-            var vehorderRequest = new VehorderRequest()
-            {
-                Search = seachkey,
-       
-                UserId = UserId.ToString(),
-                PageIndex = page,
-                PageSize = pageSize,
-            };
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetVehorderList(VehorderRequest vehorderRequest)
+        {         
+            vehorderRequest.UserId = UserId.ToString();
             var list = await app.GetVehorderList(vehorderRequest);
             return list;
         }

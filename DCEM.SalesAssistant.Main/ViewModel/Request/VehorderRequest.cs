@@ -6,9 +6,18 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
 {
     public class VehorderRequest : PageBaseRequestModel
     {
+
         /// <summary>
-        /// 搜索框参数
+        /// 查询关键字
         /// </summary>
-        public string Search { get; set; }
+        public string SearchKey { set; get; }
+        /// <summary>
+        /// 厅店ID
+        /// </summary>
+        public string mcs_dealerid { set; get; }
+        /// <summary>
+        /// 整车订单状态
+        /// </summary>
+        public int? mcs_rostatus { set; get; }
     }
 }

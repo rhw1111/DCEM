@@ -32,9 +32,8 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         {
             try
             {
-                //var fetchString = _vehorderRepository.QueryList(vehorderRequest);
-                var fetchString = "";
-
+                var fetchString = _vehorderRepository.GetVehorderList(vehorderRequest);
+           
                 var fetchXdoc = XDocument.Parse(fetchString);
                 var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {

@@ -155,9 +155,20 @@ const routes: Routes = [
                     { path: 'detail', loadChildren: './saleing/delivery/detail/detail.module#DetailPageModule' },
                     { path: 'success', loadChildren: './saleing/delivery/success/success.module#SuccessPageModule' },
                 ]
+            } ,
+            {
+                path: 'vehorder',//门店整车订单
+                children: [
+                    { path: 'list', loadChildren: './saleing/mc-vehorder.com/list/list.module#ListPageModule' },       
+                    { path: 'detail', loadChildren: './saleing/mc-vehorder.com/detail/detail.module#DetailPageModule' }
+                   
+                ]
             }
         ]
-    }
+    },
+  { path: 'list', loadChildren: './saleing/mc-vehorder.com/list/list.module#ListPageModule' },
+  { path: 'detail', loadChildren: './saleing/mc-vehorder.com/detail/detail.module#DetailPageModule' }
+
 ];
 
 @NgModule({

@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>整车订单</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+      <ion-searchbar [(ngModel)]="this.model.seachkey" placeholder="支持项目名称和编号模糊查找" (keyup)="search($event)" ></ion-searchbar>
+  </ion-toolbar>
+  <ion-toolbar>
+      <ion-segment>
+        <ion-segment-button checked (click)="selectTab(0)">
+            <ion-label>全部</ion-label>
+        </ion-segment-button>
+      
+        <ion-segment-button (click)="selectTab(1)">
+            <ion-label>订金待支付</ion-label>
+        </ion-segment-button>
+        <ion-segment-button (click)="selectTab(2)">
+            <ion-label>订金已支付</ion-label>
+        </ion-segment-button>
+       
+      </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中...">
+        </ion-refresher-content> 
+    </ion-refresher>
+    <ion-list lines="full">
+        <ion-item *ngFor="let item of model.datalist" [routerLink]="['/serving/ts/detail']" [queryParams]="{id:item.mcs_vehorderid}">
+            <ion-icon slot="start" name="hammer" size="large"></ion-icon>
+            <ion-label>
+                <h3>{{item.mcs_contactname}}</h3>
+                <p>{{item.mcs_contactphone}}</p>            
+            </ion-label>
+            <ion-note slot="end" >
+                <ion-icon color="primary" name="hourglass" size="small"></ion-icon>
+                <p>{{item.mcs_code}}</p>    
+            </ion-note>
+            <ion-note slot="end" >
+                <ion-icon color="primary" name="hourglass" size="small"></ion-icon>
+                <p>{{item.mcs_rostatus}}</p>   
+            </ion-note>
+            
+        </ion-item>
+    </ion-list>
+
+    <ion-row *ngIf="model.isending">
+        <ion-col class="nodata" text-center>
+            <label>没有更多内容啦</label>
+        </ion-col>
+    </ion-row>
+    
+    <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doLoading($event)"> 
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多..."> 
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  <!--   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button [routerLink]="['/serving/ts/edit']">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab> -->
+</ion-content>
