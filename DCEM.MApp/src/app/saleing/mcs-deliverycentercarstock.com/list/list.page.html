@@ -1,0 +1,49 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/serving/home/index"></ion-back-button>
+        </ion-buttons>
+        <ion-title>整车库存台帐</ion-title>
+        <ion-buttons slot="end">
+            <ion-button [routerLink]="['/serving/home/tabs']">
+                <ion-icon slot="icon-only" name="home" [routerLink]="['/serving/home/tabs']"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-searchbar animated [(ngModel)]="mod.searchData.search" placeholder="请输入车辆VIN" (keyup)="searchOnKeyup($event)"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list lines="full">
+        <ion-item-sliding *ngFor="let item of mod.data.deliverycentercarStockArray;let key=index">
+            <ion-item [routerLink]="['/saleing/deliverycentercarstock/detail']" [queryParams]="{id:item['mcs_deliverycentercarstockid']}">
+                <ion-icon color="dark" name="car"></ion-icon>
+                <ion-label style="margin-left:10px">
+                    <h6>{{item["mcs_name"]}}</h6>
+                    <p>{{item["_mcs_dealerwarehouse_value@OData.Community.Display.V1.FormattedValue"]}}</p>
+                    <p>{{item["a_x002e_mcs_carmodelid@OData.Community.Display.V1.FormattedValue"]}}</p>
+                    <p>
+                        {{item["a_x002e_mcs_carconfigid@OData.Community.Display.V1.FormattedValue"]}}
+                        {{item["a_x002e_mcs_excolourid@OData.Community.Display.V1.FormattedValue"]}}
+                        {{item["a_x002e_mcs_incolourid@OData.Community.Display.V1.FormattedValue"]}}
+                    </p>
+                </ion-label>
+                <ion-note slot="end">
+                    {{item["mcs_vechiclestatus@OData.Community.Display.V1.FormattedValue"]}}
+                </ion-note>
+            </ion-item>
+        </ion-item-sliding>
+        <ion-item *ngIf="ionInfiniteScroll.disabled">
+            <ion-label>
+                <p>
+                    没有更多的记录显示啦
+                </p>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>
