@@ -57,7 +57,7 @@ constructor(
 ) {}
 
 ngOnInit() {
-    //debugger;
+    debugger;
     this.mod.datalist= [];
     this.mod.datalist2= [];
     

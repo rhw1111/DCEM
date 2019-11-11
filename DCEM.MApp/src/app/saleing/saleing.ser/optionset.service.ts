@@ -171,6 +171,18 @@ export class OptionSetService {
                     { "name": "已关闭", "value": 6 }
                 ];
                 break;
+            case "mcs_deliverystatus"://整车销售-交车单-交车单状态
+                optionlist = [
+                    { "name": "待预约", "value": 1 },
+                    { "name": "待检测", "value": 2 },
+                    { "name": "已检测", "value": 3 },
+                    { "name": "已预约", "value": 4 },
+                    { "name": "已收尾款", "value": 5 },
+                    { "name": "车联网已开通", "value": 6 },
+                    { "name": "交车完成", "value": 7 },
+                    { "name": "作废", "value":99 }
+                ];
+                break;
         }
         return optionlist;
     }

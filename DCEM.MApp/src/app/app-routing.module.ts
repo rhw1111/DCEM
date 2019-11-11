@@ -82,7 +82,7 @@ const routes: Routes = [
                     { path: 'list', loadChildren: './serving/technical-support.com/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './serving/technical-support.com/detail/detail.module#DetailPageModule' },
                     { path: 'edit', loadChildren: './serving/technical-support.com/edit/edit.module#EditPageModule' },
-                    { path: 'success', loadChildren: './serving/technical-support.com/success/success.module#SuccessPageModule'}
+                    { path: 'success', loadChildren: './serving/technical-support.com/success/success.module#SuccessPageModule' }
                 ]
             },
             {
@@ -103,11 +103,11 @@ const routes: Routes = [
         ],
     },
     {
-        path:'saleing',//销售助手
-        children:[
+        path: 'saleing',//销售助手
+        children: [
             {
-                path:'lead',//原始线索
-                children:[
+                path: 'lead',//原始线索
+                children: [
                     { path: 'list', loadChildren: './saleing/lead.com/list/list.module#ListPageModule' },
                     { path: 'edit', loadChildren: './saleing/lead.com/edit/edit.module#EditPageModule' },
                     { path: 'detail', loadChildren: './saleing/lead.com/detail/detail.module#DetailPageModule' },
@@ -115,8 +115,8 @@ const routes: Routes = [
                 ]
             },
             {
-                path:'onlylead',//唯一线索
-                children:[
+                path: 'onlylead',//唯一线索
+                children: [
                     { path: 'list', loadChildren: './saleing/mcs-onlylead.com/list/list.module#ListPageModule' },
                     { path: 'edit', loadChildren: './saleing/mcs-onlylead.com/edit/edit.module#EditPageModule' },
                     { path: 'detail', loadChildren: './saleing/mcs-onlylead.com/detail/detail.module#DetailPageModule' },
@@ -124,15 +124,15 @@ const routes: Routes = [
                 ]
             },
             {
-                path:'contactrecord',//联络记录
-                children:[
+                path: 'contactrecord',//联络记录
+                children: [
                     { path: 'list', loadChildren: './saleing/mcs-contactrecord/list/list.module#ListPageModule' },
                     { path: 'edit', loadChildren: './saleing/mcs-contactrecord/edit/edit.module#EditPageModule' },
                 ]
             },
             {
-                path:'cultivatetask',//培育任务
-                children:[
+                path: 'cultivatetask',//培育任务
+                children: [
                     { path: 'list', loadChildren: './saleing/mcs-cultivatetask.com/list/list.module#ListPageModule' },
                     { path: 'edit', loadChildren: './saleing/mcs-cultivatetask.com/edit/edit.module#EditPageModule' },
                     { path: 'detail', loadChildren: './saleing/mcs-cultivatetask.com/detail/detail.module#DetailPageModule' },
@@ -140,16 +140,24 @@ const routes: Routes = [
                 ]
             },
             {
-                path:'account',//门店销售机会
-                children:[
+                path: 'account',//门店销售机会
+                children: [
                     { path: 'list', loadChildren: './saleing/mcs-account.com/list/list.module#ListPageModule' },
                     { path: 'edit', loadChildren: './saleing/mcs-account.com/edit/edit.module#EditPageModule' },
                     { path: 'detail', loadChildren: './saleing/mcs-account.com/detail/detail.module#DetailPageModule' }
                 ]
+            },
+            {
+                path: 'delivery',//整车销售-交车单
+                children: [
+                    { path: 'list', loadChildren: './saleing/delivery/list/list.module#ListPageModule' },
+                    { path: 'edit', loadChildren: './saleing/delivery/edit/edit.module#EditPageModule' },
+                    { path: 'detail', loadChildren: './saleing/delivery/detail/detail.module#DetailPageModule' },
+                    { path: 'success', loadChildren: './saleing/delivery/success/success.module#SuccessPageModule' },
+                ]
             }
         ]
     }
-
 ];
 
 @NgModule({
