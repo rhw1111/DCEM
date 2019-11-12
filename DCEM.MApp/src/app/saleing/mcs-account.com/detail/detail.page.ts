@@ -5,6 +5,8 @@ import { OptionSetService } from '../../saleing.ser/optionset.service';
 import { Dateformat } from '../../../base/base.ser/dateformat';
 import { Storage_LoginInfo } from '../../../base/base.ser/logininfo.storage';
 import { IonContent, IonInfiniteScroll } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import { SelectSystemuserComponent } from 'app/base/base.ser/components/select-systemuser/select-systemuser.component';
 
 @Component({
   selector: 'app-detail',
@@ -18,6 +20,7 @@ export class DetailPage implements OnInit {
   public tab: any = "info";
   mod = {
     apiUrl: '/Api/account/GetDetail',
+    postUrl:'/Api/account/AddOrEdit',
     LogcallModel:{//联络记录
       apiUrl:'/api/only-lead/GetLogCallList',
       list:[],
@@ -124,7 +127,8 @@ export class DetailPage implements OnInit {
     private activeRoute: ActivatedRoute,
     private optionset:OptionSetService,
     private dateformat:Dateformat,
-    private userInfo:Storage_LoginInfo) {
+    private userInfo:Storage_LoginInfo,
+    private modalCtrl:ModalController) {
     this.activeRoute.queryParams.subscribe((params: Params) => {
       if (params['id'] != null && params['id'] != undefined) {
         this.mod.data.Account.Id = params['id'];
@@ -139,6 +143,7 @@ export class DetailPage implements OnInit {
   }
   //绑定数据
   BindInfo(id){
+    //this.ionInfiniteScroll.disabled=true;
     this._page.loadingShow();
     this._http.get(
         this.mod.apiUrl,
@@ -242,7 +247,7 @@ export class DetailPage implements OnInit {
   LogcallTabLoading(){
     this.mod.LogcallModel.list=[];
     this.mod.LogcallModel.page=1;
-    this.ionInfiniteScroll.disabled=false;
+    //this.ionInfiniteScroll.disabled=false;
     this.ionContent.scrollToTop(0);
     this.LoadLogcall();
   }
@@ -250,6 +255,75 @@ export class DetailPage implements OnInit {
   DownLoadLogcall(){
     this.mod.LogcallModel.page+=1;
     this.LoadLogcall();
+  }
+
+  //战败
+  Failed() {
+    this._page.confirm("确认提示", "您确认要战败此销售机会吗？", () => {
+      var postData = {
+        Id: this.mod.data.Account.Id,
+        mcs_customerstatus: this.optionset.GetOptionSetValueByName("mcs_customerstatus","已战败")
+      };
+      this.UpdateOrEdit(postData, "已战败！", "战败失败！");
+    });
+  }
+  //成交
+  Success(){
+    this._page.confirm("确认提示", "您确认要成交此销售机会吗？", () => {
+      var options=this.optionset.Get("mcs_customerstatus");
+      var postData={
+        Id:this.mod.data.Account.Id,
+        mcs_customerstatus:this.optionset.GetOptionSetValueByName("mcs_customerstatus","已成交")
+      };
+      this.UpdateOrEdit(postData,"已成交！","成交失败！");
+    });
+  }
+  //分配
+  async Assign(){
+    const modal = await this.modalCtrl.create({
+      component: SelectSystemuserComponent
+    });
+    await modal.present();
+    //监听销毁的事件
+    const { data } = await modal.onDidDismiss();
+    if (data != null && data != undefined) {
+      if(data.Id!="" && data.Id!=undefined){
+        var postData={
+          Id:this.mod.data.Account.Id,
+          mcs_customerstatus:this.optionset.GetOptionSetValueByName("mcs_customerstatus","已指派"),
+          ownerid:data.Id
+        };
+        this.UpdateOrEdit(postData,"分配成功！","分配失败！");
+      }
+    }
+  }
+
+  //创建或更新实体数据
+  UpdateOrEdit(postData, successMessage, errorMessage, redirectUrl="") {
+    this._page.loadingShow();
+    //数据验证
+    this._http.post(
+      this.mod.postUrl, postData,
+      (res: any) => {
+        if (res != "") {
+          this._page.alert("消息提示", successMessage);
+          this.mod.data.Account.mcs_customerstatus=postData.mcs_customerstatus;
+          this.mod.data.Account.mcs_customerstatusname=this.optionset.GetOptionSetNameByValue("mcs_customerstatus",postData.mcs_customerstatus);
+          if (redirectUrl!==null && redirectUrl !== "" && redirectUrl !== undefined) {
+            this._page.goto(redirectUrl, { guid: res });
+          }
+        }
+        else {
+          this._page.alert("消息提示", errorMessage);
+        }
+        this._page.loadingHide();
+      },
+      (err: any) => {
+        debugger;
+        this._page.alert("消息提示", "请求异常");
+        this._page.loadingHide();
+      }
+    );
   }
  
   /**
@@ -282,11 +356,11 @@ export class DetailPage implements OnInit {
                 });
               });
             }
-            this.ionInfiniteScroll.complete();
-            //判断是否有新数据
-            if (res.Results.length < this.mod.LogcallModel.pageSize) {
-              this.ionInfiniteScroll.disabled = true;
-            }
+            // this.ionInfiniteScroll.complete();
+            // //判断是否有新数据
+            // if (res.Results.length < this.mod.LogcallModel.pageSize) {
+            //   this.ionInfiniteScroll.disabled = true;
+            // }
           }
           this._page.loadingHide();
         },

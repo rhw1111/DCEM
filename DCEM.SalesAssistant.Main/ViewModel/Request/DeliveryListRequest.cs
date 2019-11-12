@@ -8,6 +8,6 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
     {
         public string DealerId { get; set; }
         public string SearchKey { get; set; }
-        public int DeliveryStatus { get; set; }
+        public string DeliveryStatus { get; set; }
     }
 }

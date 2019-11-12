@@ -31,6 +31,27 @@ namespace DCEM.Web.Controllers
         {
             return await _appDelivery.getlist(deliveryListRequest);
         }
+
+        [Route("get")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<CrmEntity>> get(DeliveryDetailRequest deliveryDetailRequest)
+        {
+            return await _appDelivery.get(deliveryDetailRequest);
+        }
+
+        [Route("getcollections")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<CollectionListResponse>> getcollections(CollectionListRequest collectionListRequest)
+        {
+            return await _appDelivery.getcollections(collectionListRequest);
+        }
+
+        [Route("getorderpay")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<CrmEntity>> getorderpay(CollectionDetailRequest collectionDetailRequest)
+        {
+            return await _appDelivery.getorderpay(collectionDetailRequest);
+        }
     }
 }
 

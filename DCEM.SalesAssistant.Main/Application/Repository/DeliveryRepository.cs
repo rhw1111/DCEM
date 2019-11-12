@@ -16,9 +16,9 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
             return await Task<XDocument>.Run(() =>
             {
                 var filterStr = "";
-                if (deliveryListRequest.DeliveryStatus != -1)
+                if (deliveryListRequest.DeliveryStatus != "-1")
                 {
-                    filterStr += $@"  <condition attribute='statecode' operator='eq' value='{deliveryListRequest.DeliveryStatus}' />";
+                    filterStr += $@"  <condition attribute='mcs_deliverystatus' operator='eq' value='{deliveryListRequest.DeliveryStatus}' />";
                 }
                 if (deliveryListDtoModel!=null)
                 {
@@ -116,6 +116,53 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
     <order attribute='createdon' descending='true' />
     <filter type='and'>
       <condition attribute='mcs_code' operator= 'like' value = '%{deliveryListRequest.SearchKey}%' />
+    </filter>
+  </entity>
+</fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
+
+        public async Task<XDocument> GetOrderPayListFetchXml(CollectionListRequest collectionListRequest)
+        {
+            return await Task<XDocument>.Run(() =>
+            { 
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false' count='{collectionListRequest.PageSize}' page='{collectionListRequest.PageIndex}'>
+  <entity name='mcs_orderpaydetail'>
+    <attribute name='mcs_orderpaydetailid' />
+    <attribute name='mcs_code' />
+    <attribute name='createdon' />
+    <attribute name='transactioncurrencyid' />
+    <attribute name='ownerid' />
+    <attribute name='mcs_mallordercode' />
+    <attribute name='statuscode' />
+    <attribute name='statecode' />
+    <attribute name='exchangerate' />
+    <attribute name='mcs_itemcode' />
+    <attribute name='mcs_itemname' />
+    <attribute name='mcs_issettle' />
+    <attribute name='mcs_iseo' />
+    <attribute name='mcs_vehorder' />
+    <attribute name='mcs_paycategory' />
+    <attribute name='mcs_payway' />
+    <attribute name='mcs_remark' />
+    <attribute name='mcs_dealer' />
+    <attribute name='overriddencreatedon' />
+    <attribute name='createdonbehalfby' />
+    <attribute name='createdby' />
+    <attribute name='modifiedonbehalfby' />
+    <attribute name='modifiedby' />
+    <attribute name='modifiedon' />
+    <attribute name='mcs_eorder' />
+    <attribute name='mcs_amount_base' />
+    <attribute name='mcs_amount' />
+    <attribute name='mcs_payon' />
+    <attribute name='mcs_vehdelivery' />
+    <attribute name='mcs_batchcode' />
+    <order attribute='mcs_code' descending='false' />
+    <filter type='and'>
+      <condition attribute='statecode' operator='eq' value='0' />
+      <condition attribute='mcs_vehdelivery' operator='eq' value='{collectionListRequest.DeliveryId}'/>
     </filter>
   </entity>
 </fetch>";

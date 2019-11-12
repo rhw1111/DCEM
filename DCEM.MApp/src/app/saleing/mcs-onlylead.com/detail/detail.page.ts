@@ -117,7 +117,7 @@ pageOnBind() {
 }
 
 //加载联络记录(logcall)列表
-pageOnLogCalllist(any:any) {
+pageOnLogCalllist() {
    // debugger;
     this._page.loadingShow();
     this._http.get(
@@ -164,7 +164,7 @@ pageOnLogCalllist(any:any) {
 }
 
 //加载培育任务列表
-pageOnActivitylist(any:any) {
+pageOnActivitylist() {
     this._page.loadingShow();
     this._http.get(
         this.mod.apiUrlList2,
@@ -212,13 +212,13 @@ pageOnActivitylist(any:any) {
  //logcall加载下一页
  doNextLoadingLog(event) {
     this.mod.page++;
-    this.pageOnLogCalllist(event);
+    this.pageOnLogCalllist();
 }
 
  //培育任务加载下一页
  doNextLoadingAc(event) {
     this.mod.page2++;
-    this.pageOnActivitylist(event);
+    this.pageOnActivitylist();
 }
 
 FormatToDateTime(date) {

@@ -11,7 +11,11 @@ namespace DCEM.SalesAssistant.Main.Application.App.Contrac
 {
     public interface IAppDelivery
     {
-        Task<DeliveryListResponse> getlist(DeliveryListRequest deliveryListRequest); 
-      
+        Task<DeliveryListResponse> getlist(DeliveryListRequest deliveryListRequest);
+        Task<CrmEntity> get(DeliveryDetailRequest deliveryDetailRequest);
+
+        Task<CollectionListResponse> getcollections(CollectionListRequest collectionListRequest);
+
+        Task<CrmEntity> getorderpay(CollectionDetailRequest collectionDetailRequest);
     }
 }
