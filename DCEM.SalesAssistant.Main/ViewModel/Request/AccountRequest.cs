@@ -8,6 +8,7 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
     {
 
         #region 业务字段
+        public string Id { get; set; }
         /// <summary>
         ///	家庭成员数量	
         /// </summary>

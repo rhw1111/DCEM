@@ -41,7 +41,7 @@ export class ListPage implements OnInit {
   search(event) {
     var keyCode = event ? event.keyCode : "";
     if (keyCode == 13) {
-        this.model.data = [];
+        this.model.datalist = [];
         this.model.page = 1;
         this.model.isending = false;
         this.getList(null);

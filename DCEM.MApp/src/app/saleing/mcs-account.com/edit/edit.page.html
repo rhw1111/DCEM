@@ -1,9 +1,160 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>我是门店销售机会编辑页</ion-title>
-  </ion-toolbar>
+﻿<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/saleing/account/list"></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{shareData.viewTitle}}</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+    <ion-list lines="full">
+        <ion-item-divider color="primary">
+            <ion-label>
+                客户信息
+            </ion-label>
+        </ion-item-divider>
+        <ion-item>
+            <ion-label position="stacked">
+                <ion-icon name="lock"></ion-icon>
+                机会编号
+            </ion-label>
+            <p>{{shareData.account["accountnumber"]}}&nbsp;</p>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
+                姓名
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input placeholder="请输入姓名" [(ngModel)]="shareData.account['name']" required></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
+                手机
+            </ion-label>
+            <ion-input placeholder="请输入手机" [(ngModel)]="shareData.account['mobilephone']" required></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
+                称呼
+            </ion-label>
+            <ion-select placeholder="请选择年龄段" cancelText="取消" okText="确定" [(ngModel)]="shareData.account['oilquantity']">
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
+                引荐车主
+            </ion-label>
+            <ion-input placeholder="请输入引荐车主" maxlength="12" [(ngModel)]="shareData.account['shuttlename']" required></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
+                <ion-icon name="lock"></ion-icon>
+                小订单号
+            </ion-label>
+            <p>{{shareData.account["dealerid_formatted"]}}&nbsp;</p>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
+                <ion-icon name="lock"></ion-icon>
+                大订单号
+            </ion-label>
+            <p>{{shareData.account["dealerid_formatted"]}}&nbsp;</p>
+        </ion-item>
+        <ion-item-divider color="primary">
+            <ion-label>
+                购车意向
+            </ion-label>
+        </ion-item-divider>
+        <ion-item>
+            <ion-label position="stacked">
+                意向等级
+            </ion-label>
+            <ion-select placeholder="请选择意向登记" cancelText="取消" okText="确定" [(ngModel)]="shareData.account['oilquantity']">
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
+                预测成交日期
+            </ion-label>
+            <ion-datetime placeholder="请选择预测成交日期" cancelText="取消" doneText="确定" display-format="YYYY-MM-DD HH:mm" [(ngModel)]="shareData.account['arrivalon']"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
+                <ion-icon name="search"></ion-icon>
+                意向颜色
+            </ion-label>
+            <p>{{shareData.account["dealerid_formatted"]}}&nbsp;</p>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
+                <ion-icon name="search"></ion-icon>
+                意向车型
+            </ion-label>
+            <p>{{shareData.account["dealerid_formatted"]}}&nbsp;</p>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
+                购车用途
+            </ion-label>
+            <ion-select placeholder="请选择购车用途" cancelText="取消" okText="确定" [(ngModel)]="shareData.account['oilquantity']">
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
+                车辆使用人
+            </ion-label>
+            <ion-select placeholder="请选择车辆使用人" cancelText="取消" okText="确定" [(ngModel)]="shareData.account['oilquantity']">
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
+                购车关注
+            </ion-label>
+            <ion-input placeholder="请如数购车关注" [(ngModel)]="shareData.account['shuttlename']" required></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
+                年龄段
+            </ion-label>
+            <ion-select placeholder="请选择年龄段" cancelText="取消" okText="确定" [(ngModel)]="shareData.account['oilquantity']">
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
+                购买方式
+            </ion-label>
+            <ion-select placeholder="请选择购买方式" cancelText="取消" okText="确定" [(ngModel)]="shareData.account['oilquantity']">
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
+                竞品车型
+            </ion-label>
+            <ion-input placeholder="请输入竞品车型" [(ngModel)]="shareData.account['shuttlename']" required></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
+                关注原因
+            </ion-label>
+            <ion-select placeholder="请选择关注原因" cancelText="取消" okText="确定" [(ngModel)]="shareData.account['oilquantity']">
+            </ion-select>
+        </ion-item>
+        <ion-item-divider color="primary">
+            <ion-label>
+                其它
+            </ion-label>
+        </ion-item-divider>
+        <ion-item>
+            <ion-label position="stacked">特殊备注</ion-label>
+            <ion-textarea placeholder="请输入特殊备注" [(ngModel)]="shareData.account['customercomment']"></ion-textarea>
+        </ion-item>
+    </ion-list>
+
+    <section style="text-align:center;">
+        <ion-button style="width:40%" color="danger" (click)="nextOnClick()">保存</ion-button>
+    </section>
+    <br />
+    <br />
 </ion-content>

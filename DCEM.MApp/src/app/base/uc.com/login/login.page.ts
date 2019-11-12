@@ -87,6 +87,7 @@ export class LoginPage implements OnInit {
                 //    this._page.loadingHide();
                 //    return false;
                 //}
+                this._http.setToken(res.access_token);
                 this._logininfo.SetInfo(JSON.stringify(res));
                 this._page.loadingHide();
                 this._page.alert('消息提示', '登录认证成功');
