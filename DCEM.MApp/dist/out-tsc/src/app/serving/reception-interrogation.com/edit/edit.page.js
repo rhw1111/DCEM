@@ -31,7 +31,7 @@ let EditPage = class EditPage {
         const that = this;
         this.ionBackButtonDelegate.onClick = function (event) {
             that._shareData.delete(that.mod.shareDataKey);
-            that._page.goBack();
+            that._page.navigateRoot("/serving/ri/list", null, "back");
         };
     }
     ionViewWillEnter() {

@@ -18,7 +18,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
 {
     public class AuthService : IAuthService
     {
-        CoreConfiguration coreConfiguration = ConfigurationContainer.Get<CoreConfiguration>(ConfigurationNames.Application);
+        ServingAssConfiguration coreConfiguration = ConfigurationContainer.Get<ServingAssConfiguration>(ConfigurationNames.Application);
 
         public AuthService()
         {

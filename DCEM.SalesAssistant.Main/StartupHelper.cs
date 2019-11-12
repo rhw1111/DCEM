@@ -16,7 +16,7 @@ namespace DCEM.SalesAssistant.Main
         /// <returns></returns>
         public static CrmService CreateCrmService()
         {
-            var coreConfiguration = ConfigurationContainer.Get<CoreConfiguration>(ConfigurationNames.Application);
+            var coreConfiguration = ConfigurationContainer.Get<SaleingAssConfiguration>(ConfigurationNames.Application);
 
             var crmService = DIContainerContainer.Get<CrmService>();
             if (coreConfiguration.DyCRMSetting != null)

@@ -80,7 +80,27 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             Guid guid = Guid.Empty;
             try
             {
-               
+                guid = string.IsNullOrEmpty(request.Id) ? Guid.NewGuid() : Guid.Parse(request.Id);
+                CrmExecuteEntity createorUpdateEntity = new CrmExecuteEntity(EntityName, guid);
+
+                if (request.mcs_customerstatus.HasValue)
+                {
+                    createorUpdateEntity.Attributes.Add("mcs_customerstatus", request.mcs_customerstatus.Value);
+                }
+
+                if (request.ownerid.HasValue)
+                {
+                    createorUpdateEntity.Attributes.Add("ownerid", new CrmEntityReference("systemuser", request.ownerid.Value));
+                }
+
+                if (!string.IsNullOrEmpty(request.Id))
+                {
+                    await _crmService.Update(createorUpdateEntity);
+                }
+                else
+                {
+                    guid = await _crmService.Create(createorUpdateEntity);
+                }
             }
             catch (Exception ex)
             {

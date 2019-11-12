@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DCEM.AuthorizationService\DCEM.AuthorizationService.csproj" />
     <ProjectReference Include="..\DCEM.SalesAssistant.Main\DCEM.SalesAssistant.Main.csproj" />
     <ProjectReference Include="..\DCEM.ServiceAssistantService.Main\DCEM.ServiceAssistantService.Main.csproj" />
     <ProjectReference Include="..\DCEM.Main\DCEM.Main.csproj" />

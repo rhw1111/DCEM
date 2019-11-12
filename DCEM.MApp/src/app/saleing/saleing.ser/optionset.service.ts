@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
  */
 export class OptionSetService {
     /**
-     * 通过选项名称获取option值
+     * 通过选项名称,及value值获取option显示名称
      * @param optionname 选项集名称
      * @param value 选项集值
      */
@@ -19,6 +19,23 @@ export class OptionSetService {
             for (var i = 0; i < obj.length; i++) {
                 if (value == obj[i]["value"]) {
                     return obj[i]["name"];
+                }
+            }
+        }
+        return result;
+    }
+    /**
+     * 通过选项名称获取option值
+     * @param optionname 选项集名称
+     * @param name 选项名称
+     */
+    GetOptionSetValueByName(optionname, name: string) {
+        var result = "";
+        var obj = this.Get(optionname);
+        if (obj != null && obj.length > 0) {
+            for (var i = 0; i < obj.length; i++) {
+                if (name == obj[i]["name"]) {
+                    return obj[i]["value"];
                 }
             }
         }
