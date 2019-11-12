@@ -30,15 +30,8 @@ namespace DCEM.Web.Controllers
             }
         }
 
-        /// <summary>
-        /// 整车订单列表查询
-        /// </summary>
-        /// <param name="status"></param>
-        /// <param name="seachkey"></param>
-        /// <param name="sort"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="page"></param>
-        /// <returns></returns>
+        #region 整车订单列表查询
+        
         [HttpGet]
         [Route("GetVehorderList")]
         public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetVehorderList(string seachkey = "", int pageSize = 10, int page = 1,string sort="",int mcs_rostatus=0)
@@ -57,9 +50,19 @@ namespace DCEM.Web.Controllers
             var list = await app.GetVehorderList(vehorderRequest);
             return list;
         }
+        #endregion
 
+        #region 根据主键id获取厅店整车订单明细
+       
+        [HttpGet]
+        [Route("GetVehorderDetail")]
+        public async Task<NewtonsoftJsonActionResult<VehorderDetailModel>> GetVehorderDetail(string mcs_vehorderid)
+        {
+            var result = await app.GetVehorderDetail(mcs_vehorderid);
+            return result;
+        }
 
-
+        #endregion
 
     }
 }
