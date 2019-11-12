@@ -72,7 +72,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         /// <summary>
         /// 创建原始线索
         /// </summary>
-        public async Task<originalclueCreateResponse> create(OriginalclueCreateRequest originalclueCreateRequest)
+        public async Task<OriginalclueCreateResponse> create(OriginalclueCreateRequest originalclueCreateRequest)
         {
             try
             {
@@ -105,7 +105,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 var dealer = new CrmEntityReference("mcs_dealer", Guid.Parse(originalclueCreateRequest.dealerid));
                 createEntity.Attributes.Add("mcs_dealerid", dealer);
                 var entityId = await _crmService.Create(createEntity, Guid.Parse(originalclueCreateRequest.UserId));
-                return new originalclueCreateResponse() { Id = entityId.ToString() };
+                return new OriginalclueCreateResponse() { Id = entityId.ToString() };
             }
             catch (Exception ex)
             {

@@ -46,5 +46,11 @@ namespace DCEM.SalesAssistant.Main.Application.App.Contrac
         /// <returns></returns>
         Task<ValidateResult<CrmEntity>> AddOrEditEntity(LogCallRequest request);
 
+        /// <summary>
+        /// 唯一线索编辑
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ValidateResult<CrmEntity>> Edit(OnlyLeadEditRequest request);
     }
 }

@@ -216,6 +216,92 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             return validateResult;
         }
         #endregion
+        /// <summary>
+        /// 唯一线索编辑
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ValidateResult<CrmEntity>> Edit(OnlyLeadEditRequest request)
+        {
+            var validateResult = new ValidateResult<CrmEntity>();
+            var reusetCrmEntity = new CrmEntity("mcs_onlylead", request.onlylead.mcs_onlyleadid);
+            //新增预约单
+            if (request.actioncode == 2)
+            {
+                var updateEntity = new CrmExecuteEntity("mcs_onlylead", request.onlylead.mcs_onlyleadid);
+               
+                BasicAssignment(updateEntity, request);
+                await _crmService.Update(updateEntity,request.onlylead.systemuserid);
+                reusetCrmEntity.Id = updateEntity.Id;
+            }
+           
+            validateResult.Data = reusetCrmEntity;
+            validateResult.Result = true;
+            validateResult.Description = "操作成功";
+            return validateResult;
+        }
 
+        /// <summary>
+        /// 基础字段
+        /// </summary>
+        /// <param name="updateEntity"></param>
+        /// <param name="request"></param>
+        private void BasicAssignment(CrmExecuteEntity updateEntity, OnlyLeadEditRequest request)
+        {
+            // 姓名
+            if (!string.IsNullOrWhiteSpace(request.onlylead.mcs_name))
+            {
+                updateEntity.Attributes.Add("mcs_name", request.onlylead.mcs_name);
+            }
+            // 线索来源
+            if (request.onlylead.mcs_leadorigin!=null)
+            {
+                updateEntity.Attributes.Add("mcs_leadorigin", request.onlylead.mcs_leadorigin);
+            }
+            // 性别
+            if (request.onlylead.mcs_gender != null)
+            {
+                updateEntity.Attributes.Add("mcs_gender", request.onlylead.mcs_gender);
+            }
+            // 邮箱
+            if (!string.IsNullOrWhiteSpace(request.onlylead.mcs_emailaddress1))
+            {
+                updateEntity.Attributes.Add("mcs_name", request.onlylead.mcs_emailaddress1);
+            }
+            // 评分
+            if (request.onlylead.mcs_accountpoints != null)
+            {
+                updateEntity.Attributes.Add("mcs_accountpoints", request.onlylead.mcs_accountpoints);
+            }
+            // 用车省份
+            if (!string.IsNullOrWhiteSpace(request.onlylead.mcs_usecarprovince))
+            {
+                updateEntity.Attributes.Add("mcs_usecarprovince", request.onlylead.mcs_usecarprovince);
+            }
+            // 用车城市
+            if (!string.IsNullOrWhiteSpace(request.onlylead.mcs_usecarcity))
+            {
+                updateEntity.Attributes.Add("mcs_usecarcity", request.onlylead.mcs_usecarcity);
+            }
+            // 省份ID
+            if (request.onlylead.mcs_provinceid != null)
+            {
+                var provinceEntityRf = new CrmEntityReference("mcs_sysarea", (Guid)request.onlylead.mcs_provinceid);
+                updateEntity.Attributes.Add("mcs_provinceid", provinceEntityRf);
+            }
+            // 市ID
+            if (request.onlylead.mcs_cityid != null)
+            {
+                var cityEntityRf = new CrmEntityReference("mcs_sysarea", (Guid)request.onlylead.mcs_cityid);
+                updateEntity.Attributes.Add("mcs_cityid", cityEntityRf);
+            }
+            // 
+            if (request.onlylead.mcs_districtid != null)
+            {
+                var districtEntityRf = new CrmEntityReference("mcs_sysarea", (Guid)request.onlylead.mcs_districtid);
+                updateEntity.Attributes.Add("mcs_districtid", districtEntityRf);
+            }
+
+        }
     }
 }

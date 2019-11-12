@@ -136,5 +136,17 @@ namespace DCEM.Web.Controllers
             return list;
         }
 
+        /// <summary>
+        /// 唯一线索修改
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("Edit")]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<CrmEntity>>> Edit(OnlyLeadEditRequest request)
+        {
+            return await app.Edit(request);
+        }
+
     }
 }

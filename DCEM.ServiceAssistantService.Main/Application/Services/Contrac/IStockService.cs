@@ -11,5 +11,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
     public interface IStockService
     {
         Task<QueryResult<CrmEntity>> QuerySpmdspStockList(int pageindex, string search);
+        Task<QueryResult<CrmEntity>> QueryDeliverycentercarStockList(int pageindex, string search);
+        Task<DeliverycentercarStockInfoResponse> QueryDeliverycentercarStockInfo(string guid);
     }
 }

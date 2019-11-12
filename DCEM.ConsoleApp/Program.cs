@@ -3,20 +3,27 @@ using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.IO;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging.Console;
 using System.Runtime.Serialization;
+using System.Security;
 using MSLibrary;
 using MSLibrary.Thread;
 using MSLibrary.Serializer;
 using MSLibrary.Configuration;
 using MSLibrary.DI;
+using MSLibrary.Security.Jwt;
+using MSLibrary.Security.Jwt.DAL;
+using MSLibrary.Security.Jwt.JwtGenerateCreateSignKeyServices;
+using MSLibrary.Security.Jwt.JwtGenerateValidateSignKeyServices;
 using DCEM.Main;
 using DCEM.ServiceAssistantService.Main.Entities;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DCEM.ConsoleApp
 {
@@ -56,12 +63,47 @@ namespace DCEM.ConsoleApp
             //初始化DI容器
             MainStartupHelper.InitDI(services, coreConfiguration.DISetting);
 
+            string strPrivateKey = @"<RSAKeyValue><Modulus>oK8pjjdhHlvSwhbHFJrq4PRkRTsEcdV1/P8cZa6bt5ZWRBt7wN628a0Ztrf96Rtp5R+s17PQHFlcKC1/bqZIzpNwyeGbXiNK9WCiOcxVufX9Utu0UN37VLJ6UjzZruau24PxQUkO8ZPAfxT4Hqm0l9O4OVROtQg6I+401dF3TEEVDjsm1fNttES6rZlPOjHlqvYgu91DV/bDwd1zEPduzhV9VyG813G9uAfe55DVJgBWYM3A6M0y6Y0HYt4fBFmFTSBp2g1FrS622zGmMIxiCyofuIb4TpTNGjnrS6xX4A+qrWE4mKF372t9mWpQmJueUa+a4EBfOcGfFyDPXzQOPQ==</Modulus><Exponent>AQAB</Exponent><P>yJANjoQyIxQoiVUvO3DpCZ0hbc+pdKkZF3Os4ITyqc4RAjzMwXsJaSA14puz+S3sqxXSwJhjLh7Cy0jab+f7Q5nKO60cv9zeGA95p+GLFm+uiltPC+D9hOMpJokZ/hoQhBNbyV3iamLzhoKa/nCKgC3OvllEc2KcTTFrBy9pUDs=</P><Q>zRlISRQN28UUnVEeUSsytrfAPKH1u3v65VkD3vBDaIXGZeBB9mF9GhRduhHzlwtMRnZtlkAW5ANYouknI6r6EwDufPJk3anpVkB4QZ5v3P6Z7P5wNuEohmbpFHsFpUMLiKgkoP9OIVU+hosomB26Pmra4k6W+iRK3sh2OlGsa+c=</Q><DP>MczbIOUgUeeCfT9CoB7ULofusgabTBVk3pbheUpputIpFQYlzXEQkCLoXmFNGfVWS9D6aMot7ljDA5kObDUNBecc+R5uAhIEr7LAAXiWgbavfzlW8lsmeCWzpRbr9lVgfnsUEncWblYto9uwQreNHHDDYi5mOcRljSFVMw6Jtts=</DP><DQ>EvSYOrDQyxP+4L9DhwrwB/UZnkD1vhsqSBIfCna4NCvQ909vqT6/Wi6xruXD1pzjsst1O2K2+uHYSk40INbHgAQhBok8i0QN3bvdoWrsOceKIF4vrtLGdQ2D0zG/htOYeEvZ/ss5xFjli3fHC7ALq4MisbHDwGCkTszGKIOt5Nc=</DQ><InverseQ>ftIDKAb8AQWFs7cJ8yTUwOp2OYGTtmzQp3HJ+kD6b5C/ClnxQStSENksK78fJtW6P7lPX5o9i7bhMHd4rK8yOxBDwobhwpWh6KHTb5pVNTY1VWtp8LIl0M/r45KSo1SBC817tGNAJ/ezIcYxDoO1lv+pEAEGHr9xAKhpV5dlA5s=</InverseQ><D>BR3u3deHoTbdXE7rYg2Y4zcFJms9tf5NNpRNLDPGQ69m6d5SL48oFkQj6HyteknkMmay01+nhe+WjrT8NOLYuLNbSSKFFxdaoLvGDr8iD7z0pznV4Slggo74dDv51qcD9HucKC8SacEBxUo+qINQ+/DDEhhMNVmguFoyloiIGwZ+oRDoWBeptRHlteHEvdIIuFgIeE7Hv7wXB+G3ioM61a26cVH/u5nYEC2Ymk2CY2PqIxapxQFQrulALp0nV6IQFqBUtX+TCD4LwltyP9Exy48oFHSZpHI2e9F3vJ+PdAgcBILbLmtnKk8K9XeGvyOLFlJJaJhWVhK8zbajZupiRQ==</D></RSAKeyValue>";
+            string strPublickey = @"<RSAKeyValue><Modulus>oK8pjjdhHlvSwhbHFJrq4PRkRTsEcdV1/P8cZa6bt5ZWRBt7wN628a0Ztrf96Rtp5R+s17PQHFlcKC1/bqZIzpNwyeGbXiNK9WCiOcxVufX9Utu0UN37VLJ6UjzZruau24PxQUkO8ZPAfxT4Hqm0l9O4OVROtQg6I+401dF3TEEVDjsm1fNttES6rZlPOjHlqvYgu91DV/bDwd1zEPduzhV9VyG813G9uAfe55DVJgBWYM3A6M0y6Y0HYt4fBFmFTSBp2g1FrS622zGmMIxiCyofuIb4TpTNGjnrS6xX4A+qrWE4mKF372t9mWpQmJueUa+a4EBfOcGfFyDPXzQOPQ==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
+
+            JwtGenerateCreateSignKeyMainService.JwtGenerateCreateSignKeyServiceFactories.Add("RsaPrivate", DIContainerContainer.Get<JwtGenerateCreateSignKeyServiceForRsaPrivateFactory>());
+
+            JwtGenerateValidateSignKeyMainService.JwtGenerateValidateSignKeyServiceFactories.Add("RsaPublic", DIContainerContainer.Get<JwtGenerateValidateSignKeyServiceForRsaPublicFactory>());
+            JwtGenerateValidateSignKeyMainService.JwtGenerateValidateSignKeyServiceFactories.Add("MetadataService", DIContainerContainer.Get<JwtGenerateValidateSignKeyServiceForMetadataServiceFactory>());
+
+
+            JwtEnpoint jwtEndpoint = new JwtEnpoint()
+            {
+                ID = Guid.NewGuid(),
+                CreateTime = DateTime.UtcNow,
+                ModifyTime = DateTime.UtcNow,
+                Name = "A",
+                CreateSignKeyType = "RsaPrivate",
+                CreateSignKeyConfiguration = $@"{{""Key"":""{strPrivateKey}"",""Alg"":""{SecurityAlgorithms.RsaSha256Signature}""}}",
+                ValidateSignKeyType = "MetadataService",
+                ValidateSignKeyConfiguration = $@"{{""Uri"":""https://subcrmadfs.sokon.com/adfs/.well-known/openid-configuration"",""Cache"":true,""Timeout"":-1}}"
+               
+
+            };
+
+            List<Claim> claims = new List<Claim>()
+            {
+                new Claim("A1","A1"),
+                new Claim("A2","A2")
+            };
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims);
+
+
+            var strToken=await jwtEndpoint.CreateJwt("ASD", "BSD", claimsIdentity, null, null, null);
+
+            var dClaims = await jwtEndpoint.ValidateJwt("eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkU2M29sLVNHbmhhQkE0VWItY0RSb1pqZnNqZyJ9.eyJhdWQiOiJodHRwczovL3N1YmNybWRldjIuc29rb24uY29tL2FwaS9kYXRhL3Y4LjIiLCJpc3MiOiJodHRwOi8vc3ViY3JtYWRmcy5zb2tvbi5jb20vYWRmcy9zZXJ2aWNlcy90cnVzdCIsImlhdCI6MTU3MzIxNjk4MSwiZXhwIjoxNTczMjIwNTgxLCJwcmltYXJ5c2lkIjoiUy0xLTUtMjEtNDIyMjk0OTIwMC0yMDY1Njc0Mjk5LTIwNDgyNjQ5OTItMTEwNSIsInVwbiI6InN1YmRldmNybWFkbWluQHNmbW90b3JzLmNvbSIsInVuaXF1ZV9uYW1lIjoiU0ZNT1RPUlNcXHN1YmRldmNybWFkbWluIiwiYXBwdHlwZSI6IkNvbmZpZGVudGlhbCIsImFwcGlkIjoiZTMwNTM2ODItOTM1ZC00MWRmLWJjYzMtZjdmYzRkZTM3MDQwIiwiYXV0aG1ldGhvZCI6InVybjpvYXNpczpuYW1lczp0YzpTQU1MOjIuMDphYzpjbGFzc2VzOlBhc3N3b3JkUHJvdGVjdGVkVHJhbnNwb3J0IiwiYXV0aF90aW1lIjoiMjAxOS0xMS0wOFQxMjo0MzowMS4wMzFaIiwidmVyIjoiMS4wIn0.bZh4Zeu60MC9XJOzHHYr5R9lpcUoBIh5DGzfAFkKL18nmzmSxVNtZVih0leoGsUbJDN3UJVozsxJtP04q-0YFGLQQSUavZfd2H7JV1LYdx56L-AgFeOAyVI_0pXxzY4tSeVvmNnq7Zn-DNCUL5Ibe_3HAY61dOq68rRp2KlxmjHkxwIeN7ts3O_yyKJPWLDzkQw1SMwoG7wDGmEcdlP3ocsrdxQqp9GRthK608AphzKbrVZzdtGuWZiP7297-4uPwEtw8TwdRfyWhhyVZMd0jjIHWGamYRlFOlxh7oxGj7W7iUhV1vxbjw16B98K6QAVh3_zHmKdlEXDanW2J22UPQ", new List<JwtValidateParameter>());
+
 
             var helper=DIContainerContainer.Get<AdfsEndpointRepositoryHelper>();
             var endpoint=await helper.QueryByName("Main");
 
-            var claims = await endpoint.ValidateJWT("eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkU2M29sLVNHbmhhQkE0VWItY0RSb1pqZnNqZyJ9.eyJhdWQiOiJodHRwczovL3N1YmNybWRldjIuc29rb24uY29tL2FwaS9kYXRhL3Y4LjIiLCJpc3MiOiJodHRwOi8vc3ViY3JtYWRmcy5zb2tvbi5jb20vYWRmcy9zZXJ2aWNlcy90cnVzdCIsImlhdCI6MTU3MzIxNjk4MSwiZXhwIjoxNTczMjIwNTgxLCJwcmltYXJ5c2lkIjoiUy0xLTUtMjEtNDIyMjk0OTIwMC0yMDY1Njc0Mjk5LTIwNDgyNjQ5OTItMTEwNSIsInVwbiI6InN1YmRldmNybWFkbWluQHNmbW90b3JzLmNvbSIsInVuaXF1ZV9uYW1lIjoiU0ZNT1RPUlNcXHN1YmRldmNybWFkbWluIiwiYXBwdHlwZSI6IkNvbmZpZGVudGlhbCIsImFwcGlkIjoiZTMwNTM2ODItOTM1ZC00MWRmLWJjYzMtZjdmYzRkZTM3MDQwIiwiYXV0aG1ldGhvZCI6InVybjpvYXNpczpuYW1lczp0YzpTQU1MOjIuMDphYzpjbGFzc2VzOlBhc3N3b3JkUHJvdGVjdGVkVHJhbnNwb3J0IiwiYXV0aF90aW1lIjoiMjAxOS0xMS0wOFQxMjo0MzowMS4wMzFaIiwidmVyIjoiMS4wIn0.bZh4Zeu60MC9XJOzHHYr5R9lpcUoBIh5DGzfAFkKL18nmzmSxVNtZVih0leoGsUbJDN3UJVozsxJtP04q-0YFGLQQSUavZfd2H7JV1LYdx56L-AgFeOAyVI_0pXxzY4tSeVvmNnq7Zn-DNCUL5Ibe_3HAY61dOq68rRp2KlxmjHkxwIeN7ts3O_yyKJPWLDzkQw1SMwoG7wDGmEcdlP3ocsrdxQqp9GRthK608AphzKbrVZzdtGuWZiP7297-4uPwEtw8TwdRfyWhhyVZMd0jjIHWGamYRlFOlxh7oxGj7W7iUhV1vxbjw16B98K6QAVh3_zHmKdlEXDanW2J22UPQ", new string[] { "https://subcrmdev2.sokon.com/api/data/v8.2" });
-            var userName=claims.FindFirst(System.Security.Claims.ClaimTypes.Name).Value;
+            var claimsP = await endpoint.ValidateJWT("eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkU2M29sLVNHbmhhQkE0VWItY0RSb1pqZnNqZyJ9.eyJhdWQiOiJodHRwczovL3N1YmNybWRldjIuc29rb24uY29tL2FwaS9kYXRhL3Y4LjIiLCJpc3MiOiJodHRwOi8vc3ViY3JtYWRmcy5zb2tvbi5jb20vYWRmcy9zZXJ2aWNlcy90cnVzdCIsImlhdCI6MTU3MzIxNjk4MSwiZXhwIjoxNTczMjIwNTgxLCJwcmltYXJ5c2lkIjoiUy0xLTUtMjEtNDIyMjk0OTIwMC0yMDY1Njc0Mjk5LTIwNDgyNjQ5OTItMTEwNSIsInVwbiI6InN1YmRldmNybWFkbWluQHNmbW90b3JzLmNvbSIsInVuaXF1ZV9uYW1lIjoiU0ZNT1RPUlNcXHN1YmRldmNybWFkbWluIiwiYXBwdHlwZSI6IkNvbmZpZGVudGlhbCIsImFwcGlkIjoiZTMwNTM2ODItOTM1ZC00MWRmLWJjYzMtZjdmYzRkZTM3MDQwIiwiYXV0aG1ldGhvZCI6InVybjpvYXNpczpuYW1lczp0YzpTQU1MOjIuMDphYzpjbGFzc2VzOlBhc3N3b3JkUHJvdGVjdGVkVHJhbnNwb3J0IiwiYXV0aF90aW1lIjoiMjAxOS0xMS0wOFQxMjo0MzowMS4wMzFaIiwidmVyIjoiMS4wIn0.bZh4Zeu60MC9XJOzHHYr5R9lpcUoBIh5DGzfAFkKL18nmzmSxVNtZVih0leoGsUbJDN3UJVozsxJtP04q-0YFGLQQSUavZfd2H7JV1LYdx56L-AgFeOAyVI_0pXxzY4tSeVvmNnq7Zn-DNCUL5Ibe_3HAY61dOq68rRp2KlxmjHkxwIeN7ts3O_yyKJPWLDzkQw1SMwoG7wDGmEcdlP3ocsrdxQqp9GRthK608AphzKbrVZzdtGuWZiP7297-4uPwEtw8TwdRfyWhhyVZMd0jjIHWGamYRlFOlxh7oxGj7W7iUhV1vxbjw16B98K6QAVh3_zHmKdlEXDanW2J22UPQ", new string[] { "https://subcrmdev2.sokon.com/api/data/v8.2" });
+            var userName= claimsP.FindFirst(System.Security.Claims.ClaimTypes.Name).Value;
 
 
 
@@ -334,4 +376,17 @@ namespace DCEM.ConsoleApp
         public string Name { get; set; }
     }
 
+    [Injection(InterfaceType = typeof(IJwtConnectionFactory), Scope = InjectionScope.Singleton)]
+    public class JwtConnectionFactory : IJwtConnectionFactory
+    {
+        public string CreateAllForJwt()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string CreateReadForJwt()
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

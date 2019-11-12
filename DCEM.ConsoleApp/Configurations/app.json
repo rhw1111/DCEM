@@ -2,7 +2,7 @@
 {
   "Connections": null,
   "DISetting": {
-    "SearchAssemblyNames": [ "MSLibrary", "DCEM.Main", "DCEM.ServiceAssistantService.Main" ]
+    "SearchAssemblyNames": [ "MSLibrary", "DCEM.Main", "DCEM.ServiceAssistantService.Main", "DCEM.ConsoleApp" ]
   },
   "DyCRMSetting": {
     "CrmApiMaxRetry": 10,

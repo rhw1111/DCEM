@@ -21,17 +21,22 @@ export class ListPage implements OnInit {
   ) { }
 
   public model: any = {
+    apiUrl: "/api/delivery/getlist",
     deliverystatusOptions: [],
     search: {
-      key: "",
-      deliverystatus: -1
+      pageindex: 1,
+      pagesize: 10,
+      searchkey: "",
+      deliverystatus: -1,
+      userId: this._userinfo.GetSystemUserId(),
+      dealerid: "0db19a77-af23-e911-a81e-9a16184af7bf",//this._userinfo.GetDealerid()
     },
     deliverys: [],
-    isending:""
+    isending: ""
   }
   ngOnInit() {
-    debugger;
     this.model.deliverystatusOptions = this._optionset.Get("mcs_deliverystatus");
+    this.listOnBind(null);
   }
   //加载下一页
   doLoading(event) {
@@ -47,5 +52,33 @@ export class ListPage implements OnInit {
     }
   }
   listOnBind(event) {
+    this._page.loadingShow();
+    this._http.post(
+      this.model.apiUrl,
+      this.model.search,
+      (res: any) => {
+        if (res.Results !== null) {
+          var data = res.originalclues;
+          for (var i in data) {
+            var attr = data[i]["Attributes"];
+            var obj = {};
+          }
+          event ? event.target.complete() : '';
+          if (data.length < this.model.searchData.pagesize) {
+            event ? event.target.disabled = true : "";
+            this.model.isending = true;
+          }
+          this._page.loadingHide();
+        }
+        else {
+          this._page.alert("消息提示", "原始线索数据加载异常");
+        }
+        this._page.loadingHide();
+      },
+      (err: any) => {
+        this._page.alert("消息提示", "原始线索数据加载异常");
+        this._page.loadingHide();
+      }
+    );
   }
 }
