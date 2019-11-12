@@ -183,6 +183,22 @@ export class OptionSetService {
                     { "name": "作废", "value":99 }
                 ];
                 break;
+
+             case "mcs_rostatus"://整车销售-整车订单状态
+                optionlist = [
+                    { "name": "订金待支付", "value": 1 },
+                    { "name": "订金已支付", "value": 2 },
+                    { "name": "订单确认", "value": 3 },
+                    { "name": "等待排产", "value": 4 },
+                    { "name": "生产中", "value": 5 },
+                    { "name": "车辆在途", "value": 6 },
+                    { "name": "等待交车", "value": 7 },
+                    { "name": "车联网已开通", "value":8 },
+                    { "name": "交车完成", "value": 9 },
+                    { "name": "作废", "value":99 }
+
+                ];
+                break;
         }
         return optionlist;
     }

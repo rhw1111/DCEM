@@ -118,7 +118,7 @@ pageOnBind() {
 
 //加载联络记录(logcall)列表
 pageOnLogCalllist(any:any) {
-    debugger;
+   // debugger;
     this._page.loadingShow();
     this._http.get(
         this.mod.apiUrlList1,
