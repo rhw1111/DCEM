@@ -27,12 +27,12 @@ export class ListPage implements OnInit {
       pageindex: 1,
       pagesize: 10,
       searchkey: "",
-      deliverystatus: -1,
+      deliverystatus: "-1",
       userId: this._userinfo.GetSystemUserId(),
-      dealerid: "0db19a77-af23-e911-a81e-9a16184af7bf",//this._userinfo.GetDealerid()
+      dealerid: "d2b7ae95-72f4-e911-a821-f2106c4094a1",//this._userinfo.GetDealerid()
     },
     deliverys: [],
-    isending: ""
+    isending: false
   }
   ngOnInit() {
     this.model.deliverystatusOptions = this._optionset.Get("mcs_deliverystatus");
@@ -40,8 +40,14 @@ export class ListPage implements OnInit {
   }
   //加载下一页
   doLoading(event) {
-
+    this.model.search.pageindex++;
+    this.model.isending = false; 
     this.listOnBind(event);
+  }
+  //搜索
+  searchOnCharge() {  
+      this.model.deliverys = [];
+      this.listOnBind(null); 
   }
   //搜索
   searchOnKeyup(event) {
@@ -58,13 +64,20 @@ export class ListPage implements OnInit {
       this.model.search,
       (res: any) => {
         if (res.Results !== null) {
-          var data = res.originalclues;
+          var data = res.Deliverys;
           for (var i in data) {
             var attr = data[i]["Attributes"];
             var obj = {};
+            obj["id"]=data[i]["Id"];
+            obj["vin"]=attr["_mcs_vin_value@OData.Community.Display.V1.FormattedValue"];
+            obj["code"]=attr["mcs_code"];
+            obj["ro"]=attr["_mcs_vehorder_value@OData.Community.Display.V1.FormattedValue"];
+            obj["createdon"]=attr["createdon"];
+            obj["deliverystatus"]= this._optionset.GetOptionSetNameByValue("mcs_deliverystatus",attr["mcs_deliverystatus"]); 
+            this.model.deliverys.push(obj);
           }
           event ? event.target.complete() : '';
-          if (data.length < this.model.searchData.pagesize) {
+          if (data.length < this.model.search.pagesize) {
             event ? event.target.disabled = true : "";
             this.model.isending = true;
           }
