@@ -11,6 +11,7 @@ using MSLibrary.Xrm;
 using MSLibrary.LanguageTranslate;
 using MSLibrary.Serializer;
 using System.Net.Http;
+using DCEM.Main.Entities;
 
 namespace DCEM.ServiceAssistantService.Main.DAL
 {
@@ -20,8 +21,9 @@ namespace DCEM.ServiceAssistantService.Main.DAL
         {
             try
             {
-                var crmService= StartupHelper.CreateCrmService();
+                var crmService = StartupHelper.CreateCrmService();
                 ITechnicalSupportRepository followRepository = new TechnicalSupportRepository();
+               
                 ITechnicalSupportService technicalSupportService = new TechnicalSupportService(crmService);
                 IAppTechnicalSupport app = new AppTechnicalSupport(technicalSupportService);
 

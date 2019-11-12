@@ -16,5 +16,13 @@ namespace DCEM.SalesAssistant.Main.Application.Services.Contrac
         /// <param name="vehorderRequest"></param>
         /// <returns></returns>
         Task<QueryResult<CrmEntity>> GetVehorderList(VehorderRequest vehorderRequest);
+
+
+        /// <summary>
+        /// 根据主键id获取厅店整车订单明细 接口
+        /// </summary>
+        /// <param name="mcs_vehorderid"></param>
+        /// <returns></returns>
+        Task<VehorderDetailModel> GetVehorderDetail(string mcs_vehorderid);
     }
 }

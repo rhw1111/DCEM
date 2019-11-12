@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
  */
 export class OptionSetService {
     /**
-     * 通过选项名称获取option值
+     * 通过选项名称,及value值获取option显示名称
      * @param optionname 选项集名称
      * @param value 选项集值
      */
@@ -19,6 +19,23 @@ export class OptionSetService {
             for (var i = 0; i < obj.length; i++) {
                 if (value == obj[i]["value"]) {
                     return obj[i]["name"];
+                }
+            }
+        }
+        return result;
+    }
+    /**
+     * 通过选项名称获取option值
+     * @param optionname 选项集名称
+     * @param name 选项名称
+     */
+    GetOptionSetValueByName(optionname, name: string) {
+        var result = "";
+        var obj = this.Get(optionname);
+        if (obj != null && obj.length > 0) {
+            for (var i = 0; i < obj.length; i++) {
+                if (name == obj[i]["name"]) {
+                    return obj[i]["value"];
                 }
             }
         }
@@ -181,6 +198,22 @@ export class OptionSetService {
                     { "name": "车联网已开通", "value": 6 },
                     { "name": "交车完成", "value": 7 },
                     { "name": "作废", "value":99 }
+                ];
+                break;
+
+             case "mcs_rostatus"://整车销售-整车订单状态
+                optionlist = [
+                    { "name": "订金待支付", "value": 1 },
+                    { "name": "订金已支付", "value": 2 },
+                    { "name": "订单确认", "value": 3 },
+                    { "name": "等待排产", "value": 4 },
+                    { "name": "生产中", "value": 5 },
+                    { "name": "车辆在途", "value": 6 },
+                    { "name": "等待交车", "value": 7 },
+                    { "name": "车联网已开通", "value":8 },
+                    { "name": "交车完成", "value": 9 },
+                    { "name": "作废", "value":99 }
+
                 ];
                 break;
         }

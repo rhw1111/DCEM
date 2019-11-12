@@ -94,6 +94,12 @@ const routes = [
                     { path: 'testdriverate', loadChildren: './serving/report/testdriverate/testdriverate.module#TestdriveratePageModule' }
                 ]
             },
+            {
+                path: 'spmdspstock',
+                children: [
+                    { path: 'list', loadChildren: './serving/spmdspstock.com/list/list.module#ListPageModule' },
+                ]
+            },
         ],
     },
     {
@@ -139,6 +145,29 @@ const routes = [
                     { path: 'list', loadChildren: './saleing/mcs-account.com/list/list.module#ListPageModule' },
                     { path: 'edit', loadChildren: './saleing/mcs-account.com/edit/edit.module#EditPageModule' },
                     { path: 'detail', loadChildren: './saleing/mcs-account.com/detail/detail.module#DetailPageModule' }
+                ]
+            },
+            {
+                path: 'delivery',
+                children: [
+                    { path: 'list', loadChildren: './saleing/delivery/list/list.module#ListPageModule' },
+                    { path: 'edit', loadChildren: './saleing/delivery/edit/edit.module#EditPageModule' },
+                    { path: 'detail', loadChildren: './saleing/delivery/detail/detail.module#DetailPageModule' },
+                    { path: 'success', loadChildren: './saleing/delivery/success/success.module#SuccessPageModule' },
+                ]
+            },
+            {
+                path: 'deliverycentercarstock',
+                children: [
+                    { path: 'list', loadChildren: './saleing/mcs-deliverycentercarstock.com/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './saleing/mcs-deliverycentercarstock.com/detail/detail.module#DetailPageModule' }
+                ]
+            },
+            {
+                path: 'vehorder',
+                children: [
+                    { path: 'list', loadChildren: './saleing/mc-vehorder.com/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './saleing/mc-vehorder.com/detail/detail.module#DetailPageModule' }
                 ]
             }
         ]

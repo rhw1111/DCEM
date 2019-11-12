@@ -48,6 +48,21 @@ export class DCore_Http {
         private _config: DCore_Config
     ) {
     }
+    //带请求头get请求
+    getForToaken(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
+        this._httpClient.get(this._config.getDomain() + url, 
+        {
+            params:params,
+            headers:this.getHeaders()
+        }).subscribe(
+            (res: any) => {
+                rescallback && rescallback(res);
+            },
+            (err: any) => {
+                errcallback && errcallback(err);
+            });
+    }
+
     //get请求
     get(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
         this._httpClient.get(this._config.getDomain() + url, params).subscribe(
@@ -60,14 +75,60 @@ export class DCore_Http {
     }
 
     //post请求
-    post(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
-        this._httpClient.post(this._config.getDomain() + url, params).subscribe(
+    postForToaken(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
+        this._httpClient.post(
+            this._config.getDomain() + url, 
+            {
+                params:params,
+                headers:this.getHeaders()
+            }).subscribe(
             (res: any) => {
                 rescallback && rescallback(res);
             },
             (err: any) => {
                 errcallback && errcallback(err);
             });
+    }
+
+    //post请求
+    post(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
+        this._httpClient.post(
+            this._config.getDomain() + url, params).subscribe(
+            (res: any) => {
+                rescallback && rescallback(res);
+            },
+            (err: any) => {
+                errcallback && errcallback(err);
+            });
+    }
+
+    /**
+   * 头部信息获取，主要用于处理token
+  **/
+    private getHeaders() {
+        const token = this.getToken();
+        console.log(token);
+        return token ? new HttpHeaders({
+            token: token,
+            // 'Content-Type': 'application/json;charset=UTF-8',
+            // 'Accept': 'application/json'
+        }) : null;
+    }
+    /*
+     * 使用本地缓存的方式来获取token信息
+     */
+    getToken() {
+        return window.localStorage.getItem('auth-token');
+    }
+
+    /**
+     * 将token信息保存到本地缓存中 用缓存的形式实现token验证
+     * @param token
+     */
+    setToken(token) {
+        // 目前只解析token字段，缓存先只存该字段
+        // JSON.stringify(token)
+        window.localStorage.setItem('auth-token', token);
     }
 }
 

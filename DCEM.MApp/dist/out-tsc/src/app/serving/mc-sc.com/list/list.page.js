@@ -27,7 +27,7 @@ let ListPage = class ListPage {
     ionViewWillEnter() {
         this.mod.data = {};
         this.mod.searchData = {
-            type: 1,
+            type: 2,
             pageindex: 1,
             search: ""
         };
