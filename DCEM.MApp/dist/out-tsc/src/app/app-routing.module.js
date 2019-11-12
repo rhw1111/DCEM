@@ -169,6 +169,12 @@ const routes = [
                     { path: 'list', loadChildren: './saleing/mc-vehorder.com/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './saleing/mc-vehorder.com/detail/detail.module#DetailPageModule' }
                 ]
+            },
+            {
+                path: 'orderpaydetail',
+                children: [
+                    { path: 'detail', loadChildren: './saleing/orderpaydetail/detail/detail.module#DetailPageModule' }
+                ]
             }
         ]
     }
