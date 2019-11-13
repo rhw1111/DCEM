@@ -50,17 +50,17 @@ export class DCore_Http {
     }
     //带请求头get请求
     getForToaken(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
-        this._httpClient.get(this._config.getDomain() + url, 
-        {
-            params:params,
-            headers:this.getHeaders()
-        }).subscribe(
-            (res: any) => {
-                rescallback && rescallback(res);
-            },
-            (err: any) => {
-                errcallback && errcallback(err);
-            });
+        this._httpClient.get(this._config.getDomain() + url,
+            {
+                params: params,
+                headers: this.getHeaders()
+            }).subscribe(
+                (res: any) => {
+                    rescallback && rescallback(res);
+                },
+                (err: any) => {
+                    errcallback && errcallback(err);
+                });
     }
 
     //get请求
@@ -82,29 +82,29 @@ export class DCore_Http {
             {
                 headers:this.getHeaders()
             }).subscribe(
-            (res: any) => {
-                rescallback && rescallback(res);
-            },
-            (err: any) => {
-                errcallback && errcallback(err);
-            });
+                (res: any) => {
+                    rescallback && rescallback(res);
+                },
+                (err: any) => {
+                    errcallback && errcallback(err);
+                });
     }
 
     //post请求
     post(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
         this._httpClient.post(
             this._config.getDomain() + url, params).subscribe(
-            (res: any) => {
-                rescallback && rescallback(res);
-            },
-            (err: any) => {
-                errcallback && errcallback(err);
-            });
+                (res: any) => {
+                    rescallback && rescallback(res);
+                },
+                (err: any) => {
+                    errcallback && errcallback(err);
+                });
     }
 
     /**
-   * 头部信息获取，主要用于处理token
-  **/
+    * 头部信息获取，主要用于处理token
+    **/
     private getHeaders() {
         const token = this.getToken();
         console.log(token);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using MSLibrary.Cache;
 using MSLibrary.DI;
 
@@ -66,6 +67,7 @@ namespace MSLibrary.Context
             CacheTimeContainer<HttpClaimGenerator> generatorItem = _generatorsByName.GetValue(name);
             if (generatorItem == null || generatorItem.Expire())
             {
+               
                 var generator = await _httpClaimGeneratorRepository.QueryByName(name);
                 generatorItem = new CacheTimeContainer<HttpClaimGenerator>(generator, CacheTimeout);
                 _generatorsByName.SetValue(name, generatorItem);

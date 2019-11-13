@@ -130,10 +130,10 @@
 
      </div>
      <div *ngSwitchCase="'Linklist'">
-            <!--<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+            <!-- <ion-refresher slot="fixed" (ionRefresh)="doRefreshLog()">
             <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中...">
             </ion-refresher-content>
-            </ion-refresher>-->
+            </ion-refresher> -->
             <ion-list lines="full" >
              <ion-item-sliding *ngFor="let r of mod.datalist">
                 <ion-item>
@@ -157,7 +157,7 @@
                     没有更多logcall
                 </ion-col>
             </ion-row>
-            <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doNextLoadingLog($event)"> 
+            <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doNextLoadingLog()"> 
                 <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多..."> 
                 </ion-infinite-scroll-content>
             </ion-infinite-scroll>
@@ -168,18 +168,18 @@
             </ion-fab>
      </div>
      <div *ngSwitchCase="'Breedlist'">
-            <!--<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+           <!--  <ion-refresher slot="fixed" (ionRefresh)="doRefreshAc()">
             <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中...">
             </ion-refresher-content>
-            </ion-refresher>-->
+            </ion-refresher> -->
             <ion-list lines="full" >
                     <ion-item-sliding *ngFor="let r of mod.datalist2">
                 <ion-item>
                     <ion-label>
-                        <p>本次跟进内容：{{r.mcs_thisfollowupcontent}}</p>
-                        <p>跟进时间：{{FormatToDateTime(r.createdon)}}</p>
+                        <h2>跟进时间：{{FormatToDateTime(r.createdon)}}</h2>                                          
                         <p>任务状态：{{r.mcs_activitystatus}}</p>      
-                        <p>重要级别：{{r.mcs_importantlevel}}</p>                   
+                        <p>重要级别：{{r.mcs_importantlevel}}</p>      
+                        <p>本次跟进内容：{{r.mcs_thisfollowupcontent}}</p>              
                     </ion-label>
                 </ion-item>
                 <ion-item-options side="end">
@@ -189,12 +189,12 @@
                 </ion-item-options>
             </ion-item-sliding>
             </ion-list>
-            <ion-row *ngIf="mod.isending">
+            <ion-row *ngIf="mod.isending2">
                 <ion-col class="nodata" text-center>
                     没有更多培育任务
                 </ion-col>
             </ion-row>
-            <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doNextLoadingAc($event)"> 
+            <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doNextLoadingAc()"> 
                 <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多..."> 
                 </ion-infinite-scroll-content>
             </ion-infinite-scroll>

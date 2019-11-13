@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Filters;
 using MSLibrary.Context.Application;
+using MSLibrary.DI;
 
 namespace MSLibrary.Context.Filter
 {
@@ -11,6 +12,7 @@ namespace MSLibrary.Context.Filter
     /// 协助用户验证
     /// 需要将该Action过滤器注册到全局Action过滤器中
     /// </summary>
+    [Injection(InterfaceType = typeof(UserAuthorizeActionGolbalFilter), Scope = InjectionScope.Singleton)]
     public class UserAuthorizeActionGolbalFilter: ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext context)

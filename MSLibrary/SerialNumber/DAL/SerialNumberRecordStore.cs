@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using MSLibrary.DI;
 using MSLibrary.DAL;
 using MSLibrary.Collections.Hash;

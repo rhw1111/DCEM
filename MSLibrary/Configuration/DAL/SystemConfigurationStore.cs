@@ -4,7 +4,7 @@ using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Data;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Query;
@@ -28,7 +28,7 @@ namespace MSLibrary.Configuration.DAL
         {
             SystemConfiguration configuration = null;
           
-            DBTransactionHelper.SqlTransactionWork(DBTypes.SqlServer, true, false, _dbConnectionMainFactory.CreateReadForSystemConfiguration(), async (conn, transaction) =>
+            DBTransactionHelper.SqlTransactionWork(DBTypes.SqlServer, true, false, _dbConnectionMainFactory.CreateReadForSystemConfiguration(),  (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)
@@ -56,10 +56,10 @@ namespace MSLibrary.Configuration.DAL
 
                     SqlDataReader reader = null;
 
-                    using (reader = await commond.ExecuteReaderAsync())
+                    using (reader =  commond.ExecuteReader())
                     {
 
-                        if (await reader.ReadAsync())
+                        if ( reader.Read())
                         {
                             configuration = new SystemConfiguration();
                             StoreHelper.SetSystemConfigurationSelectFields(configuration, reader, string.Empty);
