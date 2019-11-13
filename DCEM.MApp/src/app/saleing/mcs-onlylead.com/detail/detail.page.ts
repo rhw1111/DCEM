@@ -212,16 +212,33 @@ pageOnActivitylist() {
 }
 
  //logcall加载下一页
- doNextLoadingLog(event) {
+ doNextLoadingLog() {
     this.mod.page++;
     this.pageOnLogCalllist();
 }
 
+//下拉刷新log
+doRefreshLog() {
+    this.mod.datalist = [];
+    this.mod.page = 1;
+    this.mod.isending = false;
+    this.pageOnLogCalllist();
+}
+
  //培育任务加载下一页
- doNextLoadingAc(event) {
+ doNextLoadingAc() {
     this.mod.page2++;
     this.pageOnActivitylist();
 }
+
+//下拉刷新培育任务
+doRefreshAc() {
+    this.mod.datalist2 = [];
+    this.mod.page2 = 1;
+    this.mod.isending2 = false;
+    this.pageOnActivitylist();
+}
+
 
 FormatToDateTime(date) {
     if (date != null && date != undefined) {
