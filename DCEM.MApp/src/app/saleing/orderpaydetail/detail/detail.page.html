@@ -1,0 +1,86 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button text="返回" defaultHref="/saleing/delivery/list"></ion-back-button>
+      </ion-buttons>
+      <ion-title>
+        <ion-label>收款记录详情</ion-label>
+      </ion-title>
+    </ion-toolbar> 
+  </ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-card-content>
+            <ion-list>
+                <ion-item-group>
+                    <ion-item-divider color="primary">
+                        <ion-label>基本信息</ion-label>
+                    </ion-item-divider>
+                    <ion-item>
+                        <ion-label>
+                            <h2>收款编号</h2>
+                        </ion-label>
+                        <ion-note slot="end">
+                            <p>{{model.info.code}}</p>
+                        </ion-note>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>
+                            <h2>收款类型</h2>
+                        </ion-label>
+                        <ion-note slot="end">
+                            <p>{{model.info.paycategory}}</p>
+                        </ion-note>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>
+                            <h2>付款金额</h2>
+                        </ion-label>
+                        <ion-note slot="end">
+                            <p>{{model.info.amount}}</p>
+                        </ion-note>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>
+                            <h2>付款时间</h2>
+                        </ion-label>
+                        <ion-note slot="end">
+                            <p>{{model.info.payon}}</p>
+                        </ion-note>
+                    </ion-item> 
+                    <ion-item>
+                        <ion-label>
+                            <h2>交易流水号</h2>
+                        </ion-label>
+                        <ion-note slot="end">
+                            <p>{{model.info.batchcode}}</p>
+                        </ion-note>
+                    </ion-item> 
+                    <ion-item>
+                        <ion-label>
+                            <h2>权益名称</h2>
+                        </ion-label>
+                        <ion-note slot="end">
+                            <p>{{model.info.itemname}}</p>
+                        </ion-note>
+                    </ion-item> 
+                    <ion-item>
+                        <ion-label>
+                            <h2>权益编号</h2>
+                        </ion-label>
+                        <ion-note slot="end">
+                            <p>{{model.info.itemcode}}</p>
+                        </ion-note>
+                    </ion-item> 
+                    <ion-item>
+                        <ion-label>
+                            <h2>备注</h2>
+                        </ion-label>
+                        <ion-textarea readonly>{{model.info.remark}}</ion-textarea>
+                    </ion-item>
+                </ion-item-group>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

@@ -11,12 +11,16 @@
         </ion-list-header>
         <ion-item>
             <ion-icon slot="start" name="phone-portrait"></ion-icon>
-            <ion-input [(ngModel)]="mod.username" placeholder="手机号码" no-lines></ion-input>
+            <ion-input [(ngModel)]="mod.username" placeholder="账号" no-lines></ion-input>
         </ion-item>
         <ion-item>
             <ion-icon slot="start" name="lock"></ion-icon>
-            <ion-input [(ngModel)]="mod.password" type="password" placeholder="登录密码"></ion-input>
-            <ion-toggle slot="end"></ion-toggle>
+            <ion-input [(ngModel)]="mod.password" type="{{mod.pwshow?'text':'password'}}" placeholder="密码"></ion-input>
+            <ion-icon slot="end" *ngIf="mod.pwshow" name="ios-eye-off" color="dark" (click)="mod.pwshow=!mod.pwshow"></ion-icon>  <!--闭眼图标-->
+            <ion-icon slot="end" *ngIf="!mod.pwshow"  name="ios-eye" color="dark" (click)="mod.pwshow=!mod.pwshow"></ion-icon>  <!--睁眼图标-->
+            <!-- <a href="javascript:;" rel="external nofollow" item-end (click)="mod.pwshow=!mod.pwshow">
+                
+            </a> -->
         </ion-item>
         <ion-item color="none">
             <label slot="end">记住密码</label>

@@ -1,5 +1,5 @@
 import * as tslib_1 from "tslib";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AlertController, LoadingController, NavController, ToastController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
@@ -40,9 +40,31 @@ let DCore_Http = class DCore_Http {
         this._httpClient = _httpClient;
         this._config = _config;
     }
+    //带请求头get请求
+    getForToaken(url, params, rescallback, errcallback) {
+        this._httpClient.get(this._config.getDomain() + url, {
+            params: params,
+            headers: this.getHeaders()
+        }).subscribe((res) => {
+            rescallback && rescallback(res);
+        }, (err) => {
+            errcallback && errcallback(err);
+        });
+    }
     //get请求
     get(url, params, rescallback, errcallback) {
         this._httpClient.get(this._config.getDomain() + url, params).subscribe((res) => {
+            rescallback && rescallback(res);
+        }, (err) => {
+            errcallback && errcallback(err);
+        });
+    }
+    //post请求
+    postForToaken(url, params, rescallback, errcallback) {
+        this._httpClient.post(this._config.getDomain() + url, {
+            params: params,
+            headers: this.getHeaders()
+        }).subscribe((res) => {
             rescallback && rescallback(res);
         }, (err) => {
             errcallback && errcallback(err);
@@ -55,6 +77,31 @@ let DCore_Http = class DCore_Http {
         }, (err) => {
             errcallback && errcallback(err);
         });
+    }
+    /**
+   * 头部信息获取，主要用于处理token
+  **/
+    getHeaders() {
+        const token = this.getToken();
+        console.log(token);
+        return token ? new HttpHeaders({
+            token: token,
+        }) : null;
+    }
+    /*
+     * 使用本地缓存的方式来获取token信息
+     */
+    getToken() {
+        return window.localStorage.getItem('auth-token');
+    }
+    /**
+     * 将token信息保存到本地缓存中 用缓存的形式实现token验证
+     * @param token
+     */
+    setToken(token) {
+        // 目前只解析token字段，缓存先只存该字段
+        // JSON.stringify(token)
+        window.localStorage.setItem('auth-token', token);
     }
 };
 DCore_Http = tslib_1.__decorate([

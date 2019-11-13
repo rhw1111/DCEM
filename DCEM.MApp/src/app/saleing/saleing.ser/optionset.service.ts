@@ -190,6 +190,7 @@ export class OptionSetService {
                 break;
             case "mcs_deliverystatus"://整车销售-交车单-交车单状态
                 optionlist = [
+                    { "name": "全部", "value": -1 },
                     { "name": "待预约", "value": 1 },
                     { "name": "待检测", "value": 2 },
                     { "name": "已检测", "value": 3 },

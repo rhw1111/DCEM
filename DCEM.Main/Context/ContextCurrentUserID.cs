@@ -9,12 +9,12 @@ namespace DCEM.Main.Context
     /// <summary>
     /// 当前用户ID上下文
     /// </summary>
-    public class ContextCurrentUserID : IContext<Guid>
+    public class ContextCurrentUserID : IContext<string>
     {
-        private static AsyncLocal<Guid> _asyncLocal = new AsyncLocal<Guid>();
-        private static ThreadLocal<Guid> _threadLocal = new ThreadLocal<Guid>();
+        private static AsyncLocal<string> _asyncLocal = new AsyncLocal<string>();
+        private static ThreadLocal<string> _threadLocal = new ThreadLocal<string>();
 
-        public Guid Value
+        public string Value
         {
             get
             {

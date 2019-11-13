@@ -84,12 +84,25 @@ namespace DCEM.Main.Services
                             {
                                 result.systemuserid = Guid.Parse(entity.Attributes["systemuserid"].ToString());
                             }
-                            result.domainname = entity.Attributes["domainname"].ToString();
-                            result.lastname = entity.Attributes["lastname"].ToString();
-                            result.firstname = entity.Attributes["firstname"].ToString();
-                            result.mcs_staffid = entity.Attributes["mcs_staffid"].ToString();
-                            result.mcs_dealerid = entity.Attributes["_mcs_dealer_value"].ToString();
-                          //  result.mcs_dealername = entity.Attributes["_mcs_dealer_value@"].ToString();
+                            if (entity.Attributes["domainname"]!=null)
+                            {
+                                result.domainname = entity.Attributes["domainname"].ToString();
+                            }
+                            if (entity.Attributes["lastname"]!=null)
+                            {
+                                result.lastname = entity.Attributes["lastname"].ToString();
+                            }
+                            if (true)
+                            {
+                                result.firstname = entity.Attributes["firstname"].ToString();
+                            }
+                            if (entity.Attributes["mcs_staffid"]!=null) {
+                                result.mcs_staffid = entity.Attributes["mcs_staffid"].ToString();
+                            }
+                            if (entity.Attributes["_mcs_dealer_value"]!=null)
+                            {
+                                result.mcs_dealerid = entity.Attributes["_mcs_dealer_value"].ToString();
+                            }
                         }
                     }
 
@@ -133,8 +146,9 @@ namespace DCEM.Main.Services
               "<attribute name='mcs_staffid' />" +
               "<attribute name='mcs_dealer' />" +
               "<order attribute='createdon' descending='true' />" +
-              "<filter type='and'>" +
+              "<filter type='or'>" +
               "<condition attribute='domainname' operator='eq' value='" + name + "' />" +
+              "<condition attribute='domainname' operator='eq' value='" + name.Replace("SFMOTORS\\", "") + "@sub-ad' />" +
               "</filter>" +
               "<link-entity name='mcs_dealer' from='mcs_dealerid' to='mcs_dealer' visible='false' link-type='outer' alias='dealer'>" +
                 "<attribute name='mcs_name' />" +

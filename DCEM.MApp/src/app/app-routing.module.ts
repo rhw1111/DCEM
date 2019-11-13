@@ -162,17 +162,25 @@ const routes: Routes = [
                     { path: 'list', loadChildren: './saleing/mcs-deliverycentercarstock.com/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './saleing/mcs-deliverycentercarstock.com/detail/detail.module#DetailPageModule' }
                 ]
-            } ,
+            },
             {
                 path: 'vehorder',//门店整车订单
                 children: [
-                    { path: 'list', loadChildren: './saleing/mc-vehorder.com/list/list.module#ListPageModule' },       
+                    { path: 'list', loadChildren: './saleing/mc-vehorder.com/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './saleing/mc-vehorder.com/detail/detail.module#DetailPageModule' }
-                   
+
+                ]
+            },
+            {
+                path: 'orderpaydetail',//交车单-收款记录
+                children: [
+                    { path: 'detail', loadChildren: './saleing/orderpaydetail/detail/detail.module#DetailPageModule' }
+
                 ]
             }
         ]
     }
+
 ];
 
 @NgModule({

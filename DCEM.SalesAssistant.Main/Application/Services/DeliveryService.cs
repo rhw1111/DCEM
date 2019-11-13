@@ -20,7 +20,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         private const string entityName = "mcs_vehdelivery";
         private const string vinEntityName = "mcs_vehicle";
         private const string roEntityName = "mcs_vehorder";
-
+        private const string orderpayEntityName = "mcs_orderpaydetail";
         public DeliveryService(ICrmService crmService, IDeliveryRepository deliveryRepository)
         {
             _crmService = crmService;
@@ -56,7 +56,52 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             }
         }
 
+        public async Task<CollectionListResponse> getcollections(CollectionListRequest collectionListRequest)
+        {
+            try
+            {
+                var crmRequestHelper = new CrmRequestHelper();
+                var response = new CollectionListResponse() { };
+                XDocument fetchXdoc = await _deliveryRepository.GetOrderPayListFetchXml(collectionListRequest);
+                var entities = await crmRequestHelper.ExecuteAsync(_crmService, orderpayEntityName, fetchXdoc, Guid.Parse(collectionListRequest.UserId));
+                response.Collections = entities.Results;
+                response.ALLTotalCount = entities.Count;
+                response.PageSize = collectionListRequest.PageSize;
+                response.CurrentPage = collectionListRequest.PageIndex;
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
+        public async Task<CrmEntity> get(DeliveryDetailRequest deliveryDetailRequest)
+        {
+            try
+            {
+                var crmRequestHelper = new CrmRequestHelper();
+                var entity = await crmRequestHelper.Retrieve(_crmService, entityName, Guid.Parse(deliveryDetailRequest.Id), Guid.Parse(deliveryDetailRequest.UserId));
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public async Task<CrmEntity> getorderpay(CollectionDetailRequest collectionDetailRequest)
+        {
+            try
+            {
+                var crmRequestHelper = new CrmRequestHelper();
+                var entity = await crmRequestHelper.Retrieve(_crmService, orderpayEntityName, Guid.Parse(collectionDetailRequest.Id), Guid.Parse(collectionDetailRequest.UserId));
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         #region 私有方法
         private async Task<List<CrmEntity>> GetCrmEntities(string entityName, DeliveryListRequest deliveryListRequest, CrmRequestHelper crmRequestHelper)
         {
