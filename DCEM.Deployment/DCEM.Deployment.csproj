@@ -4,4 +4,12 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="DBScripts\CommonLog_Default_1.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="DBScripts\CommonLog_Default_1.sql" />
+  </ItemGroup>
+
 </Project>

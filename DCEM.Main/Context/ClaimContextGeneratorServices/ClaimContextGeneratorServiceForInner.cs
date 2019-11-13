@@ -25,7 +25,7 @@ namespace DCEM.Main.Context.ClaimContextGeneratorServices
 
             if (!string.IsNullOrEmpty(strUserID))
             {
-                ContextContainer.SetValue<Guid>(ContextExtensionTypes.CurrentUserID, Guid.Parse(strUserID));
+                ContextContainer.SetValue<string>(ContextTypes.CurrentUserId, strUserID);
             }
             else
             {
@@ -33,7 +33,7 @@ namespace DCEM.Main.Context.ClaimContextGeneratorServices
                 {
                     Code = TextCodes.NotFoundTypeInClaims,
                     DefaultFormatting = "找不到类型为{0}的声明，发生位置：{1}",
-                    ReplaceParameters = new List<object>() { ContextExtensionTypes.CurrentUserID, $"{this.GetType().FullName}.Do" }
+                    ReplaceParameters = new List<object>() { ContextTypes.CurrentUserId, $"{this.GetType().FullName}.Do" }
                 };
                 throw new UtilityException((int)Errors.NotFoundTypeInClaims, fragment);
             }

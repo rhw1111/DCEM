@@ -15,7 +15,7 @@ namespace DCEM.Main.Configuration
         /// 用户ID
         /// </summary>
         [DataMember]
-        public Guid UserID { get; set; }
+        public string UserID { get; set; }
         /// <summary>
         /// 语言Id
         /// </summary>

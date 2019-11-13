@@ -33,10 +33,6 @@ namespace DCEM.Main
         /// </summary>
         public const string DI = "DI";
         /// <summary>
-        /// 当前用户ID上下文
-        /// </summary>
-        public const string CurrentUserID = "CurrentUserID";
-        /// <summary>
         /// 父通用日志ID
         /// </summary>
         public const string ParentCommonLogID = "ParentCommonLogID";
@@ -276,6 +272,51 @@ namespace DCEM.Main
     public static class CrmServiceFactoryServiceTypes
     {
         public const string Common = "Common";
+    }
+
+    /// <summary>
+    /// Jwt生成生成时用到的密钥服务的类型集
+    /// </summary>
+    public static class JwtGenerateCreateSignKeyServiceTypes
+    {
+        /// <summary>
+        /// 基于非对称密钥的私钥
+        /// </summary>
+        public const string RsaPrivate = "RsaPrivate";
+    }
+
+    /// <summary>
+    /// Jwt生成验证时使用的密钥服务的类型集
+    /// </summary>
+    public static class JwtGenerateValidateSignKeyServiceTypes
+    {
+        /// <summary>
+        /// 基于元数据服务
+        /// </summary>
+        public const string MetadataService = "MetadataService";
+        /// <summary>
+        /// 基于非对称密钥的公钥
+        /// </summary>
+        public const string RsaPublic = "RsaPublic";
+    }
+
+    /// <summary>
+    /// Jwt验证参数构造服务类型集
+    /// </summary>
+    public static class JwtValidateParameterBuildServiceTypes
+    {
+        /// <summary>
+        /// 调用者
+        /// </summary>
+        public const string Audience = "Audience";
+        /// <summary>
+        /// 颁发者
+        /// </summary>
+        public const string Issuer = "Issuer";
+        /// <summary>
+        /// 令牌有效期
+        /// </summary>
+        public const string Lifetime = "Lifetime";
     }
 
 }

@@ -18,14 +18,15 @@ namespace MSLibrary.Logger
     /// 基于通用日志本地记录的日志
     /// 供日志服务使用
     /// </summary>
+    [Injection(InterfaceType = typeof(CommonLogLocalLogger), Scope = InjectionScope.Singleton)]
     public class CommonLogLocalLogger : ILogger
     {
 
-        private ICommonLogLoclEnvInfoGeneratorService _commonLogLoclEnvInfoGeneratorService;
+        private ICommonLogLocalEnvInfoGeneratorService _commonLogLocalEnvInfoGeneratorService;
 
-        public CommonLogLocalLogger(ICommonLogLoclEnvInfoGeneratorService commonLogLoclEnvInfoGeneratorService)
+        public CommonLogLocalLogger(ICommonLogLocalEnvInfoGeneratorService commonLogLocalEnvInfoGeneratorService)
         {
-            _commonLogLoclEnvInfoGeneratorService = commonLogLoclEnvInfoGeneratorService;
+            _commonLogLocalEnvInfoGeneratorService = commonLogLocalEnvInfoGeneratorService;
         }
 
         public IDisposable BeginScope<TState>(TState state)
@@ -40,8 +41,8 @@ namespace MSLibrary.Logger
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
-            var strUserInfo = _commonLogLoclEnvInfoGeneratorService.GenerateUserInfo();
-            var strParentUserInfo = _commonLogLoclEnvInfoGeneratorService.GenerateParentUserInfo();
+            var strUserInfo = _commonLogLocalEnvInfoGeneratorService.GenerateUserInfo();
+            var strParentUserInfo = _commonLogLocalEnvInfoGeneratorService.GenerateParentUserInfo();
 
 
             if (strUserInfo == null)
@@ -186,7 +187,7 @@ namespace MSLibrary.Logger
     /// <summary>
     /// 本地通用日志环境信息生成服务
     /// </summary>
-    public interface ICommonLogLoclEnvInfoGeneratorService
+    public interface ICommonLogLocalEnvInfoGeneratorService
     {
         /// <summary>
         /// 生成用户信息
