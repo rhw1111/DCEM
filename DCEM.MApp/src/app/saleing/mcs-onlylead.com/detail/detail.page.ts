@@ -65,7 +65,7 @@ ngOnInit() {
         if (params['id'] != null && params['id'] != undefined) {
 
             this.mod.data.mcs_onlyleadid=params['id'];
-            this.pageOnBind(params['id']);
+            this.pageOnBind();
         }
     });
 
@@ -73,14 +73,14 @@ ngOnInit() {
 }
 
 //加载唯一线索基本信息
-pageOnBind(id: any) {
+pageOnBind() {
     //debugger;
     this._page.loadingShow();
     this._http.get(
         this.mod.apiUrlInfo,
         {
             params: {
-                entityid: id,
+                entityid:  this.mod.data.mcs_onlyleadid,
             }
         },
         (res: any) => {
@@ -107,9 +107,7 @@ pageOnBind(id: any) {
             else {
                 this._page.alert("消息提示", "基础数据加载异常");
             }
-            this._page.loadingHide();
-            this.pageOnLogCalllist(id);
-            this.pageOnActivitylist(id);
+            this._page.loadingHide();          
         },
         (err: any) => {
             this._page.alert("消息提示", "数据加载异常");
@@ -119,14 +117,14 @@ pageOnBind(id: any) {
 }
 
 //加载联络记录(logcall)列表
-pageOnLogCalllist(id: any) {
-    ///debugger;
+pageOnLogCalllist() {
+   // debugger;
     this._page.loadingShow();
     this._http.get(
         this.mod.apiUrlList1,
         {
             params: {
-                entityid: id,
+                entityid: this.mod.data.mcs_onlyleadid,
                 sort: this.mod.sort,
                 pageSize: this.mod.pageSize,
                 page: this.mod.page,
@@ -166,13 +164,13 @@ pageOnLogCalllist(id: any) {
 }
 
 //加载培育任务列表
-pageOnActivitylist(id: any) {
+pageOnActivitylist() {
     this._page.loadingShow();
     this._http.get(
         this.mod.apiUrlList2,
         {
             params: {
-                entityid: id,
+                entityid: this.mod.data.mcs_onlyleadid,
                 sort: this.mod.sort2,
                 pageSize: this.mod.pageSize2,
                 page: this.mod.page2,
@@ -214,13 +212,13 @@ pageOnActivitylist(id: any) {
  //logcall加载下一页
  doNextLoadingLog(event) {
     this.mod.page++;
-    this.pageOnLogCalllist(event);
+    this.pageOnLogCalllist();
 }
 
  //培育任务加载下一页
  doNextLoadingAc(event) {
     this.mod.page2++;
-    this.pageOnActivitylist(event);
+    this.pageOnActivitylist();
 }
 
 FormatToDateTime(date) {

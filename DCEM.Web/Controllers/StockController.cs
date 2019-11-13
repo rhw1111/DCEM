@@ -43,8 +43,29 @@ namespace DCEM.Web.Controllers
         }
         #endregion
 
+        #region 获取厅店库存台帐
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pageindex"></param>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetDeliverycentercarStockList")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetDeliverycentercarStockList(int pageindex = 1, string search = "")
+        {
+            return await _stockService.QueryDeliverycentercarStockList(pageindex, search);
+        }
+        #endregion
 
-
+        #region 厅店库存台帐详情
+        [HttpGet]
+        [Route("GetDeliverycentercarStockInfo")]
+        public async Task<NewtonsoftJsonActionResult<DeliverycentercarStockInfoResponse>> GetDeliverycentercarStockInfo(string guid)
+        {
+            return await _stockService.QueryDeliverycentercarStockInfo(guid);
+        }
+        #endregion
 
     }
     #endregion

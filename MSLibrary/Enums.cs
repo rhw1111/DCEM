@@ -1053,6 +1053,18 @@ namespace MSLibrary
         /// 阿里OSS中找不到指定名称的文件
         /// </summary>
         AliOSSNotFoundObject= 314726709,
+        /// <summary>
+        /// 找不到指定类型的生成Jwt生成时使用的签名密钥服务
+        /// </summary>
+        NotFoundJwtGenerateCreateSignKeyServiceByType = 314726801,
+        /// <summary>
+        /// 找不到指定类型的生成Jwt验证时使用的签名密钥服务
+        /// </summary>
+        NotFoundJwtGenerateValidateSignKeyServiceByType = 314726802,
+        /// <summary>
+        /// 找不到指定类型的Jwt验证参数组装服务
+        /// </summary>
+        NotFoundjwtValidateParameterBuildServiceByType = 314726803,
     }
 
     /// <summary>

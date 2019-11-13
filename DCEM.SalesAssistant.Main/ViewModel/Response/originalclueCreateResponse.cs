@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DCEM.SalesAssistant.Main.ViewModel.Response
 {
-    public class originalclueCreateResponse
+    public class OriginalclueCreateResponse
     {
         public string Id { get; set; }
     }

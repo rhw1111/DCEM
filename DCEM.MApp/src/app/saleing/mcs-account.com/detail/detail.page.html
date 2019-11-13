@@ -214,6 +214,16 @@
           </ion-note>
         </ion-item>
       </ion-list>
+
+      <ion-label *ngIf="tab!='info' && ionInfiniteScroll.disabled" text-center>
+          <p>
+            没有更多的记录显示啦
+          </p>
+      </ion-label>
+      <ion-infinite-scroll (ionInfinite)="DownLoadLogcall()">
+          <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
     </div>
     <div *ngSwitchCase="'activity'">
       <ion-list>
@@ -229,28 +239,26 @@
           </ion-note>
         </ion-item>
       </ion-list>
+
+      <ion-infinite-scroll (ionInfinite)="DownLoadLogcall()">
+          <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
     </div>
   </div>
-
-  <ion-label *ngIf="ionInfiniteScroll.disabled" text-center>
-      <p>
-        没有更多的记录显示啦
-      </p>
-  </ion-label>
-  <ion-infinite-scroll (ionInfinite)="DownLoadLogcall()">
-      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
-      </ion-infinite-scroll-content>
-    </ion-infinite-scroll>
 
   <ion-fab *ngIf="tab=='info'" vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button>
       <ion-icon name="arrow-dropup"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="top">
-      <ion-fab-button *ngIf="mod.data.Account.mcs_customerstatus<4" title="成交" color="success">
+        <ion-fab-button *ngIf="mod.data.Account.mcs_customerstatus==1" title="分配" color="success" (click)="Assign()">
+            分配
+        </ion-fab-button>
+      <ion-fab-button *ngIf="mod.data.Account.mcs_customerstatus<4" title="成交" color="success" (click)="Success()">
         成交
       </ion-fab-button>
-      <ion-fab-button *ngIf="mod.data.Account.mcs_customerstatus<4" title="战败" color="danger">
+      <ion-fab-button *ngIf="mod.data.Account.mcs_customerstatus<4" title="战败" color="danger" (click)="Failed()">
         战败
       </ion-fab-button>
       <ion-fab-button color="warning" [routerLink]="['/saleing/account/edit']">
@@ -259,7 +267,7 @@
     </ion-fab-list>
   </ion-fab>
   <ion-fab *ngIf="tab=='logcall'" vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button [routerLink]="['/saleing/logcall/edit']">
+    <ion-fab-button [routerLink]="['/saleing/contactrecord/edit']"  [queryParams]="{id:mod.data.Account.mcs_onlyleadid}">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

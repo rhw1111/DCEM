@@ -155,9 +155,32 @@ const routes: Routes = [
                     { path: 'detail', loadChildren: './saleing/delivery/detail/detail.module#DetailPageModule' },
                     { path: 'success', loadChildren: './saleing/delivery/success/success.module#SuccessPageModule' },
                 ]
+            },
+            {
+                path: 'deliverycentercarstock',//整车库存-车辆库存台帐
+                children: [
+                    { path: 'list', loadChildren: './saleing/mcs-deliverycentercarstock.com/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './saleing/mcs-deliverycentercarstock.com/detail/detail.module#DetailPageModule' }
+                ]
+            },
+            {
+                path: 'vehorder',//门店整车订单
+                children: [
+                    { path: 'list', loadChildren: './saleing/mc-vehorder.com/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './saleing/mc-vehorder.com/detail/detail.module#DetailPageModule' }
+
+                ]
+            },
+            {
+                path: 'orderpaydetail',//交车单-收款记录
+                children: [
+                    { path: 'detail', loadChildren: './saleing/orderpaydetail/detail/detail.module#DetailPageModule' }
+
+                ]
             }
         ]
     }
+
 ];
 
 @NgModule({

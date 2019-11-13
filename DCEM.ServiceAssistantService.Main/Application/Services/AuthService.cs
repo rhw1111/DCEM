@@ -18,7 +18,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
 {
     public class AuthService : IAuthService
     {
-        CoreConfiguration coreConfiguration = ConfigurationContainer.Get<CoreConfiguration>(ConfigurationNames.Application);
+        ServingAssConfiguration coreConfiguration = ConfigurationContainer.Get<ServingAssConfiguration>(ConfigurationNames.Application);
 
         public AuthService()
         {
@@ -40,26 +40,29 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
                     try
                     {
                         string geturl = dyCRMSetting.CrmUrl + GetUserFetchXml(@"sfmotors\" + username);
-                        var datauser = QueryCrmData(geturl, data["access_token"].ToString());
-                        if (datauser != null)
+                        
+                        if (data["access_token"]!=null)
                         {
-                            if (datauser["value"][0]["systemuserid"] != null)
-                                result.systemuserid = datauser["value"][0]["systemuserid"].ToString();
-                            if (datauser["value"][0]["domainname"] != null)
-                                result.domainname = datauser["value"][0]["domainname"].ToString();
-                            if (datauser["value"][0]["lastname"] != null)
-                                result.lastname = datauser["value"][0]["lastname"].ToString();
-                            if (datauser["value"][0]["firstname"] != null)
-                                result.firstname = datauser["value"][0]["firstname"].ToString();
-                            if (datauser["value"][0]["mcs_staffid"] != null)
-                                result.mcs_staffid = datauser["value"][0]["mcs_staffid"].ToString();
-                            if (datauser["value"][0]["_mcs_dealer_value"] != null)
-                                result.mcs_dealerid = datauser["value"][0]["_mcs_dealer_value"].ToString();
-                            if (datauser["value"][0]["dealer_x002e_mcs_name"] != null)
-                                result.mcs_dealername = datauser["value"][0]["dealer_x002e_mcs_name"].ToString();
                             result.access_token = data["access_token"].ToString();
-
-
+                            var datauser = QueryCrmData(geturl, data["access_token"].ToString());
+                            if (datauser != null)
+                            {
+                                if (datauser["value"][0]["systemuserid"] != null)
+                                    result.systemuserid = datauser["value"][0]["systemuserid"].ToString();
+                                if (datauser["value"][0]["domainname"] != null)
+                                    result.domainname = datauser["value"][0]["domainname"].ToString();
+                                if (datauser["value"][0]["lastname"] != null)
+                                    result.lastname = datauser["value"][0]["lastname"].ToString();
+                                if (datauser["value"][0]["firstname"] != null)
+                                    result.firstname = datauser["value"][0]["firstname"].ToString();
+                                if (datauser["value"][0]["mcs_staffid"] != null)
+                                    result.mcs_staffid = datauser["value"][0]["mcs_staffid"].ToString();
+                                if (datauser["value"][0]["_mcs_dealer_value"] != null)
+                                    result.mcs_dealerid = datauser["value"][0]["_mcs_dealer_value"].ToString();
+                                if (datauser["value"][0]["dealer_x002e_mcs_name"] != null)
+                                    result.mcs_dealername = datauser["value"][0]["dealer_x002e_mcs_name"].ToString();
+                                result.access_token = data["access_token"].ToString();
+                            }
                         }
                         return result;
                     }
