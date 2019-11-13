@@ -12,9 +12,10 @@ namespace DCEM.LoggerService.Controllers
     public class TestController : ControllerBase
     {
 
-        [HttpGet("do")]
+        [HttpPost("do")]
         public async Task<string> Do()
         {
+            throw new Exception("aaa");
             return await Task.FromResult("A");
         }
     }

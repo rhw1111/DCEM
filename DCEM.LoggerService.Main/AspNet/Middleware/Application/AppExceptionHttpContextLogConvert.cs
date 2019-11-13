@@ -18,6 +18,17 @@ namespace DCEM.LoggerService.Main.AspNet.Middleware
     [Injection(InterfaceType = typeof(IAppExceptionHttpContextLogConvert), Scope = InjectionScope.Singleton)]
     public class AppExceptionHttpContextLogConvert : IAppExceptionHttpContextLogConvert
     {
+        /// <summary>
+        /// 记录的最大请求内容长度
+        /// 超过长度的，将截取请求内容
+        /// </summary>
+        private const long _maxRequestLength = 102400;
+        /// <summary>
+        /// 记录的最大响应内容长度
+        /// 超过长度的，将截取响应内容
+        /// </summary>
+        private const long _maxResponseLength = 102400;
+
         public async Task<object> Convert(HttpContext context)
         {
             byte[] bufferBytes = new byte[1024];
@@ -31,10 +42,18 @@ namespace DCEM.LoggerService.Main.AspNet.Middleware
                     context.Request.Body.Position = 0;
                     await context.Request.Body.CopyToAsync(requestStream);
                     requestStream.Position = 0;
+                    long totalLength = 0;
 
                     while (true)
                     {
-                        var length = await requestStream.ReadAsync(bufferBytes, 0, 1024);
+                        int bufSize = 1024;
+                        if (totalLength + 1024 > _maxRequestLength)
+                        {
+                            bufSize = (int)(_maxRequestLength - totalLength);
+                        }
+
+                        var length = await requestStream.ReadAsync(bufferBytes, 0, bufSize);
+                        totalLength = totalLength + length;
                         requestBytes.AddRange(bufferBytes.Take(length));
                         if (length != 1024)
                         {

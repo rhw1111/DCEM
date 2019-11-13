@@ -52,6 +52,7 @@ namespace DCEM.LoggerService
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+            .UseIISIntegration()
             .ConfigureServices((context, services) =>
             {
                     //初始化配置容器                  

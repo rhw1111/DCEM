@@ -16,6 +16,7 @@ namespace DCEM.LoggerService.Main.DAL
     [Injection(InterfaceType = typeof(IContextConnectionFactory), Scope = InjectionScope.Singleton)]
     [Injection(InterfaceType = typeof(ICommonLogConnectionFactory), Scope = InjectionScope.Singleton)]
     [Injection(InterfaceType = typeof(IHashConnectionFactory), Scope = InjectionScope.Singleton)]
+    [Injection(InterfaceType = typeof(ISystemConfigurationConnectionFactory), Scope = InjectionScope.Singleton)]
     public class DBConnectionMainFactory : IContextConnectionFactory,ICommonLogConnectionFactory,IHashConnectionFactory,ISystemConfigurationConnectionFactory
     {
         public string CreateAllForContext()
