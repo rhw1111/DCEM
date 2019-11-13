@@ -70,7 +70,7 @@ export class ListPage implements OnInit {
         if (this.mod.searchData.pageindex == 1)
             this._page.loadingShow();
 
-        this._http.getForToaken(
+        this._http.get(
             this.mod.apiUrl,
             {
                 params: {

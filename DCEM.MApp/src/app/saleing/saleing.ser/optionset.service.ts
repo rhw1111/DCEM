@@ -56,9 +56,9 @@ export class OptionSetService {
                 break;
             case "mcs_gender"://称呼
                 optionlist = [
-                    { "name": "先生", "value": 0 },
-                    { "name": "女士", "value": 1 },
-                    { "name": "未知", "value": 2 }
+                    { "name": "先生", "value": 1 },
+                    { "name": "女士", "value": 2 },
+                    { "name": "未知", "value": 3 }
                 ];
                 break;
 
@@ -215,6 +215,14 @@ export class OptionSetService {
                     { "name": "交车完成", "value": 9 },
                     { "name": "作废", "value":99 }
 
+                ];
+                break;
+
+                case "mcs_approvalstatus"://整车销售-整车订单审批状态
+                optionlist = [
+                    { "name": "待审核", "value": 0 },
+                    { "name": "审核通过", "value": 1 },
+                    { "name": "审核不通过", "value": 2 }                
                 ];
                 break;
         }
