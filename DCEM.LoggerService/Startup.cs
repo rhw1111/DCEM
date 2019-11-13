@@ -14,10 +14,12 @@ using MSLibrary.Context.Middleware;
 using MSLibrary.Context.Filter;
 using Microsoft.AspNetCore.Mvc;
 using MSLibrary.Logger.Middleware;
+using MSLibrary.AspNet.Filter;
 using MSLibrary.AspNet.Middleware;
 using DCEM.Main.Logger;
 using DCEM.LoggerService.Main;
 using DCEM.Main;
+using MSLibrary.DI;
 
 namespace DCEM.LoggerService
 {
@@ -30,8 +32,8 @@ namespace DCEM.LoggerService
             services.AddControllers((opts)=>
                 {
                     opts.Filters.AddService<UserAuthorizeActionGolbalFilter>();
+                    opts.Filters.Add(DIContainerContainer.Get<ExceptionFilter>(LoggerCategoryNames.HttpRequest));
 
-                    
                     //opts.MaxIAsyncEnumerableBufferLimit
                 });
 

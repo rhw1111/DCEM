@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using MSLibrary.AspNet.Middleware.Application;
 using MSLibrary.DI;
 using MSLibrary.Logger;
 
-namespace DCEM.LoggerService.Main.AspNet.Middleware
+namespace DCEM.Main.AspNet.Middleware.Application
 {
     /// <summary>
-    /// 转换Http上下文中的异常为日志
-    /// 本服务需要转换为CommonLogLocalContent
+    /// Http上下文转换成日志对象
+    /// 本系统中转换为CommonLogLogger
     /// </summary>
     [Injection(InterfaceType = typeof(IAppExceptionHttpContextLogConvert), Scope = InjectionScope.Singleton)]
     public class AppExceptionHttpContextLogConvert : IAppExceptionHttpContextLogConvert
@@ -23,11 +23,6 @@ namespace DCEM.LoggerService.Main.AspNet.Middleware
         /// 超过长度的，将截取请求内容
         /// </summary>
         private const long _maxRequestLength = 102400;
-        /// <summary>
-        /// 记录的最大响应内容长度
-        /// 超过长度的，将截取响应内容
-        /// </summary>
-        private const long _maxResponseLength = 102400;
 
         public async Task<object> Convert(HttpContext context)
         {
@@ -66,10 +61,11 @@ namespace DCEM.LoggerService.Main.AspNet.Middleware
             }
 
 
+
             //取出存储在上下文Item中的异常
             var ex = (Exception)context.Items["ExecuteException"];
 
-            CommonLogContent content = new CommonLogContent() { RequestUri = context.Request.Path.Value, ActionName = "",RequestBody=strRequestBody, Message = $"Unhandle Error,\nmessage:{ex.Message},\nstacktrace:{ex.StackTrace}" };
+            CommonLogContent content = new CommonLogContent() {  RequestUri = context.Request.Path.Value, ActionName = "", Message = $"Unhandle Error,\nmessage:{ex.Message},\nstacktrace:{ex.StackTrace}", RequestBody= strRequestBody, ResponseBody="" };
             return await Task.FromResult(content);
         }
     }
