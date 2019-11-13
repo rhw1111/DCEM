@@ -26,11 +26,23 @@ namespace MSLibrary.Logger.LoggingBuilderProviderHandlers
         public async Task Execute(ILoggingBuilder builder, LoggerItemConfiguration configuration)
         {
             builder.AddProvider(_commonLogLocalProvider);
+
             //配置级别过滤
             foreach (var filterItem in configuration.LogLevels)
             {
                 builder.AddFilter<CommonLogLocalProvider>(filterItem.Key, filterItem.Value);
             }
+
+            //配置其他未指定目录的最低级别
+            builder.AddFilter<CommonLogLocalProvider>((level) =>
+            {
+                if (level< configuration.DefaultMinLevel)
+                {
+                    return false;
+                }
+
+                return true;
+            });
             await Task.FromResult(0);
         }
     }

@@ -34,12 +34,12 @@ namespace DCEM.LoggerService.Main.AspNet.Middleware.Application
             string strRequestBody = null;
             string strResponseBody = null;
             //尝试获取请求内容和响应内容
-            if (context.Request != null && context.Request.Body != null && context.Request.Body.CanRead && context.Request.Body.CanSeek)
+            if (context.Request != null && context.Request.Body != null && context.Request.Body.CanRead )
             {
                 using (MemoryStream requestStream = new MemoryStream())
                 {
                     List<byte> requestBytes = new List<byte>();
-                    context.Request.Body.Position = 0;
+                    //context.Request.Body.Position = 0;
                     await context.Request.Body.CopyToAsync(requestStream);
                     requestStream.Position = 0;
 
@@ -64,12 +64,12 @@ namespace DCEM.LoggerService.Main.AspNet.Middleware.Application
                 }
             }
 
-            if (context.Response != null && context.Response.Body != null && context.Response.Body.CanRead && context.Response.Body.CanSeek)
+            if (context.Response != null && context.Response.Body != null && context.Response.Body.CanRead)
             {
                 using (MemoryStream responseStream = new MemoryStream())
                 {
                     List<byte> responseBytes = new List<byte>();
-                    context.Response.Body.Position = 0;
+                    //context.Response.Body.Position = 0;
                     await context.Response.Body.CopyToAsync(responseStream);
                     responseStream.Position = 0;
 
@@ -101,7 +101,7 @@ namespace DCEM.LoggerService.Main.AspNet.Middleware.Application
                 strActionName = context.Items["ActionName"].ToString();
             }
 
-            CommonLogContent content = new CommonLogContent() { RequestUri = context.Request.Path.Value, ActionName = strActionName, RequestBody = strRequestBody, ResponseBody = strResponseBody, Message = "" };
+            CommonLogLocalContent content = new CommonLogLocalContent() { RequestUri = context.Request.Path.Value, ActionName = strActionName, RequestBody = strRequestBody, ResponseBody = strResponseBody, Message = "" };
             return await Task.FromResult(content);
         }
     }
