@@ -1,22 +1,22 @@
-﻿import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditPage } from './edit.page';
+import { DetailPage } from './detail.page';
 
-describe('EditPage', () => {
-  let component: EditPage;
-  let fixture: ComponentFixture<EditPage>;
+describe('DetailPage', () => {
+  let component: DetailPage;
+  let fixture: ComponentFixture<DetailPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditPage ],
+      declarations: [ DetailPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditPage);
+    fixture = TestBed.createComponent(DetailPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

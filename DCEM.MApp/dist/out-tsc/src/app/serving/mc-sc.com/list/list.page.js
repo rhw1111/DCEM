@@ -53,7 +53,7 @@ let ListPage = class ListPage {
     listOnBind() {
         if (this.mod.searchData.pageindex == 1)
             this._page.loadingShow();
-        this._http.get(this.mod.apiUrl, {
+        this._http.getForToaken(this.mod.apiUrl, {
             params: {
                 type: this.mod.searchData.type,
                 pageindex: this.mod.searchData.pageindex,
