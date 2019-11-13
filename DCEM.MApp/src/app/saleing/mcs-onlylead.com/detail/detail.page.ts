@@ -57,7 +57,7 @@ constructor(
 ) {}
 
 ngOnInit() {
-    debugger;
+    //debugger;
     this.mod.datalist= [];
     this.mod.datalist2= [];
     
@@ -118,6 +118,7 @@ pageOnBind() {
 
 //加载联络记录(logcall)列表
 pageOnLogCalllist() {
+    this.mod.datalist= [];
    // debugger;
     this._page.loadingShow();
     this._http.get(
@@ -165,6 +166,7 @@ pageOnLogCalllist() {
 
 //加载培育任务列表
 pageOnActivitylist() {
+    this.mod.datalist2= [];
     this._page.loadingShow();
     this._http.get(
         this.mod.apiUrlList2,

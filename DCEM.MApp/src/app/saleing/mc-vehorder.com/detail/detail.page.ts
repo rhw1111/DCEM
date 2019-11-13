@@ -67,7 +67,7 @@ export class DetailPage implements OnInit {
 
   //加载厅店整车订单详情
   pageOnBind(id:any) {
-    debugger;
+    //debugger;
     this._page.loadingShow();
     this._http.get(
       this.model.apiUrlInfo,
@@ -77,7 +77,7 @@ export class DetailPage implements OnInit {
         }
       },
       (res: any) => {
-        debugger;
+        //debugger;
        //绑定基本信息
         if (res.VehorderInfo !== null) { 
           this.model.data.mcs_code = res["VehorderInfo"]["Attributes"]["mcs_code"]; 
@@ -107,6 +107,7 @@ export class DetailPage implements OnInit {
           this.model.data.mcs_canceldesc = res["VehorderInfo"]["Attributes"]["mcs_canceldesc"];
 
         }
+        debugger;
         //绑定订单透明化状态跟踪
         if (res.Vehordertrack != null) {
 
@@ -127,7 +128,7 @@ export class DetailPage implements OnInit {
             obj["mcs_name"] = res.Rightitemuse[key]["Attributes"]["mcs_name"];
             obj["mcs_code"] = res.Rightitemuse[key]["Attributes"]["mcs_code"];
             obj["mcs_amount"] = res.Rightitemuse[key]["Attributes"]["mcs_amount"];
-            this.model.VehordertrackList.push(obj);
+            this.model.RightitemuseList.push(obj);
           }
         }
 
