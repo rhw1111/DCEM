@@ -78,8 +78,8 @@ export class DCore_Http {
     postForToaken(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
         this._httpClient.post(
             this._config.getDomain() + url, 
+            params,
             {
-                params:params,
                 headers:this.getHeaders()
             }).subscribe(
             (res: any) => {
