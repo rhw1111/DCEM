@@ -33,6 +33,14 @@ namespace DCEM.Main
         /// </summary>
         public const string DI = "DI";
         /// <summary>
+        /// 当前用户ID上下文
+        /// </summary>
+        public const string CurrentUserID = "CurrentUserID";
+        /// <summary>
+        /// 通用上下文用户信息
+        /// </summary>
+        public const string CurrentUserInfo = "CurrentUserInfo";
+        /// <summary>
         /// 父通用日志ID
         /// </summary>
         public const string ParentCommonLogID = "ParentCommonLogID";

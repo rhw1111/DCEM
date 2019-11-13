@@ -22,7 +22,7 @@ namespace DCEM.SalesAssistant.Main.Application.App
 
 
         /// <summary>
-        /// 整车订单列表查询接口
+        /// 整车订单列表查询
         /// </summary>
         /// <param name="vehorderRequest"></param>
         /// <returns></returns>
@@ -31,7 +31,15 @@ namespace DCEM.SalesAssistant.Main.Application.App
             return await _vehorderService.GetVehorderList(vehorderRequest);
         }
 
-
+        /// <summary>
+        /// 根据主键id获取厅店整车订单明细
+        /// </summary>
+        /// <param name="mcs_vehorderid"></param>
+        /// <returns></returns>
+        public async Task<VehorderDetailModel> GetVehorderDetail(string mcs_vehorderid)
+        {
+            return await _vehorderService.GetVehorderDetail(mcs_vehorderid);
+        }
 
     }
 }

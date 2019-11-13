@@ -1,4 +1,7 @@
-﻿using DCEM.ServiceAssistantService.Main.DTOModel;
+﻿using DCEM.Main;
+using DCEM.Main.Context;
+using DCEM.Main.Entities;
+using DCEM.ServiceAssistantService.Main.DTOModel;
 using MSLibrary;
 using MSLibrary.Xrm;
 using MSLibrary.Xrm.Message.RetrieveMultipleFetch;
@@ -15,6 +18,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
     {
         private const string EntityName = "mcs_supportorder";
         private ICrmService _crmService;
+
         public TechnicalSupportService(ICrmService crmService)
         {
             _crmService = crmService;
@@ -53,10 +57,12 @@ namespace DCEM.ServiceAssistantService.Main.Application
                             </fetch>");
                 XDocument xmlDoc = XDocument.Parse(fetchxml);
 
+                var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
                 var request = new CrmRetrieveMultipleFetchRequestMessage()
                 {
                     EntityName = EntityName,
                     FetchXml = xmlDoc,
+                    ProxyUserId= userInfo!=null?userInfo.systemuserid:null
                 };
                 var crmResponse = await _crmService.Execute(request);
                 CrmRetrieveMultipleFetchResponseMessage response = crmResponse as CrmRetrieveMultipleFetchResponseMessage;
@@ -80,7 +86,8 @@ namespace DCEM.ServiceAssistantService.Main.Application
             try
             {
                 CrmEntity entity = null;
-                entity = await _crmService.Retrieve(EntityName, entityId, "");
+                var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+                entity = await _crmService.Retrieve(EntityName, entityId, "", userInfo != null ? userInfo.systemuserid : null);
                 return entity;
             }
             catch (Exception ex)

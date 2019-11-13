@@ -38,7 +38,7 @@
                 <ion-tab-button [routerLink]="['/serving/sc/list']">
                     <ion-icon color="tertiary" size="large" name="card"></ion-icon>
                     <ion-badge color="danger">6</ion-badge>
-                    <ion-label>维修履历</ion-label>
+                    <ion-label>服务委托书</ion-label>
                 </ion-tab-button>
             </ion-col>
             <ion-col>
@@ -89,11 +89,24 @@
                 </ion-tab-button>
             </ion-col>
             <ion-col>
-
+                <ion-tab-button [routerLink]="['/saleing/deliverycentercarstock/list']">
+                    <ion-icon color="primary" size="large" name="car"></ion-icon>
+                    <ion-label>整车库存台帐</ion-label>
+                </ion-tab-button>              
             </ion-col>
             <ion-col>
-
+                <ion-tab-button [routerLink]="['/saleing/vehorder/list']">
+                    <ion-icon color="primary" size="large" name="cube"></ion-icon>
+                    <ion-label>整车订单</ion-label>
+                </ion-tab-button>
             </ion-col>
+            <ion-col>
+                <ion-tab-button [routerLink]="['/saleing/delivery/list']">
+                    <ion-icon  color="danger" size="large" name="checkbox-outline"></ion-icon>
+                    <ion-label>交车单</ion-label>
+                </ion-tab-button>
+            </ion-col>
+           
         </ion-row>
     </ion-grid>
     <!-- <ion-grid>
