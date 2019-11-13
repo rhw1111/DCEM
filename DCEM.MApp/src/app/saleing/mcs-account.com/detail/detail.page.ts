@@ -30,6 +30,7 @@ export class DetailPage implements OnInit {
             sort: ''
         },
         ActivityModel: {//培育任务
+            apiUrl: '/api/only-lead/GetActivityList',
             list: [],
             page: 1,
             pageSize: 10,
@@ -370,4 +371,52 @@ export class DetailPage implements OnInit {
             }
         );
     }
+
+    //加载培育任务列表
+    LoadActivitylist() {
+    this.mod.ActivityModel.list= [];
+    this._page.loadingShow();
+    this._http.get(
+        this.mod.ActivityModel.apiUrl,
+        {
+            params: {
+                entityid:  this.mod.data.Account.mcs_onlyleadid,
+                sort: this.mod.ActivityModel.sort,
+                pageSize: this.mod.ActivityModel.pageSize,
+                page: this.mod.ActivityModel.page,
+                systemuserid: this.userInfo.GetSystemUserId()//当前登录用户ID
+            }
+        },
+        (res: any) => {
+            debugger;
+            if (res !== null) {
+                if (res.Results !== null) {
+                    for (var key in res.Results) {
+                        var obj = {};
+                        obj["mcs_thisfollowupcontent"] = res.Results[key]["Attributes"]["mcs_thisfollowupcontent"];
+                        obj["createdon"] = this.dateformat.FormatToDateTime(res.Results[key]["Attributes"]["createdon"]);              
+                        obj["mcs_activitystatus"] =this.optionset.GetOptionSetNameByValue("mcs_activitystatus",res.Results[key]["Attributes"]["mcs_activitystatus"]);
+                        obj["mcs_importantlevel"] =this.optionset.GetOptionSetNameByValue("mcs_importantlevel",res.Results[key]["Attributes"]["mcs_importantlevel"]);
+                        obj["mcs_activityid"] = res.Results[key]["Attributes"]["mcs_activityid"];    
+                        this.mod.ActivityModel.list.push(obj);
+                    }
+                    //console.log(res);
+                }  //判断是否有新数据
+                // if (res.Results.length == 0) {
+                //     this.mod.isending2 = true;
+                // }
+            }
+            else {
+                this._page.alert("消息提示", "联络记录加载异常");
+            }
+            this._page.loadingHide();
+        },
+        (err: any) => {
+            this._page.alert("消息提示", "数据加载异常");
+            this._page.loadingHide();
+        }
+    );
+
+}
+
 }
