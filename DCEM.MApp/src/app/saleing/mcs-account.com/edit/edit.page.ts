@@ -3,7 +3,7 @@ import { ModalController, NavController, ToastController, IonBackButton, IonBack
 import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
 import { DCore_Http, DCore_Page, DCore_ShareData, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-
+import { OptionSetService } from 'app/saleing/saleing.ser/optionset.service';
 
 @Component({
     selector: 'app-edit',
@@ -19,6 +19,11 @@ export class EditPage implements OnInit {
     mod = {
         queryUrl: '/Api/account/GetDetail',
         data: {
+      
+        },
+        initData: {
+            genderArray: [],
+            levelArray:[]
         },
         shareDataKey: "accountEditData",
     };
@@ -39,17 +44,22 @@ export class EditPage implements OnInit {
         private _page: DCore_Page,
         private _shareData: DCore_ShareData,
         private _valid: DCore_Valid,
-        private _activeRoute: ActivatedRoute
+        private _activeRoute: ActivatedRoute,
+        private _optionSetService: OptionSetService
     ) { }
 
 
     ngOnInit() {
+        this.mod.initData.genderArray = this._optionSetService.Get('mcs_gender');
+        this.mod.initData.levelArray = this._optionSetService.Get('mcs_level');
         //const that = this;
         //this.ionBackButtonDelegate.onClick = function (event) {
         //    that._shareData.delete(that.mod.shareDataKey);
         //    that._page.navigateRoot("/serving/ri/list", null, "back");
 
         //}
+
+
     }
 
     ionViewWillEnter() {
@@ -64,12 +74,12 @@ export class EditPage implements OnInit {
                 }
                 if (this.shareData.actioncode === 2) {
                     if (!this._shareData.has(this.mod.shareDataKey)) {
-                        this.shareData.viewTitle = "新增销售机会";
+                        this.shareData.viewTitle = "编辑销售机会";
                         this.pageOnBind(this.shareData.account["accountid"]);
                     }
                 }
                 else {
-                    this.shareData.viewTitle = "修改销售机会";
+                    this.shareData.viewTitle = "新增销售机会";
                 }
             }
         });
@@ -108,8 +118,19 @@ export class EditPage implements OnInit {
             (res: any) => {
                 console.log(res);
                 this.shareData.account["accountnumber"] = res["Attributes"]["accountnumber"];
+                this.shareData.account["name"] = res["Attributes"]["name"];
                 this.shareData.account["mobilephone"] = res["Attributes"]["mcs_mobilephone"];
+                this.shareData.account["gender"] = String(res["Attributes"]["mcs_gender"]);
+                this.shareData.account["introducecarowner"] = res["Attributes"]["mcs_introducecarowner"];
+
+                this.shareData.account["order_Formatted"] = res["Attributes"]["_mcs_tc_order_value@OData.Community.Display.V1.FormattedValue"];
+                this.shareData.account["smallorderid_FormattedValue"] = res["Attributes"]["_mcs_smallorderid_value@OData.Community.Display.V1.FormattedValue"];
+
+                this.shareData.account["level"] = String(res["Attributes"]["mcs_level"]);
+                
                 this._page.loadingHide();
+
+                console.log(this.shareData.account);
             },
             (err: any) => {
 

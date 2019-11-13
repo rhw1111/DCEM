@@ -24,7 +24,8 @@ export class LoginPage implements OnInit {
         password: '',
         apiurl: '',
         domainType: '',
-        domain: ''
+        domain: '',
+        pwshow:false//是否显示密码
     };
 
 
@@ -82,11 +83,11 @@ export class LoginPage implements OnInit {
                 }
             },
             (res: any) => {
-                //if (res.access_token == "") {
-                //    this._page.alert('消息提示', '登录认证失败');
-                //    this._page.loadingHide();
-                //    return false;
-                //}
+                if (res.access_token == "") {
+                   this._page.alert('消息提示', '登录认证失败');
+                   this._page.loadingHide();
+                   return false;
+                }
                 this._http.setToken(res.access_token);
                 this._logininfo.SetInfo(JSON.stringify(res));
                 this._page.loadingHide();

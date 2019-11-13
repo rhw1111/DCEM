@@ -15,11 +15,11 @@ CREATE TABLE [dbo].[HashRealNode]
 	[modifytime] [datetime] NOT NULL,
 	[sequence] [bigint] IDENTITY(1,1) NOT NULL,
 
-INDEX [NCI_CreateTime] NONCLUSTERED 
+INDEX [NCI_HashNode_CreateTime] NONCLUSTERED 
 (
 	[createtime] DESC
 ),
-INDEX [NCI_Name] UNIQUE NONCLUSTERED 
+INDEX [NCI_HashNode_Name] UNIQUE NONCLUSTERED 
 (
 	[name] ASC
 ),
@@ -33,11 +33,11 @@ GO
 ALTER TABLE [dbo].[HashRealNode] ADD  DEFAULT (newsequentialid()) FOR [id]
 GO
 
-ALTER TABLE [dbo].[HashRealNode]  WITH CHECK ADD  CONSTRAINT [FK_HashRealNodeGroupId] FOREIGN KEY([groupid])
+ALTER TABLE [dbo].[HashRealNode]  WITH CHECK ADD  CONSTRAINT [FK_HashNode_HashRealNodeGroupId] FOREIGN KEY([groupid])
 REFERENCES [dbo].[HashGroup] ([id])
 GO
 
-ALTER TABLE [dbo].[HashRealNode] CHECK CONSTRAINT [FK_HashRealNodeGroupId]
+ALTER TABLE [dbo].[HashRealNode] CHECK CONSTRAINT [FK_HashNode_HashRealNodeGroupId]
 GO
 
 

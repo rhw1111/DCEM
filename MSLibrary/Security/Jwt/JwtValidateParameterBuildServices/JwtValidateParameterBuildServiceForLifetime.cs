@@ -12,6 +12,7 @@ namespace MSLibrary.Security.Jwt.JwtValidateParameterBuildServices
     /// 参数Type：Lifetime
     /// 参数Value：无意义，任何值都一样，不用赋值
     /// </summary>
+    [Injection(InterfaceType = typeof(JwtValidateParameterBuildServiceForLifetime), Scope = InjectionScope.Singleton)]
     public class JwtValidateParameterBuildServiceForLifetime : IJwtValidateParameterBuildService
     {
         public async Task Build(TokenValidationParameters tokenParameter, JwtValidateParameter parameter)
