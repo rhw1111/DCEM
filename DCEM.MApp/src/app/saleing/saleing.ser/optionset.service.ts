@@ -56,9 +56,9 @@ export class OptionSetService {
                 break;
             case "mcs_gender"://称呼
                 optionlist = [
-                    { "name": "先生", "value": 0 },
-                    { "name": "女士", "value": 1 },
-                    { "name": "未知", "value": 2 }
+                    { "name": "先生", "value": 1 },
+                    { "name": "女士", "value": 2 },
+                    { "name": "未知", "value": 3 }
                 ];
                 break;
 
