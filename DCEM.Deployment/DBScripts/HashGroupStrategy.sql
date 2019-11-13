@@ -9,17 +9,17 @@ CREATE TABLE [dbo].[HashGroupStrategy]
 (
 	[id] [uniqueidentifier] NOT NULL,
 	[name] [varchar](100)  NOT NULL,
-	[strategyservicefactorytype] [nvarchar](500) NOT NULL,
+	[strategyservicefactorytype] [varchar](500) NOT NULL,
 	[strategyservicefactorytypeusedi] [bit] NOT NULL,
 	[createtime] [datetime] NOT NULL,
 	[modifytime] [datetime] NOT NULL,
 	[sequence] [bigint] IDENTITY(1,1) NOT NULL,
 
-INDEX [NCI_CreateTime] NONCLUSTERED 
+INDEX [NCI_HashGroupStrategy_CreateTime] NONCLUSTERED 
 (
 	[createtime] DESC
 ),
-INDEX [NCI_Name] UNIQUE NONCLUSTERED 
+INDEX [NCI_HashGroupStrategy_Name] UNIQUE NONCLUSTERED 
 (
 	[name] DESC
 ),

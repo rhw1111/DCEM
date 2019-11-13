@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Linq;
 using MSLibrary.Collections.Hash;
 using MSLibrary.LanguageTranslate;
@@ -43,12 +43,14 @@ namespace MSLibrary.Logger.DAL
         private IHashGroupRepository _hashGroupRepository;
         private IStoreInfoResolveService _storeInfoResolveService;
         private ICommonLogConnectionFactory _commonLogConnectionFactory;
+        private IStoreInfoResolveConnectionService _storeInfoResolveConnectionService;
 
-        public CommonLogStore(IHashGroupRepository hashGroupRepository,IStoreInfoResolveService storeInfoResolveService, ICommonLogConnectionFactory commonLogConnectionFactory)
+        public CommonLogStore(IHashGroupRepository hashGroupRepository,IStoreInfoResolveService storeInfoResolveService, ICommonLogConnectionFactory commonLogConnectionFactory, IStoreInfoResolveConnectionService storeInfoResolveConnectionService)
         {
             _hashGroupRepository = hashGroupRepository;
             _storeInfoResolveService = storeInfoResolveService;
             _commonLogConnectionFactory = commonLogConnectionFactory;
+            _storeInfoResolveConnectionService = storeInfoResolveConnectionService;
         }
 
         public async Task Add(CommonLog log)
@@ -58,10 +60,11 @@ namespace MSLibrary.Logger.DAL
 
             var dbInfo = await StoreInfoHelper.GetHashStoreInfo(group,_storeInfoResolveService, log.ParentID.ToString());
 
+            var strConn = await _storeInfoResolveConnectionService.GetReadAndWrite(dbInfo);
 
             var tableNameCommonlog = getTableName(group.Name, dbInfo.TableNames);
 
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, dbInfo.DBConnectionNames.ReadAndWrite, async (conn, transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, strConn, async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)
@@ -77,6 +80,7 @@ namespace MSLibrary.Logger.DAL
                 })
                 {
                     SqlParameter parameter;
+                    int length;
              
                     if (log.ID == Guid.Empty)
                     {
@@ -121,7 +125,16 @@ namespace MSLibrary.Logger.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@contextinfo", SqlDbType.NVarChar, log.ContextInfo.Length)
+                    if (log.ContextInfo.Length == 0)
+                    {
+                        length = 10;
+                    }
+                    else
+                    {
+                        length = log.ContextInfo.Length;
+                    }
+
+                    parameter = new SqlParameter("@contextinfo", SqlDbType.NVarChar, length)
                     {
                         Value = log.ContextInfo
                     };
@@ -139,13 +152,39 @@ namespace MSLibrary.Logger.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@requestbody", SqlDbType.NVarChar, log.RequestBody.Length)
+                    if (log.RequestBody == null)
+                    {
+                        log.RequestBody = string.Empty;
+                    }
+                    if (log.RequestBody.Length == 0)
+                    {
+                        length = 10;
+                    }
+                    else
+                    {
+                        length = log.RequestBody.Length;
+                    }
+
+                    parameter = new SqlParameter("@requestbody", SqlDbType.NVarChar, length)
                     {
                         Value = log.RequestBody
                     };
                     command.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@responsebody", SqlDbType.NVarChar, log.ResponseBody.Length)
+                    if (log.ResponseBody.Length == 0)
+                    {
+                        length = 10;
+                    }
+                    else
+                    {
+                        length = log.ResponseBody.Length;
+                    }
+
+                    if (log.ResponseBody == null)
+                    {
+                        log.ResponseBody = string.Empty;
+                    }
+                    parameter = new SqlParameter("@responsebody", SqlDbType.NVarChar, length)
                     {
                         Value = log.ResponseBody
                     };
@@ -158,7 +197,16 @@ namespace MSLibrary.Logger.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@message", SqlDbType.NVarChar, log.Message.Length)
+                    if (log.Message.Length == 0)
+                    {
+                        length = 10;
+                    }
+                    else
+                    {
+                        length = log.Message.Length;
+                    }
+
+                    parameter = new SqlParameter("@message", SqlDbType.NVarChar, length)
                     {
                         Value = log.Message
                     };
@@ -197,8 +245,11 @@ namespace MSLibrary.Logger.DAL
 
             var tableNameCommonlog = getTableName(group.Name, dbInfo.TableNames);
 
+            var strConn = await _storeInfoResolveConnectionService.GetRead(dbInfo);
+
+
             CommonLog result = null;
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, dbInfo.DBConnectionNames.Read, async (conn, transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, strConn, async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)
@@ -286,11 +337,12 @@ namespace MSLibrary.Logger.DAL
                 })
                 {
                     SqlParameter parameter;
+                    int length;
 
                     if (log.ID == Guid.Empty)
                     {
-                        command.CommandText = string.Format(@"insert into CommonLog_Local ([id],[parentid],[contextinfo],[actionname],[parentactionname],[requestbody],[responsebody],[requesturi],[message],[root],[level],[createtime],[modifytime])
-                                                values (default,@parentid,@contextinfo,@actionname,@parentactionname,@requestbody,@responsebody,@requesturi,@message,@root,@level,GETUTCDATE(),GETUTCDATE()); 
+                        command.CommandText = string.Format(@"insert into CommonLog_Local ([id],[parentid],[prelevelid],[currentlevelid],[contextinfo],[actionname],[parentactionname],[requestbody],[responsebody],[requesturi],[message],[root],[level],[createtime],[modifytime])
+                                                values (default,@parentid,@prelevelid,@currentlevelid,@contextinfo,@actionname,@parentactionname,@requestbody,@responsebody,@requesturi,@message,@root,@level,GETUTCDATE(),GETUTCDATE()); 
                                                 SELECT @newid=[id] FROM [dbo].[CommonLog_Local] WHERE [sequence]=SCOPE_IDENTITY()");
 
                         parameter = new SqlParameter("@newid", SqlDbType.UniqueIdentifier)
@@ -301,8 +353,8 @@ namespace MSLibrary.Logger.DAL
                     }
                     else
                     {
-                        command.CommandText = string.Format(@"insert into CommonLog_Local ([id],[parentid],[contextinfo],[actionname],[parentactionname],[requestbody],[responsebody],[requesturi],[message],[root],[level],[createtime],[modifytime])
-                                                VALUES (@id,@parentid,@contextinfo,@actionname,@parentactionname,@requestbody,@responsebody,@requesturi,@message,@root,@level,GETUTCDATE(),GETUTCDATE())");
+                        command.CommandText = string.Format(@"insert into CommonLog_Local ([id],[parentid],[prelevelid],[currentlevelid],[contextinfo],[actionname],[parentactionname],[requestbody],[responsebody],[requesturi],[message],[root],[level],[createtime],[modifytime])
+                                                VALUES (@id,@parentid,@prelevelid,@currentlevelid,@contextinfo,@actionname,@parentactionname,@requestbody,@responsebody,@requesturi,@message,@root,@level,GETUTCDATE(),GETUTCDATE())");
 
                         parameter = new SqlParameter("@id", SqlDbType.UniqueIdentifier)
                         {
@@ -318,7 +370,29 @@ namespace MSLibrary.Logger.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@contextinfo", SqlDbType.NVarChar, log.ContextInfo.Length)
+                    if (log.ContextInfo.Length==0)
+                    {
+                        length = 10;
+                    }
+                    else
+                    {
+                        length = log.ContextInfo.Length;
+                    }
+
+
+                    parameter = new SqlParameter("@prelevelid", SqlDbType.UniqueIdentifier)
+                    {
+                        Value = log.PreLevelID
+                    };
+                    command.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter("@currentlevelid", SqlDbType.UniqueIdentifier)
+                    {
+                        Value = log.CurrentLevelID
+                    };
+                    command.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter("@contextinfo", SqlDbType.NVarChar, length)
                     {
                         Value = log.ContextInfo
                     };
@@ -336,13 +410,42 @@ namespace MSLibrary.Logger.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@requestbody", SqlDbType.NVarChar, log.RequestBody.Length)
+
+                    if (log.RequestBody == null)
+                    {
+                        log.RequestBody = string.Empty;
+                    }
+
+                    if (log.RequestBody.Length == 0)
+                    {
+                        length = 10;
+                    }
+                    else
+                    {
+                        length = log.RequestBody.Length;
+                    }
+
+                    parameter = new SqlParameter("@requestbody", SqlDbType.NVarChar, length)
                     {
                         Value = log.RequestBody
                     };
                     command.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@responsebody", SqlDbType.NVarChar, log.ResponseBody.Length)
+                    if (log.ResponseBody == null)
+                    {
+                        log.ResponseBody = string.Empty;
+                    }
+
+                    if (log.ResponseBody.Length == 0)
+                    {
+                        length = 10;
+                    }
+                    else
+                    {
+                        length = log.ResponseBody.Length;
+                    }
+
+                    parameter = new SqlParameter("@responsebody", SqlDbType.NVarChar,length)
                     {
                         Value = log.ResponseBody
                     };
@@ -355,7 +458,17 @@ namespace MSLibrary.Logger.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@message", SqlDbType.NVarChar, log.Message.Length)
+
+                    if (log.Message.Length == 0)
+                    {
+                        length = 10;
+                    }
+                    else
+                    {
+                        length = log.Message.Length;
+                    }
+
+                    parameter = new SqlParameter("@message", SqlDbType.NVarChar, length)
                     {
                         Value = log.Message
                     };
@@ -450,6 +563,7 @@ namespace MSLibrary.Logger.DAL
                 })
                 {
                     SqlParameter parameter;
+                    int length;
 
                     command.CommandText = string.Format(@"SELECT @count = COUNT(*)
                                                     FROM [dbo].[CommonLog_Local]
@@ -459,9 +573,11 @@ namespace MSLibrary.Logger.DAL
                                                     FROM [dbo].[CommonLog_Local]
                                                     WHERE [message] like @message  
                                                     ORDER BY [sequence] desc OFFSET (@pagesize * (@currentpage - 1)) ROWS FETCH NEXT @pagesize ROWS ONLY;", StoreHelper.GetCommonLogSelectFields(string.Empty));
-                    parameter = new SqlParameter("@message", SqlDbType.NVarChar,850)
+
+                    string messageCondition = $"{message.ToSqlLike()}%";
+                    parameter = new SqlParameter("@message", SqlDbType.NVarChar, messageCondition.Length)
                     {
-                        Value = $"{message.ToSqlLike()}%"
+                        Value = messageCondition
                     };
                     command.Parameters.Add(parameter);
 
@@ -516,9 +632,11 @@ namespace MSLibrary.Logger.DAL
 
             var tableNameCommonlog = getTableName(group.Name, dbInfo.TableNames);
 
+            var strConn = await _storeInfoResolveConnectionService.GetRead(dbInfo);
+
 
             QueryResult<CommonLog> result = new QueryResult<CommonLog>();
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, dbInfo.DBConnectionNames.Read, async (conn, transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, strConn, async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)
@@ -598,11 +716,15 @@ namespace MSLibrary.Logger.DAL
         {
             var dbInfos = await StoreInfoHelper.GetHashStoreInfos(group, _storeInfoResolveService);
 
+
             foreach (var dbInfoItem in dbInfos)
             {
                 var tableNameCommonlog = getTableName(group.Name, dbInfoItem.TableNames);
 
-                await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, dbInfoItem.DBConnectionNames.Read, async (conn, transaction) =>
+                var strConn = await _storeInfoResolveConnectionService.GetRead(dbInfoItem);
+
+
+                await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, strConn, async (conn, transaction) =>
                 {
                     SqlTransaction sqlTran = null;
                     if (transaction != null)

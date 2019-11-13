@@ -49,7 +49,7 @@ namespace MSLibrary.AspNet.Middleware
         public async Task Invoke(HttpContext context)
         {
             var logger= _loggerFactory.CreateLogger(_categoryName);
-            HttpErrorHelper.ExecuteByHttpContextAsync(context,logger,async()=>
+            await HttpErrorHelper.ExecuteByHttpContextAsync(context,logger,async()=>
                 {
                     using (var diContainer = DIContainerContainer.CreateContainer())
                     {

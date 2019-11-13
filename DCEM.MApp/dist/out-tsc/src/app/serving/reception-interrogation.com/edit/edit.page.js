@@ -1,4 +1,5 @@
 import * as tslib_1 from "tslib";
+var _a, _b, _c, _d, _e, _f;
 import { Component, ViewChild } from '@angular/core';
 import { ModalController, NavController, ToastController, IonBackButton, IonBackButtonDelegate } from '@ionic/angular';
 import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
@@ -176,11 +177,11 @@ let EditPage = class EditPage {
 };
 tslib_1.__decorate([
     ViewChild(IonBackButton, null),
-    tslib_1.__metadata("design:type", IonBackButton)
+    tslib_1.__metadata("design:type", typeof (_a = typeof IonBackButton !== "undefined" && IonBackButton) === "function" ? _a : Object)
 ], EditPage.prototype, "ionBackButton", void 0);
 tslib_1.__decorate([
     ViewChild(IonBackButtonDelegate, null),
-    tslib_1.__metadata("design:type", IonBackButtonDelegate)
+    tslib_1.__metadata("design:type", typeof (_b = typeof IonBackButtonDelegate !== "undefined" && IonBackButtonDelegate) === "function" ? _b : Object)
 ], EditPage.prototype, "ionBackButtonDelegate", void 0);
 EditPage = tslib_1.__decorate([
     Component({
@@ -188,14 +189,10 @@ EditPage = tslib_1.__decorate([
         templateUrl: './edit.page.html',
         styleUrls: ['./edit.page.scss'],
     }),
-    tslib_1.__metadata("design:paramtypes", [ModalController,
-        NavController,
-        ToastController,
-        DCore_Http,
+    tslib_1.__metadata("design:paramtypes", [typeof (_c = typeof ModalController !== "undefined" && ModalController) === "function" ? _c : Object, typeof (_d = typeof NavController !== "undefined" && NavController) === "function" ? _d : Object, typeof (_e = typeof ToastController !== "undefined" && ToastController) === "function" ? _e : Object, DCore_Http,
         DCore_Page,
         DCore_ShareData,
-        DCore_Valid,
-        ActivatedRoute])
+        DCore_Valid, typeof (_f = typeof ActivatedRoute !== "undefined" && ActivatedRoute) === "function" ? _f : Object])
 ], EditPage);
 export { EditPage };
 //# sourceMappingURL=edit.page.js.map

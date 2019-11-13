@@ -39,28 +39,31 @@
             <ion-label position="stacked">
                 称呼
             </ion-label>
-            <ion-select placeholder="请选择年龄段" cancelText="取消" okText="确定" [(ngModel)]="shareData.account['oilquantity']">
+            <ion-select placeholder="请选择称呼" cancelText="取消" okText="确定" [(ngModel)]="shareData.account['gender']">
+                <ion-select-option *ngFor="let item of mod.initData.genderArray" value="{{item.value}}">
+                    {{item.name}}
+                </ion-select-option>
             </ion-select>
         </ion-item>
         <ion-item>
             <ion-label position="stacked">
                 引荐车主
             </ion-label>
-            <ion-input placeholder="请输入引荐车主" maxlength="12" [(ngModel)]="shareData.account['shuttlename']" required></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label position="stacked">
-                <ion-icon name="lock"></ion-icon>
-                小订单号
-            </ion-label>
-            <p>{{shareData.account["dealerid_formatted"]}}&nbsp;</p>
+            <ion-input placeholder="请输入引荐车主" maxlength="12" [(ngModel)]="shareData.account['introducecarowner']" required></ion-input>
         </ion-item>
         <ion-item>
             <ion-label position="stacked">
                 <ion-icon name="lock"></ion-icon>
                 大订单号
             </ion-label>
-            <p>{{shareData.account["dealerid_formatted"]}}&nbsp;</p>
+            <p>{{shareData.account["order_Formatted"]}}&nbsp;</p>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
+                <ion-icon name="lock"></ion-icon>
+                小订单号
+            </ion-label>
+            <p>{{shareData.account["smallorderid_FormattedValue"]}}&nbsp;</p>
         </ion-item>
         <ion-item-divider color="primary">
             <ion-label>
@@ -71,7 +74,10 @@
             <ion-label position="stacked">
                 意向等级
             </ion-label>
-            <ion-select placeholder="请选择意向登记" cancelText="取消" okText="确定" [(ngModel)]="shareData.account['oilquantity']">
+            <ion-select placeholder="请选择意向登记" cancelText="取消" okText="确定" [(ngModel)]="shareData.account['level']">
+                <ion-select-option *ngFor="let item of mod.initData.levelArray" value="{{item.value}}">
+                    {{item.name}}
+                </ion-select-option>
             </ion-select>
         </ion-item>
         <ion-item>

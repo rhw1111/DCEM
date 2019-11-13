@@ -6,7 +6,7 @@
     <ion-title>整车订单</ion-title>
   </ion-toolbar>
   <ion-toolbar>
-      <ion-searchbar [(ngModel)]="this.model.seachkey" placeholder="可根据姓名和手机号模糊查找" (keyup)="search($event)" ></ion-searchbar>
+      <ion-searchbar [(ngModel)]="this.model.seachkey" placeholder="可根据订单编码、姓名、手机号模糊查找" (keyup)="search($event)" ></ion-searchbar>
   </ion-toolbar>
   <ion-toolbar>
       <ion-segment>
@@ -59,9 +59,5 @@
         <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多..."> 
         </ion-infinite-scroll-content>
     </ion-infinite-scroll>
-  <!--   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button [routerLink]="['/serving/ts/edit']">
-            <ion-icon name="add"></ion-icon>
-        </ion-fab-button>
-    </ion-fab> -->
+  
 </ion-content>

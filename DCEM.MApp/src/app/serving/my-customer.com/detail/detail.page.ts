@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
+import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
@@ -37,6 +37,7 @@ export class DetailPage implements OnInit {
     constructor(
         private _http: DCore_Http,
         private _page: DCore_Page,
+        private _valid: DCore_Valid,
         private activeRoute: ActivatedRoute
     ) {
 
@@ -62,7 +63,8 @@ export class DetailPage implements OnInit {
                 }
             },
             (res: any) => {
-                if (res.Carserviceadvisor !== null) {
+
+                if (!this._valid.isNull(res.Carserviceadvisor)) {
                     this.mod.data.vehowner.fullname = res["Vehowner"]["Attributes"]["mcs_fullname"];
                     this.mod.data.vehowner.idtype = res["Vehowner"]["Attributes"]["mcs_idtype@OData.Community.Display.V1.FormattedValue"];
                     this.mod.data.vehowner.identitycard = res["Vehowner"]["Attributes"]["mcs_identitycard"];
@@ -76,25 +78,22 @@ export class DetailPage implements OnInit {
                     this.mod.data.vehowner.nextmaintainmileage = res["Vehowner"]["Attributes"]["mcs_nextmaintainmileage"];
                     this.mod.data.vehowner.nextmaintainat = res["Vehowner"]["Attributes"]["mcs_nextmaintainat@OData.Community.Display.V1.FormattedValue"];
                 }
-                if (res.CustomerfollowuplogList != null) {
 
+                if (!this._valid.isNull(res.CustomerfollowuplogList)) {
                     for (var key in res.CustomerfollowuplogList) {
-
                         var obj = {};
                         obj["remark"] = res.CustomerfollowuplogList[key]["Attributes"]["mcs_remark"];
                         obj["createdon"] = res.CustomerfollowuplogList[key]["Attributes"]["createdon@OData.Community.Display.V1.FormattedValue"];
                         obj["createdby"] = res.CustomerfollowuplogList[key]["Attributes"]["_createdby_value@OData.Community.Display.V1.FormattedValue"];
                         this.mod.data.customerfollowuplogArray.push(obj);
-
                     }
                 }
-                if (res.TagList != null) {
 
+                if (!this._valid.isNull(res.TagList)) {
                     for (var key in res.TagList) {
                         var obj = {};
                         obj["name"] = res.TagList[key]["Attributes"]["_mcs_taggroupid_value@OData.Community.Display.V1.FormattedValue"];
                         this.mod.data.tagArray.push(obj);
-
                     }
                 }
 

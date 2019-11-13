@@ -12,15 +12,16 @@ namespace MSLibrary.Context.Application
     [Injection(InterfaceType = typeof(IAppSystemAuthentication), Scope = InjectionScope.Singleton)]
     public class AppSystemAuthentication : IAppSystemAuthentication
     {
-        private IHttpClaimGeneratorRepository _httpClaimGeneratorRepository;
+        private HttpClaimGeneratorRepositoryHelper _httpClaimGeneratorRepositoryHelper;
         
-        public AppSystemAuthentication(IHttpClaimGeneratorRepository httpClaimGeneratorRepository)
+        public AppSystemAuthentication(HttpClaimGeneratorRepositoryHelper httpClaimGeneratorRepositoryHelper)
         {
-            _httpClaimGeneratorRepository = httpClaimGeneratorRepository;
+            _httpClaimGeneratorRepositoryHelper = httpClaimGeneratorRepositoryHelper;
         }
         public async Task<ClaimsIdentity> Do(HttpContext httpContext, string generatorName)
         {
-            var generator = await _httpClaimGeneratorRepository.QueryByName(generatorName);
+            HttpClaimGenerator generator = null;
+            generator = await _httpClaimGeneratorRepositoryHelper.QueryByName(generatorName);
             if (generator == null)
             {
                 var fragment = new TextFragment()

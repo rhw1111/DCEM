@@ -31,7 +31,8 @@ const routes: Routes = [
                 children: [
                     { path: 'list', loadChildren: './serving/my-customer.com/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './serving/my-customer.com/detail/detail.module#DetailPageModule' },
-                    { path: 'select', loadChildren: './serving/my-customer.com/select/select.module#SelectPageModule' }
+                    { path: 'select', loadChildren: './serving/my-customer.com/select/select.module#SelectPageModule' },
+                    { path: 'edit', loadChildren: './serving/my-customer.com/edit/edit.module#EditPageModule' }
                 ]
             },
             {

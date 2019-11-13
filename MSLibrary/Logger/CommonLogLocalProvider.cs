@@ -12,21 +12,21 @@ namespace MSLibrary.Logger
     [Injection(InterfaceType = typeof(CommonLogLocalProvider), Scope = InjectionScope.Singleton)]
     public class CommonLogLocalProvider : ILoggerProvider
     {
-        private ICommonLogLoggerFactory _commonLogLoggerFactory;
+        private ICommonLogLocalProviderFactory _commonLogLocalProviderFactory;
 
-        public CommonLogLocalProvider(ICommonLogLoggerFactory commonLogLoggerFactory)
+        public CommonLogLocalProvider(ICommonLogLocalProviderFactory commonLogLocalProviderFactory)
         {
-            _commonLogLoggerFactory = commonLogLoggerFactory;
+            _commonLogLocalProviderFactory = commonLogLocalProviderFactory; ;
         }
 
         public ILogger CreateLogger(string categoryName)
         {
-            throw new NotImplementedException();
+            return _commonLogLocalProviderFactory.Create();
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+
         }
     }
 
@@ -36,7 +36,7 @@ namespace MSLibrary.Logger
 
     }
 
-    [Injection(InterfaceType = typeof(CommonLogLocalProviderFactory), Scope = InjectionScope.Singleton)]
+    [Injection(InterfaceType = typeof(ICommonLogLocalProviderFactory), Scope = InjectionScope.Singleton)]
     public class CommonLogLocalProviderFactory : ICommonLogLocalProviderFactory
     {
         public CommonLogLocalLogger _commonLogLocalLogger;

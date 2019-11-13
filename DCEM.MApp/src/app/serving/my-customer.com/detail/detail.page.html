@@ -84,7 +84,6 @@
                         <p>{{mod.data.vehowner.shuttlephone}}&nbsp;</p>
                     </ion-label>
                 </ion-item>
-
                 <ion-item-divider color="primary">
                     <ion-label>
                         车辆信息
@@ -218,5 +217,16 @@
             </ion-list>
         </div>
     </div>
+
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+            <ion-icon name="arrow-dropup"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="top">
+            <ion-fab-button color="success" [routerLink]="['/serving/mycustomer/edit']"><ion-icon name="add"></ion-icon></ion-fab-button>
+            <ion-fab-button color="warning" [routerLink]="['/serving/mycustomer/edit']"><ion-icon name="create"></ion-icon></ion-fab-button>
+        </ion-fab-list>
+    </ion-fab>
 
 </ion-content>

@@ -12,10 +12,10 @@ using MSLibrary.DI;
 using MSLibrary.Context;
 using MSLibrary.Xrm;
 using MSLibrary.Logger;
+using MSLibrary.Logger.DAL;
 using MSLibrary.Logger.LoggingBuilderProviderHandlers;
 using DCEM.Main;
 using DCEM.Main.Context;
-
 
 namespace DCEM.LoggerService.Main
 {
@@ -47,7 +47,8 @@ namespace DCEM.LoggerService.Main
         /// </summary>
         public static void InitStaticInfo()
         {
-
+            //为CommonLogStore.CommonLogDefaultHashGroupName赋值，设置通用日志的哈希组名称
+            CommonLogStore.CommonLogDefaultHashGroupName = "CommonlogDefault";
         }
     }
 }

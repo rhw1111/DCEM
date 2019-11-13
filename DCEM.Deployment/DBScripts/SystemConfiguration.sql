@@ -8,13 +8,13 @@ GO
 CREATE TABLE [dbo].[SystemConfiguration]
 (
 	[id] [uniqueidentifier] NOT NULL,
-	[name] [nvarchar](100) COLLATE Chinese_PRC_Stroke_90_BIN2 NOT NULL,
+	[name] [varchar](150) COLLATE Chinese_PRC_Stroke_90_BIN2 NOT NULL,
 	[content] [nvarchar](max) COLLATE Chinese_PRC_Stroke_90_BIN2 NOT NULL,
 	[createtime] [datetime] NOT NULL,
 	[modifytime] [datetime] NOT NULL,
 	[sequence] [bigint] IDENTITY(1,1) NOT NULL,
 
-INDEX [NCI_Name] UNIQUE NONCLUSTERED 
+INDEX [NCI_SystemConfiguration_Name] UNIQUE NONCLUSTERED 
 (
 	[name] ASC
 ),

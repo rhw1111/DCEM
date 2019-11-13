@@ -1,279 +1,290 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button text="返回" defaultHref="/saleing/account/list"></ion-back-button>
-    </ion-buttons>
-    <ion-title>销售机会详情</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/saleing/account/list"></ion-back-button>
+        </ion-buttons>
+        <ion-title>销售机会详情</ion-title>
+    </ion-toolbar>
 
-  <ion-toolbar>
-    <ion-segment [(ngModel)]="tab">
-      <ion-segment-button value="info">
-        <ion-label>基础信息</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="logcall" (click)="LogcallTabLoading()">
-        <ion-label>联络记录</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="activity">
-        <ion-label>培育任务</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-segment [(ngModel)]="tab">
+            <ion-segment-button value="info">
+                <ion-label>基础信息</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="logcall" (click)="LogcallTabLoading()">
+                <ion-label>联络记录</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="activity" (click)="LoadActivitylist()">
+                <ion-label>培育任务</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div [ngSwitch]="tab">
-    <div *ngSwitchCase="'info'">
-      <ion-item-group>
-        <ion-item-divider color="primary">
-          <ion-label>客户信息</ion-label>
-        </ion-item-divider>
-        <ion-item>
-          <ion-label>
-            <h2>机会编号</h2>
-          </ion-label>
-          <ion-note slot="end">
-            <p>{{this.mod.data.Account.accountnumber}}</p>
-          </ion-note>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            <h2>状态</h2>
-          </ion-label>
-          <ion-note slot="end">
-            <p>{{this.mod.data.Account.mcs_customerstatusname}}</p>
-          </ion-note>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            <h2>姓名</h2>
-          </ion-label>
-          <ion-note slot="end">
-            <p>{{this.mod.data.Account.name}}</p>
-          </ion-note>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            <h2>手机号</h2>
-          </ion-label>
-          <ion-note slot="end">
-            <p>{{this.mod.data.Account.mcs_mobilephone}}</p>
-          </ion-note>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            <h2>称呼</h2>
-          </ion-label>
-          <ion-note slot="end">
-            <p>{{this.mod.data.Account.mcs_gender}}</p>
-          </ion-note>
-        </ion-item>
+    <div [ngSwitch]="tab">
+        <div *ngSwitchCase="'info'">
+            <ion-item-group>
+                <ion-item-divider color="primary">
+                    <ion-label>客户信息</ion-label>
+                </ion-item-divider>
+                <ion-item>
+                    <ion-label>
+                        <h2>机会编号</h2>
+                    </ion-label>
+                    <ion-note slot="end">
+                        <p>{{this.mod.data.Account.accountnumber}}</p>
+                    </ion-note>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>状态</h2>
+                    </ion-label>
+                    <ion-note slot="end">
+                        <p>{{this.mod.data.Account.mcs_customerstatusname}}</p>
+                    </ion-note>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>姓名</h2>
+                    </ion-label>
+                    <ion-note slot="end">
+                        <p>{{this.mod.data.Account.name}}</p>
+                    </ion-note>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>手机号</h2>
+                    </ion-label>
+                    <ion-note slot="end">
+                        <p>{{this.mod.data.Account.mcs_mobilephone}}</p>
+                    </ion-note>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>称呼</h2>
+                    </ion-label>
+                    <ion-note slot="end">
+                        <p>{{this.mod.data.Account.mcs_gender}}</p>
+                    </ion-note>
+                </ion-item>
 
-        <ion-item>
-          <ion-label>
-            <h2>引荐车主</h2>
-          </ion-label>
-          <ion-note slot="end">
-            <p>{{this.mod.data.Account.mcs_introducecarowner}}</p>
-          </ion-note>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            <h2>小订单号</h2>
-          </ion-label>
-          <ion-note slot="end">
-            <p>{{this.mod.data.Account.mcs_smallorderid}}</p>
-          </ion-note>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            <h2>大订单号</h2>
-          </ion-label>
-          <ion-note slot="end">
-            <p>{{this.mod.data.Account.mcs_tc_order}}</p>
-          </ion-note>
-        </ion-item>
-      </ion-item-group>
-      <ion-item-group>
-        <ion-item-divider color="primary">
-          <ion-label>购车意向</ion-label>
-        </ion-item-divider>
-        <ion-item>
-          <ion-label>
-            <h2>意向等级</h2>
-          </ion-label>
-          <ion-note slot="end">
-            <p>{{this.mod.data.Account.mcs_level}}</p>
-          </ion-note>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            <h2>预测成交日期</h2>
-          </ion-label>
-          <ion-note slot="end">
-            <p>{{this.mod.data.Account.mcs_estimatedtransactiondate}}</p>
-          </ion-note>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            <h2>意向颜色</h2>
-          </ion-label>
-          <ion-note slot="end">
-            <p>{{this.mod.data.Account.mcs_vehcolorid}}</p>
-          </ion-note>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            <h2>意向车型</h2>
-          </ion-label>
-          <ion-note slot="end">
-            <p>{{this.mod.data.Account.mcs_vehtypeid}}</p>
-          </ion-note>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            <h2>购车用途</h2>
-          </ion-label>
-          <ion-note slot="end">
-            <p>{{this.mod.data.Account.mcs_purchasepurpose}}</p>
-          </ion-note>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            <h2>车辆使用人</h2>
-          </ion-label>
-          <ion-note slot="end">
-            <p>{{this.mod.data.Account.mcs_vehicleusers}}</p>
-          </ion-note>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            <h2>购车关注</h2>
-          </ion-label>
-          <ion-note slot="end">
-            <p>{{this.mod.data.Account.mcs_carattention}}</p>
-          </ion-note>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            <h2>年龄段</h2>
-          </ion-label>
-          <ion-note slot="end">
-            <p>{{this.mod.data.Account.mcs_generation}}</p>
-          </ion-note>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            <h2>购买方式</h2>
-          </ion-label>
-          <ion-note slot="end">
-            <p>{{this.mod.data.Account.mcs_purchaseway}}</p>
-          </ion-note>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            <h2>竞品车型</h2>
-          </ion-label>
-          <ion-note slot="end">
-            <p>{{this.mod.data.Account.mcs_competingtype}}</p>
-          </ion-note>
-        </ion-item>
-        <ion-item>
-          <ion-label>
-            <h2>关注原因</h2>
-          </ion-label>
-          <ion-note slot="end">
-            <p>{{this.mod.data.Account.mcs_carereason}}</p>
-          </ion-note>
-        </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>引荐车主</h2>
+                    </ion-label>
+                    <ion-note slot="end">
+                        <p>{{this.mod.data.Account.mcs_introducecarowner}}</p>
+                    </ion-note>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>小订单号</h2>
+                    </ion-label>
+                    <ion-note slot="end">
+                        <p>{{this.mod.data.Account.mcs_smallorderid}}</p>
+                    </ion-note>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>大订单号</h2>
+                    </ion-label>
+                    <ion-note slot="end">
+                        <p>{{this.mod.data.Account.mcs_tc_order}}</p>
+                    </ion-note>
+                </ion-item>
+            </ion-item-group>
+            <ion-item-group>
+                <ion-item-divider color="primary">
+                    <ion-label>购车意向</ion-label>
+                </ion-item-divider>
+                <ion-item>
+                    <ion-label>
+                        <h2>意向等级</h2>
+                    </ion-label>
+                    <ion-note slot="end">
+                        <p>{{this.mod.data.Account.mcs_level}}</p>
+                    </ion-note>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>预测成交日期</h2>
+                    </ion-label>
+                    <ion-note slot="end">
+                        <p>{{this.mod.data.Account.mcs_estimatedtransactiondate}}</p>
+                    </ion-note>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>意向颜色</h2>
+                    </ion-label>
+                    <ion-note slot="end">
+                        <p>{{this.mod.data.Account.mcs_vehcolorid}}</p>
+                    </ion-note>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>意向车型</h2>
+                    </ion-label>
+                    <ion-note slot="end">
+                        <p>{{this.mod.data.Account.mcs_vehtypeid}}</p>
+                    </ion-note>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>购车用途</h2>
+                    </ion-label>
+                    <ion-note slot="end">
+                        <p>{{this.mod.data.Account.mcs_purchasepurpose}}</p>
+                    </ion-note>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>车辆使用人</h2>
+                    </ion-label>
+                    <ion-note slot="end">
+                        <p>{{this.mod.data.Account.mcs_vehicleusers}}</p>
+                    </ion-note>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>购车关注</h2>
+                    </ion-label>
+                    <ion-note slot="end">
+                        <p>{{this.mod.data.Account.mcs_carattention}}</p>
+                    </ion-note>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>年龄段</h2>
+                    </ion-label>
+                    <ion-note slot="end">
+                        <p>{{this.mod.data.Account.mcs_generation}}</p>
+                    </ion-note>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>购买方式</h2>
+                    </ion-label>
+                    <ion-note slot="end">
+                        <p>{{this.mod.data.Account.mcs_purchaseway}}</p>
+                    </ion-note>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>竞品车型</h2>
+                    </ion-label>
+                    <ion-note slot="end">
+                        <p>{{this.mod.data.Account.mcs_competingtype}}</p>
+                    </ion-note>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>关注原因</h2>
+                    </ion-label>
+                    <ion-note slot="end">
+                        <p>{{this.mod.data.Account.mcs_carereason}}</p>
+                    </ion-note>
+                </ion-item>
 
-      </ion-item-group>
-      <ion-item-group>
-        <ion-item-divider color="primary">
-          <ion-label>特殊备注</ion-label>
-        </ion-item-divider>
-        <ion-item detail>
-          <ion-label>
-            {{this.mod.data.Account.description}}
-          </ion-label>
-        </ion-item>
-      </ion-item-group>
+            </ion-item-group>
+            <ion-item-group>
+                <ion-item-divider color="primary">
+                    <ion-label>特殊备注</ion-label>
+                </ion-item-divider>
+                <ion-item detail>
+                    <ion-label>
+                        {{this.mod.data.Account.description}}
+                    </ion-label>
+                </ion-item>
+            </ion-item-group>
 
+        </div>
+        <div *ngSwitchCase="'logcall'">
+            <ion-list lines="full">
+                <ion-item *ngFor="let item of mod.LogcallModel.list" [routerLink]="['/saleing/account/detail']"
+                          [queryParams]="{id:item.Id}">
+                    <ion-icon slot="start" name="call" size="large"></ion-icon>
+                    <ion-label>
+                        <h3>{{item.mcs_name}}</h3>
+                        <p>{{item.mcs_content}}</p>
+                    </ion-label>
+                    <ion-note slot="end">
+                        {{item.mcs_visittime}}
+                    </ion-note>
+                </ion-item>
+            </ion-list>
+
+            <ion-label *ngIf="tab!='info' && ionInfiniteScroll.disabled" text-center>
+                <p>
+                    没有更多的记录显示啦
+                </p>
+            </ion-label>
+            <ion-infinite-scroll (ionInfinite)="DownLoadLogcall()">
+                <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
+                </ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+        </div>
+        <div *ngSwitchCase="'activity'">
+            <ion-list>
+             <ion-item-sliding *ngFor="let item of mod.ActivityModel.list" >
+                <ion-item >     
+                    <ion-icon slot="start" name="logo-whatsapp" size="large"></ion-icon>
+                    <ion-label>
+                            <h2>跟进时间：{{item.createdon}}</h2>                                          
+                            <p>任务状态：{{item.mcs_activitystatus}}</p>      
+                            <p>重要级别：{{item.mcs_importantlevel}}</p>      
+                            <p>本次跟进内容：{{item.mcs_thisfollowupcontent}}</p>              
+                        </ion-label>
+                </ion-item>
+                <ion-item-options side="end">
+                        <ion-item-option color="tertiary" [routerLink]="['/saleing/cultivatetask/edit']" [queryParams]="{id:item.mcs_activityid}">
+                            编辑
+                        </ion-item-option>               
+                </ion-item-options>
+            </ion-item-sliding>
+            <ion-row *ngIf="mod.ActivityModel.list.length==0">
+                    <ion-col>
+                      <div class="ionattbody">
+                         没有更多的记录显示啦 
+                      </div>
+                    </ion-col>  
+                  </ion-row>
+
+            </ion-list>
+
+            <ion-infinite-scroll (ionInfinite)="DownLoadLogcall()">
+                <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
+                </ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+        </div>
     </div>
-    <div *ngSwitchCase="'logcall'">
-      <ion-list lines="full">
-        <ion-item *ngFor="let item of mod.LogcallModel.list" [routerLink]="['/saleing/account/detail']"
-          [queryParams]="{id:item.Id}">
-          <ion-icon slot="start" name="call" size="large"></ion-icon>
-          <ion-label>
-            <h3>{{item.mcs_name}}</h3>
-            <p>{{item.mcs_content}}</p>
-          </ion-label>
-          <ion-note slot="end">
-            {{item.mcs_visittime}}
-          </ion-note>
-        </ion-item>
-      </ion-list>
 
-      <ion-label *ngIf="tab!='info' && ionInfiniteScroll.disabled" text-center>
-          <p>
-            没有更多的记录显示啦
-          </p>
-      </ion-label>
-      <ion-infinite-scroll (ionInfinite)="DownLoadLogcall()">
-          <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
-          </ion-infinite-scroll-content>
-        </ion-infinite-scroll>
-    </div>
-    <div *ngSwitchCase="'activity'">
-      <ion-list>
-        <ion-item *ngFor="let item of mod.ActivityModel.list" [routerLink]="['/saleing/account/detail']"
-          [queryParams]="{id:item.Id}">
-          <ion-icon slot="start" name="logo-whatsapp" size="large"></ion-icon>
-          <ion-label>
-            <h3>{{item.mcs_name}}</h3>
-            <p></p>
-          </ion-label>
-          <ion-note slot="end">
-
-          </ion-note>
-        </ion-item>
-      </ion-list>
-
-      <ion-infinite-scroll (ionInfinite)="DownLoadLogcall()">
-          <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
-          </ion-infinite-scroll-content>
-        </ion-infinite-scroll>
-    </div>
-  </div>
-
-  <ion-fab *ngIf="tab=='info'" vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
-      <ion-icon name="arrow-dropup"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-list side="top">
-        <ion-fab-button *ngIf="mod.data.Account.mcs_customerstatus==1" title="分配" color="success" (click)="Assign()">
-            分配
+    <ion-fab *ngIf="tab=='info'" vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+            <ion-icon name="arrow-dropup"></ion-icon>
         </ion-fab-button>
-      <ion-fab-button *ngIf="mod.data.Account.mcs_customerstatus<4" title="成交" color="success" (click)="Success()">
-        成交
-      </ion-fab-button>
-      <ion-fab-button *ngIf="mod.data.Account.mcs_customerstatus<4" title="战败" color="danger" (click)="Failed()">
-        战败
-      </ion-fab-button>
-      <ion-fab-button color="warning" [routerLink]="['/saleing/account/edit']">
-        <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
-    </ion-fab-list>
-  </ion-fab>
-  <ion-fab *ngIf="tab=='logcall'" vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button [routerLink]="['/saleing/contactrecord/edit']"  [queryParams]="{id:mod.data.Account.mcs_onlyleadid}">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-  <ion-fab *ngIf="tab=='activity'" vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button [routerLink]="['/saleing/activity/edit']" color="danger">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+        <ion-fab-list side="top">
+            <ion-fab-button *ngIf="mod.data.Account.mcs_customerstatus==1" title="分配" color="success" (click)="Assign()">
+                分配
+            </ion-fab-button>
+            <ion-fab-button *ngIf="mod.data.Account.mcs_customerstatus<4" title="成交" color="success" (click)="Success()">
+                成交
+            </ion-fab-button>
+            <ion-fab-button *ngIf="mod.data.Account.mcs_customerstatus<4" title="战败" color="danger" (click)="Failed()">
+                战败
+            </ion-fab-button>
+            <ion-fab-button color="warning" [routerLink]="['/saleing/account/edit']" [queryParams]="{id:mod.data.Account.Id,actionCode:2}"><ion-icon name="create"></ion-icon></ion-fab-button>
+        </ion-fab-list>
+    </ion-fab>
+    <ion-fab *ngIf="tab=='logcall'" vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button [routerLink]="['/saleing/contactrecord/edit']" [queryParams]="{id:mod.data.Account.mcs_onlyleadid}">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+    <ion-fab *ngIf="tab=='activity'" vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button [routerLink]="['/saleing/activity/edit']" color="danger">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>

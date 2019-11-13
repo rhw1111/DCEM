@@ -57,8 +57,8 @@ namespace MSLibrary.Context.Middleware
             }
 
 
-            await HttpErrorHelper.ExecuteByHttpContextAsync(context,logger, async () =>
-             {
+            //await HttpErrorHelper.ExecuteByHttpContextAsync(context,logger, async () =>
+             //{
                  var claimsIdentity = await _appSystemAuthentication.Do(context, _generatorName);
 
 
@@ -72,7 +72,7 @@ namespace MSLibrary.Context.Middleware
                  }
 
                  await _nextMiddleware(context);
-             });
+            // });
 
           
         }

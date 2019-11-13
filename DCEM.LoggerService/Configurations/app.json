@@ -1,6 +1,9 @@
 {
-  "Connections": null,
-  "DISetting": {
-    "SearchAssemblyNames": [ "MSLibrary", "DCEM.Main", "DCEM.LoggerService.Main", "DCEM.LoggerService" ]
+  "Connections": {
+    "mainall": "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=LogService;Data Source=.",
+    "mainread": "Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=LogService;Data Source=."
+  },
+    "DISetting": {
+      "SearchAssemblyNames": [ "MSLibrary", "DCEM.Main", "DCEM.LoggerService.Main", "DCEM.LoggerService" ]
+    }
   }
-}
