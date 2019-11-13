@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-back-button text="返回"   defaultHref="/">
+        </ion-back-button>
+    </ion-buttons> 
+    <ion-title>预约交车</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-item-divider color="primary">
+      <ion-label>预约信息</ion-label>
+    </ion-item-divider>
+    <ion-card-content>
+      <ion-list>
+        <ion-item-group>
+          <ion-item>
+            <ion-label>
+              预约时间
+            </ion-label>
+            <ion-datetime cancelText="取消" doneText="确定" [(ngModel)]="appointmentmodel.data.appointmenton"
+              placeholder="请选择到店时间" display-format="YYYY-MM-DD HH:mm"></ion-datetime>
+          </ion-item>
+          <ion-item>  
+            <ion-label>
+                客户预定
+              </ion-label>
+            <ion-textarea [(ngModel)]="appointmentmodel.data.customerrequest"></ion-textarea>
+          </ion-item>
+        </ion-item-group>
+      </ion-list>
+      <section style="text-align:center;">
+          <ion-button style="width:70%" color="danger" (click)="presentAlertAppointment()">保存</ion-button>
+      </section>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

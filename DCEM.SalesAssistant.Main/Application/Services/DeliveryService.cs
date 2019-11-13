@@ -4,6 +4,7 @@ using DCEM.SalesAssistant.Main.Common;
 using DCEM.SalesAssistant.Main.DTOModel;
 using DCEM.SalesAssistant.Main.ViewModel.Request;
 using DCEM.SalesAssistant.Main.ViewModel.Response;
+using MSLibrary;
 using MSLibrary.Xrm;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,8 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         private const string vinEntityName = "mcs_vehicle";
         private const string roEntityName = "mcs_vehorder";
         private const string orderpayEntityName = "mcs_orderpaydetail";
+        private const string systemuserEntityName = "systemuser";
+
         public DeliveryService(ICrmService crmService, IDeliveryRepository deliveryRepository)
         {
             _crmService = crmService;
@@ -40,9 +43,10 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                     deliveryListDtoModel.roEntitys = GetCrmEntities(roEntityName, deliveryListRequest, crmRequestHelper).Result;
                     fetchXdoc = await _deliveryRepository.GetListFetchXml(deliveryListRequest, deliveryListDtoModel);
                 }
-                else {
-                      fetchXdoc = await _deliveryRepository.GetListFetchXml(deliveryListRequest, null);
-                } 
+                else
+                {
+                    fetchXdoc = await _deliveryRepository.GetListFetchXml(deliveryListRequest, null);
+                }
                 var entities = await crmRequestHelper.ExecuteAsync(_crmService, entityName, fetchXdoc, Guid.Parse(deliveryListRequest.UserId));
                 response.Deliverys = entities.Results;
                 response.ALLTotalCount = entities.Count;
@@ -96,6 +100,63 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 var crmRequestHelper = new CrmRequestHelper();
                 var entity = await crmRequestHelper.Retrieve(_crmService, orderpayEntityName, Guid.Parse(collectionDetailRequest.Id), Guid.Parse(collectionDetailRequest.UserId));
                 return entity;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<ValidateResult<string>> appointment(DeliveryEditRequest deliveryEditRequest)
+        {
+            try
+            {
+                var validateResult = new ValidateResult<string>();
+                var crmRequestHelper = new CrmRequestHelper();
+                var entity = await crmRequestHelper.Retrieve(_crmService, entityName, Guid.Parse(deliveryEditRequest.id));
+                if (entity != null)
+                {
+                    var deliverystatus = entity.Attributes.Value<int>("mcs_deliverystatus");
+                    //已检测
+                    if (deliverystatus != 3)
+                    {
+                        validateResult.Result = false;
+                        validateResult.Description = "交车单状态不符合！";
+                        return validateResult;
+                    }
+                    var delivery = new CrmExecuteEntity(entityName, Guid.Parse(deliveryEditRequest.id));
+                    delivery.Attributes.Add("mcs_customerrequest", deliveryEditRequest.customerrequest);
+                    delivery.Attributes.Add("mcs_appointmenton", DateTime.Parse(deliveryEditRequest.appointmenton));
+                    delivery.Attributes.Add("mcs_deliverystatus", 4);
+                    await _crmService.Update(delivery);
+                    validateResult.Result = true;
+                    validateResult.Description = "操作成功";
+                    return validateResult;
+                }
+                else
+                {
+                    validateResult.Result = false;
+                    validateResult.Description = "交车单不存在！";
+                    return validateResult;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        public async Task<ServiceConsultantListResponse> getservicconsultant(DeliveryEditRequest deliveryEditRequest)
+        {
+            try
+            {
+                var crmRequestHelper = new CrmRequestHelper();
+                var response = new ServiceConsultantListResponse() { };
+                XDocument fetchXdoc = fetchXdoc = await _deliveryRepository.GetServiceConsultantListFetchXml(deliveryEditRequest);
+                var entities = await crmRequestHelper.ExecuteAsync(_crmService, systemuserEntityName, fetchXdoc);
+                response.ServiceConsultants = entities.Results; 
+                return response;
             }
             catch (Exception ex)
             {

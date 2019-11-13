@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DCore_Page, DCore_Http } from 'app/base/base.ser/Dcem.core';
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-
+import { AlertController } from '@ionic/angular';
+import { NgModel } from '@angular/forms';
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.page.html',
@@ -14,12 +15,15 @@ export class DetailPage implements OnInit {
     private _http: DCore_Http,
     private _page: DCore_Page,
     private activeRoute: ActivatedRoute,
-    private _userinfo: Storage_LoginInfo) {
+    private _userinfo: Storage_LoginInfo,
+    public alertController: AlertController) {
   }
   public tab: any = "infolist";
   public model = {
     apiUrlDetail: '/api/delivery/get',
     id: "",
+    status: -1,
+    settles: 0,
     info: {
       vin: "",
       code: "",
@@ -50,11 +54,56 @@ export class DetailPage implements OnInit {
       DeliveryId: ""
     }
   }
+
+  //确认收款完成  
+  async presentAlertConfim() {
+    const alert = await this.alertController.create({
+      header: '收款完成',
+      message: '确认要收款完成吗？',
+      buttons: [
+        {
+          text: '取消',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: '保存',
+          handler: () => {
+            console.log('Confirm Okay');
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  getservicconsultant() {
+    this._page.loadingShow();
+    this._http.post(
+      this.servicconsultantmodel.apiUrl,
+      this.servicconsultantmodel.data,
+      (res: any) => {
+        if (res !== null) {
+          debugger;
+        }
+        else {
+          this._page.alert("消息提示", "获取服务顾问操作失败");
+        }
+        this._page.loadingHide();
+      },
+      (err: any) => {
+        this._page.alert("消息提示", "获取服务顾问操作失败");
+        this._page.loadingHide();
+      }
+    );
+  }
   ngOnInit() {
     this.activeRoute.queryParams.subscribe((data: Params) => {
       if (data['id'] != null && data['id'] != undefined) {
         this.model.id = data['id'];
-        this.orderpaymodel.search.DeliveryId = data['id'];
+        this.orderpaymodel.search.DeliveryId = data['id'];  
         this.pageOnBind(this.model.id);
       }
     });
@@ -71,6 +120,8 @@ export class DetailPage implements OnInit {
           this.model.info.vin = attr["_mcs_vin_value@OData.Community.Display.V1.FormattedValue"];
           this.model.info.code = attr["mcs_code"];
           this.model.info.deliverystatus = attr["mcs_deliverystatus@OData.Community.Display.V1.FormattedValue"];
+          this.model.status = attr["mcs_deliverystatus"];
+          this.model.settles = attr["mcs_settlestatus"];
           this.model.info.ro = attr["_mcs_vehorder_value@OData.Community.Display.V1.FormattedValue"];
           this.model.info.settlestatus = attr["mcs_settlestatus@OData.Community.Display.V1.FormattedValue"];
           this.model.info.deliveryon = attr["mcs_deliveryon@OData.Community.Display.V1.FormattedValue"];
@@ -97,19 +148,17 @@ export class DetailPage implements OnInit {
   }
   //收款记录
   pageOnLogCalllist(event) {
-    if(this.orderpaymodel.orderpayrecords.length==0)
-    {
+    if (this.orderpaymodel.orderpayrecords.length == 0) {
       this.pageOnlist(event);
     }
-  } 
-   //加载下一页
-   doLoading(event) { 
-     this.orderpaymodel.search.pageindex++;
-    this.orderpaymodel.isending=false;
+  }
+  //加载下一页
+  doLoading(event) {
+    this.orderpaymodel.search.pageindex++;
+    this.orderpaymodel.isending = false;
     this.pageOnlist(event);
   }
-  pageOnlist(event)
-  {
+  pageOnlist(event) {
     this._page.loadingShow();
     this._http.post(
       this.orderpaymodel.apiUrlDetailOrderPay,
@@ -121,10 +170,10 @@ export class DetailPage implements OnInit {
             var attr = data[i]["Attributes"];
             var obj = {};
             obj["id"] = data[i]["Id"];
-            obj["code"]=attr["mcs_code"];
-            obj["type"]=attr["mcs_paycategory@OData.Community.Display.V1.FormattedValue"];
-            obj["amount"]=attr["mcs_amount@OData.Community.Display.V1.FormattedValue"];
-            obj["createdon"]=attr["createdon@OData.Community.Display.V1.FormattedValue"];
+            obj["code"] = attr["mcs_code"];
+            obj["type"] = attr["mcs_paycategory@OData.Community.Display.V1.FormattedValue"];
+            obj["amount"] = attr["mcs_amount@OData.Community.Display.V1.FormattedValue"];
+            obj["createdon"] = attr["createdon@OData.Community.Display.V1.FormattedValue"];
             this.orderpaymodel.orderpayrecords.push(obj);
           }
           event ? event.target.complete() : '';

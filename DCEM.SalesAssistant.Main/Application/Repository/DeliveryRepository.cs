@@ -169,5 +169,30 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
                 return XDocument.Parse(fetchXml);
             });
         }
+
+        public async Task<XDocument> GetServiceConsultantListFetchXml(DeliveryEditRequest deliveryEditRequest)
+        {
+            return await Task<XDocument>.Run(() =>
+            { 
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+  <entity name='systemuser'>
+    <attribute name='fullname' />
+    <attribute name='systemuserid' />
+    <order attribute='fullname' descending='false' />
+    <filter type='and'>
+      <condition attribute='mcs_dealer' operator='eq' value='{deliveryEditRequest.dealerId}' />
+    </filter>
+    <link-entity name='systemuserroles' from='systemuserid' to='systemuserid' visible='false' intersect='true'>
+      <link-entity name='role' from='roleid' to='roleid' alias='aa'>
+        <filter type='and'>
+          <condition attribute='name' operator='eq' value='维保-服务顾问' />
+        </filter>
+      </link-entity>
+    </link-entity>
+  </entity>
+</fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
     }
 }
