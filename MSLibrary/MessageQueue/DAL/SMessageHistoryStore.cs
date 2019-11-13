@@ -8,7 +8,7 @@ using MSLibrary.Collections.Hash;
 using MSLibrary.DAL;
 using MSLibrary.LanguageTranslate;
 using MSLibrary.Transaction;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Data;
 
 namespace MSLibrary.MessageQueue.DAL

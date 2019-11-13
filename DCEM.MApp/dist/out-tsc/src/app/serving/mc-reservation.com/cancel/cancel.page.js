@@ -1,4 +1,5 @@
 import * as tslib_1 from "tslib";
+var _a;
 import { Component } from '@angular/core';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute } from '@angular/router';
@@ -64,8 +65,7 @@ CancelPage = tslib_1.__decorate([
         styleUrls: ['./cancel.page.scss'],
     }),
     tslib_1.__metadata("design:paramtypes", [DCore_Http,
-        DCore_Page,
-        ActivatedRoute])
+        DCore_Page, typeof (_a = typeof ActivatedRoute !== "undefined" && ActivatedRoute) === "function" ? _a : Object])
 ], CancelPage);
 export { CancelPage };
 //# sourceMappingURL=cancel.page.js.map

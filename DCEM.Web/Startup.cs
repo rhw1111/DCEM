@@ -16,6 +16,7 @@ using System.Text;
 using Microsoft.AspNetCore;
 using MSLibrary.Configuration;
 using MSLibrary.Logger;
+using MSLibrary.AspNet.Middleware;
 using DCEM.Main;
 using Microsoft.AspNetCore.Http;
 
@@ -56,7 +57,8 @@ namespace DCEM.Web
             app.UseRouting();
             app.UseCors("any");
             app.UseMvc();
-           
+
+            app.UseExceptionWrapper(LoggerCategoryNames.HttpRequest);
         }
     }
 }

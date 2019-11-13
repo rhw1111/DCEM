@@ -31,6 +31,8 @@ namespace MSLibrary.AspNet.Filter
         }
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
+            //在Http上下文中存储ActionName
+            context.HttpContext.Items["ActionName"] = context.ActionDescriptor.DisplayName.Split("(")[0].Trim();
             
             bool needDo = true;
 
