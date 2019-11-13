@@ -217,6 +217,14 @@ export class OptionSetService {
 
                 ];
                 break;
+
+                case "mcs_approvalstatus"://整车销售-整车订单审批状态
+                optionlist = [
+                    { "name": "待审核", "value": 0 },
+                    { "name": "审核通过", "value": 1 },
+                    { "name": "审核不通过", "value": 2 }                
+                ];
+                break;
         }
         return optionlist;
     }

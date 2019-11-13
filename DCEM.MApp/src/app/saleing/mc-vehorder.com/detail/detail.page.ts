@@ -14,6 +14,7 @@ export class DetailPage implements OnInit {
   model = {
     apiUrlInfo: '/api/vehorder/GetVehorderDetail',
     data: {
+      mcs_code: "", //整车订单编码
       mcs_vehorderid: "", //整车订单主键id
       mcs_mallordercode: "", //综合订单号
       mcs_shopcode: "", //商城订单号
@@ -79,6 +80,7 @@ export class DetailPage implements OnInit {
         debugger;
        //绑定基本信息
         if (res.VehorderInfo !== null) { 
+          this.model.data.mcs_code = res["VehorderInfo"]["Attributes"]["mcs_code"]; 
           this.model.data.mcs_mallordercode = res["VehorderInfo"]["Attributes"]["mcs_mallordercode"]; 
           this.model.data.mcs_shopcode = res["VehorderInfo"]["Attributes"]["mcs_shopcode"]; 
           this.model.data.mcs_orderon =this.FormatToDateTime(res["VehorderInfo"]["Attributes"]["mcs_orderon"]); 
@@ -97,13 +99,20 @@ export class DetailPage implements OnInit {
           this.model.data.mcs_idcard = res["VehorderInfo"]["Attributes"]["mcs_idcard"];
           this.model.data.mcs_contactid = res["VehorderInfo"]["Attributes"]["mcs_contactid"];
 
+          this.model.data.mcs_approvalstatus = this.optionset.GetOptionSetNameByValue("mcs_approvalstatus",res["VehorderInfo"]["Attributes"]["mcs_approvalstatus"]);
+          this.model.data.mcs_approvaler = res["VehorderInfo"]["Attributes"]["_mcs_approvaler_value@OData.Community.Display.V1.FormattedValue"];     
+          this.model.data.mcs_msg = res["VehorderInfo"]["Attributes"]["mcs_msg"];
+          this.model.data.mcs_approvalon2 =this.FormatToDateTime(res["VehorderInfo"]["Attributes"]["mcs_approvalon2"]);
+          this.model.data.mcs_cancelorderon = this.FormatToDateTime(res["VehorderInfo"]["Attributes"]["mcs_cancelorderon"]);
+          this.model.data.mcs_canceldesc = res["VehorderInfo"]["Attributes"]["mcs_canceldesc"];
+
         }
         //绑定订单透明化状态跟踪
         if (res.Vehordertrack != null) {
 
           for (var key in res.Vehordertrack) {
             var obj = {};
-            obj["mcs_optionon"] = res.Vehordertrack[key]["Attributes"]["mcs_optionon"];        
+            obj["mcs_optionon"] = this.FormatToDateTime(res.Vehordertrack[key]["Attributes"]["mcs_optionon"]);        
             obj["mcs_rostatus"] =this.optionset.GetOptionSetNameByValue("mcs_rostatus",res.Vehordertrack[key]["Attributes"]["mcs_rostatus"]);        
             this.model.VehordertrackList.push(obj);
 

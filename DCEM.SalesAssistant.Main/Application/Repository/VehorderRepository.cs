@@ -22,6 +22,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
                 filter += $"<filter type='or'>";               
                 filter += $"<condition attribute='mcs_contactname' operator='like' value='%{vehorderRequest.SearchKey}%' />";
                 filter += $"<condition attribute='mcs_contactphone' operator='like' value='%{vehorderRequest.SearchKey}%' />";
+                filter += $"<condition attribute='mcs_code' operator='like' value='%{vehorderRequest.SearchKey}%' />";
                 filter += $"</filter>";
             }
             if (vehorderRequest.mcs_rostatus.HasValue && vehorderRequest.mcs_rostatus.GetValueOrDefault(0) > 0)
