@@ -69,6 +69,34 @@ namespace DCEM.Web.Controllers
         {
             return await _appDelivery.getservicconsultant(deliveryEditRequest);
         }
+
+        [Route("submitpdi")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<string>>> submitpdi(DeliveryEditRequest deliveryEditRequest)
+        {
+            return await _appDelivery.submitpdi(deliveryEditRequest);
+        }
+
+        [Route("getmateriel")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<CrmEntity>> getmateriel(DeliveryDetailRequest deliveryDetailRequest)
+        {
+            return await _appDelivery.getmateriel(deliveryDetailRequest);
+        }
+
+        [Route("addorderpay")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<string>>> addorderpay(OrderPayEditRequest orderPayEditRequest)
+        {
+            return await _appDelivery.addorderpay(orderPayEditRequest);
+        }
+
+        [Route("moneycompleted")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<string>>> moneycompleted(DeliveryDetailRequest  deliveryDetailRequest)
+        {
+            return await _appDelivery.moneycompleted(deliveryDetailRequest);
+        }
     }
 }
 

@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>新增收款记录</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-card>
+      <ion-card-content>
+        <ion-item-divider color="primary">
+          <ion-label>基本信息</ion-label>
+        </ion-item-divider>
+        <ion-item>
+          <ion-label>
+            <h2>交易流水号</h2>
+          </ion-label>
+          <ion-input type="text" name="mobile" [(ngModel)]="model.info.batchcode">
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-text color="danger">*</ion-text>
+          <ion-label>
+            <h2>收款类型</h2>
+          </ion-label>
+          <ion-select name="score" okText="确认" cancelText="取消" [(ngModel)]="model.info.paycategory">
+            <ion-select-option *ngFor="let item of model.paycategoryoption" value="{{item.value}}">{{item.name}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-text color="danger">*</ion-text>
+          <ion-label>
+            <h2>付款金额</h2>
+          </ion-label>
+          <ion-input type="number" name="mobile" [(ngModel)]="model.info.amountstr">
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-text color="danger">*</ion-text>
+          <ion-label>
+            <h2>付款时间</h2>
+          </ion-label>
+          <ion-datetime cancelText="取消" doneText="确定" [(ngModel)]="model.info.payon" placeholder="请选择付款时间"
+            display-format="YYYY-MM-DD HH:mm:ss"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              备注
+            </h2>
+          </ion-label>
+          <ion-textarea [(ngModel)]="model.info.remark" name="describe"></ion-textarea>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+    <ion-button expand="block" color="danger" (click)="saveOnClick()">确定</ion-button>
+  </ion-list>
+</ion-content>

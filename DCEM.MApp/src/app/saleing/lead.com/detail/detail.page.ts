@@ -41,7 +41,7 @@ export class DetailPage implements OnInit {
   }
   pageOnBind(id: any) { 
     this._page.loadingShow();
-    this._http.post(
+    this._http.postForToaken(
       this.model.apiUrlDetail,
       {'id':this.model.id,'userid': this._userinfo.GetSystemUserId()}, 
         (res: any) => { 
