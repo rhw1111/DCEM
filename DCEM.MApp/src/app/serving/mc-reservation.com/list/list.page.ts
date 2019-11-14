@@ -24,7 +24,10 @@ export class ListPage implements OnInit {
         page: 1,//分页
         sort: 'mcs_appointmentinfoid desc',//排序的参数
         isending: false,//是否加载完成
-        nodata: false
+        nodata: false,
+        aLLTotalCount:0,//总条数
+        followingCount:0,//跟进中
+        followedCount:0//已跟进
     };
 
     constructor(
@@ -109,6 +112,11 @@ export class ListPage implements OnInit {
                         obj["mcs_status"] = res.Results[key]["Attributes"]["mcs_status"];
                         this.model.data.push(obj);
                     }
+
+                    this.model.aLLTotalCount = res.ALLTotalCount;
+                    this.model.followingCount = res.FollowingCount;
+                    this.model.followedCount = res.FollowedCount;
+
                     //设置数据存储到本地
                     if (this.model.page == 1) {
                         this.httpService.SetDataCache(this.model.name, JSON.stringify(this.model.data).toString());

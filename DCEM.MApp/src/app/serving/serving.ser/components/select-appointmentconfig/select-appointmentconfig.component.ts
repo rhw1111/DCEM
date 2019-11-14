@@ -49,7 +49,6 @@ export class SelectAppointmentconfigComponent implements OnInit {
     }
 
     listOnBind() {
-        debugger;
         this._page.loadingShow();
         this.mod.data = [];
         this._http.get(
