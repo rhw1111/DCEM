@@ -183,7 +183,8 @@ const routes: Routes = [
                 ]
             }
         ]
-    }
+    },  { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
+
 
 
  
