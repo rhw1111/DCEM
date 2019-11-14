@@ -42,7 +42,7 @@ namespace DCEM.Web.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetList")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetList(int status, string seachkey = "", string sort = "", int pageSize = 10, int page = 1)
+        public async Task<NewtonsoftJsonActionResult<AppointmentInfoListResponse<CrmEntity>>> GetList(int status, string seachkey = "", string sort = "", int pageSize = 10, int page = 1)
         {
             var appointmentInfoRequest = new AppointmentInfoRequest()
             {

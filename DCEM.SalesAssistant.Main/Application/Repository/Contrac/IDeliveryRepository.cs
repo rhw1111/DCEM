@@ -16,5 +16,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository.Contrac
         Task<XDocument> GetRoOrderListFetchXml(DeliveryListRequest deliveryListRequest);
 
         Task<XDocument> GetOrderPayListFetchXml(CollectionListRequest collectionListRequest);
+
+        Task<XDocument> GetServiceConsultantListFetchXml(DeliveryEditRequest deliveryEditRequest);
     }
 }

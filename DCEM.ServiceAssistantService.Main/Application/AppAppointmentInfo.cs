@@ -36,7 +36,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
         /// <param name="pageSize"></param>
         /// <param name="pageNum"></param>
         /// <returns></returns>
-        public async Task<QueryResult<CrmEntity>> QueryListByPage(AppointmentInfoRequest filterstr)
+        public async Task<AppointmentInfoListResponse<CrmEntity>> QueryListByPage(AppointmentInfoRequest filterstr)
         {
             return await _appointmentInfoService.QueryListByPage(filterstr);
         }

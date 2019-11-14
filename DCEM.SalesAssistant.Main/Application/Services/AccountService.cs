@@ -9,6 +9,8 @@ using MSLibrary.Xrm.Message.RetrieveMultipleFetch;
 using System;
 using System.Collections.Generic;
 using DCEM.SalesAssistant.Main.Common;
+using DCEM.Main;
+using DCEM.Main.Entities;
 
 namespace DCEM.SalesAssistant.Main.Application.Services
 {
@@ -83,14 +85,102 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 guid = string.IsNullOrEmpty(request.Id) ? Guid.NewGuid() : Guid.Parse(request.Id);
                 CrmExecuteEntity createorUpdateEntity = new CrmExecuteEntity(EntityName, guid);
 
+                if (!string.IsNullOrEmpty(request.name))
+                {
+                    createorUpdateEntity.Attributes.Add("name", request.name);
+                }
+                if (!string.IsNullOrEmpty(request.mcs_onlyleadid))
+                {
+                    createorUpdateEntity.Attributes.Add("mcs_onlyleadid", new CrmEntityReference("mcs_onlylead", Guid.Parse(request.mcs_onlyleadid)));
+                }
+                if (!string.IsNullOrEmpty(request.mcs_vehcolorid))
+                {
+                    createorUpdateEntity.Attributes.Add("mcs_vehcolorid", new CrmEntityReference("mcs_vehcolor", Guid.Parse(request.mcs_vehcolorid)));
+                }
+                if (!string.IsNullOrEmpty(request.mcs_vehtypeid))
+                {
+                    createorUpdateEntity.Attributes.Add("mcs_vehtypeid", new CrmEntityReference("mcs_vehtype", Guid.Parse(request.mcs_vehtypeid)));
+                }
+
+                
+                if (!string.IsNullOrEmpty(request.mcs_carattention))
+                {
+                    createorUpdateEntity.Attributes.Add("mcs_carattention", request.mcs_carattention);
+                }
+                if (!string.IsNullOrEmpty(request.mcs_competingtype))
+                {
+                    createorUpdateEntity.Attributes.Add("mcs_competingtype", request.mcs_competingtype);
+                }
+                if (!string.IsNullOrEmpty(request.mcs_introducecarowner))
+                {
+                    createorUpdateEntity.Attributes.Add("mcs_introducecarowner", request.mcs_introducecarowner);
+                }
+                if (!string.IsNullOrEmpty(request.mcs_mobilephone))
+                {
+                    createorUpdateEntity.Attributes.Add("mcs_mobilephone", request.mcs_mobilephone);
+                }
+                if (!string.IsNullOrEmpty(request.mcs_estimatedtransactiondate))
+                {
+                    createorUpdateEntity.Attributes.Add("mcs_estimatedtransactiondate", DateTime.Parse(request.mcs_estimatedtransactiondate));
+                }
+                if (request.mcs_carereason.HasValue)
+                {
+                    createorUpdateEntity.Attributes.Add("mcs_carereason", request.mcs_carereason.Value);
+                }
+                if (request.mcs_gender.HasValue)
+                {
+                    createorUpdateEntity.Attributes.Add("mcs_gender", request.mcs_gender.Value);
+                }
+                if (request.mcs_generation.HasValue)
+                {
+                    createorUpdateEntity.Attributes.Add("mcs_generation", request.mcs_generation.Value);
+                }
+                if (request.mcs_idtype.HasValue)
+                {
+                    createorUpdateEntity.Attributes.Add("mcs_idtype", request.mcs_idtype.Value);
+                }
+                if (request.mcs_level.HasValue)
+                {
+                    createorUpdateEntity.Attributes.Add("mcs_level", request.mcs_level.Value);
+                }
+                if (request.mcs_purchasepurpose.HasValue)
+                {
+                    createorUpdateEntity.Attributes.Add("mcs_purchasepurpose", request.mcs_purchasepurpose.Value);
+                }
+                if (request.mcs_purchaseway.HasValue)
+                {
+                    createorUpdateEntity.Attributes.Add("mcs_purchaseway", request.mcs_purchaseway.Value);
+                }
+                if (request.mcs_vehicleusers.HasValue)
+                {
+                    createorUpdateEntity.Attributes.Add("mcs_vehicleusers", request.mcs_vehicleusers.Value);
+                }
+                if (request.mcs_familymembernum.HasValue)
+                {
+                    createorUpdateEntity.Attributes.Add("mcs_familymembernum", request.mcs_familymembernum.Value);
+                }
+                if (!string.IsNullOrEmpty(request.description))
+                {
+                    createorUpdateEntity.Attributes.Add("description", request.description); 
+                }
                 if (request.mcs_customerstatus.HasValue)
                 {
                     createorUpdateEntity.Attributes.Add("mcs_customerstatus", request.mcs_customerstatus.Value);
                 }
 
-                if (request.ownerid.HasValue)
+                if (request.mcs_customerstatus.HasValue)
                 {
-                    createorUpdateEntity.Attributes.Add("ownerid", new CrmEntityReference("systemuser", request.ownerid.Value));
+                    createorUpdateEntity.Attributes.Add("mcs_customerstatus", request.mcs_customerstatus.Value);
+                }
+
+                //if (request.ownerid.HasValue)
+                //{
+                //    createorUpdateEntity.Attributes.Add("ownerid", new CrmEntityReference("systemuser", request.ownerid.Value));
+                //}
+                var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+                if (userInfo != null && userInfo.systemuserid.HasValue)
+                {
+                    createorUpdateEntity.Attributes.Add("ownerid", new CrmEntityReference("systemuser", userInfo.systemuserid.Value));
                 }
 
                 if (!string.IsNullOrEmpty(request.Id))

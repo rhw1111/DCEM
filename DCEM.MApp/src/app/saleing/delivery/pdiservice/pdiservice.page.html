@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-back-button text="返回"   defaultHref="/">
+        </ion-back-button>
+    </ion-buttons> 
+    <ion-title>提交PDI任务</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-item-divider color="primary">
+      <ion-label>PDI任务</ion-label>
+    </ion-item-divider>
+    <ion-card-content>
+      <ion-list>
+        <ion-item-group>
+          <ion-item>
+            <ion-label>
+              服务顾问
+            </ion-label>
+            <ion-select name="clues" okText="确认" cancelText="取消" [(ngModel)]="servicconsultantmodel.adviser">
+                <ion-select-option *ngFor="let item of servicconsultantmodel.servicconsultants" value="{{item.value}}">
+                    {{item.name}}
+                </ion-select-option>
+            </ion-select>
+          </ion-item> 
+        </ion-item-group>
+      </ion-list>
+      <section style="text-align:center;">
+          <ion-button style="width:70%" color="danger" (click)="presentAlertservicconsultant()">保存</ion-button>
+      </section>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

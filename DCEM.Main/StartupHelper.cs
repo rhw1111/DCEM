@@ -186,6 +186,8 @@ namespace DCEM.Main
             DIContainerInit.Init = new DIContainerInitDefault();
             DIContainerInit.Execute(dISetting.SearchAssemblyNames);
 
+
+
             //装载需要手动处理的DI数据
 
             //Microsoft.AspNetCore.DataProtection.Repositories.IXmlRepository

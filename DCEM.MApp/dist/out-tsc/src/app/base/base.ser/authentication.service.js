@@ -1,4 +1,5 @@
 import * as tslib_1 from "tslib";
+var _a, _b;
 import { Platform } from '@ionic/angular';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
@@ -43,7 +44,7 @@ AuthenticationService = tslib_1.__decorate([
     Injectable({
         providedIn: 'root'
     }),
-    tslib_1.__metadata("design:paramtypes", [Storage, Platform, HttpService])
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof Storage !== "undefined" && Storage) === "function" ? _a : Object, typeof (_b = typeof Platform !== "undefined" && Platform) === "function" ? _b : Object, HttpService])
 ], AuthenticationService);
 export { AuthenticationService };
 //# sourceMappingURL=authentication.service.js.map
