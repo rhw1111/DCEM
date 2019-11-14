@@ -1,12 +1,12 @@
 import * as tslib_1 from "tslib";
-var _a;
 import { Component } from '@angular/core';
-import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
+import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute } from '@angular/router';
 let DetailPage = class DetailPage {
-    constructor(_http, _page, activeRoute) {
+    constructor(_http, _page, _valid, activeRoute) {
         this._http = _http;
         this._page = _page;
+        this._valid = _valid;
         this.activeRoute = activeRoute;
         this.tab = "info";
         this.mod = {
@@ -47,7 +47,7 @@ let DetailPage = class DetailPage {
                 guid: id,
             }
         }, (res) => {
-            if (res.Carserviceadvisor !== null) {
+            if (!this._valid.isNull(res.Carserviceadvisor)) {
                 this.mod.data.vehowner.fullname = res["Vehowner"]["Attributes"]["mcs_fullname"];
                 this.mod.data.vehowner.idtype = res["Vehowner"]["Attributes"]["mcs_idtype@OData.Community.Display.V1.FormattedValue"];
                 this.mod.data.vehowner.identitycard = res["Vehowner"]["Attributes"]["mcs_identitycard"];
@@ -61,7 +61,7 @@ let DetailPage = class DetailPage {
                 this.mod.data.vehowner.nextmaintainmileage = res["Vehowner"]["Attributes"]["mcs_nextmaintainmileage"];
                 this.mod.data.vehowner.nextmaintainat = res["Vehowner"]["Attributes"]["mcs_nextmaintainat@OData.Community.Display.V1.FormattedValue"];
             }
-            if (res.CustomerfollowuplogList != null) {
+            if (!this._valid.isNull(res.CustomerfollowuplogList)) {
                 for (var key in res.CustomerfollowuplogList) {
                     var obj = {};
                     obj["remark"] = res.CustomerfollowuplogList[key]["Attributes"]["mcs_remark"];
@@ -70,7 +70,7 @@ let DetailPage = class DetailPage {
                     this.mod.data.customerfollowuplogArray.push(obj);
                 }
             }
-            if (res.TagList != null) {
+            if (!this._valid.isNull(res.TagList)) {
                 for (var key in res.TagList) {
                     var obj = {};
                     obj["name"] = res.TagList[key]["Attributes"]["_mcs_taggroupid_value@OData.Community.Display.V1.FormattedValue"];
@@ -92,7 +92,9 @@ DetailPage = tslib_1.__decorate([
         styleUrls: ['./detail.page.scss'],
     }),
     tslib_1.__metadata("design:paramtypes", [DCore_Http,
-        DCore_Page, typeof (_a = typeof ActivatedRoute !== "undefined" && ActivatedRoute) === "function" ? _a : Object])
+        DCore_Page,
+        DCore_Valid,
+        ActivatedRoute])
 ], DetailPage);
 export { DetailPage };
 //# sourceMappingURL=detail.page.js.map

@@ -124,6 +124,8 @@
     <Content Include="src\app\serving\mc-sc.com\success\success.page.scss" />
     <Content Include="src\app\serving\my-customer.com\detail\detail.page.html" />
     <Content Include="src\app\serving\my-customer.com\detail\detail.page.scss" />
+    <Content Include="src\app\serving\my-customer.com\edit\edit.page.html" />
+    <Content Include="src\app\serving\my-customer.com\edit\edit.page.scss" />
     <Content Include="src\app\serving\my-customer.com\list\list.page.html" />
     <Content Include="src\app\serving\my-customer.com\list\list.page.scss" />
     <Content Include="src\app\serving\my-customer.com\select\select.page.html" />
@@ -687,6 +689,9 @@
     <TypeScriptCompile Include="src\app\serving\my-customer.com\detail\detail.module.ts" />
     <TypeScriptCompile Include="src\app\serving\my-customer.com\detail\detail.page.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\my-customer.com\detail\detail.page.ts" />
+    <TypeScriptCompile Include="src\app\serving\my-customer.com\edit\edit.module.ts" />
+    <TypeScriptCompile Include="src\app\serving\my-customer.com\edit\edit.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\serving\my-customer.com\edit\edit.page.ts" />
     <TypeScriptCompile Include="src\app\serving\my-customer.com\list\list.module.ts" />
     <TypeScriptCompile Include="src\app\serving\my-customer.com\list\list.page.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\my-customer.com\list\list.page.ts" />
@@ -936,6 +941,7 @@
     <Folder Include="src\app\serving\my-customer.com\" />
     <Folder Include="src\app\serving\home.com\" />
     <Folder Include="src\app\serving\my-customer.com\detail\" />
+    <Folder Include="src\app\serving\my-customer.com\edit\" />
     <Folder Include="src\app\serving\my-customer.com\list\" />
     <Folder Include="src\app\serving\my-customer.com\select\" />
     <Folder Include="src\app\serving\spmdspstock.com\" />

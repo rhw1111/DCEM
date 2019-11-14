@@ -136,6 +136,12 @@
                 </ion-item>
 
             </ion-list>
+
+            <section style="text-align:center;">
+                <ion-button (click)="toServiceproxyOnClick()" style="width:40%" color="danger">转服务委托书</ion-button>
+            </section>
+            <br />
+            <br />
         </div>
         <div *ngSwitchCase="'check'">
 
@@ -172,12 +178,12 @@
 
                 </div>
                 <ion-item *ngIf="objectKeys(mod.data.vehcheckresultMap).length===0">
-            <ion-label>
-                <p>
-                    当前单据没有环检项
-                </p>
-            </ion-label>
-        </ion-item>
+                    <ion-label>
+                        <p>
+                            当前单据没有环检项
+                        </p>
+                    </ion-label>
+                </ion-item>
             </ion-list>
 
         </div>
@@ -211,6 +217,10 @@
 
         </div>
     </div>
+
+
+
+
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button>
             <ion-icon name="arrow-dropup"></ion-icon>

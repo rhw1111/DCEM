@@ -35,14 +35,16 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         {
             try
             {
-                var fetchString = _vehorderRepository.GetVehorderList(vehorderRequest);
-           
+                var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+                var ProxyUserId = userInfo != null ? userInfo.systemuserid : null;
+
+                var fetchString = _vehorderRepository.GetVehorderList(vehorderRequest);           
                 var fetchXdoc = XDocument.Parse(fetchString);
                 var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {
                     EntityName = "mcs_vehorder",
                     FetchXml = fetchXdoc,
-                    ProxyUserId = Guid.Parse(vehorderRequest.UserId)
+                    ProxyUserId = ProxyUserId
                 };
                 var fetchResponse = await _crmService.Execute(fetchRequest);
                 var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;

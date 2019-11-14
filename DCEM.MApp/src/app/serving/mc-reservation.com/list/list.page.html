@@ -6,18 +6,18 @@
         <ion-title>预约单</ion-title>
     </ion-toolbar>
     <ion-toolbar>
-        <ion-searchbar [(ngModel)]="this.model.seachkey" placeholder="支持姓名\手机号\车牌号搜索模糊查找" (keyup)="search($event)"></ion-searchbar>
+        <ion-searchbar [(ngModel)]="this.model.seachkey" placeholder="支持姓名\手机号\车牌号查找" (keyup)="search($event)"></ion-searchbar>
     </ion-toolbar>
     <ion-toolbar>
         <ion-segment>
             <ion-segment-button checked (click)="selectTab(0)">
-                <ion-label>全部</ion-label>
+                <ion-label>全部({{model.aLLTotalCount}})</ion-label>
             </ion-segment-button >
             <ion-segment-button (click)="selectTab(10)">
-                <ion-label>待跟进</ion-label>
+                <ion-label>待跟进({{model.followingCount}})</ion-label>
             </ion-segment-button>
             <ion-segment-button (click)="selectTab(20)">
-                <ion-label>已跟进</ion-label>
+                <ion-label>已跟进({{model.followedCount}})</ion-label>
             </ion-segment-button>
         </ion-segment>
     </ion-toolbar>

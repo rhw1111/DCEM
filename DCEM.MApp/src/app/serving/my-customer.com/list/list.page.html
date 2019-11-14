@@ -42,8 +42,11 @@
                     {{item.mobilephone}}
                 </ion-note>
             </ion-item>
-            <ion-item-options side="end" [routerLink]="['/serving/mycustomer/edit']" [queryParams]="{id:item.Id,actionCode:2}">
-                <ion-item-option color="tertiary" expandable>
+            <ion-item-options side="end">
+                <ion-item-option color="success" expandable [routerLink]="['/serving/reservation/edit']" [queryParams]="{customerid:item.Id}">
+                    预约
+                </ion-item-option>
+                <ion-item-option color="tertiary" expandable [routerLink]="['/serving/mycustomer/edit']" [queryParams]="{id:item.Id,actionCode:2}">
                     编辑
                 </ion-item-option>
             </ion-item-options>

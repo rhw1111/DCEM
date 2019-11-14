@@ -50,7 +50,6 @@ export class DetailPage implements OnInit {
     ) {}
 
     ngOnInit() {
-        debugger;
         this.activeRoute.queryParams.subscribe((data: Params) => {
             if (data['id'] != null && data['id'] != undefined) {
                 console.log("记录Id:" + this.model.infolist.mcs_appointmentinfoid);

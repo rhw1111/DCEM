@@ -121,22 +121,20 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
         }
 
         /// <summary>
-        /// 根据唯一线索查询培育任务的fetchString
+        /// 根据条件查询培育任务的fetchString
         /// </summary>
         /// <param name="activityrequest"></param>
         /// <returns></returns>
         public string GetActivityList(ActivityRequest activityrequest)
         {
             var filter = string.Empty;
-            //if (!string.IsNullOrWhiteSpace(onlyLeadRequest.Search))
-            //{
-            //    filter += $"<filter type='or'>";
-            //    filter += $"<condition attribute='mcs_name' operator='like' value='%{onlyLeadRequest.Search}%' />";
-            //    filter += $"<condition attribute='mcs_userid' operator='like' value='%{onlyLeadRequest.Search}%' />";
-            //    filter += $"<condition attribute='mcs_mobilephone' operator='like' value='%{onlyLeadRequest.Search}%' />";
-            //    filter += $"<condition attribute='mcs_emailaddress1' operator='like' value='%{onlyLeadRequest.Search}%' />";
-            //    filter += $"</filter>";
-            //}
+            if (!string.IsNullOrWhiteSpace(activityrequest.SearchKey))
+            {
+                //filter += $"<filter type='or'>";
+                //filter += $"<condition attribute='mcs_name' operator='like' value='%{activityrequest.SearchKey}%' />";
+                //filter += $"<condition attribute='mcs_userid' operator='like' value='%{activityrequest.SearchKey}%' />";         
+                //filter += $"</filter>";
+            }
             if (activityrequest.entityid != null)
             {
                 filter += $"<filter type='and'>";

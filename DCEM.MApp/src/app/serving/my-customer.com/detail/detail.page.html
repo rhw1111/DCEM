@@ -225,7 +225,7 @@
         </ion-fab-button>
         <ion-fab-list side="top">
             <ion-fab-button color="success" [routerLink]="['/serving/mycustomer/edit']"><ion-icon name="add"></ion-icon></ion-fab-button>
-            <ion-fab-button color="warning" [routerLink]="['/serving/mycustomer/edit']"><ion-icon name="create"></ion-icon></ion-fab-button>
+            <ion-fab-button color="warning" [routerLink]="['/serving/mycustomer/edit']" [queryParams]="{id:mod.data.id,actionCode:2}"><ion-icon name="create"></ion-icon></ion-fab-button>
         </ion-fab-list>
     </ion-fab>
 

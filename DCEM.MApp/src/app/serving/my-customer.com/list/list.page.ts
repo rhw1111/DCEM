@@ -35,8 +35,20 @@ export class ListPage implements OnInit {
     }
 
     ngOnInit() {
+        //this.listOnBind();
+    }
+
+    //每次页面加载
+    ionViewWillEnter() {
+        this.mod.data = [];
+        this.mod.searchData = {
+            type: 1,
+            pageindex: 1,
+            search: ""
+        };
         this.listOnBind();
     }
+
 
     //下拉刷新
     doInfinite(event) {
@@ -100,6 +112,7 @@ export class ListPage implements OnInit {
                         else if (obj["gender"] === 3) {
                             obj["gendercolor"] = "medium";
                         }
+
                         this.mod.data.push(obj);
                     }
 

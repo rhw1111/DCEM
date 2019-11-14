@@ -52,7 +52,6 @@ export class DetailPage implements OnInit {
         });
     }
 
-
     pageOnBind(id: any) {
 
         this.mod.data.serviceproxy.id = id;
@@ -113,13 +112,32 @@ export class DetailPage implements OnInit {
             }
         );
     }
-
-
     //删除事件
     deleteOnClick() {
         this._page.confirm("确认提示", "您确认要执行此操作吗？",
             () => {
                 this._http.get(
+                    this.mod.delUrl,
+                    {
+                        params: {
+                            serviceproxyGuid: this.mod.data.serviceproxy.id
+                        }
+                    },
+                    (res: any) => {
+                        this._page.navigateRoot("/serving/ri/list");
+                    },
+                    (err: any) => {
+                        this._page.alert("消息提示", "删除失败!");
+                    }
+                );
+            }
+        )
+    }
+    //转服务委托书
+    toServiceproxyOnClick() {
+        this._page.confirm("确认提示", "您确认要执行此操作吗？",
+            () => {
+                this._http.post(
                     this.mod.delUrl,
                     {
                         params: {
