@@ -615,100 +615,412 @@ const blockedTags = ['script', 'style', 'iframe', 'meta', 'link', 'object', 'emb
 
 /***/ }),
 
-/***/ "./src/app/base/base.ser/logininfo.storage.ts":
-/*!****************************************************!*\
-  !*** ./src/app/base/base.ser/logininfo.storage.ts ***!
-  \****************************************************/
-/*! exports provided: Storage_LoginInfo */
+/***/ "./node_modules/silly-datetime/dest/index.js":
+/*!***************************************************!*\
+  !*** ./node_modules/silly-datetime/dest/index.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * 将输入的任意对象转换成 Date，如果装换失败将返回当前时间
+ * @param  {any} datetime 需要被格式化的时间
+ * @return {Date}         转换好的 Date
+ */
+function getDateObject(datetime) {
+  var t = datetime instanceof Date ? datetime : new Date(datetime);
+  if (!t.getDate()) {
+    t = new Date();
+  }
+  return t;
+}
+
+/**
+ * 格式化时间
+ * @param  {Date}   datetime  需要被格式化的时间
+ * @param  {string} formatStr 格式化字符串，默认为 'YYYY-MM-DD HH:mm:ss'
+ * @return {string}           格式化后的时间字符串
+ */
+function format(datetime, formatStr) {
+  var t = getDateObject(datetime);
+  var hours = undefined,
+      o = undefined,
+      i = 0;
+  formatStr = formatStr || 'YYYY-MM-DD HH:mm:ss';
+  hours = t.getHours();
+  o = [['M+', t.getMonth() + 1], ['D+', t.getDate()],
+  // H 24小时制
+  ['H+', hours],
+  // h 12小时制
+  ['h+', hours > 12 ? hours - 12 : hours], ['m+', t.getMinutes()], ['s+', t.getSeconds()]];
+  // 替换 Y
+  if (/(Y+)/.test(formatStr)) {
+    formatStr = formatStr.replace(RegExp.$1, (t.getFullYear() + '').substr(4 - RegExp.$1.length));
+  }
+  // 替换 M, D, H, h, m, s
+  for (; i < o.length; i++) {
+    if (new RegExp('(' + o[i][0] + ')').test(formatStr)) {
+      formatStr = formatStr.replace(RegExp.$1, RegExp.$1.length === 1 ? o[i][1] : ('00' + o[i][1]).substr(('' + o[i][1]).length));
+    }
+  }
+  // 替换 a/A 为 am, pm
+  return formatStr.replace(/a/ig, hours > 11 ? 'pm' : 'am');
+}
+
+/**
+ * CONST and VAR for .fromNow
+ */
+// 预设语言：英语
+var LOCALE_EN = {
+  future: 'in %s',
+  past: '%s ago',
+  s: 'a few seconds',
+  mm: '%s minutes',
+  hh: '%s hours',
+  dd: '%s days',
+  MM: '%s months',
+  yy: '%s years'
+};
+// 预设语言：简体中文
+var LOCALE_ZH_CN = {
+  future: '%s内',
+  past: '%s前',
+  s: '几秒',
+  mm: '%s分钟',
+  hh: '%s小时',
+  dd: '%s天',
+  MM: '%s月',
+  yy: '%s年'
+};
+// 当前本地化语言对象
+var _curentLocale = undefined;
+
+/**
+ * 修改本地化语言
+ * @param  {string|Object}   string: 预设语言 `zh-cn` 或 `en`；Object: 自定义 locate 对象
+ */
+function locate(arg) {
+  var newLocale = undefined,
+      prop = undefined;
+  if (typeof arg === 'string') {
+    newLocale = arg === 'zh-cn' ? LOCALE_ZH_CN : LOCALE_EN;
+  } else {
+    newLocale = arg;
+  }
+  if (!_curentLocale) {
+    _curentLocale = {};
+  }
+  for (prop in newLocale) {
+    if (newLocale.hasOwnProperty(prop) && typeof newLocale[prop] === 'string') {
+      _curentLocale[prop] = newLocale[prop];
+    }
+  }
+}
+
+/**
+ * CONST for .fromNow
+ */
+// 各计算区间
+var DET_STD = [['yy', 31536e6], // 1000 * 60 * 60 * 24 * 365 一年月按 365 天算
+['MM', 2592e6], // 1000 * 60 * 60 * 24 * 30 一个月按 30 天算
+['dd', 864e5], // 1000 * 60 * 60 * 24
+['hh', 36e5], // 1000 * 60 * 60
+['mm', 6e4], // 1000 * 60
+['s', 0]];
+
+/**
+ * 计算给出时间和当前时间的时间距离
+ * @param  {Date}   datetime 需要计算的时间
+ * @return {string}          时间距离
+ */
+// 只要大于等于 0 都是秒
+function fromNow(datetime) {
+  if (!_curentLocale) {
+    // 初始化本地化语言为 en
+    locate('');
+  }
+  var det = +new Date() - +getDateObject(datetime);
+  var format = undefined,
+      str = undefined,
+      i = 0,
+      detDef = undefined,
+      detDefVal = undefined;
+  if (det < 0) {
+    format = _curentLocale.future;
+    det = -det;
+  } else {
+    format = _curentLocale.past;
+  }
+  for (; i < DET_STD.length; i++) {
+    detDef = DET_STD[i];
+    detDefVal = detDef[1];
+    if (det >= detDefVal) {
+      str = _curentLocale[detDef[0]].replace('%s', parseInt(det / detDefVal, 0) || 1);
+      break;
+    }
+  }
+  return format.replace('%s', str);
+}
+
+exports.format = format;
+exports.locate = locate;
+exports.fromNow = fromNow;
+
+/***/ }),
+
+/***/ "./src/app/saleing/saleing.ser/optionset.service.ts":
+/*!**********************************************************!*\
+  !*** ./src/app/saleing/saleing.ser/optionset.service.ts ***!
+  \**********************************************************/
+/*! exports provided: OptionSetService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Storage_LoginInfo", function() { return Storage_LoginInfo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OptionSetService", function() { return OptionSetService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 
 
-let Storage_LoginInfo = 
-/*
-用户信息
-*/
-class Storage_LoginInfo {
-    constructor() {
-        this.userinfo = "logo_userinfo";
+let OptionSetService = 
+/**
+ * 选项集定义，后续优化通过接口获取
+ */
+class OptionSetService {
+    /**
+     * 通过选项名称,及value值获取option显示名称
+     * @param optionname 选项集名称
+     * @param value 选项集值
+     */
+    GetOptionSetNameByValue(optionname, value) {
+        var result = "--";
+        var obj = this.Get(optionname);
+        if (obj != null && obj.length > 0) {
+            for (var i = 0; i < obj.length; i++) {
+                if (value == obj[i]["value"]) {
+                    return obj[i]["name"];
+                }
+            }
+        }
+        return result;
     }
-    SetInfo(data) {
-        window.localStorage.setItem(this.userinfo, data);
+    /**
+     * 通过选项名称获取option值
+     * @param optionname 选项集名称
+     * @param name 选项名称
+     */
+    GetOptionSetValueByName(optionname, name) {
+        var result = "";
+        var obj = this.Get(optionname);
+        if (obj != null && obj.length > 0) {
+            for (var i = 0; i < obj.length; i++) {
+                if (name == obj[i]["name"]) {
+                    return obj[i]["value"];
+                }
+            }
+        }
+        return result;
     }
-    GetUserInfo() {
-        var data = window.localStorage.getItem(this.userinfo);
-        return JSON.parse(data);
-    }
-    //获取token
-    GetToken() {
-        var data = this.GetUserInfo();
-        if (data != null)
-            return data.access_token;
-        return null;
-    }
-    //获取用户userid
-    GetSystemUserId() {
-        var data = this.GetUserInfo();
-        if (data != null)
-            return data.systemuserid;
-        return null;
-    }
-    //获取用户名称
-    GetDomainname() {
-        var data = this.GetUserInfo();
-        if (data != null)
-            return data.domainname;
-        return null;
-    }
-    //用户名
-    GetLastname() {
-        var data = this.GetUserInfo();
-        if (data != null)
-            return data.lastname;
-        return null;
-    }
-    //姓
-    GetFirstname() {
-        var data = this.GetUserInfo();
-        if (data != null)
-            return data.firstname;
-        return null;
-    }
-    //工号
-    GetStaffid() {
-        var data = this.GetUserInfo();
-        if (data != null)
-            return data.mcs_staffid;
-        return null;
-    }
-    //经销商编码
-    GetDealerid() {
-        var data = this.GetUserInfo();
-        if (data != null)
-            return data.mcs_dealerid;
-        return null;
-    }
-    //经销商名称
-    GetDealername() {
-        var data = this.GetUserInfo();
-        if (data != null)
-            return data.mcs_dealername;
-        return null;
+    /**
+     * 静态数据通用
+     * @param name
+     */
+    Get(name) {
+        let optionlist = [];
+        switch (name) {
+            case "towoption": //是否选项集
+                optionlist = [
+                    { "name": "否", "value": 0 },
+                    { "name": "是", "value": 1 }
+                ];
+                break;
+            case "mcs_gender": //称呼
+                optionlist = [
+                    { "name": "先生", "value": 1 },
+                    { "name": "女士", "value": 2 },
+                    { "name": "未知", "value": 3 }
+                ];
+                break;
+            case "mcs_level": //意向等级
+                optionlist = [
+                    { "name": "预计90天内成交", "value": 0 },
+                    { "name": "预计3~6个月内成交", "value": 1 },
+                    { "name": "预计6~12个月内成交", "value": 2 },
+                    { "name": "预计12个月以上成交", "value": 3 },
+                    { "name": "战败", "value": 5 },
+                    { "name": "订单 ", "value": 6 }
+                ];
+                break;
+            case "mcs_purchasepurpose": //车辆用途
+                optionlist = [
+                    { "name": "家用", "value": 0 },
+                    { "name": "运营", "value": 1 },
+                    { "name": "其他", "value": 2 }
+                ];
+                break;
+            case "mcs_purchaseway": //购买方式
+                optionlist = [
+                    { "name": "全款", "value": 0 },
+                    { "name": "贷款", "value": 1 }
+                ];
+                break;
+            case "mcs_generation": //年龄段
+                optionlist = [
+                    { "name": "18岁以下", "value": 0 },
+                    { "name": "18~25岁", "value": 1 },
+                    { "name": "26~35岁", "value": 2 },
+                    { "name": "36~45岁", "value": 3 },
+                    { "name": "46~55岁", "value": 4 },
+                    { "name": "56岁以上", "value": 5 }
+                ];
+                break;
+            case "mcs_carereason": //购买原因
+                optionlist = [
+                    { "name": "环保", "value": 9 },
+                    { "name": "科技", "value": 10 },
+                    { "name": "安全", "value": 6 },
+                    { "name": "性能", "value": 11 },
+                    { "name": "售后成本", "value": 12 },
+                    { "name": "品牌", "value": 2 },
+                    { "name": "价格", "value": 3 },
+                    { "name": "配置", "value": 4 },
+                    { "name": "服务", "value": 5 },
+                    { "name": "舒适性", "value": 7 },
+                    { "name": "残值", "value": 8 }
+                ];
+                break;
+            case "mcs_vehicleusers": //车辆使用人
+                optionlist = [
+                    { "name": "自己", "value": 1 },
+                    { "name": "妻子", "value": 2 },
+                    { "name": "子女", "value": 3 }
+                ];
+                break;
+            case "mcs_leadorigin": //线索来源
+                optionlist = [
+                    { "name": "WEB官网", "value": 1 },
+                    { "name": "Event-Online", "value": 2 },
+                    { "name": "Event-OffLine", "value": 3 },
+                    { "name": "Store展厅", "value": 4 },
+                    { "name": "400电话", "value": 5 },
+                    { "name": "APP", "value": 6 },
+                    { "name": "小程序", "value": 7 },
+                    { "name": "车机", "value": 8 },
+                    { "name": "H5落地页", "value": 9 },
+                    { "name": "3D展厅", "value": 10 }
+                ];
+                break;
+            case "mcs_importantlevel": //培育任务-重要级别
+                optionlist = [
+                    { "name": "高", "value": 0 },
+                    { "name": "中", "value": 1 },
+                    { "name": "低", "value": 2 }
+                ];
+                break;
+            case "mcs_activitystatus": //培育任务-任务状态
+                optionlist = [
+                    { "name": "open", "value": 0 },
+                    { "name": "closed", "value": 1 }
+                ];
+                break;
+            default:
+                optionlist = [];
+                break;
+            case "lead_mcs_accountpoints": //原始线索评分
+                optionlist = [
+                    { "name": "1分", "value": 1 },
+                    { "name": "2分", "value": 2 },
+                    { "name": "3分", "value": 3 }
+                ];
+                break;
+            case "lead_mcs_leadorigin": //原始线索来源
+                optionlist = [
+                    { "name": "WEB官网", "value": 1 },
+                    { "name": "Event-Online", "value": 2 },
+                    { "name": "Event-OffLine", "value": 3 },
+                    { "name": "Store展厅", "value": 4 },
+                    { "name": "400电话", "value": 5 },
+                    { "name": "APP", "value": 6 },
+                    { "name": "小程序", "value": 7 },
+                    { "name": "车机", "value": 8 },
+                    { "name": "H5落地页", "value": 9 },
+                    { "name": "3D展厅", "value": 10 }
+                ];
+                break;
+            case "lead_mcs_gender": //原始线索称呼
+                optionlist = [
+                    { "name": "先生", "value": 1 },
+                    { "name": "女士", "value": 2 },
+                    { "name": "未知", "value": 3 }
+                ];
+                break;
+            case "mcs_customerstatus": //销售机会状态
+                optionlist = [
+                    { "name": "待指派", "value": 1 },
+                    { "name": "已指派", "value": 2 },
+                    { "name": "申请战败", "value": 3 },
+                    { "name": "已成交", "value": 4 },
+                    { "name": "已战败", "value": 5 },
+                    { "name": "已关闭", "value": 6 }
+                ];
+                break;
+            case "mcs_deliverystatus": //整车销售-交车单-交车单状态
+                optionlist = [
+                    { "name": "全部", "value": -1 },
+                    { "name": "待预约", "value": 1 },
+                    { "name": "待检测", "value": 2 },
+                    { "name": "已检测", "value": 3 },
+                    { "name": "已预约", "value": 4 },
+                    { "name": "已收尾款", "value": 5 },
+                    { "name": "车联网已开通", "value": 6 },
+                    { "name": "交车完成", "value": 7 },
+                    { "name": "作废", "value": 99 }
+                ];
+                break;
+            case "mcs_rostatus": //整车销售-整车订单状态
+                optionlist = [
+                    { "name": "订金待支付", "value": 1 },
+                    { "name": "订金已支付", "value": 2 },
+                    { "name": "订单确认", "value": 3 },
+                    { "name": "等待排产", "value": 4 },
+                    { "name": "生产中", "value": 5 },
+                    { "name": "车辆在途", "value": 6 },
+                    { "name": "等待交车", "value": 7 },
+                    { "name": "车联网已开通", "value": 8 },
+                    { "name": "交车完成", "value": 9 },
+                    { "name": "作废", "value": 99 }
+                ];
+                break;
+            case "mcs_approvalstatus": //整车销售-整车订单审批状态
+                optionlist = [
+                    { "name": "待审核", "value": 0 },
+                    { "name": "审核通过", "value": 1 },
+                    { "name": "审核不通过", "value": 2 }
+                ];
+                break;
+            case "mcs_paycategory": //整车销售-收款记录-收款类型 
+                optionlist = [
+                    { "name": "贷款", "value": 0 },
+                    { "name": "定金", "value": 1 },
+                    { "name": "尾款", "value": 2 },
+                    { "name": "抵扣", "value": 3 }
+                ];
+                break;
+        }
+        return optionlist;
     }
 };
-Storage_LoginInfo = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+OptionSetService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
         providedIn: 'root'
     })
-    /*
-    用户信息
-    */
-], Storage_LoginInfo);
+    /**
+     * 选项集定义，后续优化通过接口获取
+     */
+], OptionSetService);
 
 
 

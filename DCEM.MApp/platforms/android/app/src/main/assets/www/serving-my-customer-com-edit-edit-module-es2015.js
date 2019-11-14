@@ -87,6 +87,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var app_serving_serving_ser_components_select_carmodel_select_carmodel_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/serving/serving.ser/components/select-carmodel/select-carmodel.component */ "./src/app/serving/serving.ser/components/select-carmodel/select-carmodel.component.ts");
+/* harmony import */ var app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! app/base/base.ser/logininfo.storage */ "./src/app/base/base.ser/logininfo.storage.ts");
+
 
 
 
@@ -94,7 +96,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let EditPage = class EditPage {
-    constructor(_modalCtrl, _navCtrl, _toastCtrl, _http, _page, _shareData, _valid, _activeRoute) {
+    constructor(_modalCtrl, _navCtrl, _toastCtrl, _http, _page, _shareData, _valid, _activeRoute, _loginInfo) {
         this._modalCtrl = _modalCtrl;
         this._navCtrl = _navCtrl;
         this._toastCtrl = _toastCtrl;
@@ -103,10 +105,11 @@ let EditPage = class EditPage {
         this._shareData = _shareData;
         this._valid = _valid;
         this._activeRoute = _activeRoute;
+        this._loginInfo = _loginInfo;
         this.mod = {
             queryUrl: '/Api/Customer/GetCustomerInfo',
-            data: {},
-            shareDataKey: "customerEditData",
+            postUrl: '/Api/Customer/AddOrUpdate',
+            data: {}
         };
         //定义共享数据
         this.shareData = {
@@ -120,7 +123,6 @@ let EditPage = class EditPage {
     ngOnInit() {
         const that = this;
         this.ionBackButtonDelegate.onClick = function (event) {
-            that._shareData.delete(that.mod.shareDataKey);
             that._page.navigateRoot("/serving/mycustomer/list", null, "back");
         };
     }
@@ -140,23 +142,16 @@ let EditPage = class EditPage {
     }
     ionViewWillEnter() {
         this._activeRoute.queryParams.subscribe((params) => {
-            if (this._shareData.has(this.mod.shareDataKey)) {
-                this.shareData = this._shareData.get(this.mod.shareDataKey);
+            if (!this._valid.isNull(params['id']) && !this._valid.isNull(params['actionCode'])) {
+                this.shareData.actioncode = Number(params['actionCode']);
+                this.shareData.id = params['id'];
+            }
+            if (this.shareData.actioncode === 2) {
+                this.shareData.viewTitle = "编辑客户";
+                this.pageOnBind(this.shareData.id);
             }
             else {
-                if (!this._valid.isNull(params['id']) && !this._valid.isNull(params['actionCode'])) {
-                    this.shareData.actioncode = Number(params['actionCode']);
-                    this.shareData.id = params['id'];
-                }
-                if (this.shareData.actioncode === 2) {
-                    if (!this._shareData.has(this.mod.shareDataKey)) {
-                        this.shareData.viewTitle = "编辑客户";
-                        this.pageOnBind(this.shareData.id);
-                    }
-                }
-                else {
-                    this.shareData.viewTitle = "创建客户";
-                }
+                this.shareData.viewTitle = "创建客户";
             }
         });
     }
@@ -198,8 +193,29 @@ let EditPage = class EditPage {
             this._page.presentToastError(errMessage);
             return;
         }
-        this._shareData.set(this.mod.shareDataKey, this.shareData);
-        //this._page.goto("/serving/ri/edit2");
+        var postData = {};
+        postData["Vehowner"] = this.shareData.vehowner;
+        postData["Carserviceadvisor"] = this.shareData.carserviceadvisor;
+        postData["actionCode"] = this.shareData.actioncode;
+        postData["dealerid"] = this._loginInfo.GetDealerid();
+        //提交数据保存
+        this._page.loadingShow();
+        this._http.post(this.mod.postUrl, postData, (res) => {
+            this._page.loadingHide();
+            console.log(res);
+            if (res.Result == true) {
+                const that = this;
+                this._page.alert("消息提示", "操作成功", function () {
+                    that._page.goBack();
+                });
+            }
+            else {
+                this._page.alert("消息提示", "操作失败");
+            }
+        }, (err) => {
+            this._page.loadingHide();
+            this._page.alert("消息提示", "操作失败");
+        });
     }
 };
 EditPage.ctorParameters = () => [
@@ -210,7 +226,8 @@ EditPage.ctorParameters = () => [
     { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"] },
     { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_ShareData"] },
     { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Valid"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"] },
+    { type: app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_6__["Storage_LoginInfo"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonBackButton"], null),
@@ -233,7 +250,8 @@ EditPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"],
         app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_ShareData"],
         app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Valid"],
-        _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"]])
+        _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"],
+        app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_6__["Storage_LoginInfo"]])
 ], EditPage);
 
 

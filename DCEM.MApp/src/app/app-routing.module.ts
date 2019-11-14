@@ -183,13 +183,13 @@ const routes: Routes = [
                 ]
             }
         ]
-    },  { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
-
-
-
- 
-
-
+    },
+    {
+        path: 'demo',//ng.mobile.ant demo
+        children: [
+            { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
+        ]
+    }
 ];
 
 @NgModule({

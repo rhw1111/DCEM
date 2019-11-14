@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-back-button text=\"返回\" defaultHref=\"/saleing/account/list\"></ion-back-button>\n    </ion-buttons>\n    <ion-title>销售机会详情</ion-title>\n  </ion-toolbar>\n\n  <ion-toolbar>\n    <ion-segment [(ngModel)]=\"tab\">\n      <ion-segment-button value=\"info\">\n        <ion-label>基础信息</ion-label>\n      </ion-segment-button>\n      <ion-segment-button value=\"logcall\" (click)=\"LogcallTabLoading()\">\n        <ion-label>联络记录</ion-label>\n      </ion-segment-button>\n      <ion-segment-button value=\"activity\">\n        <ion-label>培育任务</ion-label>\n      </ion-segment-button>\n    </ion-segment>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <div [ngSwitch]=\"tab\">\n    <div *ngSwitchCase=\"'info'\">\n      <ion-item-group>\n        <ion-item-divider color=\"primary\">\n          <ion-label>客户信息</ion-label>\n        </ion-item-divider>\n        <ion-item>\n          <ion-label>\n            <h2>机会编号</h2>\n          </ion-label>\n          <ion-note slot=\"end\">\n            <p>{{this.mod.data.Account.accountnumber}}</p>\n          </ion-note>\n        </ion-item>\n        <ion-item>\n          <ion-label>\n            <h2>状态</h2>\n          </ion-label>\n          <ion-note slot=\"end\">\n            <p>{{this.mod.data.Account.mcs_customerstatusname}}</p>\n          </ion-note>\n        </ion-item>\n        <ion-item>\n          <ion-label>\n            <h2>姓名</h2>\n          </ion-label>\n          <ion-note slot=\"end\">\n            <p>{{this.mod.data.Account.name}}</p>\n          </ion-note>\n        </ion-item>\n        <ion-item>\n          <ion-label>\n            <h2>手机号</h2>\n          </ion-label>\n          <ion-note slot=\"end\">\n            <p>{{this.mod.data.Account.mcs_mobilephone}}</p>\n          </ion-note>\n        </ion-item>\n        <ion-item>\n          <ion-label>\n            <h2>称呼</h2>\n          </ion-label>\n          <ion-note slot=\"end\">\n            <p>{{this.mod.data.Account.mcs_gender}}</p>\n          </ion-note>\n        </ion-item>\n\n        <ion-item>\n          <ion-label>\n            <h2>引荐车主</h2>\n          </ion-label>\n          <ion-note slot=\"end\">\n            <p>{{this.mod.data.Account.mcs_introducecarowner}}</p>\n          </ion-note>\n        </ion-item>\n        <ion-item>\n          <ion-label>\n            <h2>小订单号</h2>\n          </ion-label>\n          <ion-note slot=\"end\">\n            <p>{{this.mod.data.Account.mcs_smallorderid}}</p>\n          </ion-note>\n        </ion-item>\n        <ion-item>\n          <ion-label>\n            <h2>大订单号</h2>\n          </ion-label>\n          <ion-note slot=\"end\">\n            <p>{{this.mod.data.Account.mcs_tc_order}}</p>\n          </ion-note>\n        </ion-item>\n      </ion-item-group>\n      <ion-item-group>\n        <ion-item-divider color=\"primary\">\n          <ion-label>购车意向</ion-label>\n        </ion-item-divider>\n        <ion-item>\n          <ion-label>\n            <h2>意向等级</h2>\n          </ion-label>\n          <ion-note slot=\"end\">\n            <p>{{this.mod.data.Account.mcs_level}}</p>\n          </ion-note>\n        </ion-item>\n        <ion-item>\n          <ion-label>\n            <h2>预测成交日期</h2>\n          </ion-label>\n          <ion-note slot=\"end\">\n            <p>{{this.mod.data.Account.mcs_estimatedtransactiondate}}</p>\n          </ion-note>\n        </ion-item>\n        <ion-item>\n          <ion-label>\n            <h2>意向颜色</h2>\n          </ion-label>\n          <ion-note slot=\"end\">\n            <p>{{this.mod.data.Account.mcs_vehcolorid}}</p>\n          </ion-note>\n        </ion-item>\n        <ion-item>\n          <ion-label>\n            <h2>意向车型</h2>\n          </ion-label>\n          <ion-note slot=\"end\">\n            <p>{{this.mod.data.Account.mcs_vehtypeid}}</p>\n          </ion-note>\n        </ion-item>\n        <ion-item>\n          <ion-label>\n            <h2>购车用途</h2>\n          </ion-label>\n          <ion-note slot=\"end\">\n            <p>{{this.mod.data.Account.mcs_purchasepurpose}}</p>\n          </ion-note>\n        </ion-item>\n        <ion-item>\n          <ion-label>\n            <h2>车辆使用人</h2>\n          </ion-label>\n          <ion-note slot=\"end\">\n            <p>{{this.mod.data.Account.mcs_vehicleusers}}</p>\n          </ion-note>\n        </ion-item>\n        <ion-item>\n          <ion-label>\n            <h2>购车关注</h2>\n          </ion-label>\n          <ion-note slot=\"end\">\n            <p>{{this.mod.data.Account.mcs_carattention}}</p>\n          </ion-note>\n        </ion-item>\n        <ion-item>\n          <ion-label>\n            <h2>年龄段</h2>\n          </ion-label>\n          <ion-note slot=\"end\">\n            <p>{{this.mod.data.Account.mcs_generation}}</p>\n          </ion-note>\n        </ion-item>\n        <ion-item>\n          <ion-label>\n            <h2>购买方式</h2>\n          </ion-label>\n          <ion-note slot=\"end\">\n            <p>{{this.mod.data.Account.mcs_purchaseway}}</p>\n          </ion-note>\n        </ion-item>\n        <ion-item>\n          <ion-label>\n            <h2>竞品车型</h2>\n          </ion-label>\n          <ion-note slot=\"end\">\n            <p>{{this.mod.data.Account.mcs_competingtype}}</p>\n          </ion-note>\n        </ion-item>\n        <ion-item>\n          <ion-label>\n            <h2>关注原因</h2>\n          </ion-label>\n          <ion-note slot=\"end\">\n            <p>{{this.mod.data.Account.mcs_carereason}}</p>\n          </ion-note>\n        </ion-item>\n\n      </ion-item-group>\n      <ion-item-group>\n        <ion-item-divider color=\"primary\">\n          <ion-label>特殊备注</ion-label>\n        </ion-item-divider>\n        <ion-item detail>\n          <ion-label>\n            {{this.mod.data.Account.description}}\n          </ion-label>\n        </ion-item>\n      </ion-item-group>\n\n    </div>\n    <div *ngSwitchCase=\"'logcall'\">\n      <ion-list lines=\"full\">\n        <ion-item *ngFor=\"let item of mod.LogcallModel.list\" [routerLink]=\"['/saleing/account/detail']\"\n          [queryParams]=\"{id:item.Id}\">\n          <ion-icon slot=\"start\" name=\"call\" size=\"large\"></ion-icon>\n          <ion-label>\n            <h3>{{item.mcs_name}}</h3>\n            <p>{{item.mcs_content}}</p>\n          </ion-label>\n          <ion-note slot=\"end\">\n            {{item.mcs_visittime}}\n          </ion-note>\n        </ion-item>\n      </ion-list>\n    </div>\n    <div *ngSwitchCase=\"'activity'\">\n      <ion-list>\n        <ion-item *ngFor=\"let item of mod.ActivityModel.list\" [routerLink]=\"['/saleing/account/detail']\"\n          [queryParams]=\"{id:item.Id}\">\n          <ion-icon slot=\"start\" name=\"logo-whatsapp\" size=\"large\"></ion-icon>\n          <ion-label>\n            <h3>{{item.mcs_name}}</h3>\n            <p></p>\n          </ion-label>\n          <ion-note slot=\"end\">\n\n          </ion-note>\n        </ion-item>\n      </ion-list>\n    </div>\n  </div>\n\n  <ion-label *ngIf=\"ionInfiniteScroll.disabled\" text-center>\n      <p>\n        没有更多的记录显示啦\n      </p>\n  </ion-label>\n  <ion-infinite-scroll (ionInfinite)=\"DownLoadLogcall()\">\n      <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\">\n      </ion-infinite-scroll-content>\n    </ion-infinite-scroll>\n\n  <ion-fab *ngIf=\"tab=='info'\" vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\n    <ion-fab-button>\n      <ion-icon name=\"arrow-dropup\"></ion-icon>\n    </ion-fab-button>\n    <ion-fab-list side=\"top\">\n      <ion-fab-button *ngIf=\"mod.data.Account.mcs_customerstatus<4\" title=\"成交\" color=\"success\">\n        成交\n      </ion-fab-button>\n      <ion-fab-button *ngIf=\"mod.data.Account.mcs_customerstatus<4\" title=\"战败\" color=\"danger\">\n        战败\n      </ion-fab-button>\n      <ion-fab-button color=\"warning\" [routerLink]=\"['/saleing/account/edit']\">\n        <ion-icon name=\"add\"></ion-icon>\n      </ion-fab-button>\n    </ion-fab-list>\n  </ion-fab>\n  <ion-fab *ngIf=\"tab=='logcall'\" vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\n    <ion-fab-button [routerLink]=\"['/saleing/logcall/edit']\">\n      <ion-icon name=\"add\"></ion-icon>\n    </ion-fab-button>\n  </ion-fab>\n  <ion-fab *ngIf=\"tab=='activity'\" vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\n    <ion-fab-button [routerLink]=\"['/saleing/activity/edit']\" color=\"danger\">\n      <ion-icon name=\"add\"></ion-icon>\n    </ion-fab-button>\n  </ion-fab>\n</ion-content>"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/saleing/account/list\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>销售机会详情</ion-title>\r\n    </ion-toolbar>\r\n\r\n    <ion-toolbar>\r\n        <ion-segment [(ngModel)]=\"tab\">\r\n            <ion-segment-button value=\"info\">\r\n                <ion-label>基础信息</ion-label>\r\n            </ion-segment-button>\r\n            <ion-segment-button value=\"logcall\" (click)=\"LogcallTabLoading()\">\r\n                <ion-label>联络记录</ion-label>\r\n            </ion-segment-button>\r\n            <ion-segment-button value=\"activity\" (click)=\"LoadActivitylist()\">\r\n                <ion-label>培育任务</ion-label>\r\n            </ion-segment-button>\r\n        </ion-segment>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <div [ngSwitch]=\"tab\">\r\n        <div *ngSwitchCase=\"'info'\">\r\n            <ion-item-group>\r\n                <ion-item-divider color=\"primary\">\r\n                    <ion-label>客户信息</ion-label>\r\n                </ion-item-divider>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>机会编号</h2>\r\n                    </ion-label>\r\n                    <ion-note slot=\"end\">\r\n                        <p>{{this.mod.data.Account.accountnumber}}</p>\r\n                    </ion-note>\r\n                </ion-item>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>状态</h2>\r\n                    </ion-label>\r\n                    <ion-note slot=\"end\">\r\n                        <p>{{this.mod.data.Account.mcs_customerstatusname}}</p>\r\n                    </ion-note>\r\n                </ion-item>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>姓名</h2>\r\n                    </ion-label>\r\n                    <ion-note slot=\"end\">\r\n                        <p>{{this.mod.data.Account.name}}</p>\r\n                    </ion-note>\r\n                </ion-item>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>手机号</h2>\r\n                    </ion-label>\r\n                    <ion-note slot=\"end\">\r\n                        <p>{{this.mod.data.Account.mcs_mobilephone}}</p>\r\n                    </ion-note>\r\n                </ion-item>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>称呼</h2>\r\n                    </ion-label>\r\n                    <ion-note slot=\"end\">\r\n                        <p>{{this.mod.data.Account.mcs_gender}}</p>\r\n                    </ion-note>\r\n                </ion-item>\r\n\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>引荐车主</h2>\r\n                    </ion-label>\r\n                    <ion-note slot=\"end\">\r\n                        <p>{{this.mod.data.Account.mcs_introducecarowner}}</p>\r\n                    </ion-note>\r\n                </ion-item>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>小订单号</h2>\r\n                    </ion-label>\r\n                    <ion-note slot=\"end\">\r\n                        <p>{{this.mod.data.Account.mcs_smallorderid}}</p>\r\n                    </ion-note>\r\n                </ion-item>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>大订单号</h2>\r\n                    </ion-label>\r\n                    <ion-note slot=\"end\">\r\n                        <p>{{this.mod.data.Account.mcs_tc_order}}</p>\r\n                    </ion-note>\r\n                </ion-item>\r\n            </ion-item-group>\r\n            <ion-item-group>\r\n                <ion-item-divider color=\"primary\">\r\n                    <ion-label>购车意向</ion-label>\r\n                </ion-item-divider>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>意向等级</h2>\r\n                    </ion-label>\r\n                    <ion-note slot=\"end\">\r\n                        <p>{{this.mod.data.Account.mcs_level}}</p>\r\n                    </ion-note>\r\n                </ion-item>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>预测成交日期</h2>\r\n                    </ion-label>\r\n                    <ion-note slot=\"end\">\r\n                        <p>{{this.mod.data.Account.mcs_estimatedtransactiondate}}</p>\r\n                    </ion-note>\r\n                </ion-item>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>意向颜色</h2>\r\n                    </ion-label>\r\n                    <ion-note slot=\"end\">\r\n                        <p>{{this.mod.data.Account.mcs_vehcolorid}}</p>\r\n                    </ion-note>\r\n                </ion-item>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>意向车型</h2>\r\n                    </ion-label>\r\n                    <ion-note slot=\"end\">\r\n                        <p>{{this.mod.data.Account.mcs_vehtypeid}}</p>\r\n                    </ion-note>\r\n                </ion-item>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>购车用途</h2>\r\n                    </ion-label>\r\n                    <ion-note slot=\"end\">\r\n                        <p>{{this.mod.data.Account.mcs_purchasepurpose}}</p>\r\n                    </ion-note>\r\n                </ion-item>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>车辆使用人</h2>\r\n                    </ion-label>\r\n                    <ion-note slot=\"end\">\r\n                        <p>{{this.mod.data.Account.mcs_vehicleusers}}</p>\r\n                    </ion-note>\r\n                </ion-item>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>购车关注</h2>\r\n                    </ion-label>\r\n                    <ion-note slot=\"end\">\r\n                        <p>{{this.mod.data.Account.mcs_carattention}}</p>\r\n                    </ion-note>\r\n                </ion-item>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>年龄段</h2>\r\n                    </ion-label>\r\n                    <ion-note slot=\"end\">\r\n                        <p>{{this.mod.data.Account.mcs_generation}}</p>\r\n                    </ion-note>\r\n                </ion-item>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>购买方式</h2>\r\n                    </ion-label>\r\n                    <ion-note slot=\"end\">\r\n                        <p>{{this.mod.data.Account.mcs_purchaseway}}</p>\r\n                    </ion-note>\r\n                </ion-item>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>竞品车型</h2>\r\n                    </ion-label>\r\n                    <ion-note slot=\"end\">\r\n                        <p>{{this.mod.data.Account.mcs_competingtype}}</p>\r\n                    </ion-note>\r\n                </ion-item>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>关注原因</h2>\r\n                    </ion-label>\r\n                    <ion-note slot=\"end\">\r\n                        <p>{{this.mod.data.Account.mcs_carereason}}</p>\r\n                    </ion-note>\r\n                </ion-item>\r\n\r\n            </ion-item-group>\r\n            <ion-item-group>\r\n                <ion-item-divider color=\"primary\">\r\n                    <ion-label>特殊备注</ion-label>\r\n                </ion-item-divider>\r\n                <ion-item detail>\r\n                    <ion-label>\r\n                        {{this.mod.data.Account.description}}\r\n                    </ion-label>\r\n                </ion-item>\r\n            </ion-item-group>\r\n\r\n        </div>\r\n        <div *ngSwitchCase=\"'logcall'\">\r\n            <ion-list lines=\"full\">\r\n                <ion-item *ngFor=\"let item of mod.LogcallModel.list\" [routerLink]=\"['/saleing/account/detail']\"\r\n                          [queryParams]=\"{id:item.Id}\">\r\n                    <ion-icon slot=\"start\" name=\"call\" size=\"large\"></ion-icon>\r\n                    <ion-label>\r\n                        <h3>{{item.mcs_name}}</h3>\r\n                        <p>{{item.mcs_content}}</p>\r\n                    </ion-label>\r\n                    <ion-note slot=\"end\">\r\n                        {{item.mcs_visittime}}\r\n                    </ion-note>\r\n                </ion-item>\r\n            </ion-list>\r\n\r\n            <ion-label *ngIf=\"tab!='info' && ionInfiniteScroll.disabled\" text-center>\r\n                <p>\r\n                    没有更多的记录显示啦\r\n                </p>\r\n            </ion-label>\r\n            <ion-infinite-scroll (ionInfinite)=\"DownLoadLogcall()\">\r\n                <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\">\r\n                </ion-infinite-scroll-content>\r\n            </ion-infinite-scroll>\r\n        </div>\r\n        <div *ngSwitchCase=\"'activity'\">\r\n            <ion-list>\r\n             <ion-item-sliding *ngFor=\"let item of mod.ActivityModel.list\" >\r\n                <ion-item >     \r\n                    <ion-icon slot=\"start\" name=\"logo-whatsapp\" size=\"large\"></ion-icon>\r\n                    <ion-label>\r\n                            <h2>跟进时间：{{item.createdon}}</h2>                                          \r\n                            <p>任务状态：{{item.mcs_activitystatus}}</p>      \r\n                            <p>重要级别：{{item.mcs_importantlevel}}</p>      \r\n                            <p>本次跟进内容：{{item.mcs_thisfollowupcontent}}</p>              \r\n                        </ion-label>\r\n                </ion-item>\r\n                <ion-item-options side=\"end\">\r\n                        <ion-item-option color=\"tertiary\" [routerLink]=\"['/saleing/cultivatetask/edit']\" [queryParams]=\"{id:item.mcs_activityid}\">\r\n                            编辑\r\n                        </ion-item-option>               \r\n                </ion-item-options>\r\n            </ion-item-sliding>\r\n            <ion-row *ngIf=\"mod.ActivityModel.list.length==0\">\r\n                    <ion-col>\r\n                      <div class=\"ionattbody\">\r\n                         没有更多的记录显示啦 \r\n                      </div>\r\n                    </ion-col>  \r\n                  </ion-row>\r\n\r\n            </ion-list>\r\n\r\n            <ion-infinite-scroll (ionInfinite)=\"DownLoadLogcall()\">\r\n                <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\">\r\n                </ion-infinite-scroll-content>\r\n            </ion-infinite-scroll>\r\n        </div>\r\n    </div>\r\n\r\n    <ion-fab *ngIf=\"tab=='info'\" vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\r\n        <ion-fab-button>\r\n            <ion-icon name=\"arrow-dropup\"></ion-icon>\r\n        </ion-fab-button>\r\n        <ion-fab-list side=\"top\">\r\n            <ion-fab-button *ngIf=\"mod.data.Account.mcs_customerstatus==1\" title=\"分配\" color=\"success\" (click)=\"Assign()\">\r\n                分配\r\n            </ion-fab-button>\r\n            <ion-fab-button *ngIf=\"mod.data.Account.mcs_customerstatus<4\" title=\"成交\" color=\"success\" (click)=\"Success()\">\r\n                成交\r\n            </ion-fab-button>\r\n            <ion-fab-button *ngIf=\"mod.data.Account.mcs_customerstatus<4\" title=\"战败\" color=\"danger\" (click)=\"Failed()\">\r\n                战败\r\n            </ion-fab-button>\r\n            <ion-fab-button color=\"warning\" [routerLink]=\"['/saleing/account/edit']\" [queryParams]=\"{id:mod.data.Account.Id,actionCode:2}\"><ion-icon name=\"create\"></ion-icon></ion-fab-button>\r\n        </ion-fab-list>\r\n    </ion-fab>\r\n    <ion-fab *ngIf=\"tab=='logcall'\" vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\r\n        <ion-fab-button [routerLink]=\"['/saleing/contactrecord/edit']\" [queryParams]=\"{id:mod.data.Account.mcs_onlyleadid}\">\r\n            <ion-icon name=\"add\"></ion-icon>\r\n        </ion-fab-button>\r\n    </ion-fab>\r\n    <ion-fab *ngIf=\"tab=='activity'\" vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\r\n        <ion-fab-button [routerLink]=\"['/saleing/activity/edit']\" color=\"danger\">\r\n            <ion-icon name=\"add\"></ion-icon>\r\n        </ion-fab-button>\r\n    </ion-fab>\r\n</ion-content>"
 
 /***/ }),
 
@@ -140,6 +140,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _base_base_ser_dateformat__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../base/base.ser/dateformat */ "./src/app/base/base.ser/dateformat.ts");
 /* harmony import */ var _base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../base/base.ser/logininfo.storage */ "./src/app/base/base.ser/logininfo.storage.ts");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var app_base_base_ser_components_select_systemuser_select_systemuser_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! app/base/base.ser/components/select-systemuser/select-systemuser.component */ "./src/app/base/base.ser/components/select-systemuser/select-systemuser.component.ts");
+
+
 
 
 
@@ -149,16 +152,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let DetailPage = class DetailPage {
-    constructor(_http, _page, activeRoute, optionset, dateformat, userInfo) {
+    constructor(_http, _page, activeRoute, optionset, dateformat, userInfo, modalCtrl) {
         this._http = _http;
         this._page = _page;
         this.activeRoute = activeRoute;
         this.optionset = optionset;
         this.dateformat = dateformat;
         this.userInfo = userInfo;
+        this.modalCtrl = modalCtrl;
         this.tab = "info";
         this.mod = {
             apiUrl: '/Api/account/GetDetail',
+            postUrl: '/Api/account/AddOrEdit',
             LogcallModel: {
                 apiUrl: '/api/only-lead/GetLogCallList',
                 list: [],
@@ -168,6 +173,7 @@ let DetailPage = class DetailPage {
                 sort: ''
             },
             ActivityModel: {
+                apiUrl: '/api/only-lead/GetActivityList',
                 list: [],
                 page: 1,
                 pageSize: 10,
@@ -272,6 +278,7 @@ let DetailPage = class DetailPage {
     }
     //绑定数据
     BindInfo(id) {
+        //this.ionInfiniteScroll.disabled=true;
         this._page.loadingShow();
         this._http.get(this.mod.apiUrl, {
             params: {
@@ -282,18 +289,7 @@ let DetailPage = class DetailPage {
                 //初始化字段值
                 this.mod.data.Account.name = res["Attributes"]["name"];
                 this.mod.data.Account.accountnumber = res["Attributes"]["accountnumber"];
-                //this.mod.data.Account.mcs_cityid = res["Attributes"]["_mcs_cityid_value@OData.Community.Display.V1.FormattedValue"];//市
-                //this.mod.data.Account.mcs_consultantid = res["Attributes"]["_mcs_consultantid_value@OData.Community.Display.V1.FormattedValue"];//门店体验顾问
-                //this.mod.data.Account.mcs_contactid = res["Attributes"]["_mcs_contactid_value@OData.Community.Display.V1.FormattedValue"];//潜客
-                //this.mod.data.Account.mcs_countryid = res["Attributes"]["_mcs_countryid_value@OData.Community.Display.V1.FormattedValue"];//国家
-                //this.mod.data.Account.mcs_cultivatetaskid = res["Attributes"]["_mcs_cultivatetaskid_value@OData.Community.Display.V1.FormattedValue"];//培育任务
-                //this.mod.data.Account.mcs_customerid = res["Attributes"]["_mcs_customerid_value@OData.Community.Display.V1.FormattedValue"];//主机厂销售机会
-                //this.mod.data.Account.mcs_dealerid = res["Attributes"]["_mcs_dealerid_value@OData.Community.Display.V1.FormattedValue"];//所属厅/店
-                //this.mod.data.Account.mcs_districtid = res["Attributes"]["_mcs_districtid_value@OData.Community.Display.V1.FormattedValue"];//区
-                // this.mod.data.Account.mcs_mediaid = res["Attributes"]["_mcs_mediaid_value@OData.Community.Display.V1.FormattedValue"];//线索媒体
                 this.mod.data.Account.mcs_onlyleadid = res["Attributes"]["_mcs_onlyleadid_value"]; //唯一线索
-                // this.mod.data.Account.mcs_productid = res["Attributes"]["_mcs_productid_value@OData.Community.Display.V1.FormattedValue"];//产品
-                // this.mod.data.Account.mcs_provinceid = res["Attributes"]["_mcs_provinceid_value@OData.Community.Display.V1.FormattedValue"];//省
                 this.mod.data.Account.mcs_singleperson = res["Attributes"]["_mcs_singleperson_value@OData.Community.Display.V1.FormattedValue"]; //成单人
                 this.mod.data.Account.mcs_smallorderid = res["Attributes"]["_mcs_smallorderid_value@OData.Community.Display.V1.FormattedValue"]; //小订记录
                 this.mod.data.Account.mcs_storemanagerid = res["Attributes"]["_mcs_storemanagerid_value@OData.Community.Display.V1.FormattedValue"]; //店长
@@ -301,62 +297,21 @@ let DetailPage = class DetailPage {
                 this.mod.data.Account.mcs_vehcolorid = res["Attributes"]["_mcs_vehcolorid_value@OData.Community.Display.V1.FormattedValue"]; //意向颜色
                 this.mod.data.Account.mcs_vehorderid = res["Attributes"]["_mcs_vehorderid_value@OData.Community.Display.V1.FormattedValue"]; //整车订单
                 this.mod.data.Account.mcs_vehtypeid = res["Attributes"]["_mcs_vehtypeid_value@OData.Community.Display.V1.FormattedValue"]; //意向车型
-                // this.mod.data.Account.mcs_address = res["Attributes"]["mcs_address"];//身份证所在地
-                // this.mod.data.Account.mcs_areacode = res["Attributes"]["mcs_areacode"];//办公电话区号
-                // this.mod.data.Account.mcs_business = res["Attributes"]["mcs_business"];//单位联系人手机
                 this.mod.data.Account.mcs_carattention = res["Attributes"]["mcs_carattention"]; //购车关注
-                // this.mod.data.Account.mcs_company = res["Attributes"]["mcs_company"];//单位名称
                 this.mod.data.Account.mcs_competingtype = res["Attributes"]["mcs_competingtype"]; //竞品车型
-                // this.mod.data.Account.mcs_faxareacode = res["Attributes"]["mcs_faxareacode"];//传真区号
-                // this.mod.data.Account.mcs_firstappoint = res["Attributes"]["mcs_firstappoint"];//初始跟进人
-                // this.mod.data.Account.mcs_firstname = res["Attributes"]["mcs_firstname"];//名
-                // this.mod.data.Account.mcs_hobby = res["Attributes"]["mcs_hobby"];//兴趣爱好
-                // this.mod.data.Account.mcs_homeaddress = res["Attributes"]["mcs_homeaddress"];//家庭地址
-                // this.mod.data.Account.mcs_identitycard = res["Attributes"]["mcs_identitycard"];//证件号码
                 this.mod.data.Account.mcs_introducecarowner = res["Attributes"]["mcs_introducecarowner"]; //引荐车主
-                // this.mod.data.Account.mcs_jobtitle = res["Attributes"]["mcs_jobtitle"];//职务
-                // this.mod.data.Account.mcs_lastname = res["Attributes"]["mcs_lastname"];//姓
                 this.mod.data.Account.mcs_mobilephone = res["Attributes"]["mcs_mobilephone"]; //手机号码
-                //this.mod.data.Account.mcs_mobilephonemask = res["Attributes"]["mcs_mobilephonemask"];//手机号码(Mask)
-                //this.mod.data.Account.mcs_ordernumber = res["Attributes"]["mcs_ordernumber"];//订单编号
-                // this.mod.data.Account.mcs_qq = res["Attributes"]["mcs_qq"];//QQ
-                // this.mod.data.Account.mcs_stagename = res["Attributes"]["mcs_stagename"];//阶段名称
-                // this.mod.data.Account.mcs_taxcode = res["Attributes"]["mcs_taxcode"];//单位税务号
-                // this.mod.data.Account.mcs_updatekey = res["Attributes"]["mcs_updatekey"];//updatekey
-                // this.mod.data.Account.mcs_userid = res["Attributes"]["mcs_userid"];//渠道用户ID
-                // this.mod.data.Account.mcs_weibo = res["Attributes"]["mcs_weibo"];//微博
-                // this.mod.data.Account.mcs_weixin = res["Attributes"]["mcs_weixin"];//微信
-                // this.mod.data.Account.mcs_workaddress = res["Attributes"]["mcs_workaddress"];//工作地址
-                // this.mod.data.Account.mcs_zipcode = res["Attributes"]["mcs_zipcode"];//邮编
-                // this.mod.data.Account.mcs_topic = res["Attributes"]["mcs_topic"];//主题
-                // this.mod.data.Account.mcs_donotsms = res["Attributes"]["mcs_donotsms"];//允许短信
-                // this.mod.data.Account.mcs_donotweibo = res["Attributes"]["mcs_donotweibo"];//允许微博
-                // this.mod.data.Account.mcs_donotweixin = res["Attributes"]["mcs_donotweixin"];//允许微信
-                // this.mod.data.Account.mcs_drivefinished = res["Attributes"]["mcs_drivefinished"];//试乘试驾已完成
-                // this.mod.data.Account.mcs_assigneddeadline = res["Attributes"]["mcs_assigneddeadline"];//分派期限
-                // this.mod.data.Account.mcs_birthdate = res["Attributes"]["mcs_birthdate"];//生日
                 this.mod.data.Account.mcs_estimatedtransactiondate = this.dateformat.FormatToDate(res["Attributes"]["mcs_estimatedtransactiondate"]); //预测成交日期
-                // this.mod.data.Account.mcs_accountpoints = res["Attributes"]["mcs_accountpoints"];//评分
-                // this.mod.data.Account.mcs_arrival = res["Attributes"]["mcs_arrival"];//到店情况
-                // this.mod.data.Account.mcs_blindorderpaymentstatus = res["Attributes"]["mcs_blindorderpaymentstatus"];//定金支付状态
                 this.mod.data.Account.mcs_carereason = this.optionset.GetOptionSetNameByValue("mcs_carereason", res["Attributes"]["mcs_carereason"]); //关注原因
-                //this.mod.data.Account.mcs_channel = res["Attributes"]["mcs_channel"];//渠道
-                //this.mod.data.Account.mcs_constellation = res["Attributes"]["mcs_constellation"];//星座
-                //this.mod.data.Account.mcs_contactlevel = this.optionset.GetOptionSetNameByValue("mcs_level",res["Attributes"]["mcs_contactlevel"]);//客户级别
                 this.mod.data.Account.mcs_customerstatus = res["Attributes"]["mcs_customerstatus"]; //销售机会状态
                 this.mod.data.Account.mcs_customerstatusname = this.optionset.GetOptionSetNameByValue("mcs_customerstatus", res["Attributes"]["mcs_customerstatus"]); //销售机会状态名称
                 this.mod.data.Account.mcs_depositpaymentstatus = res["Attributes"]["mcs_depositpaymentstatus"]; //定金支付状态
                 this.mod.data.Account.mcs_gender = this.optionset.GetOptionSetNameByValue("mcs_gender", res["Attributes"]["mcs_gender"]); //称呼
                 this.mod.data.Account.mcs_generation = this.optionset.GetOptionSetNameByValue("mcs_generation", res["Attributes"]["mcs_generation"]); //年龄段
                 this.mod.data.Account.mcs_idtype = res["Attributes"]["mcs_idtype"]; //证件类型
-                //this.mod.data.Account.mcs_ishavechildren = this.optionset.GetOptionSetNameByValue("towoption",res["Attributes"]["mcs_ishavechildren"]);//是否有子女
-                //this.mod.data.Account.mcs_ismarry = this.optionset.GetOptionSetNameByValue("mcs_ismarry",res["Attributes"]["mcs_ismarry"]);//婚姻状态
                 this.mod.data.Account.mcs_level = this.optionset.GetOptionSetNameByValue("mcs_level", res["Attributes"]["mcs_level"]); //意向等级
                 this.mod.data.Account.mcs_purchasepurpose = this.optionset.GetOptionSetNameByValue("mcs_purchasepurpose", res["Attributes"]["mcs_purchasepurpose"]); //购买用途
                 this.mod.data.Account.mcs_purchaseway = this.optionset.GetOptionSetNameByValue("mcs_purchaseway", res["Attributes"]["mcs_purchaseway"]); //购买方式
-                //this.mod.data.Account.mcs_religion = this.optionset.GetOptionSetNameByValue("mcs_religion",res["Attributes"]["mcs_religion"]);//宗教信仰
-                //this.mod.data.Account.mcs_salesopportunitytype = this.optionset.GetOptionSetNameByValue("mcs_salesopportunitytype",res["Attributes"]["mcs_salesopportunitytype"]);//下发类型
-                //this.mod.data.Account.mcs_salestype = this.optionset.GetOptionSetNameByValue("mcs_salestype",res["Attributes"]["mcs_salestype"]);//销售类型
                 this.mod.data.Account.mcs_vehicleusers = this.optionset.GetOptionSetNameByValue("mcs_vehicleusers", res["Attributes"]["mcs_vehicleusers"]); //车辆使用人
                 this.mod.data.Account.mcs_familymembernum = res["Attributes"]["mcs_familymembernum"]; //家庭成员数量    
                 this.mod.data.Account.description = res["Attributes"]["description"]; //特殊备注           
@@ -370,7 +325,7 @@ let DetailPage = class DetailPage {
     LogcallTabLoading() {
         this.mod.LogcallModel.list = [];
         this.mod.LogcallModel.page = 1;
-        this.ionInfiniteScroll.disabled = false;
+        //this.ionInfiniteScroll.disabled=false;
         this.ionContent.scrollToTop(0);
         this.LoadLogcall();
     }
@@ -378,6 +333,71 @@ let DetailPage = class DetailPage {
     DownLoadLogcall() {
         this.mod.LogcallModel.page += 1;
         this.LoadLogcall();
+    }
+    //战败
+    Failed() {
+        this._page.confirm("确认提示", "您确认要战败此销售机会吗？", () => {
+            var postData = {
+                Id: this.mod.data.Account.Id,
+                mcs_customerstatus: this.optionset.GetOptionSetValueByName("mcs_customerstatus", "已战败")
+            };
+            this.UpdateOrEdit(postData, "已战败！", "战败失败！");
+        });
+    }
+    //成交
+    Success() {
+        this._page.confirm("确认提示", "您确认要成交此销售机会吗？", () => {
+            var options = this.optionset.Get("mcs_customerstatus");
+            var postData = {
+                Id: this.mod.data.Account.Id,
+                mcs_customerstatus: this.optionset.GetOptionSetValueByName("mcs_customerstatus", "已成交")
+            };
+            this.UpdateOrEdit(postData, "已成交！", "成交失败！");
+        });
+    }
+    //分配
+    Assign() {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            const modal = yield this.modalCtrl.create({
+                component: app_base_base_ser_components_select_systemuser_select_systemuser_component__WEBPACK_IMPORTED_MODULE_8__["SelectSystemuserComponent"]
+            });
+            yield modal.present();
+            //监听销毁的事件
+            const { data } = yield modal.onDidDismiss();
+            if (data != null && data != undefined) {
+                if (data.Id != "" && data.Id != undefined) {
+                    var postData = {
+                        Id: this.mod.data.Account.Id,
+                        mcs_customerstatus: this.optionset.GetOptionSetValueByName("mcs_customerstatus", "已指派"),
+                        ownerid: data.Id
+                    };
+                    this.UpdateOrEdit(postData, "分配成功！", "分配失败！");
+                }
+            }
+        });
+    }
+    //创建或更新实体数据
+    UpdateOrEdit(postData, successMessage, errorMessage, redirectUrl = "") {
+        this._page.loadingShow();
+        //数据验证
+        this._http.post(this.mod.postUrl, postData, (res) => {
+            if (res != "") {
+                this._page.alert("消息提示", successMessage);
+                this.mod.data.Account.mcs_customerstatus = postData.mcs_customerstatus;
+                this.mod.data.Account.mcs_customerstatusname = this.optionset.GetOptionSetNameByValue("mcs_customerstatus", postData.mcs_customerstatus);
+                if (redirectUrl !== null && redirectUrl !== "" && redirectUrl !== undefined) {
+                    this._page.goto(redirectUrl, { guid: res });
+                }
+            }
+            else {
+                this._page.alert("消息提示", errorMessage);
+            }
+            this._page.loadingHide();
+        }, (err) => {
+            debugger;
+            this._page.alert("消息提示", "请求异常");
+            this._page.loadingHide();
+        });
     }
     /**
      * 加载logcall记录
@@ -406,11 +426,51 @@ let DetailPage = class DetailPage {
                         });
                     });
                 }
-                this.ionInfiniteScroll.complete();
-                //判断是否有新数据
-                if (res.Results.length < this.mod.LogcallModel.pageSize) {
-                    this.ionInfiniteScroll.disabled = true;
-                }
+                // this.ionInfiniteScroll.complete();
+                // //判断是否有新数据
+                // if (res.Results.length < this.mod.LogcallModel.pageSize) {
+                //   this.ionInfiniteScroll.disabled = true;
+                // }
+            }
+            this._page.loadingHide();
+        }, (err) => {
+            this._page.alert("消息提示", "数据加载异常");
+            this._page.loadingHide();
+        });
+    }
+    //加载培育任务列表
+    LoadActivitylist() {
+        this.mod.ActivityModel.list = [];
+        this._page.loadingShow();
+        this._http.get(this.mod.ActivityModel.apiUrl, {
+            params: {
+                entityid: this.mod.data.Account.mcs_onlyleadid,
+                sort: this.mod.ActivityModel.sort,
+                pageSize: this.mod.ActivityModel.pageSize,
+                page: this.mod.ActivityModel.page,
+                systemuserid: this.userInfo.GetSystemUserId() //当前登录用户ID
+            }
+        }, (res) => {
+            debugger;
+            if (res !== null) {
+                if (res.Results !== null) {
+                    for (var key in res.Results) {
+                        var obj = {};
+                        obj["mcs_thisfollowupcontent"] = res.Results[key]["Attributes"]["mcs_thisfollowupcontent"];
+                        obj["createdon"] = this.dateformat.FormatToDateTime(res.Results[key]["Attributes"]["createdon"]);
+                        obj["mcs_activitystatus"] = this.optionset.GetOptionSetNameByValue("mcs_activitystatus", res.Results[key]["Attributes"]["mcs_activitystatus"]);
+                        obj["mcs_importantlevel"] = this.optionset.GetOptionSetNameByValue("mcs_importantlevel", res.Results[key]["Attributes"]["mcs_importantlevel"]);
+                        obj["mcs_activityid"] = res.Results[key]["Attributes"]["mcs_activityid"];
+                        this.mod.ActivityModel.list.push(obj);
+                    }
+                    //console.log(res);
+                } //判断是否有新数据
+                // if (res.Results.length == 0) {
+                //     this.mod.isending2 = true;
+                // }
+            }
+            else {
+                this._page.alert("消息提示", "联络记录加载异常");
             }
             this._page.loadingHide();
         }, (err) => {
@@ -425,7 +485,8 @@ DetailPage.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] },
     { type: _saleing_ser_optionset_service__WEBPACK_IMPORTED_MODULE_4__["OptionSetService"] },
     { type: _base_base_ser_dateformat__WEBPACK_IMPORTED_MODULE_5__["Dateformat"] },
-    { type: _base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_6__["Storage_LoginInfo"] }
+    { type: _base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_6__["Storage_LoginInfo"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["ModalController"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_7__["IonContent"], null),
@@ -446,7 +507,8 @@ DetailPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
         _saleing_ser_optionset_service__WEBPACK_IMPORTED_MODULE_4__["OptionSetService"],
         _base_base_ser_dateformat__WEBPACK_IMPORTED_MODULE_5__["Dateformat"],
-        _base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_6__["Storage_LoginInfo"]])
+        _base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_6__["Storage_LoginInfo"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["ModalController"]])
 ], DetailPage);
 
 
