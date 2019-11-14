@@ -10,7 +10,7 @@ import { OptionSetService } from '../../saleing.ser/optionset.service';
   styleUrls: ['./detail.page.scss'],
 })
 export class DetailPage implements OnInit {
-
+ public tab: any = "baseinfo";
   model = {
     apiUrlInfo: '/api/vehorder/GetVehorderDetail',
     data: {
@@ -107,7 +107,7 @@ export class DetailPage implements OnInit {
           this.model.data.mcs_canceldesc = res["VehorderInfo"]["Attributes"]["mcs_canceldesc"];
 
         }
-        debugger;
+        
         //绑定订单透明化状态跟踪
         if (res.Vehordertrack != null) {
 

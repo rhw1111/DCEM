@@ -21,7 +21,10 @@ let ListPage = class ListPage {
             page: 1,
             sort: 'mcs_appointmentinfoid desc',
             isending: false,
-            nodata: false
+            nodata: false,
+            aLLTotalCount: 0,
+            followingCount: 0,
+            followedCount: 0 //已跟进
         };
     }
     ngOnInit() {
@@ -96,6 +99,9 @@ let ListPage = class ListPage {
                     obj["mcs_status"] = res.Results[key]["Attributes"]["mcs_status"];
                     this.model.data.push(obj);
                 }
+                this.model.aLLTotalCount = res.ALLTotalCount;
+                this.model.followingCount = res.FollowingCount;
+                this.model.followedCount = res.FollowedCount;
                 //设置数据存储到本地
                 if (this.model.page == 1) {
                     this.httpService.SetDataCache(this.model.name, JSON.stringify(this.model.data).toString());

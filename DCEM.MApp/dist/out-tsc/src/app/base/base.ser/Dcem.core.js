@@ -61,8 +61,7 @@ let DCore_Http = class DCore_Http {
     }
     //post请求
     postForToaken(url, params, rescallback, errcallback) {
-        this._httpClient.post(this._config.getDomain() + url, {
-            params: params,
+        this._httpClient.post(this._config.getDomain() + url, params, {
             headers: this.getHeaders()
         }).subscribe((res) => {
             rescallback && rescallback(res);

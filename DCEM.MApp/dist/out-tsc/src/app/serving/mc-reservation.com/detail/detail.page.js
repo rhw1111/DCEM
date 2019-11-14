@@ -41,7 +41,6 @@ let DetailPage = class DetailPage {
         };
     }
     ngOnInit() {
-        debugger;
         this.activeRoute.queryParams.subscribe((data) => {
             if (data['id'] != null && data['id'] != undefined) {
                 console.log("记录Id:" + this.model.infolist.mcs_appointmentinfoid);
