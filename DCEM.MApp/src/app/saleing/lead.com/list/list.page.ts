@@ -57,7 +57,7 @@ doLoading(event) {
   }
 listOnBind(event) {
   this._page.loadingShow();
-  this._http.post(
+  this._http.postForToaken(
       this.mod.apiUrl,
       this.mod.searchData,
       (res: any) => { 

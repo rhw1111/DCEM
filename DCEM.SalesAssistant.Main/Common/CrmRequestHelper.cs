@@ -24,7 +24,7 @@ namespace DCEM.SalesAssistant.Main.Common
                 {
                     EntityName = entityName,
                     FetchXml = document,
-                    ProxyUserId= userInfo.systemuserid
+                    ProxyUserId= userInfo?.systemuserid
                 };
                 fetchRequest.Headers.Add("Prefer", dicHead["Prefer"]);
                 var crmResponseMessage = await crmService.Execute(fetchRequest);
@@ -43,7 +43,7 @@ namespace DCEM.SalesAssistant.Main.Common
             var dicHead = new Dictionary<string, IEnumerable<string>>();
             dicHead.Add("Prefer", new List<string>() { "odata.include-annotations=\"*\"" }); 
             CrmEntity entity = null;
-            entity = await crmService.Retrieve(entityName, id,"", userInfo.systemuserid, dicHead);
+            entity = await crmService.Retrieve(entityName, id,"", userInfo?.systemuserid, dicHead);
             return entity;
         }
     }

@@ -15,12 +15,44 @@
     <ion-card-content>
       <ion-list>
         <ion-item-group>
+            <ion-item>
+                <ion-label>
+                    <h2>交车单号</h2>
+                </ion-label>
+                <ion-note slot="end">
+                    <p>{{model.info.code}}</p>
+                </ion-note>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>车辆VIN号</h2>
+                </ion-label>
+                <ion-note slot="end">
+                    <p>{{model.info.vin}}</p>
+                </ion-note>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>整车订单号</h2>
+                </ion-label>
+                <ion-note slot="end">
+                    <p>{{model.info.ro}}</p>
+                </ion-note>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h2>交车状态</h2>
+                </ion-label>
+                <ion-note slot="end">
+                    <p>{{model.info.deliverystatus}}</p>
+                </ion-note>
+            </ion-item> 
           <ion-item>
             <ion-label>
               预约时间
             </ion-label>
             <ion-datetime cancelText="取消" doneText="确定" [(ngModel)]="appointmentmodel.data.appointmenton"
-              placeholder="请选择到店时间" display-format="YYYY-MM-DD HH:mm"></ion-datetime>
+              placeholder="请选择到店时间" display-format="YYYY-MM-DD HH:mm:ss"></ion-datetime>
           </ion-item>
           <ion-item>  
             <ion-label>
