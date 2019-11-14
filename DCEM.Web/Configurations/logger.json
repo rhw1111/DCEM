@@ -5,15 +5,17 @@
     "HttpRequest": "0",
     "SystemAuthentication": "0"
   },
+  "GlobalLogDefaultMinLevel": "4",
   "Providers": {
     "Console": {
       "Configuration": null,
       "LogLevels": {
-        "DCEM.Web": "0",
+        "DCEM.Web": "4",
         "DIWrapper": "0",
         "HttpRequest": "0",
         "SystemAuthentication": "0"
-      }
+      },
+      "GlobalLogDefaultMinLevel": "4"
     }
   }
 }

@@ -1,5 +1,6 @@
 ﻿using DCEM.SalesAssistant.Main.ViewModel.Request;
 using DCEM.SalesAssistant.Main.ViewModel.Response;
+using MSLibrary;
 using MSLibrary.Xrm;
 using System;
 using System.Collections.Generic;
@@ -16,5 +17,8 @@ namespace DCEM.SalesAssistant.Main.Application.Services.Contrac
         Task<CollectionListResponse> getcollections(CollectionListRequest collectionListRequest);
 
         Task<CrmEntity> getorderpay(CollectionDetailRequest collectionDetailRequest);
+        Task<ValidateResult<string>> appointment(DeliveryEditRequest deliveryEditRequest);
+
+        Task<ServiceConsultantListResponse> getservicconsultant(DeliveryEditRequest deliveryEditRequest);
     }
 }

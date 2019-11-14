@@ -71,7 +71,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
         /// <returns></returns>
         public string QueryDetail(string entityid)
         {
-            string strQuery = string.Format($"$select=mcs_appointmentat,_mcs_appointmentconfigid_value,mcs_appointmentsource,mcs_appointmenttype,mcs_canceldes,mcs_cancelreasonnew,mcs_carplate,_mcs_cartype_value,mcs_customeraddr,mcs_customercomment,_mcs_customerid_value,mcs_customername,mcs_customerphone,_mcs_dealerid_value,mcs_name,mcs_nextmaintainat,mcs_nextmaintainmileage,mcs_status,mcs_tag&$expand=mcs_appointmentconfigid($select=mcs_name,mcs_surplusnum),mcs_cartype($select=mcs_name),mcs_dealerid($select=mcs_name),mcs_customerid($select=mcs_name)&$filter=statecode eq 0 and  mcs_appointmentinfoid eq {entityid}");
+            string strQuery = string.Format($"$select=mcs_appointmentat,_mcs_appointmentconfigid_value,mcs_ordertype,mcs_appointmentsource,mcs_appointmenttype,mcs_canceldes,mcs_cancelreasonnew,mcs_carplate,_mcs_cartype_value,mcs_customeraddr,mcs_customercomment,_mcs_customerid_value,mcs_customername,mcs_customerphone,_mcs_dealerid_value,mcs_name,mcs_nextmaintainat,mcs_nextmaintainmileage,mcs_status,mcs_tag&$expand=mcs_appointmentconfigid($select=mcs_name,mcs_surplusnum),mcs_cartype($select=mcs_name),mcs_dealerid($select=mcs_name),mcs_customerid($select=mcs_name)&$filter=statecode eq 0 and  mcs_appointmentinfoid eq {entityid}");
             return strQuery;
         }
 
@@ -148,6 +148,42 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
                                 </filter>
                               </entity>
                             </fetch>";
+
+            return fetchString;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filterstr"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public string QueryListByCount(AppointmentInfoRequest filterstr, int status)
+        {
+            var filter = string.Empty;
+            if (status != 0)
+            {
+                filter += $"<condition attribute='mcs_status' operator='eq' value='{status}' />";
+            }
+            if (!string.IsNullOrWhiteSpace(filterstr.search))
+            {
+                filter += $"<filter type='or'>";
+                filter += $"<condition attribute='mcs_carplate' operator='like' value='%{filterstr.search}%' />";
+                filter += $"<condition attribute='mcs_customerphone' operator='like' value='%{filterstr.search}%' />";
+                filter += $"<condition attribute='mcs_customername' operator='like' value='%{filterstr.search}%' />";
+                filter += $"</filter>";
+            }
+            var fetchString = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'  aggregate='true'>
+                  <entity name='mcs_appointmentinfo'>
+                    <attribute name='mcs_appointmentinfoid' aggregate='countcolumn' alias='count'/>
+                    <filter type='and'>
+                      <condition attribute='statecode' operator='eq' value='0' />
+                      {filter}
+                    </filter>
+                    <link-entity name='mcs_appointmentconfig' from='mcs_appointmentconfigid' to='mcs_appointmentconfigid' visible='false' link-type='outer' alias='appointmentconfig'>
+                    </link-entity>
+                  </entity>
+                </fetch>";
 
             return fetchString;
         }

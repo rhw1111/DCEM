@@ -17,11 +17,16 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
     {
         private ICrmService _crmService;
         private IAppointmentInfoRepository _appointmentInfoRepository;
+        private string dicHeadKey;
+        private Dictionary<string, IEnumerable<string>> dicHead;
 
         public AppointmentInfoService(CrmService crmService, IAppointmentInfoRepository appointmentInfoRepository)
         {
             _crmService = crmService;
             _appointmentInfoRepository = appointmentInfoRepository;
+            dicHeadKey = "Prefer";
+            dicHead = new Dictionary<string, IEnumerable<string>>();
+            dicHead.Add(dicHeadKey, new List<string>() { "odata.include-annotations=\"*\"" });
         }
 
         /// <summary>
@@ -31,10 +36,11 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         /// <param name="pageSize"></param>
         /// <param name="pageNum"></param>
         /// <returns></returns>
-        public async Task<QueryResult<CrmEntity>> QueryListByPage(AppointmentInfoRequest filterstr)
+        public async Task<AppointmentInfoListResponse<CrmEntity>> QueryListByPage(AppointmentInfoRequest filterstr)
         {
             try
             {
+                #region 查询结果集
                 var fetchString = _appointmentInfoRepository.QueryListByPage(filterstr);
 
                 var fetchXdoc = XDocument.Parse(fetchString);
@@ -45,11 +51,56 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
                 };
                 var fetchResponse = await _crmService.Execute(fetchRequest);
                 var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                #endregion
 
-                var queryResult = new QueryResult<CrmEntity>();
+                #region 查询总条数
+                var status = 0;
+                var fetchAllTotalCountString=_appointmentInfoRepository.QueryListByCount(filterstr, status);
+                var fetchAllTotalXdoc = XDocument.Parse(fetchAllTotalCountString);
+                fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "mcs_appointmentinfo",
+                    FetchXml = fetchAllTotalXdoc
+                };
+                fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                fetchResponse = await _crmService.Execute(fetchRequest);
+                var allTotalCountResults = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                #endregion
+
+                #region 查询待跟进总条数
+                status = 10;
+                var fetchFollowingCountString = _appointmentInfoRepository.QueryListByCount(filterstr, status);
+                var fetchFollowingXdoc = XDocument.Parse(fetchFollowingCountString);
+                fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "mcs_appointmentinfo",
+                    FetchXml = fetchFollowingXdoc
+                };
+                fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                fetchResponse = await _crmService.Execute(fetchRequest);
+                var FollowingCountResults = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                #endregion
+
+                #region 查询已跟进总条数
+                status = 20;
+                var fetchFollowedCountString = _appointmentInfoRepository.QueryListByCount(filterstr, status);
+                var fetchFollowedXdoc = XDocument.Parse(fetchFollowedCountString);
+                fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "mcs_appointmentinfo",
+                    FetchXml = fetchFollowedXdoc
+                };
+                fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                fetchResponse = await _crmService.Execute(fetchRequest);
+                var FollowedCountResults = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                #endregion
+
+                var queryResult = new AppointmentInfoListResponse<CrmEntity>();
                 queryResult.Results = fetchResponseResult.Value.Results;
                 queryResult.CurrentPage = filterstr.page;
-                queryResult.TotalCount = 0;
+                queryResult.ALLTotalCount = (int)allTotalCountResults.Value.Results[0].Attributes["count"];
+                queryResult.FollowingCount = (int)FollowingCountResults.Value.Results[0].Attributes["count"];
+                queryResult.FollowedCount= (int)FollowedCountResults.Value.Results[0].Attributes["count"];
                 return queryResult;
             }
             catch (Exception ex)
@@ -156,7 +207,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
             var validateResult = new ValidateResult<CrmEntity>();
             var reusetCrmEntity = new CrmEntity("mcs_appointmentinfo", new Guid());
             //新增预约单
-            if (request.actioncode == 1)
+            if (request.appointmentinfo.mcs_appointmentinfoid ==null)
             {
                 var createEntity = new CrmExecuteEntity("mcs_appointmentinfo", Guid.NewGuid());
                 //预约状态 创建默认是待跟进
@@ -166,7 +217,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
                 reusetCrmEntity.Id = createEntity.Id;
             }
             //编辑预约单
-            if (request.actioncode == 2 && request.appointmentinfo.mcs_appointmentinfoid != Guid.Empty)
+            if (request.appointmentinfo.mcs_appointmentinfoid !=null)
             {
                 var updateEntity = new CrmExecuteEntity("mcs_appointmentinfo", (Guid)request.appointmentinfo.mcs_appointmentinfoid);
                 //预约状态
@@ -192,7 +243,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         private CrmExecuteEntity BasicAssignment(CrmExecuteEntity entity, AppointmentInfoAddOrEditRequest request)
         {
             //VIN码
-            if (request.appointmentinfo.mcs_customerid != Guid.Empty)
+            if (request.appointmentinfo.mcs_customerid != null)
             {
                 var vinEntityRef = new CrmEntityReference("mcs_vehowner", (Guid)request.appointmentinfo.mcs_customerid);
                 entity.Attributes.Add("mcs_customerid", vinEntityRef);
@@ -209,7 +260,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
                 entity.Attributes.Add("mcs_carplate", request.appointmentinfo.mcs_carplate);
             }
             //车型
-            if (request.appointmentinfo.mcs_cartype != Guid.Empty)
+            if (request.appointmentinfo.mcs_cartype !=null)
             {
                 var carTypeEntityRef = new CrmEntityReference("mcs_carmodel", (Guid)request.appointmentinfo.mcs_cartype);
                 entity.Attributes.Add("mcs_cartype", carTypeEntityRef);
@@ -236,7 +287,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
                 entity.Attributes.Add("mcs_appointmentat", mcs_appointmentat);
             }
             //预约时段
-            if (request.appointmentinfo.mcs_appointmentconfigid != Guid.Empty)
+            if (request.appointmentinfo.mcs_appointmentconfigid !=null)
             {
                 var configEntityRef = new CrmEntityReference("mcs_appointmentconfig", (Guid)request.appointmentinfo.mcs_appointmentconfigid);
                 entity.Attributes.Add("mcs_appointmentconfigid", configEntityRef);
@@ -268,13 +319,13 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
             }
           
             //预约厅店
-            if (request.appointmentinfo.mcs_dealerid != Guid.Empty)
+            if (request.appointmentinfo.mcs_dealerid != null)
             {
                 var dealerEntityEF = new CrmEntityReference("mcs_dealer", (Guid)request.appointmentinfo.mcs_dealerid);
                 entity.Attributes.Add("mcs_dealerid", dealerEntityEF);
             }
             //服务顾问
-            if (request.appointmentinfo.mcs_serviceadvisorid != Guid.Empty)
+            if (request.appointmentinfo.mcs_serviceadvisorid != null)
             {
                 var systemUserEntityEF = new CrmEntityReference("systemuser", (Guid)request.appointmentinfo.mcs_serviceadvisorid);
                 entity.Attributes.Add("mcs_serviceadvisorid", systemUserEntityEF);

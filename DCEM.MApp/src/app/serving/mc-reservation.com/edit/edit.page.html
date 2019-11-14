@@ -25,10 +25,10 @@
                 <ion-label>车主手机</ion-label>
                 <ion-note slot="end">{{shareData.appointmentinfo["mcs_customerphone"]}}</ion-note>
             </ion-item>
-            <ion-item>
+            <!--<ion-item>
                 <ion-label>客户标签</ion-label>
                 <ion-note slot="end">无</ion-note>
-            </ion-item>
+            </ion-item>-->
           
         </ion-item-group>
         <ion-item-group>
@@ -37,7 +37,7 @@
             </ion-item-divider>
             <ion-item>
                 <ion-text color="danger">*</ion-text><ion-label>服务类型</ion-label>
-                <ion-select [(ngModel)]="shareData.appointmentinfo['mcs_ordertype']" okText="确认" cancelText="取消">
+                <ion-select [(ngModel)]="shareData.appointmentinfo['mcs_ordertype']" placeholder="请选择服务类型" (ionChange)="orderTypeChange()" okText="确认" cancelText="取消">
                     <ion-select-option value="10">汽车美容</ion-select-option>
                     <ion-select-option value="20">钣金喷漆</ion-select-option>
                     <ion-select-option value="30">常规保养</ion-select-option>
@@ -46,11 +46,11 @@
                     <ion-select-option value="60">其他</ion-select-option>
                 </ion-select>
             </ion-item>
-            <ion-item>
+            <ion-item >
                 <ion-label>
                     <ion-text color="danger">*</ion-text>预约日期
                 </ion-label>
-                <ion-datetime displayFormat="YYYY-MM-DD" min="1997"  [(ngModel)]="shareData.appointmentinfo['mcs_appointmentat']"></ion-datetime>
+                <ion-datetime displayFormat="YYYY-MM-DD" min="1997" (ionChange)="appointmentAtChange()"  [(ngModel)]="shareData.appointmentinfo['mcs_appointmentat']"></ion-datetime>
             </ion-item>
           
             <ion-item (click)="appointmentconfigOnClick()">

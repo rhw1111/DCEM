@@ -2,18 +2,14 @@
 using System.Threading.Tasks;
 using MSLibrary;
 using DCEM.ServiceAssistantService.Main.DTOModel;
+using Newtonsoft.Json.Linq;
 namespace DCEM.ServiceAssistantService.Main.Application
 {
     public interface ICustomerService
     {
-        /// <summary>
-        /// 查询客户列表
-        /// </summary>
-        Task<CustomerQueryListResponse<CrmEntity>> QueryList(int type, int pageindex, string search);
 
-        /// <summary>
-        /// 查询客户详情
-        /// </summary>
+        Task<CustomerQueryListResponse<CrmEntity>> QueryList(int type, int pageindex, string search);
         Task<CustomerQueryInfoResponse> QueryInfo(string guid);
+        Task<ValidateResult<CrmEntity>> AddOrUpdate(JObject jo);
     }
 }

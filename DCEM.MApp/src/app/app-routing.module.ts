@@ -155,6 +155,9 @@ const routes: Routes = [
                     { path: 'edit', loadChildren: './saleing/delivery/edit/edit.module#EditPageModule' },
                     { path: 'detail', loadChildren: './saleing/delivery/detail/detail.module#DetailPageModule' },
                     { path: 'success', loadChildren: './saleing/delivery/success/success.module#SuccessPageModule' },
+                    { path: 'timeline', loadChildren: './saleing/delivery/timeline/timeline.module#TimelinePageModule'},
+                    { path: 'appointment', loadChildren: './saleing/delivery/appointment/appointment.module#AppointmentPageModule' },
+                    { path: 'pdiservice', loadChildren: './saleing/delivery/pdiservice/pdiservice.module#PdiservicePageModule' }
                 ]
             },
             {
@@ -181,6 +184,10 @@ const routes: Routes = [
             }
         ]
     }
+
+
+ 
+
 
 ];
 

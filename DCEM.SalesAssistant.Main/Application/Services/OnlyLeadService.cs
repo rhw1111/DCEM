@@ -295,7 +295,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 var cityEntityRf = new CrmEntityReference("mcs_sysarea", (Guid)request.onlylead.mcs_cityid);
                 updateEntity.Attributes.Add("mcs_cityid", cityEntityRf);
             }
-            // 
+            // 区ID
             if (request.onlylead.mcs_districtid != null)
             {
                 var districtEntityRf = new CrmEntityReference("mcs_sysarea", (Guid)request.onlylead.mcs_districtid);

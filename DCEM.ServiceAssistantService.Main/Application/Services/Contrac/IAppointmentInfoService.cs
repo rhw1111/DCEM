@@ -14,7 +14,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         /// <summary>
         /// 分页查询
         /// </summary>
-        Task<QueryResult<CrmEntity>> QueryListByPage(AppointmentInfoRequest filterstr);
+        Task<AppointmentInfoListResponse<CrmEntity>> QueryListByPage(AppointmentInfoRequest filterstr);
         
         /// <summary>
         /// 预约记录查询
