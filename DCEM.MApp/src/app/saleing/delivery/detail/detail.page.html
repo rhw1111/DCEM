@@ -9,10 +9,10 @@
     </ion-toolbar>
     <ion-toolbar>
         <ion-segment [(ngModel)]="tab" color="danger">
-            <ion-segment-button value="infolist" checked (ionSelect)="pageOnBind()">
+            <ion-segment-button value="infolist" checked (ionSelect)="pageOnBind(model.id)">
                 <ion-label>基础信息</ion-label>
             </ion-segment-button>
-            <ion-segment-button value="Linklist" (ionSelect)="pageOnLogCalllist()">
+            <ion-segment-button value="Linklist" (ionSelect)="pageOnLogCalllist($event)">
                 <ion-label>收款记录</ion-label>
             </ion-segment-button>
             <ion-segment-button value="Breedlist" (ionSelect)="pageOnActivitylist()">
