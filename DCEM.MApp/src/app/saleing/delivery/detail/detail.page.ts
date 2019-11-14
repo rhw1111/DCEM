@@ -55,50 +55,9 @@ export class DetailPage implements OnInit {
     }
   }
 
-  //确认收款完成  
-  async presentAlertConfim() {
-    const alert = await this.alertController.create({
-      header: '收款完成',
-      message: '确认要收款完成吗？',
-      buttons: [
-        {
-          text: '取消',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          }
-        }, {
-          text: '保存',
-          handler: () => {
-            console.log('Confirm Okay');
-          }
-        }
-      ]
-    });
-    await alert.present();
-  }
 
-  getservicconsultant() {
-    this._page.loadingShow();
-    this._http.post(
-      this.servicconsultantmodel.apiUrl,
-      this.servicconsultantmodel.data,
-      (res: any) => {
-        if (res !== null) {
-          debugger;
-        }
-        else {
-          this._page.alert("消息提示", "获取服务顾问操作失败");
-        }
-        this._page.loadingHide();
-      },
-      (err: any) => {
-        this._page.alert("消息提示", "获取服务顾问操作失败");
-        this._page.loadingHide();
-      }
-    );
-  }
+
+
   ngOnInit() {
     this.activeRoute.queryParams.subscribe((data: Params) => {
       if (data['id'] != null && data['id'] != undefined) {
