@@ -2,6 +2,7 @@
 import { NavController, IonContent, IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { DatePipe } from '@angular/common';
 import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
+import { SelectCustomerEditComponent } from 'app/serving/serving.ser/components/select-customer-edit/select-customer-edit.component';
 
 @Component({
     selector: 'app-select-customer',
@@ -25,7 +26,8 @@ export class SelectCustomerComponent implements OnInit {
         private _http: DCore_Http,
         private _page: DCore_Page,
         private _valid: DCore_Valid,
-        private _modalCtrl: ModalController
+        private _modalCtrl: ModalController,
+        private _navCtr: NavController,
     ) {
 
     }
@@ -79,6 +81,9 @@ export class SelectCustomerComponent implements OnInit {
             (res: any) => {
                 if (!this._valid.isNull(res.Results) !== null && res.Results.length > 0) {
                     for (var key in res.Results) {
+
+                        console.log(res.Results[key]);
+
                         var obj = {};
                         obj["vehownerid"] = res.Results[key]["Attributes"]["mcs_vehownerid"];
                         obj["fullname"] = res.Results[key]["Attributes"]["mcs_fullname"];
@@ -88,6 +93,15 @@ export class SelectCustomerComponent implements OnInit {
                         obj["vehplate"] = res.Results[key]["Attributes"]["mcs_vehplate"];
                         obj["vehtype"] = res.Results[key]["Attributes"]["_mcs_vehtype_value@OData.Community.Display.V1.FormattedValue"];
                         obj["model"] = res.Results[key]["Attributes"];
+
+                        obj["iscarserviceadvisor"] = true;
+                        if (this._valid.isNullOrEmpty(res.Results[key]["Attributes"]["a_x002e_mcs_carserviceadvisorid"])) {
+                            obj["iscarserviceadvisor"] = false;
+                        }
+                        console.log(obj["iscarserviceadvisor"]);
+
+
+
                         obj["gendercolor"] = "medium";
                         if (obj["gender"] === 1) {
                             obj["gendercolor"] = "primary";
@@ -119,4 +133,25 @@ export class SelectCustomerComponent implements OnInit {
             }
         );
     }
+
+
+
+    //新增编辑客户
+    async presentCustomerEditModal(actionCode: string, guid?: string) {
+        const modal = await this._modalCtrl.create({
+            component: SelectCustomerEditComponent,
+            componentProps: {
+                'actionCode': actionCode,
+                'guid': guid
+            }
+        });
+        await modal.present();
+        const { data } = await modal.onDidDismiss();
+        this.mod.data = [];
+        this.mod.searchData.pageindex = 1;
+        this.mod.searchData.search = "";
+        this.listOnBind();
+
+    }
+
 }

@@ -57,7 +57,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
         #endregion
 
         #region FetchXml组装
-        public async Task<XDocument> GetGetQueryListFetchXml(int pageindex, string filter)
+        public async Task<XDocument> GetQueryListFetchXml(int pageindex, string filter)
         {
             return await Task<XDocument>.Run(() =>
             {
@@ -65,8 +65,11 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 fetchXml = $@"
             <fetch version='1.0' output-format='xml-platform' mapping='logical' count='{pageCount}' page='{pageindex}' >
               <entity name='mcs_vehowner'>
-                  <order attribute='mcs_fullname' descending='true' />
-                  {filter}
+                <order attribute='createdon' descending='true' />
+                    {filter}
+                <link-entity name='mcs_carserviceadvisor' from='mcs_customerid' link-type='outer' to='mcs_vehownerid' alias='a'>
+                    <all-attributes />
+                </link-entity> 
               </entity>
             </fetch>";
                 return XDocument.Parse(fetchXml);
@@ -79,13 +82,13 @@ namespace DCEM.ServiceAssistantService.Main.Application
         {
             #region 获取记录结果集
             var filter = await GetQueryListFilter(search);
-            var fetchXdoc = await GetGetQueryListFetchXml(pageindex, filter);
+            var fetchXdoc = await GetQueryListFetchXml(pageindex, filter);
             var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
             {
                 EntityName = "mcs_vehowner",
                 FetchXml = fetchXdoc
             };
-            fetchRequest.Headers.Add("Prefer", dicHead["Prefer"]);
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
             var fetchResponse = await _crmService.Execute(fetchRequest);
             var resultsList = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
             #endregion;

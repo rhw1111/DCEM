@@ -1,20 +1,23 @@
-﻿import { Component, OnInit, ViewChild } from '@angular/core';
+﻿import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ModalController, NavController, ToastController, IonBackButton, IonBackButtonDelegate } from '@ionic/angular';
 import { DCore_Http, DCore_Page, DCore_ShareData, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { SelectCarmodelComponent } from 'app/serving/serving.ser/components/select-carmodel/select-carmodel.component';
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 
-@Component({
-    selector: 'app-edit',
-    templateUrl: './edit.page.html',
-    styleUrls: ['./edit.page.scss'],
-})
 
-export class EditPage implements OnInit {
+@Component({
+    selector: 'app-select-customer-edit',
+    templateUrl: './select-customer-edit.component.html',
+    styleUrls: ['./select-customer-edit.component.scss'],
+})
+export class SelectCustomerEditComponent implements OnInit {
 
     @ViewChild(IonBackButton, null) ionBackButton: IonBackButton;
     @ViewChild(IonBackButtonDelegate, null) ionBackButtonDelegate: IonBackButtonDelegate;
+
+    @Input() actionCode: number;
+    @Input() guid?: string;
 
     mod = {
         queryUrl: '/Api/Customer/GetCustomerInfo',
@@ -43,15 +46,12 @@ export class EditPage implements OnInit {
         private _shareData: DCore_ShareData,
         private _valid: DCore_Valid,
         private _activeRoute: ActivatedRoute,
-        private _loginInfo: Storage_LoginInfo
+        private _loginInfo: Storage_LoginInfo,
+
     ) { }
 
-
     ngOnInit() {
-        const that = this;
-        this.ionBackButtonDelegate.onClick = function (event) {
-            that._page.navigateRoot("/serving/mycustomer/list", null, "back");
-        }
+
     }
 
     //选择车型
@@ -68,19 +68,16 @@ export class EditPage implements OnInit {
     }
 
     ionViewWillEnter() {
-        this._activeRoute.queryParams.subscribe((params: Params) => {
-            if (!this._valid.isNull(params['id']) && !this._valid.isNull(params['actionCode'])) {
-                this.shareData.actioncode = Number(params['actionCode']);
-                this.shareData.id = params['id']
-            }
-            if (this.shareData.actioncode === 2) {
-                this.shareData.viewTitle = "编辑客户";
-                this.pageOnBind(this.shareData.id);
-            }
-            else {
-                this.shareData.viewTitle = "创建客户";
-            }
-        });
+
+
+        if (this.actionCode === 2) {
+            this.shareData.viewTitle = "编辑客户";
+            this.pageOnBind(this.guid);
+        }
+        else {
+            this.shareData.viewTitle = "创建客户";
+        }
+
     }
 
     //编辑初始化页面
@@ -137,7 +134,7 @@ export class EditPage implements OnInit {
         postData["Carserviceadvisor"] = this.shareData.carserviceadvisor;
         postData["actionCode"] = this.shareData.actioncode;
         postData["dealerid"] = this._loginInfo.GetDealerid();
-
+        console.log(postData);
         //提交数据保存
         this._page.loadingShow();
         this._http.post(
@@ -149,7 +146,9 @@ export class EditPage implements OnInit {
                 if (res.Result == true) {
                     const that = this;
                     this._page.alert("消息提示", "操作成功", function () {
-                        that._page.goBack();
+                        that._modalCtrl.dismiss({
+
+                        });
                     });
                 }
                 else {
@@ -163,4 +162,9 @@ export class EditPage implements OnInit {
         );
     }
 
+    //*************
+    dismissModal() {
+        this._modalCtrl.dismiss({
+        });
+    }
 }

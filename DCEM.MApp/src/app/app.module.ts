@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //自定义组件
 import { ScSelectComponent } from './serving/serving.ser/components/sc-select/sc-select.component';
 import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
+import { SelectCustomerEditComponent } from 'app/serving/serving.ser/components/select-customer-edit/select-customer-edit.component';
 import { SelectRepairlocationComponent } from 'app/serving/serving.ser/components/select-repairlocation/select-repairlocation.component';
 import { SelectCarmodelComponent } from 'app/serving/serving.ser/components/select-carmodel/select-carmodel.component';
 import { SelectSystemuserComponent } from 'app/base/base.ser/components/select-systemuser/select-systemuser.component';
@@ -34,6 +35,7 @@ import { SelectVehicletypeComponent } from 'app/saleing/saleing.ser/components/s
         AppComponent, //全局公共组件
         ScSelectComponent, //服务委托书选择组件
         SelectCustomerComponent, //客户选择组件
+        SelectCustomerEditComponent,//客户编辑
         SelectRepairlocationComponent, //选择工位
         SelectCarmodelComponent, //选择车型
         SelectMaintenanceComponent,//选择保养项
@@ -53,10 +55,11 @@ import { SelectVehicletypeComponent } from 'app/saleing/saleing.ser/components/s
     ],
 
     entryComponents: [
-        ScSelectComponent, 
-        SelectCustomerComponent, 
-        SelectRepairlocationComponent, 
-        SelectCarmodelComponent, 
+        ScSelectComponent,
+        SelectCustomerComponent,
+        SelectCustomerEditComponent,
+        SelectRepairlocationComponent,
+        SelectCarmodelComponent,
         SelectMaintenanceComponent,
         SelectSystemuserComponent,
         SelectAppointmentconfigComponent,
