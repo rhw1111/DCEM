@@ -22,6 +22,10 @@ namespace DCEM.ServiceAssistantService.Main.Application
         Task<ValidateResult<string>> Delete(string serviceproxyGuid);
         #endregion
 
+        #region 问诊单转服务委托书
+        Task<ValidateResult<string>> ToServiceproxy(string serviceproxyGuid);
+        #endregion
+
         #region 查询环检项 列表
         Task<QueryResult<CrmEntity>> QueryVehcheckList();
         #endregion

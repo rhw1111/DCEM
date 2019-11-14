@@ -16,7 +16,7 @@ export class SelectCustomerEditComponent implements OnInit {
     @ViewChild(IonBackButton, null) ionBackButton: IonBackButton;
     @ViewChild(IonBackButtonDelegate, null) ionBackButtonDelegate: IonBackButtonDelegate;
 
-    @Input() actionCode: number;
+    @Input() actionCode: string;
     @Input() guid?: string;
 
     mod = {
@@ -69,14 +69,21 @@ export class SelectCustomerEditComponent implements OnInit {
 
     ionViewWillEnter() {
 
+        console.log(this.actionCode);
 
-        if (this.actionCode === 2) {
+        this.shareData.actioncode = Number(this.actionCode);
+
+
+        if (this.shareData.actioncode === 2) {
+            this.shareData.id = this.guid;
             this.shareData.viewTitle = "编辑客户";
-            this.pageOnBind(this.guid);
+            this.pageOnBind(this.shareData.id);
         }
         else {
             this.shareData.viewTitle = "创建客户";
         }
+
+
 
     }
 

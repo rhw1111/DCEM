@@ -410,6 +410,19 @@ namespace DCEM.ServiceAssistantService.Main.Application
         }
         #endregion
 
+        #region 问诊单转服务委托书
+        public async Task<ValidateResult<string>> ToServiceproxy(string serviceproxyGuid)
+        {
+            var validateResult = new ValidateResult<string>();
+            var serviceproxyEntity = new CrmExecuteEntity("mcs_serviceproxy", Guid.Parse(serviceproxyGuid));
+            serviceproxyEntity.Attributes.Add("mcs_currenttype", 20);
+            await _crmService.Update(serviceproxyEntity);
+            validateResult.Result = true;
+            validateResult.Description = "操作成功";
+            return validateResult;
+        }
+        #endregion
+
         #region 查询 所有环检项 列表
         public async Task<QueryResult<CrmEntity>> QueryVehcheckList()
         {
@@ -790,7 +803,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
         }
         #endregion
 
-        
+
 
     }
 }
