@@ -106,7 +106,25 @@ namespace DCEM.Web.Controllers
             return list;
         }
 
+        #region 我的培育任务列表查询
 
+        [HttpGet]
+        [Route("GetMyVehorderList")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetMyVehorderList(string systemuserid = "", string seachkey = "", int pageSize = 10, int page = 1, string sort = "", int mcs_activitystatus = 0)
+        {        
+            var request = new ActivityRequest()
+            {
+                UserId = systemuserid,
+                SearchKey = seachkey,              
+                PageIndex = page,
+                PageSize = pageSize,
+                mcs_activitystatus = mcs_activitystatus
+            };
+
+            var list = await app.GetActivityList(request);
+            return list;
+        }
+        #endregion
 
         /// <summary>
         /// logcall 新增或编辑
