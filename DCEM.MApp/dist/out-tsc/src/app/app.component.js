@@ -1,5 +1,4 @@
 import * as tslib_1 from "tslib";
-var _a, _b, _c, _d, _e;
 import { Component } from '@angular/core';
 import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -70,7 +69,12 @@ AppComponent = tslib_1.__decorate([
         templateUrl: 'app.component.html',
         styleUrls: ['app.component.scss']
     }),
-    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof Platform !== "undefined" && Platform) === "function" ? _a : Object, typeof (_b = typeof SplashScreen !== "undefined" && SplashScreen) === "function" ? _b : Object, typeof (_c = typeof StatusBar !== "undefined" && StatusBar) === "function" ? _c : Object, AuthenticationService, typeof (_d = typeof Router !== "undefined" && Router) === "function" ? _d : Object, typeof (_e = typeof MenuController !== "undefined" && MenuController) === "function" ? _e : Object])
+    tslib_1.__metadata("design:paramtypes", [Platform,
+        SplashScreen,
+        StatusBar,
+        AuthenticationService,
+        Router,
+        MenuController])
 ], AppComponent);
 export { AppComponent };
 //import { Component } from '@angular/core';

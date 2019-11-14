@@ -1,5 +1,4 @@
 import * as tslib_1 from "tslib";
-var _a, _b, _c;
 import { Component } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
 import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
@@ -188,11 +187,14 @@ EditPage = tslib_1.__decorate([
         templateUrl: './edit.page.html',
         styleUrls: ['./edit.page.scss'],
     }),
-    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof ModalController !== "undefined" && ModalController) === "function" ? _a : Object, typeof (_b = typeof NavController !== "undefined" && NavController) === "function" ? _b : Object, DCore_Http,
+    tslib_1.__metadata("design:paramtypes", [ModalController,
+        NavController,
+        DCore_Http,
         DCore_Page,
         Storage_LoginInfo,
         DCore_ShareData,
-        DCore_Valid, typeof (_c = typeof ActivatedRoute !== "undefined" && ActivatedRoute) === "function" ? _c : Object])
+        DCore_Valid,
+        ActivatedRoute])
 ], EditPage);
 export { EditPage };
 //# sourceMappingURL=edit.page.js.map
