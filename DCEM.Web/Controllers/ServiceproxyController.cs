@@ -71,6 +71,15 @@ namespace DCEM.Web.Controllers
         }
         #endregion
 
+        #region  问诊单转服务委托书
+        [HttpGet]
+        [Route("ToServiceproxy")]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<string>>> ToServiceproxy(string serviceproxyGuid)
+        {
+            return await _serviceproxyService.ToServiceproxy(serviceproxyGuid);
+        }
+        #endregion
+
         #region 查询 环检项 列表
         [HttpGet]
         [Route("GetVehcheckList")]
@@ -126,7 +135,7 @@ namespace DCEM.Web.Controllers
         #endregion
 
     }
-    #endregion
+#endregion
 
 }
 

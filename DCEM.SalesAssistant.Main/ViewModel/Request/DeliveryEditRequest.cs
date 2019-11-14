@@ -13,6 +13,10 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         //客户约定
         public string customerrequest { get; set; }
         //客户预约时间
-        public string appointmenton { get; set; }
+        public DateTime appointmenton { get; set; }
+        /// <summary>
+        /// 服务顾问
+        /// </summary>
+        public string adviser { get; set; }
     }
 }

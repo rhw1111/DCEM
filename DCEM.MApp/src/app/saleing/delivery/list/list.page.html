@@ -59,10 +59,5 @@
     <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doLoading($event)">
         <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
         </ion-infinite-scroll-content>
-    </ion-infinite-scroll>
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button [routerLink]="['/saleing/delivery/edit']">
-            <ion-icon name="add"></ion-icon>
-        </ion-fab-button>
-    </ion-fab>
+    </ion-infinite-scroll> 
 </ion-content>

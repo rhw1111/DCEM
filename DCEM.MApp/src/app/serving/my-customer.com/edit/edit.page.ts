@@ -3,6 +3,7 @@ import { ModalController, NavController, ToastController, IonBackButton, IonBack
 import { DCore_Http, DCore_Page, DCore_ShareData, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { SelectCarmodelComponent } from 'app/serving/serving.ser/components/select-carmodel/select-carmodel.component';
+import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 
 @Component({
     selector: 'app-edit',
@@ -41,7 +42,8 @@ export class EditPage implements OnInit {
         private _page: DCore_Page,
         private _shareData: DCore_ShareData,
         private _valid: DCore_Valid,
-        private _activeRoute: ActivatedRoute
+        private _activeRoute: ActivatedRoute,
+        private _loginInfo: Storage_LoginInfo
     ) { }
 
 
@@ -134,7 +136,7 @@ export class EditPage implements OnInit {
         postData["Vehowner"] = this.shareData.vehowner;
         postData["Carserviceadvisor"] = this.shareData.carserviceadvisor;
         postData["actionCode"] = this.shareData.actioncode;
-        console.log(postData);
+        postData["dealerid"] = this._loginInfo.GetDealerid();
 
         //提交数据保存
         this._page.loadingShow();
@@ -145,14 +147,16 @@ export class EditPage implements OnInit {
                 this._page.loadingHide();
                 console.log(res);
                 if (res.Result == true) {
-             
+                    const that = this;
+                    this._page.alert("消息提示", "操作成功", function () {
+                        that._page.goBack();
+                    });
                 }
                 else {
                     this._page.alert("消息提示", "操作失败");
                 }
             },
             (err: any) => {
-                console.log(err);
                 this._page.loadingHide();
                 this._page.alert("消息提示", "操作失败");
             }

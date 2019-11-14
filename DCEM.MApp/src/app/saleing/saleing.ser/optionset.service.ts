@@ -225,6 +225,14 @@ export class OptionSetService {
                     { "name": "审核不通过", "value": 2 }                
                 ];
                 break;
+                case "mcs_paycategory"://整车销售-收款记录-收款类型 
+                optionlist = [
+                    { "name": "贷款", "value": 0 },
+                    { "name": "定金", "value": 1 },
+                    { "name": "尾款", "value": 2 },
+                    { "name": "抵扣", "value": 3 }                       
+                ];
+                break;
         }
         return optionlist;
     }
