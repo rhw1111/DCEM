@@ -21,5 +21,13 @@ namespace DCEM.SalesAssistant.Main.Application.App.Contrac
 
         Task<ValidateResult<string>> appointment(DeliveryEditRequest deliveryEditRequest);
         Task<ServiceConsultantListResponse> getservicconsultant(DeliveryEditRequest deliveryEditRequest);
+
+        Task<ValidateResult<string>> submitpdi(DeliveryEditRequest deliveryEditRequest);
+
+        Task<CrmEntity> getmateriel(DeliveryDetailRequest deliveryDetailRequest);
+
+        Task<ValidateResult<string>> addorderpay(OrderPayEditRequest orderPayEditRequest);
+
+        Task<ValidateResult<string>> moneycompleted(DeliveryDetailRequest deliveryDetailRequest);
     }
 }

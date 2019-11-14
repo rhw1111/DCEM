@@ -178,8 +178,8 @@ const routes: Routes = [
             {
                 path: 'orderpaydetail',//交车单-收款记录
                 children: [
-                    { path: 'detail', loadChildren: './saleing/orderpaydetail/detail/detail.module#DetailPageModule' }
-
+                    { path: 'detail', loadChildren: './saleing/orderpaydetail/detail/detail.module#DetailPageModule' },
+                    { path: 'edit', loadChildren: './saleing/orderpaydetail/edit/edit.module#EditPageModule' }
                 ]
             }
         ]

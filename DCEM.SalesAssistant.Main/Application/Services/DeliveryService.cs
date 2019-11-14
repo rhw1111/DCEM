@@ -1,4 +1,6 @@
-﻿using DCEM.SalesAssistant.Main.Application.Repository.Contrac;
+﻿using DCEM.Main;
+using DCEM.Main.Entities;
+using DCEM.SalesAssistant.Main.Application.Repository.Contrac;
 using DCEM.SalesAssistant.Main.Application.Services.Contrac;
 using DCEM.SalesAssistant.Main.Common;
 using DCEM.SalesAssistant.Main.DTOModel;
@@ -23,7 +25,8 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         private const string roEntityName = "mcs_vehorder";
         private const string orderpayEntityName = "mcs_orderpaydetail";
         private const string systemuserEntityName = "systemuser";
-
+        private const string vehmaterialEntityName = "mcs_vehiclematerial";
+        private const string dealerEntityName = "mcs_dealer";
         public DeliveryService(ICrmService crmService, IDeliveryRepository deliveryRepository)
         {
             _crmService = crmService;
@@ -47,7 +50,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 {
                     fetchXdoc = await _deliveryRepository.GetListFetchXml(deliveryListRequest, null);
                 }
-                var entities = await crmRequestHelper.ExecuteAsync(_crmService, entityName, fetchXdoc, Guid.Parse(deliveryListRequest.UserId));
+                var entities = await crmRequestHelper.ExecuteAsync(_crmService, entityName, fetchXdoc);
                 response.Deliverys = entities.Results;
                 response.ALLTotalCount = entities.Count;
                 response.PageSize = deliveryListRequest.PageSize;
@@ -67,7 +70,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 var crmRequestHelper = new CrmRequestHelper();
                 var response = new CollectionListResponse() { };
                 XDocument fetchXdoc = await _deliveryRepository.GetOrderPayListFetchXml(collectionListRequest);
-                var entities = await crmRequestHelper.ExecuteAsync(_crmService, orderpayEntityName, fetchXdoc, Guid.Parse(collectionListRequest.UserId));
+                var entities = await crmRequestHelper.ExecuteAsync(_crmService, orderpayEntityName, fetchXdoc);
                 response.Collections = entities.Results;
                 response.ALLTotalCount = entities.Count;
                 response.PageSize = collectionListRequest.PageSize;
@@ -85,7 +88,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             try
             {
                 var crmRequestHelper = new CrmRequestHelper();
-                var entity = await crmRequestHelper.Retrieve(_crmService, entityName, Guid.Parse(deliveryDetailRequest.Id), Guid.Parse(deliveryDetailRequest.UserId));
+                var entity = await crmRequestHelper.Retrieve(_crmService, entityName, Guid.Parse(deliveryDetailRequest.Id));
                 return entity;
             }
             catch (Exception ex)
@@ -126,7 +129,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                     }
                     var delivery = new CrmExecuteEntity(entityName, Guid.Parse(deliveryEditRequest.id));
                     delivery.Attributes.Add("mcs_customerrequest", deliveryEditRequest.customerrequest);
-                    delivery.Attributes.Add("mcs_appointmenton", DateTime.Parse(deliveryEditRequest.appointmenton));
+                    delivery.Attributes.Add("mcs_appointmenton", deliveryEditRequest.appointmenton.ToUniversalTime());
                     delivery.Attributes.Add("mcs_deliverystatus", 4);
                     await _crmService.Update(delivery);
                     validateResult.Result = true;
@@ -151,12 +154,164 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         {
             try
             {
+                var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+                deliveryEditRequest.dealerId = Guid.Parse("d2b7ae95-72f4-e911-a821-f2106c4094a1");//Guid.Parse(userInfo?.mcs_dealerid);
                 var crmRequestHelper = new CrmRequestHelper();
                 var response = new ServiceConsultantListResponse() { };
                 XDocument fetchXdoc = fetchXdoc = await _deliveryRepository.GetServiceConsultantListFetchXml(deliveryEditRequest);
                 var entities = await crmRequestHelper.ExecuteAsync(_crmService, systemuserEntityName, fetchXdoc);
-                response.ServiceConsultants = entities.Results; 
+                response.ServiceConsultants = entities.Results;
                 return response;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<ValidateResult<string>> submitpdi(DeliveryEditRequest deliveryEditRequest)
+        {
+            try
+            {
+                var validateResult = new ValidateResult<string>();
+                var crmRequestHelper = new CrmRequestHelper();
+                var entity = await crmRequestHelper.Retrieve(_crmService, entityName, Guid.Parse(deliveryEditRequest.id));
+                if (entity != null)
+                {
+                    var deliverystatus = entity.Attributes.Value<int>("mcs_deliverystatus");
+                    //待检测
+                    if (deliverystatus != 2)
+                    {
+                        validateResult.Result = false;
+                        validateResult.Description = "交车单状态不符合！";
+                        return validateResult;
+                    }
+                    var delivery = new CrmExecuteEntity(entityName, Guid.Parse(deliveryEditRequest.id));
+                    var systemuser = new CrmEntityReference(systemuserEntityName, Guid.Parse(deliveryEditRequest.adviser));
+                    delivery.Attributes.Add("mcs_serviceproxyid", systemuser);
+                    delivery.Attributes.Add("mcs_deliverystatus", 3);
+                    delivery.Attributes.Add("mcs_submitpdi", true);
+                    delivery.Attributes.Add("mcs_submitpdion", DateTime.UtcNow);
+                    await _crmService.Update(delivery);
+                    validateResult.Result = true;
+                    validateResult.Description = "操作成功";
+                    return validateResult;
+                }
+                else
+                {
+                    validateResult.Result = false;
+                    validateResult.Description = "交车单不存在！";
+                    return validateResult;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        public async Task<CrmEntity> getmateriel(DeliveryDetailRequest deliveryDetailRequest)
+        {
+            try
+            {
+                var crmRequestHelper = new CrmRequestHelper();
+                var entity = await crmRequestHelper.Retrieve(_crmService, vehmaterialEntityName, Guid.Parse(deliveryDetailRequest.materielId));
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+
+        public async Task<ValidateResult<string>> addorderpay(OrderPayEditRequest orderPayEditRequest)
+        {
+            try
+            {
+                var validateResult = new ValidateResult<string>();
+                var crmRequestHelper = new CrmRequestHelper();
+                var entity = await crmRequestHelper.Retrieve(_crmService, entityName, Guid.Parse(orderPayEditRequest.delivery));
+                if (entity != null)
+                {
+                    var deliverystatus = entity.Attributes.Value<int>("mcs_deliverystatus");
+                    //已检测
+                    if (deliverystatus >= 5)
+                    {
+                        validateResult.Result = false;
+                        validateResult.Description = "交车单状态不符合！";
+                        return validateResult;
+                    }
+                    var deliveryef = new CrmEntityReference(entity.EntityName, entity.Id);
+                    var createentity = new CrmExecuteEntity(orderpayEntityName, Guid.NewGuid());
+                    createentity.Attributes.Add("mcs_paycategory", orderPayEditRequest.paycategory);
+                    createentity.Attributes.Add("mcs_payon", orderPayEditRequest.payon.ToUniversalTime());
+                    createentity.Attributes.Add("mcs_vehdelivery", deliveryef);
+                    var vehorderId = entity.Attributes.Value<string>("_mcs_vehorder_value");
+                    if (!string.IsNullOrEmpty(vehorderId))
+                    {
+                        var vehorderrf = new CrmEntityReference(roEntityName,Guid.Parse(vehorderId));
+                        createentity.Attributes.Add("mcs_vehorder", vehorderrf);
+                    }
+                    var dealerid = entity.Attributes.Value<string>("_mcs_dealer_value");
+                    if (!string.IsNullOrEmpty(dealerid))
+                    {
+                        var dealerrf = new CrmEntityReference(dealerEntityName, Guid.Parse(dealerid));
+                        createentity.Attributes.Add("mcs_dealer", dealerrf);
+                    } 
+                    createentity.Attributes.Add("mcs_amount", orderPayEditRequest.amount); 
+                    createentity.Attributes.Add("mcs_batchcode", orderPayEditRequest.batchcode);
+                    await _crmService.Create(createentity);
+                    validateResult.Result = true;
+                    validateResult.Description = "操作成功";
+                    return validateResult;
+                }
+                else
+                {
+                    validateResult.Result = false;
+                    validateResult.Description = "交车单不存在！";
+                    return validateResult;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<ValidateResult<string>> moneycompleted(DeliveryDetailRequest deliveryDetailRequest)
+        {
+            try
+            {
+                var validateResult = new ValidateResult<string>();
+                var crmRequestHelper = new CrmRequestHelper();
+                var entity = await crmRequestHelper.Retrieve(_crmService, entityName, Guid.Parse(deliveryDetailRequest.Id));
+                if (entity != null)
+                {
+                    var deliverystatus = entity.Attributes.Value<int>("mcs_deliverystatus");
+                    //待检测
+                    if (deliverystatus != 4)
+                    {
+                        validateResult.Result = false;
+                        validateResult.Description = "交车单状态不符合！";
+                        return validateResult;
+                    }
+                    var delivery = new CrmExecuteEntity(entityName, Guid.Parse(deliveryDetailRequest.Id));
+                    delivery.Attributes.Add("mcs_settlestatus", 1); 
+                    delivery.Attributes.Add("mcs_deliverystatus",5);
+                    await _crmService.Update(delivery);
+                    validateResult.Result = true;
+                    validateResult.Description = "操作成功";
+                    return validateResult;
+                }
+                else
+                {
+                    validateResult.Result = false;
+                    validateResult.Description = "交车单不存在！";
+                    return validateResult;
+                }
             }
             catch (Exception ex)
             {
@@ -176,7 +331,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                     fetchXdoc = await _deliveryRepository.GetRoOrderListFetchXml(deliveryListRequest);
                     break;
             }
-            var entitys = await crmRequestHelper.ExecuteAsync(_crmService, entityName, fetchXdoc, Guid.Parse(deliveryListRequest.UserId));
+            var entitys = await crmRequestHelper.ExecuteAsync(_crmService, entityName, fetchXdoc);
             return entitys.Results;
         }
         #endregion

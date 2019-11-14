@@ -3,7 +3,6 @@ import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import dateformat from 'silly-datetime';
 import { OptionSetService } from '../../saleing.ser/optionset.service';
-
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.page.html',

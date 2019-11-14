@@ -35,13 +35,8 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             {
                 var response = new OriginalclueListResponse() { };
                 var fetchXdoc = await _originalclueRepository.GetGetQueryListFetchXml(originalclueListRequest);
-                var crmRequestHelper = new CrmRequestHelper();
-                Guid? proxyUserId = null;
-                if (!string.IsNullOrEmpty(originalclueListRequest.UserId))
-                {
-                    proxyUserId = Guid.Parse(originalclueListRequest.UserId);
-                }
-                var entities = await crmRequestHelper.ExecuteAsync(_crmService, entityName, fetchXdoc, proxyUserId.GetValueOrDefault());
+                var crmRequestHelper = new CrmRequestHelper(); 
+                var entities = await crmRequestHelper.ExecuteAsync(_crmService, entityName, fetchXdoc);
                 response.originalclues = entities.Results;
                 response.ALLTotalCount = entities.Count;
                 response.PageSize = originalclueListRequest.PageSize;
