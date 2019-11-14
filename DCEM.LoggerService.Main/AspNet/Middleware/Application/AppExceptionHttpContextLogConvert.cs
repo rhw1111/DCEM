@@ -34,12 +34,12 @@ namespace DCEM.LoggerService.Main.AspNet.Middleware
             byte[] bufferBytes = new byte[1024];
             string strRequestBody = null;
             //尝试获取请求内容和响应内容
-            if (context.Request != null && context.Request.Body != null && context.Request.Body.CanRead && context.Request.Body.CanSeek)
+            if (context.Request != null && context.Request.Body != null && context.Request.Body.CanRead )
             {
                 using (MemoryStream requestStream = new MemoryStream())
                 {
                     List<byte> requestBytes = new List<byte>();
-                    context.Request.Body.Position = 0;
+                    //context.Request.Body.Position = 0;
                     await context.Request.Body.CopyToAsync(requestStream);
                     requestStream.Position = 0;
                     long totalLength = 0;
@@ -69,7 +69,7 @@ namespace DCEM.LoggerService.Main.AspNet.Middleware
             //取出存储在上下文Item中的异常
             var ex = (Exception)context.Items["ExecuteException"];
 
-            CommonLogContent content = new CommonLogContent() { RequestUri = context.Request.Path.Value, ActionName = "",RequestBody=strRequestBody, Message = $"Unhandle Error,\nmessage:{ex.Message},\nstacktrace:{ex.StackTrace}" };
+            CommonLogLocalContent content = new CommonLogLocalContent() { RequestUri = context.Request.Path.Value, ActionName = "",RequestBody=strRequestBody, Message = $"Unhandle Error,\nmessage:{ex.Message},\nstacktrace:{ex.StackTrace}" };
             return await Task.FromResult(content);
         }
     }

@@ -107,7 +107,8 @@ namespace MSLibrary.Logger
 
             }
             var logger = GetLogger(categoryName);
-            logger.Log<T>(LogLevel.Error,new EventId(),state,null,(obj,ex)=> { return strState; });
+            
+            logger.Log(LogLevel.Error,new EventId(),state,null,(obj,ex)=> { return strState; });
 
         }
 

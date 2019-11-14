@@ -4,10 +4,14 @@ using System.Text;
 
 namespace DCEM.SalesAssistant.Main.ViewModel.Request
 {
-    public class AccountRequest : PageBaseRequestModel
+    public class AccountRequest
     {
 
         #region 业务字段
+        /// <summary>
+        /// 姓名
+        /// </summary>
+        public string name { get; set; }
         public string Id { get; set; }
         /// <summary>
         ///	家庭成员数量	
@@ -400,6 +404,12 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         /// ownerId
         /// </summary>
         public Guid? ownerid { get; set; }
+        /// <summary>
+        /// 特殊关注
+        /// </summary>
+        public string description { get; set; }
+
+
     }
     /// <summary>
     /// 列表请求参数

@@ -12,8 +12,7 @@ using MSLibrary.Configuration;
 using MSLibrary.Logger;
 using DCEM.Main;
 using DCEM.LoggerService.Main;
-
-
+using MSLibrary.DI;
 
 namespace DCEM.LoggerService
 {
@@ -70,12 +69,19 @@ namespace DCEM.LoggerService
                     StartupHelper.InitStaticInfo();
 
 
-                
+                    //配置日志工厂
+                    var loggerFactory = LoggerFactory.Create((builder) =>
+                    {
+                        MainStartupHelper.InitLogger(builder);
+                    });
+                    DIContainerContainer.Inject<ILoggerFactory>(loggerFactory);
+
             })
             .ConfigureLogging((builder) =>
             {
                 //初始化日志配置
-                MainStartupHelper.InitLogger(builder);
+                //MainStartupHelper.InitLogger(builder);
+
             })
             .ConfigureKestrel(opts=>
             {

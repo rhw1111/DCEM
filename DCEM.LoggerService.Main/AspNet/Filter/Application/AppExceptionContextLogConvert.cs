@@ -9,12 +9,11 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using MSLibrary.DI;
 using MSLibrary.AspNet.Filter.Application;
 using MSLibrary.Logger;
-
-namespace DCEM.Main.AspNet.Filter.Application
+namespace DCEM.LoggerService.Main.AspNet.Filter.Application
 {
     /// <summary>
     /// 将Exception过滤器上下文转换为日志
-    /// 本系统中转换为CommonLogLogger
+    /// 本系统中转换为CommonLogLocalContent
     /// </summary>
     [Injection(InterfaceType = typeof(IAppExceptionContextLogConvert), Scope = InjectionScope.Singleton)]
     public class AppExceptionContextLogConvert : IAppExceptionContextLogConvert
@@ -62,8 +61,8 @@ namespace DCEM.Main.AspNet.Filter.Application
             }
 
 
-            
-            CommonLogContent content = new CommonLogContent() { RequestUri = context.HttpContext.Request.Path.Value, ActionName = context.ActionDescriptor.DisplayName.Split("(")[0].Trim(), Message = $"Unhandle Error,\nmessage:{context.Exception.Message},\nstacktrace:{context.Exception.StackTrace}", RequestBody = strRequestBody, ResponseBody = "" };
+
+            CommonLogLocalContent content = new CommonLogLocalContent() { RequestUri = context.HttpContext.Request.Path.Value, ActionName = context.ActionDescriptor.DisplayName.Split("(")[0].Trim(), Message = $"Unhandle Error,\nmessage:{context.Exception.Message},\nstacktrace:{context.Exception.StackTrace}", RequestBody = strRequestBody, ResponseBody = "" };
             return await Task.FromResult(content);
         }
     }
