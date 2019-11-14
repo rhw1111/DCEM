@@ -40,7 +40,7 @@ namespace DCEM.Main.Context.ClaimContextGeneratorServices
             }
 
             var contextInfo= defaultContextInfoConfig.GetConfigurationValue<DefaultContextInfo>();
-            if (contextInfo==null || contextInfo.UserID==Guid.Empty)
+            if (contextInfo==null)
             {
                 var fragment = new TextFragment()
                 {
@@ -52,7 +52,7 @@ namespace DCEM.Main.Context.ClaimContextGeneratorServices
                 
             }
 
-            ContextContainer.SetValue<Guid>(ContextExtensionTypes.CurrentUserID, contextInfo.UserID);
+            ContextContainer.SetValue<string>(ContextTypes.CurrentUserId, contextInfo.UserID);
             ContextContainer.SetValue<int>(ContextTypes.CurrentUserLcid, contextInfo.Lcid);
             ContextContainer.SetValue<int>(ContextTypes.CurrentUserTimezoneOffset, contextInfo.TimezoneOffset);
             ContextContainer.SetValue<Dictionary<string, object>>(ContextTypes.Dictionary, new Dictionary<string, object>());

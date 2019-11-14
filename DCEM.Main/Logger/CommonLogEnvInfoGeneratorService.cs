@@ -18,7 +18,7 @@ namespace DCEM.Main.Logger
     {
         public string GenerateUserInfo()
         {
-            return ContextContainer.GetValue<Guid>(ContextExtensionTypes.CurrentUserID).ToString();
+            return ContextContainer.GetValue<Guid>(ContextTypes.CurrentUserId).ToString();
         }
 
         public Guid? GetCurrentLevelID()

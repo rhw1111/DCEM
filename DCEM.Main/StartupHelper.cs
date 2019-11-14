@@ -70,6 +70,9 @@ using MSLibrary.Xrm.Convert.CrmFunctionParameterHandle;
 using MSLibrary.Xrm.Convert.CrmExecuteEntityTypeHandle;
 using MSLibrary.Xrm.Convert.CrmAlternateKeyTypeHandle;
 using MSLibrary.Xrm.Convert.CrmActionParameterHandle;
+using MSLibrary.Security.Jwt.JwtGenerateCreateSignKeyServices;
+using MSLibrary.Security.Jwt.JwtGenerateValidateSignKeyServices;
+using MSLibrary.Security.Jwt.JwtValidateParameterBuildServices;
 using DCEM.Main;
 using DCEM.Main.Context;
 using DCEM.Main.Context.HttpClaimGeneratorServices;
@@ -158,7 +161,7 @@ namespace DCEM.Main
             ContextContainer.Current.Register<int>(ContextTypes.CurrentUserLcid, new ContextCurrentUserLcid());
             ContextContainer.Current.Register<int>(ContextTypes.CurrentUserTimezoneOffset, new ContextCurrentUserTimezoneOffset());
             ContextContainer.Current.Register<ConcurrentDictionary<string, object>>(ContextTypes.Dictionary, new ContextDictionary());
-            ContextContainer.Current.Register<Guid>(ContextExtensionTypes.CurrentUserID, new ContextCurrentUserID());
+            ContextContainer.Current.Register<string>(ContextTypes.CurrentUserId, new ContextCurrentUserID());
             ContextContainer.Current.Register<Guid>(ContextExtensionTypes.ParentCommonLogID, new ContextParentCommonLogID());
             ContextContainer.Current.Register<string>(ContextExtensionTypes.ParentCommonLogActionName, new ContextParentCommonLogActionName());
             ContextContainer.Current.Register<string>(ContextExtensionTypes.ParentCommonLogContextInfo, new ContextParentCommonLogContextInfo());
@@ -183,6 +186,8 @@ namespace DCEM.Main
             DIContainerInit.Init = new DIContainerInitDefault();
             DIContainerInit.Execute(dISetting.SearchAssemblyNames);
 
+
+
             //装载需要手动处理的DI数据
 
             //Microsoft.AspNetCore.DataProtection.Repositories.IXmlRepository
@@ -205,7 +210,7 @@ namespace DCEM.Main
             LoggingBuilderHandlerDefault.ProviderHandlerFactories[LoggerProviderHandlerNames.ApplicationInsights]=DIContainerContainer.Get<LoggingBuilderProviderHandlerForApplicationInsightsFactory>();
             LoggingBuilderHandlerDefault.ProviderHandlerFactories[LoggerProviderHandlerNames.Console]= DIContainerContainer.Get<LoggingBuilderProviderHandlerForConsoleFactory>();
             LoggingBuilderHandlerDefault.ProviderHandlerFactories[LoggerProviderHandlerNames.CommonLog]= DIContainerContainer.Get<LoggingBuilderProviderHandlerForCommonLogFactory>();
-            LoggingBuilderHandlerDefault.ProviderHandlerFactories[LoggerProviderHandlerNames.CommonLogLocal]=DIContainerContainer.Get<LoggingBuilderProviderHandlerForCommonLogFactory>();
+            LoggingBuilderHandlerDefault.ProviderHandlerFactories[LoggerProviderHandlerNames.CommonLogLocal]=DIContainerContainer.Get<LoggingBuilderProviderHandlerForCommonLogLocalFactory>();
 
             //为HttpClaimGeneratorIMP.HttpClaimGeneratorServiceFactories增加键值对
             HttpClaimGeneratorIMP.HttpClaimGeneratorServiceFactories[HttpClaimGeneratorServiceTypes.Inner]= DIContainerContainer.Get<HttpClaimGeneratorServiceForInnerFactory>();
@@ -214,6 +219,17 @@ namespace DCEM.Main
             ClaimContextGeneratorIMP.ClaimContextGeneratorServiceFactories[ClaimContextGeneratorServiceTypes.Inner]= DIContainerContainer.Get<ClaimContextGeneratorServiceForInnerFactory>();
             ClaimContextGeneratorIMP.ClaimContextGeneratorServiceFactories[ClaimContextGeneratorServiceTypes.Default] = DIContainerContainer.Get<ClaimContextGeneratorServiceForDefaultFactory>();
 
+            //为JwtGenerateCreateSignKeyMainService.JwtGenerateValidateSignKeyMainService赋值
+            JwtGenerateCreateSignKeyMainService.JwtGenerateCreateSignKeyServiceFactories[JwtGenerateCreateSignKeyServiceTypes.RsaPrivate] = DIContainerContainer.Get<JwtGenerateCreateSignKeyServiceForRsaPrivateFactory>();
+
+            //为JwtGenerateValidateSignKeyMainService.JwtGenerateValidateSignKeyServiceFactories赋值
+            JwtGenerateValidateSignKeyMainService.JwtGenerateValidateSignKeyServiceFactories[JwtGenerateValidateSignKeyServiceTypes.MetadataService] = DIContainerContainer.Get<JwtGenerateValidateSignKeyServiceForMetadataServiceFactory>();
+            JwtGenerateValidateSignKeyMainService.JwtGenerateValidateSignKeyServiceFactories[JwtGenerateValidateSignKeyServiceTypes.RsaPublic] = DIContainerContainer.Get<JwtGenerateValidateSignKeyServiceForRsaPublicFactory>();
+
+            //为JwtValidateParameterBuildMainService.JwtValidateParameterBuildServiceFactories赋值
+            JwtValidateParameterBuildMainService.JwtValidateParameterBuildServiceFactories[JwtValidateParameterBuildServiceTypes.Audience] = DIContainerContainer.Get<JwtValidateParameterBuildServiceForAudienceFactory>();
+            JwtValidateParameterBuildMainService.JwtValidateParameterBuildServiceFactories[JwtValidateParameterBuildServiceTypes.Issuer] = DIContainerContainer.Get<JwtValidateParameterBuildServiceForIssuerFactory>();
+            JwtValidateParameterBuildMainService.JwtValidateParameterBuildServiceFactories[JwtValidateParameterBuildServiceTypes.Lifetime] = DIContainerContainer.Get<JwtValidateParameterBuildServiceForLifetimeFactory>();
 
         }
 
@@ -331,7 +347,6 @@ namespace DCEM.Main
             CrmActionParameterMainHandle.HandleFactories[typeof(string)] = DIContainerContainer.Get<CrmActionParameterHandleForOtherFactory>();
             CrmActionParameterMainHandle.HandleFactories[typeof(DateTime)] = DIContainerContainer.Get<CrmActionParameterHandleForOtherFactory>();
             CrmActionParameterMainHandle.HandleFactories[typeof(bool)] = DIContainerContainer.Get<CrmActionParameterHandleForOtherFactory>();
-
         }
 
 

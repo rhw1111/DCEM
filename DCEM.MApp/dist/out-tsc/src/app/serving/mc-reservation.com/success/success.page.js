@@ -1,4 +1,5 @@
 import * as tslib_1 from "tslib";
+var _a;
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 let SuccessPage = class SuccessPage {
@@ -22,7 +23,7 @@ SuccessPage = tslib_1.__decorate([
         templateUrl: './success.page.html',
         styleUrls: ['./success.page.scss'],
     }),
-    tslib_1.__metadata("design:paramtypes", [ActivatedRoute])
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof ActivatedRoute !== "undefined" && ActivatedRoute) === "function" ? _a : Object])
 ], SuccessPage);
 export { SuccessPage };
 //# sourceMappingURL=success.page.js.map

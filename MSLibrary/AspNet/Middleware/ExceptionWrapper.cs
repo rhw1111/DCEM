@@ -8,6 +8,7 @@ using MSLibrary.DI;
 using MSLibrary.LanguageTranslate;
 using MSLibrary.Logger;
 using MSLibrary.AspNet.Middleware.Application;
+using MSLibrary.Context.Application;
 
 namespace MSLibrary.AspNet.Middleware
 {
@@ -57,13 +58,27 @@ namespace MSLibrary.AspNet.Middleware
                     await context.Response.WriteJson(StatusCodes.Status500InternalServerError, errorMessage);
                 }
 
+
+                //从Http上下文中获取上下文生成结果
+                if (context.Items.TryGetValue("AuthorizeResult", out object objResult))
+                {
+                    try
+                    {
+                        ((IAppUserAuthorizeResult)objResult).Execute();
+                    }
+                    catch
+                    {
+
+                    }
+                }
+
                 //将异常存储在上下文的Item中
                 context.Items.Add("ExecuteException", ex);
 
                 //加到日志中
                 var logObj=await _appExceptionHttpContextLogConvert.Convert(context);
 
-                    LoggerHelper.LogInformation( _categoryName, logObj);
+                    LoggerHelper.LogError( _categoryName, logObj);
                 
                 //var logger = _loggerFactory.CreateLogger(_categoryName);
                 //logger.LogError($"Unhandle Error,\nmessage:{ex.Message},\nstacktrace:{ex.StackTrace}");

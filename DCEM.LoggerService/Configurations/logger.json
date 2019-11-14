@@ -1,13 +1,21 @@
 {
   "GlobalLogLevels": {
-    "DCEM.LoggerService": "0"
+    "DCEM.LoggerService": "4",
+    "HttpRequest": "4",
+    "DIWrapper": "2",
+    "SystemAuthentication": "4"
   },
+  "GlobalLogDefaultMinLevel": "4",
   "Providers": {
     "CommonLogLocal": {
       "Configuration": null,
       "LogLevels": {
-        "DCEM.LoggerService": "0"
-      }
+        "DCEM.LoggerService": "4",
+        "HttpRequest": "4",
+        "DIWrapper": "4",
+        "SystemAuthentication": "4"
+      },
+      "DefaultMinLevel": "4"
     }
   }
 }

@@ -39,6 +39,17 @@ namespace MSLibrary.Logger.LoggingBuilderProviderHandlers
                 builder.AddFilter<ConsoleLoggerProvider>(filterItem.Key, filterItem.Value);
             }
 
+            //配置其他未指定目录的最低级别
+            builder.AddFilter<ConsoleLoggerProvider>((level) =>
+            {
+                if (level < configuration.DefaultMinLevel)
+                {
+                    return false;
+                }
+
+                return true;
+            });
+
             await Task.FromResult(0);
         }
 

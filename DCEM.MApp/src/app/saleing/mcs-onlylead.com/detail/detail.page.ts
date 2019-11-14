@@ -57,7 +57,6 @@ constructor(
 ) {}
 
 ngOnInit() {
-    debugger;
     this.mod.datalist= [];
     this.mod.datalist2= [];
     
@@ -118,6 +117,7 @@ pageOnBind() {
 
 //加载联络记录(logcall)列表
 pageOnLogCalllist() {
+    this.mod.datalist= [];
    // debugger;
     this._page.loadingShow();
     this._http.get(
@@ -165,6 +165,7 @@ pageOnLogCalllist() {
 
 //加载培育任务列表
 pageOnActivitylist() {
+    this.mod.datalist2= [];
     this._page.loadingShow();
     this._http.get(
         this.mod.apiUrlList2,
@@ -210,16 +211,33 @@ pageOnActivitylist() {
 }
 
  //logcall加载下一页
- doNextLoadingLog(event) {
+ doNextLoadingLog() {
     this.mod.page++;
     this.pageOnLogCalllist();
 }
 
+//下拉刷新log
+doRefreshLog() {
+    this.mod.datalist = [];
+    this.mod.page = 1;
+    this.mod.isending = false;
+    this.pageOnLogCalllist();
+}
+
  //培育任务加载下一页
- doNextLoadingAc(event) {
+ doNextLoadingAc() {
     this.mod.page2++;
     this.pageOnActivitylist();
 }
+
+//下拉刷新培育任务
+doRefreshAc() {
+    this.mod.datalist2 = [];
+    this.mod.page2 = 1;
+    this.mod.isending2 = false;
+    this.pageOnActivitylist();
+}
+
 
 FormatToDateTime(date) {
     if (date != null && date != undefined) {

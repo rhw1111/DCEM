@@ -20,7 +20,7 @@
                 <ion-icon name="lock"></ion-icon>
                 机会编号
             </ion-label>
-            <p>{{shareData.account["accountnumber"]}}&nbsp;</p>
+            <p>{{mod.displayData.accountnumber}}&nbsp;</p>
         </ion-item>
         <ion-item>
             <ion-label position="stacked">
@@ -33,34 +33,37 @@
             <ion-label position="stacked">
                 手机
             </ion-label>
-            <ion-input placeholder="请输入手机" [(ngModel)]="shareData.account['mobilephone']" required></ion-input>
+            <ion-input placeholder="请输入手机" [(ngModel)]="shareData.account['mcs_mobilephone']" required></ion-input>
         </ion-item>
         <ion-item>
             <ion-label position="stacked">
                 称呼
             </ion-label>
-            <ion-select placeholder="请选择年龄段" cancelText="取消" okText="确定" [(ngModel)]="shareData.account['oilquantity']">
+            <ion-select placeholder="请选择称呼" cancelText="取消" okText="确定" [(ngModel)]="shareData.account['mcs_gender']">
+                <ion-select-option *ngFor="let item of mod.initData.genderArray" value="{{item.value}}">
+                    {{item.name}}
+                </ion-select-option>
             </ion-select>
         </ion-item>
         <ion-item>
             <ion-label position="stacked">
                 引荐车主
             </ion-label>
-            <ion-input placeholder="请输入引荐车主" maxlength="12" [(ngModel)]="shareData.account['shuttlename']" required></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label position="stacked">
-                <ion-icon name="lock"></ion-icon>
-                小订单号
-            </ion-label>
-            <p>{{shareData.account["dealerid_formatted"]}}&nbsp;</p>
+            <ion-input placeholder="请输入引荐车主" maxlength="12" [(ngModel)]="shareData.account['mcs_introducecarowner']" required></ion-input>
         </ion-item>
         <ion-item>
             <ion-label position="stacked">
                 <ion-icon name="lock"></ion-icon>
                 大订单号
             </ion-label>
-            <p>{{shareData.account["dealerid_formatted"]}}&nbsp;</p>
+            <p>{{mod.displayData.order_Formatted}}&nbsp;</p>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
+                <ion-icon name="lock"></ion-icon>
+                小订单号
+            </ion-label>
+            <p>{{mod.displayData.smallorderid_FormattedValue}}&nbsp;</p>
         </ion-item>
         <ion-item-divider color="primary">
             <ion-label>
@@ -71,75 +74,93 @@
             <ion-label position="stacked">
                 意向等级
             </ion-label>
-            <ion-select placeholder="请选择意向登记" cancelText="取消" okText="确定" [(ngModel)]="shareData.account['oilquantity']">
+            <ion-select placeholder="请选择意向登记" cancelText="取消" okText="确定" [(ngModel)]="shareData.account['mcs_level']">
+                <ion-select-option *ngFor="let item of mod.initData.levelArray" value="{{item.value}}">
+                    {{item.name}}
+                </ion-select-option>
             </ion-select>
         </ion-item>
         <ion-item>
             <ion-label position="stacked">
                 预测成交日期
             </ion-label>
-            <ion-datetime placeholder="请选择预测成交日期" cancelText="取消" doneText="确定" display-format="YYYY-MM-DD HH:mm" [(ngModel)]="shareData.account['arrivalon']"></ion-datetime>
+            <ion-datetime placeholder="请选择预测成交日期" cancelText="取消" doneText="确定" display-format="YYYY-MM-DD HH:mm" [(ngModel)]="shareData.account['mcs_estimatedtransactiondate']"></ion-datetime>
         </ion-item>
-        <ion-item>
+        <ion-item (click)="vehcolorModal()">
             <ion-label position="stacked">
                 <ion-icon name="search"></ion-icon>
                 意向颜色
             </ion-label>
-            <p>{{shareData.account["dealerid_formatted"]}}&nbsp;</p>
+            <p>{{mod.displayData.mcs_vehcolorid}}&nbsp;</p>
         </ion-item>
-        <ion-item>
+        <ion-item (click)="vehtypeModal()">
             <ion-label position="stacked">
                 <ion-icon name="search"></ion-icon>
                 意向车型
             </ion-label>
-            <p>{{shareData.account["dealerid_formatted"]}}&nbsp;</p>
+            <p>{{mod.displayData.mcs_vehtypeid}}&nbsp;</p>
         </ion-item>
         <ion-item>
             <ion-label position="stacked">
                 购车用途
             </ion-label>
-            <ion-select placeholder="请选择购车用途" cancelText="取消" okText="确定" [(ngModel)]="shareData.account['oilquantity']">
+            <ion-select placeholder="请选择购车用途" cancelText="取消" okText="确定" [(ngModel)]="shareData.account['mcs_purchasepurpose']">
+                <ion-select-option *ngFor="let item of mod.initData.purchasepurposeArray" value="{{item.value}}">
+                    {{item.name}}
+                </ion-select-option>
             </ion-select>
         </ion-item>
         <ion-item>
             <ion-label position="stacked">
                 车辆使用人
             </ion-label>
-            <ion-select placeholder="请选择车辆使用人" cancelText="取消" okText="确定" [(ngModel)]="shareData.account['oilquantity']">
+            <ion-select placeholder="请选择车辆使用人" cancelText="取消" okText="确定" [(ngModel)]="shareData.account['mcs_vehicleusers']">
+                <ion-select-option *ngFor="let item of mod.initData.vehicleusersArray" value="{{item.value}}">
+                    {{item.name}}
+                </ion-select-option>
             </ion-select>
         </ion-item>
         <ion-item>
             <ion-label position="stacked">
                 购车关注
             </ion-label>
-            <ion-input placeholder="请如数购车关注" [(ngModel)]="shareData.account['shuttlename']" required></ion-input>
+            <ion-input placeholder="请输入购车关注" maxlength="50" [(ngModel)]="shareData.account['mcs_carattention']" required></ion-input>
         </ion-item>
         <ion-item>
             <ion-label position="stacked">
                 年龄段
             </ion-label>
-            <ion-select placeholder="请选择年龄段" cancelText="取消" okText="确定" [(ngModel)]="shareData.account['oilquantity']">
+            <ion-select placeholder="请选择年龄段" cancelText="取消" okText="确定" [(ngModel)]="shareData.account['mcs_generation']">
+                <ion-select-option *ngFor="let item of mod.initData.generationArray" value="{{item.value}}">
+                    {{item.name}}
+                </ion-select-option>
             </ion-select>
         </ion-item>
         <ion-item>
             <ion-label position="stacked">
                 购买方式
             </ion-label>
-            <ion-select placeholder="请选择购买方式" cancelText="取消" okText="确定" [(ngModel)]="shareData.account['oilquantity']">
+            <ion-select placeholder="请选择购买方式" cancelText="取消" okText="确定" [(ngModel)]="shareData.account['mcs_purchaseway']">
+                <ion-select-option *ngFor="let item of mod.initData.purchasewayArray" value="{{item.value}}">
+                    {{item.name}}
+                </ion-select-option>
             </ion-select>
         </ion-item>
         <ion-item>
             <ion-label position="stacked">
                 竞品车型
             </ion-label>
-            <ion-input placeholder="请输入竞品车型" [(ngModel)]="shareData.account['shuttlename']" required></ion-input>
+            <ion-input placeholder="请输入竞品车型" [(ngModel)]="shareData.account['mcs_competingtype']" required></ion-input>
         </ion-item>
         <ion-item>
             <ion-label position="stacked">
                 关注原因
             </ion-label>
-            <ion-select placeholder="请选择关注原因" cancelText="取消" okText="确定" [(ngModel)]="shareData.account['oilquantity']">
-            </ion-select>
+            <ion-select placeholder="请选择关注原因" cancelText="取消" okText="确定" [(ngModel)]="shareData.account['mcs_carereason']">
+                    <ion-select-option *ngFor="let item of mod.initData.carereasonArray" value="{{item.value}}">
+                        {{item.name}}
+                    </ion-select-option>
+                </ion-select>
         </ion-item>
         <ion-item-divider color="primary">
             <ion-label>
@@ -148,12 +169,12 @@
         </ion-item-divider>
         <ion-item>
             <ion-label position="stacked">特殊备注</ion-label>
-            <ion-textarea placeholder="请输入特殊备注" [(ngModel)]="shareData.account['customercomment']"></ion-textarea>
+            <ion-textarea placeholder="请输入特殊备注" [(ngModel)]="shareData.account['description']"></ion-textarea>
         </ion-item>
     </ion-list>
 
     <section style="text-align:center;">
-        <ion-button style="width:40%" color="danger" (click)="nextOnClick()">保存</ion-button>
+        <ion-button style="width:40%" color="danger" (click)="saveOnClick()">保存</ion-button>
     </section>
     <br />
     <br />

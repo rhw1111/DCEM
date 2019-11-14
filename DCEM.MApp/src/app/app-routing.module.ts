@@ -31,7 +31,8 @@ const routes: Routes = [
                 children: [
                     { path: 'list', loadChildren: './serving/my-customer.com/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './serving/my-customer.com/detail/detail.module#DetailPageModule' },
-                    { path: 'select', loadChildren: './serving/my-customer.com/select/select.module#SelectPageModule' }
+                    { path: 'select', loadChildren: './serving/my-customer.com/select/select.module#SelectPageModule' },
+                    { path: 'edit', loadChildren: './serving/my-customer.com/edit/edit.module#EditPageModule' }
                 ]
             },
             {
@@ -154,6 +155,9 @@ const routes: Routes = [
                     { path: 'edit', loadChildren: './saleing/delivery/edit/edit.module#EditPageModule' },
                     { path: 'detail', loadChildren: './saleing/delivery/detail/detail.module#DetailPageModule' },
                     { path: 'success', loadChildren: './saleing/delivery/success/success.module#SuccessPageModule' },
+                    { path: 'timeline', loadChildren: './saleing/delivery/timeline/timeline.module#TimelinePageModule'},
+                    { path: 'appointment', loadChildren: './saleing/delivery/appointment/appointment.module#AppointmentPageModule' },
+                    { path: 'pdiservice', loadChildren: './saleing/delivery/pdiservice/pdiservice.module#PdiservicePageModule' }
                 ]
             },
             {
@@ -180,6 +184,10 @@ const routes: Routes = [
             }
         ]
     }
+
+
+ 
+
 
 ];
 
