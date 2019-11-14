@@ -17,9 +17,9 @@ export class EditPage implements OnInit {
 
     mod = {
         queryUrl: '/Api/Customer/GetCustomerInfo',
+        postUrl: '/Api/Customer/AddOrUpdate',
         data: {
-        },
-        shareDataKey: "customerEditData",
+        }
     };
 
     //定义共享数据
@@ -48,7 +48,6 @@ export class EditPage implements OnInit {
     ngOnInit() {
         const that = this;
         this.ionBackButtonDelegate.onClick = function (event) {
-            that._shareData.delete(that.mod.shareDataKey);
             that._page.navigateRoot("/serving/mycustomer/list", null, "back");
         }
     }
@@ -68,23 +67,16 @@ export class EditPage implements OnInit {
 
     ionViewWillEnter() {
         this._activeRoute.queryParams.subscribe((params: Params) => {
-            if (this._shareData.has(this.mod.shareDataKey)) {
-                this.shareData = this._shareData.get(this.mod.shareDataKey);
+            if (!this._valid.isNull(params['id']) && !this._valid.isNull(params['actionCode'])) {
+                this.shareData.actioncode = Number(params['actionCode']);
+                this.shareData.id = params['id']
+            }
+            if (this.shareData.actioncode === 2) {
+                this.shareData.viewTitle = "编辑客户";
+                this.pageOnBind(this.shareData.id);
             }
             else {
-                if (!this._valid.isNull(params['id']) && !this._valid.isNull(params['actionCode'])) {
-                    this.shareData.actioncode = Number(params['actionCode']);
-                    this.shareData.id = params['id']
-                }
-                if (this.shareData.actioncode === 2) {
-                    if (!this._shareData.has(this.mod.shareDataKey)) {
-                        this.shareData.viewTitle = "编辑客户";
-                        this.pageOnBind(this.shareData.id);
-                    }
-                }
-                else {
-                    this.shareData.viewTitle = "创建客户";
-                }
+                this.shareData.viewTitle = "创建客户";
             }
         });
     }
@@ -101,7 +93,6 @@ export class EditPage implements OnInit {
             },
             (res: any) => {
                 if (!this._valid.isNull(res.Carserviceadvisor)) {
-
                     this.shareData.carserviceadvisor = res["Carserviceadvisor"]["Attributes"];
                 }
                 if (!this._valid.isNull(res.Vehowner)) {
@@ -135,12 +126,37 @@ export class EditPage implements OnInit {
             errMessage += "您尚未输入手机<br>";
         }
         if (errMessage !== "") {
-
             this._page.presentToastError(errMessage);
             return;
         }
-        this._shareData.set(this.mod.shareDataKey, this.shareData);
-        //this._page.goto("/serving/ri/edit2");
+
+        var postData = {};
+        postData["Vehowner"] = this.shareData.vehowner;
+        postData["Carserviceadvisor"] = this.shareData.carserviceadvisor;
+        postData["actionCode"] = this.shareData.actioncode;
+        console.log(postData);
+
+        //提交数据保存
+        this._page.loadingShow();
+        this._http.post(
+            this.mod.postUrl,
+            postData,
+            (res: any) => {
+                this._page.loadingHide();
+                console.log(res);
+                if (res.Result == true) {
+             
+                }
+                else {
+                    this._page.alert("消息提示", "操作失败");
+                }
+            },
+            (err: any) => {
+                console.log(err);
+                this._page.loadingHide();
+                this._page.alert("消息提示", "操作失败");
+            }
+        );
     }
 
 }

@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Core;
 using System.Reflection;
 using MSLibrary;
 using DCEM.ServiceAssistantService.Main.DTOModel;
+using Newtonsoft.Json.Linq;
 namespace DCEM.Web.Controllers
 {
     #region 控制器
@@ -51,6 +52,17 @@ namespace DCEM.Web.Controllers
         {
             return await _customerService.QueryInfo(guid);
         }
+        #endregion
+
+        #region 新增 编辑 客户信息
+        [HttpPost]
+        [Route("AddOrUpdate")]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<CrmEntity>>> AddOrUpdate([FromBody]Object body)
+        {
+            JObject jo = JObject.Parse(body.ToString());
+            return await _customerService.AddOrUpdate(jo);
+        }
+
         #endregion
 
     }
