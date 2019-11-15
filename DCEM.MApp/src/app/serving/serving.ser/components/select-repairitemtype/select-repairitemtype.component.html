@@ -16,15 +16,5 @@
                 </ion-label>
             </ion-item>
         </ion-item-sliding>
-        <ion-item *ngIf="ionInfiniteScroll.disabled">
-            <ion-label>
-                <p>
-                    没有更多的记录显示啦
-                </p>
-            </ion-label>
-        </ion-item>
     </ion-list>
-    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-        <ion-infinite-scroll-content></ion-infinite-scroll-content>
-    </ion-infinite-scroll>
 </ion-content>

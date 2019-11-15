@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavController, IonContent, IonInfiniteScroll, ModalController } from '@ionic/angular';
+import { NavController, ModalController } from '@ionic/angular';
 import { DatePipe } from '@angular/common';
 import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 
@@ -8,10 +8,8 @@ import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core
     templateUrl: './select-repairitemtypedetail.component.html',
     styleUrls: ['./select-repairitemtypedetail.component.scss'],
 })
-export class SelectRepairitemtypeComponent implements OnInit {
+export class SelectRepairitemtypedetailComponent implements OnInit {
 
-    @ViewChild(IonContent, null) ionContent: IonContent;
-    @ViewChild(IonInfiniteScroll, null) ionInfiniteScroll: IonInfiniteScroll;
 
     mod = {
         apiUrl: '',
@@ -32,7 +30,7 @@ export class SelectRepairitemtypeComponent implements OnInit {
 
     itemClick(item: any) {
         this._modalCtrl.dismiss({
-            parts: item
+            item
         });
     }
 
@@ -41,13 +39,7 @@ export class SelectRepairitemtypeComponent implements OnInit {
         });
     }
 
-    doInfinite(event) {
-        this.listOnBind();
-    }
-
-
     listOnBind() {
-
         this._page.loadingShow();
         this._http.get(
             this.mod.apiUrl,
@@ -62,16 +54,12 @@ export class SelectRepairitemtypeComponent implements OnInit {
                     this._page.loadingHide();
                 }
                 else {
-                    this.ionInfiniteScroll.disabled = true;
                 }
                 this._page.loadingHide();
-                this.ionInfiniteScroll.complete();
             },
             (err: any) => {
                 this._page.alert("消息提示", "数据加载异常");
-
                 this._page.loadingHide();
-                this.ionInfiniteScroll.complete();
             }
         );
 

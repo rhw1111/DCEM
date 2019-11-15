@@ -1,7 +1,6 @@
-﻿import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavController, IonContent, IonInfiniteScroll, ModalController } from '@ionic/angular';
-import { DatePipe } from '@angular/common';
-import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
+﻿import { Component, OnInit } from '@angular/core';
+import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
     selector: 'app-select-repairitemtype',
@@ -10,17 +9,16 @@ import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core
 })
 export class SelectRepairitemtypeComponent implements OnInit {
 
-    @ViewChild(IonContent, null) ionContent: IonContent;
-    @ViewChild(IonInfiniteScroll, null) ionInfiniteScroll: IonInfiniteScroll;
-
     mod = {
         apiUrl: '',
         data: [],
+        searchData: {
+
+        },
     };
     constructor(
         private _http: DCore_Http,
         private _page: DCore_Page,
-        private _valid: DCore_Valid,
         private _modalCtrl: ModalController
     ) {
         this.mod.apiUrl = "/Api/Serviceproxy/GetRepairitemtypeList";
@@ -32,7 +30,7 @@ export class SelectRepairitemtypeComponent implements OnInit {
 
     itemClick(item: any) {
         this._modalCtrl.dismiss({
-            parts: item
+            item
         });
     }
 
@@ -41,19 +39,23 @@ export class SelectRepairitemtypeComponent implements OnInit {
         });
     }
 
-    doInfinite(event) {
-        this.listOnBind();
+    searchOnKeyup(event: any) {
+        var keyCode = event ? event.keyCode : "";
+        if (keyCode == 13) {
+            this.listOnBind();
+        }
     }
 
-
     listOnBind() {
-
         this._page.loadingShow();
+        this.mod.data = [];
         this._http.get(
             this.mod.apiUrl,
-            {},
+            {
+            },
             (res: any) => {
-                if (!this._valid.isNull(res.Results) !== null && res.Results.length > 0) {
+                if (res.Results !== null) {
+
                     for (var key in res.Results) {
                         var obj = {};
                         obj["model"] = res.Results[key]["Attributes"];
@@ -62,16 +64,13 @@ export class SelectRepairitemtypeComponent implements OnInit {
                     this._page.loadingHide();
                 }
                 else {
-                    this.ionInfiniteScroll.disabled = true;
+                    this._page.alert("消息提示", "数据加载异常");
+                    this._page.loadingHide();
                 }
-                this._page.loadingHide();
-                this.ionInfiniteScroll.complete();
             },
             (err: any) => {
                 this._page.alert("消息提示", "数据加载异常");
-
                 this._page.loadingHide();
-                this.ionInfiniteScroll.complete();
             }
         );
 

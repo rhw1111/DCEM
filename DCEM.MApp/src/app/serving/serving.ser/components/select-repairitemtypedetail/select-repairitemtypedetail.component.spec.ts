@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SelectRepairitemtypedetailComponent } from './select-repairitemtypedetail.component';
 
-describe('SelectRepairitemtypeComponent', () => {
+describe('SelectRepairitemtypedetailComponent', () => {
     let component: SelectRepairitemtypedetailComponent;
     let fixture: ComponentFixture<SelectRepairitemtypedetailComponent>;
 
