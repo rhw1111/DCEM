@@ -121,29 +121,35 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
         }
 
         /// <summary>
-        /// 根据条件查询培育任务的fetchString
+        /// 根据条件查询培育任务的fetchString mcs_activitystatus
         /// </summary>
         /// <param name="activityrequest"></param>
         /// <returns></returns>
         public string GetActivityList(ActivityRequest activityrequest)
         {
-            var filter = string.Empty;
+            var filter1 = string.Empty;
             if (!string.IsNullOrWhiteSpace(activityrequest.SearchKey))
             {
-                //filter += $"<filter type='or'>";
-                //filter += $"<condition attribute='mcs_name' operator='like' value='%{activityrequest.SearchKey}%' />";
-                //filter += $"<condition attribute='mcs_userid' operator='like' value='%{activityrequest.SearchKey}%' />";         
-                //filter += $"</filter>";
+                filter1 += $"<filter type='or'>";
+                filter1 += $"<condition attribute='mcs_mobilephone' operator='like' value='%{activityrequest.SearchKey}%' />";
+                filter1 += $"<condition attribute='mcs_name' operator='like' value='%{activityrequest.SearchKey}%' />";
+                filter1 += $"</filter>";
             }
+
+            var filter2 = string.Empty;
             if (activityrequest.entityid != null)
+            {              
+                filter2 += $"<condition attribute='mcs_onlyleadid' operator='eq' value='{activityrequest.entityid}' />";              
+            }
+            if (!string.IsNullOrEmpty(activityrequest.mcs_activitystatus.ToString()) && activityrequest.mcs_activitystatus >= 0)
             {
-                filter += $"<filter type='and'>";
-                filter += $"<condition attribute='mcs_onlyleadid' operator='eq' value='{activityrequest.entityid}' />";
-                filter += $"</filter>";
+                filter2 += $"<filter type='and'>";
+                filter2 += $"<condition attribute='mcs_activitystatus' operator='eq' value='{activityrequest.mcs_activitystatus}' />";
+                filter2 += $"</filter>";
             }
 
             var fetchString = $@"<fetch version='1.0' count='{activityrequest.PageSize}' page='{activityrequest.PageIndex}' output-format='xml-platform' mapping='logical' distinct='false'>
-                   <entity name='mcs_activity'>
+                <entity name='mcs_activity'>
                 <attribute name='mcs_name' />
                 <attribute name='mcs_activityid' />
                 <attribute name='createdon' />              
@@ -166,8 +172,16 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
                 <order attribute='createdon' descending='true' />
                 <filter type='and'>
                   <condition attribute='statecode' operator='eq' value='0' />
-                    {filter}
+                    {filter2}
                 </filter>
+                  <link-entity name='mcs_onlylead' from='mcs_onlyleadid' to='mcs_onlyleadid' alias='a'>
+                      <attribute name='mcs_mobilephone' />
+                      <attribute name='mcs_name' />
+                      <filter type='and'>
+                        <condition attribute='statecode' operator='eq' value='0' />
+                         {filter1}
+                      </filter>
+                  </link-entity>
               </entity>
             </fetch>";
 

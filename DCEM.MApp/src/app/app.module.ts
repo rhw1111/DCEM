@@ -88,6 +88,7 @@ import { SelectRepairitemtypedetailComponent } from 'app/serving/serving.ser/com
         FormsModule,
         ReactiveFormsModule,
         NgZorroAntdMobileModule
+  
     ],
     providers: [
         StatusBar,

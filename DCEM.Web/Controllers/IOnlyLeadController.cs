@@ -109,16 +109,16 @@ namespace DCEM.Web.Controllers
         #region 我的培育任务列表查询
 
         [HttpGet]
-        [Route("GetMyVehorderList")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetMyVehorderList(string systemuserid = "", string seachkey = "", int pageSize = 10, int page = 1, string sort = "", int mcs_activitystatus = 0)
+        [Route("GetMyActivityList")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetMyActivityList(string seachkey = "", string systemuserid = "", int pageSize = 10, int page = 1, string sort = "", int mcs_activitystatus = -1)
         {        
             var request = new ActivityRequest()
-            {
-                UserId = systemuserid,
+            {          
                 SearchKey = seachkey,              
                 PageIndex = page,
                 PageSize = pageSize,
-                mcs_activitystatus = mcs_activitystatus
+                mcs_activitystatus = mcs_activitystatus,
+                UserId= systemuserid
             };
 
             var list = await app.GetActivityList(request);
