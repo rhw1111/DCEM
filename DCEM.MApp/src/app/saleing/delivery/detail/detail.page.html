@@ -8,15 +8,15 @@
         </ion-title>
     </ion-toolbar>
     <ion-toolbar>
-        <ion-segment [(ngModel)]="tab" color="danger">
+        <ion-segment [(ngModel)]="tab" color="primary">
             <ion-segment-button value="infolist" checked (ionSelect)="pageOnBind()">
                 <ion-label>基础信息</ion-label>
             </ion-segment-button>
-            <ion-segment-button value="Linklist" (ionSelect)="pageOnLogCalllist($event)">
+            <ion-segment-button value="Linklist" (ionSelect)="pageOnLogCalllist()">
                 <ion-label>收款记录</ion-label>
             </ion-segment-button>
-            <ion-segment-button value="Breedlist" (ionSelect)="pageOnActivitylist()">
-                <ion-label>整车物料</ion-label>
+            <ion-segment-button value="Breedlist" (ionSelect)="getorderstatus()">
+                <ion-label>订单跟踪</ion-label>
             </ion-segment-button>
         </ion-segment>
     </ion-toolbar>
@@ -28,6 +28,9 @@
                 <ion-card-content>
                     <ion-list>
                         <ion-item-group>
+                            <ion-item-divider color="primary">
+                                <ion-label>基本信息</ion-label>
+                            </ion-item-divider>
                             <ion-item>
                                 <ion-label>
                                     <h2>VIN</h2>
@@ -136,7 +139,66 @@
                     </ion-list>
                 </ion-card-content>
             </ion-card>
-            <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+            <ion-card>
+                <ion-card-content>
+                    <ion-list>
+                        <ion-item-group>
+                            <ion-item-divider color="primary">
+                                <ion-label>物料信息</ion-label>
+                            </ion-item-divider>
+                            <ion-item>
+                                <ion-label>
+                                    <h2>车平台</h2>
+                                </ion-label>
+                                <ion-note slot="end">
+                                    <p>{{materielmodel.data.cpt}}</p>
+                                </ion-note>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label>
+                                    <h2>基本车型</h2>
+                                </ion-label>
+                                <ion-note slot="end">
+                                    <p>{{materielmodel.data.jbcx}}</p>
+                                </ion-note>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label>
+                                    <h2>车型年</h2>
+                                </ion-label>
+                                <ion-note slot="end">
+                                    <p>{{materielmodel.data.cxn}}</p>
+                                </ion-note>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label>
+                                    <h2>动力类型</h2>
+                                </ion-label>
+                                <ion-note slot="end">
+                                    <p>{{materielmodel.data.dllx}}</p>
+                                </ion-note>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label>
+                                    <h2>内饰颜色</h2>
+                                </ion-label>
+                                <ion-note slot="end">
+                                    <p>{{materielmodel.data.nsys}}</p>
+                                </ion-note>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label>
+                                    <h2>外饰颜色</h2>
+                                </ion-label>
+                                <ion-note slot="end">
+                                    <p>{{materielmodel.data.wsys}}</p>
+                                </ion-note>
+                            </ion-item>
+                        </ion-item-group>
+                    </ion-list>
+                </ion-card-content>
+            </ion-card>
+            <ion-fab vertical="bottom" horizontal="end">
                 <ion-fab-button>
                     <ion-icon name="arrow-dropup"></ion-icon>
                 </ion-fab-button>
@@ -196,56 +258,79 @@
                         <ion-item-group>
                             <ion-item>
                                 <ion-label>
-                                    <h2>车平台</h2>
+                                    <h2>VIN</h2>
                                 </ion-label>
                                 <ion-note slot="end">
-                                    <p>{{materielmodel.data.cpt}}</p>
+                                    <p>{{model.info.vin}}</p>
                                 </ion-note>
                             </ion-item>
                             <ion-item>
                                 <ion-label>
-                                    <h2>基本车型</h2>
+                                    <h2>交车单号</h2>
                                 </ion-label>
                                 <ion-note slot="end">
-                                    <p>{{materielmodel.data.jbcx}}</p>
+                                    <p>{{model.info.code}}</p>
                                 </ion-note>
                             </ion-item>
                             <ion-item>
                                 <ion-label>
-                                    <h2>车型年</h2>
+                                    <h2>整车订单号</h2>
                                 </ion-label>
                                 <ion-note slot="end">
-                                    <p>{{materielmodel.data.cxn}}</p>
-                                </ion-note>
-                            </ion-item>
-                            <ion-item>
-                                <ion-label>
-                                    <h2>动力类型</h2>
-                                </ion-label>
-                                <ion-note slot="end">
-                                    <p>{{materielmodel.data.dllx}}</p>
-                                </ion-note>
-                            </ion-item>
-                            <ion-item>
-                                <ion-label>
-                                    <h2>内饰颜色</h2>
-                                </ion-label>
-                                <ion-note slot="end">
-                                    <p>{{materielmodel.data.nsys}}</p>
-                                </ion-note>
-                            </ion-item>
-                            <ion-item>
-                                <ion-label>
-                                    <h2>外饰颜色</h2>
-                                </ion-label>
-                                <ion-note slot="end">
-                                    <p>{{materielmodel.data.wsys}}</p>
+                                    <p>{{model.info.ro}}</p>
                                 </ion-note>
                             </ion-item>
                         </ion-item-group>
                     </ion-list>
                 </ion-card-content>
             </ion-card>
+
+            <div class="timeline-small">
+                <div class="timeline-small-body">
+                    <ul>
+                        <li>
+                            <div class="bullet pink"></div>
+                            <div class="date">PDI检测未提交</div>
+                            <div class="desc">
+                                <h4>是否提交PDI检测：未提交</h4>
+                                    <h4>交车状态：PDI检测未提交</h4>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="bullet orange"></div>
+                            <div class="date">PDI检测已提交</div>
+                            <div class="desc">
+                                <h4>PDI检测提交时间：2019-08-23</h4>
+                                <h4>交车状态：PDI检测未提交</h4>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="bullet blue"></div>
+                            <div class="date">PDI检测完成</div>
+                            <div class="desc">
+                                <h4>交车状态：PDI检测未提交</h4>
+                                <h4>PDI检测时间：2019-09-29</h4>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="bullet green"></div>
+                            <div class="date">预约完成</div>
+                            <div class="desc">
+                                    <h4>交车状态：PDI检测未提交</h4>
+                                    <h4>预约时间：2019-09-29</h4>
+                            </div>
+                        </li>
+                        <li>
+                                <div class="bullet green"></div>
+                                <div class="date">交车完成</div>
+                                <div class="desc">
+                                        <h4>交车状态：PDI检测未提交</h4>
+                                        <h4>交车时间：2019-09-29</h4>
+                                </div>
+                            </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </ion-content>

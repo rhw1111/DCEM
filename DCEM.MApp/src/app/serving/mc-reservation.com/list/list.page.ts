@@ -110,6 +110,21 @@ export class ListPage implements OnInit {
                         obj["mcs_appointmentat"] = res.Results[key]["Attributes"]["mcs_appointmentat"];
                         obj["mcs_appointmentconfigid"] = res.Results[key]["Attributes"]["appointmentconfig_x002e_mcs_name"];
                         obj["mcs_status"] = res.Results[key]["Attributes"]["mcs_status"];
+
+                        //设置颜色
+                        obj["appointment"] = "primary";
+                        if (obj["mcs_status"] == 10) {
+                            obj["appointment"] = "tertiary";
+                        }
+                        else if (obj["mcs_status"] == 20) {
+                            obj["appointment"] = "primary";
+                        }
+                        else if (obj["mcs_status"] == 50) {
+                            obj["appointment"] = "dark";
+                        }
+                        else {
+                            obj["appointment"] = "success";
+                        }
                         this.model.data.push(obj);
                     }
 
@@ -149,6 +164,7 @@ export class ListPage implements OnInit {
             return '';
         }
     }
+
 
   
 }

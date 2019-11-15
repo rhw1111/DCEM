@@ -230,8 +230,8 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         {
             var validateResult = new ValidateResult<CrmEntity>();
             var reusetCrmEntity = new CrmEntity("mcs_onlylead", request.onlylead.mcs_onlyleadid);
-            //新增预约单
-            if (request.actioncode == 2)
+            //编辑
+            if (request.onlylead.mcs_onlyleadid!=null)
             {
                 var updateEntity = new CrmExecuteEntity("mcs_onlylead", request.onlylead.mcs_onlyleadid);
                
@@ -271,7 +271,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             // 邮箱
             if (!string.IsNullOrWhiteSpace(request.onlylead.mcs_emailaddress1))
             {
-                updateEntity.Attributes.Add("mcs_name", request.onlylead.mcs_emailaddress1);
+                updateEntity.Attributes.Add("mcs_emailaddress1", request.onlylead.mcs_emailaddress1);
             }
             // 评分
             if (request.onlylead.mcs_accountpoints != null)
