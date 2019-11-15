@@ -120,6 +120,11 @@ let ListPage = class ListPage {
         //     this.model.data = JSON.parse(cachedata);
         // }
     }
+    //每次页面加载
+    ionViewWillEnter() {
+        this.model.page = 1;
+        this.getList(null);
+    }
     //搜索方法
     search(event) {
         var keyCode = event ? event.keyCode : "";
@@ -159,7 +164,7 @@ let ListPage = class ListPage {
     //获取列表数据
     getList(event) {
         this._page.loadingShow();
-        this._http.get(this.model.apiUrl, {
+        this._http.getForToaken(this.model.apiUrl, {
             params: {
                 orderstatus: this.model.orderstatus,
                 seachkey: this.model.seachkey,

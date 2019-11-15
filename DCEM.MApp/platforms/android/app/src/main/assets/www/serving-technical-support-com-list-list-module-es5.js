@@ -123,6 +123,11 @@ var ListPage = /** @class */ (function () {
         //     this.model.data = JSON.parse(cachedata);
         // }
     };
+    //每次页面加载
+    ListPage.prototype.ionViewWillEnter = function () {
+        this.model.page = 1;
+        this.getList(null);
+    };
     //搜索方法
     ListPage.prototype.search = function (event) {
         var keyCode = event ? event.keyCode : "";
@@ -163,7 +168,7 @@ var ListPage = /** @class */ (function () {
     ListPage.prototype.getList = function (event) {
         var _this = this;
         this._page.loadingShow();
-        this._http.get(this.model.apiUrl, {
+        this._http.getForToaken(this.model.apiUrl, {
             params: {
                 orderstatus: this.model.orderstatus,
                 seachkey: this.model.seachkey,

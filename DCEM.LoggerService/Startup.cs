@@ -32,7 +32,7 @@ namespace DCEM.LoggerService
             services.AddControllers((opts)=>
                 {
                     opts.Filters.AddService<UserAuthorizeActionGolbalFilter>();
-                    opts.Filters.Add(DIContainerContainer.Get<ExceptionFilter>(LoggerCategoryNames.HttpRequest));
+                    opts.Filters.Add(DIContainerContainer.Get<ExceptionFilter>(LoggerCategoryExtensionNames.DCEM_LoggerService));
 
                     //opts.MaxIAsyncEnumerableBufferLimit
                 });

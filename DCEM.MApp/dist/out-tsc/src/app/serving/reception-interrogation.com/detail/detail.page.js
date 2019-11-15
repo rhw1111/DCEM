@@ -1,5 +1,4 @@
 import * as tslib_1 from "tslib";
-var _a;
 import { Component } from '@angular/core';
 import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute } from '@angular/router';
@@ -109,7 +108,8 @@ DetailPage = tslib_1.__decorate([
     }),
     tslib_1.__metadata("design:paramtypes", [DCore_Http,
         DCore_Page,
-        DCore_Valid, typeof (_a = typeof ActivatedRoute !== "undefined" && ActivatedRoute) === "function" ? _a : Object])
+        DCore_Valid,
+        ActivatedRoute])
 ], DetailPage);
 export { DetailPage };
 //# sourceMappingURL=detail.page.js.map

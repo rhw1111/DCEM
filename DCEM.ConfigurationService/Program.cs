@@ -60,6 +60,7 @@ namespace DCEM.ConfigurationService
             })
             .ConfigureLogging((builder) =>
             {
+                builder.ClearProviders();
                 //初始化日志配置
                 MainStartupHelper.InitLogger(builder);
             })

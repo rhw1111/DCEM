@@ -33,6 +33,18 @@ namespace MSLibrary.Logger.LoggingBuilderProviderHandlers
                 builder.AddFilter<ApplicationInsightsLoggerProvider>(filterItem.Key, filterItem.Value);
             }
 
+            //配置其他未指定目录的最低级别
+            builder.AddFilter<ApplicationInsightsLoggerProvider>((level) =>
+            {
+                if (level < configuration.DefaultMinLevel)
+                {
+                   
+                    return false;
+                }
+
+                return true;
+            });
+
             await Task.FromResult(0);
 
         }

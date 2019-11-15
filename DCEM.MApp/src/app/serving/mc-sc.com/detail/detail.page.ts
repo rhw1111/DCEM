@@ -63,6 +63,7 @@ export class DetailPage implements OnInit {
         this.activeRoute.queryParams.subscribe((params: Params) => {
             if (params['id'] != null && params['id'] != undefined) {
                 this.pageOnBind(params['id']);
+                this.tab = "info";
             }
         });
     }

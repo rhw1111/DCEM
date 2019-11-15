@@ -30,12 +30,12 @@ namespace DCEM.Main.AspNet.Filter.Application
             byte[] bufferBytes = new byte[1024];
             string strRequestBody = null;
             //尝试获取请求内容和响应内容
-            if (context.HttpContext.Request != null && context.HttpContext.Request.Body != null && context.HttpContext.Request.Body.CanRead && context.HttpContext.Request.Body.CanSeek)
+            if (context.HttpContext.Request != null && context.HttpContext.Request.Body != null && context.HttpContext.Request.Body.CanRead)
             {
                 using (MemoryStream requestStream = new MemoryStream())
                 {
                     List<byte> requestBytes = new List<byte>();
-                    context.HttpContext.Request.Body.Position = 0;
+                    //context.HttpContext.Request.Body.Position = 0;
                     await context.HttpContext.Request.Body.CopyToAsync(requestStream);
                     requestStream.Position = 0;
                     long totalLength = 0;

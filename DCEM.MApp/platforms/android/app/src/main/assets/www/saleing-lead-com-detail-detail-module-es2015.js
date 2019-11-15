@@ -123,7 +123,7 @@ let DetailPage = class DetailPage {
     }
     pageOnBind(id) {
         this._page.loadingShow();
-        this._http.post(this.model.apiUrlDetail, { 'id': this.model.id, 'userid': this._userinfo.GetSystemUserId() }, (res) => {
+        this._http.postForToaken(this.model.apiUrlDetail, { 'id': this.model.id, 'userid': this._userinfo.GetSystemUserId() }, (res) => {
             if (res !== null) {
                 var attr = res["Attributes"];
                 this.model.info.username = attr["fullname"];

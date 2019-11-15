@@ -1,7 +1,4 @@
-﻿USE [LogService]
-GO
-
-/****** Object:  Table [dbo].[CommonLog_Default_1]    Script Date: 2019/11/12 14:09:28 ******/
+﻿/****** Object:  Table [dbo].[CommonLog_Default_1]    Script Date: 2019/11/12 14:09:28 ******/
 SET ANSI_NULLS ON
 GO
 

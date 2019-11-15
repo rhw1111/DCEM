@@ -147,7 +147,7 @@ export class Edit2Page implements OnInit {
                         this._page.navigateRoot("/serving/ri/success", { actioncode: this.shareData["actioncode"], id: id, no: no });
                     else {
                         const that = this;
-                        this._page.alert("消息提示", "单据信息更新成功,请单击确认返回问诊单列表", function () {
+                        this._page.alert("消息提示", "操作成功", function () {
                             that._page.navigateRoot("/serving/ri/list", null, "back");
                         });
                     }

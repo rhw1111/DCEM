@@ -15,13 +15,22 @@ namespace MSLibrary.Logger
     public class LoggerConfiguration
     {
         /// <summary>
-        /// 全局日志级别设置
+        /// 全局日志级别设置(指定目录)
         /// </summary>
         [DataMember]
         public Dictionary<string,LogLevel> GlobalLogLevels
         {
             get;set;
         }
+        /// <summary>
+        /// 全局日志级别设置(未指定的其他目录)
+        /// </summary>
+        [DataMember]
+        public LogLevel GlobalLogDefaultMinLevel
+        {
+            get;set;
+        }
+
         /// <summary>
         /// 日志提供方列表
         /// </summary>
@@ -50,9 +59,14 @@ namespace MSLibrary.Logger
         [DataMember]
         public JObject Configuration { get; set; }
         /// <summary>
-        /// 日志级别设置
+        /// 日志级别设置（指定目录）
         /// </summary>
         [DataMember]
         public Dictionary<string, LogLevel> LogLevels { get; set; }
+        /// <summary>
+        /// 日志级别设置（未指定的其他目录）
+        /// </summary>
+        [DataMember]
+        public LogLevel DefaultMinLevel { get; set; }
     }
 }

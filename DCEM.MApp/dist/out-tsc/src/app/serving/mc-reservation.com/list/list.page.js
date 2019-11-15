@@ -1,5 +1,4 @@
 import * as tslib_1 from "tslib";
-var _a, _b;
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from '../../../base/base.ser/http-service.service';
@@ -22,7 +21,10 @@ let ListPage = class ListPage {
             page: 1,
             sort: 'mcs_appointmentinfoid desc',
             isending: false,
-            nodata: false
+            nodata: false,
+            aLLTotalCount: 0,
+            followingCount: 0,
+            followedCount: 0 //已跟进
         };
     }
     ngOnInit() {
@@ -97,6 +99,9 @@ let ListPage = class ListPage {
                     obj["mcs_status"] = res.Results[key]["Attributes"]["mcs_status"];
                     this.model.data.push(obj);
                 }
+                this.model.aLLTotalCount = res.ALLTotalCount;
+                this.model.followingCount = res.FollowingCount;
+                this.model.followedCount = res.FollowedCount;
                 //设置数据存储到本地
                 if (this.model.page == 1) {
                     this.httpService.SetDataCache(this.model.name, JSON.stringify(this.model.data).toString());
@@ -129,7 +134,7 @@ let ListPage = class ListPage {
 };
 tslib_1.__decorate([
     ViewChild(IonInfiniteScroll, null),
-    tslib_1.__metadata("design:type", typeof (_a = typeof IonInfiniteScroll !== "undefined" && IonInfiniteScroll) === "function" ? _a : Object)
+    tslib_1.__metadata("design:type", IonInfiniteScroll)
 ], ListPage.prototype, "infiniteScroll", void 0);
 ListPage = tslib_1.__decorate([
     Component({
@@ -137,7 +142,8 @@ ListPage = tslib_1.__decorate([
         templateUrl: './list.page.html',
         styleUrls: ['./list.page.scss'],
     }),
-    tslib_1.__metadata("design:paramtypes", [typeof (_b = typeof Router !== "undefined" && Router) === "function" ? _b : Object, DCore_Http,
+    tslib_1.__metadata("design:paramtypes", [Router,
+        DCore_Http,
         DCore_Page,
         HttpService])
 ], ListPage);

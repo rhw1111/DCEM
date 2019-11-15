@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using DCEM.SalesAssistant.Main.Application.App;
 using DCEM.SalesAssistant.Main.Factory;
 using DCEM.SalesAssistant.Main.Application.App.Contrac;
+using DCEM.Main.Entities;
+using DCEM.Main;
 
 namespace DCEM.Web.Controllers
 {
@@ -51,6 +53,49 @@ namespace DCEM.Web.Controllers
         public async Task<NewtonsoftJsonActionResult<CrmEntity>> getorderpay(CollectionDetailRequest collectionDetailRequest)
         {
             return await _appDelivery.getorderpay(collectionDetailRequest);
+        }
+
+
+        [Route("appointment")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<string>>> appointment(DeliveryEditRequest deliveryEditRequest)
+        { 
+            return await _appDelivery.appointment(deliveryEditRequest);
+        }
+
+        [Route("getservicconsultant")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<ServiceConsultantListResponse>> getservicconsultant(DeliveryEditRequest deliveryEditRequest)
+        {
+            return await _appDelivery.getservicconsultant(deliveryEditRequest);
+        }
+
+        [Route("submitpdi")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<string>>> submitpdi(DeliveryEditRequest deliveryEditRequest)
+        {
+            return await _appDelivery.submitpdi(deliveryEditRequest);
+        }
+
+        [Route("getmateriel")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<CrmEntity>> getmateriel(DeliveryDetailRequest deliveryDetailRequest)
+        {
+            return await _appDelivery.getmateriel(deliveryDetailRequest);
+        }
+
+        [Route("addorderpay")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<string>>> addorderpay(OrderPayEditRequest orderPayEditRequest)
+        {
+            return await _appDelivery.addorderpay(orderPayEditRequest);
+        }
+
+        [Route("moneycompleted")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<string>>> moneycompleted(DeliveryDetailRequest  deliveryDetailRequest)
+        {
+            return await _appDelivery.moneycompleted(deliveryDetailRequest);
         }
     }
 }

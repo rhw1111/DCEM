@@ -110,6 +110,9 @@ let ListPage = class ListPage {
         };
     }
     ngOnInit() {
+    }
+    //每次页面加载
+    ionViewWillEnter() {
         this.ionInfiniteScroll.disabled = false;
         this.model.params.PageIndex = 1;
         this.listOnBind();

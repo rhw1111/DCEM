@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/ri/list\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>环检项</ion-title>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <div *ngFor=\"let key of objectKeys(shareData.vehcheckresultMap)\">\r\n            <ion-item-divider color=\"primary\">\r\n                <ion-label>\r\n                    {{shareData.vehcheckresultMap[key].text}}\r\n                </ion-label>\r\n            </ion-item-divider>\r\n            <ion-item-sliding *ngFor=\"let item of shareData.vehcheckresultMap[key].data;let key=index\">\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>{{item.name}}</h2>\r\n                    </ion-label>\r\n                    <ion-toggle slot=\"end\" color=\"success\" checked [(ngModel)]=\"item['checked']\"></ion-toggle>\r\n                </ion-item>\r\n            </ion-item-sliding>\r\n        </div>\r\n    </ion-list>\r\n    <section style=\"text-align:center;\">\r\n        <ion-button style=\"width:40%\" color=\"danger\" [routerLink]=\"['/serving/ri/edit']\">上一步</ion-button>\r\n        <ion-button style=\"width:40%\" color=\"success\"  (click)=\"saveOnClick()\">保存</ion-button>\r\n    </section>\r\n    <br />\r\n    <br />\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/ri/list\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>环检项</ion-title>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <div *ngFor=\"let key of objectKeys(shareData.vehcheckresultMap)\">\r\n            <ion-item-divider color=\"primary\">\r\n                <ion-label>\r\n                    {{shareData.vehcheckresultMap[key].text}}\r\n                </ion-label>\r\n            </ion-item-divider>\r\n            <ion-item-sliding *ngFor=\"let item of shareData.vehcheckresultMap[key].data;let key=index\">\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>{{item.name}}</h2>\r\n                    </ion-label>\r\n                    <ion-toggle slot=\"end\" color=\"success\" checked [(ngModel)]=\"item['checked']\"></ion-toggle>\r\n                </ion-item>\r\n            </ion-item-sliding>\r\n        </div>\r\n    </ion-list>\r\n    <section style=\"text-align:center;\">\r\n        <ion-button style=\"width:40%\" color=\"danger\"  (click)=\"goBackOnClick()\">上一步</ion-button>\r\n        <ion-button style=\"width:40%\" color=\"success\"  (click)=\"saveOnClick()\">保存</ion-button>\r\n    </section>\r\n    <br />\r\n    <br />\r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -110,9 +110,8 @@ var Edit2Page = /** @class */ (function () {
         this.objectKeys = Object.keys;
     }
     Edit2Page.prototype.ngOnInit = function () {
-        var getShareData = this._shareData.get(this.mod.shareDataKey);
-        if (getShareData !== null) {
-            this.shareData = getShareData;
+        if (this._shareData.has(this.mod.shareDataKey)) {
+            this.shareData = this._shareData.get(this.mod.shareDataKey);
             if (this.objectKeys(this.shareData.vehcheckresultMap).length === 0) {
                 this.listOnBind();
             }
@@ -154,12 +153,17 @@ var Edit2Page = /** @class */ (function () {
             _this._page.loadingHide();
         });
     };
+    Edit2Page.prototype.goBackOnClick = function () {
+        this._shareData.set(this.mod.shareDataKey, this.shareData);
+        this._page.goBack();
+    };
     Edit2Page.prototype.saveOnClick = function () {
         var _this = this;
-        this.mod.postData["actioncode"] = 1;
-        this.mod.postData["serviceproxy"] = this.shareData.serviceproxy;
+        this.mod.postData["actioncode"] = this.shareData["actioncode"]; //操作编码
         //组装服务委托书
         this.mod.postData["serviceproxy"] = {};
+        if (this.shareData["actioncode"] === 2)
+            this.mod.postData["serviceproxy"]["serviceproxyid"] = this.shareData.serviceproxy["serviceproxyid"]; //服务委托书ID
         this.mod.postData["serviceproxy"]["customerid"] = this.shareData.serviceproxy["customerid"]; //车辆VIN
         this.mod.postData["serviceproxy"]["customername"] = this.shareData.serviceproxy["customername"]; //用户名
         this.mod.postData["serviceproxy"]["carplate"] = this.shareData.serviceproxy["carplate"]; //车牌
@@ -170,9 +174,9 @@ var Edit2Page = /** @class */ (function () {
         this.mod.postData["serviceproxy"]["oilquantity"] = Number(this.shareData.serviceproxy["oilquantity"]); //进店油量
         this.mod.postData["serviceproxy"]["mileage"] = Number(this.shareData.serviceproxy["mileage"]); //进店里程
         this.mod.postData["serviceproxy"]["arrivalon"] = this.shareData.serviceproxy["arrivalon"]; //到店时间
+        this.mod.postData["serviceproxy"]["dealerid"] = this.shareData.serviceproxy["dealerid"]; //厅店
         this.mod.postData["serviceproxy"]["customercomment"] = this.shareData.serviceproxy["customercomment"]; //客户描述
-        console.log("shareData");
-        console.log(this.shareData);
+        this.mod.postData["serviceproxy"]["currenttype"] = 10; //单据类型 10问诊单
         //组装环检项
         this.mod.postData["serviceordercheckresultArray"] = [];
         for (var groupKey in this.shareData.vehcheckresultMap) {
@@ -186,17 +190,21 @@ var Edit2Page = /** @class */ (function () {
                 this.mod.postData["serviceordercheckresultArray"].push(obj);
             }
         }
-        console.log("postData");
-        console.log(this.mod.postData);
         this._page.loadingShow();
         this._http.post(this.mod.postApiUrl, this.mod.postData, function (res) {
             _this._page.loadingHide();
             if (res.Result == true) {
-                console.log("res");
-                console.log(res);
-                var guid = res["Data"]["Id"];
+                var id = res["Data"]["Id"];
+                var no = res["Data"]["Attributes"]["mcs_name"];
                 _this._shareData.delete(_this.mod.shareDataKey);
-                _this._page.goto("/serving/ri/success", { guid: guid });
+                if (_this.shareData["actioncode"] === 1)
+                    _this._page.navigateRoot("/serving/ri/success", { actioncode: _this.shareData["actioncode"], id: id, no: no });
+                else {
+                    var that_1 = _this;
+                    _this._page.alert("消息提示", "操作成功", function () {
+                        that_1._page.navigateRoot("/serving/ri/list", null, "back");
+                    });
+                }
             }
             else {
                 _this._page.alert("消息提示", "操作失败");
@@ -205,8 +213,6 @@ var Edit2Page = /** @class */ (function () {
             _this._page.loadingHide();
             _this._page.alert("消息提示", "操作失败");
         });
-        //this._shareData.set(this.mod.shareDataKey, this.shareData);
-        //this._page.goto("/serving/ri/success");
     };
     Edit2Page.ctorParameters = function () { return [
         { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Http"] },

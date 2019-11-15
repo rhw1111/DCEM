@@ -33,7 +33,7 @@ namespace DCEM.SalesAssistant.Main.Application.App.Contrac
         Task<QueryResult<CrmEntity>> GetLogCallList(LogCallRequest logcallrequest);
 
         /// <summary>
-        /// 查询与唯一线索关联的培育任务
+        /// 查询培育任务
         /// </summary>
         /// <param name="activityrequest"></param>
         /// <returns></returns>

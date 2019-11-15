@@ -35,19 +35,26 @@ export class ListPage implements OnInit {
     isending: false
   }
   ngOnInit() {
-    this.model.deliverystatusOptions = this._optionset.Get("mcs_deliverystatus");
+    
+  }
+
+  //每次页面加载
+  ionViewWillEnter() { 
+    this.model.deliverys=[];
+    this.model.search.pageindex = 1;
+    this.model.deliverystatusOptions = this._optionset.Get("mcs_deliverystatus"); 
     this.listOnBind(null);
   }
   //加载下一页
   doLoading(event) {
     this.model.search.pageindex++;
-    this.model.isending = false; 
+    this.model.isending = false;
     this.listOnBind(event);
   }
   //搜索
-  searchOnCharge() {  
-      this.model.deliverys = [];
-      this.listOnBind(null); 
+  searchOnCharge() {
+    this.model.deliverys = [];
+    this.listOnBind(null);
   }
   //搜索
   searchOnKeyup(event) {
@@ -59,7 +66,7 @@ export class ListPage implements OnInit {
   }
   listOnBind(event) {
     this._page.loadingShow();
-    this._http.post(
+    this._http.postForToaken(
       this.model.apiUrl,
       this.model.search,
       (res: any) => {
@@ -68,12 +75,12 @@ export class ListPage implements OnInit {
           for (var i in data) {
             var attr = data[i]["Attributes"];
             var obj = {};
-            obj["id"]=data[i]["Id"];
-            obj["vin"]=attr["_mcs_vin_value@OData.Community.Display.V1.FormattedValue"];
-            obj["code"]=attr["mcs_code"];
-            obj["ro"]=attr["_mcs_vehorder_value@OData.Community.Display.V1.FormattedValue"];
-            obj["createdon"]=attr["createdon"];
-            obj["deliverystatus"]= this._optionset.GetOptionSetNameByValue("mcs_deliverystatus",attr["mcs_deliverystatus"]); 
+            obj["id"] = data[i]["Id"];
+            obj["vin"] = attr["_mcs_vin_value@OData.Community.Display.V1.FormattedValue"];
+            obj["code"] = attr["mcs_code"];
+            obj["ro"] = attr["_mcs_vehorder_value@OData.Community.Display.V1.FormattedValue"];
+            obj["createdon"] = attr["createdon"];
+            obj["deliverystatus"] = this._optionset.GetOptionSetNameByValue("mcs_deliverystatus", attr["mcs_deliverystatus"]);
             this.model.deliverys.push(obj);
           }
           event ? event.target.complete() : '';

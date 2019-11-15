@@ -27,11 +27,23 @@ namespace MSLibrary.Logger
 
         public async Task Execute(ILoggingBuilder builder, LoggerConfiguration configuration)
         {
+            builder.ClearProviders();
+
             //处理全局日志级别
             foreach(var levelItem in configuration.GlobalLogLevels)
             {
                 builder.AddFilter(levelItem.Key, levelItem.Value);
             }
+
+            //设置全局日志级别（为指定目录）
+            builder.AddFilter((level) =>
+            {
+                if (level< configuration.GlobalLogDefaultMinLevel)
+                {
+                    return false;
+                }
+                return true;
+            });
 
             
             //处理每一个提供方

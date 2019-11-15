@@ -4,6 +4,7 @@ using DCEM.SalesAssistant.Main.Application.App.Contrac;
 using DCEM.SalesAssistant.Main.Application.Services.Contrac;
 using DCEM.SalesAssistant.Main.ViewModel.Request;
 using DCEM.SalesAssistant.Main.ViewModel.Response;
+using MSLibrary;
 using MSLibrary.Xrm;
 using System.Threading.Tasks;
 
@@ -35,6 +36,38 @@ namespace DCEM.SalesAssistant.Main.Application.App
         public async Task<CrmEntity> getorderpay(CollectionDetailRequest collectionDetailRequest)
         {
             return await _service.getorderpay(collectionDetailRequest);
+        }
+
+        public async Task<ValidateResult<string>> appointment(DeliveryEditRequest deliveryEditRequest)
+        {
+            return await _service.appointment(deliveryEditRequest);
+        }
+
+
+        public async Task<ServiceConsultantListResponse> getservicconsultant(DeliveryEditRequest deliveryEditRequest)
+        {
+            return await _service.getservicconsultant(deliveryEditRequest);
+        }
+
+        public async Task<ValidateResult<string>> submitpdi(DeliveryEditRequest deliveryEditRequest)
+        {
+            return await _service.submitpdi(deliveryEditRequest);
+        }
+
+       
+        public async Task<CrmEntity> getmateriel(DeliveryDetailRequest deliveryDetailRequest)
+        {
+            return await _service.getmateriel(deliveryDetailRequest);
+        }
+
+        public async Task<ValidateResult<string>> addorderpay(OrderPayEditRequest orderPayEditRequest)
+        {
+            return await _service.addorderpay(orderPayEditRequest);
+        }
+
+        public async Task<ValidateResult<string>> moneycompleted(DeliveryDetailRequest deliveryDetailRequest)
+        {
+            return await _service.moneycompleted(deliveryDetailRequest);
         }
     }
 }

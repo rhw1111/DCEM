@@ -36,12 +36,9 @@ namespace DCEM.Web.Controllers
         [Route("GetVehorderList")]
         public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetVehorderList(string seachkey = "", int pageSize = 10, int page = 1,string sort="",int mcs_rostatus=0)
         {         
-            //vehorderRequest.UserId = UserId.ToString();
-
             var vehorderRequest = new VehorderRequest()
             {
-                SearchKey = seachkey,             
-                UserId = UserId.ToString(),
+                SearchKey = seachkey,                   
                 PageIndex = page,
                 PageSize = pageSize,
                 mcs_rostatus= mcs_rostatus

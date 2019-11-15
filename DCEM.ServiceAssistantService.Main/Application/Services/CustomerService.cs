@@ -8,6 +8,7 @@ using DCEM.ServiceAssistantService.Main.DTOModel;
 using System.Collections.Generic;
 using MSLibrary.Xrm.Message.Retrieve;
 using MSLibrary.Xrm.Message.RetrieveSignleAttribute;
+using Newtonsoft.Json.Linq;
 namespace DCEM.ServiceAssistantService.Main.Application
 {
     public class CustomerService : ICustomerService
@@ -82,7 +83,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
                   <attribute name='mcs_gender' />
                   <attribute name='mcs_mobilephone' />
                   <attribute name='mcs_vehplate' />
-                  <order attribute='mcs_fullname' descending='true' />
+                  <order attribute='createdon' descending='true' />
                   {filter}
                 </link-entity>
               </entity>
@@ -276,5 +277,66 @@ namespace DCEM.ServiceAssistantService.Main.Application
 
         }
         #endregion
+
+        #region 添加 编辑 客户信息
+        public async Task<ValidateResult<CrmEntity>> AddOrUpdate(JObject jo)
+        {
+            var actionCode = jo.Value<int>("actionCode");
+            var vehownerJo = jo.Value<JObject>("Vehowner");
+            var carserviceadvisorJo = jo.Value<JObject>("Carserviceadvisor");
+
+            var vehownerGuid = Guid.NewGuid();
+            var carserviceadvisorGuid = Guid.NewGuid();
+
+            var vehownerEntity = new CrmExecuteEntity("mcs_vehowner", vehownerGuid);
+            var carserviceadvisorEntity = new CrmExecuteEntity("mcs_carserviceadvisor", carserviceadvisorGuid);
+            var validateResult = new ValidateResult<CrmEntity>();
+
+            if (actionCode == 2)
+            {
+                vehownerGuid = Guid.Parse(vehownerJo.Value<string>("mcs_vehownerid"));
+                vehownerEntity.Id = vehownerGuid;
+            }
+            if (vehownerJo.ContainsKey("mcs_fullname"))
+                vehownerEntity.Attributes.Add("mcs_fullname", vehownerJo.Value<string>("mcs_fullname"));
+            if (vehownerJo.ContainsKey("mcs_vehplate"))
+                vehownerEntity.Attributes.Add("mcs_vehplate", vehownerJo.Value<string>("mcs_vehplate"));
+            if (vehownerJo.ContainsKey("mcs_mobilephone"))
+                vehownerEntity.Attributes.Add("mcs_mobilephone", vehownerJo.Value<string>("mcs_mobilephone"));
+            if (vehownerJo.ContainsKey("mcs_name"))
+                vehownerEntity.Attributes.Add("mcs_name", vehownerJo.Value<string>("mcs_name"));
+            if (vehownerJo.ContainsKey("mcs_enginennumber"))
+                vehownerEntity.Attributes.Add("mcs_enginennumber", vehownerJo.Value<string>("mcs_enginennumber"));
+            if (vehownerJo.ContainsKey("mcs_prodtime"))
+                vehownerEntity.Attributes.Add("mcs_prodtime", vehownerJo.Value<DateTime?>("mcs_prodtime"));
+            if (vehownerJo.ContainsKey("mcs_salesdate"))
+                vehownerEntity.Attributes.Add("mcs_salesdate", vehownerJo.Value<DateTime?>("mcs_salesdate"));
+            if (vehownerJo.ContainsKey("_mcs_vehtype_value"))
+                vehownerEntity.Attributes.Add("mcs_vehtype", new CrmEntityReference("mcs_carmodel", Guid.Parse(vehownerJo.Value<string>("_mcs_vehtype_value"))));
+
+            if (actionCode == 1)
+            {
+                var dealeridGuid = Guid.Parse(jo.Value<string>("dealerid"));
+                vehownerEntity.Attributes.Add("mcs_dealer", new CrmEntityReference("mcs_dealer", dealeridGuid));
+                await _crmService.Create(vehownerEntity, null);
+
+                carserviceadvisorEntity.Attributes.Add("mcs_customerid", new CrmEntityReference("mcs_vehowner", vehownerGuid));
+                carserviceadvisorEntity.Attributes.Add("mcs_dealerid", new CrmEntityReference("mcs_dealer", dealeridGuid));
+                await _crmService.Create(carserviceadvisorEntity, null);
+            }
+            else
+            {
+                await _crmService.Update(vehownerEntity, null);
+            }
+
+            #region 组装数据返回
+            validateResult.Result = true;
+            validateResult.Description = "操作成功";
+            #endregion
+
+            return validateResult;
+        }
+        #endregion
+
     }
 }

@@ -13,6 +13,7 @@ export class DetailPage implements OnInit {
     mod = {
         apiUrl: '/Api/Customer/GetCustomerInfo',
         data: {
+            id: "",
             vehowner: {
                 fullname: "",
                 idtype: "",
@@ -63,6 +64,8 @@ export class DetailPage implements OnInit {
                 }
             },
             (res: any) => {
+
+                this.mod.data.id = id;
 
                 if (!this._valid.isNull(res.Carserviceadvisor)) {
                     this.mod.data.vehowner.fullname = res["Vehowner"]["Attributes"]["mcs_fullname"];

@@ -1,4 +1,7 @@
-﻿using MSLibrary.Xrm;
+﻿using DCEM.Main;
+using DCEM.Main.Entities;
+using MSLibrary;
+using MSLibrary.Xrm;
 using MSLibrary.Xrm.Message.RetrieveMultipleFetch;
 using System;
 using System.Collections.Generic;
@@ -10,17 +13,18 @@ namespace DCEM.SalesAssistant.Main.Common
 {
     public class CrmRequestHelper
     {
-        public async Task<CrmEntityCollection> ExecuteAsync(ICrmService crmService, string entityName, XDocument document,Guid userId)
+        public async Task<CrmEntityCollection> ExecuteAsync(ICrmService crmService, string entityName, XDocument document,Guid? userId=null)
         {
             try
             {
+                var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
                 var dicHead = new Dictionary<string, IEnumerable<string>>();
                 dicHead.Add("Prefer", new List<string>() { "odata.include-annotations=\"*\"" });
                 var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {
                     EntityName = entityName,
                     FetchXml = document,
-                    ProxyUserId= userId
+                    ProxyUserId= userInfo?.systemuserid
                 };
                 fetchRequest.Headers.Add("Prefer", dicHead["Prefer"]);
                 var crmResponseMessage = await crmService.Execute(fetchRequest);
@@ -33,12 +37,13 @@ namespace DCEM.SalesAssistant.Main.Common
             }
         }
 
-        public async Task<CrmEntity> Retrieve(ICrmService crmService, string entityName,  Guid id, Guid userId)
+        public async Task<CrmEntity> Retrieve(ICrmService crmService, string entityName,  Guid id, Guid? userId=null)
         {
+            var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
             var dicHead = new Dictionary<string, IEnumerable<string>>();
             dicHead.Add("Prefer", new List<string>() { "odata.include-annotations=\"*\"" }); 
             CrmEntity entity = null;
-            entity = await crmService.Retrieve(entityName, id,"", userId, dicHead);
+            entity = await crmService.Retrieve(entityName, id,"", userInfo?.systemuserid, dicHead);
             return entity;
         }
     }

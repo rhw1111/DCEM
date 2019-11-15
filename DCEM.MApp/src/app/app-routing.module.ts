@@ -155,6 +155,9 @@ const routes: Routes = [
                     { path: 'edit', loadChildren: './saleing/delivery/edit/edit.module#EditPageModule' },
                     { path: 'detail', loadChildren: './saleing/delivery/detail/detail.module#DetailPageModule' },
                     { path: 'success', loadChildren: './saleing/delivery/success/success.module#SuccessPageModule' },
+                    { path: 'timeline', loadChildren: './saleing/delivery/timeline/timeline.module#TimelinePageModule'},
+                    { path: 'appointment', loadChildren: './saleing/delivery/appointment/appointment.module#AppointmentPageModule' },
+                    { path: 'pdiservice', loadChildren: './saleing/delivery/pdiservice/pdiservice.module#PdiservicePageModule' }
                 ]
             },
             {
@@ -175,8 +178,8 @@ const routes: Routes = [
             {
                 path: 'orderpaydetail',//交车单-收款记录
                 children: [
-                    { path: 'detail', loadChildren: './saleing/orderpaydetail/detail/detail.module#DetailPageModule' }
-
+                    { path: 'detail', loadChildren: './saleing/orderpaydetail/detail/detail.module#DetailPageModule' },
+                    { path: 'edit', loadChildren: './saleing/orderpaydetail/edit/edit.module#EditPageModule' }
                 ]
             },
             {
@@ -198,10 +201,17 @@ const routes: Routes = [
                     { path: 'detail', loadChildren: './saleing/vehlisense/detail/detail.module#DetailPageModule' },
                     { path: 'success', loadChildren: './saleing/vehlisense/success/success.module#SuccessPageModule' },
                 ]
-            }
-        ]
+            } ,
+            {
+                path: 'demo',//ng.mobile.ant demo
+                children: [
+                    { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
+                ]
+            } 
+        ] 
     } 
-
+ 
+   
 ];
 
 @NgModule({

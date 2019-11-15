@@ -113,6 +113,9 @@ var ListPage = /** @class */ (function () {
         };
     }
     ListPage.prototype.ngOnInit = function () {
+    };
+    //每次页面加载
+    ListPage.prototype.ionViewWillEnter = function () {
         this.ionInfiniteScroll.disabled = false;
         this.model.params.PageIndex = 1;
         this.listOnBind();

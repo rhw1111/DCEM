@@ -79,7 +79,7 @@ export class EditPage implements OnInit {
 
     //获取客户标签
     async getcustomertag() {
-        this._http.post(
+        this._http.postForToaken(
             this.CustomerTagModel.apiCustomerTagUrl,
             { "UserId": this._userinfo.GetSystemUserId() },
             (res: any) => {
@@ -245,7 +245,7 @@ export class EditPage implements OnInit {
         }
         this.model.info.describe = tagName;
         this._page.loadingShow();
-        this._http.post(
+        this._http.postForToaken(
             this.model.apiUrl,
             this.model.info,
             (res: any) => {
