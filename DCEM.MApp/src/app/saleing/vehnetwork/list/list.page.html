@@ -1,0 +1,63 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/serving/home/index"></ion-back-button>
+        </ion-buttons>
+        <ion-title>我的开票信息</ion-title>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-searchbar animated [(ngModel)]="model.search.searchkey" placeholder="请输入交车单号\用户搜索"
+            (keyup)="searchOnKeyup($event)"></ion-searchbar>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-item>
+            <ion-text color="danger">*</ion-text>
+            <ion-label>
+                <h2>开票状态：</h2>
+            </ion-label>
+            <ion-select name="clues" okText="确认" cancelText="取消" (ionChange)="searchOnCharge()"  [(ngModel)]="model.search.mcs_tservicestatus">
+                <ion-select-option *ngFor="let item of model.statusOptions" value="{{item.value}}">
+                    {{item.name}}
+                </ion-select-option>
+            </ion-select>
+        </ion-item>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+    <ion-list lines="full">
+        <ion-item-sliding *ngFor="let item of model.vehnetwork;let key=index">
+            <ion-item [routerLink]="['/saleing/vehnetwork/detail']" [queryParams]="{id:item.id}">
+                <ion-icon slot="start" color="primary" name="car" size="large"></ion-icon>
+                <ion-label>
+                    <h2>{{item.name}}</h2>
+                    <p>{{item.code}}</p> 
+                </ion-label> 
+                <ion-note slot="end">
+                         {{item.status}}
+                    </ion-note>
+            </ion-item>
+            <ion-item-options side="end">
+                <ion-item-option color="tertiary" expandable [routerLink]="['/saleing/vehnetwork/detail']"
+                    [queryParams]="{id:item.id}">
+                    详情
+                </ion-item-option>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+    <ion-label *ngIf="this.model.isending" text-center>
+        <p>
+            没有更多的记录显示啦
+        </p>
+    </ion-label>
+    <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doLoading($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button [routerLink]="['/saleing/vehnetwork/edit']">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-content>

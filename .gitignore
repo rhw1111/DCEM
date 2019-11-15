@@ -265,3 +265,4 @@ __pycache__/
 DCEM.Client.sln
 DCEM.Server.sln
 DCEM.Web/Configurations/dev_app.json
+DCEM.Web/Configurations/app.json

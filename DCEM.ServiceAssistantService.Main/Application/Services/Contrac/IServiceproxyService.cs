@@ -52,5 +52,13 @@ namespace DCEM.ServiceAssistantService.Main.Application
         Task<QueryResult<CrmEntity>> QueryPartsListByFilter(int pageIndex, int pageCount, string filter);
         #endregion
 
+        #region 查询维修类别(保修自费)
+        Task<QueryResult<CrmEntity>> QueryRepairitemtypeList();
+        #endregion
+
+        #region 查询维修类型
+        Task<QueryResult<CrmEntity>> QueryRepairitemtypedetailList();
+        #endregion
+
     }
 }
