@@ -83,6 +83,7 @@ import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile';
         FormsModule,
         ReactiveFormsModule,
         NgZorroAntdMobileModule
+  
     ],
     providers: [
         StatusBar,

@@ -177,9 +177,16 @@ const routes = [
             {
                 path: 'orderpaydetail',
                 children: [
-                    { path: 'detail', loadChildren: './saleing/orderpaydetail/detail/detail.module#DetailPageModule' }
+                    { path: 'detail', loadChildren: './saleing/orderpaydetail/detail/detail.module#DetailPageModule' },
+                    { path: 'edit', loadChildren: './saleing/orderpaydetail/edit/edit.module#EditPageModule' }
                 ]
             }
+        ]
+    },
+    {
+        path: 'demo',
+        children: [
+            { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
         ]
     }
 ];

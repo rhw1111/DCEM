@@ -51,6 +51,7 @@ let DetailPage = class DetailPage {
         this.activeRoute.queryParams.subscribe((params) => {
             if (params['id'] != null && params['id'] != undefined) {
                 this.pageOnBind(params['id']);
+                this.tab = "info";
             }
         });
     }
