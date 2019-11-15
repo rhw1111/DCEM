@@ -21,7 +21,8 @@ export class ListPage implements OnInit {
     page: 1,//分页
     sort: '',//排序的参数
     isending: false,//是否加载完成
-    datalist: []//列表数据
+    datalist: [],//列表数据
+    systemUserId:''
   };
 
   constructor(
@@ -34,6 +35,7 @@ export class ListPage implements OnInit {
 
   ngOnInit() {
     this.model.page = 1;
+    this.model.systemUserId = this._logininfo.GetSystemUserId(); 
     this.getList(null);
   }
 
@@ -88,7 +90,7 @@ export class ListPage implements OnInit {
           sort: this.model.sort,
           pageSize: this.model.pageSize,
           page: this.model.page,
-          systemuserid: this._logininfo.GetSystemUserId()
+          systemuserid: this.model.systemUserId
         }
       },
       (res: any) => {
