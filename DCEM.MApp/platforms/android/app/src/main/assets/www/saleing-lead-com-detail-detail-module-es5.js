@@ -128,7 +128,7 @@ var DetailPage = /** @class */ (function () {
     DetailPage.prototype.pageOnBind = function (id) {
         var _this = this;
         this._page.loadingShow();
-        this._http.post(this.model.apiUrlDetail, { 'id': this.model.id, 'userid': this._userinfo.GetSystemUserId() }, function (res) {
+        this._http.postForToaken(this.model.apiUrlDetail, { 'id': this.model.id, 'userid': this._userinfo.GetSystemUserId() }, function (res) {
             if (res !== null) {
                 var attr = res["Attributes"];
                 _this.model.info.username = attr["fullname"];

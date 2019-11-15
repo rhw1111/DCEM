@@ -1,6 +1,7 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { IonSegment } from '@ionic/angular';
 
 @Component({
     selector: 'app-detail',
@@ -9,10 +10,14 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 })
 export class DetailPage implements OnInit {
 
+    @ViewChild(IonSegment, null) IonSegment: IonSegment;
+
+
     public tab: any = "info";
     mod = {
         apiUrl: '/Api/Serviceproxy/GetInfo',
         delUrl: '/Api/Serviceproxy/Delete',
+        toServiceproxyUrl: '/Api/Serviceproxy/toServiceproxy',
         data: {
             serviceproxy: {
                 id: "",
@@ -29,7 +34,7 @@ export class DetailPage implements OnInit {
                 status: 0,
             },
             vehcheckresultMap: {},
-            serviceproxyResumeArray:[]
+            serviceproxyResumeArray: []
         }
     };
 
@@ -44,6 +49,9 @@ export class DetailPage implements OnInit {
 
     }
 
+
+    //IonSegment
+
     ngOnInit() {
         this._activeRoute.queryParams.subscribe((params: Params) => {
             if (params['id'] != null && params['id'] != undefined) {
@@ -51,7 +59,6 @@ export class DetailPage implements OnInit {
             }
         });
     }
-
 
     pageOnBind(id: any) {
 
@@ -81,8 +88,8 @@ export class DetailPage implements OnInit {
                     this.mod.data.serviceproxy.status = res["Serviceproxy"]["Attributes"]["mcs_status"];
                     this.mod.data.serviceproxy["dealerid_formatted"] = res["Serviceproxy"]["Attributes"]["_mcs_dealerid_value@OData.Community.Display.V1.FormattedValue"];
                     this.mod.data.serviceproxy["oilquantity_formatted"] = res["Serviceproxy"]["Attributes"]["mcs_oilquantity@OData.Community.Display.V1.FormattedValue"];
-                    
-                    
+
+
                 }
                 if (!this._valid.isNull(res.ServiceordercheckresultList)) {
                     for (var key in res.ServiceordercheckresultList) {
@@ -113,8 +120,6 @@ export class DetailPage implements OnInit {
             }
         );
     }
-
-
     //删除事件
     deleteOnClick() {
         this._page.confirm("确认提示", "您确认要执行此操作吗？",
@@ -131,6 +136,29 @@ export class DetailPage implements OnInit {
                     },
                     (err: any) => {
                         this._page.alert("消息提示", "删除失败!");
+                    }
+                );
+            }
+        )
+    }
+    //转服务委托书
+    toServiceproxyOnClick() {
+        this._page.confirm("确认提示", "您确认要执行此操作吗？",
+            () => {
+                this._http.get(
+                    this.mod.toServiceproxyUrl,
+                    {
+                        params: {
+                            serviceproxyGuid: this.mod.data.serviceproxy.id
+                        }
+                    },
+                    (res: any) => {
+                        this._page.alert("消息提示", "操作成功!", () => {
+                            this._page.navigateRoot("/serving/sc/detail", { id: this.mod.data.serviceproxy.id });
+                        });
+                    },
+                    (err: any) => {
+                        this._page.alert("消息提示", "操作失败!");
                     }
                 );
             }

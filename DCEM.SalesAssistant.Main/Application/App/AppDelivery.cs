@@ -48,5 +48,26 @@ namespace DCEM.SalesAssistant.Main.Application.App
         {
             return await _service.getservicconsultant(deliveryEditRequest);
         }
+
+        public async Task<ValidateResult<string>> submitpdi(DeliveryEditRequest deliveryEditRequest)
+        {
+            return await _service.submitpdi(deliveryEditRequest);
+        }
+
+       
+        public async Task<CrmEntity> getmateriel(DeliveryDetailRequest deliveryDetailRequest)
+        {
+            return await _service.getmateriel(deliveryDetailRequest);
+        }
+
+        public async Task<ValidateResult<string>> addorderpay(OrderPayEditRequest orderPayEditRequest)
+        {
+            return await _service.addorderpay(orderPayEditRequest);
+        }
+
+        public async Task<ValidateResult<string>> moneycompleted(DeliveryDetailRequest deliveryDetailRequest)
+        {
+            return await _service.moneycompleted(deliveryDetailRequest);
+        }
     }
 }

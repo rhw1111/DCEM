@@ -83,7 +83,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
                   <attribute name='mcs_gender' />
                   <attribute name='mcs_mobilephone' />
                   <attribute name='mcs_vehplate' />
-                  <order attribute='mcs_fullname' descending='true' />
+                  <order attribute='createdon' descending='true' />
                   {filter}
                 </link-entity>
               </entity>
@@ -284,33 +284,50 @@ namespace DCEM.ServiceAssistantService.Main.Application
             var actionCode = jo.Value<int>("actionCode");
             var vehownerJo = jo.Value<JObject>("Vehowner");
             var carserviceadvisorJo = jo.Value<JObject>("Carserviceadvisor");
-            var vehownerEntity = new CrmExecuteEntity("mcs_vehowner", vehownerJo.Value<string>("mcs_vehownerid").ToGuid());
-            var carserviceadvisorEntity = new CrmExecuteEntity("mcs_carserviceadvisor", Guid.NewGuid());
+
+            var vehownerGuid = Guid.NewGuid();
+            var carserviceadvisorGuid = Guid.NewGuid();
+
+            var vehownerEntity = new CrmExecuteEntity("mcs_vehowner", vehownerGuid);
+            var carserviceadvisorEntity = new CrmExecuteEntity("mcs_carserviceadvisor", carserviceadvisorGuid);
             var validateResult = new ValidateResult<CrmEntity>();
 
-            //if (actionCode == 2)
-            //    vehownerEntity.Id = vehownerJo.Value<string>("mcs_vehownerid").ToGuid();
+            if (actionCode == 2)
+            {
+                vehownerGuid = Guid.Parse(vehownerJo.Value<string>("mcs_vehownerid"));
+                vehownerEntity.Id = vehownerGuid;
+            }
             if (vehownerJo.ContainsKey("mcs_fullname"))
                 vehownerEntity.Attributes.Add("mcs_fullname", vehownerJo.Value<string>("mcs_fullname"));
-            //if (vehownerJo.ContainsKey("mcs_vehplate"))
-            //    vehownerEntity.Attributes.Add("mcs_vehplate", vehownerJo.Value<string>("mcs_vehplate"));
-            //if (vehownerJo.ContainsKey("mcs_mobilephone"))
-            //    vehownerEntity.Attributes.Add("mcs_mobilephone", vehownerJo.Value<string>("mcs_mobilephone"));
-            //if (vehownerJo.ContainsKey("mcs_name"))
-            //    vehownerEntity.Attributes.Add("mcs_name", vehownerJo.Value<string>("mcs_name"));
-            //if (vehownerJo.ContainsKey("mcs_enginennumber"))
-            //    vehownerEntity.Attributes.Add("mcs_enginennumber", vehownerJo.Value<string>("mcs_enginennumber"));
-            //if (vehownerJo.ContainsKey("mcs_prodtime"))
-            //    vehownerEntity.Attributes.Add("mcs_prodtime", vehownerJo.Value<DateTime>("mcs_prodtime"));
-            //if (vehownerJo.ContainsKey("mcs_salesdate"))
-            //    vehownerEntity.Attributes.Add("mcs_salesdate", vehownerJo.Value<DateTime>("mcs_salesdate"));
-            //if (vehownerJo.ContainsKey("_mcs_vehtype_value"))
-            //    vehownerEntity.Attributes.Add("mcs_vehtype", new CrmEntityReference("mcs_carmodel", vehownerJo.Value<string>("_mcs_vehtype_value").ToGuid()));
+            if (vehownerJo.ContainsKey("mcs_vehplate"))
+                vehownerEntity.Attributes.Add("mcs_vehplate", vehownerJo.Value<string>("mcs_vehplate"));
+            if (vehownerJo.ContainsKey("mcs_mobilephone"))
+                vehownerEntity.Attributes.Add("mcs_mobilephone", vehownerJo.Value<string>("mcs_mobilephone"));
+            if (vehownerJo.ContainsKey("mcs_name"))
+                vehownerEntity.Attributes.Add("mcs_name", vehownerJo.Value<string>("mcs_name"));
+            if (vehownerJo.ContainsKey("mcs_enginennumber"))
+                vehownerEntity.Attributes.Add("mcs_enginennumber", vehownerJo.Value<string>("mcs_enginennumber"));
+            if (vehownerJo.ContainsKey("mcs_prodtime"))
+                vehownerEntity.Attributes.Add("mcs_prodtime", vehownerJo.Value<DateTime?>("mcs_prodtime"));
+            if (vehownerJo.ContainsKey("mcs_salesdate"))
+                vehownerEntity.Attributes.Add("mcs_salesdate", vehownerJo.Value<DateTime?>("mcs_salesdate"));
+            if (vehownerJo.ContainsKey("_mcs_vehtype_value"))
+                vehownerEntity.Attributes.Add("mcs_vehtype", new CrmEntityReference("mcs_carmodel", Guid.Parse(vehownerJo.Value<string>("_mcs_vehtype_value"))));
 
             if (actionCode == 1)
+            {
+                var dealeridGuid = Guid.Parse(jo.Value<string>("dealerid"));
+                vehownerEntity.Attributes.Add("mcs_dealer", new CrmEntityReference("mcs_dealer", dealeridGuid));
                 await _crmService.Create(vehownerEntity, null);
+
+                carserviceadvisorEntity.Attributes.Add("mcs_customerid", new CrmEntityReference("mcs_vehowner", vehownerGuid));
+                carserviceadvisorEntity.Attributes.Add("mcs_dealerid", new CrmEntityReference("mcs_dealer", dealeridGuid));
+                await _crmService.Create(carserviceadvisorEntity, null);
+            }
             else
+            {
                 await _crmService.Update(vehownerEntity, null);
+            }
 
             #region 组装数据返回
             validateResult.Result = true;

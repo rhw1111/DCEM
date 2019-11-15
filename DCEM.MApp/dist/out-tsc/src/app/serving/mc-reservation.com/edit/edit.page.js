@@ -1,5 +1,4 @@
 import * as tslib_1 from "tslib";
-var _a, _b, _c;
 import { Component } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
 import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
@@ -26,6 +25,8 @@ let EditPage = class EditPage {
             systemuserid: "",
             mcs_dealerid: "",
             appointmentinfoid: null,
+            isOrderTypeChange: false,
+            isAppointmentAtChange: false //是否改变预约日期
         };
         //定义共享数据
         this.shareData = {
@@ -33,6 +34,8 @@ let EditPage = class EditPage {
         };
     }
     ngOnInit() {
+    }
+    ionViewWillEnter() {
         this.activeRoute.queryParams.subscribe((params) => {
             if (params['id'] != null && params['id'] != undefined) {
                 console.log("记录Id:" + this.model.appointmentinfoid);
@@ -57,7 +60,7 @@ let EditPage = class EditPage {
                     this.shareData.appointmentinfo["mcs_carplate"] = data.vehowne.vehplate;
                     this.shareData.appointmentinfo["mcs_customerphone"] = data.vehowne.mobilephone;
                     this.shareData.appointmentinfo["mcs_cartype"] = data.vehowne.model["_mcs_vehtype_value"];
-                    this.shareData.appointmentinfo["mcs_tag"] = "";
+                    //this.shareData.appointmentinfo["mcs_tag"] = "";
                 }
             }
         });
@@ -96,12 +99,42 @@ let EditPage = class EditPage {
     }
     //选择时段
     appointmentconfigOnClick() {
+        //表单校验
+        if (this._valid.isNull(this.shareData.appointmentinfo["mcs_ordertype"])) {
+            this._page.presentToastError("请先选择预约类型");
+            return;
+        }
+        if (this._valid.isNull(this.shareData.appointmentinfo["mcs_appointmentat"])) {
+            this._page.presentToastError("请先选择预约日期");
+            return;
+        }
         this.configPresentModal();
     }
     //点击保存
     saveOnClick() {
-        debugger;
-        this.model.postData["actioncode"] = 1;
+        //表单校验
+        if (this._valid.isNull(this.shareData.appointmentinfo["mcs_customerid"])) {
+            this._page.presentToastError("请先选择车主");
+            return;
+        }
+        if (this._valid.isNull(this.shareData.appointmentinfo["mcs_ordertype"])) {
+            this._page.presentToastError("请先选择预约类型");
+            return;
+        }
+        if (this._valid.isNull(this.shareData.appointmentinfo["mcs_appointmentat"])) {
+            this._page.presentToastError("请先选择预约日期");
+            return;
+        }
+        if (this._valid.isNull(this.shareData.appointmentinfo["mcs_appointmentconfigid"])) {
+            this._page.presentToastError("请先选择预约时段");
+            return;
+        }
+        var date = new Date();
+        if (this.FormatToDate(date) > this.FormatToDate(this.shareData.appointmentinfo["mcs_appointmentat"])) {
+            this._page.presentToastError("预约日期必须大于当天日期");
+            return;
+        }
+        //this.model.postData["actioncode"] = 1;
         this.model.postData["appointmentinfo"] = this.shareData.appointmentinfo;
         //组装预约单
         this.model.postData["appointmentinfo"] = {};
@@ -121,8 +154,8 @@ let EditPage = class EditPage {
         this.model.postData["appointmentinfo"]["mcs_customercomment"] = this.shareData.appointmentinfo["mcs_customercomment"]; //客户要求
         this.model.postData["appointmentinfo"]["mcs_appointmendescript"] = this.shareData.appointmentinfo["mcs_appointmendescript"]; //问题描述
         //this.model.postData["appointmentinfo"]["mcs_status"] =10;//预约状态
-        console.log(this.shareData);
-        console.log(this.model.postData);
+        //console.log(this.shareData);
+        //console.log(this.model.postData);
         this._page.loadingShow();
         this._http.post(this.model.postApiUrl, this.model.postData, (res) => {
             this._page.loadingHide();
@@ -130,7 +163,6 @@ let EditPage = class EditPage {
                 console.log("res");
                 console.log(res);
                 var guid = res["Data"]["Id"];
-                //this._shareData.delete(this.mod.shareDataKey);
                 this._page.goto("/serving/reservation/success", { guid: guid });
             }
             else {
@@ -155,12 +187,14 @@ let EditPage = class EditPage {
                 this.shareData.appointmentinfo["mcs_carplate"] = res["Attributes"]["mcs_carplate"];
                 this.shareData.appointmentinfo["mcs_customerphone"] = res["Attributes"]["mcs_customerphone"];
                 this.shareData.appointmentinfo["mcs_tag"] = res["Attributes"]["mcs_tag"];
-                this.shareData.appointmentinfo["mcs_ordertype"] = res["Attributes"]["mcs_ordertype"];
+                this.shareData.appointmentinfo["mcs_ordertype"] = String(res["Attributes"]["mcs_ordertype"]);
                 this.shareData.appointmentinfo["mcs_appointmentat"] = res["Attributes"]["mcs_appointmentat"];
                 this.shareData.appointmentinfo["mcs_appointmentconfigname"] = res["Attributes"]["mcs_appointmentconfigid"] != null ? res["Attributes"]["mcs_appointmentconfigid"]["mcs_name"] : null;
                 this.shareData.appointmentinfo["mcs_surplusnum"] = res["Attributes"]["mcs_appointmentconfigid"] != null ? res["Attributes"]["mcs_appointmentconfigid"]["mcs_surplusnum"] : 0;
                 this.shareData.appointmentinfo["mcs_customercomment"] = res["Attributes"]["mcs_customercomment"];
                 this.shareData.appointmentinfo["mcs_appointmendescript"] = res["Attributes"]["mcs_appointmendescript"];
+                this.shareData.appointmentinfo["mcs_appointmentconfigid"] = res["Attributes"]["_mcs_appointmentconfigid_value"];
+                this.shareData.appointmentinfo["mcs_customerid"] = res["Attributes"]["_mcs_customerid_value"];
                 console.log(res);
             }
             else {
@@ -171,6 +205,26 @@ let EditPage = class EditPage {
             this._page.alert("消息提示", "数据加载异常");
             this._page.loadingHide();
         });
+    }
+    //预约类型改变事件
+    orderTypeChange() {
+        if (this.model.isOrderTypeChange) {
+            this.shareData.appointmentinfo["mcs_appointmentconfigname"] = "";
+            this.shareData.appointmentinfo["mcs_appointmentconfigid"] = null;
+        }
+        this.model.isOrderTypeChange = true;
+    }
+    //预约日期改变
+    appointmentAtChange() {
+        if (this.model.isAppointmentAtChange) {
+            var date = new Date();
+            if (this.FormatToDate(date) > this.FormatToDate(this.shareData.appointmentinfo["mcs_appointmentat"])) {
+                this._page.presentToastError("预约日期必须大于当天日期");
+            }
+            this.shareData.appointmentinfo["mcs_appointmentconfigname"] = "";
+            this.shareData.appointmentinfo["mcs_appointmentconfigid"] = null;
+        }
+        this.model.isAppointmentAtChange = true;
     }
     //日期格式
     FormatToDate(date) {
@@ -188,11 +242,14 @@ EditPage = tslib_1.__decorate([
         templateUrl: './edit.page.html',
         styleUrls: ['./edit.page.scss'],
     }),
-    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof ModalController !== "undefined" && ModalController) === "function" ? _a : Object, typeof (_b = typeof NavController !== "undefined" && NavController) === "function" ? _b : Object, DCore_Http,
+    tslib_1.__metadata("design:paramtypes", [ModalController,
+        NavController,
+        DCore_Http,
         DCore_Page,
         Storage_LoginInfo,
         DCore_ShareData,
-        DCore_Valid, typeof (_c = typeof ActivatedRoute !== "undefined" && ActivatedRoute) === "function" ? _c : Object])
+        DCore_Valid,
+        ActivatedRoute])
 ], EditPage);
 export { EditPage };
 //# sourceMappingURL=edit.page.js.map

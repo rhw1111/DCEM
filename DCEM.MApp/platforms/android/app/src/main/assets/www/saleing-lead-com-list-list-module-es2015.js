@@ -137,7 +137,7 @@ let ListPage = class ListPage {
     }
     listOnBind(event) {
         this._page.loadingShow();
-        this._http.post(this.mod.apiUrl, this.mod.searchData, (res) => {
+        this._http.postForToaken(this.mod.apiUrl, this.mod.searchData, (res) => {
             if (res.Results !== null) {
                 var data = res.originalclues;
                 for (var i in data) {

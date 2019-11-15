@@ -120,7 +120,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
 
         #region 查询培育任务
         /// <summary>
-        /// 查询与唯一线索关联的培育任务
+        /// 查询培育任务
         /// </summary>
         /// <param name="logcallrequest"></param>
         /// <returns></returns>

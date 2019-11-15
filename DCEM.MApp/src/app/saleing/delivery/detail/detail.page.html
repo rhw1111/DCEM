@@ -12,7 +12,7 @@
             <ion-segment-button value="infolist" checked (ionSelect)="pageOnBind()">
                 <ion-label>基础信息</ion-label>
             </ion-segment-button>
-            <ion-segment-button value="Linklist" (ionSelect)="pageOnLogCalllist()">
+            <ion-segment-button value="Linklist" (ionSelect)="pageOnLogCalllist($event)">
                 <ion-label>收款记录</ion-label>
             </ion-segment-button>
             <ion-segment-button value="Breedlist" (ionSelect)="pageOnActivitylist()">
@@ -142,13 +142,13 @@
                 </ion-fab-button>
                 <ion-fab-list side="top">
                     <ion-fab-button *ngIf="model.status==2" color="primary" style="width:60px;"
-                        (click)="presentAlertPDI()">PDI任务
+                        [routerLink]="['/saleing/delivery/pdiservice']" [queryParams]="{id:model.id}">PDI检测
                     </ion-fab-button>
                     <ion-fab-button *ngIf="model.status==3" color="success" style="width:60px;"
                         [routerLink]="['/saleing/delivery/appointment']" [queryParams]="{id:model.id}">预约交车
                     </ion-fab-button>
                     <ion-fab-button color="danger" *ngIf="model.settles==0" style="width:60px;"
-                        [routerLink]="['/saleing/delivery/edit']" [queryParams]="{id:1}">
+                        [routerLink]="['/saleing/orderpaydetail/edit']" [queryParams]="{id:model.id}">
                         收取尾款</ion-fab-button>
                     <ion-fab-button color="dark" *ngIf="model.status==4" style="width:60px;"
                         (click)="presentAlertConfim()">
@@ -190,6 +190,62 @@
             </ion-infinite-scroll>
         </div>
         <div *ngSwitchCase="'Breedlist'">
+            <ion-card>
+                <ion-card-content>
+                    <ion-list>
+                        <ion-item-group>
+                            <ion-item>
+                                <ion-label>
+                                    <h2>车平台</h2>
+                                </ion-label>
+                                <ion-note slot="end">
+                                    <p>{{materielmodel.data.cpt}}</p>
+                                </ion-note>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label>
+                                    <h2>基本车型</h2>
+                                </ion-label>
+                                <ion-note slot="end">
+                                    <p>{{materielmodel.data.jbcx}}</p>
+                                </ion-note>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label>
+                                    <h2>车型年</h2>
+                                </ion-label>
+                                <ion-note slot="end">
+                                    <p>{{materielmodel.data.cxn}}</p>
+                                </ion-note>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label>
+                                    <h2>动力类型</h2>
+                                </ion-label>
+                                <ion-note slot="end">
+                                    <p>{{materielmodel.data.dllx}}</p>
+                                </ion-note>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label>
+                                    <h2>内饰颜色</h2>
+                                </ion-label>
+                                <ion-note slot="end">
+                                    <p>{{materielmodel.data.nsys}}</p>
+                                </ion-note>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label>
+                                    <h2>外饰颜色</h2>
+                                </ion-label>
+                                <ion-note slot="end">
+                                    <p>{{materielmodel.data.wsys}}</p>
+                                </ion-note>
+                            </ion-item>
+                        </ion-item-group>
+                    </ion-list>
+                </ion-card-content>
+            </ion-card>
         </div>
     </div>
 </ion-content>

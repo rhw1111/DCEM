@@ -31,10 +31,11 @@
         </ion-refresher-content> 
     </ion-refresher>
     <ion-list lines="full">
-        <ion-item *ngFor="let item of model.datalist" [routerLink]="['/saleing/vehorder/detail']" [queryParams]="{id:item.mcs_vehorderid}">
-            <ion-icon slot="start" name="hammer" size="large"></ion-icon>
+        <ion-item *ngFor="let item of model.datalist" [routerLink]="['/saleing/vehorder/detail']" [queryParams]="{id:item.mcs_vehorderid}">          
+            <ion-icon slot="start" name="logo-instagram" size="large" color="tertiary"></ion-icon>
             <ion-label>
-                <h3>{{item.mcs_contactname}}</h3>
+                <h2>{{item.mcs_code}}</h2> 
+                <p>{{item.mcs_contactname}}</p>
                 <p>{{item.mcs_contactphone}}</p>            
             </ion-label>
            <!--  <ion-note slot="end" >
