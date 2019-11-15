@@ -198,11 +198,11 @@ export class OptionSetService {
                     { "name": "已收尾款", "value": 5 },
                     { "name": "车联网已开通", "value": 6 },
                     { "name": "交车完成", "value": 7 },
-                    { "name": "作废", "value":99 }
+                    { "name": "作废", "value": 99 }
                 ];
                 break;
 
-             case "mcs_rostatus"://整车销售-整车订单状态
+            case "mcs_rostatus"://整车销售-整车订单状态
                 optionlist = [
                     { "name": "订金待支付", "value": 1 },
                     { "name": "订金已支付", "value": 2 },
@@ -211,26 +211,36 @@ export class OptionSetService {
                     { "name": "生产中", "value": 5 },
                     { "name": "车辆在途", "value": 6 },
                     { "name": "等待交车", "value": 7 },
-                    { "name": "车联网已开通", "value":8 },
+                    { "name": "车联网已开通", "value": 8 },
                     { "name": "交车完成", "value": 9 },
-                    { "name": "作废", "value":99 }
+                    { "name": "作废", "value": 99 }
 
                 ];
                 break;
 
-                case "mcs_approvalstatus"://整车销售-整车订单审批状态
+            case "mcs_approvalstatus"://整车销售-整车订单审批状态
                 optionlist = [
                     { "name": "待审核", "value": 0 },
                     { "name": "审核通过", "value": 1 },
-                    { "name": "审核不通过", "value": 2 }                
+                    { "name": "审核不通过", "value": 2 }
                 ];
                 break;
-                case "mcs_paycategory"://整车销售-收款记录-收款类型 
+            case "mcs_paycategory"://整车销售-收款记录-收款类型 
                 optionlist = [
                     { "name": "贷款", "value": 0 },
                     { "name": "定金", "value": 1 },
                     { "name": "尾款", "value": 2 },
-                    { "name": "抵扣", "value": 3 }                       
+                    { "name": "抵扣", "value": 3 }
+                ];
+                break;
+            case "mcs_deliverorderflow"://整车销售-交车单-流程 
+                optionlist = [
+                    { "name": "PDI检测未提交", "value": 0 },
+                    { "name": "PDI检测已提交", "value": 1 },
+                    { "name": "PDI检测完成", "value": 2 },
+                    { "name": "预约完成", "value": 3 },
+                    { "name": "已收尾款", "value": 4 },
+                    { "name": "交车完成", "value": 5 }
                 ];
                 break;
         }

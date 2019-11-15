@@ -69,5 +69,10 @@ namespace DCEM.SalesAssistant.Main.Application.App
         {
             return await _service.moneycompleted(deliveryDetailRequest);
         }
+
+        public async Task<CrmEntity> getdeliverorderflow(DeliveryDetailRequest deliveryDetailRequest)
+        {
+            return await _service.getdeliverorderflow(deliveryDetailRequest);
+        }
     }
 }
