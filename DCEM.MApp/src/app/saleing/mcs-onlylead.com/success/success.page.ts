@@ -19,6 +19,7 @@ export class successPage implements OnInit {
         this.activeRoute.queryParams.subscribe((params: Params) => {
             if (params['guid'] != null && params['guid'] != undefined) {
                 this.mod.id = params['guid'];
+                console.log(this.mod.id);
             }
         });
     }
