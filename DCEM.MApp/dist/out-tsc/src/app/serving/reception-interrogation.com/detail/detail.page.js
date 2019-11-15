@@ -1,7 +1,8 @@
 import * as tslib_1 from "tslib";
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute } from '@angular/router';
+import { IonSegment } from '@ionic/angular';
 let DetailPage = class DetailPage {
     constructor(_http, _page, _valid, _activeRoute) {
         this._http = _http;
@@ -12,6 +13,7 @@ let DetailPage = class DetailPage {
         this.mod = {
             apiUrl: '/Api/Serviceproxy/GetInfo',
             delUrl: '/Api/Serviceproxy/Delete',
+            toServiceproxyUrl: '/Api/Serviceproxy/toServiceproxy',
             data: {
                 serviceproxy: {
                     id: "",
@@ -33,6 +35,7 @@ let DetailPage = class DetailPage {
         };
         this.objectKeys = Object.keys;
     }
+    //IonSegment
     ngOnInit() {
         this._activeRoute.queryParams.subscribe((params) => {
             if (params['id'] != null && params['id'] != undefined) {
@@ -99,7 +102,27 @@ let DetailPage = class DetailPage {
             });
         });
     }
+    //转服务委托书
+    toServiceproxyOnClick() {
+        this._page.confirm("确认提示", "您确认要执行此操作吗？", () => {
+            this._http.get(this.mod.toServiceproxyUrl, {
+                params: {
+                    serviceproxyGuid: this.mod.data.serviceproxy.id
+                }
+            }, (res) => {
+                this._page.alert("消息提示", "操作成功!", () => {
+                    this._page.navigateRoot("/serving/sc/detail", { id: this.mod.data.serviceproxy.id });
+                });
+            }, (err) => {
+                this._page.alert("消息提示", "操作失败!");
+            });
+        });
+    }
 };
+tslib_1.__decorate([
+    ViewChild(IonSegment, null),
+    tslib_1.__metadata("design:type", IonSegment)
+], DetailPage.prototype, "IonSegment", void 0);
 DetailPage = tslib_1.__decorate([
     Component({
         selector: 'app-detail',

@@ -4,6 +4,11 @@
             <ion-back-button text="返回" defaultHref="/serving/reservation/list"></ion-back-button>
         </ion-buttons>
         <ion-title>操作成功</ion-title>
+        <ion-buttons slot="end">
+            <ion-button [routerLink]="['/serving/home/tabs']">
+                <ion-icon slot="icon-only" name="home" [routerLink]="['/serving/home/tabs']"></ion-icon>
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
@@ -33,13 +38,6 @@
                         预约单操作成功
                     </ion-col>
                 </ion-row>
-                <!--<ion-row>
-                    <ion-col>
-                        <div class="orderno">
-                            单号:D00142019225567
-                        </div>
-                    </ion-col>
-                </ion-row>-->
                 <ion-row>
                     <ion-col>
                         <ion-button color="primary" class="button-outline" [routerLink]="['/serving/reservation/detail']" [queryParams]="{id:mod.id}">

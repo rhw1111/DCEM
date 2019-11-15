@@ -8,6 +8,8 @@ using System.Xml.Linq;
 using MSLibrary.Xrm.Message.RetrieveMultipleFetch;
 using System;
 using System.Collections.Generic;
+using DCEM.Main;
+using DCEM.Main.Entities;
 
 namespace DCEM.SalesAssistant.Main.Application.Services
 {
@@ -128,6 +130,9 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         {
             try
             {
+                var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+                var ProxyUserId = userInfo != null ? userInfo.systemuserid : null;
+
                 var fetchString = _onlyLeadRepository.GetActivityList(activityrequest);
 
                 var fetchXdoc = XDocument.Parse(fetchString);
@@ -135,7 +140,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 {
                     EntityName = "mcs_activity",
                     FetchXml = fetchXdoc,
-                    ProxyUserId = Guid.Parse(activityrequest.UserId)
+                    ProxyUserId = ProxyUserId
                 };
                 var fetchResponse = await _crmService.Execute(fetchRequest);
                 var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
@@ -225,8 +230,8 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         {
             var validateResult = new ValidateResult<CrmEntity>();
             var reusetCrmEntity = new CrmEntity("mcs_onlylead", request.onlylead.mcs_onlyleadid);
-            //新增预约单
-            if (request.actioncode == 2)
+            //编辑
+            if (request.onlylead.mcs_onlyleadid!=null)
             {
                 var updateEntity = new CrmExecuteEntity("mcs_onlylead", request.onlylead.mcs_onlyleadid);
                
@@ -266,7 +271,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             // 邮箱
             if (!string.IsNullOrWhiteSpace(request.onlylead.mcs_emailaddress1))
             {
-                updateEntity.Attributes.Add("mcs_name", request.onlylead.mcs_emailaddress1);
+                updateEntity.Attributes.Add("mcs_emailaddress1", request.onlylead.mcs_emailaddress1);
             }
             // 评分
             if (request.onlylead.mcs_accountpoints != null)

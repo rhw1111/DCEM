@@ -177,7 +177,30 @@ const routes = [
             {
                 path: 'orderpaydetail',
                 children: [
-                    { path: 'detail', loadChildren: './saleing/orderpaydetail/detail/detail.module#DetailPageModule' }
+                    { path: 'detail', loadChildren: './saleing/orderpaydetail/detail/detail.module#DetailPageModule' },
+                    { path: 'edit', loadChildren: './saleing/orderpaydetail/edit/edit.module#EditPageModule' }
+                ]
+            },
+            {
+                path: 'vehnetwork',
+                children: [
+                    { path: 'list', loadChildren: './saleing/vehnetwork/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './saleing/vehnetwork/detail/detail.module#DetailPageModule' },
+                    { path: 'success', loadChildren: './saleing/vehnetwork/success/success.module#SuccessPageModule' },
+                ]
+            },
+            {
+                path: 'vehlisense',
+                children: [
+                    { path: 'list', loadChildren: './saleing/vehlisense/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './saleing/vehlisense/detail/detail.module#DetailPageModule' },
+                    { path: 'success', loadChildren: './saleing/vehlisense/success/success.module#SuccessPageModule' },
+                ]
+            },
+            {
+                path: 'demo',
+                children: [
+                    { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
                 ]
             }
         ]
