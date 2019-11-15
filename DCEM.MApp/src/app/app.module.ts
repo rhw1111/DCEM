@@ -30,6 +30,9 @@ import { SelectSysareaComponent } from 'app/saleing/saleing.ser/components/selec
 import { SelectVehiclecolorComponent } from 'app/saleing/saleing.ser/components/select-vehiclecolor/select-vehiclecolor.component';
 import { SelectVehicletypeComponent } from 'app/saleing/saleing.ser/components/select-vehicletype/select-vehicletype.component';
 
+import { SelectRepairitemtypeComponent } from 'app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component';
+import { SelectRepairitemtypedetailComponent } from 'app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component';
+
 @NgModule({
     declarations: [//申明组件
         AppComponent, //全局公共组件
@@ -49,9 +52,9 @@ import { SelectVehicletypeComponent } from 'app/saleing/saleing.ser/components/s
         SelectReceptioncommissionerComponent,//接待员选择
         SelectReservationconfigurationComponent,//预约时段选择
         SelectSysareaComponent,//省份选择
-        SelectVehiclecolorComponent//车型颜色
-
-
+        SelectVehiclecolorComponent,//车型颜色
+        SelectRepairitemtypeComponent,
+        SelectRepairitemtypedetailComponent,
     ],
 
     entryComponents: [
@@ -71,7 +74,9 @@ import { SelectVehicletypeComponent } from 'app/saleing/saleing.ser/components/s
         SelectReceptioncommissionerComponent,
         SelectReservationconfigurationComponent,
         SelectSysareaComponent,
-        SelectVehiclecolorComponent
+        SelectVehiclecolorComponent,
+        SelectRepairitemtypeComponent,
+        SelectRepairitemtypedetailComponent,
     ],
 
     imports: [BrowserModule,

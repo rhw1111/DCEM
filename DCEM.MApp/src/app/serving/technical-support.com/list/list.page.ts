@@ -32,8 +32,8 @@ export class ListPage implements OnInit {
     }
 
     ngOnInit() {
-        this.model.page = 1;
-        this.getList(null);
+        //this.model.page = 1;
+        //this.getList(null);
         // var cachedata = this.httpService.GetDataCache(this.model.name);
         // if (cachedata == "") {
             

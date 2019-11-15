@@ -803,7 +803,25 @@ namespace DCEM.ServiceAssistantService.Main.Application
         }
         #endregion
 
+        #region 查询 维修类别(保修自费)
+        public async Task<QueryResult<CrmEntity>> QueryRepairitemtypeList()
+        {
+            var queryResult = new QueryResult<CrmEntity>();
+            var result = await _crmService.RetrieveMultiple("mcs_repairitemtype", string.Empty);
+            queryResult.Results = result.Results;
+            return queryResult;
+        }
+        #endregion
 
+        #region 查询 维修类型
+        public async Task<QueryResult<CrmEntity>> QueryRepairitemtypedetailList()
+        {
+            var queryResult = new QueryResult<CrmEntity>();
+            var result = await _crmService.RetrieveMultiple("mcs_repairitemtypedetail", string.Empty);
+            queryResult.Results = result.Results;
+            return queryResult;
+        }
+        #endregion
 
     }
 }
