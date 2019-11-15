@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n    <ion-buttons slot=\"start\">\r\n        <ion-back-button text=\"返回\"   defaultHref=\"/\">\r\n        </ion-back-button>\r\n    </ion-buttons> \r\n    <ion-title>提交PDI任务</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n<ion-content>\r\n  <ion-card>\r\n    <ion-item-divider color=\"primary\">\r\n      <ion-label>PDI任务</ion-label>\r\n    </ion-item-divider>\r\n    <ion-card-content>\r\n      <ion-list>\r\n        <ion-item-group>\r\n          <ion-item>\r\n            <ion-label>\r\n              服务顾问\r\n            </ion-label>\r\n            <ion-select name=\"clues\" okText=\"确认\" cancelText=\"取消\" [(ngModel)]=\"servicconsultantmodel.adviser\">\r\n                <ion-select-option *ngFor=\"let item of servicconsultantmodel.servicconsultants\" value=\"{{item.value}}\">\r\n                    {{item.name}}\r\n                </ion-select-option>\r\n            </ion-select>\r\n          </ion-item> \r\n        </ion-item-group>\r\n      </ion-list>\r\n      <section style=\"text-align:center;\">\r\n          <ion-button style=\"width:70%\" color=\"danger\" (click)=\"presentAlertservicconsultant()\">保存</ion-button>\r\n      </section>\r\n    </ion-card-content>\r\n  </ion-card>\r\n</ion-content>"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n    <ion-buttons slot=\"start\">\r\n        <ion-back-button text=\"返回\"   defaultHref=\"/\">\r\n        </ion-back-button>\r\n    </ion-buttons> \r\n    <ion-title>提交PDI任务</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n<ion-content>\r\n  <ion-card>\r\n    <ion-item-divider color=\"primary\">\r\n      <ion-label>PDI任务</ion-label>\r\n    </ion-item-divider>\r\n    <ion-card-content>\r\n      <ion-list>\r\n        <ion-item-group>\r\n            <ion-item>\r\n                <ion-label>\r\n                    <h2>交车单号</h2>\r\n                </ion-label>\r\n                <ion-note slot=\"end\">\r\n                    <p>{{model.info.code}}</p>\r\n                </ion-note>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label>\r\n                    <h2>车辆VIN号</h2>\r\n                </ion-label>\r\n                <ion-note slot=\"end\">\r\n                    <p>{{model.info.vin}}</p>\r\n                </ion-note>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label>\r\n                    <h2>整车订单号</h2>\r\n                </ion-label>\r\n                <ion-note slot=\"end\">\r\n                    <p>{{model.info.ro}}</p>\r\n                </ion-note>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label>\r\n                    <h2>交车状态</h2>\r\n                </ion-label>\r\n                <ion-note slot=\"end\">\r\n                    <p>{{model.info.deliverystatus}}</p>\r\n                </ion-note>\r\n            </ion-item> \r\n          <ion-item>\r\n            <ion-label>\r\n              服务顾问\r\n            </ion-label>\r\n            <ion-select name=\"clues\" okText=\"确认\" cancelText=\"取消\" [(ngModel)]=\"pdiModel.data.adviser\">\r\n                <ion-select-option *ngFor=\"let item of servicconsultantmodel.servicconsultants\" value=\"{{item.value}}\">\r\n                    {{item.name}}\r\n                </ion-select-option>\r\n            </ion-select>\r\n          </ion-item> \r\n        </ion-item-group>\r\n      </ion-list>\r\n      <section style=\"text-align:center;\">\r\n          <ion-button style=\"width:70%\" color=\"danger\" (click)=\"submitPdi()\">保存</ion-button>\r\n      </section>\r\n    </ion-card-content>\r\n  </ion-card>\r\n</ion-content>"
 
 /***/ }),
 
@@ -103,10 +103,28 @@ var PdiservicePage = /** @class */ (function () {
         this._userinfo = _userinfo;
         this.alertController = alertController;
         this.servicconsultantmodel = {
-            apiUrl: '/api/delivery/servicconsultant',
+            apiUrl: '/api/delivery/getservicconsultant',
             servicconsultants: [],
-            adviser: "",
             data: {
+                id: ""
+            }
+        };
+        this.model = {
+            apiUrlDetail: '/api/delivery/get',
+            id: "",
+            status: -1,
+            settles: 0,
+            info: {
+                vin: "",
+                code: "",
+                deliverystatus: "",
+                ro: ""
+            }
+        };
+        this.pdiModel = {
+            apiUrl: '/api/delivery/submitpdi',
+            data: {
+                adviser: "",
                 id: ""
             }
         };
@@ -117,27 +135,72 @@ var PdiservicePage = /** @class */ (function () {
             if (data['id'] != null && data['id'] != undefined) {
                 _this.servicconsultantmodel.data.id = data['id'];
                 _this.getservicconsultant();
+                _this.model.id = data['id'];
+                _this.pdiModel.data.id = data['id'];
+                _this.pageOnBind(_this.model.id);
             }
         });
     };
     PdiservicePage.prototype.getservicconsultant = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var _this = this;
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                this._http.post(this.servicconsultantmodel.apiUrl, this.servicconsultantmodel.data, function (res) {
+                this._http.postForToaken(this.servicconsultantmodel.apiUrl, this.servicconsultantmodel.data, function (res) {
                     if (res !== null) {
-                        debugger;
+                        var data = res.ServiceConsultants;
+                        for (var i in data) {
+                            var attr = data[i]["Attributes"];
+                            var obj = {};
+                            obj["name"] = attr["fullname"];
+                            obj["value"] = attr["systemuserid"];
+                            _this.servicconsultantmodel.servicconsultants.push(obj);
+                        }
                     }
                 });
                 return [2 /*return*/];
             });
         });
     };
-    PdiservicePage.prototype.presentAlertservicconsultant = function () {
+    //基础信息
+    PdiservicePage.prototype.pageOnBind = function (id) {
         var _this = this;
         this._page.loadingShow();
-        this._http.post(this.servicconsultantmodel.apiUrl, this.servicconsultantmodel.data, function (res) {
+        this._http.postForToaken(this.model.apiUrlDetail, { 'id': this.model.id }, function (res) {
             if (res !== null) {
-                debugger;
+                var attr = res["Attributes"];
+                _this.model.info.vin = attr["_mcs_vin_value@OData.Community.Display.V1.FormattedValue"];
+                _this.model.info.code = attr["mcs_code"];
+                _this.model.info.deliverystatus = attr["mcs_deliverystatus@OData.Community.Display.V1.FormattedValue"];
+                _this.model.status = attr["mcs_deliverystatus"];
+                _this.model.settles = attr["mcs_settlestatus"];
+                _this.model.info.ro = attr["_mcs_vehorder_value@OData.Community.Display.V1.FormattedValue"];
+            }
+            else {
+                _this._page.alert("消息提示", "交车单基础信息加载异常");
+            }
+            _this._page.loadingHide();
+        }, function (err) {
+            _this._page.alert("消息提示", "交车单基础信息加载异常");
+            _this._page.loadingHide();
+        });
+    };
+    PdiservicePage.prototype.submitPdi = function () {
+        var _this = this;
+        if (this.pdiModel.data.adviser == "") {
+            this._page.alert("消息提示", "请先选择服务顾问！");
+            return;
+        }
+        this._page.loadingShow();
+        this._http.postForToaken(this.pdiModel.apiUrl, this.pdiModel.data, function (res) {
+            if (res !== null) {
+                if (res.Result) {
+                    _this._page.alert("消息提示", "pdi检测提交成功！", function () {
+                        _this._page.goto("/saleing/delivery/detail", { 'id': _this.model.id });
+                    });
+                }
+                else {
+                    _this._page.alert("消息提示", res.Description);
+                }
             }
             else {
                 _this._page.alert("消息提示", "提交PDI任务操作失败");

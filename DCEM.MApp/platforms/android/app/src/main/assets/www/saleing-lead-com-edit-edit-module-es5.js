@@ -164,7 +164,7 @@ var EditPage = /** @class */ (function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var _this = this;
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                this._http.post(this.CustomerTagModel.apiCustomerTagUrl, { "UserId": this._userinfo.GetSystemUserId() }, function (res) {
+                this._http.postForToaken(this.CustomerTagModel.apiCustomerTagUrl, { "UserId": this._userinfo.GetSystemUserId() }, function (res) {
                     var colorindex = 0;
                     var data = res.customerlabels;
                     for (var i in data) {
@@ -369,7 +369,7 @@ var EditPage = /** @class */ (function () {
         }
         this.model.info.describe = tagName;
         this._page.loadingShow();
-        this._http.post(this.model.apiUrl, this.model.info, function (res) {
+        this._http.postForToaken(this.model.apiUrl, this.model.info, function (res) {
             debugger;
             if (res !== null) {
                 var guid = res["Id"];

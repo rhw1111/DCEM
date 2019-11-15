@@ -159,7 +159,7 @@ let EditPage = class EditPage {
     //获取客户标签
     getcustomertag() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            this._http.post(this.CustomerTagModel.apiCustomerTagUrl, { "UserId": this._userinfo.GetSystemUserId() }, (res) => {
+            this._http.postForToaken(this.CustomerTagModel.apiCustomerTagUrl, { "UserId": this._userinfo.GetSystemUserId() }, (res) => {
                 var colorindex = 0;
                 var data = res.customerlabels;
                 for (var i in data) {
@@ -322,7 +322,7 @@ let EditPage = class EditPage {
         }
         this.model.info.describe = tagName;
         this._page.loadingShow();
-        this._http.post(this.model.apiUrl, this.model.info, (res) => {
+        this._http.postForToaken(this.model.apiUrl, this.model.info, (res) => {
             debugger;
             if (res !== null) {
                 var guid = res["Id"];

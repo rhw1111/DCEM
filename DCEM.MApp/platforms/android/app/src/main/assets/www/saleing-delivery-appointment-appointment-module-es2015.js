@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n    <ion-buttons slot=\"start\">\r\n        <ion-back-button text=\"返回\"   defaultHref=\"/\">\r\n        </ion-back-button>\r\n    </ion-buttons> \r\n    <ion-title>预约交车</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n<ion-content>\r\n  <ion-card>\r\n    <ion-item-divider color=\"primary\">\r\n      <ion-label>预约信息</ion-label>\r\n    </ion-item-divider>\r\n    <ion-card-content>\r\n      <ion-list>\r\n        <ion-item-group>\r\n          <ion-item>\r\n            <ion-label>\r\n              预约时间\r\n            </ion-label>\r\n            <ion-datetime cancelText=\"取消\" doneText=\"确定\" [(ngModel)]=\"appointmentmodel.data.appointmenton\"\r\n              placeholder=\"请选择到店时间\" display-format=\"YYYY-MM-DD HH:mm\"></ion-datetime>\r\n          </ion-item>\r\n          <ion-item>  \r\n            <ion-label>\r\n                客户预定\r\n              </ion-label>\r\n            <ion-textarea [(ngModel)]=\"appointmentmodel.data.customerrequest\"></ion-textarea>\r\n          </ion-item>\r\n        </ion-item-group>\r\n      </ion-list>\r\n      <section style=\"text-align:center;\">\r\n          <ion-button style=\"width:70%\" color=\"danger\" (click)=\"presentAlertAppointment()\">保存</ion-button>\r\n      </section>\r\n    </ion-card-content>\r\n  </ion-card>\r\n</ion-content>"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n    <ion-buttons slot=\"start\">\r\n        <ion-back-button text=\"返回\"   defaultHref=\"/\">\r\n        </ion-back-button>\r\n    </ion-buttons> \r\n    <ion-title>预约交车</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n<ion-content>\r\n  <ion-card>\r\n    <ion-item-divider color=\"primary\">\r\n      <ion-label>预约信息</ion-label>\r\n    </ion-item-divider>\r\n    <ion-card-content>\r\n      <ion-list>\r\n        <ion-item-group>\r\n            <ion-item>\r\n                <ion-label>\r\n                    <h2>交车单号</h2>\r\n                </ion-label>\r\n                <ion-note slot=\"end\">\r\n                    <p>{{model.info.code}}</p>\r\n                </ion-note>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label>\r\n                    <h2>车辆VIN号</h2>\r\n                </ion-label>\r\n                <ion-note slot=\"end\">\r\n                    <p>{{model.info.vin}}</p>\r\n                </ion-note>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label>\r\n                    <h2>整车订单号</h2>\r\n                </ion-label>\r\n                <ion-note slot=\"end\">\r\n                    <p>{{model.info.ro}}</p>\r\n                </ion-note>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label>\r\n                    <h2>交车状态</h2>\r\n                </ion-label>\r\n                <ion-note slot=\"end\">\r\n                    <p>{{model.info.deliverystatus}}</p>\r\n                </ion-note>\r\n            </ion-item> \r\n          <ion-item>\r\n            <ion-label>\r\n              预约时间\r\n            </ion-label>\r\n            <ion-datetime cancelText=\"取消\" doneText=\"确定\" [(ngModel)]=\"appointmentmodel.data.appointmenton\"\r\n              placeholder=\"请选择到店时间\" display-format=\"YYYY-MM-DD HH:mm:ss\"></ion-datetime>\r\n          </ion-item>\r\n          <ion-item>  \r\n            <ion-label>\r\n                客户预定\r\n              </ion-label>\r\n            <ion-textarea [(ngModel)]=\"appointmentmodel.data.customerrequest\"></ion-textarea>\r\n          </ion-item>\r\n        </ion-item-group>\r\n      </ion-list>\r\n      <section style=\"text-align:center;\">\r\n          <ion-button style=\"width:70%\" color=\"danger\" (click)=\"presentAlertAppointment()\">保存</ion-button>\r\n      </section>\r\n    </ion-card-content>\r\n  </ion-card>\r\n</ion-content>"
 
 /***/ }),
 
@@ -107,19 +107,62 @@ let AppointmentPage = class AppointmentPage {
                 customerrequest: ""
             }
         };
+        this.model = {
+            apiUrlDetail: '/api/delivery/get',
+            id: "",
+            status: -1,
+            settles: 0,
+            info: {
+                vin: "",
+                code: "",
+                deliverystatus: "",
+                ro: ""
+            }
+        };
     }
     ngOnInit() {
         this.activeRoute.queryParams.subscribe((data) => {
             if (data['id'] != null && data['id'] != undefined) {
                 this.appointmentmodel.data.id = data['id'];
+                this.model.id = data['id'];
+                this.pageOnBind(this.model.id);
             }
+        });
+    }
+    //基础信息
+    pageOnBind(id) {
+        this._page.loadingShow();
+        this._http.postForToaken(this.model.apiUrlDetail, { 'id': this.model.id }, (res) => {
+            if (res !== null) {
+                var attr = res["Attributes"];
+                this.model.info.vin = attr["_mcs_vin_value@OData.Community.Display.V1.FormattedValue"];
+                this.model.info.code = attr["mcs_code"];
+                this.model.info.deliverystatus = attr["mcs_deliverystatus@OData.Community.Display.V1.FormattedValue"];
+                this.model.status = attr["mcs_deliverystatus"];
+                this.model.settles = attr["mcs_settlestatus"];
+                this.model.info.ro = attr["_mcs_vehorder_value@OData.Community.Display.V1.FormattedValue"];
+            }
+            else {
+                this._page.alert("消息提示", "交车单基础信息加载异常");
+            }
+            this._page.loadingHide();
+        }, (err) => {
+            this._page.alert("消息提示", "交车单基础信息加载异常");
+            this._page.loadingHide();
         });
     }
     presentAlertAppointment() {
         this._page.loadingShow();
-        this._http.post(this.appointmentmodel.apiUrl, this.appointmentmodel.data, (res) => {
+        this._http.postForToaken(this.appointmentmodel.apiUrl, this.appointmentmodel.data, (res) => {
             if (res !== null) {
-                debugger;
+                if (res.Result) {
+                    this._page.alert("消息提示", "预约交车成功！", () => {
+                        this._page.goto("/saleing/delivery/detail", { 'id': this.model.id });
+                    });
+                }
+                else {
+                    this._page.alert("消息提示", res.Description);
+                }
             }
             else {
                 this._page.alert("消息提示", "预约交车操作失败");

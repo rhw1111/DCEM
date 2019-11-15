@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/ri/list\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>\r\n            <ion-label>问诊单明细</ion-label>\r\n        </ion-title>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-divider color=\"primary\">\r\n            <ion-label>\r\n                车主资料\r\n            </ion-label>\r\n        </ion-item-divider>\r\n        <ion-item>\r\n            <ion-label>\r\n                <h2>\r\n                    姓名\r\n                </h2>\r\n                <p>{{mod.data.serviceproxy.customername}}&nbsp;</p>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <h2>\r\n                    车牌号\r\n                </h2>\r\n                <p>{{mod.data.serviceproxy.carplate}}&nbsp;</p>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <h2>\r\n                    手机\r\n                </h2>\r\n                <p>{{mod.data.serviceproxy.customerphone}}&nbsp;</p>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item-divider color=\"primary\">\r\n            <ion-label>\r\n                委托信息\r\n            </ion-label>\r\n        </ion-item-divider>\r\n        <ion-item>\r\n            <ion-label>\r\n                <h2>\r\n                    问诊单号\r\n                </h2>\r\n                <p>{{mod.data.serviceproxy.name}}&nbsp;</p>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <h2>\r\n                    送修人\r\n                </h2>\r\n                <p>{{mod.data.serviceproxy.shuttlename}}&nbsp;</p>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <h2>\r\n                    送修人\r\n                </h2>\r\n                <p>{{mod.data.serviceproxy.shuttlename}}&nbsp;</p>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <h2>\r\n                    送修人手机\r\n                </h2>\r\n                <p>{{mod.data.serviceproxy.shuttlephone}}&nbsp;</p>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <h2>\r\n                    进店电量\r\n                </h2>\r\n                <p>{{mod.data.serviceproxy.inpower}}%&nbsp;</p>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <h2>\r\n                    进店里程\r\n                </h2>\r\n                <p>{{mod.data.serviceproxy.mileage}}&nbsp;</p>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <h2>\r\n                    到店时间\r\n                </h2>\r\n                <p>{{mod.data.serviceproxy.arrivalon}}&nbsp;</p>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n                <h2>\r\n                    客户描述\r\n                </h2>\r\n                <p text-wrap>{{mod.data.serviceproxy.customercomment}}&nbsp;</p>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item-divider color=\"primary\">\r\n            <ion-label>\r\n                环检项\r\n            </ion-label>\r\n        </ion-item-divider>\r\n        <ion-item-group>\r\n            <ion-item *ngFor=\"let item of mod.data.serviceordercheckresultArray;let key=index\">\r\n                <ion-label>\r\n                    <h2>\r\n                        环检项\r\n                    </h2>\r\n                    <p>\r\n                        {{item.checkreultid}}&nbsp;\r\n                    </p>\r\n                    <h2>\r\n                        车辆位置\r\n                    </h2>\r\n                    <p>\r\n                        {{item.name}}&nbsp;\r\n                    </p>\r\n                    <h2>\r\n                        检查结果\r\n                    </h2>\r\n                    <p text-wrap>\r\n                        {{item.checkreult}}&nbsp;\r\n                    </p>\r\n                </ion-label>\r\n            </ion-item>\r\n            <ion-item *ngIf=\"mod.data.serviceordercheckresultArray.length===0\">\r\n                <ion-label>\r\n                    <p>\r\n                        当前单据没有环检项\r\n                    </p>\r\n                </ion-label>\r\n            </ion-item>\r\n        </ion-item-group>\r\n    </ion-list>\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/ri/list\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>\r\n            <ion-label>问诊单明细</ion-label>\r\n        </ion-title>\r\n    </ion-toolbar>\r\n\r\n    <ion-toolbar>\r\n        <ion-segment [(ngModel)]=\"tab\" color=\"primary\">\r\n            <ion-segment-button value=\"info\">\r\n                <ion-label>基础信息</ion-label>\r\n            </ion-segment-button>\r\n            <ion-segment-button value=\"check\">\r\n                <ion-label>环检项</ion-label>\r\n            </ion-segment-button>\r\n            <ion-segment-button value=\"att\">\r\n                <ion-label>维修履历</ion-label>\r\n            </ion-segment-button>\r\n        </ion-segment>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n\r\n    <div [ngSwitch]=\"tab\">\r\n        <div *ngSwitchCase=\"'info'\">\r\n            <ion-list lines=\"full\">\r\n                <ion-item-divider color=\"primary\">\r\n                    <ion-label>\r\n                        车主资料\r\n                    </ion-label>\r\n                </ion-item-divider>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>\r\n                            姓名\r\n                        </h2>\r\n                        <p>{{mod.data.serviceproxy.customername}}&nbsp;</p>\r\n                    </ion-label>\r\n                </ion-item>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>\r\n                            车牌号\r\n                        </h2>\r\n                        <p>{{mod.data.serviceproxy.carplate}}&nbsp;</p>\r\n                    </ion-label>\r\n                </ion-item>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>\r\n                            手机\r\n                        </h2>\r\n                        <p>{{mod.data.serviceproxy.customerphone}}&nbsp;</p>\r\n                    </ion-label>\r\n                </ion-item>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>\r\n                            厅店\r\n                        </h2>\r\n                        <p>{{mod.data.serviceproxy.dealerid_formatted}}&nbsp;</p>\r\n                    </ion-label>\r\n                </ion-item>\r\n                <ion-item-divider color=\"primary\">\r\n                    <ion-label>\r\n                        委托信息\r\n                    </ion-label>\r\n                </ion-item-divider>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>\r\n                            问诊单号\r\n                        </h2>\r\n                        <p>{{mod.data.serviceproxy.name}}&nbsp;</p>\r\n                    </ion-label>\r\n                </ion-item>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>\r\n                            送修人\r\n                        </h2>\r\n                        <p>{{mod.data.serviceproxy.shuttlename}}&nbsp;</p>\r\n                    </ion-label>\r\n                </ion-item>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>\r\n                            送修人手机\r\n                        </h2>\r\n                        <p>{{mod.data.serviceproxy.shuttlephone}}&nbsp;</p>\r\n                    </ion-label>\r\n                </ion-item>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>\r\n                            进店电量\r\n                        </h2>\r\n                        <p>{{mod.data.serviceproxy.inpower}}%&nbsp;</p>\r\n                    </ion-label>\r\n                </ion-item>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>\r\n                            进店油量\r\n                        </h2>\r\n                        <p>{{mod.data.serviceproxy[\"oilquantity_formatted\"]}}&nbsp;</p>\r\n                    </ion-label>\r\n                </ion-item>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>\r\n                            进店里程\r\n                        </h2>\r\n                        <p>{{mod.data.serviceproxy.mileage}}&nbsp;</p>\r\n                    </ion-label>\r\n                </ion-item>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>\r\n                            到店时间\r\n                        </h2>\r\n                        <p>{{mod.data.serviceproxy.arrivalon}}&nbsp;</p>\r\n                    </ion-label>\r\n                </ion-item>\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>\r\n                            客户描述\r\n                        </h2>\r\n                        <p text-wrap>{{mod.data.serviceproxy.customercomment}}&nbsp;</p>\r\n                    </ion-label>\r\n                </ion-item>\r\n\r\n            </ion-list>\r\n\r\n            <section style=\"text-align:center;\">\r\n                <ion-button (click)=\"toServiceproxyOnClick()\" style=\"width:40%\" color=\"danger\">转服务委托书</ion-button>\r\n            </section>\r\n            <br />\r\n            <br />\r\n        </div>\r\n        <div *ngSwitchCase=\"'check'\">\r\n\r\n            <ion-list lines=\"full\">\r\n                <div *ngFor=\"let key of objectKeys(mod.data.vehcheckresultMap)\">\r\n                    <ion-item-divider color=\"primary\">\r\n                        <ion-label>\r\n                            {{mod.data.vehcheckresultMap[key].text}}\r\n                        </ion-label>\r\n                    </ion-item-divider>\r\n\r\n                    <ion-item *ngFor=\"let item of mod.data.vehcheckresultMap[key].data;let key=index\">\r\n                        <ion-label>\r\n                            <h2>\r\n                                环检项\r\n                            </h2>\r\n                            <p>\r\n                                {{item.checkreultid}}&nbsp;\r\n                            </p>\r\n                            <h2>\r\n                                车辆位置\r\n                            </h2>\r\n                            <p>\r\n                                {{item.name}}&nbsp;\r\n                            </p>\r\n                            <h2>\r\n                                检查结果\r\n                            </h2>\r\n                            <p text-wrap>\r\n                                {{item.checkreult}}&nbsp;\r\n                            </p>\r\n                        </ion-label>\r\n                    </ion-item>\r\n\r\n                </div>\r\n                <ion-item *ngIf=\"objectKeys(mod.data.vehcheckresultMap).length===0\">\r\n                    <ion-label>\r\n                        <p>\r\n                            当前单据没有环检项\r\n                        </p>\r\n                    </ion-label>\r\n                </ion-item>\r\n            </ion-list>\r\n\r\n        </div>\r\n        <div *ngSwitchCase=\"'att'\">\r\n            <ion-list lines=\"full\">\r\n                <ion-item-divider color=\"primary\">\r\n                    <ion-label>\r\n                        维修履历\r\n                    </ion-label>\r\n                </ion-item-divider>\r\n                <ion-item *ngFor=\"let item of mod.data.serviceproxyResumeArray;let key=index\" [routerLink]=\"['/serving/sc/detail']\" [queryParams]=\"{id:item.Id}\">\r\n                    <ion-icon color=\"success\" name=\"document\"></ion-icon>\r\n                    <ion-label style=\"margin-left:10px\">\r\n                        <h6>{{item[\"Attributes\"][\"mcs_name\"]}}</h6>\r\n                        <p>{{item[\"Attributes\"][\"mcs_carplate\"]}}&nbsp;&nbsp;</p>\r\n                        <p>{{item[\"Attributes\"][\"createdon@OData.Community.Display.V1.FormattedValue\"]}}</p>\r\n                        <p>{{item[\"Attributes\"][\"_mcs_dealerid_value@OData.Community.Display.V1.FormattedValue\"]}}</p>\r\n                    </ion-label>\r\n                    <ion-label style=\"text-align:right;\">\r\n                        <p>{{item[\"Attributes\"][\"mcs_ordertype@OData.Community.Display.V1.FormattedValue\"]}}</p>\r\n                    </ion-label>\r\n                </ion-item>\r\n                <ion-item *ngIf=\"mod.data.serviceproxyResumeArray.length===0\">\r\n                    <ion-label>\r\n                        <p>\r\n                            当前车辆没有维修履历\r\n                        </p>\r\n                    </ion-label>\r\n                </ion-item>\r\n            </ion-list>\r\n\r\n        </div>\r\n    </div>\r\n\r\n\r\n\r\n\r\n    <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\r\n        <ion-fab-button>\r\n            <ion-icon name=\"arrow-dropup\"></ion-icon>\r\n        </ion-fab-button>\r\n        <ion-fab-list side=\"top\">\r\n            <ion-fab-button color=\"success\" [routerLink]=\"['/serving/ri/edit']\"><ion-icon name=\"add\"></ion-icon></ion-fab-button>\r\n            <ion-fab-button *ngIf=\"mod.data.serviceproxy.status===100\" color=\"danger\" (click)=\"deleteOnClick()\"><ion-icon name=\"trash\"></ion-icon></ion-fab-button>\r\n            <ion-fab-button *ngIf=\"mod.data.serviceproxy.status===100\" color=\"warning\" [routerLink]=\"['/serving/ri/edit']\" [queryParams]=\"{id:mod.data.serviceproxy.id,actionCode:2}\"><ion-icon name=\"create\"></ion-icon></ion-fab-button>\r\n        </ion-fab-list>\r\n    </ion-fab>\r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -87,19 +87,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+
 
 
 
 
 var DetailPage = /** @class */ (function () {
-    function DetailPage(_http, _page, activeRoute) {
+    function DetailPage(_http, _page, _valid, _activeRoute) {
         this._http = _http;
         this._page = _page;
-        this.activeRoute = activeRoute;
+        this._valid = _valid;
+        this._activeRoute = _activeRoute;
+        this.tab = "info";
         this.mod = {
             apiUrl: '/Api/Serviceproxy/GetInfo',
+            delUrl: '/Api/Serviceproxy/Delete',
+            toServiceproxyUrl: '/Api/Serviceproxy/toServiceproxy',
             data: {
                 serviceproxy: {
+                    id: "",
                     customername: "",
                     carplate: "",
                     customerphone: "",
@@ -109,15 +116,19 @@ var DetailPage = /** @class */ (function () {
                     inpower: "",
                     mileage: "",
                     arrivalon: "",
-                    customercomment: ""
+                    customercomment: "",
+                    status: 0,
                 },
-                serviceordercheckresultArray: []
+                vehcheckresultMap: {},
+                serviceproxyResumeArray: []
             }
         };
+        this.objectKeys = Object.keys;
     }
+    //IonSegment
     DetailPage.prototype.ngOnInit = function () {
         var _this = this;
-        this.activeRoute.queryParams.subscribe(function (params) {
+        this._activeRoute.queryParams.subscribe(function (params) {
             if (params['id'] != null && params['id'] != undefined) {
                 _this.pageOnBind(params['id']);
             }
@@ -125,13 +136,14 @@ var DetailPage = /** @class */ (function () {
     };
     DetailPage.prototype.pageOnBind = function (id) {
         var _this = this;
+        this.mod.data.serviceproxy.id = id;
         this._page.loadingShow();
         this._http.get(this.mod.apiUrl, {
             params: {
                 guid: id,
             }
         }, function (res) {
-            if (res.Carserviceadvisor !== null) {
+            if (!_this._valid.isNull(res.Serviceproxy)) {
                 _this.mod.data.serviceproxy.customername = res["Serviceproxy"]["Attributes"]["mcs_customername"];
                 _this.mod.data.serviceproxy.carplate = res["Serviceproxy"]["Attributes"]["mcs_carplate"];
                 _this.mod.data.serviceproxy.customerphone = res["Serviceproxy"]["Attributes"]["mcs_customerphone"];
@@ -142,27 +154,74 @@ var DetailPage = /** @class */ (function () {
                 _this.mod.data.serviceproxy.mileage = res["Serviceproxy"]["Attributes"]["mcs_mileage"];
                 _this.mod.data.serviceproxy.arrivalon = res["Serviceproxy"]["Attributes"]["mcs_arrivalon@OData.Community.Display.V1.FormattedValue"];
                 _this.mod.data.serviceproxy.customercomment = res["Serviceproxy"]["Attributes"]["mcs_customercomment"];
+                _this.mod.data.serviceproxy.status = res["Serviceproxy"]["Attributes"]["mcs_status"];
+                _this.mod.data.serviceproxy["dealerid_formatted"] = res["Serviceproxy"]["Attributes"]["_mcs_dealerid_value@OData.Community.Display.V1.FormattedValue"];
+                _this.mod.data.serviceproxy["oilquantity_formatted"] = res["Serviceproxy"]["Attributes"]["mcs_oilquantity@OData.Community.Display.V1.FormattedValue"];
             }
-            if (res.ServiceordercheckresultList != null) {
+            if (!_this._valid.isNull(res.ServiceordercheckresultList)) {
                 for (var key in res.ServiceordercheckresultList) {
+                    var groupKey = res.ServiceordercheckresultList[key]["Attributes"]["mcs_checktype"];
+                    if (typeof _this.mod.data.vehcheckresultMap[groupKey] === "undefined") {
+                        _this.mod.data.vehcheckresultMap[groupKey] = {};
+                        _this.mod.data.vehcheckresultMap[groupKey]["text"] = res.ServiceordercheckresultList[key]["Attributes"]["mcs_checktype@OData.Community.Display.V1.FormattedValue"];
+                        _this.mod.data.vehcheckresultMap[groupKey].data = [];
+                    }
                     var obj = {};
-                    obj["checkreultid"] = res.ServiceordercheckresultList[key]["Attributes"]["_mcs_checkreultid_value@OData.Community.Display.V1.FormattedValue"];
+                    obj["checkreultid"] = res.ServiceordercheckresultList[key]["Attributes"]["mcs_name"];
                     obj["name"] = res.ServiceordercheckresultList[key]["Attributes"]["mcs_name"];
-                    obj["checkreult"] = res.ServiceordercheckresultList[key]["Attributes"]["mcs_checkreult"];
-                    _this.mod.data.serviceordercheckresultArray.push(obj);
+                    obj["checkreult"] = res.ServiceordercheckresultList[key]["Attributes"]["a_x002e_mcs_checkreult"];
+                    _this.mod.data.vehcheckresultMap[groupKey].data.push(obj);
                 }
             }
+            _this.mod.data.serviceproxyResumeArray = res.ServiceproxyResumeList;
             _this._page.loadingHide();
         }, function (err) {
             _this._page.alert("消息提示", "数据加载异常");
             _this._page.loadingHide();
         });
     };
+    //删除事件
+    DetailPage.prototype.deleteOnClick = function () {
+        var _this = this;
+        this._page.confirm("确认提示", "您确认要执行此操作吗？", function () {
+            _this._http.get(_this.mod.delUrl, {
+                params: {
+                    serviceproxyGuid: _this.mod.data.serviceproxy.id
+                }
+            }, function (res) {
+                _this._page.navigateRoot("/serving/ri/list");
+            }, function (err) {
+                _this._page.alert("消息提示", "删除失败!");
+            });
+        });
+    };
+    //转服务委托书
+    DetailPage.prototype.toServiceproxyOnClick = function () {
+        var _this = this;
+        this._page.confirm("确认提示", "您确认要执行此操作吗？", function () {
+            _this._http.get(_this.mod.toServiceproxyUrl, {
+                params: {
+                    serviceproxyGuid: _this.mod.data.serviceproxy.id
+                }
+            }, function (res) {
+                _this._page.alert("消息提示", "操作成功!", function () {
+                    _this._page.navigateRoot("/serving/sc/detail", { id: _this.mod.data.serviceproxy.id });
+                });
+            }, function (err) {
+                _this._page.alert("消息提示", "操作失败!");
+            });
+        });
+    };
     DetailPage.ctorParameters = function () { return [
         { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Http"] },
         { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Page"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Valid"] },
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] }
     ]; };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonSegment"], null),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonSegment"])
+    ], DetailPage.prototype, "IonSegment", void 0);
     DetailPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-detail',
@@ -171,6 +230,7 @@ var DetailPage = /** @class */ (function () {
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Http"],
             app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Page"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Valid"],
             _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]])
     ], DetailPage);
     return DetailPage;

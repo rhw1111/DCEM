@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>登录</ion-title>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content fullscreen scroll-y=\"false\">\r\n    <ion-list lines=\"none\">\r\n        <ion-list-header text-center>\r\n            <img src=\"./assets/img/login.jpg\" />\r\n        </ion-list-header>\r\n        <ion-item>\r\n            <ion-icon slot=\"start\" name=\"phone-portrait\"></ion-icon>\r\n            <ion-input [(ngModel)]=\"mod.username\" placeholder=\"手机号码\" no-lines></ion-input>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-icon slot=\"start\" name=\"lock\"></ion-icon>\r\n            <ion-input [(ngModel)]=\"mod.password\" type=\"password\" placeholder=\"登录密码\"></ion-input>\r\n            <ion-toggle slot=\"end\"></ion-toggle>\r\n        </ion-item>\r\n        <ion-item color=\"none\">\r\n            <label slot=\"end\">记住密码</label>\r\n            <ion-toggle slot=\"end\"></ion-toggle>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>登录环境</ion-label>\r\n            <ion-select value=\"localhost\" okText=\"确定\" cancelText=\"取消\" [(ngModel)]=\"mod.domainType\">\r\n                <ion-select-option value=\"localhost\">localhost</ion-select-option>\r\n                <ion-select-option value=\"Dev\">Dev</ion-select-option>\r\n                <ion-select-option value=\"Sit\">Sit</ion-select-option>\r\n                <ion-select-option value=\"Uat\">Uat</ion-select-option>\r\n                <ion-select-option value=\"Prod\">Prod</ion-select-option>\r\n            </ion-select>\r\n        </ion-item>\r\n        <ion-button expand=\"block\" type=\"button\" (click)=\"submit()\">登录</ion-button>\r\n    </ion-list>\r\n</ion-content>"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>登录</ion-title>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content fullscreen scroll-y=\"false\">\r\n    <ion-list lines=\"none\">\r\n        <ion-list-header text-center>\r\n            <img src=\"./assets/img/login.jpg\" />\r\n        </ion-list-header>\r\n        <ion-item>\r\n            <ion-icon slot=\"start\" name=\"phone-portrait\"></ion-icon>\r\n            <ion-input [(ngModel)]=\"mod.username\" placeholder=\"账号\" no-lines></ion-input>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-icon slot=\"start\" name=\"lock\"></ion-icon>\r\n            <ion-input [(ngModel)]=\"mod.password\" type=\"{{mod.pwshow?'text':'password'}}\" placeholder=\"密码\"></ion-input>\r\n            <ion-icon slot=\"end\" *ngIf=\"mod.pwshow\" name=\"ios-eye-off\" color=\"dark\" (click)=\"mod.pwshow=!mod.pwshow\"></ion-icon>  <!--闭眼图标-->\r\n            <ion-icon slot=\"end\" *ngIf=\"!mod.pwshow\"  name=\"ios-eye\" color=\"dark\" (click)=\"mod.pwshow=!mod.pwshow\"></ion-icon>  <!--睁眼图标-->\r\n            <!-- <a href=\"javascript:;\" rel=\"external nofollow\" item-end (click)=\"mod.pwshow=!mod.pwshow\">\r\n                \r\n            </a> -->\r\n        </ion-item>\r\n        <ion-item color=\"none\">\r\n            <label slot=\"end\">记住密码</label>\r\n            <ion-toggle slot=\"end\"></ion-toggle>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>登录环境</ion-label>\r\n            <ion-select value=\"localhost\" okText=\"确定\" cancelText=\"取消\" [(ngModel)]=\"mod.domainType\">\r\n                <ion-select-option value=\"localhost\">localhost</ion-select-option>\r\n                <ion-select-option value=\"Dev\">Dev</ion-select-option>\r\n                <ion-select-option value=\"Sit\">Sit</ion-select-option>\r\n                <ion-select-option value=\"Uat\">Uat</ion-select-option>\r\n                <ion-select-option value=\"Prod\">Prod</ion-select-option>\r\n            </ion-select>\r\n        </ion-item>\r\n        <ion-button expand=\"block\" type=\"button\" (click)=\"submit()\">登录</ion-button>\r\n    </ion-list>\r\n</ion-content>"
 
 /***/ }),
 
@@ -107,15 +107,18 @@ var LoginPage = /** @class */ (function () {
             password: '',
             apiurl: '',
             domainType: '',
-            domain: ''
+            domain: '',
+            pwshow: false //是否显示密码
         };
     }
     // 初始化
     LoginPage.prototype.ngOnInit = function () {
         // 加入测试参数
-        this.mod.username = 'subdevcrmadmin';
-        this.mod.password = 'password01#';
-        this.mod.apiurl = '/api/Account/GetAuthToken';
+        //this.mod.username = 'subdevcrmadmin';
+        //this.mod.password = 'password01#';
+        this.mod.username = 'subuatcrmadmin';
+        this.mod.password = 'P@ssw0rd';
+        this.mod.apiurl = '/api/User/GetAuthToken';
         this.mod.domainType = 'local';
     };
     // 提交
@@ -159,8 +162,10 @@ var LoginPage = /** @class */ (function () {
         }, function (res) {
             if (res.access_token == "") {
                 _this._page.alert('消息提示', '登录认证失败');
+                _this._page.loadingHide();
                 return false;
             }
+            _this._http.setToken(res.access_token);
             _this._logininfo.SetInfo(JSON.stringify(res));
             _this._page.loadingHide();
             _this._page.alert('消息提示', '登录认证成功');

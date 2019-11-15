@@ -141,7 +141,7 @@ var ListPage = /** @class */ (function () {
     ListPage.prototype.listOnBind = function (event) {
         var _this = this;
         this._page.loadingShow();
-        this._http.post(this.mod.apiUrl, this.mod.searchData, function (res) {
+        this._http.postForToaken(this.mod.apiUrl, this.mod.searchData, function (res) {
             if (res.Results !== null) {
                 var data = res.originalclues;
                 for (var i in data) {

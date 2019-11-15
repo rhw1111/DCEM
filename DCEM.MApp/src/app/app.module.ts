@@ -29,6 +29,7 @@ import { SelectReservationconfigurationComponent } from 'app/saleing/saleing.ser
 import { SelectSysareaComponent } from 'app/saleing/saleing.ser/components/select-sysarea/select-sysarea.component';
 import { SelectVehiclecolorComponent } from 'app/saleing/saleing.ser/components/select-vehiclecolor/select-vehiclecolor.component';
 import { SelectVehicletypeComponent } from 'app/saleing/saleing.ser/components/select-vehicletype/select-vehicletype.component';
+import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile';
 
 import { SelectRepairitemtypeComponent } from 'app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component';
 import { SelectRepairitemtypedetailComponent } from 'app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component';
@@ -86,6 +87,7 @@ import { SelectRepairitemtypedetailComponent } from 'app/serving/serving.ser/com
         IonicStorageModule.forRoot(),
         FormsModule,
         ReactiveFormsModule,
+        NgZorroAntdMobileModule
     ],
     providers: [
         StatusBar,

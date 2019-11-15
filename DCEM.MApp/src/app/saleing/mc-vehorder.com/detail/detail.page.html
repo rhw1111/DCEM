@@ -255,7 +255,7 @@
       <ion-list lines="full">
        <ion-item-sliding *ngFor="let item of model.VehordertrackList">
           <ion-item >
-              <ion-icon slot="start" name="git-commit" size="large"></ion-icon>
+              <ion-icon slot="start" name="arrow-round-up" size="large"></ion-icon>
               <ion-label>
                 <h3>{{item.mcs_optionon}}</h3>
                 <!-- <p>{{item.mcs_rostatus}}</p> -->
@@ -265,6 +265,9 @@
               </ion-note>
             </ion-item>          
        </ion-item-sliding>
+     <!--   <nz-timeline *ngFor="let item of model.VehordertrackList">
+          <nz-timeline-item>我们</nz-timeline-item>       
+        </nz-timeline> -->
        <ion-row *ngIf="model.VehordertrackList.length==0">
           <ion-col>
             <div class="ionattbody">
