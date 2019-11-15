@@ -4,6 +4,11 @@
             <ion-back-button text="返回" defaultHref="/saleing/onlylead/list"></ion-back-button>
         </ion-buttons>
         <ion-title>保存成功</ion-title>
+        <ion-buttons slot="end">
+            <ion-button [routerLink]="['/serving/home/tabs']">
+                <ion-icon slot="icon-only" name="home" [routerLink]="['/serving/home/tabs']"></ion-icon>
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
@@ -37,6 +42,11 @@
                     <ion-col>
                         <ion-button color="primary" class="button-outline" [routerLink]="['/saleing/onlylead/detail']" [queryParams]="{id:mod.id}">
                             查看详情
+                        </ion-button>
+                    </ion-col>
+                    <ion-col>
+                        <ion-button color="primary" class="button-outline" [routerLink]="['/saleing/onlylead/list']">
+                            返回列表
                         </ion-button>
                     </ion-col>
                 </ion-row>
