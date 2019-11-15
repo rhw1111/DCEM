@@ -84,6 +84,15 @@ export class SubeditpartPage implements OnInit {
 
     //选择保修类型
     async presentRepairitemtypeModal() {
+        var errMessage = "";
+        if (this._valid.isNullOrEmpty(this.mod.data["mcs_partsid"])) {
+            errMessage += "您尚未选择零件<br>";
+        }
+        if (errMessage !== "") {
+            this._page.presentToastError(errMessage);
+            return;
+        }
+
         const modal = await this._modalCtrl.create({
             component: SelectRepairitemtypeComponent
         });
@@ -99,6 +108,15 @@ export class SubeditpartPage implements OnInit {
 
     //选择保修类别
     async presentRepairitemtypedetailModal() {
+        var errMessage = "";
+        if (this._valid.isNullOrEmpty(this.mod.data["mcs_partsid"])) {
+            errMessage += "您尚未选择零件<br>";
+        }
+        if (errMessage !== "") {
+            this._page.presentToastError(errMessage);
+            return;
+        }
+
         const modal = await this._modalCtrl.create({
             component: SelectRepairitemtypedetailComponent
         });
@@ -108,5 +126,10 @@ export class SubeditpartPage implements OnInit {
             this.mod.data["repairitemtypedetailid"] = data["item"]["model"]["mcs_repairitemtypedetailid"];
             this.mod.data["repairitemtypedetailid_Formatted"] = data["item"]["model"]["mcs_name"];
         }
+    }
+
+    //计算总金额
+    caleMoneyOnKeyUp() {
+
     }
 }
