@@ -134,8 +134,26 @@ namespace DCEM.Web.Controllers
         }
         #endregion
 
+        #region 查询 维修类别 列表
+        [HttpGet]
+        [Route("GetRepairitemtypeList")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetRepairitemtypeList()
+        {
+            return await _serviceproxyService.QueryRepairitemtypeList();
+        }
+        #endregion
+
+        #region 查询 维修类型 列表
+        [HttpGet]
+        [Route("GetRepairitemtypedetailList")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetRepairitemtypedetailList()
+        {
+            return await _serviceproxyService.QueryRepairitemtypedetailList();
+        }
+        #endregion
+
     }
-#endregion
+    #endregion
 
 }
 

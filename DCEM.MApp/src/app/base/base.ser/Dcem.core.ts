@@ -343,7 +343,7 @@ export class DCore_Valid {
 
     isPhone = function (val: any) {
         //let reg = /^1[3|4|5|7|8][0-9]{9}/;
-        let reg = /^1[0-9][0-9]{9}/;
+        let reg = /^1[0-9][0-9]{9}$/;
         if (reg.test(val)) {
             return true;
         }

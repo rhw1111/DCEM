@@ -154,6 +154,8 @@
     <Content Include="src\app\serving\serving.ser\components\select-appointmentconfig\select-appointmentconfig.component.scss" />
     <Content Include="src\app\serving\serving.ser\components\select-carmodel\select-carmodel.component.html" />
     <Content Include="src\app\serving\serving.ser\components\select-carmodel\select-carmodel.component.scss" />
+    <Content Include="src\app\serving\serving.ser\components\select-customer-edit\select-customer-edit.component.html" />
+    <Content Include="src\app\serving\serving.ser\components\select-customer-edit\select-customer-edit.component.scss" />
     <Content Include="src\app\serving\serving.ser\components\select-customer\select-customer.component.html" />
     <Content Include="src\app\serving\serving.ser\components\select-customer\select-customer.component.scss" />
     <Content Include="src\app\serving\serving.ser\components\select-maintenance\select-maintenance.component.html" />
@@ -548,6 +550,7 @@
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\app\base\base.ser\http-service.service.spec.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\http-service.service.ts" />
+    <TypeScriptCompile Include="src\app\base\base.ser\logininfo.storage.ts" />
     <TypeScriptCompile Include="src\app\base\uc.com\login\login.module.ts" />
     <TypeScriptCompile Include="src\app\base\uc.com\login\login.page.spec.ts" />
     <TypeScriptCompile Include="src\app\base\uc.com\login\login.page.ts" />
@@ -733,6 +736,8 @@
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-appointmentconfig\select-appointmentconfig.component.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-carmodel\select-carmodel.component.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-carmodel\select-carmodel.component.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-customer-edit\select-customer-edit.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-customer-edit\select-customer-edit.component.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-customer\select-customer.component.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-customer\select-customer.component.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-maintenance\select-maintenance.component.spec.ts" />
@@ -944,6 +949,7 @@
     <Folder Include="src\app\serving\my-customer.com\edit\" />
     <Folder Include="src\app\serving\my-customer.com\list\" />
     <Folder Include="src\app\serving\my-customer.com\select\" />
+    <Folder Include="src\app\serving\serving.ser\components\select-customer-edit\" />
     <Folder Include="src\app\serving\spmdspstock.com\" />
     <Folder Include="src\app\serving\reception-interrogation.com\" />
     <Folder Include="src\app\serving\reception-interrogation.com\detail\" />

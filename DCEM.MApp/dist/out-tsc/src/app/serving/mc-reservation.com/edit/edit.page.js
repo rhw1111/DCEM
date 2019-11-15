@@ -20,13 +20,15 @@ let EditPage = class EditPage {
         this.model = {
             apiUrl: '/api/appointment-info/GetDetail',
             postApiUrl: '/Api/appointment-info/AddOrEdit',
+            customerApiUrl: '/Api/Customer/GetCustomerInfo',
             data: {},
             postData: {},
             systemuserid: "",
             mcs_dealerid: "",
-            appointmentinfoid: null,
+            appointmentinfoId: null,
             isOrderTypeChange: false,
-            isAppointmentAtChange: false //是否改变预约日期
+            isAppointmentAtChange: false,
+            customerId: "" //客户ID
         };
         //定义共享数据
         this.shareData = {
@@ -37,11 +39,42 @@ let EditPage = class EditPage {
     }
     ionViewWillEnter() {
         this.activeRoute.queryParams.subscribe((params) => {
+            //编辑绑定预约单数据
             if (params['id'] != null && params['id'] != undefined) {
-                console.log("记录Id:" + this.model.appointmentinfoid);
-                this.model.appointmentinfoid = params['id'];
-                this.pageOnBind(this.model.appointmentinfoid);
+                console.log("记录Id:" + this.model.appointmentinfoId);
+                this.model.appointmentinfoId = params['id'];
+                this.pageOnBind(this.model.appointmentinfoId);
             }
+            //编辑绑定客户数据
+            if (params['customerid'] != null && params['customerid'] != undefined) {
+                console.log("记录customerId:" + this.model.customerId);
+                this.model.customerId = params['customerid'];
+                this.customerOnBind(this.model.customerId);
+            }
+        });
+    }
+    //绑定客户信息
+    customerOnBind(customerId) {
+        this._page.loadingShow();
+        this._http.get(this.model.customerApiUrl, {
+            params: {
+                guid: customerId,
+            }
+        }, (res) => {
+            if (!this._valid.isNull(res.Vehowner)) {
+                this.shareData.appointmentinfo["mcs_customerid"] = res["Vehowner"].Id;
+                this.shareData.appointmentinfo["mcs_customername"] = res["Vehowner"]["Attributes"]["mcs_fullname"];
+                this.shareData.appointmentinfo["mcs_carplate"] = res["Vehowner"]["Attributes"]["mcs_vehplate"];
+                this.shareData.appointmentinfo["mcs_customerphone"] = res["Vehowner"]["Attributes"]["mcs_mobilephone"];
+                this.shareData.appointmentinfo["mcs_cartype"] = res["Vehowner"]["Attributes"]["_mcs_vehtype_value"];
+            }
+            else {
+                this._page.alert("消息提示", "车主数据加载异常");
+            }
+            this._page.loadingHide();
+        }, (err) => {
+            this._page.alert("消息提示", "车主数据加载异常");
+            this._page.loadingHide();
         });
     }
     //调用选择客户组件
@@ -138,7 +171,7 @@ let EditPage = class EditPage {
         this.model.postData["appointmentinfo"] = this.shareData.appointmentinfo;
         //组装预约单
         this.model.postData["appointmentinfo"] = {};
-        this.model.postData["appointmentinfo"]["mcs_appointmentinfoid"] = this.model.appointmentinfoid;
+        this.model.postData["appointmentinfo"]["mcs_appointmentinfoid"] = this.model.appointmentinfoId;
         this.model.postData["appointmentinfo"]["mcs_dealerid"] = this.model.mcs_dealerid; // 厅店ID
         this.model.postData["appointmentinfo"]["mcs_serviceadvisorid"] = this.model.systemuserid; // 服务顾问(当前用户)
         this.model.postData["appointmentinfo"]["mcs_customerid"] = this.shareData.appointmentinfo["mcs_customerid"]; // VIN码关联实体ID
@@ -154,8 +187,6 @@ let EditPage = class EditPage {
         this.model.postData["appointmentinfo"]["mcs_customercomment"] = this.shareData.appointmentinfo["mcs_customercomment"]; //客户要求
         this.model.postData["appointmentinfo"]["mcs_appointmendescript"] = this.shareData.appointmentinfo["mcs_appointmendescript"]; //问题描述
         //this.model.postData["appointmentinfo"]["mcs_status"] =10;//预约状态
-        //console.log(this.shareData);
-        //console.log(this.model.postData);
         this._page.loadingShow();
         this._http.post(this.model.postApiUrl, this.model.postData, (res) => {
             this._page.loadingHide();

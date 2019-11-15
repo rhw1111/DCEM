@@ -265,9 +265,14 @@
               </ion-note>
             </ion-item>          
        </ion-item-sliding>
-     <!--   <nz-timeline *ngFor="let item of model.VehordertrackList">
-          <nz-timeline-item>我们</nz-timeline-item>       
+      <!--  <nz-timeline *ngFor="let item of model.VehordertrackList">
+          <nz-timeline-item>{{item.mcs_optionon}}</nz-timeline-item>       
         </nz-timeline> -->
+       <!--  <Steps [size]="'small'" [current]="1" *ngFor="let item of model.VehordertrackList">
+          <Step [title]="Finished" [description]="'This is description'">我们</Step>
+          <Step [title]="'In Progress'" [description]="'This is description'"></Step>
+          <Step [title]="'Waiting'" [description]="'This is description'"></Step>
+        </Steps> -->
        <ion-row *ngIf="model.VehordertrackList.length==0">
           <ion-col>
             <div class="ionattbody">

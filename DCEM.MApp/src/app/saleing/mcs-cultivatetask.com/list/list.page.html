@@ -1,9 +1,64 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>list</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>我的任务</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+      <ion-searchbar [(ngModel)]="this.model.seachkey" placeholder="可根据姓名、手机号模糊查找" (keyup)="search($event)" ></ion-searchbar>
+  </ion-toolbar>
+  <ion-toolbar>
+      <ion-segment>
+        <ion-segment-button checked (click)="selectTab(-1)">
+            <ion-label>全部</ion-label>
+        </ion-segment-button>
+      
+        <ion-segment-button (click)="selectTab(0)">
+            <ion-label>打开</ion-label>
+        </ion-segment-button>
+        <ion-segment-button (click)="selectTab(1)">
+            <ion-label>关闭</ion-label>
+        </ion-segment-button>
+       
+      </ion-segment>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中...">
+        </ion-refresher-content> 
+    </ion-refresher>
+    <ion-list lines="full">
+        <ion-item *ngFor="let item of model.datalist">          
+            <ion-icon slot="start" name="logo-instagram" size="large" color="tertiary"></ion-icon>
+            <ion-label>
+                <h2>{{item.mcs_thisfollowupcontent}}</h2> 
+                <p>{{item.mcs_activitystatus}}</p>
+                <p>{{item.mcs_importantlevel}}</p>            
+            </ion-label>
+            <ion-note slot="end" >
+                 <ion-icon color="primary" name="hourglass" size="small"></ion-icon> 
+                <p>{{item.mcs_name}}</p>    
+            </ion-note>
+            <ion-note slot="end" >
+                <!-- <ion-icon color="primary" name="hourglass" size="small"></ion-icon>  -->
+                <p>{{item.mcs_mobilephone}}</p>   
+            </ion-note>
+            
+        </ion-item>
+    </ion-list>
 
+    <ion-row *ngIf="model.isending">
+        <ion-col class="nodata" text-center>
+            <label>没有更多内容啦</label>
+        </ion-col>
+    </ion-row>
+    
+    <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doLoading($event)"> 
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多..."> 
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  
 </ion-content>

@@ -2,6 +2,9 @@
 import { ModalController } from '@ionic/angular';
 import { SelectPartsComponent } from 'app/serving/serving.ser/components/select-parts/select-parts.component';
 import { DCore_Http, DCore_Page, DCore_ShareData, DCore_Valid } from 'app/base/base.ser/Dcem.core';
+import { SelectRepairitemtypeComponent } from 'app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component';
+import { SelectRepairitemtypedetailComponent } from 'app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component';
+
 @Component({
     selector: 'app-subeditpart',
     templateUrl: './subeditpart.page.html',
@@ -79,5 +82,54 @@ export class SubeditpartPage implements OnInit {
         }
     }
 
+    //选择保修类型
+    async presentRepairitemtypeModal() {
+        var errMessage = "";
+        if (this._valid.isNullOrEmpty(this.mod.data["mcs_partsid"])) {
+            errMessage += "您尚未选择零件<br>";
+        }
+        if (errMessage !== "") {
+            this._page.presentToastError(errMessage);
+            return;
+        }
 
+        const modal = await this._modalCtrl.create({
+            component: SelectRepairitemtypeComponent
+        });
+        await modal.present();
+        const { data } = await modal.onDidDismiss();
+        if (!this._valid.isNull(data) && !this._valid.isNull(data["item"])) {
+            this.mod.data["repairitemtypeid"] = data["item"]["model"]["mcs_repairitemtypeid"];
+            this.mod.data["repairitemtypeid_Formatted"] = data["item"]["model"]["mcs_name"];
+        }
+
+
+    }
+
+    //选择保修类别
+    async presentRepairitemtypedetailModal() {
+        var errMessage = "";
+        if (this._valid.isNullOrEmpty(this.mod.data["mcs_partsid"])) {
+            errMessage += "您尚未选择零件<br>";
+        }
+        if (errMessage !== "") {
+            this._page.presentToastError(errMessage);
+            return;
+        }
+
+        const modal = await this._modalCtrl.create({
+            component: SelectRepairitemtypedetailComponent
+        });
+        await modal.present();
+        const { data } = await modal.onDidDismiss();
+        if (!this._valid.isNull(data) && !this._valid.isNull(data["item"])) {
+            this.mod.data["repairitemtypedetailid"] = data["item"]["model"]["mcs_repairitemtypedetailid"];
+            this.mod.data["repairitemtypedetailid_Formatted"] = data["item"]["model"]["mcs_name"];
+        }
+    }
+
+    //计算总金额
+    caleMoneyOnKeyUp() {
+
+    }
 }
