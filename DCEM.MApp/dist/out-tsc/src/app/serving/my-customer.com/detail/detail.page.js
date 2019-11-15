@@ -12,6 +12,7 @@ let DetailPage = class DetailPage {
         this.mod = {
             apiUrl: '/Api/Customer/GetCustomerInfo',
             data: {
+                id: "",
                 vehowner: {
                     fullname: "",
                     idtype: "",
@@ -47,6 +48,7 @@ let DetailPage = class DetailPage {
                 guid: id,
             }
         }, (res) => {
+            this.mod.data.id = id;
             if (!this._valid.isNull(res.Carserviceadvisor)) {
                 this.mod.data.vehowner.fullname = res["Vehowner"]["Attributes"]["mcs_fullname"];
                 this.mod.data.vehowner.idtype = res["Vehowner"]["Attributes"]["mcs_idtype@OData.Community.Display.V1.FormattedValue"];

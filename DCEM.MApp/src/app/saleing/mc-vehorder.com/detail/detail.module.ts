@@ -7,7 +7,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { DetailPage } from './detail.page';
 
-
+//import { NzTimelineModule } from 'ng-zorro-antd/timeline';
+import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile';
 
 const routes: Routes = [
   {
@@ -21,7 +22,10 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    //NzTimelineModule,
+    NgZorroAntdMobileModule
+    
   
   ],
   declarations: [DetailPage]

@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //自定义组件
 import { ScSelectComponent } from './serving/serving.ser/components/sc-select/sc-select.component';
 import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
+import { SelectCustomerEditComponent } from 'app/serving/serving.ser/components/select-customer-edit/select-customer-edit.component';
 import { SelectRepairlocationComponent } from 'app/serving/serving.ser/components/select-repairlocation/select-repairlocation.component';
 import { SelectCarmodelComponent } from 'app/serving/serving.ser/components/select-carmodel/select-carmodel.component';
 import { SelectSystemuserComponent } from 'app/base/base.ser/components/select-systemuser/select-systemuser.component';
@@ -26,6 +27,9 @@ import { SelectReservationconfigurationComponent } from 'app/saleing/saleing.ser
 import { SelectSysareaComponent } from 'app/saleing/saleing.ser/components/select-sysarea/select-sysarea.component';
 import { SelectVehiclecolorComponent } from 'app/saleing/saleing.ser/components/select-vehiclecolor/select-vehiclecolor.component';
 import { SelectVehicletypeComponent } from 'app/saleing/saleing.ser/components/select-vehicletype/select-vehicletype.component';
+import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile';
+import { SelectRepairitemtypeComponent } from 'app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component';
+import { SelectRepairitemtypedetailComponent } from 'app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component';
 let AppModule = class AppModule {
 };
 AppModule = tslib_1.__decorate([
@@ -34,6 +38,7 @@ AppModule = tslib_1.__decorate([
             AppComponent,
             ScSelectComponent,
             SelectCustomerComponent,
+            SelectCustomerEditComponent,
             SelectRepairlocationComponent,
             SelectCarmodelComponent,
             SelectMaintenanceComponent,
@@ -47,11 +52,14 @@ AppModule = tslib_1.__decorate([
             SelectReceptioncommissionerComponent,
             SelectReservationconfigurationComponent,
             SelectSysareaComponent,
-            SelectVehiclecolorComponent //车型颜色
+            SelectVehiclecolorComponent,
+            SelectRepairitemtypeComponent,
+            SelectRepairitemtypedetailComponent,
         ],
         entryComponents: [
             ScSelectComponent,
             SelectCustomerComponent,
+            SelectCustomerEditComponent,
             SelectRepairlocationComponent,
             SelectCarmodelComponent,
             SelectMaintenanceComponent,
@@ -65,7 +73,9 @@ AppModule = tslib_1.__decorate([
             SelectReceptioncommissionerComponent,
             SelectReservationconfigurationComponent,
             SelectSysareaComponent,
-            SelectVehiclecolorComponent
+            SelectVehiclecolorComponent,
+            SelectRepairitemtypeComponent,
+            SelectRepairitemtypedetailComponent,
         ],
         imports: [BrowserModule,
             IonicModule.forRoot({ mode: 'ios' }),
@@ -74,6 +84,7 @@ AppModule = tslib_1.__decorate([
             IonicStorageModule.forRoot(),
             FormsModule,
             ReactiveFormsModule,
+            NgZorroAntdMobileModule
         ],
         providers: [
             StatusBar,

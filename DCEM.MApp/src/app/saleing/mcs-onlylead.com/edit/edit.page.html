@@ -10,51 +10,44 @@
 <ion-content>
     <ion-list>
         <ion-item-group>
-            <ion-item-divider>
+            <ion-item-divider color="primary">
                 <ion-label>基本信息</ion-label>
             </ion-item-divider>
             <ion-item>
-                <ion-label>姓名<ion-text color="danger">*</ion-text></ion-label>
-                <ion-input type="text" slot="end" [(ngModel)]="onlylead['mcs_name']" required></ion-input>
+                <ion-label  position="stacked">姓名<ion-text color="danger">*</ion-text></ion-label>
+                <ion-input type="text" placeholder="请输入姓名" maxlength="12" [(ngModel)]="onlylead['mcs_name']" required></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label>手机<ion-text color="danger">*</ion-text></ion-label>
-                <ion-input type="tel" slot="end" [(ngModel)]="onlylead['mcs_mobilephone']" required></ion-input>
+                <ion-label position="stacked">手机<ion-text color="danger">*</ion-text></ion-label>
+                <ion-input type="tel" placeholder="请输入11位手机号" maxlength="11" [(ngModel)]="onlylead['mcs_mobilephone']" required></ion-input>
             </ion-item>
             <ion-item>
-                <ion-text color="danger">*</ion-text><ion-label>线索来源</ion-label>
-                <ion-select [(ngModel)]="onlylead['mcs_leadorigin']" okText="确认" cancelText="取消" required>
-                    <ion-select-option value="1">WEB官网</ion-select-option>
-                    <ion-select-option value="2">Event-Online</ion-select-option>
-                    <ion-select-option value="3">Event-OffLine</ion-select-option>
-                    <ion-select-option value="4">Store展厅</ion-select-option>
-                    <ion-select-option value="5">400电话</ion-select-option>
-                    <ion-select-option value="6">APP</ion-select-option>
-                    <ion-select-option value="7">小程序</ion-select-option>
-                    <ion-select-option value="8">车机</ion-select-option>
-                    <ion-select-option value="9">H5落地页</ion-select-option>
-                    <ion-select-option value="10">3D展厅</ion-select-option>
-                </ion-select>
+                <ion-label position="stacked">线索来源 <ion-text color="danger">*</ion-text></ion-label>
+                  <ion-select [(ngModel)]="onlylead['mcs_leadorigin']" placeholder="请选择线索来源"  okText="确认" cancelText="取消" required>
+                       <ion-select-option *ngFor="let item of model.leadoriginoption" value="{{item.value}}">
+                           {{item.name}}
+                        </ion-select-option>
+                   </ion-select>
             </ion-item>
             <ion-item>
-                <ion-text color="danger">*</ion-text><ion-label>称呼</ion-label>
-                <ion-select [(ngModel)]="onlylead['mcs_gender']" okText="确认" cancelText="取消" required>
-                    <ion-select-option value="1">先生</ion-select-option>
-                    <ion-select-option value="2">女士</ion-select-option>
-                    <ion-select-option value="3">未知</ion-select-option>
-                </ion-select>
+                <ion-label position="stacked">称呼<ion-text color="danger">*</ion-text></ion-label>
+                   <ion-select [(ngModel)]="onlylead['mcs_gender']" placeholder="请选择称呼" okText="确认" cancelText="取消" required>
+                        <ion-select-option *ngFor="let item of model.genderoption" value="{{item.value}}">
+                            {{item.name}}
+                        </ion-select-option>
+                   </ion-select>
             </ion-item>
             <ion-item>
-                <ion-label>邮箱</ion-label>
-                <ion-input type="email" slot="end" [(ngModel)]="onlylead['mcs_emailaddress1']"></ion-input>
+                <ion-label position="stacked">邮箱</ion-label>
+                <ion-input type="email" [(ngModel)]="onlylead['mcs_emailaddress1']"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-text color="danger">*</ion-text><ion-label>评分</ion-label>
-                <ion-select [(ngModel)]="onlylead['mcs_accountpoints']" okText="确认" cancelText="取消">
-                    <ion-select-option value="1">1分</ion-select-option>
-                    <ion-select-option value="2">2分</ion-select-option>
-                    <ion-select-option value="3">3分</ion-select-option>
-                </ion-select>
+                <ion-label position="stacked">评分<ion-text color="danger">*</ion-text></ion-label>
+                   <ion-select [(ngModel)]="onlylead['mcs_accountpoints']" placeholder="请选择评分" okText="确认" cancelText="取消">
+                      <ion-select-option *ngFor="let item of model.scoreoption" value="{{item.value}}">
+                         {{item.name}}
+                      </ion-select-option>
+                    </ion-select>
             </ion-item>
             <ion-item (click)="provinceOnClick()">
                 <ion-label position="stacked">省<ion-text color="danger">*</ion-text></ion-label>
@@ -69,12 +62,12 @@
                 <p>{{onlylead["districtname"]}}&nbsp;</p>
             </ion-item>
             <ion-item>
-                <ion-label>用车省份</ion-label>
-                <ion-input type="text" slot="end" [(ngModel)]="onlylead['mcs_usecarprovince']"></ion-input>
+                <ion-label position="stacked">用车省份</ion-label>
+                <ion-input type="text" [(ngModel)]="onlylead['mcs_usecarprovince']"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label>用车城市</ion-label>
-                <ion-input type="text" slot="end" [(ngModel)]="onlylead['mcs_usecarcity']"></ion-input>
+                <ion-label position="stacked">用车城市</ion-label>
+                <ion-input type="text" [(ngModel)]="onlylead['mcs_usecarcity']"></ion-input>
             </ion-item>
         </ion-item-group>
         

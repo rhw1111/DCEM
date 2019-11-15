@@ -181,15 +181,36 @@ const routes: Routes = [
                     { path: 'detail', loadChildren: './saleing/orderpaydetail/detail/detail.module#DetailPageModule' },
                     { path: 'edit', loadChildren: './saleing/orderpaydetail/edit/edit.module#EditPageModule' }
                 ]
+            },
+            {
+                path: 'vehnetwork',//交车单-开票记录
+                children: [
+
+                    { path: 'list', loadChildren: './saleing/vehnetwork/list/list.module#ListPageModule' },
+                     { path: 'detail', loadChildren: './saleing/vehnetwork/detail/detail.module#DetailPageModule' },
+                    { path: 'success', loadChildren: './saleing/vehnetwork/success/success.module#SuccessPageModule' },
+                ]
+            },
+            {
+                path: 'vehlisense',//交车单-上牌记录
+                children: [
+
+                    { path: 'list', loadChildren: './saleing/vehlisense/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './saleing/vehlisense/detail/detail.module#DetailPageModule' },
+                    { path: 'success', loadChildren: './saleing/vehlisense/success/success.module#SuccessPageModule' },
+                ]
             }
-        ]
-    },
-    {
-        path: 'demo',//ng.mobile.ant demo
-        children: [
+         ,
+         {
+       path: 'demo',//ng.mobile.ant demo
+            children: [
             { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
+          ]
+        }
         ]
     }
+
+
 ];
 
 @NgModule({
