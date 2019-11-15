@@ -225,6 +225,15 @@ export class OptionSetService {
                     { "name": "审核不通过", "value": 2 }                
                 ];
                 break;
+                case "mcs_vehnetworkstatus"://整车销售-发票信息
+                optionlist = [
+                    { "name": "车主信息已同步", "value": 1 },
+                    { "name": "车辆信息已同步", "value": 2 },
+                    { "name": "实名认证通过", "value": 3 }  ,
+                    { "name": "车联网已开通", "value": 4 }   ,
+                    { "name": "发票信息已上传", "value":5 }                  
+                ];
+                break;
         }
         return optionlist;
     }
