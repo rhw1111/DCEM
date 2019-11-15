@@ -14,26 +14,30 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
         /// <summary>
         /// 列表获取
         /// </summary>
-        /// <param name="deliveryListRequest"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<XDocument> GetListFetchXml(VehnetworkListRequest deliveryListRequest)
+        public async Task<XDocument> GetListFetchXml(VehnetworkListRequest request)
         {
             return await Task<XDocument>.Run(() =>
             {
                 var filterStr = "";
-                if (!string.IsNullOrEmpty(deliveryListRequest.SearchKey))
+                if (!string.IsNullOrEmpty(request.SearchKey))
                 {
                     filterStr += $@"  <filter type='or'>
-                    <condition attribute='mcs_code' operator='like' value='%{deliveryListRequest.SearchKey}%' />
-                    <condition attribute='mcs_invoicephone' operator='like' value='%{deliveryListRequest.SearchKey}%' />
-                    <condition attribute='mcs_invoiceidcode' operator='like' value='%{deliveryListRequest.SearchKey}%' />
-                    <condition attribute='mcs_invoicename' operator='like' value='%{deliveryListRequest.SearchKey}%' />
+                    <condition attribute='mcs_code' operator='like' value='%{request.SearchKey}%' />
+                    <condition attribute='mcs_invoicephone' operator='like' value='%{request.SearchKey}%' />
+                    <condition attribute='mcs_invoiceidcode' operator='like' value='%{request.SearchKey}%' />
+                    <condition attribute='mcs_invoicename' operator='like' value='%{request.SearchKey}%' />
                     </filter>/>
                     ";
                 }
+                if (!string.IsNullOrEmpty(request.Status))
+                {
+                    filterStr += " <condition attribute='mcs_tservicestatus' operator='eq' value='"+ request.Status + "' />";
+                }
 
                 var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'
-                   count='{deliveryListRequest.PageSize}' page='{deliveryListRequest.PageIndex}'>
+                   count='{request.PageSize}' page='{request.PageIndex}'>
   <entity name='mcs_vehnetwork'>
   <attribute name='mcs_code' />
     <attribute name='createdon' />
@@ -51,7 +55,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
     <order attribute='createdon' descending='true' />
     <filter type='and'>
       <condition attribute='statecode' operator='eq' value='0' />
-      <condition attribute='mcs_dealer' operator='eq' value='{deliveryListRequest.DealerId}' />
+      <condition attribute='mcs_dealer' operator='eq' value='{request.DealerId}' />
 {filterStr}
     </filter> 
   </entity>
