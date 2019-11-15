@@ -246,7 +246,7 @@ export class EditPage implements OnInit {
                 (res: any) => {
                     if (res != "") {
                         this._page.alert("消息提示", "保存成功！");
-                        this._page.goto("/saling/account/success", { guid: res });
+                        this._page.goto("/saleing/account/success", { guid: res });
                     }
                     else {
                         this._page.alert("消息提示", "保存失败！");
