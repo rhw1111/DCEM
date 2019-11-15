@@ -33,7 +33,7 @@ namespace DCEM.Web.Controllers
         }
 
         [Route("getdetail")]
-        [HttpPost]
+        [HttpGet]
         public async Task<NewtonsoftJsonActionResult<VehlisenseDetailRepository>> get(Guid id)
         {
             return await _appVehlisense.getdetail(id);

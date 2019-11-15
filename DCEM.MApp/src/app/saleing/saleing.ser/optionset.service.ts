@@ -242,6 +242,23 @@ export class OptionSetService {
                     { "name": "抵扣", "value": 3 }
                 ];
                 break;
+            case "mcs_invoiceidtype"://整车销售-交车单-证件类型 
+                optionlist = [
+                    { "name": "身份证", "value": 1 },
+                    { "name": "护照", "value": 2 },
+                    { "name": "驾驶证", "value": 3 },
+                    { "name": "港澳台", "value": 4 },
+                    { "name": "军官证", "value": 5 }
+                ];
+                break;
+            case "mcs_carproperty"://整车销售-交车单-车辆属性 
+                optionlist = [
+                    { "name": "家用", "value": 0 },
+                    { "name": "营运", "value": 1 },
+                    { "name": "其它", "value": 2 } 
+                ];
+                break;
+           
         }
         return optionlist;
     }
