@@ -21,7 +21,6 @@
                     <ion-text color="danger">*</ion-text>
                 </ion-label>
                 <p>{{mod.data["code"]}}&nbsp;</p>
-                <br />
             </ion-item>
             <ion-item>
                 <ion-label position="stacked">
@@ -30,7 +29,6 @@
                     <ion-text color="danger">*</ion-text>
                 </ion-label>
                 <p>{{mod.data["name"]}}&nbsp;</p>
-                <br />
             </ion-item>
             <ion-item (click)="presentRepairitemtypeModal()">
                 <ion-label position="stacked">
@@ -39,7 +37,6 @@
                     <ion-text color="danger">*</ion-text>
                 </ion-label>
                 <p>{{mod.data["repairitemtypeid_Formatted"]}}&nbsp;</p>
-                <br />
             </ion-item>
             <ion-item (click)="presentRepairitemtypedetailModal()">
                 <ion-label position="stacked">
@@ -48,14 +45,13 @@
                     <ion-text color="danger">*</ion-text>
                 </ion-label>
                 <p>{{mod.data["repairitemtypedetailid_Formatted"]}}&nbsp;</p>
-                <br />
             </ion-item>
             <ion-item>
                 <ion-label position="stacked">
                     数量
                     <ion-text color="danger">*</ion-text>
                 </ion-label>
-                <ion-input type="number" [(ngModel)]="mod.data['quantity']"></ion-input>
+                <ion-input type="number" [(ngModel)]="mod.data['quantity']" (keyup)="caleMoney()"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label position="stacked">
@@ -63,14 +59,14 @@
                     单价
                     <ion-text color="danger">*</ion-text>
                 </ion-label>
-                <ion-input type="number" [(ngModel)]="mod.data['price']"></ion-input>
+                <p>{{mod.data["price"]}}&nbsp;</p>
             </ion-item>
             <ion-item>
                 <ion-label position="stacked">
                     折扣
                     <ion-text color="danger">*</ion-text>
                 </ion-label>
-                <ion-input type="number" [(ngModel)]="mod.data['discount']"></ion-input>
+                <ion-input type="number" [(ngModel)]="mod.data['discount']" (keyup)="caleMoney()"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label position="stacked">

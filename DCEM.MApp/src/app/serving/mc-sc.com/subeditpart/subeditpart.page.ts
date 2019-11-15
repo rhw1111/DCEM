@@ -12,6 +12,7 @@ import { SelectRepairitemtypedetailComponent } from 'app/serving/serving.ser/com
 })
 export class SubeditpartPage implements OnInit {
 
+
     mod = {
         data: {},
         searchData: {
@@ -85,14 +86,13 @@ export class SubeditpartPage implements OnInit {
     //选择保修类型
     async presentRepairitemtypeModal() {
         var errMessage = "";
-        if (this._valid.isNullOrEmpty(this.mod.data["mcs_partsid"])) {
+        if (this._valid.isNullOrEmpty(this.mod.data["partsid"])) {
             errMessage += "您尚未选择零件<br>";
         }
         if (errMessage !== "") {
             this._page.presentToastError(errMessage);
             return;
         }
-
         const modal = await this._modalCtrl.create({
             component: SelectRepairitemtypeComponent
         });
@@ -102,21 +102,18 @@ export class SubeditpartPage implements OnInit {
             this.mod.data["repairitemtypeid"] = data["item"]["model"]["mcs_repairitemtypeid"];
             this.mod.data["repairitemtypeid_Formatted"] = data["item"]["model"]["mcs_name"];
         }
-
-
     }
 
     //选择保修类别
     async presentRepairitemtypedetailModal() {
         var errMessage = "";
-        if (this._valid.isNullOrEmpty(this.mod.data["mcs_partsid"])) {
+        if (this._valid.isNullOrEmpty(this.mod.data["partsid"])) {
             errMessage += "您尚未选择零件<br>";
         }
         if (errMessage !== "") {
             this._page.presentToastError(errMessage);
             return;
         }
-
         const modal = await this._modalCtrl.create({
             component: SelectRepairitemtypedetailComponent
         });
@@ -129,7 +126,24 @@ export class SubeditpartPage implements OnInit {
     }
 
     //计算总金额
-    caleMoneyOnKeyUp() {
+    caleMoney() {
+        var quantity = 0;  //默认数量
+        if (!this._valid.isNullOrEmpty(this.mod.data["quantity"]) && this._valid.isNumber(this.mod.data["quantity"])) {
+            quantity = this.mod.data["quantity"];
+        }
+        var price = 0;  //默认价格
+        if (!this._valid.isNullOrEmpty(this.mod.data["price"]) && this._valid.isNumber(this.mod.data["price"])) {
+            price = this.mod.data["price"];
+        }
+        var discount = 0;  //默认比例
+        if (!this._valid.isNullOrEmpty(this.mod.data["discount"]) && this._valid.isNumber(this.mod.data["discount"])) {
+            discount = this.mod.data["discount"];
+        }
+        console.log(quantity);
+        console.log(price);
+        console.log(discount);
 
+
+        this.mod.data["amount"] = quantity * price * discount;
     }
 }

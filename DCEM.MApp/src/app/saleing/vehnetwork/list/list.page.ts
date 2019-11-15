@@ -29,7 +29,7 @@ export class ListPage implements OnInit {
       searchkey: "",
       status: "",
       userId: this._userinfo.GetSystemUserId(),
-      dealerid: "DC6F39D3-2F1A-E911-A821-A4A314186A20",//this._userinfo.GetDealerid()
+      dealerid: "D2B7AE95-72F4-E911-A821-F2106C4094A1",//this._userinfo.GetDealerid()
     },
     vehnetwork: [],
     isending: false
@@ -62,8 +62,7 @@ export class ListPage implements OnInit {
     this._http.post(
       this.model.apiUrl,
       this.model.search,
-      (res: any) => {
-        debugger;
+      (res: any) => { 
         if (res.Results !== null) {
           var data = res.Results;
           for (var i in data) {
