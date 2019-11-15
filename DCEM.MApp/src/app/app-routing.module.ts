@@ -183,6 +183,12 @@ const routes: Routes = [
                 ]
             }
         ]
+    },
+    {
+        path: 'demo',//ng.mobile.ant demo
+        children: [
+            { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
+        ]
     }
 ];
 
