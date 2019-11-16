@@ -5,25 +5,22 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { DetailPage } from './detail.page';
- 
-import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile';
+import { SuccessPage } from './success.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: DetailPage
+    component: SuccessPage
   }
 ];
 
 @NgModule({
   imports: [
-    NgZorroAntdMobileModule,
     CommonModule,
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [DetailPage]
+  declarations: [SuccessPage]
 })
-export class DetailPageModule {}
+export class SuccessPageModule {}

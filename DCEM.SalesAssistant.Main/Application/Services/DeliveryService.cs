@@ -225,7 +225,20 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             }
         }
 
-
+        public async Task<CrmEntity> getdeliverorderflow(DeliveryDetailRequest deliveryDetailRequest)
+        {
+            try
+            {
+                var crmRequestHelper = new CrmRequestHelper();
+                XDocument fetchXdoc = fetchXdoc = await _deliveryRepository.Getdeliverorderflow(deliveryDetailRequest);
+                var entities = await crmRequestHelper.ExecuteAsync(_crmService, systemuserEntityName, fetchXdoc);
+                return entities.Results[0];
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         public async Task<ValidateResult<string>> addorderpay(OrderPayEditRequest orderPayEditRequest)
         {

@@ -1,9 +1,47 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>list</ion-title>
+      <ion-buttons slot="start">
+          <ion-back-button text="返回" defaultHref="/serving/home/index"></ion-back-button>
+      </ion-buttons>
+      <ion-title>我的上牌信息</ion-title>
   </ion-toolbar>
+  <ion-toolbar>
+      <ion-searchbar animated [(ngModel)]="model.search.searchkey" placeholder="请输入车牌\用户\身份证搜索"
+          (keyup)="searchOnKeyup($event)"></ion-searchbar>
+  </ion-toolbar> 
 </ion-header>
 
 <ion-content>
 
+  <ion-list lines="full">
+      <ion-item-sliding *ngFor="let item of model.vehlisense;let key=index">
+          <ion-item [routerLink]="['/saleing/vehlisense/detail']" [queryParams]="{id:item.id}">
+              <ion-icon slot="start" color="primary" name="car" size="large"></ion-icon>
+              <ion-label>
+                  <h2>{{item.name}}</h2>
+                  <p>{{item.vin}}</p> 
+                  <p>{{item.mcs_lisensedate}}</p> 
+              </ion-label> 
+              <ion-note slot="end" >
+                      <p style="font-size: 0.8rem;"> {{item.username}}</p>
+                  </ion-note>
+          </ion-item>
+          <ion-item-options side="end">
+              <ion-item-option color="tertiary" expandable [routerLink]="['/saleing/vehlisense/detail']"
+                  [queryParams]="{id:item.id}">
+                  详情
+              </ion-item-option>
+          </ion-item-options>
+      </ion-item-sliding>
+  </ion-list>
+  <ion-label *ngIf="this.model.isending" text-center>
+      <p>
+          没有更多的记录显示啦
+      </p>
+  </ion-label>
+  <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doLoading($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
+      </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+ 
 </ion-content>

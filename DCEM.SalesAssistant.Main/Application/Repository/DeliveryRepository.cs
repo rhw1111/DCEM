@@ -194,5 +194,39 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
                 return XDocument.Parse(fetchXml);
             });
         }
+
+        public async Task<XDocument> Getdeliverorderflow(DeliveryDetailRequest deliveryDetailRequest)
+        {
+            return await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+  <entity name='mcs_deliverorderflow'>
+    <attribute name='businessprocessflowinstanceid' />
+    <attribute name='bpf_name' />
+    <attribute name='createdon' />
+    <attribute name='traversedpath' />
+    <attribute name='statuscode' />
+    <attribute name='statecode' />
+    <attribute name='processid' />
+    <attribute name='activestagestartedon' />
+    <attribute name='activestageid' />
+    <attribute name='bpf_duration' />
+    <attribute name='completedon' />
+    <attribute name='overriddencreatedon' />
+    <attribute name='createdonbehalfby' />
+    <attribute name='createdby' />
+    <attribute name='modifiedonbehalfby' />
+    <attribute name='modifiedby' />
+    <attribute name='modifiedon' />
+    <attribute name='bpf_mcs_vehdeliveryid' />
+    <order attribute='bpf_name' descending='false' />
+    <filter type='and'>
+      <condition attribute='bpf_mcs_vehdeliveryid' operator='eq'  value='{deliveryDetailRequest.Id}' />
+    </filter>
+  </entity>
+</fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
     }
 }

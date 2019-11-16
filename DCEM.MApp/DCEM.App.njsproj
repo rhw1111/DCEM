@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{f26cede4-f02d-4382-a6bd-49c0cb89d2aa}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <StartupFile />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -182,6 +182,7 @@
     <Content Include="src\app\serving\technical-support.com\list\list.page.scss" />
     <Content Include="src\app\serving\technical-support.com\success\success.page.html" />
     <Content Include="src\app\serving\technical-support.com\success\success.page.scss" />
+    <Content Include="src\assets\css\ng-zorro-antd-mobile.css" />
     <Content Include="src\assets\img\01.jpg" />
     <Content Include="src\assets\img\02.jpg" />
     <Content Include="src\assets\img\03.jpg" />
@@ -990,6 +991,7 @@
     <Folder Include="src\app\serving\technical-support.com\list\" />
     <Folder Include="src\app\serving\technical-support.com\success\" />
     <Folder Include="src\assets" />
+    <Folder Include="src\assets\css\" />
     <Folder Include="src\assets\icon" />
     <Folder Include="src\assets\img\" />
     <Folder Include="src\environments" />
