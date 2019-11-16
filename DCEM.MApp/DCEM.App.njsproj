@@ -162,6 +162,10 @@
     <Content Include="src\app\serving\serving.ser\components\select-maintenance\select-maintenance.component.scss" />
     <Content Include="src\app\serving\serving.ser\components\select-malfunctiontype\select.malfunctiontype.component.html" />
     <Content Include="src\app\serving\serving.ser\components\select-malfunctiontype\select.malfunctiontype.component.scss" />
+    <Content Include="src\app\serving\serving.ser\components\select-repairitemtypedetail\select-repairitemtypedetail.component.html" />
+    <Content Include="src\app\serving\serving.ser\components\select-repairitemtypedetail\select-repairitemtypedetail.component.scss" />
+    <Content Include="src\app\serving\serving.ser\components\select-repairitemtype\select-repairitemtype.component.html" />
+    <Content Include="src\app\serving\serving.ser\components\select-repairitemtype\select-repairitemtype.component.scss" />
     <Content Include="src\app\serving\serving.ser\components\select-repairlocation\select-repairlocation.component.html" />
     <Content Include="src\app\serving\serving.ser\components\select-repairlocation\select-repairlocation.component.scss" />
     <Content Include="src\app\serving\serving.ser\components\select-parts\select-parts.component.html" />
@@ -744,6 +748,10 @@
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-maintenance\select-maintenance.component.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-malfunctiontype\select.malfunctiontype.component.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-malfunctiontype\select.malfunctiontype.component.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-repairitemtypedetail\select-repairitemtypedetail.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-repairitemtypedetail\select-repairitemtypedetail.component.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-repairitemtype\select-repairitemtype.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-repairitemtype\select-repairitemtype.component.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-repairlocation\select-repairlocation.component.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-repairlocation\select-repairlocation.component.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-parts\select-parts.component.spec.ts" />
@@ -950,6 +958,8 @@
     <Folder Include="src\app\serving\my-customer.com\list\" />
     <Folder Include="src\app\serving\my-customer.com\select\" />
     <Folder Include="src\app\serving\serving.ser\components\select-customer-edit\" />
+    <Folder Include="src\app\serving\serving.ser\components\select-repairitemtypedetail\" />
+    <Folder Include="src\app\serving\serving.ser\components\select-repairitemtype\" />
     <Folder Include="src\app\serving\spmdspstock.com\" />
     <Folder Include="src\app\serving\reception-interrogation.com\" />
     <Folder Include="src\app\serving\reception-interrogation.com\detail\" />
