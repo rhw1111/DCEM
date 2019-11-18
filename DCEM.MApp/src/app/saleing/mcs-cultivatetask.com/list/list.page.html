@@ -31,22 +31,18 @@
         </ion-refresher-content> 
     </ion-refresher>
     <ion-list lines="full">
-        <ion-item *ngFor="let item of model.datalist">          
+        <ion-item *ngFor="let item of model.datalist" [routerLink]="" [queryParams]="">          
             <ion-icon slot="start" name="logo-instagram" size="large" color="tertiary"></ion-icon>
             <ion-label>
-                <h2>{{item.mcs_thisfollowupcontent}}</h2> 
-                <p>{{item.mcs_activitystatus}}</p>
-                <p>{{item.mcs_importantlevel}}</p>            
+                <h2>{{item.Custname}}</h2> 
+                <p>{{item.mcs_name}}</p> 
+                <p>{{item.mcs_mobilephone}}</p> 
+                                  
             </ion-label>
-            <ion-note slot="end" >
-                 <ion-icon color="primary" name="hourglass" size="small"></ion-icon> 
-                <p>{{item.mcs_name}}</p>    
-            </ion-note>
-            <ion-note slot="end" >
-                <!-- <ion-icon color="primary" name="hourglass" size="small"></ion-icon>  -->
-                <p>{{item.mcs_mobilephone}}</p>   
-            </ion-note>
-            
+            <ion-note slot="end" >             
+                <p>{{item.mcs_importantlevel}}</p>   
+                <p>{{item.mcs_activitystatus}}</p>
+            </ion-note>                
         </ion-item>
     </ion-list>
 

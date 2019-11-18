@@ -310,4 +310,17 @@ export class EditPage implements OnInit {
             return '';
         }
     }
+
+    //汉化日期控件
+    public customPickerOptions = {
+        buttons: [{
+            text: '取消',
+            handler: () => console.log('Clicked Save!')
+        }, {
+            text: '保存',
+            handler: () => {
+                console.log('Clicked Log. Do not Dismiss.');
+            }
+        }]
+    }
 }

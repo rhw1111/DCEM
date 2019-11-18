@@ -80,7 +80,7 @@ export class ListPage implements OnInit {
 
   //获取列表数据
   getList(event) {
-    debugger;
+    //debugger;
     this._page.loadingShow();
     this._http.get(this.model.apiUrl,
       {
@@ -94,17 +94,18 @@ export class ListPage implements OnInit {
         }
       },
       (res: any) => {
-        debugger;
+        //debugger;
         if (res.Results !== null) {
           //绑定数据
           res.Results.forEach(item => {
             var obj = {};
             obj["mcs_activityid"] = item["Attributes"].mcs_activityid;      
+            obj["Custname"] = item["Attributes"].mcs_name; 
             obj["mcs_thisfollowupcontent"] = item["Attributes"].mcs_thisfollowupcontent;     
             obj["mcs_activitystatus"] = this.optionset.GetOptionSetNameByValue("mcs_activitystatus", item["Attributes"].mcs_activitystatus);
             obj["mcs_importantlevel"] = this.optionset.GetOptionSetNameByValue("mcs_importantlevel", item["Attributes"].mcs_importantlevel);
-            obj["mcs_name"] = item["Attributes"].mcs_name;
-            obj["mcs_mobilephone"] = item["Attributes"].mcs_mobilephone;
+            obj["mcs_name"] = item["Attributes"].a_x002e_mcs_name;
+            obj["mcs_mobilephone"] = item["Attributes"].a_x002e_mcs_mobilephone;
           
             this.model.datalist.push(obj);
 
