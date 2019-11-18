@@ -13,9 +13,19 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
     public class AppointmentInfoRequest
     {
         /// <summary>
+        /// 预约日期
+        /// </summary>
+        public DateTime? AppointmentAt { get; set; }
+
+        /// <summary>
+        /// 厅店ID
+        /// </summary>
+        public Guid? DealerId { get; set; }
+
+        /// <summary>
         /// 搜索框参数
         /// </summary>
-        public string search { get; set; }
+        public string seachkey { get; set; }
 
         /// <summary>
         /// 排序
@@ -25,12 +35,12 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
         /// <summary>
         /// 每页条数
         /// </summary>
-        public int pageSize { get; set; }
+        public int pageSize { get; set; } = 10;
 
         /// <summary>
         /// 页数
         /// </summary>
-        public int page { get; set; }
+        public int page { get; set; } = 1;
 
         /// <summary>
         /// 预约状态

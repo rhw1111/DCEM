@@ -50,12 +50,19 @@
                 <ion-label>
                     <ion-text color="danger">*</ion-text>预约日期
                 </ion-label>
-                <ion-datetime displayFormat="YYYY-MM-DD" min="1997" (ionChange)="appointmentAtChange()"  [(ngModel)]="shareData.appointmentinfo['mcs_appointmentat']"></ion-datetime>
+                <ion-datetime displayFormat="YYYY-MM-DD" min="1997" (ionChange)="appointmentAtChange()" [pickerOptions]="customPickerOptions"  [(ngModel)]="shareData.appointmentinfo['mcs_appointmentat']"></ion-datetime>
             </ion-item>
           
             <ion-item (click)="appointmentconfigOnClick()">
                 <ion-label position="stacked">预约时段<ion-text color="danger">*</ion-text></ion-label>
-                <p>{{shareData.appointmentinfo["mcs_appointmentconfigname"]}}&nbsp;</p>
+                <!--<p>{{shareData.appointmentinfo["mcs_appointmentconfigname"]}}&nbsp;</p>-->
+
+                <ion-select [(ngModel)]="shareData.appointmentinfo['mcs_appointmentconfig']" placeholder="请选择时段" okText="确认" cancelText="取消">
+                    <ion-select-option *ngFor="let item of model.appointmentConfigOption" value="{{item.value}}">
+                        {{item.name}}
+                    </ion-select-option>
+                </ion-select>
+
             </ion-item>
             <ion-item>
                 <ion-label>可预约数量</ion-label>

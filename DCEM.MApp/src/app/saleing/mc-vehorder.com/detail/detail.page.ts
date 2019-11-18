@@ -4,7 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import dateformat from 'silly-datetime';
 import { OptionSetService } from '../../saleing.ser/optionset.service';
 @Component({
-  selector: 'nz-demo-timeline-basic',
+  selector: 'app-detail',
   templateUrl: './detail.page.html',
   styleUrls: ['./detail.page.scss'],
 })

@@ -228,6 +228,7 @@ export class Edit2Page implements OnInit {
         this.mod.postData["serviceproxy"]["expectfinishat"] = this.shareData.serviceproxy["expectfinishat"];            //预计交车时间
         this.mod.postData["serviceproxy"]["customercontent"] = this.shareData.serviceproxy["customercontent"];            //故障信息
         this.mod.postData["serviceproxy"]["testresult"] = this.shareData.serviceproxy["testresult"];            //检查结果
+        this.mod.postData["serviceproxy"]["appointmentcode"] = this.shareData.serviceproxy["appointmentcode"];            //预约单编号
 
         //组装维修项目
         this.mod.postData["serviceorderrepairitemArray"] = [];
@@ -269,11 +270,11 @@ export class Edit2Page implements OnInit {
                 if (res.Result == true) {
                     var id = res["Data"]["Id"];
                     var no = res["Data"]["Attributes"]["mcs_name"];
-                    if (this.shareData["actioncode"] === 1)
+                    if (this.shareData["actioncode"] === 1 || this.shareData["actioncode"] === 3)
                         this._page.navigateRoot("/serving/sc/success", { actioncode: this.shareData["actioncode"], id: id, no: no });
                     else {
                         const that = this;
-                        this._page.alert("消息提示", "单据信息更新成功,请单击确认返回服务委托书列表", function () {
+                        this._page.alert("消息提示", "操作成功", function () {
                             that._page.navigateRoot("/serving/sc/list", null, "back");
                         });
                     }

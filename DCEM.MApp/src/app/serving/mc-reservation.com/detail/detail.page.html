@@ -6,194 +6,202 @@
         <ion-title>预约单详情</ion-title>
     </ion-toolbar>
     <ion-toolbar>
-            <ion-segment [(ngModel)]="tab" color="danger">
-                <ion-segment-button value="infolist">
-                    <ion-label>基础信息</ion-label>
-                </ion-segment-button>
-                <ion-segment-button value="loglist">
+        <ion-segment [(ngModel)]="tab" color="primary">
+            <ion-segment-button value="infolist">
+                <ion-label>基础信息</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="loglist">
                 <ion-label>跟进记录</ion-label>
             </ion-segment-button>
-            </ion-segment>
+        </ion-segment>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <div [ngSwitch]="tab">
-    <div *ngSwitchCase="'infolist'">
-        <ion-list lines="full">
-            <ion-item-divider>
-                <ion-label>
-                    车主信息
-                </ion-label>
-            </ion-item-divider>
-            <ion-item>
-                <ion-label>
-                    <h2>
-                        姓名
-                    </h2>
-                    <span>{{SetDefaultValue(model.infolist.mcs_customername)}}</span>
-                </ion-label>
-            </ion-item>
-            <ion-item>
-                <ion-label>
-                    <h2>
-                        手机号
-                    </h2>
-                    <span>{{SetDefaultValue(model.infolist.mcs_customerphone)}}</span>
-                </ion-label>
-            </ion-item>
-            <ion-item>
-                <ion-label>
-                    <h2>
-                        客户标签
-                    </h2>
-                    <span>{{SetDefaultValue(model.infolist.mcs_tag)}}</span>
-                </ion-label>
-            </ion-item>
-            <ion-item>
-                <ion-label>
-                    <h2>
-                        VIN
-                    </h2>
-                    <span>{{SetDefaultValue(model.infolist.mcs_vin)}}</span>
-                </ion-label>
-            </ion-item>
-            <ion-item>
-                <ion-label>
-                    <h2>
-                        发动机号
-                    </h2>
-                    <span>{{SetDefaultValue(model.infolist.mcs_enginennumber)}}</span>
-                </ion-label>
-            </ion-item>
-            <ion-item>
-                <ion-label>
-                    <h2>
-                        车型
-                    </h2>
-                    <span>{{SetDefaultValue(model.infolist.mcs_cartype)}}</span>
-                </ion-label>
-            </ion-item>
-            <ion-item>
-                <ion-label>
-                    <h2>
-                        下次保养日期
-                    </h2>
-                    <span>{{FormatToDate(model.infolist.mcs_nextmaintainat)}}</span>
-                </ion-label>
-            </ion-item>
-            <ion-item>
-                <ion-label>
-                    <h2>
-                        下次保养里程
-                    </h2>
-                    <span>{{SetDefaultValue(model.infolist.mcs_nextmaintainmileage)}}</span>
-                </ion-label>
-            </ion-item>
-            <ion-item-divider>
-                <ion-label>
-                    预约信息
-                </ion-label>
-            </ion-item-divider>
-            <ion-item>
-                <ion-label>
-                    <h2>
-                        预约单号
-                    </h2>
-                    <span>{{SetDefaultValue(model.infolist.mcs_name)}}</span>
-                </ion-label>
-            </ion-item>
-            <ion-item>
-                <ion-label>
-                    <h2>
-                        服务类型
-                    </h2>
-                    <span *ngIf="model.infolist.mcs_ordertype==10"> 汽车美容</span>
-                    <span *ngIf="model.infolist.mcs_ordertype==20"> 钣金喷漆</span>
-                    <span *ngIf="model.infolist.mcs_ordertype==30"> 常规保养</span>
-                    <span *ngIf="model.infolist.mcs_ordertype==40"> 一般维修</span>
-                    <span *ngIf="model.infolist.mcs_ordertype==50"> 保修</span>
-                    <span *ngIf="model.infolist.mcs_ordertype==60"> 其他</span>
-                </ion-label>
-            </ion-item>
-            <ion-item>
-                <ion-label>
-                    <h2>
-                        预约时间
-                    </h2>
-                    <span>{{FormatToDate(model.infolist.mcs_appointmentat)}}&nbsp;{{model.infolist.mcs_appointmentconfigid}}</span>
-                </ion-label>
-            </ion-item>
-            <ion-item>
-                <ion-label>
-                    <h2>
-                        状态
-                    </h2>
-                    <span *ngIf="model.infolist.mcs_status==10">待跟进</span>
-                    <span *ngIf="model.infolist.mcs_status==20">已跟进</span>
-                    <span *ngIf="model.infolist.mcs_status==30"> 已入场</span>
-                    <span *ngIf="model.infolist.mcs_status==50"> 已取消</span>
-                </ion-label>
-            </ion-item>
-            <ion-item>
-                <ion-label>
-                    <h2>
-                        客户要求
-                    </h2>
-                    <span>{{SetDefaultValue(model.infolist.mcs_customercomment)}}</span>
-                </ion-label>
-            </ion-item>
-            <ion-item>
-                <ion-label>
-                    <h2>
-                        问题描述
-                    </h2>
-                    <span>{{SetDefaultValue(model.infolist.mcs_appointmendescript)}}</span>
-                </ion-label>
-            </ion-item>
-            <ion-item>
-                <ion-label>
-                    <h2>
-                        取消原因
-                    </h2>
-                    <span *ngIf="model.infolist.mcs_cancelreasonnew==10">待料</span>
-                    <span *ngIf="model.infolist.mcs_cancelreasonnew==20">价格太高</span>
-                    <span *ngIf="model.infolist.mcs_cancelreasonnew==30"> 设备不足</span>
-                    <span *ngIf="model.infolist.mcs_cancelreasonnew==40"> 堵车</span>
-                    <span *ngIf="model.infolist.mcs_cancelreasonnew==50"> 技术不足</span>
-                    <span *ngIf="model.infolist.mcs_cancelreasonnew==60"> 天气不好</span>
-                </ion-label>
-            </ion-item>
-            <ion-item>
-                <ion-label>
-                    <h2>
-                        取消备注
-                    </h2>
-                    <span>{{SetDefaultValue(model.infolist.mcs_canceldes)}}</span>
-                </ion-label>
-            </ion-item>
-        </ion-list>
-    </div>
-    <div *ngSwitchCase="'loglist'">
-        <!--<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中...">
-        </ion-refresher-content>
-    </ion-refresher>-->
-        <ion-list lines="full" *ngFor="let r of model.datalist">
-            <ion-item>
-                <ion-label>
-                    <p>跟进人：{{r.createdby}}</p>
-                    <p>跟进内容：{{r.mcs_remark}}</p>
-                    <p>跟进时间：{{FormatToDateTime(r.createdon)}}</p>
-                </ion-label>
-            </ion-item>
-        </ion-list>
-        <ion-row *ngIf="model.isending">
-            <ion-col class="nodata" text-center>
-                没有更多跟进
-            </ion-col>
-        </ion-row>
-    </div>
+        <div *ngSwitchCase="'infolist'">
+            <ion-list lines="full">
+                <ion-item-divider color="primary">
+                    <ion-label>
+                        车主信息
+                    </ion-label>
+                </ion-item-divider>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            姓名
+                        </h2>
+                        <p>{{SetDefaultValue(model.infolist.mcs_customername)}}&nbsp;</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            手机号
+                        </h2>
+                        <p>{{SetDefaultValue(model.infolist.mcs_customerphone)}}&nbsp;</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            VIN
+                        </h2>
+                        <p>{{SetDefaultValue(model.infolist.mcs_vin)}}&nbsp;</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            车牌号
+                        </h2>
+                        <p>{{SetDefaultValue(model.infolist.mcs_carplate)}}&nbsp;</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            发动机号
+                        </h2>
+                        <p>{{SetDefaultValue(model.infolist.mcs_enginennumber)}}&nbsp;</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            车型
+                        </h2>
+                        <p>{{SetDefaultValue(model.infolist.mcs_cartype)}}&nbsp;</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            下次保养日期
+                        </h2>
+                        <p>{{SetDefaultValue(FormatToDate(model.infolist.mcs_nextmaintainat))}}&nbsp;</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            下次保养里程
+                        </h2>
+                        <p>{{SetDefaultValue(model.infolist.mcs_nextmaintainmileage)}}&nbsp;</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            客户标签
+                        </h2>
+                        <p>{{SetDefaultValue(model.infolist.mcs_tag)}}&nbsp;</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item-divider color="primary">
+                    <ion-label>
+                        预约信息
+                    </ion-label>
+                </ion-item-divider>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            预约单号
+                        </h2>
+                        <p>{{SetDefaultValue(model.infolist.mcs_name)}}&nbsp;</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            服务类型
+                        </h2>
+                        <p *ngIf="model.infolist.mcs_ordertype==10"> 汽车美容</p>
+                        <p *ngIf="model.infolist.mcs_ordertype==20"> 钣金喷漆</p>
+                        <p *ngIf="model.infolist.mcs_ordertype==30"> 常规保养</p>
+                        <p *ngIf="model.infolist.mcs_ordertype==40"> 一般维修</p>
+                        <p *ngIf="model.infolist.mcs_ordertype==50"> 保修</p>
+                        <p *ngIf="model.infolist.mcs_ordertype==60"> 其他</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            预约时间
+                        </h2>
+                        <p>{{FormatToDate(model.infolist.mcs_appointmentat)}}&nbsp;{{model.infolist.mcs_appointmentconfigid}}</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            状态
+                        </h2>
+                        <p *ngIf="model.infolist.mcs_status==10">待跟进</p>
+                        <p *ngIf="model.infolist.mcs_status==20">已跟进</p>
+                        <p *ngIf="model.infolist.mcs_status==30"> 已入场</p>
+                        <p *ngIf="model.infolist.mcs_status==50"> 已取消</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            客户要求
+                        </h2>
+                        <p>{{SetDefaultValue(model.infolist.mcs_customercomment)}}&nbsp;</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            问题描述
+                        </h2>
+                        <p>{{SetDefaultValue(model.infolist.mcs_appointmendescript)}}&nbsp;</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            取消原因
+                        </h2>
+                        <p *ngIf="model.infolist.mcs_cancelreasonnew==10">待料</p>
+                        <p *ngIf="model.infolist.mcs_cancelreasonnew==20">价格太高</p>
+                        <p *ngIf="model.infolist.mcs_cancelreasonnew==30"> 设备不足</p>
+                        <p *ngIf="model.infolist.mcs_cancelreasonnew==40"> 堵车</p>
+                        <p *ngIf="model.infolist.mcs_cancelreasonnew==50"> 技术不足</p>
+                        <p *ngIf="model.infolist.mcs_cancelreasonnew==60"> 天气不好</p>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <ion-label>
+                        <h2>
+                            取消备注
+                        </h2>
+                        <p>{{SetDefaultValue(model.infolist.mcs_canceldes)}}&nbsp;</p>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+        </div>
+        <div *ngSwitchCase="'loglist'">
+            <!--<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+                <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中...">
+                </ion-refresher-content>
+            </ion-refresher>-->
+            <ion-list lines="full">
+                <ion-item *ngFor="let r of model.datalist">
+                    <ion-label>
+                        <p>跟进人：{{r.createdby}}</p>
+                        <p>跟进内容：{{r.mcs_remark}}</p>
+                        <p>跟进时间：{{FormatToDateTime(r.createdon)}}</p>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+            <ion-row *ngIf="model.isending">
+                <ion-col class="nodata" text-center>
+                    没有更多跟进
+                </ion-col>
+            </ion-row>
+        </div>
     </div>
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button>
@@ -202,8 +210,8 @@
         <ion-fab-list side="top">
             <ion-fab-button [routerLink]="['/serving/reservation/edit']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid}"><ion-icon name="create"></ion-icon>编辑</ion-fab-button>
             <ion-fab-button [routerLink]="['/serving/reservation/cancel']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid}"><ion-icon name="close"></ion-icon>取消</ion-fab-button>
-            <ion-fab-button [routerLink]="['/serving/sc/edit']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid,actioncode:3}"><ion-icon name="close"></ion-icon>转问诊单</ion-fab-button>
-            <ion-fab-button [routerLink]="['/serving/ri/edit']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid,actioncode:3}"><ion-icon name="close"></ion-icon>转服务委托书</ion-fab-button>
+            <ion-fab-button [routerLink]="['/serving/ri/edit']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid,actionCode:3}"><ion-icon name="add"></ion-icon>问诊</ion-fab-button>
+            <ion-fab-button [routerLink]="['/serving/sc/edit']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid,actionCode:3}"><ion-icon name="add"></ion-icon>委托书</ion-fab-button>
         </ion-fab-list>
     </ion-fab>
 </ion-content>

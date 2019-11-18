@@ -23,6 +23,7 @@ export class DetailPage implements OnInit {
             mcs_vin: "",
             mcs_enginennumber:"",
             mcs_cartype: "",
+            mcs_carplate:"",
             mcs_nextmaintainat: "",
             mcs_nextmaintainmileage: "",
             mcs_name: "",
@@ -56,7 +57,6 @@ export class DetailPage implements OnInit {
                 this.model.infolist.mcs_appointmentinfoid = data['id'];
                 this.pageOnBind(this.model.infolist.mcs_appointmentinfoid);
             }
-            //this.pageOnBind(data.id);
         });
     }
 
@@ -75,6 +75,7 @@ export class DetailPage implements OnInit {
                     this.model.infolist.mcs_customername = res["Attributes"]["mcs_customername"];
                     this.model.infolist.mcs_customerphone = res["Attributes"]["mcs_customerphone"];
                     this.model.infolist.mcs_tag = res["Attributes"]["mcs_tag"];
+                    this.model.infolist.mcs_carplate = res["Attributes"]["mcs_carplate"];
                     this.model.infolist.mcs_vin = res["Attributes"]["mcs_customerid"] != null ? res["Attributes"]["mcs_customerid"]["mcs_name"] : "--";
                     this.model.infolist.mcs_enginennumber = res["Attributes"]["mcs_enginennumberres"];
                     this.model.infolist.mcs_cartype = res["Attributes"]["mcs_cartype"] != null ? res["Attributes"]["mcs_cartype"]["mcs_name"]:"--";
@@ -118,7 +119,6 @@ export class DetailPage implements OnInit {
                 }
             },
             (res: any) => {
-                //debugger;
                 if (res !== null) {
                     if (res.Results !== null) {
                         for (var key in res.Results) {

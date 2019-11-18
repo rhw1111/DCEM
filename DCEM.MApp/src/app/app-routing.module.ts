@@ -208,20 +208,25 @@ const routes: Routes = [
                 ]
             },
             {
+                path: 'surveyorder',//勘测单-记录
+                children: [
+
+                    { path: 'list', loadChildren: './saleing/mcs_surveyorder/list/list.module#ListPageModule' }
+                ]
+            },
+            {
                 path: 'trialrun',//试车试驾-预约日历
                 children: [ 
                     { path: 'calendar', loadChildren: './saleing/trialrun/calendar/calendar.module#CalendarPageModule' }
                 ]
             }
-
         ]
     },
     {
         path: 'demo',//ng.mobile.ant demo
         children: [
-            { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' },
-            { path: 'calendar', loadChildren: './base/demo/calendar/calendar.module#CalendarPageModule' }
-        ]
+        { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
+      ]
     }
 ];
 

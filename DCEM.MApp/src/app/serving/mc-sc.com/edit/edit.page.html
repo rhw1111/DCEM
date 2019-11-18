@@ -47,7 +47,6 @@
                 </ion-label>
                 <p>{{shareData.serviceproxy["dealerid_formatted"]}}&nbsp;</p>
             </ion-item>
-
         </ion-list>
         <br />
     </ion-card>
@@ -58,6 +57,13 @@
             </ion-card-title>
         </ion-card-header>
         <ion-list lines="full">
+            <ion-item (click)="presentAppointmentinfoModal()">
+                <ion-label position="stacked">
+                    <ion-icon name="search"></ion-icon>
+                    预约单
+                </ion-label>
+                <p>{{shareData.serviceproxy["appointmentcode_formatted"]}}&nbsp;</p>
+            </ion-item>
             <ion-item>
                 <ion-label position="stacked">
                     送修人

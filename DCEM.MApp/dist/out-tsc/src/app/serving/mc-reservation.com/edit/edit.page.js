@@ -34,6 +34,18 @@ let EditPage = class EditPage {
         this.shareData = {
             appointmentinfo: {}
         };
+        //汉化日期控件
+        this.customPickerOptions = {
+            buttons: [{
+                    text: '取消',
+                    handler: () => console.log('Clicked Save!')
+                }, {
+                    text: '保存',
+                    handler: () => {
+                        console.log('Clicked Log. Do not Dismiss.');
+                    }
+                }]
+        };
     }
     ngOnInit() {
     }
