@@ -32,7 +32,7 @@ namespace DCEM.Web.Controllers
             }           
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("GetSurveyorderList")]
         public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetSurveyorderList(SurveyorderListRequest _request)
         {

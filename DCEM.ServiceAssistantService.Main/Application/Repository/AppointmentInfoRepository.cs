@@ -17,7 +17,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
         public string QueryListByPage(AppointmentInfoRequest filterstr)
         {
             var filter = string.Empty;
-            if (filterstr.status!=0)
+            if (filterstr.status != 0)
             {
                 filter += $"<condition attribute='mcs_status' operator='eq' value='{filterstr.status}' />";
             }
@@ -37,26 +37,42 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
                 filter += $"<condition attribute='mcs_customername' operator='like' value='%{filterstr.seachkey}%' />";
                 filter += $"</filter>";
             }
+
+            //var fetchString = $@"<fetch version='1.0' count='{filterstr.pageSize}' page='{filterstr.page}' output-format='xml-platform' mapping='logical' distinct='false'>
+            //      <entity name='mcs_appointmentinfo'>
+            //        <attribute name='mcs_name' />
+            //        <attribute name='createdon' />
+            //        <attribute name='mcs_appointmentat' />
+            //        <attribute name='mcs_status' />
+            //        <attribute name='mcs_appointmentsource' />
+            //        <attribute name='mcs_ordertype' />
+            //        <attribute name='mcs_appointmenttype' />
+            //        <attribute name='mcs_customerphone' />
+            //        <attribute name='createdby' />
+            //        <attribute name='mcs_customeraddr' />
+            //        <attribute name='mcs_customerid' />
+            //        <attribute name='mcs_serviceadvisorid' />
+            //        <attribute name='mcs_dealerid' />
+            //        <attribute name='mcs_cartype' />
+            //        <attribute name='mcs_carplate' />
+            //        <attribute name='mcs_customername' />
+            //        <attribute name='mcs_appointmentconfigid' />
+            //        <attribute name='mcs_appointmentinfoid' />
+            //        <order attribute='mcs_appointmentat' descending='false' />
+            //        <order attribute='mcs_appointmentconfigid' descending='false' />
+            //        <filter type='and'>
+            //          <condition attribute='statecode' operator='eq' value='0' />
+            //          {filter}
+            //        </filter>
+            //        <link-entity name='mcs_appointmentconfig' from='mcs_appointmentconfigid' to='mcs_appointmentconfigid' visible='false' link-type='outer' alias='appointmentconfig'>
+            //          <attribute name='mcs_name' />
+            //        </link-entity>
+            //      </entity>
+            //    </fetch>";
+
             var fetchString = $@"<fetch version='1.0' count='{filterstr.pageSize}' page='{filterstr.page}' output-format='xml-platform' mapping='logical' distinct='false'>
                   <entity name='mcs_appointmentinfo'>
-                    <attribute name='mcs_name' />
-                    <attribute name='createdon' />
-                    <attribute name='mcs_appointmentat' />
-                    <attribute name='mcs_status' />
-                    <attribute name='mcs_appointmentsource' />
-                    <attribute name='mcs_ordertype' />
-                    <attribute name='mcs_appointmenttype' />
-                    <attribute name='mcs_customerphone' />
-                    <attribute name='createdby' />
-                    <attribute name='mcs_customeraddr' />
-                    <attribute name='mcs_customerid' />
-                    <attribute name='mcs_serviceadvisorid' />
-                    <attribute name='mcs_dealerid' />
-                    <attribute name='mcs_cartype' />
-                    <attribute name='mcs_carplate' />
-                    <attribute name='mcs_customername' />
-                    <attribute name='mcs_appointmentconfigid' />
-                    <attribute name='mcs_appointmentinfoid' />
+                    <all-attributes />
                     <order attribute='mcs_appointmentat' descending='false' />
                     <order attribute='mcs_appointmentconfigid' descending='false' />
                     <filter type='and'>

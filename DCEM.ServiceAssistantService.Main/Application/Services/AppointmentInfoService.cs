@@ -56,6 +56,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
                     EntityName = "mcs_appointmentinfo",
                     FetchXml = fetchXdoc,
                 };
+                fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
                 var fetchResponse = await _crmService.Execute(fetchRequest);
                 var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
                 #endregion
