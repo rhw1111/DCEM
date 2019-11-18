@@ -95,18 +95,8 @@ namespace DCEM.Web.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetConfig")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetConfig(string mcs_dealerid,int? mcs_servetype,DateTime? mcs_servedate,Guid?configid, string sort = "", int pageSize = 10, int page = 1)
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetConfig([FromQuery]AppointmentConfigRequest appointmentConfiggRequest)
         {
-            var appointmentConfiggRequest = new AppointmentConfigRequest()
-            {
-                page = page,
-                pageSize = pageSize,
-                sort = sort,
-                mcs_dealerid = Guid.Parse(mcs_dealerid),
-                mcs_servetype = mcs_servetype,
-                mcs_servedate = mcs_servedate,
-                AppointmentConfigId= configid
-            };
             var list = await app.GetConfig(appointmentConfiggRequest);
             return list;
         }

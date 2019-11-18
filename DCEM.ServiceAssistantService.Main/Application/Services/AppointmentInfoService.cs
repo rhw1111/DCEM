@@ -181,6 +181,11 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         {
             try
             {
+                var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+                if (userInfo != null && !string.IsNullOrWhiteSpace(userInfo.mcs_dealerid))
+                {
+                    appointmentConfiggRequest.mcs_dealerid = Guid.Parse(userInfo.mcs_dealerid);
+                }
                 var fetchString = _appointmentInfoRepository.GetConfig(appointmentConfiggRequest);
 
                 var fetchXdoc = XDocument.Parse(fetchString);
