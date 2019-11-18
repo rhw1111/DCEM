@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
-
-const extra = { 
+import { DCore_Http, DCore_Page, DCore_ShareData, DCore_Valid } from 'app/base/base.ser/Dcem.core';
+import { from } from 'rxjs';
+import { Dateformat } from 'app/base/base.ser/dateformat'
+const extra = {
 };
 
-const now = new Date(); 
- 
+const now = new Date();
+
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.page.html',
@@ -31,16 +33,32 @@ export class CalendarPage implements OnInit {
       return extra[+date];
     }
   };
-  constructor() { }
- 
-  ngOnInit() { 
+  model = {
+    apiUrl: "/api/appointment-info/getlist",
+    data: [],
+    params: {
+      AppointmentAt: "",
+      pageSize: 100,
+      page: 1
+    }
+  };
+  constructor(private _http: DCore_Http,
+    private _page: DCore_Page,
+    private _shareData: DCore_ShareData,
+    private _valid: DCore_Valid,
+    private _dateformat:Dateformat
+  ) {
+  }
+
+  ngOnInit() {
   }
   triggerConfirm(value) {
-    const { startDate } = value;
-      
+    const { startDate,endDate } = value;
+    this.model.params.AppointmentAt=this._dateformat.FormatToDate(startDate);
+    this.pageOnBind();
     console.log('onConfirm', startDate);
   }
-  onClick_3() { 
+  onClick_3() {
     this.state.show = true;
     this.state.type = 'one';
   }
@@ -51,5 +69,28 @@ export class CalendarPage implements OnInit {
   triggerSelectHasDisableDate(dates) {
     console.warn('onSelectHasDisableDate', dates);
   }
+  pageOnBind() { 
+    this.model.data=[];
+    this._page.loadingShow();
+    this._http.getForToaken(
+      this.model.apiUrl,
+      {
+         "AppointmentAt":this.model.params.AppointmentAt,
+         "pageSize":this.model.params.pageSize,
+         "page":this.model.params.page
+      },
+      (res: any) => {
 
+
+
+
+
+        this._page.loadingHide();
+      },
+      (err: any) => {
+        this._page.alert("消息提示", "数据加载异常");
+        this._page.loadingHide();
+      }
+    );
+  } 
 }
