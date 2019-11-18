@@ -42,7 +42,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
         /// </summary>
         /// <param name="appointmentConfiggRequest"></param>
         /// <returns></returns>
-        Task<QueryResult<CrmEntity>> GetConfig(AppointmentConfiggRequest appointmentConfiggRequest);
+        Task<QueryResult<CrmEntity>> GetConfig(AppointmentConfigRequest appointmentConfiggRequest);
 
         /// <summary>
         /// 预约单创建与修改(包括取消预约)

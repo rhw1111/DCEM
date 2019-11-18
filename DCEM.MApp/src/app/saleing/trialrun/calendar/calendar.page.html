@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <ion-label>试车试驾预约日历</ion-label>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ListItem [arrow]="'horizontal'" (onClick)="onClick_3()">
+        {{ this.state.en ? 'Select Date' : '选择预约日期' }}
+      </ListItem>
+      <div class="am-demo-page">
+        <Calendar [(ngModel)]="this.state.date" [locale]="'zhCN'" [enterDirection]="this.state.enterDirection"
+          [visible]="true" [getDateExtra]="this.state.getDateExtra" [defaultDate]="this.state.now"
+          [minDate]="this.state.minDate" [maxDate]="this.state.maxDate" [pickTime]="this.state.pickTime"
+          [type]="this.state.type" [rowSize]="this.state.rowSize" [showShortcut]="this.state.showShortcut"
+          [infinite]="this.state.infinite" [defaultValue]="this.state.defaultValue" [onSelect]="this.state.onSelect"
+          (onCancel)="triggerCancel()" (onConfirm)="triggerConfirm($event)"></Calendar>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+
+    </ion-card-content>
+  </ion-card>
+</ion-content>

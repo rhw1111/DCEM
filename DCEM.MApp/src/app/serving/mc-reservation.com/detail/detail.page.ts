@@ -57,7 +57,6 @@ export class DetailPage implements OnInit {
                 this.model.infolist.mcs_appointmentinfoid = data['id'];
                 this.pageOnBind(this.model.infolist.mcs_appointmentinfoid);
             }
-            //this.pageOnBind(data.id);
         });
     }
 
@@ -120,7 +119,6 @@ export class DetailPage implements OnInit {
                 }
             },
             (res: any) => {
-                //debugger;
                 if (res !== null) {
                     if (res.Results !== null) {
                         for (var key in res.Results) {
