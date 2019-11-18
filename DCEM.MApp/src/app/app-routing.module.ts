@@ -101,6 +101,12 @@ const routes: Routes = [
                     { path: 'list', loadChildren: './serving/spmdspstock.com/list/list.module#ListPageModule' },
                 ]
             },
+            {
+                path: 'maintenance',//维修保养-预约日历
+                children: [
+                    { path: 'calendar', loadChildren: './serving/maintenance/calendar/calendar.module#CalendarPageModule' }
+                ]
+            }
         ],
     },
     {
@@ -207,19 +213,21 @@ const routes: Routes = [
 
                     { path: 'list', loadChildren: './saleing/mcs_surveyorder/list/list.module#ListPageModule' }
                 ]
+            },
+            {
+                path: 'trialrun',//试车试驾-预约日历
+                children: [ 
+                    { path: 'calendar', loadChildren: './saleing/trialrun/calendar/calendar.module#CalendarPageModule' }
+                ]
             }
-
         ]
     },
     {
         path: 'demo',//ng.mobile.ant demo
         children: [
-            { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
-        ]
-    },
-    { path: 'list', loadChildren: './saleing/mcs_surveyorder/list/list.module#ListPageModule' },    { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' }
-
-
+        { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
+      ]
+    }
 ];
 
 @NgModule({

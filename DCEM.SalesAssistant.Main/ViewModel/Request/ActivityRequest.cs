@@ -23,4 +23,18 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         /// </summary>
         public int ? mcs_activitystatus { set; get; }
     }
+
+
+    public class ActivitysRequest : PageBaseRequestModel
+    { 
+        /// <summary>
+        /// 查询关键字
+        /// </summary>
+        public string SearchKey { set; get; }
+
+        /// <summary>
+        /// 任务状态
+        /// </summary>
+        public int? mcs_activitystatus { set; get; }
+    }
 }
