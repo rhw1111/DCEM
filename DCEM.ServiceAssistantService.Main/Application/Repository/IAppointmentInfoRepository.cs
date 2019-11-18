@@ -35,7 +35,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
         /// </summary>
         /// <param name="appointmentConfiggRequest"></param>
         /// <returns></returns>
-        string GetConfig(AppointmentConfiggRequest appointmentConfiggRequest);
+        string GetConfig(AppointmentConfigRequest appointmentConfiggRequest);
 
         /// <summary>
         /// 查询各个状态统计条数

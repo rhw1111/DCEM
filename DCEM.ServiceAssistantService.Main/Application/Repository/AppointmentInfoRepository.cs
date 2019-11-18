@@ -21,12 +21,20 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
             {
                 filter += $"<condition attribute='mcs_status' operator='eq' value='{filterstr.status}' />";
             }
-            if (!string.IsNullOrWhiteSpace(filterstr.search))
+            if (filterstr.DealerId != null)
+            {
+                filter += $"<condition attribute='mcs_dealerid' operator='eq' value='{filterstr.DealerId}' />";
+            }
+            if (filterstr.AppointmentAt != null)
+            {
+                filter += $"<condition attribute='mcs_appointmentat' operator='on' value='{filterstr.AppointmentAt}' />";
+            }
+            if (!string.IsNullOrWhiteSpace(filterstr.seachkey))
             {
                 filter += $"<filter type='or'>";
-                filter += $"<condition attribute='mcs_carplate' operator='like' value='%{filterstr.search}%' />";
-                filter += $"<condition attribute='mcs_customerphone' operator='like' value='%{filterstr.search}%' />";
-                filter += $"<condition attribute='mcs_customername' operator='like' value='%{filterstr.search}%' />";
+                filter += $"<condition attribute='mcs_carplate' operator='like' value='%{filterstr.seachkey}%' />";
+                filter += $"<condition attribute='mcs_customerphone' operator='like' value='%{filterstr.seachkey}%' />";
+                filter += $"<condition attribute='mcs_customername' operator='like' value='%{filterstr.seachkey}%' />";
                 filter += $"</filter>";
             }
             var fetchString = $@"<fetch version='1.0' count='{filterstr.pageSize}' page='{filterstr.page}' output-format='xml-platform' mapping='logical' distinct='false'>
@@ -112,7 +120,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
         /// </summary>
         /// <param name="appointmentConfiggRequest"></param>
         /// <returns></returns>
-        public string GetConfig(AppointmentConfiggRequest configgRequest)
+        public string GetConfig(AppointmentConfigRequest configgRequest)
         {
             var filter = string.Empty;
             if (configgRequest.mcs_dealerid != Guid.Empty)
@@ -126,6 +134,10 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
             if (configgRequest.mcs_servedate != null)
             {
                 filter += $"<condition attribute='mcs_servedate' operator='on' value='{configgRequest.mcs_servedate}' />";
+            }
+            if (configgRequest.AppointmentConfigId != null)
+            {
+                filter += $"<condition attribute='mcs_appointmentconfigid' operator='eq' value='{configgRequest.AppointmentConfigId}' />";
             }
             var fetchString = $@"<fetch version='1.0' count='{configgRequest.pageSize}' page='{configgRequest.page}' output-format='xml-platform' mapping='logical' distinct='false'>
                                  <entity name='mcs_appointmentconfig'>
@@ -153,7 +165,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
         }
 
         /// <summary>
-        /// 
+        /// 获取预约数量总数
         /// </summary>
         /// <param name="filterstr"></param>
         /// <param name="status"></param>
@@ -165,12 +177,20 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
             {
                 filter += $"<condition attribute='mcs_status' operator='eq' value='{status}' />";
             }
-            if (!string.IsNullOrWhiteSpace(filterstr.search))
+            if (filterstr.DealerId != null)
+            {
+                filter += $"<condition attribute='mcs_dealerid' operator='eq' value='{filterstr.DealerId}' />";
+            }
+            if (filterstr.AppointmentAt != null)
+            {
+                filter += $"<condition attribute='mcs_appointmentat' operator='on' value='{filterstr.AppointmentAt}' />";
+            }
+            if (!string.IsNullOrWhiteSpace(filterstr.seachkey))
             {
                 filter += $"<filter type='or'>";
-                filter += $"<condition attribute='mcs_carplate' operator='like' value='%{filterstr.search}%' />";
-                filter += $"<condition attribute='mcs_customerphone' operator='like' value='%{filterstr.search}%' />";
-                filter += $"<condition attribute='mcs_customername' operator='like' value='%{filterstr.search}%' />";
+                filter += $"<condition attribute='mcs_carplate' operator='like' value='%{filterstr.seachkey}%' />";
+                filter += $"<condition attribute='mcs_customerphone' operator='like' value='%{filterstr.seachkey}%' />";
+                filter += $"<condition attribute='mcs_customername' operator='like' value='%{filterstr.seachkey}%' />";
                 filter += $"</filter>";
             }
             var fetchString = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'  aggregate='true'>

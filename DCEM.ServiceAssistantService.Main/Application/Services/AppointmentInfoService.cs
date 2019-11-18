@@ -4,6 +4,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Xml.Linq;
+using DCEM.Main;
+using DCEM.Main.Entities;
 using DCEM.ServiceAssistantService.Main.Application.Repository;
 using DCEM.ServiceAssistantService.Main.DTOModel;
 using Microsoft.AspNetCore.Mvc;
@@ -40,6 +42,11 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         {
             try
             {
+                var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+                if (userInfo!=null&&!string.IsNullOrWhiteSpace(userInfo.mcs_dealerid))
+                {
+                    filterstr.DealerId = Guid.Parse(userInfo.mcs_dealerid);
+                }
                 #region 查询结果集
                 var fetchString = _appointmentInfoRepository.QueryListByPage(filterstr);
 
@@ -47,7 +54,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
                 var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {
                     EntityName = "mcs_appointmentinfo",
-                    FetchXml = fetchXdoc
+                    FetchXml = fetchXdoc,
                 };
                 var fetchResponse = await _crmService.Execute(fetchRequest);
                 var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
@@ -169,7 +176,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         /// </summary>
         /// <param name="appointmentConfiggRequest"></param>
         /// <returns></returns>
-        public async Task<QueryResult<CrmEntity>> GetConfig(AppointmentConfiggRequest appointmentConfiggRequest)
+        public async Task<QueryResult<CrmEntity>> GetConfig(AppointmentConfigRequest appointmentConfiggRequest)
         {
             try
             {
