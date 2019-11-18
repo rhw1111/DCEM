@@ -144,7 +144,7 @@ export class Edit2Page implements OnInit {
                     var no = res["Data"]["Attributes"]["mcs_name"];
                     this._shareData.delete(this.mod.shareDataKey);
 
-                    if (this.shareData["actioncode"] === 1)
+                    if (this.shareData["actioncode"] === 1 || this.shareData["actioncode"] === 3)
                         this._page.navigateRoot("/serving/ri/success", { actioncode: this.shareData["actioncode"], id: id, no: no });
                     else {
                         const that = this;
