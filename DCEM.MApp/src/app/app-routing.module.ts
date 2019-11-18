@@ -216,7 +216,7 @@ const routes: Routes = [
             },
             {
                 path: 'trialrun',//试车试驾-预约日历
-                children: [ 
+                children: [
                     { path: 'calendar', loadChildren: './saleing/trialrun/calendar/calendar.module#CalendarPageModule' }
                 ]
             }
@@ -225,9 +225,10 @@ const routes: Routes = [
     {
         path: 'demo',//ng.mobile.ant demo
         children: [
-        { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
-      ]
-    }
+            { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
+        ]
+    },
+    { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' }
 ];
 
 @NgModule({
