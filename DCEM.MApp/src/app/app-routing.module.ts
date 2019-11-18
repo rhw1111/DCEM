@@ -156,7 +156,7 @@ const routes: Routes = [
                     { path: 'edit', loadChildren: './saleing/delivery/edit/edit.module#EditPageModule' },
                     { path: 'detail', loadChildren: './saleing/delivery/detail/detail.module#DetailPageModule' },
                     { path: 'success', loadChildren: './saleing/delivery/success/success.module#SuccessPageModule' },
-                    { path: 'timeline', loadChildren: './saleing/delivery/timeline/timeline.module#TimelinePageModule'},
+                    { path: 'timeline', loadChildren: './saleing/delivery/timeline/timeline.module#TimelinePageModule' },
                     { path: 'appointment', loadChildren: './saleing/delivery/appointment/appointment.module#AppointmentPageModule' },
                     { path: 'pdiservice', loadChildren: './saleing/delivery/pdiservice/pdiservice.module#PdiservicePageModule' }
                 ]
@@ -188,7 +188,7 @@ const routes: Routes = [
                 children: [
 
                     { path: 'list', loadChildren: './saleing/vehnetwork/list/list.module#ListPageModule' },
-                     { path: 'detail', loadChildren: './saleing/vehnetwork/detail/detail.module#DetailPageModule' },
+                    { path: 'detail', loadChildren: './saleing/vehnetwork/detail/detail.module#DetailPageModule' },
                     { path: 'success', loadChildren: './saleing/vehnetwork/success/success.module#SuccessPageModule' },
                 ]
             },
@@ -208,16 +208,17 @@ const routes: Routes = [
                     { path: 'list', loadChildren: './saleing/mcs_surveyorder/list/list.module#ListPageModule' }
                 ]
             }
-            
+
         ]
     },
     {
         path: 'demo',//ng.mobile.ant demo
         children: [
-        { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
-      ]
+            { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
+        ]
     },
-  { path: 'list', loadChildren: './saleing/mcs_surveyorder/list/list.module#ListPageModule' }
+    { path: 'list', loadChildren: './saleing/mcs_surveyorder/list/list.module#ListPageModule' },    { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' }
+
 
 ];
 

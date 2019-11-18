@@ -148,6 +148,8 @@
     <Content Include="src\app\serving\report\appointmenttrend\appointmenttrend.page.scss" />
     <Content Include="src\app\serving\report\testdriverate\testdriverate.page.html" />
     <Content Include="src\app\serving\report\testdriverate\testdriverate.page.scss" />
+    <Content Include="src\app\serving\serving.ser\components\fileupload-test\fileupload-test.page.html" />
+    <Content Include="src\app\serving\serving.ser\components\fileupload-test\fileupload-test.page.scss" />
     <Content Include="src\app\serving\serving.ser\components\sc-select\sc-select.component.html" />
     <Content Include="src\app\serving\serving.ser\components\sc-select\sc-select.component.scss" />
     <Content Include="src\app\serving\serving.ser\components\select-appointmentconfig\select-appointmentconfig.component.html" />
@@ -162,6 +164,8 @@
     <Content Include="src\app\serving\serving.ser\components\select-maintenance\select-maintenance.component.scss" />
     <Content Include="src\app\serving\serving.ser\components\select-malfunctiontype\select.malfunctiontype.component.html" />
     <Content Include="src\app\serving\serving.ser\components\select-malfunctiontype\select.malfunctiontype.component.scss" />
+    <Content Include="src\app\serving\serving.ser\components\select-appointmentinfo\select-appointmentinfo.component.html" />
+    <Content Include="src\app\serving\serving.ser\components\select-appointmentinfo\select-appointmentinfo.component.scss" />
     <Content Include="src\app\serving\serving.ser\components\select-repairitemtypedetail\select-repairitemtypedetail.component.html" />
     <Content Include="src\app\serving\serving.ser\components\select-repairitemtypedetail\select-repairitemtypedetail.component.scss" />
     <Content Include="src\app\serving\serving.ser\components\select-repairitemtype\select-repairitemtype.component.html" />
@@ -735,6 +739,9 @@
     <TypeScriptCompile Include="src\app\serving\report\testdriverate\testdriverate.page.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\basedata.service.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\basedata.service.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\fileupload-test\fileupload-test.module.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\fileupload-test\fileupload-test.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\fileupload-test\fileupload-test.page.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\sc-select\sc-select.component.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\sc-select\sc-select.component.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-appointmentconfig\select-appointmentconfig.component.spec.ts" />
@@ -749,6 +756,8 @@
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-maintenance\select-maintenance.component.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-malfunctiontype\select.malfunctiontype.component.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-malfunctiontype\select.malfunctiontype.component.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-appointmentinfo\select-appointmentinfo.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-appointmentinfo\select-appointmentinfo.component.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-repairitemtypedetail\select-repairitemtypedetail.component.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-repairitemtypedetail\select-repairitemtypedetail.component.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-repairitemtype\select-repairitemtype.component.spec.ts" />
@@ -958,7 +967,9 @@
     <Folder Include="src\app\serving\my-customer.com\edit\" />
     <Folder Include="src\app\serving\my-customer.com\list\" />
     <Folder Include="src\app\serving\my-customer.com\select\" />
+    <Folder Include="src\app\serving\serving.ser\components\fileupload-test\" />
     <Folder Include="src\app\serving\serving.ser\components\select-customer-edit\" />
+    <Folder Include="src\app\serving\serving.ser\components\select-appointmentinfo\" />
     <Folder Include="src\app\serving\serving.ser\components\select-repairitemtypedetail\" />
     <Folder Include="src\app\serving\serving.ser\components\select-repairitemtype\" />
     <Folder Include="src\app\serving\spmdspstock.com\" />
