@@ -100,7 +100,7 @@ export class Edit2Page implements OnInit {
     public saveOnClick() {
 
         this.mod.postData["actioncode"] = this.shareData["actioncode"];            //操作编码
-
+        debugger;
         //组装服务委托书
         this.mod.postData["serviceproxy"] = {};
         if (this.shareData["actioncode"] === 2)
@@ -118,6 +118,7 @@ export class Edit2Page implements OnInit {
         this.mod.postData["serviceproxy"]["dealerid"] = this.shareData.serviceproxy["dealerid"];                    //厅店
         this.mod.postData["serviceproxy"]["customercomment"] = this.shareData.serviceproxy["customercomment"];            //客户描述
         this.mod.postData["serviceproxy"]["currenttype"] = 10;            //单据类型 10问诊单
+        this.mod.postData["serviceproxy"]["appointmentcode"] = this.shareData.serviceproxy["appointmentcode"];            //预约单编号
 
         //组装环检项
         this.mod.postData["serviceordercheckresultArray"] = [];
