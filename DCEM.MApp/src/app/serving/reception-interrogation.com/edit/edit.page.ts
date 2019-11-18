@@ -3,7 +3,7 @@ import { ModalController, NavController, ToastController, IonBackButton, IonBack
 import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
 import { DCore_Http, DCore_Page, DCore_ShareData, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-
+import { SelectAppointmentinfoComponent } from 'app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component';
 
 @Component({
     selector: 'app-edit',
@@ -18,6 +18,7 @@ export class EditPage implements OnInit {
 
     mod = {
         queryUrl: '/Api/Serviceproxy/GetInfo',
+        queryAppointmentcodeUrl: '/api/appointment-info/GetDetail',//预约单的查询接口
         data: {
         },
         shareDataKey: "riEditData",
@@ -66,7 +67,15 @@ export class EditPage implements OnInit {
                 if (this.shareData.actioncode === 2) {
                     if (!this._shareData.has(this.mod.shareDataKey)) {
                         this.shareData.viewTitle = "编辑问诊单";
+                        this.shareData.serviceproxy["serviceproxyid"] = params['id']
                         this.pageOnBind(this.shareData.serviceproxy["serviceproxyid"]);
+                    }
+                }
+                else if (this.shareData.actioncode === 3) {  //从预约单转换服务委托书
+                    if (!this._shareData.has(this.mod.shareDataKey)) {
+                        this.shareData.viewTitle = "创建问诊单";
+                        this.shareData.serviceproxy["appointmentcode"] = params['id']
+                        this.pageOnBindFromAppointmentcode(this.shareData.serviceproxy["appointmentcode"]);
                     }
                 }
                 else {
@@ -94,6 +103,65 @@ export class EditPage implements OnInit {
                 this.shareData.serviceproxy["dealerid_formatted"] = data.vehowne["model"]["_mcs_dealer_value@OData.Community.Display.V1.FormattedValue"];
             }
         }
+    }
+    //选预约单
+    async presentAppointmentinfoModal() {
+        const modal = await this._modalCtrl.create({
+            component: SelectAppointmentinfoComponent
+        });
+        await modal.present();
+        const { data } = await modal.onDidDismiss();
+
+        if (!this._valid.isNull(data) && !this._valid.isNull(data["model"])) {
+            var resAttr = data["model"];
+            //加入预约单
+            this.shareData.serviceproxy["appointmentcode"] = resAttr["mcs_appointmentinfoid"];
+            this.shareData.serviceproxy["appointmentcode_formatted"] = resAttr["mcs_name"];
+            //加入带出的信息
+            this.shareData.serviceproxy["customerid"] = resAttr["_mcs_customerid_value"];
+            this.shareData.serviceproxy["customername"] = resAttr["mcs_customername"];
+            this.shareData.serviceproxy["carplate"] = resAttr["mcs_carplate"];
+            this.shareData.serviceproxy["customerphone"] = resAttr["mcs_customerphone"];
+            this.shareData.serviceproxy["dealerid"] = resAttr["_mcs_dealerid_value"];
+            this.shareData.serviceproxy["dealerid_formatted"] = resAttr["_mcs_dealerid_value@OData.Community.Display.V1.FormattedValue"];
+        }
+    }
+
+    //预约单的初始化页面
+    pageOnBindFromAppointmentcode(id: any) {
+        this._page.loadingShow();
+        this._http.get(
+            this.mod.queryAppointmentcodeUrl,
+            {
+                params: {
+                    entityid: id,
+                }
+            },
+            (res: any) => {
+                if (!this._valid.isNull(res) && !this._valid.isNull(res["Attributes"])) {
+                    var resAttr = res["Attributes"];
+                    debugger;
+                    //加入预约单
+                    this.shareData.serviceproxy["appointmentcode"] = resAttr["mcs_appointmentinfoid"];
+                    this.shareData.serviceproxy["appointmentcode_formatted"] = resAttr["mcs_name"];
+                    //加入带出的信息
+                    this.shareData.serviceproxy["customerid"] = resAttr["_mcs_customerid_value"];
+                    this.shareData.serviceproxy["customername"] = resAttr["mcs_customername"];
+                    this.shareData.serviceproxy["carplate"] = resAttr["mcs_carplate"];
+                    this.shareData.serviceproxy["customerphone"] = resAttr["mcs_customerphone"];
+                    this.shareData.serviceproxy["dealerid"] = resAttr["_mcs_dealerid_value"];
+                    this.shareData.serviceproxy["dealerid_formatted"] = resAttr["_mcs_dealerid_value@OData.Community.Display.V1.FormattedValue"];
+                }
+                this._page.loadingHide();
+            },
+            (err: any) => {
+                const that = this;
+                this._page.alert("消息提示", "数据加载异常", function () {
+                    that._page.goBack();
+                });
+                this._page.loadingHide();
+            }
+        );
     }
 
     //编辑初始化页面
@@ -123,8 +191,9 @@ export class EditPage implements OnInit {
                     this.shareData.serviceproxy["oilquantity"] = String(res["Serviceproxy"]["Attributes"]["mcs_oilquantity"]);
                     this.shareData.serviceproxy["arrivalon"] = res["Serviceproxy"]["Attributes"]["mcs_arrivalon"];
                     this.shareData.serviceproxy["customercomment"] = res["Serviceproxy"]["Attributes"]["mcs_customercomment"];
-
-
+                    //加入预约单
+                    this.shareData.serviceproxy["appointmentcode"] = res["Serviceproxy"]["Attributes"]["_mcs_appointmentcode_value"];
+                    this.shareData.serviceproxy["appointmentcode_formatted"] = res["Serviceproxy"]["Attributes"]["_mcs_appointmentcode_value@OData.Community.Display.V1.FormattedValue"];
                 }
 
                 if (!this._valid.isNull(res.ServiceordercheckresultList)) {
