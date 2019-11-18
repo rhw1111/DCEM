@@ -6,6 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { DetailPage } from './detail.page';
+ 
+import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile';
 
 const routes: Routes = [
   {
@@ -16,6 +18,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
+    NgZorroAntdMobileModule,
     CommonModule,
     FormsModule,
     IonicModule,

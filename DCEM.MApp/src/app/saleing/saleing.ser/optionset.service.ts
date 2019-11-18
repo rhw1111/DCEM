@@ -235,11 +235,22 @@ export class OptionSetService {
                 ];
                 break;
             case "mcs_paycategory"://整车销售-收款记录-收款类型 
+            case "mcs_paycategory"://整车销售-收款记录-收款类型 
                 optionlist = [
                     { "name": "贷款", "value": 0 },
                     { "name": "定金", "value": 1 },
                     { "name": "尾款", "value": 2 },
                     { "name": "抵扣", "value": 3 }
+                ];
+                break;
+            case "mcs_deliverorderflow"://整车销售-交车单-流程 
+                optionlist = [
+                    { "name": "PDI检测未提交", "value": 0 },
+                    { "name": "PDI检测已提交", "value": 1 },
+                    { "name": "PDI检测完成", "value": 2 },
+                    { "name": "预约完成", "value": 3 },
+                    { "name": "已收尾款", "value": 4 },
+                    { "name": "交车完成", "value": 5 }
                 ];
                 break;
             case "mcs_invoiceidtype"://整车销售-交车单-证件类型 

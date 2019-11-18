@@ -55,39 +55,46 @@ export class DetailPage implements OnInit {
     }
   }
 
-  public materielmodel={
+  public materielmodel = {
     apiUrl: '/api/delivery/getmateriel',
-    materielId:"",
+    materielId: "",
     data:
     {
-      cpt:"",
-      jbcx:"",
-      cxn:"",
-      dllx:"",
-      nsys:"",
-      wsys:""
+      cpt: "",
+      jbcx: "",
+      cxn: "",
+      dllx: "",
+      nsys: "",
+      wsys: ""
     }
   }
 
-  public moneycompletedmodel={
-    apiUrl: '/api/delivery/moneycompleted', 
+  public moneycompletedmodel = {
+    apiUrl: '/api/delivery/moneycompleted',
     data:
     {
-      Id:"", 
+      Id: "",
     }
 
+  }
+
+  public deliverorderflowmodel = {
+    apiUrl: '/api/delivery/getdeliverorderflow',
+    status: 10,
+    model:{}
   }
   ngOnInit() {
     this.activeRoute.queryParams.subscribe((data: Params) => {
       if (data['id'] != null && data['id'] != undefined) {
         this.model.id = data['id'];
-        this.orderpaymodel.search.DeliveryId = data['id'];  
-        this.moneycompletedmodel.data.Id= data['id'];  
+        this.orderpaymodel.search.DeliveryId = data['id'];
+        this.moneycompletedmodel.data.Id = data['id'];
         this.pageOnBind();
       }
     });
   }
-  //基础信息
+    
+  //获取交车单基础信息
   pageOnBind() {
     this._page.loadingShow();
     this._http.postForToaken(
@@ -112,7 +119,44 @@ export class DetailPage implements OnInit {
           this.model.info.pdiapproval = attr["mcs_pdiapproval@OData.Community.Display.V1.FormattedValue"];
           this.model.info.pdidetecton = attr["mcs_pdidetecton@OData.Community.Display.V1.FormattedValue"];
           this.model.info.serviceproxyid = attr["_mcs_serviceproxyid_value@OData.Community.Display.V1.FormattedValue"];
-          this.materielmodel.materielId=attr["_mcs_vehmaterial_value"];
+          this.materielmodel.materielId = attr["_mcs_vehmaterial_value"];
+
+          //交车单跟踪详情 
+          this.deliverorderflowmodel.model["issubmitpdi"]="是否提交pdi检测:"+attr["mcs_submitpdi@OData.Community.Display.V1.FormattedValue"];//是否提交pdi检测
+          this.deliverorderflowmodel.model["pdisubmittime"]="PDI检测提交时间:"+attr["mcs_submitpdion@OData.Community.Display.V1.FormattedValue"];//PDI检测提交时间
+          this.deliverorderflowmodel.model["pditime"]="PDI检测时间:"+attr["mcs_pdidetecton@OData.Community.Display.V1.FormattedValue"];//PDI检测时间
+          this.deliverorderflowmodel.model["appointmenton"]="预约时间:"+attr["mcs_appointmenton@OData.Community.Display.V1.FormattedValue"];//预约时间
+          this.deliverorderflowmodel.model["settlestatus"]="结清状态:"+attr["mcs_settlestatus@OData.Community.Display.V1.FormattedValue"];//结清状态
+          this.deliverorderflowmodel.model["receipton"]="收尾款时间:"+attr["mcs_receipton@OData.Community.Display.V1.FormattedValue"];
+          this.deliverorderflowmodel.model["deliveryon"]="交车时间:"+attr["mcs_deliveryon@OData.Community.Display.V1.FormattedValue"];//交车时间
+          
+          var submitpdi=attr["mcs_submitpdi"];
+          if(!submitpdi)
+          {
+            this.deliverorderflowmodel.status=2;
+          }
+          else 
+          {
+            this.deliverorderflowmodel.status=4;
+          }
+          if(this.model.status==3) 
+          {
+            this.deliverorderflowmodel.status=6;
+          }
+          if(this.model.status==4) 
+          {
+            this.deliverorderflowmodel.status=8;
+          }
+          if(this.model.status==5) 
+          {
+            this.deliverorderflowmodel.status=11;
+          }
+          if(this.model.status==7) 
+          {
+            this.deliverorderflowmodel.status=13;
+          }
+          //结清状态
+          this.pageOnActivitylist();
         }
         else {
           this._page.alert("消息提示", "交车单详情加载异常");
@@ -127,9 +171,9 @@ export class DetailPage implements OnInit {
 
   }
   //收款记录
-  pageOnLogCalllist(event) {
+  pageOnLogCalllist() {
     if (this.orderpaymodel.orderpayrecords.length == 0) {
-      this.pageOnlist(event);
+      this.pageOnlist(null);
     }
   }
   //加载下一页
@@ -138,6 +182,7 @@ export class DetailPage implements OnInit {
     this.orderpaymodel.isending = false;
     this.pageOnlist(event);
   }
+  //获取交车单收款记录
   pageOnlist(event) {
     this._page.loadingShow();
     this._http.postForToaken(
@@ -177,31 +222,24 @@ export class DetailPage implements OnInit {
   }
   //整车物料
   pageOnActivitylist() {
-    this._page.loadingShow();
     this._http.postForToaken(
       this.materielmodel.apiUrl,
-      { 'materielId': this.materielmodel.materielId},
+      { 'materielId': this.materielmodel.materielId },
       (res: any) => {
         if (res !== null) {
-          debugger; 
           var attr = res["Attributes"];
-          this.materielmodel.data.cpt=attr["_mcs_carplatformid_value@OData.Community.Display.V1.FormattedValue"];
-          this.materielmodel.data.jbcx=attr["_mcs_carmodelid_value@OData.Community.Display.V1.FormattedValue"];
-          this.materielmodel.data.cxn=attr["mcs_caryear@OData.Community.Display.V1.FormattedValue"];
-          this.materielmodel.data.dllx=attr["_mcs_powertypeid_value@OData.Community.Display.V1.FormattedValue"];
-          this.materielmodel.data.nsys=attr["_mcs_incolourid_value@OData.Community.Display.V1.FormattedValue"];
-          this.materielmodel.data.wsys=attr["_mcs_excolourid_value@OData.Community.Display.V1.FormattedValue"];
-        } 
-        this._page.loadingHide();
-      },
-      (err: any) => { 
-        this._page.loadingHide();
+          this.materielmodel.data.cpt = attr["_mcs_carplatformid_value@OData.Community.Display.V1.FormattedValue"];
+          this.materielmodel.data.jbcx = attr["_mcs_carmodelid_value@OData.Community.Display.V1.FormattedValue"];
+          this.materielmodel.data.cxn = attr["mcs_caryear@OData.Community.Display.V1.FormattedValue"];
+          this.materielmodel.data.dllx = attr["_mcs_powertypeid_value@OData.Community.Display.V1.FormattedValue"];
+          this.materielmodel.data.nsys = attr["_mcs_incolourid_value@OData.Community.Display.V1.FormattedValue"];
+          this.materielmodel.data.wsys = attr["_mcs_excolourid_value@OData.Community.Display.V1.FormattedValue"];
+        }
       }
     );
   }
   //收款完成
-  async presentAlertConfim()
-  {
+  async presentAlertConfim() {
     const alert = await this.alertController.create({
       header: '订单收款完成',
       message: '确定收款完成吗？',
@@ -221,18 +259,18 @@ export class DetailPage implements OnInit {
               this.moneycompletedmodel.data,
               (res: any) => {
                 if (res !== null) {
-                  debugger; 
+                  debugger;
                   if (res.Result) {
-                    this._page.alert("消息提示", "交车单收款完成！",()=>{
+                    this._page.alert("消息提示", "交车单收款完成！", () => {
                       //跳转到开票记录 
-                    }); 
+                    });
                   } else {
                     this._page.alert("消息提示", res.Description);
                   }
-                } 
+                }
                 this._page.loadingHide();
               },
-              (err: any) => { 
+              (err: any) => {
                 this._page.loadingHide();
               }
             );
@@ -241,5 +279,5 @@ export class DetailPage implements OnInit {
       ]
     });
     await alert.present();
-  }
+  } 
 }

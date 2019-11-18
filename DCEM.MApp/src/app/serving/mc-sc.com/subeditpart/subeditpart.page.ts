@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { SelectPartsComponent } from 'app/serving/serving.ser/components/select-parts/select-parts.component';
 import { DCore_Http, DCore_Page, DCore_ShareData, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { SelectRepairitemtypeComponent } from 'app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component';
@@ -14,18 +15,21 @@ export class SubeditpartPage implements OnInit {
 
 
     mod = {
+        actionCode: 1,
         data: {},
         searchData: {
 
         },
-        shareDataKey: "scEditData"
+        shareDataKey: "scEditData",
+        mapkey: null,
     };
     constructor(
         private _http: DCore_Http,
         private _page: DCore_Page,
         private _shareData: DCore_ShareData,
         private _valid: DCore_Valid,
-        private _modalCtrl: ModalController
+        private _modalCtrl: ModalController,
+        private _activeRoute: ActivatedRoute
     ) { }
 
     ngOnInit() {
@@ -42,12 +46,47 @@ export class SubeditpartPage implements OnInit {
         if (this._shareData.has(this.mod.shareDataKey)) {
             this.shareData = this._shareData.get(this.mod.shareDataKey);
         }
-        console.log(this.shareData);
+
+        this._activeRoute.queryParams.subscribe((params: Params) => {
+
+            if (!this._valid.isNull(params['actionCode'])) {
+                this.mod.actionCode = Number(params['actionCode']);
+            }
+            if (this.mod.actionCode === 1) {
+                this.mod.data = {};
+            }
+            else {
+                this.mod.mapkey = params['key'];
+                this.mod.data = Object.assign({}, this.shareData.serviceorderpartMap[this.mod.mapkey]);
+            }
+        });
     }
 
     //保存
     saveOnClick() {
-        console.log(this.shareData);
+
+        var errMessage = "";
+        if (this._valid.isNullOrEmpty(this.mod.data["partsid"])) {
+            errMessage += "您尚未未选择零件<br>";
+        }
+        if (this._valid.isNullOrEmpty(this.mod.data["quantity"])) {
+            errMessage += "您尚未未输入数量<br>";
+        }
+        else if (!this._valid.isNumber(this.mod.data["quantity"])) {
+            errMessage += "数量不是一个有效的数字<br>";
+        }
+        if (this._valid.isNullOrEmpty(this.mod.data["discount"])) {
+            errMessage += "您尚未未输入折扣<br>";
+        }
+        else if (this.mod.data["discount"] < 0 || this.mod.data["discount"] > 1) {
+            errMessage += "折扣只能输入0-1之间的数值<br>";
+        }
+        if (errMessage !== "") {
+            this._page.presentToastError(errMessage);
+            return;
+        }
+
+        this.shareData.serviceorderpartMap[this.mod.mapkey] = this.mod.data;
         this._shareData.set(this.mod.shareDataKey, this.shareData);
         this._page.goto("/serving/sc/edit2");
     }
@@ -60,9 +99,11 @@ export class SubeditpartPage implements OnInit {
         await modal.present();
         const { data } = await modal.onDidDismiss();
         if (!this._valid.isNull(data) && !this._valid.isNull(data["parts"])) {
-            console.log(data);
+
             var obj = {};
-            var mapkey = Math.random();//生成唯一编码
+
+            if (this.mod.actionCode === 1)
+                this.mod.mapkey = Math.random();//生成唯一编码
 
             obj["name"] = data["parts"]["model"]["mcs_partscode"];
             obj["code"] = data["parts"]["model"]["mcs_name"];
@@ -79,7 +120,7 @@ export class SubeditpartPage implements OnInit {
             obj["amount"] = data["parts"]["model"]["ext_price"];
 
             this.mod.data = obj;
-            this.shareData.serviceorderpartMap[mapkey] = obj;
+            this.shareData.serviceorderpartMap[this.mod.mapkey] = obj;
         }
     }
 
@@ -139,11 +180,6 @@ export class SubeditpartPage implements OnInit {
         if (!this._valid.isNullOrEmpty(this.mod.data["discount"]) && this._valid.isNumber(this.mod.data["discount"])) {
             discount = this.mod.data["discount"];
         }
-        console.log(quantity);
-        console.log(price);
-        console.log(discount);
-
-
-        this.mod.data["amount"] = quantity * price * discount;
+        this.mod.data["amount"] = (quantity * price * discount).toFixed(2);
     }
 }
