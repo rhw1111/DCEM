@@ -91,12 +91,12 @@ export class ListPage implements OnInit {
           this._page.loadingHide();
         }
         else {
-          this._page.alert("消息提示", "原始线索数据加载异常");
+          this._page.alert("消息提示", "交车单列表数据加载异常");
         }
         this._page.loadingHide();
       },
       (err: any) => {
-        this._page.alert("消息提示", "原始线索数据加载异常");
+        this._page.alert("消息提示", "交车单列表数据加载异常");
         this._page.loadingHide();
       }
     );

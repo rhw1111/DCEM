@@ -29,5 +29,8 @@ namespace DCEM.SalesAssistant.Main.Application.App.Contrac
         Task<ValidateResult<string>> addorderpay(OrderPayEditRequest orderPayEditRequest);
 
         Task<ValidateResult<string>> moneycompleted(DeliveryDetailRequest deliveryDetailRequest);
+
+        Task<CrmEntity> getdeliverorderflow(DeliveryDetailRequest deliveryDetailRequest);
+         
     }
 }

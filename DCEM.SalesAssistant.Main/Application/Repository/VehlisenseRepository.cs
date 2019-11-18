@@ -52,6 +52,9 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
       <condition attribute='mcs_dealer' operator='eq' value='{deliveryListRequest.DealerId}' />
 {filterStr}
     </filter> 
+  <link-entity name='mcs_vehicle' from='mcs_vehicleid' to='mcs_vin' visible='false' link-type='outer' >
+      <attribute name='mcs_name' alias='vinname'/> 
+    </link-entity> 
   </entity>
 </fetch>";
                 return XDocument.Parse(fetchXml);
@@ -87,12 +90,20 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
                                       <condition attribute='statecode' operator='eq' value='0' />
                                       <condition attribute='mcs_vehlisenseid' operator='eq'  uitype='mcs_vehlisense' value='{id}' />
                                     </filter>
+                                  <link-entity name='mcs_vehicle' from='mcs_vehicleid' to='mcs_vin' visible='false' link-type='outer' >
+                                      <attribute name='mcs_name' alias='vinname'/> 
+                                    </link-entity> 
                                     <link-entity name='mcs_vehorder' from='mcs_vehorderid' to='mcs_vehorder' visible='false' link-type='outer' alias='a_e1f73281e00fe911a820844a39d18a7a'>
                                       <attribute name='mcs_customer' />
                                       <attribute name='mcs_contactphone' />
+                                      <attribute name='mcs_code' alias='vehordercode'/>
                                       <attribute name='mcs_contactname' />
                                       <attribute name='mcs_rostatus' />
                                       <attribute name='mcs_orderon' />
+                                    </link-entity>
+                                    <link-entity name='mcs_vehdelivery' from='mcs_vehdeliveryid' to='mcs_vehdelivery' visible='false' link-type='outer' >
+                                        <attribute name='mcs_code' alias='vehdeliverycode'/> 
+                                        <attribute name='mcs_deliverystatus' alias='deliverystatus'/>    
                                     </link-entity>
                                   </entity>
                                 </fetch>";

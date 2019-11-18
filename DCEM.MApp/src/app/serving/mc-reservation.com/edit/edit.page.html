@@ -50,7 +50,7 @@
                 <ion-label>
                     <ion-text color="danger">*</ion-text>预约日期
                 </ion-label>
-                <ion-datetime displayFormat="YYYY-MM-DD" min="1997" (ionChange)="appointmentAtChange()"  [(ngModel)]="shareData.appointmentinfo['mcs_appointmentat']"></ion-datetime>
+                <ion-datetime displayFormat="YYYY-MM-DD" min="1997" (ionChange)="appointmentAtChange()" [pickerOptions]="customPickerOptions"  [(ngModel)]="shareData.appointmentinfo['mcs_appointmentat']"></ion-datetime>
             </ion-item>
           
             <ion-item (click)="appointmentconfigOnClick()">

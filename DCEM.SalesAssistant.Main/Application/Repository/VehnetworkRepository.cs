@@ -93,20 +93,30 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
     <attribute name='mcs_opencardtime' />
     <attribute name='mcs_deliveryon' />
     <attribute name='mcs_tservicestatus' />
-    <attribute name='mcs_dealer' />
-    <attribute name='mcs_caruse' />
+    <attribute name='mcs_dealer' /> 
     <attribute name='mcs_vehnetworkid' />
     <order attribute='createdon' descending='true' />
     <filter type='and'> 
       <condition attribute='mcs_vehnetworkid' operator='eq'   uitype='mcs_vehnetwork' value='{id}' />
     </filter>
-  <link-entity name='mcs_vehorder' from='mcs_vehorderid' to='mcs_vehorder' visible='false' link-type='outer' >
-      <attribute name='mcs_contactname' alias='mcs_contactname'/>
-      <attribute name='mcs_contactphone' alias='mcs_contactphone'/>
-      <attribute name='mcs_idcard' alias='mcs_idcard'/>
-      <attribute name='mcs_rostatus' alias='mcs_rostatus'/>
-      <attribute name='mcs_orderon' alias='mcs_orderon'/>
+   <link-entity name='mcs_vehorder' from='mcs_vehorderid' to='mcs_vehorder' visible='false' link-type='outer' >
+      <attribute name='mcs_contactname' alias='contactname'/>
+      <attribute name='mcs_contactphone' alias='contactphone'/>
+      <attribute name='mcs_code' alias='vehordercode'/>
+      <attribute name='mcs_idcard' alias='idcard'/>
+      <attribute name='mcs_rostatus' alias='rostatus'/>
+      <attribute name='mcs_orderon' alias='orderon'/>
     </link-entity>
+    <link-entity name='mcs_vehicle' from='mcs_vehicleid' to='mcs_vin' visible='false' link-type='outer' >
+      <attribute name='mcs_name' alias='vinname'/> 
+    </link-entity> 
+  <link-entity name='mcs_vehuseconfig' from='mcs_vehuseconfigid' to='mcs_caruse' visible='false' link-type='outer' >
+      <attribute name='mcs_name' alias='carusename'/> 
+    </link-entity> 
+    <link-entity name='mcs_vehdelivery' from='mcs_vehdeliveryid' to='mcs_vehdelivery' visible='false' link-type='outer' >
+      <attribute name='mcs_code' alias='vehdeliverycode'/> 
+      <attribute name='mcs_deliverystatus' alias='deliverystatus'/>    
+   </link-entity>
   </entity>
 </fetch>";
                 return XDocument.Parse(fetchXml);

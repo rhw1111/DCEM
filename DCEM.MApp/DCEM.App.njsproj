@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{f26cede4-f02d-4382-a6bd-49c0cb89d2aa}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <StartupFile />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -162,6 +162,10 @@
     <Content Include="src\app\serving\serving.ser\components\select-maintenance\select-maintenance.component.scss" />
     <Content Include="src\app\serving\serving.ser\components\select-malfunctiontype\select.malfunctiontype.component.html" />
     <Content Include="src\app\serving\serving.ser\components\select-malfunctiontype\select.malfunctiontype.component.scss" />
+    <Content Include="src\app\serving\serving.ser\components\select-repairitemtypedetail\select-repairitemtypedetail.component.html" />
+    <Content Include="src\app\serving\serving.ser\components\select-repairitemtypedetail\select-repairitemtypedetail.component.scss" />
+    <Content Include="src\app\serving\serving.ser\components\select-repairitemtype\select-repairitemtype.component.html" />
+    <Content Include="src\app\serving\serving.ser\components\select-repairitemtype\select-repairitemtype.component.scss" />
     <Content Include="src\app\serving\serving.ser\components\select-repairlocation\select-repairlocation.component.html" />
     <Content Include="src\app\serving\serving.ser\components\select-repairlocation\select-repairlocation.component.scss" />
     <Content Include="src\app\serving\serving.ser\components\select-parts\select-parts.component.html" />
@@ -178,6 +182,7 @@
     <Content Include="src\app\serving\technical-support.com\list\list.page.scss" />
     <Content Include="src\app\serving\technical-support.com\success\success.page.html" />
     <Content Include="src\app\serving\technical-support.com\success\success.page.scss" />
+    <Content Include="src\assets\css\ng-zorro-antd-mobile.css" />
     <Content Include="src\assets\img\01.jpg" />
     <Content Include="src\assets\img\02.jpg" />
     <Content Include="src\assets\img\03.jpg" />
@@ -744,6 +749,10 @@
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-maintenance\select-maintenance.component.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-malfunctiontype\select.malfunctiontype.component.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-malfunctiontype\select.malfunctiontype.component.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-repairitemtypedetail\select-repairitemtypedetail.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-repairitemtypedetail\select-repairitemtypedetail.component.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-repairitemtype\select-repairitemtype.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-repairitemtype\select-repairitemtype.component.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-repairlocation\select-repairlocation.component.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-repairlocation\select-repairlocation.component.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-parts\select-parts.component.spec.ts" />
@@ -950,6 +959,8 @@
     <Folder Include="src\app\serving\my-customer.com\list\" />
     <Folder Include="src\app\serving\my-customer.com\select\" />
     <Folder Include="src\app\serving\serving.ser\components\select-customer-edit\" />
+    <Folder Include="src\app\serving\serving.ser\components\select-repairitemtypedetail\" />
+    <Folder Include="src\app\serving\serving.ser\components\select-repairitemtype\" />
     <Folder Include="src\app\serving\spmdspstock.com\" />
     <Folder Include="src\app\serving\reception-interrogation.com\" />
     <Folder Include="src\app\serving\reception-interrogation.com\detail\" />
@@ -980,6 +991,7 @@
     <Folder Include="src\app\serving\technical-support.com\list\" />
     <Folder Include="src\app\serving\technical-support.com\success\" />
     <Folder Include="src\assets" />
+    <Folder Include="src\assets\css\" />
     <Folder Include="src\assets\icon" />
     <Folder Include="src\assets\img\" />
     <Folder Include="src\environments" />

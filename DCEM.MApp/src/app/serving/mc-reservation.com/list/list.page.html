@@ -29,17 +29,38 @@
         </ion-refresher-content>
     </ion-refresher>
     <ion-list lines="full">
-        <ion-item  *ngFor="let r of model.data" button="true" [routerLink]="['/serving/reservation/detail']" [queryParams]="{id:r.mcs_appointmentinfoid}">
+        <ion-item *ngFor="let r of model.data" button="true" [routerLink]="['/serving/reservation/detail']" [queryParams]="{id:r.mcs_appointmentinfoid}">
+            <ion-icon slot="start" color="{{r.appointment}}" name="calendar" size="large" style="width:50px;height:50px;"></ion-icon>
             <ion-label>
                 <h2>车牌号：{{r.mcs_carplate}}</h2>
                 <p>车主姓名：{{r.mcs_customername}}</p>
                 <p>预约日期：{{FormatToDate(r.mcs_appointmentat)}}</p>
                 <p>预约时段：{{r.mcs_appointmentconfigid}}</p>
-                <p *ngIf="r.mcs_status==10">跟进状态：待跟进</p>
-                <p *ngIf="r.mcs_status==20">跟进状态：已跟进</p>
-                <p *ngIf="r.mcs_status==30">跟进状态：已入场</p>
-                <p *ngIf="r.mcs_status==50">跟进状态：已取消</p>
             </ion-label>
+            <ion-note slot="end" *ngIf="r.mcs_status==10">
+                <ion-icon color="danger" name="heart-empty" size="small"></ion-icon>
+                待跟进
+            </ion-note>
+            <ion-note slot="end" *ngIf="r.mcs_status==20">
+                <ion-icon color="danger" name="heart-half" size="small"></ion-icon>
+                已跟进
+            </ion-note>
+            <ion-note slot="end" *ngIf="r.mcs_status==30">
+                <ion-icon color="danger" name="heart" size="small"></ion-icon>
+                已入场
+            </ion-note>
+            <ion-note slot="end" *ngIf="r.mcs_status==50">
+                <ion-icon color="danger" name="heart-dislike" size="small"></ion-icon>
+                已取消
+            </ion-note>
+            <ion-note slot="end" *ngIf="r.mcs_status=='undefined'">
+                <ion-icon color="dark" name="heart" size="small"></ion-icon>
+                无
+            </ion-note>
+            <ion-note slot="end" *ngIf="r.mcs_status==40">
+                <ion-icon color="dark" name="heart" size="small"></ion-icon>
+                --
+            </ion-note>
         </ion-item>
     </ion-list>
     <ion-row *ngIf="model.isending">
@@ -51,9 +72,15 @@
         <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
         </ion-infinite-scroll-content>
     </ion-infinite-scroll>
+
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button [routerLink]="['/serving/reservation/edit']">
-            <ion-icon name="add"></ion-icon>
+        <ion-fab-button>
+            <ion-icon name="arrow-dropup"></ion-icon>
         </ion-fab-button>
+        <ion-fab-list side="top">
+            <ion-fab-button [routerLink]="['/serving/reservation/edit']">
+                <ion-icon name="add"></ion-icon>新增
+            </ion-fab-button>
+        </ion-fab-list>
     </ion-fab>
 </ion-content>

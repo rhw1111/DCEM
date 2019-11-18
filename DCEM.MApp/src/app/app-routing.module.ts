@@ -145,7 +145,8 @@ const routes: Routes = [
                 children: [
                     { path: 'list', loadChildren: './saleing/mcs-account.com/list/list.module#ListPageModule' },
                     { path: 'edit', loadChildren: './saleing/mcs-account.com/edit/edit.module#EditPageModule' },
-                    { path: 'detail', loadChildren: './saleing/mcs-account.com/detail/detail.module#DetailPageModule' }
+                    { path: 'detail', loadChildren: './saleing/mcs-account.com/detail/detail.module#DetailPageModule' },
+                    { path: 'success', loadChildren: './saleing/mcs-account.com/success/success.module#SuccessPageModule' }
                 ]
             },
             {
@@ -200,17 +201,14 @@ const routes: Routes = [
                     { path: 'success', loadChildren: './saleing/vehlisense/success/success.module#SuccessPageModule' },
                 ]
             }
-         ,
-         {
-       path: 'demo',//ng.mobile.ant demo
-            children: [
-            { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
-          ]
-        }
         ]
+    },
+    {
+        path: 'demo',//ng.mobile.ant demo
+        children: [
+        { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
+      ]
     }
-
-
 ];
 
 @NgModule({

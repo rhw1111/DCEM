@@ -85,6 +85,10 @@
           <ion-note slot="end">{{model.postData.mcs_carplate}}</ion-note>
         </ion-item>
         <ion-item>
+          <ion-label>车型</ion-label>
+          <ion-note slot="end">{{model.viewData.mcs_cartypeidname}}</ion-note>
+        </ion-item>
+        <ion-item>
           <ion-label>VIN</ion-label>
           <ion-note slot="end">{{model.viewData.vin}}</ion-note>
         </ion-item>
@@ -131,7 +135,7 @@
             </ion-select>
           </ion-item>
         <ion-item>
-            <ion-label>故障类别代码</ion-label>
+            <ion-label><ion-text color="danger">*</ion-text>故障类别代码</ion-label>
             <ion-note slot="end">{{model.viewData.mcs_malfunctiontype_value}}</ion-note> 
             <ion-avatar slot="end"> 
                 <ion-icon color="primary" size="large" name="search" (click)="presentMalFunctionTypeModal()"></ion-icon>

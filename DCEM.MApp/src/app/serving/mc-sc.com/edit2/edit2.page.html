@@ -56,7 +56,7 @@
         </ion-card-header>
         <ion-list lines="full">
             <ion-item-sliding *ngFor="let key of objectKeys(shareData.serviceorderrepairitemMap)">
-                <ion-item>
+                <ion-item [routerLink]="['/serving/sc/subeditworking']" [queryParams]="{key:key,actionCode:2}">
                     <ion-label>
                         <h2>
                             项目名称(编码)
@@ -88,7 +88,7 @@
             </ion-item-sliding>
         </ion-list>
         <ion-card-content>
-            <ion-button color="primary" class="button-outline" (click)="workingEditClick()">
+            <ion-button color="primary" class="button-outline" [routerLink]="['/serving/sc/subeditworking']" [queryParams]="{actionCode:1}">
                 添加
             </ion-button>
         </ion-card-content>
@@ -105,7 +105,7 @@
 
         <ion-list lines="full">
             <ion-item-sliding *ngFor="let key of objectKeys(shareData.serviceorderpartMap)">
-                <ion-item>
+                <ion-item [routerLink]="['/serving/sc/subeditpart']" [queryParams]="{key:key,actionCode:2}">
                     <ion-label>
                         <h2>
                             零件名称(编码)
@@ -137,7 +137,7 @@
             </ion-item-sliding>
         </ion-list>
         <ion-card-content>
-            <ion-button color="primary" class="button-outline" (click)="partEditClick()">
+            <ion-button color="primary" class="button-outline" [routerLink]="['/serving/sc/subeditpart']" [queryParams]="{actionCode:1}">
                 添加
             </ion-button>
         </ion-card-content>

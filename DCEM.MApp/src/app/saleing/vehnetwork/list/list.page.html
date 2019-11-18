@@ -6,7 +6,7 @@
         <ion-title>我的开票信息</ion-title>
     </ion-toolbar>
     <ion-toolbar>
-        <ion-searchbar animated [(ngModel)]="model.search.searchkey" placeholder="请输入交车单号\用户搜索"
+        <ion-searchbar animated [(ngModel)]="model.search.searchkey" placeholder="请输入开票名称\号码\手机号搜索"
             (keyup)="searchOnKeyup($event)"></ion-searchbar>
     </ion-toolbar>
     <ion-toolbar>
@@ -34,8 +34,8 @@
                     <h2>{{item.name}}</h2>
                     <p>{{item.code}}</p> 
                 </ion-label> 
-                <ion-note slot="end">
-                         {{item.status}}
+                <ion-note slot="end" >
+                        <p style="    font-size: 0.8rem;"> {{item.status}}</p>
                     </ion-note>
             </ion-item>
             <ion-item-options side="end">
@@ -55,9 +55,5 @@
         <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
         </ion-infinite-scroll-content>
     </ion-infinite-scroll>
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button [routerLink]="['/saleing/vehnetwork/edit']">
-            <ion-icon name="add"></ion-icon>
-        </ion-fab-button>
-    </ion-fab>
+   
 </ion-content>
