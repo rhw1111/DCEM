@@ -56,21 +56,22 @@ export class AppComponent {
     }
 
     initializeApp() {
-        //this.platform.ready().then(() => {
-        //    this.statusBar.styleDefault();
-        //    this.splashScreen.hide();
+        this.platform.ready().then(() => {
+           this.statusBar.styleDefault();
+           this.splashScreen.hide();
+
+           this.headpicture = "assets/img/head_default.jpg";
 
         //    this.authService.authenticationState.subscribe(state => {
         //        console.log(state);
         //        if (state) {
         //            this.router.navigate(['tabs']);
-        //            this.headpicture = "assets/img/head_default.jpg";
         //        }
         //        else {
-        //            this.router.navigate(['login']);
+        //            //this.router.navigate(['login']);
         //        }
         //    });
-        //});
+        });
     }
 
     loginout() {

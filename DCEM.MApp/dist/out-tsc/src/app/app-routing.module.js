@@ -207,7 +207,8 @@ const routes = [
             {
                 path: 'surveyorder',
                 children: [
-                    { path: 'list', loadChildren: './saleing/mcs_surveyorder/list/list.module#ListPageModule' }
+                    { path: 'list', loadChildren: './saleing/mcs_surveyorder/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './saleing/mcs_surveyorder/detail/detail.module#DetailPageModule' }
                 ]
             },
             {
@@ -224,7 +225,8 @@ const routes = [
             { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
         ]
     },
-    { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' }
+    { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' },
+    { path: 'fileupload', loadChildren: './serving/serving.ser/components/fileupload/fileupload.module#FileuploadPageModule' }
 ];
 let AppRoutingModule = class AppRoutingModule {
 };
