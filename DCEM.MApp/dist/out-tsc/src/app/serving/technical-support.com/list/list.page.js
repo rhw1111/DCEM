@@ -9,6 +9,7 @@ let ListPage = class ListPage {
         this._http = _http;
         this._page = _page;
         this.httpService = httpService;
+        this.tab = "0";
         this.model = {
             name: 'technicalsupportlist',
             apiUrl: '/api/tech-support/GetList',
@@ -34,7 +35,7 @@ let ListPage = class ListPage {
     //每次页面加载
     ionViewWillEnter() {
         this.model.page = 1;
-        this.getList(null);
+        this.selectTab(0);
     }
     //搜索方法
     search(event) {

@@ -13,6 +13,7 @@ import { IonInfiniteScroll } from '@ionic/angular';
 export class ListPage implements OnInit {
     @ViewChild(IonInfiniteScroll,null) infiniteScroll: IonInfiniteScroll;
 
+    public tab:any="0";
     public model: any = {
         name: 'technicalsupportlist',//模块实体名称
         apiUrl: '/api/tech-support/GetList',//请求地址
@@ -46,7 +47,7 @@ export class ListPage implements OnInit {
     //每次页面加载
     ionViewWillEnter() {
         this.model.page = 1;
-        this.getList(null);
+        this.selectTab(0);
     }
 
     //搜索方法

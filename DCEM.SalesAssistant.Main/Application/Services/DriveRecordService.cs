@@ -43,7 +43,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
                 if (userInfo != null && !string.IsNullOrWhiteSpace(userInfo.mcs_dealerid))
                 {
-                    request.DealerId = Guid.Parse("d2b7ae95-72f4-e911-a821-f2106c4094a1");//Guid.Parse(userInfo.mcs_dealerid);
+                   // request.DealerId = Guid.Parse(userInfo.mcs_dealerid);
                 }
                 #region 查询结果集
                 var fetchString = _driveRecordRepository.QueryList(request);
@@ -53,6 +53,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 {
                     EntityName = "mcs_driverecord",
                     FetchXml = fetchXdoc,
+                    ProxyUserId= userInfo?.systemuserid
                 };
                 fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
                 var fetchResponse = await _crmService.Execute(fetchRequest);
@@ -66,7 +67,8 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {
                     EntityName = "mcs_driverecord",
-                    FetchXml = fetchAllTotalXdoc
+                    FetchXml = fetchAllTotalXdoc,
+                    ProxyUserId = userInfo?.systemuserid
                 };
                 fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
                 fetchResponse = await _crmService.Execute(fetchRequest);
@@ -80,7 +82,8 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {
                     EntityName = "mcs_driverecord",
-                    FetchXml = fetchSubmittedXdoc
+                    FetchXml = fetchSubmittedXdoc,
+                     ProxyUserId = userInfo?.systemuserid
                 };
                 fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
                 fetchResponse = await _crmService.Execute(fetchRequest);
@@ -94,7 +97,8 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {
                     EntityName = "mcs_driverecord",
-                    FetchXml = fetchScheduledXdoc
+                    FetchXml = fetchScheduledXdoc,
+                    ProxyUserId = userInfo?.systemuserid
                 };
                 fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
                 fetchResponse = await _crmService.Execute(fetchRequest);
@@ -108,7 +112,8 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {
                     EntityName = "mcs_driverecord",
-                    FetchXml = fetchCancelledXdoc
+                    FetchXml = fetchCancelledXdoc,
+                    ProxyUserId = userInfo?.systemuserid
                 };
                 fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
                 fetchResponse = await _crmService.Execute(fetchRequest);

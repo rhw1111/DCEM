@@ -45,7 +45,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
                 var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
                 if (userInfo!=null&&!string.IsNullOrWhiteSpace(userInfo.mcs_dealerid))
                 {
-                    filterstr.DealerId = Guid.Parse("d2b7ae95-72f4-e911-a821-f2106c4094a1");//Guid.Parse(userInfo.mcs_dealerid);
+                    filterstr.DealerId =Guid.Parse(userInfo.mcs_dealerid);
                 }
                 #region 查询结果集
                 var fetchString = _appointmentInfoRepository.QueryListByPage(filterstr);
@@ -55,6 +55,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
                 {
                     EntityName = "mcs_appointmentinfo",
                     FetchXml = fetchXdoc,
+                    ProxyUserId = userInfo?.systemuserid
                 };
                 fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
                 var fetchResponse = await _crmService.Execute(fetchRequest);
