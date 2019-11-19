@@ -24,7 +24,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<QueryResult<CrmEntity>> getlist(ActivitysRequest request)
+        public async Task<QueryResult<CrmEntity>> getlist(ActivityRequest request)
         {
             try
             {

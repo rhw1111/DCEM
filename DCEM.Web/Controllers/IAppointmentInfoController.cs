@@ -9,11 +9,9 @@ using Microsoft.AspNetCore.Cors;
 using DCEM.ServiceAssistantService.Main.Application;
 using DCEM.ServiceAssistantService.Main.DAL;
 using DCEM.ServiceAssistantService.Main.DTOModel;
-using System.Linq;
 using System.Threading.Tasks;
 using MSLibrary.Xrm;
 using MSLibrary;
-using System;
 
 namespace DCEM.Web.Controllers
 {

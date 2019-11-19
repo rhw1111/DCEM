@@ -57,6 +57,16 @@ namespace DCEM.SalesAssistant.Main.Application.App
         }
 
         /// <summary>
+        /// 培育任务详情查询
+        /// </summary>
+        /// <param name="mcs_activityid"></param>
+        /// <returns></returns>
+        public async Task<ActivityDetailModel> GetAcvitityDetail(string mcs_activityid)
+        {
+            return await _onlyLeadService.GetAcvitityDetail(mcs_activityid);
+        }
+
+        /// <summary>
         /// logcall 新增或编辑
         /// </summary>
         /// <param name="activityrequest"></param>
