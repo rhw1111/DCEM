@@ -32,7 +32,7 @@
   </ion-refresher>
 
   <ion-list lines="full">
-    <ion-item *ngFor="let item of model.datalist" [routerLink]="['/saleing/vehorder/detail']" [queryParams]="{id:item.mcs_vehorderid}">          
+    <ion-item *ngFor="let item of model.datalist" [routerLink]="['/saleing/surveyorder/detail']" [queryParams]="{id:item.mcs_surveyorderid}">          
         <ion-icon slot="start" name="logo-instagram" size="large" color="tertiary"></ion-icon>
         <ion-label>
             <h2>{{item.mcs_name}}</h2> 
