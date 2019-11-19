@@ -48,7 +48,6 @@ let DetailPage = class DetailPage {
                 this.model.infolist.mcs_appointmentinfoid = data['id'];
                 this.pageOnBind(this.model.infolist.mcs_appointmentinfoid);
             }
-            //this.pageOnBind(data.id);
         });
     }
     pageOnBind(id) {
@@ -100,7 +99,6 @@ let DetailPage = class DetailPage {
                 page: this.model.page
             }
         }, (res) => {
-            //debugger;
             if (res !== null) {
                 if (res.Results !== null) {
                     for (var key in res.Results) {

@@ -33,14 +33,27 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
             {
                 filter += $"<filter type='and'>";
                 filter += $"<condition attribute='mcs_dealer' operator='eq' value='{_request.mcs_dealerid}' />";
+                if (_request.mcs_surveystatus != 0)
+                    filter += $"<condition attribute='mcs_surveystatus' operator='eq' value='{_request.mcs_surveystatus}' />";
                 filter += $"</filter>";
             }
+            else {
+                if (_request.mcs_surveystatus != 0) {
+                    filter += $"<filter type='and'>";
+                    filter += $"<condition attribute='mcs_surveystatus' operator='eq' value='{_request.mcs_surveystatus}' />";
+                    filter += $"</filter>";
+                }
+            }
+
             var fetchString = $@"<fetch version='1.0' count='{_request.PageSize}' page='{_request.PageIndex}' output-format='xml-platform' mapping='logical' distinct='false'>
                    <entity name='mcs_surveyorder'>
                 <attribute name='mcs_surveyorderid' />
                 <attribute name='mcs_name' />
                 <attribute name='createdon' />
+                <attribute name='mcs_username' />
+                <attribute name='mcs_userphone' />
                 <attribute name='mcs_dealer' />
+                <attribute name='mcs_surveystatus' />
                 <order attribute='createdon' descending='true' />
                 <filter type='and'>
                   <condition attribute='statecode' operator='eq' value='0' />

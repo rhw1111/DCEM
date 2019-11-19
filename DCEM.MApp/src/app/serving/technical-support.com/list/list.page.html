@@ -4,6 +4,9 @@
       <ion-back-button text="返回" defaultHref="/"></ion-back-button>
     </ion-buttons>
     <ion-title>技术支持</ion-title>
+    <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
   </ion-toolbar>
   <ion-toolbar>
       <ion-searchbar [(ngModel)]="this.model.seachkey" placeholder="支持项目名称和编号模糊查找" (keyup)="search($event)" ></ion-searchbar>

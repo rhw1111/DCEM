@@ -9,11 +9,9 @@ using Microsoft.AspNetCore.Cors;
 using DCEM.ServiceAssistantService.Main.Application;
 using DCEM.ServiceAssistantService.Main.DAL;
 using DCEM.ServiceAssistantService.Main.DTOModel;
-using System.Linq;
 using System.Threading.Tasks;
 using MSLibrary.Xrm;
 using MSLibrary;
-using System;
 
 namespace DCEM.Web.Controllers
 {
@@ -95,18 +93,8 @@ namespace DCEM.Web.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetConfig")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetConfig(string mcs_dealerid,int? mcs_servetype,DateTime? mcs_servedate,Guid?configid, string sort = "", int pageSize = 10, int page = 1)
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetConfig([FromQuery]AppointmentConfigRequest appointmentConfiggRequest)
         {
-            var appointmentConfiggRequest = new AppointmentConfigRequest()
-            {
-                page = page,
-                pageSize = pageSize,
-                sort = sort,
-                mcs_dealerid = Guid.Parse(mcs_dealerid),
-                mcs_servetype = mcs_servetype,
-                mcs_servedate = mcs_servedate,
-                AppointmentConfigId= configid
-            };
             var list = await app.GetConfig(appointmentConfiggRequest);
             return list;
         }

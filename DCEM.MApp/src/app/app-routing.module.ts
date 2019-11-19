@@ -211,12 +211,13 @@ const routes: Routes = [
                 path: 'surveyorder',//勘测单-记录
                 children: [
 
-                    { path: 'list', loadChildren: './saleing/mcs_surveyorder/list/list.module#ListPageModule' }
+                    { path: 'list', loadChildren: './saleing/mcs_surveyorder/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './saleing/mcs_surveyorder/detail/detail.module#DetailPageModule' }
                 ]
             },
             {
                 path: 'trialrun',//试车试驾-预约日历
-                children: [ 
+                children: [
                     { path: 'calendar', loadChildren: './saleing/trialrun/calendar/calendar.module#CalendarPageModule' }
                 ]
             }
@@ -225,9 +226,12 @@ const routes: Routes = [
     {
         path: 'demo',//ng.mobile.ant demo
         children: [
-        { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
-      ]
-    }
+            { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
+        ]
+    },
+    { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' },
+    { path: 'fileupload', loadChildren: './serving/serving.ser/components/fileupload/fileupload.module#FileuploadPageModule' }
+
 ];
 
 @NgModule({

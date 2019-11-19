@@ -182,6 +182,11 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         {
             try
             {
+                var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+                if (userInfo != null && !string.IsNullOrWhiteSpace(userInfo.mcs_dealerid))
+                {
+                    appointmentConfiggRequest.mcs_dealerid = Guid.Parse(userInfo.mcs_dealerid);
+                }
                 var fetchString = _appointmentInfoRepository.GetConfig(appointmentConfiggRequest);
 
                 var fetchXdoc = XDocument.Parse(fetchString);
@@ -213,6 +218,15 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         /// <returns></returns>
         public async Task<ValidateResult<CrmEntity>> AddOrEdit(AppointmentInfoAddOrEditRequest request)
         {
+            var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+            if (userInfo != null && !string.IsNullOrWhiteSpace(userInfo.mcs_dealerid))
+            {
+                request.appointmentinfo.mcs_dealerid = Guid.Parse(userInfo.mcs_dealerid);
+            }
+            if (userInfo != null && userInfo.systemuserid!=null)
+            {
+                request.appointmentinfo.mcs_serviceadvisorid = userInfo.systemuserid;
+            }
             var validateResult = new ValidateResult<CrmEntity>();
             var reusetCrmEntity = new CrmEntity("mcs_appointmentinfo", new Guid());
             //新增预约单
