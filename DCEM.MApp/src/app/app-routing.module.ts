@@ -101,6 +101,12 @@ const routes: Routes = [
                     { path: 'list', loadChildren: './serving/spmdspstock.com/list/list.module#ListPageModule' },
                 ]
             },
+            {
+                path: 'maintenance',//维修保养-预约日历
+                children: [
+                    { path: 'calendar', loadChildren: './serving/maintenance/calendar/calendar.module#CalendarPageModule' }
+                ]
+            }
         ],
     },
     {
@@ -156,7 +162,7 @@ const routes: Routes = [
                     { path: 'edit', loadChildren: './saleing/delivery/edit/edit.module#EditPageModule' },
                     { path: 'detail', loadChildren: './saleing/delivery/detail/detail.module#DetailPageModule' },
                     { path: 'success', loadChildren: './saleing/delivery/success/success.module#SuccessPageModule' },
-                    { path: 'timeline', loadChildren: './saleing/delivery/timeline/timeline.module#TimelinePageModule'},
+                    { path: 'timeline', loadChildren: './saleing/delivery/timeline/timeline.module#TimelinePageModule' },
                     { path: 'appointment', loadChildren: './saleing/delivery/appointment/appointment.module#AppointmentPageModule' },
                     { path: 'pdiservice', loadChildren: './saleing/delivery/pdiservice/pdiservice.module#PdiservicePageModule' }
                 ]
@@ -188,7 +194,7 @@ const routes: Routes = [
                 children: [
 
                     { path: 'list', loadChildren: './saleing/vehnetwork/list/list.module#ListPageModule' },
-                     { path: 'detail', loadChildren: './saleing/vehnetwork/detail/detail.module#DetailPageModule' },
+                    { path: 'detail', loadChildren: './saleing/vehnetwork/detail/detail.module#DetailPageModule' },
                     { path: 'success', loadChildren: './saleing/vehnetwork/success/success.module#SuccessPageModule' },
                 ]
             },
@@ -200,15 +206,32 @@ const routes: Routes = [
                     { path: 'detail', loadChildren: './saleing/vehlisense/detail/detail.module#DetailPageModule' },
                     { path: 'success', loadChildren: './saleing/vehlisense/success/success.module#SuccessPageModule' },
                 ]
+            },
+            {
+                path: 'surveyorder',//勘测单-记录
+                children: [
+
+                    { path: 'list', loadChildren: './saleing/mcs_surveyorder/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './saleing/mcs_surveyorder/detail/detail.module#DetailPageModule' }
+                ]
+            },
+            {
+                path: 'trialrun',//试车试驾-预约日历
+                children: [
+                    { path: 'calendar', loadChildren: './saleing/trialrun/calendar/calendar.module#CalendarPageModule' }
+                ]
             }
         ]
     },
     {
         path: 'demo',//ng.mobile.ant demo
         children: [
-        { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
-      ]
-    }
+            { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
+        ]
+    },
+    { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' },
+    { path: 'fileupload', loadChildren: './serving/serving.ser/components/fileupload/fileupload.module#FileuploadPageModule' }
+
 ];
 
 @NgModule({

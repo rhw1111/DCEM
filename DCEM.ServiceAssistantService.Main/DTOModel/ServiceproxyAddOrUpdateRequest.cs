@@ -103,7 +103,10 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
         /// 检查结果
         /// </summary>
         public string testresult { get; set; }
-
+        /// <summary>
+        /// 预约单
+        /// </summary>
+        public string appointmentcode { get; set; }
 
     }
     #endregion

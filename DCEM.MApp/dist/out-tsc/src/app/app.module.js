@@ -30,6 +30,9 @@ import { SelectVehicletypeComponent } from 'app/saleing/saleing.ser/components/s
 import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile';
 import { SelectRepairitemtypeComponent } from 'app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component';
 import { SelectRepairitemtypedetailComponent } from 'app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component';
+import { SelectAppointmentinfoComponent } from 'app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component';
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 let AppModule = class AppModule {
 };
 AppModule = tslib_1.__decorate([
@@ -55,6 +58,7 @@ AppModule = tslib_1.__decorate([
             SelectVehiclecolorComponent,
             SelectRepairitemtypeComponent,
             SelectRepairitemtypedetailComponent,
+            SelectAppointmentinfoComponent,
         ],
         entryComponents: [
             ScSelectComponent,
@@ -76,6 +80,7 @@ AppModule = tslib_1.__decorate([
             SelectVehiclecolorComponent,
             SelectRepairitemtypeComponent,
             SelectRepairitemtypedetailComponent,
+            SelectAppointmentinfoComponent,
         ],
         imports: [BrowserModule,
             IonicModule.forRoot({ mode: 'ios' }),
@@ -89,6 +94,8 @@ AppModule = tslib_1.__decorate([
         providers: [
             StatusBar,
             SplashScreen,
+            ImagePicker,
+            FileTransfer,
             { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
         ],
         bootstrap: [AppComponent]

@@ -30,9 +30,12 @@ import { SelectSysareaComponent } from 'app/saleing/saleing.ser/components/selec
 import { SelectVehiclecolorComponent } from 'app/saleing/saleing.ser/components/select-vehiclecolor/select-vehiclecolor.component';
 import { SelectVehicletypeComponent } from 'app/saleing/saleing.ser/components/select-vehicletype/select-vehicletype.component';
 import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile';
-
 import { SelectRepairitemtypeComponent } from 'app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component';
 import { SelectRepairitemtypedetailComponent } from 'app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component';
+import { SelectAppointmentinfoComponent } from 'app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component';
+
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 
 @NgModule({
     declarations: [//申明组件
@@ -56,6 +59,7 @@ import { SelectRepairitemtypedetailComponent } from 'app/serving/serving.ser/com
         SelectVehiclecolorComponent,//车型颜色
         SelectRepairitemtypeComponent,
         SelectRepairitemtypedetailComponent,
+        SelectAppointmentinfoComponent,//选择预约单
     ],
 
     entryComponents: [
@@ -78,6 +82,8 @@ import { SelectRepairitemtypedetailComponent } from 'app/serving/serving.ser/com
         SelectVehiclecolorComponent,
         SelectRepairitemtypeComponent,
         SelectRepairitemtypedetailComponent,
+        SelectAppointmentinfoComponent,//选择预约单
+
     ],
 
     imports: [BrowserModule,
@@ -88,11 +94,13 @@ import { SelectRepairitemtypedetailComponent } from 'app/serving/serving.ser/com
         FormsModule,
         ReactiveFormsModule,
         NgZorroAntdMobileModule
-  
+
     ],
     providers: [
         StatusBar,
         SplashScreen,
+        ImagePicker,
+        FileTransfer,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
     ],
     bootstrap: [AppComponent]
