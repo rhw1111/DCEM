@@ -45,7 +45,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
                 var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
                 if (userInfo!=null&&!string.IsNullOrWhiteSpace(userInfo.mcs_dealerid))
                 {
-                    filterstr.DealerId =Guid.Parse(userInfo.mcs_dealerid);
+                    //filterstr.DealerId =Guid.Parse(userInfo.mcs_dealerid);
                 }
                 #region 查询结果集
                 var fetchString = _appointmentInfoRepository.QueryListByPage(filterstr);

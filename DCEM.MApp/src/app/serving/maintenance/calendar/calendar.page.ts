@@ -87,6 +87,7 @@ export class CalendarPage implements OnInit {
               obj["appointment"] = attr["_mcs_appointmentconfigid_value@OData.Community.Display.V1.FormattedValue"];
               obj["carplate"] = attr["mcs_carplate"];
               obj["customername"] = attr["mcs_customername"];
+              obj["id"] =res.Results[i]["Id"];
               this.model.data.push(obj);
             }
           }
