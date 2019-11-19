@@ -88,7 +88,7 @@ namespace DCEM.Web.Controllers
 
         #region 培育任务相关接口
 
-        //查询与唯一线索关联的培育任务
+        #region 查询与唯一线索关联的培育任务        
         [HttpGet]
         [Route("GetActivityList")]
         public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetActivityList(string entityid = "", string systemuserid = "", string sort = "", int pageSize = 10, int page = 1)
@@ -104,6 +104,7 @@ namespace DCEM.Web.Controllers
             var list = await app.GetActivityList(activityrequest);
             return list;
         }
+        #endregion
 
         #region 我的培育任务列表查询
 
@@ -123,6 +124,18 @@ namespace DCEM.Web.Controllers
             var list = await app.GetActivityList(request);
             return list;
         }
+        #endregion
+
+        #region 根据主键id获取培育任务详情
+
+        [HttpGet]
+        [Route("GetAcvitityDetail")]
+        public async Task<NewtonsoftJsonActionResult<ActivityDetailModel>> GetAcvitityDetail(string mcs_activityid)
+        {
+            var result = await app.GetAcvitityDetail(mcs_activityid);
+            return result;
+        }
+
         #endregion
 
         #endregion

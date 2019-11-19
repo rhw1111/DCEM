@@ -19,7 +19,7 @@ namespace DCEM.SalesAssistant.Main.Application.App
         {
             _service = service;
         } 
-        public async Task<QueryResult<CrmEntity>> getlist(ActivitysRequest request)
+        public async Task<QueryResult<CrmEntity>> getlist(ActivityRequest request)
         {
            return await _service.getlist(request);
         }

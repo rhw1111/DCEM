@@ -211,7 +211,8 @@ const routes: Routes = [
                 path: 'surveyorder',//勘测单-记录
                 children: [
 
-                    { path: 'list', loadChildren: './saleing/mcs_surveyorder/list/list.module#ListPageModule' }
+                    { path: 'list', loadChildren: './saleing/mcs_surveyorder/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './saleing/mcs_surveyorder/detail/detail.module#DetailPageModule' }
                 ]
             },
             {
@@ -228,7 +229,9 @@ const routes: Routes = [
             { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
         ]
     },
-    { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' }
+    { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' },
+    { path: 'fileupload', loadChildren: './serving/serving.ser/components/fileupload/fileupload.module#FileuploadPageModule' }
+
 ];
 
 @NgModule({
