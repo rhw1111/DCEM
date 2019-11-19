@@ -5,29 +5,29 @@
     </ion-buttons>
     <ion-title>技术支持</ion-title>
     <ion-buttons slot="end">
-            <ion-menu-button></ion-menu-button>
-        </ion-buttons>
+        <ion-menu-button></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
   <ion-toolbar>
       <ion-searchbar [(ngModel)]="this.model.seachkey" placeholder="支持项目名称和编号模糊查找" (keyup)="search($event)" ></ion-searchbar>
   </ion-toolbar>
   <ion-toolbar>
-      <ion-segment>
-        <ion-segment-button checked (click)="selectTab(0)">
+      <ion-segment [(ngModel)]="tab">
+        <ion-segment-button value="0" (click)="selectTab(0)">
             <ion-label>全部</ion-label>
         </ion-segment-button>
         <!-- <ion-segment-button (click)="selectTab(10)">
             <ion-label>未处理</ion-label>
         </ion-segment-button> -->
-        <ion-segment-button (click)="selectTab(30)">
+        <ion-segment-button value="30" (click)="selectTab(30)">
             <ion-label>处理中</ion-label>
         </ion-segment-button>
-        <ion-segment-button (click)="selectTab(40)">
+        <ion-segment-button value="40" (click)="selectTab(40)">
             <ion-label>已关闭</ion-label>
         </ion-segment-button>
-        <ion-segment-button (click)="selectTab(50)">
+        <!-- <ion-segment-button (click)="selectTab(50)">
             <ion-label>已取消</ion-label>
-        </ion-segment-button>
+        </ion-segment-button> -->
       </ion-segment>
   </ion-toolbar>
 </ion-header>
@@ -39,7 +39,11 @@
     </ion-refresher>
     <ion-list lines="full">
         <ion-item *ngFor="let item of model.data" [routerLink]="['/serving/ts/detail']" [queryParams]="{id:item.Id}">
-            <ion-icon slot="start" name="hammer" size="large"></ion-icon>
+            <!-- <ion-icon slot="start" name="hammer" size="large"></ion-icon> -->
+            <ion-avatar *ngIf="item.mcs_orderstatus==10" item-start>技</ion-avatar>
+            <ion-avatar *ngIf="item.mcs_orderstatus==40" class="status-close" item-start>技</ion-avatar>
+            <ion-avatar *ngIf="item.mcs_orderstatus==30" class="status-process" item-start>技</ion-avatar>
+            <ion-avatar *ngIf="item.mcs_orderstatus==50" class="status-cancel" item-start>技</ion-avatar>
             <ion-label>
                 <h3>{{item.mcs_name}}</h3>
                 <p>{{item.mcs_title}}</p>
@@ -48,19 +52,15 @@
                 </p>
             </ion-label>
             <ion-note slot="end" *ngIf="item.mcs_orderstatus==10">
-                <ion-icon color="primary" name="hourglass" size="small"></ion-icon>
                 未处理
             </ion-note>
             <ion-note slot="end" *ngIf="item.mcs_orderstatus==30">
-                <ion-icon color="warning" name="build" size="small"></ion-icon>
                 处理中
             </ion-note>
             <ion-note slot="end" *ngIf="item.mcs_orderstatus==40">
-                <ion-icon color="success" name="checkmark-circle-outline" size="small"></ion-icon>
                 <label>已关闭</label>
             </ion-note>
             <ion-note slot="end" *ngIf="item.mcs_orderstatus==50">
-                <ion-icon name="close-circle-outline" size="small"></ion-icon>
                 已取消
             </ion-note>
         </ion-item>
