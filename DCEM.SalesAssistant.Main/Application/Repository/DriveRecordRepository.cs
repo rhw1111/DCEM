@@ -16,7 +16,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
         public string QueryList(DriveRecordRequest request)
         {
             var filter = string.Empty;
-            if (request.Status != 0)
+            if (request.Status!=null && request.Status != 0)
             {
                 filter += $"<condition attribute='mcs_drivestatus' operator='eq' value='{request.Status}' />";
             }
