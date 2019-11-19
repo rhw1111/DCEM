@@ -7,7 +7,6 @@ const extra = {
 };
 
 const now = new Date();
-
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.page.html',
@@ -19,15 +18,15 @@ export class CalendarPage implements OnInit {
     date: null,
     show: false,
     pickTime: false,
-    now: new Date(),
+    now: new Date(+now - 7776000000),
     type: 'one',
     enterDirection: '',
     rowSize: 'normal',
     showShortcut: false,
     infinite: true,
     defaultValue: undefined,
-    minDate: new Date(+now - 5184000000),
-    maxDate: new Date(+now + 31536000000),
+    minDate: new Date(+now - 7776000000),
+    maxDate: new Date(+now + 2592000000),
     onSelect: undefined,
     getDateExtra: date => {
       return extra[+date];
@@ -46,15 +45,15 @@ export class CalendarPage implements OnInit {
     private _page: DCore_Page,
     private _shareData: DCore_ShareData,
     private _valid: DCore_Valid,
-    private _dateformat:Dateformat
+    private _dateformat: Dateformat
   ) {
   }
 
   ngOnInit() {
   }
   triggerConfirm(value) {
-    const { startDate,endDate } = value;
-    this.model.params.AppointmentAt=this._dateformat.FormatToDate(startDate);
+    const { startDate, endDate } = value;
+    this.model.params.AppointmentAt = this._dateformat.FormatToDate(startDate);
     this.pageOnBind();
     console.log('onConfirm', startDate);
   }
@@ -69,22 +68,29 @@ export class CalendarPage implements OnInit {
   triggerSelectHasDisableDate(dates) {
     console.warn('onSelectHasDisableDate', dates);
   }
-  pageOnBind() { 
-    this.model.data=[];
+  pageOnBind() {
+    this.model.data = [];
     this._page.loadingShow();
     this._http.getForToaken(
       this.model.apiUrl,
       {
-         "AppointmentAt":this.model.params.AppointmentAt,
-         "pageSize":this.model.params.pageSize,
-         "page":this.model.params.page
+        "AppointmentAt": this.model.params.AppointmentAt,
+        "pageSize": this.model.params.pageSize,
+        "page": this.model.params.page
       },
       (res: any) => {
-
-
-
-
-
+        if (res != null) {
+          if (res.Results.length > 0) {
+            for (var i in res.Results) {
+              var attr = res.Results[i]["Attributes"];
+              var obj = {};
+              obj["appointment"] = attr["_mcs_appointmentconfigid_value@OData.Community.Display.V1.FormattedValue"];
+              obj["carplate"] = attr["mcs_carplate"];
+              obj["customername"] = attr["mcs_customername"];
+              this.model.data.push(obj);
+            }
+          }
+        }
         this._page.loadingHide();
       },
       (err: any) => {
@@ -92,5 +98,5 @@ export class CalendarPage implements OnInit {
         this._page.loadingHide();
       }
     );
-  } 
+  }
 }
