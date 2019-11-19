@@ -25,10 +25,11 @@ export class EditPage implements OnInit {
         systemuserid: "",//当前用户id
         mcs_dealerid: "",//当前厅店id
         appointmentinfoId: null,//当前记录id
-        isOrderTypeChange: false,//是否改变预约类型
-        isAppointmentAtChange: false,//是否改变预约日期
-        isAppointmentConfigChange: false,//预约时段是否改变
+        isOrderTypeChange: true,//是否改变预约类型
+        isAppointmentAtChange: true,//是否改变预约日期
+        isAppointmentConfigChange: true,//预约时段是否改变
         customerId: "",//客户ID
+        actionCode: 1, //操作编码  1、新增  2、修改
         appointmentConfigOptionMap: {}//预约时段
     };
 
@@ -236,14 +237,11 @@ export class EditPage implements OnInit {
             return;
         }
 
-        //this.model.postData["actioncode"] = 1;
         this.model.postData["appointmentinfo"] = this.shareData.appointmentinfo;
 
         //组装预约单
         this.model.postData["appointmentinfo"] = {};
         this.model.postData["appointmentinfo"]["mcs_appointmentinfoid"] = this.model.appointmentinfoId
-        this.model.postData["appointmentinfo"]["mcs_dealerid"] = this.model.mcs_dealerid;// 厅店ID
-        this.model.postData["appointmentinfo"]["mcs_serviceadvisorid"] = this.model.systemuserid;// 服务顾问(当前用户)
         this.model.postData["appointmentinfo"]["mcs_customerid"] = this.shareData.appointmentinfo["mcs_customerid"]; // VIN码关联实体ID
         this.model.postData["appointmentinfo"]["mcs_customername"] = this.shareData.appointmentinfo["mcs_customername"];// 车主
         this.model.postData["appointmentinfo"]["mcs_carplate"] = this.shareData.appointmentinfo["mcs_carplate"];// 车牌
@@ -259,7 +257,7 @@ export class EditPage implements OnInit {
         //this.model.postData["appointmentinfo"]["mcs_status"] =10;//预约状态
 
         this._page.loadingShow();
-        this._http.post(
+        this._http.postForToaken(
             this.model.postApiUrl, this.model.postData,
             (res: any) => {
                 this._page.loadingHide();
@@ -283,15 +281,17 @@ export class EditPage implements OnInit {
     //编辑绑定数据
     pageOnBind(id: any) {
         this._page.loadingShow();
-        this._http.get(
+        this._http.getForToaken(
             this.model.apiUrl,
             {
-                params: {
-                    entityid: id,
-                }
+              "entityid": id,
             },
             (res: any) => {
                 if (res !== null) {
+
+                    this.model.isAppointmentAtChange = false;
+                    this.model.isOrderTypeChange = false;
+
                     this.shareData.appointmentinfo["mcs_appointmentinfoid"] = res.Id;
                     this.shareData.appointmentinfo["mcs_customername"] = res["Attributes"]["mcs_customername"];
                     this.shareData.appointmentinfo["mcs_carplate"] = res["Attributes"]["mcs_carplate"];
@@ -324,21 +324,20 @@ export class EditPage implements OnInit {
                 this._page.loadingHide();
             }
         );
-
     }
 
     //预约类型改变事件
     orderTypeChange() {
         if (this.model.isOrderTypeChange) {
-            //this.shareData.appointmentinfo["mcs_appointmentconfigname"] = "";
-            //this.shareData.appointmentinfo["mcs_appointmentconfigid"] = null;
             this.model.appointmentConfigOptionMap = {};
             this.shareData.appointmentinfo['mcs_appointmentconfigid'] = null;
             this.shareData.appointmentinfo["mcs_surplusnum"] = null;
             var ordertype = this.shareData.appointmentinfo["mcs_ordertype"];
             var appointmentat = this.FormatToDate(this.shareData.appointmentinfo["mcs_appointmentat"]);
-            //处理预约时段
-            this.AppointmentConfigOption(ordertype, appointmentat);
+            if (ordertype != "" && appointmentat != "") {
+                //处理预约时段
+                this.AppointmentConfigOption(ordertype, appointmentat);
+            }
         }
         this.model.isOrderTypeChange = true;
     }
@@ -346,10 +345,9 @@ export class EditPage implements OnInit {
     //预约日期改变
     appointmentAtChange() {
         if (this.model.isAppointmentAtChange) {
-            debugger;
             var date = new Date();
             if (this.FormatToDate(date) > this.FormatToDate(this.shareData.appointmentinfo["mcs_appointmentat"])) {
-                //this._page.presentToastError("预约日期必须大于当天日期");
+                this._page.presentToastError("预约日期必须大于当天日期");
             }
             this.shareData.appointmentinfo["mcs_appointmentconfigid"] = null;
             this.shareData.appointmentinfo["mcs_surplusnum"] = null;
@@ -357,8 +355,10 @@ export class EditPage implements OnInit {
 
             var ordertype = this.shareData.appointmentinfo["mcs_ordertype"];
             var appointmentat = this.FormatToDate(this.shareData.appointmentinfo["mcs_appointmentat"]);
-            //处理预约时段
-            this.AppointmentConfigOption(ordertype, appointmentat);
+            if (ordertype != "" && appointmentat != "") {
+                //处理预约时段
+                this.AppointmentConfigOption(ordertype, appointmentat);
+            }
         }
         this.model.isAppointmentAtChange = true;
     }
@@ -373,25 +373,9 @@ export class EditPage implements OnInit {
         }
     }
 
-    //汉化日期控件
-    public customPickerOptions = {
-        buttons: [{
-            text: '取消',
-            handler: () => console.log('Clicked Save!')
-        }, {
-            text: '保存',
-            handler: () => {
-                console.log('Clicked Log. Do not Dismiss.');
-            }
-        }]
-    }
-
     //时段获取数量
     public appointmentConfigChange() {
-        if (this.model.isAppointmentConfigChange) {
-            var key = this.shareData.appointmentinfo["mcs_appointmentconfigid"];
-            this.shareData.appointmentinfo["mcs_surplusnum"] = this.model.appointmentConfigOptionMap[key]["mcs_surplusnum"];
-        }
-        this.model.isAppointmentConfigChange = true;
+        var key = this.shareData.appointmentinfo["mcs_appointmentconfigid"];
+        this.shareData.appointmentinfo["mcs_surplusnum"] = this.model.appointmentConfigOptionMap[key]["mcs_surplusnum"];
     }
 }

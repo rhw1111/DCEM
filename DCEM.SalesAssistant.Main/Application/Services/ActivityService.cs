@@ -11,7 +11,6 @@ namespace DCEM.SalesAssistant.Main.Application.Services
 {
     public class ActivityService : IActivityService
     {
-        private const string partnertype = "3";
         private ICrmService _crmService;
         private IActivityRepository _Repository;
         public ActivityService(ICrmService crmService, IActivityRepository repository)
@@ -49,21 +48,79 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         }
 
 
-        /// <summary>
-        /// 明细获取
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         public async Task<CrmEntity> getdetail(Guid id)
         {
 
             try
             {
-                VehnetworkDetailRepository repository = new VehnetworkDetailRepository();
                 var fetchXdoc = _Repository.GetDetaillFetchXml(id);
                 var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {
                     EntityName = "mcs_activity",
+                    FetchXml = fetchXdoc.Result
+                };
+                var fetchResponse = await _crmService.Execute(fetchRequest);
+                var detailResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                return detailResult.Value.Results[0];
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public async Task<CrmEntity> getaccountdetail(Guid id)
+        {
+
+            try
+            {
+                var fetchXdoc = _Repository.GetAccountFetchXml(id);
+                var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "account",
+                    FetchXml = fetchXdoc.Result
+                };
+                var fetchResponse = await _crmService.Execute(fetchRequest);
+                var detailResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                return detailResult.Value.Results[0];
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        public async Task<CrmEntity> getcontactdetail(Guid id)
+        {
+
+            try
+            {
+                var fetchXdoc = _Repository.GetContactFetchXml(id);
+                var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "contact",
+                    FetchXml = fetchXdoc.Result
+                };
+                var fetchResponse = await _crmService.Execute(fetchRequest);
+                var detailResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                return detailResult.Value.Results[0];
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        public async Task<CrmEntity> getonlyleaddetail(Guid id)
+        {
+
+            try
+            {
+                var fetchXdoc = _Repository.GetOnlyleadFetchXml(id);
+                var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "mcs_onlylead",
                     FetchXml = fetchXdoc.Result
                 };
                 var fetchResponse = await _crmService.Execute(fetchRequest);
@@ -111,11 +168,11 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                     entity.Attributes.Add("mcs_nextfollowuptime", model.mcs_nextfollowuptime.Value.ToUniversalTime());
                 if (model.mcs_thisfollowupcontent != null)
                     entity.Attributes.Add("mcs_thisfollowupcontent", model.mcs_thisfollowupcontent);
-                if (model.mcs_accountid !=Guid.Empty)
-                    entity.Attributes.Add("mcs_accountid",new  CrmEntityReference("mcs_account", model.mcs_accountid.Value));
-                if (model.mcs_onlyleadid != Guid.Empty)
+                if (model.mcs_accountid != Guid.Empty && model.mcs_accountid != null)
+                    entity.Attributes.Add("mcs_accountid", new CrmEntityReference("mcs_account", model.mcs_accountid.Value));
+                if (model.mcs_onlyleadid != Guid.Empty && model.mcs_onlyleadid != null)
                     entity.Attributes.Add("mcs_onlyleadid", new CrmEntityReference("mcs_onlylead", model.mcs_onlyleadid.Value));
-                if (model.mcs_contactid != Guid.Empty)
+                if (model.mcs_contactid != Guid.Empty && model.mcs_contactid != null)
                     entity.Attributes.Add("mcs_contactid", new CrmEntityReference("mcs_contact", model.mcs_contactid.Value));
                 //判断修改还是删除
                 if (Guid.Empty == model.id)
@@ -124,7 +181,10 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                     await _crmService.Create(entity, null);
                 }
                 else
+                {
+                    entity.Id = model.id;
                     await _crmService.Update(entity, null);
+                }
 
 
                 #region 组装数据返回 

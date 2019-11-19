@@ -17,6 +17,9 @@ namespace DCEM.SalesAssistant.Main.Application.App.Contrac
         Task<CrmEntity> getdetail(Guid id);
 
         Task<ValidateResult> AddOrUpdate(ActivityEditRequest model);
+        Task<CrmEntity> getcontactdetail(Guid id);
+        Task<CrmEntity> getonlyleaddetail(Guid id);
+        Task<CrmEntity> getaccountdetail(Guid id);
 
     }
 }

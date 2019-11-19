@@ -12,7 +12,7 @@ export class ListPage implements OnInit {
 
     @ViewChild(IonContent, null) ionContent: IonContent;
     @ViewChild(IonInfiniteScroll, null) ionInfiniteScroll: IonInfiniteScroll;
-
+    public tab:any="1";
     public model: any = {
         apiUrl: '/api/account/GetList',//请求地址
         data: [],//列表数据
