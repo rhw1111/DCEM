@@ -41,6 +41,5 @@ namespace DCEM.Web.Controllers
             var list = await app.QueryList(request);
             return list;
         }
-
     }
 }
