@@ -43,20 +43,20 @@ let AppComponent = class AppComponent {
         this.initializeApp();
     }
     initializeApp() {
-        //this.platform.ready().then(() => {
-        //    this.statusBar.styleDefault();
-        //    this.splashScreen.hide();
-        //    this.authService.authenticationState.subscribe(state => {
-        //        console.log(state);
-        //        if (state) {
-        //            this.router.navigate(['tabs']);
-        //            this.headpicture = "assets/img/head_default.jpg";
-        //        }
-        //        else {
-        //            this.router.navigate(['login']);
-        //        }
-        //    });
-        //});
+        this.platform.ready().then(() => {
+            this.statusBar.styleDefault();
+            this.splashScreen.hide();
+            this.headpicture = "assets/img/head_default.jpg";
+            //    this.authService.authenticationState.subscribe(state => {
+            //        console.log(state);
+            //        if (state) {
+            //            this.router.navigate(['tabs']);
+            //        }
+            //        else {
+            //            //this.router.navigate(['login']);
+            //        }
+            //    });
+        });
     }
     loginout() {
         //this.menu.close("homeMenu");

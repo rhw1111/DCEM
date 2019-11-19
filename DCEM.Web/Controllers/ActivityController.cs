@@ -35,7 +35,7 @@ namespace DCEM.Web.Controllers
         #region 获取列表 
         [HttpGet]
         [Route("getlist")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetList(ActivitysRequest request)
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetList(ActivityRequest request)
         {
             return await _service.getlist(request);
         }

@@ -10,8 +10,13 @@ using System.Text;
 
 namespace DCEM.ServiceAssistantService.Main.DTOModel
 {
-    public class AppointmentConfiggRequest
+    public class AppointmentConfigRequest
     {
+        /// <summary>
+        /// 预约时段ID
+        /// </summary>
+        public Guid? AppointmentConfigId { get; set; }
+
         /// <summary>
         /// 厅店ID
         /// </summary>

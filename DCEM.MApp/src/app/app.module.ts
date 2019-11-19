@@ -34,6 +34,9 @@ import { SelectRepairitemtypeComponent } from 'app/serving/serving.ser/component
 import { SelectRepairitemtypedetailComponent } from 'app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component';
 import { SelectAppointmentinfoComponent } from 'app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component';
 
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
+
 @NgModule({
     declarations: [//申明组件
         AppComponent, //全局公共组件
@@ -80,6 +83,7 @@ import { SelectAppointmentinfoComponent } from 'app/serving/serving.ser/componen
         SelectRepairitemtypeComponent,
         SelectRepairitemtypedetailComponent,
         SelectAppointmentinfoComponent,//选择预约单
+
     ],
 
     imports: [BrowserModule,
@@ -90,11 +94,13 @@ import { SelectAppointmentinfoComponent } from 'app/serving/serving.ser/componen
         FormsModule,
         ReactiveFormsModule,
         NgZorroAntdMobileModule
-  
+
     ],
     providers: [
         StatusBar,
         SplashScreen,
+        ImagePicker,
+        FileTransfer,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
     ],
     bootstrap: [AppComponent]

@@ -18,19 +18,19 @@ export class AppComponent {
     public appPages = [
         {
             title: '首页',
-            url: '/tabs',
+            url: '/serving/home/tabs/index',
             icon: 'home',
             num: 1
         },
         {
             title: '个人信息',
-            url: '/tabs',
+            url: '/serving/home/tabs/mywork',
             icon: 'person',
             num: 0,
         },
         {
             title: '消息中心',
-            url: '/tabs',
+            url: '/serving/home/tabs/message',
             icon: 'alert',
             num: 10
         },
@@ -56,21 +56,22 @@ export class AppComponent {
     }
 
     initializeApp() {
-        //this.platform.ready().then(() => {
-        //    this.statusBar.styleDefault();
-        //    this.splashScreen.hide();
+        this.platform.ready().then(() => {
+           this.statusBar.styleDefault();
+           this.splashScreen.hide();
+
+           this.headpicture = "assets/img/head_default.jpg";
 
         //    this.authService.authenticationState.subscribe(state => {
         //        console.log(state);
         //        if (state) {
         //            this.router.navigate(['tabs']);
-        //            this.headpicture = "assets/img/head_default.jpg";
         //        }
         //        else {
-        //            this.router.navigate(['login']);
+        //            //this.router.navigate(['login']);
         //        }
         //    });
-        //});
+        });
     }
 
     loginout() {

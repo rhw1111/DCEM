@@ -21,7 +21,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<XDocument> GetListFetchXml(ActivitysRequest request)
+        public async Task<XDocument> GetListFetchXml(ActivityRequest request)
         {
             return await Task<XDocument>.Run(() =>
             {

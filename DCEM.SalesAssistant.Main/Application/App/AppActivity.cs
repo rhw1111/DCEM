@@ -14,9 +14,9 @@ namespace DCEM.SalesAssistant.Main.Application.App
     public class AppActivity : IAppActivity
     {
 
-        private IActivityService _service;
+        private IActivityService _service; 
         public AppActivity(IActivityService service) => _service = service;
-        public async Task<QueryResult<CrmEntity>> getlist(ActivitysRequest request) => await _service.getlist(request);
+        public async Task<QueryResult<CrmEntity>> getlist(ActivityRequest request) => await _service.getlist(request);
 
         public async Task<CrmEntity> getdetail(Guid id) => await _service.getdetail(id);
 
@@ -27,7 +27,8 @@ namespace DCEM.SalesAssistant.Main.Application.App
         public async Task<CrmEntity> getcontactdetail(Guid id) => await _service.getcontactdetail(id);
         public async Task<CrmEntity> getonlyleaddetail(Guid id) => await _service.getonlyleaddetail(id);
         public async Task<CrmEntity> getaccountdetail(Guid id) => await _service.getaccountdetail(id);
-
+ 
+       
 
     }
 }

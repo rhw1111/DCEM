@@ -13,7 +13,7 @@ namespace DCEM.SalesAssistant.Main.Application.App.Contrac
 {
     public interface IAppActivity
     {
-        Task<QueryResult<CrmEntity>> getlist(ActivitysRequest request);
+        Task<QueryResult<CrmEntity>> getlist(ActivityRequest request);
         Task<CrmEntity> getdetail(Guid id);
 
         Task<ValidateResult> AddOrUpdate(ActivityEditRequest model);

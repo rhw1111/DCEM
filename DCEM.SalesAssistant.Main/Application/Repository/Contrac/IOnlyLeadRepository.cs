@@ -9,14 +9,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository.Contrac
     {
         string QueryList(OnlyLeadRequest onlyLeadRequest);
 
-
-        /// <summary>
-        /// 唯一线索详情
-        /// </summary>
-        /// <param name="entityid"></param>
-        /// <returns></returns>
-        string GetOnlyLeadDetail(string entityid);
-
+     
         /// <summary>
         /// 唯一线索关联的跟进记录（logcall） 的查询fetchString
         /// </summary>

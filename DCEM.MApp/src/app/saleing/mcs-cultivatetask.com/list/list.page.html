@@ -31,7 +31,7 @@
         </ion-refresher-content> 
     </ion-refresher>
     <ion-list lines="full">
-        <ion-item *ngFor="let item of model.datalist" [routerLink]="" [queryParams]="">          
+        <ion-item *ngFor="let item of model.datalist" [routerLink]="['/saleing/cultivatetask/detail']" [queryParams]="{id:item.mcs_activityid}">          
             <ion-icon slot="start" name="logo-instagram" size="large" color="tertiary"></ion-icon>
             <ion-label>
                 <h2>{{item.Custname}}</h2> 

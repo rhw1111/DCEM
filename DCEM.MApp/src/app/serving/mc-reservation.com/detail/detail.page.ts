@@ -57,18 +57,15 @@ export class DetailPage implements OnInit {
                 this.model.infolist.mcs_appointmentinfoid = data['id'];
                 this.pageOnBind(this.model.infolist.mcs_appointmentinfoid);
             }
-            //this.pageOnBind(data.id);
         });
     }
 
     pageOnBind(id: any) {
         this._page.loadingShow();
-        this._http.get(
+        this._http.getForToaken(
             this.model.apiUrlDetail,
             {
-                params: {
-                    entityid: id,
-                }
+               "entityid":id,
             },
             (res: any) => {
                 if (res !== null) {
@@ -120,7 +117,6 @@ export class DetailPage implements OnInit {
                 }
             },
             (res: any) => {
-                //debugger;
                 if (res !== null) {
                     if (res.Results !== null) {
                         for (var key in res.Results) {
