@@ -199,13 +199,13 @@
             <ion-textarea placeholder="请输入本次跟进内容" [(ngModel)]="shareData.edititem['mcs_thisfollowupcontent']">
             </ion-textarea>
         </ion-item>
-        <ion-item>
+        <ion-item >
             <ion-label position="stacked">
                 重要级别
             </ion-label>
             <ion-select cancelText="取消" okText="确定" placeholder="请选择重要级别"
                 [(ngModel)]="shareData.edititem['mcs_importantlevel']"> 
-                <ion-select-option  *ngFor="let item of shareData.selectimportantlevel" value="{{item.value}}">{{item.name}}
+                <ion-select-option  *ngFor="let item of shareData.selectimportantlevel" [value]="item.value"  >{{item.name}}
                 </ion-select-option> 
             </ion-select>
         </ion-item>
@@ -216,7 +216,7 @@
             </ion-label>
             <ion-select cancelText="取消" okText="确定" placeholder="请选择线索状态"
                 [(ngModel)]="shareData.edititem['mcs_excutestatus']" > 
-                <ion-select-option value="{{item.value}}" *ngFor="let item of shareData.selectexcutestatus">{{item.name}}
+                <ion-select-option [value]="item.value"  *ngFor="let item of shareData.selectexcutestatus">{{item.name}}
                 </ion-select-option>
             </ion-select>
         </ion-item>
@@ -235,7 +235,7 @@
                 [(ngModel)]="shareData.edititem['mcs_nextfollowuptime']"></ion-datetime>
         </ion-item>
     </ion-list>
-    <ion-item *ngIf="showactivitystatus">
+    <!-- <ion-item *ngIf="showactivitystatus">
             <ion-label position="stacked">
                 任务状态
             </ion-label>
@@ -244,7 +244,7 @@
                 <ion-select-option value="1" >close</ion-select-option>
                 <ion-select-option value="0" >open</ion-select-option>
             </ion-select>
-        </ion-item>
+        </ion-item> -->
     <section style="text-align:center;">
         <ion-button style="width:40%" color="danger" (click)="OnPostClick()">保存</ion-button>
     </section>
