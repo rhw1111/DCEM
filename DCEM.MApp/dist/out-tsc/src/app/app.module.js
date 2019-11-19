@@ -58,7 +58,7 @@ AppModule = tslib_1.__decorate([
             SelectVehiclecolorComponent,
             SelectRepairitemtypeComponent,
             SelectRepairitemtypedetailComponent,
-            SelectAppointmentinfoComponent //选择预约单
+            SelectAppointmentinfoComponent,
         ],
         entryComponents: [
             ScSelectComponent,

@@ -101,6 +101,12 @@ const routes = [
                     { path: 'list', loadChildren: './serving/spmdspstock.com/list/list.module#ListPageModule' },
                 ]
             },
+            {
+                path: 'maintenance',
+                children: [
+                    { path: 'calendar', loadChildren: './serving/maintenance/calendar/calendar.module#CalendarPageModule' }
+                ]
+            }
         ],
     },
     {
@@ -203,6 +209,12 @@ const routes = [
                 children: [
                     { path: 'list', loadChildren: './saleing/mcs_surveyorder/list/list.module#ListPageModule' }
                 ]
+            },
+            {
+                path: 'trialrun',
+                children: [
+                    { path: 'calendar', loadChildren: './saleing/trialrun/calendar/calendar.module#CalendarPageModule' }
+                ]
             }
         ]
     },
@@ -212,7 +224,6 @@ const routes = [
             { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
         ]
     },
-    { path: 'list', loadChildren: './saleing/mcs_surveyorder/list/list.module#ListPageModule' },
     { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' }
 ];
 let AppRoutingModule = class AppRoutingModule {

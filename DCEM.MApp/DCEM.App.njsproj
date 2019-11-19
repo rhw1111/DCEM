@@ -70,6 +70,8 @@
     <Content Include="src\app\saleing\mcs-onlylead.com\list\list.page.scss" />
     <Content Include="src\app\saleing\mcs-onlylead.com\success\success.page.html" />
     <Content Include="src\app\saleing\mcs-onlylead.com\success\success.page.scss" />
+    <Content Include="src\app\saleing\mcs_surveyorder\list\list.page.html" />
+    <Content Include="src\app\saleing\mcs_surveyorder\list\list.page.scss" />
     <Content Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.html" />
     <Content Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.scss" />
     <Content Include="src\app\saleing\saleing.ser\components\select-reservationconfiguration\select-reservationconfiguration.component.html" />
@@ -623,6 +625,9 @@
     <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\success\success.module.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\success\success.page.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\success\success.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_surveyorder\list\list.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_surveyorder\list\list.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_surveyorder\list\list.page.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-reservationconfiguration\select-reservationconfiguration.component.spec.ts" />
@@ -929,6 +934,8 @@
     <Folder Include="src\app\saleing\mcs-onlylead.com\list\" />
     <Folder Include="src\app\saleing\mcs-onlylead.com\success\" />
     <Folder Include="src\app\saleing\mcs-deliverycentercarstock.com\" />
+    <Folder Include="src\app\saleing\mcs_surveyorder\" />
+    <Folder Include="src\app\saleing\mcs_surveyorder\list\" />
     <Folder Include="src\app\saleing\saleing.ser\" />
     <Folder Include="src\app\saleing\saleing.ser\components\" />
     <Folder Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\" />
