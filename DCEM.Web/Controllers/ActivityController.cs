@@ -41,25 +41,36 @@ namespace DCEM.Web.Controllers
         }
         #endregion
 
-        #region 获取明细 
+        #region 获取明细  
+         // 培育任务明细 
         [HttpGet]
         [Route("getdetail")]
-        public async Task<NewtonsoftJsonActionResult<CrmEntity>> GetDetail(Guid id)
-        {
-            ActivityEditRequest model = new ActivityEditRequest();
-            string json = JsonConvert.SerializeObject(model);
+        public async Task<NewtonsoftJsonActionResult<CrmEntity>> GetDetail(Guid id) => await _service.getdetail(id);
 
+        // 潜客获取 
+        [HttpGet]
+        [Route("getcontactdetail")]
+        public async Task<NewtonsoftJsonActionResult<CrmEntity>> getContactDetail(Guid id) => await _service.getcontactdetail(id);
 
-            return await _service.getdetail(id);
-        }
+        // 唯一线索获取 
+        [HttpGet]
+        [Route("getonlyleaddetail")]
+        public async Task<NewtonsoftJsonActionResult<CrmEntity>> getOnlyleadDetail(Guid id) => await _service.getonlyleaddetail(id);
+
+        // 销售机会获取 
+        [HttpGet]
+        [Route("getaccountdetail")]
+        public async Task<NewtonsoftJsonActionResult<CrmEntity>> getAccountDetail(Guid id) => await _service.getaccountdetail(id);
+
         #endregion
 
         #region 新增修改 
         [HttpPost]
         [Route("addoredit")]
-        public async Task<NewtonsoftJsonActionResult<ValidateResult>> AddOrUpdate(ActivityEditRequest model)
+        public async Task<NewtonsoftJsonActionResult<ValidateResult>> AddOrUpdate([FromBody]Object model)
         {
-            return await _service.AddOrUpdate(model);
+            ActivityEditRequest item = JsonConvert.DeserializeObject<ActivityEditRequest>(model.ToString());
+            return await _service.AddOrUpdate(item);
         }
         #endregion
     }
