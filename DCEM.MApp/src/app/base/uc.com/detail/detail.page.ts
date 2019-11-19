@@ -8,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class DetailPage implements OnInit {
 
   constructor() { }
-
+  model={
+    headimg:"assets/img/userhead.png"
+  }
   ngOnInit() {
   }
 
