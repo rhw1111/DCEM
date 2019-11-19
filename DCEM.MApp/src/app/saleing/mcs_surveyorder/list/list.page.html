@@ -10,15 +10,15 @@
   </ion-toolbar>
   <ion-toolbar>
     <ion-segment>
-      <ion-segment-button checked>
-          <ion-label  (click)="selectTab(0)">全部</ion-label>
+      <ion-segment-button checked   (click)="selectTab(0)">
+          <ion-label>全部</ion-label>
       </ion-segment-button>
     
-      <ion-segment-button>
-          <ion-label (click)="selectTab(14)">待勘测</ion-label>
+      <ion-segment-button  (click)="selectTab(14)">
+          <ion-label>待勘测</ion-label>
       </ion-segment-button>
-      <ion-segment-button>
-          <ion-label (click)="selectTab(16)">已勘测</ion-label>
+      <ion-segment-button  (click)="selectTab(16)">
+          <ion-label>已勘测</ion-label>
       </ion-segment-button>
      
     </ion-segment>

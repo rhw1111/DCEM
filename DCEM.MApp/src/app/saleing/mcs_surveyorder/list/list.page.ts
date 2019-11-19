@@ -20,8 +20,9 @@ export class ListPage implements OnInit {
     pageSize: 10,//页数
     page: 1,//分页
     sort: '',//排序的参数
-    //userId:this._userinfo.GetSystemUserId(),
-    userId:"65AD644C-64F7-E811-A81E-9A16184AF7BF",
+    userId:this._userinfo.GetSystemUserId(),
+    //userId:"65AD644C-64F7-E811-A81E-9A16184AF7BF",
+    dealerId:this._userinfo.GetDealerid(),
     isending: false,//是否加载完成
     datalist: []//列表数据
 };
@@ -62,7 +63,7 @@ doLoading(event) {
 }
 //切换tab
 selectTab(status) {
-  this.infiniteScroll.disabled = false;//切换标签初始化下拉控件事件
+  //this.infiniteScroll.disabled = false;//切换标签初始化下拉控件事件
   this.model.datalist = [];
   this.model.page = 1;
   this.model.isending = false;
@@ -72,12 +73,15 @@ selectTab(status) {
   else {
       this.model.mcs_surveystatus = 0;
   }
+  console.log(this.model.mcs_surveystatus)
   this.getList(null);
 }
 
  //获取列表数据
  getList(event) {
    console.log("userid:"+this.model.userId);
+   console.log("dealerid:"+this.model.dealerId);
+   console.log("dealername:"+this._userinfo.GetDealername());
   //debugger;
   this._page.loadingShow();
   this._http.post(this.model.apiUrl,
@@ -87,7 +91,8 @@ selectTab(status) {
         Sort: this.model.sort,
         PageSize: this.model.pageSize,
         PageIndex: this.model.page,
-        UserId:this.model.userId
+        UserId:this.model.userId,
+        mcs_dealerid:this.model.dealerId
       },
       (res: any) => {
          //debugger;
