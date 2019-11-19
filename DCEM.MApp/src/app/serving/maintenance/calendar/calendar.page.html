@@ -26,7 +26,24 @@
   </ion-card>
 
   <ion-card>
-    <ion-card-content> 
+    <ion-card-content>
+      <ion-list>
+        <ion-item-group>
+          <ion-item-divider color="primary">
+            <ion-label>预约记录</ion-label>
+          </ion-item-divider> 
+          <ion-item *ngFor="let item of model.data"> 
+              <ion-icon name="calendar" size="small"  style="margin-right: 20px;"></ion-icon> 
+              <ion-label > 
+                  <h2>{{item.appointment}}</h2> 
+              </ion-label>
+              <ion-note slot="end" style="width:40%" >
+                  <h2>{{item.customername}}</h2>
+                  <h2>{{item.carplate}}</h2>
+              </ion-note>
+          </ion-item>
+        </ion-item-group>
+      </ion-list>
     </ion-card-content>
   </ion-card>
 </ion-content>
