@@ -1,9 +1,76 @@
 <ion-header>
+  
   <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+      </ion-buttons>
     <ion-title>个人信息</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item-group>
+          <ion-item>
+            <ion-label>
+              <h2>头像</h2>
+            </ion-label>
+            <ion-note slot="end">
+              <img src="{{model.headimg}}"  class="imgclass" /> 
+            </ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <h2>姓名</h2>
+            </ion-label>
+            <ion-note slot="end">
+              <p>张三</p>
+            </ion-note>
+          </ion-item>
+          <ion-item>
+              <ion-label>
+                <h2>主要电话</h2>
+              </ion-label>
+              <ion-note slot="end">
+                <p>0511-5151515</p>
+              </ion-note>
+            </ion-item>
+          <ion-item>
+            <ion-label>
+              <h2>移动电话</h2>
+            </ion-label>
+            <ion-note slot="end">
+              <p>13796962323</p>
+            </ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <h2>电子邮件</h2>
+            </ion-label>
+            <ion-note slot="end">
+              <p>11000000@qq.com</p>
+            </ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <h2>工号</h2>
+            </ion-label>
+            <ion-note slot="end">
+              <p>10001</p>
+            </ion-note>
+          </ion-item> 
+          <ion-item>
+            <ion-label>
+              <h2>岗位</h2>
+            </ion-label>
+            <ion-note slot="end">
+              <p>门店经理</p>
+            </ion-note>
+          </ion-item>
+        </ion-item-group>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
