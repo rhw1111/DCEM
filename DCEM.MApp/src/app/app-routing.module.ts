@@ -10,7 +10,8 @@ const routes: Routes = [
                 path: 'uc',
                 children: [
                     { path: 'login', loadChildren: './base/uc.com/login/login.module#LoginPageModule' },
-                    { path: 'welcome', loadChildren: './base/uc.com/welcome/welcome.module#WelcomePageModule' }
+                    { path: 'welcome', loadChildren: './base/uc.com/welcome/welcome.module#WelcomePageModule' },
+                    { path: 'detail', loadChildren: './base/uc.com/detail/detail.module#DetailPageModule' }
                 ]
             }
         ]
@@ -235,6 +236,8 @@ const routes: Routes = [
     },
     { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' },
     { path: 'fileupload', loadChildren: './serving/serving.ser/components/fileupload/fileupload.module#FileuploadPageModule' },
+ 
+
 
 ];
 
