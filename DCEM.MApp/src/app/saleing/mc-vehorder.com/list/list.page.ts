@@ -66,7 +66,7 @@ selectTab(status) {
     this.model.datalist = [];
     this.model.page = 1;
     this.model.isending = false;
-    if (status != "" && status != undefined) {
+    if (status.toString() != "" && status != undefined) {
         this.model.mcs_rostatus = status;
     }
     else {
