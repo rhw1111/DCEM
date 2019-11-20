@@ -21,7 +21,7 @@
                 </ion-label>
             </ion-item>
             <ion-item-options side="end">
-                <ion-item-option color="tertiary" expandable>
+                <ion-item-option color="tertiary" expandable (click)="fileDeleteClick(key)">
                     移除
                 </ion-item-option>
             </ion-item-options>
@@ -40,8 +40,8 @@
     </ion-list>
 
     <section style="text-align:center;">
-        <ion-button style="width:40%" color="danger">取消</ion-button>
-        <ion-button style="width:40%" color="success">确定</ion-button>
+        <ion-button style="width:40%" color="danger" (click)="cancelClick()">取消</ion-button>
+        <ion-button style="width:40%" color="success" (click)="okClick()">确定</ion-button>
     </section>
     <br />
     <br />

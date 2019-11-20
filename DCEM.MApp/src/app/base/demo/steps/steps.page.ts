@@ -10,29 +10,22 @@ export class StepsPage implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() { 
     debugger;
-    var map = new AMap.Map('container', {
-      zoom: 11,//级别
-      center: [116.397428, 39.90923],//中心点坐标
-      viewMode: '3D'//使用3D视图
+    var map, route, marker;
+    //基本地图加载
+    map = new AMap.Map("container", {
+        resizeEnable: true
     });
-    AMap.plugin('AMap.DragRoute', function () {//异步加载插件
-      var toolbar = new AMap.DragRoute();
-      map.addControl(toolbar);
+    //绘制初始路径
+    var path = [];
+    path.push([116.303843, 39.983412]);
+    path.push([116.321354, 39.896436]);
+    path.push([116.407012, 39.992093]);
+    map.plugin("AMap.DragRoute", function() {
+        route = new AMap.DragRoute(map, path, AMap.DrivingPolicy.LEAST_FEE); //构造拖拽导航类
+        route.search(); //查询导航路径并开启拖拽导航
     });
-    map.plugin('AMap.DragRoute', function () {
-      // path 是驾车导航的起、途径和终点，最多支持16个途经点
-      var path = []
-
-      path.push([116.303843, 39.983412])
-      path.push([116.321354, 39.896436])
-      path.push([116.407012, 39.992093])
-
-      var route = new AMap.DragRoute(map, path, AMap.DrivingPolicy.LEAST_FEE)
-      // 查询导航路径并开启拖拽导航
-      route.search()
-    })
   }
 
 }

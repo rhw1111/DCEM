@@ -62,12 +62,12 @@ namespace DCEM.SalesAssistant.Main.Application.App
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<DriverecordDetailRepository> GetDetail(Guid id)
+        public async Task<DriverecordDetailResponse> GetDetail(Guid id)
         {
             return await _driveRecordService.GetDetail(id);
         }
 
-        public async Task<TestdrivefeedbackRepository> GetTestdrivefeedback(Guid id)
+        public async Task<TestdrivefeedbackResponse> GetTestdrivefeedback(Guid id)
         {
             return await _driveRecordService.GetTestdrivefeedback(id);
         }
