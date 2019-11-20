@@ -107,41 +107,46 @@ export class DetailPage implements OnInit {
   //任务完成
   TaskFinish(){
  
-    this._page.confirm("确认提示", "确定完成该任务？",function(){
+    this._page.confirm("确认提示", "确定完成该任务？",()=>{
         
-      
+      this.UpdateState();
     
     });
 
-    var postData = {};
-    postData["mcs_activitystatus"] = 1;
-    
-    postData["mcs_endtime"] = new Date();
+  }
 
-    this._page.loadingShow();
-    this._http.post(
-      this.model.addoreditUrl,
-      postData,
-      (res: any) => {
-        this._page.loadingHide();
-        console.log(res);
-        if (res.Result == true) {
-          const that = this;
-          this._page.alert("消息提示", "操作成功", function () {
-            that._page.goBack();
-          });
-        }
-        else {
-          this._page.alert("消息提示", "操作失败");
-        }
-      },
-      (err: any) => {
-        this._page.loadingHide();
+
+UpdateState(){
+  debugger;
+  var postData = {};
+  postData["id"] = this.model.activityData.mcs_activityid;
+  postData["mcs_activitystatus"] = 1; //已完成
+  postData["mcs_endtime"] = new Date();
+  
+  this._page.loadingShow();
+  this._http.post(
+    this.model.addoreditUrl,
+    postData,
+    (res: any) => {
+      this._page.loadingHide();
+      console.log(res);
+      if (res.Result == true) {
+        const that = this;
+        this._page.alert("消息提示", "操作成功",  ()=> {
+          
+          this.pageOnBind(this.model.activityData.mcs_activityid);
+        });
+      }
+      else {
         this._page.alert("消息提示", "操作失败");
       }
-    );
+    },
+    (err: any) => {
+      this._page.loadingHide();
+      this._page.alert("消息提示", "操作失败");
+    }
+  );
+}
 
-
-  }
 
 }

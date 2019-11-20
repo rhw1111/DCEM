@@ -4,6 +4,9 @@
           <ion-back-button text="返回" defaultHref="/saleing/cultivatetask/list"></ion-back-button>
       </ion-buttons>
       <ion-title>培育任务详情</ion-title>
+      <ion-buttons slot="end">
+        <ion-menu-button></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -133,13 +136,20 @@
             </ion-label>
           </ion-item>  
       </ion-list>
-      <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="model.activityData.mcs_activitystatus=='open'">
-          <ion-fab-button [routerLink]="['/saleing/cultivatetask/edit']" [queryParams]="{id:model.activityData.mcs_activityid}">
-              <!-- <ion-icon name="add"></ion-icon> -->
-              编辑
-          </ion-fab-button>
-          <ion-fab-button [routerLink]="['/saleing/cultivatetask/edit']" [queryParams]="{id:model.activityData.mcs_activityid}">        
-              完成
+     
+      <ion-fab *ngIf="model.activityData.mcs_activitystatus=='open'" vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+            <ion-icon name="arrow-dropup"></ion-icon>
         </ion-fab-button>
-      </ion-fab>
+        <ion-fab-list side="top">
+            <ion-fab-button [routerLink]="['/saleing/cultivatetask/edit']" [queryParams]="{id:model.activityData.mcs_activityid}" title="编辑" color="success" >
+                编辑
+            </ion-fab-button>
+            <ion-fab-button  title="完成" color="success" (click)="TaskFinish()">
+                完成
+            </ion-fab-button>
+           
+        </ion-fab-list>
+    </ion-fab>
+
 </ion-content>

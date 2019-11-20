@@ -32,17 +32,17 @@ namespace DCEM.Web.Controllers
 
         #region 整车订单列表查询
         
-        [HttpGet]
+        [HttpPost]
         [Route("GetVehorderList")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetVehorderList(string seachkey = "", int pageSize = 10, int page = 1,string sort="",int mcs_rostatus=0)
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetVehorderList(VehorderRequest vehorderRequest)
         {         
-            var vehorderRequest = new VehorderRequest()
-            {
-                SearchKey = seachkey,                   
-                PageIndex = page,
-                PageSize = pageSize,
-                mcs_rostatus= mcs_rostatus
-            };
+            //var vehorderRequest = new VehorderRequest()
+            //{
+            //    SearchKey = seachkey,                   
+            //    PageIndex = page,
+            //    PageSize = pageSize,
+            //    mcs_rostatus= mcs_rostatus
+            //};
 
             var list = await app.GetVehorderList(vehorderRequest);
             return list;
