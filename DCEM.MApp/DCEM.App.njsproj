@@ -70,6 +70,8 @@
     <Content Include="src\app\saleing\mcs-onlylead.com\list\list.page.scss" />
     <Content Include="src\app\saleing\mcs-onlylead.com\success\success.page.html" />
     <Content Include="src\app\saleing\mcs-onlylead.com\success\success.page.scss" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\calendar\calendar.page.html" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\calendar\calendar.page.scss" />
     <Content Include="src\app\saleing\mcs_driverecord.com\detail\detail.page.html" />
     <Content Include="src\app\saleing\mcs_driverecord.com\detail\detail.page.scss" />
     <Content Include="src\app\saleing\mcs_driverecord.com\edit\edit.page.html" />
@@ -633,6 +635,9 @@
     <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\success\success.module.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\success\success.page.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\success\success.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\calendar\calendar.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\calendar\calendar.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\calendar\calendar.page.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\detail\detail.module.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\detail\detail.page.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\detail\detail.page.ts" />
@@ -955,6 +960,7 @@
     <Folder Include="src\app\saleing\mcs-onlylead.com\success\" />
     <Folder Include="src\app\saleing\mcs-deliverycentercarstock.com\" />
     <Folder Include="src\app\saleing\mcs_driverecord.com\" />
+    <Folder Include="src\app\saleing\mcs_driverecord.com\calendar\" />
     <Folder Include="src\app\saleing\mcs_driverecord.com\detail\" />
     <Folder Include="src\app\saleing\mcs_driverecord.com\edit\" />
     <Folder Include="src\app\saleing\mcs_driverecord.com\list\" />
