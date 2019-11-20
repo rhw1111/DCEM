@@ -21,5 +21,26 @@ namespace DCEM.SalesAssistant.Main.Application.Repository.Contrac
         /// <param name="status"></param>
         /// <returns></returns>
         string QueryListByCount(DriveRecordRequest request, int status);
+
+        /// <summary>
+        /// 试乘试驾预约时段列表查询
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        string QueryReservationList(DriveReservationRequest request);
+
+        /// <summary>
+        /// 试乘试驾车辆列表
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        string QueryDriveCarList(TestDriveCarRequest request);
+
+        /// <summary>
+        /// 试乘试驾路线
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        string QueryDriveRouteList(DriveRouteRequest request);
     }
 }

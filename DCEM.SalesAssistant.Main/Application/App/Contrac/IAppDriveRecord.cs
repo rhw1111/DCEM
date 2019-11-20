@@ -14,5 +14,33 @@ namespace DCEM.SalesAssistant.Main.Application.App.Contrac
         /// <param name="request"></param>
         /// <returns></returns>
         Task<DriveRecordListResponse<CrmEntity>> QueryList(DriveRecordRequest request);
+
+        /// <summary>
+        /// 试乘试驾预约时段列表
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<QueryResult<CrmEntity>> QueryReservationList(DriveReservationRequest request);
+
+        /// <summary>
+        /// 试乘试驾新增修改
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ValidateResult<CrmEntity>> AddOrEdit(DriveRecordAddOrEditRequest request);
+
+        /// <summary>
+        /// 试乘试驾车辆
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<QueryResult<CrmEntity>> QueryDriveCarList(TestDriveCarRequest request);
+
+        /// <summary>
+        /// 试乘试驾路线
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<QueryResult<CrmEntity>> QueryDriveRouteList(DriveRouteRequest request);
     }
 }

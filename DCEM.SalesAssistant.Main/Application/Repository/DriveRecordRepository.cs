@@ -9,6 +9,62 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
     public class DriveRecordRepository : IDriveRecordRepository
     {
         /// <summary>
+        /// 试乘试驾车辆查询
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public string QueryDriveCarList(TestDriveCarRequest request)
+        {
+            var filter = string.Empty;
+            if (!string.IsNullOrWhiteSpace(request.Search))
+            {
+                filter += $"<filter type='or'>";
+                filter += $"<condition attribute='mcs_vehplate' operator='like' value='%{request.Search}%' />";
+                filter += $"</filter>";
+            }
+            var fetchString = $@"<fetch version='1.0' count='{request.PageSize}' page='{request.PageIndex}' output-format='xml-platform' mapping='logical' distinct='false'>
+                  <entity name='mcs_testdrivecar'>
+                    <all-attributes />
+                    <filter type='and'>
+                      <condition attribute='statecode' operator='eq' value='0' />
+                      {filter}
+                    </filter>
+                  </entity>
+                </fetch>";
+
+            return fetchString;
+        }
+
+        /// <summary>
+        /// 试乘试驾路线
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public string QueryDriveRouteList(DriveRouteRequest request)
+        {
+            var filter = string.Empty;
+            if (!string.IsNullOrWhiteSpace(request.Search))
+            {
+                filter += $"<filter type='or'>";
+                filter += $"<condition attribute='mcs_name' operator='like' value='%{request.Search}%' />";
+                filter += $"<condition attribute='mcs_start' operator='like' value='%{request.Search}%' />";
+                filter += $"<condition attribute='mcs_end' operator='like' value='%{request.Search}%' />";
+                filter += $"</filter>";
+            }
+            var fetchString = $@"<fetch version='1.0' count='{request.PageSize}' page='{request.PageIndex}' output-format='xml-platform' mapping='logical' distinct='false'>
+                  <entity name='mcs_driveroute'>
+                    <all-attributes />
+                    <filter type='and'>
+                      <condition attribute='statecode' operator='eq' value='0' />
+                      {filter}
+                    </filter>
+                  </entity>
+                </fetch>";
+
+            return fetchString;
+        }
+
+        /// <summary>
         /// 试乘试驾列表查询接口
         /// </summary>
         /// <param name="request"></param>
@@ -82,6 +138,37 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
             var fetchString = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'  aggregate='true'>
                   <entity name='mcs_driverecord'>
                     <attribute name='mcs_driverecordid' aggregate='countcolumn' alias='count'/>
+                    <filter type='and'>
+                      <condition attribute='statecode' operator='eq' value='0' />
+                      {filter}
+                    </filter>
+                  </entity>
+                </fetch>";
+
+            return fetchString;
+        }
+
+        /// <summary>
+        /// 试乘试驾预约时段查询列表
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public string QueryReservationList(DriveReservationRequest request)
+        {
+            var filter = string.Empty;
+            if (request.CarModelId != null)
+            {
+                filter += $"<condition attribute='mcs_carmodel' operator='eq' value='{request.CarModelId}' />";
+            }
+            if (request.ReservationDate != null)
+            {
+                filter += $"<condition attribute='mcs_reservationdate' operator='on' value='{request.ReservationDate}' />";
+            }
+           
+            var fetchString = $@"<fetch version='1.0' count='{request.PageSize}' page='{request.PageIndex}' output-format='xml-platform' mapping='logical' distinct='false'>
+                  <entity name='mcs_reservationconfiguration'>
+                    <all-attributes />
+                    <order attribute='mcs_reservationdate' descending='false' />
                     <filter type='and'>
                       <condition attribute='statecode' operator='eq' value='0' />
                       {filter}

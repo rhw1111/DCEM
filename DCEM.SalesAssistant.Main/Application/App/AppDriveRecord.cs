@@ -18,6 +18,36 @@ namespace DCEM.SalesAssistant.Main.Application.App
         }
 
         /// <summary>
+        /// 试乘试驾新增修改
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ValidateResult<CrmEntity>> AddOrEdit(DriveRecordAddOrEditRequest request)
+        {
+            return await _driveRecordService.AddOrEdit(request);
+        }
+
+        /// <summary>
+        /// 试乘试驾车辆查询接口
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> QueryDriveCarList(TestDriveCarRequest request)
+        {
+            return await _driveRecordService.QueryDriveCarList(request);
+        }
+
+        /// <summary>
+        /// 试乘试驾路线
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> QueryDriveRouteList(DriveRouteRequest request)
+        {
+            return await _driveRecordService.QueryDriveRouteList(request);
+        }
+
+        /// <summary>
         /// 试乘试驾列表查询接口
         /// </summary>
         /// <param name="request"></param>
@@ -25,6 +55,16 @@ namespace DCEM.SalesAssistant.Main.Application.App
         public async Task<DriveRecordListResponse<CrmEntity>> QueryList(DriveRecordRequest request)
         {
             return await _driveRecordService.QueryList(request);
+        }
+
+        /// <summary>
+        /// 试乘试驾预约时段列表
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> QueryReservationList(DriveReservationRequest request)
+        {
+            return await _driveRecordService.QueryReservationList(request);
         }
     }
 }
