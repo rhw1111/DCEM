@@ -265,7 +265,7 @@ export class EditPage implements OnInit {
       return;
     }
     var postData = {};
-    postData["mcs_activitystatus"] = this.shareData.edititem["mcs_activitystatus"];
+    //postData["mcs_activitystatus"] = this.shareData.edititem["mcs_activitystatus"];
     postData["mcs_contactid"] = this.shareData.edititem["mcs_contactid"];
     postData["mcs_onlyleadid"] = this.shareData.edititem["mcs_onlyleadid"];
     postData["mcs_accountid"] = this.shareData.edititem["mcs_accountid"];

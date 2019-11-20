@@ -110,7 +110,7 @@ var ListPage = /** @class */ (function () {
                 pagesize: 10,
                 search: "",
                 userId: this._userinfo.GetSystemUserId(),
-                dealerid: "3EFBFFF6-EF1A-E911-A821-A4A314186A20",
+                dealerid: this._userinfo.GetDealerid()
             }
         };
     }
