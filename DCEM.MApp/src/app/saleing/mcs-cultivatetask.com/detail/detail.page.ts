@@ -19,8 +19,8 @@ export class DetailPage implements OnInit {
       mcs_endtime: "", //结束时间
       mcs_thisfollowupcontent: "", //本次跟进内容
       mcs_nextfollowuptime: "", //下次跟进时间
-      mcs_nextfollowupcontent: "" //下次跟进内容
-     
+      mcs_nextfollowupcontent: "", //下次跟进内容
+      mcs_activitystatus:"" //任务状态
     },
 
     onlyLeadData: {
@@ -76,7 +76,8 @@ export class DetailPage implements OnInit {
           this.model.activityData.mcs_thisfollowupcontent =res["ActivityInfo"]["Attributes"]["mcs_thisfollowupcontent"]; 
           this.model.activityData.mcs_nextfollowuptime = this.dateformat.FormatToDateTime(res["ActivityInfo"]["Attributes"]["mcs_nextfollowuptime"]); 
           this.model.activityData.mcs_nextfollowupcontent = res["ActivityInfo"]["Attributes"]["mcs_nextfollowupcontent"];
-              
+           
+          this.model.activityData.mcs_activitystatus = this.optionset.GetOptionSetNameByValue("mcs_activitystatus",res["ActivityInfo"]["Attributes"]["mcs_activitystatus"]); 
         }
       
         //绑定唯一线索信息

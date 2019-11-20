@@ -10,6 +10,10 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
     public class ActivityEditRequest
     {
 
+        public ActivityEditRequest()
+        {
+          
+        }
         /// <summary>
         /// 潜客
         /// </summary>

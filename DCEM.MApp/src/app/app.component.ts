@@ -24,7 +24,7 @@ export class AppComponent {
         },
         {
             title: '个人信息',
-            url: '/serving/home/tabs/mywork',
+            url: '/base/uc/detail',
             icon: 'person',
             num: 0,
         },
