@@ -49,6 +49,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCEM.SalesAssistant.Main", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateCode", "GenerateCode\GenerateCode\GenerateCode.csproj", "{5F6299F0-836B-45F3-A74E-E73112B024C9}"
 EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "DCEM.App.CTerminal", "DCEM.App.CTerminal\DCEM.App.CTerminal.njsproj", "{BB5C3661-31DD-456A-9E35-DDBF2280A835}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -123,6 +125,10 @@ Global
 		{5F6299F0-836B-45F3-A74E-E73112B024C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F6299F0-836B-45F3-A74E-E73112B024C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F6299F0-836B-45F3-A74E-E73112B024C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB5C3661-31DD-456A-9E35-DDBF2280A835}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB5C3661-31DD-456A-9E35-DDBF2280A835}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB5C3661-31DD-456A-9E35-DDBF2280A835}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB5C3661-31DD-456A-9E35-DDBF2280A835}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -145,6 +151,7 @@ Global
 		{7CF5945D-41B9-4B69-9F80-A59A2C9C7350} = {E2B83048-8094-420E-AFA7-AA8274A28A2F}
 		{852B965B-AF53-45A0-828D-F907EA6FD454} = {E2B83048-8094-420E-AFA7-AA8274A28A2F}
 		{5F6299F0-836B-45F3-A74E-E73112B024C9} = {05061FC2-A7DF-42F3-ADFD-9DC28994E97A}
+		{BB5C3661-31DD-456A-9E35-DDBF2280A835} = {1BE884B4-23B7-4124-93E6-9B9C30F751B4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {843D9FD7-3ABC-41CB-A7B0-6A4C72441BC9}

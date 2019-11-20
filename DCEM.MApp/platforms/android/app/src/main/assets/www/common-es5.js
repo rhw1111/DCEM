@@ -1,75 +1,117 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["common"],{
 
-/***/ "./node_modules/@ionic/core/dist/esm-es5/chunk-353a032e.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm-es5/chunk-353a032e.js ***!
-  \*****************************************************************/
-/*! exports provided: c, g, h, o */
+/***/ "./node_modules/@ionic/core/dist/esm-es5/cubic-bezier-2812fda3.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm-es5/cubic-bezier-2812fda3.js ***!
+  \************************************************************************/
+/*! exports provided: P, g */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return createColorClasses; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getClassMap; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return hostContext; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return openURL; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-var _this = undefined;
-
-var hostContext = function (selector, el) {
-    return el.closest(selector) !== null;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "P", function() { return Point; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getTimeGivenProgression; });
+/**
+ * Based on:
+ * https://stackoverflow.com/questions/7348009/y-coordinate-for-a-given-x-cubic-bezier
+ * https://math.stackexchange.com/questions/26846/is-there-an-explicit-form-for-cubic-b%C3%A9zier-curves
+ * TODO: Reduce rounding error
+ */
+var Point = /** @class */ (function () {
+    function Point(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+    return Point;
+}());
+/**
+ * Given a cubic-bezier curve, get the x value (time) given
+ * the y value (progression).
+ * Ex: cubic-bezier(0.32, 0.72, 0, 1);
+ * P0: (0, 0)
+ * P1: (0.32, 0.72)
+ * P2: (0, 1)
+ * P3: (1, 1)
+ *
+ * If you give a cubic bezier curve that never reaches the
+ * provided progression, this function will return NaN.
+ */
+var getTimeGivenProgression = function (p0, p1, p2, p3, progression) {
+    var tValues = solveCubicBezier(p0.y, p1.y, p2.y, p3.y, progression);
+    return solveCubicParametricEquation(p0.x, p1.x, p2.x, p3.x, tValues[0]); // TODO: Add better strategy for dealing with multiple solutions
 };
 /**
- * Create the mode and color classes for the component based on the classes passed in
+ * Solve a cubic equation in one dimension (time)
  */
-var createColorClasses = function (color) {
-    var _a;
-    return (typeof color === 'string' && color.length > 0) ? (_a = {
-            'ion-color': true
-        },
-        _a["ion-color-" + color] = true,
-        _a) : undefined;
+var solveCubicParametricEquation = function (p0, p1, p2, p3, t) {
+    var partA = (3 * p1) * Math.pow(t - 1, 2);
+    var partB = (-3 * p2 * t) + (3 * p2) + (p3 * t);
+    var partC = p0 * Math.pow(t - 1, 3);
+    return t * (partA + (t * partB)) - partC;
 };
-var getClassList = function (classes) {
-    if (classes !== undefined) {
-        var array = Array.isArray(classes) ? classes : classes.split(' ');
-        return array
-            .filter(function (c) { return c != null; })
-            .map(function (c) { return c.trim(); })
-            .filter(function (c) { return c !== ''; });
+/**
+ * Find the `t` value for a cubic bezier using Cardano's formula
+ */
+var solveCubicBezier = function (p0, p1, p2, p3, refPoint) {
+    p0 -= refPoint;
+    p1 -= refPoint;
+    p2 -= refPoint;
+    p3 -= refPoint;
+    var roots = solveCubicEquation(p3 - 3 * p2 + 3 * p1 - p0, 3 * p2 - 6 * p1 + 3 * p0, 3 * p1 - 3 * p0, p0);
+    return roots.filter(function (root) { return root >= 0 && root <= 1; });
+};
+var solveQuadraticEquation = function (a, b, c) {
+    var discriminant = b * b - 4 * a * c;
+    if (discriminant < 0) {
+        return [];
     }
-    return [];
+    else {
+        return [
+            (-b + Math.sqrt(discriminant)) / (2 * a),
+            (-b - Math.sqrt(discriminant)) / (2 * a)
+        ];
+    }
 };
-var getClassMap = function (classes) {
-    var map = {};
-    getClassList(classes).forEach(function (c) { return map[c] = true; });
-    return map;
+var solveCubicEquation = function (a, b, c, d) {
+    if (a === 0) {
+        return solveQuadraticEquation(b, c, d);
+    }
+    b /= a;
+    c /= a;
+    d /= a;
+    var p = (3 * c - b * b) / 3;
+    var q = (2 * b * b * b - 9 * b * c + 27 * d) / 27;
+    if (p === 0) {
+        return [Math.pow(-q, 1 / 3)];
+    }
+    else if (q === 0) {
+        return [Math.sqrt(-p), -Math.sqrt(-p)];
+    }
+    var discriminant = Math.pow(q / 2, 2) + Math.pow(p / 3, 3);
+    if (discriminant === 0) {
+        return [Math.pow(q / 2, 1 / 2) - b / 3];
+    }
+    else if (discriminant > 0) {
+        return [Math.pow(-(q / 2) + Math.sqrt(discriminant), 1 / 3) - Math.pow((q / 2) + Math.sqrt(discriminant), 1 / 3) - b / 3];
+    }
+    var r = Math.sqrt(Math.pow(-(p / 3), 3));
+    var phi = Math.acos(-(q / (2 * Math.sqrt(Math.pow(-(p / 3), 3)))));
+    var s = 2 * Math.pow(r, 1 / 3);
+    return [
+        s * Math.cos(phi / 3) - b / 3,
+        s * Math.cos((phi + 2 * Math.PI) / 3) - b / 3,
+        s * Math.cos((phi + 4 * Math.PI) / 3) - b / 3
+    ];
 };
-var SCHEME = /^[a-z][a-z0-9+\-.]*:/;
-var openURL = function (url, ev, direction) { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
-    var router;
-    return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-        if (url != null && url[0] !== '#' && !SCHEME.test(url)) {
-            router = document.querySelector('ion-router');
-            if (router) {
-                if (ev != null) {
-                    ev.preventDefault();
-                }
-                return [2 /*return*/, router.push(url, direction)];
-            }
-        }
-        return [2 /*return*/, false];
-    });
-}); };
 
 
 
 /***/ }),
 
-/***/ "./node_modules/@ionic/core/dist/esm-es5/chunk-4e92c885.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm-es5/chunk-4e92c885.js ***!
-  \*****************************************************************/
+/***/ "./node_modules/@ionic/core/dist/esm-es5/haptic-c8f1473e.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm-es5/haptic-c8f1473e.js ***!
+  \******************************************************************/
 /*! exports provided: a, b, c, h */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -126,130 +168,9 @@ var hapticSelectionEnd = function () {
 
 /***/ }),
 
-/***/ "./node_modules/@ionic/core/dist/esm-es5/chunk-c90aaa66.js":
+/***/ "./node_modules/@ionic/core/dist/esm-es5/index-3476b023.js":
 /*!*****************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm-es5/chunk-c90aaa66.js ***!
-  \*****************************************************************/
-/*! exports provided: a, b, c, d, e, f, h, i, n, p, r */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return rIC; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return assert; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return clamp; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return debounceEvent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return debounce; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return findItemLabel; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return hasShadowDom; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return isEndSide; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return now; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return pointerCoord; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return renderHiddenInput; });
-var rIC = function (callback) {
-    if ('requestIdleCallback' in window) {
-        window.requestIdleCallback(callback);
-    }
-    else {
-        setTimeout(callback, 32);
-    }
-};
-var hasShadowDom = function (el) {
-    return !!el.shadowRoot && !!el.attachShadow;
-};
-var findItemLabel = function (componentEl) {
-    var itemEl = componentEl.closest('ion-item');
-    if (itemEl) {
-        return itemEl.querySelector('ion-label');
-    }
-    return null;
-};
-var renderHiddenInput = function (always, container, name, value, disabled) {
-    if (always || hasShadowDom(container)) {
-        var input = container.querySelector('input.aux-input');
-        if (!input) {
-            input = container.ownerDocument.createElement('input');
-            input.type = 'hidden';
-            input.classList.add('aux-input');
-            container.appendChild(input);
-        }
-        input.disabled = disabled;
-        input.name = name;
-        input.value = value || '';
-    }
-};
-var clamp = function (min, n, max) {
-    return Math.max(min, Math.min(n, max));
-};
-var assert = function (actual, reason) {
-    if (!actual) {
-        var message = 'ASSERT: ' + reason;
-        console.error(message);
-        debugger; // tslint:disable-line
-        throw new Error(message);
-    }
-};
-var now = function (ev) {
-    return ev.timeStamp || Date.now();
-};
-var pointerCoord = function (ev) {
-    // get X coordinates for either a mouse click
-    // or a touch depending on the given event
-    if (ev) {
-        var changedTouches = ev.changedTouches;
-        if (changedTouches && changedTouches.length > 0) {
-            var touch = changedTouches[0];
-            return { x: touch.clientX, y: touch.clientY };
-        }
-        if (ev.pageX !== undefined) {
-            return { x: ev.pageX, y: ev.pageY };
-        }
-    }
-    return { x: 0, y: 0 };
-};
-/**
- * @hidden
- * Given a side, return if it should be on the end
- * based on the value of dir
- * @param side the side
- * @param isRTL whether the application dir is rtl
- */
-var isEndSide = function (side) {
-    var isRTL = document.dir === 'rtl';
-    switch (side) {
-        case 'start': return isRTL;
-        case 'end': return !isRTL;
-        default:
-            throw new Error("\"" + side + "\" is not a valid value for [side]. Use \"start\" or \"end\" instead.");
-    }
-};
-var debounceEvent = function (event, wait) {
-    var original = event._original || event;
-    return {
-        _original: event,
-        emit: debounce(original.emit.bind(original), wait)
-    };
-};
-var debounce = function (func, wait) {
-    if (wait === void 0) { wait = 0; }
-    var timer;
-    return function () {
-        var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            args[_i] = arguments[_i];
-        }
-        clearTimeout(timer);
-        timer = setTimeout.apply(void 0, [func, wait].concat(args));
-    };
-};
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ionic/core/dist/esm-es5/chunk-cae2ca23.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm-es5/chunk-cae2ca23.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm-es5/index-3476b023.js ***!
   \*****************************************************************/
 /*! exports provided: s */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -306,10 +227,10 @@ var sanitizeDOMString = function (untrustedString) {
          * non-allowed attribs
          */
         // IE does not support .children on document fragments, only .childNodes
-        var documentFragmentChildren = getElementChildren(documentFragment_1);
+        var dfChildren = getElementChildren(documentFragment_1);
         /* tslint:disable-next-line */
-        for (var childIndex = 0; childIndex < documentFragmentChildren.length; childIndex++) {
-            sanitizeElement(documentFragmentChildren[childIndex]);
+        for (var childIndex = 0; childIndex < dfChildren.length; childIndex++) {
+            sanitizeElement(dfChildren[childIndex]);
         }
         // Append document fragment to div
         var fragmentDiv = document.createElement('div');
@@ -334,7 +255,7 @@ var sanitizeElement = function (element) {
         return;
     }
     for (var i = element.attributes.length - 1; i >= 0; i--) {
-        var attribute = element.attributes[i];
+        var attribute = element.attributes.item(i);
         var attributeName = attribute.name;
         // remove non-allowed attribs
         if (!allowedAttributes.includes(attributeName.toLowerCase())) {
@@ -362,11 +283,121 @@ var sanitizeElement = function (element) {
  * IE doesn't always support .children
  * so we revert to .childNodes instead
  */
-var getElementChildren = function (element) {
-    return (element.children != null) ? element.children : element.childNodes;
+var getElementChildren = function (el) {
+    return (el.children != null) ? el.children : el.childNodes;
 };
 var allowedAttributes = ['class', 'id', 'href', 'src', 'name', 'slot'];
 var blockedTags = ['script', 'style', 'iframe', 'meta', 'link', 'object', 'embed'];
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@ionic/core/dist/esm-es5/theme-18cbe2cc.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm-es5/theme-18cbe2cc.js ***!
+  \*****************************************************************/
+/*! exports provided: c, g, h, o */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return createColorClasses; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getClassMap; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return hostContext; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return openURL; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+
+var hostContext = function (selector, el) {
+    return el.closest(selector) !== null;
+};
+/**
+ * Create the mode and color classes for the component based on the classes passed in
+ */
+var createColorClasses = function (color) {
+    var _a;
+    return (typeof color === 'string' && color.length > 0) ? (_a = {
+            'ion-color': true
+        },
+        _a["ion-color-" + color] = true,
+        _a) : undefined;
+};
+var getClassList = function (classes) {
+    if (classes !== undefined) {
+        var array = Array.isArray(classes) ? classes : classes.split(' ');
+        return array
+            .filter(function (c) { return c != null; })
+            .map(function (c) { return c.trim(); })
+            .filter(function (c) { return c !== ''; });
+    }
+    return [];
+};
+var getClassMap = function (classes) {
+    var map = {};
+    getClassList(classes).forEach(function (c) { return map[c] = true; });
+    return map;
+};
+var SCHEME = /^[a-z][a-z0-9+\-.]*:/;
+var openURL = function (url, ev, direction) { return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function () {
+    var router;
+    return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
+        if (url != null && url[0] !== '#' && !SCHEME.test(url)) {
+            router = document.querySelector('ion-router');
+            if (router) {
+                if (ev != null) {
+                    ev.preventDefault();
+                }
+                return [2 /*return*/, router.push(url, direction)];
+            }
+        }
+        return [2 /*return*/, false];
+    });
+}); };
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@ionic/core/dist/esm-es5/watch-options-2af96011.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm-es5/watch-options-2af96011.js ***!
+  \*************************************************************************/
+/*! exports provided: f, w */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return findCheckedOption; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return watchForOptions; });
+var watchForOptions = function (containerEl, tagName, onChange) {
+    var mutation = new MutationObserver(function (mutationList) {
+        onChange(getSelectedOption(mutationList, tagName));
+    });
+    mutation.observe(containerEl, {
+        childList: true,
+        subtree: true
+    });
+    return mutation;
+};
+var getSelectedOption = function (mutationList, tagName) {
+    var newOption;
+    mutationList.forEach(function (mut) {
+        // tslint:disable-next-line: prefer-for-of
+        for (var i = 0; i < mut.addedNodes.length; i++) {
+            newOption = findCheckedOption(mut.addedNodes[i], tagName) || newOption;
+        }
+    });
+    return newOption;
+};
+var findCheckedOption = function (el, tagName) {
+    if (el.nodeType !== 1) {
+        return undefined;
+    }
+    var options = (el.tagName === tagName.toUpperCase())
+        ? [el]
+        : Array.from(el.querySelectorAll(tagName));
+    return options.find(function (o) { return o.checked === true; });
+};
 
 
 
@@ -528,257 +559,54 @@ exports.fromNow = fromNow;
 
 /***/ }),
 
-/***/ "./src/app/saleing/saleing.ser/optionset.service.ts":
-/*!**********************************************************!*\
-  !*** ./src/app/saleing/saleing.ser/optionset.service.ts ***!
-  \**********************************************************/
-/*! exports provided: OptionSetService */
+/***/ "./src/app/base/base.ser/dateformat.ts":
+/*!*********************************************!*\
+  !*** ./src/app/base/base.ser/dateformat.ts ***!
+  \*********************************************/
+/*! exports provided: Dateformat */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OptionSetService", function() { return OptionSetService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Dateformat", function() { return Dateformat; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var silly_datetime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! silly-datetime */ "./node_modules/silly-datetime/dest/index.js");
+/* harmony import */ var silly_datetime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(silly_datetime__WEBPACK_IMPORTED_MODULE_2__);
 
 
-var OptionSetService = /** @class */ (function () {
-    /**
-     * 选项集定义，后续优化通过接口获取
-     */
-    function OptionSetService() {
+
+var Dateformat = /** @class */ (function () {
+    /*
+    日期时间格式化处理
+    */
+    function Dateformat() {
     }
-    /**
-     * 通过选项名称,及value值获取option显示名称
-     * @param optionname 选项集名称
-     * @param value 选项集值
-     */
-    OptionSetService.prototype.GetOptionSetNameByValue = function (optionname, value) {
-        var result = "--";
-        var obj = this.Get(optionname);
-        if (obj != null && obj.length > 0) {
-            for (var i = 0; i < obj.length; i++) {
-                if (value == obj[i]["value"]) {
-                    return obj[i]["name"];
-                }
-            }
+    Dateformat.prototype.FormatToDate = function (date) {
+        if (date != null && date != undefined) {
+            return silly_datetime__WEBPACK_IMPORTED_MODULE_2___default.a.format(date, 'YYYY-MM-DD');
         }
-        return result;
-    };
-    /**
-     * 通过选项名称获取option值
-     * @param optionname 选项集名称
-     * @param name 选项名称
-     */
-    OptionSetService.prototype.GetOptionSetValueByName = function (optionname, name) {
-        var result = "";
-        var obj = this.Get(optionname);
-        if (obj != null && obj.length > 0) {
-            for (var i = 0; i < obj.length; i++) {
-                if (name == obj[i]["name"]) {
-                    return obj[i]["value"];
-                }
-            }
+        else {
+            return '--';
         }
-        return result;
     };
-    /**
-     * 静态数据通用
-     * @param name
-     */
-    OptionSetService.prototype.Get = function (name) {
-        var optionlist = [];
-        switch (name) {
-            case "towoption": //是否选项集
-                optionlist = [
-                    { "name": "否", "value": 0 },
-                    { "name": "是", "value": 1 }
-                ];
-                break;
-            case "mcs_gender": //称呼
-                optionlist = [
-                    { "name": "先生", "value": 1 },
-                    { "name": "女士", "value": 2 },
-                    { "name": "未知", "value": 3 }
-                ];
-                break;
-            case "mcs_level": //意向等级
-                optionlist = [
-                    { "name": "预计90天内成交", "value": 0 },
-                    { "name": "预计3~6个月内成交", "value": 1 },
-                    { "name": "预计6~12个月内成交", "value": 2 },
-                    { "name": "预计12个月以上成交", "value": 3 },
-                    { "name": "战败", "value": 5 },
-                    { "name": "订单 ", "value": 6 }
-                ];
-                break;
-            case "mcs_purchasepurpose": //车辆用途
-                optionlist = [
-                    { "name": "家用", "value": 0 },
-                    { "name": "运营", "value": 1 },
-                    { "name": "其他", "value": 2 }
-                ];
-                break;
-            case "mcs_purchaseway": //购买方式
-                optionlist = [
-                    { "name": "全款", "value": 0 },
-                    { "name": "贷款", "value": 1 }
-                ];
-                break;
-            case "mcs_generation": //年龄段
-                optionlist = [
-                    { "name": "18岁以下", "value": 0 },
-                    { "name": "18~25岁", "value": 1 },
-                    { "name": "26~35岁", "value": 2 },
-                    { "name": "36~45岁", "value": 3 },
-                    { "name": "46~55岁", "value": 4 },
-                    { "name": "56岁以上", "value": 5 }
-                ];
-                break;
-            case "mcs_carereason": //购买原因
-                optionlist = [
-                    { "name": "环保", "value": 9 },
-                    { "name": "科技", "value": 10 },
-                    { "name": "安全", "value": 6 },
-                    { "name": "性能", "value": 11 },
-                    { "name": "售后成本", "value": 12 },
-                    { "name": "品牌", "value": 2 },
-                    { "name": "价格", "value": 3 },
-                    { "name": "配置", "value": 4 },
-                    { "name": "服务", "value": 5 },
-                    { "name": "舒适性", "value": 7 },
-                    { "name": "残值", "value": 8 }
-                ];
-                break;
-            case "mcs_vehicleusers": //车辆使用人
-                optionlist = [
-                    { "name": "自己", "value": 1 },
-                    { "name": "妻子", "value": 2 },
-                    { "name": "子女", "value": 3 }
-                ];
-                break;
-            case "mcs_leadorigin": //线索来源
-                optionlist = [
-                    { "name": "WEB官网", "value": 1 },
-                    { "name": "Event-Online", "value": 2 },
-                    { "name": "Event-OffLine", "value": 3 },
-                    { "name": "Store展厅", "value": 4 },
-                    { "name": "400电话", "value": 5 },
-                    { "name": "APP", "value": 6 },
-                    { "name": "小程序", "value": 7 },
-                    { "name": "车机", "value": 8 },
-                    { "name": "H5落地页", "value": 9 },
-                    { "name": "3D展厅", "value": 10 }
-                ];
-                break;
-            case "mcs_importantlevel": //培育任务-重要级别
-                optionlist = [
-                    { "name": "高", "value": 0 },
-                    { "name": "中", "value": 1 },
-                    { "name": "低", "value": 2 }
-                ];
-                break;
-            case "mcs_activitystatus": //培育任务-任务状态
-                optionlist = [
-                    { "name": "open", "value": 0 },
-                    { "name": "closed", "value": 1 }
-                ];
-                break;
-            default:
-                optionlist = [];
-                break;
-            case "lead_mcs_accountpoints": //原始线索评分
-                optionlist = [
-                    { "name": "1分", "value": 1 },
-                    { "name": "2分", "value": 2 },
-                    { "name": "3分", "value": 3 }
-                ];
-                break;
-            case "lead_mcs_leadorigin": //原始线索来源
-                optionlist = [
-                    { "name": "WEB官网", "value": 1 },
-                    { "name": "Event-Online", "value": 2 },
-                    { "name": "Event-OffLine", "value": 3 },
-                    { "name": "Store展厅", "value": 4 },
-                    { "name": "400电话", "value": 5 },
-                    { "name": "APP", "value": 6 },
-                    { "name": "小程序", "value": 7 },
-                    { "name": "车机", "value": 8 },
-                    { "name": "H5落地页", "value": 9 },
-                    { "name": "3D展厅", "value": 10 }
-                ];
-                break;
-            case "lead_mcs_gender": //原始线索称呼
-                optionlist = [
-                    { "name": "先生", "value": 1 },
-                    { "name": "女士", "value": 2 },
-                    { "name": "未知", "value": 3 }
-                ];
-                break;
-            case "mcs_customerstatus": //销售机会状态
-                optionlist = [
-                    { "name": "待指派", "value": 1 },
-                    { "name": "已指派", "value": 2 },
-                    { "name": "申请战败", "value": 3 },
-                    { "name": "已成交", "value": 4 },
-                    { "name": "已战败", "value": 5 },
-                    { "name": "已关闭", "value": 6 }
-                ];
-                break;
-            case "mcs_deliverystatus": //整车销售-交车单-交车单状态
-                optionlist = [
-                    { "name": "全部", "value": -1 },
-                    { "name": "待预约", "value": 1 },
-                    { "name": "待检测", "value": 2 },
-                    { "name": "已检测", "value": 3 },
-                    { "name": "已预约", "value": 4 },
-                    { "name": "已收尾款", "value": 5 },
-                    { "name": "车联网已开通", "value": 6 },
-                    { "name": "交车完成", "value": 7 },
-                    { "name": "作废", "value": 99 }
-                ];
-                break;
-            case "mcs_rostatus": //整车销售-整车订单状态
-                optionlist = [
-                    { "name": "订金待支付", "value": 1 },
-                    { "name": "订金已支付", "value": 2 },
-                    { "name": "订单确认", "value": 3 },
-                    { "name": "等待排产", "value": 4 },
-                    { "name": "生产中", "value": 5 },
-                    { "name": "车辆在途", "value": 6 },
-                    { "name": "等待交车", "value": 7 },
-                    { "name": "车联网已开通", "value": 8 },
-                    { "name": "交车完成", "value": 9 },
-                    { "name": "作废", "value": 99 }
-                ];
-                break;
-            case "mcs_approvalstatus": //整车销售-整车订单审批状态
-                optionlist = [
-                    { "name": "待审核", "value": 0 },
-                    { "name": "审核通过", "value": 1 },
-                    { "name": "审核不通过", "value": 2 }
-                ];
-                break;
-            case "mcs_paycategory": //整车销售-收款记录-收款类型 
-                optionlist = [
-                    { "name": "贷款", "value": 0 },
-                    { "name": "定金", "value": 1 },
-                    { "name": "尾款", "value": 2 },
-                    { "name": "抵扣", "value": 3 }
-                ];
-                break;
+    Dateformat.prototype.FormatToDateTime = function (date) {
+        if (date != null && date != undefined) {
+            return silly_datetime__WEBPACK_IMPORTED_MODULE_2___default.a.format(date, 'YYYY-MM-DD hh:mm:ss');
         }
-        return optionlist;
+        else {
+            return '--';
+        }
     };
-    OptionSetService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Dateformat = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
         })
-        /**
-         * 选项集定义，后续优化通过接口获取
-         */
-    ], OptionSetService);
-    return OptionSetService;
+        /*
+        日期时间格式化处理
+        */
+    ], Dateformat);
+    return Dateformat;
 }());
 
 

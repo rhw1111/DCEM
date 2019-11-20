@@ -1,358 +1,72 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[44],{
 
-/***/ "./node_modules/@ionic/core/dist/esm/ion-popover-md.entry.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/ion-popover-md.entry.js ***!
-  \*******************************************************************/
-/*! exports provided: ion_popover */
+/***/ "./node_modules/@ionic/core/dist/esm/ion-progress-bar-ios.entry.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm/ion-progress-bar-ios.entry.js ***!
+  \*************************************************************************/
+/*! exports provided: ion_progress_bar */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_popover", function() { return Popover; });
-/* harmony import */ var _chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chunk-d0403a2f.js */ "./node_modules/@ionic/core/dist/esm/chunk-d0403a2f.js");
-/* harmony import */ var _chunk_1074393c_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./chunk-1074393c.js */ "./node_modules/@ionic/core/dist/esm/chunk-1074393c.js");
-/* harmony import */ var _chunk_94c4865f_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./chunk-94c4865f.js */ "./node_modules/@ionic/core/dist/esm/chunk-94c4865f.js");
-/* harmony import */ var _chunk_d83bfeae_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./chunk-d83bfeae.js */ "./node_modules/@ionic/core/dist/esm/chunk-d83bfeae.js");
-/* harmony import */ var _chunk_353a032e_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./chunk-353a032e.js */ "./node_modules/@ionic/core/dist/esm/chunk-353a032e.js");
-/* harmony import */ var _chunk_00265c49_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./chunk-00265c49.js */ "./node_modules/@ionic/core/dist/esm/chunk-00265c49.js");
-/* harmony import */ var _chunk_3c9755dd_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./chunk-3c9755dd.js */ "./node_modules/@ionic/core/dist/esm/chunk-3c9755dd.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_progress_bar", function() { return ProgressBar; });
+/* harmony import */ var _core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core-ca0488fc.js */ "./node_modules/@ionic/core/dist/esm/core-ca0488fc.js");
+/* harmony import */ var _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./config-3c7f3790.js */ "./node_modules/@ionic/core/dist/esm/config-3c7f3790.js");
+/* harmony import */ var _helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-46f4a262.js */ "./node_modules/@ionic/core/dist/esm/helpers-46f4a262.js");
+/* harmony import */ var _theme_18cbe2cc_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./theme-18cbe2cc.js */ "./node_modules/@ionic/core/dist/esm/theme-18cbe2cc.js");
 
 
 
 
 
-
-
-
-/**
- * iOS Popover Enter Animation
- */
-const iosEnterAnimation = (AnimationC, baseEl, ev) => {
-    let originY = 'top';
-    let originX = 'left';
-    const contentEl = baseEl.querySelector('.popover-content');
-    const contentDimentions = contentEl.getBoundingClientRect();
-    const contentWidth = contentDimentions.width;
-    const contentHeight = contentDimentions.height;
-    const bodyWidth = baseEl.ownerDocument.defaultView.innerWidth;
-    const bodyHeight = baseEl.ownerDocument.defaultView.innerHeight;
-    // If ev was passed, use that for target element
-    const targetDim = ev && ev.target && ev.target.getBoundingClientRect();
-    const targetTop = targetDim != null && 'top' in targetDim ? targetDim.top : bodyHeight / 2 - contentHeight / 2;
-    const targetLeft = targetDim != null && 'left' in targetDim ? targetDim.left : bodyWidth / 2;
-    const targetWidth = (targetDim && targetDim.width) || 0;
-    const targetHeight = (targetDim && targetDim.height) || 0;
-    const arrowEl = baseEl.querySelector('.popover-arrow');
-    const arrowDim = arrowEl.getBoundingClientRect();
-    const arrowWidth = arrowDim.width;
-    const arrowHeight = arrowDim.height;
-    if (targetDim == null) {
-        arrowEl.style.display = 'none';
-    }
-    const arrowCSS = {
-        top: targetTop + targetHeight,
-        left: targetLeft + targetWidth / 2 - arrowWidth / 2
-    };
-    const popoverCSS = {
-        top: targetTop + targetHeight + (arrowHeight - 1),
-        left: targetLeft + targetWidth / 2 - contentWidth / 2
-    };
-    // If the popover left is less than the padding it is off screen
-    // to the left so adjust it, else if the width of the popover
-    // exceeds the body width it is off screen to the right so adjust
-    //
-    let checkSafeAreaLeft = false;
-    let checkSafeAreaRight = false;
-    // If the popover left is less than the padding it is off screen
-    // to the left so adjust it, else if the width of the popover
-    // exceeds the body width it is off screen to the right so adjust
-    // 25 is a random/arbitrary number. It seems to work fine for ios11
-    // and iPhoneX. Is it perfect? No. Does it work? Yes.
-    if (popoverCSS.left < POPOVER_IOS_BODY_PADDING + 25) {
-        checkSafeAreaLeft = true;
-        popoverCSS.left = POPOVER_IOS_BODY_PADDING;
-    }
-    else if (contentWidth + POPOVER_IOS_BODY_PADDING + popoverCSS.left + 25 > bodyWidth) {
-        // Ok, so we're on the right side of the screen,
-        // but now we need to make sure we're still a bit further right
-        // cus....notchurally... Again, 25 is random. It works tho
-        checkSafeAreaRight = true;
-        popoverCSS.left = bodyWidth - contentWidth - POPOVER_IOS_BODY_PADDING;
-        originX = 'right';
-    }
-    // make it pop up if there's room above
-    if (targetTop + targetHeight + contentHeight > bodyHeight && targetTop - contentHeight > 0) {
-        arrowCSS.top = targetTop - (arrowHeight + 1);
-        popoverCSS.top = targetTop - contentHeight - (arrowHeight - 1);
-        baseEl.className = baseEl.className + ' popover-bottom';
-        originY = 'bottom';
-        // If there isn't room for it to pop up above the target cut it off
-    }
-    else if (targetTop + targetHeight + contentHeight > bodyHeight) {
-        contentEl.style.bottom = POPOVER_IOS_BODY_PADDING + '%';
-    }
-    arrowEl.style.top = arrowCSS.top + 'px';
-    arrowEl.style.left = arrowCSS.left + 'px';
-    contentEl.style.top = popoverCSS.top + 'px';
-    contentEl.style.left = popoverCSS.left + 'px';
-    if (checkSafeAreaLeft) {
-        contentEl.style.left = `calc(${popoverCSS.left}px + var(--ion-safe-area-left, 0px))`;
-    }
-    if (checkSafeAreaRight) {
-        contentEl.style.left = `calc(${popoverCSS.left}px - var(--ion-safe-area-right, 0px))`;
-    }
-    contentEl.style.transformOrigin = originY + ' ' + originX;
-    const baseAnimation = new AnimationC();
-    const backdropAnimation = new AnimationC();
-    backdropAnimation.addElement(baseEl.querySelector('ion-backdrop'));
-    backdropAnimation.fromTo('opacity', 0.01, 0.08);
-    const wrapperAnimation = new AnimationC();
-    wrapperAnimation.addElement(baseEl.querySelector('.popover-wrapper'));
-    wrapperAnimation.fromTo('opacity', 0.01, 1);
-    return Promise.resolve(baseAnimation
-        .addElement(baseEl)
-        .easing('ease')
-        .duration(100)
-        .add(backdropAnimation)
-        .add(wrapperAnimation));
-};
-const POPOVER_IOS_BODY_PADDING = 5;
-
-/**
- * iOS Popover Leave Animation
- */
-const iosLeaveAnimation = (AnimationC, baseEl) => {
-    const baseAnimation = new AnimationC();
-    const backdropAnimation = new AnimationC();
-    backdropAnimation.addElement(baseEl.querySelector('ion-backdrop'));
-    const wrapperAnimation = new AnimationC();
-    wrapperAnimation.addElement(baseEl.querySelector('.popover-wrapper'));
-    wrapperAnimation.fromTo('opacity', 0.99, 0);
-    backdropAnimation.fromTo('opacity', 0.08, 0);
-    return Promise.resolve(baseAnimation
-        .addElement(baseEl)
-        .easing('ease')
-        .duration(500)
-        .add(backdropAnimation)
-        .add(wrapperAnimation));
-};
-
-/**
- * Md Popover Enter Animation
- */
-const mdEnterAnimation = (AnimationC, baseEl, ev) => {
-    const doc = baseEl.ownerDocument;
-    const isRTL = doc.dir === 'rtl';
-    let originY = 'top';
-    let originX = isRTL ? 'right' : 'left';
-    const contentEl = baseEl.querySelector('.popover-content');
-    const contentDimentions = contentEl.getBoundingClientRect();
-    const contentWidth = contentDimentions.width;
-    const contentHeight = contentDimentions.height;
-    const bodyWidth = doc.defaultView.innerWidth;
-    const bodyHeight = doc.defaultView.innerHeight;
-    // If ev was passed, use that for target element
-    const targetDim = ev && ev.target && ev.target.getBoundingClientRect();
-    // As per MD spec, by default position the popover below the target (trigger) element
-    const targetTop = targetDim != null && 'bottom' in targetDim
-        ? targetDim.bottom
-        : bodyHeight / 2 - contentHeight / 2;
-    const targetLeft = targetDim != null && 'left' in targetDim
-        ? isRTL
-            ? targetDim.left - contentWidth + targetDim.width
-            : targetDim.left
-        : bodyWidth / 2 - contentWidth / 2;
-    const targetHeight = (targetDim && targetDim.height) || 0;
-    const popoverCSS = {
-        top: targetTop,
-        left: targetLeft
-    };
-    // If the popover left is less than the padding it is off screen
-    // to the left so adjust it, else if the width of the popover
-    // exceeds the body width it is off screen to the right so adjust
-    if (popoverCSS.left < POPOVER_MD_BODY_PADDING) {
-        popoverCSS.left = POPOVER_MD_BODY_PADDING;
-        // Same origin in this case for both LTR & RTL
-        // Note: in LTR, originX is already 'left'
-        originX = 'left';
-    }
-    else if (contentWidth + POPOVER_MD_BODY_PADDING + popoverCSS.left >
-        bodyWidth) {
-        popoverCSS.left = bodyWidth - contentWidth - POPOVER_MD_BODY_PADDING;
-        // Same origin in this case for both LTR & RTL
-        // Note: in RTL, originX is already 'right'
-        originX = 'right';
-    }
-    // If the popover when popped down stretches past bottom of screen,
-    // make it pop up if there's room above
-    if (targetTop + targetHeight + contentHeight > bodyHeight &&
-        targetTop - contentHeight > 0) {
-        popoverCSS.top = targetTop - contentHeight - targetHeight;
-        baseEl.className = baseEl.className + ' popover-bottom';
-        originY = 'bottom';
-        // If there isn't room for it to pop up above the target cut it off
-    }
-    else if (targetTop + targetHeight + contentHeight > bodyHeight) {
-        contentEl.style.bottom = POPOVER_MD_BODY_PADDING + 'px';
-    }
-    contentEl.style.top = popoverCSS.top + 'px';
-    contentEl.style.left = popoverCSS.left + 'px';
-    contentEl.style.transformOrigin = originY + ' ' + originX;
-    const baseAnimation = new AnimationC();
-    const backdropAnimation = new AnimationC();
-    backdropAnimation.addElement(baseEl.querySelector('ion-backdrop'));
-    backdropAnimation.fromTo('opacity', 0.01, 0.32);
-    const wrapperAnimation = new AnimationC();
-    wrapperAnimation.addElement(baseEl.querySelector('.popover-wrapper'));
-    wrapperAnimation.fromTo('opacity', 0.01, 1);
-    const contentAnimation = new AnimationC();
-    contentAnimation.addElement(baseEl.querySelector('.popover-content'));
-    contentAnimation.fromTo('scale', 0.001, 1);
-    const viewportAnimation = new AnimationC();
-    viewportAnimation.addElement(baseEl.querySelector('.popover-viewport'));
-    viewportAnimation.fromTo('opacity', 0.01, 1);
-    return Promise.resolve(baseAnimation
-        .addElement(baseEl)
-        .easing('cubic-bezier(0.36,0.66,0.04,1)')
-        .duration(300)
-        .add(backdropAnimation)
-        .add(wrapperAnimation)
-        .add(contentAnimation)
-        .add(viewportAnimation));
-};
-const POPOVER_MD_BODY_PADDING = 12;
-
-/**
- * Md Popover Leave Animation
- */
-const mdLeaveAnimation = (AnimationC, baseEl) => {
-    const baseAnimation = new AnimationC();
-    const backdropAnimation = new AnimationC();
-    backdropAnimation.addElement(baseEl.querySelector('ion-backdrop'));
-    const wrapperAnimation = new AnimationC();
-    wrapperAnimation.addElement(baseEl.querySelector('.popover-wrapper'));
-    wrapperAnimation.fromTo('opacity', 0.99, 0);
-    backdropAnimation.fromTo('opacity', 0.32, 0);
-    return Promise.resolve(baseAnimation
-        .addElement(baseEl)
-        .easing('ease')
-        .duration(500)
-        .add(backdropAnimation)
-        .add(wrapperAnimation));
-};
-
-/**
- * @virtualProp {"ios" | "md"} mode - The mode determines which platform styles to use.
- */
-class Popover {
+const ProgressBar = class {
     constructor(hostRef) {
-        Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
-        this.presented = false;
-        this.mode = Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this);
+        Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
         /**
-         * If `true`, the keyboard will be automatically dismissed when the overlay is presented.
+         * The state of the progress bar, based on if the time the process takes is known or not.
+         * Default options are: `"determinate"` (no animation), `"indeterminate"` (animate from left to right).
          */
-        this.keyboardClose = true;
+        this.type = 'determinate';
         /**
-         * If `true`, the popover will be dismissed when the backdrop is clicked.
+         * If true, reverse the progress bar direction.
          */
-        this.backdropDismiss = true;
+        this.reversed = false;
         /**
-         * If `true`, a backdrop will be displayed behind the popover.
+         * The value determines how much of the active bar should display when the
+         * `type` is `"determinate"`.
+         * The value should be between [0, 1].
          */
-        this.showBackdrop = true;
+        this.value = 0;
         /**
-         * If `true`, the popover will be translucent.
-         * Only applies when the mode is `"ios"` and the device supports
-         * [`backdrop-filter`](https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter#Browser_compatibility).
+         * If the buffer and value are smaller than 1, the buffer circles will show.
+         * The buffer should be between [0, 1].
          */
-        this.translucent = false;
-        /**
-         * If `true`, the popover will animate.
-         */
-        this.animated = true;
-        this.onDismiss = (ev) => {
-            ev.stopPropagation();
-            ev.preventDefault();
-            this.dismiss();
-        };
-        this.onBackdropTap = () => {
-            this.dismiss(undefined, _chunk_d83bfeae_js__WEBPACK_IMPORTED_MODULE_3__["B"]);
-        };
-        this.onLifecycle = (modalEvent) => {
-            const el = this.usersElement;
-            const name = LIFECYCLE_MAP[modalEvent.type];
-            if (el && name) {
-                const event = new CustomEvent(name, {
-                    bubbles: false,
-                    cancelable: false,
-                    detail: modalEvent.detail
-                });
-                el.dispatchEvent(event);
-            }
-        };
-        this.didPresent = Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionPopoverDidPresent", 7);
-        this.willPresent = Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionPopoverWillPresent", 7);
-        this.willDismiss = Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionPopoverWillDismiss", 7);
-        this.didDismiss = Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionPopoverDidDismiss", 7);
-    }
-    /**
-     * Present the popover overlay after it has been created.
-     */
-    async present() {
-        if (this.presented) {
-            return;
-        }
-        const container = this.el.querySelector('.popover-content');
-        if (!container) {
-            throw new Error('container is undefined');
-        }
-        const data = Object.assign({}, this.componentProps, { popover: this.el });
-        this.usersElement = await Object(_chunk_00265c49_js__WEBPACK_IMPORTED_MODULE_5__["a"])(this.delegate, container, this.component, ['popover-viewport', this.el['s-sc']], data);
-        await Object(_chunk_3c9755dd_js__WEBPACK_IMPORTED_MODULE_6__["d"])(this.usersElement);
-        return Object(_chunk_d83bfeae_js__WEBPACK_IMPORTED_MODULE_3__["d"])(this, 'popoverEnter', iosEnterAnimation, mdEnterAnimation, this.event);
-    }
-    /**
-     * Dismiss the popover overlay after it has been presented.
-     *
-     * @param data Any data to emit in the dismiss events.
-     * @param role The role of the element that is dismissing the popover. For example, 'cancel' or 'backdrop'.
-     */
-    async dismiss(data, role) {
-        const shouldDismiss = await Object(_chunk_d83bfeae_js__WEBPACK_IMPORTED_MODULE_3__["e"])(this, data, role, 'popoverLeave', iosLeaveAnimation, mdLeaveAnimation, this.event);
-        if (shouldDismiss) {
-            await Object(_chunk_00265c49_js__WEBPACK_IMPORTED_MODULE_5__["d"])(this.delegate, this.usersElement);
-        }
-        return shouldDismiss;
-    }
-    /**
-     * Returns a promise that resolves when the popover did dismiss.
-     */
-    onDidDismiss() {
-        return Object(_chunk_d83bfeae_js__WEBPACK_IMPORTED_MODULE_3__["f"])(this.el, 'ionPopoverDidDismiss');
-    }
-    /**
-     * Returns a promise that resolves when the popover will dismiss.
-     */
-    onWillDismiss() {
-        return Object(_chunk_d83bfeae_js__WEBPACK_IMPORTED_MODULE_3__["f"])(this.el, 'ionPopoverWillDismiss');
+        this.buffer = 1;
     }
     render() {
-        const mode = Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this);
-        const { onLifecycle } = this;
-        return (Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["H"], { "aria-modal": "true", "no-router": true, style: {
-                zIndex: `${20000 + this.overlayIndex}`,
-            }, class: Object.assign({}, Object(_chunk_353a032e_js__WEBPACK_IMPORTED_MODULE_4__["g"])(this.cssClass), { [mode]: true, 'popover-translucent': this.translucent }), onIonPopoverDidPresent: onLifecycle, onIonPopoverWillPresent: onLifecycle, onIonPopoverWillDismiss: onLifecycle, onIonPopoverDidDismiss: onLifecycle, onIonDismiss: this.onDismiss, onIonBackdropTap: this.onBackdropTap }, Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-backdrop", { tappable: this.backdropDismiss, visible: this.showBackdrop }), Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "popover-wrapper" }, Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "popover-arrow" }), Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "popover-content" }))));
+        const { color, type, reversed, value, buffer } = this;
+        const paused = _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__["b"].getBoolean('_testing');
+        const mode = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this);
+        return (Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["H"], { role: "progressbar", "aria-valuenow": type === 'determinate' ? value : null, "aria-valuemin": "0", "aria-valuemax": "1", class: Object.assign(Object.assign({}, Object(_theme_18cbe2cc_js__WEBPACK_IMPORTED_MODULE_3__["c"])(color)), { [mode]: true, [`progress-bar-${type}`]: true, 'progress-paused': paused, 'progress-bar-reversed': document.dir === 'rtl' ? !reversed : reversed }) }, type === 'indeterminate'
+            ? renderIndeterminate()
+            : renderProgress(value, buffer)));
     }
-    get el() { return Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this); }
-    static get style() { return ".sc-ion-popover-md-h{--background:var(--ion-background-color,#fff);--min-width:0;--min-height:0;--max-width:auto;--height:auto;left:0;right:0;top:0;bottom:0;display:-ms-flexbox;display:flex;position:fixed;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;color:var(--ion-text-color,#000);z-index:1000}.overlay-hidden.sc-ion-popover-md-h{display:none}.popover-wrapper.sc-ion-popover-md{opacity:0;z-index:10}.popover-content.sc-ion-popover-md{display:-ms-flexbox;display:flex;position:absolute;-ms-flex-direction:column;flex-direction:column;width:var(--width);min-width:var(--min-width);max-width:var(--max-width);height:var(--height);min-height:var(--min-height);max-height:var(--max-height);background:var(--background);-webkit-box-shadow:var(--box-shadow);box-shadow:var(--box-shadow);overflow:auto;z-index:10}.popover-viewport.sc-ion-popover-md{--ion-safe-area-top:0px;--ion-safe-area-right:0px;--ion-safe-area-bottom:0px;--ion-safe-area-left:0px}.sc-ion-popover-md-h{--width:250px;--max-height:90%;--box-shadow:0 5px 5px -3px rgba(0,0,0,0.2),0 8px 10px 1px rgba(0,0,0,0.14),0 3px 14px 2px rgba(0,0,0,0.12)}.popover-content.sc-ion-popover-md{border-radius:4px;-webkit-transform-origin:left top;transform-origin:left top}[dir=rtl].sc-ion-popover-md-h .popover-content.sc-ion-popover-md, [dir=rtl] .sc-ion-popover-md-h .popover-content.sc-ion-popover-md, [dir=rtl].sc-ion-popover-md .popover-content.sc-ion-popover-md{-webkit-transform-origin:right top;transform-origin:right top}.popover-viewport.sc-ion-popover-md{-webkit-transition-delay:.1s;transition-delay:.1s}"; }
-}
-const LIFECYCLE_MAP = {
-    'ionPopoverDidPresent': 'ionViewDidEnter',
-    'ionPopoverWillPresent': 'ionViewWillEnter',
-    'ionPopoverWillDismiss': 'ionViewWillLeave',
-    'ionPopoverDidDismiss': 'ionViewDidLeave',
+    static get style() { return ":host{--background:rgba(var(--ion-color-primary-rgb,56,128,255),0.2);--progress-background:var(--ion-color-primary,#3880ff);--buffer-background:var(--background);display:block;position:relative;width:100%;contain:strict;direction:ltr;overflow:hidden}:host(.ion-color){--progress-background:var(--ion-color-base);--buffer-background:rgba(var(--ion-color-base-rgb),0.2)}:host(.progress-bar-indeterminate){background:var(--buffer-background)}.buffer-circles,.indeterminate-bar-primary,.indeterminate-bar-secondary,.progress,.progress-buffer-bar,.progress-buffer-bar:before,.progress-indeterminate{left:0;right:0;top:0;bottom:0;position:absolute;width:100%;height:100%}.progress,.progress-buffer-bar{-webkit-transform-origin:left top;transform-origin:left top;-webkit-transition:-webkit-transform .15s linear;transition:-webkit-transform .15s linear;transition:transform .15s linear;transition:transform .15s linear,-webkit-transform .15s linear}.progress,.progress-indeterminate{background:var(--progress-background);z-index:2}.progress-buffer-bar{background:#fff;z-index:1}.progress-buffer-bar:before{background:var(--buffer-background);content:\"\"}.indeterminate-bar-primary{top:0;right:0;bottom:0;left:-145.166611%;-webkit-animation:primary-indeterminate-translate 2s linear infinite;animation:primary-indeterminate-translate 2s linear infinite}.indeterminate-bar-primary .progress-indeterminate{-webkit-animation:primary-indeterminate-scale 2s linear infinite;animation:primary-indeterminate-scale 2s linear infinite;-webkit-animation-play-state:inherit;animation-play-state:inherit}.indeterminate-bar-secondary{top:0;right:0;bottom:0;left:-54.888891%;-webkit-animation:secondary-indeterminate-translate 2s linear infinite;animation:secondary-indeterminate-translate 2s linear infinite}.indeterminate-bar-secondary .progress-indeterminate{-webkit-animation:secondary-indeterminate-scale 2s linear infinite;animation:secondary-indeterminate-scale 2s linear infinite;-webkit-animation-play-state:inherit;animation-play-state:inherit}.buffer-circles{background:radial-gradient(ellipse at center,var(--buffer-background) 0,var(--buffer-background) 30%,transparent 0) repeat-x 5px;background-size:10px 10px;z-index:0;-webkit-animation:buffering .45s linear infinite;animation:buffering .45s linear infinite}:host(.progress-bar-reversed) .progress,:host(.progress-bar-reversed) .progress-buffer-bar{-webkit-transform-origin:right top;transform-origin:right top}:host(.progress-bar-reversed) .buffer-circles,:host(.progress-bar-reversed) .indeterminate-bar-primary,:host(.progress-bar-reversed) .indeterminate-bar-secondary,:host(.progress-bar-reversed) .progress-indeterminate{animation-direction:reverse}:host(.progress-paused) .buffer-circles,:host(.progress-paused) .indeterminate-bar-primary,:host(.progress-paused) .indeterminate-bar-secondary{-webkit-animation-play-state:paused;animation-play-state:paused}\@-webkit-keyframes primary-indeterminate-translate{0%{-webkit-transform:translateX(0);transform:translateX(0)}20%{-webkit-animation-timing-function:cubic-bezier(.5,0,.701732,.495819);animation-timing-function:cubic-bezier(.5,0,.701732,.495819);-webkit-transform:translateX(0);transform:translateX(0)}59.15%{-webkit-animation-timing-function:cubic-bezier(.302435,.381352,.55,.956352);animation-timing-function:cubic-bezier(.302435,.381352,.55,.956352);-webkit-transform:translateX(83.67142%);transform:translateX(83.67142%)}to{-webkit-transform:translateX(200.611057%);transform:translateX(200.611057%)}}\@keyframes primary-indeterminate-translate{0%{-webkit-transform:translateX(0);transform:translateX(0)}20%{-webkit-animation-timing-function:cubic-bezier(.5,0,.701732,.495819);animation-timing-function:cubic-bezier(.5,0,.701732,.495819);-webkit-transform:translateX(0);transform:translateX(0)}59.15%{-webkit-animation-timing-function:cubic-bezier(.302435,.381352,.55,.956352);animation-timing-function:cubic-bezier(.302435,.381352,.55,.956352);-webkit-transform:translateX(83.67142%);transform:translateX(83.67142%)}to{-webkit-transform:translateX(200.611057%);transform:translateX(200.611057%)}}\@-webkit-keyframes primary-indeterminate-scale{0%{-webkit-transform:scaleX(.08);transform:scaleX(.08)}36.65%{-webkit-animation-timing-function:cubic-bezier(.334731,.12482,.785844,1);animation-timing-function:cubic-bezier(.334731,.12482,.785844,1);-webkit-transform:scaleX(.08);transform:scaleX(.08)}69.15%{-webkit-animation-timing-function:cubic-bezier(.06,.11,.6,1);animation-timing-function:cubic-bezier(.06,.11,.6,1);-webkit-transform:scaleX(.661479);transform:scaleX(.661479)}to{-webkit-transform:scaleX(.08);transform:scaleX(.08)}}\@keyframes primary-indeterminate-scale{0%{-webkit-transform:scaleX(.08);transform:scaleX(.08)}36.65%{-webkit-animation-timing-function:cubic-bezier(.334731,.12482,.785844,1);animation-timing-function:cubic-bezier(.334731,.12482,.785844,1);-webkit-transform:scaleX(.08);transform:scaleX(.08)}69.15%{-webkit-animation-timing-function:cubic-bezier(.06,.11,.6,1);animation-timing-function:cubic-bezier(.06,.11,.6,1);-webkit-transform:scaleX(.661479);transform:scaleX(.661479)}to{-webkit-transform:scaleX(.08);transform:scaleX(.08)}}\@-webkit-keyframes secondary-indeterminate-translate{0%{-webkit-animation-timing-function:cubic-bezier(.15,0,.515058,.409685);animation-timing-function:cubic-bezier(.15,0,.515058,.409685);-webkit-transform:translateX(0);transform:translateX(0)}25%{-webkit-animation-timing-function:cubic-bezier(.31033,.284058,.8,.733712);animation-timing-function:cubic-bezier(.31033,.284058,.8,.733712);-webkit-transform:translateX(37.651913%);transform:translateX(37.651913%)}48.35%{-webkit-animation-timing-function:cubic-bezier(.4,.627035,.6,.902026);animation-timing-function:cubic-bezier(.4,.627035,.6,.902026);-webkit-transform:translateX(84.386165%);transform:translateX(84.386165%)}to{-webkit-transform:translateX(160.277782%);transform:translateX(160.277782%)}}\@keyframes secondary-indeterminate-translate{0%{-webkit-animation-timing-function:cubic-bezier(.15,0,.515058,.409685);animation-timing-function:cubic-bezier(.15,0,.515058,.409685);-webkit-transform:translateX(0);transform:translateX(0)}25%{-webkit-animation-timing-function:cubic-bezier(.31033,.284058,.8,.733712);animation-timing-function:cubic-bezier(.31033,.284058,.8,.733712);-webkit-transform:translateX(37.651913%);transform:translateX(37.651913%)}48.35%{-webkit-animation-timing-function:cubic-bezier(.4,.627035,.6,.902026);animation-timing-function:cubic-bezier(.4,.627035,.6,.902026);-webkit-transform:translateX(84.386165%);transform:translateX(84.386165%)}to{-webkit-transform:translateX(160.277782%);transform:translateX(160.277782%)}}\@-webkit-keyframes secondary-indeterminate-scale{0%{-webkit-animation-timing-function:cubic-bezier(.205028,.057051,.57661,.453971);animation-timing-function:cubic-bezier(.205028,.057051,.57661,.453971);-webkit-transform:scaleX(.08);transform:scaleX(.08)}19.15%{-webkit-animation-timing-function:cubic-bezier(.152313,.196432,.648374,1.004315);animation-timing-function:cubic-bezier(.152313,.196432,.648374,1.004315);-webkit-transform:scaleX(.457104);transform:scaleX(.457104)}44.15%{-webkit-animation-timing-function:cubic-bezier(.257759,-.003163,.211762,1.38179);animation-timing-function:cubic-bezier(.257759,-.003163,.211762,1.38179);-webkit-transform:scaleX(.72796);transform:scaleX(.72796)}to{-webkit-transform:scaleX(.08);transform:scaleX(.08)}}\@keyframes secondary-indeterminate-scale{0%{-webkit-animation-timing-function:cubic-bezier(.205028,.057051,.57661,.453971);animation-timing-function:cubic-bezier(.205028,.057051,.57661,.453971);-webkit-transform:scaleX(.08);transform:scaleX(.08)}19.15%{-webkit-animation-timing-function:cubic-bezier(.152313,.196432,.648374,1.004315);animation-timing-function:cubic-bezier(.152313,.196432,.648374,1.004315);-webkit-transform:scaleX(.457104);transform:scaleX(.457104)}44.15%{-webkit-animation-timing-function:cubic-bezier(.257759,-.003163,.211762,1.38179);animation-timing-function:cubic-bezier(.257759,-.003163,.211762,1.38179);-webkit-transform:scaleX(.72796);transform:scaleX(.72796)}to{-webkit-transform:scaleX(.08);transform:scaleX(.08)}}\@-webkit-keyframes buffering{to{-webkit-transform:translateX(-10px);transform:translateX(-10px)}}\@keyframes buffering{to{-webkit-transform:translateX(-10px);transform:translateX(-10px)}}:host{height:3px}"; }
+};
+const renderIndeterminate = () => {
+    return [
+        Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "indeterminate-bar-primary" }, Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["h"])("span", { class: "progress-indeterminate" })),
+        Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "indeterminate-bar-secondary" }, Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["h"])("span", { class: "progress-indeterminate" }))
+    ];
+};
+const renderProgress = (value, buffer) => {
+    const finalValue = Object(_helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_2__["c"])(0, value, 1);
+    const finalBuffer = Object(_helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_2__["c"])(0, buffer, 1);
+    return [
+        Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "progress", style: { transform: `scaleX(${finalValue})` } }),
+        finalBuffer !== 1 && Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "buffer-circles" }),
+        Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "progress-buffer-bar", style: { transform: `scaleX(${finalBuffer})` } }),
+    ];
 };
 
 
