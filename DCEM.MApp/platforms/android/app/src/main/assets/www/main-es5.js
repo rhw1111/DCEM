@@ -34,7 +34,7 @@ var map = {
 	],
 	"./saleing/delivery/list/list.module": [
 		"./src/app/saleing/delivery/list/list.module.ts",
-		"common",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
 		"saleing-delivery-list-list-module"
 	],
 	"./saleing/delivery/pdiservice/pdiservice.module": [
@@ -55,12 +55,12 @@ var map = {
 	],
 	"./saleing/lead.com/edit/edit.module": [
 		"./src/app/saleing/lead.com/edit/edit.module.ts",
-		"common",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
 		"saleing-lead-com-edit-edit-module"
 	],
 	"./saleing/lead.com/list/list.module": [
 		"./src/app/saleing/lead.com/list/list.module.ts",
-		"common",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
 		"saleing-lead-com-list-list-module"
 	],
 	"./saleing/lead.com/success/success.module": [
@@ -69,28 +69,34 @@ var map = {
 	],
 	"./saleing/mc-vehorder.com/detail/detail.module": [
 		"./src/app/saleing/mc-vehorder.com/detail/detail.module.ts",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
 		"common",
 		"saleing-mc-vehorder-com-detail-detail-module"
 	],
 	"./saleing/mc-vehorder.com/list/list.module": [
 		"./src/app/saleing/mc-vehorder.com/list/list.module.ts",
-		"common",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
 		"saleing-mc-vehorder-com-list-list-module"
 	],
 	"./saleing/mcs-account.com/detail/detail.module": [
 		"./src/app/saleing/mcs-account.com/detail/detail.module.ts",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
 		"common",
 		"saleing-mcs-account-com-detail-detail-module"
 	],
 	"./saleing/mcs-account.com/edit/edit.module": [
 		"./src/app/saleing/mcs-account.com/edit/edit.module.ts",
-		"common",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
 		"saleing-mcs-account-com-edit-edit-module"
 	],
 	"./saleing/mcs-account.com/list/list.module": [
 		"./src/app/saleing/mcs-account.com/list/list.module.ts",
-		"common",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
 		"saleing-mcs-account-com-list-list-module"
+	],
+	"./saleing/mcs-account.com/success/success.module": [
+		"./src/app/saleing/mcs-account.com/success/success.module.ts",
+		"saleing-mcs-account-com-success-success-module"
 	],
 	"./saleing/mcs-contactrecord/edit/edit.module": [
 		"./src/app/saleing/mcs-contactrecord/edit/edit.module.ts",
@@ -102,6 +108,8 @@ var map = {
 	],
 	"./saleing/mcs-cultivatetask.com/detail/detail.module": [
 		"./src/app/saleing/mcs-cultivatetask.com/detail/detail.module.ts",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
+		"common",
 		"saleing-mcs-cultivatetask-com-detail-detail-module"
 	],
 	"./saleing/mcs-cultivatetask.com/edit/edit.module": [
@@ -110,6 +118,7 @@ var map = {
 	],
 	"./saleing/mcs-cultivatetask.com/list/list.module": [
 		"./src/app/saleing/mcs-cultivatetask.com/list/list.module.ts",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
 		"saleing-mcs-cultivatetask-com-list-list-module"
 	],
 	"./saleing/mcs-cultivatetask.com/success/success.module": [
@@ -126,11 +135,13 @@ var map = {
 	],
 	"./saleing/mcs-onlylead.com/detail/detail.module": [
 		"./src/app/saleing/mcs-onlylead.com/detail/detail.module.ts",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
 		"common",
 		"saleing-mcs-onlylead-com-detail-detail-module"
 	],
 	"./saleing/mcs-onlylead.com/edit/edit.module": [
 		"./src/app/saleing/mcs-onlylead.com/edit/edit.module.ts",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
 		"saleing-mcs-onlylead-com-edit-edit-module"
 	],
 	"./saleing/mcs-onlylead.com/list/list.module": [
@@ -141,14 +152,55 @@ var map = {
 		"./src/app/saleing/mcs-onlylead.com/success/success.module.ts",
 		"saleing-mcs-onlylead-com-success-success-module"
 	],
+	"./saleing/mcs_surveyorder/detail/detail.module": [
+		"./src/app/saleing/mcs_surveyorder/detail/detail.module.ts",
+		"saleing-mcs_surveyorder-detail-detail-module"
+	],
+	"./saleing/mcs_surveyorder/list/list.module": [
+		"./src/app/saleing/mcs_surveyorder/list/list.module.ts",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
+		"saleing-mcs_surveyorder-list-list-module"
+	],
 	"./saleing/orderpaydetail/detail/detail.module": [
 		"./src/app/saleing/orderpaydetail/detail/detail.module.ts",
 		"saleing-orderpaydetail-detail-detail-module"
 	],
 	"./saleing/orderpaydetail/edit/edit.module": [
 		"./src/app/saleing/orderpaydetail/edit/edit.module.ts",
-		"common",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
 		"saleing-orderpaydetail-edit-edit-module"
+	],
+	"./saleing/trialrun/calendar/calendar.module": [
+		"./src/app/saleing/trialrun/calendar/calendar.module.ts",
+		"saleing-trialrun-calendar-calendar-module"
+	],
+	"./saleing/vehlisense/detail/detail.module": [
+		"./src/app/saleing/vehlisense/detail/detail.module.ts",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
+		"saleing-vehlisense-detail-detail-module"
+	],
+	"./saleing/vehlisense/list/list.module": [
+		"./src/app/saleing/vehlisense/list/list.module.ts",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
+		"saleing-vehlisense-list-list-module"
+	],
+	"./saleing/vehlisense/success/success.module": [
+		"./src/app/saleing/vehlisense/success/success.module.ts",
+		"saleing-vehlisense-success-success-module"
+	],
+	"./saleing/vehnetwork/detail/detail.module": [
+		"./src/app/saleing/vehnetwork/detail/detail.module.ts",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
+		"saleing-vehnetwork-detail-detail-module"
+	],
+	"./saleing/vehnetwork/list/list.module": [
+		"./src/app/saleing/vehnetwork/list/list.module.ts",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
+		"saleing-vehnetwork-list-list-module"
+	],
+	"./saleing/vehnetwork/success/success.module": [
+		"./src/app/saleing/vehnetwork/success/success.module.ts",
+		"saleing-vehnetwork-success-success-module"
 	],
 	"./serving/home.com/index/index.module": [
 		"./src/app/serving/home.com/index/index.module.ts",
@@ -161,6 +213,11 @@ var map = {
 	"./serving/home.com/tabs/tabs.module": [
 		"./src/app/serving/home.com/tabs/tabs.module.ts",
 		"serving-home-com-tabs-tabs-module"
+	],
+	"./serving/maintenance/calendar/calendar.module": [
+		"./src/app/serving/maintenance/calendar/calendar.module.ts",
+		"common",
+		"serving-maintenance-calendar-calendar-module"
 	],
 	"./serving/mc-reservation.com/calendar/calendar.module": [
 		"./src/app/serving/mc-reservation.com/calendar/calendar.module.ts",
@@ -288,6 +345,14 @@ var map = {
 		"default~serving-report-appointmentstatistics-appointmentstatistics-module~serving-report-appointment~46f1ebb3",
 		"serving-report-testdriverate-testdriverate-module"
 	],
+	"./serving/serving.ser/components/fileupload-test/fileupload-test.module": [
+		"./src/app/serving/serving.ser/components/fileupload-test/fileupload-test.module.ts",
+		"serving-serving-ser-components-fileupload-test-fileupload-test-module"
+	],
+	"./serving/serving.ser/components/fileupload/fileupload.module": [
+		"./src/app/serving/serving.ser/components/fileupload/fileupload.module.ts",
+		"serving-serving-ser-components-fileupload-fileupload-module"
+	],
 	"./serving/spmdspstock.com/list/list.module": [
 		"./src/app/serving/spmdspstock.com/list/list.module.ts",
 		"serving-spmdspstock-com-list-list-module"
@@ -343,396 +408,388 @@ var map = {
 	"./ion-action-sheet-controller_8.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-action-sheet-controller_8.entry.js",
 		"common",
-		3
+		2
 	],
 	"./ion-action-sheet-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-action-sheet-ios.entry.js",
 		"common",
-		4
+		3
 	],
 	"./ion-action-sheet-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-action-sheet-md.entry.js",
 		"common",
-		5
+		4
 	],
 	"./ion-alert-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-alert-ios.entry.js",
 		"common",
-		6
+		5
 	],
 	"./ion-alert-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-alert-md.entry.js",
 		"common",
-		7
+		6
 	],
 	"./ion-app_8-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-app_8-ios.entry.js",
 		0,
 		"common",
-		8
+		7
 	],
 	"./ion-app_8-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-app_8-md.entry.js",
 		0,
 		"common",
-		9
+		8
 	],
 	"./ion-avatar_3-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-avatar_3-ios.entry.js",
 		"common",
-		10
+		9
 	],
 	"./ion-avatar_3-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-avatar_3-md.entry.js",
 		"common",
-		11
+		10
 	],
 	"./ion-back-button-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-back-button-ios.entry.js",
 		"common",
-		12
+		11
 	],
 	"./ion-back-button-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-back-button-md.entry.js",
 		"common",
-		13
+		12
 	],
 	"./ion-backdrop-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-backdrop-ios.entry.js",
-		1,
-		"common",
-		14
+		13
 	],
 	"./ion-backdrop-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-backdrop-md.entry.js",
-		1,
-		"common",
-		15
+		14
 	],
 	"./ion-button_2-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-button_2-ios.entry.js",
 		"common",
-		16
+		15
 	],
 	"./ion-button_2-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-button_2-md.entry.js",
 		"common",
-		17
+		16
 	],
 	"./ion-card_5-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-card_5-ios.entry.js",
 		"common",
-		18
+		17
 	],
 	"./ion-card_5-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-card_5-md.entry.js",
 		"common",
-		19
+		18
 	],
 	"./ion-checkbox-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-checkbox-ios.entry.js",
 		"common",
-		20
+		19
 	],
 	"./ion-checkbox-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-checkbox-md.entry.js",
 		"common",
-		21
+		20
 	],
 	"./ion-chip-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-chip-ios.entry.js",
 		"common",
-		22
+		21
 	],
 	"./ion-chip-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-chip-md.entry.js",
 		"common",
-		23
+		22
 	],
 	"./ion-col_3.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-col_3.entry.js",
-		24
+		23
 	],
 	"./ion-datetime_3-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-datetime_3-ios.entry.js",
 		"common",
-		25
+		24
 	],
 	"./ion-datetime_3-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-datetime_3-md.entry.js",
 		"common",
-		26
+		25
 	],
 	"./ion-fab_3-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-fab_3-ios.entry.js",
 		"common",
-		27
+		26
 	],
 	"./ion-fab_3-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-fab_3-md.entry.js",
 		"common",
-		28
+		27
 	],
 	"./ion-img.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-img.entry.js",
-		29
+		28
 	],
 	"./ion-infinite-scroll_2-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-infinite-scroll_2-ios.entry.js",
 		"common",
-		30
+		29
 	],
 	"./ion-infinite-scroll_2-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-infinite-scroll_2-md.entry.js",
 		"common",
-		31
+		30
 	],
 	"./ion-input-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-input-ios.entry.js",
 		"common",
-		32
+		31
 	],
 	"./ion-input-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-input-md.entry.js",
 		"common",
-		33
+		32
 	],
 	"./ion-item-option_3-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-item-option_3-ios.entry.js",
 		"common",
-		34
+		33
 	],
 	"./ion-item-option_3-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-item-option_3-md.entry.js",
 		"common",
-		35
+		34
 	],
 	"./ion-item_8-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-item_8-ios.entry.js",
 		"common",
-		36
+		35
 	],
 	"./ion-item_8-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-item_8-md.entry.js",
 		"common",
-		37
+		36
 	],
 	"./ion-loading-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-loading-ios.entry.js",
 		"common",
-		38
+		37
 	],
 	"./ion-loading-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-loading-md.entry.js",
 		"common",
-		39
+		38
 	],
 	"./ion-menu_4-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-menu_4-ios.entry.js",
-		1,
 		"common",
-		40
+		39
 	],
 	"./ion-menu_4-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-menu_4-md.entry.js",
-		1,
 		"common",
-		41
+		40
 	],
 	"./ion-modal-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-modal-ios.entry.js",
 		0,
 		"common",
-		42
+		41
 	],
 	"./ion-modal-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-modal-md.entry.js",
 		0,
 		"common",
-		43
+		42
 	],
-	"./ion-nav_4.entry.js": [
-		"./node_modules/@ionic/core/dist/esm-es5/ion-nav_4.entry.js",
+	"./ion-nav_5.entry.js": [
+		"./node_modules/@ionic/core/dist/esm-es5/ion-nav_5.entry.js",
 		0,
 		"common",
-		44
+		43
 	],
 	"./ion-popover-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-popover-ios.entry.js",
 		0,
 		"common",
-		45
+		44
 	],
 	"./ion-popover-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-popover-md.entry.js",
 		0,
 		"common",
-		46
+		45
 	],
 	"./ion-progress-bar-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-progress-bar-ios.entry.js",
 		"common",
-		47
+		46
 	],
 	"./ion-progress-bar-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-progress-bar-md.entry.js",
 		"common",
-		48
+		47
 	],
 	"./ion-radio_2-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-radio_2-ios.entry.js",
 		"common",
-		49
+		48
 	],
 	"./ion-radio_2-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-radio_2-md.entry.js",
 		"common",
-		50
+		49
 	],
 	"./ion-range-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-range-ios.entry.js",
 		"common",
-		51
+		50
 	],
 	"./ion-range-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-range-md.entry.js",
 		"common",
-		52
+		51
 	],
 	"./ion-refresher_2-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-refresher_2-ios.entry.js",
 		"common",
-		53
+		52
 	],
 	"./ion-refresher_2-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-refresher_2-md.entry.js",
 		"common",
-		54
+		53
 	],
 	"./ion-reorder_2-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-reorder_2-ios.entry.js",
 		"common",
-		55
+		54
 	],
 	"./ion-reorder_2-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-reorder_2-md.entry.js",
 		"common",
-		56
+		55
 	],
 	"./ion-ripple-effect.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-ripple-effect.entry.js",
-		57
+		56
 	],
 	"./ion-route_4.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-route_4.entry.js",
 		"common",
-		58
+		57
 	],
 	"./ion-searchbar-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-searchbar-ios.entry.js",
 		"common",
-		59
+		58
 	],
 	"./ion-searchbar-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-searchbar-md.entry.js",
 		"common",
-		60
+		59
 	],
 	"./ion-segment_2-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-segment_2-ios.entry.js",
 		"common",
-		61
+		60
 	],
 	"./ion-segment_2-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-segment_2-md.entry.js",
 		"common",
-		62
+		61
 	],
 	"./ion-select_3-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-select_3-ios.entry.js",
 		"common",
-		63
+		62
 	],
 	"./ion-select_3-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-select_3-md.entry.js",
 		"common",
-		64
+		63
 	],
 	"./ion-slide_2-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-slide_2-ios.entry.js",
-		"common",
-		65
+		64
 	],
 	"./ion-slide_2-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-slide_2-md.entry.js",
-		"common",
-		66
+		65
 	],
 	"./ion-spinner.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-spinner.entry.js",
 		"common",
-		67
+		66
 	],
 	"./ion-split-pane-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-split-pane-ios.entry.js",
-		68
+		67
 	],
 	"./ion-split-pane-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-split-pane-md.entry.js",
-		69
+		68
 	],
 	"./ion-tab-bar_2-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-tab-bar_2-ios.entry.js",
 		"common",
-		70
+		69
 	],
 	"./ion-tab-bar_2-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-tab-bar_2-md.entry.js",
 		"common",
-		71
+		70
 	],
 	"./ion-tab_2.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-tab_2.entry.js",
-		2
+		1
 	],
 	"./ion-text.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-text.entry.js",
 		"common",
-		72
+		71
 	],
 	"./ion-textarea-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-textarea-ios.entry.js",
 		"common",
-		73
+		72
 	],
 	"./ion-textarea-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-textarea-md.entry.js",
 		"common",
-		74
+		73
 	],
 	"./ion-toast-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-toast-ios.entry.js",
 		"common",
-		75
+		74
 	],
 	"./ion-toast-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-toast-md.entry.js",
 		"common",
-		76
+		75
 	],
 	"./ion-toggle-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-toggle-ios.entry.js",
 		"common",
-		77
+		76
 	],
 	"./ion-toggle-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-toggle-md.entry.js",
 		"common",
-		78
+		77
 	],
 	"./ion-virtual-scroll.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-virtual-scroll.entry.js",
-		79
+		78
 	]
 };
 function webpackAsyncContext(req) {
@@ -764,7 +821,7 @@ module.exports = webpackAsyncContext;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--<ion-app>\r\n    <ion-split-pane>\r\n      <ion-menu type=\"overlay\" menuId=\"homeMenu\">\r\n        <ion-header>\r\n          <ion-toolbar>\r\n            <ion-title><img src=\"{{headpicture}}\" height=\"50px\" width=\"50px\"/>张云，你好!</ion-title>\r\n          </ion-toolbar>\r\n        </ion-header>\r\n        <ion-content>\r\n          <ion-list>\r\n            <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of appPages\">\r\n              <ion-item [routerDirection]=\"'root'\" [routerLink]=\"[p.url]\">\r\n                <ion-icon slot=\"start\" [name]=\"p.icon\"></ion-icon>\r\n                <ion-label>\r\n                  {{p.title}}\r\n                </ion-label>\r\n                <ion-badge *ngIf=\"p.num>0\" color=\"danger\" >{{p.num}}</ion-badge>\r\n              </ion-item>\r\n            </ion-menu-toggle>\r\n            <ion-item (click)=\"loginout()\">\r\n                <ion-icon slot=\"start\" name=\"log-out\"></ion-icon>\r\n                <ion-label>\r\n                  注销\r\n                </ion-label>\r\n            </ion-item>\r\n          </ion-list>\r\n        </ion-content>\r\n      </ion-menu>\r\n      <ion-router-outlet main></ion-router-outlet>\r\n    </ion-split-pane>\r\n  </ion-app>-->\r\n\r\n<ion-app>\r\n    <ion-router-outlet></ion-router-outlet>\r\n</ion-app>\r\n\r\n"
+module.exports = "<ion-app>\r\n    <ion-split-pane>\r\n      <ion-menu type=\"overlay\" menuId=\"homeMenu\">\r\n        <ion-header>\r\n          <ion-toolbar>\r\n            <ion-avatar item-start>\r\n              <img src=\"{{headpicture}}\" />\r\n            </ion-avatar>\r\n            <ion-title>张云，你好!</ion-title>\r\n          </ion-toolbar>\r\n        </ion-header>\r\n        <ion-content>\r\n          <ion-list>\r\n            <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of appPages\">\r\n              <ion-item [routerDirection]=\"'root'\" [routerLink]=\"[p.url]\">\r\n                <ion-icon slot=\"start\" [name]=\"p.icon\"></ion-icon>\r\n                <ion-label>\r\n                  {{p.title}}\r\n                </ion-label>\r\n                <ion-badge *ngIf=\"p.num>0\" color=\"danger\" >{{p.num}}</ion-badge>\r\n              </ion-item>\r\n            </ion-menu-toggle>\r\n            <ion-item (click)=\"loginout()\">\r\n                <ion-icon slot=\"start\" name=\"log-out\"></ion-icon>\r\n                <ion-label>\r\n                  注销\r\n                </ion-label>\r\n            </ion-item>\r\n          </ion-list>\r\n        </ion-content>\r\n      </ion-menu>\r\n      <ion-router-outlet main></ion-router-outlet>\r\n    </ion-split-pane>\r\n  </ion-app>\r\n<!-- \r\n<ion-app>\r\n    <ion-router-outlet></ion-router-outlet>\r\n</ion-app>\r\n -->\r\n"
 
 /***/ }),
 
@@ -856,6 +913,17 @@ module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>选择
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component.html":
+/*!***************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component.html ***!
+  \***************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>预约单</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-searchbar animated [(ngModel)]=\"mod.searchData.search\" placeholder=\"请输入姓名\\手机号\\车牌号查找\" (keyup)=\"searchOnKeyup($event)\"></ion-searchbar>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n            <ion-item (click)=\"itemClick(item)\">\r\n                <ion-icon color=\"tertiary\" name=\"document\"></ion-icon>\r\n                <ion-label style=\"margin-left:10px\">\r\n                    <h2>{{item[\"mcs_name\"]}}</h2>\r\n                    <p>{{item[\"mcs_carplate\"]}}</p>\r\n                    <p>{{item[\"mcs_customername\"]}}</p>\r\n                    <p>{{item[\"mcs_customerphone\"]}}</p>\r\n                </ion-label>\r\n                <ion-note slot=\"end\">\r\n                    {{item[\"mcs_status@OData.Community.Display.V1.FormattedValue\"]}}\r\n                </ion-note>\r\n            </ion-item>\r\n        </ion-item-sliding>\r\n        <ion-item *ngIf=\"ionInfiniteScroll.disabled\">\r\n            <ion-label>\r\n                <p>\r\n                    没有更多的记录显示啦\r\n                </p>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n    <ion-infinite-scroll (ionInfinite)=\"doInfinite($event)\">\r\n        <ion-infinite-scroll-content></ion-infinite-scroll-content>\r\n    </ion-infinite-scroll>\r\n</ion-content>\r\n"
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/serving/serving.ser/components/select-carmodel/select-carmodel.component.html":
 /*!*************************************************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/serving/serving.ser/components/select-carmodel/select-carmodel.component.html ***!
@@ -930,6 +998,28 @@ module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>选择
 /***/ (function(module, exports) {
 
 module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>选择维修项目</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-searchbar animated [(ngModel)]=\"mod.searchData.search\" placeholder=\"请输入维修项目名称\\代码\\首字母\" (keyup)=\"searchOnKeyup($event)\"></ion-searchbar>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n            <ion-item (click)=\"itemClick(item)\">\r\n                <ion-label>\r\n                    <h2>{{item[\"model\"][\"mcs_repairitemcode\"]}}</h2>\r\n                    <p>{{item[\"model\"][\"mcs_name\"]}}</p>\r\n                    <p>{{item[\"model\"][\"mcs_workinghour\"]}}小时</p>\r\n                </ion-label>\r\n            </ion-item>\r\n        </ion-item-sliding>\r\n        <ion-item *ngIf=\"ionInfiniteScroll.disabled\">\r\n            <ion-label>\r\n                <p>\r\n                    没有更多的记录显示啦\r\n                </p>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n    <ion-infinite-scroll (ionInfinite)=\"doInfinite($event)\">\r\n        <ion-infinite-scroll-content></ion-infinite-scroll-content>\r\n    </ion-infinite-scroll>\r\n</ion-content>\r\n"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component.html":
+/*!*************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component.html ***!
+  \*************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>选择维修类别</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n            <ion-item (click)=\"itemClick(item)\">\r\n                <ion-label>\r\n                    <h2>{{item[\"model\"][\"mcs_name\"]}}</h2>\r\n                </ion-label>\r\n            </ion-item>\r\n        </ion-item-sliding>\r\n    </ion-list>\r\n</ion-content>\r\n"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component.html":
+/*!*************************************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component.html ***!
+  \*************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>选择维修类型</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n            <ion-item (click)=\"itemClick(item)\">\r\n                <ion-label>\r\n                    <h2>{{item[\"model\"][\"mcs_name\"]}}</h2>\r\n                </ion-label>\r\n            </ion-item>\r\n        </ion-item-sliding>\r\n    </ion-list>\r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -1060,6 +1150,12 @@ var routes = [
                     { path: 'list', loadChildren: './serving/spmdspstock.com/list/list.module#ListPageModule' },
                 ]
             },
+            {
+                path: 'maintenance',
+                children: [
+                    { path: 'calendar', loadChildren: './serving/maintenance/calendar/calendar.module#CalendarPageModule' }
+                ]
+            }
         ],
     },
     {
@@ -1104,7 +1200,8 @@ var routes = [
                 children: [
                     { path: 'list', loadChildren: './saleing/mcs-account.com/list/list.module#ListPageModule' },
                     { path: 'edit', loadChildren: './saleing/mcs-account.com/edit/edit.module#EditPageModule' },
-                    { path: 'detail', loadChildren: './saleing/mcs-account.com/detail/detail.module#DetailPageModule' }
+                    { path: 'detail', loadChildren: './saleing/mcs-account.com/detail/detail.module#DetailPageModule' },
+                    { path: 'success', loadChildren: './saleing/mcs-account.com/success/success.module#SuccessPageModule' }
                 ]
             },
             {
@@ -1139,6 +1236,35 @@ var routes = [
                     { path: 'detail', loadChildren: './saleing/orderpaydetail/detail/detail.module#DetailPageModule' },
                     { path: 'edit', loadChildren: './saleing/orderpaydetail/edit/edit.module#EditPageModule' }
                 ]
+            },
+            {
+                path: 'vehnetwork',
+                children: [
+                    { path: 'list', loadChildren: './saleing/vehnetwork/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './saleing/vehnetwork/detail/detail.module#DetailPageModule' },
+                    { path: 'success', loadChildren: './saleing/vehnetwork/success/success.module#SuccessPageModule' },
+                ]
+            },
+            {
+                path: 'vehlisense',
+                children: [
+                    { path: 'list', loadChildren: './saleing/vehlisense/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './saleing/vehlisense/detail/detail.module#DetailPageModule' },
+                    { path: 'success', loadChildren: './saleing/vehlisense/success/success.module#SuccessPageModule' },
+                ]
+            },
+            {
+                path: 'surveyorder',
+                children: [
+                    { path: 'list', loadChildren: './saleing/mcs_surveyorder/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './saleing/mcs_surveyorder/detail/detail.module#DetailPageModule' }
+                ]
+            },
+            {
+                path: 'trialrun',
+                children: [
+                    { path: 'calendar', loadChildren: './saleing/trialrun/calendar/calendar.module#CalendarPageModule' }
+                ]
             }
         ]
     },
@@ -1147,7 +1273,9 @@ var routes = [
         children: [
             { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
         ]
-    }
+    },
+    { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' },
+    { path: 'fileupload', loadChildren: './serving/serving.ser/components/fileupload/fileupload.module#FileuploadPageModule' }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -1214,19 +1342,19 @@ var AppComponent = /** @class */ (function () {
         this.appPages = [
             {
                 title: '首页',
-                url: '/tabs',
+                url: '/serving/home/tabs/index',
                 icon: 'home',
                 num: 1
             },
             {
                 title: '个人信息',
-                url: '/tabs',
+                url: '/serving/home/tabs/mywork',
                 icon: 'person',
                 num: 0,
             },
             {
                 title: '消息中心',
-                url: '/tabs',
+                url: '/serving/home/tabs/message',
                 icon: 'alert',
                 num: 10
             },
@@ -1240,20 +1368,21 @@ var AppComponent = /** @class */ (function () {
         this.initializeApp();
     }
     AppComponent.prototype.initializeApp = function () {
-        //this.platform.ready().then(() => {
-        //    this.statusBar.styleDefault();
-        //    this.splashScreen.hide();
-        //    this.authService.authenticationState.subscribe(state => {
-        //        console.log(state);
-        //        if (state) {
-        //            this.router.navigate(['tabs']);
-        //            this.headpicture = "assets/img/head_default.jpg";
-        //        }
-        //        else {
-        //            this.router.navigate(['login']);
-        //        }
-        //    });
-        //});
+        var _this = this;
+        this.platform.ready().then(function () {
+            _this.statusBar.styleDefault();
+            _this.splashScreen.hide();
+            _this.headpicture = "assets/img/head_default.jpg";
+            //    this.authService.authenticationState.subscribe(state => {
+            //        console.log(state);
+            //        if (state) {
+            //            this.router.navigate(['tabs']);
+            //        }
+            //        else {
+            //            //this.router.navigate(['login']);
+            //        }
+            //    });
+        });
     };
     AppComponent.prototype.loginout = function () {
         //this.menu.close("homeMenu");
@@ -1350,6 +1479,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var app_saleing_saleing_ser_components_select_vehiclecolor_select_vehiclecolor_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! app/saleing/saleing.ser/components/select-vehiclecolor/select-vehiclecolor.component */ "./src/app/saleing/saleing.ser/components/select-vehiclecolor/select-vehiclecolor.component.ts");
 /* harmony import */ var app_saleing_saleing_ser_components_select_vehicletype_select_vehicletype_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! app/saleing/saleing.ser/components/select-vehicletype/select-vehicletype.component */ "./src/app/saleing/saleing.ser/components/select-vehicletype/select-vehicletype.component.ts");
 /* harmony import */ var ng_zorro_antd_mobile__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ng-zorro-antd-mobile */ "./node_modules/ng-zorro-antd-mobile/fesm5/ng-zorro-antd-mobile.js");
+/* harmony import */ var app_serving_serving_ser_components_select_repairitemtype_select_repairitemtype_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component */ "./src/app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_repairitemtypedetail_select_repairitemtypedetail_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component */ "./src/app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_appointmentinfo_select_appointmentinfo_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component */ "./src/app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component.ts");
+/* harmony import */ var _ionic_native_image_picker_ngx__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! @ionic-native/image-picker/ngx */ "./node_modules/@ionic-native/image-picker/ngx/index.js");
+/* harmony import */ var _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! @ionic-native/file-transfer/ngx */ "./node_modules/@ionic-native/file-transfer/ngx/index.js");
 
 
 
@@ -1363,6 +1497,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 //自定义组件
+
+
+
+
+
 
 
 
@@ -1403,7 +1542,10 @@ var AppModule = /** @class */ (function () {
                 app_saleing_saleing_ser_components_select_receptioncommissioner_select_receptioncommissioner_component__WEBPACK_IMPORTED_MODULE_23__["SelectReceptioncommissionerComponent"],
                 app_saleing_saleing_ser_components_select_reservationconfiguration_select_reservationconfiguration_component__WEBPACK_IMPORTED_MODULE_24__["SelectReservationconfigurationComponent"],
                 app_saleing_saleing_ser_components_select_sysarea_select_sysarea_component__WEBPACK_IMPORTED_MODULE_25__["SelectSysareaComponent"],
-                app_saleing_saleing_ser_components_select_vehiclecolor_select_vehiclecolor_component__WEBPACK_IMPORTED_MODULE_26__["SelectVehiclecolorComponent"] //车型颜色
+                app_saleing_saleing_ser_components_select_vehiclecolor_select_vehiclecolor_component__WEBPACK_IMPORTED_MODULE_26__["SelectVehiclecolorComponent"],
+                app_serving_serving_ser_components_select_repairitemtype_select_repairitemtype_component__WEBPACK_IMPORTED_MODULE_29__["SelectRepairitemtypeComponent"],
+                app_serving_serving_ser_components_select_repairitemtypedetail_select_repairitemtypedetail_component__WEBPACK_IMPORTED_MODULE_30__["SelectRepairitemtypedetailComponent"],
+                app_serving_serving_ser_components_select_appointmentinfo_select_appointmentinfo_component__WEBPACK_IMPORTED_MODULE_31__["SelectAppointmentinfoComponent"],
             ],
             entryComponents: [
                 _serving_serving_ser_components_sc_select_sc_select_component__WEBPACK_IMPORTED_MODULE_12__["ScSelectComponent"],
@@ -1422,7 +1564,10 @@ var AppModule = /** @class */ (function () {
                 app_saleing_saleing_ser_components_select_receptioncommissioner_select_receptioncommissioner_component__WEBPACK_IMPORTED_MODULE_23__["SelectReceptioncommissionerComponent"],
                 app_saleing_saleing_ser_components_select_reservationconfiguration_select_reservationconfiguration_component__WEBPACK_IMPORTED_MODULE_24__["SelectReservationconfigurationComponent"],
                 app_saleing_saleing_ser_components_select_sysarea_select_sysarea_component__WEBPACK_IMPORTED_MODULE_25__["SelectSysareaComponent"],
-                app_saleing_saleing_ser_components_select_vehiclecolor_select_vehiclecolor_component__WEBPACK_IMPORTED_MODULE_26__["SelectVehiclecolorComponent"]
+                app_saleing_saleing_ser_components_select_vehiclecolor_select_vehiclecolor_component__WEBPACK_IMPORTED_MODULE_26__["SelectVehiclecolorComponent"],
+                app_serving_serving_ser_components_select_repairitemtype_select_repairitemtype_component__WEBPACK_IMPORTED_MODULE_29__["SelectRepairitemtypeComponent"],
+                app_serving_serving_ser_components_select_repairitemtypedetail_select_repairitemtypedetail_component__WEBPACK_IMPORTED_MODULE_30__["SelectRepairitemtypedetailComponent"],
+                app_serving_serving_ser_components_select_appointmentinfo_select_appointmentinfo_component__WEBPACK_IMPORTED_MODULE_31__["SelectAppointmentinfoComponent"],
             ],
             imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
                 _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot({ mode: 'ios' }),
@@ -1436,6 +1581,8 @@ var AppModule = /** @class */ (function () {
             providers: [
                 _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],
                 _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"],
+                _ionic_native_image_picker_ngx__WEBPACK_IMPORTED_MODULE_32__["ImagePicker"],
+                _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_33__["FileTransfer"],
                 { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] }
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
@@ -1818,7 +1965,7 @@ var DCore_Valid = /** @class */ (function () {
         };
         this.isPhone = function (val) {
             //let reg = /^1[3|4|5|7|8][0-9]{9}/;
-            var reg = /^1[0-9][0-9]{9}/;
+            var reg = /^1[0-9][0-9]{9}$/;
             if (reg.test(val)) {
                 return true;
             }
@@ -3391,6 +3538,143 @@ var SelectAppointmentconfigComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component.scss":
+/*!*************************************************************************************************************!*\
+  !*** ./src/app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component.scss ***!
+  \*************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NlcnZpbmcvc2VydmluZy5zZXIvY29tcG9uZW50cy9zZWxlY3QtYXBwb2ludG1lbnRpbmZvL3NlbGVjdC1hcHBvaW50bWVudGluZm8uY29tcG9uZW50LnNjc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component.ts":
+/*!***********************************************************************************************************!*\
+  !*** ./src/app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component.ts ***!
+  \***********************************************************************************************************/
+/*! exports provided: SelectAppointmentinfoComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectAppointmentinfoComponent", function() { return SelectAppointmentinfoComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
+
+
+
+
+var SelectAppointmentinfoComponent = /** @class */ (function () {
+    function SelectAppointmentinfoComponent(_http, _page, _valid, _modalCtrl) {
+        this._http = _http;
+        this._page = _page;
+        this._valid = _valid;
+        this._modalCtrl = _modalCtrl;
+        this.mod = {
+            apiUrl: '',
+            data: [],
+            searchData: {
+                pageindex: 1,
+                search: ""
+            },
+        };
+        this.mod.apiUrl = "/api/appointment-info/GetList";
+    }
+    SelectAppointmentinfoComponent.prototype.ngOnInit = function () {
+        this.listOnBind();
+    };
+    SelectAppointmentinfoComponent.prototype.itemClick = function (item) {
+        this._modalCtrl.dismiss({
+            model: item
+        });
+    };
+    SelectAppointmentinfoComponent.prototype.dismissModal = function () {
+        this._modalCtrl.dismiss({});
+    };
+    SelectAppointmentinfoComponent.prototype.doInfinite = function (event) {
+        this.mod.searchData.pageindex = this.mod.searchData.pageindex + 1;
+        this.listOnBind();
+    };
+    SelectAppointmentinfoComponent.prototype.searchOnKeyup = function (event) {
+        var keyCode = event ? event.keyCode : "";
+        if (keyCode == 13) {
+            this.mod.data = [];
+            this.mod.searchData.pageindex = 1;
+            this.ionInfiniteScroll.disabled = false;
+            this.ionContent.scrollToTop(200);
+            this.listOnBind();
+        }
+    };
+    SelectAppointmentinfoComponent.prototype.listOnBind = function () {
+        var _this = this;
+        if (this.mod.searchData.pageindex == 1)
+            this._page.loadingShow();
+        this._http.get(this.mod.apiUrl, {
+            params: {
+                status: 0,
+                seachkey: this.mod.searchData.search,
+                sort: "mcs_appointmentinfoid desc",
+                pageSize: 10,
+                page: this.mod.searchData.pageindex
+            }
+        }, function (res) {
+            console.log(res);
+            if (!_this._valid.isNull(res.Results) !== null && res.Results.length > 0) {
+                for (var key in res.Results) {
+                    var obj = {};
+                    obj = res.Results[key]["Attributes"];
+                    _this.mod.data.push(obj);
+                }
+                _this._page.loadingHide();
+            }
+            else {
+                _this.ionInfiniteScroll.disabled = true;
+            }
+            if (_this.mod.searchData.pageindex == 1)
+                _this._page.loadingHide();
+            _this.ionInfiniteScroll.complete();
+        }, function (err) {
+            _this._page.alert("消息提示", "数据加载异常");
+            if (_this.mod.searchData.pageindex == 1)
+                _this._page.loadingHide();
+            _this.ionInfiniteScroll.complete();
+        });
+    };
+    SelectAppointmentinfoComponent.ctorParameters = function () { return [
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Valid"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] }
+    ]; };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonContent"], null),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonContent"])
+    ], SelectAppointmentinfoComponent.prototype, "ionContent", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonInfiniteScroll"], null),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonInfiniteScroll"])
+    ], SelectAppointmentinfoComponent.prototype, "ionInfiniteScroll", void 0);
+    SelectAppointmentinfoComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-select-appointmentinfo',
+            template: __webpack_require__(/*! raw-loader!./select-appointmentinfo.component.html */ "./node_modules/raw-loader/index.js!./src/app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component.html"),
+            styles: [__webpack_require__(/*! ./select-appointmentinfo.component.scss */ "./src/app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Valid"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]])
+    ], SelectAppointmentinfoComponent);
+    return SelectAppointmentinfoComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/serving/serving.ser/components/select-carmodel/select-carmodel.component.scss":
 /*!***********************************************************************************************!*\
   !*** ./src/app/serving/serving.ser/components/select-carmodel/select-carmodel.component.scss ***!
@@ -4393,6 +4677,204 @@ var SelectRepairitemComponent = /** @class */ (function () {
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]])
     ], SelectRepairitemComponent);
     return SelectRepairitemComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component.scss":
+/*!***********************************************************************************************************!*\
+  !*** ./src/app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component.scss ***!
+  \***********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NlcnZpbmcvc2VydmluZy5zZXIvY29tcG9uZW50cy9zZWxlY3QtcmVwYWlyaXRlbXR5cGUvc2VsZWN0LXJlcGFpcml0ZW10eXBlLmNvbXBvbmVudC5zY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component.ts":
+/*!*********************************************************************************************************!*\
+  !*** ./src/app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component.ts ***!
+  \*********************************************************************************************************/
+/*! exports provided: SelectRepairitemtypeComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectRepairitemtypeComponent", function() { return SelectRepairitemtypeComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+
+
+
+
+var SelectRepairitemtypeComponent = /** @class */ (function () {
+    function SelectRepairitemtypeComponent(_http, _page, _modalCtrl) {
+        this._http = _http;
+        this._page = _page;
+        this._modalCtrl = _modalCtrl;
+        this.mod = {
+            apiUrl: '',
+            data: [],
+            searchData: {},
+        };
+        this.mod.apiUrl = "/Api/Serviceproxy/GetRepairitemtypeList";
+    }
+    SelectRepairitemtypeComponent.prototype.ngOnInit = function () {
+        this.listOnBind();
+    };
+    SelectRepairitemtypeComponent.prototype.itemClick = function (item) {
+        this._modalCtrl.dismiss({
+            item: item
+        });
+    };
+    SelectRepairitemtypeComponent.prototype.dismissModal = function () {
+        this._modalCtrl.dismiss({});
+    };
+    SelectRepairitemtypeComponent.prototype.searchOnKeyup = function (event) {
+        var keyCode = event ? event.keyCode : "";
+        if (keyCode == 13) {
+            this.listOnBind();
+        }
+    };
+    SelectRepairitemtypeComponent.prototype.listOnBind = function () {
+        var _this = this;
+        this._page.loadingShow();
+        this.mod.data = [];
+        this._http.get(this.mod.apiUrl, {}, function (res) {
+            if (res.Results !== null) {
+                for (var key in res.Results) {
+                    var obj = {};
+                    obj["model"] = res.Results[key]["Attributes"];
+                    _this.mod.data.push(obj);
+                }
+                _this._page.loadingHide();
+            }
+            else {
+                _this._page.alert("消息提示", "数据加载异常");
+                _this._page.loadingHide();
+            }
+        }, function (err) {
+            _this._page.alert("消息提示", "数据加载异常");
+            _this._page.loadingHide();
+        });
+    };
+    SelectRepairitemtypeComponent.ctorParameters = function () { return [
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Http"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Page"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ModalController"] }
+    ]; };
+    SelectRepairitemtypeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-select-repairitemtype',
+            template: __webpack_require__(/*! raw-loader!./select-repairitemtype.component.html */ "./node_modules/raw-loader/index.js!./src/app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component.html"),
+            styles: [__webpack_require__(/*! ./select-repairitemtype.component.scss */ "./src/app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Http"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Page"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ModalController"]])
+    ], SelectRepairitemtypeComponent);
+    return SelectRepairitemtypeComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component.scss":
+/*!***********************************************************************************************************************!*\
+  !*** ./src/app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component.scss ***!
+  \***********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NlcnZpbmcvc2VydmluZy5zZXIvY29tcG9uZW50cy9zZWxlY3QtcmVwYWlyaXRlbXR5cGVkZXRhaWwvc2VsZWN0LXJlcGFpcml0ZW10eXBlZGV0YWlsLmNvbXBvbmVudC5zY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component.ts":
+/*!*********************************************************************************************************************!*\
+  !*** ./src/app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component.ts ***!
+  \*********************************************************************************************************************/
+/*! exports provided: SelectRepairitemtypedetailComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectRepairitemtypedetailComponent", function() { return SelectRepairitemtypedetailComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
+
+
+
+
+var SelectRepairitemtypedetailComponent = /** @class */ (function () {
+    function SelectRepairitemtypedetailComponent(_http, _page, _valid, _modalCtrl) {
+        this._http = _http;
+        this._page = _page;
+        this._valid = _valid;
+        this._modalCtrl = _modalCtrl;
+        this.mod = {
+            apiUrl: '',
+            data: [],
+        };
+        this.mod.apiUrl = "/Api/Serviceproxy/GetRepairitemtypedetailList";
+    }
+    SelectRepairitemtypedetailComponent.prototype.ngOnInit = function () {
+        this.listOnBind();
+    };
+    SelectRepairitemtypedetailComponent.prototype.itemClick = function (item) {
+        this._modalCtrl.dismiss({
+            item: item
+        });
+    };
+    SelectRepairitemtypedetailComponent.prototype.dismissModal = function () {
+        this._modalCtrl.dismiss({});
+    };
+    SelectRepairitemtypedetailComponent.prototype.listOnBind = function () {
+        var _this = this;
+        this._page.loadingShow();
+        this._http.get(this.mod.apiUrl, {}, function (res) {
+            if (!_this._valid.isNull(res.Results) !== null && res.Results.length > 0) {
+                for (var key in res.Results) {
+                    var obj = {};
+                    obj["model"] = res.Results[key]["Attributes"];
+                    _this.mod.data.push(obj);
+                }
+                _this._page.loadingHide();
+            }
+            else {
+            }
+            _this._page.loadingHide();
+        }, function (err) {
+            _this._page.alert("消息提示", "数据加载异常");
+            _this._page.loadingHide();
+        });
+    };
+    SelectRepairitemtypedetailComponent.ctorParameters = function () { return [
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Valid"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] }
+    ]; };
+    SelectRepairitemtypedetailComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-select-repairitemtypedetail',
+            template: __webpack_require__(/*! raw-loader!./select-repairitemtypedetail.component.html */ "./node_modules/raw-loader/index.js!./src/app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component.html"),
+            styles: [__webpack_require__(/*! ./select-repairitemtypedetail.component.scss */ "./src/app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Valid"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]])
+    ], SelectRepairitemtypedetailComponent);
+    return SelectRepairitemtypedetailComponent;
 }());
 
 

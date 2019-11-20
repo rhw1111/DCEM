@@ -160,6 +160,7 @@ var Edit2Page = /** @class */ (function () {
     Edit2Page.prototype.saveOnClick = function () {
         var _this = this;
         this.mod.postData["actioncode"] = this.shareData["actioncode"]; //操作编码
+        debugger;
         //组装服务委托书
         this.mod.postData["serviceproxy"] = {};
         if (this.shareData["actioncode"] === 2)
@@ -177,6 +178,7 @@ var Edit2Page = /** @class */ (function () {
         this.mod.postData["serviceproxy"]["dealerid"] = this.shareData.serviceproxy["dealerid"]; //厅店
         this.mod.postData["serviceproxy"]["customercomment"] = this.shareData.serviceproxy["customercomment"]; //客户描述
         this.mod.postData["serviceproxy"]["currenttype"] = 10; //单据类型 10问诊单
+        this.mod.postData["serviceproxy"]["appointmentcode"] = this.shareData.serviceproxy["appointmentcode"]; //预约单编号
         //组装环检项
         this.mod.postData["serviceordercheckresultArray"] = [];
         for (var groupKey in this.shareData.vehcheckresultMap) {
@@ -197,7 +199,7 @@ var Edit2Page = /** @class */ (function () {
                 var id = res["Data"]["Id"];
                 var no = res["Data"]["Attributes"]["mcs_name"];
                 _this._shareData.delete(_this.mod.shareDataKey);
-                if (_this.shareData["actioncode"] === 1)
+                if (_this.shareData["actioncode"] === 1 || _this.shareData["actioncode"] === 3)
                     _this._page.navigateRoot("/serving/ri/success", { actioncode: _this.shareData["actioncode"], id: id, no: no });
                 else {
                     var that_1 = _this;
