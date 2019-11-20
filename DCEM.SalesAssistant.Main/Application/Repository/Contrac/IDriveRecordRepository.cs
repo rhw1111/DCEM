@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
 using DCEM.SalesAssistant.Main.ViewModel.Request;
 
 namespace DCEM.SalesAssistant.Main.Application.Repository.Contrac
@@ -13,6 +15,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository.Contrac
         /// <param name="request"></param>
         /// <returns></returns>
         string QueryList(DriveRecordRequest request);
+        Task<XDocument> GetDriveRecordDetaill(Guid id);
 
         /// <summary>
         /// 查询试乘试驾各个数量

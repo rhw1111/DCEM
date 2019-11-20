@@ -13,6 +13,7 @@ using MSLibrary.Xrm;
 using DCEM.SalesAssistant.Main.ViewModel.Request;
 using DCEM.SalesAssistant.Main.ViewModel.Response;
 using MSLibrary;
+using System;
 
 namespace DCEM.Web.Controllers
 {
@@ -41,6 +42,14 @@ namespace DCEM.Web.Controllers
         {
             var list = await app.QueryList(request);
             return list;
+        }
+
+        [HttpGet]
+        [Route("GetDetail")]
+        public async Task<NewtonsoftJsonActionResult<CrmEntity>> GetDetail(Guid id)
+        {
+            var item = await app.GetDetail(id);
+            return item;
         }
 
         /// <summary>

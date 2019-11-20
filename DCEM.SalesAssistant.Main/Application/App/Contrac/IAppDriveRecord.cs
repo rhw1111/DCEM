@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using DCEM.SalesAssistant.Main.ViewModel.Request;
 using DCEM.SalesAssistant.Main.ViewModel.Response;
 using MSLibrary;
@@ -14,7 +15,12 @@ namespace DCEM.SalesAssistant.Main.Application.App.Contrac
         /// <param name="request"></param>
         /// <returns></returns>
         Task<DriveRecordListResponse<CrmEntity>> QueryList(DriveRecordRequest request);
-
+        /// <summary>
+        /// 试乘试驾明细查询
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<CrmEntity> GetDetail(Guid id);
         /// <summary>
         /// 试乘试驾预约时段列表
         /// </summary>

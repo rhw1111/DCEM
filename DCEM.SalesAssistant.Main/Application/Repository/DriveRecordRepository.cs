@@ -3,6 +3,8 @@ using DCEM.SalesAssistant.Main.ViewModel.Request;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace DCEM.SalesAssistant.Main.Application.Repository
 {
@@ -104,6 +106,50 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
                 </fetch>";
 
             return fetchString;
+        }
+
+
+        /// <summary>
+        /// 试乘试驾明细获取
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<XDocument> GetDriveRecordDetaill(Guid id)
+        {
+            return await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+  <entity name='mcs_driverecord'>
+     <attribute name='mcs_fullname' />
+    <attribute name='mcs_mobilephone' />
+    <attribute name='mcs_email' />
+    <attribute name='mcs_drivingage' />
+    <attribute name='mcs_carmodel' />
+    <attribute name='mcs_ordertime' />
+    <attribute name='mcs_testdrivetime' />
+    <attribute name='mcs_businesstype' />
+    <attribute name='mcs_drivecar' />
+    <attribute name='mcs_appointedrouteid' />
+    <attribute name='mcs_starton' />
+    <attribute name='mcs_endon' />
+    <attribute name='mcs_consultantid' />
+    <attribute name='mcs_cancelreason' />
+    <filter type='and'> 
+      <condition attribute='mcs_driverecordid' operator='eq'   uitype='mcs_driverecord' value='{id}' />
+    </filter> 
+    <link-entity name='mcs_carmodel' from='mcs_carmodelid' to='mcs_carmodel' visible='false' link-type='outer' >
+      <attribute name='mcs_name' alias='carmodelname'/> 
+    </link-entity>
+   <link-entity name='mcs_driveroute' from='mcs_driverouteid' to='mcs_appointedrouteid' visible='false' link-type='outer' >
+      <attribute name='mcs_name' alias='driveroutename'/> 
+    </link-entity>
+  <link-entity name='mcs_reservationconfiguration' from='mcs_reservationconfigurationid' to='mcs_testdrivetime' visible='false' link-type='outer' >
+      <attribute name='mcs_name' alias='reservationname'/> 
+    </link-entity>
+  </entity>
+</fetch>";
+                return XDocument.Parse(fetchXml);
+            });
         }
 
         /// <summary>

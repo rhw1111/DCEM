@@ -251,6 +251,32 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         }
 
         /// <summary>
+        /// 试乘试驾明细查询
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<CrmEntity>GetDetail(Guid id)
+        {
+
+            try
+            {
+                var fetchXdoc = _driveRecordRepository.GetDriveRecordDetaill(id);
+                var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "mcs_driverecord",
+                    FetchXml = fetchXdoc.Result
+                };
+                var fetchResponse = await _crmService.Execute(fetchRequest);
+                var detailResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                return detailResult.Value.Results[0];
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
         /// 试乘试驾预约时段列表查询接口
         /// </summary>
         /// <param name="request"></param>

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using DCEM.SalesAssistant.Main.Application.App.Contrac;
 using DCEM.SalesAssistant.Main.Application.Services.Contrac;
 using DCEM.SalesAssistant.Main.ViewModel.Request;
@@ -35,7 +36,7 @@ namespace DCEM.SalesAssistant.Main.Application.App
         public async Task<QueryResult<CrmEntity>> QueryDriveCarList(TestDriveCarRequest request)
         {
             return await _driveRecordService.QueryDriveCarList(request);
-        }
+        } 
 
         /// <summary>
         /// 试乘试驾路线
@@ -55,6 +56,15 @@ namespace DCEM.SalesAssistant.Main.Application.App
         public async Task<DriveRecordListResponse<CrmEntity>> QueryList(DriveRecordRequest request)
         {
             return await _driveRecordService.QueryList(request);
+        }
+        /// <summary>
+        /// 试乘试驾明细查询
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<CrmEntity> GetDetail(Guid id)
+        {
+            return await _driveRecordService.GetDetail(id);
         }
 
         /// <summary>
