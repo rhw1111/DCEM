@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { FileUploader, FileItem } from 'ng2-file-upload';
 import { DCore_Http, DCore_Page, DCore_ShareData, DCore_Valid, DCore_Config } from 'app/base/base.ser/Dcem.core';
-import { ModalController, NavParams } from '@ionic/angular';
+import { NavParams } from '@ionic/angular';
 
 @Component({
     selector: 'app-fileupload',
@@ -93,8 +93,5 @@ export class FileuploadPage implements OnInit {
         this.uploader.uploadAll();
     }
 
-    dismissModal() {
-        this._modalCtrl.dismiss({
-        });
-    }
+
 }
