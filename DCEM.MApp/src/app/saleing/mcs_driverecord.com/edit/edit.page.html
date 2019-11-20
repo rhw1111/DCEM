@@ -1,12 +1,55 @@
-<ion-header>
+﻿<ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button text="����" defaultHref="/serving/reservation/list"></ion-back-button>
+            <ion-back-button text="返回" defaultHref="/saleing/driverecord/list"></ion-back-button>
         </ion-buttons>
-        <ion-title>������༭ԤԼ</ion-title>
+        <ion-title>预约开单</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+    <ion-list>
+        <ion-item-group>
+            <ion-item-divider color="primary">
+                <ion-label>基础信息</ion-label>
+            </ion-item-divider>
+            <ion-item>
+                <ion-label position="stacked">姓名<ion-text color="danger">*</ion-text></ion-label>
+                <ion-input type="text" placeholder="请输入姓名" maxlength="12" [(ngModel)]="model.driveRecord['mcs_fullname']" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">手机<ion-text color="danger">*</ion-text></ion-label>
+                <ion-input type="tel" placeholder="请输入11位手机号" maxlength="11" [(ngModel)]="model.driveRecord['mcs_mobilephone']" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">业务类型 <ion-text color="danger">*</ion-text></ion-label>
+                <ion-select [(ngModel)]="model.driveRecord['mcs_businesstype']" placeholder="请选择业务类型" okText="确认" cancelText="取消" required>
+                    <ion-select-option *ngFor="let item of model.businesstypeoption" value="{{item.value}}">
+                        {{item.name}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">试驾车型 <ion-text color="danger">*</ion-text></ion-label>
+                <ion-select [(ngModel)]="model.driveRecord['mcs_carmodel']" placeholder="请选择试驾车型" (ionChange)="CarModelChange()" okText="确认" cancelText="取消" required>
+                    <ion-select-option *ngFor="let item of model.carmodeloption" value="{{item.value}}">
+                        {{item.name}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">预约日期<ion-text color="danger">*</ion-text></ion-label>
+                <ion-datetime displayFormat="YYYY-MM-DD" min="1997" placeholder="请输入预约日期" cancelText="取消" doneText="确定" (ionChange)="OrderTimeChange()" [(ngModel)]="model.driveRecord['mcs_ordertime']"></ion-datetime>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">试驾预约时段 <ion-text color="danger">*</ion-text></ion-label>
+                <ion-select [(ngModel)]="model.driveRecord['mcs_testdrivetime']" placeholder="请选择试驾预约时段" okText="确认" cancelText="取消" required>
+                    <ion-select-option *ngFor="let item of model.drivetimeoption" value="{{item.value}}">
+                        {{item.name}}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+        </ion-item-group>
+    </ion-list>
+    <ion-button expand="block" type="button" (click)="saveOnClick()">确定</ion-button>
 </ion-content>

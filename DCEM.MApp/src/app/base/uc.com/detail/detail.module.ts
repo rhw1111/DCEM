@@ -4,9 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
-
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { DetailPage } from './detail.page';
-
 const routes: Routes = [
   {
     path: '',
@@ -15,6 +14,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   imports: [
     CommonModule,
     FormsModule,

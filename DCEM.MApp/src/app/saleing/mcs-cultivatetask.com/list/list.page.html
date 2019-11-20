@@ -4,6 +4,10 @@
             <ion-back-button text="返回" defaultHref="/"></ion-back-button>
         </ion-buttons>
         <ion-title>我的任务</ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        
     </ion-toolbar>
     <ion-toolbar>
         <ion-searchbar [(ngModel)]="this.model.seachkey" placeholder="可根据姓名、手机号模糊查找" (keyup)="search($event)">
@@ -50,7 +54,7 @@
                <ion-item-option color="tertiary" expandable [routerLink]="['/saleing/cultivatetask/edit']" [queryParams]="{id:item.mcs_activityid}">
                  编辑
                </ion-item-option> 
-               <ion-item-option color="tertiary" expandable [routerLink]="['/saleing/cultivatetask/edit']" [queryParams]="{id:item.mcs_activityid}">
+               <ion-item-option color="tertiary" expandable (click)="TaskFinish(item.mcs_activityid)">
                  完成
                </ion-item-option>                   
             </ion-item-options>

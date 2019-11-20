@@ -50,7 +50,6 @@
                 <ion-label position="stacked">预约日期<ion-text color="danger">*</ion-text></ion-label>
                 <ion-datetime displayFormat="YYYY-MM-DD" min="1997"  cancelText="取消" doneText="确定" (ionChange)="appointmentAtChange()"  [(ngModel)]="shareData.appointmentinfo['mcs_appointmentat']"></ion-datetime>
             </ion-item>
-          
             <ion-item>
                 <ion-label position="stacked">预约时段<ion-text color="danger">*</ion-text></ion-label>
                 <ion-select [(ngModel)]="shareData.appointmentinfo['mcs_appointmentconfigid']" (ionChange)="appointmentConfigChange()" placeholder="请选择时段" okText="确认" cancelText="取消">
@@ -58,7 +57,6 @@
                         {{model.appointmentConfigOptionMap[key].name}}
                     </ion-select-option>
                 </ion-select>
-
             </ion-item>
             <ion-item>
                 <ion-label>可预约数量</ion-label>

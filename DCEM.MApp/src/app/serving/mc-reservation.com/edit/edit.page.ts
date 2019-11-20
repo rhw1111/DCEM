@@ -29,7 +29,6 @@ export class EditPage implements OnInit {
         isAppointmentAtChange: true,//是否改变预约日期
         isAppointmentConfigChange: true,//预约时段是否改变
         customerId: "",//客户ID
-        actionCode: 1, //操作编码  1、新增  2、修改
         appointmentConfigOptionMap: {}//预约时段
     };
 
@@ -104,11 +103,11 @@ export class EditPage implements OnInit {
                     }
                 }
                 else {
-                    this._page.alert("消息提示", "客户数据加载异常");
+                    this._page.alert("消息提示", "预约时段数据加载异常");
                 }
             },
             (err: any) => {
-                this._page.alert("消息提示", "客户数据加载异常");
+                this._page.alert("消息提示", "预约时段数据加载异常");
             }
         );
 

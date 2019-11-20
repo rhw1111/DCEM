@@ -84,15 +84,15 @@ selectTab(status) {
    console.log("dealername:"+this._userinfo.GetDealername());
   //debugger;
   this._page.loadingShow();
-  this._http.post(this.model.apiUrl,
+  this._http.postForToaken(this.model.apiUrl,
       {
         mcs_surveystatus: this.model.mcs_surveystatus,
         SearchKey: this.model.seachkey,
         Sort: this.model.sort,
         PageSize: this.model.pageSize,
-        PageIndex: this.model.page,
-        UserId:this.model.userId,
-        mcs_dealerid:this.model.dealerId
+        PageIndex: this.model.page
+        // UserId:this.model.userId,
+        // mcs_dealerid:this.model.dealerId
       },
       (res: any) => {
          //debugger;

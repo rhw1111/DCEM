@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Aliyun.OSS.Core">
+      <HintPath>Lib\Aliyun.OSS.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
