@@ -109,7 +109,7 @@ let ListPage = class ListPage {
                 searchkey: "",
                 deliverystatus: "-1",
                 userId: this._userinfo.GetSystemUserId(),
-                dealerid: "d2b7ae95-72f4-e911-a821-f2106c4094a1",
+                dealerid: this._userinfo.GetDealerid()
             },
             deliverys: [],
             isending: false
@@ -167,11 +167,11 @@ let ListPage = class ListPage {
                 this._page.loadingHide();
             }
             else {
-                this._page.alert("消息提示", "原始线索数据加载异常");
+                this._page.alert("消息提示", "交车单列表数据加载异常");
             }
             this._page.loadingHide();
         }, (err) => {
-            this._page.alert("消息提示", "原始线索数据加载异常");
+            this._page.alert("消息提示", "交车单列表数据加载异常");
             this._page.loadingHide();
         });
     }
