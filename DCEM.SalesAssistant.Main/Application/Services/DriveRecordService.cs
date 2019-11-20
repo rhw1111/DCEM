@@ -255,12 +255,13 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<DriverecordDetailRepository> GetDetail(Guid id)
+        public async Task<DriverecordDetailResponse> GetDetail(Guid id)
         {
 
             try
             {
-                DriverecordDetailRepository model = new DriverecordDetailRepository();
+
+                DriverecordDetailResponse model = new DriverecordDetailResponse();
                 var fetchXdoc = _driveRecordRepository.GetDriveRecordDetaill(id);
                 var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {
@@ -294,12 +295,12 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<TestdrivefeedbackRepository> GetTestdrivefeedback(Guid id)
+        public async Task<TestdrivefeedbackResponse> GetTestdrivefeedback(Guid id)
         {
 
             try
             {
-                TestdrivefeedbackRepository model = new TestdrivefeedbackRepository();
+                TestdrivefeedbackResponse model = new TestdrivefeedbackResponse();
                 var fetchXdoc = _driveRecordRepository.GetTestdrivefeedback(id);
                 var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {
