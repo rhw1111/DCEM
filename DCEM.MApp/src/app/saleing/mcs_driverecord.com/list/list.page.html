@@ -1,9 +1,77 @@
+ 
+
+
 <ion-header>
-  <ion-toolbar>
-    <ion-title>list</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+        </ion-buttons>
+        <ion-title>试驾预约单列表</ion-title>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-searchbar [(ngModel)]="this.model.seachkey" placeholder="可根据姓名、手机号模糊查找" (keyup)="search($event)">
+        </ion-searchbar>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-segment>
+            <ion-segment-button checked (click)="selectTab(0)">
+                <ion-label>全部</ion-label>
+            </ion-segment-button>
+
+            <ion-segment-button (click)="selectTab(10)">
+                <ion-label>已提交</ion-label>
+            </ion-segment-button>
+            <ion-segment-button (click)="selectTab(12)">
+                <ion-label>已排程</ion-label>
+            </ion-segment-button>
+
+        </ion-segment>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles"
+            refreshingText="刷新中...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <ion-list lines="full">
+        <ion-item-sliding *ngFor="let item of model.datalist" >
+            <ion-item [routerLink]="['/saleing/driverecord/detail']" [queryParams]="{id:item.id}">
+                 <ion-label>
+                    <h2>{{item.mcs_fullname}}</h2>
+                    <p>{{item.mcs_mobilephone}}</p> 
+                    <p style="font-size: 0.8rem;"> {{item.mcs_ordertime| date:'yyyy-MM-dd '}} {{item.reservationname }}</p>
+                   
+              </ion-label>
+                <ion-note slot="end">
+                         <p style="font-size: 0.8rem;"> {{item.mcs_drivestatus}}</p>
+                </ion-note>
+            </ion-item>
+            <ion-item-options side="end"  >
+               <ion-item-option color="tertiary" expandable [routerLink]="['/saleing/driverecord/detail']" [queryParams]="{id:item.id}">
+                 详情
+               </ion-item-option>  
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+    <ion-row *ngIf="model.isending">
+        <ion-col class="nodata" text-center>
+            <label>没有更多内容啦</label>
+        </ion-col>
+    </ion-row>
 
+    <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doLoading($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+     
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+            <ion-fab-button>
+                <ion-icon name="arrow-dropup"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-list side="top">
+                <ion-fab-button color="success" [routerLink]="['/saleing/driverecord/edit']"><ion-icon name="add"></ion-icon></ion-fab-button>
+            </ion-fab-list>
+        </ion-fab>
 </ion-content>

@@ -31,13 +31,29 @@ namespace DCEM.Web.Controllers
                 app = new InstallationFactory().Create().Result;
             }           
         }
-
+        /// <summary>
+        /// 获取勘测单列表
+        /// </summary>
+        /// <param name="_request"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("GetSurveyorderList")]
         public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetSurveyorderList(SurveyorderListRequest _request)
         {
             var list = await app.GetSurveyorderList(_request);
             return list;
+        }
+        /// <summary>
+        /// 获取勘测单详情
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("GetSurveyorderDetail")]
+        public async Task<NewtonsoftJsonActionResult<CrmEntity>> GetSurveyorderDetail(SurveyorderDetailRequest _request)
+        {
+            var detail = await app.GetSurveyorderDetail(_request.Guid);
+            return detail;
         }
     }
 }

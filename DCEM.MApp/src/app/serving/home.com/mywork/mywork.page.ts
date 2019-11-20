@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { ModalController } from '@ionic/angular';
+import { SelectFileEditComponent } from 'app/serving/serving.ser/components/select-file-edit/select-file-edit.component';
 @Component({
     selector: 'app-mywork',
     templateUrl: './mywork.page.html',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyworkPage implements OnInit {
 
-    constructor() { }
+    constructor(private _modalCtrl: ModalController, ) { }
 
     ngOnInit() {
+    }
+
+    //Ñ¡Ôñ¸½¼þ
+    async presentFileModal() {
+        const modal = await this._modalCtrl.create({
+            component: SelectFileEditComponent
+        });
+        await modal.present();
+
     }
 
 }

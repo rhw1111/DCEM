@@ -41,36 +41,36 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
             if (userInfo != null && !string.IsNullOrWhiteSpace(userInfo.mcs_dealerid))
             {
-                request.driveRecord.DealerId = Guid.Parse(userInfo.mcs_dealerid);
+                request.driveRecord.mcs_dealerid = Guid.Parse(userInfo.mcs_dealerid);
             }
             if (userInfo != null && userInfo.systemuserid != null)
             {
-                request.driveRecord.ConsultantId = userInfo.systemuserid;
+                request.driveRecord.mcs_consultantid = userInfo.systemuserid;
             }
             var validateResult = new ValidateResult<CrmEntity>();
             var reusetCrmEntity = new CrmEntity("mcs_driverecord", new Guid());
             //新增预约单
-            if (request.driveRecord.DriveRecordId == null)
+            if (request.driveRecord.mcs_driverecordid == null)
             {
                 var createEntity = new CrmExecuteEntity("mcs_driverecord", Guid.NewGuid());
                 //预约状态 创建默认是已提交
-                createEntity.Attributes.Add("mcs_status", 10);
+                createEntity.Attributes.Add("mcs_drivestatus", 10);
                 BasicAssignment(createEntity, request);
-                var reuset = await _crmService.Create(createEntity, userInfo.systemuserid);
+                await _crmService.Create(createEntity, userInfo.systemuserid);
                 reusetCrmEntity.Id = createEntity.Id;
             }
             //编辑预约单
-            if (request.driveRecord.DriveRecordId != null)
+            if (request.driveRecord.mcs_driverecordid != null)
             {
-                var updateEntity = new CrmExecuteEntity("mcs_driverecord", (Guid)request.driveRecord.DriveRecordId);
+                var updateEntity = new CrmExecuteEntity("mcs_driverecord", (Guid)request.driveRecord.mcs_driverecordid);
                 //预约状态
-                if (request.driveRecord.DriveStatus != null)
+                if (request.driveRecord.mcs_drivestatus != null)
                 {
-                    updateEntity.Attributes.Add("mcs_status", request.driveRecord.DriveStatus);
+                    updateEntity.Attributes.Add("mcs_drivestatus", request.driveRecord.mcs_drivestatus);
                 }
                 BasicAssignment(updateEntity, request);
                 await _crmService.Update(updateEntity, userInfo.systemuserid);
-                reusetCrmEntity.Id = (Guid)request.driveRecord.DriveRecordId;
+                reusetCrmEntity.Id = (Guid)request.driveRecord.mcs_driverecordid;
             }
             validateResult.Data = reusetCrmEntity;
             validateResult.Result = true;
@@ -86,48 +86,48 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         private CrmExecuteEntity BasicAssignment(CrmExecuteEntity entity, DriveRecordAddOrEditRequest request)
         {
             //姓名
-            if (!string.IsNullOrWhiteSpace(request.driveRecord.FullName))
+            if (!string.IsNullOrWhiteSpace(request.driveRecord.mcs_fullname))
             {
-                entity.Attributes.Add("mcs_fullname", request.driveRecord.FullName);
+                entity.Attributes.Add("mcs_fullname", request.driveRecord.mcs_fullname);
             }
             //手机号
-            if (!string.IsNullOrWhiteSpace(request.driveRecord.MobilePhone))
+            if (!string.IsNullOrWhiteSpace(request.driveRecord.mcs_mobilephone))
             {
-                entity.Attributes.Add("mcs_mobilephone", request.driveRecord.MobilePhone);
+                entity.Attributes.Add("mcs_mobilephone", request.driveRecord.mcs_mobilephone);
             }
             //试驾车型
-            if (request.driveRecord.CarModel != null)
+            if (request.driveRecord.mcs_carmodel != null)
             {
-                var carModelEntityRef = new CrmEntityReference("mcs_carmodel", (Guid)request.driveRecord.CarModel);
+                var carModelEntityRef = new CrmEntityReference("mcs_carmodel", (Guid)request.driveRecord.mcs_carmodel);
                 entity.Attributes.Add("mcs_carmodel", carModelEntityRef);
             }
             //业务类型
-            if (request.driveRecord.BusinessType != null)
+            if (request.driveRecord.mcs_businesstype != null)
             {
-                entity.Attributes.Add("mcs_businesstype", request.driveRecord.BusinessType);
+                entity.Attributes.Add("mcs_businesstype", request.driveRecord.mcs_businesstype);
             }
             //预约日期
-            if (request.driveRecord.OrderTime != null)
+            if (request.driveRecord.mcs_ordertime != null)
             {
-                var ordertime = request.driveRecord.OrderTime.Value.ToUniversalTime();
+                var ordertime = request.driveRecord.mcs_ordertime.Value.ToUniversalTime();
                 entity.Attributes.Add("mcs_ordertime", ordertime);
             }
             //预约试驾时段
-            if (request.driveRecord.TestDriveTime != null)
+            if (request.driveRecord.mcs_testdrivetime != null)
             {
-                var configEntityRef = new CrmEntityReference("mcs_reservationconfiguration", (Guid)request.driveRecord.TestDriveTime);
+                var configEntityRef = new CrmEntityReference("mcs_reservationconfiguration", (Guid)request.driveRecord.mcs_testdrivetime);
                 entity.Attributes.Add("mcs_testdrivetime", configEntityRef);
             }
             //预约厅店
-            if (request.driveRecord.DealerId != null)
+            if (request.driveRecord.mcs_dealerid != null)
             {
-                var dealerEntityEF = new CrmEntityReference("mcs_dealer", (Guid)request.driveRecord.DealerId);
+                var dealerEntityEF = new CrmEntityReference("mcs_dealer", (Guid)request.driveRecord.mcs_dealerid);
                 entity.Attributes.Add("mcs_dealerid", dealerEntityEF);
             }
             //销售顾问
-            if (request.driveRecord.ConsultantId != null)
+            if (request.driveRecord.mcs_consultantid != null)
             {
-                var systemUserEntityEF = new CrmEntityReference("systemuser", (Guid)request.driveRecord.ConsultantId);
+                var systemUserEntityEF = new CrmEntityReference("systemuser", (Guid)request.driveRecord.mcs_consultantid);
                 entity.Attributes.Add("mcs_consultantid", systemUserEntityEF);
             }
             return entity;
@@ -145,7 +145,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
                 if (userInfo != null && !string.IsNullOrWhiteSpace(userInfo.mcs_dealerid))
                 {
-                   // request.DealerId = Guid.Parse(userInfo.mcs_dealerid);
+                    // request.DealerId = Guid.Parse(userInfo.mcs_dealerid);
                 }
                 #region 查询结果集
                 var fetchString = _driveRecordRepository.QueryList(request);
@@ -155,72 +155,72 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 {
                     EntityName = "mcs_driverecord",
                     FetchXml = fetchXdoc,
-                    ProxyUserId= userInfo?.systemuserid
+                    ProxyUserId = userInfo?.systemuserid
                 };
                 fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
                 var fetchResponse = await _crmService.Execute(fetchRequest);
                 var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
                 #endregion
 
-                #region 查询总条数
-                var status = 0;
-                var fetchAllTotalCountString = _driveRecordRepository.QueryListByCount(request, status);
-                var fetchAllTotalXdoc = XDocument.Parse(fetchAllTotalCountString);
-                fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
-                {
-                    EntityName = "mcs_driverecord",
-                    FetchXml = fetchAllTotalXdoc,
-                    ProxyUserId = userInfo?.systemuserid
-                };
-                fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
-                fetchResponse = await _crmService.Execute(fetchRequest);
-                var allTotalCountResults = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
-                #endregion
+                //#region 查询总条数
+                //var status = 0;
+                //var fetchAllTotalCountString = _driveRecordRepository.QueryListByCount(request, status);
+                //var fetchAllTotalXdoc = XDocument.Parse(fetchAllTotalCountString);
+                //fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                //{
+                //    EntityName = "mcs_driverecord",
+                //    FetchXml = fetchAllTotalXdoc,
+                //    ProxyUserId = userInfo?.systemuserid
+                //};
+                //fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                //fetchResponse = await _crmService.Execute(fetchRequest);
+                //var allTotalCountResults = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                //#endregion
 
-                #region 已提交
-                status = 10;
-                var fetchSubmittedCountString = _driveRecordRepository.QueryListByCount(request, status);
-                var fetchSubmittedXdoc = XDocument.Parse(fetchSubmittedCountString);
-                fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
-                {
-                    EntityName = "mcs_driverecord",
-                    FetchXml = fetchSubmittedXdoc,
-                     ProxyUserId = userInfo?.systemuserid
-                };
-                fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
-                fetchResponse = await _crmService.Execute(fetchRequest);
-                var SubmittedCountResults = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
-                #endregion
+                //#region 已提交
+                //status = 10;
+                //var fetchSubmittedCountString = _driveRecordRepository.QueryListByCount(request, status);
+                //var fetchSubmittedXdoc = XDocument.Parse(fetchSubmittedCountString);
+                //fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                //{
+                //    EntityName = "mcs_driverecord",
+                //    FetchXml = fetchSubmittedXdoc,
+                //     ProxyUserId = userInfo?.systemuserid
+                //};
+                //fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                //fetchResponse = await _crmService.Execute(fetchRequest);
+                //var SubmittedCountResults = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                //#endregion
 
-                #region 已排程
-                status = 12;
-                var fetchScheduledCountString = _driveRecordRepository.QueryListByCount(request, status);
-                var fetchScheduledXdoc = XDocument.Parse(fetchScheduledCountString);
-                fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
-                {
-                    EntityName = "mcs_driverecord",
-                    FetchXml = fetchScheduledXdoc,
-                    ProxyUserId = userInfo?.systemuserid
-                };
-                fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
-                fetchResponse = await _crmService.Execute(fetchRequest);
-                var ScheduledCountResults = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
-                #endregion
+                //#region 已排程
+                //status = 12;
+                //var fetchScheduledCountString = _driveRecordRepository.QueryListByCount(request, status);
+                //var fetchScheduledXdoc = XDocument.Parse(fetchScheduledCountString);
+                //fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                //{
+                //    EntityName = "mcs_driverecord",
+                //    FetchXml = fetchScheduledXdoc,
+                //    ProxyUserId = userInfo?.systemuserid
+                //};
+                //fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                //fetchResponse = await _crmService.Execute(fetchRequest);
+                //var ScheduledCountResults = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                //#endregion
 
-                #region 已取消
-                status = 13;
-                var fetchCancelledCountString = _driveRecordRepository.QueryListByCount(request, status);
-                var fetchCancelledXdoc = XDocument.Parse(fetchCancelledCountString);
-                fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
-                {
-                    EntityName = "mcs_driverecord",
-                    FetchXml = fetchCancelledXdoc,
-                    ProxyUserId = userInfo?.systemuserid
-                };
-                fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
-                fetchResponse = await _crmService.Execute(fetchRequest);
-                var CancelledCountResults = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
-                #endregion
+                //#region 已取消
+                //status = 13;
+                //var fetchCancelledCountString = _driveRecordRepository.QueryListByCount(request, status);
+                //var fetchCancelledXdoc = XDocument.Parse(fetchCancelledCountString);
+                //fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                //{
+                //    EntityName = "mcs_driverecord",
+                //    FetchXml = fetchCancelledXdoc,
+                //    ProxyUserId = userInfo?.systemuserid
+                //};
+                //fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                //fetchResponse = await _crmService.Execute(fetchRequest);
+                //var CancelledCountResults = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                //#endregion
 
                 //#region 开始试驾
                 //status = 14;
@@ -239,9 +239,9 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 var queryResult = new DriveRecordListResponse<CrmEntity>();
                 queryResult.Results = fetchResponseResult.Value.Results;
                 queryResult.CurrentPage = request.PageIndex;
-                queryResult.ALLTotalCount = (int)allTotalCountResults.Value.Results[0].Attributes["count"];
-                queryResult.ScheduledCount = (int)SubmittedCountResults.Value.Results[0].Attributes["count"];
-                queryResult.CancelledCount = (int)CancelledCountResults.Value.Results[0].Attributes["count"];
+                //queryResult.ALLTotalCount = (int)allTotalCountResults.Value.Results[0].Attributes["count"];
+                //queryResult.ScheduledCount = (int)SubmittedCountResults.Value.Results[0].Attributes["count"];
+                //queryResult.CancelledCount = (int)CancelledCountResults.Value.Results[0].Attributes["count"];
                 return queryResult;
             }
             catch (Exception ex)
@@ -255,11 +255,13 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<CrmEntity>GetDetail(Guid id)
+        public async Task<DriverecordDetailResponse> GetDetail(Guid id)
         {
 
             try
             {
+
+                DriverecordDetailResponse model = new DriverecordDetailResponse();
                 var fetchXdoc = _driveRecordRepository.GetDriveRecordDetaill(id);
                 var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {
@@ -268,7 +270,60 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 };
                 var fetchResponse = await _crmService.Execute(fetchRequest);
                 var detailResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
-                return detailResult.Value.Results[0];
+                model.Detail = detailResult.Value.Results[0];
+
+                fetchXdoc = _driveRecordRepository.GetAttachmentDetaillFetchXml(id);
+                fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "mcs_attachment",
+                    FetchXml = fetchXdoc.Result
+                };
+                fetchResponse = await _crmService.Execute(fetchRequest);
+                detailResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                model.AttachmentDetail = detailResult.Value.Results;
+                return model;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        /// <summary>
+        /// 问题反馈
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<TestdrivefeedbackResponse> GetTestdrivefeedback(Guid id)
+        {
+
+            try
+            {
+                TestdrivefeedbackResponse model = new TestdrivefeedbackResponse();
+                var fetchXdoc = _driveRecordRepository.GetTestdrivefeedback(id);
+                var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "mcs_testdrivefeedbackmaster",
+                    FetchXml = fetchXdoc.Result
+                };
+                var fetchResponse = await _crmService.Execute(fetchRequest);
+                var detailResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                if (detailResult.Value.Results.Count > 0)
+                {
+                    model.Master = detailResult.Value.Results[0];
+                    fetchXdoc = _driveRecordRepository.GetTestdrivefeedbackDetail(detailResult.Value.Results[0].Id);
+                    fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                    {
+                        EntityName = "mcs_testdrivefeedback",
+                        FetchXml = fetchXdoc.Result
+                    };
+                    fetchResponse = await _crmService.Execute(fetchRequest);
+                    detailResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                    model.Details = detailResult.Value.Results;
+                }
+
+                return model;
             }
             catch (Exception ex)
             {

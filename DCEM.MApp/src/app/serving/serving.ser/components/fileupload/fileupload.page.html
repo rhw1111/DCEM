@@ -1,9 +1,46 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>fileupload</ion-title>
-  </ion-toolbar>
+﻿<ion-header>
+    <ion-toolbar>
+        <ion-title>附件上传</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+    <ion-list lines="full">
+        <ion-item-sliding *ngFor="let key of objectKeys(mod.data.filesMap)">
+            <ion-item>
+                <ion-thumbnail slot="start">
+                    <img src="{{mod.data.filesMap[key]['url']}}" />
+                </ion-thumbnail>
+                <ion-label>
+                    <h3>{{mod.data.filesMap[key]["fileName"]}}</h3>
+                    <p>{{mod.data.filesMap[key]["fileSize"]}}</p>
+                    <p><ion-progress-bar value="{{mod.data.filesMap[key]['progress']}}" buffer="1"></ion-progress-bar></p>
+                </ion-label>
+            </ion-item>
+            <ion-item-options side="end">
+                <ion-item-option color="tertiary" expandable>
+                    移除
+                </ion-item-option>
+            </ion-item-options>
+        </ion-item-sliding>
+        <ion-item (click)="selectFiles()">
+            <ion-thumbnail slot="start">
+                <img src="./assets/img/upload.png" />
+                <input id="fileInput" type="file" ng2FileSelect [uploader]="uploader" style="display:none" (change)="uploadVideo($event)" multiple />
+            </ion-thumbnail>
+            <ion-label>
+                <h3>&nbsp;</h3>
+                <p>请点击此处选择图片进行上传</p>
+                <p>&nbsp;</p>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+
+    <section style="text-align:center;">
+        <ion-button style="width:40%" color="danger">取消</ion-button>
+        <ion-button style="width:40%" color="success">确定</ion-button>
+    </section>
+    <br />
+    <br />
 </ion-content>
