@@ -20,7 +20,13 @@ namespace DCEM.SalesAssistant.Main.Application.App.Contrac
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<CrmEntity> GetDetail(Guid id);
+        Task<DriverecordDetailRepository> GetDetail(Guid id);
+        /// <summary>
+        /// 问题反馈
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<TestdrivefeedbackRepository> GetTestdrivefeedback(Guid id);
         /// <summary>
         /// 试乘试驾预约时段列表
         /// </summary>
