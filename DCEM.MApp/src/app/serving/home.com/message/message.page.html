@@ -1,9 +1,50 @@
 ﻿<ion-header>
   <ion-toolbar>
-    <ion-title>消息</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>消息列表</ion-title>
+    <!-- <ion-nav-buttons side="right"> 
+        <button ng-click="openNewChat()"></button> 
+      </ion-nav-buttons> -->
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar placeholder="快速查找" (keyup)="search()"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-list ng-if="activities">
+    <ion-item-sliding *ngFor="let room of activities;let key=index">
+      <ion-item (click)="toRoomMessage(room)">
+        <ion-avatar size="large" slot="start">
+            <img src="{{room.thumbnail}}">
+        </ion-avatar>
+        <ion-label>
+          <h2>{{room.title}}</h2>
+          <p>{{room.latest_chat}}</p>
+        </ion-label>
+        <ion-note slot="end">
+          {{room.activeTime}}
+        </ion-note>
+        <ion-badge *ngIf="room.unreadcount>0" slot="end" color="danger">{{room.unreadcount}}</ion-badge>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option color="danger" expandable ng-click="remove(room)">
+          Delete
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <!--show when there is no activity-->
+  <div *ngIf="!activities">
+    <div style="height: 60px"></div>
+    <div class="text-center" style="padding: 45px">
+      <h2 class="grey"> Recent </h2>
+      <div style="height: 10px"></div>
+      <h4 class="grey">Once you start chatting, all your messages will be here.</h4>
+      <div style="height: 20px"></div> <button class="button button-outline" ng-click="openNewChat()">New
+        Message</button>
+    </div>
+  </div>
 </ion-content>
