@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{f26cede4-f02d-4382-a6bd-49c0cb89d2aa}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <StartupFile />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -70,6 +70,8 @@
     <Content Include="src\app\saleing\mcs-onlylead.com\list\list.page.scss" />
     <Content Include="src\app\saleing\mcs-onlylead.com\success\success.page.html" />
     <Content Include="src\app\saleing\mcs-onlylead.com\success\success.page.scss" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\calendar\calendar.page.html" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\calendar\calendar.page.scss" />
     <Content Include="src\app\saleing\mcs_driverecord.com\detail\detail.page.html" />
     <Content Include="src\app\saleing\mcs_driverecord.com\detail\detail.page.scss" />
     <Content Include="src\app\saleing\mcs_driverecord.com\edit\edit.page.html" />
@@ -209,6 +211,7 @@
     <Content Include="src\assets\img\head_default.jpg" />
     <Content Include="src\assets\img\index.jpg" />
     <Content Include="src\assets\img\login.jpg" />
+    <Content Include="src\assets\img\upload.png" />
     <Content Include="src\global.scss" />
     <Content Include="src\theme\variables.scss" />
     <Content Include="tsconfig.app.json" />
@@ -633,6 +636,9 @@
     <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\success\success.module.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\success\success.page.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\success\success.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\calendar\calendar.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\calendar\calendar.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\calendar\calendar.page.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\detail\detail.module.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\detail\detail.page.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\detail\detail.page.ts" />
@@ -955,6 +961,7 @@
     <Folder Include="src\app\saleing\mcs-onlylead.com\success\" />
     <Folder Include="src\app\saleing\mcs-deliverycentercarstock.com\" />
     <Folder Include="src\app\saleing\mcs_driverecord.com\" />
+    <Folder Include="src\app\saleing\mcs_driverecord.com\calendar\" />
     <Folder Include="src\app\saleing\mcs_driverecord.com\detail\" />
     <Folder Include="src\app\saleing\mcs_driverecord.com\edit\" />
     <Folder Include="src\app\saleing\mcs_driverecord.com\list\" />
@@ -1036,6 +1043,7 @@
     <Folder Include="src\assets\css\" />
     <Folder Include="src\assets\icon" />
     <Folder Include="src\assets\img\" />
+    <Folder Include="src\assets\plugins\" />
     <Folder Include="src\environments" />
     <Folder Include="src\theme" />
   </ItemGroup>

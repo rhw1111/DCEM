@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[55],{
 
-/***/ "./node_modules/@ionic/core/dist/esm-es5/ion-reorder_2-ios.entry.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm-es5/ion-reorder_2-ios.entry.js ***!
-  \**************************************************************************/
+/***/ "./node_modules/@ionic/core/dist/esm-es5/ion-reorder_2-md.entry.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm-es5/ion-reorder_2-md.entry.js ***!
+  \*************************************************************************/
 /*! exports provided: ion_reorder, ion_reorder_group */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -12,34 +12,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_reorder", function() { return Reorder; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_reorder_group", function() { return ReorderGroup; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./chunk-d0403a2f.js */ "./node_modules/@ionic/core/dist/esm-es5/chunk-d0403a2f.js");
-/* harmony import */ var _chunk_1074393c_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./chunk-1074393c.js */ "./node_modules/@ionic/core/dist/esm-es5/chunk-1074393c.js");
-/* harmony import */ var _chunk_4e92c885_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./chunk-4e92c885.js */ "./node_modules/@ionic/core/dist/esm-es5/chunk-4e92c885.js");
+/* harmony import */ var _core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./core-ca0488fc.js */ "./node_modules/@ionic/core/dist/esm-es5/core-ca0488fc.js");
+/* harmony import */ var _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./config-3c7f3790.js */ "./node_modules/@ionic/core/dist/esm-es5/config-3c7f3790.js");
+/* harmony import */ var _haptic_c8f1473e_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./haptic-c8f1473e.js */ "./node_modules/@ionic/core/dist/esm-es5/haptic-c8f1473e.js");
 
 
 
 
 var Reorder = /** @class */ (function () {
     function Reorder(hostRef) {
-        Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["r"])(this, hostRef);
+        Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["r"])(this, hostRef);
     }
     Reorder.prototype.onClick = function (ev) {
         ev.preventDefault();
         ev.stopImmediatePropagation();
     };
     Reorder.prototype.render = function () {
-        return (Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["h"])(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["H"], { class: Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["d"])(this) }, Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["h"])("slot", null, Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["h"])("ion-icon", { name: "reorder", lazy: false, class: "reorder-icon" }))));
+        return (Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["H"], { class: Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["d"])(this) }, Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])("slot", null, Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])("ion-icon", { name: "reorder", lazy: false, class: "reorder-icon" }))));
     };
     Object.defineProperty(Reorder, "style", {
-        get: function () { return ":host([slot]){display:none;line-height:0;z-index:100}.reorder-icon{display:block;font-size:22px;font-size:34px;opacity:.4}"; },
+        get: function () { return ":host([slot]){display:none;line-height:0;z-index:100}.reorder-icon{display:block;font-size:22px;font-size:31px;opacity:.3}"; },
         enumerable: true,
         configurable: true
     });
     return Reorder;
 }());
 var ReorderGroup = /** @class */ (function () {
-    function ReorderGroup(hostRef) {
-        Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["r"])(this, hostRef);
+    function class_1(hostRef) {
+        Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["r"])(this, hostRef);
         this.lastToIndex = -1;
         this.cachedHeights = [];
         this.scrollElTop = 0;
@@ -52,18 +52,18 @@ var ReorderGroup = /** @class */ (function () {
          * If `true`, the reorder will be hidden.
          */
         this.disabled = true;
-        this.ionItemReorder = Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["c"])(this, "ionItemReorder", 7);
+        this.ionItemReorder = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["c"])(this, "ionItemReorder", 7);
     }
-    ReorderGroup.prototype.disabledChanged = function () {
+    class_1.prototype.disabledChanged = function () {
         if (this.gesture) {
             this.gesture.setDisabled(this.disabled);
         }
     };
-    ReorderGroup.prototype.componentDidLoad = function () {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+    class_1.prototype.connectedCallback = function () {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function () {
             var contentEl, _a, _b;
             var _this = this;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_c) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_c) {
                 switch (_c.label) {
                     case 0:
                         contentEl = this.el.closest('ion-content');
@@ -75,7 +75,7 @@ var ReorderGroup = /** @class */ (function () {
                         _c.label = 2;
                     case 2:
                         _b = this;
-                        return [4 /*yield*/, __webpack_require__.e(/*! import() | index-f4f18d97-js */ 1).then(__webpack_require__.bind(null, /*! ./index-f4f18d97.js */ "./node_modules/@ionic/core/dist/esm-es5/index-f4f18d97.js"))];
+                        return [4 /*yield*/, Promise.resolve(/*! import() */).then(__webpack_require__.bind(null, /*! ./index-624eea58.js */ "./node_modules/@ionic/core/dist/esm-es5/index-624eea58.js"))];
                     case 3:
                         _b.gesture = (_c.sent()).createGesture({
                             el: this.el,
@@ -95,7 +95,7 @@ var ReorderGroup = /** @class */ (function () {
             });
         });
     };
-    ReorderGroup.prototype.componentDidUnload = function () {
+    class_1.prototype.disconnectedCallback = function () {
         this.onEnd();
         if (this.gesture) {
             this.gesture.destroy();
@@ -115,10 +115,10 @@ var ReorderGroup = /** @class */ (function () {
      * @param listOrReorder A list of items to be sorted and returned in the new order or a
      * boolean of whether or not the reorder should reposition the item.
      */
-    ReorderGroup.prototype.complete = function (listOrReorder) {
+    class_1.prototype.complete = function (listOrReorder) {
         return Promise.resolve(this.completeSync(listOrReorder));
     };
-    ReorderGroup.prototype.canStart = function (ev) {
+    class_1.prototype.canStart = function (ev) {
         if (this.selectedItemEl || this.state !== 0 /* Idle */) {
             return false;
         }
@@ -134,7 +134,7 @@ var ReorderGroup = /** @class */ (function () {
         ev.data = item;
         return true;
     };
-    ReorderGroup.prototype.onStart = function (ev) {
+    class_1.prototype.onStart = function (ev) {
         ev.event.preventDefault();
         var item = this.selectedItemEl = ev.data;
         var heights = this.cachedHeights;
@@ -169,9 +169,9 @@ var ReorderGroup = /** @class */ (function () {
         this.selectedItemHeight = item.offsetHeight;
         this.state = 1 /* Active */;
         item.classList.add(ITEM_REORDER_SELECTED);
-        Object(_chunk_4e92c885_js__WEBPACK_IMPORTED_MODULE_3__["a"])();
+        Object(_haptic_c8f1473e_js__WEBPACK_IMPORTED_MODULE_3__["a"])();
     };
-    ReorderGroup.prototype.onMove = function (ev) {
+    class_1.prototype.onMove = function (ev) {
         var selectedItem = this.selectedItemEl;
         if (!selectedItem) {
             return;
@@ -188,14 +188,13 @@ var ReorderGroup = /** @class */ (function () {
         if (toIndex !== this.lastToIndex) {
             var fromIndex = indexForItem(selectedItem);
             this.lastToIndex = toIndex;
-            Object(_chunk_4e92c885_js__WEBPACK_IMPORTED_MODULE_3__["b"])();
+            Object(_haptic_c8f1473e_js__WEBPACK_IMPORTED_MODULE_3__["b"])();
             this.reorderMove(fromIndex, toIndex);
         }
         // Update selected item position
         selectedItem.style.transform = "translateY(" + deltaY + "px)";
     };
-    ReorderGroup.prototype.onEnd = function () {
-        var _this = this;
+    class_1.prototype.onEnd = function () {
         var selectedItemEl = this.selectedItemEl;
         this.state = 2 /* Complete */;
         if (!selectedItemEl) {
@@ -205,10 +204,7 @@ var ReorderGroup = /** @class */ (function () {
         var toIndex = this.lastToIndex;
         var fromIndex = indexForItem(selectedItemEl);
         if (toIndex === fromIndex) {
-            selectedItemEl.style.transition = 'transform 200ms ease-in-out';
-            selectedItemEl.style.transform = '';
-            selectedItemEl.classList.remove(ITEM_REORDER_SELECTED);
-            setTimeout(function () { return _this.completeSync(); }, 200);
+            this.completeSync();
         }
         else {
             this.ionItemReorder.emit({
@@ -217,9 +213,9 @@ var ReorderGroup = /** @class */ (function () {
                 complete: this.completeSync.bind(this)
             });
         }
-        Object(_chunk_4e92c885_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+        Object(_haptic_c8f1473e_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
     };
-    ReorderGroup.prototype.completeSync = function (listOrReorder) {
+    class_1.prototype.completeSync = function (listOrReorder) {
         var selectedItemEl = this.selectedItemEl;
         if (selectedItemEl && this.state === 2 /* Complete */) {
             var children = this.el.children;
@@ -245,7 +241,7 @@ var ReorderGroup = /** @class */ (function () {
         }
         return listOrReorder;
     };
-    ReorderGroup.prototype.itemIndexForTop = function (deltaY) {
+    class_1.prototype.itemIndexForTop = function (deltaY) {
         var heights = this.cachedHeights;
         var i = 0;
         // TODO: since heights is a sorted array of integers, we can do
@@ -259,7 +255,7 @@ var ReorderGroup = /** @class */ (function () {
         return i;
     };
     /********* DOM WRITE ********* */
-    ReorderGroup.prototype.reorderMove = function (fromIndex, toIndex) {
+    class_1.prototype.reorderMove = function (fromIndex, toIndex) {
         var itemHeight = this.selectedItemHeight;
         var children = this.el.children;
         for (var i = 0; i < children.length; i++) {
@@ -274,7 +270,7 @@ var ReorderGroup = /** @class */ (function () {
             style['transform'] = value;
         }
     };
-    ReorderGroup.prototype.autoscroll = function (posY) {
+    class_1.prototype.autoscroll = function (posY) {
         if (!this.scrollEl) {
             return 0;
         }
@@ -290,21 +286,21 @@ var ReorderGroup = /** @class */ (function () {
         }
         return this.scrollEl.scrollTop - this.scrollElInitial;
     };
-    ReorderGroup.prototype.render = function () {
+    class_1.prototype.render = function () {
         var _a;
-        var mode = Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["d"])(this);
-        return (Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["h"])(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["H"], { class: (_a = {},
+        var mode = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["d"])(this);
+        return (Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["H"], { class: (_a = {},
                 _a[mode] = true,
                 _a['reorder-enabled'] = !this.disabled,
                 _a['reorder-list-active'] = this.state !== 0 /* Idle */,
                 _a) }));
     };
-    Object.defineProperty(ReorderGroup.prototype, "el", {
-        get: function () { return Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["e"])(this); },
+    Object.defineProperty(class_1.prototype, "el", {
+        get: function () { return Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["e"])(this); },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(ReorderGroup, "watchers", {
+    Object.defineProperty(class_1, "watchers", {
         get: function () {
             return {
                 "disabled": ["disabledChanged"]
@@ -313,12 +309,12 @@ var ReorderGroup = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(ReorderGroup, "style", {
+    Object.defineProperty(class_1, "style", {
         get: function () { return ".reorder-list-active>*{-webkit-transition:-webkit-transform .3s;transition:-webkit-transform .3s;transition:transform .3s;transition:transform .3s,-webkit-transform .3s;will-change:transform}.reorder-enabled{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.reorder-enabled ion-reorder{display:block;cursor:-webkit-grab;cursor:grab;pointer-events:all;-ms-touch-action:none;touch-action:none}.reorder-selected,.reorder-selected ion-reorder{cursor:-webkit-grabbing;cursor:grabbing}.reorder-selected{position:relative;-webkit-transition:none!important;transition:none!important;-webkit-box-shadow:0 0 10px rgba(0,0,0,.4);box-shadow:0 0 10px rgba(0,0,0,.4);opacity:.8;z-index:100}.reorder-visible ion-reorder .reorder-icon{-webkit-transform:translateZ(0);transform:translateZ(0)}"; },
         enumerable: true,
         configurable: true
     });
-    return ReorderGroup;
+    return class_1;
 }());
 var indexForItem = function (element) {
     return element['$ionIndex'];

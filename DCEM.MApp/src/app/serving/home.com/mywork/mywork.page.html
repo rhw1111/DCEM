@@ -66,10 +66,16 @@
                 <h3>系统设置</h3>
             </ion-label>
         </ion-item>
-        <ion-item [routerLink]="['/fileupload-test']">
+        <ion-item (click)="presentFileModal()">
             <ion-icon color="warning" slot="start" name="settings" size="large"></ion-icon>
             <ion-label>
-                <h3>附件上传测试</h3>
+                <h3>附件上传1</h3>
+            </ion-label>
+        </ion-item>
+        <ion-item [routerLink]="['/fileupload']">
+            <ion-icon color="warning" slot="start" name="settings" size="large"></ion-icon>
+            <ion-label>
+                <h3>附件上传2</h3>
             </ion-label>
         </ion-item>
     </ion-list>
