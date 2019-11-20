@@ -41,36 +41,36 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
             if (userInfo != null && !string.IsNullOrWhiteSpace(userInfo.mcs_dealerid))
             {
-                request.driveRecord.DealerId = Guid.Parse(userInfo.mcs_dealerid);
+                request.driveRecord.mcs_dealerid = Guid.Parse(userInfo.mcs_dealerid);
             }
             if (userInfo != null && userInfo.systemuserid != null)
             {
-                request.driveRecord.ConsultantId = userInfo.systemuserid;
+                request.driveRecord.mcs_consultantid = userInfo.systemuserid;
             }
             var validateResult = new ValidateResult<CrmEntity>();
             var reusetCrmEntity = new CrmEntity("mcs_driverecord", new Guid());
             //新增预约单
-            if (request.driveRecord.DriveRecordId == null)
+            if (request.driveRecord.mcs_driverecordid == null)
             {
                 var createEntity = new CrmExecuteEntity("mcs_driverecord", Guid.NewGuid());
                 //预约状态 创建默认是已提交
-                createEntity.Attributes.Add("mcs_status", 10);
+                createEntity.Attributes.Add("mcs_drivestatus", 10);
                 BasicAssignment(createEntity, request);
-                var reuset = await _crmService.Create(createEntity, userInfo.systemuserid);
+                await _crmService.Create(createEntity, userInfo.systemuserid);
                 reusetCrmEntity.Id = createEntity.Id;
             }
             //编辑预约单
-            if (request.driveRecord.DriveRecordId != null)
+            if (request.driveRecord.mcs_driverecordid != null)
             {
-                var updateEntity = new CrmExecuteEntity("mcs_driverecord", (Guid)request.driveRecord.DriveRecordId);
+                var updateEntity = new CrmExecuteEntity("mcs_driverecord", (Guid)request.driveRecord.mcs_driverecordid);
                 //预约状态
-                if (request.driveRecord.DriveStatus != null)
+                if (request.driveRecord.mcs_drivestatus != null)
                 {
-                    updateEntity.Attributes.Add("mcs_status", request.driveRecord.DriveStatus);
+                    updateEntity.Attributes.Add("mcs_status", request.driveRecord.mcs_drivestatus);
                 }
                 BasicAssignment(updateEntity, request);
                 await _crmService.Update(updateEntity, userInfo.systemuserid);
-                reusetCrmEntity.Id = (Guid)request.driveRecord.DriveRecordId;
+                reusetCrmEntity.Id = (Guid)request.driveRecord.mcs_driverecordid;
             }
             validateResult.Data = reusetCrmEntity;
             validateResult.Result = true;
@@ -86,48 +86,48 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         private CrmExecuteEntity BasicAssignment(CrmExecuteEntity entity, DriveRecordAddOrEditRequest request)
         {
             //姓名
-            if (!string.IsNullOrWhiteSpace(request.driveRecord.FullName))
+            if (!string.IsNullOrWhiteSpace(request.driveRecord.mcs_fullname))
             {
-                entity.Attributes.Add("mcs_fullname", request.driveRecord.FullName);
+                entity.Attributes.Add("mcs_fullname", request.driveRecord.mcs_fullname);
             }
             //手机号
-            if (!string.IsNullOrWhiteSpace(request.driveRecord.MobilePhone))
+            if (!string.IsNullOrWhiteSpace(request.driveRecord.mcs_mobilephone))
             {
-                entity.Attributes.Add("mcs_mobilephone", request.driveRecord.MobilePhone);
+                entity.Attributes.Add("mcs_mobilephone", request.driveRecord.mcs_mobilephone);
             }
             //试驾车型
-            if (request.driveRecord.CarModel != null)
+            if (request.driveRecord.mcs_carmodel != null)
             {
-                var carModelEntityRef = new CrmEntityReference("mcs_carmodel", (Guid)request.driveRecord.CarModel);
+                var carModelEntityRef = new CrmEntityReference("mcs_carmodel", (Guid)request.driveRecord.mcs_carmodel);
                 entity.Attributes.Add("mcs_carmodel", carModelEntityRef);
             }
             //业务类型
-            if (request.driveRecord.BusinessType != null)
+            if (request.driveRecord.mcs_businesstype != null)
             {
-                entity.Attributes.Add("mcs_businesstype", request.driveRecord.BusinessType);
+                entity.Attributes.Add("mcs_businesstype", request.driveRecord.mcs_businesstype);
             }
             //预约日期
-            if (request.driveRecord.OrderTime != null)
+            if (request.driveRecord.mcs_ordertime != null)
             {
-                var ordertime = request.driveRecord.OrderTime.Value.ToUniversalTime();
+                var ordertime = request.driveRecord.mcs_ordertime.Value.ToUniversalTime();
                 entity.Attributes.Add("mcs_ordertime", ordertime);
             }
             //预约试驾时段
-            if (request.driveRecord.TestDriveTime != null)
+            if (request.driveRecord.mcs_testdrivetime != null)
             {
-                var configEntityRef = new CrmEntityReference("mcs_reservationconfiguration", (Guid)request.driveRecord.TestDriveTime);
+                var configEntityRef = new CrmEntityReference("mcs_reservationconfiguration", (Guid)request.driveRecord.mcs_testdrivetime);
                 entity.Attributes.Add("mcs_testdrivetime", configEntityRef);
             }
             //预约厅店
-            if (request.driveRecord.DealerId != null)
+            if (request.driveRecord.mcs_dealerid != null)
             {
-                var dealerEntityEF = new CrmEntityReference("mcs_dealer", (Guid)request.driveRecord.DealerId);
+                var dealerEntityEF = new CrmEntityReference("mcs_dealer", (Guid)request.driveRecord.mcs_dealerid);
                 entity.Attributes.Add("mcs_dealerid", dealerEntityEF);
             }
             //销售顾问
-            if (request.driveRecord.ConsultantId != null)
+            if (request.driveRecord.mcs_consultantid != null)
             {
-                var systemUserEntityEF = new CrmEntityReference("systemuser", (Guid)request.driveRecord.ConsultantId);
+                var systemUserEntityEF = new CrmEntityReference("systemuser", (Guid)request.driveRecord.mcs_consultantid);
                 entity.Attributes.Add("mcs_consultantid", systemUserEntityEF);
             }
             return entity;
