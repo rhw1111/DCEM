@@ -33,6 +33,7 @@ import { SelectRepairitemtypedetailComponent } from 'app/serving/serving.ser/com
 import { SelectAppointmentinfoComponent } from 'app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
 let AppModule = class AppModule {
 };
 AppModule = tslib_1.__decorate([
@@ -96,6 +97,7 @@ AppModule = tslib_1.__decorate([
             SplashScreen,
             ImagePicker,
             FileTransfer,
+            Camera,
             { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
         ],
         bootstrap: [AppComponent]

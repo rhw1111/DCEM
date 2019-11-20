@@ -1,9 +1,160 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>detail</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text="返回" defaultHref="/saleing/vehnetwork/list"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <ion-label>上牌信息明细</ion-label>
+    </ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="tab" color="primary">
+      <ion-segment-button value="info">
+        <ion-label>基础信息</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="check">
+        <ion-label>附件列表</ion-label>
+      </ion-segment-button> 
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+  <div [ngSwitch]="tab">
+    <div *ngSwitchCase="'info'">
+      <ion-list lines="full">
+        <ion-item-divider color="primary">
+          <ion-label>
+            用户信息
+          </ion-label>
+        </ion-item-divider>
+        <ion-item>
+          <ion-label>
+            <h2>
+              姓名
+            </h2>
+            <p>{{mod.data.detail.mcs_fullname}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              手机号码
+            </h2>
+            <p>{{mod.data.detail.mcs_mobilephone}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              业务类型
+            </h2>
+            <p>{{mod.data.detail.mcs_businesstype}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              试驾车型
+            </h2>
+            <p>{{mod.data.detail.carmodelname}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>
+            <h2>
+              日期
+            </h2>
+            <p>{{mod.data.detail.mcs_ordertime | date 'YYYY-dd-mm'}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              时段
+            </h2>
+            <p>{{mod.data.detail.reservationname}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              试驾车辆
+            </h2>
+            <p>{{mod.data.detail.testdrivecarname}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              试驾路线
+            </h2>
+            <p>{{mod.data.detail.driveroutename}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              试驾开始时间
+            </h2>
+            <p>{{mod.data.detail.mcs_starton}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              试驾结束时间
+            </h2>
+            <p>{{mod.data.detail.mcs_endon}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              取消原因
+            </h2>
+            <p>{{mod.data.detail.mcs_cancelreason}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+        
+    </div>
+  
+    <div *ngSwitchCase="'check'">
+      
+      <ion-grid class="ionatt"> 
+        <ion-row *ngIf="mod.data.attachment.length===0">
+            <ion-col>
+              <div class="ionattbody">
+                当前无附件记录 
+              </div>
+            </ion-col>
+           
+          </ion-row>
+      </ion-grid>
+
+      
+
+
+      <ion-list  >
+          <ion-item *ngFor="let item of mod.data.attachment"   >
+                <ion-icon name="document" size="large"></ion-icon>
+              <ion-label>
+                  <h2>{{item.mcs_filename}}</h2>
+                  <p>大小：{{item.mcs_filesize}}</p> 
+              </ion-label> 
+              <ion-button size="default"  color="primary" class="button-outline" (click)="down(item.fileurl)">
+                下载  <ion-icon color="primary" name="arrow-down"  ></ion-icon> 
+              </ion-button> 
+          </ion-item> 
+      </ion-list> 
+    </div> 
+  </div>
+
+
+
+ 
 </ion-content>

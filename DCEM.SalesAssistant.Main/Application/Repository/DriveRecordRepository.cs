@@ -97,11 +97,14 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
             var fetchString = $@"<fetch version='1.0' count='{request.PageSize}' page='{request.PageIndex}' output-format='xml-platform' mapping='logical' distinct='false'>
                   <entity name='mcs_driverecord'>
                     <all-attributes />
-                    <order attribute='mcs_ordertime' descending='false' />
+                    <order attribute='mcs_ordertime' descending='true' />
                     <filter type='and'>
                       <condition attribute='statecode' operator='eq' value='0' />
                       {filter}
                     </filter>
+                  <link-entity name='mcs_reservationconfiguration' from='mcs_reservationconfigurationid' to='mcs_testdrivetime' visible='false' link-type='outer' >
+                      <attribute name='mcs_name' alias='reservationname'/> 
+                  </link-entity>
                   </entity>
                 </fetch>";
 
@@ -132,8 +135,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
     <attribute name='mcs_appointedrouteid' />
     <attribute name='mcs_starton' />
     <attribute name='mcs_endon' />
-    <attribute name='mcs_consultantid' />
-    <attribute name='mcs_cancelreason' />
+    <attribute name='mcs_consultantid' /> 
     <filter type='and'> 
       <condition attribute='mcs_driverecordid' operator='eq'   uitype='mcs_driverecord' value='{id}' />
     </filter> 
@@ -146,12 +148,86 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
   <link-entity name='mcs_reservationconfiguration' from='mcs_reservationconfigurationid' to='mcs_testdrivetime' visible='false' link-type='outer' >
       <attribute name='mcs_name' alias='reservationname'/> 
     </link-entity>
+  <link-entity name='mcs_testdrivecar' from='mcs_testdrivecarid' to='mcs_testdrivetime' visible='false' link-type='outer' >
+      <attribute name='mcs_name' alias='testdrivecarname'/> 
+    </link-entity>
   </entity>
 </fetch>";
                 return XDocument.Parse(fetchXml);
             });
         }
 
+
+        /// <summary>
+        /// 附件材料
+        /// </summary>
+         /// <returns></returns>
+        public async Task<XDocument> GetAttachmentDetaillFetchXml(Guid id)
+        {
+            return await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+  <entity name='mcs_attachment'>
+    <attribute name='mcs_filetype' />
+    <attribute name='mcs_fileurl' />
+    <attribute name='mcs_code' />
+    <attribute name='mcs_filesize' /> 
+    <order attribute='createdon' descending='true' />
+    <filter type='and'>  
+      <condition attribute='mcs_driverecordid' operator='eq'   uitype='mcs_driverecord' value='{id}' /> 
+    </filter> 
+  </entity>
+</fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
+
+
+
+        #region 反馈
+        
+        /// <summary>
+        /// 问题反馈
+        /// </summary>
+        /// <param name="id">试乘试驾记录ID</param>
+        /// <returns></returns>
+        public async Task<XDocument> GetTestdrivefeedback(Guid id)
+        {
+            return await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+  <entity name='mcs_testdrivefeedbackmaster'>
+      <all-attributes />
+    <filter type='and'> 
+      <condition attribute='mcs_driverecordid' operator='eq'   uitype='mcs_driverecord' value='{id}' />
+    </filter>  
+  </entity>
+</fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
+
+        /// <summary>
+        /// 问题项
+        /// </summary>
+        /// <param name="id">反馈id</param>
+        /// <returns></returns>
+        public async Task<XDocument> GetTestdrivefeedbackDetail(Guid id)
+        {
+            return await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+  <entity name='mcs_testdrivefeedback'>
+      <all-attributes />
+    <filter type='and'> 
+      <condition attribute='mcs_testdrivefeedbackmasterid' operator='eq'   uitype='mcs_testdrivefeedbackmaster' value='{id}' />
+    </filter>  
+  </entity>
+</fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
+        #endregion
         /// <summary>
         /// 查询试乘试驾各个状态数量
         /// </summary>

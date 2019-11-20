@@ -57,7 +57,7 @@ namespace DCEM.Web
             app.UseRouting();
             app.UseCors("any");
             app.UseMvc();
-
+            app.UseStaticFiles();
             app.UseExceptionWrapper(LoggerCategoryNames.HttpRequest);
         }
     }

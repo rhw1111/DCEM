@@ -1,55 +1,55 @@
-<ion-header>
+Ôªø<ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button text="∑µªÿ" defaultHref="/saleing/driverecord/list"></ion-back-button>
+            <ion-back-button text="ËøîÂõû" defaultHref="/saleing/driverecord/list"></ion-back-button>
         </ion-buttons>
-        <ion-title>‘§‘ºø™µ•</ion-title>
+        <ion-title>È¢ÑÁ∫¶ÂºÄÂçï</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <!--<ion-list>
+    <ion-list>
         <ion-item-group>
             <ion-item-divider color="primary">
-                <ion-label>ª˘¥°–≈œ¢</ion-label>
+                <ion-label>Âü∫Á°Ä‰ø°ÊÅØ</ion-label>
             </ion-item-divider>
             <ion-item>
-                <ion-label position="stacked">–’√˚<ion-text color="danger">*</ion-text></ion-label>
-                <ion-input type="text" placeholder="«Î ‰»Î–’√˚" maxlength="12" [(ngModel)]="mode.driveRecord['mcs_fullname']" required></ion-input>
+                <ion-label position="stacked">ÂßìÂêç<ion-text color="danger">*</ion-text></ion-label>
+                <ion-input type="text" placeholder="ËØ∑ËæìÂÖ•ÂßìÂêç" maxlength="12" [(ngModel)]="model.driveRecord['mcs_fullname']" required></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label position="stacked"> ÷ª˙<ion-text color="danger">*</ion-text></ion-label>
-                <ion-input type="tel" placeholder="«Î ‰»Î11Œª ÷ª˙∫≈" maxlength="11" [(ngModel)]="mode.driveRecord['mcs_mobilephone']" required></ion-input>
+                <ion-label position="stacked">ÊâãÊú∫<ion-text color="danger">*</ion-text></ion-label>
+                <ion-input type="tel" placeholder="ËØ∑ËæìÂÖ•11‰ΩçÊâãÊú∫Âè∑" maxlength="11" [(ngModel)]="model.driveRecord['mcs_mobilephone']" required></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label position="stacked">“µŒÒ¿‡–Õ <ion-text color="danger">*</ion-text></ion-label>
-                <ion-select [(ngModel)]="mode.driveRecord['mcs_businesstype']" placeholder="«Î—°‘Ò“µŒÒ¿‡–Õ" okText="»∑»œ" cancelText="»°œ˚" required>
+                <ion-label position="stacked">‰∏öÂä°Á±ªÂûã <ion-text color="danger">*</ion-text></ion-label>
+                <ion-select [(ngModel)]="model.driveRecord['mcs_businesstype']" placeholder="ËØ∑ÈÄâÊã©‰∏öÂä°Á±ªÂûã" okText="Á°ÆËÆ§" cancelText="ÂèñÊ∂à" required>
                     <ion-select-option *ngFor="let item of model.businesstypeoption" value="{{item.value}}">
                         {{item.name}}
                     </ion-select-option>
                 </ion-select>
             </ion-item>
             <ion-item>
-                <ion-label position="stacked"> ‘º›≥µ–Õ <ion-text color="danger">*</ion-text></ion-label>
-                <ion-select [(ngModel)]="mode.driveRecord['mcs_carmodel']" placeholder="«Î—°‘Ò ‘º›≥µ–Õ" okText="»∑»œ" cancelText="»°œ˚" required>
+                <ion-label position="stacked">ËØïÈ©æËΩ¶Âûã <ion-text color="danger">*</ion-text></ion-label>
+                <ion-select [(ngModel)]="model.driveRecord['mcs_carmodel']" placeholder="ËØ∑ÈÄâÊã©ËØïÈ©æËΩ¶Âûã" (ionChange)="CarModelChange()" okText="Á°ÆËÆ§" cancelText="ÂèñÊ∂à" required>
                     <ion-select-option *ngFor="let item of model.carmodeloption" value="{{item.value}}">
                         {{item.name}}
                     </ion-select-option>
                 </ion-select>
             </ion-item>
             <ion-item>
-                <ion-label position="stacked">‘§‘º»’∆⁄<ion-text color="danger">*</ion-text></ion-label>
-                <ion-datetime displayFormat="YYYY-MM-DD" min="1997" cancelText="»°œ˚" doneText="»∑∂®" (ionChange)="ordertimeChange()" [(ngModel)]="mode.driveRecord['mcs_ordertime']"></ion-datetime>
+                <ion-label position="stacked">È¢ÑÁ∫¶Êó•Êúü<ion-text color="danger">*</ion-text></ion-label>
+                <ion-datetime displayFormat="YYYY-MM-DD" min="1997" placeholder="ËØ∑ËæìÂÖ•È¢ÑÁ∫¶Êó•Êúü" cancelText="ÂèñÊ∂à" doneText="Á°ÆÂÆö" (ionChange)="OrderTimeChange()" [(ngModel)]="model.driveRecord['mcs_ordertime']"></ion-datetime>
             </ion-item>
             <ion-item>
-                <ion-label position="stacked"> ‘º›‘§‘º ±∂Œ <ion-text color="danger">*</ion-text></ion-label>
-                <ion-select [(ngModel)]="mode.driveRecord['mcs_testdrivetime']" placeholder="«Î—°‘Ò ‘º›‘§‘º ±∂Œ" okText="»∑»œ" cancelText="»°œ˚" required>
+                <ion-label position="stacked">ËØïÈ©æÈ¢ÑÁ∫¶Êó∂ÊÆµ <ion-text color="danger">*</ion-text></ion-label>
+                <ion-select [(ngModel)]="model.driveRecord['mcs_testdrivetime']" placeholder="ËØ∑ÈÄâÊã©ËØïÈ©æÈ¢ÑÁ∫¶Êó∂ÊÆµ" okText="Á°ÆËÆ§" cancelText="ÂèñÊ∂à" required>
                     <ion-select-option *ngFor="let item of model.drivetimeoption" value="{{item.value}}">
                         {{item.name}}
                     </ion-select-option>
                 </ion-select>
             </ion-item>
         </ion-item-group>
-        <ion-button expand="block" type="button" (click)="saveOnClick()">»∑∂®</ion-button>
-    </ion-list>-->
+    </ion-list>
+    <ion-button expand="block" type="button" (click)="saveOnClick()">Á°ÆÂÆö</ion-button>
 </ion-content>
