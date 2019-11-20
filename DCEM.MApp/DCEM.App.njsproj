@@ -201,6 +201,7 @@
     <Content Include="src\assets\img\head_default.jpg" />
     <Content Include="src\assets\img\index.jpg" />
     <Content Include="src\assets\img\login.jpg" />
+    <Content Include="src\assets\img\upload.png" />
     <Content Include="src\global.scss" />
     <Content Include="src\theme\variables.scss" />
     <Content Include="tsconfig.app.json" />
@@ -1011,6 +1012,7 @@
     <Folder Include="src\assets\css\" />
     <Folder Include="src\assets\icon" />
     <Folder Include="src\assets\img\" />
+    <Folder Include="src\assets\plugins\" />
     <Folder Include="src\environments" />
     <Folder Include="src\theme" />
   </ItemGroup>
