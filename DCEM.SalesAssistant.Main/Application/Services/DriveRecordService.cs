@@ -66,7 +66,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 //预约状态
                 if (request.driveRecord.mcs_drivestatus != null)
                 {
-                    updateEntity.Attributes.Add("mcs_status", request.driveRecord.mcs_drivestatus);
+                    updateEntity.Attributes.Add("mcs_drivestatus", request.driveRecord.mcs_drivestatus);
                 }
                 BasicAssignment(updateEntity, request);
                 await _crmService.Update(updateEntity, userInfo.systemuserid);

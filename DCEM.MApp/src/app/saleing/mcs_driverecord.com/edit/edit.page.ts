@@ -38,23 +38,60 @@ export class EditPage implements OnInit {
   }
 
     ionViewWillEnter() {
+        //业务类型
+        this.model.businesstypeoption = this._optionset.Get("mcs_drivebusinesstype");
+        //预约车型
+        this.CarModelOption();
+
         this.activeRoute.queryParams.subscribe((params: Params) => {
+            debugger;
             //编辑绑定预约单数据
             if (params['id'] != null && params['id'] != undefined) {
                 this.model.driveRecordId = params['id'];
                 this.pageOnBind(this.model.driveRecordId);
             }
         });
-
-        //业务类型
-        this.model.businesstypeoption = this._optionset.Get("mcs_drivebusinesstype");
-        //预约车型
-        this.CarModelOption();
     }
 
     //编辑绑定数据
-    public pageOnBind(id) {
+    public pageOnBind(id: any) {
 
+        this._page.loadingShow();
+        this._http.getForToaken(
+            this.model.getApiUrl,
+            {
+                "id": id,
+            },
+            (res: any) => {
+                if (res !== null) {
+
+                    this.model.isOrderTimeChange = false;
+                    this.model.isCarModelChange = false;
+
+                    this.model.driveRecord["mcs_driverecordid"] = res["Detail"].Id;
+                    this.model.driveRecord["mcs_fullname"] = res["Detail"]["Attributes"]["mcs_fullname"];
+                    this.model.driveRecord["mcs_mobilephone"] = res["Detail"]["Attributes"]["mcs_mobilephone"];
+                    this.model.driveRecord["mcs_carmodel"] = res["Detail"]["Attributes"]["_mcs_carmodel_value"];
+                    this.model.driveRecord["mcs_businesstype"] = String(res["Detail"]["Attributes"]["mcs_businesstype"]);
+                    this.model.driveRecord["mcs_ordertime"] = res["Detail"]["Attributes"]["mcs_ordertime"];
+                    this.model.driveRecord["mcs_testdrivetime"] = res["Detail"]["Attributes"]["_mcs_testdrivetime_value"];
+                    console.log(res);
+
+                    var carmodel = this.model.driveRecord["mcs_carmodel"];
+                    var ordertime = this.FormatToDate(this.model.driveRecord["mcs_ordertime"]);
+                    //处理预约时段
+                    this.DriveTimeOption(carmodel, ordertime);
+                }
+                else {
+                    this._page.alert("消息提示", "预约单加载异常");
+                }
+                this._page.loadingHide();
+            },
+            (err: any) => {
+                this._page.alert("消息提示", "数据加载异常");
+                this._page.loadingHide();
+            }
+        );
     }
 
     //获取试驾车型

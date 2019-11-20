@@ -60,7 +60,7 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         public Guid? mcs_consultantid { get; set; }
 
         /// <summary>
-        /// 业务类型 10-试乘，11-试驾
+        /// 试驾类型 10-试乘，11-试驾
         /// </summary>
         public int? mcs_drivestatus { get; set; }
     }
