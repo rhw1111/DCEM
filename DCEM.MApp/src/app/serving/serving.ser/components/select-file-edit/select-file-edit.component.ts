@@ -13,8 +13,11 @@ export class SelectFileEditComponent implements OnInit {
     mod = {
         data: {
             filesMap: {
-            }
+            },
+            fileArray: []
         }
+
+
     };
 
     constructor(
@@ -101,6 +104,31 @@ export class SelectFileEditComponent implements OnInit {
 
     dismissModal() {
         this._modalCtrl.dismiss({
+            command: 2,
+        });
+    }
+
+    //移除文件
+    fileDeleteClick(mapkey) {
+        delete this.mod.data.filesMap[mapkey];
+    }
+
+    //确定
+    okClick() {
+        for (var key in this.mod.data.filesMap) {
+            this.mod.data.fileArray.push(this.mod.data.filesMap[key]);
+        }
+
+        this._modalCtrl.dismiss({
+            command: 1,
+            fileArray: this.mod.data.fileArray
+        });
+    }
+
+    //取消
+    cancelClick() {
+        this._modalCtrl.dismiss({
+            command: 2,
         });
     }
 }

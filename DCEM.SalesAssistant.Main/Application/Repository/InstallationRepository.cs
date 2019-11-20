@@ -67,5 +67,24 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
             return fetchString;
 
         }
+
+        /// <summary>
+        /// 获取勘测单详情
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        public string GetSurveyorderDetail(Guid guid)
+        {
+            var fetchString = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+                   <entity name='mcs_surveyorder'>
+                    <all-attributes/>
+                    <filter type='and'>
+                        <condition attribute='mcs_surveyorderid' operator='eq' value='{guid.ToString()}' />
+                    </filter>
+                   </entity>
+                   </fetch>";
+            return fetchString;
+
+        }
     }
 }

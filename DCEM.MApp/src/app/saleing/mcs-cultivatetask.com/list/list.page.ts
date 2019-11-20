@@ -14,7 +14,8 @@ export class ListPage implements OnInit {
 
   public model = {
     name: 'activitylist',//模块实体名称
-    apiUrl: '/api/only-lead/GetMyActivityList',//请求地址
+    apiUrl: '/api/only-lead/GetMyActivityList',//列表请求地址
+    addoreditUrl: '/api/activity/addoredit',//培育任务完成按钮接口
     seachkey: '',//搜索关键字
     mcs_activitystatus: -1,//任务状态
     pageSize: 10,//页数
@@ -82,6 +83,7 @@ export class ListPage implements OnInit {
   //获取列表数据
   getList(event) {
     //debugger;
+    this.model.datalist=[];
     this._page.loadingShow();
     this._http.get(this.model.apiUrl,
       {
@@ -133,6 +135,52 @@ export class ListPage implements OnInit {
       }
     );
   }
+
+
+    //任务完成
+  TaskFinish(id){
+ 
+    this._page.confirm("确认提示", "确定完成该任务？",()=>{
+        
+      this.UpdateState(id);
+    
+    });
+
+  }
+
+
+UpdateState(id){
+  debugger;
+  var postData = {};
+  postData["id"] = id;
+  postData["mcs_activitystatus"] = 1; //已完成
+  postData["mcs_endtime"] = new Date();
+  
+  this._page.loadingShow();
+  this._http.post(
+    this.model.addoreditUrl,
+    postData,
+    (res: any) => {
+      this._page.loadingHide();
+      console.log(res);
+      if (res.Result == true) {
+        const that = this;
+        this._page.alert("消息提示", "操作成功",  ()=> {
+          
+          this.getList(null);
+        });
+      }
+      else {
+        this._page.alert("消息提示", "操作失败");
+      }
+    },
+    (err: any) => {
+      this._page.loadingHide();
+      this._page.alert("消息提示", "操作失败");
+    }
+  );
+}
+
 
 }
 

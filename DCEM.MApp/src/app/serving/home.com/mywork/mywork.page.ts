@@ -13,7 +13,7 @@ export class MyworkPage implements OnInit {
     ngOnInit() {
     }
 
-    //选择维修类型
+    //选择附件
     async presentFileModal() {
         const modal = await this._modalCtrl.create({
             component: SelectFileEditComponent
