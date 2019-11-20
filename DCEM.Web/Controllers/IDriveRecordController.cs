@@ -44,11 +44,29 @@ namespace DCEM.Web.Controllers
             return list;
         }
 
+        /// <summary>
+        /// 试乘试驾明细查询
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetDetail")]
-        public async Task<NewtonsoftJsonActionResult<CrmEntity>> GetDetail(Guid id)
+        public async Task<NewtonsoftJsonActionResult<DriverecordDetailRepository>> GetDetail(Guid id)
         {
             var item = await app.GetDetail(id);
+            return item;
+        }
+
+        /// <summary>
+        /// 问题反馈查询
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetTestdrivefeedback")]
+        public async Task<NewtonsoftJsonActionResult<TestdrivefeedbackRepository>> GetTestdrivefeedback(Guid id)
+        {
+            var item = await app.GetTestdrivefeedback(id);
             return item;
         }
 
