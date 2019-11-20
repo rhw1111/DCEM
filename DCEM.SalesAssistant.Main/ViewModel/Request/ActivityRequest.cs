@@ -25,6 +25,9 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         public int? mcs_activitystatus { set; get; }
     }
 
+
+    
+
     #region 培育任务详情model
     public class ActivityDetailModel
     {

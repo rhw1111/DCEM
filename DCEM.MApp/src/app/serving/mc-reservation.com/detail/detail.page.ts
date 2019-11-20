@@ -62,12 +62,10 @@ export class DetailPage implements OnInit {
 
     pageOnBind(id: any) {
         this._page.loadingShow();
-        this._http.get(
+        this._http.getForToaken(
             this.model.apiUrlDetail,
             {
-                params: {
-                    entityid: id,
-                }
+               "entityid":id,
             },
             (res: any) => {
                 if (res !== null) {
