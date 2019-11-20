@@ -66,6 +66,7 @@ import { FileUploadModule } from 'ng2-file-upload';
         SelectRepairitemtypeComponent,
         SelectRepairitemtypedetailComponent,
         SelectAppointmentinfoComponent,//选择预约单
+        SelectFileEditComponent,
     ],
 
     entryComponents: [
@@ -89,6 +90,7 @@ import { FileUploadModule } from 'ng2-file-upload';
         SelectRepairitemtypeComponent,
         SelectRepairitemtypedetailComponent,
         SelectAppointmentinfoComponent,//选择预约单
+        SelectFileEditComponent,
 
     ],
 
