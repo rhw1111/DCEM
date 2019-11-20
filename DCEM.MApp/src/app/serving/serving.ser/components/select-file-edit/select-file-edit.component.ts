@@ -1,14 +1,14 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { FileUploader, FileItem } from 'ng2-file-upload';
 import { DCore_Http, DCore_Page, DCore_ShareData, DCore_Valid, DCore_Config } from 'app/base/base.ser/Dcem.core';
-import { NavParams } from '@ionic/angular';
+import { ModalController, NavParams } from '@ionic/angular';
 
 @Component({
-    selector: 'app-fileupload',
-    templateUrl: './fileupload.page.html',
-    styleUrls: ['./fileupload.page.scss'],
+    selector: 'app-select-file-edit',
+    templateUrl: './select-file-edit.component.html',
+    styleUrls: ['./select-file-edit.component.scss'],
 })
-export class FileuploadPage implements OnInit {
+export class SelectFileEditComponent implements OnInit {
 
     mod = {
         data: {
@@ -17,12 +17,20 @@ export class FileuploadPage implements OnInit {
         }
     };
 
-    constructor(private _config: DCore_Config) {
+    constructor(
+        private _config: DCore_Config,
+        private _modalCtrl: ModalController,
+    ) {
     }
 
     objectKeys = Object.keys;
 
     public uploader: FileUploader = new FileUploader({});
+
+
+    selectFiles() {
+        document.getElementById('fileInput').click();
+    }
 
     selectedFileOnChanged(event: any) {
         console.log("go");
@@ -33,9 +41,7 @@ export class FileuploadPage implements OnInit {
         this.uploadInit();
     }
 
-    selectFiles() {
-        document.getElementById('fileInput').click();
-    }
+
 
     public uploadInit() {
         let host = this._config.getDomain() + "/Api/Files/Upload";
@@ -93,5 +99,8 @@ export class FileuploadPage implements OnInit {
         this.uploader.uploadAll();
     }
 
-
+    dismissModal() {
+        this._modalCtrl.dismiss({
+        });
+    }
 }

@@ -17,51 +17,51 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         /// <summary>
         /// 试乘试驾ID
         /// </summary>
-        public Guid? DriveRecordId { get; set; }
+        public Guid? mcs_driverecordid { get; set; }
 
         /// <summary>
         /// 姓名
         /// </summary>
-        public string FullName { get; set; }
+        public string mcs_fullname { get; set; }
 
         /// <summary>
         /// 手机号
         /// </summary>
-        public string MobilePhone { get; set; }
+        public string mcs_mobilephone { get; set; }
 
         /// <summary>
         /// 车型
         /// </summary>
-        public Guid? CarModel { get; set; }
+        public Guid? mcs_carmodel { get; set; }
 
         /// <summary>
         /// 业务类型 10-试乘，11-试驾
         /// </summary>
-        public int? BusinessType { get; set; }
+        public int? mcs_businesstype { get; set; }
 
         /// <summary>
         /// 预约日期
         /// </summary>
-        public DateTime? OrderTime { get; set; }
+        public DateTime? mcs_ordertime { get; set; }
 
         /// <summary>
         /// 预约时段
         /// </summary>
-        public Guid? TestDriveTime { get; set; }
+        public Guid? mcs_testdrivetime { get; set; }
 
         /// <summary>
         /// 预约厅店
         /// </summary>
-        public Guid? DealerId { get; set; }
+        public Guid? mcs_dealerid { get; set; }
 
         /// <summary>
         /// 销售顾问
         /// </summary>
-        public Guid? ConsultantId { get; set; }
+        public Guid? mcs_consultantid { get; set; }
 
         /// <summary>
         /// 业务类型 10-试乘，11-试驾
         /// </summary>
-        public int? DriveStatus { get; set; }
+        public int? mcs_drivestatus { get; set; }
     }
 }

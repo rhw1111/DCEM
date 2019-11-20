@@ -1,11 +1,13 @@
 ﻿<ion-header>
     <ion-toolbar>
         <ion-title>附件上传</ion-title>
+        <ion-buttons slot="end">
+            <ion-button expand="block" (click)="dismissModal()">关闭</ion-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
     <ion-list lines="full">
         <ion-item-sliding *ngFor="let key of objectKeys(mod.data.filesMap)">
             <ion-item>

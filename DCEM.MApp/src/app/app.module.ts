@@ -33,9 +33,15 @@ import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile';
 import { SelectRepairitemtypeComponent } from 'app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component';
 import { SelectRepairitemtypedetailComponent } from 'app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component';
 import { SelectAppointmentinfoComponent } from 'app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component';
+
+import { SelectFileEditComponent } from 'app/serving/serving.ser/components/select-file-edit/select-file-edit.component';
+
 import { DragrouteComponent } from 'app/base/base.ser/components/map/dragroute/dragroute.component';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { FileUploadModule } from 'ng2-file-upload';
+
 
 @NgModule({
     declarations: [//申明组件
@@ -60,7 +66,6 @@ import { FileTransfer } from '@ionic-native/file-transfer/ngx';
         SelectRepairitemtypeComponent,
         SelectRepairitemtypedetailComponent,
         SelectAppointmentinfoComponent,//选择预约单
-        DragrouteComponent//选择地图线路
     ],
 
     entryComponents: [
@@ -84,11 +89,12 @@ import { FileTransfer } from '@ionic-native/file-transfer/ngx';
         SelectRepairitemtypeComponent,
         SelectRepairitemtypedetailComponent,
         SelectAppointmentinfoComponent,//选择预约单
-        DragrouteComponent//高德路线规划
+
     ],
 
     imports: [BrowserModule,
         IonicModule.forRoot({ mode: 'ios' }),
+        FileUploadModule,
         AppRoutingModule,
         HttpClientModule,
         IonicStorageModule.forRoot(),
@@ -103,6 +109,7 @@ import { FileTransfer } from '@ionic-native/file-transfer/ngx';
         SplashScreen,
         ImagePicker,
         FileTransfer,
+        Camera,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
     ],
     bootstrap: [AppComponent]
