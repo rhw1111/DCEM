@@ -11,6 +11,7 @@ export class StepsPage implements OnInit {
   constructor() { }
 
   ngOnInit() { 
+    debugger;
     var map, route, marker;
     //基本地图加载
     map = new AMap.Map("container", {

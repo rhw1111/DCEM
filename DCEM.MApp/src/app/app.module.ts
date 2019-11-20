@@ -33,7 +33,7 @@ import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile';
 import { SelectRepairitemtypeComponent } from 'app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component';
 import { SelectRepairitemtypedetailComponent } from 'app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component';
 import { SelectAppointmentinfoComponent } from 'app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component';
-
+import { DragrouteComponent } from 'app/base/base.ser/components/map/dragroute/dragroute.component';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 
@@ -60,6 +60,7 @@ import { FileTransfer } from '@ionic-native/file-transfer/ngx';
         SelectRepairitemtypeComponent,
         SelectRepairitemtypedetailComponent,
         SelectAppointmentinfoComponent,//选择预约单
+        DragrouteComponent//选择地图线路
     ],
 
     entryComponents: [
@@ -83,7 +84,7 @@ import { FileTransfer } from '@ionic-native/file-transfer/ngx';
         SelectRepairitemtypeComponent,
         SelectRepairitemtypedetailComponent,
         SelectAppointmentinfoComponent,//选择预约单
-
+        DragrouteComponent//高德路线规划
     ],
 
     imports: [BrowserModule,
@@ -97,6 +98,7 @@ import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 
     ],
     providers: [
+        DragrouteComponent,
         StatusBar,
         SplashScreen,
         ImagePicker,
