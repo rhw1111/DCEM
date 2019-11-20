@@ -44,7 +44,7 @@ export class DetailPage implements OnInit {
     });
   }
 
-  pageOnBind(id: any) { 
+  pageOnBind(id: any) {  
     this.mod.data.detail["id"] = id;
 
     this._page.loadingShow();
@@ -57,6 +57,7 @@ export class DetailPage implements OnInit {
       },
       (res: any) => { 
         if (!this._valid.isNull(res["Detail"])) { 
+           this.mod.data.detail["mcs_drivestatus"] = res["Detail"]["Attributes"]["mcs_drivestatus"];
            this.mod.data.detail["mcs_fullname"] = res["Detail"]["Attributes"]["mcs_fullname"];
            this.mod.data.detail["mcs_mobilephone"] = res["Detail"]["Attributes"]["mcs_mobilephone"];
            this.mod.data.detail["mcs_businesstype"] = this._optionset.GetOptionSetNameByValue("mcs_drivebusinesstype",  res["Detail"]["Attributes"]["mcs_businesstype"]); ;
@@ -74,6 +75,7 @@ export class DetailPage implements OnInit {
           for (var key in res.AttachmentDetail) {
              
             var obj = {};
+             obj["mcs_filename"] = res.AttachmentDetail[key]["Attributes"]["mcs_filename"];
              obj["mcs_filetype"] = res.AttachmentDetail[key]["Attributes"]["mcs_filetype"];
             obj["mcs_fileurl"] = res.AttachmentDetail[key]["Attributes"]["mcs_fileurl"];
             obj["mcs_code"] = res.AttachmentDetail[key]["Attributes"]["mcs_code"];

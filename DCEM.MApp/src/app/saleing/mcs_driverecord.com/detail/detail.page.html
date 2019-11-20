@@ -1,10 +1,10 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button text="返回" defaultHref="/saleing/vehnetwork/list"></ion-back-button>
+      <ion-back-button text="返回" defaultHref="/saleing/driverecord/list"></ion-back-button>
     </ion-buttons>
     <ion-title>
-      <ion-label>上牌信息明细</ion-label>
+      <ion-label>试乘试驾明细</ion-label>
     </ion-title>
   </ion-toolbar>
 
@@ -15,7 +15,7 @@
       </ion-segment-button>
       <ion-segment-button value="check">
         <ion-label>附件列表</ion-label>
-      </ion-segment-button> 
+      </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 </ion-header>
@@ -68,7 +68,7 @@
             <h2>
               日期
             </h2>
-            <p>{{mod.data.detail.mcs_ordertime | date 'YYYY-dd-mm'}}&nbsp;</p>
+            <p>{{mod.data.detail.mcs_ordertime | date:'yyyy-MM-dd HH:mm:ss'}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -100,7 +100,7 @@
             <h2>
               试驾开始时间
             </h2>
-            <p>{{mod.data.detail.mcs_starton}}&nbsp;</p>
+            <p>{{mod.data.detail.mcs_starton | date:'yyyy-MM-dd HH:mm:ss'}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -108,7 +108,7 @@
             <h2>
               试驾结束时间
             </h2>
-            <p>{{mod.data.detail.mcs_endon}}&nbsp;</p>
+            <p>{{mod.data.detail.mcs_endon | date:'yyyy-MM-dd HH:mm:ss'}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -120,41 +120,84 @@
           </ion-label>
         </ion-item>
       </ion-list>
-        
+
     </div>
-  
+
     <div *ngSwitchCase="'check'">
-      
-      <ion-grid class="ionatt"> 
+
+      <ion-grid class="ionatt">
         <ion-row *ngIf="mod.data.attachment.length===0">
-            <ion-col>
-              <div class="ionattbody">
-                当前无附件记录 
-              </div>
-            </ion-col>
-           
-          </ion-row>
+          <ion-col>
+            <div class="ionattbody">
+              当前无附件记录
+            </div>
+          </ion-col>
+
+        </ion-row>
       </ion-grid>
 
-      
 
 
-      <ion-list  >
-          <ion-item *ngFor="let item of mod.data.attachment"   >
-                <ion-icon name="document" size="large"></ion-icon>
-              <ion-label>
-                  <h2>{{item.mcs_filename}}</h2>
-                  <p>大小：{{item.mcs_filesize}}</p> 
-              </ion-label> 
-              <ion-button size="default"  color="primary" class="button-outline" (click)="down(item.fileurl)">
-                下载  <ion-icon color="primary" name="arrow-down"  ></ion-icon> 
-              </ion-button> 
-          </ion-item> 
-      </ion-list> 
-    </div> 
+
+      <ion-list>
+        <ion-item *ngFor="let item of mod.data.attachment">
+          <ion-icon name="document" size="large" *ngIf="item.mcs_filetype !='png'"></ion-icon>
+          <ion-icon name="images" size="large" *ngIf="item.mcs_filetype =='png'"></ion-icon>
+          <ion-label>
+            <h2>{{item.mcs_filename}}</h2>
+          </ion-label>
+          <ion-button *ngIf="item.mcs_filetype !='png' && item.mcs_filetype !='jpg'  " color="primary"
+            class="button-outline" (click)="down(item.fileurl)">
+            下载 <ion-icon color="primary" name="arrow-down"></ion-icon>
+          </ion-button>
+          <ion-button *ngIf="item.mcs_filetype =='png' ||   item.mcs_filetype =='jpg' " color="primary"
+            class="button-outline" (click)="down(item.fileurl)">
+            预览 <ion-icon color="primary"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+
+    </div>
+
+
+
+    <ion-row class="ios hydrated" *ngIf="mod.data.detail.mcs_drivestatus == 10 || mod.data.detail.mcs_drivestatus == 11 || mod.data.detail.mcs_drivestatus == 12  ||mod.data.detail.mcs_drivestatus == 14">
+      <ion-col offset-4="" class="ios hydrated">
+        <section style="text-align:center;">
+          <ion-button style="width:80%" color="danger" (click)="cancelOnClick()">预约取消</ion-button>
+        </section>
+      </ion-col>
+      <ion-col class="ios hydrated">
+        <section style="text-align:center;">
+          <ion-button style="width:80%" color="primary" (click)="beginOnClick()" *ngIf="mod.data.detail.mcs_drivestatus == 11">排程</ion-button>
+          <ion-button style="width:80%" color="primary" (click)="beginOnClick()" *ngIf="mod.data.detail.mcs_drivestatus == 12">开始试驾</ion-button>
+        </section>
+      </ion-col>
+    </ion-row>
+    <section style="text-align:center;">
+      <ion-button style="width:80%" color="primary" (click)="endOnClick()" *ngIf="mod.data.detail.mcs_drivestatus==null">结束试驾
+      </ion-button>
+    </section>
   </div>
+  <br />
+  <br />
+  <br />
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="arrow-dropup"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button color="success" [routerLink]="['/saleing/driverecord/edit']">
+        附件上传
+      </ion-fab-button>
+      <ion-fab-button color="success" [routerLink]="['/saleing/driverecord/edit']">
+        排程
+      </ion-fab-button>
+      <ion-fab-button color="success" [routerLink]="['/saleing/driverecord/edit']">
+        问题反馈
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
 
 
-
- 
 </ion-content>
