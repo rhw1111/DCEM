@@ -12,6 +12,17 @@ namespace DCEM.SalesAssistant.Main.Application.Repository.Contrac
 {
     public interface IInstallationRepository
     {
+        /// <summary>
+        /// 获取勘测单列表
+        /// </summary>
+        /// <param name="_request"></param>
+        /// <returns></returns>
         string GetSurveyorderList(SurveyorderListRequest _request);
+        /// <summary>
+        /// 获取勘测单详情
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        string GetSurveyorderDetail(Guid guid);
     }
 }

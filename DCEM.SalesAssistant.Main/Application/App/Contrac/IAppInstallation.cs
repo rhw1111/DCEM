@@ -21,5 +21,11 @@ namespace DCEM.SalesAssistant.Main.Application.App.Contrac
         /// <param name="request"></param>
         /// <returns></returns>
         Task<QueryResult<CrmEntity>> GetSurveyorderList(SurveyorderListRequest _request);
+        /// <summary>
+        /// 获取勘测单详情
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        Task<CrmEntity> GetSurveyorderDetail(string guid);
     }
 }
