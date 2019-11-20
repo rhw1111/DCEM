@@ -21,7 +21,7 @@ export class ListPage implements OnInit {
         pagesize:10,
         search:"",
         userId:this._userinfo.GetSystemUserId(),
-        dealerid:"3EFBFFF6-EF1A-E911-A821-A4A314186A20",//this._userinfo.GetDealerid()
+        dealerid:this._userinfo.GetDealerid()
     }
 };
   constructor(  

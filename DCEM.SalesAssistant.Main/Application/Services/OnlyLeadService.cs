@@ -117,9 +117,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         }
         #endregion
 
-        #region 根据主键id
-        #endregion
-
+      
         #region 查询培育任务
         /// <summary>
         /// 查询培育任务
@@ -155,6 +153,51 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             {
                 throw ex;
             }
+        }
+
+        #endregion
+
+        #region 根据主键id查询培育任务详情
+
+        public async Task<ActivityDetailModel> GetAcvitityDetail(string mcs_activityid)
+        {
+            try
+            {
+                ActivityDetailModel model = new ActivityDetailModel();
+
+                var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+                var ProxyUserId = userInfo != null ? userInfo.systemuserid : null;
+
+                var dicHead = new Dictionary<string, IEnumerable<string>>();
+                dicHead.Add("Prefer", new List<string>() { "odata.include-annotations=\"*\"" });
+
+
+                #region 培育任务基本信息
+                var activityData = await _crmService.Retrieve("mcs_activity", Guid.Parse(mcs_activityid), string.Empty, ProxyUserId, dicHead);
+
+                model.ActivityInfo = activityData;
+
+                #endregion
+
+                #region 唯一线索基本信息
+
+                if (activityData.Attributes.ContainsKey("_mcs_onlyleadid_value") &&!string.IsNullOrEmpty(activityData.Attributes["_mcs_onlyleadid_value"].ToString()))
+                {
+                    var onlyleadid = activityData.Attributes["_mcs_onlyleadid_value"].ToString();
+                    var onlyleadData = await _crmService.Retrieve("mcs_onlylead", Guid.Parse(onlyleadid), string.Empty, ProxyUserId, dicHead);
+                    model.OnlyLeadInfo = onlyleadData;
+                }
+               
+                #endregion
+                                  
+                return model;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
         }
 
         #endregion
@@ -221,6 +264,8 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             return validateResult;
         }
         #endregion
+
+
         /// <summary>
         /// 唯一线索编辑
         /// </summary>

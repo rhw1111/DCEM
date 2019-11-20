@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-title>detail</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n</ion-content>\n"
+module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n      <ion-buttons slot=\"start\">\r\n          <ion-back-button text=\"返回\" defaultHref=\"/saleing/cultivatetask/list\"></ion-back-button>\r\n      </ion-buttons>\r\n      <ion-title>培育任务详情</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-divider color=\"primary\">\r\n          <ion-label>\r\n            线索信息\r\n          </ion-label>\r\n        </ion-item-divider>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              姓名\r\n            </h2>\r\n            <p>{{model.onlyLeadData.mcs_name}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              手机\r\n            </h2>\r\n            <p>{{model.onlyLeadData.mcs_mobilephone}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              线索来源\r\n            </h2>\r\n            <p>{{model.onlyLeadData.mcs_leadorigin}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              称呼\r\n            </h2>\r\n            <p>{{model.onlyLeadData.mcs_gender}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              评分\r\n            </h2>\r\n            <p>{{model.onlyLeadData.mcs_accountpoints}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              用车省份\r\n            </h2>\r\n            <p>{{model.onlyLeadData.mcs_usecarprovince}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              用车城市\r\n            </h2>\r\n            <p>{{model.onlyLeadData.mcs_usecarcity}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n       \r\n        <ion-item-divider color=\"primary\">\r\n          <ion-label>\r\n            培育信息\r\n          </ion-label>\r\n        </ion-item-divider>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              主题\r\n            </h2>\r\n            <p>{{model.activityData.mcs_name}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              重要级别\r\n            </h2>\r\n            <p>{{model.activityData.mcs_importantlevel}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              结束时间\r\n            </h2>\r\n            <p>{{model.activityData.mcs_endtime}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              本次跟进内容\r\n            </h2>\r\n            <p>{{model.activityData.mcs_thisfollowupcontent}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>  \r\n        <ion-item>\r\n            <ion-label>\r\n              <h2>\r\n                下次跟进时间\r\n              </h2>\r\n              <p>{{model.activityData.mcs_nextfollowuptime}}&nbsp;</p>\r\n            </ion-label>\r\n          </ion-item>\r\n          <ion-item>\r\n            <ion-label>\r\n              <h2>\r\n                  下次跟进内容\r\n              </h2>\r\n              <p>{{model.activityData.mcs_nextfollowupcontent}}&nbsp;</p>\r\n            </ion-label>\r\n          </ion-item>  \r\n      </ion-list>\r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -85,20 +85,109 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DetailPage", function() { return DetailPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _base_base_ser_dateformat__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../base/base.ser/dateformat */ "./src/app/base/base.ser/dateformat.ts");
+/* harmony import */ var _saleing_ser_optionset_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../saleing.ser/optionset.service */ "./src/app/saleing/saleing.ser/optionset.service.ts");
+
+
+
+
 
 
 var DetailPage = /** @class */ (function () {
-    function DetailPage() {
+    function DetailPage(_http, _page, activeRoute, optionset, dateformat) {
+        this._http = _http;
+        this._page = _page;
+        this.activeRoute = activeRoute;
+        this.optionset = optionset;
+        this.dateformat = dateformat;
+        this.model = {
+            apiUrlInfo: '/api/only-lead/GetAcvitityDetail',
+            activityData: {
+                mcs_activityid: "",
+                mcs_name: "",
+                mcs_importantlevel: "",
+                mcs_endtime: "",
+                mcs_thisfollowupcontent: "",
+                mcs_nextfollowuptime: "",
+                mcs_nextfollowupcontent: "" //下次跟进内容
+            },
+            onlyLeadData: {
+                mcs_onlyleadid: "",
+                mcs_name: "",
+                mcs_mobilephone: "",
+                mcs_leadorigin: "",
+                mcs_gender: "",
+                mcs_accountpoints: "",
+                mcs_usecarprovince: "",
+                mcs_usecarcity: "" //用车城市
+            }
+        };
     }
     DetailPage.prototype.ngOnInit = function () {
+        var _this = this;
+        this.activeRoute.queryParams.subscribe(function (params) {
+            if (params['id'] != null && params['id'] != undefined) {
+                _this.model.activityData.mcs_activityid = params['id'];
+                _this.pageOnBind(params['id']);
+            }
+        });
     };
+    //加载培育任务详情
+    DetailPage.prototype.pageOnBind = function (id) {
+        var _this = this;
+        //debugger;
+        this._page.loadingShow();
+        this._http.get(this.model.apiUrlInfo, {
+            params: {
+                mcs_activityid: id,
+            }
+        }, function (res) {
+            //debugger;
+            //绑定培育信息
+            if (res.ActivityInfo !== null) {
+                _this.model.activityData.mcs_name = res["ActivityInfo"]["Attributes"]["mcs_name"];
+                _this.model.activityData.mcs_importantlevel = _this.optionset.GetOptionSetNameByValue("mcs_importantlevel", res["ActivityInfo"]["Attributes"]["mcs_importantlevel"]);
+                _this.model.activityData.mcs_endtime = _this.dateformat.FormatToDateTime(res["ActivityInfo"]["Attributes"]["mcs_endtime"]);
+                _this.model.activityData.mcs_thisfollowupcontent = res["ActivityInfo"]["Attributes"]["mcs_thisfollowupcontent"];
+                _this.model.activityData.mcs_nextfollowuptime = _this.dateformat.FormatToDateTime(res["ActivityInfo"]["Attributes"]["mcs_nextfollowuptime"]);
+                _this.model.activityData.mcs_nextfollowupcontent = res["ActivityInfo"]["Attributes"]["mcs_nextfollowupcontent"];
+            }
+            //绑定唯一线索信息
+            if (res.OnlyLeadInfo != null) {
+                _this.model.onlyLeadData.mcs_name = res["OnlyLeadInfo"]["Attributes"]["mcs_name"];
+                _this.model.onlyLeadData.mcs_mobilephone = res["OnlyLeadInfo"]["Attributes"]["mcs_mobilephone"];
+                _this.model.onlyLeadData.mcs_leadorigin = _this.optionset.GetOptionSetNameByValue("mcs_leadorigin", res["OnlyLeadInfo"]["Attributes"]["mcs_leadorigin"]);
+                _this.model.onlyLeadData.mcs_gender = _this.optionset.GetOptionSetNameByValue("mcs_gender", res["OnlyLeadInfo"]["Attributes"]["mcs_gender"]);
+                _this.model.onlyLeadData.mcs_accountpoints = _this.optionset.GetOptionSetNameByValue("lead_mcs_accountpoints", res["OnlyLeadInfo"]["Attributes"]["mcs_accountpoints"]);
+                _this.model.onlyLeadData.mcs_usecarprovince = res["OnlyLeadInfo"]["Attributes"]["mcs_usecarprovince"];
+                _this.model.onlyLeadData.mcs_usecarcity = res["OnlyLeadInfo"]["Attributes"]["mcs_usecarcity"];
+            }
+            _this._page.loadingHide();
+        }, function (err) {
+            _this._page.alert("消息提示", "数据加载异常");
+            _this._page.loadingHide();
+        });
+    };
+    DetailPage.ctorParameters = function () { return [
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Http"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Page"] },
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] },
+        { type: _saleing_ser_optionset_service__WEBPACK_IMPORTED_MODULE_5__["OptionSetService"] },
+        { type: _base_base_ser_dateformat__WEBPACK_IMPORTED_MODULE_4__["Dateformat"] }
+    ]; };
     DetailPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-detail',
             template: __webpack_require__(/*! raw-loader!./detail.page.html */ "./node_modules/raw-loader/index.js!./src/app/saleing/mcs-cultivatetask.com/detail/detail.page.html"),
             styles: [__webpack_require__(/*! ./detail.page.scss */ "./src/app/saleing/mcs-cultivatetask.com/detail/detail.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Http"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Page"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
+            _saleing_ser_optionset_service__WEBPACK_IMPORTED_MODULE_5__["OptionSetService"],
+            _base_base_ser_dateformat__WEBPACK_IMPORTED_MODULE_4__["Dateformat"]])
     ], DetailPage);
     return DetailPage;
 }());

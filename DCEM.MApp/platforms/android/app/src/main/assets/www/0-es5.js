@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[0],{
 
-/***/ "./node_modules/@ionic/core/dist/esm-es5/chunk-00265c49.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm-es5/chunk-00265c49.js ***!
-  \*****************************************************************/
+/***/ "./node_modules/@ionic/core/dist/esm-es5/framework-delegate-c2e2e1f4.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm-es5/framework-delegate-c2e2e1f4.js ***!
+  \******************************************************************************/
 /*! exports provided: a, d */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -12,11 +12,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return attachComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return detachComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-var _this = undefined;
 
-var attachComponent = function (delegate, container, component, cssClasses, componentProps) { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
+var attachComponent = function (delegate, container, component, cssClasses, componentProps) { return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function () {
     var el;
-    return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+    return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
         switch (_a.label) {
             case 0:
                 if (delegate) {
@@ -59,31 +58,31 @@ var detachComponent = function (delegate, element) {
 
 /***/ }),
 
-/***/ "./node_modules/@ionic/core/dist/esm-es5/chunk-3c9755dd.js":
+/***/ "./node_modules/@ionic/core/dist/esm-es5/index-6826f2f6.js":
 /*!*****************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm-es5/chunk-3c9755dd.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm-es5/index-6826f2f6.js ***!
   \*****************************************************************/
-/*! exports provided: d, l, s, t */
+/*! exports provided: d, g, l, s, t */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return deepReady; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getIonPageElement; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return lifecycle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return setPageHidden; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return transition; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./chunk-d0403a2f.js */ "./node_modules/@ionic/core/dist/esm-es5/chunk-d0403a2f.js");
-/* harmony import */ var _chunk_94c4865f_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./chunk-94c4865f.js */ "./node_modules/@ionic/core/dist/esm-es5/chunk-94c4865f.js");
-var _this = undefined;
+/* harmony import */ var _core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./core-ca0488fc.js */ "./node_modules/@ionic/core/dist/esm-es5/core-ca0488fc.js");
+/* harmony import */ var _constants_3c3e1099_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants-3c3e1099.js */ "./node_modules/@ionic/core/dist/esm-es5/constants-3c3e1099.js");
 
 
 
-var iosTransitionAnimation = function () { return __webpack_require__.e(/*! import() | ios-transition-3107e07c-js */ "ios-transition-3107e07c-js").then(__webpack_require__.bind(null, /*! ./ios.transition-3107e07c.js */ "./node_modules/@ionic/core/dist/esm-es5/ios.transition-3107e07c.js")); };
-var mdTransitionAnimation = function () { return __webpack_require__.e(/*! import() | md-transition-90b00ffe-js */ "md-transition-90b00ffe-js").then(__webpack_require__.bind(null, /*! ./md.transition-90b00ffe.js */ "./node_modules/@ionic/core/dist/esm-es5/md.transition-90b00ffe.js")); };
+var iosTransitionAnimation = function () { return __webpack_require__.e(/*! import() | ios-transition-071bd421-js */ "ios-transition-071bd421-js").then(__webpack_require__.bind(null, /*! ./ios.transition-071bd421.js */ "./node_modules/@ionic/core/dist/esm-es5/ios.transition-071bd421.js")); };
+var mdTransitionAnimation = function () { return __webpack_require__.e(/*! import() | md-transition-15a81b08-js */ "md-transition-15a81b08-js").then(__webpack_require__.bind(null, /*! ./md.transition-15a81b08.js */ "./node_modules/@ionic/core/dist/esm-es5/md.transition-15a81b08.js")); };
 var transition = function (opts) {
     return new Promise(function (resolve, reject) {
-        Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["w"])(function () {
+        Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["w"])(function () {
             beforeTransition(opts);
             runTransition(opts).then(function (result) {
                 if (result.animation) {
@@ -113,9 +112,9 @@ var beforeTransition = function (opts) {
         setPageHidden(leavingEl, false);
     }
 };
-var runTransition = function (opts) { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
+var runTransition = function (opts) { return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function () {
     var animationBuilder, ani;
-    return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+    return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, getAnimationBuilder(opts)];
             case 1:
@@ -135,9 +134,9 @@ var afterTransition = function (opts) {
         leavingEl.classList.remove('ion-page-invisible');
     }
 };
-var getAnimationBuilder = function (opts) { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
-    var builder, _a;
-    return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
+var getAnimationBuilder = function (opts) { return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function () {
+    var getAnimation, _a;
+    return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_b) {
         switch (_b.label) {
             case 0:
                 if (!opts.leavingEl || !opts.animated || opts.duration === 0) {
@@ -156,41 +155,53 @@ var getAnimationBuilder = function (opts) { return tslib__WEBPACK_IMPORTED_MODUL
                 _a = (_b.sent()).mdTransitionAnimation;
                 _b.label = 4;
             case 4:
-                builder = _a;
-                return [2 /*return*/, builder];
+                getAnimation = _a;
+                return [2 /*return*/, getAnimation];
         }
     });
 }); };
-var animation = function (animationBuilder, opts) { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
-    var trans;
-    return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+var animation = function (animationBuilder, opts) { return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function () {
+    var trans, mod, err_1, didComplete;
+    return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, waitForReady(opts, true)];
             case 1:
                 _a.sent();
-                return [4 /*yield*/, __webpack_require__.e(/*! import() | index-d9adb105-js */ "index-d9adb105-js").then(__webpack_require__.bind(null, /*! ./index-d9adb105.js */ "./node_modules/@ionic/core/dist/esm-es5/index-d9adb105.js")).then(function (mod) { return mod.create(animationBuilder, opts.baseEl, opts); })];
+                _a.label = 2;
             case 2:
+                _a.trys.push([2, 5, , 6]);
+                return [4 /*yield*/, __webpack_require__.e(/*! import() | index-69c37885-js */ "index-69c37885-js").then(__webpack_require__.bind(null, /*! ./index-69c37885.js */ "./node_modules/@ionic/core/dist/esm-es5/index-69c37885.js"))];
+            case 3:
+                mod = _a.sent();
+                return [4 /*yield*/, mod.create(animationBuilder, opts.baseEl, opts)];
+            case 4:
                 trans = _a.sent();
+                return [3 /*break*/, 6];
+            case 5:
+                err_1 = _a.sent();
+                trans = animationBuilder(opts.baseEl, opts);
+                return [3 /*break*/, 6];
+            case 6:
                 fireWillEvents(opts.enteringEl, opts.leavingEl);
                 return [4 /*yield*/, playTransition(trans, opts)];
-            case 3:
-                _a.sent();
+            case 7:
+                didComplete = _a.sent();
                 if (opts.progressCallback) {
                     opts.progressCallback(undefined);
                 }
-                if (trans.hasCompleted) {
+                if (didComplete) {
                     fireDidEvents(opts.enteringEl, opts.leavingEl);
                 }
                 return [2 /*return*/, {
-                        hasCompleted: trans.hasCompleted,
+                        hasCompleted: didComplete,
                         animation: trans
                     }];
         }
     });
 }); };
-var noAnimation = function (opts) { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
+var noAnimation = function (opts) { return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function () {
     var enteringEl, leavingEl;
-    return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+    return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
         switch (_a.label) {
             case 0:
                 enteringEl = opts.enteringEl;
@@ -206,9 +217,9 @@ var noAnimation = function (opts) { return tslib__WEBPACK_IMPORTED_MODULE_0__["_
         }
     });
 }); };
-var waitForReady = function (opts, defaultDeep) { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
+var waitForReady = function (opts, defaultDeep) { return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function () {
     var deep, promises;
-    return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+    return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
         switch (_a.label) {
             case 0:
                 deep = opts.deepWait !== undefined ? opts.deepWait : defaultDeep;
@@ -229,8 +240,8 @@ var waitForReady = function (opts, defaultDeep) { return tslib__WEBPACK_IMPORTED
         }
     });
 }); };
-var notifyViewReady = function (viewIsReady, enteringEl) { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
-    return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+var notifyViewReady = function (viewIsReady, enteringEl) { return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function () {
+    return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
         switch (_a.label) {
             case 0:
                 if (!viewIsReady) return [3 /*break*/, 2];
@@ -244,12 +255,22 @@ var notifyViewReady = function (viewIsReady, enteringEl) { return tslib__WEBPACK
 }); };
 var playTransition = function (trans, opts) {
     var progressCallback = opts.progressCallback;
-    var promise = new Promise(function (resolve) { return trans.onFinish(resolve); });
+    // TODO: Remove AnimationBuilder
+    var promise = new Promise(function (resolve) {
+        trans.onFinish(function (currentStep) {
+            if (typeof currentStep === 'number') {
+                resolve(currentStep === 1);
+            }
+            else if (trans.hasCompleted !== undefined) {
+                resolve(trans.hasCompleted);
+            }
+        });
+    });
     // cool, let's do this, start the transition
     if (progressCallback) {
         // this is a swipe to go back, just get the transition progress ready
         // kick off the swipe animation start
-        trans.progressStart();
+        trans.progressStart(true);
         progressCallback(trans);
     }
     else {
@@ -262,12 +283,12 @@ var playTransition = function (trans, opts) {
     return promise;
 };
 var fireWillEvents = function (enteringEl, leavingEl) {
-    lifecycle(leavingEl, _chunk_94c4865f_js__WEBPACK_IMPORTED_MODULE_2__["b"]);
-    lifecycle(enteringEl, _chunk_94c4865f_js__WEBPACK_IMPORTED_MODULE_2__["L"]);
+    lifecycle(leavingEl, _constants_3c3e1099_js__WEBPACK_IMPORTED_MODULE_2__["b"]);
+    lifecycle(enteringEl, _constants_3c3e1099_js__WEBPACK_IMPORTED_MODULE_2__["L"]);
 };
 var fireDidEvents = function (enteringEl, leavingEl) {
-    lifecycle(enteringEl, _chunk_94c4865f_js__WEBPACK_IMPORTED_MODULE_2__["a"]);
-    lifecycle(leavingEl, _chunk_94c4865f_js__WEBPACK_IMPORTED_MODULE_2__["c"]);
+    lifecycle(enteringEl, _constants_3c3e1099_js__WEBPACK_IMPORTED_MODULE_2__["a"]);
+    lifecycle(leavingEl, _constants_3c3e1099_js__WEBPACK_IMPORTED_MODULE_2__["c"]);
 };
 var lifecycle = function (el, eventName) {
     if (el) {
@@ -284,9 +305,9 @@ var shallowReady = function (el) {
     }
     return Promise.resolve();
 };
-var deepReady = function (el) { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
+var deepReady = function (el) { return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function () {
     var element, stencilEl;
-    return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+    return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
         switch (_a.label) {
             case 0:
                 element = el;
@@ -327,6 +348,17 @@ var setZIndex = function (enteringEl, leavingEl, direction) {
     if (leavingEl !== undefined) {
         leavingEl.style.zIndex = '100';
     }
+};
+var getIonPageElement = function (element) {
+    if (element.classList.contains('ion-page')) {
+        return element;
+    }
+    var ionPage = element.querySelector(':scope > .ion-page, :scope > ion-nav, :scope > ion-tabs');
+    if (ionPage) {
+        return ionPage;
+    }
+    // idk, return the original element so at least something animates and we don't have a null pointer
+    return element;
 };
 
 

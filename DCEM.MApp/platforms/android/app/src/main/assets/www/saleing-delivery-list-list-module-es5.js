@@ -112,7 +112,7 @@ var ListPage = /** @class */ (function () {
                 searchkey: "",
                 deliverystatus: "-1",
                 userId: this._userinfo.GetSystemUserId(),
-                dealerid: "d2b7ae95-72f4-e911-a821-f2106c4094a1",
+                dealerid: this._userinfo.GetDealerid()
             },
             deliverys: [],
             isending: false
@@ -171,11 +171,11 @@ var ListPage = /** @class */ (function () {
                 _this._page.loadingHide();
             }
             else {
-                _this._page.alert("消息提示", "原始线索数据加载异常");
+                _this._page.alert("消息提示", "交车单列表数据加载异常");
             }
             _this._page.loadingHide();
         }, function (err) {
-            _this._page.alert("消息提示", "原始线索数据加载异常");
+            _this._page.alert("消息提示", "交车单列表数据加载异常");
             _this._page.loadingHide();
         });
     };

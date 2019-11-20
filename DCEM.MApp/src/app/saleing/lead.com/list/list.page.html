@@ -4,6 +4,9 @@
             <ion-back-button text="返回" defaultHref="/serving/home/index"></ion-back-button>
         </ion-buttons>
         <ion-title>我的留资</ion-title>
+        <ion-buttons slot="end">
+                <ion-menu-button></ion-menu-button>
+            </ion-buttons>
     </ion-toolbar>
     <ion-toolbar>
         <ion-searchbar animated [(ngModel)]="mod.searchData.search" placeholder="请输入姓名\手机号搜索"

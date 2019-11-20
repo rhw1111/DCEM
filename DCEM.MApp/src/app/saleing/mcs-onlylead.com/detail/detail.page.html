@@ -8,7 +8,7 @@
       </ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-segment [(ngModel)]="tab" color="danger">
+    <ion-segment [(ngModel)]="tab">
         <ion-segment-button value="infolist" checked (click)="pageOnBind()">
             <ion-label>基础信息</ion-label>
         </ion-segment-button>
@@ -123,7 +123,7 @@
             </ion-fab-button>
             <ion-fab-list side="top">
                 <ion-fab-button [routerLink]="['/saleing/contactrecord/edit']" [queryParams]="{id:mod.data.mcs_onlyleadid}"><ion-icon name="add"></ion-icon>联络</ion-fab-button>
-                <ion-fab-button [routerLink]="['/saleing/cultivatetask/edit']" [queryParams]="{id:mod.data.mcs_onlyleadid}"><ion-icon name="add"></ion-icon>培育</ion-fab-button>
+                <ion-fab-button [routerLink]="['/saleing/cultivatetask/edit']" [queryParams]="{sourid:mod.data.mcs_onlyleadid,type:'1'}"><ion-icon name="add"></ion-icon>培育</ion-fab-button>
                 <ion-fab-button [routerLink]="['/saleing/account/edit']" [queryParams]="{onlyleadid:mod.data.mcs_onlyleadid}"><ion-icon name="add"></ion-icon>销售</ion-fab-button>
                 <ion-fab-button [routerLink]="['/saleing/onlylead/edit']" [queryParams]="{onlyleadid:mod.data.mcs_onlyleadid}"><ion-icon name="create"></ion-icon>编辑</ion-fab-button>
             </ion-fab-list>
@@ -200,7 +200,7 @@
                 </ion-infinite-scroll-content>
             </ion-infinite-scroll>
             <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-                <ion-fab-button [routerLink]="['/saleing/cultivatetask/edit']" [queryParams]="{id:mod.data.mcs_onlyleadid}">
+                <ion-fab-button [routerLink]="['/saleing/cultivatetask/edit']" [queryParams]="{sourid:mod.data.mcs_onlyleadid,type:'1'}">
                     <ion-icon name="add"></ion-icon>
                 </ion-fab-button>
             </ion-fab>

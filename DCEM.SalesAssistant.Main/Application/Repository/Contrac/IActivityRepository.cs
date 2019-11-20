@@ -11,8 +11,11 @@ namespace DCEM.SalesAssistant.Main.Application.Repository.Contrac
 {
    public interface IActivityRepository
     {
-          Task<XDocument> GetListFetchXml(ActivitysRequest request);
+          Task<XDocument> GetListFetchXml(ActivityRequest request);
         Task<XDocument> GetDetaillFetchXml(Guid id);
-         
+
+        Task<XDocument> GetAccountFetchXml(Guid id);
+        Task<XDocument> GetContactFetchXml(Guid id);
+        Task<XDocument> GetOnlyleadFetchXml(Guid id); 
     }
 }

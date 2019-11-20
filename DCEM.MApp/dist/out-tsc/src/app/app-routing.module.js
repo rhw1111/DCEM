@@ -207,7 +207,8 @@ const routes = [
             {
                 path: 'surveyorder',
                 children: [
-                    { path: 'list', loadChildren: './saleing/mcs_surveyorder/list/list.module#ListPageModule' }
+                    { path: 'list', loadChildren: './saleing/mcs_surveyorder/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './saleing/mcs_surveyorder/detail/detail.module#DetailPageModule' }
                 ]
             },
             {
