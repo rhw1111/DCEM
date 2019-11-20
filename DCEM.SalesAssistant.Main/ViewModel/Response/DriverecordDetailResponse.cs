@@ -5,15 +5,15 @@ using System.Text;
 
 namespace DCEM.SalesAssistant.Main.ViewModel.Response
 {
-    public class TestdrivefeedbackRepository
+    public class DriverecordDetailResponse
     {
         /// <summary>
-        /// 试乘试驾问题反馈
+        /// 试乘试驾明细
         /// </summary>
-        public CrmEntity Master { get; set; }
+        public CrmEntity Detail { get; set; }
         /// <summary>
-        /// 问题项
+        /// 身份信息附件明细
         /// </summary>
-        public List<CrmEntity>  Details { get; set; } 
+        public List<CrmEntity> AttachmentDetail { get; set; } 
     }
 }

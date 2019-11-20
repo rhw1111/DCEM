@@ -51,7 +51,7 @@ namespace DCEM.Web.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetDetail")]
-        public async Task<NewtonsoftJsonActionResult<DriverecordDetailRepository>> GetDetail(Guid id)
+        public async Task<NewtonsoftJsonActionResult<DriverecordDetailResponse>> GetDetail(Guid id)
         {
             var item = await app.GetDetail(id);
             return item;
@@ -64,7 +64,7 @@ namespace DCEM.Web.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetTestdrivefeedback")]
-        public async Task<NewtonsoftJsonActionResult<TestdrivefeedbackRepository>> GetTestdrivefeedback(Guid id)
+        public async Task<NewtonsoftJsonActionResult<TestdrivefeedbackResponse>> GetTestdrivefeedback(Guid id)
         {
             var item = await app.GetTestdrivefeedback(id);
             return item;

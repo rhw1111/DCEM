@@ -36,6 +36,7 @@ import { SelectAppointmentinfoComponent } from 'app/serving/serving.ser/componen
 
 import { SelectFileEditComponent } from 'app/serving/serving.ser/components/select-file-edit/select-file-edit.component';
 
+import { DragrouteComponent } from 'app/base/base.ser/components/map/dragroute/dragroute.component';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
@@ -65,7 +66,6 @@ import { FileUploadModule } from 'ng2-file-upload';
         SelectRepairitemtypeComponent,
         SelectRepairitemtypedetailComponent,
         SelectAppointmentinfoComponent,//选择预约单
-        SelectFileEditComponent,
     ],
 
     entryComponents: [
@@ -89,7 +89,6 @@ import { FileUploadModule } from 'ng2-file-upload';
         SelectRepairitemtypeComponent,
         SelectRepairitemtypedetailComponent,
         SelectAppointmentinfoComponent,//选择预约单
-        SelectFileEditComponent,
 
     ],
 
@@ -105,6 +104,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 
     ],
     providers: [
+        DragrouteComponent,
         StatusBar,
         SplashScreen,
         ImagePicker,

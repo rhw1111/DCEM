@@ -37,7 +37,7 @@
     </ion-refresher>
     <ion-list lines="full">
         <ion-item-sliding *ngFor="let item of model.datalist" >
-            <ion-item [routerLink]="['/saleing/driverecord/detail']" [queryParams]="{id:item.mcs_activityid}">
+            <ion-item [routerLink]="['/saleing/driverecord/detail']" [queryParams]="{id:item.id}">
                  <ion-label>
                     <h2>{{item.mcs_fullname}}</h2>
                     <p>{{item.mcs_mobilephone}}</p> 
@@ -45,10 +45,10 @@
                    
               </ion-label>
                 <ion-note slot="end">
-                         <p style="    font-size: 0.8rem;"> {{item.mcs_drivestatus}}</p>
+                         <p style="font-size: 0.8rem;"> {{item.mcs_drivestatus}}</p>
                 </ion-note>
             </ion-item>
-            <ion-item-options side="end" *ngIf="item.mcs_activitystatus=='open'">
+            <ion-item-options side="end"  >
                <ion-item-option color="tertiary" expandable [routerLink]="['/saleing/driverecord/detail']" [queryParams]="{id:item.id}">
                  详情
                </ion-item-option>  

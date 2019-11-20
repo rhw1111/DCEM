@@ -26,7 +26,7 @@
               <h2>姓名</h2>
             </ion-label>
             <ion-note slot="end">
-              <p>张三</p>
+              <p>{{ this.model.fullname}}</p>
             </ion-note>
           </ion-item>
           <ion-item>
@@ -34,7 +34,7 @@
                 <h2>主要电话</h2>
               </ion-label>
               <ion-note slot="end">
-                <p>0511-5151515</p>
+                  <p>{{ this.model.telephone}}</p>
               </ion-note>
             </ion-item>
           <ion-item>
@@ -42,7 +42,7 @@
               <h2>移动电话</h2>
             </ion-label>
             <ion-note slot="end">
-              <p>13796962323</p>
+                <p>{{ this.model.mobilephone}}</p>
             </ion-note>
           </ion-item>
           <ion-item>
@@ -50,7 +50,7 @@
               <h2>电子邮件</h2>
             </ion-label>
             <ion-note slot="end">
-              <p>11000000@qq.com</p>
+                <p>{{ this.model.internalemailaddress}}</p>
             </ion-note>
           </ion-item>
           <ion-item>
@@ -58,7 +58,7 @@
               <h2>工号</h2>
             </ion-label>
             <ion-note slot="end">
-              <p>10001</p>
+                <p>{{ this.model.staffid}}</p>
             </ion-note>
           </ion-item> 
           <ion-item>
@@ -66,11 +66,14 @@
               <h2>岗位</h2>
             </ion-label>
             <ion-note slot="end">
-              <p>门店经理</p>
+                <p>{{ this.model.post}}</p>
             </ion-note>
           </ion-item>
         </ion-item-group>
       </ion-list>
     </ion-card-content>
+  </ion-card>
+  <ion-card>
+      <div id="container"></div> 
   </ion-card>
 </ion-content>

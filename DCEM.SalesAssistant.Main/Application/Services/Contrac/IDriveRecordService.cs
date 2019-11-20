@@ -22,7 +22,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services.Contrac
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<DriverecordDetailRepository> GetDetail(Guid id);
+        Task<DriverecordDetailResponse> GetDetail(Guid id);
         /// <summary>
         /// 试乘试驾预约时段列表
         /// </summary>
@@ -34,7 +34,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services.Contrac
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<TestdrivefeedbackRepository> GetTestdrivefeedback(Guid id);
+        Task<TestdrivefeedbackResponse> GetTestdrivefeedback(Guid id);
         /// <summary>
         /// 试乘试驾新增修改
         /// </summary>
