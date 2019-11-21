@@ -17,19 +17,19 @@ let AppComponent = class AppComponent {
         this.appPages = [
             {
                 title: '首页',
-                url: '/tabs',
+                url: '/serving/home/tabs/index',
                 icon: 'home',
                 num: 1
             },
             {
                 title: '个人信息',
-                url: '/tabs',
+                url: '/base/uc/detail',
                 icon: 'person',
                 num: 0,
             },
             {
                 title: '消息中心',
-                url: '/tabs',
+                url: '/serving/home/tabs/message',
                 icon: 'alert',
                 num: 10
             },

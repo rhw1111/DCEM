@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-buttons slot=\"start\">\r\n      <ion-back-button text=\"返回\" defaultHref=\"/\"></ion-back-button>\r\n    </ion-buttons>\r\n    <ion-title>整车订单</ion-title>\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n      <ion-searchbar [(ngModel)]=\"this.model.seachkey\" placeholder=\"可根据订单编码、姓名、手机号模糊查找\" (keyup)=\"search($event)\" ></ion-searchbar>\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n      <ion-segment>\r\n        <ion-segment-button checked (click)=\"selectTab(0)\">\r\n            <ion-label>全部</ion-label>\r\n        </ion-segment-button>\r\n      \r\n        <ion-segment-button (click)=\"selectTab(1)\">\r\n            <ion-label>订金待支付</ion-label>\r\n        </ion-segment-button>\r\n        <ion-segment-button (click)=\"selectTab(2)\">\r\n            <ion-label>订金已支付</ion-label>\r\n        </ion-segment-button>\r\n       \r\n      </ion-segment>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n        <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\" refreshingText=\"刷新中...\">\r\n        </ion-refresher-content> \r\n    </ion-refresher>\r\n    <ion-list lines=\"full\">\r\n        <ion-item *ngFor=\"let item of model.datalist\" [routerLink]=\"['/saleing/vehorder/detail']\" [queryParams]=\"{id:item.mcs_vehorderid}\">          \r\n            <ion-icon slot=\"start\" name=\"logo-instagram\" size=\"large\" color=\"tertiary\"></ion-icon>\r\n            <ion-label>\r\n                <h2>{{item.mcs_code}}</h2> \r\n                <p>{{item.mcs_contactname}}</p>\r\n                <p>{{item.mcs_contactphone}}</p>            \r\n            </ion-label>\r\n           <!--  <ion-note slot=\"end\" >\r\n                 <ion-icon color=\"primary\" name=\"hourglass\" size=\"small\"></ion-icon> \r\n                <p>{{item.mcs_code}}</p>    \r\n            </ion-note> -->\r\n            <ion-note slot=\"end\" >\r\n                <!-- <ion-icon color=\"primary\" name=\"hourglass\" size=\"small\"></ion-icon>  -->\r\n                <p>{{item.mcs_rostatus}}</p>   \r\n            </ion-note>\r\n            \r\n        </ion-item>\r\n    </ion-list>\r\n\r\n    <ion-row *ngIf=\"model.isending\">\r\n        <ion-col class=\"nodata\" text-center>\r\n            <label>没有更多内容啦</label>\r\n        </ion-col>\r\n    </ion-row>\r\n    \r\n    <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doLoading($event)\"> \r\n        <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\"> \r\n        </ion-infinite-scroll-content>\r\n    </ion-infinite-scroll>\r\n  \r\n</ion-content>\r\n"
+module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-buttons slot=\"start\">\r\n      <ion-back-button text=\"返回\" defaultHref=\"/\"></ion-back-button>\r\n    </ion-buttons>\r\n    <ion-title>整车订单</ion-title>\r\n    <ion-buttons slot=\"end\">\r\n        <ion-menu-button></ion-menu-button>\r\n    </ion-buttons>\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n      <ion-searchbar [(ngModel)]=\"this.model.params.SearchKey\" placeholder=\"可根据订单编码、姓名、手机号模糊查找\" (keyup)=\"search($event)\" ></ion-searchbar>\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n      <ion-segment>\r\n        <ion-segment-button checked (click)=\"selectTab(0)\">\r\n            <ion-label>全部</ion-label>\r\n        </ion-segment-button>\r\n      \r\n        <ion-segment-button (click)=\"selectTab(1)\">\r\n            <ion-label>订金待支付</ion-label>\r\n        </ion-segment-button>\r\n        <ion-segment-button (click)=\"selectTab(2)\">\r\n            <ion-label>订金已支付</ion-label>\r\n        </ion-segment-button>\r\n       \r\n      </ion-segment>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n        <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\" refreshingText=\"刷新中...\">\r\n        </ion-refresher-content> \r\n    </ion-refresher>\r\n    <ion-list lines=\"full\">\r\n        <ion-item *ngFor=\"let item of model.datalist\" [routerLink]=\"['/saleing/vehorder/detail']\" [queryParams]=\"{id:item.mcs_vehorderid}\">          \r\n            <ion-icon slot=\"start\" name=\"logo-instagram\" size=\"large\" color=\"tertiary\"></ion-icon>\r\n            <ion-label>\r\n                <h2>{{item.mcs_code}}</h2> \r\n                <p>{{item.mcs_contactname}}</p>\r\n                <p>{{item.mcs_contactphone}}</p>            \r\n            </ion-label>\r\n           <!--  <ion-note slot=\"end\" >\r\n                 <ion-icon color=\"primary\" name=\"hourglass\" size=\"small\"></ion-icon> \r\n                <p>{{item.mcs_code}}</p>    \r\n            </ion-note> -->\r\n            <ion-note slot=\"end\" >\r\n                <!-- <ion-icon color=\"primary\" name=\"hourglass\" size=\"small\"></ion-icon>  -->\r\n                <p>{{item.mcs_rostatus}}</p>   \r\n            </ion-note>\r\n            \r\n        </ion-item>\r\n    </ion-list>\r\n\r\n    <ion-row *ngIf=\"model.isending\">\r\n        <ion-col class=\"nodata\" text-center>\r\n            <label>没有更多内容啦</label>\r\n        </ion-col>\r\n    </ion-row>\r\n    \r\n    <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doLoading($event)\"> \r\n        <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\"> \r\n        </ion-infinite-scroll-content>\r\n    </ion-infinite-scroll>\r\n  \r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -104,17 +104,19 @@ var ListPage = /** @class */ (function () {
         this.model = {
             name: 'vehorderlist',
             apiUrl: '/api/vehorder/GetVehorderList',
-            seachkey: '',
-            mcs_rostatus: 0,
-            pageSize: 10,
-            page: 1,
-            sort: '',
             isending: false,
-            datalist: [] //列表数据
+            datalist: [],
+            params: {
+                mcs_rostatus: 0,
+                SearchKey: '',
+                Sort: '',
+                PageSize: 10,
+                PageIndex: 1,
+            }
         };
     }
     ListPage.prototype.ngOnInit = function () {
-        this.model.page = 1;
+        this.model.params.PageIndex = 1;
         this.getList(null);
     };
     //搜索方法
@@ -122,7 +124,7 @@ var ListPage = /** @class */ (function () {
         var keyCode = event ? event.keyCode : "";
         if (keyCode == 13) {
             this.model.datalist = [];
-            this.model.page = 1;
+            this.model.params.PageIndex = 1;
             this.model.isending = false;
             this.getList(null);
         }
@@ -130,43 +132,35 @@ var ListPage = /** @class */ (function () {
     //下拉刷新
     ListPage.prototype.doRefresh = function (event) {
         this.model.datalist = [];
-        this.model.page = 1;
+        this.model.params.PageIndex = 1;
         this.model.isending = false;
         this.getList(event);
     };
     //加载下一页
     ListPage.prototype.doLoading = function (event) {
-        this.model.page++;
+        this.model.params.PageIndex++;
         this.getList(event);
     };
     //切换tab
     ListPage.prototype.selectTab = function (status) {
         this.infiniteScroll.disabled = false; //切换标签初始化下拉控件事件
         this.model.datalist = [];
-        this.model.page = 1;
+        this.model.params.PageIndex = 1;
         this.model.isending = false;
-        if (status != "" && status != undefined) {
-            this.model.mcs_rostatus = status;
+        if (status.toString() != "" && status != undefined) {
+            this.model.params.mcs_rostatus = status;
         }
         else {
-            this.model.mcs_rostatus = 0;
+            this.model.params.mcs_rostatus = 0;
         }
         this.getList(null);
     };
     //获取列表数据
     ListPage.prototype.getList = function (event) {
         var _this = this;
-        //debugger;
+        debugger;
         this._page.loadingShow();
-        this._http.get(this.model.apiUrl, {
-            params: {
-                mcs_rostatus: this.model.mcs_rostatus,
-                seachkey: this.model.seachkey,
-                sort: this.model.sort,
-                pageSize: this.model.pageSize,
-                page: this.model.page,
-            }
-        }, function (res) {
+        this._http.postForToaken(this.model.apiUrl, this.model.params, function (res) {
             //debugger;
             if (res.Results !== null) {
                 //绑定数据
@@ -180,12 +174,12 @@ var ListPage = /** @class */ (function () {
                     _this.model.datalist.push(obj);
                 });
                 //设置数据存储到本地
-                if (_this.model.page == 1) {
+                if (_this.model.params.PageIndex == 1) {
                     _this.httpService.SetDataCache(_this.model.name, JSON.stringify(_this.model.datalist).toString());
                 }
                 event ? event.target.complete() : '';
                 //判断是否有新数据
-                if (res.Results.length < _this.model.pageSize) {
+                if (res.Results.length < _this.model.params.PageIndex) {
                     event ? event.target.disabled = true : "";
                     _this.model.isending = true;
                 }

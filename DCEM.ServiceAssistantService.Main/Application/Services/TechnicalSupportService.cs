@@ -62,7 +62,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 {
                     EntityName = EntityName,
                     FetchXml = xmlDoc,
-                    ProxyUserId= userInfo!=null?userInfo.systemuserid:null
+                    ProxyUserId = userInfo != null ? userInfo.systemuserid : null
                 };
                 var crmResponse = await _crmService.Execute(request);
                 CrmRetrieveMultipleFetchResponseMessage response = crmResponse as CrmRetrieveMultipleFetchResponseMessage;
@@ -105,7 +105,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
             var dicHead = new Dictionary<string, IEnumerable<string>>();
             dicHead.Add("Prefer", new List<string>() { "odata.include-annotations=\"*\"" });
 
-            var model = new TechnicalSupportInfoResponse(); 
+            var model = new TechnicalSupportInfoResponse();
             var mcs_supportorder = await _crmService.Retrieve("mcs_supportorder", guid, string.Empty, null, dicHead);
 
             #region 厅店附件材料获取
@@ -178,6 +178,8 @@ namespace DCEM.ServiceAssistantService.Main.Application
 
         }
         #endregion
+
+
         /// <summary>
         /// 创建或编辑实体
         /// </summary>
@@ -185,13 +187,15 @@ namespace DCEM.ServiceAssistantService.Main.Application
         /// <returns></returns>
         public async Task<Guid> AddOrEditEntity(TechnicalSupportRequest request)
         {
-            Guid guid =Guid.Empty;
+            #region 创建编辑主要实体
+            Guid guid = Guid.Empty;
             try
             {
-                guid = string.IsNullOrEmpty(request.Id) ? Guid.NewGuid():Guid.Parse(request.Id);
+                guid = string.IsNullOrEmpty(request.Id) ? Guid.NewGuid() : Guid.Parse(request.Id);
                 CrmExecuteEntity createorUpdateEntity = new CrmExecuteEntity(request.EntityName, guid);
-               
-                if (!string.IsNullOrEmpty(request.mcs_title)) {
+
+                if (!string.IsNullOrEmpty(request.mcs_title))
+                {
                     createorUpdateEntity.Attributes.Add("mcs_title", request.mcs_title);
                 }
 
@@ -204,7 +208,8 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 {
                     createorUpdateEntity.Attributes.Add("mcs_repairnameid", new CrmEntityReference("systemuser", Guid.Parse(request.mcs_repairnameid)));
                 }
-                if (!string.IsNullOrEmpty(request.mcs_serviceorderid)) {
+                if (!string.IsNullOrEmpty(request.mcs_serviceorderid))
+                {
                     createorUpdateEntity.Attributes.Add("mcs_serviceorderid", new CrmEntityReference("mcs_serviceproxy", Guid.Parse(request.mcs_serviceorderid)));
                 }
                 if (!string.IsNullOrEmpty(request.mcs_batterymodel))
@@ -293,6 +298,29 @@ namespace DCEM.ServiceAssistantService.Main.Application
             {
                 throw ex;
             }
+            #endregion
+
+            #region 删除旧的经销商附件
+            var deleteAttachmentList = await _crmService.RetrieveMultiple("mcs_attachment", $"$filter=_mcs_supportorderid_value eq {guid}");
+            foreach (var deleteAttachment in deleteAttachmentList.Results)
+            {
+                await _crmService.Delete("mcs_attachment", deleteAttachment.Id);
+            }
+            #endregion
+
+            #region 更新维修项目
+            foreach (var fileEntity in request.fileEntityArray)
+            {
+                var attachmentGuid = Guid.NewGuid();
+                var attachmentEntity = new CrmExecuteEntity("mcs_attachment", attachmentGuid);
+                attachmentEntity.Attributes.Add("mcs_supportorderid", new CrmEntityReference("mcs_supportorder", guid));
+                attachmentEntity.Attributes.Add("mcs_filename", fileEntity.mcs_filename);
+                attachmentEntity.Attributes.Add("mcs_filesize", fileEntity.mcs_filesize);
+                attachmentEntity.Attributes.Add("mcs_fileurl", fileEntity.mcs_fileurl);
+                await _crmService.Create(attachmentEntity);
+            }
+            #endregion
+
 
             return guid;
         }
