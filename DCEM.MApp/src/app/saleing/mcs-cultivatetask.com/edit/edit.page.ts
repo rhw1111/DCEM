@@ -35,8 +35,7 @@ export class EditPage implements OnInit {
   //定义共享数据
   shareData = {
     actioncode: 1,
-    viewTitle: "",
-    returnUrl: "",
+    viewTitle: "", 
     selectexcutestatus: {},
     selectimportantlevel: {},
     data: [],
@@ -76,8 +75,7 @@ export class EditPage implements OnInit {
     this.shareData.edititem["mcs_isaddedtodes"] = false;
     this.shareData.edititem["mcs_ifsystemcreate"] = false;
     this.shareData.edititem["mcs_iffollowed"] = false;
-    if (type == '1') {
-      this.shareData.returnUrl = '';
+    if (type == '1') { 
       this.shareData.edititem["mcs_onlyleadid"] = sourid;
       this._http.get(
         this.mod.getOnlyleadDetail,
@@ -110,8 +108,7 @@ export class EditPage implements OnInit {
         }
       );
     }
-    else if (type == '2') {
-      this.shareData.returnUrl = '';
+    else if (type == '2') { 
       this.shareData.edititem["mcs_contactid"] = sourid;
       this._http.get(
         this.mod.getContactcDetail,
@@ -142,8 +139,7 @@ export class EditPage implements OnInit {
       );
 
     } else if (type == '3') {
-      this.shareData.edititem["mcs_accountid"] = sourid;
-      this.shareData.returnUrl = '';
+      this.shareData.edititem["mcs_accountid"] = sourid; 
       this._http.get(
         this.mod.getAccountDetail,
         {

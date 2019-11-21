@@ -12,6 +12,7 @@ export class DetailPage implements OnInit {
  public tab: any = "baseinfo";
   model = {
     apiUrlInfo: '/api/vehorder/GetVehorderDetail',
+    apiRightsUrl:'/api/MemberRights/GetMemberRightsList',
     data: {
       mcs_code: "", //整车订单编码
       mcs_vehorderid: "", //整车订单主键id
@@ -120,7 +121,7 @@ export class DetailPage implements OnInit {
         }
 
         //绑定权益项
-        if (res.Rightitemuse != null) {
+      /*   if (res.Rightitemuse != null) {
 
           for (var key in res.Rightitemuse) {
             var obj = {};
@@ -129,7 +130,7 @@ export class DetailPage implements OnInit {
             obj["mcs_amount"] = res.Rightitemuse[key]["Attributes"]["mcs_amount"];
             this.model.RightitemuseList.push(obj);
           }
-        }
+        } */
 
         this._page.loadingHide();
       },
@@ -140,6 +141,39 @@ export class DetailPage implements OnInit {
     );
   }
 
+
+  //获取权益项列表数据
+ GetList() {
+  debugger;
+ 
+  this._page.loadingShow();
+  this._http.postForToaken(this.model.apiRightsUrl,
+      null,
+      (res: any) => {
+         //debugger;
+          if (res.Results !== null) {
+              //绑定数据
+              res.Results.forEach(item => {              
+                  var obj = {}; 
+                  obj["mcs_name"] = item["Attributes"].mcs_vehorderid;             
+                  obj["mcs_code"] = item["Attributes"].mcs_contactname;
+                  obj["mcs_amount"] = item["Attributes"].mcs_contactphone;
+                
+                  this.model.RightitemuseList.push(obj)
+              });
+            
+          }
+          else {
+              this._page.alert("消息提示", "数据加载异常");
+          }
+          this._page.loadingHide();
+      },
+      (err: any) => {
+          this._page.alert("消息提示", "数据加载异常");
+          this._page.loadingHide();
+      }
+  );
+}
 
   FormatToDateTime(date) {
     if (date != null && date != undefined) {

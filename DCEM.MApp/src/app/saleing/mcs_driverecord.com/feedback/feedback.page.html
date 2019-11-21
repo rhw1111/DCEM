@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button text="返回" defaultHref="/saleing/driverecord/detail" ></ion-back-button>
+      <ion-back-button text="返回"   ></ion-back-button>
     </ion-buttons>
     <ion-title>
       <ion-label>用户反馈</ion-label>
@@ -98,13 +98,22 @@
 
 
 
-      <ion-list>
-        <ion-item *ngFor="let item of mod.data.details">
-          <ion-label>
-            <h2>{{item.mcs_surveyquestion}}</h2>
-            <h1>{{item.mcs_suveryanswer}}</h1>
-          </ion-label> 
-        </ion-item>
+      <ion-list class="ios list-ios hydrated"[ngStyle]="{'width': '94%','margin-left': '3%'}"> 
+
+
+        <ion-item-group    role="group" class="ios item-group-ios item hydrated" *ngFor="let item of mod.data.details">
+          <ion-item-divider class="ios item hydrated">
+            <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s ios hydrated">
+              <h3>{{item.mcs_surveyquestion}}</h3>
+            </ion-label>
+          </ion-item-divider>
+
+          <ion-item class="item-label item ios in-list ion-focusable hydrated">
+            <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s ios hydrated">
+              <h4>{{item.mcs_suveryanswer}}</h4>
+            </ion-label>
+          </ion-item> 
+        </ion-item-group>
       </ion-list>
 
     </div>

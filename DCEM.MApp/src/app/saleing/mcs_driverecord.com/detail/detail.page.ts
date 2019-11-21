@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { OptionSetService } from '../../saleing.ser/optionset.service';
-import { IonSegment } from '@ionic/angular'; 
-
+import { IonSegment } from '@ionic/angular';
+ 
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.page.html',
@@ -20,7 +20,8 @@ export class DetailPage implements OnInit {
       detail: [],//开票明细
       attachment: [],//附件列表 
     },
-    postData: {}
+    postData: {},
+    driveRecord: {}
   };
 
   objectKeys = Object.keys;
@@ -45,7 +46,9 @@ export class DetailPage implements OnInit {
       }
     });
   }
+  fileUpload(){
 
+  }
   pageOnBind(id: any) {
     this.mod.data.detail["id"] = id;
 
@@ -59,7 +62,9 @@ export class DetailPage implements OnInit {
       },
       (res: any) => {
         if (!this._valid.isNull(res["Detail"])) {
-          this.mod.data.detail["mcs_drivestatus"] = res["Detail"]["Attributes"]["mcs_drivestatus"];
+          this.mod.data.detail["testdrivefeedbackname"]=res["Detail"]["Attributes"]["testdrivefeedbackname"]; 
+          this.mod.data.detail["mcs_drivestatus"] = res["Detail"]["Attributes"]["mcs_drivestatus"]; 
+          this.mod.data.detail["statusname"] = this._optionset.GetOptionSetNameByValue("mcs_drivestatus", res["Detail"]["Attributes"]["mcs_drivestatus"]);;
           this.mod.data.detail["mcs_fullname"] = res["Detail"]["Attributes"]["mcs_fullname"];
           this.mod.data.detail["mcs_mobilephone"] = res["Detail"]["Attributes"]["mcs_mobilephone"];
           this.mod.data.detail["mcs_businesstype"] = this._optionset.GetOptionSetNameByValue("mcs_drivebusinesstype", res["Detail"]["Attributes"]["mcs_businesstype"]);;
@@ -97,34 +102,33 @@ export class DetailPage implements OnInit {
   }
 
   endOnClick(id: any) {
-    this.saveOnClick(id, 1);
+    this.saveOnClick(id, 2);
   }
   beginOnClick(id: any) {
-    this.saveOnClick(id, 2);
+    this.saveOnClick(id, 1);
   }
 
   public saveOnClick(id: any, type: any) {
+   debugger;
+   
+    this.mod.driveRecord['mcs_driverecordid'] = id;
     //判断是开始试驾还是结束试驾
-    if (type == 1)
-      this.mod.postData = {
-        'id': id,
-        'mcs_drivestatus': 14,
-        'mcs_starton': new Date()
-      };
-    else
-      this.mod.postData = {
-        'id': id,
-        'mcs_drivestatus': 15,
-        'mcs_endon': new Date()
-      };
-
+    if (type == 1){ 
+      this.mod.driveRecord['mcs_drivestatus'] = 14;
+      this.mod.driveRecord['mcs_starton'] = new Date();
+    }
+    else{ 
+      this.mod.driveRecord['mcs_drivestatus'] = 15;
+      this.mod.driveRecord['mcs_endon'] = new Date();
+    }
+      this.mod.postData["driveRecord"]=this.mod.driveRecord;
     this._page.loadingShow();
     this._http.postForToaken(
       this.mod.editUrl, this.mod.postData,
       (res: any) => {
         this._page.loadingHide();
         if (res.Result == true) {
-            
+
           this._page.alert("消息提示", "操作成功");
           window.location.reload();
         }
