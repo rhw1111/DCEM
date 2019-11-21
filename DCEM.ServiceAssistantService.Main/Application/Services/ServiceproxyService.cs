@@ -778,7 +778,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
             var xdoc = await Task<XDocument>.Run(() =>
             {
                 var fetchXml = $@"
-                <fetch version='1.0' output-format='xml-platform' mapping='logical' count='{15}' page='{1}' distinct='true'>
+                <fetch version='1.0' output-format='xml-platform' mapping='logical' count='{pageCount}' page='{pageIndex}' distinct='true'>
                     <entity name='mcs_parts'>
                         <order attribute='mcs_name' descending='false' />
                         {filter}
