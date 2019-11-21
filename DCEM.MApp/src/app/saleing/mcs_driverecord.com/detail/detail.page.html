@@ -160,8 +160,11 @@
     </div>
 
 
-
-    <ion-row class="ios hydrated" *ngIf="mod.data.detail.mcs_drivestatus == 10 || mod.data.detail.mcs_drivestatus == 11 || mod.data.detail.mcs_drivestatus == 12  ||mod.data.detail.mcs_drivestatus == 14">
+    <section style="text-align:center;" *ngIf="mod.data.detail.mcs_drivestatus == 10">
+      <ion-button style="width:80%" color="primary" (click)="endOnClick()" *ngIf="mod.data.detail.mcs_drivestatus==null">结束试驾
+      </ion-button>
+    </section>
+    <ion-row class="ios hydrated" *ngIf="mod.data.detail.mcs_drivestatus == 11 || mod.data.detail.mcs_drivestatus == 12">
       <ion-col offset-4="" class="ios hydrated">
         <section style="text-align:center;">
           <ion-button style="width:80%" color="danger" (click)="cancelOnClick()">预约取消</ion-button>
@@ -174,8 +177,8 @@
         </section>
       </ion-col>
     </ion-row>
-    <section style="text-align:center;">
-      <ion-button style="width:80%" color="primary" (click)="endOnClick()" *ngIf="mod.data.detail.mcs_drivestatus==null">结束试驾
+    <section style="text-align:center;" *ngIf="mod.data.detail.mcs_drivestatus==14">
+      <ion-button style="width:80%" color="primary" (click)="endOnClick()" >结束试驾
       </ion-button>
     </section>
   </div>
@@ -188,16 +191,17 @@
     </ion-fab-button>
     <ion-fab-list side="top">
       <ion-fab-button color="success" [routerLink]="['/saleing/driverecord/edit']">
-        附件上传
+         附件  
       </ion-fab-button>
       <ion-fab-button color="success" [routerLink]="['/saleing/driverecord/edit']">
         排程
       </ion-fab-button>
       <ion-fab-button color="success" [routerLink]="['/saleing/driverecord/edit']">
-        问题反馈
+        问题 
       </ion-fab-button>
+      <ion-fab-button *ngIf="mod.data.serviceproxy.status===100" color="danger" (click)="deleteOnClick()"><ion-icon name="trash"></ion-icon></ion-fab-button>
     </ion-fab-list>
   </ion-fab>
-
+  
 
 </ion-content>
