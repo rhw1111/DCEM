@@ -300,7 +300,7 @@ export class OptionSetService {
             case "mcs_drivebusinesstype"://售前-试乘试驾-业务类型
                 optionlist = [
                     { "name": "试乘", "value": 10 },
-                    { "name": "试驾", "value": 20 }
+                    { "name": "试驾", "value": 11 }
                 ];
                 break;
 

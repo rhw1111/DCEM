@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{room.title}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+ <ion-content class="padding">
+  <ion-list *ngFor="let chat of room.chatList;let key=index">
+      <ion-item lines="none" class="border-none">
+        <ion-avatar slot="start" *ngIf="chat.user.friendType=='Messenger'">
+            <img src="{{chat.user.face}}"> 
+        </ion-avatar>
+        <ion-label *ngIf="chat.user.friendType=='Messenger'" class="chat-friend">
+            <p class="chat-text stable-bg"> {{chat.chatText}}</p>
+        </ion-label>
+        <ion-label *ngIf="chat.user.friendType=='facebook'" class="chat-me">
+            <p class="chat-text stable-bg"> {{chat.chatText}}</p>
+        </ion-label>
+        <ion-avatar slot="end" *ngIf="chat.user.friendType=='facebook'">
+            <img src="{{chat.user.face}}"> 
+        </ion-avatar>
+      </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer>
+    <ion-toolbar>
+      <ion-input placeholder="回復" [(ngModel)]="chatText"></ion-input>
+      <ion-button slot="end" color="primary" (keyup)="sendChat()" (click)="sendChat()">发送</ion-button>
+    </ion-toolbar>
+  </ion-footer>

@@ -11,7 +11,8 @@ import { OptionSetService } from '../../saleing.ser/optionset.service';
 export class DetailPage implements OnInit {
 
   model = {
-    apiUrlInfo: '/api/only-lead/GetAcvitityDetail',
+    apiUrlInfo: '/api/only-lead/GetAcvitityDetail',//培育任务详情接口
+    addoreditUrl: '/api/activity/addoredit',//培育任务完成按钮接口
     activityData: {
       mcs_activityid: "", //主键id
       mcs_name: "", //主题
@@ -103,6 +104,49 @@ export class DetailPage implements OnInit {
   }
 
 
+  //任务完成
+  TaskFinish(){
+ 
+    this._page.confirm("确认提示", "确定完成该任务？",()=>{
+        
+      this.UpdateState();
+    
+    });
+
+  }
+
+
+UpdateState(){
+  debugger;
+  var postData = {};
+  postData["id"] = this.model.activityData.mcs_activityid;
+  postData["mcs_activitystatus"] = 1; //已完成
+  postData["mcs_endtime"] = new Date();
+  
+  this._page.loadingShow();
+  this._http.post(
+    this.model.addoreditUrl,
+    postData,
+    (res: any) => {
+      this._page.loadingHide();
+      console.log(res);
+      if (res.Result == true) {
+        const that = this;
+        this._page.alert("消息提示", "操作成功",  ()=> {
+          
+          this.pageOnBind(this.model.activityData.mcs_activityid);
+        });
+      }
+      else {
+        this._page.alert("消息提示", "操作失败");
+      }
+    },
+    (err: any) => {
+      this._page.loadingHide();
+      this._page.alert("消息提示", "操作失败");
+    }
+  );
+}
 
 
 }
