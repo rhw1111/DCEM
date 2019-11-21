@@ -13,6 +13,15 @@ const routes: Routes = [
                     { path: 'welcome', loadChildren: './base/uc.com/welcome/welcome.module#WelcomePageModule' },
                     { path: 'detail', loadChildren: './base/uc.com/detail/detail.module#DetailPageModule' }
                 ]
+            },
+            {
+                path:'message',
+                children:[
+                    { path: 'charts', loadChildren: './base/message.com/charts/charts.module#ChartsPageModule' },
+                    { path: 'chat-detail', loadChildren: './base/message.com/chat-detail/chat-detail.module#ChatDetailPageModule' },
+                    { path: 'room', loadChildren: './base/message.com/room/room.module#RoomPageModule' },
+                    { path: 'activities', loadChildren: './base/message.com/activities/activities.module#ActivitiesPageModule' },
+                ]
             }
         ]
     },
@@ -216,6 +225,14 @@ const routes: Routes = [
                     { path: 'detail', loadChildren: './saleing/mcs_surveyorder/detail/detail.module#DetailPageModule' }
                 ]
             },
+            {
+                path: 'installationorder',//安装单
+                children: [
+
+                    { path: 'list', loadChildren: './saleing/mcs_installationorder/list/list.module#ListPageModule' },
+                    //{ path: 'detail', loadChildren: './saleing/mcs_installationorder/detail/detail.module#DetailPageModule' }
+                ]
+            },
              {
                  path: 'driverecord',//试车试驾
                 children: [
@@ -236,6 +253,9 @@ const routes: Routes = [
     },
     { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' },
     { path: 'fileupload', loadChildren: './serving/serving.ser/components/fileupload/fileupload.module#FileuploadPageModule' },
+  { path: 'list', loadChildren: './saleing/mcs_installationorder/list/list.module#ListPageModule' },
+
+ 
  
 
 

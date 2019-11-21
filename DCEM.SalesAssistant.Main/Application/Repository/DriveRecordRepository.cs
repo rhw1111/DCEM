@@ -130,11 +130,13 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
     <attribute name='mcs_carmodel' />
     <attribute name='mcs_ordertime' />
     <attribute name='mcs_testdrivetime' />
+    <attribute name='mcs_drivestatus' />
     <attribute name='mcs_businesstype' />
     <attribute name='mcs_drivecar' />
     <attribute name='mcs_appointedrouteid' />
     <attribute name='mcs_starton' />
     <attribute name='mcs_endon' />
+    <attribute name='mcs_cancelreason' /> 
     <attribute name='mcs_consultantid' /> 
     <filter type='and'> 
       <condition attribute='mcs_driverecordid' operator='eq'   uitype='mcs_driverecord' value='{id}' />
@@ -148,7 +150,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
   <link-entity name='mcs_reservationconfiguration' from='mcs_reservationconfigurationid' to='mcs_testdrivetime' visible='false' link-type='outer' >
       <attribute name='mcs_name' alias='reservationname'/> 
     </link-entity>
-  <link-entity name='mcs_testdrivecar' from='mcs_testdrivecarid' to='mcs_testdrivetime' visible='false' link-type='outer' >
+  <link-entity name='mcs_testdrivecar' from='mcs_testdrivecarid' to='mcs_drivecar' visible='false' link-type='outer' >
       <attribute name='mcs_name' alias='testdrivecarname'/> 
     </link-entity>
   </entity>

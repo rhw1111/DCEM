@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-buttons slot=\"start\">\r\n      <ion-back-button text=\"返回\" defaultHref=\"/\"></ion-back-button>\r\n    </ion-buttons>\r\n    <ion-title>我的任务</ion-title>\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n      <ion-searchbar [(ngModel)]=\"this.model.seachkey\" placeholder=\"可根据姓名、手机号模糊查找\" (keyup)=\"search($event)\" ></ion-searchbar>\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n      <ion-segment>\r\n        <ion-segment-button checked (click)=\"selectTab(-1)\">\r\n            <ion-label>全部</ion-label>\r\n        </ion-segment-button>\r\n      \r\n        <ion-segment-button (click)=\"selectTab(0)\">\r\n            <ion-label>打开</ion-label>\r\n        </ion-segment-button>\r\n        <ion-segment-button (click)=\"selectTab(1)\">\r\n            <ion-label>关闭</ion-label>\r\n        </ion-segment-button>\r\n       \r\n      </ion-segment>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n        <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\" refreshingText=\"刷新中...\">\r\n        </ion-refresher-content> \r\n    </ion-refresher>\r\n    <ion-list lines=\"full\">\r\n        <ion-item *ngFor=\"let item of model.datalist\" [routerLink]=\"['/saleing/cultivatetask/detail']\" [queryParams]=\"{id:item.mcs_activityid}\">          \r\n            <ion-icon slot=\"start\" name=\"logo-instagram\" size=\"large\" color=\"tertiary\"></ion-icon>\r\n            <ion-label>\r\n                <h2>{{item.Custname}}</h2> \r\n                <p>{{item.mcs_name}}</p> \r\n                <p>{{item.mcs_mobilephone}}</p> \r\n                                  \r\n            </ion-label>\r\n            <ion-note slot=\"end\" >             \r\n                <p>{{item.mcs_importantlevel}}</p>   \r\n                <p>{{item.mcs_activitystatus}}</p>\r\n            </ion-note>                \r\n        </ion-item>\r\n    </ion-list>\r\n\r\n    <ion-row *ngIf=\"model.isending\">\r\n        <ion-col class=\"nodata\" text-center>\r\n            <label>没有更多内容啦</label>\r\n        </ion-col>\r\n    </ion-row>\r\n    \r\n    <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doLoading($event)\"> \r\n        <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\"> \r\n        </ion-infinite-scroll-content>\r\n    </ion-infinite-scroll>\r\n  \r\n</ion-content>\r\n"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>我的任务</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-menu-button></ion-menu-button>\r\n        </ion-buttons>\r\n        \r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-searchbar [(ngModel)]=\"this.model.seachkey\" placeholder=\"可根据姓名、手机号模糊查找\" (keyup)=\"search($event)\">\r\n        </ion-searchbar>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-segment>\r\n            <ion-segment-button checked (click)=\"selectTab(-1)\">\r\n                <ion-label>全部</ion-label>\r\n            </ion-segment-button>\r\n\r\n            <ion-segment-button (click)=\"selectTab(0)\">\r\n                <ion-label>打开</ion-label>\r\n            </ion-segment-button>\r\n            <ion-segment-button (click)=\"selectTab(1)\">\r\n                <ion-label>关闭</ion-label>\r\n            </ion-segment-button>\r\n\r\n        </ion-segment>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n        <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\"\r\n            refreshingText=\"刷新中...\">\r\n        </ion-refresher-content>\r\n    </ion-refresher>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-sliding *ngFor=\"let item of model.datalist\" >\r\n            <ion-item [routerLink]=\"['/saleing/cultivatetask/detail']\" [queryParams]=\"{id:item.mcs_activityid}\">\r\n                <ion-icon slot=\"start\" name=\"logo-instagram\" size=\"large\" color=\"tertiary\"></ion-icon>\r\n                <ion-label>\r\n                    <h2>{{item.Custname}}</h2>\r\n                    <p>{{item.mcs_name}}</p>\r\n                    <p>{{item.mcs_mobilephone}}</p>\r\n                </ion-label>\r\n                <ion-note slot=\"end\">\r\n                    <p>{{item.mcs_importantlevel}}</p>\r\n                    <p>{{item.mcs_activitystatus}}</p>\r\n                </ion-note>\r\n            </ion-item>\r\n            <ion-item-options side=\"end\" *ngIf=\"item.mcs_activitystatus=='open'\">\r\n               <ion-item-option color=\"tertiary\" expandable [routerLink]=\"['/saleing/cultivatetask/edit']\" [queryParams]=\"{id:item.mcs_activityid}\">\r\n                 编辑\r\n               </ion-item-option> \r\n               <ion-item-option color=\"tertiary\" expandable (click)=\"TaskFinish(item.mcs_activityid)\">\r\n                 完成\r\n               </ion-item-option>                   \r\n            </ion-item-options>\r\n        </ion-item-sliding>\r\n    </ion-list>\r\n    <ion-row *ngIf=\"model.isending\">\r\n        <ion-col class=\"nodata\" text-center>\r\n            <label>没有更多内容啦</label>\r\n        </ion-col>\r\n    </ion-row>\r\n\r\n    <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doLoading($event)\">\r\n        <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\">\r\n        </ion-infinite-scroll-content>\r\n    </ion-infinite-scroll>\r\n    \r\n    <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\r\n            <ion-fab-button [routerLink]=\"['/saleing/cultivatetask/edit']\" [queryParams]=\"\">\r\n                <ion-icon name=\"add\"></ion-icon>\r\n            </ion-fab-button>\r\n    </ion-fab>\r\n\r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -104,6 +104,7 @@ let ListPage = class ListPage {
         this.model = {
             name: 'activitylist',
             apiUrl: '/api/only-lead/GetMyActivityList',
+            addoreditUrl: '/api/activity/addoredit',
             seachkey: '',
             mcs_activitystatus: -1,
             pageSize: 10,
@@ -148,7 +149,7 @@ let ListPage = class ListPage {
         this.model.datalist = [];
         this.model.page = 1;
         this.model.isending = false;
-        if (status != "" && status != undefined) {
+        if (status.toString() != "" && status != undefined) {
             this.model.mcs_activitystatus = status;
         }
         else {
@@ -159,6 +160,7 @@ let ListPage = class ListPage {
     //获取列表数据
     getList(event) {
         //debugger;
+        this.model.datalist = [];
         this._page.loadingShow();
         this._http.get(this.model.apiUrl, {
             params: {
@@ -202,6 +204,36 @@ let ListPage = class ListPage {
         }, (err) => {
             this._page.alert("消息提示", "数据加载异常");
             this._page.loadingHide();
+        });
+    }
+    //任务完成
+    TaskFinish(id) {
+        this._page.confirm("确认提示", "确定完成该任务？", () => {
+            this.UpdateState(id);
+        });
+    }
+    UpdateState(id) {
+        debugger;
+        var postData = {};
+        postData["id"] = id;
+        postData["mcs_activitystatus"] = 1; //已完成
+        postData["mcs_endtime"] = new Date();
+        this._page.loadingShow();
+        this._http.post(this.model.addoreditUrl, postData, (res) => {
+            this._page.loadingHide();
+            console.log(res);
+            if (res.Result == true) {
+                const that = this;
+                this._page.alert("消息提示", "操作成功", () => {
+                    this.getList(null);
+                });
+            }
+            else {
+                this._page.alert("消息提示", "操作失败");
+            }
+        }, (err) => {
+            this._page.loadingHide();
+            this._page.alert("消息提示", "操作失败");
         });
     }
 };

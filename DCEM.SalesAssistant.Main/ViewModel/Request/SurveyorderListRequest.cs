@@ -9,6 +9,9 @@ using System.Text;
 
 namespace DCEM.SalesAssistant.Main.ViewModel.Request
 {
+    /// <summary>
+    /// 勘测单列表接口入参实体类
+    /// </summary>
     public class SurveyorderListRequest: PageBaseRequestModel
     {
         /// <summary>
@@ -23,5 +26,13 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         /// 勘测状态
         /// </summary>
         public int? mcs_surveystatus { set; get; }
+    }
+    /// <summary>
+    /// 勘测单详情接口入参实体类
+    /// </summary>
+    public class SurveyorderDetailRequest { 
+        public string Guid { get; set; }
+        public string UserId { get; set; }
+        public string DealerId { get; set; }
     }
 }

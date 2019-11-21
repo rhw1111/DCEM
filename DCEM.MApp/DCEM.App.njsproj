@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{f26cede4-f02d-4382-a6bd-49c0cb89d2aa}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <StartupFile />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -28,6 +28,16 @@
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
     <Content Include="src\app\app.component.scss" />
+    <Content Include="src\app\base\base.ser\components\select-systemuser\select-systemuser.component.html" />
+    <Content Include="src\app\base\base.ser\components\select-systemuser\select-systemuser.component.scss" />
+    <Content Include="src\app\base\message.com\activities\activities.page.html" />
+    <Content Include="src\app\base\message.com\activities\activities.page.scss" />
+    <Content Include="src\app\base\message.com\charts\charts.page.html" />
+    <Content Include="src\app\base\message.com\charts\charts.page.scss" />
+    <Content Include="src\app\base\message.com\chat-detail\chat-detail.page.html" />
+    <Content Include="src\app\base\message.com\chat-detail\chat-detail.page.scss" />
+    <Content Include="src\app\base\message.com\room\room.page.html" />
+    <Content Include="src\app\base\message.com\room\room.page.scss" />
     <Content Include="src\app\base\uc.com\login\login.page.html" />
     <Content Include="src\app\base\uc.com\login\login.page.scss" />
     <Content Include="src\app\base\uc.com\welcome\welcome.page.html" />
@@ -70,6 +80,16 @@
     <Content Include="src\app\saleing\mcs-onlylead.com\list\list.page.scss" />
     <Content Include="src\app\saleing\mcs-onlylead.com\success\success.page.html" />
     <Content Include="src\app\saleing\mcs-onlylead.com\success\success.page.scss" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\calendar\calendar.page.html" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\calendar\calendar.page.scss" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\detail\detail.page.html" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\detail\detail.page.scss" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\edit\edit.page.html" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\edit\edit.page.scss" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\list\list.page.html" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\list\list.page.scss" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\success\success.page.html" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\success\success.page.scss" />
     <Content Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.html" />
     <Content Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.scss" />
     <Content Include="src\app\saleing\saleing.ser\components\select-reservationconfiguration\select-reservationconfiguration.component.html" />
@@ -200,10 +220,13 @@
     <Content Include="src\assets\img\bookshelf.png" />
     <Content Include="src\assets\img\browser.png" />
     <Content Include="src\assets\img\car.png" />
+    <Content Include="src\assets\img\circle.png" />
+    <Content Include="src\assets\img\default.png" />
     <Content Include="src\assets\img\head_default.jpg" />
     <Content Include="src\assets\img\index.jpg" />
     <Content Include="src\assets\img\login.jpg" />
     <Content Include="src\assets\img\upload.png" />
+    <Content Include="src\assets\img\userhead.png" />
     <Content Include="src\global.scss" />
     <Content Include="src\theme\variables.scss" />
     <Content Include="tsconfig.app.json" />
@@ -559,12 +582,26 @@
     <TypeScriptCompile Include="src\app\app.config.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\authentication.service.spec.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\authentication.service.ts" />
+    <TypeScriptCompile Include="src\app\base\base.ser\components\select-systemuser\select-systemuser.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\base\base.ser\components\select-systemuser\select-systemuser.component.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\dcem.core.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\app\base\base.ser\http-service.service.spec.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\http-service.service.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\logininfo.storage.ts" />
+    <TypeScriptCompile Include="src\app\base\message.com\activities\activities.module.ts" />
+    <TypeScriptCompile Include="src\app\base\message.com\activities\activities.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\base\message.com\activities\activities.page.ts" />
+    <TypeScriptCompile Include="src\app\base\message.com\charts\charts.module.ts" />
+    <TypeScriptCompile Include="src\app\base\message.com\charts\charts.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\base\message.com\charts\charts.page.ts" />
+    <TypeScriptCompile Include="src\app\base\message.com\chat-detail\chat-detail.module.ts" />
+    <TypeScriptCompile Include="src\app\base\message.com\chat-detail\chat-detail.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\base\message.com\chat-detail\chat-detail.page.ts" />
+    <TypeScriptCompile Include="src\app\base\message.com\room\room.module.ts" />
+    <TypeScriptCompile Include="src\app\base\message.com\room\room.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\base\message.com\room\room.page.ts" />
     <TypeScriptCompile Include="src\app\base\uc.com\login\login.module.ts" />
     <TypeScriptCompile Include="src\app\base\uc.com\login\login.page.spec.ts" />
     <TypeScriptCompile Include="src\app\base\uc.com\login\login.page.ts" />
@@ -628,6 +665,21 @@
     <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\success\success.module.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\success\success.page.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\success\success.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\calendar\calendar.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\calendar\calendar.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\calendar\calendar.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\detail\detail.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\detail\detail.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\detail\detail.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\edit\edit.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\edit\edit.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\edit\edit.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\list\list.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\list\list.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\list\list.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\success\success.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\success\success.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\success\success.page.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-reservationconfiguration\select-reservationconfiguration.component.spec.ts" />
@@ -910,6 +962,13 @@
     <Folder Include="src\app" />
     <Folder Include="src\app\base\" />
     <Folder Include="src\app\base\base.ser\" />
+    <Folder Include="src\app\base\base.ser\components\" />
+    <Folder Include="src\app\base\base.ser\components\select-systemuser\" />
+    <Folder Include="src\app\base\message.com\" />
+    <Folder Include="src\app\base\message.com\activities\" />
+    <Folder Include="src\app\base\message.com\charts\" />
+    <Folder Include="src\app\base\message.com\chat-detail\" />
+    <Folder Include="src\app\base\message.com\room\" />
     <Folder Include="src\app\base\uc.com\" />
     <Folder Include="src\app\base\uc.com\login\" />
     <Folder Include="src\app\base\uc.com\welcome\" />
@@ -939,6 +998,13 @@
     <Folder Include="src\app\saleing\mcs-onlylead.com\list\" />
     <Folder Include="src\app\saleing\mcs-onlylead.com\success\" />
     <Folder Include="src\app\saleing\mcs-deliverycentercarstock.com\" />
+    <Folder Include="src\app\saleing\mcs_driverecord.com\" />
+    <Folder Include="src\app\saleing\mcs_driverecord.com\calendar\" />
+    <Folder Include="src\app\saleing\mcs_driverecord.com\detail\" />
+    <Folder Include="src\app\saleing\mcs_driverecord.com\edit\" />
+    <Folder Include="src\app\saleing\mcs_driverecord.com\list\" />
+    <Folder Include="src\app\saleing\mcs_driverecord.com\schedule\" />
+    <Folder Include="src\app\saleing\mcs_driverecord.com\success\" />
     <Folder Include="src\app\saleing\saleing.ser\" />
     <Folder Include="src\app\saleing\saleing.ser\components\" />
     <Folder Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\" />

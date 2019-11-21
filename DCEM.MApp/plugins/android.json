@@ -7,36 +7,40 @@
     "files": {}
   },
   "installed_plugins": {
-    "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "io.ionic.starter"
-    },
-    "cordova-plugin-statusbar": {
-      "PACKAGE_NAME": "io.ionic.starter"
-    },
     "cordova-plugin-device": {
       "PACKAGE_NAME": "io.ionic.starter"
     },
-    "cordova-plugin-splashscreen": {
+    "cordova-plugin-file-transfer": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-ionic-keyboard": {
       "PACKAGE_NAME": "io.ionic.starter"
     },
     "cordova-plugin-ionic-webview": {
       "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+",
       "PACKAGE_NAME": "io.ionic.starter"
     },
-    "cordova-plugin-ionic-keyboard": {
+    "cordova-plugin-splashscreen": {
       "PACKAGE_NAME": "io.ionic.starter"
     },
-    "cordova-plugin-x-toast": {
+    "cordova-plugin-statusbar": {
       "PACKAGE_NAME": "io.ionic.starter"
     },
     "cordova-plugin-telerik-imagepicker": {
       "PACKAGE_NAME": "io.ionic.starter"
     },
-    "cordova-plugin-file-transfer": {
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-x-toast": {
       "PACKAGE_NAME": "io.ionic.starter"
     }
   },
   "dependent_plugins": {
+    "cordova-android-support-gradle-release": {
+      "ANDROID_SUPPORT_VERSION": "27.+",
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
     "cordova-plugin-file": {
       "PACKAGE_NAME": "io.ionic.starter"
     }

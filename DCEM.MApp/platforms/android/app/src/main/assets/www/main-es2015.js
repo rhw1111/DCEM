@@ -12,6 +12,26 @@ var map = {
 		"./src/app/base/demo/steps/steps.module.ts",
 		"base-demo-steps-steps-module"
 	],
+	"./base/message.com/activities/activities.module": [
+		"./src/app/base/message.com/activities/activities.module.ts",
+		"base-message-com-activities-activities-module"
+	],
+	"./base/message.com/charts/charts.module": [
+		"./src/app/base/message.com/charts/charts.module.ts",
+		"base-message-com-charts-charts-module"
+	],
+	"./base/message.com/chat-detail/chat-detail.module": [
+		"./src/app/base/message.com/chat-detail/chat-detail.module.ts",
+		"base-message-com-chat-detail-chat-detail-module"
+	],
+	"./base/message.com/room/room.module": [
+		"./src/app/base/message.com/room/room.module.ts",
+		"base-message-com-room-room-module"
+	],
+	"./base/uc.com/detail/detail.module": [
+		"./src/app/base/uc.com/detail/detail.module.ts",
+		"base-uc-com-detail-detail-module"
+	],
 	"./base/uc.com/login/login.module": [
 		"./src/app/base/uc.com/login/login.module.ts",
 		"base-uc-com-login-login-module"
@@ -34,7 +54,7 @@ var map = {
 	],
 	"./saleing/delivery/list/list.module": [
 		"./src/app/saleing/delivery/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
 		"saleing-delivery-list-list-module"
 	],
 	"./saleing/delivery/pdiservice/pdiservice.module": [
@@ -55,12 +75,12 @@ var map = {
 	],
 	"./saleing/lead.com/edit/edit.module": [
 		"./src/app/saleing/lead.com/edit/edit.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
 		"saleing-lead-com-edit-edit-module"
 	],
 	"./saleing/lead.com/list/list.module": [
 		"./src/app/saleing/lead.com/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
 		"saleing-lead-com-list-list-module"
 	],
 	"./saleing/lead.com/success/success.module": [
@@ -69,29 +89,29 @@ var map = {
 	],
 	"./saleing/mc-vehorder.com/detail/detail.module": [
 		"./src/app/saleing/mc-vehorder.com/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
 		"common",
 		"saleing-mc-vehorder-com-detail-detail-module"
 	],
 	"./saleing/mc-vehorder.com/list/list.module": [
 		"./src/app/saleing/mc-vehorder.com/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
 		"saleing-mc-vehorder-com-list-list-module"
 	],
 	"./saleing/mcs-account.com/detail/detail.module": [
 		"./src/app/saleing/mcs-account.com/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
 		"common",
 		"saleing-mcs-account-com-detail-detail-module"
 	],
 	"./saleing/mcs-account.com/edit/edit.module": [
 		"./src/app/saleing/mcs-account.com/edit/edit.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
 		"saleing-mcs-account-com-edit-edit-module"
 	],
 	"./saleing/mcs-account.com/list/list.module": [
 		"./src/app/saleing/mcs-account.com/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
 		"saleing-mcs-account-com-list-list-module"
 	],
 	"./saleing/mcs-account.com/success/success.module": [
@@ -108,17 +128,18 @@ var map = {
 	],
 	"./saleing/mcs-cultivatetask.com/detail/detail.module": [
 		"./src/app/saleing/mcs-cultivatetask.com/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
 		"common",
 		"saleing-mcs-cultivatetask-com-detail-detail-module"
 	],
 	"./saleing/mcs-cultivatetask.com/edit/edit.module": [
 		"./src/app/saleing/mcs-cultivatetask.com/edit/edit.module.ts",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
 		"saleing-mcs-cultivatetask-com-edit-edit-module"
 	],
 	"./saleing/mcs-cultivatetask.com/list/list.module": [
 		"./src/app/saleing/mcs-cultivatetask.com/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
 		"saleing-mcs-cultivatetask-com-list-list-module"
 	],
 	"./saleing/mcs-cultivatetask.com/success/success.module": [
@@ -135,13 +156,13 @@ var map = {
 	],
 	"./saleing/mcs-onlylead.com/detail/detail.module": [
 		"./src/app/saleing/mcs-onlylead.com/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
 		"common",
 		"saleing-mcs-onlylead-com-detail-detail-module"
 	],
 	"./saleing/mcs-onlylead.com/edit/edit.module": [
 		"./src/app/saleing/mcs-onlylead.com/edit/edit.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
 		"saleing-mcs-onlylead-com-edit-edit-module"
 	],
 	"./saleing/mcs-onlylead.com/list/list.module": [
@@ -152,13 +173,40 @@ var map = {
 		"./src/app/saleing/mcs-onlylead.com/success/success.module.ts",
 		"saleing-mcs-onlylead-com-success-success-module"
 	],
+	"./saleing/mcs_driverecord.com/calendar/calendar.module": [
+		"./src/app/saleing/mcs_driverecord.com/calendar/calendar.module.ts",
+		"common",
+		"saleing-mcs_driverecord-com-calendar-calendar-module"
+	],
+	"./saleing/mcs_driverecord.com/detail/detail.module": [
+		"./src/app/saleing/mcs_driverecord.com/detail/detail.module.ts",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
+		"saleing-mcs_driverecord-com-detail-detail-module"
+	],
+	"./saleing/mcs_driverecord.com/edit/edit.module": [
+		"./src/app/saleing/mcs_driverecord.com/edit/edit.module.ts",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
+		"common",
+		"saleing-mcs_driverecord-com-edit-edit-module"
+	],
+	"./saleing/mcs_driverecord.com/list/list.module": [
+		"./src/app/saleing/mcs_driverecord.com/list/list.module.ts",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
+		"saleing-mcs_driverecord-com-list-list-module"
+	],
+	"./saleing/mcs_driverecord.com/success/success.module": [
+		"./src/app/saleing/mcs_driverecord.com/success/success.module.ts",
+		"saleing-mcs_driverecord-com-success-success-module"
+	],
 	"./saleing/mcs_surveyorder/detail/detail.module": [
 		"./src/app/saleing/mcs_surveyorder/detail/detail.module.ts",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
+		"common",
 		"saleing-mcs_surveyorder-detail-detail-module"
 	],
 	"./saleing/mcs_surveyorder/list/list.module": [
 		"./src/app/saleing/mcs_surveyorder/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
 		"saleing-mcs_surveyorder-list-list-module"
 	],
 	"./saleing/orderpaydetail/detail/detail.module": [
@@ -167,21 +215,17 @@ var map = {
 	],
 	"./saleing/orderpaydetail/edit/edit.module": [
 		"./src/app/saleing/orderpaydetail/edit/edit.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
 		"saleing-orderpaydetail-edit-edit-module"
-	],
-	"./saleing/trialrun/calendar/calendar.module": [
-		"./src/app/saleing/trialrun/calendar/calendar.module.ts",
-		"saleing-trialrun-calendar-calendar-module"
 	],
 	"./saleing/vehlisense/detail/detail.module": [
 		"./src/app/saleing/vehlisense/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
 		"saleing-vehlisense-detail-detail-module"
 	],
 	"./saleing/vehlisense/list/list.module": [
 		"./src/app/saleing/vehlisense/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
 		"saleing-vehlisense-list-list-module"
 	],
 	"./saleing/vehlisense/success/success.module": [
@@ -190,12 +234,12 @@ var map = {
 	],
 	"./saleing/vehnetwork/detail/detail.module": [
 		"./src/app/saleing/vehnetwork/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
 		"saleing-vehnetwork-detail-detail-module"
 	],
 	"./saleing/vehnetwork/list/list.module": [
 		"./src/app/saleing/vehnetwork/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~1c298b96",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
 		"saleing-vehnetwork-list-list-module"
 	],
 	"./saleing/vehnetwork/success/success.module": [
@@ -819,6 +863,17 @@ module.exports = "<ion-app>\r\n    <ion-split-pane>\r\n      <ion-menu type=\"ov
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/base/base.ser/components/map/dragroute/dragroute.component.html":
+/*!***********************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/base/base.ser/components/map/dragroute/dragroute.component.html ***!
+  \***********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = " \r\n<div id=\"container\"></div>  \r\n "
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/base/base.ser/components/select-systemuser/select-systemuser.component.html":
 /*!***********************************************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/base/base.ser/components/select-systemuser/select-systemuser.component.html ***!
@@ -951,6 +1006,17 @@ module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>选择
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/serving/serving.ser/components/select-file-edit/select-file-edit.component.html":
+/*!***************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/serving/serving.ser/components/select-file-edit/select-file-edit.component.html ***!
+  \***************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>附件上传</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-sliding *ngFor=\"let key of objectKeys(mod.data.filesMap)\">\r\n            <ion-item>\r\n                <ion-thumbnail slot=\"start\">\r\n                    <img src=\"{{mod.data.filesMap[key]['url']}}\" />\r\n                </ion-thumbnail>\r\n                <ion-label>\r\n                    <h3>{{mod.data.filesMap[key][\"fileName\"]}}</h3>\r\n                    <p>{{mod.data.filesMap[key][\"fileSize\"]}}</p>\r\n                    <p><ion-progress-bar value=\"{{mod.data.filesMap[key]['progress']}}\" buffer=\"1\"></ion-progress-bar></p>\r\n                </ion-label>\r\n            </ion-item>\r\n            <ion-item-options side=\"end\">\r\n                <ion-item-option color=\"tertiary\" expandable (click)=\"fileDeleteClick(key)\">\r\n                    移除\r\n                </ion-item-option>\r\n            </ion-item-options>\r\n        </ion-item-sliding>\r\n        <ion-item (click)=\"selectFiles()\">\r\n            <ion-thumbnail slot=\"start\">\r\n                <img src=\"./assets/img/upload.png\" />\r\n                <input id=\"fileInput\" type=\"file\" ng2FileSelect [uploader]=\"uploader\" style=\"display:none\" (change)=\"uploadVideo($event)\" multiple />\r\n            </ion-thumbnail>\r\n            <ion-label>\r\n                <h3>&nbsp;</h3>\r\n                <p>请点击此处选择图片进行上传</p>\r\n                <p>&nbsp;</p>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n\r\n    <section style=\"text-align:center;\">\r\n        <ion-button style=\"width:40%\" color=\"danger\" (click)=\"cancelClick()\">取消</ion-button>\r\n        <ion-button style=\"width:40%\" color=\"success\" (click)=\"okClick()\">确定</ion-button>\r\n    </section>\r\n    <br />\r\n    <br />\r\n</ion-content>"
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/serving/serving.ser/components/select-maintenance/select-maintenance.component.html":
 /*!*******************************************************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/serving/serving.ser/components/select-maintenance/select-maintenance.component.html ***!
@@ -1053,7 +1119,17 @@ const routes = [
                 path: 'uc',
                 children: [
                     { path: 'login', loadChildren: './base/uc.com/login/login.module#LoginPageModule' },
-                    { path: 'welcome', loadChildren: './base/uc.com/welcome/welcome.module#WelcomePageModule' }
+                    { path: 'welcome', loadChildren: './base/uc.com/welcome/welcome.module#WelcomePageModule' },
+                    { path: 'detail', loadChildren: './base/uc.com/detail/detail.module#DetailPageModule' }
+                ]
+            },
+            {
+                path: 'message',
+                children: [
+                    { path: 'charts', loadChildren: './base/message.com/charts/charts.module#ChartsPageModule' },
+                    { path: 'chat-detail', loadChildren: './base/message.com/chat-detail/chat-detail.module#ChatDetailPageModule' },
+                    { path: 'room', loadChildren: './base/message.com/room/room.module#RoomPageModule' },
+                    { path: 'activities', loadChildren: './base/message.com/activities/activities.module#ActivitiesPageModule' },
                 ]
             }
         ]
@@ -1255,9 +1331,13 @@ const routes = [
                 ]
             },
             {
-                path: 'trialrun',
+                path: 'driverecord',
                 children: [
-                    { path: 'calendar', loadChildren: './saleing/trialrun/calendar/calendar.module#CalendarPageModule' }
+                    { path: 'list', loadChildren: './saleing/mcs_driverecord.com/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './saleing/mcs_driverecord.com/detail/detail.module#DetailPageModule' },
+                    { path: 'edit', loadChildren: './saleing/mcs_driverecord.com/edit/edit.module#EditPageModule' },
+                    { path: 'success', loadChildren: './saleing/mcs_driverecord.com/success/success.module#SuccessPageModule' },
+                    { path: 'calendar', loadChildren: './saleing/mcs_driverecord.com/calendar/calendar.module#CalendarPageModule' }
                 ]
             }
         ]
@@ -1269,7 +1349,7 @@ const routes = [
         ]
     },
     { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' },
-    { path: 'fileupload', loadChildren: './serving/serving.ser/components/fileupload/fileupload.module#FileuploadPageModule' }
+    { path: 'fileupload', loadChildren: './serving/serving.ser/components/fileupload/fileupload.module#FileuploadPageModule' },
 ];
 let AppRoutingModule = class AppRoutingModule {
 };
@@ -1339,7 +1419,7 @@ let AppComponent = class AppComponent {
             },
             {
                 title: '个人信息',
-                url: '/serving/home/tabs/mywork',
+                url: '/base/uc/detail',
                 icon: 'person',
                 num: 0,
             },
@@ -1471,8 +1551,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var app_serving_serving_ser_components_select_repairitemtype_select_repairitemtype_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component */ "./src/app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component.ts");
 /* harmony import */ var app_serving_serving_ser_components_select_repairitemtypedetail_select_repairitemtypedetail_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component */ "./src/app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component.ts");
 /* harmony import */ var app_serving_serving_ser_components_select_appointmentinfo_select_appointmentinfo_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component */ "./src/app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component.ts");
-/* harmony import */ var _ionic_native_image_picker_ngx__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! @ionic-native/image-picker/ngx */ "./node_modules/@ionic-native/image-picker/ngx/index.js");
-/* harmony import */ var _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! @ionic-native/file-transfer/ngx */ "./node_modules/@ionic-native/file-transfer/ngx/index.js");
+/* harmony import */ var app_serving_serving_ser_components_select_file_edit_select_file_edit_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! app/serving/serving.ser/components/select-file-edit/select-file-edit.component */ "./src/app/serving/serving.ser/components/select-file-edit/select-file-edit.component.ts");
+/* harmony import */ var app_base_base_ser_components_map_dragroute_dragroute_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! app/base/base.ser/components/map/dragroute/dragroute.component */ "./src/app/base/base.ser/components/map/dragroute/dragroute.component.ts");
+/* harmony import */ var _ionic_native_image_picker_ngx__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! @ionic-native/image-picker/ngx */ "./node_modules/@ionic-native/image-picker/ngx/index.js");
+/* harmony import */ var _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! @ionic-native/file-transfer/ngx */ "./node_modules/@ionic-native/file-transfer/ngx/index.js");
+/* harmony import */ var _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! @ionic-native/camera/ngx */ "./node_modules/@ionic-native/camera/ngx/index.js");
+/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/fesm2015/ng2-file-upload.js");
 
 
 
@@ -1486,6 +1570,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 //自定义组件
+
+
+
+
 
 
 
@@ -1534,6 +1622,7 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             app_serving_serving_ser_components_select_repairitemtype_select_repairitemtype_component__WEBPACK_IMPORTED_MODULE_29__["SelectRepairitemtypeComponent"],
             app_serving_serving_ser_components_select_repairitemtypedetail_select_repairitemtypedetail_component__WEBPACK_IMPORTED_MODULE_30__["SelectRepairitemtypedetailComponent"],
             app_serving_serving_ser_components_select_appointmentinfo_select_appointmentinfo_component__WEBPACK_IMPORTED_MODULE_31__["SelectAppointmentinfoComponent"],
+            app_serving_serving_ser_components_select_file_edit_select_file_edit_component__WEBPACK_IMPORTED_MODULE_32__["SelectFileEditComponent"],
         ],
         entryComponents: [
             _serving_serving_ser_components_sc_select_sc_select_component__WEBPACK_IMPORTED_MODULE_12__["ScSelectComponent"],
@@ -1556,9 +1645,11 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             app_serving_serving_ser_components_select_repairitemtype_select_repairitemtype_component__WEBPACK_IMPORTED_MODULE_29__["SelectRepairitemtypeComponent"],
             app_serving_serving_ser_components_select_repairitemtypedetail_select_repairitemtypedetail_component__WEBPACK_IMPORTED_MODULE_30__["SelectRepairitemtypedetailComponent"],
             app_serving_serving_ser_components_select_appointmentinfo_select_appointmentinfo_component__WEBPACK_IMPORTED_MODULE_31__["SelectAppointmentinfoComponent"],
+            app_serving_serving_ser_components_select_file_edit_select_file_edit_component__WEBPACK_IMPORTED_MODULE_32__["SelectFileEditComponent"],
         ],
         imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot({ mode: 'ios' }),
+            ng2_file_upload__WEBPACK_IMPORTED_MODULE_37__["FileUploadModule"],
             _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"],
             _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HttpClientModule"],
             _ionic_storage__WEBPACK_IMPORTED_MODULE_10__["IonicStorageModule"].forRoot(),
@@ -1567,10 +1658,12 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             ng_zorro_antd_mobile__WEBPACK_IMPORTED_MODULE_28__["NgZorroAntdMobileModule"]
         ],
         providers: [
+            app_base_base_ser_components_map_dragroute_dragroute_component__WEBPACK_IMPORTED_MODULE_33__["DragrouteComponent"],
             _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],
             _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"],
-            _ionic_native_image_picker_ngx__WEBPACK_IMPORTED_MODULE_32__["ImagePicker"],
-            _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_33__["FileTransfer"],
+            _ionic_native_image_picker_ngx__WEBPACK_IMPORTED_MODULE_34__["ImagePicker"],
+            _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_35__["FileTransfer"],
+            _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_36__["Camera"],
             { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] }
         ],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
@@ -2002,6 +2095,64 @@ AuthenticationService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_storage__WEBPACK_IMPORTED_MODULE_4__["Storage"], _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["Platform"], _http_service_service__WEBPACK_IMPORTED_MODULE_5__["HttpService"]])
 ], AuthenticationService);
+
+
+
+/***/ }),
+
+/***/ "./src/app/base/base.ser/components/map/dragroute/dragroute.component.scss":
+/*!*********************************************************************************!*\
+  !*** ./src/app/base/base.ser/components/map/dragroute/dragroute.component.scss ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2Jhc2UvYmFzZS5zZXIvY29tcG9uZW50cy9tYXAvZHJhZ3JvdXRlL2RyYWdyb3V0ZS5jb21wb25lbnQuc2NzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/base/base.ser/components/map/dragroute/dragroute.component.ts":
+/*!*******************************************************************************!*\
+  !*** ./src/app/base/base.ser/components/map/dragroute/dragroute.component.ts ***!
+  \*******************************************************************************/
+/*! exports provided: DragrouteComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DragrouteComponent", function() { return DragrouteComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+let DragrouteComponent = class DragrouteComponent {
+    constructor() { }
+    ngOnInit() {
+    }
+    draw(startlongitude, startlatitude, endlongitude, endlatitude) {
+        var map, route;
+        //基本地图加载
+        map = new AMap.Map("container", {
+            resizeEnable: true
+        });
+        //绘制初始路径
+        var path = [];
+        path.push([startlongitude, startlatitude]);
+        path.push([endlongitude, endlatitude]);
+        map.plugin("AMap.DragRoute", function () {
+            route = new AMap.DragRoute(map, path, AMap.DrivingPolicy.LEAST_FEE); //构造拖拽导航类
+            route.search(); //查询导航路径并开启拖拽导航
+        });
+    }
+};
+DragrouteComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-dragroute',
+        template: __webpack_require__(/*! raw-loader!./dragroute.component.html */ "./node_modules/raw-loader/index.js!./src/app/base/base.ser/components/map/dragroute/dragroute.component.html"),
+        styles: [__webpack_require__(/*! ./dragroute.component.scss */ "./src/app/base/base.ser/components/map/dragroute/dragroute.component.scss")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+], DragrouteComponent);
 
 
 
@@ -4041,6 +4192,154 @@ SelectCustomerComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"]])
 ], SelectCustomerComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/serving/serving.ser/components/select-file-edit/select-file-edit.component.scss":
+/*!*************************************************************************************************!*\
+  !*** ./src/app/serving/serving.ser/components/select-file-edit/select-file-edit.component.scss ***!
+  \*************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NlcnZpbmcvc2VydmluZy5zZXIvY29tcG9uZW50cy9zZWxlY3QtZmlsZS1lZGl0L3NlbGVjdC1maWxlLWVkaXQuY29tcG9uZW50LnNjc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/serving/serving.ser/components/select-file-edit/select-file-edit.component.ts":
+/*!***********************************************************************************************!*\
+  !*** ./src/app/serving/serving.ser/components/select-file-edit/select-file-edit.component.ts ***!
+  \***********************************************************************************************/
+/*! exports provided: SelectFileEditComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectFileEditComponent", function() { return SelectFileEditComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/fesm2015/ng2-file-upload.js");
+/* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+
+
+
+
+
+let SelectFileEditComponent = class SelectFileEditComponent {
+    constructor(_config, _modalCtrl) {
+        this._config = _config;
+        this._modalCtrl = _modalCtrl;
+        this.mod = {
+            data: {
+                filesMap: {},
+                fileArray: []
+            }
+        };
+        this.objectKeys = Object.keys;
+        this.uploader = new ng2_file_upload__WEBPACK_IMPORTED_MODULE_2__["FileUploader"]({});
+    }
+    selectFiles() {
+        document.getElementById('fileInput').click();
+    }
+    selectedFileOnChanged(event) {
+        console.log("go");
+        console.log(event);
+        console.log(event.target.value);
+    }
+    ngOnInit() {
+        this.uploadInit();
+    }
+    uploadInit() {
+        let host = this._config.getDomain() + "/Api/Files/Upload";
+        let options = {
+            url: host,
+            removeAfterUpload: true,
+            method: "POST",
+            itemAlias: 'multfile',
+        };
+        this.uploader = new ng2_file_upload__WEBPACK_IMPORTED_MODULE_2__["FileUploader"](options);
+        // 文件上传之前监听事件
+        this.uploader.onBeforeUploadItem = (fileItem) => {
+            var mapKey = fileItem.file.name;
+            fileItem.method = "POST";
+            //fileItem.alias = Math.random().toString();
+            fileItem.withCredentials = false; //解决localhost跨域
+            console.log(fileItem);
+            var obj = {};
+            obj["fileName"] = fileItem.file.name;
+            obj["fileSize"] = fileItem.file.size;
+            obj["url"] = "";
+            obj["progress"] = 0;
+            this.mod.data.filesMap[mapKey] = obj;
+            console.log(mapKey);
+        };
+        // 文件上传进度监听事件
+        this.uploader.onProgressItem = (fileItem, progress) => {
+            console.log(progress);
+            var mapKey = fileItem.file.name;
+            this.mod.data.filesMap[mapKey]["progress"] = progress / 100;
+        };
+        // 文件上传成功监听事件
+        this.uploader.onSuccessItem = (fileItem, response, status) => {
+            var mapKey = fileItem.file.name;
+            this.mod.data.filesMap[mapKey]["url"] = this._config.getDomain() + "/FilesDir/" + fileItem.file.name;
+            console.log("上传成功");
+        };
+        this.uploader.onErrorItem = (fileItem, response, status, headers) => {
+            console.log("上传失败");
+            console.log(response);
+            console.log(status);
+        };
+        // 文件上传附带的其他额外数据
+        this.uploader.onBuildItemForm = (fileItem, form) => {
+            form.append('name3', "test");
+        };
+    }
+    uploadVideo($event) {
+        this.uploader.uploadAll();
+    }
+    dismissModal() {
+        this._modalCtrl.dismiss({
+            command: 2,
+        });
+    }
+    //移除文件
+    fileDeleteClick(mapkey) {
+        delete this.mod.data.filesMap[mapkey];
+    }
+    //确定
+    okClick() {
+        for (var key in this.mod.data.filesMap) {
+            this.mod.data.fileArray.push(this.mod.data.filesMap[key]);
+        }
+        this._modalCtrl.dismiss({
+            command: 1,
+            fileArray: this.mod.data.fileArray
+        });
+    }
+    //取消
+    cancelClick() {
+        this._modalCtrl.dismiss({
+            command: 2,
+        });
+    }
+};
+SelectFileEditComponent.ctorParameters = () => [
+    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Config"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"] }
+];
+SelectFileEditComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-select-file-edit',
+        template: __webpack_require__(/*! raw-loader!./select-file-edit.component.html */ "./node_modules/raw-loader/index.js!./src/app/serving/serving.ser/components/select-file-edit/select-file-edit.component.html"),
+        styles: [__webpack_require__(/*! ./select-file-edit.component.scss */ "./src/app/serving/serving.ser/components/select-file-edit/select-file-edit.component.scss")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Config"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"]])
+], SelectFileEditComponent);
 
 
 

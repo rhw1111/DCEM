@@ -4,9 +4,12 @@
       <ion-back-button text="返回" defaultHref="/"></ion-back-button>
     </ion-buttons>
     <ion-title>整车订单</ion-title>
+    <ion-buttons slot="end">
+        <ion-menu-button></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
   <ion-toolbar>
-      <ion-searchbar [(ngModel)]="this.model.seachkey" placeholder="可根据订单编码、姓名、手机号模糊查找" (keyup)="search($event)" ></ion-searchbar>
+      <ion-searchbar [(ngModel)]="this.model.params.SearchKey" placeholder="可根据订单编码、姓名、手机号模糊查找" (keyup)="search($event)" ></ion-searchbar>
   </ion-toolbar>
   <ion-toolbar>
       <ion-segment>
