@@ -23,7 +23,11 @@ export class ListPage implements OnInit {
     DealerId:"B30FEFC4-E9F9-E811-A81E-9A16184AF7BF",//this._userinfo.GetDealerid(), 
     isending: false,//是否加载完成
     datalist: [],//列表数据
-    systemUserId:''
+    systemUserId:'',
+    aLLTotalCount:0,//总数量
+    scheduledCount:0,//已排程数量
+    submittedCount:0//已提交数量
+
   };
 
   constructor(
@@ -97,7 +101,11 @@ export class ListPage implements OnInit {
         }
       },
       (res: any) => { 
+         
         if (res.Results !== null) {
+          this.model.aLLTotalCount=res.ALLTotalCount;
+          this.model.submittedCount=res.SubmittedCount;
+          this.model.scheduledCount=res.ScheduledCount;
           //绑定数据
           for (var i in res.Results) {
             var attr = res.Results[i]["Attributes"];
