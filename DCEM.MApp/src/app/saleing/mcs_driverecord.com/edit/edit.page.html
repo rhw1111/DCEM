@@ -41,7 +41,7 @@
                 <ion-label position="stacked">预约日期<ion-text color="danger">*</ion-text></ion-label>
                 <ion-datetime displayFormat="YYYY-MM-DD" min="1997" placeholder="请输入预约日期" cancelText="取消" doneText="确定" (ionChange)="OrderTimeChange()" [(ngModel)]="model.driveRecord['mcs_ordertime']"></ion-datetime>
             </ion-item>
-            <ion-item disabled="true">
+            <ion-item>
                 <ion-label position="stacked">试驾预约时段 <ion-text color="danger">*</ion-text></ion-label>
                 <ion-select [(ngModel)]="model.driveRecord['mcs_testdrivetime']" placeholder="请选择试驾预约时段" okText="确认" cancelText="取消" required>
                     <ion-select-option *ngFor="let item of model.driveTimeOption" value="{{item.value}}">
@@ -50,7 +50,7 @@
                 </ion-select>
             </ion-item>
 
-            <div *ngif="model.ifSchedule">
+            <div *ngIf="model.ifSchedule">
                 <ion-item>
                     <ion-label position="stacked">试驾车辆 <ion-text color="danger">*</ion-text></ion-label>
                     <ion-select [(ngModel)]="model.driveRecord['mcs_drivecar']" placeholder="请选择试驾车辆" okText="确认" cancelText="取消" required>
@@ -68,7 +68,7 @@
                     </ion-select>
                 </ion-item>
             </div>
-            <div *ngif="model.ifCancel">
+            <div *ngIf="model.ifCancel">
                 <ion-item>
                     <ion-label position="stacked">取消原因</ion-label>
                     <ion-textarea [(ngModel)]="model.driveRecord['mcs_cancelreason']"></ion-textarea>
@@ -76,5 +76,8 @@
             </div>
         </ion-item-group>
     </ion-list>
-    <ion-button expand="block" type="button" (click)="saveOnClick()">确定</ion-button>
+
+    <ion-button *ngIf="model.ifSave" expand="block" type="button" (click)="saveOnClick()">确定</ion-button>
+    <ion-button *ngIf="model.ifSchedule" expand="block" type="button" (click)="saveOnClick()">确定排程</ion-button>
+    <ion-button *ngIf="model.ifCancel" expand="block" type="button" (click)="saveOnClick()">取消试驾</ion-button>
 </ion-content>
