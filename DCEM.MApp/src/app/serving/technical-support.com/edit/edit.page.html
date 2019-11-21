@@ -11,173 +11,240 @@
 </ion-header>
 
 <ion-content>
-    <ion-list>
-        <ion-item-group>
-            <ion-item-divider>
-                <ion-label>基本信息</ion-label>
-            </ion-item-divider>
-            <ion-item>
-                <ion-label position="floating">
-                    <ion-text color="danger">*</ion-text>主题
-                </ion-label>
-                <ion-input [(ngModel)]="model.postData.mcs_title"></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-label>
-                    服务委托书
-                </ion-label>
-                <ion-note slot="end">{{model.viewData.mcs_serviceorderid_name}}</ion-note>
-                <ion-avatar slot="end">
-                    <ion-icon color="primary" size="large" name="search" (click)="presentServiceModal()"></ion-icon>
-                </ion-avatar>
-            </ion-item>
-            <!-- <ion-item>
-                <ion-button expand="block" (click)="presentModal()">选择服务委托书</ion-button>
-            </ion-item> -->
-            <ion-item>
-                <ion-label>
-                    <ion-text color="danger">*</ion-text>服务顾问
-                </ion-label>
-                <ion-note slot="end">{{model.viewData.username}}</ion-note>
-            </ion-item>
-            <ion-item>
-                <ion-label>
-                    <ion-text color="danger">*</ion-text>技术主管
-                </ion-label>
-                <ion-note slot="end">{{model.viewData.mcs_repairnameidname}}</ion-note>
-                <ion-avatar slot="end">
-                    <ion-icon color="primary" size="large" name="search" (click)="presentSystemUserModal()"></ion-icon>
-                </ion-avatar>
-            </ion-item>
-            <ion-item>
-                <ion-label position="floating">
-                    <ion-text color="danger">*</ion-text>维修时间
-                </ion-label>
-                <ion-datetime [(ngModel)]="model.postData.mcs_repairdate" displayFormat="YYYY-MM-DD HH:mm" min="1997" max="2010" value=""></ion-datetime>
-            </ion-item>
-            <ion-item>
-                <ion-label><ion-icon name="mail" size="large"></ion-icon></ion-label>
-                <ion-input [(ngModel)]="model.postData.mcs_email" type="email" placeholder="--" maxlength="30" style="text-align:right;" (ionBlur)="changeEmail(model.email)"
-                           [(ngModel)]="model.email" required></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-label><ion-icon name="phone-portrait" size="large"></ion-icon></ion-label>
-                <ion-input [(ngModel)]="model.postData.mcs_phone" type="tel" placeholder="--" maxlength="11" minlength="11" style="text-align:right;" (ionBlur)="changePhone(model.phone)" [(ngModel)]="model.phone" required onkeyup="this.value=this.value.replace(/\D/g,'')"></ion-input>
-            </ion-item>
-        </ion-item-group>
+    <ion-list lines="full">
+        <ion-item-divider color="primary">
+            <ion-label>
+                基本信息
+            </ion-label>
+        </ion-item-divider>
+        <ion-item>
+            <ion-label position="stacked">
+                主题
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input placeholder="请输入主题" maxlength="12" [(ngModel)]="model.postData.mcs_title" required></ion-input>
+        </ion-item>
+        <ion-item (click)="presentServiceModal()">
+            <ion-label position="stacked">
+                <ion-icon name="search"></ion-icon>
+                服务委托书
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <p>{{model.viewData.mcs_serviceorderid_name}}&nbsp;</p>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
+                <ion-icon name="lock"></ion-icon>
+                服务顾问
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <p>{{model.viewData.username}}&nbsp;</p>
+        </ion-item>
+        <ion-item (click)="presentSystemUserModal()">
+            <ion-label position="stacked">
+                <ion-icon name="search"></ion-icon>
+                技术主管
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <p>{{model.viewData.mcs_repairnameidname}}&nbsp;</p>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
+                维修时间
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-datetime cancelText="取消" doneText="确定" placeholder="请选择维修时间" display-format="YYYY-MM-DD HH:mm" [(ngModel)]="model.postData.mcs_repairdate"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
+                电子邮件
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input placeholder="请输入电子邮件" maxlength="12" [(ngModel)]="model.postData.mcs_email" required></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
+                手机号码
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input placeholder="请输入手机号码" maxlength="12" [(ngModel)]="model.postData.mcs_phone" required></ion-input>
+        </ion-item>
 
-        <ion-item-group>
-            <ion-item-divider>
-                <ion-label>车辆信息</ion-label>
-            </ion-item-divider>
-            <ion-item>
-                <ion-label>
-                    <ion-text color="danger">*</ion-text>车主姓名
-                </ion-label>
-                <ion-note slot="end">{{model.viewData.mcs_customername}}</ion-note>
-                <ion-avatar slot="end">
-                    <ion-icon color="primary" size="large" name="search" (click)="presentCustomerModal()"></ion-icon>
-                </ion-avatar>
-            </ion-item>
-            <ion-item>
-                <ion-label>车主手机</ion-label>
-                <ion-note slot="end">{{model.postData.mcs_customerphone}}</ion-note>
-            </ion-item>
-            <ion-item>
-                <ion-label>车牌号</ion-label>
-                <ion-note slot="end">{{model.postData.mcs_carplate}}</ion-note>
-            </ion-item>
-            <ion-item>
-                <ion-label>车型</ion-label>
-                <ion-note slot="end">{{model.viewData.mcs_cartypeidname}}</ion-note>
-            </ion-item>
-            <ion-item>
-                <ion-label>VIN</ion-label>
-                <ion-note slot="end">{{model.viewData.vin}}</ion-note>
-            </ion-item>
-            <ion-item>
-                <ion-label>发动机号</ion-label>
-                <ion-note slot="end">{{model.postData.mcs_enginenumber}}</ion-note>
-            </ion-item>
-            <ion-item>
-                <ion-label>里程数</ion-label>
-                <ion-note slot="end">{{model.postData.mcs_mileage}}</ion-note>
-            </ion-item>
-            <ion-item>
-                <ion-label>电机型号</ion-label>
-                <ion-note slot="end">{{model.postData.mcs_motormodel}}</ion-note>
-            </ion-item>
-            <ion-item>
-                <ion-label>电池型号</ion-label>
-                <ion-note slot="end">{{model.postData.mcs_batterymodel}}</ion-note>
-            </ion-item>
-            <ion-item>
-                <ion-label>电池序列号</ion-label>
-                <ion-note slot="end">{{model.postData.mcs_batteryserialnumber}}</ion-note>
-            </ion-item>
-            <ion-item>
-                <ion-label>是否加装</ion-label>
-                <ion-toggle slot="end" color="secondary" checked [(ngModel)]="model.postData.mcs_ismodifiedparts"></ion-toggle>
-            </ion-item>
-            <ion-item>
-                <ion-label position="floating">加装描述</ion-label>
-                <ion-textarea rows="6" cols="20" placeholder="请输入加装描述信息" [(ngModel)]="model.postData.mcs_modifiedpartscontent"></ion-textarea>
-            </ion-item>
-        </ion-item-group>
-        <ion-item-group>
-            <ion-item-divider>
-                <ion-label>故障信息</ion-label>
-            </ion-item-divider>
-            <ion-item>
-                <ion-label><ion-text color="danger">*</ion-text>技术系统</ion-label>
-                <ion-select [(ngModel)]="model.postData.mcs_techsystem" value="" okText="确认" cancelText="取消">
-                    <ion-select-option value="10">车身</ion-select-option>
-                    <ion-select-option value="20">底盘</ion-select-option>
-                    <ion-select-option value="30">电器</ion-select-option>
-                    <ion-select-option value="40">三电</ion-select-option>
-                </ion-select>
-            </ion-item>
-            <ion-item>
-                <ion-label><ion-text color="danger">*</ion-text>故障类别代码</ion-label>
-                <ion-note slot="end">{{model.viewData.mcs_malfunctiontype_value}}</ion-note>
-                <ion-avatar slot="end">
-                    <ion-icon color="primary" size="large" name="search" (click)="presentMalFunctionTypeModal()"></ion-icon>
-                </ion-avatar>
-            </ion-item>
-        </ion-item-group>
-        <ion-item-group>
-            <ion-item-divider>
-                <ion-label>其他</ion-label>
-            </ion-item-divider>
-            <ion-item (click)="presentFileModal()">
-                <ion-label position="floating">
-                    附件上传
-                </ion-label>
-                <br />
-                <p text-wrap>
-                    <span *ngFor="let item of model.fileArray">
-                        <img style="width:80px; height:80px" src="{{item['url']}}" />
-                    </span>
-                </p>
+        <ion-item-divider color="primary">
+            <ion-label>
+                车辆信息
+            </ion-label>
+        </ion-item-divider>
 
-            </ion-item>
-            <ion-item>
-                <ion-label position="floating">技师疑问</ion-label>
-                <ion-textarea [(ngModel)]="model.postData.mcs_techqueries"></ion-textarea>
-            </ion-item>
-            <ion-item>
-                <ion-label position="floating">检测诊断描述</ion-label>
-                <ion-textarea [(ngModel)]="model.postData.mcs_diagnosiscontent"></ion-textarea>
-            </ion-item>
-            <ion-item>
-                <ion-label position="floating">已更换零件</ion-label>
-                <ion-textarea [(ngModel)]="model.postData.mcs_replacedparts"></ion-textarea>
-            </ion-item>
-            <ion-item>
-                <ion-label position="floating">具体故障现象</ion-label>
-                <ion-textarea [(ngModel)]="model.postData.mcs_malfunctioncontent"></ion-textarea>
-            </ion-item>
-        </ion-item-group>
-        <ion-button expand="block" type="button" (click)="save()">保存</ion-button>
+        <ion-item (click)="presentCustomerModal()">
+            <ion-label position="stacked">
+                <ion-icon name="search"></ion-icon>
+                车主姓名
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <p>{{model.viewData.mcs_customername}}&nbsp;</p>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="stacked">
+                <ion-icon name="lock"></ion-icon>
+                车主手机
+            </ion-label>
+            <p>{{model.postData.mcs_customerphone}}&nbsp;</p>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="stacked">
+                <ion-icon name="lock"></ion-icon>
+                车牌号
+            </ion-label>
+            <p>{{model.postData.mcs_carplate}}&nbsp;</p>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="stacked">
+                <ion-icon name="lock"></ion-icon>
+                车型
+            </ion-label>
+            <p>{{model.viewData.mcs_cartypeidname}}&nbsp;</p>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="stacked">
+                <ion-icon name="lock"></ion-icon>
+                VIN
+            </ion-label>
+            <p>{{model.viewData.vin}}&nbsp;</p>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="stacked">
+                <ion-icon name="lock"></ion-icon>
+                发动机号
+            </ion-label>
+            <p>{{model.postData.mcs_enginenumber}}&nbsp;</p>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="stacked">
+                <ion-icon name="lock"></ion-icon>
+                里程数
+            </ion-label>
+            <p>{{model.postData.mcs_mileage}}&nbsp;</p>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="stacked">
+                <ion-icon name="lock"></ion-icon>
+                电机型号
+            </ion-label>
+            <p>{{model.postData.mcs_motormodel}}&nbsp;</p>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="stacked">
+                <ion-icon name="lock"></ion-icon>
+                电池型号
+            </ion-label>
+            <p>{{model.postData.mcs_batterymodel}}&nbsp;</p>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="stacked">
+                <ion-icon name="lock"></ion-icon>
+                电池序列号
+            </ion-label>
+            <p>{{model.postData.mcs_batteryserialnumber}}&nbsp;</p>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="stacked">
+                是否加装
+            </ion-label>
+            <ion-toggle slot="end" color="secondary" checked [(ngModel)]="model.postData.mcs_ismodifiedparts"></ion-toggle>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="stacked">加装描述</ion-label>
+            <ion-textarea placeholder="请输入加装描述信息" [(ngModel)]="model.postData.mcs_modifiedpartscontent"></ion-textarea>
+        </ion-item>
+
+
+        <ion-item-divider color="primary">
+            <ion-label>
+                故障信息
+            </ion-label>
+        </ion-item-divider>
+        <ion-item>
+            <ion-label position="stacked">技术系统</ion-label>
+            <ion-select [(ngModel)]="model.postData.mcs_techsystem" value="" okText="确认" cancelText="取消">
+                <ion-select-option value="10">车身</ion-select-option>
+                <ion-select-option value="20">底盘</ion-select-option>
+                <ion-select-option value="30">电器</ion-select-option>
+                <ion-select-option value="40">三电</ion-select-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item (click)="presentMalFunctionTypeModal()">
+            <ion-label position="stacked">
+                <ion-icon name="search"></ion-icon>
+                故障类别代码
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <p>{{model.viewData.mcs_malfunctiontype_value}}&nbsp;</p>
+        </ion-item>
+
+
+        <ion-item-divider color="primary">
+            <ion-label>
+                其他
+            </ion-label>
+        </ion-item-divider>
+
+        <ion-item>
+            <ion-label position="stacked">技师疑问</ion-label>
+            <ion-textarea placeholder="请输入技师疑问" [(ngModel)]="model.postData.mcs_techqueries"></ion-textarea>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="stacked">检测诊断描述</ion-label>
+            <ion-textarea placeholder="请输入检测诊断描述" [(ngModel)]="model.postData.mcs_diagnosiscontent"></ion-textarea>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="stacked">已更换零件</ion-label>
+            <ion-textarea placeholder="请输入已更换零件" [(ngModel)]="model.postData.mcs_replacedparts"></ion-textarea>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="stacked">具体故障现象</ion-label>
+            <ion-textarea placeholder="请输入具体故障现象" [(ngModel)]="model.postData.mcs_malfunctioncontent"></ion-textarea>
+        </ion-item>
+
+
+        <ion-item-divider color="primary">
+            <ion-label>
+                附件信息
+            </ion-label>
+        </ion-item-divider>
+
+        <ion-item (click)="presentFileModal()">
+            <ion-label position="stacked">
+                <ion-icon name="search"></ion-icon>
+                附件上传
+            </ion-label>
+            <p text-wrap>
+                <span *ngFor="let item of model.fileArray">
+                    <img style="width:80px; height:80px; margin-left:5px" src="{{item['url']}}" />
+                </span>
+            </p>
+        </ion-item>
+
     </ion-list>
+
+    <section style="text-align:center;">
+        <ion-button style="width:40%" color="danger" (click)="save()">保存</ion-button>
+    </section>
+    <br />
+    <br />
 </ion-content>
