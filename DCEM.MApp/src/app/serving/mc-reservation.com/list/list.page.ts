@@ -13,7 +13,7 @@ import { IonInfiniteScroll } from '@ionic/angular';
 })
 export class ListPage implements OnInit {
     @ViewChild(IonInfiniteScroll, null) infiniteScroll: IonInfiniteScroll;
-
+    public tab: any = "all";
     model = {
         name: 'appointmentlistinfo',//模块实体名称
         apiUrl: '/api/appointment-info/GetList',
@@ -22,7 +22,6 @@ export class ListPage implements OnInit {
         data: [],//列表数据
         pageSize: 10,//页数
         page: 1,//分页
-        sort: 'mcs_appointmentinfoid desc',//排序的参数
         isending: false,//是否加载完成
         nodata: false,
         aLLTotalCount:0,//总条数
@@ -89,16 +88,12 @@ export class ListPage implements OnInit {
     //展示数据
     showlist(event) {
         this._page.loadingShow();
-        console.log("地址:" + this.model.apiUrl, "预约状态:" + this.model.status, "搜索:" + this.model.seachkey, "排序:" + this.model.sort, "页条数:" + this.model.pageSize, "页数:" + this.model.page);
-        this._http.get(this.model.apiUrl,
+        this._http.getForToaken(this.model.apiUrl,
             {
-                params: {
-                    status: this.model.status,
-                    seachkey: this.model.seachkey,
-                    sort: this.model.sort,
-                    pageSize: this.model.pageSize,
-                    page: this.model.page
-                }
+                "status": this.model.status,
+                "seachkey": this.model.seachkey,
+                "pageSize": this.model.pageSize,
+                "page": this.model.page
             },
             (res: any) => {
                 if (res.Results !== null) {

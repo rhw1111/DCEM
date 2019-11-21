@@ -56,7 +56,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 //预约状态 创建默认是已提交
                 createEntity.Attributes.Add("mcs_drivestatus", 10);
                 BasicAssignment(createEntity, request);
-                await _crmService.Create(createEntity, userInfo.systemuserid);
+                await _crmService.Create(createEntity, userInfo?.systemuserid);
                 reusetCrmEntity.Id = createEntity.Id;
             }
             //编辑预约单
@@ -69,7 +69,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                     updateEntity.Attributes.Add("mcs_drivestatus", request.driveRecord.mcs_drivestatus);
                 }
                 BasicAssignment(updateEntity, request);
-                await _crmService.Update(updateEntity, userInfo.systemuserid);
+                await _crmService.Update(updateEntity, userInfo?.systemuserid);
                 reusetCrmEntity.Id = (Guid)request.driveRecord.mcs_driverecordid;
             }
             validateResult.Data = reusetCrmEntity;
@@ -403,10 +403,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         public async Task<QueryResult<CrmEntity>> QueryDriveCarList(TestDriveCarRequest request)
         {
             var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
-            if (userInfo != null && !string.IsNullOrWhiteSpace(userInfo.mcs_dealerid))
-            {
-                // request.DealerId = Guid.Parse(userInfo.mcs_dealerid);
-            }
+            
             #region 查询结果集
             var fetchString = _driveRecordRepository.QueryDriveCarList(request);
 

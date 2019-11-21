@@ -34,7 +34,10 @@ export class DetailPage implements OnInit {
             mcs_customercomment:"",
             mcs_appointmendescript: "",
             mcs_cancelreasonnew: "",
-            mcs_canceldes:""
+            mcs_canceldes: "",
+            mcs_cancelreasonnewvalue: "",
+            mcs_ordertypevalue: "",
+            mcs_statusvalue:""
 
         },//列表数据
         datalist: [],
@@ -87,6 +90,9 @@ export class DetailPage implements OnInit {
                     this.model.infolist.mcs_customercomment = res["Attributes"]["mcs_customercomment"];
                     this.model.infolist.mcs_appointmendescript = res["Attributes"]["mcs_appointmendescript"];
                     this.model.infolist.mcs_cancelreasonnew = res["Attributes"]["mcs_cancelreasonnew"];
+                    this.model.infolist.mcs_cancelreasonnewvalue = res["Attributes"]["mcs_cancelreasonnew@OData.Community.Display.V1.FormattedValue"];
+                    this.model.infolist.mcs_ordertypevalue = res["Attributes"]["mcs_ordertype@OData.Community.Display.V1.FormattedValue"];
+                    this.model.infolist.mcs_statusvalue = res["Attributes"]["mcs_status@OData.Community.Display.V1.FormattedValue"];
                     this.model.infolist.mcs_canceldes = res["Attributes"]["mcs_canceldes"];
                     console.log(res);
                 }
@@ -166,7 +172,7 @@ export class DetailPage implements OnInit {
 
     //返回数据为空，默认“--”
     SetDefaultValue(data) {
-        if (data == null || data == undefined) {
+        if (data == null || data == undefined || data=='') {
             return '--';;
         }
         else {
