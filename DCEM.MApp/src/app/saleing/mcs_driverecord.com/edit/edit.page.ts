@@ -61,8 +61,7 @@ export class EditPage implements OnInit {
             if (params['actionCode'] != null && params['actionCode'] != undefined) {
                 this.model.actionCode = params['actionCode'];
                 var drivestatus=this.model.driveRecord["mcs_drivestatus"]
-                //if (this.model.actionCode == 3 && (drivestatus == 10 || drivestatus == 11)) {
-                   if (this.model.actionCode == 3) {
+                if (this.model.actionCode == 3 && (drivestatus == 10 || drivestatus == 11)) {
                     this.model.ifSchedule = true;
                     this.model.ifSave = false;
                     //试驾车辆
