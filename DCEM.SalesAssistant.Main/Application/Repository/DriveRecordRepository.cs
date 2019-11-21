@@ -203,7 +203,12 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
       <all-attributes />
     <filter type='and'> 
       <condition attribute='mcs_driverecordid' operator='eq'   uitype='mcs_driverecord' value='{id}' />
-    </filter>  
+    </filter> 
+   <link-entity name='mcs_driverecord' from='mcs_driverecordid' to='mcs_driverecordid' visible='false' link-type='outer' >
+         <link-entity name='mcs_carmodel' from='mcs_carmodelid' to='mcs_carmodel' visible='false' link-type='outer' >
+          <attribute name='mcs_name' alias='carmodelname'/> 
+         </link-entity>
+   </link-entity>
   </entity>
 </fetch>";
                 return XDocument.Parse(fetchXml);

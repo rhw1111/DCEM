@@ -2,8 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { OptionSetService } from '../../saleing.ser/optionset.service';
-import { IonSegment } from '@ionic/angular';
-import { getDefaultSettings } from 'http2';
+import { IonSegment } from '@ionic/angular'; 
 
 @Component({
   selector: 'app-detail',
