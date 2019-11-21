@@ -159,26 +159,22 @@
 
     </div>
 
-
-    <section style="text-align:center;" *ngIf="mod.data.detail.mcs_drivestatus == 10">
-      <ion-button style="width:80%" color="primary" (click)="endOnClick()" *ngIf="mod.data.detail.mcs_drivestatus==null">结束试驾
-      </ion-button>
-    </section>
+ 
     <ion-row class="ios hydrated" *ngIf="mod.data.detail.mcs_drivestatus == 11 || mod.data.detail.mcs_drivestatus == 12">
       <ion-col offset-4="" class="ios hydrated">
         <section style="text-align:center;">
-          <ion-button style="width:80%" color="danger" (click)="cancelOnClick()">预约取消</ion-button>
+          <ion-button style="width:80%" color="danger"  [routerLink]="['/saleing/driverecord/edit']"  [queryParams]="{actionCode:'4'}">预约取消</ion-button>
         </section>
       </ion-col>
       <ion-col class="ios hydrated">
         <section style="text-align:center;">
-          <ion-button style="width:80%" color="primary" (click)="beginOnClick()" *ngIf="mod.data.detail.mcs_drivestatus == 11">排程</ion-button>
-          <ion-button style="width:80%" color="primary" (click)="beginOnClick()" *ngIf="mod.data.detail.mcs_drivestatus == 12">开始试驾</ion-button>
+          <ion-button style="width:80%" color="primary"  [routerLink]="['/saleing/driverecord/edit']"  [queryParams]="{actionCode:'3'}"   *ngIf="mod.data.detail.mcs_drivestatus == 11">排程</ion-button>
+          <ion-button style="width:80%" color="primary" (click)="beginOnClick(mod.data.detail.id)" *ngIf="mod.data.detail.mcs_drivestatus == 12">开始试驾</ion-button>
         </section>
       </ion-col>
     </ion-row>
     <section style="text-align:center;" *ngIf="mod.data.detail.mcs_drivestatus==14">
-      <ion-button style="width:80%" color="primary" (click)="endOnClick()" >结束试驾
+      <ion-button style="width:80%" color="primary" (click)="endOnClick(mod.data.detail.id)" >结束试驾
       </ion-button>
     </section>
   </div>
@@ -190,16 +186,14 @@
       <ion-icon name="arrow-dropup"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="top">
-      <ion-fab-button color="success" [routerLink]="['/saleing/driverecord/edit']">
-         附件  
+      <ion-fab-button color="success" [routerLink]="['/saleing/driverecord/upload']">
+        <ion-icon name="cloud-upload"></ion-icon>
+      </ion-fab-button> 
+     
+      <ion-fab-button [routerLink]="['/saleing/driverecord/edit']"  [queryParams]="{actionCode:'2'}"  *ngIf="mod.data.detail.mcs_drivestatus==10 || mod.data.detail.mcs_drivestatus==11 || mod.data.detail.mcs_drivestatus==12 " color="warning" ><ion-icon name="create"></ion-icon></ion-fab-button>
+      <ion-fab-button color="primary" [routerLink]="['/saleing/driverecord/feedback']"  [queryParams]="{id:mod.data.detail.id}">
+        反馈 
       </ion-fab-button>
-      <ion-fab-button color="success" [routerLink]="['/saleing/driverecord/edit']">
-        排程
-      </ion-fab-button>
-      <ion-fab-button color="success" [routerLink]="['/saleing/driverecord/edit']">
-        问题 
-      </ion-fab-button>
-      <ion-fab-button *ngIf="mod.data.detail.mcs_drivestatus==10 || mod.data.detail.mcs_drivestatus==11 || mod.data.detail.mcs_drivestatus==12 " color="danger" (click)="deleteOnClick()"><ion-icon name="trash"></ion-icon></ion-fab-button>
     </ion-fab-list>
   </ion-fab>
   
