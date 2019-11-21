@@ -100,7 +100,6 @@
       "cordova-plugin-file-transfer": {}
     },
     "platforms": [
-      "android",
       "ios",
       "browser"
     ]

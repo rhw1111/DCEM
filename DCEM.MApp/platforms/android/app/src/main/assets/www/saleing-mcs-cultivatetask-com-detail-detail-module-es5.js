@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n      <ion-buttons slot=\"start\">\r\n          <ion-back-button text=\"返回\" defaultHref=\"/saleing/cultivatetask/list\"></ion-back-button>\r\n      </ion-buttons>\r\n      <ion-title>培育任务详情</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-divider color=\"primary\">\r\n          <ion-label>\r\n            线索信息\r\n          </ion-label>\r\n        </ion-item-divider>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              姓名\r\n            </h2>\r\n            <p>{{model.onlyLeadData.mcs_name}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              手机\r\n            </h2>\r\n            <p>{{model.onlyLeadData.mcs_mobilephone}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              线索来源\r\n            </h2>\r\n            <p>{{model.onlyLeadData.mcs_leadorigin}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              称呼\r\n            </h2>\r\n            <p>{{model.onlyLeadData.mcs_gender}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              评分\r\n            </h2>\r\n            <p>{{model.onlyLeadData.mcs_accountpoints}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              用车省份\r\n            </h2>\r\n            <p>{{model.onlyLeadData.mcs_usecarprovince}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              用车城市\r\n            </h2>\r\n            <p>{{model.onlyLeadData.mcs_usecarcity}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n       \r\n        <ion-item-divider color=\"primary\">\r\n          <ion-label>\r\n            培育信息\r\n          </ion-label>\r\n        </ion-item-divider>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              主题\r\n            </h2>\r\n            <p>{{model.activityData.mcs_name}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              重要级别\r\n            </h2>\r\n            <p>{{model.activityData.mcs_importantlevel}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              结束时间\r\n            </h2>\r\n            <p>{{model.activityData.mcs_endtime}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              本次跟进内容\r\n            </h2>\r\n            <p>{{model.activityData.mcs_thisfollowupcontent}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>  \r\n        <ion-item>\r\n            <ion-label>\r\n              <h2>\r\n                下次跟进时间\r\n              </h2>\r\n              <p>{{model.activityData.mcs_nextfollowuptime}}&nbsp;</p>\r\n            </ion-label>\r\n          </ion-item>\r\n          <ion-item>\r\n            <ion-label>\r\n              <h2>\r\n                  下次跟进内容\r\n              </h2>\r\n              <p>{{model.activityData.mcs_nextfollowupcontent}}&nbsp;</p>\r\n            </ion-label>\r\n          </ion-item>  \r\n      </ion-list>\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n      <ion-buttons slot=\"start\">\r\n          <ion-back-button text=\"返回\" defaultHref=\"/saleing/cultivatetask/list\"></ion-back-button>\r\n      </ion-buttons>\r\n      <ion-title>培育任务详情</ion-title>\r\n      <ion-buttons slot=\"end\">\r\n        <ion-menu-button></ion-menu-button>\r\n    </ion-buttons>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-divider color=\"primary\">\r\n          <ion-label>\r\n            线索信息\r\n          </ion-label>\r\n        </ion-item-divider>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              姓名\r\n            </h2>\r\n            <p>{{model.onlyLeadData.mcs_name}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              手机\r\n            </h2>\r\n            <p>{{model.onlyLeadData.mcs_mobilephone}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              线索来源\r\n            </h2>\r\n            <p>{{model.onlyLeadData.mcs_leadorigin}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              称呼\r\n            </h2>\r\n            <p>{{model.onlyLeadData.mcs_gender}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              评分\r\n            </h2>\r\n            <p>{{model.onlyLeadData.mcs_accountpoints}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              用车省份\r\n            </h2>\r\n            <p>{{model.onlyLeadData.mcs_usecarprovince}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              用车城市\r\n            </h2>\r\n            <p>{{model.onlyLeadData.mcs_usecarcity}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n       \r\n        <ion-item-divider color=\"primary\">\r\n          <ion-label>\r\n            培育信息\r\n          </ion-label>\r\n        </ion-item-divider>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              主题\r\n            </h2>\r\n            <p>{{model.activityData.mcs_name}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              重要级别\r\n            </h2>\r\n            <p>{{model.activityData.mcs_importantlevel}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label>\r\n              <h2>\r\n                任务状态\r\n              </h2>\r\n              <p>{{model.activityData.mcs_activitystatus}}&nbsp;</p>\r\n            </ion-label>\r\n          </ion-item>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              结束时间\r\n            </h2>\r\n            <p>{{model.activityData.mcs_endtime}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n          <ion-label>\r\n            <h2>\r\n              本次跟进内容\r\n            </h2>\r\n            <p>{{model.activityData.mcs_thisfollowupcontent}}&nbsp;</p>\r\n          </ion-label>\r\n        </ion-item>  \r\n        <ion-item>\r\n            <ion-label>\r\n              <h2>\r\n                下次跟进时间\r\n              </h2>\r\n              <p>{{model.activityData.mcs_nextfollowuptime}}&nbsp;</p>\r\n            </ion-label>\r\n          </ion-item>\r\n          <ion-item>\r\n            <ion-label>\r\n              <h2>\r\n                  下次跟进内容\r\n              </h2>\r\n              <p>{{model.activityData.mcs_nextfollowupcontent}}&nbsp;</p>\r\n            </ion-label>\r\n          </ion-item>  \r\n      </ion-list>\r\n     \r\n      <ion-fab *ngIf=\"model.activityData.mcs_activitystatus=='open'\" vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\r\n        <ion-fab-button>\r\n            <ion-icon name=\"arrow-dropup\"></ion-icon>\r\n        </ion-fab-button>\r\n        <ion-fab-list side=\"top\">\r\n            <ion-fab-button [routerLink]=\"['/saleing/cultivatetask/edit']\" [queryParams]=\"{id:model.activityData.mcs_activityid}\" title=\"编辑\" color=\"success\" >\r\n                编辑\r\n            </ion-fab-button>\r\n            <ion-fab-button  title=\"完成\" color=\"success\" (click)=\"TaskFinish()\">\r\n                完成\r\n            </ion-fab-button>\r\n           \r\n        </ion-fab-list>\r\n    </ion-fab>\r\n\r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -104,6 +104,7 @@ var DetailPage = /** @class */ (function () {
         this.dateformat = dateformat;
         this.model = {
             apiUrlInfo: '/api/only-lead/GetAcvitityDetail',
+            addoreditUrl: '/api/activity/addoredit',
             activityData: {
                 mcs_activityid: "",
                 mcs_name: "",
@@ -111,7 +112,8 @@ var DetailPage = /** @class */ (function () {
                 mcs_endtime: "",
                 mcs_thisfollowupcontent: "",
                 mcs_nextfollowuptime: "",
-                mcs_nextfollowupcontent: "" //下次跟进内容
+                mcs_nextfollowupcontent: "",
+                mcs_activitystatus: "" //任务状态
             },
             onlyLeadData: {
                 mcs_onlyleadid: "",
@@ -153,6 +155,7 @@ var DetailPage = /** @class */ (function () {
                 _this.model.activityData.mcs_thisfollowupcontent = res["ActivityInfo"]["Attributes"]["mcs_thisfollowupcontent"];
                 _this.model.activityData.mcs_nextfollowuptime = _this.dateformat.FormatToDateTime(res["ActivityInfo"]["Attributes"]["mcs_nextfollowuptime"]);
                 _this.model.activityData.mcs_nextfollowupcontent = res["ActivityInfo"]["Attributes"]["mcs_nextfollowupcontent"];
+                _this.model.activityData.mcs_activitystatus = _this.optionset.GetOptionSetNameByValue("mcs_activitystatus", res["ActivityInfo"]["Attributes"]["mcs_activitystatus"]);
             }
             //绑定唯一线索信息
             if (res.OnlyLeadInfo != null) {
@@ -168,6 +171,38 @@ var DetailPage = /** @class */ (function () {
         }, function (err) {
             _this._page.alert("消息提示", "数据加载异常");
             _this._page.loadingHide();
+        });
+    };
+    //任务完成
+    DetailPage.prototype.TaskFinish = function () {
+        var _this = this;
+        this._page.confirm("确认提示", "确定完成该任务？", function () {
+            _this.UpdateState();
+        });
+    };
+    DetailPage.prototype.UpdateState = function () {
+        var _this = this;
+        debugger;
+        var postData = {};
+        postData["id"] = this.model.activityData.mcs_activityid;
+        postData["mcs_activitystatus"] = 1; //已完成
+        postData["mcs_endtime"] = new Date();
+        this._page.loadingShow();
+        this._http.post(this.model.addoreditUrl, postData, function (res) {
+            _this._page.loadingHide();
+            console.log(res);
+            if (res.Result == true) {
+                var that = _this;
+                _this._page.alert("消息提示", "操作成功", function () {
+                    _this.pageOnBind(_this.model.activityData.mcs_activityid);
+                });
+            }
+            else {
+                _this._page.alert("消息提示", "操作失败");
+            }
+        }, function (err) {
+            _this._page.loadingHide();
+            _this._page.alert("消息提示", "操作失败");
         });
     };
     DetailPage.ctorParameters = function () { return [

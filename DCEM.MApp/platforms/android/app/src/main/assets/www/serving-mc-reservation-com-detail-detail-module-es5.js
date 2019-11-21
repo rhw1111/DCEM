@@ -145,10 +145,8 @@ var DetailPage = /** @class */ (function () {
     DetailPage.prototype.pageOnBind = function (id) {
         var _this = this;
         this._page.loadingShow();
-        this._http.get(this.model.apiUrlDetail, {
-            params: {
-                entityid: id,
-            }
+        this._http.getForToaken(this.model.apiUrlDetail, {
+            "entityid": id,
         }, function (res) {
             if (res !== null) {
                 _this.model.infolist.mcs_appointmentinfoid = res.Id;
