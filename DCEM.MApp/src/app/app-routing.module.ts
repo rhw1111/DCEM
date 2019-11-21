@@ -230,7 +230,7 @@ const routes: Routes = [
                 children: [
 
                     { path: 'list', loadChildren: './saleing/mcs_installationorder/list/list.module#ListPageModule' },
-                    //{ path: 'detail', loadChildren: './saleing/mcs_installationorder/detail/detail.module#DetailPageModule' }
+                    { path: 'detail', loadChildren: './saleing/mcs_installationorder/detail/detail.module#DetailPageModule' }
                 ]
             },
              {
@@ -255,6 +255,8 @@ const routes: Routes = [
     { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' },
     { path: 'fileupload', loadChildren: './serving/serving.ser/components/fileupload/fileupload.module#FileuploadPageModule' },
   { path: 'list', loadChildren: './saleing/mcs_installationorder/list/list.module#ListPageModule' },
+  { path: 'detail', loadChildren: './saleing/mcs_installationorder/detail/detail.module#DetailPageModule' },
+
  
 
 
