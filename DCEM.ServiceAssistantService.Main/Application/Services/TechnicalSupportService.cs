@@ -308,7 +308,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
             }
             #endregion
 
-            #region 更新维修项目
+            #region 更新经销商附件
             foreach (var fileEntity in request.fileEntityArray)
             {
                 var attachmentGuid = Guid.NewGuid();
@@ -319,7 +319,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 attachmentEntity.Attributes.Add("mcs_fileurl", fileEntity.mcs_fileurl);
                 await _crmService.Create(attachmentEntity);
             }
-            #endregion
+            //#endregion
 
 
             return guid;
