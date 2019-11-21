@@ -8,6 +8,7 @@ import { ScSelectComponent } from 'app/serving/serving.ser/components/sc-select/
 import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
 import { SelectSystemuserComponent } from 'app/base/base.ser/components/select-systemuser/select-systemuser.component';
 import { SelectMalFunctionTypeComponent } from 'app/serving/serving.ser/components/select-malfunctiontype/select.malfunctiontype.component';
+import { SelectFileEditComponent } from 'app/serving/serving.ser/components/select-file-edit/select-file-edit.component';
 let EditPage = class EditPage {
     constructor(_http, _page, _valid, _userInfo, modalCtrl, activeRoute) {
         this._http = _http;
@@ -54,7 +55,8 @@ let EditPage = class EditPage {
                 mcs_mileage: 0,
                 mcs_repairdate: '',
                 mcs_cartypeid: '',
-            }
+            },
+            fileArray: []
         };
     }
     ngOnInit() {
@@ -159,6 +161,19 @@ let EditPage = class EditPage {
                         this.model.viewData.mcs_cartypeidname = serviceproxymodel.mcs_cartypeidname;
                     }
                 }
+            }
+        });
+    }
+    //选择附件模式窗口
+    presentFileModal() {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            const modalWin = yield this.modalCtrl.create({
+                component: SelectFileEditComponent
+            });
+            yield modalWin.present();
+            const { data } = yield modalWin.onDidDismiss();
+            if (data.command === 1) {
+                this.model.fileArray = data.fileArray;
             }
         });
     }

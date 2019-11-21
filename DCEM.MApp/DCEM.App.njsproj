@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{f26cede4-f02d-4382-a6bd-49c0cb89d2aa}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <StartupFile />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -80,6 +80,16 @@
     <Content Include="src\app\saleing\mcs-onlylead.com\list\list.page.scss" />
     <Content Include="src\app\saleing\mcs-onlylead.com\success\success.page.html" />
     <Content Include="src\app\saleing\mcs-onlylead.com\success\success.page.scss" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\calendar\calendar.page.html" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\calendar\calendar.page.scss" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\detail\detail.page.html" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\detail\detail.page.scss" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\edit\edit.page.html" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\edit\edit.page.scss" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\list\list.page.html" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\list\list.page.scss" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\success\success.page.html" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\success\success.page.scss" />
     <Content Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.html" />
     <Content Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.scss" />
     <Content Include="src\app\saleing\saleing.ser\components\select-reservationconfiguration\select-reservationconfiguration.component.html" />
@@ -655,6 +665,21 @@
     <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\success\success.module.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\success\success.page.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\success\success.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\calendar\calendar.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\calendar\calendar.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\calendar\calendar.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\detail\detail.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\detail\detail.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\detail\detail.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\edit\edit.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\edit\edit.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\edit\edit.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\list\list.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\list\list.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\list\list.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\success\success.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\success\success.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\success\success.page.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-reservationconfiguration\select-reservationconfiguration.component.spec.ts" />
@@ -973,6 +998,13 @@
     <Folder Include="src\app\saleing\mcs-onlylead.com\list\" />
     <Folder Include="src\app\saleing\mcs-onlylead.com\success\" />
     <Folder Include="src\app\saleing\mcs-deliverycentercarstock.com\" />
+    <Folder Include="src\app\saleing\mcs_driverecord.com\" />
+    <Folder Include="src\app\saleing\mcs_driverecord.com\calendar\" />
+    <Folder Include="src\app\saleing\mcs_driverecord.com\detail\" />
+    <Folder Include="src\app\saleing\mcs_driverecord.com\edit\" />
+    <Folder Include="src\app\saleing\mcs_driverecord.com\list\" />
+    <Folder Include="src\app\saleing\mcs_driverecord.com\schedule\" />
+    <Folder Include="src\app\saleing\mcs_driverecord.com\success\" />
     <Folder Include="src\app\saleing\saleing.ser\" />
     <Folder Include="src\app\saleing\saleing.ser\components\" />
     <Folder Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\" />

@@ -171,6 +171,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
                 var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
   <entity name='mcs_attachment'>
     <attribute name='mcs_filetype' />
+    <attribute name='mcs_filename' />
     <attribute name='mcs_fileurl' />
     <attribute name='mcs_code' />
     <attribute name='mcs_filesize' /> 

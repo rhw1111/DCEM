@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/home/tabs\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>我的</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-button [routerLink]=\"['/serving/home/tabs']\">\r\n                <ion-icon slot=\"icon-only\" name=\"home\" [routerLink]=\"['/serving/home/tabs']\"></ion-icon>\r\n            </ion-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n</ion-header>\r\n<ion-content color=\"light\">\r\n    <ion-list lines=\"full\">\r\n        <ion-item>\r\n            <ion-icon color=\"primary\" slot=\"start\" name=\"person\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h2>张三</h2>\r\n                <p>15088888888</p>\r\n            </ion-label>\r\n        </ion-item>\r\n\r\n    </ion-list>\r\n\r\n    <ion-list lines=\"full\">\r\n        <ion-item [routerLink]=\"['/serving/mycustomer/list']\">\r\n            <ion-icon color=\"primary\" slot=\"start\" name=\"contacts\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>我的客户</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n\r\n    <ion-list lines=\"full\">\r\n        <ion-item>\r\n            <ion-icon color=\"secondary\" slot=\"start\" name=\"alarm\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>我的预约</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item [routerLink]=\"['/serving/ri/list']\">\r\n            <ion-icon color=\"tertiary\" slot=\"start\" name=\"clipboard\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>我的问诊</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item [routerLink]=\"['/serving/sc/list']\">\r\n            <ion-icon color=\"success\" slot=\"start\" name=\"hammer\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>我的维修</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-icon color=\"danger\" slot=\"start\" name=\"happy\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>技术支持</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n\r\n    <ion-list lines=\"full\">\r\n        <ion-item>\r\n            <ion-icon color=\"warning\" slot=\"start\" name=\"settings\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>系统设置</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item [routerLink]=\"['/fileupload-test']\">\r\n            <ion-icon color=\"warning\" slot=\"start\" name=\"settings\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>附件上传测试</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/home/tabs\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>我的</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-button [routerLink]=\"['/serving/home/tabs']\">\r\n                <ion-icon slot=\"icon-only\" name=\"home\" [routerLink]=\"['/serving/home/tabs']\"></ion-icon>\r\n            </ion-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n</ion-header>\r\n<ion-content color=\"light\">\r\n    <ion-list lines=\"full\">\r\n        <ion-item>\r\n            <ion-icon color=\"primary\" slot=\"start\" name=\"person\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h2>张三</h2>\r\n                <p>15088888888</p>\r\n            </ion-label>\r\n        </ion-item>\r\n\r\n    </ion-list>\r\n\r\n    <ion-list lines=\"full\">\r\n        <ion-item [routerLink]=\"['/serving/mycustomer/list']\">\r\n            <ion-icon color=\"primary\" slot=\"start\" name=\"contacts\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>我的客户</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n\r\n    <ion-list lines=\"full\">\r\n        <ion-item>\r\n            <ion-icon color=\"secondary\" slot=\"start\" name=\"alarm\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>我的预约</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item [routerLink]=\"['/serving/ri/list']\">\r\n            <ion-icon color=\"tertiary\" slot=\"start\" name=\"clipboard\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>我的问诊</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item [routerLink]=\"['/serving/sc/list']\">\r\n            <ion-icon color=\"success\" slot=\"start\" name=\"hammer\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>我的维修</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-icon color=\"danger\" slot=\"start\" name=\"happy\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>技术支持</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n\r\n    <ion-list lines=\"full\">\r\n        <ion-item>\r\n            <ion-icon color=\"warning\" slot=\"start\" name=\"settings\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>系统设置</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item (click)=\"presentFileModal()\">\r\n            <ion-icon color=\"warning\" slot=\"start\" name=\"settings\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>附件上传</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <!--<ion-item [routerLink]=\"['/fileupload']\">\r\n            <ion-icon color=\"warning\" slot=\"start\" name=\"settings\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>附件上传2</h3>\r\n            </ion-label>\r\n        </ion-item>-->\r\n    </ion-list>\r\n\r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -82,20 +82,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MyworkPage", function() { return MyworkPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var app_serving_serving_ser_components_select_file_edit_select_file_edit_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/serving/serving.ser/components/select-file-edit/select-file-edit.component */ "./src/app/serving/serving.ser/components/select-file-edit/select-file-edit.component.ts");
+
+
 
 
 let MyworkPage = class MyworkPage {
-    constructor() { }
+    constructor(_modalCtrl) {
+        this._modalCtrl = _modalCtrl;
+    }
     ngOnInit() {
     }
+    //ѡ�񸽼�
+    presentFileModal() {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            const modal = yield this._modalCtrl.create({
+                component: app_serving_serving_ser_components_select_file_edit_select_file_edit_component__WEBPACK_IMPORTED_MODULE_3__["SelectFileEditComponent"]
+            });
+            yield modal.present();
+        });
+    }
 };
+MyworkPage.ctorParameters = () => [
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] }
+];
 MyworkPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-mywork',
         template: __webpack_require__(/*! raw-loader!./mywork.page.html */ "./node_modules/raw-loader/index.js!./src/app/serving/home.com/mywork/mywork.page.html"),
         styles: [__webpack_require__(/*! ./mywork.page.scss */ "./src/app/serving/home.com/mywork/mywork.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]])
 ], MyworkPage);
 
 
