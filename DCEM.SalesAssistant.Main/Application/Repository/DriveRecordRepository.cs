@@ -171,6 +171,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
                 var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
   <entity name='mcs_attachment'>
     <attribute name='mcs_filetype' />
+    <attribute name='mcs_filename' />
     <attribute name='mcs_fileurl' />
     <attribute name='mcs_code' />
     <attribute name='mcs_filesize' /> 
@@ -202,7 +203,12 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
       <all-attributes />
     <filter type='and'> 
       <condition attribute='mcs_driverecordid' operator='eq'   uitype='mcs_driverecord' value='{id}' />
-    </filter>  
+    </filter> 
+   <link-entity name='mcs_driverecord' from='mcs_driverecordid' to='mcs_driverecordid' visible='false' link-type='outer' >
+         <link-entity name='mcs_carmodel' from='mcs_carmodelid' to='mcs_carmodel' visible='false' link-type='outer' >
+          <attribute name='mcs_name' alias='carmodelname'/> 
+         </link-entity>
+   </link-entity>
   </entity>
 </fetch>";
                 return XDocument.Parse(fetchXml);

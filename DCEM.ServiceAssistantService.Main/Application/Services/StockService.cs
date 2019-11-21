@@ -46,7 +46,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
                     </filter>";
             }
             filter += @$"
-    <link-entity name='mcs_spmdspstock' from='mcs_partid' to='mcs_partsid' alias='a'>
+    <link-entity name='mcs_spmdspstock' from='mcs_partid' to='mcs_partsid' link-type='outer' alias='a'>
         <all-attributes/>
         <filter type='and'>
             <condition attribute='statecode' operator='eq' value='0' />;
