@@ -64,6 +64,7 @@ AppModule = tslib_1.__decorate([
             SelectRepairitemtypedetailComponent,
             SelectAppointmentinfoComponent,
             SelectFileEditComponent,
+            DragrouteComponent
         ],
         entryComponents: [
             ScSelectComponent,
@@ -87,6 +88,7 @@ AppModule = tslib_1.__decorate([
             SelectRepairitemtypedetailComponent,
             SelectAppointmentinfoComponent,
             SelectFileEditComponent,
+            DragrouteComponent
         ],
         imports: [BrowserModule,
             IonicModule.forRoot({ mode: 'ios' }),

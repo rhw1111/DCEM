@@ -222,13 +222,20 @@ const routes = [
                 ]
             },
             {
+                path: 'installationorder',
+                children: [
+                    { path: 'list', loadChildren: './saleing/mcs_installationorder/list/list.module#ListPageModule' },
+                ]
+            },
+            {
                 path: 'driverecord',
                 children: [
                     { path: 'list', loadChildren: './saleing/mcs_driverecord.com/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './saleing/mcs_driverecord.com/detail/detail.module#DetailPageModule' },
                     { path: 'edit', loadChildren: './saleing/mcs_driverecord.com/edit/edit.module#EditPageModule' },
                     { path: 'success', loadChildren: './saleing/mcs_driverecord.com/success/success.module#SuccessPageModule' },
-                    { path: 'calendar', loadChildren: './saleing/mcs_driverecord.com/calendar/calendar.module#CalendarPageModule' }
+                    { path: 'calendar', loadChildren: './saleing/mcs_driverecord.com/calendar/calendar.module#CalendarPageModule' },
+                    { path: 'feedback', loadChildren: './saleing/mcs_driverecord.com/feedback/feedback.module#FeedbackPageModule' }
                 ]
             }
         ]
@@ -241,6 +248,7 @@ const routes = [
     },
     { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' },
     { path: 'fileupload', loadChildren: './serving/serving.ser/components/fileupload/fileupload.module#FileuploadPageModule' },
+    { path: 'list', loadChildren: './saleing/mcs_installationorder/list/list.module#ListPageModule' },
 ];
 let AppRoutingModule = class AppRoutingModule {
 };

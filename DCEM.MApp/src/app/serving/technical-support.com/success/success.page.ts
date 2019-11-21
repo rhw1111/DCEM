@@ -9,7 +9,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 export class SuccessPage implements OnInit {
 
     mod = {
-        id: ""
+        id: "",
+        no: ""
     };
 
     constructor(
@@ -20,6 +21,7 @@ export class SuccessPage implements OnInit {
         this.activeRoute.queryParams.subscribe((params: Params) => {
             if (params['guid'] != null && params['guid'] != undefined) {
                 this.mod.id = params['guid'];
+                this.mod.no = params['no'];
             }
         });
     }

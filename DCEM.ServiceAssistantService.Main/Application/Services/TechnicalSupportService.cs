@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-
+using Newtonsoft.Json.Linq;
 namespace DCEM.ServiceAssistantService.Main.Application
 {
     public class TechnicalSupportService : ITechnicalSupportService
@@ -139,6 +139,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
             var fetchResponse = await _crmService.Execute(fetchRequest);
             var attachmentlist = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
             #endregion
+
             #region 主机厂附件材料获取
 
             xdoc = await Task<XDocument>.Run(() =>
@@ -300,8 +301,88 @@ namespace DCEM.ServiceAssistantService.Main.Application
             }
             #endregion
 
+
+
+
+
+            return guid;
+        }
+
+
+
+        #region 创建修改
+        /// <summary>
+        /// 创建或编辑实体
+        /// </summary>
+        /// <param name="crmEntity"></param>
+        /// <returns></returns>
+        public async Task<ValidateResult<CrmEntity>> AddOrUpdate(JObject jo)
+        {
+            var supportorderGuid = new Guid();
+            var supportorderEntity = new CrmExecuteEntity("mcs_supportorder", supportorderGuid);
+            var outGuid = Guid.NewGuid();
+            #region 更新主要实体
+            if (jo.ContainsKey("Id") && Guid.TryParse(jo["Id"].ToString(), out outGuid))
+            {
+                supportorderGuid = Guid.Parse(jo.Value<string>("Id"));
+                supportorderEntity.Id = supportorderGuid;
+            }
+            if (jo.ContainsKey("mcs_title"))
+                supportorderEntity.Attributes.Add("mcs_title", jo.Value<string>("mcs_title"));
+            if (jo.ContainsKey("mcs_serviceadvisorid") && Guid.TryParse(jo["mcs_serviceadvisorid"].ToString(), out outGuid))
+                supportorderEntity.Attributes.Add("mcs_serviceadvisorid", new CrmEntityReference("systemuser", Guid.Parse(jo.Value<string>("mcs_serviceadvisorid"))));
+            if (jo.ContainsKey("mcs_repairnameid") && Guid.TryParse(jo["mcs_repairnameid"].ToString(), out outGuid))
+                supportorderEntity.Attributes.Add("mcs_repairnameid", new CrmEntityReference("systemuser", Guid.Parse(jo.Value<string>("mcs_repairnameid"))));
+            if (jo.ContainsKey("mcs_serviceorderid") && Guid.TryParse(jo["mcs_serviceorderid"].ToString(), out outGuid))
+                supportorderEntity.Attributes.Add("mcs_serviceorderid", new CrmEntityReference("mcs_serviceproxy", Guid.Parse(jo.Value<string>("mcs_serviceorderid"))));
+            if (jo.ContainsKey("mcs_batterymodel"))
+                supportorderEntity.Attributes.Add("mcs_batterymodel", jo.Value<string>("mcs_batterymodel"));
+            if (jo.ContainsKey("mcs_batteryserialnumber"))
+                supportorderEntity.Attributes.Add("mcs_batteryserialnumber", jo.Value<string>("mcs_batteryserialnumber"));
+            if (jo.ContainsKey("mcs_carplate"))
+                supportorderEntity.Attributes.Add("mcs_carplate", jo.Value<string>("mcs_carplate"));
+            if (jo.ContainsKey("mcs_customerid") && Guid.TryParse(jo["mcs_customerid"].ToString(), out outGuid))
+                supportorderEntity.Attributes.Add("mcs_customerid", new CrmEntityReference("mcs_vehowner", Guid.Parse(jo.Value<string>("mcs_customerid"))));
+            if (jo.ContainsKey("mcs_customername"))
+                supportorderEntity.Attributes.Add("mcs_customername", jo.Value<string>("mcs_customername"));
+            if (jo.ContainsKey("mcs_customerphone"))
+                supportorderEntity.Attributes.Add("mcs_customerphone", jo.Value<string>("mcs_customerphone"));
+            if (jo.ContainsKey("mcs_diagnosiscontent"))
+                supportorderEntity.Attributes.Add("mcs_diagnosiscontent", jo.Value<string>("mcs_diagnosiscontent"));
+            if (jo.ContainsKey("mcs_email"))
+                supportorderEntity.Attributes.Add("mcs_email", jo.Value<string>("mcs_email"));
+            if (jo.ContainsKey("mcs_enginenumber"))
+                supportorderEntity.Attributes.Add("mcs_enginenumber", jo.Value<string>("mcs_enginenumber"));
+            if (jo.ContainsKey("mcs_ismodifiedparts"))
+                supportorderEntity.Attributes.Add("mcs_ismodifiedparts", jo.Value<bool?>("mcs_ismodifiedparts"));
+            if (jo.ContainsKey("mcs_malfunctioncontent"))
+                supportorderEntity.Attributes.Add("mcs_malfunctioncontent", jo.Value<string>("mcs_malfunctioncontent"));
+            if (jo.ContainsKey("mcs_malfunctiontypeid"))
+                supportorderEntity.Attributes.Add("mcs_malfunctiontypeid", new CrmEntityReference("mcs_malfunctiontype", Guid.Parse(jo.Value<string>("mcs_malfunctiontypeid"))));
+            if (jo.ContainsKey("mcs_mileage"))
+                supportorderEntity.Attributes.Add("mcs_mileage", jo.Value<decimal?>("mcs_mileage"));
+            if (jo.ContainsKey("mcs_modifiedpartscontent"))
+                supportorderEntity.Attributes.Add("mcs_modifiedpartscontent", jo.Value<string>("mcs_modifiedpartscontent"));
+            if (jo.ContainsKey("mcs_phone"))
+                supportorderEntity.Attributes.Add("mcs_phone", jo.Value<string>("mcs_phone"));
+            if (jo.ContainsKey("mcs_repairdate"))
+                supportorderEntity.Attributes.Add("mcs_repairdate", jo.Value<DateTime?>("mcs_repairdate").Value.ToUniversalTime());
+            if (jo.ContainsKey("mcs_techsystem"))
+                supportorderEntity.Attributes.Add("mcs_techsystem", jo.Value<int?>("mcs_techsystem"));
+            if (jo.ContainsKey("mcs_cartypeid") && Guid.TryParse(jo["mcs_cartypeid"].ToString(), out outGuid))
+                supportorderEntity.Attributes.Add("mcs_cartypeid", new CrmEntityReference("mcs_cartype", Guid.Parse(jo.Value<string>("mcs_cartypeid"))));
+            if (jo.ContainsKey("Id") && Guid.TryParse(jo["Id"].ToString(), out outGuid))
+            {
+                await _crmService.Update(supportorderEntity);
+            }
+            else
+            {
+                await _crmService.Create(supportorderEntity);
+            }
+            #endregion
+
             #region 删除旧的经销商附件
-            var deleteAttachmentList = await _crmService.RetrieveMultiple("mcs_attachment", $"$filter=_mcs_supportorderid_value eq {guid}");
+            var deleteAttachmentList = await _crmService.RetrieveMultiple("mcs_attachment", $"$filter=_mcs_supportorderid_value eq {supportorderGuid}");
             foreach (var deleteAttachment in deleteAttachmentList.Results)
             {
                 await _crmService.Delete("mcs_attachment", deleteAttachment.Id);
@@ -309,20 +390,31 @@ namespace DCEM.ServiceAssistantService.Main.Application
             #endregion
 
             #region 更新经销商附件
-            foreach (var fileEntity in request.fileEntityArray)
+
+            if (jo.ContainsKey("fileEntityArray"))
             {
-                var attachmentGuid = Guid.NewGuid();
-                var attachmentEntity = new CrmExecuteEntity("mcs_attachment", attachmentGuid);
-                attachmentEntity.Attributes.Add("mcs_supportorderid", new CrmEntityReference("mcs_supportorder", guid));
-                attachmentEntity.Attributes.Add("mcs_filename", fileEntity.mcs_filename);
-                attachmentEntity.Attributes.Add("mcs_filesize", fileEntity.mcs_filesize);
-                attachmentEntity.Attributes.Add("mcs_fileurl", fileEntity.mcs_fileurl);
-                await _crmService.Create(attachmentEntity);
+                var fileArray = jo.Value<JArray>("fileEntityArray");
+                foreach (var attachmentJo in fileArray)
+                {
+                    var attachmentGuid = Guid.NewGuid();
+                    var attachmentEntity = new CrmExecuteEntity("mcs_attachment", attachmentGuid);
+                    attachmentEntity.Attributes.Add("mcs_supportorderid", new CrmEntityReference("mcs_supportorder", supportorderGuid));
+                    attachmentEntity.Attributes.Add("mcs_filename", attachmentJo.Value<string>("mcs_filename"));
+                    attachmentEntity.Attributes.Add("mcs_filesize", attachmentJo.Value<string>("mcs_filesize"));
+                    attachmentEntity.Attributes.Add("mcs_fileurl", attachmentJo.Value<string>("mcs_fileurl"));
+                    await _crmService.Create(attachmentEntity);
+                }
             }
             #endregion
 
 
-            return guid;
+            var validateResult = new ValidateResult<CrmEntity>();
+            var reusetCrmEntity = await _crmService.Retrieve("mcs_supportorder", supportorderGuid, "$select=mcs_supportorderid,mcs_name");
+            validateResult.Data = reusetCrmEntity;
+            validateResult.Result = true;
+            validateResult.Description = "操作成功";
+            return validateResult;
         }
+        #endregion
     }
 }
