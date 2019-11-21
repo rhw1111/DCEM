@@ -63,5 +63,30 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         /// 试驾类型 10-试乘，11-试驾
         /// </summary>
         public int? mcs_drivestatus { get; set; }
+
+        /// <summary>
+        /// 试驾车辆
+        /// </summary>
+        public Guid? mcs_drivecar { get; set; }
+
+        /// <summary>
+        /// 试驾路线
+        /// </summary>
+        public Guid? mcs_appointedrouteid { get; set; }
+
+        /// <summary>
+        /// 取消原因
+        /// </summary>
+        public string mcs_cancelreason { get; set; }
+
+        /// <summary>
+        /// 试驾开始时间
+        /// </summary>
+        public DateTime? mcs_starton { get; set; }
+
+        /// <summary>
+        /// 结束试驾试驾
+        /// </summary>
+        public DateTime? mcs_endon { get; set; }
     }
 }
