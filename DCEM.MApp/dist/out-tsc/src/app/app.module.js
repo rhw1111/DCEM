@@ -31,9 +31,12 @@ import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile';
 import { SelectRepairitemtypeComponent } from 'app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component';
 import { SelectRepairitemtypedetailComponent } from 'app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component';
 import { SelectAppointmentinfoComponent } from 'app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component';
+import { SelectFileEditComponent } from 'app/serving/serving.ser/components/select-file-edit/select-file-edit.component';
+import { DragrouteComponent } from 'app/base/base.ser/components/map/dragroute/dragroute.component';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
+import { FileUploadModule } from 'ng2-file-upload';
 let AppModule = class AppModule {
 };
 AppModule = tslib_1.__decorate([
@@ -60,6 +63,7 @@ AppModule = tslib_1.__decorate([
             SelectRepairitemtypeComponent,
             SelectRepairitemtypedetailComponent,
             SelectAppointmentinfoComponent,
+            SelectFileEditComponent,
         ],
         entryComponents: [
             ScSelectComponent,
@@ -82,9 +86,11 @@ AppModule = tslib_1.__decorate([
             SelectRepairitemtypeComponent,
             SelectRepairitemtypedetailComponent,
             SelectAppointmentinfoComponent,
+            SelectFileEditComponent,
         ],
         imports: [BrowserModule,
             IonicModule.forRoot({ mode: 'ios' }),
+            FileUploadModule,
             AppRoutingModule,
             HttpClientModule,
             IonicStorageModule.forRoot(),
@@ -93,6 +99,7 @@ AppModule = tslib_1.__decorate([
             NgZorroAntdMobileModule
         ],
         providers: [
+            DragrouteComponent,
             StatusBar,
             SplashScreen,
             ImagePicker,

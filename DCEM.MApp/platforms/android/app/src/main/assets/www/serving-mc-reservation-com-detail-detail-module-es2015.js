@@ -140,10 +140,8 @@ let DetailPage = class DetailPage {
     }
     pageOnBind(id) {
         this._page.loadingShow();
-        this._http.get(this.model.apiUrlDetail, {
-            params: {
-                entityid: id,
-            }
+        this._http.getForToaken(this.model.apiUrlDetail, {
+            "entityid": id,
         }, (res) => {
             if (res !== null) {
                 this.model.infolist.mcs_appointmentinfoid = res.Id;

@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/reservation/list\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>创建或编辑预约</ion-title>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list>\r\n        <ion-item-group>\r\n            <ion-item-divider>\r\n                <ion-label>车主资料</ion-label>\r\n            </ion-item-divider>\r\n            <ion-item (click)=\"customerOnClick()\">\r\n                <ion-label position=\"stacked\">姓名<ion-text color=\"danger\">*</ion-text></ion-label>\r\n                <p>{{shareData.appointmentinfo[\"mcs_customername\"]}}&nbsp;</p>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label>车牌号</ion-label>\r\n                <ion-note slot=\"end\">{{shareData.appointmentinfo[\"mcs_carplate\"]}}</ion-note>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label>车主手机</ion-label>\r\n                <ion-note slot=\"end\">{{shareData.appointmentinfo[\"mcs_customerphone\"]}}</ion-note>\r\n            </ion-item>\r\n            <!--<ion-item>\r\n                <ion-label>客户标签</ion-label>\r\n                <ion-note slot=\"end\">无</ion-note>\r\n            </ion-item>-->\r\n          \r\n        </ion-item-group>\r\n        <ion-item-group>\r\n            <ion-item-divider>\r\n                <ion-label>预约信息</ion-label>\r\n            </ion-item-divider>\r\n            <ion-item>\r\n                <ion-text color=\"danger\">*</ion-text><ion-label>服务类型</ion-label>\r\n                <ion-select [(ngModel)]=\"shareData.appointmentinfo['mcs_ordertype']\" placeholder=\"请选择服务类型\" (ionChange)=\"orderTypeChange()\" okText=\"确认\" cancelText=\"取消\">\r\n                    <ion-select-option value=\"10\">汽车美容</ion-select-option>\r\n                    <ion-select-option value=\"20\">钣金喷漆</ion-select-option>\r\n                    <ion-select-option value=\"30\">常规保养</ion-select-option>\r\n                    <ion-select-option value=\"40\">一般维修</ion-select-option>\r\n                    <ion-select-option value=\"50\">保修</ion-select-option>\r\n                    <ion-select-option value=\"60\">其他</ion-select-option>\r\n                </ion-select>\r\n            </ion-item>\r\n            <ion-item >\r\n                <ion-label>\r\n                    <ion-text color=\"danger\">*</ion-text>预约日期\r\n                </ion-label>\r\n                <ion-datetime displayFormat=\"YYYY-MM-DD\" min=\"1997\"  cancelText=\"取消\" doneText=\"确定\" (ionChange)=\"appointmentAtChange()\"  [(ngModel)]=\"shareData.appointmentinfo['mcs_appointmentat']\"></ion-datetime>\r\n            </ion-item>\r\n          \r\n            <ion-item>\r\n                <ion-label position=\"stacked\">预约时段<ion-text color=\"danger\">*</ion-text></ion-label>\r\n                <ion-select [(ngModel)]=\"shareData.appointmentinfo['mcs_appointmentconfigid']\" (ionChange)=\"appointmentConfigChange()\" placeholder=\"请选择时段\" okText=\"确认\" cancelText=\"取消\">\r\n                    <ion-select-option *ngFor=\"let key of objectKeys(model.appointmentConfigOptionMap)\" value=\"{{model.appointmentConfigOptionMap[key].value}}\">\r\n                        {{model.appointmentConfigOptionMap[key].name}}\r\n                    </ion-select-option>\r\n                </ion-select>\r\n\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label>可预约数量</ion-label>\r\n                <ion-note slot=\"end\">{{shareData.appointmentinfo[\"mcs_surplusnum\"]}}</ion-note>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"floating\">客户要求</ion-label>\r\n                <ion-textarea [(ngModel)]=\"shareData.appointmentinfo['mcs_customercomment']\"></ion-textarea>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"floating\">问题描述</ion-label>\r\n                <ion-textarea [(ngModel)]=\"shareData.appointmentinfo['mcs_appointmendescript']\"></ion-textarea>\r\n            </ion-item>\r\n        </ion-item-group>\r\n        <ion-button expand=\"block\" type=\"button\" (click)=\"saveOnClick()\">确定</ion-button>\r\n    </ion-list>\r\n</ion-content>"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/reservation/list\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>创建或编辑预约</ion-title>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list>\r\n        <ion-item-group>\r\n            <ion-item-divider color=\"primary\">\r\n                <ion-label>车主资料</ion-label>\r\n            </ion-item-divider>\r\n            <ion-item (click)=\"customerOnClick()\">\r\n                <ion-label position=\"stacked\">姓名<ion-text color=\"danger\">*</ion-text></ion-label>\r\n                <ion-note>{{shareData.appointmentinfo[\"mcs_customername\"]}}&nbsp;</ion-note>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">车牌号</ion-label>\r\n                <ion-note slot=\"end\">{{shareData.appointmentinfo[\"mcs_carplate\"]}}</ion-note>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">车主手机</ion-label>\r\n                <ion-note slot=\"end\">{{shareData.appointmentinfo[\"mcs_customerphone\"]}}</ion-note>\r\n            </ion-item>\r\n            <!--<ion-item>\r\n                <ion-label>客户标签</ion-label>\r\n                <ion-note slot=\"end\">无</ion-note>\r\n            </ion-item>-->\r\n          \r\n        </ion-item-group>\r\n        <ion-item-group>\r\n            <ion-item-divider color=\"primary\">\r\n                <ion-label>预约信息</ion-label>\r\n            </ion-item-divider>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">服务类型<ion-text color=\"danger\">*</ion-text></ion-label>\r\n                <ion-select [(ngModel)]=\"shareData.appointmentinfo['mcs_ordertype']\" placeholder=\"请选择服务类型\" (ionChange)=\"orderTypeChange()\" okText=\"确认\" cancelText=\"取消\">\r\n                    <ion-select-option value=\"10\">汽车美容</ion-select-option>\r\n                    <ion-select-option value=\"20\">钣金喷漆</ion-select-option>\r\n                    <ion-select-option value=\"30\">常规保养</ion-select-option>\r\n                    <ion-select-option value=\"40\">一般维修</ion-select-option>\r\n                    <ion-select-option value=\"50\">保修</ion-select-option>\r\n                    <ion-select-option value=\"60\">其他</ion-select-option>\r\n                </ion-select>\r\n            </ion-item>\r\n            <ion-item >\r\n                <ion-label position=\"stacked\">预约日期<ion-text color=\"danger\">*</ion-text></ion-label>\r\n                <ion-datetime displayFormat=\"YYYY-MM-DD\" min=\"1997\"  cancelText=\"取消\" doneText=\"确定\" (ionChange)=\"appointmentAtChange()\"  [(ngModel)]=\"shareData.appointmentinfo['mcs_appointmentat']\"></ion-datetime>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">预约时段<ion-text color=\"danger\">*</ion-text></ion-label>\r\n                <ion-select [(ngModel)]=\"shareData.appointmentinfo['mcs_appointmentconfigid']\" (ionChange)=\"appointmentConfigChange()\" placeholder=\"请选择时段\" okText=\"确认\" cancelText=\"取消\">\r\n                    <ion-select-option *ngFor=\"let key of objectKeys(model.appointmentConfigOptionMap)\" value=\"{{model.appointmentConfigOptionMap[key].value}}\">\r\n                        {{model.appointmentConfigOptionMap[key].name}}\r\n                    </ion-select-option>\r\n                </ion-select>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label>可预约数量</ion-label>\r\n                <ion-note slot=\"end\">{{shareData.appointmentinfo[\"mcs_surplusnum\"]}}</ion-note>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">客户要求</ion-label>\r\n                <ion-textarea [(ngModel)]=\"shareData.appointmentinfo['mcs_customercomment']\"></ion-textarea>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">问题描述</ion-label>\r\n                <ion-textarea [(ngModel)]=\"shareData.appointmentinfo['mcs_appointmendescript']\"></ion-textarea>\r\n            </ion-item>\r\n        </ion-item-group>\r\n        <ion-button expand=\"block\" type=\"button\" (click)=\"saveOnClick()\">确定</ion-button>\r\n    </ion-list>\r\n</ion-content>"
 
 /***/ }),
 
@@ -122,9 +122,9 @@ var EditPage = /** @class */ (function () {
             systemuserid: "",
             mcs_dealerid: "",
             appointmentinfoId: null,
-            isOrderTypeChange: false,
-            isAppointmentAtChange: false,
-            isAppointmentConfigChange: false,
+            isOrderTypeChange: true,
+            isAppointmentAtChange: true,
+            isAppointmentConfigChange: true,
             customerId: "",
             appointmentConfigOptionMap: {} //预约时段
         };
@@ -176,10 +176,10 @@ var EditPage = /** @class */ (function () {
                 }
             }
             else {
-                _this._page.alert("消息提示", "客户数据加载异常");
+                _this._page.alert("消息提示", "预约时段数据加载异常");
             }
         }, function (err) {
-            _this._page.alert("消息提示", "客户数据加载异常");
+            _this._page.alert("消息提示", "预约时段数据加载异常");
         });
     };
     //绑定客户信息
@@ -323,13 +323,10 @@ var EditPage = /** @class */ (function () {
             this._page.presentToastError("预约日期必须大于当天日期");
             return;
         }
-        //this.model.postData["actioncode"] = 1;
         this.model.postData["appointmentinfo"] = this.shareData.appointmentinfo;
         //组装预约单
         this.model.postData["appointmentinfo"] = {};
         this.model.postData["appointmentinfo"]["mcs_appointmentinfoid"] = this.model.appointmentinfoId;
-        //this.model.postData["appointmentinfo"]["mcs_dealerid"] = this.model.mcs_dealerid;// 厅店ID
-        //this.model.postData["appointmentinfo"]["mcs_serviceadvisorid"] = this.model.systemuserid;// 服务顾问(当前用户)
         this.model.postData["appointmentinfo"]["mcs_customerid"] = this.shareData.appointmentinfo["mcs_customerid"]; // VIN码关联实体ID
         this.model.postData["appointmentinfo"]["mcs_customername"] = this.shareData.appointmentinfo["mcs_customername"]; // 车主
         this.model.postData["appointmentinfo"]["mcs_carplate"] = this.shareData.appointmentinfo["mcs_carplate"]; // 车牌
@@ -344,7 +341,7 @@ var EditPage = /** @class */ (function () {
         this.model.postData["appointmentinfo"]["mcs_appointmendescript"] = this.shareData.appointmentinfo["mcs_appointmendescript"]; //问题描述
         //this.model.postData["appointmentinfo"]["mcs_status"] =10;//预约状态
         this._page.loadingShow();
-        this._http.post(this.model.postApiUrl, this.model.postData, function (res) {
+        this._http.postForToaken(this.model.postApiUrl, this.model.postData, function (res) {
             _this._page.loadingHide();
             if (res.Result == true) {
                 console.log("res");
@@ -364,12 +361,12 @@ var EditPage = /** @class */ (function () {
     EditPage.prototype.pageOnBind = function (id) {
         var _this = this;
         this._page.loadingShow();
-        this._http.get(this.model.apiUrl, {
-            params: {
-                entityid: id,
-            }
+        this._http.getForToaken(this.model.apiUrl, {
+            "entityid": id,
         }, function (res) {
             if (res !== null) {
+                _this.model.isAppointmentAtChange = false;
+                _this.model.isOrderTypeChange = false;
                 _this.shareData.appointmentinfo["mcs_appointmentinfoid"] = res.Id;
                 _this.shareData.appointmentinfo["mcs_customername"] = res["Attributes"]["mcs_customername"];
                 _this.shareData.appointmentinfo["mcs_carplate"] = res["Attributes"]["mcs_carplate"];
@@ -402,14 +399,12 @@ var EditPage = /** @class */ (function () {
     //预约类型改变事件
     EditPage.prototype.orderTypeChange = function () {
         if (this.model.isOrderTypeChange) {
-            //this.shareData.appointmentinfo["mcs_appointmentconfigname"] = "";
-            //this.shareData.appointmentinfo["mcs_appointmentconfigid"] = null;
             this.model.appointmentConfigOptionMap = {};
             this.shareData.appointmentinfo['mcs_appointmentconfigid'] = null;
             this.shareData.appointmentinfo["mcs_surplusnum"] = null;
             var ordertype = this.shareData.appointmentinfo["mcs_ordertype"];
             var appointmentat = this.FormatToDate(this.shareData.appointmentinfo["mcs_appointmentat"]);
-            if (ordertype != undefined && appointmentat != undefined) {
+            if (ordertype != "" && appointmentat != "") {
                 //处理预约时段
                 this.AppointmentConfigOption(ordertype, appointmentat);
             }
@@ -419,7 +414,6 @@ var EditPage = /** @class */ (function () {
     //预约日期改变
     EditPage.prototype.appointmentAtChange = function () {
         if (this.model.isAppointmentAtChange) {
-            debugger;
             var date = new Date();
             if (this.FormatToDate(date) > this.FormatToDate(this.shareData.appointmentinfo["mcs_appointmentat"])) {
                 this._page.presentToastError("预约日期必须大于当天日期");
@@ -429,7 +423,7 @@ var EditPage = /** @class */ (function () {
             this.model.appointmentConfigOptionMap = {};
             var ordertype = this.shareData.appointmentinfo["mcs_ordertype"];
             var appointmentat = this.FormatToDate(this.shareData.appointmentinfo["mcs_appointmentat"]);
-            if (ordertype != undefined && appointmentat != undefined) {
+            if (ordertype != "" && appointmentat != "") {
                 //处理预约时段
                 this.AppointmentConfigOption(ordertype, appointmentat);
             }
