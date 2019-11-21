@@ -35,5 +35,12 @@ namespace DCEM.SalesAssistant.Main.Application.Services.Contrac
         /// <param name="_request"></param>
         /// <returns></returns>
         Task<QueryResult<CrmEntity>> GetInstallationorderList(InstallationorderRequest _request);
+
+        /// <summary>
+        /// 获取安装单详情
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        Task<CrmEntity> GetInstallationorderDetail(string guid);
     }
 }

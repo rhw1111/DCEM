@@ -56,7 +56,7 @@ namespace DCEM.Web.Controllers
             return detail;
         }
         /// <summary>
-        /// 获取安装单列表接口
+        /// 获取安装单列表接口 
         /// </summary>
         /// <param name="_request"></param>
         /// <returns></returns>
@@ -66,6 +66,19 @@ namespace DCEM.Web.Controllers
         {
             var list = await app.GetInstallationorderList(_request);
             return list;
+        }
+
+        /// <summary>
+        /// 获取安装单详情接口
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("GetInstallationorderDetail")]
+        public async Task<NewtonsoftJsonActionResult<CrmEntity>> GetInstallationorderDetail(InstallationorderDetailRequest _request)
+        {
+            var detail = await app.GetInstallationorderDetail(_request.Guid);
+            return detail;
         }
     }
 }

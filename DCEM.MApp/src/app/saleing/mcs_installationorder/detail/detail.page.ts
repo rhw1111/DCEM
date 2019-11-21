@@ -11,8 +11,8 @@ import { OptionSetService } from '../../saleing.ser/optionset.service';
 export class DetailPage implements OnInit {
  public tab: any = "baseinfo";
   model = {
-    apiUrlInfo: '/api/Installation/GetSurveyorderDetail',
-    data: {},//数据集合
+    apiUrlInfo: '/api/Installation/GetInstallationorderDetail',
+    data: {},//详情数据集合
   }
 
   constructor(
