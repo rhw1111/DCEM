@@ -18,7 +18,7 @@ let EditPage = class EditPage {
         this.modalCtrl = modalCtrl;
         this.activeRoute = activeRoute;
         this.model = {
-            postApiUrl: '/api/tech-support/AddOrEdit',
+            postApiUrl: '/api/tech-support/AddOrUpdate',
             detailApiUrl: '/api/tech-support/GetDetail',
             viewData: {
                 mcs_serviceorderid_name: '',
@@ -77,6 +77,7 @@ let EditPage = class EditPage {
             }
         }, (res) => {
             if (res.TechnicalSupport != null) {
+                this.model.postData.Id = id;
                 this.model.postData.mcs_title = res["TechnicalSupport"]["Attributes"]["mcs_title"];
                 this.model.postData.mcs_serviceorderid = res["TechnicalSupport"]["Attributes"]["_mcs_serviceorderid_value"];
                 this.model.viewData.mcs_serviceorderid_name = res["TechnicalSupport"]["Attributes"]["_mcs_serviceorderid_value@OData.Community.Display.V1.FormattedValue"];
@@ -284,9 +285,12 @@ let EditPage = class EditPage {
             this._page.presentToastError(errMessage);
             return;
         }
+        debugger;
         //请求
         this._page.loadingShow();
         this._http.post(this.model.postApiUrl, this.model.postData, (res) => {
+            debugger;
+            console.log(res);
             if (res != "") {
                 this._page.alert("消息提示", "保存成功！");
                 this._page.goto("/serving/ts/success", { guid: res });
@@ -297,6 +301,7 @@ let EditPage = class EditPage {
             this._page.loadingHide();
         }, (err) => {
             debugger;
+            console.log(err);
             this._page.alert("消息提示", "请求异常");
             this._page.loadingHide();
         });

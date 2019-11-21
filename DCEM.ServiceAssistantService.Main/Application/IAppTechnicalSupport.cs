@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-
+using Newtonsoft.Json.Linq;
 namespace DCEM.ServiceAssistantService.Main.Application
 {
     public interface IAppTechnicalSupport
@@ -29,5 +29,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
         /// <param name="crmEntity"></param>
         /// <returns></returns>
         Task<Guid> AddOrEditEntity(TechnicalSupportRequest request);
+
+        Task<ValidateResult<CrmEntity>> AddOrUpdate(JObject jo);
     }
 }
