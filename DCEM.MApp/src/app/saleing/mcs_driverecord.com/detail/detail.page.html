@@ -199,7 +199,7 @@
       <ion-fab-button color="success" [routerLink]="['/saleing/driverecord/edit']">
         问题 
       </ion-fab-button>
-      <ion-fab-button *ngIf="mod.data.serviceproxy.status===100" color="danger" (click)="deleteOnClick()"><ion-icon name="trash"></ion-icon></ion-fab-button>
+      <ion-fab-button *ngIf="mod.data.detail.mcs_drivestatus==10 || mod.data.detail.mcs_drivestatus==11 || mod.data.detail.mcs_drivestatus==12 " color="danger" (click)="deleteOnClick()"><ion-icon name="trash"></ion-icon></ion-fab-button>
     </ion-fab-list>
   </ion-fab>
   
