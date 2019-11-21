@@ -1003,6 +1003,7 @@
     <Folder Include="src\app\saleing\mcs_driverecord.com\detail\" />
     <Folder Include="src\app\saleing\mcs_driverecord.com\edit\" />
     <Folder Include="src\app\saleing\mcs_driverecord.com\list\" />
+    <Folder Include="src\app\saleing\mcs_driverecord.com\schedule\" />
     <Folder Include="src\app\saleing\mcs_driverecord.com\success\" />
     <Folder Include="src\app\saleing\saleing.ser\" />
     <Folder Include="src\app\saleing\saleing.ser\components\" />
