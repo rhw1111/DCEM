@@ -24,5 +24,19 @@ namespace DCEM.SalesAssistant.Main.Application.Repository.Contrac
         /// <param name="guid"></param>
         /// <returns></returns>
         string GetSurveyorderDetail(Guid guid);
+
+        /// <summary>
+        /// 获取安装单列表
+        /// </summary>
+        /// <param name="_request"></param>
+        /// <returns></returns>
+        string GetInstallationorderList(InstallationorderRequest _request);
+
+        /// <summary>
+        /// 获取安装单详情
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        string GetInstallationorderDetail(Guid guid);
     }
 }

@@ -14,9 +14,9 @@ export class ListPage implements OnInit {
   @ViewChild(IonInfiniteScroll,null) infiniteScroll: IonInfiniteScroll;
   public model: any = {
     name: 'surveyorder',//模块实体名称
-    apiUrl: '/api/Installation/GetSurveyorderList',//请求地址
+    apiUrl: '/api/Installation/GetInstallationorderList',//请求地址
     seachkey: '',//搜索关键字
-    mcs_surveystatus: 0,//勘测单状态
+    mcs_installationstatus: 0,//勘测单状态
     pageSize: 10,//页数
     page: 1,//分页
     sort: '',//排序的参数
@@ -68,12 +68,12 @@ selectTab(status) {
   this.model.page = 1;
   this.model.isending = false;
   if (status != "" && status != undefined) {
-      this.model.mcs_surveystatus = status;
+      this.model.mcs_installationstatus = status;
   }
   else {
-      this.model.mcs_surveystatus = 0;
+      this.model.mcs_installationstatus = 0;
   }
-  console.log(this.model.mcs_surveystatus)
+  console.log(this.model.mcs_installationstatus)
   this.getList(null);
 }
 
@@ -86,7 +86,7 @@ selectTab(status) {
   this._page.loadingShow();
   this._http.postForToaken(this.model.apiUrl,
       {
-        mcs_surveystatus: this.model.mcs_surveystatus,
+        mcs_installationstatus: this.model.mcs_installationstatus,
         SearchKey: this.model.seachkey,
         Sort: this.model.sort,
         PageSize: this.model.pageSize,
@@ -100,11 +100,11 @@ selectTab(status) {
               //绑定数据
               res.Results.forEach(item => {              
                   var obj = {}; 
-                  obj["mcs_surveyorderid"] = item["Attributes"].mcs_surveyorderid;             
+                  obj["mcs_installationorderid"] = item["Attributes"].mcs_installationorderid;             
                   obj["mcs_username"] = item["Attributes"].mcs_username;
                   obj["mcs_userphone"] = item["Attributes"].mcs_userphone;
                   obj["mcs_name"] = item["Attributes"].mcs_name;                    
-                  obj["mcs_surveystatus"] =this.getStatus(item["Attributes"].mcs_surveystatus);              
+                  obj["mcs_installationstatus"] =this.getStatus(item["Attributes"].mcs_installationstatus);              
                   this.model.datalist.push(obj);
 
               });
@@ -133,17 +133,16 @@ selectTab(status) {
 getStatus(statusId){
   var status="";
   switch(statusId){
-    case 10:status="新建";break;
-    case 11:status="已提交";break;
-    case 12:status="审核通过";break;
-    case 13:status="已驳回";break;
-    case 14:status="待勘测";break;
-    case 16:status="勘测完成";break;
-    case 17:status="已反馈";break;
-    case 18:status="已取消";break;
-    case 19:status="待反馈";break;
-    case 20:status="重新登记";break;
-    case 21:status="待派工";break;
+    case 21:status="新建";break;
+    case 30:status="待厅店审核";break;
+    case 32:status="店长驳回";break;
+    case 29:status="已提交";break;
+    case 22:status="待安装";break;
+    case 24:status="安装完成";break;
+    case 25:status="重新登记";break;
+    case 26:status="待反馈";break;
+    case 27:status="已反馈";break;
+    case 28:status="中途结束";break;
   }
   return status;
 

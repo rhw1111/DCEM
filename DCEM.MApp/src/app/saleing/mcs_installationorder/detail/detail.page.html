@@ -1,0 +1,454 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="返回" defaultHref="/saleing/installationorder/list"></ion-back-button>
+    </ion-buttons>
+    <ion-title>安装单详情</ion-title>
+  </ion-toolbar>
+  <!-- <ion-toolbar>
+    <ion-segment [(ngModel)]="tab">
+      <ion-segment-button value="baseinfo" checked >
+        <ion-label>基础信息</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="rightitemuselist">
+        <ion-label>权益项</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="vehordertracklist">
+        <ion-label>透明化状态</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar> -->
+</ion-header>
+
+<ion-content>
+  <div [ngSwitch]="tab">
+    <div *ngSwitchCase="'baseinfo'">
+      <ion-list lines="full">
+        <ion-item-divider color="dark">
+          <ion-label>
+            基础信息
+          </ion-label>
+        </ion-item-divider>
+        <ion-item>
+          <ion-label>
+            <h2>
+              安装单编号
+            </h2>
+            <p>{{model.data.mcs_name}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              门店
+            </h2>
+            <p>{{model.data[getLookupName("mcs_dealerid")]}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>
+            <h2>
+              姓名
+            </h2>
+            <p>{{model.data.mcs_username}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              邮箱
+            </h2>
+            <p>{{model.data.mcs_email}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              手机电话
+            </h2>
+            <p>{{model.data.mcs_userphone}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              VIN
+            </h2>
+            <p>{{model.data.mcs_vin}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              省
+            </h2>
+            <p>{{model.data[getLookupName("mcs_province")]}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              市
+            </h2>
+            <p>{{model.data[getLookupName("mcs_city")]}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              区
+            </h2>
+            <p>{{model.data[getLookupName("mcs_area")]}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              安装地址
+            </h2>
+            <p>{{model.data.mcs_installationaddress}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              详细地址
+            </h2>
+            <p>{{model.data.mcs_detailaddress}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              小区名称
+            </h2>
+            <p>{{model.data.mcs_communityname}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              物业态度
+            </h2>
+            <p>{{model.data.mcs_propertyattitude}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              销售顾问
+            </h2>
+            <p>{{model.data[getLookupName("mcs_salesconsultant")]}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              是否需要立柱
+            </h2>
+            <p>{{model.data[getOptionName("mcs_isneedpillar")]}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              充电桩型号
+            </h2>
+            <p>{{model.data[getLookupName("mcs_chargingpilemodel")]}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              套餐金额
+            </h2>
+            <p>¥{{model.data.mcs_price}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              结算价格
+            </h2>
+            <p>¥{{model.data.mcs_settlementprice}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              下单时间
+            </h2>
+            <p>{{FormatToDateTime(model.data.mcs_ordertime)}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+
+        <ion-item-divider color="dark">
+          <ion-label>
+            安装服务商
+          </ion-label>
+        </ion-item-divider>
+        <ion-item>
+          <ion-label>
+            <h2>
+              安装服务商
+            </h2>
+            <p>{{model.data[getLookupName("mcs_installationproviderid")]}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              安装服务商联系人
+            </h2>
+            <p>{{model.data.mcs_contact}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              预约安装时间
+            </h2>
+            <p>{{FormatToDateTime(model.data.mcs_appointmenttime)}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              安装交付工程师
+            </h2>
+            <p>{{model.data[getLookupName("mcs_installationengineerid")]}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              安装交付工程师电话
+            </h2>
+            <p>{{model.data.mcs_installationengineerphone}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+
+        <ion-item-divider color="dark">
+          <ion-label>
+            安装结果
+          </ion-label>
+        </ion-item-divider>
+        <ion-item>
+          <ion-label>
+            <h2>
+              特殊施工
+            </h2>
+            <p>{{model.data[getLookupName("mcs_specialconstructiondetail")]}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              充电桩编码
+            </h2>
+            <p>{{model.data.mcs_chargingcode}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              安装方式
+            </h2>
+            <p>{{model.data[getOptionName("mcs_installationmethod")]}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              电缆型号
+            </h2>
+            <p>{{model.data.mcs_cablemodel}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              电缆铺设方式
+            </h2>
+            <p>{{model.data.mcs_cableusetype}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              充电桩类型
+            </h2>
+            <p>{{model.data[getOptionName("mcs_chargingtype")]}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              经度
+            </h2>
+            <p>{{model.data.mcs_longitude}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              纬度
+            </h2>
+            <p>{{model.data.mcs_latitude}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              电缆长度
+            </h2>
+            <p>{{model.data.mcs_cablelengthint}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              安装开始时间
+            </h2>
+            <p>{{FormatToDateTime(model.data.mcs_begintime)}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              安装结束时间
+            </h2>
+            <p>{{FormatToDateTime(model.data.mcs_endtime)}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              电源点接入类型
+            </h2>
+            <p>{{model.data.mcs_poweraccesstype}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              报检日期
+            </h2>
+            <p>{{FormatToDate(model.data.mcs_inspectiondate)}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              领取电表与点卡日期
+            </h2>
+            <p>{{FormatToDate(model.data.mcs_receivedate)}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              装表发电日期
+            </h2>
+            <p>{{FormatToDate(model.data.mcs_loadingtabledate)}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              用户签字日期
+            </h2>
+            <p>{{FormatToDate(model.data.mcs_usersignaturedate)}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              安装人
+            </h2>
+            <p>{{model.data.mcs_installationorderman}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              安装人电话
+            </h2>
+            <p>{{model.data.mcs_installationorderphone}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              进展描述
+            </h2>
+            <p>{{model.data.mcs_progressdescription}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              中途结束备注
+            </h2>
+            <p>{{model.data.mcs_endofnote}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div *ngSwitchCase="'rightitemuselist'">
+      <ion-list lines="full">
+          <ion-item-sliding *ngFor="let item of model.RightitemuseList">
+              <ion-item >
+                  <ion-icon slot="start" name="hammer" size="large"></ion-icon>
+                  <ion-label>
+                    <h3>{{item.mcs_name}}</h3>
+                    <p>{{item.mcs_code}}</p>
+                  </ion-label>
+                  <ion-note>
+                    <p>{{item.mcs_amount}}</p>
+                  </ion-note>
+                </ion-item>                              
+          </ion-item-sliding>
+           <ion-row *ngIf="model.RightitemuseList.length==0">
+              <ion-col>
+                <div class="ionattbody">
+                  当前无权益项记录
+                </div>
+              </ion-col>
+          </ion-row>
+      </ion-list>
+    </div>
+    <div *ngSwitchCase="'vehordertracklist'">
+      <ion-list lines="full">
+       <ion-item-sliding *ngFor="let item of model.VehordertrackList">
+          <ion-item >
+              <ion-icon slot="start" name="arrow-round-up" size="large"></ion-icon>
+              <ion-label>
+                <h3>{{item.mcs_optionon}}</h3>
+                <!-- <p>{{item.mcs_rostatus}}</p> -->
+              </ion-label>
+              <ion-note>
+                <p>{{item.mcs_rostatus}}</p>
+              </ion-note>
+            </ion-item>          
+       </ion-item-sliding>
+      <!--  <nz-timeline *ngFor="let item of model.VehordertrackList">
+          <nz-timeline-item>{{item.mcs_optionon}}</nz-timeline-item>       
+        </nz-timeline> -->
+       <!--  <Steps [size]="'small'" [current]="1" *ngFor="let item of model.VehordertrackList">
+          <Step [title]="Finished" [description]="'This is description'">我们</Step>
+          <Step [title]="'In Progress'" [description]="'This is description'"></Step>
+          <Step [title]="'Waiting'" [description]="'This is description'"></Step>
+        </Steps> -->
+       <ion-row *ngIf="model.VehordertrackList.length==0">
+          <ion-col>
+            <div class="ionattbody">
+              当前无记录
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>
