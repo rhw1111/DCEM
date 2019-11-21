@@ -222,6 +222,12 @@ const routes = [
                 ]
             },
             {
+                path: 'installationorder',
+                children: [
+                    { path: 'list', loadChildren: './saleing/mcs_installationorder/list/list.module#ListPageModule' },
+                ]
+            },
+            {
                 path: 'driverecord',
                 children: [
                     { path: 'list', loadChildren: './saleing/mcs_driverecord.com/list/list.module#ListPageModule' },
@@ -241,6 +247,7 @@ const routes = [
     },
     { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' },
     { path: 'fileupload', loadChildren: './serving/serving.ser/components/fileupload/fileupload.module#FileuploadPageModule' },
+    { path: 'list', loadChildren: './saleing/mcs_installationorder/list/list.module#ListPageModule' },
 ];
 let AppRoutingModule = class AppRoutingModule {
 };

@@ -55,6 +55,7 @@ let EditPage = class EditPage {
                 mcs_mileage: 0,
                 mcs_repairdate: '',
                 mcs_cartypeid: '',
+                fileEntityArray: []
             },
             fileArray: []
         };
@@ -105,6 +106,8 @@ let EditPage = class EditPage {
                 this.model.postData.mcs_malfunctioncontent = res["TechnicalSupport"]["Attributes"]["mcs_malfunctioncontent"];
                 this.model.postData.mcs_cartypeid = res["TechnicalSupport"]["Attributes"]["_mcs_cartypeid_value"];
                 this.model.viewData.mcs_cartypeid_vale = res["TechnicalSupport"]["Attributes"]["_mcs_mcs_cartypeid_value@OData.Community.Display.V1.FormattedValue"];
+                if (this.model.fileArray != null && this.model.fileArray.length > 0) {
+                }
             }
             this._page.loadingHide();
         }, (err) => {
@@ -173,7 +176,15 @@ let EditPage = class EditPage {
             yield modalWin.present();
             const { data } = yield modalWin.onDidDismiss();
             if (data.command === 1) {
+                this.model.postData.fileEntityArray = [];
                 this.model.fileArray = data.fileArray;
+                for (let file of this.model.fileArray) {
+                    var obj = {};
+                    obj["mcs_filename"] = file["fileName"];
+                    obj["mcs_filesize"] = file["fileSize"];
+                    obj["mcs_fileurl"] = file["url"];
+                    this.model.postData.fileEntityArray.push(obj);
+                }
             }
         });
     }
@@ -260,9 +271,9 @@ let EditPage = class EditPage {
         if (this._valid.isNullOrEmpty(this.model.postData.mcs_title)) {
             errMessage += "请输入主题<br>";
         }
-        if (this._valid.isNullOrEmpty(this.model.viewData.mcs_customername)) {
-            errMessage += "请选择车主<br>";
-        }
+        //if (this._valid.isNullOrEmpty(this.model.viewData.mcs_customername)) {
+        //    errMessage += "请选择车主<br>";
+        //}
         if (this._valid.isNullOrEmpty(this.model.postData.mcs_techsystem)) {
             errMessage += "请选择技术系统<br>";
         }
