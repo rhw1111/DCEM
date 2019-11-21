@@ -9,7 +9,7 @@
   </ion-buttons>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar [(ngModel)]="this.model.seachkey" placeholder="可根据勘测单编码、姓名、手机号模糊查找" (keyup)="search($event)" ></ion-searchbar>
+    <ion-searchbar [(ngModel)]="this.model.seachkey" placeholder="可根据安装单编码、姓名、手机号模糊查找" (keyup)="search($event)" ></ion-searchbar>
   </ion-toolbar>
   <ion-toolbar>
     <ion-segment>
@@ -17,11 +17,11 @@
           <ion-label>全部</ion-label>
       </ion-segment-button>
     
-      <ion-segment-button  (click)="selectTab(14)">
-          <ion-label>待勘测</ion-label>
+      <ion-segment-button  (click)="selectTab(22)">
+          <ion-label>待安装</ion-label>
       </ion-segment-button>
-      <ion-segment-button  (click)="selectTab(16)">
-          <ion-label>已勘测</ion-label>
+      <ion-segment-button  (click)="selectTab(24)">
+          <ion-label>已安装</ion-label>
       </ion-segment-button>
      
     </ion-segment>
@@ -35,7 +35,7 @@
   </ion-refresher>
 
   <ion-list lines="full">
-    <ion-item *ngFor="let item of model.datalist" [routerLink]="['/saleing/surveyorder/detail']" [queryParams]="{id:item.mcs_surveyorderid}">          
+    <ion-item *ngFor="let item of model.datalist" [routerLink]="['/saleing/installationorder/detail']" [queryParams]="{id:item.mcs_surveyorderid}">          
         <ion-icon slot="start" name="logo-instagram" size="large" color="tertiary"></ion-icon>
         <ion-label>
             <h2>{{item.mcs_name}}</h2> 
@@ -48,7 +48,7 @@
         </ion-note> -->
         <ion-note slot="end" >
             <!-- <ion-icon color="primary" name="hourglass" size="small"></ion-icon>  -->
-            <p>{{item.mcs_surveystatus}}</p>   
+            <p>{{item.mcs_installationstatus}}</p>   
         </ion-note>
         
     </ion-item>

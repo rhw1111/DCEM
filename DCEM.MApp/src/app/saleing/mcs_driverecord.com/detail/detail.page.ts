@@ -3,6 +3,7 @@ import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { OptionSetService } from '../../saleing.ser/optionset.service';
 import { IonSegment } from '@ionic/angular';
+import { getDefaultSettings } from 'http2';
 
 @Component({
   selector: 'app-detail',
@@ -15,10 +16,12 @@ export class DetailPage implements OnInit {
   public tab: any = "info";
   mod = {
     apiUrl: '/api/drive-record/GetDetail',
+    editUrl: '/api/drive-record/AddOrEdit',
     data: {
       detail: [],//开票明细
-       attachment: [],//附件列表 
-    }
+      attachment: [],//附件列表 
+    },
+    postData: {}
   };
 
   objectKeys = Object.keys;
@@ -44,7 +47,7 @@ export class DetailPage implements OnInit {
     });
   }
 
-  pageOnBind(id: any) {  
+  pageOnBind(id: any) {
     this.mod.data.detail["id"] = id;
 
     this._page.loadingShow();
@@ -55,34 +58,34 @@ export class DetailPage implements OnInit {
           id: id,
         }
       },
-      (res: any) => { 
-        if (!this._valid.isNull(res["Detail"])) { 
-           this.mod.data.detail["mcs_drivestatus"] = res["Detail"]["Attributes"]["mcs_drivestatus"];
-           this.mod.data.detail["mcs_fullname"] = res["Detail"]["Attributes"]["mcs_fullname"];
-           this.mod.data.detail["mcs_mobilephone"] = res["Detail"]["Attributes"]["mcs_mobilephone"];
-           this.mod.data.detail["mcs_businesstype"] = this._optionset.GetOptionSetNameByValue("mcs_drivebusinesstype",  res["Detail"]["Attributes"]["mcs_businesstype"]); ;
-           this.mod.data.detail["carmodelname"] = res["Detail"]["Attributes"]["carmodelname"];
-           this.mod.data.detail["mcs_ordertime"] =  res["Detail"]["Attributes"]["mcs_ordertime"];
-           this.mod.data.detail["reservationname"] = res["Detail"]["Attributes"]["reservationname"];
-           this.mod.data.detail["testdrivecarname"] = res["Detail"]["Attributes"]["testdrivecarname"];
-           this.mod.data.detail["driveroutename"] = res["Detail"]["Attributes"]["driveroutename"];
-           this.mod.data.detail["mcs_starton"] = res["Detail"]["Attributes"]["mcs_starton"];
-           this.mod.data.detail["mcs_endon"] = res["Detail"]["Attributes"]["mcs_endon"];
-           this.mod.data.detail["mcs_cancelreason"] = res["Detail"]["Attributes"]["mcs_cancelreason"];
-           
-        } 
+      (res: any) => {
+        if (!this._valid.isNull(res["Detail"])) {
+          this.mod.data.detail["mcs_drivestatus"] = res["Detail"]["Attributes"]["mcs_drivestatus"];
+          this.mod.data.detail["mcs_fullname"] = res["Detail"]["Attributes"]["mcs_fullname"];
+          this.mod.data.detail["mcs_mobilephone"] = res["Detail"]["Attributes"]["mcs_mobilephone"];
+          this.mod.data.detail["mcs_businesstype"] = this._optionset.GetOptionSetNameByValue("mcs_drivebusinesstype", res["Detail"]["Attributes"]["mcs_businesstype"]);;
+          this.mod.data.detail["carmodelname"] = res["Detail"]["Attributes"]["carmodelname"];
+          this.mod.data.detail["mcs_ordertime"] = res["Detail"]["Attributes"]["mcs_ordertime"];
+          this.mod.data.detail["reservationname"] = res["Detail"]["Attributes"]["reservationname"];
+          this.mod.data.detail["testdrivecarname"] = res["Detail"]["Attributes"]["testdrivecarname"];
+          this.mod.data.detail["driveroutename"] = res["Detail"]["Attributes"]["driveroutename"];
+          this.mod.data.detail["mcs_starton"] = res["Detail"]["Attributes"]["mcs_starton"];
+          this.mod.data.detail["mcs_endon"] = res["Detail"]["Attributes"]["mcs_endon"];
+          this.mod.data.detail["mcs_cancelreason"] = res["Detail"]["Attributes"]["mcs_cancelreason"];
+
+        }
         if (!this._valid.isNull(res.AttachmentDetail)) {
           for (var key in res.AttachmentDetail) {
-             
+
             var obj = {};
-             obj["mcs_filename"] = res.AttachmentDetail[key]["Attributes"]["mcs_filename"];
-             obj["mcs_filetype"] = res.AttachmentDetail[key]["Attributes"]["mcs_filetype"];
+            obj["mcs_filename"] = res.AttachmentDetail[key]["Attributes"]["mcs_filename"];
+            obj["mcs_filetype"] = res.AttachmentDetail[key]["Attributes"]["mcs_filetype"];
             obj["mcs_fileurl"] = res.AttachmentDetail[key]["Attributes"]["mcs_fileurl"];
             obj["mcs_code"] = res.AttachmentDetail[key]["Attributes"]["mcs_code"];
             obj["mcs_filesize"] = res.AttachmentDetail[key]["Attributes"]["mcs_filesize"];
             this.mod.data.attachment.push(obj);
           }
-        } 
+        }
 
 
         this._page.loadingHide();
@@ -90,6 +93,49 @@ export class DetailPage implements OnInit {
       (err: any) => {
         this._page.alert("消息提示", "数据加载异常");
         this._page.loadingHide();
+      }
+    );
+  }
+
+  endOnClick(id: any) {
+    this.saveOnClick(id, 1);
+  }
+  beginOnClick(id: any) {
+    this.saveOnClick(id, 2);
+  }
+
+  public saveOnClick(id: any, type: any) {
+    //判断是开始试驾还是结束试驾
+    if (type == 1)
+      this.mod.postData = {
+        'id': id,
+        'mcs_drivestatus': 14,
+        'mcs_starton': new Date()
+      };
+    else
+      this.mod.postData = {
+        'id': id,
+        'mcs_drivestatus': 15,
+        'mcs_endon': new Date()
+      };
+
+    this._page.loadingShow();
+    this._http.postForToaken(
+      this.mod.editUrl, this.mod.postData,
+      (res: any) => {
+        this._page.loadingHide();
+        if (res.Result == true) {
+            
+          this._page.alert("消息提示", "操作成功");
+          window.location.reload();
+        }
+        else {
+          this._page.alert("消息提示", "操作失败");
+        }
+      },
+      (err: any) => {
+        this._page.loadingHide();
+        this._page.alert("消息提示", "操作失败");
       }
     );
   }

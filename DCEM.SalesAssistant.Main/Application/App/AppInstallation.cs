@@ -41,5 +41,14 @@ namespace DCEM.SalesAssistant.Main.Application.App
         {
             return await _installService.GetSurveyorderDetail(guid);
         }
+        /// <summary>
+        /// 安装单列表查询接口
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> GetInstallationorderList(InstallationorderRequest _request)
+        {
+            return await _installService.GetInstallationorderList(_request);
+        }
     }
 }

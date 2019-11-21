@@ -103,5 +103,41 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 throw ex;
             }
         }
+
+        /// <summary>
+        /// 安装单列表查询
+        /// </summary>
+        /// <param name="_request"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> GetInstallationorderList(InstallationorderRequest _request)
+        {
+            try
+            {
+                var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+                if (userInfo != null)
+                    _request.mcs_dealerid = userInfo.mcs_dealerid;
+                var fetchString = _InstallationRepository.GetInstallationorderList(_request);
+
+                var fetchXdoc = XDocument.Parse(fetchString);
+                var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "mcs_installationorder",
+                    FetchXml = fetchXdoc,
+                    ProxyUserId = userInfo != null ? userInfo.systemuserid : null
+                };
+                var fetchResponse = await _crmService.Execute(fetchRequest);
+                var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+
+                var queryResult = new QueryResult<CrmEntity>();
+                queryResult.Results = fetchResponseResult.Value.Results;
+                queryResult.CurrentPage = _request.PageIndex;
+                queryResult.TotalCount = 0;
+                return queryResult;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

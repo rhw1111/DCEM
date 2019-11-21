@@ -15,16 +15,22 @@ export class EditPage implements OnInit {
         getApiUrl: '/api/drive-record/GetDetail',//试乘试驾详情地址
         postApiUrl: '/Api/drive-record/AddOrEdit',//试乘试驾编辑地址
         carModelApiUrl: '/Api/Vehowner/GetCarmodelList',//试驾车型地址
-        //driveCarApiUrl: '/api/drive-record/QueryDriveCarList',//试驾车辆
+        driveCarApiUrl: '/api/drive-record/QueryDriveCarList',//试驾车辆
+        driveRouteApiUrl: '/api/drive-record/QueryDriveRouteList',//试驾路线
         reservationApiUrl: '/Api/drive-record/QueryReservationList',//预约时段地址
         postData: {},
         driveRecord: {},
         driveRecordId: null,//当前记录id
-        businesstypeoption: [],//业务类型
-        carmodeloption: [],//试驾车型
-        drivetimeoption: [],//预约时段
+        businessTypeOption: [],//业务类型
+        carModelOption: [],//试驾车型
+        driveTimeOption: [],//预约时段
+        driveCarOption: [],//试驾车辆
+        driveRouteOption:[],//试驾路线
         isOrderTimeChange: true,//预约日期是否改变
-        isCarModelChange: true//预约车型是否改变
+        isCarModelChange: true,//预约车型是否改变
+        actionCode: null,//1-新增、2-编辑、3-排程、4-取消
+        ifSchedule: false,//是否排程操作
+        ifCancel: false,//是否取消操作
     };
 
     constructor(
@@ -39,7 +45,7 @@ export class EditPage implements OnInit {
 
     ionViewWillEnter() {
         //业务类型
-        this.model.businesstypeoption = this._optionset.Get("mcs_drivebusinesstype");
+        this.model.businessTypeOption = this._optionset.Get("mcs_drivebusinesstype");
         //预约车型
         this.CarModelOption();
 
@@ -50,7 +56,81 @@ export class EditPage implements OnInit {
                 this.model.driveRecordId = params['id'];
                 this.pageOnBind(this.model.driveRecordId);
             }
+
+            //编辑绑定预约单数据
+            if (params['actionCode'] != null && params['actionCode'] != undefined) {
+                this.model.actionCode = params['actionCode'];
+                if (this.model.actionCode == 3) {
+                    this.model.ifSchedule = true;
+
+                    //试驾车辆
+                    this.DriveCarOption();
+
+                    //试驾路线
+                    this.DriveRouteOption();
+                }
+                if (this.model.actionCode == 4) {
+                    this.model.ifCancel = true;
+                }
+            }
+
         });
+    }
+
+    //试驾路线
+    public DriveRouteOption() {
+        this.model.driveRouteOption = [];
+        this._http.getForToaken(
+            this.model.driveRouteApiUrl,
+            {
+            },
+            (res: any) => {
+                if (res.Results !== null) {
+
+                    for (var key in res.Results) {
+                        var obj = {};
+                        obj["model"] = res.Results[key]["Attributes"];
+                        obj["value"] = res.Results[key]["Attributes"]["mcs_driverouteid"];
+                        obj["name"] = res.Results[key]["Attributes"]["mcs_name"];
+                        this.model.driveRouteOption.push(obj);
+                    }
+                }
+                else {
+                    this._page.alert("消息提示", "试驾车辆数据加载异常");
+                }
+            },
+            (err: any) => {
+                this._page.alert("消息提示", "试驾车辆数据加载异常");
+            }
+        );
+    }
+
+    //车架车辆
+    public DriveCarOption() {
+        this.model.driveCarOption = [];
+        this._http.getForToaken(
+            this.model.driveCarApiUrl,
+            {
+            },
+            (res: any) => {
+                if (res.Results !== null) {
+
+                    for (var key in res.Results) {
+                        var obj = {};
+                        obj["model"] = res.Results[key]["Attributes"];
+                        obj["value"] = res.Results[key]["Attributes"]["mcs_testdrivecarid"];
+                        obj["name"] = res.Results[key]["Attributes"]["mcs_name"];
+                        this.model.driveCarOption.push(obj);
+                    }
+                }
+                else {
+                    this._page.alert("消息提示", "试驾车辆数据加载异常");
+                }
+            },
+            (err: any) => {
+                this._page.alert("消息提示", "试驾车辆数据加载异常");
+            }
+        );
     }
 
     //编辑绑定数据
@@ -96,7 +176,7 @@ export class EditPage implements OnInit {
 
     //获取试驾车型
     public CarModelOption() {
-        this.model.carmodeloption = [];
+        this.model.carModelOption = [];
         this._http.getForToaken(
             this.model.carModelApiUrl,
             {
@@ -109,7 +189,7 @@ export class EditPage implements OnInit {
                         obj["model"] = res.Results[key]["Attributes"];
                         obj["value"] = res.Results[key]["Attributes"]["mcs_carmodelid"];
                         obj["name"] = res.Results[key]["Attributes"]["mcs_name"];
-                        this.model.carmodeloption.push(obj);
+                        this.model.carModelOption.push(obj);
                     }
                 }
                 else {
@@ -124,7 +204,7 @@ export class EditPage implements OnInit {
 
     //试驾预约时段
     public DriveTimeOption(carmodelid, reservationdate) {
-        this.model.drivetimeoption = [];
+        this.model.driveTimeOption = [];
         this._http.getForToaken(
             this.model.reservationApiUrl,
             {
@@ -139,7 +219,7 @@ export class EditPage implements OnInit {
                         obj["model"] = res.Results[key]["Attributes"];
                         obj["value"] = res.Results[key]["Attributes"]["mcs_reservationconfigurationid"];
                         obj["name"] = res.Results[key]["Attributes"]["mcs_name"];
-                        this.model.drivetimeoption.push(obj);
+                        this.model.driveTimeOption.push(obj);
                     }
                 }
                 else {
@@ -159,7 +239,7 @@ export class EditPage implements OnInit {
             if (this.FormatToDate(date) > this.FormatToDate(this.model.driveRecord['mcs_ordertime'])) {
                 this._page.presentToastError("预约日期必须大于当天日期");
             }
-            this.model.drivetimeoption = [];
+            this.model.driveTimeOption = [];
             this.model.driveRecord['mcs_testdrivetime'] = null;
             var carmodel = this.model.driveRecord["mcs_carmodel"];
             var ordertime = this.FormatToDate(this.model.driveRecord["mcs_ordertime"]);
@@ -174,7 +254,7 @@ export class EditPage implements OnInit {
     //车型改变事件
     public CarModelChange() {
         if (this.model.isCarModelChange) {
-            this.model.drivetimeoption = [];
+            this.model.carModelOption = [];
             this.model.driveRecord['mcs_testdrivetime'] = null;
             var carmodel = this.model.driveRecord["mcs_carmodel"];
             var ordertime = this.FormatToDate(this.model.driveRecord["mcs_ordertime"]);

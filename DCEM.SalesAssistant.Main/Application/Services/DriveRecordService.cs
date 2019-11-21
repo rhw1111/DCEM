@@ -130,6 +130,36 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 var systemUserEntityEF = new CrmEntityReference("systemuser", (Guid)request.driveRecord.mcs_consultantid);
                 entity.Attributes.Add("mcs_consultantid", systemUserEntityEF);
             }
+            //试驾车辆
+            if (request.driveRecord.mcs_drivecar != null)
+            {
+                var drivecarEntityEF = new CrmEntityReference("mcs_testdrivecar", (Guid)request.driveRecord.mcs_drivecar);
+                entity.Attributes.Add("mcs_drivecar", drivecarEntityEF);
+            }
+            //试驾路线
+            if (request.driveRecord.mcs_appointedrouteid != null)
+            {
+                var appointedRouteEntityEF = new CrmEntityReference("mcs_driveroute", (Guid)request.driveRecord.mcs_appointedrouteid);
+                entity.Attributes.Add("mcs_appointedrouteid", appointedRouteEntityEF);
+            }
+            //取消原因
+            if (string.IsNullOrWhiteSpace(request.driveRecord.mcs_cancelreason))
+            {
+                entity.Attributes.Add("mcs_cancelreason", request.driveRecord.mcs_cancelreason);
+            }
+            //试驾开始时间
+            if (request.driveRecord.mcs_starton!=null)
+            {
+                var starton = request.driveRecord.mcs_starton.Value.ToUniversalTime();
+                entity.Attributes.Add("mcs_starton", starton);
+            }
+            //试驾结束时间
+            if (request.driveRecord.mcs_endon != null)
+            {
+                var endon = request.driveRecord.mcs_endon.Value.ToUniversalTime();
+                entity.Attributes.Add("mcs_starton", endon);
+            }
+
             return entity;
         }
 
@@ -417,7 +447,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             var fetchXdoc = XDocument.Parse(fetchString);
             var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
             {
-                EntityName = "mcs_testdrivecar",
+                EntityName = "mcs_driveroute",
                 FetchXml = fetchXdoc,
                 ProxyUserId = userInfo?.systemuserid
             };
