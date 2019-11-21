@@ -303,7 +303,19 @@ export class OptionSetService {
                     { "name": "试驾", "value": 11 }
                 ];
                 break;
-
+                //售前-试乘试驾-试驾状态(已提交 10、已预约 11、已排程 12、已取消 13、试驾开始 14、试驾结束  15、已反馈  16，已删除 17)
+                case "mcs_drivestatus": 
+                optionlist = [
+                    { "name": "已提交", "value": 10 },
+                    { "name": "已预约", "value": 11 },
+                    { "name": "已排程", "value": 12 },
+                    { "name": "已取消", "value": 13 },
+                    { "name": "试驾开始", "value": 14 },
+                    { "name": "试驾结束", "value": 15 },
+                    { "name": "已反馈", "value": 16 },
+                    { "name": "已删除", "value": 17 }
+                ];
+                break;
 
         }
         return optionlist;

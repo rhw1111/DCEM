@@ -9,6 +9,9 @@ using System.Text;
 
 namespace DCEM.SalesAssistant.Main.ViewModel.Request
 {
+    /// <summary>
+    /// 安装单列表查询接口入参实体类
+    /// </summary>
     public class InstallationorderRequest: PageBaseRequestModel
     {
         /// <summary>
@@ -23,5 +26,15 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         /// 安装状态
         /// </summary>
         public int? mcs_installationstatus { set; get; }
+    }
+
+    /// <summary>
+    /// 安装单详情查询接口入参实体类
+    /// </summary>
+    public class InstallationorderDetailRequest 
+    {
+        public string Guid { get; set; }
+        public string UserId { get; set; }
+        public string DealerId { get; set; }
     }
 }

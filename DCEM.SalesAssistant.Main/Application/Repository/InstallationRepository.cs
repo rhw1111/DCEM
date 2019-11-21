@@ -121,5 +121,25 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
             return fetchString;
 
         }
+
+        /// <summary>
+        /// 获取安装单详情
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        public string GetInstallationorderDetail(Guid guid) {
+            var fetchString = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+                   <entity name='mcs_installationorder'>
+                    <all-attributes/>
+                    <filter type='and'>
+                        <condition attribute='mcs_installationorderid' operator='eq' value='{guid.ToString()}' />
+                    </filter>
+                   </entity>
+                   </fetch>";
+            return fetchString;
+        }
     }
+
+
+
 }

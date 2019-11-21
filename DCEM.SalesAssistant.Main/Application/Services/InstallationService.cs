@@ -78,14 +78,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
                 var fetchString = _InstallationRepository.GetSurveyorderDetail(Guid.Parse(guid));
                 var fetchXdoc = XDocument.Parse(fetchString);
-                var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
-                {
-                    EntityName = "mcs_surveyorder",
-                    FetchXml = fetchXdoc,
-                    ProxyUserId = userInfo != null ? userInfo.systemuserid : null
-                };
                 var fetchResponse = await helper.ExecuteAsync(_crmService, "mcs_surveyorder", fetchXdoc);
-                //var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
                 if (fetchResponse!=null && fetchResponse.Results.Count>0) {
                     var item = fetchResponse.Results[0];
                     var crmEntity = new CrmEntity(item.EntityName, item.Id);
@@ -133,6 +126,37 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 queryResult.CurrentPage = _request.PageIndex;
                 queryResult.TotalCount = 0;
                 return queryResult;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 获取安装单详情
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        public async Task<CrmEntity> GetInstallationorderDetail(string guid) {
+            try
+            {
+                var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+                var fetchString = _InstallationRepository.GetInstallationorderDetail(Guid.Parse(guid));
+                var fetchXdoc = XDocument.Parse(fetchString);
+                var fetchResponse = await helper.ExecuteAsync(_crmService, "mcs_installationorder", fetchXdoc);
+                if (fetchResponse != null && fetchResponse.Results.Count > 0)
+                {
+                    var item = fetchResponse.Results[0];
+                    var crmEntity = new CrmEntity(item.EntityName, item.Id);
+                    crmEntity.Attributes = item.Attributes;
+                    crmEntity.IsActivity = item.IsActivity;
+                    crmEntity.Version = item.Version;
+                    return crmEntity;
+
+                }
+                else
+                    return null;
             }
             catch (Exception ex)
             {
