@@ -121,7 +121,7 @@ export class EditPage implements OnInit {
                 }
                 console.log(res);
                 if (res.DealerAttachment != null) {
-
+                    this.model.fileArray = [];
                     for (let item of res.DealerAttachment) {
                         console.log(item);
                         var obj = {};
