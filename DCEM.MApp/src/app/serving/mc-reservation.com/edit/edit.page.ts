@@ -29,7 +29,8 @@ export class EditPage implements OnInit {
         isAppointmentAtChange: true,//是否改变预约日期
         isAppointmentConfigChange: true,//预约时段是否改变
         customerId: "",//客户ID
-        appointmentConfigOptionMap: {}//预约时段
+        appointmentConfigOptionMap: {},//预约时段
+        ifAddOrEdit: false//是否新增或编辑(控制页面title)
     };
 
     //定义共享数据
@@ -63,7 +64,8 @@ export class EditPage implements OnInit {
                 console.log("记录Id:" + this.model.appointmentinfoId);
                 this.model.appointmentinfoId = params['id'];
                 this.pageOnBind(this.model.appointmentinfoId);
-               
+
+                this.model.ifAddOrEdit = true;
             }
 
             //编辑绑定客户数据
