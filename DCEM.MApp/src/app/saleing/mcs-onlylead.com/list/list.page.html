@@ -4,6 +4,9 @@
             <ion-back-button text="返回" defaultHref="/serving/home/tabs"></ion-back-button>
         </ion-buttons>
         <ion-title>唯一线索</ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
     </ion-toolbar>
     <ion-toolbar>
         <ion-searchbar [(ngModel)]="this.model.seachkey" placeholder="请输入姓名\手机号" (keyup)="search($event)"></ion-searchbar>

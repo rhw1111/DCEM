@@ -34,7 +34,7 @@ namespace DCEM.Web.Controllers
 
         [HttpGet]
         [Route("GetList")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetList(int orderstatus=0,string seachkey = "",string sort="",int pageSize=10,int page=1)
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetList(int orderstatus = 0, string seachkey = "", string sort = "", int pageSize = 10, int page = 1)
         {
             var result = await app.QueryListByPage(orderstatus, seachkey, pageSize, page, sort);
             return result;
@@ -53,6 +53,17 @@ namespace DCEM.Web.Controllers
         public async Task<NewtonsoftJsonActionResult<Guid>> AddOrEdit(TechnicalSupportRequest request)
         {
             var result = await app.AddOrEditEntity(request);
+            return result;
+        }
+
+
+
+        [HttpPost]
+        [Route("AddOrUpdate")]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<CrmEntity>>> AddOrUpdate([FromBody]Object body)
+        {
+            JObject jo = JObject.Parse(body.ToString());
+            var result = await app.AddOrUpdate(jo);
             return result;
         }
     }

@@ -153,6 +153,9 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
   <link-entity name='mcs_testdrivecar' from='mcs_testdrivecarid' to='mcs_drivecar' visible='false' link-type='outer' >
       <attribute name='mcs_name' alias='testdrivecarname'/> 
     </link-entity>
+ <link-entity name='mcs_testdrivefeedbackmaster' from='mcs_driverecordid' to='mcs_driverecordid' visible='false' link-type='outer' >
+      <attribute name='mcs_name' alias='testdrivefeedbackname'/> 
+    </link-entity>
   </entity>
 </fetch>";
                 return XDocument.Parse(fetchXml);

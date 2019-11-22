@@ -8,6 +8,7 @@ import { SelectCustomerComponent } from 'app/serving/serving.ser/components/sele
 import { SelectSystemuserComponent } from 'app/base/base.ser/components/select-systemuser/select-systemuser.component';
 import { SelectMalFunctionTypeComponent } from 'app/serving/serving.ser/components/select-malfunctiontype/select.malfunctiontype.component';
 import { SelectFileEditComponent } from 'app/serving/serving.ser/components/select-file-edit/select-file-edit.component';
+
 @Component({
     selector: 'app-edit',
     templateUrl: './edit.page.html',
@@ -16,7 +17,7 @@ import { SelectFileEditComponent } from 'app/serving/serving.ser/components/sele
 export class EditPage implements OnInit {
 
     public model: any = {
-        postApiUrl: '/api/tech-support/AddOrEdit',
+        postApiUrl: '/api/tech-support/AddOrUpdate',
         detailApiUrl: '/api/tech-support/GetDetail',
         viewData: {
             mcs_serviceorderid_name: '',//服务委托书名称
@@ -86,6 +87,7 @@ export class EditPage implements OnInit {
             },
             (res: any) => {
                 if (res.TechnicalSupport != null) {
+                    this.model.postData.Id = id;
                     this.model.postData.mcs_title = res["TechnicalSupport"]["Attributes"]["mcs_title"];
                     this.model.postData.mcs_serviceorderid = res["TechnicalSupport"]["Attributes"]["_mcs_serviceorderid_value"];
                     this.model.viewData.mcs_serviceorderid_name = res["TechnicalSupport"]["Attributes"]["_mcs_serviceorderid_value@OData.Community.Display.V1.FormattedValue"];
@@ -116,10 +118,20 @@ export class EditPage implements OnInit {
                     this.model.postData.mcs_cartypeid = res["TechnicalSupport"]["Attributes"]["_mcs_cartypeid_value"];
                     this.model.viewData.mcs_cartypeid_vale = res["TechnicalSupport"]["Attributes"]["_mcs_mcs_cartypeid_value@OData.Community.Display.V1.FormattedValue"];
 
-                    if (this.model.fileArray != null && this.model.fileArray.length > 0) {
-
+                }
+                console.log(res);
+                if (res.DealerAttachment != null) {
+                    this.model.fileArray = [];
+                    for (let item of res.DealerAttachment) {
+                        console.log(item);
+                        var obj = {};
+                        obj["fileName"] = item["Attributes"]["mcs_filename"];
+                        obj["fileSize"] = item["Attributes"]["mcs_filesize"];
+                        obj["url"] = item["Attributes"]["mcs_fileurl"];
+                        this.model.fileArray.push(obj);
                     }
                 }
+
                 this._page.loadingHide();
             },
             (err: any) => {
@@ -183,12 +195,27 @@ export class EditPage implements OnInit {
 
     //选择附件模式窗口
     async presentFileModal() {
+
+        var fileInputArray = [];
+        //输入参数
+        for (let item of this.model.fileArray) {
+            var obj = {};
+            obj["fileName"] = item["fileName"];
+            obj["fileSize"] = item["fileSize"];
+            obj["url"] = item["url"];
+            fileInputArray.push(obj);
+        }
+
+
         const modalWin = await this.modalCtrl.create({
-            component: SelectFileEditComponent
+            component: SelectFileEditComponent,
+            componentProps: { fileArray: fileInputArray }
         });
+
         await modalWin.present();
         const { data } = await modalWin.onDidDismiss();
         if (data.command === 1) {
+            //输出参数
             this.model.postData.fileEntityArray = [];
             this.model.fileArray = data.fileArray;
             for (let file of this.model.fileArray) {
@@ -297,24 +324,22 @@ export class EditPage implements OnInit {
             this._page.presentToastError(errMessage);
             return;
         }
+
         //请求
         this._page.loadingShow();
         this._http.post(
             this.model.postApiUrl, this.model.postData,
             (res: any) => {
-                if (res != "") {
-                    this._page.alert("消息提示", "保存成功！");
-                    this._page.goto("/serving/ts/success", { guid: res });
-                }
-                else {
-                    this._page.alert("消息提示", "保存失败！");
-                }
+
+                console.log(res);
+                console.log(res.Data.Attributes["mcs_name"]);
                 this._page.loadingHide();
+                this._page.goto("/serving/ts/success", { guid: res.Data.Id, no: res.Data.Attributes["mcs_name"] });
             },
             (err: any) => {
-                debugger;
-                this._page.alert("消息提示", "请求异常");
                 this._page.loadingHide();
+                this._page.alert("消息提示", "保存失败！");
+
             }
         );
 

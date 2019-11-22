@@ -213,19 +213,19 @@ export class EditPage implements OnInit {
     //点击保存
     saveOnClick() {
         //表单校验
-        if (this._valid.isNull(this.shareData.appointmentinfo["mcs_customerid"])) {
+        if (this._valid.isNullOrEmpty(this.shareData.appointmentinfo["mcs_customerid"])) {
             this._page.presentToastError("请先选择车主");
             return;
         }
-        if (this._valid.isNull(this.shareData.appointmentinfo["mcs_ordertype"])) {
+        if (this._valid.isNullOrEmpty(this.shareData.appointmentinfo["mcs_ordertype"])) {
             this._page.presentToastError("请先选择预约类型");
             return;
         }
-        if (this._valid.isNull(this.shareData.appointmentinfo["mcs_appointmentat"])) {
+        if (this._valid.isNullOrEmpty(this.shareData.appointmentinfo["mcs_appointmentat"])) {
             this._page.presentToastError("请先选择预约日期");
             return;
         }
-        if (this._valid.isNull(this.shareData.appointmentinfo["mcs_appointmentconfigid"])) {
+        if (this._valid.isNullOrEmpty(this.shareData.appointmentinfo["mcs_appointmentconfigid"])) {
             this._page.presentToastError("请先选择预约时段");
             return;
         }
@@ -253,7 +253,6 @@ export class EditPage implements OnInit {
         this.model.postData["appointmentinfo"]["mcs_surplusnum"] = Number(this.shareData.appointmentinfo["mcs_surplusnum"]);//可预约数量
         this.model.postData["appointmentinfo"]["mcs_customercomment"] = this.shareData.appointmentinfo["mcs_customercomment"];//客户要求
         this.model.postData["appointmentinfo"]["mcs_appointmendescript"] = this.shareData.appointmentinfo["mcs_appointmendescript"];//问题描述
-        //this.model.postData["appointmentinfo"]["mcs_status"] =10;//预约状态
 
         this._page.loadingShow();
         this._http.postForToaken(
@@ -261,13 +260,12 @@ export class EditPage implements OnInit {
             (res: any) => {
                 this._page.loadingHide();
                 if (res.Result == true) {
-                    console.log("res");
-                    console.log(res);
                     var guid = res["Data"]["Id"];
                     this._page.goto("/serving/reservation/success", { guid: guid });
                 }
                 else {
                     this._page.alert("消息提示", "操作失败");
+                    this._page.loadingHide();
                 }
             },
             (err: any) => {

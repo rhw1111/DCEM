@@ -23,7 +23,20 @@ export class SelectFileEditComponent implements OnInit {
     constructor(
         private _config: DCore_Config,
         private _modalCtrl: ModalController,
+        public navParams: NavParams
     ) {
+
+        for (let fileItem of this.navParams.data.fileArray) {
+            console.log(fileItem);
+            var mapKey = fileItem.fileName;
+            var obj = {}
+            obj["fileName"] = fileItem.fileName;
+            obj["fileSize"] = fileItem.fileSize;
+            obj["url"] = fileItem.url;
+            obj["progress"] = 1;
+            this.mod.data.filesMap[mapKey] = obj;
+        }
+
     }
 
     objectKeys = Object.keys;

@@ -116,12 +116,7 @@
                         <h2>
                             服务类型
                         </h2>
-                        <p *ngIf="model.infolist.mcs_ordertype==10"> 汽车美容</p>
-                        <p *ngIf="model.infolist.mcs_ordertype==20"> 钣金喷漆</p>
-                        <p *ngIf="model.infolist.mcs_ordertype==30"> 常规保养</p>
-                        <p *ngIf="model.infolist.mcs_ordertype==40"> 一般维修</p>
-                        <p *ngIf="model.infolist.mcs_ordertype==50"> 保修</p>
-                        <p *ngIf="model.infolist.mcs_ordertype==60"> 其他</p>
+                        <p>{{SetDefaultValue(model.infolist.mcs_ordertypevalue)}}&nbsp;</p>
                     </ion-label>
                 </ion-item>
                 <ion-item>
@@ -137,10 +132,7 @@
                         <h2>
                             状态
                         </h2>
-                        <p *ngIf="model.infolist.mcs_status==10">待跟进</p>
-                        <p *ngIf="model.infolist.mcs_status==20">已跟进</p>
-                        <p *ngIf="model.infolist.mcs_status==30"> 已入场</p>
-                        <p *ngIf="model.infolist.mcs_status==50"> 已取消</p>
+                        <p>{{SetDefaultValue(model.infolist.mcs_statusvalue)}}&nbsp;</p>
                     </ion-label>
                 </ion-item>
                 <ion-item>
@@ -164,12 +156,7 @@
                         <h2>
                             取消原因
                         </h2>
-                        <p *ngIf="model.infolist.mcs_cancelreasonnew==10">待料</p>
-                        <p *ngIf="model.infolist.mcs_cancelreasonnew==20">价格太高</p>
-                        <p *ngIf="model.infolist.mcs_cancelreasonnew==30"> 设备不足</p>
-                        <p *ngIf="model.infolist.mcs_cancelreasonnew==40"> 堵车</p>
-                        <p *ngIf="model.infolist.mcs_cancelreasonnew==50"> 技术不足</p>
-                        <p *ngIf="model.infolist.mcs_cancelreasonnew==60"> 天气不好</p>
+                        <p>{{SetDefaultValue(model.infolist.mcs_cancelreasonnewvalue)}}&nbsp;</p>
                     </ion-label>
                 </ion-item>
                 <ion-item>
@@ -183,10 +170,6 @@
             </ion-list>
         </div>
         <div *ngSwitchCase="'loglist'">
-            <!--<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-                <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中...">
-                </ion-refresher-content>
-            </ion-refresher>-->
             <ion-list lines="full">
                 <ion-item *ngFor="let r of model.datalist">
                     <ion-label>
@@ -208,10 +191,10 @@
             <ion-icon name="arrow-dropup"></ion-icon>
         </ion-fab-button>
         <ion-fab-list side="top">
-            <ion-fab-button [routerLink]="['/serving/reservation/edit']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid}"><ion-icon name="create"></ion-icon>编辑</ion-fab-button>
-            <ion-fab-button [routerLink]="['/serving/reservation/cancel']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid}"><ion-icon name="close"></ion-icon>取消</ion-fab-button>
-            <ion-fab-button [routerLink]="['/serving/ri/edit']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid,actionCode:3}"><ion-icon name="add"></ion-icon>问诊</ion-fab-button>
-            <ion-fab-button [routerLink]="['/serving/sc/edit']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid,actionCode:3}"><ion-icon name="add"></ion-icon>委托书</ion-fab-button>
+            <ion-fab-button [routerLink]="['/serving/reservation/edit']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid}"><ion-icon name="create" color="warning"></ion-icon></ion-fab-button><!--编辑-->
+            <ion-fab-button [routerLink]="['/serving/reservation/cancel']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid}"><ion-icon name="close" color="danger"></ion-icon></ion-fab-button><!--取消-->
+            <ion-fab-button [routerLink]="['/serving/ri/edit']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid,actionCode:3}"><ion-icon name="medkit" color="tertiary"></ion-icon></ion-fab-button><!--问诊-->
+            <ion-fab-button [routerLink]="['/serving/sc/edit']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid,actionCode:3}"><ion-icon name="hammer" color="success"></ion-icon></ion-fab-button><!--服务委托书-->
         </ion-fab-list>
     </ion-fab>
 </ion-content>

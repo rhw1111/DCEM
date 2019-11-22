@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Newtonsoft.Json.Linq;
 namespace DCEM.ServiceAssistantService.Main.Application
 {
     public class AppTechnicalSupport : IAppTechnicalSupport
@@ -35,6 +35,12 @@ namespace DCEM.ServiceAssistantService.Main.Application
 
         public async Task<Guid> AddOrEditEntity(TechnicalSupportRequest request) {
             return await _technicalSupportService.AddOrEditEntity(request);
+        }
+
+
+        public async Task<ValidateResult<CrmEntity>> AddOrUpdate(JObject jo)
+        {
+            return await _technicalSupportService.AddOrUpdate(jo);
         }
     }
 }
