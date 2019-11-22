@@ -145,7 +145,11 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
       <attribute name='mcs_name' alias='carmodelname'/> 
     </link-entity>
    <link-entity name='mcs_driveroute' from='mcs_driverouteid' to='mcs_appointedrouteid' visible='false' link-type='outer' >
-      <attribute name='mcs_name' alias='driveroutename'/> 
+      <attribute name='mcs_name' alias='driveroutename'/>
+    <attribute name='mcs_startlongitude' alias='startlongitude'/>
+    <attribute name='mcs_startlatitude' alias='startlatitude'/>
+    <attribute name='mcs_endlongitude'  alias='endlongitude'/>
+    <attribute name='mcs_endlatitude'   alias='endlatitude'/>
     </link-entity>
   <link-entity name='mcs_reservationconfiguration' from='mcs_reservationconfigurationid' to='mcs_testdrivetime' visible='false' link-type='outer' >
       <attribute name='mcs_name' alias='reservationname'/> 

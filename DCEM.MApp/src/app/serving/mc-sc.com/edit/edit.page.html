@@ -4,6 +4,9 @@
             <ion-back-button text="返回" defaultHref="/serving/sc/list"></ion-back-button>
         </ion-buttons>
         <ion-title>{{shareData.viewTitle}}</ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
@@ -153,7 +156,7 @@
     </ion-card>
 
     <section style="text-align:center;">
-        <ion-button style="width:40%" color="danger" (click)="nextOnClick()">下一步</ion-button>
+        <ion-button style="width:40%" color="primary" (click)="nextOnClick()">下一步</ion-button>
     </section>
     <br />
 </ion-content>

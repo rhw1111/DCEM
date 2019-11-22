@@ -318,7 +318,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
         /// <returns></returns>
         public async Task<ValidateResult<CrmEntity>> AddOrUpdate(JObject jo)
         {
-            var supportorderGuid = new Guid();
+            var supportorderGuid = Guid.NewGuid();
             var supportorderEntity = new CrmExecuteEntity("mcs_supportorder", supportorderGuid);
             var outGuid = Guid.NewGuid();
             #region 更新主要实体
