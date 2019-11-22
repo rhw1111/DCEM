@@ -268,3 +268,4 @@ DCEM.Client.sln
 DCEM.Server.sln
 DCEM.Web/Configurations/dev_app.json
 DCEM.Web/Configurations/app.json
+/DCEM.MApp/resources/android/icon.png

@@ -54,7 +54,7 @@ var map = {
 	],
 	"./saleing/delivery/list/list.module": [
 		"./src/app/saleing/delivery/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
 		"saleing-delivery-list-list-module"
 	],
 	"./saleing/delivery/pdiservice/pdiservice.module": [
@@ -75,12 +75,12 @@ var map = {
 	],
 	"./saleing/lead.com/edit/edit.module": [
 		"./src/app/saleing/lead.com/edit/edit.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
 		"saleing-lead-com-edit-edit-module"
 	],
 	"./saleing/lead.com/list/list.module": [
 		"./src/app/saleing/lead.com/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
 		"saleing-lead-com-list-list-module"
 	],
 	"./saleing/lead.com/success/success.module": [
@@ -89,29 +89,29 @@ var map = {
 	],
 	"./saleing/mc-vehorder.com/detail/detail.module": [
 		"./src/app/saleing/mc-vehorder.com/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
 		"common",
 		"saleing-mc-vehorder-com-detail-detail-module"
 	],
 	"./saleing/mc-vehorder.com/list/list.module": [
 		"./src/app/saleing/mc-vehorder.com/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
 		"saleing-mc-vehorder-com-list-list-module"
 	],
 	"./saleing/mcs-account.com/detail/detail.module": [
 		"./src/app/saleing/mcs-account.com/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
 		"common",
 		"saleing-mcs-account-com-detail-detail-module"
 	],
 	"./saleing/mcs-account.com/edit/edit.module": [
 		"./src/app/saleing/mcs-account.com/edit/edit.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
 		"saleing-mcs-account-com-edit-edit-module"
 	],
 	"./saleing/mcs-account.com/list/list.module": [
 		"./src/app/saleing/mcs-account.com/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
 		"saleing-mcs-account-com-list-list-module"
 	],
 	"./saleing/mcs-account.com/success/success.module": [
@@ -128,18 +128,18 @@ var map = {
 	],
 	"./saleing/mcs-cultivatetask.com/detail/detail.module": [
 		"./src/app/saleing/mcs-cultivatetask.com/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
 		"common",
 		"saleing-mcs-cultivatetask-com-detail-detail-module"
 	],
 	"./saleing/mcs-cultivatetask.com/edit/edit.module": [
 		"./src/app/saleing/mcs-cultivatetask.com/edit/edit.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
 		"saleing-mcs-cultivatetask-com-edit-edit-module"
 	],
 	"./saleing/mcs-cultivatetask.com/list/list.module": [
 		"./src/app/saleing/mcs-cultivatetask.com/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
 		"saleing-mcs-cultivatetask-com-list-list-module"
 	],
 	"./saleing/mcs-cultivatetask.com/success/success.module": [
@@ -156,13 +156,13 @@ var map = {
 	],
 	"./saleing/mcs-onlylead.com/detail/detail.module": [
 		"./src/app/saleing/mcs-onlylead.com/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
 		"common",
 		"saleing-mcs-onlylead-com-detail-detail-module"
 	],
 	"./saleing/mcs-onlylead.com/edit/edit.module": [
 		"./src/app/saleing/mcs-onlylead.com/edit/edit.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
 		"saleing-mcs-onlylead-com-edit-edit-module"
 	],
 	"./saleing/mcs-onlylead.com/list/list.module": [
@@ -180,33 +180,49 @@ var map = {
 	],
 	"./saleing/mcs_driverecord.com/detail/detail.module": [
 		"./src/app/saleing/mcs_driverecord.com/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
 		"saleing-mcs_driverecord-com-detail-detail-module"
 	],
 	"./saleing/mcs_driverecord.com/edit/edit.module": [
 		"./src/app/saleing/mcs_driverecord.com/edit/edit.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
 		"common",
 		"saleing-mcs_driverecord-com-edit-edit-module"
 	],
+	"./saleing/mcs_driverecord.com/feedback/feedback.module": [
+		"./src/app/saleing/mcs_driverecord.com/feedback/feedback.module.ts",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"saleing-mcs_driverecord-com-feedback-feedback-module"
+	],
 	"./saleing/mcs_driverecord.com/list/list.module": [
 		"./src/app/saleing/mcs_driverecord.com/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
 		"saleing-mcs_driverecord-com-list-list-module"
 	],
 	"./saleing/mcs_driverecord.com/success/success.module": [
 		"./src/app/saleing/mcs_driverecord.com/success/success.module.ts",
 		"saleing-mcs_driverecord-com-success-success-module"
 	],
+	"./saleing/mcs_installationorder/detail/detail.module": [
+		"./src/app/saleing/mcs_installationorder/detail/detail.module.ts",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"common",
+		"saleing-mcs_installationorder-detail-detail-module"
+	],
+	"./saleing/mcs_installationorder/list/list.module": [
+		"./src/app/saleing/mcs_installationorder/list/list.module.ts",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"saleing-mcs_installationorder-list-list-module"
+	],
 	"./saleing/mcs_surveyorder/detail/detail.module": [
 		"./src/app/saleing/mcs_surveyorder/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
 		"common",
 		"saleing-mcs_surveyorder-detail-detail-module"
 	],
 	"./saleing/mcs_surveyorder/list/list.module": [
 		"./src/app/saleing/mcs_surveyorder/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
 		"saleing-mcs_surveyorder-list-list-module"
 	],
 	"./saleing/orderpaydetail/detail/detail.module": [
@@ -215,17 +231,17 @@ var map = {
 	],
 	"./saleing/orderpaydetail/edit/edit.module": [
 		"./src/app/saleing/orderpaydetail/edit/edit.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
 		"saleing-orderpaydetail-edit-edit-module"
 	],
 	"./saleing/vehlisense/detail/detail.module": [
 		"./src/app/saleing/vehlisense/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
 		"saleing-vehlisense-detail-detail-module"
 	],
 	"./saleing/vehlisense/list/list.module": [
 		"./src/app/saleing/vehlisense/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
 		"saleing-vehlisense-list-list-module"
 	],
 	"./saleing/vehlisense/success/success.module": [
@@ -234,12 +250,12 @@ var map = {
 	],
 	"./saleing/vehnetwork/detail/detail.module": [
 		"./src/app/saleing/vehnetwork/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
 		"saleing-vehnetwork-detail-detail-module"
 	],
 	"./saleing/vehnetwork/list/list.module": [
 		"./src/app/saleing/vehnetwork/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~7abfbda8",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
 		"saleing-vehnetwork-list-list-module"
 	],
 	"./saleing/vehnetwork/success/success.module": [
@@ -1013,7 +1029,7 @@ module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>选择
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>附件上传</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-sliding *ngFor=\"let key of objectKeys(mod.data.filesMap)\">\r\n            <ion-item>\r\n                <ion-thumbnail slot=\"start\">\r\n                    <img src=\"{{mod.data.filesMap[key]['url']}}\" />\r\n                </ion-thumbnail>\r\n                <ion-label>\r\n                    <h3>{{mod.data.filesMap[key][\"fileName\"]}}</h3>\r\n                    <p>{{mod.data.filesMap[key][\"fileSize\"]}}</p>\r\n                    <p><ion-progress-bar value=\"{{mod.data.filesMap[key]['progress']}}\" buffer=\"1\"></ion-progress-bar></p>\r\n                </ion-label>\r\n            </ion-item>\r\n            <ion-item-options side=\"end\">\r\n                <ion-item-option color=\"tertiary\" expandable (click)=\"fileDeleteClick(key)\">\r\n                    移除\r\n                </ion-item-option>\r\n            </ion-item-options>\r\n        </ion-item-sliding>\r\n        <ion-item (click)=\"selectFiles()\">\r\n            <ion-thumbnail slot=\"start\">\r\n                <img src=\"./assets/img/upload.png\" />\r\n                <input id=\"fileInput\" type=\"file\" ng2FileSelect [uploader]=\"uploader\" style=\"display:none\" (change)=\"uploadVideo($event)\" multiple />\r\n            </ion-thumbnail>\r\n            <ion-label>\r\n                <h3>&nbsp;</h3>\r\n                <p>请点击此处选择图片进行上传</p>\r\n                <p>&nbsp;</p>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n\r\n    <section style=\"text-align:center;\">\r\n        <ion-button style=\"width:40%\" color=\"danger\" (click)=\"cancelClick()\">取消</ion-button>\r\n        <ion-button style=\"width:40%\" color=\"success\" (click)=\"okClick()\">确定</ion-button>\r\n    </section>\r\n    <br />\r\n    <br />\r\n</ion-content>"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>附件上传</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-sliding *ngFor=\"let key of objectKeys(mod.data.filesMap)\">\r\n            <ion-item>\r\n                <ion-thumbnail slot=\"start\">\r\n                    <img src=\"{{mod.data.filesMap[key]['url']}}\" />\r\n                </ion-thumbnail>\r\n                <ion-label>\r\n                    <h3>{{mod.data.filesMap[key][\"fileName\"]}}</h3>\r\n                    <p>{{mod.data.filesMap[key][\"fileSize\"]}}</p>\r\n                    <p><ion-progress-bar value=\"{{mod.data.filesMap[key]['progress']}}\" buffer=\"1\"></ion-progress-bar></p>\r\n                </ion-label>\r\n            </ion-item>\r\n            <ion-item-options side=\"end\">\r\n                <ion-item-option color=\"danger\" expandable (click)=\"fileDeleteClick(key)\">\r\n                    移除\r\n                </ion-item-option>\r\n            </ion-item-options>\r\n        </ion-item-sliding>\r\n        <ion-item (click)=\"selectFiles()\">\r\n            <ion-thumbnail slot=\"start\">\r\n                <img src=\"./assets/img/upload.png\" />\r\n                <input id=\"fileInput\" type=\"file\" ng2FileSelect [uploader]=\"uploader\" style=\"display:none\" (change)=\"uploadVideo($event)\" multiple />\r\n            </ion-thumbnail>\r\n            <ion-label>\r\n                <h3>&nbsp;</h3>\r\n                <p>请点击此处选择图片进行上传</p>\r\n                <p>&nbsp;</p>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n\r\n    <section style=\"text-align:center;\">\r\n        <ion-button style=\"width:40%\" color=\"danger\" (click)=\"cancelClick()\">取消</ion-button>\r\n        <ion-button style=\"width:40%\" color=\"success\" (click)=\"okClick()\">确定</ion-button>\r\n    </section>\r\n    <br />\r\n    <br />\r\n</ion-content>"
 
 /***/ }),
 
@@ -1331,13 +1347,21 @@ const routes = [
                 ]
             },
             {
+                path: 'installationorder',
+                children: [
+                    { path: 'list', loadChildren: './saleing/mcs_installationorder/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './saleing/mcs_installationorder/detail/detail.module#DetailPageModule' }
+                ]
+            },
+            {
                 path: 'driverecord',
                 children: [
                     { path: 'list', loadChildren: './saleing/mcs_driverecord.com/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './saleing/mcs_driverecord.com/detail/detail.module#DetailPageModule' },
                     { path: 'edit', loadChildren: './saleing/mcs_driverecord.com/edit/edit.module#EditPageModule' },
                     { path: 'success', loadChildren: './saleing/mcs_driverecord.com/success/success.module#SuccessPageModule' },
-                    { path: 'calendar', loadChildren: './saleing/mcs_driverecord.com/calendar/calendar.module#CalendarPageModule' }
+                    { path: 'calendar', loadChildren: './saleing/mcs_driverecord.com/calendar/calendar.module#CalendarPageModule' },
+                    { path: 'feedback', loadChildren: './saleing/mcs_driverecord.com/feedback/feedback.module#FeedbackPageModule' }
                 ]
             }
         ]
@@ -1350,6 +1374,8 @@ const routes = [
     },
     { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' },
     { path: 'fileupload', loadChildren: './serving/serving.ser/components/fileupload/fileupload.module#FileuploadPageModule' },
+    { path: 'list', loadChildren: './saleing/mcs_installationorder/list/list.module#ListPageModule' },
+    { path: 'detail', loadChildren: './saleing/mcs_installationorder/detail/detail.module#DetailPageModule' },
 ];
 let AppRoutingModule = class AppRoutingModule {
 };
@@ -1623,6 +1649,7 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             app_serving_serving_ser_components_select_repairitemtypedetail_select_repairitemtypedetail_component__WEBPACK_IMPORTED_MODULE_30__["SelectRepairitemtypedetailComponent"],
             app_serving_serving_ser_components_select_appointmentinfo_select_appointmentinfo_component__WEBPACK_IMPORTED_MODULE_31__["SelectAppointmentinfoComponent"],
             app_serving_serving_ser_components_select_file_edit_select_file_edit_component__WEBPACK_IMPORTED_MODULE_32__["SelectFileEditComponent"],
+            app_base_base_ser_components_map_dragroute_dragroute_component__WEBPACK_IMPORTED_MODULE_33__["DragrouteComponent"]
         ],
         entryComponents: [
             _serving_serving_ser_components_sc_select_sc_select_component__WEBPACK_IMPORTED_MODULE_12__["ScSelectComponent"],
@@ -1646,6 +1673,7 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             app_serving_serving_ser_components_select_repairitemtypedetail_select_repairitemtypedetail_component__WEBPACK_IMPORTED_MODULE_30__["SelectRepairitemtypedetailComponent"],
             app_serving_serving_ser_components_select_appointmentinfo_select_appointmentinfo_component__WEBPACK_IMPORTED_MODULE_31__["SelectAppointmentinfoComponent"],
             app_serving_serving_ser_components_select_file_edit_select_file_edit_component__WEBPACK_IMPORTED_MODULE_32__["SelectFileEditComponent"],
+            app_base_base_ser_components_map_dragroute_dragroute_component__WEBPACK_IMPORTED_MODULE_33__["DragrouteComponent"]
         ],
         imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot({ mode: 'ios' }),
