@@ -3,17 +3,17 @@
       <ion-menu type="overlay" menuId="homeMenu">
         <ion-header>
           <ion-toolbar>
-            <ion-avatar item-start>
+            <!-- <ion-avatar item-start>
               <img src="{{headpicture}}" />
-            </ion-avatar>
-            <ion-title>张云，你好!</ion-title>
+            </ion-avatar> -->
+            <ion-title style="text-align: left;">张云，你好!</ion-title>
           </ion-toolbar>
         </ion-header>
         <ion-content>
           <ion-list>
             <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
               <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-                <ion-icon slot="start" [name]="p.icon"></ion-icon>
+                <ion-icon  color="primary"  slot="start" [name]="p.icon"></ion-icon>
                 <ion-label>
                   {{p.title}}
                 </ion-label>
@@ -21,7 +21,7 @@
               </ion-item>
             </ion-menu-toggle>
             <ion-item (click)="loginout()">
-                <ion-icon slot="start" name="log-out"></ion-icon>
+                <ion-icon  color="danger" slot="start" name="log-out"></ion-icon>
                 <ion-label>
                   注销
                 </ion-label>

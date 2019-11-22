@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DCore_Window,DCore_Page } from 'app/base/base.ser/Dcem.core';
 
 @Component({
   selector: 'app-welcome',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomePage implements OnInit {
 
-  constructor() { }
+  constructor( private _window: DCore_Window,private _page: DCore_Page) {
+   
+   }
 
   ngOnInit() {
+    
   }
 
+  tologin(){
+    this._window.storageSet("welcomeisloading","true");
+  }
 }
