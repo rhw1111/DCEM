@@ -108,6 +108,17 @@ let EditPage = class EditPage {
                 this.model.postData.mcs_cartypeid = res["TechnicalSupport"]["Attributes"]["_mcs_cartypeid_value"];
                 this.model.viewData.mcs_cartypeid_vale = res["TechnicalSupport"]["Attributes"]["_mcs_mcs_cartypeid_value@OData.Community.Display.V1.FormattedValue"];
             }
+            console.log(res);
+            if (res.DealerAttachment != null) {
+                for (let item of res.DealerAttachment) {
+                    console.log(item);
+                    var obj = {};
+                    obj["fileName"] = item["Attributes"]["mcs_filename"];
+                    obj["fileSize"] = item["Attributes"]["mcs_filesize"];
+                    obj["url"] = item["Attributes"]["mcs_fileurl"];
+                    this.model.fileArray.push(obj);
+                }
+            }
             this._page.loadingHide();
         }, (err) => {
             this._page.alert("消息提示", "数据加载异常");
@@ -169,12 +180,23 @@ let EditPage = class EditPage {
     //选择附件模式窗口
     presentFileModal() {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            var fileInputArray = [];
+            //输入参数
+            for (let item of this.model.fileArray) {
+                var obj = {};
+                obj["fileName"] = item["fileName"];
+                obj["fileSize"] = item["fileSize"];
+                obj["url"] = item["url"];
+                fileInputArray.push(obj);
+            }
             const modalWin = yield this.modalCtrl.create({
-                component: SelectFileEditComponent
+                component: SelectFileEditComponent,
+                componentProps: { fileArray: fileInputArray }
             });
             yield modalWin.present();
             const { data } = yield modalWin.onDidDismiss();
             if (data.command === 1) {
+                //输出参数
                 this.model.postData.fileEntityArray = [];
                 this.model.fileArray = data.fileArray;
                 for (let file of this.model.fileArray) {
@@ -283,25 +305,16 @@ let EditPage = class EditPage {
             this._page.presentToastError(errMessage);
             return;
         }
-        debugger;
         //请求
         this._page.loadingShow();
         this._http.post(this.model.postApiUrl, this.model.postData, (res) => {
-            debugger;
             console.log(res);
-            if (res != "") {
-                this._page.alert("消息提示", "保存成功！");
-                this._page.goto("/serving/ts/success", { guid: res });
-            }
-            else {
-                this._page.alert("消息提示", "保存失败！");
-            }
+            console.log(res.Data.Attributes["mcs_name"]);
             this._page.loadingHide();
+            this._page.goto("/serving/ts/success", { guid: res.Data.Id, no: res.Data.Attributes["mcs_name"] });
         }, (err) => {
-            debugger;
-            console.log(err);
-            this._page.alert("消息提示", "请求异常");
             this._page.loadingHide();
+            this._page.alert("消息提示", "保存失败！");
         });
     }
     changePhone(value) {
