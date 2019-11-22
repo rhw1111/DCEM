@@ -54,7 +54,7 @@ export class ListPage implements OnInit {
 
   //下拉刷新
   doRefresh(event) {
-    debugger;
+    //debugger;
     this.model.datalist = [];
     this.model.page = 1;
     this.model.isending = false;
@@ -83,7 +83,7 @@ export class ListPage implements OnInit {
   //获取列表数据
   getList(event) {
     //debugger;
-    this.model.datalist=[];
+    //this.model.datalist=[];
     this._page.loadingShow();
     this._http.get(this.model.apiUrl,
       {
@@ -127,10 +127,12 @@ export class ListPage implements OnInit {
         else {
           this._page.alert("消息提示", "数据加载异常");
         }
+        this.infiniteScroll.complete();
         this._page.loadingHide();
       },
       (err: any) => {
         this._page.alert("消息提示", "数据加载异常");
+        this.infiniteScroll.complete();
         this._page.loadingHide();
       }
     );
@@ -150,7 +152,7 @@ export class ListPage implements OnInit {
 
 
 UpdateState(id){
-  debugger;
+  //debugger;
   var postData = {};
   postData["id"] = id;
   postData["mcs_activitystatus"] = 1; //已完成

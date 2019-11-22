@@ -37,7 +37,7 @@ export class ListPage implements OnInit {
 
   ngOnInit() {
     this.model.page = 1;
-    this.getList(null);
+    this.initListLoading();
   }
     //搜索方法
     search(event) {
@@ -61,6 +61,12 @@ doLoading(event) {
   this.model.page++;
   this.getList(event);
 }
+//初始化页面数据加载
+initListLoading(){
+  this._page.loadingShow();
+  this.getList(null);
+}
+
 //切换tab
 selectTab(status) {
   //this.infiniteScroll.disabled = false;//切换标签初始化下拉控件事件
@@ -74,7 +80,7 @@ selectTab(status) {
       this.model.mcs_installationstatus = 0;
   }
   console.log(this.model.mcs_installationstatus)
-  this.getList(null);
+  this.initListLoading();
 }
 
  //获取列表数据
@@ -83,7 +89,7 @@ selectTab(status) {
    console.log("dealerid:"+this.model.dealerId);
    console.log("dealername:"+this._userinfo.GetDealername());
   //debugger;
-  this._page.loadingShow();
+  
   this._http.postForToaken(this.model.apiUrl,
       {
         mcs_installationstatus: this.model.mcs_installationstatus,
