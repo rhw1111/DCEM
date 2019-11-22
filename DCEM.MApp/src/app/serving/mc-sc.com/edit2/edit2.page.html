@@ -4,6 +4,9 @@
             <ion-back-button text="返回" defaultHref="/serving/sc/list"></ion-back-button>
         </ion-buttons>
         <ion-title>选择维修项目及配件</ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
@@ -144,7 +147,7 @@
     </ion-card>
     <section style="text-align:center;">
         <ion-button style="width:40%" color="danger" [routerLink]="['/serving/sc/edit']">上一步</ion-button>
-        <ion-button style="width:40%" color="success" (click)="saveOnClick()">保存</ion-button>
+        <ion-button style="width:40%" color="primary" (click)="saveOnClick()">保存</ion-button>
     </section>
     <br />
     <br />

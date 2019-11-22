@@ -84,7 +84,7 @@
             <h2>
               上牌日期
             </h2>
-            <p>{{mod.data.detail.mcs_lisensedate}}&nbsp;</p>
+            <p>{{mod.data.detail.mcs_lisensedate | date:'yyyy-MM-dd HH:mm:ss' }}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -148,7 +148,7 @@
             <h2>
               商城下单时间
             </h2>
-            <p>{{mod.data.detail.orderon}}&nbsp;</p>
+            <p>{{mod.data.detail.orderon | date:'yyyy-MM-dd HH:mm:ss' }}&nbsp;</p>
           </ion-label>
         </ion-item>
       </ion-list>
