@@ -2,15 +2,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { OptionSetService } from '../../saleing.ser/optionset.service';
-import { IonSegment } from '@ionic/angular';
- 
+import { ModalController, NavController } from '@ionic/angular';
+import { DragrouteComponent } from 'app/base/base.ser/components/map/dragroute/dragroute.component'
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.page.html',
   styleUrls: ['./detail.page.scss'],
 })
 export class DetailPage implements OnInit {
-
 
   public tab: any = "info";
   mod = {
@@ -27,14 +26,13 @@ export class DetailPage implements OnInit {
   objectKeys = Object.keys;
 
   constructor(
+    public _modalCtrl: ModalController,
     private _http: DCore_Http,
     private _page: DCore_Page,
     private _valid: DCore_Valid,
     private _activeRoute: ActivatedRoute,
     private _optionset: OptionSetService
-  ) {
-
-  }
+  ) { }
 
 
   //IonSegment
@@ -46,8 +44,28 @@ export class DetailPage implements OnInit {
       }
     });
   }
-  fileUpload(){
+  fileUpload() {
 
+  }
+  //加载地图
+  async loadmap() {
+    debugger;
+    if (this.mod.data.detail["mcs_startlongitude"] != undefined&&this.mod.data.detail["mcs_startlongitude"]!=undefined&&this.mod.data.detail["mcs_endlongitude"]!=undefined&& this.mod.data.detail["mcs_endlatitude"]!=undefined) {
+      const modal = await this._modalCtrl.create({
+        component: DragrouteComponent,
+        componentProps: {
+          'startlongitude': this.mod.data.detail["mcs_startlongitude"],
+          'startlatitude': this.mod.data.detail["mcs_startlatitude"],
+          'endlongitude': this.mod.data.detail["mcs_endlongitude"],
+          'endlatitude': this.mod.data.detail["mcs_endlatitude"]
+        }
+      });
+      await modal.present();
+    }
+    else
+    {
+      this._page.alert("消息提示", "请先填写完善试驾线路信息！");
+    }
   }
   pageOnBind(id: any) {
     this.mod.data.detail["id"] = id;
@@ -62,8 +80,8 @@ export class DetailPage implements OnInit {
       },
       (res: any) => {
         if (!this._valid.isNull(res["Detail"])) {
-          this.mod.data.detail["testdrivefeedbackname"]=res["Detail"]["Attributes"]["testdrivefeedbackname"]; 
-          this.mod.data.detail["mcs_drivestatus"] = res["Detail"]["Attributes"]["mcs_drivestatus"]; 
+          this.mod.data.detail["testdrivefeedbackname"] = res["Detail"]["Attributes"]["testdrivefeedbackname"];
+          this.mod.data.detail["mcs_drivestatus"] = res["Detail"]["Attributes"]["mcs_drivestatus"];
           this.mod.data.detail["statusname"] = this._optionset.GetOptionSetNameByValue("mcs_drivestatus", res["Detail"]["Attributes"]["mcs_drivestatus"]);;
           this.mod.data.detail["mcs_fullname"] = res["Detail"]["Attributes"]["mcs_fullname"];
           this.mod.data.detail["mcs_mobilephone"] = res["Detail"]["Attributes"]["mcs_mobilephone"];
@@ -76,7 +94,10 @@ export class DetailPage implements OnInit {
           this.mod.data.detail["mcs_starton"] = res["Detail"]["Attributes"]["mcs_starton"];
           this.mod.data.detail["mcs_endon"] = res["Detail"]["Attributes"]["mcs_endon"];
           this.mod.data.detail["mcs_cancelreason"] = res["Detail"]["Attributes"]["mcs_cancelreason"];
-
+          this.mod.data.detail["mcs_startlongitude"] = res["Detail"]["Attributes"]["startlongitude"];
+          this.mod.data.detail["mcs_startlatitude"] = res["Detail"]["Attributes"]["startlatitude"];
+          this.mod.data.detail["mcs_endlongitude"] = res["Detail"]["Attributes"]["endlongitude"];
+          this.mod.data.detail["mcs_endlatitude"] = res["Detail"]["Attributes"]["endlatitude"];
         }
         if (!this._valid.isNull(res.AttachmentDetail)) {
           for (var key in res.AttachmentDetail) {
@@ -109,19 +130,19 @@ export class DetailPage implements OnInit {
   }
 
   public saveOnClick(id: any, type: any) {
-   debugger;
-   
+    debugger;
+
     this.mod.driveRecord['mcs_driverecordid'] = id;
     //判断是开始试驾还是结束试驾
-    if (type == 1){ 
+    if (type == 1) {
       this.mod.driveRecord['mcs_drivestatus'] = 14;
       this.mod.driveRecord['mcs_starton'] = new Date();
     }
-    else{ 
+    else {
       this.mod.driveRecord['mcs_drivestatus'] = 15;
       this.mod.driveRecord['mcs_endon'] = new Date();
     }
-      this.mod.postData["driveRecord"]=this.mod.driveRecord;
+    this.mod.postData["driveRecord"] = this.mod.driveRecord;
     this._page.loadingShow();
     this._http.postForToaken(
       this.mod.editUrl, this.mod.postData,

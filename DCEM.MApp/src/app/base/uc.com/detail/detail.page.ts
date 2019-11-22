@@ -4,6 +4,7 @@ import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular'; 
 import { DragrouteComponent} from'app/base/base.ser/components/map/dragroute/dragroute.component'
+
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.page.html',
@@ -31,8 +32,7 @@ export class DetailPage implements OnInit {
   }
 
   ngOnInit() {
-    this.pageOnBind();
-    this._map.draw(116.303843,39.983412,116.407012,39.992093);
+    this.pageOnBind(); 
   }
   //获取交车单基础信息
   pageOnBind() {
