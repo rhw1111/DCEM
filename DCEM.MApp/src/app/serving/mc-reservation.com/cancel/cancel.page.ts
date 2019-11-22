@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
+import { DCore_Http, DCore_Page,DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
@@ -26,20 +26,28 @@ export class CancelPage implements OnInit {
     constructor(
         private _http: DCore_Http,
         private _page: DCore_Page,
-        private activeRoute: ActivatedRoute
+        private activeRoute: ActivatedRoute,
+        private _valid: DCore_Valid,
     ) { }
 
     ngOnInit() {
         this.activeRoute.queryParams.subscribe((params: Params) => {
             if (params['id'] != null && params['id'] != undefined) {
-                console.log("记录Id:" + this.model.appointmentinfoid);
                 this.model.appointmentinfoid = params['id'];
             }
         });
   }
 
     saveOnClick() {
-        debugger;
+
+        if (this._valid.isNullOrEmpty(this.shareData.appointmentinfo["mcs_cancelreasonnew"])) {
+            this._page.presentToastError("请先选择取消原因");
+            return;
+        }
+        if (this._valid.isNullOrEmpty(this.shareData.appointmentinfo["mcs_canceldes"])) {
+            this._page.presentToastError("请填写取消描述");
+            return;
+        }
         this.model.postData["actioncode"] = 2;
         this.model.postData["appointmentinfo"] = this.shareData.appointmentinfo;
 
@@ -54,15 +62,12 @@ export class CancelPage implements OnInit {
         console.log(this.model.postData);
 
         this._page.loadingShow();
-        this._http.post(
+        this._http.postForToaken(
             this.model.postApiUrl, this.model.postData,
             (res: any) => {
                 this._page.loadingHide();
                 if (res.Result == true) {
-                    console.log("res");
-                    console.log(res);
                     var guid = res["Data"]["Id"];
-                    //this._shareData.delete(this.mod.shareDataKey);
                     this._page.goto("/serving/reservation/success", { guid: guid });
                 }
                 else {

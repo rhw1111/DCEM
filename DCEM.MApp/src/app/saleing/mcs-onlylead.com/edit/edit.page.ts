@@ -229,6 +229,7 @@ export class EditPage implements OnInit {
 
     //触发区事件
     districtOnClick() {
+        debugger;
         if (this.model.cityId != "") {
             this.districtModal()
         }
