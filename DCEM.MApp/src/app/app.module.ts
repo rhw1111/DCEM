@@ -41,7 +41,7 @@ import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { FileUploadModule } from 'ng2-file-upload';
-
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @NgModule({
     declarations: [//申明组件
@@ -104,7 +104,6 @@ import { FileUploadModule } from 'ng2-file-upload';
         FormsModule,
         ReactiveFormsModule,
         NgZorroAntdMobileModule
-
     ],
     providers: [
         DragrouteComponent,
@@ -113,6 +112,7 @@ import { FileUploadModule } from 'ng2-file-upload';
         ImagePicker,
         FileTransfer,
         Camera,
+        ScreenOrientation,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
     ],
     bootstrap: [AppComponent]
