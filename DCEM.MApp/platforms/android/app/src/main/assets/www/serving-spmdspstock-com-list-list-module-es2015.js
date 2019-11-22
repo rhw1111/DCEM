@@ -141,6 +141,7 @@ let ListPage = class ListPage {
     }
     //列表绑定
     listOnBind() {
+        console.log(this.mod.searchData.pageindex);
         if (this.mod.searchData.pageindex == 1)
             this._page.loadingShow();
         this._http.get(this.mod.apiUrl, {

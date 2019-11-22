@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { OptionSetService } from '../../saleing.ser/optionset.service';
-import { IonSegment } from '@ionic/angular';
-
+import { OptionSetService } from '../../saleing.ser/optionset.service'; 
+import { SelectFileEditComponent } from 'app/serving/serving.ser/components/select-file-edit/select-file-edit.component';
+import { ModalController } from '@ionic/angular';
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.page.html',
@@ -19,7 +19,7 @@ export class DetailPage implements OnInit {
       detail: [],//开票明细
       cardNodetail: [],//身份附件列表
       invoicedetail: []//开票附件明细
-    }
+    } 
   };
 
   objectKeys = Object.keys;
@@ -28,6 +28,7 @@ export class DetailPage implements OnInit {
     private _http: DCore_Http,
     private _page: DCore_Page,
     private _valid: DCore_Valid,
+    private modalCtrl: ModalController,
     private _activeRoute: ActivatedRoute,
     private _optionset: OptionSetService
   ) {
@@ -44,6 +45,24 @@ export class DetailPage implements OnInit {
       }
     });
   }
+
+
+   //选择附件模式窗口  1身份证，2开票附件
+   async presentFileModal(id:any,type:any) { 
+    var fileInputArray = [];  
+    const modalWin = await this.modalCtrl.create({
+        component: SelectFileEditComponent,
+        componentProps: { fileArray: fileInputArray }
+    });
+
+    await modalWin.present();
+    const { data } = await modalWin.onDidDismiss();
+    debugger;
+    if (data.command === 1) { 
+         //data.fileArray;
+         
+    }
+}
 
   pageOnBind(id: any) { 
     this.mod.data.detail["id"] = id;
@@ -85,6 +104,7 @@ export class DetailPage implements OnInit {
           this.mod.data.detail["vehdeliverycode"] = res["Detail"]["Attributes"]["vehdeliverycode"];
           this.mod.data.detail["deliverystatus"] =this._optionset.GetOptionSetNameByValue("mcs_deliverystatus",  res["Detail"]["Attributes"]["deliverystatus"]);   
           this.mod.data.detail["carusename"] = res["Detail"]["Attributes"]["carusename"]; 
+          this.mod.data.detail["mcs_tservicestatus"] = res["Detail"]["Attributes"]["mcs_tservicestatus"]; 
          
 
         }
