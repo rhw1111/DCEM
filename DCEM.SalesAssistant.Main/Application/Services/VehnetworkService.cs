@@ -107,6 +107,94 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             }
         }
 
+        public async Task<ValidateResult<string>> PostStatus(Guid id)
+        {
+            var validateResult = new ValidateResult<string>();
+
+            #region 身份附件验证
+            var fetchXdoc = _Repository.GetAttachmentDetaillFetchXml(id, partnertype, "3");
+            var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_attachment",
+                FetchXml = fetchXdoc.Result
+            };
+            var fetchResponse = await _crmService.Execute(fetchRequest);
+            var detailResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            if (detailResult.Value.Results.Count == 0)
+            {
+                validateResult.Result = false;
+                validateResult.Description = "请上传身份证附件！";
+                return validateResult;
+            }
+            #endregion
+            #region 发票附件验证
+            fetchXdoc = _Repository.GetAttachmentDetaillFetchXml(id, partnertype, "4");
+            fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_attachment",
+                FetchXml = fetchXdoc.Result
+            };
+            fetchResponse = await _crmService.Execute(fetchRequest);
+            detailResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            if (detailResult.Value.Results.Count == 0)
+            {
+                validateResult.Result = false;
+                validateResult.Description = "请上传发票附件！";
+                return validateResult;
+            }
+            #endregion
+
+            #region 开票明细
+            fetchXdoc = _Repository.GetDetaillFetchXml(id);
+            fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_vehnetwork",
+                FetchXml = fetchXdoc.Result
+            };
+            fetchResponse = await _crmService.Execute(fetchRequest);
+            detailResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            var detail = detailResult.Value.Results[0];
+            /// <summary>
+            ///  只针对整车订单（企业客户订单不处理）  是否已经厅店门店出库  没出库不允许进行交车完成
+            /// </summary>
+            if (detail.Attributes["postatus"] != null)
+            {
+                //销售出库
+                if (detail.Attributes["postatus"].ToString() != "12")
+                {
+
+                    validateResult.Result = false;
+                    validateResult.Description = "请先在门店将车辆出库，再进行交车完成操作！";
+                    return validateResult;
+                }
+            }
+            #endregion
+            //修改开票记录状态 交车完成
+            var entity = new CrmExecuteEntity("mcs_vehnetwork", id);
+            entity.Attributes.Add("mcs_tservicestatus", 5);
+            entity.Attributes.Add("mcs_deliveryon", DateTime.Now.ToUniversalTime());
+            await _crmService.Update(entity, null);
+            //修改交车单状态
+            if (detail.Attributes["_mcs_vehdelivery_value"] != null)
+            {
+                var vehdelivery = new CrmExecuteEntity("mcs_vehdelivery", Guid.Parse(detail.Attributes["_mcs_vehdelivery_value"].ToString()));
+                vehdelivery.Attributes.Add("mcs_deliverystatus", 7);
+                vehdelivery.Attributes.Add("mcs_deliveryon", DateTime.Now.ToUniversalTime());
+                await _crmService.Update(vehdelivery, null);
+            }
+            //修改车辆档案车辆属性
+            //if (detail.Attributes["mcs_carproperty"] != null)
+            //{
+            //    var vehowner = new CrmExecuteEntity("mcs_vehowner", Guid.Parse(detail.Attributes["mcs_vehownerid"].ToString()));
+            //    vehowner.Attributes.Add("mcs_carproperty", int.Parse(detail.Attributes["mcs_carproperty"].ToString()));
+            //    await _crmService.Update(vehowner, null);
+            //}
+            validateResult.Result = true;
+            return validateResult;
+        }
+
+
+
 
     }
 }
