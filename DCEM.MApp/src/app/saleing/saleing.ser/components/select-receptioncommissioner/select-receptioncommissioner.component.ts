@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalController, IonContent, NavParams, IonInfiniteScroll } from '@ionic/angular';
+import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 @Component({
   selector: 'app-select-receptioncommissioner',
   templateUrl: './select-receptioncommissioner.component.html',
@@ -9,6 +9,8 @@ import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 export class SelectReceptioncommissionerComponent implements OnInit {
 
 
+  @ViewChild(IonContent, null) ionContent: IonContent;
+  @ViewChild(IonInfiniteScroll, null) ionInfiniteScroll: IonInfiniteScroll;
   public selectItemValue: any = '';
   public seachkey: string = '';
   public dataList: any = [];
@@ -28,6 +30,7 @@ export class SelectReceptioncommissionerComponent implements OnInit {
   constructor(
     private modalCtrl: ModalController,
     private _http: DCore_Http,
+    private _valid: DCore_Valid,
     private _page: DCore_Page
   ) {
     this.mod.apiUrl = "/Api/basedata/QueryReceptioncommissioner"; 
@@ -47,8 +50,11 @@ export class SelectReceptioncommissionerComponent implements OnInit {
     }
   }
 
-  listOnBind() {
-    this._page.loadingShow();
+  doInfinite(event) {
+    this.mod.searchData.pageindex++;
+    this.listOnBind();
+  }
+  listOnBind() { 
     this.mod.data = [];
     this._http.get(
       this.mod.apiUrl,
@@ -60,24 +66,22 @@ export class SelectReceptioncommissionerComponent implements OnInit {
         }
       },
       (res: any) => { 
-        if (res.Results !== null) { 
+        if (!this._valid.isNull(res.Results) !== null && res.Results.length > 0) {
           for (var key in res.Results) {
             var obj = {}; 
             obj["Id"] = res.Results[key]["Id"];
             obj["name"] = res.Results[key]["Attributes"]["mcs_name"];
             obj["mcs_code"] = res.Results[key]["Attributes"]["mcs_code"]; 
             this.mod.data.push(obj);
-          }
-          this._page.loadingHide();
+          } 
         }
-        else {
-          this._page.alert("消息提示", "数据加载异常");
-          this._page.loadingHide();
+        else { 
+          this.ionInfiniteScroll.disabled = true;
+          this.ionInfiniteScroll.complete();
         }
       },
       (err: any) => {
-        this._page.alert("消息提示", "数据加载异常");
-        this._page.loadingHide();
+        this._page.alert("消息提示", "数据加载异常"); 
       }
     );
   }

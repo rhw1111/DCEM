@@ -53,8 +53,7 @@ export class DetailPage implements OnInit {
       component: SelectFileEditComponent,
       componentProps: { fileArray: fileInputArray }
     });
-
-    this._page.loadingShow();
+ 
     await modalWin.present();
     const { data } = await modalWin.onDidDismiss();
     if (data.command === 1) {

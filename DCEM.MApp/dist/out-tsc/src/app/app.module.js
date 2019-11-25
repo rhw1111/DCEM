@@ -37,6 +37,7 @@ import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
 import { FileUploadModule } from 'ng2-file-upload';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 let AppModule = class AppModule {
 };
 AppModule = tslib_1.__decorate([
@@ -107,6 +108,7 @@ AppModule = tslib_1.__decorate([
             ImagePicker,
             FileTransfer,
             Camera,
+            ScreenOrientation,
             { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
         ],
         bootstrap: [AppComponent]

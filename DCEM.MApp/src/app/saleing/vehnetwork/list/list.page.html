@@ -12,8 +12,11 @@
     <ion-toolbar>
         <ion-item>
             <ion-label>开票状态</ion-label>
-            <ion-select name="clues" okText="确认" cancelText="取消" (ionChange)="searchOnCharge()"  [(ngModel)]="model.search.mcs_tservicestatus" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="开票状态选择">
-              <ion-select-option *ngFor="let item of model.statusOptions" value="{{item.value}}">
+            <ion-select  [(ngModel)]="model.search.status" name="clues" okText="确认" cancelText="取消" (ionChange)="searchOnCharge()"  [(ngModel)]="model.search.mcs_tservicestatus" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="开票状态选择">
+                <ion-select-option     value="">
+                  全部
+                </ion-select-option> 
+                <ion-select-option *ngFor="let item of model.statusOptions" value="{{item.value}}">
                   {{item.name}}
               </ion-select-option> 
             </ion-select>
@@ -36,12 +39,7 @@
                         <p style="    font-size: 0.8rem;"> {{item.status}}</p>
                     </ion-note>
             </ion-item>
-            <ion-item-options side="end">
-                <ion-item-option color="tertiary" expandable [routerLink]="['/saleing/vehnetwork/detail']"
-                    [queryParams]="{id:item.id}">
-                    详情
-                </ion-item-option>
-            </ion-item-options>
+            
         </ion-item-sliding>
     </ion-list>
     <ion-label *ngIf="this.model.isending" text-center>

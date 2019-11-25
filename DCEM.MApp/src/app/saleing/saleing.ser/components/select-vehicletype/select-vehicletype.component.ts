@@ -19,7 +19,7 @@ export class SelectVehicletypeComponent implements OnInit {
     searchData: { 
       pageindex: 1, 
       search: "",
-      pagesize:10
+      pagesize:20
     }
   };
 
@@ -33,7 +33,7 @@ export class SelectVehicletypeComponent implements OnInit {
     this.mod.apiUrl = "/Api/basedata/QueryVehicletype"; 
     this.mod.searchData.search = "";
     this.mod.searchData.pageindex = 1;
-    this.mod.searchData.pagesize = 10;
+    this.mod.searchData.pagesize = 20;
   }
 
   ngOnInit() {
@@ -48,8 +48,7 @@ export class SelectVehicletypeComponent implements OnInit {
   }
 
   listOnBind() {
-    this._page.loadingShow();
-    this.mod.data = [];
+    this._page.loadingShow(); 
     this._http.get(
       this.mod.apiUrl,
       {

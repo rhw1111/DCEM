@@ -217,12 +217,6 @@
                             {{item.type}}
                         </ion-note>
                     </ion-item>
-                    <ion-item-options side="end">
-                        <ion-item-option color="tertiary" expandable [routerLink]="['/saleing/orderpaydetail/detail']"
-                            [queryParams]="{id:item.id}">
-                            详情
-                        </ion-item-option>
-                    </ion-item-options>
                 </ion-item-sliding>
             </ion-list>
             <ion-label *ngIf="this.orderpaymodel.isending" text-center>
