@@ -12,17 +12,17 @@
       <ion-searchbar [(ngModel)]="this.model.seachkey" placeholder="支持项目名称和编号模糊查找" (keyup)="search($event)" ></ion-searchbar>
   </ion-toolbar>
   <ion-toolbar>
-      <ion-segment [(ngModel)]="tab">
-        <ion-segment-button value="0" (click)="selectTab(0)">
+      <ion-segment>
+        <ion-segment-button value="0" checked (click)="selectTab(0)">
             <ion-label>全部</ion-label>
         </ion-segment-button>
         <!-- <ion-segment-button (click)="selectTab(10)">
             <ion-label>未处理</ion-label>
         </ion-segment-button> -->
-        <ion-segment-button value="30" (click)="selectTab(30)">
+        <ion-segment-button (click)="selectTab(30)">
             <ion-label>处理中</ion-label>
         </ion-segment-button>
-        <ion-segment-button value="40" (click)="selectTab(40)">
+        <ion-segment-button (click)="selectTab(40)">
             <ion-label>已关闭</ion-label>
         </ion-segment-button>
         <!-- <ion-segment-button (click)="selectTab(50)">
@@ -40,10 +40,10 @@
     <ion-list lines="full">
         <ion-item *ngFor="let item of model.data" [routerLink]="['/serving/ts/detail']" [queryParams]="{id:item.Id}">
             <!-- <ion-icon slot="start" name="hammer" size="large"></ion-icon> -->
-            <ion-avatar *ngIf="item.mcs_orderstatus==10" item-start>技</ion-avatar>
-            <ion-avatar *ngIf="item.mcs_orderstatus==40" class="bggray" item-start>技</ion-avatar>
-            <ion-avatar *ngIf="item.mcs_orderstatus==30" class="bgorage" item-start>技</ion-avatar>
-            <ion-avatar *ngIf="item.mcs_orderstatus==50" class="bgored" item-start>技</ion-avatar>
+            <ion-avatar class="header-ion-avatar" *ngIf="item.mcs_orderstatus==10" item-start>技</ion-avatar>
+            <ion-avatar *ngIf="item.mcs_orderstatus==40" class="header-ion-avatar bggray" item-start>技</ion-avatar>
+            <ion-avatar *ngIf="item.mcs_orderstatus==30" class="header-ion-avatar bgorage" item-start>技</ion-avatar>
+            <ion-avatar *ngIf="item.mcs_orderstatus==50" class="header-ion-avatar bgored" item-start>技</ion-avatar>
             <ion-label>
                 <h3>{{item.mcs_name}}</h3>
                 <p>{{item.mcs_title}}</p>

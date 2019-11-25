@@ -286,7 +286,7 @@
             <ion-fab-button *ngIf="mod.data.Account.mcs_customerstatus<4" title="战败" color="danger" (click)="Failed()">
                 战败
             </ion-fab-button>
-            <ion-fab-button color="warning" [routerLink]="['/saleing/account/edit']"
+            <ion-fab-button *ngIf="mod.data.Account.mcs_customerstatus<4" color="warning" [routerLink]="['/saleing/account/edit']"
                 [queryParams]="{id:mod.data.Account.Id,actionCode:2}">
                 <ion-icon name="create"></ion-icon>
             </ion-fab-button>
