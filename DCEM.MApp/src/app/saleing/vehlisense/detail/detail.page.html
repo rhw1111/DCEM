@@ -177,11 +177,15 @@
                   <h2>{{item.mcs_filename}}</h2>
                   <p>大小：{{item.mcs_filesize}}</p> 
               </ion-label> 
-              <ion-button size="default"  color="primary" class="button-outline" (click)="down(item.fileurl)">
+              <!-- <ion-button size="default"  color="primary" class="button-outline" (click)="down(item.fileurl)">
                 下载  <ion-icon color="primary" name="arrow-down"  ></ion-icon> 
-              </ion-button> 
+              </ion-button>  -->
           </ion-item> 
       </ion-list> 
+      <section style="text-align:center;"  >
+        <ion-button style="width:80%" color="primary" (click)="presentFileModal(mod.data.detail.id)">
+          上传附件</ion-button>
+      </section>
     </div> 
   </div>
 

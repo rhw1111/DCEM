@@ -9,10 +9,14 @@ import { OptionSetService } from '../../saleing.ser/optionset.service';
   styleUrls: ['./detail.page.scss'],
 })
 export class DetailPage implements OnInit {
- public tab: any = "baseinfo";
+  public tab: any = "infolist";
   model = {
     apiUrlInfo: '/api/Installation/GetInstallationorderDetail',
+    infoId:"",
     data: {},//详情数据集合
+    infolistFlag:true,
+    userlistFlag:true,
+    processlistFlag:true,
   }
 
   constructor(
@@ -23,25 +27,46 @@ export class DetailPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.activeRoute.queryParams.subscribe((params: Params) => {
-      if (params['id'] != null && params['id'] != undefined) {
-          this.pageOnBind(params['id']);
-      }
-   });
+    if(this.model.infoId==""){
+      this.activeRoute.queryParams.subscribe((params: Params) => {
+        if (params['id'] != null && params['id'] != undefined) {
+            this.model.infoId=params['id'];
+        }
+     });
+    }
+    this.infolistFun();
+ 
+  }
+  infolistFun(){
+    if(this.model.infolistFlag){
+      this.model.infolistFlag=false;
+      this.pageOnBind();
+    }
+  }
+  userlistFun(){
+    if(this.model.infolistFlag){
+      this.model.userlistFlag=false;
+    }
   }
 
+  processlistFun(){
+    if(this.model.processlistFlag){
+      this.model.processlistFlag=false;
+    }
+  }
 
   //加载勘测单详情
-  pageOnBind(id:any) {
+  pageOnBind() {
+    console.log("id:"+this.model.infoId);
     //debugger;
     this._page.loadingShow();
     this._http.postForToaken(
       this.model.apiUrlInfo,
       {
-        Guid:id
+        Guid:this.model.infoId
       },
       (res: any) => {
-          console.log("id:"+id);
+        console.log("id:"+this.model.infoId);
           console.log(res);
           if(res!=null && res.Attributes!=null)
             this.model.data=res.Attributes;

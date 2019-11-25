@@ -219,7 +219,9 @@ export class DetailPage implements OnInit {
           event ? event.target.complete() : '';
           if (data.length < this.orderpaymodel.search.pagesize) {
             event ? event.target.disabled = true : "";
-            this.orderpaymodel.isending = true;
+            if (this.orderpaymodel.search.pageindex != 1) {
+              this.orderpaymodel.isending = true;
+            }
           }
           this._page.loadingHide();
         }
