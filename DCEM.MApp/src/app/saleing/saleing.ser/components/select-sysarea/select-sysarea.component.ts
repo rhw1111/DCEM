@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController,NavParams } from '@ionic/angular';
-import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
+import { Component, OnInit, ViewChild  } from '@angular/core';
+import { ModalController, IonContent, NavParams , IonInfiniteScroll} from '@ionic/angular';
+import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 @Component({
   selector: 'app-select-sysarea',
   templateUrl: './select-sysarea.component.html',
@@ -9,6 +9,8 @@ import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 export class SelectSysareaComponent implements OnInit {
 
 
+  @ViewChild(IonContent, null) ionContent: IonContent;
+  @ViewChild(IonInfiniteScroll, null) ionInfiniteScroll: IonInfiniteScroll;
   public selectItemValue: any = '';
   public seachkey: string = '';
   public dataList: any = [];
@@ -16,81 +18,84 @@ export class SelectSysareaComponent implements OnInit {
   public mod: any = {
     apiUrl: '',
     data: [],
-    searchData: { 
+    searchData: {
       pageindex: 1,
       pid: "",//父ID 外部传入 未实现
       level: "",//级别
       search: "",
-      pagesize:10
+      pagesize: 10 
     }
   };
 
   objectKeys = Object.keys;
 
-    constructor(
-        private modalCtrl: ModalController,
-        private _http: DCore_Http,
-        private _page: DCore_Page,
-        private _navParams: NavParams
+  constructor(
+    private modalCtrl: ModalController,
+    private _http: DCore_Http,
+    private _page: DCore_Page,
+    private _valid: DCore_Valid,
+    private _navParams: NavParams
 
-    ) {
-        this.mod.apiUrl = "/Api/basedata/QuerySysarea";
-        this.mod.searchData.search = "";
-        this.mod.searchData.pageindex = 1;
-        this.mod.searchData.pagesize = 10;
-        this.mod.searchData.pid = _navParams.get('pid');
-        this.mod.searchData.level = _navParams.get('level');
-    }
+  ) {
+    this.mod.apiUrl = "/Api/basedata/QuerySysarea";
+    this.mod.searchData.search = "";
+    this.mod.searchData.pageindex = 1;
+    this.mod.searchData.pagesize = 20;
+    this.mod.searchData.pid = _navParams.get('pid');
+    this.mod.searchData.level = _navParams.get('level');
+  }
 
   ngOnInit() {
     this.listOnBind();
   }
 
-  searchOnKeyup(event: any) { 
+  searchOnKeyup(event: any) {
     var keyCode = event ? event.keyCode : "";
     if (keyCode == 13) {
+      this.ionInfiniteScroll.disabled = false;
       this.listOnBind();
     }
   }
 
-  listOnBind() {
-    this._page.loadingShow();
-    this.mod.data = [];
+  listOnBind() {  
     this._http.get(
       this.mod.apiUrl,
       {
-        params: {  
+        params: {
           pid: this.mod.searchData.pid,
           level: this.mod.searchData.level,
-          pageindex: this.mod.searchData.pageindex,
+          page: this.mod.searchData.pageindex,
           seachkey: this.mod.searchData.search,
-          pageSize:this.mod.searchData.pagesize
+          pageSize: this.mod.searchData.pagesize
         }
       },
       (res: any) => { 
-        if (res.Results !== null) { 
+        if (!this._valid.isNull(res.Results) !== null && res.Results.length > 0) {
           for (var key in res.Results) {
-            var obj = {}; 
+            var obj = {};
             obj["Id"] = res.Results[key]["Id"];
             obj["name"] = res.Results[key]["Attributes"]["mcs_name"];
-            obj["mcs_code"] = res.Results[key]["Attributes"]["mcs_code"]; 
+            obj["mcs_code"] = res.Results[key]["Attributes"]["mcs_code"];
             this.mod.data.push(obj);
-          }
-          this._page.loadingHide();
-        }
-        else {
-          this._page.alert("消息提示", "数据加载异常");
-          this._page.loadingHide();
+          }  
+        } 
+        else  { 
+          this.ionInfiniteScroll.disabled = true;
+          this.ionInfiniteScroll.complete(); 
         }
       },
       (err: any) => {
         this._page.alert("消息提示", "数据加载异常");
         this._page.loadingHide();
+        this.ionInfiniteScroll.complete();
       }
     );
   }
 
-
+  doInfinite(event) {
+    this.mod.searchData.pageindex++;
+    this.listOnBind();
+  }
   dismissModal() {
     this.modalCtrl.dismiss({
       'dismissed': true

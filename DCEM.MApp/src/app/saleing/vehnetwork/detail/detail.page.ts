@@ -56,8 +56,7 @@ export class DetailPage implements OnInit {
       component: SelectFileEditComponent,
       componentProps: { fileArray: fileInputArray }
     });
-
-    this._page.loadingShow();
+ 
     await modalWin.present();
     const { data } = await modalWin.onDidDismiss();
      if (data.command === 1) { 
@@ -151,8 +150,7 @@ export class DetailPage implements OnInit {
   }
 
   pageOnBind(id: any) {
-    this.mod.data.detail["id"] = id;
-
+    this.mod.data.detail["id"] = id;  
     this._page.loadingShow();
     this._http.get(
       this.mod.apiUrl,
@@ -182,8 +180,7 @@ export class DetailPage implements OnInit {
           this.mod.data.detail["ontactphone"] = res["Detail"]["Attributes"]["contactphone"];
           this.mod.data.detail["contactname"] = res["Detail"]["Attributes"]["contactname"];
           this.mod.data.detail["idcard"] = res["Detail"]["Attributes"]["idcard"];
-          this.mod.data.detail["orderon"] = res["Detail"]["Attributes"]["orderon"];
-
+          this.mod.data.detail["orderon"] = res["Detail"]["Attributes"]["orderon"]; 
           this.mod.data.detail["vehordercode"] = res["Detail"]["Attributes"]["vehordercode"];
           this.mod.data.detail["vehordercode"] = res["Detail"]["Attributes"]["vehordercode"];
           this.mod.data.detail["vinname"] = res["Detail"]["Attributes"]["vinname"];
@@ -196,9 +193,8 @@ export class DetailPage implements OnInit {
         }
         if (!this._valid.isNull(res.CardNoDetail)) {
           for (var key in res.CardNoDetail) {
-
             var obj = {};
-            obj["mcs_filename"] = res.AttmDetail[key]["Attributes"]["mcs_filename"];
+            obj["mcs_filename"] = res.CardNoDetail[key]["Attributes"]["mcs_filename"];
             obj["mcs_filetype"] = res.CardNoDetail[key]["Attributes"]["mcs_filetype"];
             obj["mcs_fileurl"] = res.CardNoDetail[key]["Attributes"]["mcs_fileurl"];
             obj["mcs_code"] = res.CardNoDetail[key]["Attributes"]["mcs_code"];
@@ -207,21 +203,16 @@ export class DetailPage implements OnInit {
           }
         }
         if (!this._valid.isNull(res.InvoiceDetail)) {
-          for (var key in res.InvoiceDetail) {
-
-
+          for (var key in res.InvoiceDetail) { 
             var obj = {};
-            obj["mcs_filename"] = res.AttmDetail[key]["Attributes"]["mcs_filename"];
+            obj["mcs_filename"] = res.InvoiceDetail[key]["Attributes"]["mcs_filename"];
             obj["mcs_filetype"] = res.InvoiceDetail[key]["Attributes"]["mcs_filetype"];
             obj["mcs_fileurl"] = res.InvoiceDetail[key]["Attributes"]["mcs_fileurl"];
             obj["mcs_code"] = res.InvoiceDetail[key]["Attributes"]["mcs_code"];
             obj["mcs_filesize"] = res.InvoiceDetail[key]["Attributes"]["mcs_filesize"];
             this.mod.data.invoicedetail.push(obj);
           }
-        }
-
-
-
+        } 
         this._page.loadingHide();
       },
       (err: any) => {
