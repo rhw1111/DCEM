@@ -118,13 +118,13 @@ var map = {
 		"./src/app/saleing/mcs-account.com/success/success.module.ts",
 		"saleing-mcs-account-com-success-success-module"
 	],
-	"./saleing/mcs-contactrecord/edit/edit.module": [
-		"./src/app/saleing/mcs-contactrecord/edit/edit.module.ts",
-		"saleing-mcs-contactrecord-edit-edit-module"
-	],
 	"./saleing/mcs-contactrecord/list/list.module": [
 		"./src/app/saleing/mcs-contactrecord/list/list.module.ts",
 		"saleing-mcs-contactrecord-list-list-module"
+	],
+	"./saleing/mcs-contactrecord/success/success.module": [
+		"./src/app/saleing/mcs-contactrecord/success/success.module.ts",
+		"saleing-mcs-contactrecord-success-success-module"
 	],
 	"./saleing/mcs-cultivatetask.com/detail/detail.module": [
 		"./src/app/saleing/mcs-cultivatetask.com/detail/detail.module.ts",
@@ -881,7 +881,7 @@ module.exports = webpackAsyncContext;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\r\n    <ion-split-pane>\r\n      <ion-menu type=\"overlay\" menuId=\"homeMenu\">\r\n        <ion-header>\r\n          <ion-toolbar>\r\n            <ion-avatar item-start>\r\n              <img src=\"{{headpicture}}\" />\r\n            </ion-avatar>\r\n            <ion-title>张云，你好!</ion-title>\r\n          </ion-toolbar>\r\n        </ion-header>\r\n        <ion-content>\r\n          <ion-list>\r\n            <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of appPages\">\r\n              <ion-item [routerDirection]=\"'root'\" [routerLink]=\"[p.url]\">\r\n                <ion-icon slot=\"start\" [name]=\"p.icon\"></ion-icon>\r\n                <ion-label>\r\n                  {{p.title}}\r\n                </ion-label>\r\n                <ion-badge *ngIf=\"p.num>0\" color=\"danger\" >{{p.num}}</ion-badge>\r\n              </ion-item>\r\n            </ion-menu-toggle>\r\n            <ion-item (click)=\"loginout()\">\r\n                <ion-icon slot=\"start\" name=\"log-out\"></ion-icon>\r\n                <ion-label>\r\n                  注销\r\n                </ion-label>\r\n            </ion-item>\r\n          </ion-list>\r\n        </ion-content>\r\n      </ion-menu>\r\n      <ion-router-outlet main></ion-router-outlet>\r\n    </ion-split-pane>\r\n  </ion-app>\r\n<!-- \r\n<ion-app>\r\n    <ion-router-outlet></ion-router-outlet>\r\n</ion-app>\r\n -->\r\n"
+module.exports = "<ion-app>\r\n    <ion-split-pane>\r\n      <ion-menu type=\"overlay\" menuId=\"homeMenu\">\r\n        <ion-header>\r\n          <ion-toolbar>\r\n            <!-- <ion-avatar item-start>\r\n              <img src=\"{{headpicture}}\" />\r\n            </ion-avatar> -->\r\n            <ion-title style=\"text-align: left;\">张云，你好!</ion-title>\r\n          </ion-toolbar>\r\n        </ion-header>\r\n        <ion-content>\r\n          <ion-list>\r\n            <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of appPages\">\r\n              <ion-item [routerDirection]=\"'root'\" [routerLink]=\"[p.url]\">\r\n                <ion-icon  color=\"primary\"  slot=\"start\" [name]=\"p.icon\"></ion-icon>\r\n                <ion-label>\r\n                  {{p.title}}\r\n                </ion-label>\r\n                <ion-badge *ngIf=\"p.num>0\" color=\"danger\" >{{p.num}}</ion-badge>\r\n              </ion-item>\r\n            </ion-menu-toggle>\r\n            <ion-item (click)=\"loginout()\">\r\n                <ion-icon  color=\"danger\" slot=\"start\" name=\"log-out\"></ion-icon>\r\n                <ion-label>\r\n                  注销\r\n                </ion-label>\r\n            </ion-item>\r\n          </ion-list>\r\n        </ion-content>\r\n      </ion-menu>\r\n      <ion-router-outlet main></ion-router-outlet>\r\n    </ion-split-pane>\r\n  </ion-app>\r\n<!-- \r\n<ion-app>\r\n    <ion-router-outlet></ion-router-outlet>\r\n</ion-app>\r\n -->\r\n"
 
 /***/ }),
 
@@ -892,7 +892,7 @@ module.exports = "<ion-app>\r\n    <ion-split-pane>\r\n      <ion-menu type=\"ov
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = " \r\n<div id=\"container\"></div>  \r\n "
+module.exports = "<ion-header translucent>\r\n    <ion-toolbar>\r\n        <ion-title>地图展示</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n</ion-header>\r\n<ion-content fullscreen>\r\n    <div id=\"container\"></div>\r\n</ion-content>"
 
 /***/ }),
 
@@ -1275,7 +1275,6 @@ var routes = [
                 path: 'contactrecord',
                 children: [
                     { path: 'list', loadChildren: './saleing/mcs-contactrecord/list/list.module#ListPageModule' },
-                    { path: 'edit', loadChildren: './saleing/mcs-contactrecord/edit/edit.module#EditPageModule' },
                 ]
             },
             {
@@ -1382,6 +1381,7 @@ var routes = [
     { path: 'fileupload', loadChildren: './serving/serving.ser/components/fileupload/fileupload.module#FileuploadPageModule' },
     { path: 'list', loadChildren: './saleing/mcs_installationorder/list/list.module#ListPageModule' },
     { path: 'detail', loadChildren: './saleing/mcs_installationorder/detail/detail.module#DetailPageModule' },
+    { path: 'success', loadChildren: './saleing/mcs-contactrecord/success/success.module#SuccessPageModule' },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -1429,6 +1429,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
 /* harmony import */ var _base_base_ser_authentication_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./base/base.ser/authentication.service */ "./src/app/base/base.ser/authentication.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
+/* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "./node_modules/_@ionic-native_screen-orientation@5.17.0@@ionic-native/screen-orientation/ngx/index.js");
+
+
 
 
 
@@ -1437,20 +1441,24 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(platform, splashScreen, statusBar, authService, router, menu) {
+    function AppComponent(platform, splashScreen, statusBar, authService, router, menu, _http, _window, _page, screenOrientation) {
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.statusBar = statusBar;
         this.authService = authService;
         this.router = router;
         this.menu = menu;
+        this._http = _http;
+        this._window = _window;
+        this._page = _page;
+        this.screenOrientation = screenOrientation;
         //定义左侧快速导航菜单
         this.appPages = [
             {
                 title: '首页',
                 url: '/serving/home/tabs/index',
                 icon: 'home',
-                num: 1
+                num: 0
             },
             {
                 title: '个人信息',
@@ -1462,7 +1470,7 @@ var AppComponent = /** @class */ (function () {
                 title: '消息中心',
                 url: '/serving/home/tabs/message',
                 icon: 'alert',
-                num: 10
+                num: 0
             },
             {
                 title: '设置',
@@ -1476,9 +1484,38 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.initializeApp = function () {
         var _this = this;
         this.platform.ready().then(function () {
-            _this.statusBar.styleDefault();
+            //this.statusBar.styleDefault();
+            // let status bar overlay webview
+            _this.statusBar.overlaysWebView(false);
+            // set status bar to white
+            _this.statusBar.backgroundColorByHexString('#000000');
             _this.splashScreen.hide();
+            /** 设置智能竖屏*/
+            _this.screenOrientation.lock(_this.screenOrientation.ORIENTATIONS.PORTRAIT);
             _this.headpicture = "assets/img/head_default.jpg";
+            console.log("开始welcomeisloading");
+            var welcomeisloading = _this._window.storageGet("welcomeisloading");
+            console.log("取值:" + welcomeisloading);
+            if (welcomeisloading == "true") {
+                var token = _this._http.getToken();
+                if (token == undefined || token == "") {
+                    _this._page.goto("base/uc/login");
+                }
+                else {
+                    var lastlogintime = _this._window.storageGet("auth-logintime");
+                    if (lastlogintime != null && lastlogintime !== "") {
+                        var lastdateTime = new Date(lastlogintime);
+                        var time = 20 * 60 * 1000;
+                        if (new Date().getTime() - lastdateTime.getTime() >= time) {
+                            console.log("登录超时20分钟,重新登录");
+                            _this._page.goto("base/uc/login");
+                        }
+                    }
+                }
+            }
+            else {
+                _this._page.goto("base/uc/welcome");
+            }
             //    this.authService.authenticationState.subscribe(state => {
             //        console.log(state);
             //        if (state) {
@@ -1491,8 +1528,8 @@ var AppComponent = /** @class */ (function () {
         });
     };
     AppComponent.prototype.loginout = function () {
-        //this.menu.close("homeMenu");
-        //this.authService.logout();
+        this.menu.close("homeMenu");
+        this.authService.logout();
     };
     AppComponent.ctorParameters = function () { return [
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"] },
@@ -1500,7 +1537,11 @@ var AppComponent = /** @class */ (function () {
         { type: _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__["StatusBar"] },
         { type: _base_base_ser_authentication_service__WEBPACK_IMPORTED_MODULE_5__["AuthenticationService"] },
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"] }
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_7__["DCore_Http"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_7__["DCore_Window"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_7__["DCore_Page"] },
+        { type: _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_8__["ScreenOrientation"] }
     ]; };
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1513,7 +1554,11 @@ var AppComponent = /** @class */ (function () {
             _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__["StatusBar"],
             _base_base_ser_authentication_service__WEBPACK_IMPORTED_MODULE_5__["AuthenticationService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"]])
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_7__["DCore_Http"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_7__["DCore_Window"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_7__["DCore_Page"],
+            _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_8__["ScreenOrientation"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -1594,6 +1639,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! @ionic-native/file-transfer/ngx */ "./node_modules/@ionic-native/file-transfer/ngx/index.js");
 /* harmony import */ var _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! @ionic-native/camera/ngx */ "./node_modules/@ionic-native/camera/ngx/index.js");
 /* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/fesm5/ng2-file-upload.js");
+/* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "./node_modules/_@ionic-native_screen-orientation@5.17.0@@ionic-native/screen-orientation/ngx/index.js");
 
 
 
@@ -1607,6 +1653,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 //自定义组件
+
 
 
 
@@ -1704,6 +1751,7 @@ var AppModule = /** @class */ (function () {
                 _ionic_native_image_picker_ngx__WEBPACK_IMPORTED_MODULE_34__["ImagePicker"],
                 _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_35__["FileTransfer"],
                 _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_36__["Camera"],
+                _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_38__["ScreenOrientation"],
                 { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] }
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
@@ -1848,6 +1896,7 @@ var DCore_Http = /** @class */ (function () {
         // 目前只解析token字段，缓存先只存该字段
         // JSON.stringify(token)
         window.localStorage.setItem('auth-token', token);
+        window.localStorage.setItem('auth-logintime', new Date().toLocaleTimeString());
     };
     DCore_Http.ctorParameters = function () { return [
         { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] },
@@ -2130,11 +2179,12 @@ __webpack_require__.r(__webpack_exports__);
 
 var TOKEN_KEY = 'auth-token';
 var AuthenticationService = /** @class */ (function () {
-    function AuthenticationService(storage, plt, httpService) {
+    function AuthenticationService(storage, plt, httpService, navCtr) {
         var _this = this;
         this.storage = storage;
         this.plt = plt;
         this.httpService = httpService;
+        this.navCtr = navCtr;
         this.authenticationState = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](false);
         this.plt.ready().then(function () {
             _this.checkToken();
@@ -2153,6 +2203,7 @@ var AuthenticationService = /** @class */ (function () {
         var _this = this;
         return this.storage.remove(TOKEN_KEY).then(function () {
             _this.authenticationState.next(false);
+            _this.navCtr.navigateRoot("/base/uc/login", {});
         });
     };
     AuthenticationService.prototype.isAuthenticated = function () {
@@ -2169,13 +2220,16 @@ var AuthenticationService = /** @class */ (function () {
     AuthenticationService.ctorParameters = function () { return [
         { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_4__["Storage"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["Platform"] },
-        { type: _http_service_service__WEBPACK_IMPORTED_MODULE_5__["HttpService"] }
+        { type: _http_service_service__WEBPACK_IMPORTED_MODULE_5__["HttpService"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["NavController"] }
     ]; };
     AuthenticationService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
             providedIn: 'root'
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_storage__WEBPACK_IMPORTED_MODULE_4__["Storage"], _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["Platform"], _http_service_service__WEBPACK_IMPORTED_MODULE_5__["HttpService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_storage__WEBPACK_IMPORTED_MODULE_4__["Storage"], _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["Platform"],
+            _http_service_service__WEBPACK_IMPORTED_MODULE_5__["HttpService"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["NavController"]])
     ], AuthenticationService);
     return AuthenticationService;
 }());
@@ -2191,7 +2245,7 @@ var AuthenticationService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2Jhc2UvYmFzZS5zZXIvY29tcG9uZW50cy9tYXAvZHJhZ3JvdXRlL2RyYWdyb3V0ZS5jb21wb25lbnQuc2NzcyJ9 */"
+module.exports = "#container {\n  width: 100%;\n  height: 100%; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYmFzZS9iYXNlLnNlci9jb21wb25lbnRzL21hcC9kcmFncm91dGUvRTpcXEFwcFByb2plY3RcXERDRU1cXERDRU0uTUFwcC9zcmNcXGFwcFxcYmFzZVxcYmFzZS5zZXJcXGNvbXBvbmVudHNcXG1hcFxcZHJhZ3JvdXRlXFxkcmFncm91dGUuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFFSSxXQUFVO0VBQ1YsWUFBWSxFQUFBIiwiZmlsZSI6InNyYy9hcHAvYmFzZS9iYXNlLnNlci9jb21wb25lbnRzL21hcC9kcmFncm91dGUvZHJhZ3JvdXRlLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiI2NvbnRhaW5lclxyXG57XHJcbiAgICB3aWR0aDoxMDAlO1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59Il19 */"
 
 /***/ }),
 
@@ -2207,35 +2261,59 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DragrouteComponent", function() { return DragrouteComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+
 
 
 var DragrouteComponent = /** @class */ (function () {
-    function DragrouteComponent() {
+    function DragrouteComponent(modalCtrl, _navParams) {
+        this.modalCtrl = modalCtrl;
+        this._navParams = _navParams;
+        this.model = {
+            startlongitude: 116.303843,
+            startlatitude: 39.983412,
+            endlongitude: 116.407012,
+            endlatitude: 39.992093
+        };
+        debugger;
+        this.model.startlongitude = _navParams.get('startlongitude');
+        this.model.startlatitude = _navParams.get('startlatitude');
+        this.model.endlongitude = _navParams.get('endlongitude');
+        this.model.endlatitude = _navParams.get('endlatitude');
     }
     DragrouteComponent.prototype.ngOnInit = function () {
-    };
-    DragrouteComponent.prototype.draw = function (startlongitude, startlatitude, endlongitude, endlatitude) {
+        debugger;
         var map, route;
         //基本地图加载
         map = new AMap.Map("container", {
-            resizeEnable: true
+            resizeEnable: true,
         });
         //绘制初始路径
         var path = [];
-        path.push([startlongitude, startlatitude]);
-        path.push([endlongitude, endlatitude]);
+        path.push([this.model.startlongitude, this.model.startlatitude]);
+        path.push([this.model.endlongitude, this.model.endlatitude]);
         map.plugin("AMap.DragRoute", function () {
             route = new AMap.DragRoute(map, path, AMap.DrivingPolicy.LEAST_FEE); //构造拖拽导航类
             route.search(); //查询导航路径并开启拖拽导航
         });
     };
+    DragrouteComponent.prototype.dismissModal = function () {
+        this.modalCtrl.dismiss({
+            'dismissed': true
+        });
+    };
+    DragrouteComponent.ctorParameters = function () { return [
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavParams"] }
+    ]; };
     DragrouteComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-dragroute',
             template: __webpack_require__(/*! raw-loader!./dragroute.component.html */ "./node_modules/raw-loader/index.js!./src/app/base/base.ser/components/map/dragroute/dragroute.component.html"),
             styles: [__webpack_require__(/*! ./dragroute.component.scss */ "./src/app/base/base.ser/components/map/dragroute/dragroute.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavParams"]])
     ], DragrouteComponent);
     return DragrouteComponent;
 }());
@@ -4399,9 +4477,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var SelectFileEditComponent = /** @class */ (function () {
-    function SelectFileEditComponent(_config, _modalCtrl) {
+    function SelectFileEditComponent(_config, _modalCtrl, navParams) {
         this._config = _config;
         this._modalCtrl = _modalCtrl;
+        this.navParams = navParams;
         this.mod = {
             data: {
                 filesMap: {},
@@ -4410,6 +4489,17 @@ var SelectFileEditComponent = /** @class */ (function () {
         };
         this.objectKeys = Object.keys;
         this.uploader = new ng2_file_upload__WEBPACK_IMPORTED_MODULE_2__["FileUploader"]({});
+        for (var _i = 0, _a = this.navParams.data.fileArray; _i < _a.length; _i++) {
+            var fileItem = _a[_i];
+            console.log(fileItem);
+            var mapKey = fileItem.fileName;
+            var obj = {};
+            obj["fileName"] = fileItem.fileName;
+            obj["fileSize"] = fileItem.fileSize;
+            obj["url"] = fileItem.url;
+            obj["progress"] = 1;
+            this.mod.data.filesMap[mapKey] = obj;
+        }
     }
     SelectFileEditComponent.prototype.selectFiles = function () {
         document.getElementById('fileInput').click();
@@ -4499,7 +4589,8 @@ var SelectFileEditComponent = /** @class */ (function () {
     };
     SelectFileEditComponent.ctorParameters = function () { return [
         { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Config"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"] }
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavParams"] }
     ]; };
     SelectFileEditComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -4508,7 +4599,8 @@ var SelectFileEditComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./select-file-edit.component.scss */ "./src/app/serving/serving.ser/components/select-file-edit/select-file-edit.component.scss")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Config"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"]])
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavParams"]])
     ], SelectFileEditComponent);
     return SelectFileEditComponent;
 }());

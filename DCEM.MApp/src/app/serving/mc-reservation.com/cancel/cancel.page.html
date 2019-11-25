@@ -7,11 +7,11 @@
 <ion-content>
     <ion-list>
         <ion-item-group>
-            <ion-item-divider color="primary">
+            <!--<ion-item-divider color="primary">
                 <ion-label>取消原因</ion-label>
-            </ion-item-divider>
+            </ion-item-divider>-->
             <ion-item>
-                <ion-label>取消原因<ion-text color="danger">*</ion-text></ion-label>
+                <ion-label position="stacked">取消原因<ion-text color="danger">*</ion-text></ion-label>
                 <ion-select [(ngModel)]="shareData.appointmentinfo['mcs_cancelreasonnew']" okText="确认" cancelText="取消">
                     <ion-select-option value="10">待料</ion-select-option>
                     <ion-select-option value="20">价格太高</ion-select-option>

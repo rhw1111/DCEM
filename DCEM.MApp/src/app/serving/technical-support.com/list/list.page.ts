@@ -33,21 +33,14 @@ export class ListPage implements OnInit {
     }
 
     ngOnInit() {
-        //this.model.page = 1;
-        //this.getList(null);
-        // var cachedata = this.httpService.GetDataCache(this.model.name);
-        // if (cachedata == "") {
-            
-        // }
-        // else {
-        //     this.model.data = JSON.parse(cachedata);
-        // }
+        
     }
 
     //每次页面加载
     ionViewWillEnter() {
         this.model.page = 1;
-        this.selectTab(0);
+        this._page.loadingShow();
+        this.getList(null);
     }
 
     //搜索方法
@@ -75,30 +68,30 @@ export class ListPage implements OnInit {
     }
     //切换tab
     selectTab(status) {
-        this.infiniteScroll.disabled = false;//切换标签初始化下拉控件事件
+        //切换标签初始化下拉控件事件
+        this.infiniteScroll.complete();
+        this.infiniteScroll.disabled = false;
         this.model.data = [];
         this.model.page = 1;
-        this.model.isending = false;
+        this.model.isending =false;
         if (status != "" && status != undefined) {
             this.model.orderstatus = status;
         }
         else {
             this.model.orderstatus = 0;
         }
+        this._page.loadingShow();
         this.getList(null);
     }
     //获取列表数据
     getList(event) {
-        this._page.loadingShow();
         this._http.getForToaken(this.model.apiUrl,
             {
-                params: {
-                    orderstatus: this.model.orderstatus,
-                    seachkey: this.model.seachkey,
-                    sort: this.model.sort,
-                    pageSize: this.model.pageSize,
-                    page: this.model.page
-                }
+                orderstatus: this.model.orderstatus,
+                seachkey: this.model.seachkey,
+                sort: this.model.sort,
+                pageSize: this.model.pageSize,
+                page: this.model.page
             },
             (res: any) => {
                 if (res.Results !== null) {
@@ -121,7 +114,9 @@ export class ListPage implements OnInit {
                     //判断是否有新数据
                     if (res.Results.length < this.model.pageSize) {
                         event ? event.target.disabled = true : "";
-                        this.model.isending = true;
+                        if(this.model.page>1){
+                            this.model.isending = true;
+                        }
                     }
                 }
                 else {

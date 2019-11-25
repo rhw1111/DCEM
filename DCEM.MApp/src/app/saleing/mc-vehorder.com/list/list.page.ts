@@ -80,7 +80,7 @@ selectTab(status) {
 
  //获取列表数据
  getList(event) {
-  debugger;
+  //debugger;
  
   this._page.loadingShow();
   this._http.postForToaken(this.model.apiUrl,

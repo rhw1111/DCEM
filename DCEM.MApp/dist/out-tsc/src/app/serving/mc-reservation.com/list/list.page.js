@@ -11,6 +11,7 @@ let ListPage = class ListPage {
         this._http = _http;
         this._page = _page;
         this.httpService = httpService;
+        this.tab = "all";
         this.model = {
             name: 'appointmentlistinfo',
             apiUrl: '/api/appointment-info/GetList',
@@ -19,7 +20,6 @@ let ListPage = class ListPage {
             data: [],
             pageSize: 10,
             page: 1,
-            sort: 'mcs_appointmentinfoid desc',
             isending: false,
             nodata: false,
             aLLTotalCount: 0,
@@ -78,15 +78,11 @@ let ListPage = class ListPage {
     //展示数据
     showlist(event) {
         this._page.loadingShow();
-        console.log("地址:" + this.model.apiUrl, "预约状态:" + this.model.status, "搜索:" + this.model.seachkey, "排序:" + this.model.sort, "页条数:" + this.model.pageSize, "页数:" + this.model.page);
-        this._http.get(this.model.apiUrl, {
-            params: {
-                status: this.model.status,
-                seachkey: this.model.seachkey,
-                sort: this.model.sort,
-                pageSize: this.model.pageSize,
-                page: this.model.page
-            }
+        this._http.getForToaken(this.model.apiUrl, {
+            "status": this.model.status,
+            "seachkey": this.model.seachkey,
+            "pageSize": this.model.pageSize,
+            "page": this.model.page
         }, (res) => {
             if (res.Results !== null) {
                 for (var key in res.Results) {

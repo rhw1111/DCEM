@@ -12,7 +12,7 @@ import { DragrouteComponent } from 'app/base/base.ser/components/map/dragroute/d
 export class DetailPage implements OnInit {
 
   public tab: any = "info";
-  mod = {
+  mod: any  = {
     apiUrl: '/api/drive-record/GetDetail',
     editUrl: '/api/drive-record/AddOrEdit',
     data: {

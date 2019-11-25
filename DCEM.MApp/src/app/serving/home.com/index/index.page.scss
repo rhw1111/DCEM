@@ -24,6 +24,14 @@ img {
     /*max-height: 100%;*/
 }
 
+ion-grid{
+    ion-col > div {
+        background-color: #f7f7f7;
+        border: solid 1px #f7f7f7;
+        padding: 10px;
+      }
+}
+
 ion-grid:nth-child(even) {
     ion-col {
         border-bottom: 2px solid rgb(230, 230, 230);
@@ -31,7 +39,7 @@ ion-grid:nth-child(even) {
         padding-left: 15px;
         height: 55px;
         padding-top: 15px;
-
+        
         ion-label {
             font-size: 14px;
             font-weight: bold;

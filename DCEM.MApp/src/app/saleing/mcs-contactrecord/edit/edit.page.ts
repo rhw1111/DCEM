@@ -118,7 +118,7 @@ pageOnBind(id: any) {
               if (res.Result == true) {              
                   console.log(res);              
                   //this._shareData.delete(this.mod.shareDataKey);
-                  this._page.goto("/saleing/onlylead/detail", {id: this.model.postData.entityid });
+                  this._page.goto("/saleing/contactrecord/success", {id: this.model.postData.entityid });
               }
               else {
                   this._page.alert("消息提示", res.Description);

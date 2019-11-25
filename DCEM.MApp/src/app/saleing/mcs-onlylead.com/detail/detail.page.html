@@ -125,19 +125,19 @@
                 <ion-icon name="arrow-dropup"></ion-icon>
             </ion-fab-button>
             <ion-fab-list side="top">
-                <ion-fab-button [routerLink]="['/saleing/contactrecord/edit']" [queryParams]="{id:mod.data.mcs_onlyleadid}" color="success"><ion-icon name="add"></ion-icon>联络</ion-fab-button>
-                <ion-fab-button [routerLink]="['/saleing/cultivatetask/edit']" [queryParams]="{sourid:mod.data.mcs_onlyleadid,type:'1'}" color="success"><ion-icon name="add"></ion-icon>培育</ion-fab-button>
-                <ion-fab-button [routerLink]="['/saleing/account/edit']" [queryParams]="{onlyleadid:mod.data.mcs_onlyleadid}" color="success"><ion-icon name="add"></ion-icon>销售</ion-fab-button>
-                <ion-fab-button [routerLink]="['/saleing/onlylead/edit']" [queryParams]="{onlyleadid:mod.data.mcs_onlyleadid}" color="success"><ion-icon name="create"></ion-icon>编辑</ion-fab-button>
+                <ion-fab-button [routerLink]="['/saleing/contactrecord/edit']" [queryParams]="{id:mod.data.mcs_onlyleadid}" color="primary"><ion-icon name="add"></ion-icon>联络</ion-fab-button>
+                <ion-fab-button [routerLink]="['/saleing/cultivatetask/edit']" [queryParams]="{sourid:mod.data.mcs_onlyleadid,type:'1'}" color="primary"><ion-icon name="add"></ion-icon>培育</ion-fab-button>
+                <ion-fab-button [routerLink]="['/saleing/account/edit']" [queryParams]="{onlyleadid:mod.data.mcs_onlyleadid}" color="primary"><ion-icon name="add"></ion-icon>销售</ion-fab-button>
+                <ion-fab-button [routerLink]="['/saleing/onlylead/edit']" [queryParams]="{onlyleadid:mod.data.mcs_onlyleadid}" color="primary"><ion-icon name="create"></ion-icon>编辑</ion-fab-button>
             </ion-fab-list>
         </ion-fab>
 
      </div>
      <div *ngSwitchCase="'Linklist'">
-            <ion-refresher slot="fixed" (ionRefresh)="doRefreshLog()">
+           <!--  <ion-refresher slot="fixed" (ionRefresh)="doRefreshLog()">
             <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中...">
             </ion-refresher-content>
-            </ion-refresher>
+            </ion-refresher> -->
             <ion-list lines="full" >
              <ion-item-sliding *ngFor="let r of mod.datalist">
                 <ion-item>
@@ -161,10 +161,10 @@
                     没有更多logcall
                 </ion-col>
             </ion-row>
-            <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doNextLoadingLog()"> 
+         <!--    <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doNextLoadingLog()"> 
                 <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多..."> 
                 </ion-infinite-scroll-content>
-            </ion-infinite-scroll>
+            </ion-infinite-scroll> -->
             <ion-fab vertical="bottom" horizontal="end" slot="fixed">
                 <ion-fab-button [routerLink]="['/saleing/contactrecord/edit']" [queryParams]="{id:mod.data.mcs_onlyleadid}">
                     <ion-icon name="add"></ion-icon>
@@ -172,10 +172,10 @@
             </ion-fab>
      </div>
      <div *ngSwitchCase="'Breedlist'">
-            <ion-refresher slot="fixed" (ionRefresh)="doRefreshAc()">
+            <!-- <ion-refresher slot="fixed" (ionRefresh)="doRefreshAc()">
             <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中...">
             </ion-refresher-content>
-            </ion-refresher>
+            </ion-refresher> -->
             <ion-list lines="full" >
             <ion-item-sliding *ngFor="let r of mod.datalist2">
                 <ion-item>
@@ -198,10 +198,10 @@
                     没有更多培育任务
                 </ion-col>
             </ion-row>
-            <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doNextLoadingAc()"> 
+           <!--  <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doNextLoadingAc()"> 
                 <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多..."> 
                 </ion-infinite-scroll-content>
-            </ion-infinite-scroll>
+            </ion-infinite-scroll> -->
             <ion-fab vertical="bottom" horizontal="end" slot="fixed">
                 <ion-fab-button [routerLink]="['/saleing/cultivatetask/edit']" [queryParams]="{sourid:mod.data.mcs_onlyleadid,type:'1'}">
                     <ion-icon name="add"></ion-icon>
