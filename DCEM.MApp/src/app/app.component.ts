@@ -62,41 +62,41 @@ export class AppComponent {
 
     initializeApp() {
         this.platform.ready().then(() => {
-            //this.statusBar.styleDefault();
-            // let status bar overlay webview
-            this.statusBar.overlaysWebView(false);
-            // set status bar to white
-            this.statusBar.backgroundColorByHexString('#000000');
+            ////this.statusBar.styleDefault();
+            //// let status bar overlay webview
+            //this.statusBar.overlaysWebView(false);
+            //// set status bar to white
+            //this.statusBar.backgroundColorByHexString('#000000');
 
-            this.splashScreen.hide();
+            //this.splashScreen.hide();
 
-            /** 设置智能竖屏*/
-            this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+            ///** 设置智能竖屏*/
+            //this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
 
-            this.headpicture = "assets/img/head_default.jpg";
-            console.log("开始welcomeisloading");
-            var welcomeisloading=this._window.storageGet("welcomeisloading");
-            console.log("取值:"+welcomeisloading);
-            if(welcomeisloading=="true"){
-                var token= this._http.getToken();
-                if(token== undefined || token==""){
-                    this._page.goto("base/uc/login");
-                }
-                else{
-                    var lastlogintime=this._window.storageGet("auth-logintime");
-                    if(lastlogintime!=null && lastlogintime!==""){
-                        var lastdateTime=new Date(lastlogintime);
-                        var time = 20*60*1000;
-                        if (new Date().getTime()-lastdateTime.getTime()>=time) {
-                            console.log("登录超时20分钟,重新登录");
-                            this._page.goto("base/uc/login");
-                        }
-                    }
-                }
-            }
-            else{
-              this._page.goto("base/uc/welcome");
-            }
+            //this.headpicture = "assets/img/head_default.jpg";
+            //console.log("开始welcomeisloading");
+            //var welcomeisloading=this._window.storageGet("welcomeisloading");
+            //console.log("取值:"+welcomeisloading);
+            //if(welcomeisloading=="true"){
+            //    var token= this._http.getToken();
+            //    if(token== undefined || token==""){
+            //        this._page.goto("base/uc/login");
+            //    }
+            //    else{
+            //        var lastlogintime=this._window.storageGet("auth-logintime");
+            //        if(lastlogintime!=null && lastlogintime!==""){
+            //            var lastdateTime=new Date(lastlogintime);
+            //            var time = 20*60*1000;
+            //            if (new Date().getTime()-lastdateTime.getTime()>=time) {
+            //                console.log("登录超时20分钟,重新登录");
+            //                this._page.goto("base/uc/login");
+            //            }
+            //        }
+            //    }
+            //}
+            //else{
+            //  this._page.goto("base/uc/welcome");
+            //}
 
 
             //    this.authService.authenticationState.subscribe(state => {
