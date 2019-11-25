@@ -25,7 +25,8 @@ export class ListPage implements OnInit {
         systemUserId: "",//当前用户id
         dealerId: "",//当前厅店id
         isending: false,//是否加载完成
-        nodata: false
+        nodata: false,
+        ifDoLoading: false,//是否初始加载
     };
 
     constructor(
@@ -63,22 +64,20 @@ export class ListPage implements OnInit {
     //加载下一页
     doLoading(event) {
         this.model.page++;
+        this.model.ifDoLoading = true;
         this.showlist(event);
     }
 
     //展示数据
     showlist(event) {
-        this._page.loadingShow();
-        console.log("地址:" + this.model.apiUrl,"搜索:" + this.model.seachkey, "排序:" + this.model.sort, "页条数:" + this.model.pageSize, "页数:" + this.model.page);
-        this._http.get(this.model.apiUrl,
+        if (!this.model.ifDoLoading) {
+            this._page.loadingShow();
+        }
+        this._http.getForToaken(this.model.apiUrl,
             {
-                params: {
-                    dealerid: this.model.dealerId,
-                    systemuserid: this.model.systemUserId,
-                    seachkey: this.model.seachkey,
-                    pageSize: this.model.pageSize,
-                    page: this.model.page
-                }
+                "seachkey": this.model.seachkey,
+                "pageSize": this.model.pageSize,
+                "page": this.model.page
             },
             (res: any) => {
                 if (res.Results !== null) {
@@ -86,7 +85,9 @@ export class ListPage implements OnInit {
                         var obj = {};
                         obj["mcs_onlyleadid"] = res.Results[key]["Id"];
                         obj["mcs_gender"] = res.Results[key]["Attributes"]["mcs_gender"];
+                        obj["mcs_gendervalue"] = res.Results[key]["Attributes"]["mcs_gender@OData.Community.Display.V1.FormattedValue"];
                         obj["mcs_leadorigin"] = res.Results[key]["Attributes"]["mcs_leadorigin"];
+                        obj["mcs_leadoriginvalue"] = res.Results[key]["Attributes"]["mcs_leadorigin@OData.Community.Display.V1.FormattedValue"];
                         obj["mcs_mobilephone"] = res.Results[key]["Attributes"]["mcs_mobilephone"];
                         obj["mcs_name"] = res.Results[key]["Attributes"]["mcs_name"];
                         this.model.data.push(obj);
