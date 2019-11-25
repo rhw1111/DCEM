@@ -31,7 +31,8 @@
   <ion-list lines="full">
     <ion-item-sliding *ngFor="let item of model.data;let key=index">
       <ion-item [routerLink]="['/saleing/account/detail']" [queryParams]="{id:item.Id}">
-        <ion-icon slot="start" name="contact" size="large"></ion-icon>
+        <!-- <ion-icon slot="start" name="contact" size="large"></ion-icon> -->
+        <ion-avatar item-start>机</ion-avatar>
         <ion-label>
           <h2>{{item.name}}</h2>
           <p>{{item.accountnumber}}</p>

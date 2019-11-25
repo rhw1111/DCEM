@@ -35,27 +35,21 @@
   </ion-refresher>
 
   <ion-list lines="full">
-    <ion-item *ngFor="let item of model.datalist" [routerLink]="['/saleing/installationorder/detail']" [queryParams]="{id:item.mcs_installationorderid}">          
-        <ion-icon slot="start" name="logo-instagram" size="large" color="tertiary"></ion-icon>
-        <ion-label>
-            <h2>{{item.mcs_name}}</h2> 
-            <p>{{item.mcs_username}}</p>
-            <p>{{item.mcs_userphone}}</p>            
-        </ion-label>
-       <!--  <ion-note slot="end" >
-             <ion-icon color="primary" name="hourglass" size="small"></ion-icon> 
-            <p>{{item.mcs_code}}</p>    
-        </ion-note> -->
-        <ion-note slot="end" >
-            <!-- <ion-icon color="primary" name="hourglass" size="small"></ion-icon>  -->
-            <p>{{item.mcs_installationstatus}}</p>   
-        </ion-note>
-        
-    </ion-item>
+    <ion-item *ngFor="let item of model.datalist" [routerLink]="['/saleing/installationorder/detail']" [queryParams]="{id:item.mcs_installationorderid}">
+      <ion-icon color="tertiary" name="document"></ion-icon>
+      <ion-label style="margin-left:10px">
+          <h6>{{item.mcs_name}}</h6>
+          <p>{{item.mcs_username}}</p>
+          <p>{{item.mcs_userphone}}</p>  
+      </ion-label>
+      <ion-note slot="end">
+        <p>{{item.mcs_installationstatus}}</p>  
+      </ion-note>
+  </ion-item>
 </ion-list>
 <ion-row *ngIf="model.isending">
   <ion-col class="nodata" text-center>
-      <label>没有更多内容啦</label>
+    <label style="color:gray;">没有更多内容啦</label>
   </ion-col>
 </ion-row>
 

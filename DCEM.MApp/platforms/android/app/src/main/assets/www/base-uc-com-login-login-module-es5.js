@@ -120,6 +120,10 @@ var LoginPage = /** @class */ (function () {
         //this.mod.password = 'P@ssw0rd';
         this.mod.apiurl = '/api/User/GetAuthToken';
         this.mod.domainType = 'local';
+        var welcomeisloading = this._window.storageGet("welcomeisloading");
+        if (welcomeisloading == null || welcomeisloading == "") {
+            this._window.storageSet("welcomeisloading", "true");
+        }
     };
     // 提交
     LoginPage.prototype.submit = function () {

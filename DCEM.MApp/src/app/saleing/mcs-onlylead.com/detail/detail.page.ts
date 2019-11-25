@@ -146,7 +146,7 @@ pageOnLogCalllist() {
                     }
                     //console.log(res);
                 }  //判断是否有新数据
-                if (res.Results.length == 0) {
+                if (res.Results.length < this.mod.page) {
                     this.mod.isending = true;
                 }
             }
@@ -165,6 +165,7 @@ pageOnLogCalllist() {
 
 //加载培育任务列表
 pageOnActivitylist() {
+    debugger;
     this.mod.datalist2= [];
     this._page.loadingShow();
     this._http.get(
@@ -179,7 +180,7 @@ pageOnActivitylist() {
             }
         },
         (res: any) => {
-           // debugger;
+            debugger;
             if (res !== null) {
                 if (res.Results !== null) {
                     for (var key in res.Results) {
@@ -193,7 +194,7 @@ pageOnActivitylist() {
                     }
                     //console.log(res);
                 }  //判断是否有新数据
-                if (res.Results.length == 0) {
+                if (res.Results.length < this.mod.page2) {
                     this.mod.isending2 = true;
                 }
             }
@@ -217,12 +218,12 @@ pageOnActivitylist() {
 }
 
 //下拉刷新log
-doRefreshLog() {
+/* doRefreshLog() {
     this.mod.datalist = [];
     this.mod.page = 1;
     this.mod.isending = false;
     this.pageOnLogCalllist();
-}
+} */
 
  //培育任务加载下一页
  doNextLoadingAc() {
@@ -231,13 +232,13 @@ doRefreshLog() {
 }
 
 //下拉刷新培育任务
-doRefreshAc() {
+/* doRefreshAc() {
     this.mod.datalist2 = [];
     this.mod.page2 = 1;
     this.mod.isending2 = false;
     this.pageOnActivitylist();
 }
-
+ */
 
 FormatToDateTime(date) {
     if (date != null && date != undefined) {

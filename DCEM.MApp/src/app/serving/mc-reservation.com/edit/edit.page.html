@@ -3,7 +3,14 @@
         <ion-buttons slot="start">
             <ion-back-button text="返回" defaultHref="/serving/reservation/list"></ion-back-button>
         </ion-buttons>
-        <ion-title>创建或编辑预约</ion-title>
+        <ion-title>
+            <div *ngIf="!model.ifAddOrEdit">
+                创建预约单
+            </div>
+            <div  *ngIf="model.ifAddOrEdit">
+                编辑预约单
+            </div>
+        </ion-title>
     </ion-toolbar>
 </ion-header>
 

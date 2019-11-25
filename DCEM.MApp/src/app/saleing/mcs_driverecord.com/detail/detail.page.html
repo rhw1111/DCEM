@@ -15,22 +15,19 @@
       </ion-segment-button>
       <ion-segment-button value="check">
         <ion-label>附件列表</ion-label>
-      </ion-segment-button>
+      </ion-segment-button> 
     </ion-segment>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
   <div [ngSwitch]="tab">
     <div *ngSwitchCase="'info'">
       <ion-list lines="full">
-        <ion-item-divider color="primary">
-
+        <ion-item-divider color="primary"> 
           <ion-label>
             用户信息 <span [ngStyle]="{'font-size': '0.8rem'}">{{mod.data.detail.statusname}}</span>
-          </ion-label>
-
+          </ion-label> 
         </ion-item-divider>
         <ion-item>
           <ion-label>
@@ -89,13 +86,16 @@
             <p>{{mod.data.detail.testdrivecarname}}&nbsp;</p>
           </ion-label>
         </ion-item>
-        <ion-item>
+        <ion-item (click)="loadmap()">
           <ion-label>
             <h2>
               试驾路线
             </h2>
             <p>{{mod.data.detail.driveroutename}}&nbsp;</p>
           </ion-label>
+          <ion-note slot="end">
+              <ion-icon name="return-right" size="large"></ion-icon> 
+          </ion-note>
         </ion-item>
         <ion-item>
           <ion-label>
@@ -124,7 +124,6 @@
       </ion-list>
 
     </div>
-
     <div *ngSwitchCase="'check'">
 
       <ion-grid class="ionatt">
@@ -159,9 +158,7 @@
         </ion-item>
       </ion-list>
 
-    </div>
-
-
+    </div> 
     <ion-row class="ios hydrated"
       *ngIf="mod.data.detail.mcs_drivestatus == 11 || mod.data.detail.mcs_drivestatus == 12">
       <ion-col offset-4="" class="ios hydrated">
@@ -192,7 +189,7 @@
       <ion-icon name="arrow-dropup"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="top">
-      <ion-fab-button color="success" (click)="fileUpload()" >
+      <ion-fab-button color="success" (click)="fileUpload()">
         <ion-icon name="cloud-upload"></ion-icon>
       </ion-fab-button>
 
@@ -201,8 +198,8 @@
         color="warning">
         <ion-icon name="create"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button *ngIf="mod.data.detail.testdrivefeedbackname!=null" color="primary" [routerLink]="['/saleing/driverecord/feedback']"
-        [queryParams]="{id:mod.data.detail.id}">
+      <ion-fab-button *ngIf="mod.data.detail.testdrivefeedbackname!=null" color="primary"
+        [routerLink]="['/saleing/driverecord/feedback']" [queryParams]="{id:mod.data.detail.id}">
         反馈
       </ion-fab-button>
     </ion-fab-list>

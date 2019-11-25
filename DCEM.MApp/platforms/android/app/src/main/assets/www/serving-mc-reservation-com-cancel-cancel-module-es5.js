@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-title>预约取消</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list>\r\n        <ion-item-group>\r\n            <ion-item-divider>\r\n                <ion-label>取消原因</ion-label>\r\n            </ion-item-divider>\r\n            <ion-item>\r\n                <ion-text color=\"danger\">*</ion-text><ion-label>取消原因</ion-label>\r\n                <ion-select [(ngModel)]=\"shareData.appointmentinfo['mcs_cancelreasonnew']\" okText=\"确认\" cancelText=\"取消\">\r\n                    <ion-select-option value=\"10\">待料</ion-select-option>\r\n                    <ion-select-option value=\"20\">价格太高</ion-select-option>\r\n                    <ion-select-option value=\"30\">设备不足</ion-select-option>\r\n                    <ion-select-option value=\"40\">堵车</ion-select-option>\r\n                    <ion-select-option value=\"50\">技术不足</ion-select-option>\r\n                    <ion-select-option value=\"60\">天气不好</ion-select-option>\r\n                </ion-select>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"floating\">取消描述</ion-label>\r\n                <ion-textarea [(ngModel)]=\"shareData.appointmentinfo['mcs_canceldes']\"></ion-textarea>\r\n            </ion-item>\r\n        </ion-item-group>\r\n        <ion-button expand=\"block\" type=\"button\" (click)=\"saveOnClick()\">确定</ion-button>\r\n    </ion-list>\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-title>预约取消</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list>\r\n        <ion-item-group>\r\n            <!--<ion-item-divider color=\"primary\">\r\n                <ion-label>取消原因</ion-label>\r\n            </ion-item-divider>-->\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">取消原因<ion-text color=\"danger\">*</ion-text></ion-label>\r\n                <ion-select [(ngModel)]=\"shareData.appointmentinfo['mcs_cancelreasonnew']\" okText=\"确认\" cancelText=\"取消\">\r\n                    <ion-select-option value=\"10\">待料</ion-select-option>\r\n                    <ion-select-option value=\"20\">价格太高</ion-select-option>\r\n                    <ion-select-option value=\"30\">设备不足</ion-select-option>\r\n                    <ion-select-option value=\"40\">堵车</ion-select-option>\r\n                    <ion-select-option value=\"50\">技术不足</ion-select-option>\r\n                    <ion-select-option value=\"60\">天气不好</ion-select-option>\r\n                </ion-select>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">取消描述<ion-text color=\"danger\">*</ion-text></ion-label>\r\n                <ion-textarea [(ngModel)]=\"shareData.appointmentinfo['mcs_canceldes']\"></ion-textarea>\r\n            </ion-item>\r\n        </ion-item-group>\r\n    </ion-list>\r\n    <ion-button expand=\"block\" type=\"button\" (click)=\"saveOnClick()\">确定</ion-button>\r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -92,10 +92,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var CancelPage = /** @class */ (function () {
-    function CancelPage(_http, _page, activeRoute) {
+    function CancelPage(_http, _page, activeRoute, _valid) {
         this._http = _http;
         this._page = _page;
         this.activeRoute = activeRoute;
+        this._valid = _valid;
         this.model = {
             postApiUrl: '/Api/appointment-info/AddOrEdit',
             data: {},
@@ -111,14 +112,20 @@ var CancelPage = /** @class */ (function () {
         var _this = this;
         this.activeRoute.queryParams.subscribe(function (params) {
             if (params['id'] != null && params['id'] != undefined) {
-                console.log("记录Id:" + _this.model.appointmentinfoid);
                 _this.model.appointmentinfoid = params['id'];
             }
         });
     };
     CancelPage.prototype.saveOnClick = function () {
         var _this = this;
-        debugger;
+        if (this._valid.isNullOrEmpty(this.shareData.appointmentinfo["mcs_cancelreasonnew"])) {
+            this._page.presentToastError("请先选择取消原因");
+            return;
+        }
+        if (this._valid.isNullOrEmpty(this.shareData.appointmentinfo["mcs_canceldes"])) {
+            this._page.presentToastError("请填写取消描述");
+            return;
+        }
         this.model.postData["actioncode"] = 2;
         this.model.postData["appointmentinfo"] = this.shareData.appointmentinfo;
         //组装预约单
@@ -130,13 +137,10 @@ var CancelPage = /** @class */ (function () {
         console.log(this.shareData);
         console.log(this.model.postData);
         this._page.loadingShow();
-        this._http.post(this.model.postApiUrl, this.model.postData, function (res) {
+        this._http.postForToaken(this.model.postApiUrl, this.model.postData, function (res) {
             _this._page.loadingHide();
             if (res.Result == true) {
-                console.log("res");
-                console.log(res);
                 var guid = res["Data"]["Id"];
-                //this._shareData.delete(this.mod.shareDataKey);
                 _this._page.goto("/serving/reservation/success", { guid: guid });
             }
             else {
@@ -150,7 +154,8 @@ var CancelPage = /** @class */ (function () {
     CancelPage.ctorParameters = function () { return [
         { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Http"] },
         { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Page"] },
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] }
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Valid"] }
     ]; };
     CancelPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -160,7 +165,8 @@ var CancelPage = /** @class */ (function () {
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Http"],
             app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Page"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Valid"]])
     ], CancelPage);
     return CancelPage;
 }());

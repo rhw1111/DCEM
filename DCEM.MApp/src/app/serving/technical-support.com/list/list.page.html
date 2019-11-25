@@ -33,17 +33,17 @@
 </ion-header>
 
 <ion-content>
-    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <!-- <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
         <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中...">
         </ion-refresher-content> 
-    </ion-refresher>
+    </ion-refresher> -->
     <ion-list lines="full">
         <ion-item *ngFor="let item of model.data" [routerLink]="['/serving/ts/detail']" [queryParams]="{id:item.Id}">
             <!-- <ion-icon slot="start" name="hammer" size="large"></ion-icon> -->
             <ion-avatar *ngIf="item.mcs_orderstatus==10" item-start>技</ion-avatar>
-            <ion-avatar *ngIf="item.mcs_orderstatus==40" class="status-close" item-start>技</ion-avatar>
-            <ion-avatar *ngIf="item.mcs_orderstatus==30" class="status-process" item-start>技</ion-avatar>
-            <ion-avatar *ngIf="item.mcs_orderstatus==50" class="status-cancel" item-start>技</ion-avatar>
+            <ion-avatar *ngIf="item.mcs_orderstatus==40" class="bggray" item-start>技</ion-avatar>
+            <ion-avatar *ngIf="item.mcs_orderstatus==30" class="bgorage" item-start>技</ion-avatar>
+            <ion-avatar *ngIf="item.mcs_orderstatus==50" class="bgored" item-start>技</ion-avatar>
             <ion-label>
                 <h3>{{item.mcs_name}}</h3>
                 <p>{{item.mcs_title}}</p>
