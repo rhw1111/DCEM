@@ -1,4 +1,5 @@
 import * as tslib_1 from "tslib";
+var _a, _b;
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from '../../../base/base.ser/http-service.service';
@@ -97,6 +98,20 @@ let ListPage = class ListPage {
                     obj["mcs_appointmentat"] = res.Results[key]["Attributes"]["mcs_appointmentat"];
                     obj["mcs_appointmentconfigid"] = res.Results[key]["Attributes"]["appointmentconfig_x002e_mcs_name"];
                     obj["mcs_status"] = res.Results[key]["Attributes"]["mcs_status"];
+                    //设置颜色
+                    obj["appointment"] = "primary";
+                    if (obj["mcs_status"] == 10) {
+                        obj["appointment"] = "tertiary";
+                    }
+                    else if (obj["mcs_status"] == 20) {
+                        obj["appointment"] = "primary";
+                    }
+                    else if (obj["mcs_status"] == 50) {
+                        obj["appointment"] = "dark";
+                    }
+                    else {
+                        obj["appointment"] = "success";
+                    }
                     this.model.data.push(obj);
                 }
                 this.model.aLLTotalCount = res.ALLTotalCount;
@@ -134,7 +149,7 @@ let ListPage = class ListPage {
 };
 tslib_1.__decorate([
     ViewChild(IonInfiniteScroll, null),
-    tslib_1.__metadata("design:type", IonInfiniteScroll)
+    tslib_1.__metadata("design:type", typeof (_a = typeof IonInfiniteScroll !== "undefined" && IonInfiniteScroll) === "function" ? _a : Object)
 ], ListPage.prototype, "infiniteScroll", void 0);
 ListPage = tslib_1.__decorate([
     Component({
@@ -142,8 +157,7 @@ ListPage = tslib_1.__decorate([
         templateUrl: './list.page.html',
         styleUrls: ['./list.page.scss'],
     }),
-    tslib_1.__metadata("design:paramtypes", [Router,
-        DCore_Http,
+    tslib_1.__metadata("design:paramtypes", [typeof (_b = typeof Router !== "undefined" && Router) === "function" ? _b : Object, DCore_Http,
         DCore_Page,
         HttpService])
 ], ListPage);

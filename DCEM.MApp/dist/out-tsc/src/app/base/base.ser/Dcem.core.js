@@ -1,4 +1,5 @@
 import * as tslib_1 from "tslib";
+var _a, _b, _c, _d, _e, _f, _g;
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AlertController, LoadingController, NavController, ToastController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -107,8 +108,7 @@ DCore_Http = tslib_1.__decorate([
     Injectable({
         providedIn: 'root'
     }),
-    tslib_1.__metadata("design:paramtypes", [HttpClient,
-        DCore_Config])
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof HttpClient !== "undefined" && HttpClient) === "function" ? _a : Object, DCore_Config])
 ], DCore_Http);
 export { DCore_Http };
 let DCore_Page = class DCore_Page {
@@ -244,12 +244,7 @@ DCore_Page = tslib_1.__decorate([
     Injectable({
         providedIn: 'root'
     }),
-    tslib_1.__metadata("design:paramtypes", [AlertController,
-        LoadingController,
-        NavController,
-        Router,
-        ActivatedRoute,
-        ToastController])
+    tslib_1.__metadata("design:paramtypes", [typeof (_b = typeof AlertController !== "undefined" && AlertController) === "function" ? _b : Object, typeof (_c = typeof LoadingController !== "undefined" && LoadingController) === "function" ? _c : Object, typeof (_d = typeof NavController !== "undefined" && NavController) === "function" ? _d : Object, typeof (_e = typeof Router !== "undefined" && Router) === "function" ? _e : Object, typeof (_f = typeof ActivatedRoute !== "undefined" && ActivatedRoute) === "function" ? _f : Object, typeof (_g = typeof ToastController !== "undefined" && ToastController) === "function" ? _g : Object])
 ], DCore_Page);
 export { DCore_Page };
 //共享对象
@@ -295,7 +290,7 @@ let DCore_Valid = class DCore_Valid {
         };
         this.isPhone = function (val) {
             //let reg = /^1[3|4|5|7|8][0-9]{9}/;
-            let reg = /^1[0-9][0-9]{9}/;
+            let reg = /^1[0-9][0-9]{9}$/;
             if (reg.test(val)) {
                 return true;
             }

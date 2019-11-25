@@ -1,3 +1,18 @@
 {
-  "server.urls": "http://*:5001"
+  //"server.urls": "http://*:5001"
+
+  "Kestrel": {
+    "Endpoints": {
+      "Http": {
+        "Url": "https://localhost:5005",
+        "Certificate": {
+          "Path": "Configurations/localhost.pfx",
+          "Password": "P@ssw0rd",
+          "AllowInvalid": true
+        }
+      }
+    }
+  }
 }
+
+  

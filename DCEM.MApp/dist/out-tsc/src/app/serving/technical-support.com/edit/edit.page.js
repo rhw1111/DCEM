@@ -1,6 +1,7 @@
 import * as tslib_1 from "tslib";
+var _a, _b;
 import { Component } from '@angular/core';
-import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
+import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 import { ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
@@ -9,9 +10,10 @@ import { SelectCustomerComponent } from 'app/serving/serving.ser/components/sele
 import { SelectSystemuserComponent } from 'app/base/base.ser/components/select-systemuser/select-systemuser.component';
 import { SelectMalFunctionTypeComponent } from 'app/serving/serving.ser/components/select-malfunctiontype/select.malfunctiontype.component';
 let EditPage = class EditPage {
-    constructor(_http, _page, _userInfo, modalCtrl, activeRoute) {
+    constructor(_http, _page, _valid, _userInfo, modalCtrl, activeRoute) {
         this._http = _http;
         this._page = _page;
+        this._valid = _valid;
         this._userInfo = _userInfo;
         this.modalCtrl = modalCtrl;
         this.activeRoute = activeRoute;
@@ -23,7 +25,8 @@ let EditPage = class EditPage {
                 vin: '',
                 mcs_customername: '',
                 username: '',
-                mcs_repairnameidname: ''
+                mcs_repairnameidname: '',
+                mcs_cartypeidname: '' //车型名称
             },
             postData: {
                 EntityName: "mcs_supportorder",
@@ -152,6 +155,10 @@ let EditPage = class EditPage {
                     if (serviceproxymodel.mcs_mileage != undefined) {
                         this.model.postData.mcs_mileage = serviceproxymodel.mcs_mileage;
                     }
+                    if (serviceproxymodel.mcs_cartypeid != undefined) {
+                        this.model.postData.mcs_cartypeid = serviceproxymodel.mcs_cartypeid;
+                        this.model.viewData.mcs_cartypeidname = serviceproxymodel.mcs_cartypeidname;
+                    }
                 }
             }
         });
@@ -199,6 +206,7 @@ let EditPage = class EditPage {
                     }
                     if (customerModel.mcs_cartypeid != undefined) {
                         this.model.postData.mcs_cartypeid = customerModel.mcs_cartypeid;
+                        this.model.viewData.mcs_cartypeidname = customerModel.mcs_cartypeidname;
                     }
                 }
             }
@@ -233,9 +241,26 @@ let EditPage = class EditPage {
         });
     }
     save() {
-        this._page.loadingShow();
         //数据验证
+        var errMessage = "";
+        if (this._valid.isNullOrEmpty(this.model.postData.mcs_title)) {
+            errMessage += "请输入主题<br>";
+        }
+        if (this._valid.isNullOrEmpty(this.model.viewData.mcs_customername)) {
+            errMessage += "请选择车主<br>";
+        }
+        if (this._valid.isNullOrEmpty(this.model.postData.mcs_techsystem)) {
+            errMessage += "请选择技术系统<br>";
+        }
+        if (this._valid.isNullOrEmpty(this.model.viewData.mcs_malfunctiontype_value)) {
+            errMessage += "请选择故障类别代码";
+        }
+        if (errMessage !== "") {
+            this._page.presentToastError(errMessage);
+            return;
+        }
         //请求
+        this._page.loadingShow();
         this._http.post(this.model.postApiUrl, this.model.postData, (res) => {
             if (res != "") {
                 this._page.alert("消息提示", "保存成功！");
@@ -280,9 +305,8 @@ EditPage = tslib_1.__decorate([
     }),
     tslib_1.__metadata("design:paramtypes", [DCore_Http,
         DCore_Page,
-        Storage_LoginInfo,
-        ModalController,
-        ActivatedRoute])
+        DCore_Valid,
+        Storage_LoginInfo, typeof (_a = typeof ModalController !== "undefined" && ModalController) === "function" ? _a : Object, typeof (_b = typeof ActivatedRoute !== "undefined" && ActivatedRoute) === "function" ? _b : Object])
 ], EditPage);
 export { EditPage };
 //# sourceMappingURL=edit.page.js.map

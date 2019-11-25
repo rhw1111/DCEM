@@ -547,6 +547,10 @@ namespace MSLibrary.Logger.DAL
 
         public async Task<QueryResult<CommonLog>> QueryLocal(string message, int page, int pageSize)
         {
+            if (message==null)
+            {
+                message = string.Empty;
+            }
             QueryResult<CommonLog> result = new QueryResult<CommonLog>();
             await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, _commonLogConnectionFactory.CreateReadForLocalCommonLog(), async (conn, transaction) =>
             {
