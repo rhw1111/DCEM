@@ -19,11 +19,15 @@
               </ion-label> 
           </ion-item>
       </ion-item-sliding>
-      <ion-radio-group [(ngModel)]="selectItemValue">
-           
-      </ion-radio-group>
-     
-     
+      <ion-radio-group [(ngModel)]="selectItemValue"> 
+      </ion-radio-group> 
   </ion-list>
-  
+  <ion-row *ngIf="ionInfiniteScroll.disabled">
+    <ion-col class="nodata" text-center>
+      没有更多内容啦
+    </ion-col>
+  </ion-row>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
