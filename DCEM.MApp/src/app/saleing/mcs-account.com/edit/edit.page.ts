@@ -245,8 +245,12 @@ export class EditPage implements OnInit {
                 this.mod.postApiUrl, this.mod.postData,
                 (res: any) => {
                     if (res != "") {
-                        this._page.alert("消息提示", "保存成功！");
-                        this._page.goto("/saleing/account/success", { guid: res });
+                        if(this.shareData.actioncode === 2){
+                            this._page.alert("消息提示", "保存成功！");
+                        }
+                        else{
+                            this._page.goto("/saleing/account/success", { guid: res });
+                        }
                     }
                     else {
                         this._page.alert("消息提示", "保存失败！");

@@ -35,6 +35,7 @@ export class CalendarPage implements OnInit {
   model = {
     apiUrl: "/api/appointment-info/getlist",
     data: [],
+    isending:false,
     params: {
       AppointmentAt: "",
       pageSize: 100,
@@ -54,8 +55,8 @@ export class CalendarPage implements OnInit {
   triggerConfirm(value) {
     const { startDate, endDate } = value;
     this.model.params.AppointmentAt = this._dateformat.FormatToDate(startDate);
-    this.pageOnBind();
-    console.log('onConfirm', startDate);
+    this.state.date=  new Date(startDate);
+    this.pageOnBind(); 
   }
   onClick_3() {
     this.state.show = true;
@@ -65,8 +66,7 @@ export class CalendarPage implements OnInit {
   triggerCancel() {
     this.state.show = false;
   }
-  triggerSelectHasDisableDate(dates) {
-    console.warn('onSelectHasDisableDate', dates);
+  triggerSelectHasDisableDate(dates) { 
   }
   pageOnBind() {
     this.model.data = [];
@@ -81,6 +81,7 @@ export class CalendarPage implements OnInit {
       (res: any) => {
         if (res != null) {
           if (res.Results.length > 0) {
+            this.model.isending=false;
             for (var i in res.Results) {
               var attr = res.Results[i]["Attributes"];
               var obj = {};
@@ -90,6 +91,10 @@ export class CalendarPage implements OnInit {
               obj["id"] =res.Results[i]["Id"];
               this.model.data.push(obj);
             }
+          }
+          else 
+          {
+            this.model.isending=true;
           }
         }
         this._page.loadingHide();

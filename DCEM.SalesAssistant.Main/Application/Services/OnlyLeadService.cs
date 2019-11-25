@@ -100,6 +100,8 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         {
             try
             {
+                var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+                var ProxyUserId = userInfo != null ? userInfo.systemuserid : null;
                 var fetchString = _onlyLeadRepository.GetLogCallList(logcallrequest);
 
                 var fetchXdoc = XDocument.Parse(fetchString);
@@ -107,7 +109,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 {
                     EntityName = "mcs_logcall",
                     FetchXml = fetchXdoc,
-                    ProxyUserId = Guid.Parse(logcallrequest.UserId)
+                    ProxyUserId = ProxyUserId
                 };
                 var fetchResponse = await _crmService.Execute(fetchRequest);
                 var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
@@ -224,9 +226,13 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             {
                 Guid guid = string.IsNullOrEmpty(request.mcs_logcallid) ? Guid.NewGuid() : Guid.Parse(request.mcs_logcallid);
                 CrmExecuteEntity Entity = new CrmExecuteEntity("mcs_logcall", guid);
-                if (!string.IsNullOrEmpty(request.entityid))
+                if (!string.IsNullOrEmpty(request.mcs_onlyleadid))
                 {
-                    Entity.Attributes.Add("mcs_onlyleadid", new CrmEntityReference("mcs_onlylead", Guid.Parse(request.entityid)));
+                    Entity.Attributes.Add("mcs_onlyleadid", new CrmEntityReference("mcs_onlylead", Guid.Parse(request.mcs_onlyleadid)));
+                }
+                if (!string.IsNullOrEmpty(request.accountid))
+                {
+                    Entity.Attributes.Add("mcs_accountid", new CrmEntityReference("mcs_accountid", Guid.Parse(request.accountid)));
                 }
                 if (!string.IsNullOrEmpty(request.mcs_content))
                 {
