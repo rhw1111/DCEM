@@ -115,7 +115,7 @@ var EditPage = /** @class */ (function () {
         this.modalCtrl = modalCtrl;
         this.activeRoute = activeRoute;
         this.model = {
-            postApiUrl: '/api/tech-support/AddOrEdit',
+            postApiUrl: '/api/tech-support/AddOrUpdate',
             detailApiUrl: '/api/tech-support/GetDetail',
             viewData: {
                 mcs_serviceorderid_name: '',
@@ -176,6 +176,7 @@ var EditPage = /** @class */ (function () {
             }
         }, function (res) {
             if (res.TechnicalSupport != null) {
+                _this.model.postData.Id = id;
                 _this.model.postData.mcs_title = res["TechnicalSupport"]["Attributes"]["mcs_title"];
                 _this.model.postData.mcs_serviceorderid = res["TechnicalSupport"]["Attributes"]["_mcs_serviceorderid_value"];
                 _this.model.viewData.mcs_serviceorderid_name = res["TechnicalSupport"]["Attributes"]["_mcs_serviceorderid_value@OData.Community.Display.V1.FormattedValue"];
@@ -205,7 +206,18 @@ var EditPage = /** @class */ (function () {
                 _this.model.postData.mcs_malfunctioncontent = res["TechnicalSupport"]["Attributes"]["mcs_malfunctioncontent"];
                 _this.model.postData.mcs_cartypeid = res["TechnicalSupport"]["Attributes"]["_mcs_cartypeid_value"];
                 _this.model.viewData.mcs_cartypeid_vale = res["TechnicalSupport"]["Attributes"]["_mcs_mcs_cartypeid_value@OData.Community.Display.V1.FormattedValue"];
-                if (_this.model.fileArray != null && _this.model.fileArray.length > 0) {
+            }
+            console.log(res);
+            if (res.DealerAttachment != null) {
+                _this.model.fileArray = [];
+                for (var _i = 0, _a = res.DealerAttachment; _i < _a.length; _i++) {
+                    var item = _a[_i];
+                    console.log(item);
+                    var obj = {};
+                    obj["fileName"] = item["Attributes"]["mcs_filename"];
+                    obj["fileSize"] = item["Attributes"]["mcs_filesize"];
+                    obj["url"] = item["Attributes"]["mcs_fileurl"];
+                    _this.model.fileArray.push(obj);
                 }
             }
             _this._page.loadingHide();
@@ -280,25 +292,38 @@ var EditPage = /** @class */ (function () {
     //选择附件模式窗口
     EditPage.prototype.presentFileModal = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var modalWin, data, _i, _a, file, obj;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
-                switch (_b.label) {
-                    case 0: return [4 /*yield*/, this.modalCtrl.create({
-                            component: app_serving_serving_ser_components_select_file_edit_select_file_edit_component__WEBPACK_IMPORTED_MODULE_10__["SelectFileEditComponent"]
-                        })];
+            var fileInputArray, _i, _a, item, obj, modalWin, data, _b, _c, file, obj;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_d) {
+                switch (_d.label) {
+                    case 0:
+                        fileInputArray = [];
+                        //输入参数
+                        for (_i = 0, _a = this.model.fileArray; _i < _a.length; _i++) {
+                            item = _a[_i];
+                            obj = {};
+                            obj["fileName"] = item["fileName"];
+                            obj["fileSize"] = item["fileSize"];
+                            obj["url"] = item["url"];
+                            fileInputArray.push(obj);
+                        }
+                        return [4 /*yield*/, this.modalCtrl.create({
+                                component: app_serving_serving_ser_components_select_file_edit_select_file_edit_component__WEBPACK_IMPORTED_MODULE_10__["SelectFileEditComponent"],
+                                componentProps: { fileArray: fileInputArray }
+                            })];
                     case 1:
-                        modalWin = _b.sent();
+                        modalWin = _d.sent();
                         return [4 /*yield*/, modalWin.present()];
                     case 2:
-                        _b.sent();
+                        _d.sent();
                         return [4 /*yield*/, modalWin.onDidDismiss()];
                     case 3:
-                        data = (_b.sent()).data;
+                        data = (_d.sent()).data;
                         if (data.command === 1) {
+                            //输出参数
                             this.model.postData.fileEntityArray = [];
                             this.model.fileArray = data.fileArray;
-                            for (_i = 0, _a = this.model.fileArray; _i < _a.length; _i++) {
-                                file = _a[_i];
+                            for (_b = 0, _c = this.model.fileArray; _b < _c.length; _b++) {
+                                file = _c[_b];
                                 obj = {};
                                 obj["mcs_filename"] = file["fileName"];
                                 obj["mcs_filesize"] = file["fileSize"];
@@ -444,18 +469,13 @@ var EditPage = /** @class */ (function () {
         //请求
         this._page.loadingShow();
         this._http.post(this.model.postApiUrl, this.model.postData, function (res) {
-            if (res != "") {
-                _this._page.alert("消息提示", "保存成功！");
-                _this._page.goto("/serving/ts/success", { guid: res });
-            }
-            else {
-                _this._page.alert("消息提示", "保存失败！");
-            }
+            console.log(res);
+            console.log(res.Data.Attributes["mcs_name"]);
             _this._page.loadingHide();
+            _this._page.goto("/serving/ts/success", { guid: res.Data.Id, no: res.Data.Attributes["mcs_name"] });
         }, function (err) {
-            debugger;
-            _this._page.alert("消息提示", "请求异常");
             _this._page.loadingHide();
+            _this._page.alert("消息提示", "保存失败！");
         });
     };
     EditPage.prototype.changePhone = function (value) {

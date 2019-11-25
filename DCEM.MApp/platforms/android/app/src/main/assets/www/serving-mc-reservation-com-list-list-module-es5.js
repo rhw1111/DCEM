@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/home/mywork\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>预约单</ion-title>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-searchbar [(ngModel)]=\"this.model.seachkey\" placeholder=\"支持姓名\\手机号\\车牌号查找\" (keyup)=\"search($event)\"></ion-searchbar>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-segment>\r\n            <ion-segment-button checked (click)=\"selectTab(0)\">\r\n                <ion-label>全部({{model.aLLTotalCount}})</ion-label>\r\n            </ion-segment-button >\r\n            <ion-segment-button (click)=\"selectTab(10)\">\r\n                <ion-label>待跟进({{model.followingCount}})</ion-label>\r\n            </ion-segment-button>\r\n            <ion-segment-button (click)=\"selectTab(20)\">\r\n                <ion-label>已跟进({{model.followedCount}})</ion-label>\r\n            </ion-segment-button>\r\n        </ion-segment>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n        <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\" refreshingText=\"刷新中...\">\r\n        </ion-refresher-content>\r\n    </ion-refresher>\r\n    <ion-list lines=\"full\">\r\n        <ion-item *ngFor=\"let r of model.data\" button=\"true\" [routerLink]=\"['/serving/reservation/detail']\" [queryParams]=\"{id:r.mcs_appointmentinfoid}\">\r\n            <ion-icon slot=\"start\" color=\"{{r.appointment}}\" name=\"calendar\" size=\"large\" style=\"width:50px;height:50px;\"></ion-icon>\r\n            <ion-label>\r\n                <h2>车牌号：{{r.mcs_carplate}}</h2>\r\n                <p>车主姓名：{{r.mcs_customername}}</p>\r\n                <p>预约日期：{{FormatToDate(r.mcs_appointmentat)}}</p>\r\n                <p>预约时段：{{r.mcs_appointmentconfigid}}</p>\r\n            </ion-label>\r\n            <ion-note slot=\"end\" *ngIf=\"r.mcs_status==10\">\r\n                <ion-icon color=\"danger\" name=\"heart-empty\" size=\"small\"></ion-icon>\r\n                待跟进\r\n            </ion-note>\r\n            <ion-note slot=\"end\" *ngIf=\"r.mcs_status==20\">\r\n                <ion-icon color=\"danger\" name=\"heart-half\" size=\"small\"></ion-icon>\r\n                已跟进\r\n            </ion-note>\r\n            <ion-note slot=\"end\" *ngIf=\"r.mcs_status==30\">\r\n                <ion-icon color=\"danger\" name=\"heart\" size=\"small\"></ion-icon>\r\n                已入场\r\n            </ion-note>\r\n            <ion-note slot=\"end\" *ngIf=\"r.mcs_status==50\">\r\n                <ion-icon color=\"danger\" name=\"heart-dislike\" size=\"small\"></ion-icon>\r\n                已取消\r\n            </ion-note>\r\n            <ion-note slot=\"end\" *ngIf=\"r.mcs_status=='undefined'\">\r\n                <ion-icon color=\"dark\" name=\"heart\" size=\"small\"></ion-icon>\r\n                无\r\n            </ion-note>\r\n            <ion-note slot=\"end\" *ngIf=\"r.mcs_status==40\">\r\n                <ion-icon color=\"dark\" name=\"heart\" size=\"small\"></ion-icon>\r\n                --\r\n            </ion-note>\r\n        </ion-item>\r\n    </ion-list>\r\n    <ion-row *ngIf=\"model.isending\">\r\n        <ion-col class=\"nodata\" text-center>\r\n            没有更多内容啦\r\n        </ion-col>\r\n    </ion-row>\r\n    <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doLoading($event)\">\r\n        <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\">\r\n        </ion-infinite-scroll-content>\r\n    </ion-infinite-scroll>\r\n\r\n    <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\r\n        <ion-fab-button>\r\n            <ion-icon name=\"arrow-dropup\"></ion-icon>\r\n        </ion-fab-button>\r\n        <ion-fab-list side=\"top\">\r\n            <ion-fab-button [routerLink]=\"['/serving/reservation/edit']\">\r\n                <ion-icon name=\"add\"></ion-icon>新增\r\n            </ion-fab-button>\r\n        </ion-fab-list>\r\n    </ion-fab>\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/home/mywork\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>预约单</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-menu-button></ion-menu-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-searchbar [(ngModel)]=\"this.model.seachkey\" placeholder=\"支持姓名\\手机号\\车牌号查找\" (keyup)=\"search($event)\"></ion-searchbar>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-segment [(ngModel)]=\"tab\">\r\n            <ion-segment-button value=\"all\"  checked (click)=\"selectTab(0)\">\r\n                <ion-label>全部({{model.aLLTotalCount}})</ion-label>\r\n            </ion-segment-button >\r\n            <ion-segment-button (click)=\"selectTab(10)\">\r\n                <ion-label>待跟进({{model.followingCount}})</ion-label>\r\n            </ion-segment-button>\r\n            <ion-segment-button (click)=\"selectTab(20)\">\r\n                <ion-label>已跟进({{model.followedCount}})</ion-label>\r\n            </ion-segment-button>\r\n        </ion-segment>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <!--<ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n        <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\" refreshingText=\"刷新中...\">\r\n        </ion-refresher-content>\r\n    </ion-refresher>-->\r\n    <ion-list lines=\"full\">\r\n        <ion-item-sliding *ngFor=\"let r of model.data\">\r\n            <ion-item button=\"true\" [routerLink]=\"['/serving/reservation/detail']\" [queryParams]=\"{id:r.mcs_appointmentinfoid}\">\r\n                <ion-icon slot=\"start\" name=\"calendar\"></ion-icon>\r\n                <ion-label>\r\n                    <h2>{{r.mcs_carplate}}&nbsp;</h2>\r\n                    <p>{{r.mcs_customername}}&nbsp;</p>\r\n                    <p>{{FormatToDate(r.mcs_appointmentat)}} {{r.mcs_appointmentconfigid}}&nbsp;</p>\r\n                </ion-label>\r\n                <ion-note slot=\"end\">{{r.mcs_statusvalue}}</ion-note>\r\n            </ion-item>\r\n            <ion-item-options side=\"end\">\r\n                <ion-item-option *ngIf=\"r.mcs_status!==50\" color=\"danger\" expandable [routerLink]=\"['/serving/reservation/cancel']\" [queryParams]=\"{id:r.mcs_appointmentinfoid}\">\r\n                    取消\r\n                </ion-item-option>\r\n            </ion-item-options>\r\n        </ion-item-sliding>\r\n    </ion-list>\r\n    <ion-row *ngIf=\"model.ifDoLoading&&model.isending\">\r\n        <ion-col text-center>\r\n            <ion-label>\r\n                <p>\r\n                    没有更多内容啦\r\n                </p>\r\n            </ion-label>\r\n        </ion-col>\r\n    </ion-row>\r\n    <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doLoading($event)\">\r\n        <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\">\r\n        </ion-infinite-scroll-content>\r\n    </ion-infinite-scroll>\r\n    <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\r\n        <ion-fab-button>\r\n            <ion-icon name=\"arrow-dropup\"></ion-icon>\r\n        </ion-fab-button>\r\n        <ion-fab-list side=\"top\">\r\n            <ion-fab-button color=\"success\" [routerLink]=\"['/serving/reservation/edit']\"><ion-icon name=\"add\"></ion-icon></ion-fab-button>\r\n        </ion-fab-list>\r\n    </ion-fab>\r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -104,6 +104,7 @@ var ListPage = /** @class */ (function () {
         this._http = _http;
         this._page = _page;
         this.httpService = httpService;
+        this.tab = "all";
         this.model = {
             name: 'appointmentlistinfo',
             apiUrl: '/api/appointment-info/GetList',
@@ -112,12 +113,12 @@ var ListPage = /** @class */ (function () {
             data: [],
             pageSize: 10,
             page: 1,
-            sort: 'mcs_appointmentinfoid desc',
             isending: false,
             nodata: false,
             aLLTotalCount: 0,
             followingCount: 0,
-            followedCount: 0 //已跟进
+            followedCount: 0,
+            ifDoLoading: false,
         };
     }
     ListPage.prototype.ngOnInit = function () {
@@ -143,15 +144,16 @@ var ListPage = /** @class */ (function () {
         }
     };
     //下拉刷新
-    ListPage.prototype.doRefresh = function (event) {
-        this.model.data = [];
-        this.model.page = 1;
-        this.model.isending = false;
-        this.showlist(event);
-    };
+    //doRefresh(event) {
+    //    this.model.data = [];
+    //    this.model.page = 1;
+    //    this.model.isending = false;
+    //    this.showlist(event);
+    //}
     //加载下一页
     ListPage.prototype.doLoading = function (event) {
         this.model.page++;
+        this.model.ifDoLoading = true;
         this.showlist(event);
     };
     //切换tab
@@ -166,21 +168,20 @@ var ListPage = /** @class */ (function () {
         else {
             this.model.status = 0;
         }
+        this.model.ifDoLoading = false;
         this.showlist(null);
     };
     //展示数据
     ListPage.prototype.showlist = function (event) {
         var _this = this;
-        this._page.loadingShow();
-        console.log("地址:" + this.model.apiUrl, "预约状态:" + this.model.status, "搜索:" + this.model.seachkey, "排序:" + this.model.sort, "页条数:" + this.model.pageSize, "页数:" + this.model.page);
-        this._http.get(this.model.apiUrl, {
-            params: {
-                status: this.model.status,
-                seachkey: this.model.seachkey,
-                sort: this.model.sort,
-                pageSize: this.model.pageSize,
-                page: this.model.page
-            }
+        if (!this.model.ifDoLoading) {
+            this._page.loadingShow();
+        }
+        this._http.getForToaken(this.model.apiUrl, {
+            "status": this.model.status,
+            "seachkey": this.model.seachkey,
+            "pageSize": this.model.pageSize,
+            "page": this.model.page
         }, function (res) {
             if (res.Results !== null) {
                 for (var key in res.Results) {
@@ -191,20 +192,7 @@ var ListPage = /** @class */ (function () {
                     obj["mcs_appointmentat"] = res.Results[key]["Attributes"]["mcs_appointmentat"];
                     obj["mcs_appointmentconfigid"] = res.Results[key]["Attributes"]["appointmentconfig_x002e_mcs_name"];
                     obj["mcs_status"] = res.Results[key]["Attributes"]["mcs_status"];
-                    //设置颜色
-                    obj["appointment"] = "primary";
-                    if (obj["mcs_status"] == 10) {
-                        obj["appointment"] = "tertiary";
-                    }
-                    else if (obj["mcs_status"] == 20) {
-                        obj["appointment"] = "primary";
-                    }
-                    else if (obj["mcs_status"] == 50) {
-                        obj["appointment"] = "dark";
-                    }
-                    else {
-                        obj["appointment"] = "success";
-                    }
+                    obj["mcs_statusvalue"] = res.Results[key]["Attributes"]["mcs_status@OData.Community.Display.V1.FormattedValue"];
                     _this.model.data.push(obj);
                 }
                 _this.model.aLLTotalCount = res.ALLTotalCount;

@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-back-button text=\"返回\" defaultHref=\"/\"></ion-back-button>\n    </ion-buttons>\n    <ion-title>技术支持</ion-title>\n    <ion-buttons slot=\"end\">\n        <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n  <ion-toolbar>\n      <ion-searchbar [(ngModel)]=\"this.model.seachkey\" placeholder=\"支持项目名称和编号模糊查找\" (keyup)=\"search($event)\" ></ion-searchbar>\n  </ion-toolbar>\n  <ion-toolbar>\n      <ion-segment [(ngModel)]=\"tab\">\n        <ion-segment-button value=\"0\" (click)=\"selectTab(0)\">\n            <ion-label>全部</ion-label>\n        </ion-segment-button>\n        <!-- <ion-segment-button (click)=\"selectTab(10)\">\n            <ion-label>未处理</ion-label>\n        </ion-segment-button> -->\n        <ion-segment-button value=\"30\" (click)=\"selectTab(30)\">\n            <ion-label>处理中</ion-label>\n        </ion-segment-button>\n        <ion-segment-button value=\"40\" (click)=\"selectTab(40)\">\n            <ion-label>已关闭</ion-label>\n        </ion-segment-button>\n        <!-- <ion-segment-button (click)=\"selectTab(50)\">\n            <ion-label>已取消</ion-label>\n        </ion-segment-button> -->\n      </ion-segment>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n        <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\" refreshingText=\"刷新中...\">\n        </ion-refresher-content> \n    </ion-refresher>\n    <ion-list lines=\"full\">\n        <ion-item *ngFor=\"let item of model.data\" [routerLink]=\"['/serving/ts/detail']\" [queryParams]=\"{id:item.Id}\">\n            <!-- <ion-icon slot=\"start\" name=\"hammer\" size=\"large\"></ion-icon> -->\n            <ion-avatar *ngIf=\"item.mcs_orderstatus==10\" item-start>技</ion-avatar>\n            <ion-avatar *ngIf=\"item.mcs_orderstatus==40\" class=\"status-close\" item-start>技</ion-avatar>\n            <ion-avatar *ngIf=\"item.mcs_orderstatus==30\" class=\"status-process\" item-start>技</ion-avatar>\n            <ion-avatar *ngIf=\"item.mcs_orderstatus==50\" class=\"status-cancel\" item-start>技</ion-avatar>\n            <ion-label>\n                <h3>{{item.mcs_name}}</h3>\n                <p>{{item.mcs_title}}</p>\n                <p>\n                    <ion-icon name=\"calendar\" size=\"small\" color=\"primary\"></ion-icon> {{FormatToDate(item.mcs_repairdate)}}\n                </p>\n            </ion-label>\n            <ion-note slot=\"end\" *ngIf=\"item.mcs_orderstatus==10\">\n                未处理\n            </ion-note>\n            <ion-note slot=\"end\" *ngIf=\"item.mcs_orderstatus==30\">\n                处理中\n            </ion-note>\n            <ion-note slot=\"end\" *ngIf=\"item.mcs_orderstatus==40\">\n                <label>已关闭</label>\n            </ion-note>\n            <ion-note slot=\"end\" *ngIf=\"item.mcs_orderstatus==50\">\n                已取消\n            </ion-note>\n        </ion-item>\n    </ion-list>\n\n    <ion-row *ngIf=\"model.isending\">\n        <ion-col class=\"nodata\" text-center>\n            <label>没有更多内容啦</label>\n        </ion-col>\n    </ion-row>\n    \n    <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doLoading($event)\"> \n        <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\"> \n        </ion-infinite-scroll-content>\n    </ion-infinite-scroll>\n    <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\n        <ion-fab-button [routerLink]=\"['/serving/ts/edit']\">\n            <ion-icon name=\"add\"></ion-icon>\n        </ion-fab-button>\n    </ion-fab>\n</ion-content>\n"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-back-button text=\"返回\" defaultHref=\"/\"></ion-back-button>\n    </ion-buttons>\n    <ion-title>技术支持</ion-title>\n    <ion-buttons slot=\"end\">\n        <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n  <ion-toolbar>\n      <ion-searchbar [(ngModel)]=\"this.model.seachkey\" placeholder=\"支持项目名称和编号模糊查找\" (keyup)=\"search($event)\" ></ion-searchbar>\n  </ion-toolbar>\n  <ion-toolbar>\n      <ion-segment [(ngModel)]=\"tab\">\n        <ion-segment-button value=\"0\" (click)=\"selectTab(0)\">\n            <ion-label>全部</ion-label>\n        </ion-segment-button>\n        <!-- <ion-segment-button (click)=\"selectTab(10)\">\n            <ion-label>未处理</ion-label>\n        </ion-segment-button> -->\n        <ion-segment-button value=\"30\" (click)=\"selectTab(30)\">\n            <ion-label>处理中</ion-label>\n        </ion-segment-button>\n        <ion-segment-button value=\"40\" (click)=\"selectTab(40)\">\n            <ion-label>已关闭</ion-label>\n        </ion-segment-button>\n        <!-- <ion-segment-button (click)=\"selectTab(50)\">\n            <ion-label>已取消</ion-label>\n        </ion-segment-button> -->\n      </ion-segment>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <!-- <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\n        <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\" refreshingText=\"刷新中...\">\n        </ion-refresher-content> \n    </ion-refresher> -->\n    <ion-list lines=\"full\">\n        <ion-item *ngFor=\"let item of model.data\" [routerLink]=\"['/serving/ts/detail']\" [queryParams]=\"{id:item.Id}\">\n            <!-- <ion-icon slot=\"start\" name=\"hammer\" size=\"large\"></ion-icon> -->\n            <ion-avatar *ngIf=\"item.mcs_orderstatus==10\" item-start>技</ion-avatar>\n            <ion-avatar *ngIf=\"item.mcs_orderstatus==40\" class=\"bggray\" item-start>技</ion-avatar>\n            <ion-avatar *ngIf=\"item.mcs_orderstatus==30\" class=\"bgorage\" item-start>技</ion-avatar>\n            <ion-avatar *ngIf=\"item.mcs_orderstatus==50\" class=\"bgored\" item-start>技</ion-avatar>\n            <ion-label>\n                <h3>{{item.mcs_name}}</h3>\n                <p>{{item.mcs_title}}</p>\n                <p>\n                    <ion-icon name=\"calendar\" size=\"small\" color=\"primary\"></ion-icon> {{FormatToDate(item.mcs_repairdate)}}\n                </p>\n            </ion-label>\n            <ion-note slot=\"end\" *ngIf=\"item.mcs_orderstatus==10\">\n                未处理\n            </ion-note>\n            <ion-note slot=\"end\" *ngIf=\"item.mcs_orderstatus==30\">\n                处理中\n            </ion-note>\n            <ion-note slot=\"end\" *ngIf=\"item.mcs_orderstatus==40\">\n                <label>已关闭</label>\n            </ion-note>\n            <ion-note slot=\"end\" *ngIf=\"item.mcs_orderstatus==50\">\n                已取消\n            </ion-note>\n        </ion-item>\n    </ion-list>\n\n    <ion-row *ngIf=\"model.isending\">\n        <ion-col class=\"nodata\" text-center>\n            <label>没有更多内容啦</label>\n        </ion-col>\n    </ion-row>\n    \n    <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doLoading($event)\"> \n        <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\"> \n        </ion-infinite-scroll-content>\n    </ion-infinite-scroll>\n    <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\n        <ion-fab-button [routerLink]=\"['/serving/ts/edit']\">\n            <ion-icon name=\"add\"></ion-icon>\n        </ion-fab-button>\n    </ion-fab>\n</ion-content>\n"
 
 /***/ }),
 
@@ -66,7 +66,7 @@ ListPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".nodata label {\n  color: rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.4);\n  font-size: 14px;\n  text-align: center;\n  padding-bottom: 10px;\n  margin-bottom: 10px; }\n\nion-note {\n  vertical-align: middle; }\n\n.iconside {\n  width: 50px;\n  height: 50px; }\n\nion-avatar {\n  background-color: #237cca;\n  -moz-border-radius: 50%;\n  -webkit-border-radius: 50%;\n  text-align: center;\n  vertical-align: middle;\n  padding-top: 10px;\n  height: 50px;\n  width: 50px;\n  font-size: 20px;\n  color: #ffffff;\n  margin-right: 5px; }\n\n.status-close {\n  background-color: #cccccc; }\n\n.status-process {\n  background-color: #ffaf1d; }\n\n.status-cancel {\n  background-color: #ff0000; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2VydmluZy90ZWNobmljYWwtc3VwcG9ydC5jb20vbGlzdC9FOlxcQXBwUHJvamVjdFxcRENFTVxcRENFTS5NQXBwL3NyY1xcYXBwXFxzZXJ2aW5nXFx0ZWNobmljYWwtc3VwcG9ydC5jb21cXGxpc3RcXGxpc3QucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBRU8sb0RBQStDO0VBQy9DLGVBQWU7RUFDZixrQkFBaUI7RUFDakIsb0JBQW9CO0VBQ3BCLG1CQUFtQixFQUFBOztBQUcxQjtFQUNJLHNCQUFzQixFQUFBOztBQUcxQjtFQUNJLFdBQVc7RUFDWCxZQUFZLEVBQUE7O0FBRWhCO0VBQ0kseUJBQXlCO0VBQ3pCLHVCQUF1QjtFQUN2QiwwQkFBMEI7RUFDMUIsa0JBQWtCO0VBQ2xCLHNCQUFzQjtFQUN0QixpQkFBaUI7RUFDakIsWUFBWTtFQUNaLFdBQVc7RUFDWCxlQUFlO0VBQ2YsY0FBYztFQUNkLGlCQUFpQixFQUFBOztBQUVyQjtFQUNJLHlCQUF5QixFQUFBOztBQUU3QjtFQUNJLHlCQUF5QixFQUFBOztBQUU3QjtFQUNJLHlCQUF5QixFQUFBIiwiZmlsZSI6InNyYy9hcHAvc2VydmluZy90ZWNobmljYWwtc3VwcG9ydC5jb20vbGlzdC9saXN0LnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5ub2RhdGF7XHJcbiAgICBsYWJlbHtcclxuICAgICAgIGNvbG9yOiByZ2JhKHZhcigtLWlvbi10ZXh0LWNvbG9yLXJnYiwwLDAsMCksLjQpOyBcclxuICAgICAgIGZvbnQtc2l6ZTogMTRweDtcclxuICAgICAgIHRleHQtYWxpZ246Y2VudGVyO1xyXG4gICAgICAgcGFkZGluZy1ib3R0b206IDEwcHg7XHJcbiAgICAgICBtYXJnaW4tYm90dG9tOiAxMHB4O1xyXG4gICAgfVxyXG59XHJcbmlvbi1ub3Rle1xyXG4gICAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcclxufVxyXG5cclxuLmljb25zaWRlIHtcclxuICAgIHdpZHRoOiA1MHB4O1xyXG4gICAgaGVpZ2h0OiA1MHB4O1xyXG59XHJcbmlvbi1hdmF0YXJ7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMjM3Y2NhO1xyXG4gICAgLW1vei1ib3JkZXItcmFkaXVzOiA1MCU7XHJcbiAgICAtd2Via2l0LWJvcmRlci1yYWRpdXM6IDUwJTtcclxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICAgIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XHJcbiAgICBwYWRkaW5nLXRvcDogMTBweDtcclxuICAgIGhlaWdodDogNTBweDtcclxuICAgIHdpZHRoOiA1MHB4O1xyXG4gICAgZm9udC1zaXplOiAyMHB4O1xyXG4gICAgY29sb3I6ICNmZmZmZmY7XHJcbiAgICBtYXJnaW4tcmlnaHQ6IDVweDtcclxufVxyXG4uc3RhdHVzLWNsb3Nle1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2NjY2NjYztcclxufVxyXG4uc3RhdHVzLXByb2Nlc3N7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZhZjFkO1xyXG59XHJcbi5zdGF0dXMtY2FuY2Vse1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2ZmMDAwMDtcclxufSJdfQ== */"
+module.exports = ".nodata label {\n  color: rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.4);\n  font-size: 14px;\n  text-align: center;\n  padding-bottom: 10px;\n  margin-bottom: 10px; }\n\nion-note {\n  vertical-align: middle; }\n\n.iconside {\n  width: 50px;\n  height: 50px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2VydmluZy90ZWNobmljYWwtc3VwcG9ydC5jb20vbGlzdC9FOlxcQXBwUHJvamVjdFxcRENFTVxcRENFTS5NQXBwL3NyY1xcYXBwXFxzZXJ2aW5nXFx0ZWNobmljYWwtc3VwcG9ydC5jb21cXGxpc3RcXGxpc3QucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBRU8sb0RBQStDO0VBQy9DLGVBQWU7RUFDZixrQkFBaUI7RUFDakIsb0JBQW9CO0VBQ3BCLG1CQUFtQixFQUFBOztBQUcxQjtFQUNJLHNCQUFzQixFQUFBOztBQUcxQjtFQUNJLFdBQVc7RUFDWCxZQUFZLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9zZXJ2aW5nL3RlY2huaWNhbC1zdXBwb3J0LmNvbS9saXN0L2xpc3QucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLm5vZGF0YXtcclxuICAgIGxhYmVse1xyXG4gICAgICAgY29sb3I6IHJnYmEodmFyKC0taW9uLXRleHQtY29sb3ItcmdiLDAsMCwwKSwuNCk7IFxyXG4gICAgICAgZm9udC1zaXplOiAxNHB4O1xyXG4gICAgICAgdGV4dC1hbGlnbjpjZW50ZXI7XHJcbiAgICAgICBwYWRkaW5nLWJvdHRvbTogMTBweDtcclxuICAgICAgIG1hcmdpbi1ib3R0b206IDEwcHg7XHJcbiAgICB9XHJcbn1cclxuaW9uLW5vdGV7XHJcbiAgICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xyXG59XHJcblxyXG4uaWNvbnNpZGUge1xyXG4gICAgd2lkdGg6IDUwcHg7XHJcbiAgICBoZWlnaHQ6IDUwcHg7XHJcbn1cclxuLy8gaW9uLWF2YXRhcntcclxuLy8gICAgIGJhY2tncm91bmQtY29sb3I6ICMyMzdjY2E7XHJcbi8vICAgICAtbW96LWJvcmRlci1yYWRpdXM6IDUwJTtcclxuLy8gICAgIC13ZWJraXQtYm9yZGVyLXJhZGl1czogNTAlO1xyXG4vLyAgICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4vLyAgICAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcclxuLy8gICAgIHBhZGRpbmctdG9wOiAxMHB4O1xyXG4vLyAgICAgaGVpZ2h0OiA1MHB4O1xyXG4vLyAgICAgd2lkdGg6IDUwcHg7XHJcbi8vICAgICBmb250LXNpemU6IDIwcHg7XHJcbi8vICAgICBjb2xvcjogI2ZmZmZmZjtcclxuLy8gICAgIG1hcmdpbi1yaWdodDogNXB4O1xyXG4vLyB9XHJcbi8vIC5zdGF0dXMtY2xvc2V7XHJcbi8vICAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjY2NjY2NjO1xyXG4vLyB9XHJcbi8vIC5zdGF0dXMtcHJvY2Vzc3tcclxuLy8gICAgIGJhY2tncm91bmQtY29sb3I6ICNmZmFmMWQ7XHJcbi8vIH1cclxuLy8gLnN0YXR1cy1jYW5jZWx7XHJcbi8vICAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmYwMDAwO1xyXG4vLyB9Il19 */"
 
 /***/ }),
 
@@ -112,19 +112,12 @@ let ListPage = class ListPage {
         };
     }
     ngOnInit() {
-        //this.model.page = 1;
-        //this.getList(null);
-        // var cachedata = this.httpService.GetDataCache(this.model.name);
-        // if (cachedata == "") {
-        // }
-        // else {
-        //     this.model.data = JSON.parse(cachedata);
-        // }
     }
     //每次页面加载
     ionViewWillEnter() {
         this.model.page = 1;
-        this.selectTab(0);
+        this._page.loadingShow();
+        this.getList(null);
     }
     //搜索方法
     search(event) {
@@ -150,7 +143,9 @@ let ListPage = class ListPage {
     }
     //切换tab
     selectTab(status) {
-        this.infiniteScroll.disabled = false; //切换标签初始化下拉控件事件
+        //切换标签初始化下拉控件事件
+        this.infiniteScroll.complete();
+        this.infiniteScroll.disabled = false;
         this.model.data = [];
         this.model.page = 1;
         this.model.isending = false;
@@ -160,19 +155,17 @@ let ListPage = class ListPage {
         else {
             this.model.orderstatus = 0;
         }
+        this._page.loadingShow();
         this.getList(null);
     }
     //获取列表数据
     getList(event) {
-        this._page.loadingShow();
         this._http.getForToaken(this.model.apiUrl, {
-            params: {
-                orderstatus: this.model.orderstatus,
-                seachkey: this.model.seachkey,
-                sort: this.model.sort,
-                pageSize: this.model.pageSize,
-                page: this.model.page
-            }
+            orderstatus: this.model.orderstatus,
+            seachkey: this.model.seachkey,
+            sort: this.model.sort,
+            pageSize: this.model.pageSize,
+            page: this.model.page
         }, (res) => {
             if (res.Results !== null) {
                 //绑定数据
@@ -194,7 +187,9 @@ let ListPage = class ListPage {
                 //判断是否有新数据
                 if (res.Results.length < this.model.pageSize) {
                     event ? event.target.disabled = true : "";
-                    this.model.isending = true;
+                    if (this.model.page > 1) {
+                        this.model.isending = true;
+                    }
                 }
             }
             else {

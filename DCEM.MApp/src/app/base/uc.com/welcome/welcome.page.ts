@@ -15,8 +15,4 @@ export class WelcomePage implements OnInit {
   ngOnInit() {
     
   }
-
-  tologin(){
-    this._window.storageSet("welcomeisloading","true");
-  }
 }

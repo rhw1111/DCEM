@@ -13,10 +13,8 @@
             (keyup)="searchOnKeyup($event)"></ion-searchbar>
     </ion-toolbar>
     <ion-toolbar>
-        <ion-item>
-            <ion-text color="danger">*</ion-text>
-            <ion-label>
-                <h2>交车单状态：</h2>
+        <ion-item> 
+            <ion-label> 
             </ion-label>
             <ion-select name="clues" okText="确认" cancelText="取消" (ionChange)="searchOnCharge()"  [(ngModel)]="model.search.deliverystatus">
                 <ion-select-option *ngFor="let item of model.deliverystatusOptions" value="{{item.value}}">
@@ -40,18 +38,12 @@
                 <ion-label>
                     <h2>{{item.code}}</h2>
                     <p>{{item.vin}}</p>
-                    <p>{{item.ro}}</p> 
+                    <p>{{item.createdon}}</p> 
                 </ion-label> 
                 <ion-note slot="end">
                         {{item.deliverystatus}}
                     </ion-note>
-            </ion-item>
-            <ion-item-options side="end">
-                <ion-item-option color="tertiary" expandable [routerLink]="['/saleing/delivery/detail']"
-                    [queryParams]="{id:item.id}">
-                    详情
-                </ion-item-option>
-            </ion-item-options>
+            </ion-item> 
         </ion-item-sliding>
     </ion-list>
     <ion-label *ngIf="this.model.isending" text-center>

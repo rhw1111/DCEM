@@ -6,7 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthenticationService } from './base/base.ser/authentication.service'
 import { Router } from '@angular/router';
 import { DCore_Http,DCore_Window,DCore_Page } from 'app/base/base.ser/Dcem.core';
-
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 
 @Component({
@@ -54,7 +54,8 @@ export class AppComponent {
         private menu: MenuController,
         private _http:DCore_Http,
         private _window: DCore_Window,
-        private _page: DCore_Page
+        private _page: DCore_Page,
+        private screenOrientation: ScreenOrientation
     ) {
         this.initializeApp();
     }
@@ -63,15 +64,19 @@ export class AppComponent {
         this.platform.ready().then(() => {
             //this.statusBar.styleDefault();
             // let status bar overlay webview
-            this.statusBar.overlaysWebView(true);
+            this.statusBar.overlaysWebView(false);
             // set status bar to white
             this.statusBar.backgroundColorByHexString('#000000');
 
             this.splashScreen.hide();
 
+            /** 设置智能竖屏*/
+            this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+
             this.headpicture = "assets/img/head_default.jpg";
-            
+            console.log("开始welcomeisloading");
             var welcomeisloading=this._window.storageGet("welcomeisloading");
+            console.log("取值:"+welcomeisloading);
             if(welcomeisloading=="true"){
                 var token= this._http.getToken();
                 if(token== undefined || token==""){
