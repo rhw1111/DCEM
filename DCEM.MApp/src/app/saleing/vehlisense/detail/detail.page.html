@@ -15,7 +15,7 @@
       </ion-segment-button>
       <ion-segment-button value="check">
         <ion-label>附件列表</ion-label>
-      </ion-segment-button> 
+      </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 </ion-header>
@@ -103,7 +103,7 @@
             <p>{{mod.data.detail.mcs_fee}}&nbsp;</p>
           </ion-label>
         </ion-item>
-         
+
 
         <ion-item-divider color="primary">
           <ion-label>
@@ -152,40 +152,39 @@
           </ion-label>
         </ion-item>
       </ion-list>
- 
+
     </div>
     <div *ngSwitchCase="'check'">
-      
-      <ion-grid class="ionatt"> 
-        <ion-row *ngIf="mod.data.attachment.length===0">
-            <ion-col>
-              <div class="ionattbody">
-                当前无附件记录 
-              </div>
-            </ion-col>
-           
-          </ion-row>
-      </ion-grid>
-
-      
 
 
-      <ion-list  >
-          <ion-item *ngFor="let item of mod.data.attachment"   >
-                <ion-icon name="document" size="large"></ion-icon>
-              <ion-label>
-                  <h2>{{item.mcs_filename}}</h2>
-                  <p>大小：{{item.mcs_filesize}}</p> 
-              </ion-label> 
-              <ion-button size="default"  color="primary" class="button-outline" (click)="down(item.fileurl)">
+
+      <ion-label *ngIf="mod.data.attachment.length===0" text-center>
+        <p>
+          当前无附件记录
+        </p>
+      </ion-label>
+
+
+      <ion-list>
+        <ion-item *ngFor="let item of mod.data.attachment">
+          <ion-icon name="document" size="large"></ion-icon>
+          <ion-label>
+            <h2>{{item.mcs_filename}}</h2>
+            <p>大小：{{item.mcs_filesize}}</p>
+          </ion-label>
+          <!-- <ion-button size="default"  color="primary" class="button-outline" (click)="down(item.fileurl)">
                 下载  <ion-icon color="primary" name="arrow-down"  ></ion-icon> 
-              </ion-button> 
-          </ion-item> 
-      </ion-list> 
-    </div> 
+              </ion-button>  -->
+        </ion-item>
+      </ion-list>
+      <section style="text-align:center;">
+        <ion-button style="width:80%" color="primary" (click)="presentFileModal(mod.data.detail.id)">
+          上传附件</ion-button>
+      </section>
+    </div>
   </div>
 
 
 
- 
+
 </ion-content>

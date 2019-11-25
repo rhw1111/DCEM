@@ -43,7 +43,11 @@
             </ion-note>
           </ion-item> 
         </ion-item-sliding>
-
+        <ion-label *ngIf="this.model.isending" text-center>
+          <h2>
+              当前日期尚无预约记录
+          </h2>
+      </ion-label>
       </ion-list>
     </ion-card-content>
   </ion-card>

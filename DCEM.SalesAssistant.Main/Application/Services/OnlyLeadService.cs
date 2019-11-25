@@ -17,11 +17,16 @@ namespace DCEM.SalesAssistant.Main.Application.Services
     {
         private CrmService _crmService;
         private IOnlyLeadRepository _onlyLeadRepository;
+        private string dicHeadKey;
+        private Dictionary<string, IEnumerable<string>> dicHead;
 
         public OnlyLeadService(CrmService crmService, IOnlyLeadRepository onlyLeadRepository)
         {
             _crmService = crmService;
             _onlyLeadRepository = onlyLeadRepository;
+            dicHeadKey = "Prefer";
+            dicHead = new Dictionary<string, IEnumerable<string>>();
+            dicHead.Add(dicHeadKey, new List<string>() { "odata.include-annotations=\"*\"" });
         }
 
         /// <summary>
@@ -33,6 +38,8 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         {
             try
             {
+                var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+
                 var fetchString = _onlyLeadRepository.QueryList(onlyLeadRequest);
 
                 var fetchXdoc = XDocument.Parse(fetchString);
@@ -40,8 +47,9 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 {
                     EntityName = "mcs_onlylead",
                     FetchXml = fetchXdoc,
-                    ProxyUserId = Guid.Parse(onlyLeadRequest.UserId)
+                    ProxyUserId = userInfo?.systemuserid
                 };
+                fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
                 var fetchResponse = await _crmService.Execute(fetchRequest);
                 var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
 

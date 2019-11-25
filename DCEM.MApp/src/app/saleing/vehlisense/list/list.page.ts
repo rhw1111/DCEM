@@ -62,8 +62,7 @@ export class ListPage implements OnInit {
     this._http.post(
       this.model.apiUrl,
       this.model.search,
-      (res: any) => { 
-        debugger;
+      (res: any) => {  
         if (res.Results !== null) {
           var data = res.Results;
           for (var i in data) {
@@ -79,6 +78,7 @@ export class ListPage implements OnInit {
           event ? event.target.complete() : '';
           if (data.length < this.model.search.pagesize) {
             event ? event.target.disabled = true : "";
+            if (this.model.search.pageindex != 1)
             this.model.isending = true;
           }
           this._page.loadingHide();

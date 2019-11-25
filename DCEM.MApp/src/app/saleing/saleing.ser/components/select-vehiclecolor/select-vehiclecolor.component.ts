@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
+ 
+import { Component, OnInit, ViewChild  } from '@angular/core';
+import { ModalController, IonContent, NavParams , IonInfiniteScroll} from '@ionic/angular';
+import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 @Component({
   selector: 'app-select-vehiclecolor',
   templateUrl: './select-vehiclecolor.component.html',
@@ -9,6 +10,8 @@ import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 export class SelectVehiclecolorComponent implements OnInit {
 
 
+  @ViewChild(IonContent, null) ionContent: IonContent;
+  @ViewChild(IonInfiniteScroll, null) ionInfiniteScroll: IonInfiniteScroll;
   public selectItemValue: any = '';
   public seachkey: string = '';
   public dataList: any = [];
@@ -20,7 +23,7 @@ export class SelectVehiclecolorComponent implements OnInit {
       pageindex: 1,
       carmodel: '', //车型
       search: "",
-      pagesize:10
+      pagesize:20
     }
   };
 
@@ -29,28 +32,31 @@ export class SelectVehiclecolorComponent implements OnInit {
   constructor(
     private modalCtrl: ModalController,
     private _http: DCore_Http,
+    private _valid: DCore_Valid,
     private _page: DCore_Page
   ) {
     this.mod.apiUrl = "/Api/basedata/QueryVehicleColor"; 
     this.mod.searchData.search = "";
     this.mod.searchData.pageindex = 1;
-    this.mod.searchData.pagesize = 10;
+    this.mod.searchData.pagesize = 20;
   }
 
   ngOnInit() {
     this.listOnBind();
   }
-
+  doInfinite(event) {
+    this.mod.searchData.pageindex++;
+    this.listOnBind();
+  }
   searchOnKeyup(event: any) { 
     var keyCode = event ? event.keyCode : "";
     if (keyCode == 13) {
+      this.ionInfiniteScroll.disabled = false;
       this.listOnBind();
     }
   }
 
-  listOnBind() {
-    this._page.loadingShow();
-    this.mod.data = [];
+  listOnBind() {   
     this._http.get(
       this.mod.apiUrl,
       {
@@ -63,7 +69,7 @@ export class SelectVehiclecolorComponent implements OnInit {
       },
       (res: any) => {
         
-        if (res.Results !== null) { 
+        if (!this._valid.isNull(res.Results) !== null && res.Results.length > 0) {
           for (var key in res.Results) {
             var obj = {}; 
             obj["Id"] = res.Results[key]["Id"];
@@ -71,12 +77,10 @@ export class SelectVehiclecolorComponent implements OnInit {
             obj["mcs_code"] = res.Results[key]["Attributes"]["mcs_code"]; 
             obj["vehicletypename"] = res.Results[key]["Attributes"]["vehicletypename"]==null?"":res.Results[key]["Attributes"]["vehicletypename"]; 
             this.mod.data.push(obj);
-          } 
-          this._page.loadingHide();
-        }
-        else {
-          this._page.alert("消息提示", "数据加载异常");
-          this._page.loadingHide();
+          }  
+        } else  { 
+          this.ionInfiniteScroll.disabled = true;
+          this.ionInfiniteScroll.complete(); 
         }
       },
       (err: any) => {
