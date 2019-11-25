@@ -144,9 +144,9 @@ export class DetailPage implements OnInit {
 
   //获取权益项列表数据
  GetList() {
-  debugger;
+  //debugger;
  
-  this._page.loadingShow();
+  /* this._page.loadingShow();
   this._http.postForToaken(this.model.apiRightsUrl,
       null,
       (res: any) => {
@@ -172,7 +172,7 @@ export class DetailPage implements OnInit {
           this._page.alert("消息提示", "数据加载异常");
           this._page.loadingHide();
       }
-  );
+  ); */
 }
 
   FormatToDateTime(date) {

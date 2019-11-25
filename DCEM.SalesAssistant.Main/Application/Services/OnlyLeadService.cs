@@ -216,9 +216,13 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             {
                 Guid guid = string.IsNullOrEmpty(request.mcs_logcallid) ? Guid.NewGuid() : Guid.Parse(request.mcs_logcallid);
                 CrmExecuteEntity Entity = new CrmExecuteEntity("mcs_logcall", guid);
-                if (!string.IsNullOrEmpty(request.entityid))
+                if (!string.IsNullOrEmpty(request.mcs_onlyleadid))
                 {
-                    Entity.Attributes.Add("mcs_onlyleadid", new CrmEntityReference("mcs_onlylead", Guid.Parse(request.entityid)));
+                    Entity.Attributes.Add("mcs_onlyleadid", new CrmEntityReference("mcs_onlylead", Guid.Parse(request.mcs_onlyleadid)));
+                }
+                if (!string.IsNullOrEmpty(request.accountid))
+                {
+                    Entity.Attributes.Add("mcs_accountid", new CrmEntityReference("mcs_accountid", Guid.Parse(request.accountid)));
                 }
                 if (!string.IsNullOrEmpty(request.mcs_content))
                 {

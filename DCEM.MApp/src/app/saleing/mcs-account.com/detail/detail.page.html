@@ -247,13 +247,11 @@
                         </ion-item-option>
                     </ion-item-options>
                 </ion-item-sliding>
-                <ion-row *ngIf="mod.ActivityModel.list.length==0">
-                    <ion-col>
-                        <div class="ionattbody">
-                            没有更多的记录显示啦
-                        </div>
-                    </ion-col>
-                </ion-row>
+                <ion-label *ngIf="mod.ActivityModel.list.length==0" text-center>
+                    <p>
+                        没有更多的记录显示啦
+                    </p>
+                </ion-label>
 
             </ion-list>
 
