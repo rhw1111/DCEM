@@ -11,17 +11,15 @@
     </ion-toolbar>
     <ion-toolbar>
         <ion-item>
-            <ion-text color="danger">*</ion-text>
-            <ion-label>
-                <h2>开票状态：</h2>
-            </ion-label>
-            <ion-select name="clues" okText="确认" cancelText="取消" (ionChange)="searchOnCharge()"  [(ngModel)]="model.search.mcs_tservicestatus">
-                <ion-select-option *ngFor="let item of model.statusOptions" value="{{item.value}}">
-                    {{item.name}}
-                </ion-select-option>
+            <ion-label>开票状态</ion-label>
+            <ion-select name="clues" okText="确认" cancelText="取消" (ionChange)="searchOnCharge()"  [(ngModel)]="model.search.mcs_tservicestatus" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="开票状态选择">
+              <ion-select-option *ngFor="let item of model.statusOptions" value="{{item.value}}">
+                  {{item.name}}
+              </ion-select-option> 
             </ion-select>
-        </ion-item>
+          </ion-item>
     </ion-toolbar>
+     
 </ion-header>
 
 <ion-content>
