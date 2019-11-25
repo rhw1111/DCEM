@@ -163,5 +163,65 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 throw ex;
             }
         }
+
+
+        /// <summary>
+        /// 获取安装单进程列表
+        /// </summary>
+        /// <param name="_request"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> GetInstallationProcess(InstallationorderDetailRequest _request)
+        {
+            try
+            {
+                var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+                var fetchString = _InstallationRepository.GetInstallationProcess(Guid.Parse(_request.Guid));
+                var fetchXdoc = XDocument.Parse(fetchString);
+                var fetchResponse = await helper.ExecuteAsync(_crmService, "mcs_installationprogress", fetchXdoc);
+
+                if (fetchResponse != null && fetchResponse.Results.Count > 0)
+                {
+                    var queryResult = new QueryResult<CrmEntity>();
+                    queryResult.Results = fetchResponse.Results;
+                    return queryResult;
+
+                }
+                else
+                    return null; 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 获取安装单用户反馈列表
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> GetInstallationUser(InstallationorderDetailRequest _request) {
+            try
+            {
+                var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+                var fetchString = _InstallationRepository.GetInstallationUser(Guid.Parse(_request.Guid));
+                var fetchXdoc = XDocument.Parse(fetchString);
+                var fetchResponse = await helper.ExecuteAsync(_crmService, "mcs_surveysatisfaction", fetchXdoc);
+
+                if (fetchResponse != null && fetchResponse.Results.Count > 0)
+                {
+                    var queryResult = new QueryResult<CrmEntity>();
+                    queryResult.Results = fetchResponse.Results;
+                    return queryResult;
+
+                }
+                else
+                    return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

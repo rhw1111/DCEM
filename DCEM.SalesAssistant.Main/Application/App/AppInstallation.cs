@@ -60,5 +60,24 @@ namespace DCEM.SalesAssistant.Main.Application.App
         {
             return await _installService.GetInstallationorderDetail(guid);
         }
+
+        /// <summary>
+        /// 获取安装单进程列表
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> GetInstallationProcess(InstallationorderDetailRequest _request) {
+
+            return await _installService.GetInstallationProcess(_request);
+        }
+
+        /// <summary>
+        /// 获取安装单用户反馈列表
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> GetInstallationUser(InstallationorderDetailRequest _request) {
+            return await _installService.GetInstallationUser(_request);
+        }
     }
 }
