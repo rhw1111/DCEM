@@ -81,20 +81,19 @@ let DetailPage = class DetailPage {
                 this.model.infolist.mcs_ordertypevalue = res["Attributes"]["mcs_ordertype@OData.Community.Display.V1.FormattedValue"];
                 this.model.infolist.mcs_statusvalue = res["Attributes"]["mcs_status@OData.Community.Display.V1.FormattedValue"];
                 this.model.infolist.mcs_canceldes = res["Attributes"]["mcs_canceldes"];
-                console.log(res);
+                this.pageOnlist(id);
             }
             else {
                 this._page.alert("消息提示", "预约单加载异常");
             }
             this._page.loadingHide();
-            this.pageOnlist(id);
         }, (err) => {
             this._page.alert("消息提示", "数据加载异常");
             this._page.loadingHide();
         });
     }
     pageOnlist(id) {
-        this._page.loadingShow();
+        //this._page.loadingShow();
         this._http.get(this.model.apiUrlLog, {
             params: {
                 entityid: id,
@@ -112,8 +111,8 @@ let DetailPage = class DetailPage {
                         obj["createdon"] = res.Results[key]["Attributes"]["createdon"];
                         this.model.datalist.push(obj);
                     }
-                    //console.log(res);
-                } //判断是否有新数据
+                }
+                //判断是否有新数据
                 if (res.Results.length == 0) {
                     this.model.isending = true;
                 }
@@ -121,10 +120,10 @@ let DetailPage = class DetailPage {
             else {
                 this._page.alert("消息提示", "预约跟进记录加载异常");
             }
-            this._page.loadingHide();
+            //this._page.loadingHide();
         }, (err) => {
             this._page.alert("消息提示", "数据加载异常");
-            this._page.loadingHide();
+            //this._page.loadingHide();
         });
     }
     FormatToDate(date) {
