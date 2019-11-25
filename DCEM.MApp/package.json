@@ -32,7 +32,7 @@
     "@types/crypto-js": "^3.1.43",
     "@types/echarts": "^4.4.1",
     "cordova-android": "^8.1.0",
-    "cordova-browser": "^6.0.0",
+    "cordova-browser": "^6.0.0", 
     "cordova-ios": "^5.0.1",
     "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-file-transfer": "^1.7.1",
