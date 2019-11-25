@@ -131,6 +131,51 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
             var fetchString = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
                    <entity name='mcs_installationorder'>
                     <all-attributes/>
+                    <order attribute='createdon' descending='true' />
+                    <filter type='and'>
+                        <condition attribute='mcs_installationorderid' operator='eq' value='{guid.ToString()}' />
+                    </filter>
+                   </entity>
+                   </fetch>";
+            return fetchString;
+        }
+
+        /// <summary>
+        /// 获取安装单进程列表
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        public string GetInstallationProcess(Guid guid) {
+            var fetchString = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+                   <entity name='mcs_installationprogress'>
+                    <attribute name='mcs_installationprogressid' />
+                    <attribute name='mcs_name' />
+                    <attribute name='mcs_status' />
+                    <attribute name='createdon' />
+                    <order attribute='createdon' descending='true' />
+                    <filter type='and'>
+                        <condition attribute='mcs_installationorderid' operator='eq' value='{guid.ToString()}' />
+                    </filter>
+                   </entity>
+                   </fetch>";
+            return fetchString;
+
+        }
+        /// <summary>
+        /// 获取安装单用户反馈列表
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        public string GetInstallationUser(Guid guid) {
+            var fetchString = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+                   <entity name='mcs_surveysatisfaction'>
+                    <attribute name='mcs_surveysatisfactionid' />
+                    <attribute name='mcs_score' />
+                    <attribute name='mcs_username' />
+                    <attribute name='mcs_userphone' />
+                    <attribute name='mcs_survey' />
+                    <attribute name='createdon' />
+                    <order attribute='mcs_survey' descending='true' />
                     <filter type='and'>
                         <condition attribute='mcs_installationorderid' operator='eq' value='{guid.ToString()}' />
                     </filter>
