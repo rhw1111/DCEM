@@ -31,10 +31,14 @@ export class DetailPage implements OnInit {
         },
         ActivityModel: {//培育任务
             apiUrl: '/api/only-lead/GetActivityList',
-            list: [],
-            page: 1,
-            pageSize: 10,
-            sort: ''
+            list: [],         
+            params: {
+                accountid: "",
+                Sort: '',
+                PageSize:10,
+                PageIndex: 1,
+                UserId: ""//当前登录用户ID
+             }
         },
         data: {
             Account: {
@@ -322,19 +326,16 @@ export class DetailPage implements OnInit {
 
     //加载培育任务列表
     LoadActivitylist() {
+     debugger;
+     
+     this.mod.ActivityModel.params.accountid= this.mod.data.Account.Id;
+     this.mod.ActivityModel.params.UserId=this.userInfo.GetSystemUserId();//当前登录用户ID
+
     this.mod.ActivityModel.list= [];
     this._page.loadingShow();
-    this._http.get(
+    this._http.postForToaken(
         this.mod.ActivityModel.apiUrl,
-        {
-            params: {
-                entityid:  this.mod.data.Account.mcs_onlyleadid,
-                sort: this.mod.ActivityModel.sort,
-                pageSize: this.mod.ActivityModel.pageSize,
-                page: this.mod.ActivityModel.page,
-                systemuserid: this.userInfo.GetSystemUserId()//当前登录用户ID
-            }
-        },
+        this.mod.ActivityModel.params,
         (res: any) => {
             debugger;
             if (res !== null) {

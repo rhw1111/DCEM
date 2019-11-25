@@ -34,9 +34,11 @@ export class CalendarPage implements OnInit {
       return extra[+date];
     }
   };
+
   model = {
     apiUrl: "/api/drive-record/queryList",
     data: [],
+    isending:false,
     params: {
       OrderTime: "",
       PageSize: 100,
@@ -53,13 +55,15 @@ export class CalendarPage implements OnInit {
 
   ngOnInit() {
   }
+  
   triggerConfirm(value) {
     const { startDate, endDate } = value;
-    this.model.params.OrderTime = this._dateformat.FormatToDate(startDate);
-    this.pageOnBind();
-    console.log('onConfirm', startDate);
+    this.model.params.OrderTime = this._dateformat.FormatToDate(startDate); 
+    this.pageOnBind(); 
+    this.state.date=  new Date(startDate);
   }
   onClick_3() {
+    debugger;
     this.state.show = true;
     this.state.type = 'one';
   }
@@ -83,6 +87,7 @@ export class CalendarPage implements OnInit {
       (res: any) => {
         if (res != null) {
           if (res.Results.length > 0) {
+            this.model.isending=false;
             for (var i in res.Results) {
               var attr = res.Results[i]["Attributes"];
               var obj = {}; 
@@ -91,6 +96,10 @@ export class CalendarPage implements OnInit {
               obj["testdrivetime"]=attr["_mcs_testdrivetime_value@OData.Community.Display.V1.FormattedValue"];
               this.model.data.push(obj);
             }
+          }
+          else 
+          {
+            this.model.isending=true;
           }
         }
         this._page.loadingHide();

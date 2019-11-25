@@ -175,6 +175,7 @@
         <div *ngSwitchCase="'loglist'">
             <ion-list lines="full">
                 <ion-item *ngFor="let r of model.datalist">
+                    <ion-icon slot="start" name="call"></ion-icon>
                     <ion-label>
                         <p>跟进人：{{r.createdby}}</p>
                         <p>跟进内容：{{r.mcs_remark}}</p>

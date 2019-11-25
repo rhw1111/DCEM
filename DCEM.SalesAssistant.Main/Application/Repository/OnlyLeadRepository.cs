@@ -77,10 +77,16 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
             //    filter += $"<condition attribute='mcs_emailaddress1' operator='like' value='%{onlyLeadRequest.Search}%' />";
             //    filter += $"</filter>";
             //}
-            if (logcallrequest.entityid != null)//唯一线索主键id
+            if (logcallrequest.mcs_onlyleadid != null)//唯一线索主键id
             {             
-                filter += $"<condition attribute='mcs_onlyleadid' operator='eq' value='{logcallrequest.entityid}' />";            
+                filter += $"<condition attribute='mcs_onlyleadid' operator='eq' value='{logcallrequest.mcs_onlyleadid}' />";            
             }
+            //根据销售机会查询培育任务
+            if (!string.IsNullOrEmpty(logcallrequest.accountid))
+            {
+                filter += $"<condition attribute='mcs_accountid' operator='eq' value='{logcallrequest.accountid}' />";
+            }
+
             if (logcallrequest.mcs_logcallid != null)//logcall主键id
             {
                 filter += $"<condition attribute='mcs_logcallid' operator='eq' value='{logcallrequest.mcs_logcallid}' />";
@@ -128,10 +134,16 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
             var filter2 = string.Empty;
 
             //根据唯一线索查询培育任务
-            if (activityrequest.entityid != null)
+            if (activityrequest.mcs_onlyleadid != null && activityrequest.mcs_onlyleadid !="")
             {              
-                filter2 += $"<condition attribute='mcs_onlyleadid' operator='eq' value='{activityrequest.entityid}' />";              
+                filter2 += $"<condition attribute='mcs_onlyleadid' operator='eq' value='{activityrequest.mcs_onlyleadid}' />";              
             }
+            //根据销售机会查询培育任务
+            if (!string.IsNullOrEmpty( activityrequest.accountid))
+            {
+                filter2 += $"<condition attribute='mcs_accountid' operator='eq' value='{activityrequest.accountid}' />";
+            }
+
             if (!string.IsNullOrEmpty(activityrequest.mcs_activitystatus.ToString()) && activityrequest.mcs_activitystatus >= 0)
             {        
                 filter2 += $"<condition attribute='mcs_activitystatus' operator='eq' value='{activityrequest.mcs_activitystatus}' />";         

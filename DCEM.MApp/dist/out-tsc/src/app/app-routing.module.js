@@ -144,8 +144,6 @@ const routes = [
                 path: 'contactrecord',
                 children: [
                     { path: 'list', loadChildren: './saleing/mcs-contactrecord/list/list.module#ListPageModule' },
-                    { path: 'edit', loadChildren: './saleing/mcs-contactrecord/edit/edit.module#EditPageModule' },
-                    { path: 'success', loadChildren: './saleing/mcs-contactrecord/success/success.module#EditPageModule' }
                 ]
             },
             {

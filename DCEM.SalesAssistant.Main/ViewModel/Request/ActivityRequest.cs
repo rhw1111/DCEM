@@ -12,12 +12,17 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         /// <summary>
         /// 唯一线索主键ID
         /// </summary>
-        public string entityid { get; set; }
+        public string mcs_onlyleadid { get; set; }
 
         /// <summary>
-        /// 查询关键字
+        /// 销售机会主键ID
         /// </summary>
-        public string SearchKey { set; get; }
+        public string accountid { get; set; }
+
+    /// <summary>
+    /// 查询关键字
+    /// </summary>
+    public string SearchKey { set; get; }
 
         /// <summary>
         /// 任务状态

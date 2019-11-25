@@ -134,6 +134,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
                   <entity name='mcs_vehiclecolor'>
                     <attribute name='mcs_name' /> 
                     <attribute name='mcs_code' />  
+                    <order attribute='createdon' descending='true' />
                     <filter type='and'>
                       <condition attribute='statecode' operator='eq' value='0' />
                         {filter}
@@ -210,6 +211,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
                   <entity name='mcs_receptioncommissioner'>
                     <attribute name='mcs_name' /> 
                     <attribute name='mcs_code' />   
+                    <order attribute='createdon' descending='true' />
                     <filter type='and'>
                       <condition attribute='statecode' operator='eq' value='0' />
                         {filter}
@@ -247,6 +249,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
                   <entity name='mcs_sysarea'>
                     <attribute name='mcs_name' /> 
                     <attribute name='mcs_code' />   
+                    <order attribute='createdon' descending='true' />
                     <filter type='and'>
                       <condition attribute='statecode' operator='eq' value='0' />
                         {filter}
