@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <Name>DCEM.App.CTerminal</Name>
+    <RootNamespace>DCEM.App.CTerminal</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>bb5c3661-31dd-456a-9e35-ddbf2280a835</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>app.js</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <NodejsPort>1337</NodejsPort>
+    <EnableTypeScript>true</EnableTypeScript>
+    <StartWebBrowser>true</StartWebBrowser>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="src\" />
+    <Folder Include="src\app\" />
+    <Folder Include="src\app\base\" />
+    <Folder Include="src\app\base\base.ser\" />
+    <Folder Include="src\app\base\base.ser\components\" />
+    <Folder Include="src\app\base\demo\" />
+    <Folder Include="src\app\base\demo\calendar\" />
+    <Folder Include="src\app\base\demo\steps\" />
+    <Folder Include="src\app\base\uc.com\" />
+    <Folder Include="src\app\components\" />
+    <Folder Include="src\app\components\base.com\" />
+    <Folder Include="src\app\pages\" />
+    <Folder Include="src\app\pages\base.com\" />
+    <Folder Include="src\app\pages\base.com\login\" />
+    <Folder Include="src\app\pages\base.com\welcome\" />
+    <Folder Include="src\app\services\" />
+    <Folder Include="src\app\services\base.com\" />
+    <Folder Include="src\app\tab1\" />
+    <Folder Include="src\app\tab2\" />
+    <Folder Include="src\app\tab3\" />
+    <Folder Include="src\app\tabs\" />
+    <Folder Include="src\assets\" />
+    <Folder Include="src\assets\icon\" />
+    <Folder Include="src\environments\" />
+    <Folder Include="src\theme\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".gitignore" />
+    <Content Include="angular.json" />
+    <Content Include="browserslist" />
+    <Content Include="ionic.config.json" />
+    <Content Include="ionic.starter.json" />
+    <Content Include="karma.conf.js" />
+    <Content Include="package.json" />
+    <Content Include="src\app\app.component.html" />
+    <Content Include="src\app\app.component.scss" />
+    <Content Include="src\app\base\demo\calendar\calendar.page.html" />
+    <Content Include="src\app\base\demo\calendar\calendar.page.scss" />
+    <Content Include="src\app\base\demo\steps\steps.page.html" />
+    <Content Include="src\app\base\demo\steps\steps.page.scss" />
+    <Content Include="src\app\pages\base.com\login\login.page.html" />
+    <Content Include="src\app\pages\base.com\login\login.page.scss" />
+    <Content Include="src\app\pages\base.com\welcome\welcome.page.html" />
+    <Content Include="src\app\pages\base.com\welcome\welcome.page.scss" />
+    <Content Include="src\app\tab1\tab1.page.html" />
+    <Content Include="src\app\tab1\tab1.page.scss" />
+    <Content Include="src\app\tab2\tab2.page.html" />
+    <Content Include="src\app\tab2\tab2.page.scss" />
+    <Content Include="src\app\tab3\tab3.page.html" />
+    <Content Include="src\app\tab3\tab3.page.scss" />
+    <Content Include="src\app\tabs\tabs.page.html" />
+    <Content Include="src\app\tabs\tabs.page.scss" />
+    <Content Include="src\assets\icon\favicon.png" />
+    <Content Include="src\assets\shapes.svg" />
+    <Content Include="src\global.scss" />
+    <Content Include="src\index.html" />
+    <Content Include="src\theme\variables.scss" />
+    <Content Include="tsconfig.app.json" />
+    <Content Include="tsconfig.json" />
+    <Content Include="tsconfig.spec.json" />
+    <Content Include="tslint.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="src\app\app-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\app.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\app.component.ts" />
+    <TypeScriptCompile Include="src\app\app.module.ts" />
+    <TypeScriptCompile Include="src\app\base\demo\calendar\calendar.module.ts" />
+    <TypeScriptCompile Include="src\app\base\demo\calendar\calendar.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\base\demo\calendar\calendar.page.ts" />
+    <TypeScriptCompile Include="src\app\base\demo\steps\steps.module.ts" />
+    <TypeScriptCompile Include="src\app\base\demo\steps\steps.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\base\demo\steps\steps.page.ts" />
+    <TypeScriptCompile Include="src\app\pages\base.com\login\login.module.ts" />
+    <TypeScriptCompile Include="src\app\pages\base.com\login\login.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\pages\base.com\login\login.page.ts" />
+    <TypeScriptCompile Include="src\app\pages\base.com\welcome\welcome.module.ts" />
+    <TypeScriptCompile Include="src\app\pages\base.com\welcome\welcome.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\pages\base.com\welcome\welcome.page.ts" />
+    <TypeScriptCompile Include="src\app\services\base.com\authentication.service.spec.ts" />
+    <TypeScriptCompile Include="src\app\services\base.com\authentication.service.ts" />
+    <TypeScriptCompile Include="src\app\services\base.com\dateformat.ts" />
+    <TypeScriptCompile Include="src\app\services\base.com\Dcem.core.ts" />
+    <TypeScriptCompile Include="src\app\services\base.com\http-service.service.spec.ts" />
+    <TypeScriptCompile Include="src\app\services\base.com\http-service.service.ts" />
+    <TypeScriptCompile Include="src\app\services\base.com\logininfo.storage.ts" />
+    <TypeScriptCompile Include="src\app\tab1\tab1.module.ts" />
+    <TypeScriptCompile Include="src\app\tab1\tab1.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\tab1\tab1.page.ts" />
+    <TypeScriptCompile Include="src\app\tab2\tab2.module.ts" />
+    <TypeScriptCompile Include="src\app\tab2\tab2.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\tab2\tab2.page.ts" />
+    <TypeScriptCompile Include="src\app\tab3\tab3.module.ts" />
+    <TypeScriptCompile Include="src\app\tab3\tab3.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\tab3\tab3.page.ts" />
+    <TypeScriptCompile Include="src\app\tabs\tabs-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\tabs\tabs.module.ts" />
+    <TypeScriptCompile Include="src\app\tabs\tabs.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\tabs\tabs.page.ts" />
+    <TypeScriptCompile Include="src\environments\environment.prod.ts" />
+    <TypeScriptCompile Include="src\environments\environment.ts" />
+    <TypeScriptCompile Include="src\main.ts" />
+    <TypeScriptCompile Include="src\polyfills.ts" />
+    <TypeScriptCompile Include="src\test.ts" />
+    <TypeScriptCompile Include="src\zone-flags.ts" />
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

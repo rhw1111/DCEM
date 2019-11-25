@@ -7,6 +7,7 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
 {
     public class TechnicalSupportRequest
     {
+
         /// <summary>
         /// 主键GUID
         /// </summary>
@@ -133,7 +134,20 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
         /// 车型
         /// </summary>
         public string mcs_cartypeid { get; set; }
-        
 
+    }
+
+
+    public class FileEntity
+    {
+        /// <summary>
+        /// 文件名
+        /// </summary>
+        public string mcs_filename { get; set; }
+        /// <summary>
+        /// 文件大小
+        /// </summary>
+        public long mcs_filesize { get; set; }
+        public string mcs_fileurl { get; set; }
     }
 }

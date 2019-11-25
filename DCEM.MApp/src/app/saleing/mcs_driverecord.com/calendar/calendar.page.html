@@ -1,0 +1,54 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+      </ion-buttons>
+      <ion-title>
+        <ion-label>试乘试驾预约日历</ion-label>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-card>
+      <ion-card-content>
+        <ListItem [arrow]="'horizontal'" (onClick)="onClick_3()">
+          {{ this.state.en ? 'Select Date' : '选择预约日期' }}
+        </ListItem>
+        <div class="am-demo-page">
+          <Calendar [(ngModel)]="this.state.date" [locale]="'zhCN'" [enterDirection]="this.state.enterDirection"
+            [visible]="true" [getDateExtra]="this.state.getDateExtra" [defaultDate]="this.state.now"
+            [minDate]="this.state.minDate" [maxDate]="this.state.maxDate" [pickTime]="this.state.pickTime"
+            [type]="this.state.type" [rowSize]="this.state.rowSize" [showShortcut]="this.state.showShortcut"
+            [infinite]="this.state.infinite" [defaultValue]="this.state.defaultValue" [onSelect]="this.state.onSelect"
+            (onCancel)="triggerCancel()" (onConfirm)="triggerConfirm($event)"></Calendar>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  
+    <ion-card>
+      <ion-card-content>
+        <ion-list>
+          <ion-item-group>
+            <ion-item-divider color="primary">
+              <ion-label>预约记录</ion-label>
+            </ion-item-divider> 
+            <ion-item *ngFor="let item of model.data"> 
+                <ion-icon name="calendar" size="small" color="danger"  style="margin-right: 20px;"></ion-icon> 
+                <ion-label > 
+                    <h2>{{item.testdrivetime}}</h2> 
+                </ion-label>
+                <ion-note slot="end" style="width:40%" >
+                    <h2>{{item.fullname}}</h2>
+                    <h2>{{item.mobilephone}}</h2>
+                </ion-note>
+            </ion-item>
+          </ion-item-group>
+          <ion-label *ngIf="this.model.isending" text-center>
+            <h2>
+                当前日期尚无预约记录
+            </h2>
+        </ion-label>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>

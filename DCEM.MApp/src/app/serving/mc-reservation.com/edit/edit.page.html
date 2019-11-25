@@ -3,40 +3,42 @@
         <ion-buttons slot="start">
             <ion-back-button text="返回" defaultHref="/serving/reservation/list"></ion-back-button>
         </ion-buttons>
-        <ion-title>创建或编辑预约</ion-title>
+        <ion-title>
+            <div *ngIf="!model.ifAddOrEdit">
+                创建预约单
+            </div>
+            <div  *ngIf="model.ifAddOrEdit">
+                编辑预约单
+            </div>
+        </ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <ion-list>
         <ion-item-group>
-            <ion-item-divider>
+            <ion-item-divider color="primary">
                 <ion-label>车主资料</ion-label>
             </ion-item-divider>
             <ion-item (click)="customerOnClick()">
                 <ion-label position="stacked">姓名<ion-text color="danger">*</ion-text></ion-label>
-                <p>{{shareData.appointmentinfo["mcs_customername"]}}&nbsp;</p>
+                <ion-note>{{shareData.appointmentinfo["mcs_customername"]}}&nbsp;</ion-note>
             </ion-item>
             <ion-item>
-                <ion-label>车牌号</ion-label>
-                <ion-note slot="end">{{shareData.appointmentinfo["mcs_carplate"]}}</ion-note>
+                <ion-label position="stacked">车牌号</ion-label>
+                <ion-note>{{shareData.appointmentinfo["mcs_carplate"]}}</ion-note>
             </ion-item>
             <ion-item>
-                <ion-label>车主手机</ion-label>
-                <ion-note slot="end">{{shareData.appointmentinfo["mcs_customerphone"]}}</ion-note>
+                <ion-label position="stacked">车主手机</ion-label>
+                <ion-note>{{shareData.appointmentinfo["mcs_customerphone"]}}</ion-note>
             </ion-item>
-            <!--<ion-item>
-                <ion-label>客户标签</ion-label>
-                <ion-note slot="end">无</ion-note>
-            </ion-item>-->
-          
         </ion-item-group>
         <ion-item-group>
-            <ion-item-divider>
+            <ion-item-divider color="primary">
                 <ion-label>预约信息</ion-label>
             </ion-item-divider>
             <ion-item>
-                <ion-text color="danger">*</ion-text><ion-label>服务类型</ion-label>
+                <ion-label position="stacked">服务类型<ion-text color="danger">*</ion-text></ion-label>
                 <ion-select [(ngModel)]="shareData.appointmentinfo['mcs_ordertype']" placeholder="请选择服务类型" (ionChange)="orderTypeChange()" okText="确认" cancelText="取消">
                     <ion-select-option value="10">汽车美容</ion-select-option>
                     <ion-select-option value="20">钣金喷漆</ion-select-option>
@@ -47,26 +49,27 @@
                 </ion-select>
             </ion-item>
             <ion-item >
-                <ion-label>
-                    <ion-text color="danger">*</ion-text>预约日期
-                </ion-label>
-                <ion-datetime displayFormat="YYYY-MM-DD" min="1997" (ionChange)="appointmentAtChange()"  [(ngModel)]="shareData.appointmentinfo['mcs_appointmentat']"></ion-datetime>
+                <ion-label position="stacked">预约日期<ion-text color="danger">*</ion-text></ion-label>
+                <ion-datetime displayFormat="YYYY-MM-DD" min="1997"  cancelText="取消" doneText="确定" (ionChange)="appointmentAtChange()"  [(ngModel)]="shareData.appointmentinfo['mcs_appointmentat']"></ion-datetime>
             </ion-item>
-          
-            <ion-item (click)="appointmentconfigOnClick()">
+            <ion-item>
                 <ion-label position="stacked">预约时段<ion-text color="danger">*</ion-text></ion-label>
-                <p>{{shareData.appointmentinfo["mcs_appointmentconfigname"]}}&nbsp;</p>
+                <ion-select [(ngModel)]="shareData.appointmentinfo['mcs_appointmentconfigid']" (ionChange)="appointmentConfigChange()" placeholder="请选择时段" okText="确认" cancelText="取消">
+                    <ion-select-option *ngFor="let key of objectKeys(model.appointmentConfigOptionMap)" value="{{model.appointmentConfigOptionMap[key].value}}">
+                        {{model.appointmentConfigOptionMap[key].name}}
+                    </ion-select-option>
+                </ion-select>
             </ion-item>
             <ion-item>
                 <ion-label>可预约数量</ion-label>
                 <ion-note slot="end">{{shareData.appointmentinfo["mcs_surplusnum"]}}</ion-note>
             </ion-item>
             <ion-item>
-                <ion-label position="floating">客户要求</ion-label>
+                <ion-label position="stacked">客户要求</ion-label>
                 <ion-textarea [(ngModel)]="shareData.appointmentinfo['mcs_customercomment']"></ion-textarea>
             </ion-item>
             <ion-item>
-                <ion-label position="floating">问题描述</ion-label>
+                <ion-label position="stacked">问题描述</ion-label>
                 <ion-textarea [(ngModel)]="shareData.appointmentinfo['mcs_appointmendescript']"></ion-textarea>
             </ion-item>
         </ion-item-group>

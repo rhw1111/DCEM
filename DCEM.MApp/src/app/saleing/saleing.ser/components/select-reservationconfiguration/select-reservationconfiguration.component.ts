@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalController, IonContent, NavParams, IonInfiniteScroll } from '@ionic/angular';
+import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 @Component({
   selector: 'app-select-reservationconfiguration',
   templateUrl: './select-reservationconfiguration.component.html',
@@ -9,6 +9,8 @@ import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 export class SelectReservationconfigurationComponent implements OnInit {
 
 
+  @ViewChild(IonContent, null) ionContent: IonContent;
+  @ViewChild(IonInfiniteScroll, null) ionInfiniteScroll: IonInfiniteScroll;
   public selectItemValue: any = '';
   public seachkey: string = '';
   public dataList: any = [];
@@ -21,7 +23,7 @@ export class SelectReservationconfigurationComponent implements OnInit {
       carmodel: '',
       dealerid: '',
       search: "",
-      pagesize: 10
+      pagesize: 20
     }
   };
 
@@ -30,12 +32,13 @@ export class SelectReservationconfigurationComponent implements OnInit {
   constructor(
     private modalCtrl: ModalController,
     private _http: DCore_Http,
+    private _valid: DCore_Valid,
     private _page: DCore_Page
   ) {
     this.mod.apiUrl = "/Api/basedata/QueryReservationconfig";
     this.mod.searchData.search = "";
     this.mod.searchData.pageindex = 1;
-    this.mod.searchData.pagesize = 10;
+    this.mod.searchData.pagesize = 20;
   }
 
   ngOnInit() {
@@ -43,17 +46,18 @@ export class SelectReservationconfigurationComponent implements OnInit {
   }
 
   searchOnKeyup(event: any) {
-    
+
     this.listOnBind();
 
   }
 
 
 
-
-  listOnBind() {
-    this._page.loadingShow();
-    this.mod.data = [];
+  doInfinite(event) {
+    this.mod.searchData.pageindex++;
+    this.listOnBind();
+  }
+  listOnBind() { 
     this._http.get(
       this.mod.apiUrl,
       {
@@ -66,28 +70,26 @@ export class SelectReservationconfigurationComponent implements OnInit {
         }
       },
       (res: any) => {
-        if (res.Results !== null) {
+        if (!this._valid.isNull(res.Results) !== null && res.Results.length > 0) {
           for (var key in res.Results) {
             var obj = {};
             obj["Id"] = res.Results[key]["Id"];
-             obj["mcs_reservationdate"] = res.Results[key]["Attributes"]["mcs_reservationdate"].split('T')[0];
-           obj["name"] = res.Results[key]["Attributes"]["mcs_name"];
+            obj["mcs_reservationdate"] = res.Results[key]["Attributes"]["mcs_reservationdate"].split('T')[0];
+            obj["name"] = res.Results[key]["Attributes"]["mcs_name"];
             obj["mcs_begintime"] = res.Results[key]["Attributes"]["mcs_begintime"];
             obj["mcs_endtime"] = res.Results[key]["Attributes"]["mcs_endtime"];
             obj["mcs_usednum"] = res.Results[key]["Attributes"]["mcs_usednum"];
             obj["carmodelname"] = res.Results[key]["Attributes"]["carmodelname"];
             this.mod.data.push(obj);
           } 
-          this._page.loadingHide();
         }
-        else {
-          this._page.alert("消息提示", "数据加载异常");
-          this._page.loadingHide();
+        else { 
+          this.ionInfiniteScroll.disabled = true;
+          this.ionInfiniteScroll.complete();
         }
       },
       (err: any) => {
-        this._page.alert("消息提示", "数据加载异常");
-        this._page.loadingHide();
+        this._page.alert("消息提示", "数据加载异常"); 
       }
     );
   }

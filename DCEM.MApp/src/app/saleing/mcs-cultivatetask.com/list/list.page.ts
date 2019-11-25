@@ -14,7 +14,8 @@ export class ListPage implements OnInit {
 
   public model = {
     name: 'activitylist',//模块实体名称
-    apiUrl: '/api/only-lead/GetMyActivityList',//请求地址
+    apiUrl: '/api/only-lead/GetMyActivityList',//列表请求地址
+    addoreditUrl: '/api/activity/addoredit',//培育任务完成按钮接口
     seachkey: '',//搜索关键字
     mcs_activitystatus: -1,//任务状态
     pageSize: 10,//页数
@@ -53,6 +54,7 @@ export class ListPage implements OnInit {
 
   //下拉刷新
   doRefresh(event) {
+    //debugger;
     this.model.datalist = [];
     this.model.page = 1;
     this.model.isending = false;
@@ -69,7 +71,7 @@ export class ListPage implements OnInit {
     this.model.datalist = [];
     this.model.page = 1;
     this.model.isending = false;
-    if (status != "" && status != undefined) {
+    if (status.toString() != "" && status != undefined) {
       this.model.mcs_activitystatus = status;
     }
     else {
@@ -80,7 +82,8 @@ export class ListPage implements OnInit {
 
   //获取列表数据
   getList(event) {
-    debugger;
+    //debugger;
+    //this.model.datalist=[];
     this._page.loadingShow();
     this._http.get(this.model.apiUrl,
       {
@@ -94,17 +97,18 @@ export class ListPage implements OnInit {
         }
       },
       (res: any) => {
-        debugger;
+        //debugger;
         if (res.Results !== null) {
           //绑定数据
           res.Results.forEach(item => {
             var obj = {};
             obj["mcs_activityid"] = item["Attributes"].mcs_activityid;      
+            obj["Custname"] = item["Attributes"].mcs_name; 
             obj["mcs_thisfollowupcontent"] = item["Attributes"].mcs_thisfollowupcontent;     
             obj["mcs_activitystatus"] = this.optionset.GetOptionSetNameByValue("mcs_activitystatus", item["Attributes"].mcs_activitystatus);
             obj["mcs_importantlevel"] = this.optionset.GetOptionSetNameByValue("mcs_importantlevel", item["Attributes"].mcs_importantlevel);
-            obj["mcs_name"] = item["Attributes"].mcs_name;
-            obj["mcs_mobilephone"] = item["Attributes"].mcs_mobilephone;
+            obj["mcs_name"] = item["Attributes"].a_x002e_mcs_name;
+            obj["mcs_mobilephone"] = item["Attributes"].a_x002e_mcs_mobilephone;
           
             this.model.datalist.push(obj);
 
@@ -123,14 +127,62 @@ export class ListPage implements OnInit {
         else {
           this._page.alert("消息提示", "数据加载异常");
         }
+        this.infiniteScroll.complete();
         this._page.loadingHide();
       },
       (err: any) => {
         this._page.alert("消息提示", "数据加载异常");
+        this.infiniteScroll.complete();
         this._page.loadingHide();
       }
     );
   }
+
+
+    //任务完成
+  TaskFinish(id){
+ 
+    this._page.confirm("确认提示", "确定完成该任务？",()=>{
+        
+      this.UpdateState(id);
+    
+    });
+
+  }
+
+
+UpdateState(id){
+  //debugger;
+  var postData = {};
+  postData["id"] = id;
+  postData["mcs_activitystatus"] = 1; //已完成
+  postData["mcs_endtime"] = new Date();
+  
+  this._page.loadingShow();
+  this._http.post(
+    this.model.addoreditUrl,
+    postData,
+    (res: any) => {
+      this._page.loadingHide();
+      console.log(res);
+      if (res.Result == true) {
+        const that = this;
+        this._page.alert("消息提示", "操作成功",  ()=> {
+          
+          this.getList(null);
+        });
+      }
+      else {
+        this._page.alert("消息提示", "操作失败");
+      }
+    },
+    (err: any) => {
+      this._page.loadingHide();
+      this._page.alert("消息提示", "操作失败");
+    }
+  );
+}
+
 
 }
 

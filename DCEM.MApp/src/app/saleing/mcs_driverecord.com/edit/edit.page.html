@@ -1,0 +1,127 @@
+﻿<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/saleing/driverecord/list"></ion-back-button>
+        </ion-buttons>
+        <ion-title>预约开单</ion-title>
+    </ion-toolbar>
+    <div *ngIf="model.ifEdit">
+        <ion-toolbar>
+            <ion-segment [(ngModel)]="tab" color="primary">
+                <ion-segment-button value="info">
+                    <ion-label>试驾信息</ion-label>
+                </ion-segment-button>
+                <ion-segment-button value="check">
+                    <ion-label>附件列表</ion-label>
+                </ion-segment-button>
+            </ion-segment>
+        </ion-toolbar>
+    </div>
+</ion-header>
+
+<ion-content>
+    <div [ngSwitch]="tab">
+        <div *ngSwitchCase="'info'">
+            <ion-list>
+                <ion-item-group>
+                    <ion-item-divider color="primary">
+                        <ion-label>基础信息</ion-label>
+                    </ion-item-divider>
+                    <ion-item>
+                        <ion-label position="stacked">姓名<ion-text color="danger">*</ion-text></ion-label>
+                        <ion-input type="text" placeholder="请输入姓名" maxlength="12" [(ngModel)]="model.driveRecord['mcs_fullname']" required></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">手机<ion-text color="danger">*</ion-text></ion-label>
+                        <ion-input type="tel" placeholder="请输入11位手机号" maxlength="11" [(ngModel)]="model.driveRecord['mcs_mobilephone']" required></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">业务类型 <ion-text color="danger">*</ion-text></ion-label>
+                        <ion-select [(ngModel)]="model.driveRecord['mcs_businesstype']" placeholder="请选择业务类型" okText="确认" cancelText="取消" required>
+                            <ion-select-option *ngFor="let item of model.businessTypeOption" value="{{item.value}}">
+                                {{item.name}}
+                            </ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">试驾车型 <ion-text color="danger">*</ion-text></ion-label>
+                        <ion-select [(ngModel)]="model.driveRecord['mcs_carmodel']" placeholder="请选择试驾车型" (ionChange)="CarModelChange()" okText="确认" cancelText="取消" required>
+                            <ion-select-option *ngFor="let item of model.carModelOption" value="{{item.value}}">
+                                {{item.name}}
+                            </ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">预约日期<ion-text color="danger">*</ion-text></ion-label>
+                        <ion-datetime displayFormat="YYYY-MM-DD" min="1997" placeholder="请输入预约日期" cancelText="取消" doneText="确定" (ionChange)="OrderTimeChange()" [(ngModel)]="model.driveRecord['mcs_ordertime']"></ion-datetime>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">试驾预约时段 <ion-text color="danger">*</ion-text></ion-label>
+                        <ion-select [(ngModel)]="model.driveRecord['mcs_testdrivetime']" placeholder="请选择试驾预约时段" okText="确认" cancelText="取消" required>
+                            <ion-select-option *ngFor="let item of model.driveTimeOption" value="{{item.value}}">
+                                {{item.name}}
+                            </ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                    <div *ngIf="model.ifSchedule">
+                        <ion-item>
+                            <ion-label position="stacked">试驾车辆 <ion-text color="danger">*</ion-text></ion-label>
+                            <ion-select [(ngModel)]="model.driveRecord['mcs_drivecar']" placeholder="请选择试驾车辆" okText="确认" cancelText="取消" required>
+                                <ion-select-option *ngFor="let item of model.driveCarOption" value="{{item.value}}">
+                                    {{item.name}}
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="stacked">试驾路线 <ion-text color="danger">*</ion-text></ion-label>
+                            <ion-select [(ngModel)]="model.driveRecord['mcs_appointedrouteid']" placeholder="请选择试驾路线" okText="确认" cancelText="取消" required>
+                                <ion-select-option *ngFor="let item of model.driveRouteOption" value="{{item.value}}">
+                                    {{item.name}}
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </div>
+                    <div *ngIf="model.ifCancel">
+                        <ion-item>
+                            <ion-label position="stacked">取消原因</ion-label>
+                            <ion-textarea [(ngModel)]="model.driveRecord['mcs_cancelreason']"></ion-textarea>
+                        </ion-item>
+                    </div>
+                </ion-item-group>
+            </ion-list>
+            <ion-button *ngIf="model.ifSave" expand="block" type="button" (click)="saveOnClick()">确定</ion-button>
+            <ion-button *ngIf="model.ifSchedule" expand="block" type="button" (click)="saveOnClick()">确定排程</ion-button>
+            <ion-button *ngIf="model.ifCancel" expand="block" type="button" (click)="saveOnClick()">取消试驾</ion-button>
+        </div>
+
+        <div *ngIf="model.ifEdit">
+            <div *ngSwitchCase="'check'">
+                <ion-grid class="ionatt">
+                    <ion-row *ngIf="model.attachment.length===0">
+                        <ion-col>
+                            <div class="ionattbody">
+                                当前无附件记录
+                            </div>
+                        </ion-col>
+
+                    </ion-row>
+                </ion-grid>
+
+                <ion-list>
+                    <ion-item *ngFor="let item of model.attachment">
+                        <ion-icon name="document" size="large"></ion-icon>
+                        <ion-label>
+                            <h2>{{item.mcs_filename}}</h2>
+                            <p>大小：{{item.mcs_filesize}}</p>
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+                <section style="text-align:center;">
+                    <ion-button style="width:80%" color="primary" (click)="presentFileModal(model.driveRecordId)">
+                        上传附件
+                    </ion-button>
+                </section>
+            </div>
+        </div>
+    </div>
+</ion-content>

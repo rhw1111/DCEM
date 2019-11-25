@@ -15,11 +15,16 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
     {
         private ICrmService _crmService;
         private IBaseDataRepository _baseDataRepository;
+        private string dicHeadKey;
+        private Dictionary<string, IEnumerable<string>> dicHead;
 
         public BaseDataService(CrmService crmService, IBaseDataRepository baseDataRepository)
         {
             _crmService = crmService;
             _baseDataRepository = baseDataRepository;
+            dicHeadKey = "Prefer";
+            dicHead = new Dictionary<string, IEnumerable<string>>();
+            dicHead.Add(dicHeadKey, new List<string>() { "odata.include-annotations=\"*\"" });
         }
 
         /// <summary>
@@ -220,7 +225,6 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
             }
         }
 
-
         /// <summary>
         /// 维修项目基础数据
         /// </summary>
@@ -358,13 +362,18 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         {
             try
             {
-                var dicHead = new Dictionary<string, IEnumerable<string>>();
-                dicHead.Add("Prefer", new List<string>() { "odata.include-annotations=\"*\"" });
-
                 var fetchString = _baseDataRepository.QuerySystemUser(systemuserid);
-                CrmEntity entity = null;
-                entity = await _crmService.Retrieve("systemuser", Guid.Parse(systemuserid), fetchString, null, dicHead);
-                return entity;
+                var fetchXdoc = XDocument.Parse(fetchString);
+                var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "systemuser",
+                    FetchXml = fetchXdoc,
+                    ProxyUserId=Guid.Parse(systemuserid)
+                };
+                fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                var fetchResponse = await _crmService.Execute(fetchRequest);
+                var detailResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                return detailResult.Value.Results[0];
             }
             catch (Exception ex)
             {

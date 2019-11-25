@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-title>steps</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <Steps [size]=\"'small'\" [current]=\"1\">\n    <Step [title]=\"'Finished'\" [description]=\"'This is description'\"></Step>\n    <Step [title]=\"'In Progress'\" [description]=\"'This is description'\"></Step>\n    <Step [title]=\"'Waiting'\" [description]=\"'This is description'\"></Step>\n  </Steps>\n</ion-content>\n"
+module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-title>高德地图DEMO</ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content> \r\n      <div id=\"container\"></div>  \r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -69,7 +69,7 @@ StepsPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2Jhc2UvZGVtby9zdGVwcy9zdGVwcy5wYWdlLnNjc3MifQ== */"
+module.exports = "div {\n  width: 100%;\n  height: 100%; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYmFzZS9kZW1vL3N0ZXBzL0U6XFxBcHBQcm9qZWN0XFxEQ0VNXFxEQ0VNLk1BcHAvc3JjXFxhcHBcXGJhc2VcXGRlbW9cXHN0ZXBzXFxzdGVwcy5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFFSSxXQUFXO0VBQ1gsWUFBWSxFQUFBIiwiZmlsZSI6InNyYy9hcHAvYmFzZS9kZW1vL3N0ZXBzL3N0ZXBzLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImRpdlxyXG57XHJcbiAgICB3aWR0aDogMTAwJTtcclxuICAgIGhlaWdodDogMTAwJTsgXHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -90,6 +90,21 @@ __webpack_require__.r(__webpack_exports__);
 let StepsPage = class StepsPage {
     constructor() { }
     ngOnInit() {
+        debugger;
+        var map, route, marker;
+        //基本地图加载
+        map = new AMap.Map("container", {
+            resizeEnable: true
+        });
+        //绘制初始路径
+        var path = [];
+        path.push([116.303843, 39.983412]);
+        path.push([116.321354, 39.896436]);
+        path.push([116.407012, 39.992093]);
+        map.plugin("AMap.DragRoute", function () {
+            route = new AMap.DragRoute(map, path, AMap.DrivingPolicy.LEAST_FEE); //构造拖拽导航类
+            route.search(); //查询导航路径并开启拖拽导航
+        });
     }
 };
 StepsPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([

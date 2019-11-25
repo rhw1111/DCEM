@@ -59,18 +59,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
             return fetchString;
         }
 
-        /// <summary>
-        /// 唯一线索详情
-        /// </summary>
-        /// <param name="entityid"></param>
-        /// <returns></returns>
-        public string GetOnlyLeadDetail(string entityid)
-        {
-            string strQuery = string.Format($"$select=mcs_appointmentat,_mcs_appointmentconfigid_value,mcs_appointmentsource,mcs_appointmenttype,mcs_canceldes,mcs_cancelreasonnew,mcs_carplate,_mcs_cartype_value,mcs_customeraddr,mcs_customercomment,_mcs_customerid_value,mcs_customername,mcs_customerphone,_mcs_dealerid_value,mcs_name,mcs_nextmaintainat,mcs_nextmaintainmileage,mcs_status,mcs_tag&$expand=mcs_appointmentconfigid($select=mcs_name,mcs_surplusnum),mcs_cartype($select=mcs_name),mcs_dealerid($select=mcs_name),mcs_customerid($select=mcs_name)&$filter=statecode eq 0 and  mcs_appointmentinfoid eq {entityid}");
-            return strQuery;
-        }
-
-
+     
         /// <summary>
         /// 查询logcall的fetchString
         /// </summary>
@@ -88,10 +77,16 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
             //    filter += $"<condition attribute='mcs_emailaddress1' operator='like' value='%{onlyLeadRequest.Search}%' />";
             //    filter += $"</filter>";
             //}
-            if (logcallrequest.entityid != null)//唯一线索主键id
+            if (logcallrequest.mcs_onlyleadid != null)//唯一线索主键id
             {             
-                filter += $"<condition attribute='mcs_onlyleadid' operator='eq' value='{logcallrequest.entityid}' />";            
+                filter += $"<condition attribute='mcs_onlyleadid' operator='eq' value='{logcallrequest.mcs_onlyleadid}' />";            
             }
+            //根据销售机会查询培育任务
+            if (!string.IsNullOrEmpty(logcallrequest.accountid))
+            {
+                filter += $"<condition attribute='mcs_accountid' operator='eq' value='{logcallrequest.accountid}' />";
+            }
+
             if (logcallrequest.mcs_logcallid != null)//logcall主键id
             {
                 filter += $"<condition attribute='mcs_logcallid' operator='eq' value='{logcallrequest.mcs_logcallid}' />";
@@ -121,7 +116,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
         }
 
         /// <summary>
-        /// 根据条件查询培育任务的fetchString mcs_activitystatus
+        /// 根据条件查询培育任务的fetchString
         /// </summary>
         /// <param name="activityrequest"></param>
         /// <returns></returns>
@@ -137,15 +132,25 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
             }
 
             var filter2 = string.Empty;
-            if (activityrequest.entityid != null)
+
+            //根据唯一线索查询培育任务
+            if (activityrequest.mcs_onlyleadid != null && activityrequest.mcs_onlyleadid !="")
             {              
-                filter2 += $"<condition attribute='mcs_onlyleadid' operator='eq' value='{activityrequest.entityid}' />";              
+                filter2 += $"<condition attribute='mcs_onlyleadid' operator='eq' value='{activityrequest.mcs_onlyleadid}' />";              
             }
-            if (!string.IsNullOrEmpty(activityrequest.mcs_activitystatus.ToString()) && activityrequest.mcs_activitystatus >= 0)
+            //根据销售机会查询培育任务
+            if (!string.IsNullOrEmpty( activityrequest.accountid))
             {
-                filter2 += $"<filter type='and'>";
-                filter2 += $"<condition attribute='mcs_activitystatus' operator='eq' value='{activityrequest.mcs_activitystatus}' />";
-                filter2 += $"</filter>";
+                filter2 += $"<condition attribute='mcs_accountid' operator='eq' value='{activityrequest.accountid}' />";
+            }
+
+            if (!string.IsNullOrEmpty(activityrequest.mcs_activitystatus.ToString()) && activityrequest.mcs_activitystatus >= 0)
+            {        
+                filter2 += $"<condition attribute='mcs_activitystatus' operator='eq' value='{activityrequest.mcs_activitystatus}' />";         
+            }
+            if (activityrequest.mcs_activitystatus !=null) //我的任务
+            {
+                filter2 += $"<condition attribute='ownerid' operator='eq-userid' />";
             }
 
             var fetchString = $@"<fetch version='1.0' count='{activityrequest.PageSize}' page='{activityrequest.PageIndex}' output-format='xml-platform' mapping='logical' distinct='false'>

@@ -6,6 +6,9 @@
         <ion-title>
             <ion-label>交车单详情</ion-label>
         </ion-title>
+        <ion-buttons slot="end">
+                <ion-menu-button></ion-menu-button>
+            </ion-buttons>
     </ion-toolbar>
     <ion-toolbar>
         <ion-segment [(ngModel)]="tab" color="primary">
@@ -15,7 +18,7 @@
             <ion-segment-button value="Linklist" (ionSelect)="pageOnLogCalllist()">
                 <ion-label>收款记录</ion-label>
             </ion-segment-button>
-            <ion-segment-button value="Breedlist" (ionSelect)="getorderstatus()">
+            <ion-segment-button value="Breedlist" >
                 <ion-label>订单跟踪</ion-label>
             </ion-segment-button>
         </ion-segment>
@@ -198,26 +201,7 @@
                     </ion-list>
                 </ion-card-content>
             </ion-card>
-            <ion-fab vertical="bottom" horizontal="end">
-                <ion-fab-button>
-                    <ion-icon name="arrow-dropup"></ion-icon>
-                </ion-fab-button>
-                <ion-fab-list side="top">
-                    <ion-fab-button *ngIf="model.status==2" color="primary" style="width:60px;"
-                        [routerLink]="['/saleing/delivery/pdiservice']" [queryParams]="{id:model.id}">PDI检测
-                    </ion-fab-button>
-                    <ion-fab-button *ngIf="model.status==3" color="success" style="width:60px;"
-                        [routerLink]="['/saleing/delivery/appointment']" [queryParams]="{id:model.id}">预约交车
-                    </ion-fab-button>
-                    <ion-fab-button color="danger" *ngIf="model.settles==0" style="width:60px;"
-                        [routerLink]="['/saleing/orderpaydetail/edit']" [queryParams]="{id:model.id}">
-                        收取尾款</ion-fab-button>
-                    <ion-fab-button color="dark" *ngIf="model.status==4" style="width:60px;"
-                        (click)="presentAlertConfim()">
-                        收款完成
-                    </ion-fab-button>
-                </ion-fab-list>
-            </ion-fab>
+          
         </div>
         <div *ngSwitchCase="'Linklist'">
             <ion-list lines="full">
@@ -233,12 +217,6 @@
                             {{item.type}}
                         </ion-note>
                     </ion-item>
-                    <ion-item-options side="end">
-                        <ion-item-option color="tertiary" expandable [routerLink]="['/saleing/orderpaydetail/detail']"
-                            [queryParams]="{id:item.id}">
-                            详情
-                        </ion-item-option>
-                    </ion-item-options>
                 </ion-item-sliding>
             </ion-list>
             <ion-label *ngIf="this.orderpaymodel.isending" text-center>
@@ -285,52 +263,45 @@
                 </ion-card-content>
             </ion-card>
 
-            <div class="timeline-small">
-                <div class="timeline-small-body">
-                    <ul>
-                        <li>
-                            <div class="bullet pink"></div>
-                            <div class="date">PDI检测未提交</div>
-                            <div class="desc">
-                                <h4>是否提交PDI检测：未提交</h4>
-                                    <h4>交车状态：PDI检测未提交</h4>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="bullet orange"></div>
-                            <div class="date">PDI检测已提交</div>
-                            <div class="desc">
-                                <h4>PDI检测提交时间：2019-08-23</h4>
-                                <h4>交车状态：PDI检测未提交</h4>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="bullet blue"></div>
-                            <div class="date">PDI检测完成</div>
-                            <div class="desc">
-                                <h4>交车状态：PDI检测未提交</h4>
-                                <h4>PDI检测时间：2019-09-29</h4>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="bullet green"></div>
-                            <div class="date">预约完成</div>
-                            <div class="desc">
-                                    <h4>交车状态：PDI检测未提交</h4>
-                                    <h4>预约时间：2019-09-29</h4>
-                            </div>
-                        </li>
-                        <li>
-                                <div class="bullet green"></div>
-                                <div class="date">交车完成</div>
-                                <div class="desc">
-                                        <h4>交车状态：PDI检测未提交</h4>
-                                        <h4>交车时间：2019-09-29</h4>
-                                </div>
-                            </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+            <ion-card>
+                <ion-card-content>
+            <Steps [size]="'small'"  [current]="5">
+                <Step  [title]="'PDI检测未提交'"></Step> 
+                <Step  [icon]="ellipsis" [description]="deliverorderflowmodel.model.issubmitpdi"></Step> 
+                <Step [title]="'PDI检测已提交'"></Step>
+                <Step  [icon]="ellipsis" [description]="deliverorderflowmodel.model.pdisubmittime"></Step> 
+                <Step [title]="'PDI检测完成'"></Step>
+                <Step  [icon]="ellipsis" [description]="deliverorderflowmodel.model.pditime"></Step> 
+                <Step [title]="'预约完成'"></Step>
+                <Step   [icon]="ellipsis" [description]="deliverorderflowmodel.model.appointmenton"></Step> 
+                <Step [title]="'已收尾款'" ></Step>
+                <Step  [icon]="ellipsis" [description]="deliverorderflowmodel.model.settlestatus"></Step> 
+                <Step  [icon]="ellipsis" [description]="deliverorderflowmodel.model.receipton"></Step> 
+                <Step [title]="'交车完成'" ></Step>
+                <Step  [icon]="ellipsis" [description]="deliverorderflowmodel.model.deliveryon"></Step> 
+            </Steps>
+                </ion-card-content>
+            </ion-card>
+        </div> 
     </div>
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+        <ion-fab-button>
+            <ion-icon name="arrow-dropup"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="top">
+            <ion-fab-button *ngIf="model.status==2" color="primary" style="width:60px;"
+                [routerLink]="['/saleing/delivery/pdiservice']" [queryParams]="{id:model.id}">PDI检测
+            </ion-fab-button>
+            <ion-fab-button *ngIf="model.status==3" color="success" style="width:60px;"
+                [routerLink]="['/saleing/delivery/appointment']" [queryParams]="{id:model.id}">预约交车
+            </ion-fab-button>
+            <ion-fab-button color="danger" *ngIf="model.settles==0" style="width:60px;"
+                [routerLink]="['/saleing/orderpaydetail/edit']" [queryParams]="{id:model.id}">
+                收取尾款</ion-fab-button>
+            <ion-fab-button color="dark" *ngIf="model.status==4" style="width:60px;"
+                (click)="presentAlertConfim()">
+                收款完成
+            </ion-fab-button>
+        </ion-fab-list>
+    </ion-fab>
 </ion-content>

@@ -30,9 +30,18 @@ import { SelectSysareaComponent } from 'app/saleing/saleing.ser/components/selec
 import { SelectVehiclecolorComponent } from 'app/saleing/saleing.ser/components/select-vehiclecolor/select-vehiclecolor.component';
 import { SelectVehicletypeComponent } from 'app/saleing/saleing.ser/components/select-vehicletype/select-vehicletype.component';
 import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile';
-
 import { SelectRepairitemtypeComponent } from 'app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component';
 import { SelectRepairitemtypedetailComponent } from 'app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component';
+import { SelectAppointmentinfoComponent } from 'app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component';
+
+import { SelectFileEditComponent } from 'app/serving/serving.ser/components/select-file-edit/select-file-edit.component';
+
+import { DragrouteComponent } from 'app/base/base.ser/components/map/dragroute/dragroute.component';
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { FileUploadModule } from 'ng2-file-upload';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @NgModule({
     declarations: [//申明组件
@@ -56,6 +65,9 @@ import { SelectRepairitemtypedetailComponent } from 'app/serving/serving.ser/com
         SelectVehiclecolorComponent,//车型颜色
         SelectRepairitemtypeComponent,
         SelectRepairitemtypedetailComponent,
+        SelectAppointmentinfoComponent,//选择预约单
+        SelectFileEditComponent,
+        DragrouteComponent
     ],
 
     entryComponents: [
@@ -78,21 +90,29 @@ import { SelectRepairitemtypedetailComponent } from 'app/serving/serving.ser/com
         SelectVehiclecolorComponent,
         SelectRepairitemtypeComponent,
         SelectRepairitemtypedetailComponent,
+        SelectAppointmentinfoComponent,//选择预约单
+        SelectFileEditComponent,
+        DragrouteComponent
     ],
 
     imports: [BrowserModule,
         IonicModule.forRoot({ mode: 'ios' }),
+        FileUploadModule,
         AppRoutingModule,
         HttpClientModule,
         IonicStorageModule.forRoot(),
         FormsModule,
         ReactiveFormsModule,
         NgZorroAntdMobileModule
-  
     ],
     providers: [
+        DragrouteComponent,
         StatusBar,
         SplashScreen,
+        ImagePicker,
+        FileTransfer,
+        Camera,
+        ScreenOrientation,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
     ],
     bootstrap: [AppComponent]

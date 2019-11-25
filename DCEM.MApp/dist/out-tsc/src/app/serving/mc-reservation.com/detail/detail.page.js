@@ -22,6 +22,7 @@ let DetailPage = class DetailPage {
                 mcs_vin: "",
                 mcs_enginennumber: "",
                 mcs_cartype: "",
+                mcs_carplate: "",
                 mcs_nextmaintainat: "",
                 mcs_nextmaintainmileage: "",
                 mcs_name: "",
@@ -32,7 +33,10 @@ let DetailPage = class DetailPage {
                 mcs_customercomment: "",
                 mcs_appointmendescript: "",
                 mcs_cancelreasonnew: "",
-                mcs_canceldes: ""
+                mcs_canceldes: "",
+                mcs_cancelreasonnewvalue: "",
+                mcs_ordertypevalue: "",
+                mcs_statusvalue: ""
             },
             datalist: [],
             pageSize: 10,
@@ -48,21 +52,19 @@ let DetailPage = class DetailPage {
                 this.model.infolist.mcs_appointmentinfoid = data['id'];
                 this.pageOnBind(this.model.infolist.mcs_appointmentinfoid);
             }
-            //this.pageOnBind(data.id);
         });
     }
     pageOnBind(id) {
         this._page.loadingShow();
-        this._http.get(this.model.apiUrlDetail, {
-            params: {
-                entityid: id,
-            }
+        this._http.getForToaken(this.model.apiUrlDetail, {
+            "entityid": id,
         }, (res) => {
             if (res !== null) {
                 this.model.infolist.mcs_appointmentinfoid = res.Id;
                 this.model.infolist.mcs_customername = res["Attributes"]["mcs_customername"];
                 this.model.infolist.mcs_customerphone = res["Attributes"]["mcs_customerphone"];
                 this.model.infolist.mcs_tag = res["Attributes"]["mcs_tag"];
+                this.model.infolist.mcs_carplate = res["Attributes"]["mcs_carplate"];
                 this.model.infolist.mcs_vin = res["Attributes"]["mcs_customerid"] != null ? res["Attributes"]["mcs_customerid"]["mcs_name"] : "--";
                 this.model.infolist.mcs_enginennumber = res["Attributes"]["mcs_enginennumberres"];
                 this.model.infolist.mcs_cartype = res["Attributes"]["mcs_cartype"] != null ? res["Attributes"]["mcs_cartype"]["mcs_name"] : "--";
@@ -76,21 +78,23 @@ let DetailPage = class DetailPage {
                 this.model.infolist.mcs_customercomment = res["Attributes"]["mcs_customercomment"];
                 this.model.infolist.mcs_appointmendescript = res["Attributes"]["mcs_appointmendescript"];
                 this.model.infolist.mcs_cancelreasonnew = res["Attributes"]["mcs_cancelreasonnew"];
+                this.model.infolist.mcs_cancelreasonnewvalue = res["Attributes"]["mcs_cancelreasonnew@OData.Community.Display.V1.FormattedValue"];
+                this.model.infolist.mcs_ordertypevalue = res["Attributes"]["mcs_ordertype@OData.Community.Display.V1.FormattedValue"];
+                this.model.infolist.mcs_statusvalue = res["Attributes"]["mcs_status@OData.Community.Display.V1.FormattedValue"];
                 this.model.infolist.mcs_canceldes = res["Attributes"]["mcs_canceldes"];
-                console.log(res);
+                this.pageOnlist(id);
             }
             else {
                 this._page.alert("消息提示", "预约单加载异常");
             }
             this._page.loadingHide();
-            this.pageOnlist(id);
         }, (err) => {
             this._page.alert("消息提示", "数据加载异常");
             this._page.loadingHide();
         });
     }
     pageOnlist(id) {
-        this._page.loadingShow();
+        //this._page.loadingShow();
         this._http.get(this.model.apiUrlLog, {
             params: {
                 entityid: id,
@@ -99,7 +103,6 @@ let DetailPage = class DetailPage {
                 page: this.model.page
             }
         }, (res) => {
-            //debugger;
             if (res !== null) {
                 if (res.Results !== null) {
                     for (var key in res.Results) {
@@ -109,8 +112,8 @@ let DetailPage = class DetailPage {
                         obj["createdon"] = res.Results[key]["Attributes"]["createdon"];
                         this.model.datalist.push(obj);
                     }
-                    //console.log(res);
-                } //判断是否有新数据
+                }
+                //判断是否有新数据
                 if (res.Results.length == 0) {
                     this.model.isending = true;
                 }
@@ -118,10 +121,10 @@ let DetailPage = class DetailPage {
             else {
                 this._page.alert("消息提示", "预约跟进记录加载异常");
             }
-            this._page.loadingHide();
+            //this._page.loadingHide();
         }, (err) => {
             this._page.alert("消息提示", "数据加载异常");
-            this._page.loadingHide();
+            //this._page.loadingHide();
         });
     }
     FormatToDate(date) {
@@ -142,7 +145,7 @@ let DetailPage = class DetailPage {
     }
     //返回数据为空，默认“--”
     SetDefaultValue(data) {
-        if (data == null || data == undefined) {
+        if (data == null || data == undefined || data == '') {
             return '--';
             ;
         }

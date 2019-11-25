@@ -1,5 +1,4 @@
 import * as tslib_1 from "tslib";
-var _a, _b;
 import { Component } from '@angular/core';
 import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
@@ -9,6 +8,7 @@ import { ScSelectComponent } from 'app/serving/serving.ser/components/sc-select/
 import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
 import { SelectSystemuserComponent } from 'app/base/base.ser/components/select-systemuser/select-systemuser.component';
 import { SelectMalFunctionTypeComponent } from 'app/serving/serving.ser/components/select-malfunctiontype/select.malfunctiontype.component';
+import { SelectFileEditComponent } from 'app/serving/serving.ser/components/select-file-edit/select-file-edit.component';
 let EditPage = class EditPage {
     constructor(_http, _page, _valid, _userInfo, modalCtrl, activeRoute) {
         this._http = _http;
@@ -18,7 +18,7 @@ let EditPage = class EditPage {
         this.modalCtrl = modalCtrl;
         this.activeRoute = activeRoute;
         this.model = {
-            postApiUrl: '/api/tech-support/AddOrEdit',
+            postApiUrl: '/api/tech-support/AddOrUpdate',
             detailApiUrl: '/api/tech-support/GetDetail',
             viewData: {
                 mcs_serviceorderid_name: '',
@@ -55,7 +55,9 @@ let EditPage = class EditPage {
                 mcs_mileage: 0,
                 mcs_repairdate: '',
                 mcs_cartypeid: '',
-            }
+                fileEntityArray: []
+            },
+            fileArray: []
         };
     }
     ngOnInit() {
@@ -75,6 +77,7 @@ let EditPage = class EditPage {
             }
         }, (res) => {
             if (res.TechnicalSupport != null) {
+                this.model.postData.Id = id;
                 this.model.postData.mcs_title = res["TechnicalSupport"]["Attributes"]["mcs_title"];
                 this.model.postData.mcs_serviceorderid = res["TechnicalSupport"]["Attributes"]["_mcs_serviceorderid_value"];
                 this.model.viewData.mcs_serviceorderid_name = res["TechnicalSupport"]["Attributes"]["_mcs_serviceorderid_value@OData.Community.Display.V1.FormattedValue"];
@@ -104,6 +107,18 @@ let EditPage = class EditPage {
                 this.model.postData.mcs_malfunctioncontent = res["TechnicalSupport"]["Attributes"]["mcs_malfunctioncontent"];
                 this.model.postData.mcs_cartypeid = res["TechnicalSupport"]["Attributes"]["_mcs_cartypeid_value"];
                 this.model.viewData.mcs_cartypeid_vale = res["TechnicalSupport"]["Attributes"]["_mcs_mcs_cartypeid_value@OData.Community.Display.V1.FormattedValue"];
+            }
+            console.log(res);
+            if (res.DealerAttachment != null) {
+                this.model.fileArray = [];
+                for (let item of res.DealerAttachment) {
+                    console.log(item);
+                    var obj = {};
+                    obj["fileName"] = item["Attributes"]["mcs_filename"];
+                    obj["fileSize"] = item["Attributes"]["mcs_filesize"];
+                    obj["url"] = item["Attributes"]["mcs_fileurl"];
+                    this.model.fileArray.push(obj);
+                }
             }
             this._page.loadingHide();
         }, (err) => {
@@ -159,6 +174,38 @@ let EditPage = class EditPage {
                         this.model.postData.mcs_cartypeid = serviceproxymodel.mcs_cartypeid;
                         this.model.viewData.mcs_cartypeidname = serviceproxymodel.mcs_cartypeidname;
                     }
+                }
+            }
+        });
+    }
+    //选择附件模式窗口
+    presentFileModal() {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            var fileInputArray = [];
+            //输入参数
+            for (let item of this.model.fileArray) {
+                var obj = {};
+                obj["fileName"] = item["fileName"];
+                obj["fileSize"] = item["fileSize"];
+                obj["url"] = item["url"];
+                fileInputArray.push(obj);
+            }
+            const modalWin = yield this.modalCtrl.create({
+                component: SelectFileEditComponent,
+                componentProps: { fileArray: fileInputArray }
+            });
+            yield modalWin.present();
+            const { data } = yield modalWin.onDidDismiss();
+            if (data.command === 1) {
+                //输出参数
+                this.model.postData.fileEntityArray = [];
+                this.model.fileArray = data.fileArray;
+                for (let file of this.model.fileArray) {
+                    var obj = {};
+                    obj["mcs_filename"] = file["fileName"];
+                    obj["mcs_filesize"] = file["fileSize"];
+                    obj["mcs_fileurl"] = file["url"];
+                    this.model.postData.fileEntityArray.push(obj);
                 }
             }
         });
@@ -246,9 +293,9 @@ let EditPage = class EditPage {
         if (this._valid.isNullOrEmpty(this.model.postData.mcs_title)) {
             errMessage += "请输入主题<br>";
         }
-        if (this._valid.isNullOrEmpty(this.model.viewData.mcs_customername)) {
-            errMessage += "请选择车主<br>";
-        }
+        //if (this._valid.isNullOrEmpty(this.model.viewData.mcs_customername)) {
+        //    errMessage += "请选择车主<br>";
+        //}
         if (this._valid.isNullOrEmpty(this.model.postData.mcs_techsystem)) {
             errMessage += "请选择技术系统<br>";
         }
@@ -262,18 +309,13 @@ let EditPage = class EditPage {
         //请求
         this._page.loadingShow();
         this._http.post(this.model.postApiUrl, this.model.postData, (res) => {
-            if (res != "") {
-                this._page.alert("消息提示", "保存成功！");
-                this._page.goto("/serving/ts/success", { guid: res });
-            }
-            else {
-                this._page.alert("消息提示", "保存失败！");
-            }
+            console.log(res);
+            console.log(res.Data.Attributes["mcs_name"]);
             this._page.loadingHide();
+            this._page.goto("/serving/ts/success", { guid: res.Data.Id, no: res.Data.Attributes["mcs_name"] });
         }, (err) => {
-            debugger;
-            this._page.alert("消息提示", "请求异常");
             this._page.loadingHide();
+            this._page.alert("消息提示", "保存失败！");
         });
     }
     changePhone(value) {
@@ -306,7 +348,9 @@ EditPage = tslib_1.__decorate([
     tslib_1.__metadata("design:paramtypes", [DCore_Http,
         DCore_Page,
         DCore_Valid,
-        Storage_LoginInfo, typeof (_a = typeof ModalController !== "undefined" && ModalController) === "function" ? _a : Object, typeof (_b = typeof ActivatedRoute !== "undefined" && ActivatedRoute) === "function" ? _b : Object])
+        Storage_LoginInfo,
+        ModalController,
+        ActivatedRoute])
 ], EditPage);
 export { EditPage };
 //# sourceMappingURL=edit.page.js.map

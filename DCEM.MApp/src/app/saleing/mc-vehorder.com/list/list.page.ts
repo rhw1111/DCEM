@@ -12,16 +12,19 @@ import { OptionSetService } from '../../saleing.ser/optionset.service';
 export class ListPage implements OnInit {
   @ViewChild(IonInfiniteScroll,null) infiniteScroll: IonInfiniteScroll;
 
-  public model: any = {
+  public model = {
     name: 'vehorderlist',//模块实体名称
     apiUrl: '/api/vehorder/GetVehorderList',//请求地址
-    seachkey: '',//搜索关键字
-    mcs_rostatus: 0,//订单状态
-    pageSize: 10,//页数
-    page: 1,//分页
-    sort: '',//排序的参数
+   
     isending: false,//是否加载完成
-    datalist: []//列表数据
+    datalist: [],//列表数据
+    params:{
+        mcs_rostatus: 0,
+        SearchKey: '',//搜索关键字
+        Sort: '',
+        PageSize: 10,
+        PageIndex: 1,
+    }
 };
 
   constructor(
@@ -32,7 +35,7 @@ export class ListPage implements OnInit {
     ) {}
 
   ngOnInit() {
-    this.model.page = 1;
+    this.model.params.PageIndex = 1;
     this.getList(null);
   }
 
@@ -42,8 +45,8 @@ export class ListPage implements OnInit {
     var keyCode = event ? event.keyCode : "";
     if (keyCode == 13) {
         this.model.datalist = [];
-        this.model.page = 1;
-        this.model.isending = false;
+        this.model.params.PageIndex = 1;
+        this.model.isending = false;     
         this.getList(null);
     }
 }
@@ -51,26 +54,26 @@ export class ListPage implements OnInit {
 //下拉刷新
 doRefresh(event) {
     this.model.datalist = [];
-    this.model.page = 1;
+    this.model.params.PageIndex = 1;
     this.model.isending = false;
     this.getList(event);
 }
 //加载下一页
 doLoading(event) {
-    this.model.page++;
+    this.model.params.PageIndex++;
     this.getList(event);
 }
 //切换tab
 selectTab(status) {
     this.infiniteScroll.disabled = false;//切换标签初始化下拉控件事件
     this.model.datalist = [];
-    this.model.page = 1;
+    this.model.params.PageIndex = 1;
     this.model.isending = false;
-    if (status != "" && status != undefined) {
-        this.model.mcs_rostatus = status;
+    if (status.toString() != "" && status != undefined) {
+        this.model.params.mcs_rostatus = status;
     }
     else {
-        this.model.mcs_rostatus = 0;
+        this.model.params.mcs_rostatus = 0;
     }
     this.getList(null);
 }
@@ -78,17 +81,10 @@ selectTab(status) {
  //获取列表数据
  getList(event) {
   //debugger;
+ 
   this._page.loadingShow();
-  this._http.get(this.model.apiUrl,
-      {
-          params: {
-              mcs_rostatus: this.model.mcs_rostatus,
-              seachkey: this.model.seachkey,
-              sort: this.model.sort,
-              pageSize: this.model.pageSize,
-              page: this.model.page,
-          }
-      },
+  this._http.postForToaken(this.model.apiUrl,
+      this.model.params,
       (res: any) => {
          //debugger;
           if (res.Results !== null) {
@@ -104,12 +100,12 @@ selectTab(status) {
 
               });
               //设置数据存储到本地
-              if (this.model.page == 1) {
+              if (this.model.params.PageIndex == 1) {
                   this.httpService.SetDataCache(this.model.name, JSON.stringify(this.model.datalist).toString());
               }
               event ? event.target.complete() : '';
               //判断是否有新数据
-              if (res.Results.length < this.model.pageSize) {
+              if (res.Results.length < this.model.params.PageIndex) {
                   event ? event.target.disabled = true : "";
                   this.model.isending = true;
               }

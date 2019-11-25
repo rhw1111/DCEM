@@ -102,13 +102,16 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
    <link-entity name='mcs_vehorder' from='mcs_vehorderid' to='mcs_vehorder' visible='false' link-type='outer' >
       <attribute name='mcs_contactname' alias='contactname'/>
       <attribute name='mcs_contactphone' alias='contactphone'/>
-      <attribute name='mcs_code' alias='vehordercode'/>
+      <attribute name='mcs_code' alias='vehordercode'/> 
       <attribute name='mcs_idcard' alias='idcard'/>
       <attribute name='mcs_rostatus' alias='rostatus'/>
       <attribute name='mcs_orderon' alias='orderon'/>
-    </link-entity>
+        <link-entity name='mcs_vehpo' from='mcs_vehpoid' to='mcs_vehpo' visible='false' link-type='outer' alias='mcs_vehpo'>
+          <attribute name='mcs_postatus'  alias='postatus'/>
+        </link-entity>
+    </link-entity> 
     <link-entity name='mcs_vehicle' from='mcs_vehicleid' to='mcs_vin' visible='false' link-type='outer' >
-      <attribute name='mcs_name' alias='vinname'/> 
+      <attribute name='mcs_name' alias='vinname'/>  
     </link-entity> 
   <link-entity name='mcs_vehuseconfig' from='mcs_vehuseconfigid' to='mcs_caruse' visible='false' link-type='outer' >
       <attribute name='mcs_name' alias='carusename'/> 
@@ -140,6 +143,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
   <entity name='mcs_attachment'>
     <attribute name='mcs_filetype' />
     <attribute name='mcs_fileurl' />
+    <attribute name='mcs_filename' />
     <attribute name='mcs_code' />
     <attribute name='mcs_filesize' /> 
     <order attribute='createdon' descending='true' />

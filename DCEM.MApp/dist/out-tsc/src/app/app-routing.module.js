@@ -10,7 +10,17 @@ const routes = [
                 path: 'uc',
                 children: [
                     { path: 'login', loadChildren: './base/uc.com/login/login.module#LoginPageModule' },
-                    { path: 'welcome', loadChildren: './base/uc.com/welcome/welcome.module#WelcomePageModule' }
+                    { path: 'welcome', loadChildren: './base/uc.com/welcome/welcome.module#WelcomePageModule' },
+                    { path: 'detail', loadChildren: './base/uc.com/detail/detail.module#DetailPageModule' }
+                ]
+            },
+            {
+                path: 'message',
+                children: [
+                    { path: 'charts', loadChildren: './base/message.com/charts/charts.module#ChartsPageModule' },
+                    { path: 'chat-detail', loadChildren: './base/message.com/chat-detail/chat-detail.module#ChatDetailPageModule' },
+                    { path: 'room', loadChildren: './base/message.com/room/room.module#RoomPageModule' },
+                    { path: 'activities', loadChildren: './base/message.com/activities/activities.module#ActivitiesPageModule' },
                 ]
             }
         ]
@@ -101,6 +111,12 @@ const routes = [
                     { path: 'list', loadChildren: './serving/spmdspstock.com/list/list.module#ListPageModule' },
                 ]
             },
+            {
+                path: 'maintenance',
+                children: [
+                    { path: 'calendar', loadChildren: './serving/maintenance/calendar/calendar.module#CalendarPageModule' }
+                ]
+            }
         ],
     },
     {
@@ -128,7 +144,6 @@ const routes = [
                 path: 'contactrecord',
                 children: [
                     { path: 'list', loadChildren: './saleing/mcs-contactrecord/list/list.module#ListPageModule' },
-                    { path: 'edit', loadChildren: './saleing/mcs-contactrecord/edit/edit.module#EditPageModule' },
                 ]
             },
             {
@@ -197,6 +212,31 @@ const routes = [
                     { path: 'detail', loadChildren: './saleing/vehlisense/detail/detail.module#DetailPageModule' },
                     { path: 'success', loadChildren: './saleing/vehlisense/success/success.module#SuccessPageModule' },
                 ]
+            },
+            {
+                path: 'surveyorder',
+                children: [
+                    { path: 'list', loadChildren: './saleing/mcs_surveyorder/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './saleing/mcs_surveyorder/detail/detail.module#DetailPageModule' }
+                ]
+            },
+            {
+                path: 'installationorder',
+                children: [
+                    { path: 'list', loadChildren: './saleing/mcs_installationorder/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './saleing/mcs_installationorder/detail/detail.module#DetailPageModule' }
+                ]
+            },
+            {
+                path: 'driverecord',
+                children: [
+                    { path: 'list', loadChildren: './saleing/mcs_driverecord.com/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './saleing/mcs_driverecord.com/detail/detail.module#DetailPageModule' },
+                    { path: 'edit', loadChildren: './saleing/mcs_driverecord.com/edit/edit.module#EditPageModule' },
+                    { path: 'success', loadChildren: './saleing/mcs_driverecord.com/success/success.module#SuccessPageModule' },
+                    { path: 'calendar', loadChildren: './saleing/mcs_driverecord.com/calendar/calendar.module#CalendarPageModule' },
+                    { path: 'feedback', loadChildren: './saleing/mcs_driverecord.com/feedback/feedback.module#FeedbackPageModule' }
+                ]
             }
         ]
     },
@@ -205,7 +245,12 @@ const routes = [
         children: [
             { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
         ]
-    }
+    },
+    { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' },
+    { path: 'fileupload', loadChildren: './serving/serving.ser/components/fileupload/fileupload.module#FileuploadPageModule' },
+    { path: 'list', loadChildren: './saleing/mcs_installationorder/list/list.module#ListPageModule' },
+    { path: 'detail', loadChildren: './saleing/mcs_installationorder/detail/detail.module#DetailPageModule' },
+    { path: 'success', loadChildren: './saleing/mcs-contactrecord/success/success.module#SuccessPageModule' },
 ];
 let AppRoutingModule = class AppRoutingModule {
 };

@@ -1,54 +1,58 @@
 <ion-header>
-  <ion-toolbar>
-          <ion-buttons slot="start">
-                  <ion-back-button text="返回" defaultHref="/saleing/accoount/list"></ion-back-button>
-              </ion-buttons>
-              <ion-title>创建销售机会成功</ion-title>
-  </ion-toolbar>
-  
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+        </ion-buttons>
+        <ion-title>创建销售机会成功</ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+
 </ion-header>
 
 <ion-content fullscreen scroll-y="false">
-  <ion-card>
-      <ion-card-content>
-          <ion-grid>
-              <ion-row>
-                  <ion-col>
-                      <div style="height: 30px;">
-                      </div>
-                  </ion-col>
-              </ion-row>
-              <ion-row>
-                  <ion-col>
-                  </ion-col>
-                  <ion-col>
-                      <div style="height: 80px;">
-                          <img src="./assets/img/circle.png" />
-                      </div>
-                  </ion-col>
-                  <ion-col>
-                  </ion-col>
-              </ion-row>
-              <ion-row>
-                  <ion-col class="title">
-                      创建销售机会成功
-                  </ion-col>
-              </ion-row>
-              <ion-row>
-                  <ion-col>
-                      <ion-button color="primary" class="button-outline" [routerLink]="['/serving/account/detail']" [queryParams]="{id:mod.id}">
-                          查看详情
-                      </ion-button>
-                  </ion-col>
-                  <ion-col>
-                  </ion-col>
-                  <ion-col>
-                      <ion-button color="primary" class="button-outline" [routerLink]="['/saling/account/list']">
-                          返回列表
-                      </ion-button>
-                  </ion-col>
-              </ion-row>
-          </ion-grid>
-      </ion-card-content>
-  </ion-card>
+    <ion-card>
+        <ion-card-content>
+            <ion-grid>
+                <ion-row>
+                    <ion-col>
+                        <div style="height: 30px;">
+                        </div>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                    </ion-col>
+                    <ion-col>
+                        <div style="height: 80px;">
+                            <img src="./assets/img/circle.png" />
+                        </div>
+                    </ion-col>
+                    <ion-col>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col text-center class="title">
+                        创建销售机会成功
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-button color="primary" class="button-outline" [routerLink]="['/saleing/account/detail']"
+                            [queryParams]="{id:mod.id}">
+                            查看详情
+                        </ion-button>
+                    </ion-col>
+                    <ion-col>
+                    </ion-col>
+                    <ion-col>
+                        <ion-button color="primary" class="button-outline" [routerLink]="['/saleing/account/list']">
+                            返回列表
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-card-content>
+    </ion-card>
 </ion-content>

@@ -34,18 +34,26 @@ export class DetailPage implements OnInit {
     systemUserId: "",//当前用户id
 
     //联络记录参数
-    datalist: [],
-    pageSize: 10,//页数
-    page: 1,//分页
-    sort: '',//排序的参数
+    datalist: [],  
     isending: false,//是否加载完成
+    params:{
+        mcs_onlyleadid: "",    
+        Sort: '',
+        PageSize: 10,
+        PageIndex: 1,
+        UserId:""
+    },
 
     //培育任务参数
     datalist2: [],
-    pageSize2: 10,//页数
-    page2: 1,//分页
-    sort2: '',//排序的参数
     isending2: false,//是否加载完成
+    params2:{
+        mcs_onlyleadid: "",    
+        Sort: '',
+        PageSize: 10,
+        PageIndex: 1,
+        UserId:""
+    }
 };
 constructor(
     private _http: DCore_Http,
@@ -61,11 +69,22 @@ ngOnInit() {
     this.mod.datalist2= [];
     
     this.activeRoute.queryParams.subscribe((params: Params) => {
+
         if (params['id'] != null && params['id'] != undefined) {
 
             this.mod.data.mcs_onlyleadid=params['id'];
-            this.pageOnBind();
+
+            if (params['source'] != null && params['source'] != undefined && params['source'] == 2)  {          
+                this.pageOnLogCalllist();
+            }
+            else {
+
+                this.pageOnBind();
+            }   
+          
         }
+       
+
     });
 
     this.mod.systemUserId = this._logininfo.GetSystemUserId(); 
@@ -117,20 +136,16 @@ pageOnBind() {
 
 //加载联络记录(logcall)列表
 pageOnLogCalllist() {
+
+    this.mod.params.mcs_onlyleadid=this.mod.data.mcs_onlyleadid;
+    this.mod.params.UserId=this.mod.systemUserId;
+   
     this.mod.datalist= [];
    // debugger;
     this._page.loadingShow();
-    this._http.get(
+    this._http.postForToaken(
         this.mod.apiUrlList1,
-        {
-            params: {
-                entityid: this.mod.data.mcs_onlyleadid,
-                sort: this.mod.sort,
-                pageSize: this.mod.pageSize,
-                page: this.mod.page,
-                systemuserid: this.mod.systemUserId,
-            }
-        },
+        this.mod.params,
         (res: any) => {
            // debugger;
             if (res !== null) {
@@ -146,7 +161,7 @@ pageOnLogCalllist() {
                     }
                     //console.log(res);
                 }  //判断是否有新数据
-                if (res.Results.length == 0) {
+                if (res.Results.length < this.mod.params.PageIndex) {
                     this.mod.isending = true;
                 }
             }
@@ -165,21 +180,18 @@ pageOnLogCalllist() {
 
 //加载培育任务列表
 pageOnActivitylist() {
+    debugger;
+
+    this.mod.params2.mcs_onlyleadid=this.mod.data.mcs_onlyleadid;
+    this.mod.params2.UserId=this.mod.systemUserId;
+   
     this.mod.datalist2= [];
     this._page.loadingShow();
-    this._http.get(
-        this.mod.apiUrlList2,
-        {
-            params: {
-                entityid: this.mod.data.mcs_onlyleadid,
-                sort: this.mod.sort2,
-                pageSize: this.mod.pageSize2,
-                page: this.mod.page2,
-                systemuserid: this.mod.systemUserId,
-            }
-        },
+    this._http.postForToaken(
+        this.mod.apiUrlList2,     
+        this.mod.params2,
         (res: any) => {
-           // debugger;
+            debugger;
             if (res !== null) {
                 if (res.Results !== null) {
                     for (var key in res.Results) {
@@ -193,7 +205,7 @@ pageOnActivitylist() {
                     }
                     //console.log(res);
                 }  //判断是否有新数据
-                if (res.Results.length == 0) {
+                if (res.Results.length < this.mod.params2.PageIndex) {
                     this.mod.isending2 = true;
                 }
             }
@@ -212,32 +224,32 @@ pageOnActivitylist() {
 
  //logcall加载下一页
  doNextLoadingLog() {
-    this.mod.page++;
+    this.mod.params.PageIndex++;
     this.pageOnLogCalllist();
 }
 
 //下拉刷新log
-doRefreshLog() {
+/* doRefreshLog() {
     this.mod.datalist = [];
     this.mod.page = 1;
     this.mod.isending = false;
     this.pageOnLogCalllist();
-}
+} */
 
  //培育任务加载下一页
  doNextLoadingAc() {
-    this.mod.page2++;
+    this.mod.params2.PageIndex++;
     this.pageOnActivitylist();
 }
 
 //下拉刷新培育任务
-doRefreshAc() {
+/* doRefreshAc() {
     this.mod.datalist2 = [];
     this.mod.page2 = 1;
     this.mod.isending2 = false;
     this.pageOnActivitylist();
 }
-
+ */
 
 FormatToDateTime(date) {
     if (date != null && date != undefined) {

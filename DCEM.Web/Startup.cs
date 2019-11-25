@@ -57,6 +57,11 @@ namespace DCEM.Web
             app.UseRouting();
             app.UseCors("any");
             app.UseMvc();
+            app.UseStaticFiles();
+            app.UseFileServer(new FileServerOptions()
+            {
+                EnableDirectoryBrowsing = true                                     //开启目录浏览
+            });
 
             app.UseExceptionWrapper(LoggerCategoryNames.HttpRequest);
         }

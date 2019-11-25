@@ -52,11 +52,11 @@ namespace DCEM.ServiceAssistantService.Main.Application
         }
 
         /// <summary>
-        /// 
+        /// 获取预约时段列表
         /// </summary>
         /// <param name="appointmentConfiggRequest"></param>
         /// <returns></returns>
-        public async Task<QueryResult<CrmEntity>> GetConfig(AppointmentConfiggRequest appointmentConfiggRequest)
+        public async Task<QueryResult<CrmEntity>> GetConfig(AppointmentConfigRequest appointmentConfiggRequest)
         {
             return await _appointmentInfoService.GetConfig(appointmentConfiggRequest);
         }

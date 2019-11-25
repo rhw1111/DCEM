@@ -111,12 +111,16 @@ let LoginPage = class LoginPage {
     // 初始化
     ngOnInit() {
         // 加入测试参数
-        //this.mod.username = 'subdevcrmadmin';
-        //this.mod.password = 'password01#';
-        this.mod.username = 'subuatcrmadmin';
-        this.mod.password = 'P@ssw0rd';
+        this.mod.username = 'subdevcrmadmin';
+        this.mod.password = 'password01#';
+        //this.mod.username = 'subuatcrmadmin';
+        //this.mod.password = 'P@ssw0rd';
         this.mod.apiurl = '/api/User/GetAuthToken';
         this.mod.domainType = 'local';
+        var welcomeisloading = this._window.storageGet("welcomeisloading");
+        if (welcomeisloading == null || welcomeisloading == "") {
+            this._window.storageSet("welcomeisloading", "true");
+        }
     }
     // 提交
     submit() {
@@ -145,7 +149,7 @@ let LoginPage = class LoginPage {
                 this.mod.domain = "http://localhost:52151";
                 break;
             default:
-                this.mod.domain = "http://localhost:52151";
+                this.mod.domain = "http://localhost:9099";
                 break;
         }
         this._window.storageSet("apiDomainUrl", this.mod.domain);

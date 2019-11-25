@@ -29,24 +29,24 @@ export class ListPage implements OnInit {
       searchkey: "",
       deliverystatus: "-1",
       userId: this._userinfo.GetSystemUserId(),
-      dealerid: "d2b7ae95-72f4-e911-a821-f2106c4094a1",//this._userinfo.GetDealerid()
+      dealerid: this._userinfo.GetDealerid()
     },
     deliverys: [],
     isending: false
   }
   ngOnInit() {
-    
+    this.model.deliverystatusOptions = this._optionset.Get("mcs_deliverystatus"); 
   }
 
   //每次页面加载
   ionViewWillEnter() { 
     this.model.deliverys=[];
-    this.model.search.pageindex = 1;
-    this.model.deliverystatusOptions = this._optionset.Get("mcs_deliverystatus"); 
+    this.model.search.pageindex = 1; 
     this.listOnBind(null);
   }
   //加载下一页
   doLoading(event) {
+    
     this.model.search.pageindex++;
     this.model.isending = false;
     this.listOnBind(event);
@@ -79,14 +79,17 @@ export class ListPage implements OnInit {
             obj["vin"] = attr["_mcs_vin_value@OData.Community.Display.V1.FormattedValue"];
             obj["code"] = attr["mcs_code"];
             obj["ro"] = attr["_mcs_vehorder_value@OData.Community.Display.V1.FormattedValue"];
-            obj["createdon"] = attr["createdon"];
+            obj["createdon"] = attr["createdon@OData.Community.Display.V1.FormattedValue"];
             obj["deliverystatus"] = this._optionset.GetOptionSetNameByValue("mcs_deliverystatus", attr["mcs_deliverystatus"]);
             this.model.deliverys.push(obj);
           }
           event ? event.target.complete() : '';
           if (data.length < this.model.search.pagesize) {
             event ? event.target.disabled = true : "";
+            if(this.model.search.pageindex!=1)
+            { 
             this.model.isending = true;
+            }
           }
           this._page.loadingHide();
         }

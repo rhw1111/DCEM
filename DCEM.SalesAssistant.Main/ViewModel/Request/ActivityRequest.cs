@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MSLibrary.Xrm;
+using System;
 using System.Collections.Generic;
 using System.Text;
 /// <summary>
@@ -11,16 +12,41 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         /// <summary>
         /// 唯一线索主键ID
         /// </summary>
-        public string entityid { get; set; }
+        public string mcs_onlyleadid { get; set; }
 
         /// <summary>
-        /// 查询关键字
+        /// 销售机会主键ID
         /// </summary>
-        public string SearchKey { set; get; }
+        public string accountid { get; set; }
+
+    /// <summary>
+    /// 查询关键字
+    /// </summary>
+    public string SearchKey { set; get; }
 
         /// <summary>
         /// 任务状态
         /// </summary>
-        public int ? mcs_activitystatus { set; get; }
+        public int? mcs_activitystatus { set; get; }
     }
+
+
+    
+
+    #region 培育任务详情model
+    public class ActivityDetailModel
+    {
+        /// <summary>
+        /// 培育任务基本信息
+        /// </summary>
+        public CrmEntity ActivityInfo { get; set; }
+
+        /// <summary>
+        /// 唯一线索基本信息
+        /// </summary>
+        public CrmEntity OnlyLeadInfo { get; set; }
+
+
+    }
+    #endregion
 }

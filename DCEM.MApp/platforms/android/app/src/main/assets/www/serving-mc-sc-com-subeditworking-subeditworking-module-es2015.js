@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/sc/edit2\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>维修项目</ion-title>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-card>\r\n        <ion-card-header>\r\n            <ion-card-title>\r\n                <ion-label>维修项目</ion-label>\r\n            </ion-card-title>\r\n        </ion-card-header>\r\n        <ion-list lines=\"full\">\r\n\r\n            <ion-item (click)=\"presentWorkingModal()\">\r\n                <ion-label position=\"stacked\">\r\n                    <ion-icon slot=\"end\" name=\"search\"></ion-icon>\r\n                    代码\r\n                    <ion-text color=\"danger\">*</ion-text>\r\n                </ion-label>\r\n                <p>{{mod.data[\"code\"]}}&nbsp;</p>\r\n            </ion-item>\r\n            <ion-item (click)=\"presentWorkingModal()\">\r\n                <ion-label position=\"stacked\">\r\n                    <ion-icon name=\"lock\"></ion-icon>\r\n                    名称\r\n                    <ion-text color=\"danger\">*</ion-text>\r\n                </ion-label>\r\n                <p>{{mod.data[\"name\"]}}&nbsp;</p>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">\r\n                    <ion-icon name=\"lock\"></ion-icon>\r\n                    维修类别\r\n                    <ion-text color=\"danger\">*</ion-text>\r\n                </ion-label>\r\n                <p>{{mod.data[\"repairitemtypeid_Formatted\"]}}&nbsp;</p>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">\r\n                    <ion-icon name=\"lock\"></ion-icon>\r\n                    维修类型\r\n                    <ion-text color=\"danger\">*</ion-text>\r\n                </ion-label>\r\n                <p>{{mod.data[\"repairitemtypedetailid_Formatted\"]}}&nbsp;</p>\r\n\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">\r\n                    <ion-icon name=\"lock\"></ion-icon>\r\n                    工时\r\n                    <ion-text color=\"danger\">*</ion-text>\r\n                </ion-label>\r\n                <ion-input type=\"number\" [(ngModel)]=\"mod.data['workinghour']\"></ion-input>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">\r\n                    <ion-icon name=\"lock\"></ion-icon>\r\n                    单价\r\n                    <ion-text color=\"danger\">*</ion-text>\r\n                </ion-label>\r\n                <ion-input type=\"number\" [(ngModel)]=\"mod.data['price']\"></ion-input>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">\r\n                    <ion-icon name=\"lock\"></ion-icon>\r\n                    折扣\r\n                    <ion-text color=\"danger\">*</ion-text>\r\n                </ion-label>\r\n                <ion-input type=\"number\" [(ngModel)]=\"mod.data['discount']\"></ion-input>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">\r\n                    <ion-icon name=\"lock\"></ion-icon>\r\n                    维修费用\r\n                    <ion-text color=\"danger\">*</ion-text>\r\n                </ion-label>\r\n                <p>{{mod.data[\"repairamount\"]}}&nbsp;</p>\r\n            </ion-item>\r\n\r\n        </ion-list>\r\n        <br />\r\n    </ion-card>\r\n    <section style=\"text-align:center;\">\r\n        <ion-button style=\"width:40%\" color=\"danger\" [routerLink]=\"['/serving/sc/edit2']\">取消</ion-button>\r\n        <ion-button style=\"width:40%\" color=\"success\" (click)=\"saveOnClick()\">确定</ion-button>\r\n    </section>\r\n    <br />\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/sc/edit2\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>维修项目</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-menu-button></ion-menu-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-card>\r\n        <ion-card-header>\r\n            <ion-card-title>\r\n                <ion-label>维修项目</ion-label>\r\n            </ion-card-title>\r\n        </ion-card-header>\r\n        <ion-list lines=\"full\">\r\n\r\n            <ion-item (click)=\"presentWorkingModal()\">\r\n                <ion-label position=\"stacked\">\r\n                    <ion-icon slot=\"end\" name=\"search\"></ion-icon>\r\n                    代码\r\n                    <ion-text color=\"danger\">*</ion-text>\r\n                </ion-label>\r\n                <p>{{mod.data[\"code\"]}}&nbsp;</p>\r\n            </ion-item>\r\n            <ion-item (click)=\"presentWorkingModal()\">\r\n                <ion-label position=\"stacked\">\r\n                    <ion-icon name=\"lock\"></ion-icon>\r\n                    名称\r\n                    <ion-text color=\"danger\">*</ion-text>\r\n                </ion-label>\r\n                <p>{{mod.data[\"name\"]}}&nbsp;</p>\r\n            </ion-item>\r\n            <ion-item (click)=\"presentRepairitemtypeModal()\">\r\n                <ion-label position=\"stacked\">\r\n                    <ion-icon name=\"search\"></ion-icon>\r\n                    维修类别\r\n                    <ion-text color=\"danger\">*</ion-text>\r\n                </ion-label>\r\n                <p>{{mod.data[\"repairitemtypeid_Formatted\"]}}&nbsp;</p>\r\n            </ion-item>\r\n            <ion-item (click)=\"presentRepairitemtypedetailModal()\">\r\n                <ion-label position=\"stacked\">\r\n                    <ion-icon name=\"search\"></ion-icon>\r\n                    维修类型\r\n                    <ion-text color=\"danger\">*</ion-text>\r\n                </ion-label>\r\n                <p>{{mod.data[\"repairitemtypedetailid_Formatted\"]}}&nbsp;</p>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">\r\n                    工时\r\n                    <ion-text color=\"danger\">*</ion-text>\r\n                </ion-label>\r\n                <ion-input type=\"number\" [(ngModel)]=\"mod.data['workinghour']\" (keyup)=\"caleMoney()\"></ion-input>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">\r\n                    <ion-icon name=\"lock\"></ion-icon>\r\n                    单价\r\n                    <ion-text color=\"danger\">*</ion-text>\r\n                </ion-label>\r\n                <ion-input type=\"number\" [(ngModel)]=\"mod.data['price']\"></ion-input>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">\r\n                    折扣\r\n                    <ion-text color=\"danger\">*</ion-text>\r\n                </ion-label>\r\n                <ion-input type=\"number\" [(ngModel)]=\"mod.data['discount']\" (keyup)=\"caleMoney()\"></ion-input>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">\r\n                    <ion-icon name=\"lock\"></ion-icon>\r\n                    维修费用\r\n                    <ion-text color=\"danger\">*</ion-text>\r\n                </ion-label>\r\n                <p>{{mod.data[\"repairamount\"]}}&nbsp;</p>\r\n            </ion-item>\r\n\r\n        </ion-list>\r\n        <br />\r\n    </ion-card>\r\n    <section style=\"text-align:center;\">\r\n        <ion-button style=\"width:40%\" color=\"danger\" [routerLink]=\"['/serving/sc/edit2']\">取消</ion-button>\r\n        <ion-button style=\"width:40%\" color=\"success\" (click)=\"saveOnClick()\">确定</ion-button>\r\n    </section>\r\n    <br />\r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -83,24 +83,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var app_serving_serving_ser_components_select_repairitem_select_repairitem_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/serving/serving.ser/components/select-repairitem/select-repairitem.component */ "./src/app/serving/serving.ser/components/select-repairitem/select-repairitem.component.ts");
-/* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var app_serving_serving_ser_components_select_repairitem_select_repairitem_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/serving/serving.ser/components/select-repairitem/select-repairitem.component */ "./src/app/serving/serving.ser/components/select-repairitem/select-repairitem.component.ts");
+/* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_repairitemtype_select_repairitemtype_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component */ "./src/app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_repairitemtypedetail_select_repairitemtypedetail_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component */ "./src/app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component.ts");
+
+
+
 
 
 
 
 
 let SubeditworkingPage = class SubeditworkingPage {
-    constructor(_http, _page, _shareData, _valid, _modalCtrl) {
+    constructor(_http, _page, _shareData, _valid, _modalCtrl, _activeRoute) {
         this._http = _http;
         this._page = _page;
         this._shareData = _shareData;
         this._valid = _valid;
         this._modalCtrl = _modalCtrl;
+        this._activeRoute = _activeRoute;
         this.mod = {
+            actionCode: 1,
             data: {},
             searchData: {},
-            shareDataKey: "scEditData"
+            shareDataKey: "scEditData",
+            mapkey: null,
         };
         //定义共享数据
         this.shareData = {
@@ -115,9 +124,42 @@ let SubeditworkingPage = class SubeditworkingPage {
         if (this._shareData.has(this.mod.shareDataKey)) {
             this.shareData = this._shareData.get(this.mod.shareDataKey);
         }
+        this._activeRoute.queryParams.subscribe((params) => {
+            if (!this._valid.isNull(params['actionCode'])) {
+                this.mod.actionCode = Number(params['actionCode']);
+            }
+            if (this.mod.actionCode === 1) {
+                this.mod.data = {};
+            }
+            else {
+                this.mod.mapkey = params['key'];
+                this.mod.data = Object.assign({}, this.shareData.serviceorderrepairitemMap[this.mod.mapkey]);
+            }
+        });
     }
     //保存
     saveOnClick() {
+        var errMessage = "";
+        if (this._valid.isNullOrEmpty(this.mod.data["repairitemid"])) {
+            errMessage += "您尚未未选择维修项目<br>";
+        }
+        if (this._valid.isNullOrEmpty(this.mod.data["workinghour"])) {
+            errMessage += "您尚未未输入工时<br>";
+        }
+        else if (!this._valid.isNumber(this.mod.data["workinghour"])) {
+            errMessage += "工时不是一个有效的数字<br>";
+        }
+        if (this._valid.isNullOrEmpty(this.mod.data["discount"])) {
+            errMessage += "您尚未未输入折扣<br>";
+        }
+        else if (this.mod.data["discount"] < 0 || this.mod.data["discount"] > 1) {
+            errMessage += "折扣只能输入0-1之间的数值<br>";
+        }
+        if (errMessage !== "") {
+            this._page.presentToastError(errMessage);
+            return;
+        }
+        this.shareData.serviceorderrepairitemMap[this.mod.mapkey] = this.mod.data;
         this._shareData.set(this.mod.shareDataKey, this.shareData);
         this._page.goto("/serving/sc/edit2");
     }
@@ -125,14 +167,14 @@ let SubeditworkingPage = class SubeditworkingPage {
     presentWorkingModal() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             const modal = yield this._modalCtrl.create({
-                component: app_serving_serving_ser_components_select_repairitem_select_repairitem_component__WEBPACK_IMPORTED_MODULE_3__["SelectRepairitemComponent"]
+                component: app_serving_serving_ser_components_select_repairitem_select_repairitem_component__WEBPACK_IMPORTED_MODULE_4__["SelectRepairitemComponent"]
             });
             yield modal.present();
             const { data } = yield modal.onDidDismiss();
             if (!this._valid.isNull(data) && !this._valid.isNull(data["repairitem"])) {
-                console.log(data);
                 var obj = {};
-                var mapkey = Math.random(); //生成唯一编码
+                if (this.mod.actionCode === 1)
+                    this.mod.mapkey = Math.random(); //生成唯一编码
                 obj["name"] = data["repairitem"]["model"]["mcs_repairitemcode"];
                 obj["code"] = data["repairitem"]["model"]["mcs_name"];
                 obj["repairitemid"] = data["repairitem"]["model"]["mcs_repairiteminfoid"];
@@ -145,17 +187,78 @@ let SubeditworkingPage = class SubeditworkingPage {
                 obj["discount"] = 1;
                 obj["repairamount"] = obj["workinghour"] * obj["price"];
                 this.mod.data = obj;
-                this.shareData.serviceorderrepairitemMap[mapkey] = obj;
+                this.shareData.serviceorderrepairitemMap[this.mod.mapkey] = obj;
             }
         });
     }
+    //选择维修类型
+    presentRepairitemtypeModal() {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            var errMessage = "";
+            if (this._valid.isNullOrEmpty(this.mod.data["repairitemid"])) {
+                errMessage += "您尚未选择维修项目<br>";
+            }
+            if (errMessage !== "") {
+                this._page.presentToastError(errMessage);
+                return;
+            }
+            const modal = yield this._modalCtrl.create({
+                component: app_serving_serving_ser_components_select_repairitemtype_select_repairitemtype_component__WEBPACK_IMPORTED_MODULE_6__["SelectRepairitemtypeComponent"]
+            });
+            yield modal.present();
+            const { data } = yield modal.onDidDismiss();
+            if (!this._valid.isNull(data) && !this._valid.isNull(data["item"])) {
+                this.mod.data["repairitemtypeid"] = data["item"]["model"]["mcs_repairitemtypeid"];
+                this.mod.data["repairitemtypeid_Formatted"] = data["item"]["model"]["mcs_name"];
+            }
+        });
+    }
+    //选择维修类别
+    presentRepairitemtypedetailModal() {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            var errMessage = "";
+            if (this._valid.isNullOrEmpty(this.mod.data["repairitemid"])) {
+                errMessage += "您尚未选择维修项目<br>";
+            }
+            if (errMessage !== "") {
+                this._page.presentToastError(errMessage);
+                return;
+            }
+            const modal = yield this._modalCtrl.create({
+                component: app_serving_serving_ser_components_select_repairitemtypedetail_select_repairitemtypedetail_component__WEBPACK_IMPORTED_MODULE_7__["SelectRepairitemtypedetailComponent"]
+            });
+            yield modal.present();
+            const { data } = yield modal.onDidDismiss();
+            if (!this._valid.isNull(data) && !this._valid.isNull(data["item"])) {
+                this.mod.data["repairitemtypedetailid"] = data["item"]["model"]["mcs_repairitemtypedetailid"];
+                this.mod.data["repairitemtypedetailid_Formatted"] = data["item"]["model"]["mcs_name"];
+            }
+        });
+    }
+    //计算总金额
+    caleMoney() {
+        var workinghour = 0; //默认数量
+        if (!this._valid.isNullOrEmpty(this.mod.data["workinghour"]) && this._valid.isNumber(this.mod.data["workinghour"])) {
+            workinghour = this.mod.data["workinghour"];
+        }
+        var price = 0; //默认价格
+        if (!this._valid.isNullOrEmpty(this.mod.data["price"]) && this._valid.isNumber(this.mod.data["price"])) {
+            price = this.mod.data["price"];
+        }
+        var discount = 0; //默认比例
+        if (!this._valid.isNullOrEmpty(this.mod.data["discount"]) && this._valid.isNumber(this.mod.data["discount"])) {
+            discount = this.mod.data["discount"];
+        }
+        this.mod.data["repairamount"] = (workinghour * price * discount).toFixed(2);
+    }
 };
 SubeditworkingPage.ctorParameters = () => [
-    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__["DCore_Http"] },
-    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__["DCore_Page"] },
-    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__["DCore_ShareData"] },
-    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__["DCore_Valid"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] }
+    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_5__["DCore_Http"] },
+    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_5__["DCore_Page"] },
+    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_5__["DCore_ShareData"] },
+    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_5__["DCore_Valid"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] }
 ];
 SubeditworkingPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -163,11 +266,12 @@ SubeditworkingPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./subeditworking.page.html */ "./node_modules/raw-loader/index.js!./src/app/serving/mc-sc.com/subeditworking/subeditworking.page.html"),
         styles: [__webpack_require__(/*! ./subeditworking.page.scss */ "./src/app/serving/mc-sc.com/subeditworking/subeditworking.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__["DCore_Http"],
-        app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__["DCore_Page"],
-        app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__["DCore_ShareData"],
-        app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__["DCore_Valid"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_5__["DCore_Http"],
+        app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_5__["DCore_Page"],
+        app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_5__["DCore_ShareData"],
+        app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_5__["DCore_Valid"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
+        _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]])
 ], SubeditworkingPage);
 
 

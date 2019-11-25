@@ -10,7 +10,17 @@ const routes: Routes = [
                 path: 'uc',
                 children: [
                     { path: 'login', loadChildren: './base/uc.com/login/login.module#LoginPageModule' },
-                    { path: 'welcome', loadChildren: './base/uc.com/welcome/welcome.module#WelcomePageModule' }
+                    { path: 'welcome', loadChildren: './base/uc.com/welcome/welcome.module#WelcomePageModule' },
+                    { path: 'detail', loadChildren: './base/uc.com/detail/detail.module#DetailPageModule' }
+                ]
+            },
+            {
+                path:'message',
+                children:[
+                    { path: 'charts', loadChildren: './base/message.com/charts/charts.module#ChartsPageModule' },
+                    { path: 'chat-detail', loadChildren: './base/message.com/chat-detail/chat-detail.module#ChatDetailPageModule' },
+                    { path: 'room', loadChildren: './base/message.com/room/room.module#RoomPageModule' },
+                    { path: 'activities', loadChildren: './base/message.com/activities/activities.module#ActivitiesPageModule' },
                 ]
             }
         ]
@@ -101,6 +111,12 @@ const routes: Routes = [
                     { path: 'list', loadChildren: './serving/spmdspstock.com/list/list.module#ListPageModule' },
                 ]
             },
+            {
+                path: 'maintenance',//维修保养-预约日历
+                children: [
+                    { path: 'calendar', loadChildren: './serving/maintenance/calendar/calendar.module#CalendarPageModule' }
+                ]
+            }
         ],
     },
     {
@@ -129,6 +145,7 @@ const routes: Routes = [
                 children: [
                     { path: 'list', loadChildren: './saleing/mcs-contactrecord/list/list.module#ListPageModule' },
                     { path: 'edit', loadChildren: './saleing/mcs-contactrecord/edit/edit.module#EditPageModule' },
+                    { path: 'success', loadChildren: './saleing/mcs-contactrecord/success/success.module#SuccessPageModule' }
                 ]
             },
             {
@@ -156,7 +173,7 @@ const routes: Routes = [
                     { path: 'edit', loadChildren: './saleing/delivery/edit/edit.module#EditPageModule' },
                     { path: 'detail', loadChildren: './saleing/delivery/detail/detail.module#DetailPageModule' },
                     { path: 'success', loadChildren: './saleing/delivery/success/success.module#SuccessPageModule' },
-                    { path: 'timeline', loadChildren: './saleing/delivery/timeline/timeline.module#TimelinePageModule'},
+                    { path: 'timeline', loadChildren: './saleing/delivery/timeline/timeline.module#TimelinePageModule' },
                     { path: 'appointment', loadChildren: './saleing/delivery/appointment/appointment.module#AppointmentPageModule' },
                     { path: 'pdiservice', loadChildren: './saleing/delivery/pdiservice/pdiservice.module#PdiservicePageModule' }
                 ]
@@ -188,7 +205,7 @@ const routes: Routes = [
                 children: [
 
                     { path: 'list', loadChildren: './saleing/vehnetwork/list/list.module#ListPageModule' },
-                     { path: 'detail', loadChildren: './saleing/vehnetwork/detail/detail.module#DetailPageModule' },
+                    { path: 'detail', loadChildren: './saleing/vehnetwork/detail/detail.module#DetailPageModule' },
                     { path: 'success', loadChildren: './saleing/vehnetwork/success/success.module#SuccessPageModule' },
                 ]
             },
@@ -200,15 +217,56 @@ const routes: Routes = [
                     { path: 'detail', loadChildren: './saleing/vehlisense/detail/detail.module#DetailPageModule' },
                     { path: 'success', loadChildren: './saleing/vehlisense/success/success.module#SuccessPageModule' },
                 ]
+            },
+            {
+                path: 'surveyorder',//勘测单-记录
+                children: [
+
+                    { path: 'list', loadChildren: './saleing/mcs_surveyorder/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './saleing/mcs_surveyorder/detail/detail.module#DetailPageModule' }
+                ]
+            },
+            {
+                path: 'installationorder',//安装单
+                children: [
+
+                    { path: 'list', loadChildren: './saleing/mcs_installationorder/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './saleing/mcs_installationorder/detail/detail.module#DetailPageModule' }
+                ]
+            },
+             {
+                 path: 'driverecord',//试车试驾
+                children: [
+                    { path: 'list', loadChildren: './saleing/mcs_driverecord.com/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './saleing/mcs_driverecord.com/detail/detail.module#DetailPageModule' },
+                    { path: 'edit', loadChildren: './saleing/mcs_driverecord.com/edit/edit.module#EditPageModule' },
+                    { path: 'success', loadChildren: './saleing/mcs_driverecord.com/success/success.module#SuccessPageModule'},
+                    { path: 'calendar', loadChildren: './saleing/mcs_driverecord.com/calendar/calendar.module#CalendarPageModule' },
+                    { path: 'feedback', loadChildren: './saleing/mcs_driverecord.com/feedback/feedback.module#FeedbackPageModule' }
+                ]
             }
         ]
     },
     {
         path: 'demo',//ng.mobile.ant demo
         children: [
-        { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
-      ]
-    }
+            { path: 'steps', loadChildren: './base/demo/steps/steps.module#StepsPageModule' }
+        ]
+    },
+    { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' },
+    { path: 'fileupload', loadChildren: './serving/serving.ser/components/fileupload/fileupload.module#FileuploadPageModule' },
+  { path: 'list', loadChildren: './saleing/mcs_installationorder/list/list.module#ListPageModule' },
+  { path: 'detail', loadChildren: './saleing/mcs_installationorder/detail/detail.module#DetailPageModule' },
+  { path: 'success', loadChildren: './saleing/mcs-contactrecord/success/success.module#SuccessPageModule' },
+
+
+ 
+
+
+ 
+ 
+
+
 ];
 
 @NgModule({

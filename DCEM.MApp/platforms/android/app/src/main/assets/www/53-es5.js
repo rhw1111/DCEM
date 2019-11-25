@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[53],{
 
-/***/ "./node_modules/@ionic/core/dist/esm-es5/ion-refresher_2-ios.entry.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm-es5/ion-refresher_2-ios.entry.js ***!
-  \****************************************************************************/
+/***/ "./node_modules/@ionic/core/dist/esm-es5/ion-refresher_2-md.entry.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm-es5/ion-refresher_2-md.entry.js ***!
+  \***************************************************************************/
 /*! exports provided: ion_refresher, ion_refresher_content */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -12,16 +12,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_refresher", function() { return Refresher; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_refresher_content", function() { return RefresherContent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./chunk-d0403a2f.js */ "./node_modules/@ionic/core/dist/esm-es5/chunk-d0403a2f.js");
-/* harmony import */ var _chunk_1074393c_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./chunk-1074393c.js */ "./node_modules/@ionic/core/dist/esm-es5/chunk-1074393c.js");
-/* harmony import */ var _chunk_cae2ca23_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./chunk-cae2ca23.js */ "./node_modules/@ionic/core/dist/esm-es5/chunk-cae2ca23.js");
+/* harmony import */ var _core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./core-ca0488fc.js */ "./node_modules/@ionic/core/dist/esm-es5/core-ca0488fc.js");
+/* harmony import */ var _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./config-3c7f3790.js */ "./node_modules/@ionic/core/dist/esm-es5/config-3c7f3790.js");
+/* harmony import */ var _index_3476b023_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./index-3476b023.js */ "./node_modules/@ionic/core/dist/esm-es5/index-3476b023.js");
 
 
 
 
 var Refresher = /** @class */ (function () {
-    function Refresher(hostRef) {
-        Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["r"])(this, hostRef);
+    function class_1(hostRef) {
+        Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["r"])(this, hostRef);
         this.appliedStyles = false;
         this.didStart = false;
         this.progress = 0;
@@ -71,20 +71,20 @@ var Refresher = /** @class */ (function () {
          * If `true`, the refresher will be hidden.
          */
         this.disabled = false;
-        this.ionRefresh = Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["c"])(this, "ionRefresh", 7);
-        this.ionPull = Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["c"])(this, "ionPull", 7);
-        this.ionStart = Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["c"])(this, "ionStart", 7);
+        this.ionRefresh = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["c"])(this, "ionRefresh", 7);
+        this.ionPull = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["c"])(this, "ionPull", 7);
+        this.ionStart = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["c"])(this, "ionStart", 7);
     }
-    Refresher.prototype.disabledChanged = function () {
+    class_1.prototype.disabledChanged = function () {
         if (this.gesture) {
             this.gesture.setDisabled(this.disabled);
         }
     };
-    Refresher.prototype.componentDidLoad = function () {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+    class_1.prototype.connectedCallback = function () {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function () {
             var contentEl, _a, _b;
             var _this = this;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_c) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_c) {
                 switch (_c.label) {
                     case 0:
                         if (this.el.getAttribute('slot') !== 'fixed') {
@@ -92,21 +92,19 @@ var Refresher = /** @class */ (function () {
                             return [2 /*return*/];
                         }
                         contentEl = this.el.closest('ion-content');
-                        if (!contentEl) return [3 /*break*/, 2];
+                        if (!contentEl) {
+                            console.error('<ion-refresher> must be used inside an <ion-content>');
+                            return [2 /*return*/];
+                        }
                         _a = this;
                         return [4 /*yield*/, contentEl.getScrollElement()];
                     case 1:
                         _a.scrollEl = _c.sent();
-                        return [3 /*break*/, 3];
-                    case 2:
-                        console.error('ion-refresher did not attach, make sure the parent is an ion-content.');
-                        _c.label = 3;
-                    case 3:
                         _b = this;
-                        return [4 /*yield*/, __webpack_require__.e(/*! import() | index-f4f18d97-js */ 1).then(__webpack_require__.bind(null, /*! ./index-f4f18d97.js */ "./node_modules/@ionic/core/dist/esm-es5/index-f4f18d97.js"))];
-                    case 4:
+                        return [4 /*yield*/, Promise.resolve(/*! import() */).then(__webpack_require__.bind(null, /*! ./index-624eea58.js */ "./node_modules/@ionic/core/dist/esm-es5/index-624eea58.js"))];
+                    case 2:
                         _b.gesture = (_c.sent()).createGesture({
-                            el: this.el.closest('ion-content'),
+                            el: contentEl,
                             gestureName: 'refresher',
                             gesturePriority: 10,
                             direction: 'y',
@@ -123,7 +121,7 @@ var Refresher = /** @class */ (function () {
             });
         });
     };
-    Refresher.prototype.componentDidUnload = function () {
+    class_1.prototype.disconnectedCallback = function () {
         this.scrollEl = undefined;
         if (this.gesture) {
             this.gesture.destroy();
@@ -139,9 +137,9 @@ var Refresher = /** @class */ (function () {
      * the refresher. This method also changes the refresher's state from
      * `refreshing` to `completing`.
      */
-    Refresher.prototype.complete = function () {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+    class_1.prototype.complete = function () {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function () {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
                 this.close(32 /* Completing */, '120ms');
                 return [2 /*return*/];
             });
@@ -150,9 +148,9 @@ var Refresher = /** @class */ (function () {
     /**
      * Changes the refresher's state from `refreshing` to `cancelling`.
      */
-    Refresher.prototype.cancel = function () {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+    class_1.prototype.cancel = function () {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function () {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
                 this.close(16 /* Cancelling */, '');
                 return [2 /*return*/];
             });
@@ -167,10 +165,10 @@ var Refresher = /** @class */ (function () {
      * refresh will not happen, and the content will return to it's original
      * position.
      */
-    Refresher.prototype.getProgress = function () {
+    class_1.prototype.getProgress = function () {
         return Promise.resolve(this.progress);
     };
-    Refresher.prototype.canStart = function () {
+    class_1.prototype.canStart = function () {
         if (!this.scrollEl) {
             return false;
         }
@@ -184,11 +182,11 @@ var Refresher = /** @class */ (function () {
         }
         return true;
     };
-    Refresher.prototype.onStart = function () {
+    class_1.prototype.onStart = function () {
         this.progress = 0;
         this.state = 1 /* Inactive */;
     };
-    Refresher.prototype.onMove = function (detail) {
+    class_1.prototype.onMove = function (detail) {
         if (!this.scrollEl) {
             return;
         }
@@ -274,7 +272,7 @@ var Refresher = /** @class */ (function () {
         this.state = 4 /* Ready */;
         return;
     };
-    Refresher.prototype.onEnd = function () {
+    class_1.prototype.onEnd = function () {
         // only run in a zone when absolutely necessary
         if (this.state === 4 /* Ready */) {
             // they pulled down far enough, so it's ready to refresh
@@ -288,7 +286,7 @@ var Refresher = /** @class */ (function () {
             this.cancel();
         }
     };
-    Refresher.prototype.beginRefresh = function () {
+    class_1.prototype.beginRefresh = function () {
         // assumes we're already back in a zone
         // they pulled down far enough, so it's ready to refresh
         this.state = 8 /* Refreshing */;
@@ -300,7 +298,7 @@ var Refresher = /** @class */ (function () {
             complete: this.complete.bind(this)
         });
     };
-    Refresher.prototype.close = function (state, delay) {
+    class_1.prototype.close = function (state, delay) {
         var _this = this;
         // create fallback timer incase something goes wrong with transitionEnd event
         setTimeout(function () {
@@ -315,10 +313,10 @@ var Refresher = /** @class */ (function () {
         this.setCss(0, this.closeDuration, true, delay);
         // TODO: stop gesture
     };
-    Refresher.prototype.setCss = function (y, duration, overflowVisible, delay) {
+    class_1.prototype.setCss = function (y, duration, overflowVisible, delay) {
         var _this = this;
         this.appliedStyles = (y > 0);
-        Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["w"])(function () {
+        Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["w"])(function () {
             if (_this.scrollEl) {
                 var style = _this.scrollEl.style;
                 style.transform = ((y > 0) ? "translateY(" + y + "px) translateZ(0px)" : 'translateZ(0px)');
@@ -328,10 +326,10 @@ var Refresher = /** @class */ (function () {
             }
         });
     };
-    Refresher.prototype.render = function () {
+    class_1.prototype.render = function () {
         var _a;
-        var mode = Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["d"])(this);
-        return (Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["h"])(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["H"], { slot: "fixed", class: (_a = {},
+        var mode = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["d"])(this);
+        return (Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["H"], { slot: "fixed", class: (_a = {},
                 _a[mode] = true,
                 // Used internally for styling
                 _a["refresher-" + mode] = true,
@@ -343,12 +341,12 @@ var Refresher = /** @class */ (function () {
                 _a['refresher-completing'] = this.state === 32 /* Completing */,
                 _a) }));
     };
-    Object.defineProperty(Refresher.prototype, "el", {
-        get: function () { return Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["e"])(this); },
+    Object.defineProperty(class_1.prototype, "el", {
+        get: function () { return Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["e"])(this); },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(Refresher, "watchers", {
+    Object.defineProperty(class_1, "watchers", {
         get: function () {
             return {
                 "disabled": ["disabledChanged"]
@@ -357,32 +355,32 @@ var Refresher = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(Refresher, "style", {
-        get: function () { return "ion-refresher{left:0;top:0;display:none;position:absolute;width:100%;height:60px;z-index:-1}:host-context([dir=rtl]) ion-refresher,[dir=rtl] ion-refresher{left:unset;right:unset;right:0}ion-refresher.refresher-active{display:block}ion-refresher-content{display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column;-ms-flex-pack:center;justify-content:center;height:100%}.refresher-pulling,.refresher-refreshing{display:none;width:100%}.refresher-pulling-icon,.refresher-refreshing-icon{-webkit-transform-origin:center;transform-origin:center;-webkit-transition:.2s;transition:.2s;font-size:30px;text-align:center}:host-context([dir=rtl]) .refresher-pulling-icon,:host-context([dir=rtl]) .refresher-refreshing-icon,[dir=rtl] .refresher-pulling-icon,[dir=rtl] .refresher-refreshing-icon{-webkit-transform-origin:calc(100% - center);transform-origin:calc(100% - center)}.refresher-pulling-text,.refresher-refreshing-text{font-size:16px;text-align:center}.refresher-pulling ion-refresher-content .refresher-pulling,.refresher-ready ion-refresher-content .refresher-pulling{display:block}.refresher-ready ion-refresher-content .refresher-pulling-icon{-webkit-transform:rotate(180deg);transform:rotate(180deg)}.refresher-cancelling ion-refresher-content .refresher-pulling,.refresher-refreshing ion-refresher-content .refresher-refreshing{display:block}.refresher-cancelling ion-refresher-content .refresher-pulling-icon{-webkit-transform:scale(0);transform:scale(0)}.refresher-completing ion-refresher-content .refresher-refreshing{display:block}.refresher-completing ion-refresher-content .refresher-refreshing-icon{-webkit-transform:scale(0);transform:scale(0)}.refresher-ios .refresher-pulling-icon,.refresher-ios .refresher-pulling-text,.refresher-ios .refresher-refreshing-icon,.refresher-ios .refresher-refreshing-text{color:var(--ion-text-color,#000)}.refresher-ios .refresher-refreshing .spinner-crescent circle,.refresher-ios .refresher-refreshing .spinner-lines-ios line,.refresher-ios .refresher-refreshing .spinner-lines-small-ios line{stroke:var(--ion-text-color,#000)}.refresher-ios .refresher-refreshing .spinner-bubbles circle,.refresher-ios .refresher-refreshing .spinner-circles circle,.refresher-ios .refresher-refreshing .spinner-dots circle{fill:var(--ion-text-color,#000)}"; },
+    Object.defineProperty(class_1, "style", {
+        get: function () { return "ion-refresher{left:0;top:0;display:none;position:absolute;width:100%;height:60px;z-index:-1}:host-context([dir=rtl]) ion-refresher,[dir=rtl] ion-refresher{left:unset;right:unset;right:0}ion-refresher.refresher-active{display:block}ion-refresher-content{display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column;-ms-flex-pack:center;justify-content:center;height:100%}.refresher-pulling,.refresher-refreshing{display:none;width:100%}.refresher-pulling-icon,.refresher-refreshing-icon{-webkit-transform-origin:center;transform-origin:center;-webkit-transition:.2s;transition:.2s;font-size:30px;text-align:center}:host-context([dir=rtl]) .refresher-pulling-icon,:host-context([dir=rtl]) .refresher-refreshing-icon,[dir=rtl] .refresher-pulling-icon,[dir=rtl] .refresher-refreshing-icon{-webkit-transform-origin:calc(100% - center);transform-origin:calc(100% - center)}.refresher-pulling-text,.refresher-refreshing-text{font-size:16px;text-align:center}.refresher-pulling ion-refresher-content .refresher-pulling,.refresher-ready ion-refresher-content .refresher-pulling{display:block}.refresher-ready ion-refresher-content .refresher-pulling-icon{-webkit-transform:rotate(180deg);transform:rotate(180deg)}.refresher-cancelling ion-refresher-content .refresher-pulling,.refresher-refreshing ion-refresher-content .refresher-refreshing{display:block}.refresher-cancelling ion-refresher-content .refresher-pulling-icon{-webkit-transform:scale(0);transform:scale(0)}.refresher-completing ion-refresher-content .refresher-refreshing{display:block}.refresher-completing ion-refresher-content .refresher-refreshing-icon{-webkit-transform:scale(0);transform:scale(0)}.refresher-md .refresher-pulling-icon,.refresher-md .refresher-pulling-text,.refresher-md .refresher-refreshing-icon,.refresher-md .refresher-refreshing-text{color:var(--ion-text-color,#000)}.refresher-md .refresher-refreshing .spinner-crescent circle,.refresher-md .refresher-refreshing .spinner-lines-md line,.refresher-md .refresher-refreshing .spinner-lines-small-md line{stroke:var(--ion-text-color,#000)}.refresher-md .refresher-refreshing .spinner-bubbles circle,.refresher-md .refresher-refreshing .spinner-circles circle,.refresher-md .refresher-refreshing .spinner-dots circle{fill:var(--ion-text-color,#000)}"; },
         enumerable: true,
         configurable: true
     });
-    return Refresher;
+    return class_1;
 }());
 var RefresherContent = /** @class */ (function () {
     function RefresherContent(hostRef) {
-        Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["r"])(this, hostRef);
+        Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["r"])(this, hostRef);
     }
     RefresherContent.prototype.componentWillLoad = function () {
         if (this.pullingIcon === undefined) {
-            this.pullingIcon = _chunk_1074393c_js__WEBPACK_IMPORTED_MODULE_2__["b"].get('refreshingIcon', 'arrow-down');
+            this.pullingIcon = _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_2__["b"].get('refreshingIcon', 'arrow-down');
         }
         if (this.refreshingSpinner === undefined) {
-            var mode = Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["d"])(this);
-            this.refreshingSpinner = _chunk_1074393c_js__WEBPACK_IMPORTED_MODULE_2__["b"].get('refreshingSpinner', _chunk_1074393c_js__WEBPACK_IMPORTED_MODULE_2__["b"].get('spinner', mode === 'ios' ? 'lines' : 'crescent'));
+            var mode = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["d"])(this);
+            this.refreshingSpinner = _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_2__["b"].get('refreshingSpinner', _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_2__["b"].get('spinner', mode === 'ios' ? 'lines' : 'crescent'));
         }
     };
     RefresherContent.prototype.render = function () {
-        return (Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["h"])(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["H"], { class: Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["d"])(this) }, Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["h"])("div", { class: "refresher-pulling" }, this.pullingIcon &&
-            Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["h"])("div", { class: "refresher-pulling-icon" }, Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["h"])("ion-icon", { icon: this.pullingIcon, lazy: false })), this.pullingText &&
-            Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["h"])("div", { class: "refresher-pulling-text", innerHTML: Object(_chunk_cae2ca23_js__WEBPACK_IMPORTED_MODULE_3__["s"])(this.pullingText) })), Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["h"])("div", { class: "refresher-refreshing" }, this.refreshingSpinner &&
-            Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["h"])("div", { class: "refresher-refreshing-icon" }, Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["h"])("ion-spinner", { name: this.refreshingSpinner })), this.refreshingText &&
-            Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_1__["h"])("div", { class: "refresher-refreshing-text", innerHTML: Object(_chunk_cae2ca23_js__WEBPACK_IMPORTED_MODULE_3__["s"])(this.refreshingText) }))));
+        return (Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["H"], { class: Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["d"])(this) }, Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])("div", { class: "refresher-pulling" }, this.pullingIcon &&
+            Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])("div", { class: "refresher-pulling-icon" }, Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])("ion-icon", { icon: this.pullingIcon, lazy: false })), this.pullingText &&
+            Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])("div", { class: "refresher-pulling-text", innerHTML: Object(_index_3476b023_js__WEBPACK_IMPORTED_MODULE_3__["s"])(this.pullingText) })), Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])("div", { class: "refresher-refreshing" }, this.refreshingSpinner &&
+            Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])("div", { class: "refresher-refreshing-icon" }, Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])("ion-spinner", { name: this.refreshingSpinner })), this.refreshingText &&
+            Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])("div", { class: "refresher-refreshing-text", innerHTML: Object(_index_3476b023_js__WEBPACK_IMPORTED_MODULE_3__["s"])(this.refreshingText) }))));
     };
     return RefresherContent;
 }());

@@ -1,17 +1,23 @@
 ﻿<ion-header>
-  <ion-toolbar>
-    <ion-title>预约取消</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/serving/reservation/list"></ion-back-button>
+        </ion-buttons>
+        <ion-title>预约取消</ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <ion-list>
         <ion-item-group>
-            <ion-item-divider>
+            <!--<ion-item-divider color="primary">
                 <ion-label>取消原因</ion-label>
-            </ion-item-divider>
+            </ion-item-divider>-->
             <ion-item>
-                <ion-text color="danger">*</ion-text><ion-label>取消原因</ion-label>
+                <ion-label position="stacked">取消原因<ion-text color="danger">*</ion-text></ion-label>
                 <ion-select [(ngModel)]="shareData.appointmentinfo['mcs_cancelreasonnew']" okText="确认" cancelText="取消">
                     <ion-select-option value="10">待料</ion-select-option>
                     <ion-select-option value="20">价格太高</ion-select-option>
@@ -22,10 +28,10 @@
                 </ion-select>
             </ion-item>
             <ion-item>
-                <ion-label position="floating">取消描述</ion-label>
+                <ion-label position="stacked">取消描述<ion-text color="danger">*</ion-text></ion-label>
                 <ion-textarea [(ngModel)]="shareData.appointmentinfo['mcs_canceldes']"></ion-textarea>
             </ion-item>
         </ion-item-group>
-        <ion-button expand="block" type="button" (click)="saveOnClick()">确定</ion-button>
     </ion-list>
+    <ion-button expand="block" type="button" (click)="saveOnClick()">确定</ion-button>
 </ion-content>

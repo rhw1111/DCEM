@@ -1,9 +1,253 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>我是培育任务编辑新增页</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回"  ></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{shareData.viewTitle}}</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+    <ion-list lines="full">
+        <div *ngIf="showcount">
+            <ion-item-divider color="primary">
+                <ion-label>
+                    销售机会
+                </ion-label>
+            </ion-item-divider>
+            <ion-item>
+                <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
+                    销售机会编号
+                    <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <p>{{shareData.data["accountnumber"]}}&nbsp;</p>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
+                    姓名
+                    <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <p>{{shareData.data["accountname"]}}&nbsp;</p>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
+                    手机号码
+                    <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <p>{{shareData.data["accountphone"]}}&nbsp;</p>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
+                    订单编号
+                </ion-label>
+                <p>{{shareData.data["accountorder"]}}&nbsp;</p>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
+                    创建时间
+                    <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <p>{{shareData.data["accountcreatedon"]}}&nbsp;</p>
+            </ion-item>
+
+        </div>
+
+        <div *ngIf="showcontact">
+            <ion-item-divider color="primary">
+                <ion-label>
+                    潜客
+                </ion-label>
+            </ion-item-divider>
+            <ion-item>
+                <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
+                    编号
+                    <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <p>{{shareData.data["contactcode"]}}&nbsp;</p>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
+                    姓名
+                    <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <p>{{shareData.data["contactname"]}}&nbsp;</p>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
+                    手机号码
+                    <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <p>{{shareData.data["contactphone"]}}&nbsp;</p>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
+                    邮箱
+                    <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <p>{{shareData.data["contactemailaddress"]}}&nbsp;</p>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
+                    渠道用户id
+                    <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <p>{{shareData.data["contactuserid"]}}&nbsp;</p>
+            </ion-item>
+
+        </div>
+        <div *ngIf="showonlylead">
+            <ion-item-divider color="primary">
+                <ion-label>
+                    唯一线索
+                </ion-label>
+            </ion-item-divider>
+            <ion-item>
+                <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
+                    姓名
+                    <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <p>{{shareData.data["onlyleadname"]}}&nbsp;</p>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
+                    邮箱
+                    <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <p>{{shareData.data["onlyleademail"]}}&nbsp;</p>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
+                    手机号码
+                    <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <p>{{shareData.data["onlyleadphone"]}}&nbsp;</p>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
+                    线索来源
+                    <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <p>{{shareData.data["onlyleadorigin"]}}&nbsp;</p>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
+                    称呼
+                    <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <p>{{shareData.data["onlyleadgender"]}}&nbsp;</p>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
+                    评分
+                    <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <p>{{shareData.data["onlyleadpoints"]}}&nbsp;</p>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
+                    用车省份
+                    <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <p>{{shareData.data["onlyleadprovince"]}}&nbsp;</p>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">
+                    <ion-icon name="lock"></ion-icon>
+                    用车城市
+                    <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <p>{{shareData.data["onlyleadcity"]}}&nbsp;</p>
+            </ion-item>
+        </div>
+        <ion-item-divider color="primary">
+            <ion-label>
+                培育任务
+            </ion-label>
+        </ion-item-divider>
+
+        <ion-item>
+            <ion-label position="stacked">
+                主题
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input placeholder="请输入主题" type="text" [(ngModel)]="shareData.edititem['mcs_name']" required>
+            </ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
+                本次跟进内容
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-textarea placeholder="请输入本次跟进内容" [(ngModel)]="shareData.edititem['mcs_thisfollowupcontent']">
+            </ion-textarea>
+        </ion-item>
+        <ion-item >
+            <ion-label position="stacked">
+                重要级别
+            </ion-label>
+            <ion-select cancelText="取消" okText="确定" placeholder="请选择重要级别"
+                [(ngModel)]="shareData.edititem['mcs_importantlevel']"> 
+                <ion-select-option  *ngFor="let item of shareData.selectimportantlevel" [value]="item.value"  >{{item.name}}
+                </ion-select-option> 
+            </ion-select>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="stacked">
+                线索状态
+            </ion-label>
+            <ion-select cancelText="取消" okText="确定" placeholder="请选择线索状态"
+                [(ngModel)]="shareData.edititem['mcs_excutestatus']" > 
+                <ion-select-option [value]="item.value"  *ngFor="let item of shareData.selectexcutestatus">{{item.name}}
+                </ion-select-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">下次跟进内容</ion-label>
+            <ion-textarea placeholder="请输入下次跟进内容" [(ngModel)]="shareData.edititem['mcs_nextfollowupcontent']">
+            </ion-textarea>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="stacked">
+                下次跟进时间
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-datetime cancelText="取消" doneText="确定" placeholder="请选择下次跟进时间" display-format="YYYY-MM-DD HH:mm"
+                [(ngModel)]="shareData.edititem['mcs_nextfollowuptime']"></ion-datetime>
+        </ion-item>
+    </ion-list>
+    <!-- <ion-item *ngIf="showactivitystatus">
+            <ion-label position="stacked">
+                任务状态
+            </ion-label>
+            <ion-select cancelText="取消" okText="确定" placeholder="请选择任务状态"
+                [(ngModel)]="shareData.edititem['mcs_activitystatus']" > 
+                <ion-select-option value="1" >close</ion-select-option>
+                <ion-select-option value="0" >open</ion-select-option>
+            </ion-select>
+        </ion-item> -->
+    <section style="text-align:center;">
+        <ion-button style="width:40%" color="danger" (click)="OnPostClick()">保存</ion-button>
+    </section>
+    <br />
+    <br />
 </ion-content>

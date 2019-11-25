@@ -4,6 +4,9 @@
             <ion-back-button text="返回" defaultHref="/serving/ri/list"></ion-back-button>
         </ion-buttons>
         <ion-title>环检项</ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
@@ -27,7 +30,7 @@
     </ion-list>
     <section style="text-align:center;">
         <ion-button style="width:40%" color="danger"  (click)="goBackOnClick()">上一步</ion-button>
-        <ion-button style="width:40%" color="success"  (click)="saveOnClick()">保存</ion-button>
+        <ion-button style="width:40%" color="primary"  (click)="saveOnClick()">保存</ion-button>
     </section>
     <br />
     <br />

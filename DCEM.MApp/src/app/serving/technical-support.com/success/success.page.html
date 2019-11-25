@@ -4,6 +4,9 @@
                     <ion-back-button text="返回" defaultHref="/serving/ts/list"></ion-back-button>
                 </ion-buttons>
                 <ion-title>技术支持开单成功</ion-title>
+                <ion-buttons slot="end">
+                    <ion-menu-button></ion-menu-button>
+                </ion-buttons>
     </ion-toolbar>
     
 </ion-header>
@@ -37,7 +40,7 @@
                 <ion-row>
                     <ion-col>
                         <div class="orderno">
-                            单号:
+                            单号:{{mod.no}}
                         </div>
                     </ion-col>
                 </ion-row>

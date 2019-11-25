@@ -246,8 +246,8 @@ namespace DCEM.ServiceAssistantService.Main.Application
                     serviceproxyEntity.Attributes.Add("mcs_customercontent", request.serviceproxy.customercontent);     //故障信息
                 if (request.serviceproxy.testresult != null)
                     serviceproxyEntity.Attributes.Add("mcs_testresult", request.serviceproxy.testresult);     //检查结果
-
-
+                if (request.serviceproxy.appointmentcode != null)
+                    serviceproxyEntity.Attributes.Add("mcs_appointmentcode", new CrmEntityReference("mcs_appointmentinfo", Guid.Parse(request.serviceproxy.appointmentcode)));     //检查结果
 
                 serviceproxyEntity.Attributes.Add("mcs_currenttype", request.serviceproxy.currenttype);  //单据类型 10问诊单 20服务委托书
                 serviceproxyEntity.Attributes.Add("mcs_ifchange", false);
@@ -264,7 +264,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
             var reusetCrmEntity = new CrmEntity("mcs_serviceproxy", new Guid());
             var serviceproxyGuid = new Guid();
 
-            if (request.actioncode == 1)
+            if (request.actioncode == 1 || request.actioncode == 3)
             {
                 #region 加入服务委托书
                 //加入服务委托书
@@ -778,7 +778,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
             var xdoc = await Task<XDocument>.Run(() =>
             {
                 var fetchXml = $@"
-                <fetch version='1.0' output-format='xml-platform' mapping='logical' count='{15}' page='{1}' distinct='true'>
+                <fetch version='1.0' output-format='xml-platform' mapping='logical' count='{pageCount}' page='{pageIndex}' distinct='true'>
                     <entity name='mcs_parts'>
                         <order attribute='mcs_name' descending='false' />
                         {filter}

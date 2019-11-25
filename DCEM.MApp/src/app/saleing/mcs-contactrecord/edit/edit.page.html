@@ -3,7 +3,8 @@
     <ion-buttons slot="start">
           <ion-back-button text="返回" defaultHref="/saleing/onlylead/detail" ></ion-back-button>
      </ion-buttons>
-    <ion-title>创建或编辑logcall</ion-title>
+    <ion-title *ngIf="model.postData.mcs_logcallid!=''">编辑logcall</ion-title>
+    <ion-title *ngIf="model.postData.mcs_logcallid==''">创建logcall</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,7 +15,7 @@
                 回访时间
                 <ion-text color="danger">*</ion-text>
             </ion-label>
-            <ion-datetime placeholder="请选择到店时间" display-format="YYYY-MM-DD HH:mm"  [(ngModel)]="model.postData.mcs_visittime" required></ion-datetime>
+            <ion-datetime placeholder="请选择回访时间"  display-format="YYYY-MM-DD" cancelText="取消" doneText="确定"  [(ngModel)]="model.postData.mcs_visittime" required></ion-datetime>
         </ion-item>
         <ion-item>
             <ion-label position="stacked">

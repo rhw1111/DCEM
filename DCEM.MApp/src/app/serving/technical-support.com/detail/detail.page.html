@@ -4,11 +4,14 @@
       <ion-back-button text="返回" defaultHref="/"></ion-back-button>
     </ion-buttons>
     <ion-title>技术支持详情页面</ion-title>
+    <ion-buttons slot="end">
+        <ion-menu-button></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 
 
   <ion-toolbar>
-    <ion-segment [(ngModel)]="tab" color="danger">
+    <ion-segment [(ngModel)]="tab">
       <ion-segment-button value="info">
         <ion-label>基础信息</ion-label>
       </ion-segment-button>

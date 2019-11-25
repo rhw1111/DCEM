@@ -1,0 +1,156 @@
+﻿import { Component, OnInit } from '@angular/core';
+import { FileUploader, FileItem } from 'ng2-file-upload';
+import { Base64 } from 'js-base64';
+import { AES, mode, pad, enc, HmacSHA1 } from 'crypto-js';
+import plupload from 'plupload';
+
+@Component({
+    selector: 'app-fileupload',
+    templateUrl: './fileupload.page.html',
+    styleUrls: ['./fileupload.page.scss'],
+})
+export class FileuploadPage implements OnInit {
+
+    constructor() { }
+
+    public uploader: FileUploader = new FileUploader({});
+
+    selectedFileOnChanged(event: any) {
+        console.log(event.target.value);
+    }
+    ngOnInit() {
+        this.uploadInit();
+        this.initPlUploader();
+    }
+
+    selectFiles() {
+        document.getElementById('fileInput').click();
+    }
+
+    initPlUploader() {
+        console.log("ok");
+        var uploader = new plupload.Uploader({
+            runtimes: 'html5,html4',
+            browse_button: document.getElementById("img1"),
+            filters: {
+                mime_types: [
+                    { title: "Image files", extensions: "jpg,gif,png" }
+                    //,{ title: "Zip files", extensions: "zip" }
+                ],
+                max_file_size: '2048kb',
+                prevent_duplicates: true
+            },
+            url: "",
+            multipart_params: "",
+            init: {
+                PostInit: function () {
+
+                },
+                FilesAdded: function (up, files) {
+                    plupload.each(files, function (file) {
+
+
+                    });
+                    up.start();
+                },
+
+                BeforeUpload: function (up, file) {
+
+                },
+
+                UploadProgress: function (up, file) {
+
+
+                },
+                FileUploaded: function (up, file, info) {
+
+
+                },
+                Error: function (up, err) {
+                    console.log(err);
+                }
+            }
+        });
+        uploader.init();
+    }
+
+
+    public uploadInit() {
+
+        //let host = 'https://ceo-oss.oss-cn-hangzhou.aliyuncs.com';
+
+        let host = 'http://localhost:52151/Api/Files/Upload';
+        let options = {
+            url: host,
+            removeAfterUpload: true,
+            method: "POST",
+            itemAlias: 'multfile',
+
+        };
+        this.uploader = new FileUploader(options);
+        // 文件上传之前监听事件
+        this.uploader.onBeforeUploadItem = (fileItem: any) => {
+            fileItem.method = "POST";
+            fileItem.alias = fileItem.file.name;
+            fileItem.withCredentials = false //解决localhost跨域
+
+        };
+        // 文件上传进度监听事件
+        this.uploader.onProgressItem = (fileItem: any, progress: any) => {
+
+        };
+        // 文件上传成功监听事件
+        this.uploader.onSuccessItem = (item: any, response: string, status: number) => {
+            console.log("上传成功");
+        };
+        this.uploader.onErrorItem = (item: any, response: string, status: number, headers: any) => {
+            console.log("上传失败");
+            console.log(response);
+            console.log(status);
+
+        };
+        // 文件上传附带的其他额外数据
+        this.uploader.onBuildItemForm = (fileItem: any, form: any) => {
+
+            var accessid = 'LTAIHlxHx1QbJcFL';
+            var accesskey = '0NHAb9956jpujnulGTiDKZLIHdIwPr';
+            var policyText = {
+                "expiration": "2050-01-01T12:00:00.000Z", //设置该Policy的失效时间，超过这个失效时间之后，就没有办法通过这个policy上传文件了
+                "conditions": [
+                    ["content-length-range", 0, 1048576000] // 设置上传文件的大小限制
+                ]
+            };
+
+            var policyBase64 = Base64.encode(JSON.stringify(policyText));
+            var signature = "yHs8HeHbRDOAa6NKF68/qcTWCQY=";// HmacSHA1(policyBase64, accesskey).toString();
+            console.log("===============================");
+            console.log(policyBase64);
+            console.log(signature);
+            console.log(fileItem.file.name);
+
+
+            // var signature = Crypto.util.bytesToBase64(bytes);
+            var multipart_params = {
+                'key': "334455",
+                'policy': policyBase64,
+                'OSSAccessKeyId': accessid,
+                'success_action_status': '200', //让服务端返回200,不然，默认会返回204
+                'signature': signature,
+            };
+
+
+            //multipart_params, //JSON.stringify(data)
+
+            form.append('name', fileItem.file.name);
+            form.append('key', "${filename}");
+            form.append('policy', policyBase64);
+            form.append('OSSAccessKeyId', accessid);
+            form.append('success_action_status', "200");
+            form.append('signature', "yHs8HeHbRDOAa6NKF68/qcTWCQY=");
+        };
+    }
+
+    uploadVideo($event) {
+        this.uploader.uploadAll();
+    }
+}

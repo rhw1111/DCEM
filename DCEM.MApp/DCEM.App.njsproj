@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{f26cede4-f02d-4382-a6bd-49c0cb89d2aa}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <ProjectView>ShowAllFiles</ProjectView>
+    <ProjectView>ProjectFiles</ProjectView>
     <StartupFile />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -28,6 +28,16 @@
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
     <Content Include="src\app\app.component.scss" />
+    <Content Include="src\app\base\base.ser\components\select-systemuser\select-systemuser.component.html" />
+    <Content Include="src\app\base\base.ser\components\select-systemuser\select-systemuser.component.scss" />
+    <Content Include="src\app\base\message.com\activities\activities.page.html" />
+    <Content Include="src\app\base\message.com\activities\activities.page.scss" />
+    <Content Include="src\app\base\message.com\charts\charts.page.html" />
+    <Content Include="src\app\base\message.com\charts\charts.page.scss" />
+    <Content Include="src\app\base\message.com\chat-detail\chat-detail.page.html" />
+    <Content Include="src\app\base\message.com\chat-detail\chat-detail.page.scss" />
+    <Content Include="src\app\base\message.com\room\room.page.html" />
+    <Content Include="src\app\base\message.com\room\room.page.scss" />
     <Content Include="src\app\base\uc.com\login\login.page.html" />
     <Content Include="src\app\base\uc.com\login\login.page.scss" />
     <Content Include="src\app\base\uc.com\welcome\welcome.page.html" />
@@ -70,6 +80,16 @@
     <Content Include="src\app\saleing\mcs-onlylead.com\list\list.page.scss" />
     <Content Include="src\app\saleing\mcs-onlylead.com\success\success.page.html" />
     <Content Include="src\app\saleing\mcs-onlylead.com\success\success.page.scss" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\calendar\calendar.page.html" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\calendar\calendar.page.scss" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\detail\detail.page.html" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\detail\detail.page.scss" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\edit\edit.page.html" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\edit\edit.page.scss" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\list\list.page.html" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\list\list.page.scss" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\success\success.page.html" />
+    <Content Include="src\app\saleing\mcs_driverecord.com\success\success.page.scss" />
     <Content Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.html" />
     <Content Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.scss" />
     <Content Include="src\app\saleing\saleing.ser\components\select-reservationconfiguration\select-reservationconfiguration.component.html" />
@@ -80,6 +100,12 @@
     <Content Include="src\app\saleing\saleing.ser\components\select-vehiclecolor\select-vehiclecolor.component.scss" />
     <Content Include="src\app\saleing\saleing.ser\components\select-vehicletype\select-vehicletype.component.html" />
     <Content Include="src\app\saleing\saleing.ser\components\select-vehicletype\select-vehicletype.component.scss" />
+    <Content Include="src\app\saleing\vehlisense\detail\detail.page.html" />
+    <Content Include="src\app\saleing\vehlisense\detail\detail.page.scss" />
+    <Content Include="src\app\saleing\vehlisense\list\list.page.html" />
+    <Content Include="src\app\saleing\vehlisense\list\list.page.scss" />
+    <Content Include="src\app\saleing\vehlisense\success\success.page.html" />
+    <Content Include="src\app\saleing\vehlisense\success\success.page.scss" />
     <Content Include="src\app\serving\home.com\index\index.page.html" />
     <Content Include="src\app\serving\home.com\index\index.page.scss" />
     <Content Include="src\app\serving\home.com\message\message.page.html" />
@@ -148,10 +174,16 @@
     <Content Include="src\app\serving\report\appointmenttrend\appointmenttrend.page.scss" />
     <Content Include="src\app\serving\report\testdriverate\testdriverate.page.html" />
     <Content Include="src\app\serving\report\testdriverate\testdriverate.page.scss" />
+    <Content Include="src\app\serving\serving.ser\components\fileupload-test\fileupload-test.page.html" />
+    <Content Include="src\app\serving\serving.ser\components\fileupload-test\fileupload-test.page.scss" />
+    <Content Include="src\app\serving\serving.ser\components\fileupload\fileupload.page.html" />
+    <Content Include="src\app\serving\serving.ser\components\fileupload\fileupload.page.scss" />
     <Content Include="src\app\serving\serving.ser\components\sc-select\sc-select.component.html" />
     <Content Include="src\app\serving\serving.ser\components\sc-select\sc-select.component.scss" />
     <Content Include="src\app\serving\serving.ser\components\select-appointmentconfig\select-appointmentconfig.component.html" />
     <Content Include="src\app\serving\serving.ser\components\select-appointmentconfig\select-appointmentconfig.component.scss" />
+    <Content Include="src\app\serving\serving.ser\components\select-file-edit\select-file-edit.component.html" />
+    <Content Include="src\app\serving\serving.ser\components\select-file-edit\select-file-edit.component.scss" />
     <Content Include="src\app\serving\serving.ser\components\select-carmodel\select-carmodel.component.html" />
     <Content Include="src\app\serving\serving.ser\components\select-carmodel\select-carmodel.component.scss" />
     <Content Include="src\app\serving\serving.ser\components\select-customer-edit\select-customer-edit.component.html" />
@@ -162,6 +194,8 @@
     <Content Include="src\app\serving\serving.ser\components\select-maintenance\select-maintenance.component.scss" />
     <Content Include="src\app\serving\serving.ser\components\select-malfunctiontype\select.malfunctiontype.component.html" />
     <Content Include="src\app\serving\serving.ser\components\select-malfunctiontype\select.malfunctiontype.component.scss" />
+    <Content Include="src\app\serving\serving.ser\components\select-appointmentinfo\select-appointmentinfo.component.html" />
+    <Content Include="src\app\serving\serving.ser\components\select-appointmentinfo\select-appointmentinfo.component.scss" />
     <Content Include="src\app\serving\serving.ser\components\select-repairitemtypedetail\select-repairitemtypedetail.component.html" />
     <Content Include="src\app\serving\serving.ser\components\select-repairitemtypedetail\select-repairitemtypedetail.component.scss" />
     <Content Include="src\app\serving\serving.ser\components\select-repairitemtype\select-repairitemtype.component.html" />
@@ -192,9 +226,14 @@
     <Content Include="src\assets\img\bookshelf.png" />
     <Content Include="src\assets\img\browser.png" />
     <Content Include="src\assets\img\car.png" />
+    <Content Include="src\assets\img\circle.png" />
+    <Content Include="src\assets\img\default.png" />
     <Content Include="src\assets\img\head_default.jpg" />
     <Content Include="src\assets\img\index.jpg" />
     <Content Include="src\assets\img\login.jpg" />
+    <Content Include="src\assets\img\onlylead.png" />
+    <Content Include="src\assets\img\upload.png" />
+    <Content Include="src\assets\img\userhead.png" />
     <Content Include="src\global.scss" />
     <Content Include="src\theme\variables.scss" />
     <Content Include="tsconfig.app.json" />
@@ -550,12 +589,26 @@
     <TypeScriptCompile Include="src\app\app.config.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\authentication.service.spec.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\authentication.service.ts" />
+    <TypeScriptCompile Include="src\app\base\base.ser\components\select-systemuser\select-systemuser.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\base\base.ser\components\select-systemuser\select-systemuser.component.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\dcem.core.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\app\base\base.ser\http-service.service.spec.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\http-service.service.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\logininfo.storage.ts" />
+    <TypeScriptCompile Include="src\app\base\message.com\activities\activities.module.ts" />
+    <TypeScriptCompile Include="src\app\base\message.com\activities\activities.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\base\message.com\activities\activities.page.ts" />
+    <TypeScriptCompile Include="src\app\base\message.com\charts\charts.module.ts" />
+    <TypeScriptCompile Include="src\app\base\message.com\charts\charts.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\base\message.com\charts\charts.page.ts" />
+    <TypeScriptCompile Include="src\app\base\message.com\chat-detail\chat-detail.module.ts" />
+    <TypeScriptCompile Include="src\app\base\message.com\chat-detail\chat-detail.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\base\message.com\chat-detail\chat-detail.page.ts" />
+    <TypeScriptCompile Include="src\app\base\message.com\room\room.module.ts" />
+    <TypeScriptCompile Include="src\app\base\message.com\room\room.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\base\message.com\room\room.page.ts" />
     <TypeScriptCompile Include="src\app\base\uc.com\login\login.module.ts" />
     <TypeScriptCompile Include="src\app\base\uc.com\login\login.page.spec.ts" />
     <TypeScriptCompile Include="src\app\base\uc.com\login\login.page.ts" />
@@ -619,6 +672,21 @@
     <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\success\success.module.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\success\success.page.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\mcs-onlylead.com\success\success.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\calendar\calendar.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\calendar\calendar.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\calendar\calendar.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\detail\detail.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\detail\detail.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\detail\detail.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\edit\edit.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\edit\edit.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\edit\edit.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\list\list.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\list\list.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\list\list.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\success\success.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\success\success.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\mcs_driverecord.com\success\success.page.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-reservationconfiguration\select-reservationconfiguration.component.spec.ts" />
@@ -630,6 +698,15 @@
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-vehicletype\select-vehicletype.component.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-vehicletype\select-vehicletype.component.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\optionset.service.ts" />
+    <TypeScriptCompile Include="src\app\saleing\vehlisense\detail\detail.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\vehlisense\detail\detail.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\vehlisense\detail\detail.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\vehlisense\list\list.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\vehlisense\list\list.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\vehlisense\list\list.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\vehlisense\success\success.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\vehlisense\success\success.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\vehlisense\success\success.page.ts" />
     <TypeScriptCompile Include="src\app\serving\home.com\index\index.module.ts" />
     <TypeScriptCompile Include="src\app\serving\home.com\index\index.page.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\home.com\index\index.page.ts" />
@@ -735,10 +812,18 @@
     <TypeScriptCompile Include="src\app\serving\report\testdriverate\testdriverate.page.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\basedata.service.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\basedata.service.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\fileupload-test\fileupload-test.module.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\fileupload-test\fileupload-test.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\fileupload-test\fileupload-test.page.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\fileupload\fileupload.module.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\fileupload\fileupload.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\fileupload\fileupload.page.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\sc-select\sc-select.component.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\sc-select\sc-select.component.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-appointmentconfig\select-appointmentconfig.component.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-appointmentconfig\select-appointmentconfig.component.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-file-edit\select-file-edit.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-file-edit\select-file-edit.component.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-carmodel\select-carmodel.component.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-carmodel\select-carmodel.component.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-customer-edit\select-customer-edit.component.spec.ts" />
@@ -749,6 +834,8 @@
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-maintenance\select-maintenance.component.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-malfunctiontype\select.malfunctiontype.component.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-malfunctiontype\select.malfunctiontype.component.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-appointmentinfo\select-appointmentinfo.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-appointmentinfo\select-appointmentinfo.component.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-repairitemtypedetail\select-repairitemtypedetail.component.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-repairitemtypedetail\select-repairitemtypedetail.component.ts" />
     <TypeScriptCompile Include="src\app\serving\serving.ser\components\select-repairitemtype\select-repairitemtype.component.spec.ts" />
@@ -891,6 +978,13 @@
     <Folder Include="src\app" />
     <Folder Include="src\app\base\" />
     <Folder Include="src\app\base\base.ser\" />
+    <Folder Include="src\app\base\base.ser\components\" />
+    <Folder Include="src\app\base\base.ser\components\select-systemuser\" />
+    <Folder Include="src\app\base\message.com\" />
+    <Folder Include="src\app\base\message.com\activities\" />
+    <Folder Include="src\app\base\message.com\charts\" />
+    <Folder Include="src\app\base\message.com\chat-detail\" />
+    <Folder Include="src\app\base\message.com\room\" />
     <Folder Include="src\app\base\uc.com\" />
     <Folder Include="src\app\base\uc.com\login\" />
     <Folder Include="src\app\base\uc.com\welcome\" />
@@ -920,6 +1014,13 @@
     <Folder Include="src\app\saleing\mcs-onlylead.com\list\" />
     <Folder Include="src\app\saleing\mcs-onlylead.com\success\" />
     <Folder Include="src\app\saleing\mcs-deliverycentercarstock.com\" />
+    <Folder Include="src\app\saleing\mcs_driverecord.com\" />
+    <Folder Include="src\app\saleing\mcs_driverecord.com\calendar\" />
+    <Folder Include="src\app\saleing\mcs_driverecord.com\detail\" />
+    <Folder Include="src\app\saleing\mcs_driverecord.com\edit\" />
+    <Folder Include="src\app\saleing\mcs_driverecord.com\list\" />
+    <Folder Include="src\app\saleing\mcs_driverecord.com\schedule\" />
+    <Folder Include="src\app\saleing\mcs_driverecord.com\success\" />
     <Folder Include="src\app\saleing\saleing.ser\" />
     <Folder Include="src\app\saleing\saleing.ser\components\" />
     <Folder Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\" />
@@ -927,6 +1028,10 @@
     <Folder Include="src\app\saleing\saleing.ser\components\select-sysarea\" />
     <Folder Include="src\app\saleing\saleing.ser\components\select-vehiclecolor\" />
     <Folder Include="src\app\saleing\saleing.ser\components\select-vehicletype\" />
+    <Folder Include="src\app\saleing\vehlisense\" />
+    <Folder Include="src\app\saleing\vehlisense\detail\" />
+    <Folder Include="src\app\saleing\vehlisense\list\" />
+    <Folder Include="src\app\saleing\vehlisense\success\" />
     <Folder Include="src\app\serving\" />
     <Folder Include="src\app\serving\home.com\index\" />
     <Folder Include="src\app\serving\home.com\message\" />
@@ -958,7 +1063,11 @@
     <Folder Include="src\app\serving\my-customer.com\edit\" />
     <Folder Include="src\app\serving\my-customer.com\list\" />
     <Folder Include="src\app\serving\my-customer.com\select\" />
+    <Folder Include="src\app\serving\serving.ser\components\fileupload-test\" />
+    <Folder Include="src\app\serving\serving.ser\components\fileupload\" />
+    <Folder Include="src\app\serving\serving.ser\components\select-file-edit\" />
     <Folder Include="src\app\serving\serving.ser\components\select-customer-edit\" />
+    <Folder Include="src\app\serving\serving.ser\components\select-appointmentinfo\" />
     <Folder Include="src\app\serving\serving.ser\components\select-repairitemtypedetail\" />
     <Folder Include="src\app\serving\serving.ser\components\select-repairitemtype\" />
     <Folder Include="src\app\serving\spmdspstock.com\" />
@@ -994,6 +1103,7 @@
     <Folder Include="src\assets\css\" />
     <Folder Include="src\assets\icon" />
     <Folder Include="src\assets\img\" />
+    <Folder Include="src\assets\plugins\" />
     <Folder Include="src\environments" />
     <Folder Include="src\theme" />
   </ItemGroup>

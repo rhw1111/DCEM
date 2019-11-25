@@ -4,6 +4,9 @@
       <ion-back-button text="返回" defaultHref="/"></ion-back-button>
     </ion-buttons>
     <ion-title>销售机会列表</ion-title>
+    <ion-buttons slot="end">
+        <ion-menu-button></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
   <ion-toolbar>
     <ion-searchbar animated [(ngModel)]="model.params.SearchKey" placeholder="请输入编号\姓名\手机号搜索"
@@ -11,7 +14,7 @@
   </ion-toolbar>
   <ion-toolbar>
     <ion-segment>
-      <ion-segment-button checked (click)="tagOnClick(0)">
+      <ion-segment-button value="0" checked (click)="tagOnClick(0)">
         <ion-label>全部</ion-label>
       </ion-segment-button>
       <ion-segment-button (click)="tagOnClick(1)">
@@ -28,12 +31,13 @@
   <ion-list lines="full">
     <ion-item-sliding *ngFor="let item of model.data;let key=index">
       <ion-item [routerLink]="['/saleing/account/detail']" [queryParams]="{id:item.Id}">
-        <ion-icon slot="start" name="contact" size="large"></ion-icon>
+        <ion-avatar class="header-ion-avatar" item-start>机</ion-avatar>
         <ion-label>
-          <h2>{{item.name}}</h2>
+          <h2 *ngIf="item.name">{{item.name}}</h2>
+          <h2 *ngIf="!item.name">--</h2>
           <p>{{item.accountnumber}}</p>
           <p>
-            <ion-icon *ngIf="item.mcs_mobilephone" name="phone-portrait" size="small"></ion-icon>
+            <ion-icon name="phone-portrait" size="small"></ion-icon>
             {{item.mcs_mobilephone}}
           </p>
         </ion-label>
@@ -52,12 +56,12 @@
     </ion-item-sliding>
   </ion-list>
   <ion-label *ngIf="ionInfiniteScroll.disabled" text-center>
-    <p>
+    <p style="height: 30px;">
       没有更多的记录显示啦
     </p>
   </ion-label>
   <ion-infinite-scroll (ionInfinite)="doInfinite()">
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多..."></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">

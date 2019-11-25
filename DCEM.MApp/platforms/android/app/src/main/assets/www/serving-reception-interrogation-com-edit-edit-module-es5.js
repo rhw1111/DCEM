@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/ri/list\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>{{shareData.viewTitle}}</ion-title>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n\r\n    <ion-list lines=\"full\">\r\n        <ion-item-divider color=\"primary\">\r\n            <ion-label>\r\n                车主资料\r\n            </ion-label>\r\n        </ion-item-divider>\r\n        <ion-item (click)=\"customerOnClick()\">\r\n            <ion-label position=\"stacked\">\r\n                <ion-icon name=\"search\"></ion-icon>\r\n                姓名\r\n                <ion-text color=\"danger\">*</ion-text>\r\n            </ion-label>\r\n            <p>{{shareData.serviceproxy[\"customername\"]}}&nbsp;</p>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label position=\"stacked\">\r\n                <ion-icon name=\"lock\"></ion-icon>\r\n                车牌\r\n                <ion-text color=\"danger\">*</ion-text>\r\n            </ion-label>\r\n            <p>{{shareData.serviceproxy[\"carplate\"]}}&nbsp;</p>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label position=\"stacked\">\r\n                <ion-icon name=\"lock\"></ion-icon>\r\n                手机\r\n                <ion-text color=\"danger\">*</ion-text>\r\n            </ion-label>\r\n            <p>{{shareData.serviceproxy[\"customerphone\"]}}&nbsp;</p>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label position=\"stacked\">\r\n                <ion-icon name=\"lock\"></ion-icon>\r\n                厅店\r\n                <ion-text color=\"danger\">*</ion-text>\r\n            </ion-label>\r\n            <p>{{shareData.serviceproxy[\"dealerid_formatted\"]}}&nbsp;</p>\r\n        </ion-item>\r\n        <ion-item-divider color=\"primary\">\r\n            <ion-label>\r\n                委托信息\r\n            </ion-label>\r\n        </ion-item-divider>\r\n        <ion-item>\r\n            <ion-label position=\"stacked\">\r\n                送修人\r\n                <ion-text color=\"danger\">*</ion-text>\r\n            </ion-label>\r\n            <ion-input placeholder=\"请输入送修人姓名\" maxlength=\"12\" [(ngModel)]=\"shareData.serviceproxy['shuttlename']\" required></ion-input>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label position=\"stacked\">\r\n                送修人手机\r\n                <ion-text color=\"danger\">*</ion-text>\r\n            </ion-label>\r\n            <ion-input placeholder=\"请输入11位手机号\" type=\"phone\" [(ngModel)]=\"shareData.serviceproxy['shuttlephone']\" required></ion-input>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label position=\"stacked\">\r\n                进店电量（%）\r\n                <ion-text color=\"danger\">*</ion-text>\r\n            </ion-label>\r\n            <ion-input placeholder=\"请输入0-100之间的数字\" type=\"number\" [(ngModel)]=\"shareData.serviceproxy['inpower']\"></ion-input>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label position=\"stacked\">\r\n                进店油量\r\n                <ion-text color=\"danger\">*</ion-text>\r\n            </ion-label>\r\n            <ion-select cancelText=\"取消\" okText=\"确定\" placeholder=\"请选择进店油量\" [(ngModel)]=\"shareData.serviceproxy['oilquantity']\">\r\n                <ion-select-option value=\"10\">1/4</ion-select-option>\r\n                <ion-select-option value=\"20\">1/2</ion-select-option>\r\n                <ion-select-option value=\"30\">3/4</ion-select-option>\r\n            </ion-select>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label position=\"stacked\">\r\n                进店里程\r\n                <ion-text color=\"danger\">*</ion-text>\r\n            </ion-label>\r\n            <ion-input placeholder=\"请输入进店里程\" type=\"number\" [(ngModel)]=\"shareData.serviceproxy['mileage']\"></ion-input>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label position=\"stacked\">\r\n                到店时间\r\n                <ion-text color=\"danger\">*</ion-text>\r\n            </ion-label>\r\n            <ion-datetime cancelText=\"取消\" doneText=\"确定\" placeholder=\"请选择到店时间\" display-format=\"YYYY-MM-DD HH:mm\" [(ngModel)]=\"shareData.serviceproxy['arrivalon']\"></ion-datetime>\r\n        </ion-item>\r\n        <ion-item-divider color=\"primary\">\r\n            <ion-label>\r\n                其它\r\n            </ion-label>\r\n        </ion-item-divider>\r\n        <ion-item>\r\n            <ion-label position=\"stacked\">客户描述</ion-label>\r\n            <ion-textarea placeholder=\"请输入客户描述信息\" [(ngModel)]=\"shareData.serviceproxy['customercomment']\"></ion-textarea>\r\n        </ion-item>\r\n    </ion-list>\r\n\r\n    <section style=\"text-align:center;\">\r\n        <ion-button style=\"width:40%\" color=\"danger\" (click)=\"nextOnClick()\">下一步</ion-button>\r\n    </section>\r\n    <br />\r\n    <br />\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/ri/list\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>{{shareData.viewTitle}}</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-menu-button></ion-menu-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n\r\n    <ion-list lines=\"full\">\r\n        <ion-item-divider color=\"primary\">\r\n            <ion-label>\r\n                车主资料\r\n            </ion-label>\r\n        </ion-item-divider>\r\n        <ion-item (click)=\"customerOnClick()\">\r\n            <ion-label position=\"stacked\">\r\n                <ion-icon name=\"search\"></ion-icon>\r\n                姓名\r\n                <ion-text color=\"danger\">*</ion-text>\r\n            </ion-label>\r\n            <p>{{shareData.serviceproxy[\"customername\"]}}&nbsp;</p>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label position=\"stacked\">\r\n                <ion-icon name=\"lock\"></ion-icon>\r\n                车牌\r\n                <ion-text color=\"danger\">*</ion-text>\r\n            </ion-label>\r\n            <p>{{shareData.serviceproxy[\"carplate\"]}}&nbsp;</p>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label position=\"stacked\">\r\n                <ion-icon name=\"lock\"></ion-icon>\r\n                手机\r\n                <ion-text color=\"danger\">*</ion-text>\r\n            </ion-label>\r\n            <p>{{shareData.serviceproxy[\"customerphone\"]}}&nbsp;</p>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label position=\"stacked\">\r\n                <ion-icon name=\"lock\"></ion-icon>\r\n                厅店\r\n                <ion-text color=\"danger\">*</ion-text>\r\n            </ion-label>\r\n            <p>{{shareData.serviceproxy[\"dealerid_formatted\"]}}&nbsp;</p>\r\n        </ion-item>\r\n        <ion-item-divider color=\"primary\">\r\n            <ion-label>\r\n                委托信息\r\n            </ion-label>\r\n        </ion-item-divider>\r\n        <ion-item (click)=\"presentAppointmentinfoModal()\">\r\n            <ion-label position=\"stacked\">\r\n                <ion-icon name=\"search\"></ion-icon>\r\n                预约单\r\n            </ion-label>\r\n            <p>{{shareData.serviceproxy[\"appointmentcode_formatted\"]}}&nbsp;</p>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label position=\"stacked\">\r\n                送修人\r\n                <ion-text color=\"danger\">*</ion-text>\r\n            </ion-label>\r\n            <ion-input placeholder=\"请输入送修人姓名\" maxlength=\"12\" [(ngModel)]=\"shareData.serviceproxy['shuttlename']\" required></ion-input>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label position=\"stacked\">\r\n                送修人手机\r\n                <ion-text color=\"danger\">*</ion-text>\r\n            </ion-label>\r\n            <ion-input placeholder=\"请输入11位手机号\" type=\"phone\" [(ngModel)]=\"shareData.serviceproxy['shuttlephone']\" required></ion-input>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label position=\"stacked\">\r\n                进店电量（%）\r\n                <ion-text color=\"danger\">*</ion-text>\r\n            </ion-label>\r\n            <ion-input placeholder=\"请输入0-100之间的数字\" type=\"number\" [(ngModel)]=\"shareData.serviceproxy['inpower']\"></ion-input>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label position=\"stacked\">\r\n                进店油量\r\n                <ion-text color=\"danger\">*</ion-text>\r\n            </ion-label>\r\n            <ion-select cancelText=\"取消\" okText=\"确定\" placeholder=\"请选择进店油量\" [(ngModel)]=\"shareData.serviceproxy['oilquantity']\">\r\n                <ion-select-option value=\"10\">1/4</ion-select-option>\r\n                <ion-select-option value=\"20\">1/2</ion-select-option>\r\n                <ion-select-option value=\"30\">3/4</ion-select-option>\r\n            </ion-select>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label position=\"stacked\">\r\n                进店里程\r\n                <ion-text color=\"danger\">*</ion-text>\r\n            </ion-label>\r\n            <ion-input placeholder=\"请输入进店里程\" type=\"number\" [(ngModel)]=\"shareData.serviceproxy['mileage']\"></ion-input>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label position=\"stacked\">\r\n                到店时间\r\n                <ion-text color=\"danger\">*</ion-text>\r\n            </ion-label>\r\n            <ion-datetime cancelText=\"取消\" doneText=\"确定\" placeholder=\"请选择到店时间\" display-format=\"YYYY-MM-DD HH:mm\" [(ngModel)]=\"shareData.serviceproxy['arrivalon']\"></ion-datetime>\r\n        </ion-item>\r\n        <ion-item-divider color=\"primary\">\r\n            <ion-label>\r\n                其它\r\n            </ion-label>\r\n        </ion-item-divider>\r\n        <ion-item>\r\n            <ion-label position=\"stacked\">客户描述</ion-label>\r\n            <ion-textarea placeholder=\"请输入客户描述信息\" [(ngModel)]=\"shareData.serviceproxy['customercomment']\"></ion-textarea>\r\n        </ion-item>\r\n    </ion-list>\r\n\r\n    <section style=\"text-align:center;\">\r\n        <ion-button style=\"width:40%\" color=\"primary\" (click)=\"nextOnClick()\">下一步</ion-button>\r\n    </section>\r\n    <br />\r\n    <br />\r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -90,6 +90,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var app_serving_serving_ser_components_select_customer_select_customer_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/serving/serving.ser/components/select-customer/select-customer.component */ "./src/app/serving/serving.ser/components/select-customer/select-customer.component.ts");
 /* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var app_serving_serving_ser_components_select_appointmentinfo_select_appointmentinfo_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component */ "./src/app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component.ts");
+
 
 
 
@@ -108,6 +110,7 @@ var EditPage = /** @class */ (function () {
         this._activeRoute = _activeRoute;
         this.mod = {
             queryUrl: '/Api/Serviceproxy/GetInfo',
+            queryAppointmentcodeUrl: '/api/appointment-info/GetDetail',
             data: {},
             shareDataKey: "riEditData",
         };
@@ -140,7 +143,15 @@ var EditPage = /** @class */ (function () {
                 if (_this.shareData.actioncode === 2) {
                     if (!_this._shareData.has(_this.mod.shareDataKey)) {
                         _this.shareData.viewTitle = "编辑问诊单";
+                        _this.shareData.serviceproxy["serviceproxyid"] = params['id'];
                         _this.pageOnBind(_this.shareData.serviceproxy["serviceproxyid"]);
+                    }
+                }
+                else if (_this.shareData.actioncode === 3) { //从预约单转换服务委托书
+                    if (!_this._shareData.has(_this.mod.shareDataKey)) {
+                        _this.shareData.viewTitle = "创建问诊单";
+                        _this.shareData.serviceproxy["appointmentcode"] = params['id'];
+                        _this.pageOnBindFromAppointmentcode(_this.shareData.serviceproxy["appointmentcode"]);
                     }
                 }
                 else {
@@ -181,6 +192,73 @@ var EditPage = /** @class */ (function () {
             });
         });
     };
+    //选预约单
+    EditPage.prototype.presentAppointmentinfoModal = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var modal, data, resAttr;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this._modalCtrl.create({
+                            component: app_serving_serving_ser_components_select_appointmentinfo_select_appointmentinfo_component__WEBPACK_IMPORTED_MODULE_6__["SelectAppointmentinfoComponent"]
+                        })];
+                    case 1:
+                        modal = _a.sent();
+                        return [4 /*yield*/, modal.present()];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, modal.onDidDismiss()];
+                    case 3:
+                        data = (_a.sent()).data;
+                        if (!this._valid.isNull(data) && !this._valid.isNull(data["model"])) {
+                            resAttr = data["model"];
+                            //加入预约单
+                            this.shareData.serviceproxy["appointmentcode"] = resAttr["mcs_appointmentinfoid"];
+                            this.shareData.serviceproxy["appointmentcode_formatted"] = resAttr["mcs_name"];
+                            //加入带出的信息
+                            this.shareData.serviceproxy["customerid"] = resAttr["_mcs_customerid_value"];
+                            this.shareData.serviceproxy["customername"] = resAttr["mcs_customername"];
+                            this.shareData.serviceproxy["carplate"] = resAttr["mcs_carplate"];
+                            this.shareData.serviceproxy["customerphone"] = resAttr["mcs_customerphone"];
+                            this.shareData.serviceproxy["dealerid"] = resAttr["_mcs_dealerid_value"];
+                            this.shareData.serviceproxy["dealerid_formatted"] = resAttr["_mcs_dealerid_value@OData.Community.Display.V1.FormattedValue"];
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    //预约单的初始化页面
+    EditPage.prototype.pageOnBindFromAppointmentcode = function (id) {
+        var _this = this;
+        this._page.loadingShow();
+        this._http.get(this.mod.queryAppointmentcodeUrl, {
+            params: {
+                entityid: id,
+            }
+        }, function (res) {
+            if (!_this._valid.isNull(res) && !_this._valid.isNull(res["Attributes"])) {
+                var resAttr = res["Attributes"];
+                debugger;
+                //加入预约单
+                _this.shareData.serviceproxy["appointmentcode"] = resAttr["mcs_appointmentinfoid"];
+                _this.shareData.serviceproxy["appointmentcode_formatted"] = resAttr["mcs_name"];
+                //加入带出的信息
+                _this.shareData.serviceproxy["customerid"] = resAttr["_mcs_customerid_value"];
+                _this.shareData.serviceproxy["customername"] = resAttr["mcs_customername"];
+                _this.shareData.serviceproxy["carplate"] = resAttr["mcs_carplate"];
+                _this.shareData.serviceproxy["customerphone"] = resAttr["mcs_customerphone"];
+                _this.shareData.serviceproxy["dealerid"] = resAttr["_mcs_dealerid_value"];
+                _this.shareData.serviceproxy["dealerid_formatted"] = resAttr["_mcs_dealerid_value@OData.Community.Display.V1.FormattedValue"];
+            }
+            _this._page.loadingHide();
+        }, function (err) {
+            var that = _this;
+            _this._page.alert("消息提示", "数据加载异常", function () {
+                that._page.goBack();
+            });
+            _this._page.loadingHide();
+        });
+    };
     //编辑初始化页面
     EditPage.prototype.pageOnBind = function (id) {
         var _this = this;
@@ -206,6 +284,9 @@ var EditPage = /** @class */ (function () {
                 _this.shareData.serviceproxy["oilquantity"] = String(res["Serviceproxy"]["Attributes"]["mcs_oilquantity"]);
                 _this.shareData.serviceproxy["arrivalon"] = res["Serviceproxy"]["Attributes"]["mcs_arrivalon"];
                 _this.shareData.serviceproxy["customercomment"] = res["Serviceproxy"]["Attributes"]["mcs_customercomment"];
+                //加入预约单
+                _this.shareData.serviceproxy["appointmentcode"] = res["Serviceproxy"]["Attributes"]["_mcs_appointmentcode_value"];
+                _this.shareData.serviceproxy["appointmentcode_formatted"] = res["Serviceproxy"]["Attributes"]["_mcs_appointmentcode_value@OData.Community.Display.V1.FormattedValue"];
             }
             if (!_this._valid.isNull(res.ServiceordercheckresultList)) {
                 for (var key in res.ServiceordercheckresultList) {

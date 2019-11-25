@@ -13,7 +13,7 @@ import { IonInfiniteScroll } from '@ionic/angular';
 })
 export class ListPage implements OnInit {
     @ViewChild(IonInfiniteScroll, null) infiniteScroll: IonInfiniteScroll;
-
+    public tab: any = "all";
     model = {
         name: 'appointmentlistinfo',//模块实体名称
         apiUrl: '/api/appointment-info/GetList',
@@ -22,12 +22,12 @@ export class ListPage implements OnInit {
         data: [],//列表数据
         pageSize: 10,//页数
         page: 1,//分页
-        sort: 'mcs_appointmentinfoid desc',//排序的参数
         isending: false,//是否加载完成
         nodata: false,
         aLLTotalCount:0,//总条数
         followingCount:0,//跟进中
-        followedCount:0//已跟进
+        followedCount: 0,//已跟进
+        ifDoLoading: false,//是否初始加载
     };
 
     constructor(
@@ -61,15 +61,16 @@ export class ListPage implements OnInit {
         }
     }
     //下拉刷新
-    doRefresh(event) {
-        this.model.data = [];
-        this.model.page = 1;
-        this.model.isending = false;
-        this.showlist(event);
-    }
+    //doRefresh(event) {
+    //    this.model.data = [];
+    //    this.model.page = 1;
+    //    this.model.isending = false;
+    //    this.showlist(event);
+    //}
     //加载下一页
     doLoading(event) {
         this.model.page++;
+        this.model.ifDoLoading = true;
         this.showlist(event);
     }
     //切换tab
@@ -84,21 +85,20 @@ export class ListPage implements OnInit {
         else {
             this.model.status = 0;
         }
+        this.model.ifDoLoading = false;
         this.showlist(null);
     }
     //展示数据
     showlist(event) {
-        this._page.loadingShow();
-        console.log("地址:" + this.model.apiUrl, "预约状态:" + this.model.status, "搜索:" + this.model.seachkey, "排序:" + this.model.sort, "页条数:" + this.model.pageSize, "页数:" + this.model.page);
-        this._http.get(this.model.apiUrl,
+        if (!this.model.ifDoLoading) {
+            this._page.loadingShow();
+        }
+        this._http.getForToaken(this.model.apiUrl,
             {
-                params: {
-                    status: this.model.status,
-                    seachkey: this.model.seachkey,
-                    sort: this.model.sort,
-                    pageSize: this.model.pageSize,
-                    page: this.model.page
-                }
+                "status": this.model.status,
+                "seachkey": this.model.seachkey,
+                "pageSize": this.model.pageSize,
+                "page": this.model.page
             },
             (res: any) => {
                 if (res.Results !== null) {
@@ -110,21 +110,7 @@ export class ListPage implements OnInit {
                         obj["mcs_appointmentat"] = res.Results[key]["Attributes"]["mcs_appointmentat"];
                         obj["mcs_appointmentconfigid"] = res.Results[key]["Attributes"]["appointmentconfig_x002e_mcs_name"];
                         obj["mcs_status"] = res.Results[key]["Attributes"]["mcs_status"];
-
-                        //设置颜色
-                        obj["appointment"] = "primary";
-                        if (obj["mcs_status"] == 10) {
-                            obj["appointment"] = "tertiary";
-                        }
-                        else if (obj["mcs_status"] == 20) {
-                            obj["appointment"] = "primary";
-                        }
-                        else if (obj["mcs_status"] == 50) {
-                            obj["appointment"] = "dark";
-                        }
-                        else {
-                            obj["appointment"] = "success";
-                        }
+                        obj["mcs_statusvalue"] = res.Results[key]["Attributes"]["mcs_status@OData.Community.Display.V1.FormattedValue"];
                         this.model.data.push(obj);
                     }
 

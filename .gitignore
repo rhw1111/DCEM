@@ -260,9 +260,12 @@ __pycache__/
 *.pyc
 
 /DCEM.MApp/www/*
-**/DCEM.MApp/dist/*
+/DCEM.MApp/dist/*
 /DCEM.MApp/dist/out-tsc/*
+/DCEM.MApp/platforms/*
+/DCEM.MApp/plugins/*
 DCEM.Client.sln
 DCEM.Server.sln
 DCEM.Web/Configurations/dev_app.json
 DCEM.Web/Configurations/app.json
+/DCEM.MApp/resources/android/icon.png

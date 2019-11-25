@@ -5,9 +5,7 @@
         </ion-buttons>
         <ion-title>问诊单</ion-title>
         <ion-buttons slot="end">
-            <ion-button [routerLink]="['/serving/home/tabs']">
-                <ion-icon slot="icon-only" name="home" [routerLink]="['/serving/home/tabs']"></ion-icon>
-            </ion-button>
+            <ion-menu-button></ion-menu-button>
         </ion-buttons>
     </ion-toolbar>
     <ion-toolbar>
@@ -23,7 +21,7 @@
                 </ion-label>
             </ion-item-divider>
             <ion-item-sliding *ngFor="let item of mod.data[groupkey].data;let key=index">
-                <ion-item [routerLink]="['/serving/ri/detail']" [queryParams]="{id:item.id}">
+                <ion-item [routerLink]="['/serving/ri/detail']" [queryParams]="{id:item.Id}">
                     <ion-icon color="{{item.statuscolor}}" name="document"></ion-icon>
                     <ion-label style="margin-left:10px">
                         <h6>{{item.name}}</h6>

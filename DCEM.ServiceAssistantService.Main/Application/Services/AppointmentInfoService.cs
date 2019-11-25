@@ -4,6 +4,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Xml.Linq;
+using DCEM.Main;
+using DCEM.Main.Entities;
 using DCEM.ServiceAssistantService.Main.Application.Repository;
 using DCEM.ServiceAssistantService.Main.DTOModel;
 using Microsoft.AspNetCore.Mvc;
@@ -40,6 +42,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         {
             try
             {
+                var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
                 #region 查询结果集
                 var fetchString = _appointmentInfoRepository.QueryListByPage(filterstr);
 
@@ -47,8 +50,10 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
                 var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {
                     EntityName = "mcs_appointmentinfo",
-                    FetchXml = fetchXdoc
+                    FetchXml = fetchXdoc,
+                    ProxyUserId = userInfo?.systemuserid
                 };
+                fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
                 var fetchResponse = await _crmService.Execute(fetchRequest);
                 var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
                 #endregion
@@ -60,7 +65,8 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
                 fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {
                     EntityName = "mcs_appointmentinfo",
-                    FetchXml = fetchAllTotalXdoc
+                    FetchXml = fetchAllTotalXdoc,
+                    ProxyUserId = userInfo?.systemuserid
                 };
                 fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
                 fetchResponse = await _crmService.Execute(fetchRequest);
@@ -74,7 +80,8 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
                 fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {
                     EntityName = "mcs_appointmentinfo",
-                    FetchXml = fetchFollowingXdoc
+                    FetchXml = fetchFollowingXdoc,
+                    ProxyUserId = userInfo?.systemuserid
                 };
                 fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
                 fetchResponse = await _crmService.Execute(fetchRequest);
@@ -88,7 +95,8 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
                 fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {
                     EntityName = "mcs_appointmentinfo",
-                    FetchXml = fetchFollowedXdoc
+                    FetchXml = fetchFollowedXdoc,
+                    ProxyUserId = userInfo?.systemuserid
                 };
                 fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
                 fetchResponse = await _crmService.Execute(fetchRequest);
@@ -118,9 +126,6 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         {
             try
             {
-                var dicHead = new Dictionary<string, IEnumerable<string>>();
-                dicHead.Add("Prefer", new List<string>() { "odata.include-annotations=\"*\"" });
-
                 var fetchString = _appointmentInfoRepository.QueryDetail(entityid);
                 CrmEntity entity = null;
                 entity = await _crmService.Retrieve("mcs_appointmentinfo", Guid.Parse(entityid), fetchString, null, dicHead);
@@ -169,10 +174,15 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         /// </summary>
         /// <param name="appointmentConfiggRequest"></param>
         /// <returns></returns>
-        public async Task<QueryResult<CrmEntity>> GetConfig(AppointmentConfiggRequest appointmentConfiggRequest)
+        public async Task<QueryResult<CrmEntity>> GetConfig(AppointmentConfigRequest appointmentConfiggRequest)
         {
             try
             {
+                var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+                if (userInfo != null && !string.IsNullOrWhiteSpace(userInfo.mcs_dealerid))
+                {
+                    appointmentConfiggRequest.mcs_dealerid = Guid.Parse(userInfo.mcs_dealerid);
+                }
                 var fetchString = _appointmentInfoRepository.GetConfig(appointmentConfiggRequest);
 
                 var fetchXdoc = XDocument.Parse(fetchString);
@@ -204,6 +214,15 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         /// <returns></returns>
         public async Task<ValidateResult<CrmEntity>> AddOrEdit(AppointmentInfoAddOrEditRequest request)
         {
+            var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+            if (userInfo != null && !string.IsNullOrWhiteSpace(userInfo.mcs_dealerid))
+            {
+                request.appointmentinfo.mcs_dealerid = Guid.Parse(userInfo.mcs_dealerid);
+            }
+            if (userInfo != null && userInfo.systemuserid!=null)
+            {
+                request.appointmentinfo.mcs_serviceadvisorid = userInfo.systemuserid;
+            }
             var validateResult = new ValidateResult<CrmEntity>();
             var reusetCrmEntity = new CrmEntity("mcs_appointmentinfo", new Guid());
             //新增预约单
@@ -213,7 +232,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
                 //预约状态 创建默认是待跟进
                 createEntity.Attributes.Add("mcs_status", 10);
                 BasicAssignment(createEntity, request);
-                var reuset = await _crmService.Create(createEntity);
+                var reuset = await _crmService.Create(createEntity, userInfo?.systemuserid);
                 reusetCrmEntity.Id = createEntity.Id;
             }
             //编辑预约单
@@ -226,7 +245,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
                     updateEntity.Attributes.Add("mcs_status", request.appointmentinfo.mcs_status);
                 }
                 BasicAssignment(updateEntity, request);
-                await _crmService.Update(updateEntity);
+                await _crmService.Update(updateEntity, userInfo?.systemuserid);
                 reusetCrmEntity.Id = (Guid)request.appointmentinfo.mcs_appointmentinfoid;
             }
             validateResult.Data = reusetCrmEntity;
@@ -329,8 +348,6 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
             {
                 var systemUserEntityEF = new CrmEntityReference("systemuser", (Guid)request.appointmentinfo.mcs_serviceadvisorid);
                 entity.Attributes.Add("mcs_serviceadvisorid", systemUserEntityEF);
-                //owner
-                entity.Attributes.Add("ownerid", systemUserEntityEF);
             }
 
             return entity;

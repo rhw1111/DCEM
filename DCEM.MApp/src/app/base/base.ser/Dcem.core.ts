@@ -77,10 +77,10 @@ export class DCore_Http {
     //post请求
     postForToaken(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
         this._httpClient.post(
-            this._config.getDomain() + url, 
+            this._config.getDomain() + url,
             params,
             {
-                headers:this.getHeaders()
+                headers: this.getHeaders()
             }).subscribe(
                 (res: any) => {
                     rescallback && rescallback(res);
@@ -129,6 +129,7 @@ export class DCore_Http {
         // 目前只解析token字段，缓存先只存该字段
         // JSON.stringify(token)
         window.localStorage.setItem('auth-token', token);
+        window.localStorage.setItem('auth-logintime', new Date().toLocaleTimeString());
     }
 }
 

@@ -131,6 +131,20 @@ export class OptionSetService {
                     { "name": "3D展厅", "value": 10 }
                 ];
                 break;
+            case "act_mcs_excutestatus"://培育任务-线索状态
+                optionlist = [
+                    { "name": "下次跟进", "value": 1 },
+                    { "name": "不感兴趣", "value": 2 },
+                    { "name": "电话未接通", "value": 3 },
+                    { "name": "会持续关注", "value": 4 },
+                    { "name": "未来感兴趣", "value": 5 },
+                    { "name": "空号/错号", "value": 6 },
+                    { "name": "已购买竞品", "value": 7 },
+                    { "name": "试乘试驾已预约", "value": 8 },
+                    { "name": "非本人行为", "value": 9 },
+                    { "name": "配合公司/领导", "value": 10 }
+                ];
+                break;
 
             case "mcs_importantlevel"://培育任务-重要级别
                 optionlist = [
@@ -227,10 +241,7 @@ export class OptionSetService {
                 break;
             case "mcs_vehnetworkstatus"://整车销售-发票信息
                 optionlist = [
-                    { "name": "车主信息已同步", "value": 1 },
-                    { "name": "车辆信息已同步", "value": 2 },
-                    { "name": "实名认证通过", "value": 3 },
-                    { "name": "车联网已开通", "value": 4 },
+                    { "name": "草稿", "value": 0 }, 
                     { "name": "发票信息已上传", "value": 5 }
                 ];
                 break;
@@ -266,10 +277,43 @@ export class OptionSetService {
                 optionlist = [
                     { "name": "家用", "value": 0 },
                     { "name": "营运", "value": 1 },
-                    { "name": "其它", "value": 2 } 
+                    { "name": "其它", "value": 2 }
                 ];
                 break;
-           
+            case "mcs_leadorigin"://售前-唯一线索-主线索来源 
+                optionlist = [
+                    { "name": "WEB官网", "value": 1 },
+                    { "name": "Event-Online", "value": 2 },
+                    { "name": "Event-OffLine", "value": 3 },
+                    { "name": "Store展厅", "value": 4 },
+                    { "name": "400电话", "value": 5 },
+                    { "name": "APP", "value": 6 },
+                    { "name": "小程序", "value": 7 },
+                    { "name": "车机", "value": 8 },
+                    { "name": "H5落地页", "value": 9 },
+                    { "name": "3D展厅", "value": 10 }
+                ];
+                break;
+            case "mcs_drivebusinesstype"://售前-试乘试驾-业务类型
+                optionlist = [
+                    { "name": "试乘", "value": 10 },
+                    { "name": "试驾", "value": 11 }
+                ];
+                break;
+                //售前-试乘试驾-试驾状态(已提交 10、已预约 11、已排程 12、已取消 13、试驾开始 14、试驾结束  15、已反馈  16，已删除 17)
+                case "mcs_drivestatus": 
+                optionlist = [
+                    { "name": "已提交", "value": 10 },
+                    { "name": "已预约", "value": 11 },
+                    { "name": "已排程", "value": 12 },
+                    { "name": "已取消", "value": 13 },
+                    { "name": "试驾开始", "value": 14 },
+                    { "name": "试驾结束", "value": 15 },
+                    { "name": "已反馈", "value": 16 },
+                    { "name": "已删除", "value": 17 }
+                ];
+                break;
+
         }
         return optionlist;
     }

@@ -14,8 +14,17 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
         /// <returns></returns>
         public string QuerySystemUser(string systemuserid)
         {
-            string strQuery = string.Format($"$select=domainname,fullname,internalemailaddress,isdisabled,jobtitle,_mcs_dealer_value,mcs_post,mcs_sex,mcs_staffid,mcs_usercode,mcs_userid,mobilephone,nickname,systemuserid&$filter=systemuserid eq { systemuserid}");
-            return strQuery;
+            //string strQuery = string.Format($"$select=domainname,fullname,internalemailaddress,isdisabled,jobtitle,_mcs_dealer_value,mcs_post,mcs_sex,mcs_staffid,mcs_usercode,mcs_userid,mobilephone,nickname,systemuserid&$filter=systemuserid eq { systemuserid}");
+            //return strQuery;
+            var fetchString = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+                  <entity name='systemuser'>
+                    <all-attributes />
+                    <filter type='and'>
+                      <condition attribute='systemuserid' operator='eq' value='{systemuserid}' />
+                    </filter>
+                  </entity>
+                </fetch>";
+            return fetchString;
         }
 
         /// <summary>
@@ -125,6 +134,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
                   <entity name='mcs_vehiclecolor'>
                     <attribute name='mcs_name' /> 
                     <attribute name='mcs_code' />  
+                    <order attribute='createdon' descending='true' />
                     <filter type='and'>
                       <condition attribute='statecode' operator='eq' value='0' />
                         {filter}
@@ -201,6 +211,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
                   <entity name='mcs_receptioncommissioner'>
                     <attribute name='mcs_name' /> 
                     <attribute name='mcs_code' />   
+                    <order attribute='createdon' descending='true' />
                     <filter type='and'>
                       <condition attribute='statecode' operator='eq' value='0' />
                         {filter}
@@ -238,6 +249,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
                   <entity name='mcs_sysarea'>
                     <attribute name='mcs_name' /> 
                     <attribute name='mcs_code' />   
+                    <order attribute='createdon' descending='true' />
                     <filter type='and'>
                       <condition attribute='statecode' operator='eq' value='0' />
                         {filter}

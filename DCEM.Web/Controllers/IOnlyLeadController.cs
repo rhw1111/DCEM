@@ -32,6 +32,7 @@ namespace DCEM.Web.Controllers
         }
 
 
+        #region 唯一线索 相关接口
         /// <summary>
         /// 预约记录列表查询
         /// </summary>
@@ -43,20 +44,23 @@ namespace DCEM.Web.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("QueryList")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetList(Guid? dealerid, string systemuserid="", string seachkey = "", int pageSize = 10, int page = 1)
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetList([FromQuery]OnlyLeadRequest onlyLeadRequest)
         {
-            var onlyLeadRequest = new OnlyLeadRequest()
-            {
-                Search = seachkey,
-                DealerId = dealerid,
-                UserId= systemuserid,
-                PageIndex = page,
-                PageSize = pageSize,
-            };
             var list = await app.QueryList(onlyLeadRequest);
             return list;
         }
 
+        /// <summary>
+        /// 唯一线索修改
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("Edit")]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<CrmEntity>>> Edit(OnlyLeadEditRequest request)
+        {
+            return await app.Edit(request);
+        }
 
 
         /// <summary>
@@ -72,39 +76,27 @@ namespace DCEM.Web.Controllers
 
         }
 
-        //查询与唯一线索关联的跟进记录（logcall）
-        [HttpGet]
-        [Route("GetLogCallList")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetLogCallList(string entityid = "", string systemuserid="", string sort = "", int pageSize = 10, int page = 1)
-        {
-            var logcallrequest = new LogCallRequest()
-            {
-                entityid = entityid,
-                UserId = systemuserid,
-                PageIndex = page,
-                PageSize = pageSize,
-                Sort = sort
-            };
-            var list = await app.GetLogCallList(logcallrequest);
-            return list;
-        }
+        #endregion
 
-        //查询与唯一线索关联的培育任务
-        [HttpGet]
+        #region 培育任务相关接口
+
+        #region 查询与唯一线索关联的培育任务        
+        [HttpPost]
         [Route("GetActivityList")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetActivityList(string entityid = "", string systemuserid = "", string sort = "", int pageSize = 10, int page = 1)
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetActivityList(ActivityRequest activityrequest)
         {
-            var activityrequest = new ActivityRequest()
-            {
-                entityid = entityid,
-                UserId = systemuserid,
-                PageIndex = page,
-                PageSize = pageSize,
-                Sort = sort
-            };
+            //var activityrequest = new ActivityRequest()
+            //{
+            //    entityid = entityid,
+            //    UserId = systemuserid,
+            //    PageIndex = page,
+            //    PageSize = pageSize,
+            //    Sort = sort
+            //};
             var list = await app.GetActivityList(activityrequest);
             return list;
         }
+        #endregion
 
         #region 我的培育任务列表查询
 
@@ -125,6 +117,38 @@ namespace DCEM.Web.Controllers
             return list;
         }
         #endregion
+
+        #region 根据主键id获取培育任务详情
+
+        [HttpGet]
+        [Route("GetAcvitityDetail")]
+        public async Task<NewtonsoftJsonActionResult<ActivityDetailModel>> GetAcvitityDetail(string mcs_activityid)
+        {
+            var result = await app.GetAcvitityDetail(mcs_activityid);
+            return result;
+        }
+
+        #endregion
+
+        #endregion
+
+        #region  跟进记录(logcall）相关接口
+        //查询与唯一线索关联的跟进记录（logcall）
+        [HttpPost]
+        [Route("GetLogCallList")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetLogCallList(LogCallRequest logcallrequest)
+        {
+            //var logcallrequest = new LogCallRequest()
+            //{
+            //    entityid = entityid,
+            //    UserId = systemuserid,
+            //    PageIndex = page,
+            //    PageSize = pageSize,
+            //    Sort = sort
+            //};
+            var list = await app.GetLogCallList(logcallrequest);
+            return list;
+        }
 
         /// <summary>
         /// logcall 新增或编辑
@@ -153,18 +177,8 @@ namespace DCEM.Web.Controllers
             var list = await app.GetLogCallList(logcallrequest);
             return list;
         }
+        #endregion
 
-        /// <summary>
-        /// 唯一线索修改
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("Edit")]
-        public async Task<NewtonsoftJsonActionResult<ValidateResult<CrmEntity>>> Edit(OnlyLeadEditRequest request)
-        {
-            return await app.Edit(request);
-        }
-
+    
     }
 }

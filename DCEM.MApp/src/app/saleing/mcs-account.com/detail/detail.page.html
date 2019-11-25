@@ -4,6 +4,9 @@
             <ion-back-button text="返回" defaultHref="/saleing/account/list"></ion-back-button>
         </ion-buttons>
         <ion-title>销售机会详情</ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
     </ion-toolbar>
 
     <ion-toolbar>
@@ -203,7 +206,7 @@
         <div *ngSwitchCase="'logcall'">
             <ion-list lines="full">
                 <ion-item *ngFor="let item of mod.LogcallModel.list" [routerLink]="['/saleing/account/detail']"
-                          [queryParams]="{id:item.Id}">
+                    [queryParams]="{id:item.Id}">
                     <ion-icon slot="start" name="call" size="large"></ion-icon>
                     <ion-label>
                         <h3>{{item.mcs_name}}</h3>
@@ -227,29 +230,28 @@
         </div>
         <div *ngSwitchCase="'activity'">
             <ion-list>
-             <ion-item-sliding *ngFor="let item of mod.ActivityModel.list" >
-                <ion-item >     
-                    <ion-icon slot="start" name="logo-whatsapp" size="large"></ion-icon>
-                    <ion-label>
-                            <h2>跟进时间：{{item.createdon}}</h2>                                          
-                            <p>任务状态：{{item.mcs_activitystatus}}</p>      
-                            <p>重要级别：{{item.mcs_importantlevel}}</p>      
-                            <p>本次跟进内容：{{item.mcs_thisfollowupcontent}}</p>              
+                <ion-item-sliding *ngFor="let item of mod.ActivityModel.list">
+                    <ion-item>
+                        <ion-icon slot="start" name="logo-whatsapp" size="large"></ion-icon>
+                        <ion-label>
+                            <h2>跟进时间：{{item.createdon}}</h2>
+                            <p>任务状态：{{item.mcs_activitystatus}}</p>
+                            <p>重要级别：{{item.mcs_importantlevel}}</p>
+                            <p>本次跟进内容：{{item.mcs_thisfollowupcontent}}</p>
                         </ion-label>
-                </ion-item>
-                <ion-item-options side="end">
-                        <ion-item-option color="tertiary" [routerLink]="['/saleing/cultivatetask/edit']" [queryParams]="{id:item.mcs_activityid}">
+                    </ion-item>
+                    <ion-item-options side="end">
+                        <ion-item-option color="tertiary" [routerLink]="['/saleing/cultivatetask/edit']"
+                            [queryParams]="{id:item.mcs_activityid}">
                             编辑
-                        </ion-item-option>               
-                </ion-item-options>
-            </ion-item-sliding>
-            <ion-row *ngIf="mod.ActivityModel.list.length==0">
-                    <ion-col>
-                      <div class="ionattbody">
-                         没有更多的记录显示啦 
-                      </div>
-                    </ion-col>  
-                  </ion-row>
+                        </ion-item-option>
+                    </ion-item-options>
+                </ion-item-sliding>
+                <ion-label *ngIf="mod.ActivityModel.list.length==0" text-center>
+                    <p>
+                        没有更多的记录显示啦
+                    </p>
+                </ion-label>
 
             </ion-list>
 
@@ -257,6 +259,12 @@
                 <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
                 </ion-infinite-scroll-content>
             </ion-infinite-scroll>
+            <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+                    <ion-fab-button [routerLink]="['/saleing/cultivatetask/edit']" [queryParams]="{sourid:mod.data.Account.Id,type:'3'}">
+                        <ion-icon name="add"></ion-icon>
+                    </ion-fab-button>
+            </ion-fab>
+        
         </div>
     </div>
 
@@ -265,20 +273,26 @@
             <ion-icon name="arrow-dropup"></ion-icon>
         </ion-fab-button>
         <ion-fab-list side="top">
-            <ion-fab-button *ngIf="mod.data.Account.mcs_customerstatus==1" title="分配" color="success" (click)="Assign()">
+            <ion-fab-button *ngIf="mod.data.Account.mcs_customerstatus==1" title="分配" color="success"
+                (click)="Assign()">
                 分配
             </ion-fab-button>
-            <ion-fab-button *ngIf="mod.data.Account.mcs_customerstatus<4" title="成交" color="success" (click)="Success()">
+            <ion-fab-button *ngIf="mod.data.Account.mcs_customerstatus<4" title="成交" color="success"
+                (click)="Success()">
                 成交
             </ion-fab-button>
             <ion-fab-button *ngIf="mod.data.Account.mcs_customerstatus<4" title="战败" color="danger" (click)="Failed()">
                 战败
             </ion-fab-button>
-            <ion-fab-button color="warning" [routerLink]="['/saleing/account/edit']" [queryParams]="{id:mod.data.Account.Id,actionCode:2}"><ion-icon name="create"></ion-icon></ion-fab-button>
+            <ion-fab-button *ngIf="mod.data.Account.mcs_customerstatus<4" color="warning" [routerLink]="['/saleing/account/edit']"
+                [queryParams]="{id:mod.data.Account.Id,actionCode:2}">
+                <ion-icon name="create"></ion-icon>
+            </ion-fab-button>
         </ion-fab-list>
     </ion-fab>
     <ion-fab *ngIf="tab=='logcall'" vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button [routerLink]="['/saleing/contactrecord/edit']" [queryParams]="{id:mod.data.Account.mcs_onlyleadid}">
+        <ion-fab-button [routerLink]="['/saleing/contactrecord/edit']"
+            [queryParams]="{id:mod.data.Account.mcs_onlyleadid}">
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>
     </ion-fab>
