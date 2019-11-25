@@ -282,6 +282,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         public async Task<ValidateResult<CrmEntity>> Edit(OnlyLeadEditRequest request)
         {
             var validateResult = new ValidateResult<CrmEntity>();
+            var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
             var reusetCrmEntity = new CrmEntity("mcs_onlylead", request.onlylead.mcs_onlyleadid);
             //编辑
             if (request.onlylead.mcs_onlyleadid!=null)
@@ -289,7 +290,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 var updateEntity = new CrmExecuteEntity("mcs_onlylead", request.onlylead.mcs_onlyleadid);
                
                 BasicAssignment(updateEntity, request);
-                await _crmService.Update(updateEntity,request.onlylead.systemuserid);
+                await _crmService.Update(updateEntity, userInfo?.systemuserid);
                 reusetCrmEntity.Id = updateEntity.Id;
             }
            

@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{f26cede4-f02d-4382-a6bd-49c0cb89d2aa}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <ProjectView>ShowAllFiles</ProjectView>
+    <ProjectView>ProjectFiles</ProjectView>
     <StartupFile />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -100,6 +100,12 @@
     <Content Include="src\app\saleing\saleing.ser\components\select-vehiclecolor\select-vehiclecolor.component.scss" />
     <Content Include="src\app\saleing\saleing.ser\components\select-vehicletype\select-vehicletype.component.html" />
     <Content Include="src\app\saleing\saleing.ser\components\select-vehicletype\select-vehicletype.component.scss" />
+    <Content Include="src\app\saleing\vehlisense\detail\detail.page.html" />
+    <Content Include="src\app\saleing\vehlisense\detail\detail.page.scss" />
+    <Content Include="src\app\saleing\vehlisense\list\list.page.html" />
+    <Content Include="src\app\saleing\vehlisense\list\list.page.scss" />
+    <Content Include="src\app\saleing\vehlisense\success\success.page.html" />
+    <Content Include="src\app\saleing\vehlisense\success\success.page.scss" />
     <Content Include="src\app\serving\home.com\index\index.page.html" />
     <Content Include="src\app\serving\home.com\index\index.page.scss" />
     <Content Include="src\app\serving\home.com\message\message.page.html" />
@@ -692,6 +698,15 @@
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-vehicletype\select-vehicletype.component.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-vehicletype\select-vehicletype.component.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\optionset.service.ts" />
+    <TypeScriptCompile Include="src\app\saleing\vehlisense\detail\detail.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\vehlisense\detail\detail.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\vehlisense\detail\detail.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\vehlisense\list\list.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\vehlisense\list\list.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\vehlisense\list\list.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\vehlisense\success\success.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\vehlisense\success\success.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\vehlisense\success\success.page.ts" />
     <TypeScriptCompile Include="src\app\serving\home.com\index\index.module.ts" />
     <TypeScriptCompile Include="src\app\serving\home.com\index\index.page.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\home.com\index\index.page.ts" />
@@ -1013,6 +1028,10 @@
     <Folder Include="src\app\saleing\saleing.ser\components\select-sysarea\" />
     <Folder Include="src\app\saleing\saleing.ser\components\select-vehiclecolor\" />
     <Folder Include="src\app\saleing\saleing.ser\components\select-vehicletype\" />
+    <Folder Include="src\app\saleing\vehlisense\" />
+    <Folder Include="src\app\saleing\vehlisense\detail\" />
+    <Folder Include="src\app\saleing\vehlisense\list\" />
+    <Folder Include="src\app\saleing\vehlisense\success\" />
     <Folder Include="src\app\serving\" />
     <Folder Include="src\app\serving\home.com\index\" />
     <Folder Include="src\app\serving\home.com\message\" />
