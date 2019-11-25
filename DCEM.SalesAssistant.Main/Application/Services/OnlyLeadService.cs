@@ -100,6 +100,8 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         {
             try
             {
+                var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+                var ProxyUserId = userInfo != null ? userInfo.systemuserid : null;
                 var fetchString = _onlyLeadRepository.GetLogCallList(logcallrequest);
 
                 var fetchXdoc = XDocument.Parse(fetchString);
@@ -107,7 +109,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 {
                     EntityName = "mcs_logcall",
                     FetchXml = fetchXdoc,
-                    ProxyUserId = Guid.Parse(logcallrequest.UserId)
+                    ProxyUserId = ProxyUserId
                 };
                 var fetchResponse = await _crmService.Execute(fetchRequest);
                 var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;

@@ -24,10 +24,14 @@ export class DetailPage implements OnInit {
         LogcallModel: {//联络记录
             apiUrl: '/api/only-lead/GetLogCallList',
             list: [],
-            isending: false,
-            page: 1,
-            pageSize: 10,
-            sort: ''
+            isending: false,         
+            params: {
+                accountid: "",
+                Sort: '',
+                PageSize:10,
+                PageIndex: 1,
+                UserId: ""//当前登录用户ID
+             }
         },
         ActivityModel: {//培育任务
             apiUrl: '/api/only-lead/GetActivityList',
@@ -143,7 +147,7 @@ export class DetailPage implements OnInit {
 
     ngOnInit() {
         this.mod.LogcallModel.list = [];
-        this.mod.LogcallModel.page = 1;
+        this.mod.LogcallModel.params.PageIndex = 1;
         this.BindInfo(this.mod.data.Account.Id);
     }
     //绑定数据
@@ -199,14 +203,14 @@ export class DetailPage implements OnInit {
     }
     LogcallTabLoading() {
         this.mod.LogcallModel.list = [];
-        this.mod.LogcallModel.page = 1;
+        this.mod.LogcallModel.params.PageIndex = 1;
         //this.ionInfiniteScroll.disabled=false;
         this.ionContent.scrollToTop(0);
         this.LoadLogcall();
     }
     //下拉事件
     DownLoadLogcall() {
-        this.mod.LogcallModel.page += 1;
+        this.mod.LogcallModel.params.PageIndex += 1;
         this.LoadLogcall();
     }
 
@@ -283,18 +287,13 @@ export class DetailPage implements OnInit {
      * 加载logcall记录
      */
     LoadLogcall() {
+        debugger;
+        this.mod.LogcallModel.params.accountid= this.mod.data.Account.Id;
+        this.mod.LogcallModel.params.UserId=this.userInfo.GetSystemUserId();//当前登录用户ID
         this._page.loadingShow();
-        this._http.get(
+        this._http.postForToaken(
             this.mod.LogcallModel.apiUrl,
-            {
-                params: {
-                    entityid: this.mod.data.Account.mcs_onlyleadid,//唯一线索Id
-                    page: this.mod.LogcallModel.page,
-                    pageSize: this.mod.LogcallModel.pageSize,
-                    sort: this.mod.LogcallModel.sort,
-                    systemuserid: this.userInfo.GetSystemUserId()//当前登录用户ID
-                }
-            },
+            this.mod.LogcallModel.params,           
             (res: any) => {
                 if (res != null) {
                     if (res.Results.length > 0) {

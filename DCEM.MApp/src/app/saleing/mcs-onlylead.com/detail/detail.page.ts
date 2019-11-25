@@ -34,13 +34,15 @@ export class DetailPage implements OnInit {
     systemUserId: "",//当前用户id
 
     //联络记录参数
-    datalist: [],
-    pageSize: 10,//页数
-    page: 1,//分页
-    sort: '',//排序的参数
+    datalist: [],  
     isending: false,//是否加载完成
-    
-
+    params:{
+        mcs_onlyleadid: "",    
+        Sort: '',
+        PageSize: 10,
+        PageIndex: 1,
+        UserId:""
+    },
 
     //培育任务参数
     datalist2: [],
@@ -134,20 +136,16 @@ pageOnBind() {
 
 //加载联络记录(logcall)列表
 pageOnLogCalllist() {
+
+    this.mod.params.mcs_onlyleadid=this.mod.data.mcs_onlyleadid;
+    this.mod.params.UserId=this.mod.systemUserId;
+   
     this.mod.datalist= [];
    // debugger;
     this._page.loadingShow();
-    this._http.get(
+    this._http.postForToaken(
         this.mod.apiUrlList1,
-        {
-            params: {
-                entityid: this.mod.data.mcs_onlyleadid,
-                sort: this.mod.sort,
-                pageSize: this.mod.pageSize,
-                page: this.mod.page,
-                systemuserid: this.mod.systemUserId,
-            }
-        },
+        this.mod.params,
         (res: any) => {
            // debugger;
             if (res !== null) {
@@ -163,7 +161,7 @@ pageOnLogCalllist() {
                     }
                     //console.log(res);
                 }  //判断是否有新数据
-                if (res.Results.length < this.mod.page) {
+                if (res.Results.length < this.mod.params.PageIndex) {
                     this.mod.isending = true;
                 }
             }
@@ -226,7 +224,7 @@ pageOnActivitylist() {
 
  //logcall加载下一页
  doNextLoadingLog() {
-    this.mod.page++;
+    this.mod.params.PageIndex++;
     this.pageOnLogCalllist();
 }
 
