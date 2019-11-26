@@ -4,16 +4,17 @@ import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthenticationService } from './base/base.ser/authentication.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { DCore_Http, DCore_Window, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 let AppComponent = class AppComponent {
-    constructor(platform, splashScreen, statusBar, authService, router, menu, _http, _window, _page, screenOrientation) {
+    constructor(platform, splashScreen, statusBar, authService, router, _activeRouter, menu, _http, _window, _page, screenOrientation) {
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.statusBar = statusBar;
         this.authService = authService;
         this.router = router;
+        this._activeRouter = _activeRouter;
         this.menu = menu;
         this._http = _http;
         this._window = _window;
@@ -54,10 +55,13 @@ let AppComponent = class AppComponent {
             //// let status bar overlay webview
             //this.statusBar.overlaysWebView(false);
             //// set status bar to white
-            //this.statusBar.backgroundColorByHexString('#000000');
+            this.statusBar.backgroundColorByHexString('#000000');
             //this.splashScreen.hide();
-            ///** 设置智能竖屏*/
-            //this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+            /** 设置智能竖屏*/
+            //this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY);
+            if (location.href.indexOf('base/uc/welcome') == -1 && !this.authService.isAuthenticated()) {
+                this._page.goto("base/uc/login");
+            }
             //this.headpicture = "assets/img/head_default.jpg";
             //console.log("开始welcomeisloading");
             //var welcomeisloading=this._window.storageGet("welcomeisloading");
@@ -82,15 +86,6 @@ let AppComponent = class AppComponent {
             //else{
             //  this._page.goto("base/uc/welcome");
             //}
-            //    this.authService.authenticationState.subscribe(state => {
-            //        console.log(state);
-            //        if (state) {
-            //            this.router.navigate(['tabs']);
-            //        }
-            //        else {
-            //            //this.router.navigate(['login']);
-            //        }
-            //    });
         });
     }
     loginout() {
@@ -109,6 +104,7 @@ AppComponent = tslib_1.__decorate([
         StatusBar,
         AuthenticationService,
         Router,
+        ActivatedRoute,
         MenuController,
         DCore_Http,
         DCore_Window,

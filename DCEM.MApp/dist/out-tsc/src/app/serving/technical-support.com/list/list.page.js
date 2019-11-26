@@ -1,5 +1,4 @@
 import * as tslib_1 from "tslib";
-var _a;
 import { Component, ViewChild } from '@angular/core';
 import { HttpService } from '../../../base/base.ser/http-service.service';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
@@ -132,7 +131,7 @@ let ListPage = class ListPage {
 };
 tslib_1.__decorate([
     ViewChild(IonInfiniteScroll, null),
-    tslib_1.__metadata("design:type", typeof (_a = typeof IonInfiniteScroll !== "undefined" && IonInfiniteScroll) === "function" ? _a : Object)
+    tslib_1.__metadata("design:type", IonInfiniteScroll)
 ], ListPage.prototype, "infiniteScroll", void 0);
 ListPage = tslib_1.__decorate([
     Component({
