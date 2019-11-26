@@ -1,16 +1,16 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["tap-click-ca00ce7f-js"],{
 
-/***/ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm-es5/tap-click-ca00ce7f.js":
-/*!*****************************************************************************************!*\
-  !*** ./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm-es5/tap-click-ca00ce7f.js ***!
-  \*****************************************************************************************/
+/***/ "./node_modules/@ionic/core/dist/esm-es5/tap-click-ca00ce7f.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm-es5/tap-click-ca00ce7f.js ***!
+  \*********************************************************************/
 /*! exports provided: startTapClick */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startTapClick", function() { return startTapClick; });
-/* harmony import */ var _helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers-46f4a262.js */ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm-es5/helpers-46f4a262.js");
+/* harmony import */ var _helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers-46f4a262.js */ "./node_modules/@ionic/core/dist/esm-es5/helpers-46f4a262.js");
 
 var startTapClick = function (config) {
     var lastTouch = -MOUSE_WAIT * 10;
