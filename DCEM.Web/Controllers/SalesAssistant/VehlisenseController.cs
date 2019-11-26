@@ -14,6 +14,9 @@ using DCEM.SalesAssistant.Main.Application.App.Contrac;
 
 namespace DCEM.Web.Controllers
 {
+    /// <summary>
+    /// 上牌信息
+    /// </summary>
     [Route("api/vehlisense")]
     [EnableCors("any")]
     [ApiController]

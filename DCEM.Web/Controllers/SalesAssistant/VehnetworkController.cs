@@ -14,6 +14,9 @@ using DCEM.SalesAssistant.Main.Application.App.Contrac;
 
 namespace DCEM.Web.Controllers
 {
+    /// <summary>
+    /// 发票信息
+    /// </summary>
     [Route("api/vehnetwork")]
     [EnableCors("any")]
     [ApiController]
