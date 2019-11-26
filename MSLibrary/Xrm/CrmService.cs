@@ -238,7 +238,7 @@ namespace MSLibrary.Xrm
                     var tokenService = _crmServiceTokenGenerateServiceSelector.Choose(TokenServiceType);
                     var strToken = await tokenService.Genereate(TokenServiceParameters);
 
-                    httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {strToken}");
+                    httpClient.DefaultRequestHeaders.Add("Authorization", strToken);
 
 
                     StringContent strContent;

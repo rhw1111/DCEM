@@ -2481,6 +2481,8 @@ namespace MSLibrary
         public const string Password = "Password";
 
         public const string ClientSecret = "ClientSecret";
+
+        public const string Domain = "Domain";
     }
 
     public static class CrmServiceTokenGenerateServiceNames

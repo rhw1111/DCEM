@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
+using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -41,6 +42,9 @@ namespace DCEM.ConsoleApp
 
         async static Task  Main(string[] args)
         {
+
+            HttpClient client = new HttpClient(new HttpClientHandler() { Credentials = new NetworkCredential("A", "B", "C") });
+            var r=await client.GetAsync("http://www.163.com");
 
             X509Store store = new X509Store(StoreName.Root, StoreLocation.LocalMachine);
             store.Open(OpenFlags.ReadOnly);
