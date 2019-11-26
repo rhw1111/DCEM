@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["hardware-back-button-5afe3cb0-js"],{
 
-/***/ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm/hardware-back-button-5afe3cb0.js":
-/*!************************************************************************************************!*\
-  !*** ./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm/hardware-back-button-5afe3cb0.js ***!
-  \************************************************************************************************/
+/***/ "./node_modules/@ionic/core/dist/esm/hardware-back-button-5afe3cb0.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm/hardware-back-button-5afe3cb0.js ***!
+  \****************************************************************************/
 /*! exports provided: startHardwareBackButton */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

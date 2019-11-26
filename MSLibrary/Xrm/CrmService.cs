@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
@@ -186,60 +187,77 @@ namespace MSLibrary.Xrm
             string strContentType = null;
             string strContentChartSet = null;
             Dictionary<string, string> contentParameters =new Dictionary<string, string>();
-            HttpClient httpClient = _httpClientFactory.CreateClient();
-            foreach (var headerItem in requestResult.Headers)
+
+            HttpClient httpClient = null;
+            if (TokenServiceType.ToLower() == CrmServiceTokenGenerateServiceNames.AD.ToLower())
             {
-                switch(headerItem.Key.ToLower())
+                var userName = TokenServiceParameters[CrmServiceTokenGenerateServiceParameterNames.UserName].ToString();
+                var password = TokenServiceParameters[CrmServiceTokenGenerateServiceParameterNames.Password].ToString();
+                var domain = TokenServiceParameters[CrmServiceTokenGenerateServiceParameterNames.Domain].ToString();
+                httpClient = new HttpClient(new HttpClientHandler() { Credentials = new NetworkCredential(userName, password, domain) });
+            }
+            else
+            {
+                httpClient = _httpClientFactory.CreateClient();
+            }
+
+            using (httpClient)
+            {
+                foreach (var headerItem in requestResult.Headers)
                 {
-                   case "content-type":
-                        strContentType =await headerItem.Value.ToDisplayString(
-                            async (item) =>
-                            {
-                                return await Task.FromResult(item);
-                            },
-                            async () =>
-                            {
-                                return await Task.FromResult(";");
-                            }
-                            );
-                        break;
-                    case "content-type-chartset":
-                        strContentChartSet = headerItem.Value.First();
-                        break;
-                    case "accept":
-                        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(headerItem.Value.First()));
-                        break;
-                    default:
-                        if (headerItem.Key.ToLower().StartsWith("content-type-"))
-                        {
-                            contentParameters[headerItem.Key.Substring(13)] = headerItem.Value.First();
+                    switch (headerItem.Key.ToLower())
+                    {
+                        case "content-type":
+                            strContentType = await headerItem.Value.ToDisplayString(
+                                async (item) =>
+                                {
+                                    return await Task.FromResult(item);
+                                },
+                                async () =>
+                                {
+                                    return await Task.FromResult(";");
+                                }
+                                );
                             break;
-                        }              
-                        httpClient.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
-                        break;
+                        case "content-type-chartset":
+                            strContentChartSet = headerItem.Value.First();
+                            break;
+                        case "accept":
+                            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(headerItem.Value.First()));
+                            break;
+                        default:
+                            if (headerItem.Key.ToLower().StartsWith("content-type-"))
+                            {
+                                contentParameters[headerItem.Key.Substring(13)] = headerItem.Value.First();
+                                break;
+                            }
+                            httpClient.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
+                            break;
 
+                    }
                 }
-            }
-
-           
-            //判断是否需要加入代理
-            if (request.ProxyUserId!=null)
-            {
-                httpClient.DefaultRequestHeaders.Add("MSCRMCallerID", request.ProxyUserId.ToString());
-            }
 
 
-            HttpResponseMessage responseMessage = null;
-            
+                //判断是否需要加入代理
+                if (request.ProxyUserId != null)
+                {
+                    httpClient.DefaultRequestHeaders.Add("MSCRMCallerID", request.ProxyUserId.ToString());
+                }
 
-            await _crmMessageResponseHandle.Execute(request,async () =>
+
+                HttpResponseMessage responseMessage = null;
+
+
+                await _crmMessageResponseHandle.Execute(request, async () =>
                 {
                     //获取令牌
-                    var tokenService = _crmServiceTokenGenerateServiceSelector.Choose(TokenServiceType);
-                    var strToken = await tokenService.Genereate(TokenServiceParameters);
+                    if (TokenServiceType.ToLower() != CrmServiceTokenGenerateServiceNames.AD.ToLower())
+                    {
+                        var tokenService = _crmServiceTokenGenerateServiceSelector.Choose(TokenServiceType);
+                        var strToken = await tokenService.Genereate(TokenServiceParameters);
 
-                    httpClient.DefaultRequestHeaders.Add("Authorization", strToken);
-
+                        httpClient.DefaultRequestHeaders.Add("Authorization", strToken);
+                    }
 
                     StringContent strContent;
                     switch (requestResult.Method.Method.ToLower())
@@ -252,11 +270,11 @@ namespace MSLibrary.Xrm
                             if (strContentType != null)
                             {
                                 strContent.Headers.ContentType = new MediaTypeHeaderValue(strContentType);
-                                if (strContentChartSet!=null)
+                                if (strContentChartSet != null)
                                 {
                                     strContent.Headers.ContentType.CharSet = strContentChartSet;
                                 }
-                                foreach(var item in contentParameters)
+                                foreach (var item in contentParameters)
                                 {
                                     strContent.Headers.ContentType.Parameters.Add(new NameValueHeaderValue(item.Key, item.Value));
                                 }
@@ -316,15 +334,15 @@ namespace MSLibrary.Xrm
                     return responseMessage;
                 });
 
-            Dictionary<string, IEnumerable<string>> responseHeaders = new Dictionary<string, IEnumerable<string>>();
-            foreach(var headerItem in responseMessage.Headers)
-            {
-                responseHeaders.Add(headerItem.Key, headerItem.Value);
-            }
-            var result = await handle.ExecuteResponse(requestResult.Extension,requestResult.Url,requestResult.Body,(int)responseMessage.StatusCode,responseHeaders, await responseMessage.Content.ReadAsStringAsync());
+                Dictionary<string, IEnumerable<string>> responseHeaders = new Dictionary<string, IEnumerable<string>>();
+                foreach (var headerItem in responseMessage.Headers)
+                {
+                    responseHeaders.Add(headerItem.Key, headerItem.Value);
+                }
+                var result = await handle.ExecuteResponse(requestResult.Extension, requestResult.Url, requestResult.Body, (int)responseMessage.StatusCode, responseHeaders, await responseMessage.Content.ReadAsStringAsync());
 
-            return result;
-            
+                return result;
+            }        
         }
 
         public async Task<JObject> ExecuteBoundAction(string entityName, Guid entityId, string actionName, Guid? proxyUserId = null, params CrmActionParameter[] parameters)
