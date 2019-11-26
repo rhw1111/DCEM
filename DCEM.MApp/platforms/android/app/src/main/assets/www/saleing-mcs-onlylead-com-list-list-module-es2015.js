@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/home/tabs\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>唯一线索</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-menu-button></ion-menu-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-searchbar [(ngModel)]=\"this.model.seachkey\" placeholder=\"请输入姓名\\手机号\" (keyup)=\"search($event)\"></ion-searchbar>\r\n    </ion-toolbar>\r\n</ion-header>\r\n<ion-content>\r\n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n        <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\" refreshingText=\"刷新中...\">\r\n        </ion-refresher-content>\r\n    </ion-refresher>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-sliding *ngFor=\"let item of model.data;let key=index\">\r\n            <ion-item [routerLink]=\"['/saleing/onlylead/detail']\" [queryParams]=\"{id:item.mcs_onlyleadid}\">\r\n                <ion-icon *ngIf=\"item.mcs_gender===1\" slot=\"start\" color=\"primary\" name=\"contact\" size=\"large\" style=\"width:60px;height:60px\"></ion-icon>\r\n                <ion-icon *ngIf=\"item.mcs_gender===2\" slot=\"start\" color=\"danger\" name=\"contact\" size=\"large\" style=\"width:60px;height:60px\"></ion-icon>\r\n                <ion-icon *ngIf=\"item.mcs_gender===3\" slot=\"start\" color=\"medium\" name=\"contact\" size=\"large\" style=\"width:60px;height:60px\"></ion-icon>\r\n                <ion-icon *ngIf=\"!item.mcs_gender\" slot=\"start\" color=\"medium\" name=\"contact\" size=\"large\" style=\"width:60px;height:60px\"></ion-icon>\r\n                <ion-label>\r\n                    <h2>{{item.mcs_name}}</h2>\r\n                    <p *ngIf=\"item.mcs_gender==1\">先生</p>\r\n                    <p *ngIf=\"item.mcs_gender==2\">女士</p>\r\n                    <p *ngIf=\"item.mcs_gender==3\">未知</p>\r\n                    <p *ngIf=\"!item.mcs_gender\">--</p>\r\n\r\n                    <p *ngIf=\"item.mcs_leadorigin==1\">WEB官网</p>\r\n                    <p *ngIf=\"item.mcs_leadorigin==2\">Event-Online</p>\r\n                    <p *ngIf=\"item.mcs_leadorigin==3\">Event-OffLine</p>\r\n                    <p *ngIf=\"item.mcs_leadorigin==4\">Store展厅</p>\r\n                    <p *ngIf=\"item.mcs_leadorigin==5\">400电话</p>\r\n                    <p *ngIf=\"item.mcs_leadorigin==6\">APP</p>\r\n                    <p *ngIf=\"item.mcs_leadorigin==7\">小程序</p>\r\n                    <p *ngIf=\"item.mcs_leadorigin==8\">车机</p>\r\n                    <p *ngIf=\"item.mcs_leadorigin==9\">H5落地页</p>\r\n                    <p *ngIf=\"item.mcs_leadorigin==10\">3D展厅</p>\r\n                    <p *ngIf=\"!item.mcs_leadorigin\">--</p>\r\n                </ion-label>\r\n                <ion-icon *ngIf=\"item.mcs_mobilephone\" name=\"phone-portrait\" size=\"small\"></ion-icon>\r\n                <ion-note slot=\"end\">\r\n                    {{item.mcs_mobilephone}}\r\n                </ion-note>\r\n            </ion-item>\r\n            <ion-item-options side=\"end\">\r\n                <ion-item-option color=\"tertiary\" expandable [routerLink]=\"['/saleing/contactrecord/edit']\" [queryParams]=\"{id:item.mcs_onlyleadid}\">\r\n                    联络\r\n                </ion-item-option>\r\n                <ion-item-option color=\"primary\" [routerLink]=\"['/saleing/cultivatetask/edit']\" [queryParams]=\"{id:item.mcs_onlyleadid}\">\r\n                    培育\r\n                </ion-item-option>\r\n            </ion-item-options>\r\n        </ion-item-sliding>\r\n    </ion-list>\r\n    <ion-row *ngIf=\"this.model.isending\">\r\n        <ion-col class=\"nodata\" text-center>\r\n            没有更多内容啦\r\n        </ion-col>\r\n    </ion-row>\r\n    <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doLoading($event)\">\r\n        <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\">\r\n        </ion-infinite-scroll-content>\r\n    </ion-infinite-scroll>\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/home/tabs\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>唯一线索</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-menu-button></ion-menu-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-searchbar [(ngModel)]=\"this.model.seachkey\" placeholder=\"请输入姓名\\手机号\" (keyup)=\"search($event)\"></ion-searchbar>\r\n    </ion-toolbar>\r\n</ion-header>\r\n<ion-content>\r\n    <!--<ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n        <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\" refreshingText=\"刷新中...\">\r\n        </ion-refresher-content>\r\n    </ion-refresher>-->\r\n    <ion-list lines=\"full\">\r\n        <ion-item-sliding *ngFor=\"let item of model.data;let key=index\">\r\n            <ion-item [routerLink]=\"['/saleing/onlylead/detail']\" [queryParams]=\"{id:item.mcs_onlyleadid}\">\r\n                <img src=\"./assets/img/onlylead.png\" style=\"width:50px;height:50px; margin-right:10px\" />\r\n                <ion-label>\r\n                    <h2>{{item.mcs_name}}&nbsp;</h2>\r\n                    <p>{{item.mcs_gendervalue}}&nbsp;</p>\r\n\r\n                    <p>{{item.mcs_leadoriginvalue}}&nbsp;</p>\r\n                </ion-label>\r\n                <ion-icon *ngIf=\"item.mcs_mobilephone\" name=\"phone-portrait\" size=\"small\"></ion-icon>\r\n                <ion-note slot=\"end\">\r\n                    {{item.mcs_mobilephone}}&nbsp;\r\n                </ion-note>\r\n            </ion-item>\r\n            <ion-item-options side=\"end\">\r\n                <ion-item-option color=\"tertiary\" expandable [routerLink]=\"['/saleing/contactrecord/edit']\" [queryParams]=\"{id:item.mcs_onlyleadid}\">\r\n                    联络\r\n                </ion-item-option>\r\n                <ion-item-option color=\"primary\" [routerLink]=\"['/saleing/cultivatetask/edit']\" [queryParams]=\"{id:item.mcs_onlyleadid}\">\r\n                    培育\r\n                </ion-item-option>\r\n            </ion-item-options>\r\n        </ion-item-sliding>\r\n    </ion-list>\r\n    <ion-row *ngIf=\"model.ifDoLoading&&model.isending\">\r\n        <ion-col text-center>\r\n            <ion-label>\r\n                <p>\r\n                    没有更多内容啦\r\n                </p>\r\n            </ion-label>\r\n        </ion-col>\r\n    </ion-row>\r\n    <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doLoading($event)\">\r\n        <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\">\r\n        </ion-infinite-scroll-content>\r\n    </ion-infinite-scroll>\r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -106,13 +106,14 @@ let ListPage = class ListPage {
             apiUrl: '/api/only-lead/QueryList',
             seachkey: '',
             data: [],
-            pageSize: 10,
+            pageSize: 300,
             page: 1,
             sort: '',
             systemUserId: "",
             dealerId: "",
             isending: false,
-            nodata: false
+            nodata: false,
+            ifDoLoading: false,
         };
     }
     ngOnInit() {
@@ -141,27 +142,27 @@ let ListPage = class ListPage {
     //加载下一页
     doLoading(event) {
         this.model.page++;
+        this.model.ifDoLoading = true;
         this.showlist(event);
     }
     //展示数据
     showlist(event) {
-        this._page.loadingShow();
-        console.log("地址:" + this.model.apiUrl, "搜索:" + this.model.seachkey, "排序:" + this.model.sort, "页条数:" + this.model.pageSize, "页数:" + this.model.page);
-        this._http.get(this.model.apiUrl, {
-            params: {
-                dealerid: this.model.dealerId,
-                systemuserid: this.model.systemUserId,
-                seachkey: this.model.seachkey,
-                pageSize: this.model.pageSize,
-                page: this.model.page
-            }
+        if (!this.model.ifDoLoading) {
+            this._page.loadingShow();
+        }
+        this._http.getForToaken(this.model.apiUrl, {
+            "Search": this.model.seachkey,
+            "PageSize": this.model.pageSize,
+            "PageIndex": this.model.page
         }, (res) => {
             if (res.Results !== null) {
                 for (var key in res.Results) {
                     var obj = {};
                     obj["mcs_onlyleadid"] = res.Results[key]["Id"];
                     obj["mcs_gender"] = res.Results[key]["Attributes"]["mcs_gender"];
+                    obj["mcs_gendervalue"] = res.Results[key]["Attributes"]["mcs_gender@OData.Community.Display.V1.FormattedValue"];
                     obj["mcs_leadorigin"] = res.Results[key]["Attributes"]["mcs_leadorigin"];
+                    obj["mcs_leadoriginvalue"] = res.Results[key]["Attributes"]["mcs_leadorigin@OData.Community.Display.V1.FormattedValue"];
                     obj["mcs_mobilephone"] = res.Results[key]["Attributes"]["mcs_mobilephone"];
                     obj["mcs_name"] = res.Results[key]["Attributes"]["mcs_name"];
                     this.model.data.push(obj);

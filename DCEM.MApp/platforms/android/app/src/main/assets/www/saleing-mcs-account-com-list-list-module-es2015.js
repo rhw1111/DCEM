@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-back-button text=\"返回\" defaultHref=\"/\"></ion-back-button>\n    </ion-buttons>\n    <ion-title>销售机会列表</ion-title>\n    <ion-buttons slot=\"end\">\n        <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n  <ion-toolbar>\n    <ion-searchbar animated [(ngModel)]=\"model.params.SearchKey\" placeholder=\"请输入编号\\姓名\\手机号搜索\"\n      (keyup)=\"searchOnKeyup($event)\"></ion-searchbar>\n  </ion-toolbar>\n  <ion-toolbar>\n    <ion-segment [(ngModel)]=\"tab\">\n      <ion-segment-button value=\"0\" (click)=\"tagOnClick(0)\">\n        <ion-label>全部</ion-label>\n      </ion-segment-button>\n      <ion-segment-button value=\"1\" (click)=\"tagOnClick(1)\">\n        <ion-label>待指派</ion-label>\n      </ion-segment-button>\n      <ion-segment-button value=\"2\" (click)=\"tagOnClick(2)\">\n        <ion-label>已指派</ion-label>\n      </ion-segment-button>\n    </ion-segment>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n\n  <ion-list lines=\"full\">\n    <ion-item-sliding *ngFor=\"let item of model.data;let key=index\">\n      <ion-item [routerLink]=\"['/saleing/account/detail']\" [queryParams]=\"{id:item.Id}\">\n        <!-- <ion-icon slot=\"start\" name=\"contact\" size=\"large\"></ion-icon> -->\n        <ion-avatar item-start>机</ion-avatar>\n        <ion-label>\n          <h2>{{item.name}}</h2>\n          <p>{{item.accountnumber}}</p>\n          <p>\n            <ion-icon *ngIf=\"item.mcs_mobilephone\" name=\"phone-portrait\" size=\"small\"></ion-icon>\n            {{item.mcs_mobilephone}}\n          </p>\n        </ion-label>\n        <ion-note slot=\"end\">\n          {{item.mcs_customerstatus}}\n        </ion-note>\n      </ion-item>\n      <ion-item-options side=\"end\">\n        <ion-item-option color=\"tertiary\" [routerLink]=\"['/saleing/logcall/edit']\" [queryParams]=\"{id:item.Id}\">\n          +联络\n        </ion-item-option>\n        <ion-item-option color=\"warning\" [routerLink]=\"['/saleing/activity/edit']\" [queryParams]=\"{id:item.Id}\">\n          +培育\n        </ion-item-option>\n      </ion-item-options>\n    </ion-item-sliding>\n  </ion-list>\n  <ion-label *ngIf=\"ionInfiniteScroll.disabled\" text-center>\n    <p>\n      没有更多的记录显示啦\n    </p>\n  </ion-label>\n  <ion-infinite-scroll (ionInfinite)=\"doInfinite()\">\n    <ion-infinite-scroll-content></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n\n  <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\n    <ion-fab-button>\n      <ion-icon name=\"arrow-dropup\"></ion-icon>\n    </ion-fab-button>\n    <ion-fab-list side=\"top\">\n      <ion-fab-button  title=\"成交\" color=\"success\">\n          +试驾\n        <ion-icon name=\"add\"></ion-icon>\n      </ion-fab-button>\n      <ion-fab-button color=\"warning\" [routerLink]=\"['/saleing/account/edit']\">\n        <ion-icon name=\"add\"></ion-icon>\n      </ion-fab-button>\n    </ion-fab-list>\n  </ion-fab>\n</ion-content>"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-back-button text=\"返回\" defaultHref=\"/\"></ion-back-button>\n    </ion-buttons>\n    <ion-title>销售机会列表</ion-title>\n    <ion-buttons slot=\"end\">\n        <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n  <ion-toolbar>\n    <ion-searchbar animated [(ngModel)]=\"model.params.SearchKey\" placeholder=\"请输入编号\\姓名\\手机号搜索\"\n      (keyup)=\"searchOnKeyup($event)\"></ion-searchbar>\n  </ion-toolbar>\n  <ion-toolbar>\n    <ion-segment>\n      <ion-segment-button value=\"0\" checked (click)=\"tagOnClick(0)\">\n        <ion-label>全部</ion-label>\n      </ion-segment-button>\n      <ion-segment-button (click)=\"tagOnClick(1)\">\n        <ion-label>待指派</ion-label>\n      </ion-segment-button>\n      <ion-segment-button (click)=\"tagOnClick(2)\">\n        <ion-label>已指派</ion-label>\n      </ion-segment-button>\n    </ion-segment>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n\n  <ion-list lines=\"full\">\n    <ion-item-sliding *ngFor=\"let item of model.data;let key=index\">\n      <ion-item [routerLink]=\"['/saleing/account/detail']\" [queryParams]=\"{id:item.Id}\">\n        <ion-avatar class=\"header-ion-avatar\" item-start>机</ion-avatar>\n        <ion-label>\n          <h2 *ngIf=\"item.name\">{{item.name}}</h2>\n          <h2 *ngIf=\"!item.name\">--</h2>\n          <p>{{item.accountnumber}}</p>\n          <p>\n            <ion-icon name=\"phone-portrait\" size=\"small\"></ion-icon>\n            {{item.mcs_mobilephone}}\n          </p>\n        </ion-label>\n        <ion-note slot=\"end\">\n          {{item.mcs_customerstatus}}\n        </ion-note>\n      </ion-item>\n      <ion-item-options side=\"end\">\n        <ion-item-option color=\"tertiary\" [routerLink]=\"['/saleing/logcall/edit']\" [queryParams]=\"{id:item.Id}\">\n          +联络\n        </ion-item-option>\n        <ion-item-option color=\"warning\" [routerLink]=\"['/saleing/activity/edit']\" [queryParams]=\"{id:item.Id}\">\n          +培育\n        </ion-item-option>\n      </ion-item-options>\n    </ion-item-sliding>\n  </ion-list>\n  <ion-label *ngIf=\"ionInfiniteScroll.disabled\" text-center>\n    <p style=\"height: 30px;\">\n      没有更多的记录显示啦\n    </p>\n  </ion-label>\n  <ion-infinite-scroll (ionInfinite)=\"doInfinite()\">\n    <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\"></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n\n  <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\n    <ion-fab-button>\n      <ion-icon name=\"arrow-dropup\"></ion-icon>\n    </ion-fab-button>\n    <ion-fab-list side=\"top\">\n      <ion-fab-button  title=\"成交\" color=\"success\">\n          +试驾\n        <ion-icon name=\"add\"></ion-icon>\n      </ion-fab-button>\n      <ion-fab-button color=\"warning\" [routerLink]=\"['/saleing/account/edit']\">\n        <ion-icon name=\"add\"></ion-icon>\n      </ion-fab-button>\n    </ion-fab-list>\n  </ion-fab>\n</ion-content>"
 
 /***/ }),
 
@@ -116,6 +116,7 @@ let ListPage = class ListPage {
     ionViewWillEnter() {
         this.ionInfiniteScroll.disabled = false;
         this.model.params.PageIndex = 1;
+        this._page.loadingShow();
         this.listOnBind();
     }
     ///搜索
@@ -133,20 +134,21 @@ let ListPage = class ListPage {
     doInfinite() {
         this.model.params.PageIndex += 1;
         this.listOnBind();
+        this.ionContent.scrollToBottom(0);
     }
     //切换tab
     tagOnClick(status) {
+        this.ionInfiniteScroll.disabled = false;
         this.model.data = [];
         this.model.params.PageIndex = 1;
         this.model.params.mcs_customerstatus = status;
-        this.ionInfiniteScroll.disabled = false;
         this.ionContent.scrollToTop(0);
+        this._page.loadingShow();
         this.listOnBind();
     }
     //列表数据绑定
     listOnBind() {
-        this._page.loadingShow();
-        this._http.post(this.model.apiUrl, this.model.params, (res) => {
+        this._http.postForToaken(this.model.apiUrl, this.model.params, (res) => {
             if (res.Results !== null) {
                 //绑定数据
                 if (res.Results.length > 0) {
@@ -156,7 +158,7 @@ let ListPage = class ListPage {
                             "Id": value.accountid,
                             "name": value.name,
                             "accountnumber": value.accountnumber,
-                            "mcs_mobilephone": value.mcs_mobilephone,
+                            "mcs_mobilephone": value.mcs_mobilephone == "" ? "--" : value.mcs_mobilephon,
                             "mcs_customerstatus": this.optionset.GetOptionSetNameByValue("mcs_customerstatus", value.mcs_customerstatus),
                             "createdon": value.createdon
                         });
@@ -165,7 +167,9 @@ let ListPage = class ListPage {
                 this.ionInfiniteScroll.complete();
                 //判断是否有新数据
                 if (res.Results.length < this.model.params.PageSize) {
-                    this.ionInfiniteScroll.disabled = true;
+                    if (this.model.params.PageIndex > 1) {
+                        this.ionInfiniteScroll.disabled = true;
+                    }
                 }
             }
             else {
