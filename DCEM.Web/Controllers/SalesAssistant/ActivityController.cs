@@ -19,6 +19,9 @@ using DCEM.SalesAssistant.Main.ViewModel.Request;
 namespace DCEM.Web.Controllers
 {
     #region 控制器
+    /// <summary>
+    /// 联络记录
+    /// </summary>
     [Route("api/activity")]
     [EnableCors("any")]
     [ApiController]

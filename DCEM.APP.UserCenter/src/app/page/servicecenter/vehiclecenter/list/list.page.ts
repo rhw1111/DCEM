@@ -6,7 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./list.page.scss'],
 })
 export class ListPage implements OnInit {
-
+  public model: any = {
+    search:{
+      mode:"-1",
+      price:"-1",
+      opack:"-1"
+    }
+  }
   constructor() { }
 
   ngOnInit() {

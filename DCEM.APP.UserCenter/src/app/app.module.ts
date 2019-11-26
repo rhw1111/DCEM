@@ -1,29 +1,34 @@
-import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy } from '@angular/router'; 
+import { RouteReuseStrategy } from '@angular/router';
+
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import {SelectSysareaComponent} from './component/modal/select-sysarea/select-sysarea.component'
-import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { IonicStorageModule } from '@ionic/storage';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 @NgModule({
-    declarations: [AppComponent,
-        SelectSysareaComponent//省市区
-    ],
-    entryComponents: [
-        SelectSysareaComponent//省市区
-    ],
+    declarations: [AppComponent],
+    entryComponents: [],
     imports: [
-        BrowserModule,
         IonicModule.forRoot({ mode: 'ios' }),
-        AppRoutingModule],
+        AppRoutingModule,
+        HttpClientModule,
+        IonicStorageModule.forRoot(),
+        FormsModule,
+        ReactiveFormsModule,
+    ],
     providers: [
         StatusBar,
         SplashScreen,
+        ScreenOrientation,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
     ],
-    bootstrap: [AppComponent],
-    schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
