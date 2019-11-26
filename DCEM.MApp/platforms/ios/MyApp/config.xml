@@ -135,4 +135,7 @@
     <feature name="CDVOrientation">
         <param name="ios-package" value="CDVOrientation" />
     </feature>
+    <feature name="FullScreenImage">
+        <param name="ios-package" value="FullScreenImage" />
+    </feature>
 </widget>

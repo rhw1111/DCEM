@@ -219,7 +219,7 @@ namespace MSLibrary.Xrm.Token
                 await Task.FromResult(0);
             });
 
-            return strToken;
+            return $"Bearer {strToken}";
         }
 
         private string GenerateKeyString(string adfsUrl, string clientId, string clientSecret, string crmUrl, string userName, string password)
