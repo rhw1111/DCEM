@@ -1,0 +1,41 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>登录</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen scroll-y="false">
+    <ion-list lines="none">
+        <ion-list-header text-center>
+            <img src="./assets/img/login.jpg" />
+        </ion-list-header>
+        <ion-item>
+            <ion-icon slot="start" name="phone-portrait"></ion-icon>
+            <ion-input [(ngModel)]="mod.username" placeholder="账号" no-lines></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-icon slot="start" name="lock"></ion-icon>
+            <ion-input [(ngModel)]="mod.password" type="{{mod.pwshow?'text':'password'}}" placeholder="密码"></ion-input>
+            <ion-icon slot="end" *ngIf="mod.pwshow" name="ios-eye-off" color="dark" (click)="mod.pwshow=!mod.pwshow"></ion-icon>  <!--闭眼图标-->
+            <ion-icon slot="end" *ngIf="!mod.pwshow"  name="ios-eye" color="dark" (click)="mod.pwshow=!mod.pwshow"></ion-icon>  <!--睁眼图标-->
+            <!-- <a href="javascript:;" rel="external nofollow" item-end (click)="mod.pwshow=!mod.pwshow">
+                
+            </a> -->
+        </ion-item>
+        <ion-item color="none">
+            <label slot="end">记住密码</label>
+            <ion-toggle slot="end"></ion-toggle>
+        </ion-item>
+        <ion-item>
+            <ion-label>登录环境</ion-label>
+            <ion-select value="localhost" okText="确定" cancelText="取消" [(ngModel)]="mod.domainType">
+                <ion-select-option value="localhost">localhost</ion-select-option>
+                <ion-select-option value="Dev">Dev</ion-select-option>
+                <ion-select-option value="Sit">Sit</ion-select-option>
+                <ion-select-option value="Uat">Uat</ion-select-option>
+                <ion-select-option value="Prod">Prod</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <ion-button expand="block" type="button" (click)="submit()">登录</ion-button>
+    </ion-list>
+</ion-content>
