@@ -44,9 +44,6 @@ export class DetailPage implements OnInit {
       }
     });
   }
-  fileUpload() {
-
-  }
   //加载地图
   async loadmap() {
     debugger;
@@ -68,8 +65,8 @@ export class DetailPage implements OnInit {
     }
   }
   pageOnBind(id: any) {
-    this.mod.data.detail["id"] = id;
-
+      this.mod.data.detail["id"] = id;
+      //debugger;
     this._page.loadingShow();
     this._http.get(
       this.mod.apiUrl,
@@ -85,7 +82,7 @@ export class DetailPage implements OnInit {
           this.mod.data.detail["statusname"] = this._optionset.GetOptionSetNameByValue("mcs_drivestatus", res["Detail"]["Attributes"]["mcs_drivestatus"]);;
           this.mod.data.detail["mcs_fullname"] = res["Detail"]["Attributes"]["mcs_fullname"];
           this.mod.data.detail["mcs_mobilephone"] = res["Detail"]["Attributes"]["mcs_mobilephone"];
-          this.mod.data.detail["mcs_businesstype"] = this._optionset.GetOptionSetNameByValue("mcs_drivebusinesstype", res["Detail"]["Attributes"]["mcs_businesstype"]);;
+          this.mod.data.detail["mcs_businesstype"] = this._optionset.GetOptionSetNameByValue("mcs_businesstype", res["Detail"]["Attributes"]["mcs_businesstype"]);
           this.mod.data.detail["carmodelname"] = res["Detail"]["Attributes"]["carmodelname"];
           this.mod.data.detail["mcs_ordertime"] = res["Detail"]["Attributes"]["mcs_ordertime"];
           this.mod.data.detail["reservationname"] = res["Detail"]["Attributes"]["reservationname"];
