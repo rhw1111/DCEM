@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["carcenter-index-index-module"],{
 
-/***/ "./node_modules/raw-loader/index.js!./src/app/page/carcenter/index/index.page.html":
-/*!********************************************************************************!*\
-  !*** ./node_modules/raw-loader!./src/app/page/carcenter/index/index.page.html ***!
-  \********************************************************************************/
+/***/ "./node_modules/_raw-loader@1.0.0@raw-loader/index.js!./src/app/page/carcenter/index/index.page.html":
+/*!**************************************************************************************************!*\
+  !*** ./node_modules/_raw-loader@1.0.0@raw-loader!./src/app/page/carcenter/index/index.page.html ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -21,12 +21,12 @@ module.exports = "<ion-content>\r\n    <ion-grid>\r\n        <ion-row>\r\n      
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IndexPageModule", function() { return IndexPageModule; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.10.0@tslib/tslib.es6.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/_@ionic_angular@4.11.5@@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/_@angular_router@8.1.3@@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/_@angular_core@8.1.3@@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "./node_modules/_@angular_common@8.1.3@@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/_@angular_forms@8.1.3@@angular/forms/fesm5/forms.js");
 /* harmony import */ var _index_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./index.page */ "./src/app/page/carcenter/index/index.page.ts");
 
 
@@ -63,11 +63,7 @@ var IndexPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-<<<<<<< HEAD
-module.exports = "* {\n  margin: 0px;\n  padding: 0px;\n}\n\n.dm-title {\n  margin-top: 5px;\n  float: left;\n  font-weight: bold;\n  margin-left: 10px;\n}\n\n.dm-right {\n  float: right;\n}\n\n.dm-describe-right {\n  font-size: 13px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZS9jYXJjZW50ZXIvaW5kZXgvRDpcXEdpdGxhYlxcU0ZcXFByb2plY3RcXERDRU1cXERDRU0uQVBQLlVzZXJDZW50ZXIvc3JjXFxhcHBcXHBhZ2VcXGNhcmNlbnRlclxcaW5kZXhcXGluZGV4LnBhZ2Uuc2NzcyIsInNyYy9hcHAvcGFnZS9jYXJjZW50ZXIvaW5kZXgvaW5kZXgucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksV0FBQTtFQUNBLFlBQUE7QUNDSjs7QURFQTtFQUNJLGVBQUE7RUFDQSxXQUFBO0VBQ0EsaUJBQUE7RUFDQSxpQkFBQTtBQ0NKOztBREdBO0VBQ0ksWUFBQTtBQ0FKOztBREdBO0VBQ0ksZUFBQTtBQ0FKIiwiZmlsZSI6InNyYy9hcHAvcGFnZS9jYXJjZW50ZXIvaW5kZXgvaW5kZXgucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiKiB7XHJcbiAgICBtYXJnaW46IDBweDtcclxuICAgIHBhZGRpbmc6IDBweDtcclxufVxyXG5cclxuLmRtLXRpdGxlIHtcclxuICAgIG1hcmdpbi10b3A6IDVweDtcclxuICAgIGZsb2F0OiBsZWZ0O1xyXG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgICBtYXJnaW4tbGVmdDogMTBweDtcclxufVxyXG5cclxuXHJcbi5kbS1yaWdodCB7XHJcbiAgICBmbG9hdDogcmlnaHQ7XHJcbn1cclxuXHJcbi5kbS1kZXNjcmliZS1yaWdodCB7XHJcbiAgICBmb250LXNpemU6IDEzcHg7XHJcbn1cclxuIiwiKiB7XG4gIG1hcmdpbjogMHB4O1xuICBwYWRkaW5nOiAwcHg7XG59XG5cbi5kbS10aXRsZSB7XG4gIG1hcmdpbi10b3A6IDVweDtcbiAgZmxvYXQ6IGxlZnQ7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xuICBtYXJnaW4tbGVmdDogMTBweDtcbn1cblxuLmRtLXJpZ2h0IHtcbiAgZmxvYXQ6IHJpZ2h0O1xufVxuXG4uZG0tZGVzY3JpYmUtcmlnaHQge1xuICBmb250LXNpemU6IDEzcHg7XG59Il19 */"
-=======
-module.exports = "* {\n  margin: 0px;\n  padding: 0px;\n}\n\n.dm-title {\n  margin-top: 5px;\n  float: left;\n  font-weight: bold;\n  margin-left: 10px;\n}\n\n.dm-right {\n  float: right;\n}\n\n.dm-describe-right {\n  font-size: 13px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZS9jYXJjZW50ZXIvaW5kZXgvQzpcXOW3peS9nFxc6aG555uuXFxhcHBcXERDRU0uQVBQLlVzZXJDZW50ZXIvc3JjXFxhcHBcXHBhZ2VcXGNhcmNlbnRlclxcaW5kZXhcXGluZGV4LnBhZ2Uuc2NzcyIsInNyYy9hcHAvcGFnZS9jYXJjZW50ZXIvaW5kZXgvaW5kZXgucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksV0FBQTtFQUNBLFlBQUE7QUNDSjs7QURFQTtFQUNJLGVBQUE7RUFDQSxXQUFBO0VBQ0EsaUJBQUE7RUFDQSxpQkFBQTtBQ0NKOztBREdBO0VBQ0ksWUFBQTtBQ0FKOztBREdBO0VBQ0ksZUFBQTtBQ0FKIiwiZmlsZSI6InNyYy9hcHAvcGFnZS9jYXJjZW50ZXIvaW5kZXgvaW5kZXgucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiKiB7XHJcbiAgICBtYXJnaW46IDBweDtcclxuICAgIHBhZGRpbmc6IDBweDtcclxufVxyXG5cclxuLmRtLXRpdGxlIHtcclxuICAgIG1hcmdpbi10b3A6IDVweDtcclxuICAgIGZsb2F0OiBsZWZ0O1xyXG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgICBtYXJnaW4tbGVmdDogMTBweDtcclxufVxyXG5cclxuXHJcbi5kbS1yaWdodCB7XHJcbiAgICBmbG9hdDogcmlnaHQ7XHJcbn1cclxuXHJcbi5kbS1kZXNjcmliZS1yaWdodCB7XHJcbiAgICBmb250LXNpemU6IDEzcHg7XHJcbn1cclxuIiwiKiB7XG4gIG1hcmdpbjogMHB4O1xuICBwYWRkaW5nOiAwcHg7XG59XG5cbi5kbS10aXRsZSB7XG4gIG1hcmdpbi10b3A6IDVweDtcbiAgZmxvYXQ6IGxlZnQ7XG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xuICBtYXJnaW4tbGVmdDogMTBweDtcbn1cblxuLmRtLXJpZ2h0IHtcbiAgZmxvYXQ6IHJpZ2h0O1xufVxuXG4uZG0tZGVzY3JpYmUtcmlnaHQge1xuICBmb250LXNpemU6IDEzcHg7XG59Il19 */"
->>>>>>> d6b62a7fcf23fc5759b021c4acd752233cf90399
+module.exports = "* {\n  margin: 0px;\n  padding: 0px;\n}\n\n.dm-title {\n  margin-top: 5px;\n  float: left;\n  font-weight: bold;\n  margin-left: 10px;\n}\n\n.dm-right {\n  float: right;\n}\n\n.dm-describe-right {\n  font-size: 13px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZS9jYXJjZW50ZXIvaW5kZXgvRDpcXGR5bmFtaWNzXFxEQ0VNXFxEQ0VNLkFQUC5Vc2VyQ2VudGVyL3NyY1xcYXBwXFxwYWdlXFxjYXJjZW50ZXJcXGluZGV4XFxpbmRleC5wYWdlLnNjc3MiLCJzcmMvYXBwL3BhZ2UvY2FyY2VudGVyL2luZGV4L2luZGV4LnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFdBQUE7RUFDQSxZQUFBO0FDQ0o7O0FERUE7RUFDSSxlQUFBO0VBQ0EsV0FBQTtFQUNBLGlCQUFBO0VBQ0EsaUJBQUE7QUNDSjs7QURHQTtFQUNJLFlBQUE7QUNBSjs7QURHQTtFQUNJLGVBQUE7QUNBSiIsImZpbGUiOiJzcmMvYXBwL3BhZ2UvY2FyY2VudGVyL2luZGV4L2luZGV4LnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIioge1xyXG4gICAgbWFyZ2luOiAwcHg7XHJcbiAgICBwYWRkaW5nOiAwcHg7XHJcbn1cclxuXHJcbi5kbS10aXRsZSB7XHJcbiAgICBtYXJnaW4tdG9wOiA1cHg7XHJcbiAgICBmbG9hdDogbGVmdDtcclxuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gICAgbWFyZ2luLWxlZnQ6IDEwcHg7XHJcbn1cclxuXHJcblxyXG4uZG0tcmlnaHQge1xyXG4gICAgZmxvYXQ6IHJpZ2h0O1xyXG59XHJcblxyXG4uZG0tZGVzY3JpYmUtcmlnaHQge1xyXG4gICAgZm9udC1zaXplOiAxM3B4O1xyXG59XHJcbiIsIioge1xuICBtYXJnaW46IDBweDtcbiAgcGFkZGluZzogMHB4O1xufVxuXG4uZG0tdGl0bGUge1xuICBtYXJnaW4tdG9wOiA1cHg7XG4gIGZsb2F0OiBsZWZ0O1xuICBmb250LXdlaWdodDogYm9sZDtcbiAgbWFyZ2luLWxlZnQ6IDEwcHg7XG59XG5cbi5kbS1yaWdodCB7XG4gIGZsb2F0OiByaWdodDtcbn1cblxuLmRtLWRlc2NyaWJlLXJpZ2h0IHtcbiAgZm9udC1zaXplOiAxM3B4O1xufSJdfQ== */"
 
 /***/ }),
 
@@ -81,8 +77,8 @@ module.exports = "* {\n  margin: 0px;\n  padding: 0px;\n}\n\n.dm-title {\n  marg
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IndexPage", function() { return IndexPage; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.10.0@tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/_@angular_core@8.1.3@@angular/core/fesm5/core.js");
 
 
 var IndexPage = /** @class */ (function () {
@@ -91,7 +87,7 @@ var IndexPage = /** @class */ (function () {
     IndexPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-index',
-            template: __webpack_require__(/*! raw-loader!./index.page.html */ "./node_modules/raw-loader/index.js!./src/app/page/carcenter/index/index.page.html"),
+            template: __webpack_require__(/*! raw-loader!./index.page.html */ "./node_modules/_raw-loader@1.0.0@raw-loader/index.js!./src/app/page/carcenter/index/index.page.html"),
             styles: [__webpack_require__(/*! ./index.page.scss */ "./src/app/page/carcenter/index/index.page.scss")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
