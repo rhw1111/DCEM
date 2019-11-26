@@ -37,6 +37,9 @@
     },
     "cordova-plugin-screen-orientation": {
       "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
+    },
+    "es.keensoft.fullscreenimage": {
+      "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
     }
   },
   "dependent_plugins": {

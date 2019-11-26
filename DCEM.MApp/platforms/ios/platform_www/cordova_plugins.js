@@ -260,6 +260,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "cordova.plugins.screenorientation"
       ]
+    },
+    {
+      "id": "es.keensoft.fullscreenimage.FullScreenImage",
+      "file": "plugins/es.keensoft.fullscreenimage/www/fullscreenimage.js",
+      "pluginId": "es.keensoft.fullscreenimage",
+      "clobbers": [
+        "window.FullScreenImage"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -273,6 +281,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-telerik-imagepicker": "2.3.3",
     "cordova-plugin-file": "6.0.2",
     "cordova-plugin-file-transfer": "1.7.1",
-    "cordova-plugin-screen-orientation": "3.0.2"
+    "cordova-plugin-screen-orientation": "3.0.2",
+    "es.keensoft.fullscreenimage": "1.0.1"
   };
 });

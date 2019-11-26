@@ -33,6 +33,7 @@ namespace DCEM.ServiceAssistantService.Main
                     crmService.CrmUrl = dyCRMSetting.CrmUrl;
                     crmService.TokenServiceType = dyCRMSetting.TokenServiceType;
                     crmService.TokenServiceParameters.Add("AdfsUrl", dyCRMSetting.AdfsUrl);
+                    crmService.TokenServiceParameters.Add("Domain", dyCRMSetting.Domain);
                     crmService.TokenServiceParameters.Add("CrmUrl", dyCRMSetting.CrmUrl);
                     crmService.TokenServiceParameters.Add("ClientId", dyCRMSetting.ClientId);
                     crmService.TokenServiceParameters.Add("ClientSecret", dyCRMSetting.ClientSecret);

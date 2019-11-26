@@ -53,6 +53,11 @@ namespace DCEM.ServiceAssistantService.Main
         [DataMember]
         public string CrmUrl { get; set; }
         /// <summary>
+        /// 请求域
+        /// </summary>
+        [DataMember]
+        public string Domain { get; set; }
+        /// <summary>
         /// 
         /// </summary>
         [DataMember]
