@@ -12,12 +12,18 @@ namespace MSLibrary.Xrm.CrmServiceFactoryServices
     /// 针对通用ADFS的CRM服务工厂服务
     /// configuration格式为
     /// {
-    ///     "TokenServiceType":"令牌服务类型,ADFS,ADFSPassword,S2S",
+    ///     "TokenServiceType":"令牌服务类型,AD,ADFS,ADFSPassword,S2S",
     ///     "CrmUrl":"Crm地址",
     ///     "CrmApiVersion":"CrmApi版本",
     ///     "CrmApiMaxRetry":服务最大重试次数，整数,
     ///     "TokenServiceParameters":
     ///     不同的TokenServiceType有不同的配置
+    ///     AD
+    ///     {
+    ///         "UserName":"string,用户名（不带域名）",
+    ///         "Password":"string,密码",
+    ///         "Domain":"string,域名"
+    ///     }
     ///     ADFS
     ///     {
     ///         "AdfsUrl":"string,ADFS的地址",

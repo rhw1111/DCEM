@@ -219,7 +219,7 @@ namespace MSLibrary.Xrm.Token
                       await Task.FromResult(0);
                   });
 
-            return strToken;
+            return $"Bearer {strToken}";
         }
 
 

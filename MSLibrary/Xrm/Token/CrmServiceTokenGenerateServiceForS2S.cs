@@ -157,7 +157,7 @@ namespace MSLibrary.Xrm.Token
             });
 
 
-            return strToken;
+            return $"Bearer {strToken}";
         }
 
 
