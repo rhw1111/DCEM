@@ -222,6 +222,7 @@ export class EditPage implements OnInit {
                 var obj = {};
                 obj["mcs_filename"] = file["fileName"];
                 obj["mcs_filesize"] = file["fileSize"];
+                debugger;
                 obj["mcs_fileurl"] = file["url"];
                 this.model.postData.fileEntityArray.push(obj);
             }

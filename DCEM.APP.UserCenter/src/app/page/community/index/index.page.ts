@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import * as $ from 'jquery';
 
 @Component({
     selector: 'app-index',
@@ -7,6 +8,16 @@ import { Component } from '@angular/core';
 })
 export class IndexPage {
 
-    constructor() { }
+    constructor() {
+        this.init();
+
+    }
+
+    init() {
+        $(".dm-top-nav-tag").find("div").click(function () {
+            alert("ok");
+        })
+    }
+
 
 }
