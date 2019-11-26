@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["index-69c37885-js"],{
 
-/***/ "./node_modules/@ionic/core/dist/esm-es5/index-69c37885.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm-es5/index-69c37885.js ***!
-  \*****************************************************************/
+/***/ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm-es5/index-69c37885.js":
+/*!*************************************************************************************!*\
+  !*** ./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm-es5/index-69c37885.js ***!
+  \*************************************************************************************/
 /*! exports provided: create */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

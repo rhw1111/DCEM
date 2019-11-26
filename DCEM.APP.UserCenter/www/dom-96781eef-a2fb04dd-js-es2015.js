@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["dom-96781eef-a2fb04dd-js"],{
 
-/***/ "./node_modules/@ionic/core/dist/esm/dom-96781eef-a2fb04dd.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/dom-96781eef-a2fb04dd.js ***!
-  \********************************************************************/
+/***/ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm/dom-96781eef-a2fb04dd.js":
+/*!****************************************************************************************!*\
+  !*** ./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm/dom-96781eef-a2fb04dd.js ***!
+  \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 

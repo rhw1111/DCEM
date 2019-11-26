@@ -34,12 +34,6 @@
   <ItemGroup>
     <Folder Include="src\" />
     <Folder Include="src\app\" />
-    <Folder Include="src\app\carcenter\" />
-    <Folder Include="src\app\carcenter\index\" />
-    <Folder Include="src\app\charging\" />
-    <Folder Include="src\app\charging\index\" />
-    <Folder Include="src\app\community\" />
-    <Folder Include="src\app\community\index\" />
     <Folder Include="src\app\component\" />
     <Folder Include="src\app\component\modal\" />
     <Folder Include="src\app\component\typescript\" />
@@ -56,10 +50,6 @@
     <Folder Include="src\app\page\personalcenter\" />
     <Folder Include="src\app\page\personalcenter\index\" />
     <Folder Include="src\app\page\servicecenter\index\" />
-    <Folder Include="src\app\personalcenter\" />
-    <Folder Include="src\app\personalcenter\index\" />
-    <Folder Include="src\app\servicecenter\" />
-    <Folder Include="src\app\servicecenter\index\" />
     <Folder Include="src\assets\" />
     <Folder Include="src\assets\icon\" />
     <Folder Include="src\assets\img\" />

@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["swiper-bundle-ccdaac54-js"],{
 
-/***/ "./node_modules/@ionic/core/dist/esm/swiper.bundle-ccdaac54.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/swiper.bundle-ccdaac54.js ***!
-  \*********************************************************************/
+/***/ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm/swiper.bundle-ccdaac54.js":
+/*!*****************************************************************************************!*\
+  !*** ./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm/swiper.bundle-ccdaac54.js ***!
+  \*****************************************************************************************/
 /*! exports provided: Swiper */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
