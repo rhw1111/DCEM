@@ -117,4 +117,24 @@ export class ListPage implements OnInit {
       }
     }
   }
+
+  
+    //触发省事件
+    provinceOnClick() {
+      this.provinceModal()
+  }
+
+  //触发市事件
+  cityOnClick() {
+      if (this.model.info.province != "") {
+          this.cityModal()
+      }
+  }
+
+  //触发区事件
+  districtOnClick() {
+      if (this.model.info.city != "") {
+          this.districtModal()
+      }
+  }
 }
