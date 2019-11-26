@@ -45,9 +45,16 @@ const routes: Routes = [
                     { path: 'list', loadChildren: () => import('./page/servicecenter/vehiclecenter/list/list.module').then(m => m.ListPageModule) },
                 ]
             },
+            {
+                path: 'dealer',  //体验中心
+                children: [
+                    { path: 'list',    loadChildren: () => import('./page/servicecenter/dealer/list/list.module').then( m => m.ListPageModule) },
+                ]
+            },
             { path: 'index', loadChildren: () => import('./page/servicecenter/index/index.module').then(m => m.IndexPageModule) },
         ]
     },
+  
 ];
 @NgModule({
     imports: [

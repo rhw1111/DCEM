@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <ion-label>体验中心</ion-label>
+    </ion-title>
+  </ion-toolbar> 
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item (click)="provinceOnClick()">
+      <ion-label position="stacked">省：</ion-label>
+      <p>{{model.info.provincename}}&nbsp;</p>
+  </ion-item>
+  <ion-item (click)="cityOnClick()">
+      <ion-label position="stacked">市：</ion-label>
+      <p>{{model.info.cityname}}&nbsp;</p>
+  </ion-item>
+  <ion-item (click)="districtOnClick()">
+      <ion-label position="stacked">区：</ion-label>
+      <p>{{model.info.areaname}}&nbsp;</p>
+  </ion-item>
+  </ion-list>
+</ion-content>
