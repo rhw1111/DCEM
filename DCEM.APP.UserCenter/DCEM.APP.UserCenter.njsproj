@@ -1,0 +1,131 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <Name>UserCenter</Name>
+    <RootNamespace>UserCenter</RootNamespace>
+    <EnableTypeScript>true</EnableTypeScript>
+    <TypeScriptSourceMap>true</TypeScriptSourceMap>
+    <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>54630022-ccad-4ced-8089-10a1d2a780cd</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>
+    </StartupFile>
+    <StartWebBrowser>False</StartWebBrowser>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <StartWebBrowser>false</StartWebBrowser>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="src\" />
+    <Folder Include="src\app\" />
+    <Folder Include="src\app\component\" />
+    <Folder Include="src\app\component\modal\" />
+    <Folder Include="src\app\component\modal\login\" />
+    <Folder Include="src\app\component\typescript\" />
+    <Folder Include="src\app\page\carcenter\index\" />
+    <Folder Include="src\app\page\charging\index\" />
+    <Folder Include="src\app\page\community\index\" />
+    <Folder Include="src\app\page\home\" />
+    <Folder Include="src\app\page\home\tabs\" />
+    <Folder Include="src\app\page\community\" />
+    <Folder Include="src\app\page\charging\" />
+    <Folder Include="src\app\page\carcenter\" />
+    <Folder Include="src\app\page\" />
+    <Folder Include="src\app\page\servicecenter\" />
+    <Folder Include="src\app\page\personalcenter\" />
+    <Folder Include="src\app\page\personalcenter\index\" />
+    <Folder Include="src\app\page\servicecenter\index\" />
+    <Folder Include="src\assets\" />
+    <Folder Include="src\assets\icon\" />
+    <Folder Include="src\assets\img\" />
+    <Folder Include="src\environments\" />
+    <Folder Include="src\theme\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="src\app\app-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\app.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\app.component.ts" />
+    <TypeScriptCompile Include="src\app\app.module.ts" />
+    <TypeScriptCompile Include="src\app\component\modal\login\login.module.ts" />
+    <TypeScriptCompile Include="src\app\component\modal\login\login.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\component\modal\login\login.page.ts" />
+    <TypeScriptCompile Include="src\app\component\typescript\dcem.core.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\index\index.module.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\index\index.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\index\index.page.ts" />
+    <TypeScriptCompile Include="src\app\page\charging\index\index.module.ts" />
+    <TypeScriptCompile Include="src\app\page\charging\index\index.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\charging\index\index.page.ts" />
+    <TypeScriptCompile Include="src\app\page\community\index\index.module.ts" />
+    <TypeScriptCompile Include="src\app\page\community\index\index.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\community\index\index.page.ts" />
+    <TypeScriptCompile Include="src\app\page\home\tabs\tabs-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\home\tabs\tabs.module.ts" />
+    <TypeScriptCompile Include="src\app\page\home\tabs\tabs.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\home\tabs\tabs.page.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\index\index.module.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\index\index.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\index\index.page.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\index\index.module.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\index\index.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\index\index.page.ts" />
+    <TypeScriptCompile Include="src\environments\environment.prod.ts" />
+    <TypeScriptCompile Include="src\environments\environment.ts" />
+    <TypeScriptCompile Include="src\main.ts" />
+    <TypeScriptCompile Include="src\polyfills.ts" />
+    <TypeScriptCompile Include="src\test.ts" />
+    <TypeScriptCompile Include="src\zone-flags.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="angular.json" />
+    <Content Include="browserslist" />
+    <Content Include="ionic.config.json" />
+    <Content Include="karma.conf.js" />
+    <Content Include="package-lock.json" />
+    <Content Include="package.json" />
+    <Content Include="src\app\app.component.html" />
+    <Content Include="src\app\app.component.scss" />
+    <Content Include="src\app\component\modal\login\login.page.html" />
+    <Content Include="src\app\component\modal\login\login.page.scss" />
+    <Content Include="src\app\page\carcenter\index\index.page.html" />
+    <Content Include="src\app\page\carcenter\index\index.page.scss" />
+    <Content Include="src\app\page\charging\index\index.page.html" />
+    <Content Include="src\app\page\charging\index\index.page.scss" />
+    <Content Include="src\app\page\community\index\index.page.html" />
+    <Content Include="src\app\page\community\index\index.page.scss" />
+    <Content Include="src\app\page\home\tabs\tabs.page.html" />
+    <Content Include="src\app\page\home\tabs\tabs.page.scss" />
+    <Content Include="src\app\page\personalcenter\index\index.page.html" />
+    <Content Include="src\app\page\personalcenter\index\index.page.scss" />
+    <Content Include="src\app\page\servicecenter\index\index.page.html" />
+    <Content Include="src\app\page\servicecenter\index\index.page.scss" />
+    <Content Include="src\assets\icon\favicon.png" />
+    <Content Include="src\assets\img\1png.png" />
+    <Content Include="src\assets\img\2.jpg" />
+    <Content Include="src\assets\shapes.svg" />
+    <Content Include="src\global.scss" />
+    <Content Include="src\index.html" />
+    <Content Include="src\theme\variables.scss" />
+    <Content Include="tsconfig.app.json" />
+    <Content Include="tsconfig.json" />
+    <Content Include="tsconfig.spec.json" />
+    <Content Include="tslint.json" />
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
+</Project>

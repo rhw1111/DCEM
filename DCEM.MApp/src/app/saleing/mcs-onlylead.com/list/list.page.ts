@@ -19,7 +19,7 @@ export class ListPage implements OnInit {
         apiUrl: '/api/only-lead/QueryList',
         seachkey: '',//搜索关键字
         data: [],//列表数据
-        pageSize: 10,//页数
+        pageSize: 300,//页数
         page: 1,//分页
         sort: '',//排序的参数
         systemUserId: "",//当前用户id
@@ -75,9 +75,9 @@ export class ListPage implements OnInit {
         }
         this._http.getForToaken(this.model.apiUrl,
             {
-                "seachkey": this.model.seachkey,
-                "pageSize": this.model.pageSize,
-                "page": this.model.page
+                "Search": this.model.seachkey,
+                "PageSize": this.model.pageSize,
+                "PageIndex": this.model.page
             },
             (res: any) => {
                 if (res.Results !== null) {

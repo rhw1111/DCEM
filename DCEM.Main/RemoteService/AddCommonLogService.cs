@@ -12,18 +12,17 @@ namespace DCEM.Main.RemoteService
     [Injection(InterfaceType = typeof(IAddCommonLogService), Scope = InjectionScope.Singleton)]
     public class AddCommonLogService : IAddCommonLogService
     {
-        private IRemoteServiceDescriptionRepository _remoteServiceDescriptionRepository;
+        private RemoteServiceDescriptionRepositoryHelper _remoteServiceDescriptionRepositoryHelper;
 
-        public AddCommonLogService(IRemoteServiceDescriptionRepository remoteServiceDescriptionRepository)
+        public AddCommonLogService(RemoteServiceDescriptionRepositoryHelper remoteServiceDescriptionRepositoryHelper)
         {
-            _remoteServiceDescriptionRepository = remoteServiceDescriptionRepository;
+            _remoteServiceDescriptionRepositoryHelper = remoteServiceDescriptionRepositoryHelper;
         }
 
         public async Task Add(CommonLogModel model)
         {
-            //获取服务描述
-            var descriptionRepositoryHelper= RemoteServiceDescriptionRepositoryHelperFactory.Create(_remoteServiceDescriptionRepository);
-            var description = await descriptionRepositoryHelper.QueryByName(RemoteServiceNames.AddCommonLog);
+            //获取服务描述       
+            var description = await _remoteServiceDescriptionRepositoryHelper.QueryByName(RemoteServiceNames.AddCommonLog);
             if (description==null)
             {
                 var fragment = new TextFragment()

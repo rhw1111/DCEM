@@ -1,19 +1,21 @@
 {
   "GlobalLogLevels": {
-    "DCEM.LoggerService": "0",
-    "DIWrapper": "0",
-    "HttpRequest": "0",
-    "SystemAuthentication": "0"
+    "DCEM.ConfigurationService": "4",
+    "HttpRequest": "4",
+    "DIWrapper": "2",
+    "SystemAuthentication": "4"
   },
+  "GlobalLogDefaultMinLevel": "4",
   "Providers": {
     "CommonLog": {
       "Configuration": null,
       "LogLevels": {
-        "DCEM.LoggerService": "0",
-        "DIWrapper": "0",
-        "HttpRequest": "0",
-        "SystemAuthentication": "0"
-      }
+        "DCEM.ConfigurationService": "4",
+        "HttpRequest": "4",
+        "DIWrapper": "4",
+        "SystemAuthentication": "4"
+      },
+      "DefaultMinLevel": "4"
     }
   }
 }

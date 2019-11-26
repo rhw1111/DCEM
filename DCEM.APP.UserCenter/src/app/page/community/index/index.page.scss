@@ -1,0 +1,77 @@
+﻿* {
+    margin: 0px;
+    padding: 0px;
+}
+
+//顶部导航
+.dm-top-nav {
+    $height: 70px;
+
+    background-color: rgb(244,241,245);
+    height: $height;
+
+    ion-grid {
+        height: 100%;
+
+        ion-row {
+            height: 100%;
+
+            ion-col {
+                height: 100%;
+            }
+        }
+    }
+
+    .dm-top-nav-ico {
+        width: 50px;
+
+        ion-icon {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 30px;
+            height: 30px;
+            margin: -15px 0 0 -15px;
+        }
+
+        &.blue {
+            ion-icon {
+                color: rgb(49,113,224);
+            }
+        }
+    }
+
+    .dm-top-nav-tag {
+        padding-left: 50px;
+        padding-right: 50px;
+
+        .dm-top-nav-tag-text {
+            font-size: 16px;
+            height: $height;
+            font-weight: bold;
+            margin: 0 auto;
+            text-align: center;
+            line-height: $height;
+
+            &.selected {
+                font-size: 20px;
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: 0px;
+                left: 0;
+                width: 0%;
+                height: 5px;
+                background-color: RGB(139,195,54);
+                transition: all .3s;
+                -webkit-transition: all .5s;
+            }
+
+            &.selected::after {
+                width: 100%;
+            }
+        }
+    }
+}

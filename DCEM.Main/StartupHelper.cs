@@ -292,6 +292,7 @@ namespace DCEM.Main
 
 
             //为CrmServiceTokenGenerateServiceSelector.ServiceFactories赋值
+            CrmServiceTokenGenerateServiceSelector.ServiceFactories[CrmServiceTokenGenerateServiceTypes.AD] = DIContainerContainer.Get<CrmServiceTokenGenerateServiceForADFactory>();
             CrmServiceTokenGenerateServiceSelector.ServiceFactories[CrmServiceTokenGenerateServiceTypes.ADFS]= DIContainerContainer.Get<CrmServiceTokenGenerateServiceForADFSFactory>();
             CrmServiceTokenGenerateServiceSelector.ServiceFactories[CrmServiceTokenGenerateServiceTypes.ADFSPassword] = DIContainerContainer.Get<CrmServiceTokenGenerateServiceForADFSPasswordFactory>();
             CrmServiceTokenGenerateServiceSelector.ServiceFactories[CrmServiceTokenGenerateServiceTypes.S2S] = DIContainerContainer.Get<CrmServiceTokenGenerateServiceForS2SFactory>();

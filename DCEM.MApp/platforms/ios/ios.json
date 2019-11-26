@@ -67,6 +67,10 @@
             {
               "xml": "<feature name=\"CDVOrientation\"><param name=\"ios-package\" value=\"CDVOrientation\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"FullScreenImage\"><param name=\"ios-package\" value=\"FullScreenImage\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -116,6 +120,9 @@
       "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
     },
     "cordova-plugin-screen-orientation": {
+      "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
+    },
+    "es.keensoft.fullscreenimage": {
       "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
     }
   },
@@ -381,6 +388,14 @@
       "clobbers": [
         "cordova.plugins.screenorientation"
       ]
+    },
+    {
+      "id": "es.keensoft.fullscreenimage.FullScreenImage",
+      "file": "plugins/es.keensoft.fullscreenimage/www/fullscreenimage.js",
+      "pluginId": "es.keensoft.fullscreenimage",
+      "clobbers": [
+        "window.FullScreenImage"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -394,6 +409,7 @@
     "cordova-plugin-telerik-imagepicker": "2.3.3",
     "cordova-plugin-file": "6.0.2",
     "cordova-plugin-file-transfer": "1.7.1",
-    "cordova-plugin-screen-orientation": "3.0.2"
+    "cordova-plugin-screen-orientation": "3.0.2",
+    "es.keensoft.fullscreenimage": "1.0.1"
   }
 }
