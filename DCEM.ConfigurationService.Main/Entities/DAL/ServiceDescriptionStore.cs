@@ -36,7 +36,7 @@ namespace DCEM.ConfigurationService.Main.Entities.DAL
                 using (var dbContext = EntityDBContextFactory.Create(conn))
                 {
                     dbContext.Database.UseTransaction(transaction);
-                    dbContext.ServiceDescription.Add(description);
+                    dbContext.ServiceDescriptions.Add(description);
 
                     await DBOperateHelper.DbContextExceptionHandler(async () =>
                     {
@@ -55,8 +55,8 @@ namespace DCEM.ConfigurationService.Main.Entities.DAL
                 using (var dbContext = EntityDBContextFactory.Create(conn))
                 {
                     dbContext.Database.UseTransaction(transaction);
-                    dbContext.ServiceDescription.Attach(entity);
-                    dbContext.ServiceDescription.Remove(entity);
+                    dbContext.ServiceDescriptions.Attach(entity);
+                    dbContext.ServiceDescriptions.Remove(entity);
                     await DBOperateHelper.DbContextExceptionHandler(async () =>
                     {
                         await dbContext.SaveChangesAsync();
@@ -75,7 +75,7 @@ namespace DCEM.ConfigurationService.Main.Entities.DAL
                     dbContext.Database.UseTransaction(transaction);
                     await DBOperateHelper.DbContextExceptionHandler(async () =>
                     {
-                        description = await dbContext.ServiceDescription.Where(item => item.ID == id ).FirstOrDefaultAsync();
+                        description = await dbContext.ServiceDescriptions.Where(item => item.ID == id ).FirstOrDefaultAsync();
                     });
                 }
             });
@@ -93,7 +93,7 @@ namespace DCEM.ConfigurationService.Main.Entities.DAL
                     dbContext.Database.UseTransaction(transaction);
                     await DBOperateHelper.DbContextExceptionHandler(async () =>
                     {
-                        description = await dbContext.ServiceDescription.Where(item => item.Name == name).FirstOrDefaultAsync();
+                        description = await dbContext.ServiceDescriptions.Where(item => item.Name == name).FirstOrDefaultAsync();
                     });
                 }
             });
@@ -113,7 +113,7 @@ namespace DCEM.ConfigurationService.Main.Entities.DAL
 
                     await DBOperateHelper.DbContextExceptionHandler(async () =>
                     {
-                        var templates = dbContext.ServiceDescription.Where(a => EF.Functions.Like(a.Name,$"{name.ToSqlLike()}%"));
+                        var templates = dbContext.ServiceDescriptions.Where(a => EF.Functions.Like(a.Name,$"{name.ToSqlLike()}%"));
                         result.TotalCount = await templates.CountAsync();
                         result.CurrentPage = page;
                         result.Results = await templates.OrderByDescending(a => a.CreateTime).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
@@ -133,7 +133,7 @@ namespace DCEM.ConfigurationService.Main.Entities.DAL
                 using (var dbContext = EntityDBContextFactory.Create(conn))
                 {
                     dbContext.Database.UseTransaction(transaction);
-                    dbContext.ServiceDescription.Attach(description);
+                    dbContext.ServiceDescriptions.Attach(description);
                     var entry = dbContext.Entry(description);
                     if (description.Attributes.ContainsKey("Name"))
                     {

@@ -27,7 +27,7 @@ namespace DCEM.Main.RemoteService
             var serviceAddress=serviceAddressConfig.GetConfigurationValue<string>();
             var logInfos=await _commonLogInfoGeneratorService.Generate();
             //调用配置服务中获取服务信息的方法
-            var serviceInfo=await HttpClinetHelper.GetAsync<RemoteServiceDescriptionInfo>($"{serviceAddress}/serviceinfo/byname?name={name.ToUrlEncode()}", logInfos);
+            var serviceInfo=await HttpClinetHelper.GetAsync<RemoteServiceDescriptionInfo>($"{serviceAddress}/api/serviceinfo/getbyname?name={name.ToUrlEncode()}", logInfos);
             return serviceInfo;
         }
     }
