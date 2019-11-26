@@ -197,6 +197,10 @@ namespace DCEM.Main
     public static class CrmServiceTokenGenerateServiceTypes
     {
         /// <summary>
+        /// 基于AD的基本认证模式
+        /// </summary>
+        public const string AD = "AD";
+        /// <summary>
         /// 基于ADFS Oauth的Code模式
         /// </summary>
         public const string ADFS = "ADFS";
