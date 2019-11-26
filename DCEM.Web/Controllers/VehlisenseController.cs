@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿//xiongtao 
+//上牌信息 2019-11-26
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using MSLibrary.Xrm;
 using MSLibrary;
