@@ -49,7 +49,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCEM.SalesAssistant.Main", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateCode", "GenerateCode\GenerateCode\GenerateCode.csproj", "{5F6299F0-836B-45F3-A74E-E73112B024C9}"
 EndProject
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "DCEM.App.CTerminal", "DCEM.App.CTerminal\DCEM.App.CTerminal.njsproj", "{BB5C3661-31DD-456A-9E35-DDBF2280A835}"
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "DCEM.APP.UserCenter", "DCEM.APP.UserCenter\DCEM.APP.UserCenter.njsproj", "{54630022-CCAD-4CED-8089-10A1D2A780CD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCEM.UserCenterService.Main", "DCEM.ConsumerService.Main\DCEM.UserCenterService.Main.csproj", "{DE8F75C0-2732-4A06-86F1-BCE39D75E650}"
 EndProject
