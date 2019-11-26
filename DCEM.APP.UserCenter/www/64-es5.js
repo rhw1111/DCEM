@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[64],{
 
-/***/ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm-es5/ion-slide_2-ios.entry.js":
-/*!********************************************************************************************!*\
-  !*** ./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm-es5/ion-slide_2-ios.entry.js ***!
-  \********************************************************************************************/
+/***/ "./node_modules/@ionic/core/dist/esm-es5/ion-slide_2-ios.entry.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm-es5/ion-slide_2-ios.entry.js ***!
+  \************************************************************************/
 /*! exports provided: ion_slide, ion_slides */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -11,9 +11,9 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_slide", function() { return Slide; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_slides", function() { return Slides; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/_tslib@1.10.0@tslib/tslib.es6.js");
-/* harmony import */ var _core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./core-ca0488fc.js */ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm-es5/core-ca0488fc.js");
-/* harmony import */ var _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./config-3c7f3790.js */ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm-es5/config-3c7f3790.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./core-ca0488fc.js */ "./node_modules/@ionic/core/dist/esm-es5/core-ca0488fc.js");
+/* harmony import */ var _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./config-3c7f3790.js */ "./node_modules/@ionic/core/dist/esm-es5/config-3c7f3790.js");
 
 
 
@@ -426,7 +426,7 @@ var Slides = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         finalOptions = this.normalizeOptions();
-                        return [4 /*yield*/, __webpack_require__.e(/*! import() | swiper-bundle-ccdaac54-js */ "swiper-bundle-ccdaac54-js").then(__webpack_require__.bind(null, /*! ./swiper.bundle-ccdaac54.js */ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm-es5/swiper.bundle-ccdaac54.js"))];
+                        return [4 /*yield*/, __webpack_require__.e(/*! import() | swiper-bundle-ccdaac54-js */ "swiper-bundle-ccdaac54-js").then(__webpack_require__.bind(null, /*! ./swiper.bundle-ccdaac54.js */ "./node_modules/@ionic/core/dist/esm-es5/swiper.bundle-ccdaac54.js"))];
                     case 1:
                         Swiper = (_a.sent()).Swiper;
                         return [4 /*yield*/, waitForSlides(this.el)];

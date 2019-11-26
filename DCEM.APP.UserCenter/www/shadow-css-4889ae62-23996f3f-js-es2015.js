@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["shadow-css-4889ae62-23996f3f-js"],{
 
-/***/ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm/shadow-css-4889ae62-23996f3f.js":
-/*!***********************************************************************************************!*\
-  !*** ./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm/shadow-css-4889ae62-23996f3f.js ***!
-  \***********************************************************************************************/
+/***/ "./node_modules/@ionic/core/dist/esm/shadow-css-4889ae62-23996f3f.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm/shadow-css-4889ae62-23996f3f.js ***!
+  \***************************************************************************/
 /*! exports provided: scopeCss */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
