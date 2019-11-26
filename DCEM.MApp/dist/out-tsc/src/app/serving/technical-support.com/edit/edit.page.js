@@ -107,11 +107,10 @@ let EditPage = class EditPage {
                 this.model.postData.mcs_malfunctioncontent = res["TechnicalSupport"]["Attributes"]["mcs_malfunctioncontent"];
                 this.model.postData.mcs_cartypeid = res["TechnicalSupport"]["Attributes"]["_mcs_cartypeid_value"];
                 this.model.viewData.mcs_cartypeid_vale = res["TechnicalSupport"]["Attributes"]["_mcs_mcs_cartypeid_value@OData.Community.Display.V1.FormattedValue"];
-                if (this.model.fileArray != null && this.model.fileArray.length > 0) {
-                }
             }
             console.log(res);
             if (res.DealerAttachment != null) {
+                this.model.fileArray = [];
                 for (let item of res.DealerAttachment) {
                     console.log(item);
                     var obj = {};
