@@ -4,6 +4,9 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <Name>UserCenter</Name>
     <RootNamespace>UserCenter</RootNamespace>
+    <EnableTypeScript>true</EnableTypeScript>
+    <TypeScriptSourceMap>true</TypeScriptSourceMap>
+    <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -32,7 +35,9 @@
     <Folder Include="src\" />
     <Folder Include="src\app\" />
     <Folder Include="src\app\component\" />
-    <Folder Include="src\app\component\login\" />
+    <Folder Include="src\app\component\modal\" />
+    <Folder Include="src\app\component\modal\login\" />
+    <Folder Include="src\app\component\typescript\" />
     <Folder Include="src\app\page\carcenter\index\" />
     <Folder Include="src\app\page\charging\index\" />
     <Folder Include="src\app\page\community\index\" />
@@ -46,9 +51,6 @@
     <Folder Include="src\app\page\personalcenter\" />
     <Folder Include="src\app\page\personalcenter\index\" />
     <Folder Include="src\app\page\servicecenter\index\" />
-    <Folder Include="src\app\page\servicecenter\vehiclecenter\" />
-    <Folder Include="src\app\page\servicecenter\vehiclecenter\detail\" />
-    <Folder Include="src\app\page\servicecenter\vehiclecenter\list\" />
     <Folder Include="src\assets\" />
     <Folder Include="src\assets\icon\" />
     <Folder Include="src\assets\img\" />
@@ -60,17 +62,29 @@
     <TypeScriptCompile Include="src\app\app.component.spec.ts" />
     <TypeScriptCompile Include="src\app\app.component.ts" />
     <TypeScriptCompile Include="src\app\app.module.ts" />
+    <TypeScriptCompile Include="src\app\component\modal\login\login.module.ts" />
+    <TypeScriptCompile Include="src\app\component\modal\login\login.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\component\modal\login\login.page.ts" />
+    <TypeScriptCompile Include="src\app\component\typescript\dcem.core.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\index\index.module.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\index\index.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\index\index.page.ts" />
+    <TypeScriptCompile Include="src\app\page\charging\index\index.module.ts" />
+    <TypeScriptCompile Include="src\app\page\charging\index\index.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\charging\index\index.page.ts" />
+    <TypeScriptCompile Include="src\app\page\community\index\index.module.ts" />
+    <TypeScriptCompile Include="src\app\page\community\index\index.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\community\index\index.page.ts" />
+    <TypeScriptCompile Include="src\app\page\home\tabs\tabs-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\home\tabs\tabs.module.ts" />
+    <TypeScriptCompile Include="src\app\page\home\tabs\tabs.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\home\tabs\tabs.page.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\index\index.module.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\index\index.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\index\index.page.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\index\index.module.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\index\index.page.spec.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\index\index.page.ts" />
-    <TypeScriptCompile Include="src\app\page\servicecenter\vehiclecenter\detail\detail-routing.module.ts" />
-    <TypeScriptCompile Include="src\app\page\servicecenter\vehiclecenter\detail\detail.module.ts" />
-    <TypeScriptCompile Include="src\app\page\servicecenter\vehiclecenter\detail\detail.page.spec.ts" />
-    <TypeScriptCompile Include="src\app\page\servicecenter\vehiclecenter\detail\detail.page.ts" />
-    <TypeScriptCompile Include="src\app\page\servicecenter\vehiclecenter\list\list-routing.module.ts" />
-    <TypeScriptCompile Include="src\app\page\servicecenter\vehiclecenter\list\list.module.ts" />
-    <TypeScriptCompile Include="src\app\page\servicecenter\vehiclecenter\list\list.page.spec.ts" />
-    <TypeScriptCompile Include="src\app\page\servicecenter\vehiclecenter\list\list.page.ts" />
     <TypeScriptCompile Include="src\environments\environment.prod.ts" />
     <TypeScriptCompile Include="src\environments\environment.ts" />
     <TypeScriptCompile Include="src\main.ts" />
@@ -87,16 +101,23 @@
     <Content Include="package.json" />
     <Content Include="src\app\app.component.html" />
     <Content Include="src\app\app.component.scss" />
+    <Content Include="src\app\component\modal\login\login.page.html" />
+    <Content Include="src\app\component\modal\login\login.page.scss" />
+    <Content Include="src\app\page\carcenter\index\index.page.html" />
+    <Content Include="src\app\page\carcenter\index\index.page.scss" />
+    <Content Include="src\app\page\charging\index\index.page.html" />
+    <Content Include="src\app\page\charging\index\index.page.scss" />
+    <Content Include="src\app\page\community\index\index.page.html" />
+    <Content Include="src\app\page\community\index\index.page.scss" />
+    <Content Include="src\app\page\home\tabs\tabs.page.html" />
+    <Content Include="src\app\page\home\tabs\tabs.page.scss" />
+    <Content Include="src\app\page\personalcenter\index\index.page.html" />
+    <Content Include="src\app\page\personalcenter\index\index.page.scss" />
     <Content Include="src\app\page\servicecenter\index\index.page.html" />
     <Content Include="src\app\page\servicecenter\index\index.page.scss" />
-    <Content Include="src\app\page\servicecenter\vehiclecenter\detail\detail.page.html" />
-    <Content Include="src\app\page\servicecenter\vehiclecenter\detail\detail.page.scss" />
-    <Content Include="src\app\page\servicecenter\vehiclecenter\list\list.page.html" />
-    <Content Include="src\app\page\servicecenter\vehiclecenter\list\list.page.scss" />
     <Content Include="src\assets\icon\favicon.png" />
     <Content Include="src\assets\img\1png.png" />
     <Content Include="src\assets\img\2.jpg" />
-    <Content Include="src\assets\img\goods-list.jpg" />
     <Content Include="src\assets\shapes.svg" />
     <Content Include="src\global.scss" />
     <Content Include="src\index.html" />

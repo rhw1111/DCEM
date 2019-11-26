@@ -46,6 +46,12 @@ const routes: Routes = [
                     { path: 'detail', loadChildren: () => import('./page/servicecenter/vehiclecenter/detail/detail.module').then(m => m.DetailPageModule) },
                 ]
             },
+            {
+                path: 'dealer',  //体验中心
+                children: [
+                    { path: 'list',    loadChildren: () => import('./page/servicecenter/dealer/list/list.module').then( m => m.ListPageModule) },
+                ]
+            },
             { path: 'index', loadChildren: () => import('./page/servicecenter/index/index.module').then(m => m.IndexPageModule) },
         ]
     },

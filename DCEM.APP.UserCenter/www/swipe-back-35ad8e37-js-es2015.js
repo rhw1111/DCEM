@@ -1,16 +1,16 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["swipe-back-35ad8e37-js"],{
 
-/***/ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm/swipe-back-35ad8e37.js":
-/*!**************************************************************************************!*\
-  !*** ./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm/swipe-back-35ad8e37.js ***!
-  \**************************************************************************************/
+/***/ "./node_modules/@ionic/core/dist/esm/swipe-back-35ad8e37.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm/swipe-back-35ad8e37.js ***!
+  \******************************************************************/
 /*! exports provided: createSwipeBackGesture */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createSwipeBackGesture", function() { return createSwipeBackGesture; });
-/* harmony import */ var _index_624eea58_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index-624eea58.js */ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm/index-624eea58.js");
+/* harmony import */ var _index_624eea58_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index-624eea58.js */ "./node_modules/@ionic/core/dist/esm/index-624eea58.js");
 
 
 const createSwipeBackGesture = (el, canStartHandler, onStartHandler, onMoveHandler, onEndHandler) => {
