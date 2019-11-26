@@ -230,4 +230,118 @@ namespace MSLibrary.Serializer
 
         }
     }
+
+    /// <summary>
+    /// 针对类型为Object的类型做特殊化序列化处理
+    /// 在序列化时，对于复杂类型，则加入_type字段，存储实际类型（完整类名）,对于基本类型，则直接序列化
+    /// 反序列化时，检查是否存在_type字段，如果存在，则按该字段的类型反序列化，如果不存在，则根据Json基本类型反序列化为对应的类型
+    /// 如果是Json类型是Object类型，则赋值为JObject
+    /// </summary>
+    public class ObjectJsonConverter : JsonConverter
+    {
+        private JsonSerializerSettings _settings = null;
+        public ObjectJsonConverter() : base()
+        {
+
+        }
+
+        public ObjectJsonConverter(JsonSerializerSettings settings) : base()
+        {
+            _settings = settings;
+        }
+
+        public override bool CanConvert(Type objectType)
+        {
+            //只对Object类型的对象做处理
+            if (objectType == typeof(object))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            object result = null;
+            var jObj = serializer.Deserialize<JObject>(reader);
+
+            if (jObj.ContainsKey("_type"))
+            {
+                //获取实际类型
+                var typeValue = jObj["_type"];
+                var type = Type.GetType(typeValue.ToString());
+                typeValue.Remove();
+                var typeReader= jObj.CreateReader();
+                //反序列化为实际类型
+                result=serializer.Deserialize(typeReader, type);
+            }
+            else
+            {
+                
+                switch (jObj.Type)
+                {
+                    case JTokenType.Array:
+                        //转换成JArray，数组最后一个为类型字符串
+                        JArray arrayValue = JArray.Parse(jObj.ToString());
+                        if (arrayValue.Count==0)
+                        {
+                            throw new Exception("object Deserialize to array need typeinfo");
+                        }
+                        var type=Type.GetType(arrayValue[arrayValue.Count - 1].ToString());
+                        arrayValue.RemoveAt(arrayValue.Count - 1);
+                        var typeReader = arrayValue.CreateReader();
+                        //反序列化为实际类型
+                        result = serializer.Deserialize(typeReader, type);
+                        break;
+                }
+                //反序列化为字符串
+
+            }
+
+            return result;
+        }
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+
+
+
+        }
+
+
+        private void SetSerializer(JsonSerializer serializer, JsonSerializerSettings settings)
+        {
+            if (_settings != null)
+            {
+                serializer.CheckAdditionalContent = _settings.CheckAdditionalContent;
+                serializer.ConstructorHandling = _settings.ConstructorHandling;
+                serializer.Context = _settings.Context;
+                serializer.ContractResolver = _settings.ContractResolver;
+                serializer.Culture = _settings.Culture;
+                serializer.DateFormatHandling = _settings.DateFormatHandling;
+                serializer.DateFormatString = _settings.DateFormatString;
+                serializer.DateParseHandling = _settings.DateParseHandling;
+                serializer.DateTimeZoneHandling = _settings.DateTimeZoneHandling;
+                serializer.DefaultValueHandling = _settings.DefaultValueHandling;
+                serializer.EqualityComparer = _settings.EqualityComparer;
+                serializer.FloatFormatHandling = _settings.FloatFormatHandling;
+                serializer.FloatParseHandling = _settings.FloatParseHandling;
+                serializer.Formatting = _settings.Formatting;
+                serializer.MaxDepth = _settings.MaxDepth;
+                serializer.MetadataPropertyHandling = _settings.MetadataPropertyHandling;
+                serializer.MissingMemberHandling = _settings.MissingMemberHandling;
+                serializer.NullValueHandling = _settings.NullValueHandling;
+                serializer.PreserveReferencesHandling = _settings.PreserveReferencesHandling;
+                serializer.ReferenceLoopHandling = _settings.ReferenceLoopHandling;
+                serializer.SerializationBinder = _settings.SerializationBinder;
+                serializer.StringEscapeHandling = _settings.StringEscapeHandling;
+                serializer.TraceWriter = _settings.TraceWriter;
+                serializer.TypeNameAssemblyFormatHandling = _settings.TypeNameAssemblyFormatHandling;
+                serializer.TypeNameHandling = _settings.TypeNameHandling;
+            }
+        }
+    }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { FullScreenImage } from '@ionic-native/full-screen-image';
 
 @Component({
     selector: 'app-detail',
@@ -44,13 +45,12 @@ export class DetailPage implements OnInit {
 
         }
     };
-
     constructor(
         private _http: DCore_Http,
         private _page: DCore_Page,
-        private activeRoute: ActivatedRoute
+        private activeRoute: ActivatedRoute,
     ) {
-
+       
     }
 
     ngOnInit() {
@@ -63,9 +63,10 @@ export class DetailPage implements OnInit {
     }
 
     //下载
-    down(url:any){
-        debugger;
-     console.log(url);
+    showImage(url:any){
+        FullScreenImage.showImageURL(url)
+        .then((data: any) => console.log(data))
+        .catch((error: any) => console.error(error));
     }
 
     pageOnBind(id: any) {

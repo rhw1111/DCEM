@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
@@ -42,9 +43,23 @@ namespace DCEM.ConsoleApp
 
         async static Task  Main(string[] args)
         {
+            var h = new HttpClientHandler() { Credentials = new NetworkCredential("crm9admin", "@Msc.com@", "Msc.com") };
+            
+           
 
-            HttpClient client = new HttpClient(new HttpClientHandler() { Credentials = new NetworkCredential("A", "B", "C") });
-            var r=await client.GetAsync("http://www.163.com");
+            HttpClient client = new HttpClient(h);
+
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "http://106.14.121.65/crm9/api/data/v9.0");
+
+            var r=await client.SendAsync(request);
+
+            var authHeader=r.RequestMessage.Headers.Authorization;
+
+            request = new HttpRequestMessage(HttpMethod.Get, "http://106.14.121.65/crm9/api/data/v9.0");
+            request.Headers.Authorization = authHeader;
+            HttpClient newClient = new HttpClient();
+            var newR = await newClient.SendAsync(request);
+
 
             X509Store store = new X509Store(StoreName.Root, StoreLocation.LocalMachine);
             store.Open(OpenFlags.ReadOnly);
