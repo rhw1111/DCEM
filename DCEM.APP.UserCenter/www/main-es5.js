@@ -472,10 +472,13 @@ var routes = [
         path: '',
         loadChildren: function () { return __webpack_require__.e(/*! import() | page-home-tabs-tabs-module */ "page-home-tabs-tabs-module").then(__webpack_require__.bind(null, /*! ./page/home/tabs/tabs.module */ "./src/app/page/home/tabs/tabs.module.ts")).then(function (m) { return m.TabsPageModule; }); }
     },
+<<<<<<< HEAD
     {
         path: 'home',
         loadChildren: function () { return __webpack_require__.e(/*! import() | page-home-tabs-tabs-module */ "page-home-tabs-tabs-module").then(__webpack_require__.bind(null, /*! ./page/home/tabs/tabs.module */ "./src/app/page/home/tabs/tabs.module.ts")).then(function (m) { return m.TabsPageModule; }); }
     },
+=======
+>>>>>>> d6b62a7fcf23fc5759b021c4acd752233cf90399
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -678,7 +681,11 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 module.exports = __webpack_require__(/*! D:\Gitlab\SF\Project\DCEM\DCEM.APP.UserCenter\src\main.ts */"./src/main.ts");
+=======
+module.exports = __webpack_require__(/*! C:\工作\项目\app\DCEM.APP.UserCenter\src\main.ts */"./src/main.ts");
+>>>>>>> d6b62a7fcf23fc5759b021c4acd752233cf90399
 
 
 /***/ })
