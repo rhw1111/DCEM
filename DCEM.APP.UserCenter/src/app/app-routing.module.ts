@@ -37,9 +37,9 @@ const routes: Routes = [
         ]
     },
     {
-        path: 'personalcenter',  //服务中心
+        path: 'servicecenter',  //服务中心
         children: [
-            { path: 'index', loadChildren: () => import('./page/personalcenter/index/index.module').then(m => m.IndexPageModule) },
+            { path: 'index', loadChildren: () => import('./page/servicecenter/index/index.module').then(m => m.IndexPageModule) },
         ]
     },
 ];

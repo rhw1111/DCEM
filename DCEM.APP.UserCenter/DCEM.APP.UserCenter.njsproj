@@ -31,18 +31,20 @@
   <ItemGroup>
     <Folder Include="src\" />
     <Folder Include="src\app\" />
-    <Folder Include="src\app\page\" />
-    <Folder Include="src\app\page\carcenter\" />
+    <Folder Include="src\app\component\" />
+    <Folder Include="src\app\component\login\" />
     <Folder Include="src\app\page\carcenter\index\" />
-    <Folder Include="src\app\page\charging\" />
     <Folder Include="src\app\page\charging\index\" />
-    <Folder Include="src\app\page\community\" />
     <Folder Include="src\app\page\community\index\" />
     <Folder Include="src\app\page\home\" />
     <Folder Include="src\app\page\home\tabs\" />
+    <Folder Include="src\app\page\community\" />
+    <Folder Include="src\app\page\charging\" />
+    <Folder Include="src\app\page\carcenter\" />
+    <Folder Include="src\app\page\" />
+    <Folder Include="src\app\page\servicecenter\" />
     <Folder Include="src\app\page\personalcenter\" />
     <Folder Include="src\app\page\personalcenter\index\" />
-    <Folder Include="src\app\page\servicecenter\" />
     <Folder Include="src\app\page\servicecenter\index\" />
     <Folder Include="src\assets\" />
     <Folder Include="src\assets\icon\" />
