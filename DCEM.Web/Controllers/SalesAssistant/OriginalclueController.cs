@@ -11,6 +11,9 @@ using DCEM.SalesAssistant.Main.ViewModel.Request;
 
 namespace DCEM.Web.Controllers
 {
+    /// <summary>
+    /// 原始线索
+    /// </summary>
     [Route("api/Originalclue")]
     [EnableCors("any")]
     [ApiController]

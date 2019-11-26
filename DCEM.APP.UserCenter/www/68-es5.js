@@ -1,17 +1,17 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[68],{
 
-/***/ "./node_modules/@ionic/core/dist/esm-es5/ion-split-pane-md.entry.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm-es5/ion-split-pane-md.entry.js ***!
-  \**************************************************************************/
+/***/ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm-es5/ion-split-pane-md.entry.js":
+/*!**********************************************************************************************!*\
+  !*** ./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm-es5/ion-split-pane-md.entry.js ***!
+  \**********************************************************************************************/
 /*! exports provided: ion_split_pane */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_split_pane", function() { return SplitPane; });
-/* harmony import */ var _core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core-ca0488fc.js */ "./node_modules/@ionic/core/dist/esm-es5/core-ca0488fc.js");
-/* harmony import */ var _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./config-3c7f3790.js */ "./node_modules/@ionic/core/dist/esm-es5/config-3c7f3790.js");
+/* harmony import */ var _core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core-ca0488fc.js */ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm-es5/core-ca0488fc.js");
+/* harmony import */ var _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./config-3c7f3790.js */ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm-es5/config-3c7f3790.js");
 
 
 var SPLIT_PANE_MAIN = 'split-pane-main';

@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[38],{
 
-/***/ "./node_modules/@ionic/core/dist/esm/ion-menu_4-md.entry.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/ion-menu_4-md.entry.js ***!
-  \******************************************************************/
+/***/ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm/ion-menu_4-md.entry.js":
+/*!**************************************************************************************!*\
+  !*** ./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm/ion-menu_4-md.entry.js ***!
+  \**************************************************************************************/
 /*! exports provided: ion_menu, ion_menu_button, ion_menu_controller, ion_menu_toggle */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -13,14 +13,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_menu_button", function() { return MenuButton; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_menu_controller", function() { return MenuController; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_menu_toggle", function() { return MenuToggle; });
-/* harmony import */ var _core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core-ca0488fc.js */ "./node_modules/@ionic/core/dist/esm/core-ca0488fc.js");
-/* harmony import */ var _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./config-3c7f3790.js */ "./node_modules/@ionic/core/dist/esm/config-3c7f3790.js");
-/* harmony import */ var _helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-46f4a262.js */ "./node_modules/@ionic/core/dist/esm/helpers-46f4a262.js");
-/* harmony import */ var _animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./animation-af478fe9.js */ "./node_modules/@ionic/core/dist/esm/animation-af478fe9.js");
-/* harmony import */ var _index_624eea58_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./index-624eea58.js */ "./node_modules/@ionic/core/dist/esm/index-624eea58.js");
-/* harmony import */ var _index_1e5940d5_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./index-1e5940d5.js */ "./node_modules/@ionic/core/dist/esm/index-1e5940d5.js");
-/* harmony import */ var _theme_18cbe2cc_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./theme-18cbe2cc.js */ "./node_modules/@ionic/core/dist/esm/theme-18cbe2cc.js");
-/* harmony import */ var _cubic_bezier_2812fda3_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./cubic-bezier-2812fda3.js */ "./node_modules/@ionic/core/dist/esm/cubic-bezier-2812fda3.js");
+/* harmony import */ var _core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core-ca0488fc.js */ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm/core-ca0488fc.js");
+/* harmony import */ var _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./config-3c7f3790.js */ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm/config-3c7f3790.js");
+/* harmony import */ var _helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-46f4a262.js */ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm/helpers-46f4a262.js");
+/* harmony import */ var _animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./animation-af478fe9.js */ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm/animation-af478fe9.js");
+/* harmony import */ var _index_624eea58_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./index-624eea58.js */ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm/index-624eea58.js");
+/* harmony import */ var _index_1e5940d5_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./index-1e5940d5.js */ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm/index-1e5940d5.js");
+/* harmony import */ var _theme_18cbe2cc_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./theme-18cbe2cc.js */ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm/theme-18cbe2cc.js");
+/* harmony import */ var _cubic_bezier_2812fda3_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./cubic-bezier-2812fda3.js */ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm/cubic-bezier-2812fda3.js");
 
 
 
@@ -123,7 +123,7 @@ AFTER:
         this.sideChanged();
         // register this menu with the app's menu controller
         _index_1e5940d5_js__WEBPACK_IMPORTED_MODULE_5__["m"]._register(this);
-        this.gesture = (await Promise.resolve(/*! import() */).then(__webpack_require__.bind(null, /*! ./index-624eea58.js */ "./node_modules/@ionic/core/dist/esm/index-624eea58.js"))).createGesture({
+        this.gesture = (await Promise.resolve(/*! import() */).then(__webpack_require__.bind(null, /*! ./index-624eea58.js */ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm/index-624eea58.js"))).createGesture({
             el: document,
             gestureName: 'menu-swipe',
             gesturePriority: 30,
