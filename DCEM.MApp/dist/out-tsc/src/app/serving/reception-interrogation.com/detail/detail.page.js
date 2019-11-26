@@ -1,5 +1,4 @@
 import * as tslib_1 from "tslib";
-var _a, _b;
 import { Component, ViewChild } from '@angular/core';
 import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute } from '@angular/router';
@@ -122,7 +121,7 @@ let DetailPage = class DetailPage {
 };
 tslib_1.__decorate([
     ViewChild(IonSegment, null),
-    tslib_1.__metadata("design:type", typeof (_a = typeof IonSegment !== "undefined" && IonSegment) === "function" ? _a : Object)
+    tslib_1.__metadata("design:type", IonSegment)
 ], DetailPage.prototype, "IonSegment", void 0);
 DetailPage = tslib_1.__decorate([
     Component({
@@ -132,7 +131,8 @@ DetailPage = tslib_1.__decorate([
     }),
     tslib_1.__metadata("design:paramtypes", [DCore_Http,
         DCore_Page,
-        DCore_Valid, typeof (_b = typeof ActivatedRoute !== "undefined" && ActivatedRoute) === "function" ? _b : Object])
+        DCore_Valid,
+        ActivatedRoute])
 ], DetailPage);
 export { DetailPage };
 //# sourceMappingURL=detail.page.js.map

@@ -51,6 +51,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateCode", "GenerateCod
 EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "DCEM.APP.UserCenter", "DCEM.APP.UserCenter\DCEM.APP.UserCenter.njsproj", "{54630022-CCAD-4CED-8089-10A1D2A780CD}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCEM.UserCenterService.Main", "DCEM.ConsumerService.Main\DCEM.UserCenterService.Main.csproj", "{DE8F75C0-2732-4A06-86F1-BCE39D75E650}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +131,10 @@ Global
 		{54630022-CCAD-4CED-8089-10A1D2A780CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54630022-CCAD-4CED-8089-10A1D2A780CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54630022-CCAD-4CED-8089-10A1D2A780CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE8F75C0-2732-4A06-86F1-BCE39D75E650}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE8F75C0-2732-4A06-86F1-BCE39D75E650}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE8F75C0-2732-4A06-86F1-BCE39D75E650}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE8F75C0-2732-4A06-86F1-BCE39D75E650}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -152,6 +158,7 @@ Global
 		{852B965B-AF53-45A0-828D-F907EA6FD454} = {E2B83048-8094-420E-AFA7-AA8274A28A2F}
 		{5F6299F0-836B-45F3-A74E-E73112B024C9} = {05061FC2-A7DF-42F3-ADFD-9DC28994E97A}
 		{54630022-CCAD-4CED-8089-10A1D2A780CD} = {1BE884B4-23B7-4124-93E6-9B9C30F751B4}
+		{DE8F75C0-2732-4A06-86F1-BCE39D75E650} = {E2B83048-8094-420E-AFA7-AA8274A28A2F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {843D9FD7-3ABC-41CB-A7B0-6A4C72441BC9}
