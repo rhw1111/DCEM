@@ -319,8 +319,12 @@ var EditPage = /** @class */ (function () {
             this.mod.postData["mcs_purchaseway"] = Number(this.mod.postData["mcs_purchaseway"]);
             this._http.postForToaken(this.mod.postApiUrl, this.mod.postData, function (res) {
                 if (res != "") {
-                    _this._page.alert("消息提示", "保存成功！");
-                    _this._page.goto("/saleing/account/success", { guid: res });
+                    if (_this.shareData.actioncode === 2) {
+                        _this._page.alert("消息提示", "保存成功！");
+                    }
+                    else {
+                        _this._page.goto("/saleing/account/success", { guid: res });
+                    }
                 }
                 else {
                     _this._page.alert("消息提示", "保存失败！");

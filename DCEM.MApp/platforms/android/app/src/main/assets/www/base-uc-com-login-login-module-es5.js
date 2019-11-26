@@ -90,17 +90,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
 /* harmony import */ var app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/base/base.ser/logininfo.storage */ "./src/app/base/base.ser/logininfo.storage.ts");
+/* harmony import */ var app_base_base_ser_authentication_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/base/base.ser/authentication.service */ "./src/app/base/base.ser/authentication.service.ts");
+
 
 
 
 
 var LoginPage = /** @class */ (function () {
     // 定义控制器
-    function LoginPage(_http, _page, _window, _logininfo) {
+    function LoginPage(_http, _page, _window, _logininfo, authservice) {
         this._http = _http;
         this._page = _page;
         this._window = _window;
         this._logininfo = _logininfo;
+        this.authservice = authservice;
         // 定义模型
         this.mod = {
             username: '',
@@ -120,10 +123,10 @@ var LoginPage = /** @class */ (function () {
         //this.mod.password = 'P@ssw0rd';
         this.mod.apiurl = '/api/User/GetAuthToken';
         this.mod.domainType = 'local';
-        var welcomeisloading = this._window.storageGet("welcomeisloading");
-        if (welcomeisloading == null || welcomeisloading == "") {
-            this._window.storageSet("welcomeisloading", "true");
-        }
+        //var welcomeisloading= this._window.storageGet("welcomeisloading");
+        //if(welcomeisloading==null || welcomeisloading==""){
+        //    this._window.storageSet("welcomeisloading","true");
+        //}
     };
     // 提交
     LoginPage.prototype.submit = function () {
@@ -150,7 +153,7 @@ var LoginPage = /** @class */ (function () {
                 this.mod.domain = "https://mscrm.sokon.com/dcem";
                 break;
             case 'localhost':
-                this.mod.domain = "http://localhost:52151";
+                this.mod.domain = "https://localhost:44382";
                 break;
             default:
                 this.mod.domain = "http://localhost:9099";
@@ -169,7 +172,9 @@ var LoginPage = /** @class */ (function () {
                 _this._page.loadingHide();
                 return false;
             }
-            _this._http.setToken(res.access_token);
+            //this._http.setToken(res.access_token);
+            //登录实现
+            _this.authservice.login(res.access_token);
             _this._logininfo.SetInfo(JSON.stringify(res));
             _this._page.loadingHide();
             _this._page.alert('消息提示', '登录认证成功');
@@ -185,7 +190,8 @@ var LoginPage = /** @class */ (function () {
         { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Http"] },
         { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Page"] },
         { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Window"] },
-        { type: app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_3__["Storage_LoginInfo"] }
+        { type: app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_3__["Storage_LoginInfo"] },
+        { type: app_base_base_ser_authentication_service__WEBPACK_IMPORTED_MODULE_4__["AuthenticationService"] }
     ]; };
     LoginPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -196,7 +202,8 @@ var LoginPage = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Http"],
             app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Page"],
             app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Window"],
-            app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_3__["Storage_LoginInfo"]])
+            app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_3__["Storage_LoginInfo"],
+            app_base_base_ser_authentication_service__WEBPACK_IMPORTED_MODULE_4__["AuthenticationService"]])
     ], LoginPage);
     return LoginPage;
 }());

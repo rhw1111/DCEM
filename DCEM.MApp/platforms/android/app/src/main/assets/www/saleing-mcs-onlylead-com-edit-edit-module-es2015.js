@@ -134,7 +134,7 @@ let EditPage = class EditPage {
                 this.model.scoreoption = this._optionset.Get("lead_mcs_accountpoints");
                 this.model.genderoption = this._optionset.Get("lead_mcs_gender");
                 this.model.leadoriginoption = this._optionset.Get("lead_mcs_leadorigin");
-                this.model.systemUserId = this._logininfo.GetSystemUserId();
+                //this.model.systemUserId = this._logininfo.GetSystemUserId();
             }
         });
     }
@@ -342,15 +342,15 @@ let EditPage = class EditPage {
             this._page.presentToastError("请选择区");
             return;
         }
-        this.onlylead["systemuserid"] = this.model.systemUserId;
-        this.model.postData["actioncode"] = 1;
+        //this.onlylead["systemuserid"] = this.model.systemUserId;
+        //this.model.postData["actioncode"] = 1;
         this.model.postData["onlylead"] = this.onlylead;
         this.model.postData["onlylead"]["mcs_leadorigin"] = Number(this.onlylead["mcs_leadorigin"]);
         this.model.postData["onlylead"]["mcs_gender"] = Number(this.onlylead["mcs_gender"]);
         this.model.postData["onlylead"]["mcs_accountpoints"] = Number(this.onlylead["mcs_accountpoints"]);
         this._page.loadingShow();
         console.log(this.model.postData);
-        this._http.post(this.model.postApiUrl, this.model.postData, (res) => {
+        this._http.postForToaken(this.model.postApiUrl, this.model.postData, (res) => {
             debugger;
             if (res !== null) {
                 var guid = res["Data"]["Id"];

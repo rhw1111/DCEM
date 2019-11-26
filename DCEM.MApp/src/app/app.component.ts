@@ -70,7 +70,7 @@ export class AppComponent {
             this.statusBar.backgroundColorByHexString('#000000');
             //this.splashScreen.hide();
             /** 设置智能竖屏*/
-            this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY);
+            //this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY);
             if(location.href.indexOf('base/uc/welcome')==-1 && !this.authService.isAuthenticated()){
                 this._page.goto("base/uc/login");
             }

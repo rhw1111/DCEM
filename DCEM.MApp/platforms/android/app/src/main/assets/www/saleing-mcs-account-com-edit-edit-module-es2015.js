@@ -288,8 +288,12 @@ let EditPage = class EditPage {
             this.mod.postData["mcs_purchaseway"] = Number(this.mod.postData["mcs_purchaseway"]);
             this._http.postForToaken(this.mod.postApiUrl, this.mod.postData, (res) => {
                 if (res != "") {
-                    this._page.alert("消息提示", "保存成功！");
-                    this._page.goto("/saleing/account/success", { guid: res });
+                    if (this.shareData.actioncode === 2) {
+                        this._page.alert("消息提示", "保存成功！");
+                    }
+                    else {
+                        this._page.goto("/saleing/account/success", { guid: res });
+                    }
                 }
                 else {
                     this._page.alert("消息提示", "保存失败！");

@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/home/index\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>我的交车单</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-menu-button></ion-menu-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-searchbar animated [(ngModel)]=\"model.search.searchkey\" placeholder=\"请输入交车单号\\订单号\\车辆VIN号搜索\"\r\n            (keyup)=\"searchOnKeyup($event)\"></ion-searchbar>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-item>\r\n            <ion-text color=\"danger\">*</ion-text>\r\n            <ion-label>\r\n                <h2>交车单状态：</h2>\r\n            </ion-label>\r\n            <ion-select name=\"clues\" okText=\"确认\" cancelText=\"取消\" (ionChange)=\"searchOnCharge()\"  [(ngModel)]=\"model.search.deliverystatus\">\r\n                <ion-select-option *ngFor=\"let item of model.deliverystatusOptions\" value=\"{{item.value}}\">\r\n                    {{item.name}}\r\n                </ion-select-option>\r\n            </ion-select>\r\n        </ion-item>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <!-- <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n      <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\"\r\n          refreshingText=\"刷新中...\">\r\n      </ion-refresher-content>\r\n  </ion-refresher> -->\r\n    <ion-list lines=\"full\">\r\n        <ion-item-sliding *ngFor=\"let item of model.deliverys;let key=index\">\r\n            <ion-item [routerLink]=\"['/saleing/delivery/detail']\" [queryParams]=\"{id:item.id}\">\r\n                <ion-icon slot=\"start\" color=\"primary\" name=\"car\" size=\"large\"></ion-icon>\r\n                <ion-label>\r\n                    <h2>{{item.code}}</h2>\r\n                    <p>{{item.vin}}</p>\r\n                    <p>{{item.ro}}</p> \r\n                </ion-label> \r\n                <ion-note slot=\"end\">\r\n                        {{item.deliverystatus}}\r\n                    </ion-note>\r\n            </ion-item>\r\n            <ion-item-options side=\"end\">\r\n                <ion-item-option color=\"tertiary\" expandable [routerLink]=\"['/saleing/delivery/detail']\"\r\n                    [queryParams]=\"{id:item.id}\">\r\n                    详情\r\n                </ion-item-option>\r\n            </ion-item-options>\r\n        </ion-item-sliding>\r\n    </ion-list>\r\n    <ion-label *ngIf=\"this.model.isending\" text-center>\r\n        <p>\r\n            没有更多的记录显示啦\r\n        </p>\r\n    </ion-label>\r\n    <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doLoading($event)\">\r\n        <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\">\r\n        </ion-infinite-scroll-content>\r\n    </ion-infinite-scroll> \r\n</ion-content>"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/home/index\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>我的交车单</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-menu-button></ion-menu-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-searchbar animated [(ngModel)]=\"model.search.searchkey\" placeholder=\"请输入交车单号\\订单号\\车辆VIN号搜索\"\r\n            (keyup)=\"searchOnKeyup($event)\"></ion-searchbar>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-item> \r\n            <ion-label> \r\n            </ion-label>\r\n            <ion-select name=\"clues\" okText=\"确认\" cancelText=\"取消\" (ionChange)=\"searchOnCharge()\"  [(ngModel)]=\"model.search.deliverystatus\">\r\n                <ion-select-option *ngFor=\"let item of model.deliverystatusOptions\" value=\"{{item.value}}\">\r\n                    {{item.name}}\r\n                </ion-select-option>\r\n            </ion-select>\r\n        </ion-item>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <!-- <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n      <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\"\r\n          refreshingText=\"刷新中...\">\r\n      </ion-refresher-content>\r\n  </ion-refresher> -->\r\n    <ion-list lines=\"full\">\r\n        <ion-item-sliding *ngFor=\"let item of model.deliverys;let key=index\">\r\n            <ion-item [routerLink]=\"['/saleing/delivery/detail']\" [queryParams]=\"{id:item.id}\">\r\n                <ion-icon slot=\"start\" color=\"primary\" name=\"car\" size=\"large\"></ion-icon>\r\n                <ion-label>\r\n                    <h2>{{item.code}}</h2>\r\n                    <p>{{item.vin}}</p>\r\n                    <p>{{item.createdon}}</p> \r\n                </ion-label> \r\n                <ion-note slot=\"end\">\r\n                        {{item.deliverystatus}}\r\n                    </ion-note>\r\n            </ion-item> \r\n        </ion-item-sliding>\r\n    </ion-list>\r\n    <ion-label *ngIf=\"this.model.isending\" text-center>\r\n        <p>\r\n            没有更多的记录显示啦\r\n        </p>\r\n    </ion-label>\r\n    <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doLoading($event)\">\r\n        <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\">\r\n        </ion-infinite-scroll-content>\r\n    </ion-infinite-scroll> \r\n</ion-content>"
 
 /***/ }),
 
@@ -119,12 +119,12 @@ var ListPage = /** @class */ (function () {
         };
     }
     ListPage.prototype.ngOnInit = function () {
+        this.model.deliverystatusOptions = this._optionset.Get("mcs_deliverystatus");
     };
     //每次页面加载
     ListPage.prototype.ionViewWillEnter = function () {
         this.model.deliverys = [];
         this.model.search.pageindex = 1;
-        this.model.deliverystatusOptions = this._optionset.Get("mcs_deliverystatus");
         this.listOnBind(null);
     };
     //加载下一页
@@ -159,14 +159,16 @@ var ListPage = /** @class */ (function () {
                     obj["vin"] = attr["_mcs_vin_value@OData.Community.Display.V1.FormattedValue"];
                     obj["code"] = attr["mcs_code"];
                     obj["ro"] = attr["_mcs_vehorder_value@OData.Community.Display.V1.FormattedValue"];
-                    obj["createdon"] = attr["createdon"];
+                    obj["createdon"] = attr["createdon@OData.Community.Display.V1.FormattedValue"];
                     obj["deliverystatus"] = _this._optionset.GetOptionSetNameByValue("mcs_deliverystatus", attr["mcs_deliverystatus"]);
                     _this.model.deliverys.push(obj);
                 }
                 event ? event.target.complete() : '';
                 if (data.length < _this.model.search.pagesize) {
                     event ? event.target.disabled = true : "";
-                    _this.model.isending = true;
+                    if (_this.model.search.pageindex != 1) {
+                        _this.model.isending = true;
+                    }
                 }
                 _this._page.loadingHide();
             }

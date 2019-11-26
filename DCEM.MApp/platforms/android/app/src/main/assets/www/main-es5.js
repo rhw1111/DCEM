@@ -118,6 +118,10 @@ var map = {
 		"./src/app/saleing/mcs-account.com/success/success.module.ts",
 		"saleing-mcs-account-com-success-success-module"
 	],
+	"./saleing/mcs-contactrecord/edit/edit.module": [
+		"./src/app/saleing/mcs-contactrecord/edit/edit.module.ts",
+		"saleing-mcs-contactrecord-edit-edit-module"
+	],
 	"./saleing/mcs-contactrecord/list/list.module": [
 		"./src/app/saleing/mcs-contactrecord/list/list.module.ts",
 		"saleing-mcs-contactrecord-list-list-module"
@@ -914,7 +918,7 @@ module.exports = "<ion-header translucent>\n    <ion-toolbar>\n      <ion-title>
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header translucent>\r\n  <ion-toolbar>\r\n    <ion-title>选择接待专员</ion-title>\r\n    <ion-buttons slot=\"end\">\r\n      <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n    </ion-buttons>\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n    <ion-searchbar [(ngModel)]=\"mod.searchData.search\" placeholder=\"支持名称\\ID\\编号查找\" (keyup)=\"searchOnKeyup($event)\" ></ion-searchbar>\r\n  </ion-toolbar>\r\n</ion-header>\r\n<ion-content fullscreen>\r\n  <ion-list>\r\n      <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n          <ion-item (click)=\"itemClick(item)\"> \r\n              <ion-label>\r\n                  <p>{{item.mcs_code}}</p>  \r\n                  <p style=\"color:black\">{{item.name}}</p>    \r\n              </ion-label> \r\n          </ion-item>\r\n      </ion-item-sliding>\r\n      <ion-radio-group [(ngModel)]=\"selectItemValue\">\r\n           \r\n      </ion-radio-group>\r\n     \r\n     \r\n  </ion-list>\r\n  \r\n</ion-content>"
+module.exports = "<ion-header translucent>\r\n  <ion-toolbar>\r\n    <ion-title>选择接待专员</ion-title>\r\n    <ion-buttons slot=\"end\">\r\n      <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n    </ion-buttons>\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n    <ion-searchbar [(ngModel)]=\"mod.searchData.search\" placeholder=\"支持名称\\ID\\编号查找\" (keyup)=\"searchOnKeyup($event)\" ></ion-searchbar>\r\n  </ion-toolbar>\r\n</ion-header>\r\n<ion-content fullscreen>\r\n  <ion-list>\r\n      <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n          <ion-item (click)=\"itemClick(item)\"> \r\n              <ion-label>\r\n                  <p>{{item.mcs_code}}</p>  \r\n                  <p style=\"color:black\">{{item.name}}</p>    \r\n              </ion-label> \r\n          </ion-item>\r\n      </ion-item-sliding>\r\n      <ion-radio-group [(ngModel)]=\"selectItemValue\"> \r\n      </ion-radio-group> \r\n  </ion-list>\r\n  <ion-row *ngIf=\"ionInfiniteScroll.disabled\">\r\n    <ion-col class=\"nodata\" text-center>\r\n      没有更多内容啦\r\n    </ion-col>\r\n  </ion-row>\r\n  <ion-infinite-scroll (ionInfinite)=\"doInfinite($event)\">\r\n    <ion-infinite-scroll-content></ion-infinite-scroll-content>\r\n  </ion-infinite-scroll>\r\n</ion-content>"
 
 /***/ }),
 
@@ -925,7 +929,7 @@ module.exports = "<ion-header translucent>\r\n  <ion-toolbar>\r\n    <ion-title>
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header translucent>\r\n  <ion-toolbar>\r\n    <ion-title>选择试驾时段</ion-title>\r\n    <ion-buttons slot=\"end\">\r\n      <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n    </ion-buttons>\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n          <ion-datetime max-height=\"36px\"  class=\"titledate\"  [(ngModel)]=\"mod.searchData.search\" placeholder=\"支持预约开始时段查找\" displayFormat=\"YYYY-MM-DD\" minuteValues=\"0,30\" cancelText=\"取消\"\r\n          doneText=\"检索\" (ngModelChange)=\"searchOnKeyup($event)\" min=\"1997\"   value=\"\"></ion-datetime>\r\n    </ion-toolbar>\r\n</ion-header>\r\n<ion-content fullscreen>\r\n  <ion-list>\r\n      <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n          <ion-item (click)=\"itemClick(item)\"> \r\n              <ion-label>\r\n                  <p style=\"color: black;font-size: 17px;\">{{item.mcs_reservationdate}} {{item.mcs_begintime}}-{{item.mcs_endtime}}</p> \r\n                  <p>预约数量：{{item.mcs_usednum}}</p>\r\n              </ion-label>\r\n              <ion-note slot=\"end\" style=\"font-size: 14px;    padding-top: 7%;\">\r\n                  {{item.carmodelname}}\r\n              </ion-note>\r\n            \r\n          </ion-item>\r\n      </ion-item-sliding>\r\n      <ion-radio-group [(ngModel)]=\"selectItemValue\">\r\n           \r\n      </ion-radio-group>\r\n     \r\n     \r\n  </ion-list>\r\n  \r\n</ion-content>"
+module.exports = "<ion-header translucent>\r\n  <ion-toolbar>\r\n    <ion-title>选择试驾时段</ion-title>\r\n    <ion-buttons slot=\"end\">\r\n      <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n    </ion-buttons>\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n          <ion-datetime max-height=\"36px\"  class=\"titledate\"  [(ngModel)]=\"mod.searchData.search\" placeholder=\"支持预约开始时段查找\" displayFormat=\"YYYY-MM-DD\" minuteValues=\"0,30\" cancelText=\"取消\"\r\n          doneText=\"检索\" (ngModelChange)=\"searchOnKeyup($event)\" min=\"1997\"   value=\"\"></ion-datetime>\r\n    </ion-toolbar>\r\n</ion-header>\r\n<ion-content fullscreen>\r\n  <ion-list>\r\n      <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n          <ion-item (click)=\"itemClick(item)\"> \r\n              <ion-label>\r\n                  <p style=\"color: black;font-size: 17px;\">{{item.mcs_reservationdate}} {{item.mcs_begintime}}-{{item.mcs_endtime}}</p> \r\n                  <p>预约数量：{{item.mcs_usednum}}</p>\r\n              </ion-label>\r\n              <ion-note slot=\"end\" style=\"font-size: 14px;    padding-top: 7%;\">\r\n                  {{item.carmodelname}}\r\n              </ion-note>\r\n            \r\n          </ion-item>\r\n      </ion-item-sliding>\r\n      <ion-radio-group [(ngModel)]=\"selectItemValue\"> \r\n      </ion-radio-group> \r\n  </ion-list>\r\n  <ion-row *ngIf=\"ionInfiniteScroll.disabled\">\r\n    <ion-col class=\"nodata\" text-center>\r\n      没有更多内容啦\r\n    </ion-col>\r\n  </ion-row>\r\n  <ion-infinite-scroll (ionInfinite)=\"doInfinite($event)\">\r\n    <ion-infinite-scroll-content></ion-infinite-scroll-content>\r\n  </ion-infinite-scroll>\r\n</ion-content>"
 
 /***/ }),
 
@@ -936,7 +940,7 @@ module.exports = "<ion-header translucent>\r\n  <ion-toolbar>\r\n    <ion-title>
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header translucent>\r\n  <ion-toolbar>\r\n    <ion-title>选择省市区</ion-title>\r\n    <ion-buttons slot=\"end\">\r\n      <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n    </ion-buttons>\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n    <ion-searchbar [(ngModel)]=\"mod.searchData.search\" placeholder=\"支持名称\\ID\\编号查找\" (keyup)=\"searchOnKeyup($event)\" ></ion-searchbar>\r\n  </ion-toolbar>\r\n</ion-header>\r\n<ion-content fullscreen>\r\n  <ion-list>\r\n      <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n          <ion-item (click)=\"itemClick(item)\"> \r\n              <ion-label>\r\n                  <p>{{item.mcs_code}}</p> \r\n              </ion-label> \r\n              <ion-note slot=\"end\" >\r\n                {{item.name}}\r\n            </ion-note>\r\n          </ion-item>\r\n      </ion-item-sliding>\r\n      <ion-radio-group [(ngModel)]=\"selectItemValue\">\r\n           \r\n      </ion-radio-group>\r\n     \r\n     \r\n  </ion-list>\r\n  \r\n</ion-content>"
+module.exports = "<ion-header translucent>\r\n  <ion-toolbar>\r\n    <ion-title>选择省市区</ion-title>\r\n    <ion-buttons slot=\"end\">\r\n      <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n    </ion-buttons>\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n    <ion-searchbar [(ngModel)]=\"mod.searchData.search\" placeholder=\"支持名称\\ID\\编号查找\" (keyup)=\"searchOnKeyup($event)\">\r\n    </ion-searchbar>\r\n  </ion-toolbar>\r\n</ion-header>\r\n<ion-content fullscreen>\r\n  <ion-list>\r\n    <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n      <ion-item (click)=\"itemClick(item)\">\r\n        <ion-label>\r\n          <p>{{item.mcs_code}}</p>\r\n        </ion-label>\r\n        <ion-note slot=\"end\">\r\n          {{item.name}}\r\n        </ion-note>\r\n      </ion-item>\r\n    </ion-item-sliding>\r\n    <ion-radio-group [(ngModel)]=\"selectItemValue\">\r\n\r\n    </ion-radio-group>\r\n  </ion-list>\r\n  <ion-row *ngIf=\"ionInfiniteScroll.disabled\">\r\n    <ion-col class=\"nodata\" text-center>\r\n      没有更多内容啦\r\n    </ion-col>\r\n  </ion-row>\r\n  <ion-infinite-scroll (ionInfinite)=\"doInfinite($event)\">\r\n    <ion-infinite-scroll-content></ion-infinite-scroll-content>\r\n  </ion-infinite-scroll>\r\n</ion-content>"
 
 /***/ }),
 
@@ -947,7 +951,7 @@ module.exports = "<ion-header translucent>\r\n  <ion-toolbar>\r\n    <ion-title>
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header translucent>\r\n  <ion-toolbar>\r\n    <ion-title>选择车型颜色</ion-title>\r\n    <ion-buttons slot=\"end\">\r\n      <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n    </ion-buttons>\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n    <ion-searchbar [(ngModel)]=\"mod.searchData.search\" placeholder=\"支持名称\\ID\\编号查找\" (keyup)=\"searchOnKeyup($event)\" ></ion-searchbar>\r\n  </ion-toolbar>\r\n</ion-header>\r\n<ion-content fullscreen>\r\n  <ion-list>\r\n      <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n          <ion-item (click)=\"itemClick(item)\"> \r\n              <ion-label>\r\n                  <p>{{item.mcs_code}}</p> \r\n                  <p>{{item.vehicletypename}}</p>\r\n              </ion-label> \r\n              <ion-note slot=\"end\">\r\n                {{item.name}}\r\n            </ion-note>\r\n          </ion-item>\r\n          \r\n      </ion-item-sliding>\r\n      <ion-radio-group [(ngModel)]=\"selectItemValue\">\r\n           \r\n      </ion-radio-group>\r\n     \r\n     \r\n  </ion-list>\r\n  \r\n</ion-content>"
+module.exports = "<ion-header translucent>\r\n  <ion-toolbar>\r\n    <ion-title>选择车型颜色</ion-title>\r\n    <ion-buttons slot=\"end\">\r\n      <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n    </ion-buttons>\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n    <ion-searchbar [(ngModel)]=\"mod.searchData.search\" placeholder=\"支持名称\\ID\\编号查找\" (keyup)=\"searchOnKeyup($event)\" ></ion-searchbar>\r\n  </ion-toolbar>\r\n</ion-header>\r\n<ion-content fullscreen>\r\n  <ion-list>\r\n      <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n          <ion-item (click)=\"itemClick(item)\"> \r\n              <ion-label>\r\n                  <p>{{item.mcs_code}}</p> \r\n                  <p>{{item.vehicletypename}}</p>\r\n              </ion-label> \r\n              <ion-note slot=\"end\">\r\n                {{item.name}}\r\n            </ion-note>\r\n          </ion-item>\r\n          \r\n      </ion-item-sliding>\r\n      <ion-radio-group [(ngModel)]=\"selectItemValue\"> \r\n      </ion-radio-group> \r\n  </ion-list>\r\n  <ion-row *ngIf=\"ionInfiniteScroll.disabled\">\r\n    <ion-col class=\"nodata\" text-center>\r\n      没有更多内容啦\r\n    </ion-col>\r\n  </ion-row>\r\n  <ion-infinite-scroll (ionInfinite)=\"doInfinite($event)\">\r\n    <ion-infinite-scroll-content></ion-infinite-scroll-content>\r\n  </ion-infinite-scroll>\r\n</ion-content>"
 
 /***/ }),
 
@@ -1275,6 +1279,8 @@ var routes = [
                 path: 'contactrecord',
                 children: [
                     { path: 'list', loadChildren: './saleing/mcs-contactrecord/list/list.module#ListPageModule' },
+                    { path: 'edit', loadChildren: './saleing/mcs-contactrecord/edit/edit.module#EditPageModule' },
+                    { path: 'success', loadChildren: './saleing/mcs-contactrecord/success/success.module#SuccessPageModule' }
                 ]
             },
             {
@@ -1441,12 +1447,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(platform, splashScreen, statusBar, authService, router, menu, _http, _window, _page, screenOrientation) {
+    function AppComponent(platform, splashScreen, statusBar, authService, router, _activeRouter, menu, _http, _window, _page, screenOrientation) {
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.statusBar = statusBar;
         this.authService = authService;
         this.router = router;
+        this._activeRouter = _activeRouter;
         this.menu = menu;
         this._http = _http;
         this._window = _window;
@@ -1484,47 +1491,41 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.initializeApp = function () {
         var _this = this;
         this.platform.ready().then(function () {
-            //this.statusBar.styleDefault();
-            // let status bar overlay webview
-            _this.statusBar.overlaysWebView(false);
-            // set status bar to white
+            ////this.statusBar.styleDefault();
+            //// let status bar overlay webview
+            //this.statusBar.overlaysWebView(false);
+            //// set status bar to white
             _this.statusBar.backgroundColorByHexString('#000000');
-            _this.splashScreen.hide();
+            //this.splashScreen.hide();
             /** 设置智能竖屏*/
-            _this.screenOrientation.lock(_this.screenOrientation.ORIENTATIONS.PORTRAIT);
-            _this.headpicture = "assets/img/head_default.jpg";
-            console.log("开始welcomeisloading");
-            var welcomeisloading = _this._window.storageGet("welcomeisloading");
-            console.log("取值:" + welcomeisloading);
-            if (welcomeisloading == "true") {
-                var token = _this._http.getToken();
-                if (token == undefined || token == "") {
-                    _this._page.goto("base/uc/login");
-                }
-                else {
-                    var lastlogintime = _this._window.storageGet("auth-logintime");
-                    if (lastlogintime != null && lastlogintime !== "") {
-                        var lastdateTime = new Date(lastlogintime);
-                        var time = 20 * 60 * 1000;
-                        if (new Date().getTime() - lastdateTime.getTime() >= time) {
-                            console.log("登录超时20分钟,重新登录");
-                            _this._page.goto("base/uc/login");
-                        }
-                    }
-                }
+            //this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY);
+            if (location.href.indexOf('base/uc/welcome') == -1 && !_this.authService.isAuthenticated()) {
+                _this._page.goto("base/uc/login");
             }
-            else {
-                _this._page.goto("base/uc/welcome");
-            }
-            //    this.authService.authenticationState.subscribe(state => {
-            //        console.log(state);
-            //        if (state) {
-            //            this.router.navigate(['tabs']);
+            //this.headpicture = "assets/img/head_default.jpg";
+            //console.log("开始welcomeisloading");
+            //var welcomeisloading=this._window.storageGet("welcomeisloading");
+            //console.log("取值:"+welcomeisloading);
+            //if(welcomeisloading=="true"){
+            //    var token= this._http.getToken();
+            //    if(token== undefined || token==""){
+            //        this._page.goto("base/uc/login");
+            //    }
+            //    else{
+            //        var lastlogintime=this._window.storageGet("auth-logintime");
+            //        if(lastlogintime!=null && lastlogintime!==""){
+            //            var lastdateTime=new Date(lastlogintime);
+            //            var time = 20*60*1000;
+            //            if (new Date().getTime()-lastdateTime.getTime()>=time) {
+            //                console.log("登录超时20分钟,重新登录");
+            //                this._page.goto("base/uc/login");
+            //            }
             //        }
-            //        else {
-            //            //this.router.navigate(['login']);
-            //        }
-            //    });
+            //    }
+            //}
+            //else{
+            //  this._page.goto("base/uc/welcome");
+            //}
         });
     };
     AppComponent.prototype.loginout = function () {
@@ -1537,6 +1538,7 @@ var AppComponent = /** @class */ (function () {
         { type: _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__["StatusBar"] },
         { type: _base_base_ser_authentication_service__WEBPACK_IMPORTED_MODULE_5__["AuthenticationService"] },
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"] },
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_6__["ActivatedRoute"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"] },
         { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_7__["DCore_Http"] },
         { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_7__["DCore_Window"] },
@@ -1554,6 +1556,7 @@ var AppComponent = /** @class */ (function () {
             _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__["StatusBar"],
             _base_base_ser_authentication_service__WEBPACK_IMPORTED_MODULE_5__["AuthenticationService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_6__["ActivatedRoute"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"],
             app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_7__["DCore_Http"],
             app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_7__["DCore_Window"],
@@ -2931,9 +2934,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var SelectReceptioncommissionerComponent = /** @class */ (function () {
-    function SelectReceptioncommissionerComponent(modalCtrl, _http, _page) {
+    function SelectReceptioncommissionerComponent(modalCtrl, _http, _valid, _page) {
         this.modalCtrl = modalCtrl;
         this._http = _http;
+        this._valid = _valid;
         this._page = _page;
         this.selectItemValue = '';
         this.seachkey = '';
@@ -2962,9 +2966,12 @@ var SelectReceptioncommissionerComponent = /** @class */ (function () {
             this.listOnBind();
         }
     };
+    SelectReceptioncommissionerComponent.prototype.doInfinite = function (event) {
+        this.mod.searchData.pageindex++;
+        this.listOnBind();
+    };
     SelectReceptioncommissionerComponent.prototype.listOnBind = function () {
         var _this = this;
-        this._page.loadingShow();
         this.mod.data = [];
         this._http.get(this.mod.apiUrl, {
             params: {
@@ -2973,7 +2980,7 @@ var SelectReceptioncommissionerComponent = /** @class */ (function () {
                 pageSize: this.mod.searchData.pagesize
             }
         }, function (res) {
-            if (res.Results !== null) {
+            if (!_this._valid.isNull(res.Results) !== null && res.Results.length > 0) {
                 for (var key in res.Results) {
                     var obj = {};
                     obj["Id"] = res.Results[key]["Id"];
@@ -2981,15 +2988,13 @@ var SelectReceptioncommissionerComponent = /** @class */ (function () {
                     obj["mcs_code"] = res.Results[key]["Attributes"]["mcs_code"];
                     _this.mod.data.push(obj);
                 }
-                _this._page.loadingHide();
             }
             else {
-                _this._page.alert("消息提示", "数据加载异常");
-                _this._page.loadingHide();
+                _this.ionInfiniteScroll.disabled = true;
+                _this.ionInfiniteScroll.complete();
             }
         }, function (err) {
             _this._page.alert("消息提示", "数据加载异常");
-            _this._page.loadingHide();
         });
     };
     SelectReceptioncommissionerComponent.prototype.dismissModal = function () {
@@ -3007,8 +3012,17 @@ var SelectReceptioncommissionerComponent = /** @class */ (function () {
     SelectReceptioncommissionerComponent.ctorParameters = function () { return [
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] },
         { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Valid"] },
         { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"] }
     ]; };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonContent"], null),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonContent"])
+    ], SelectReceptioncommissionerComponent.prototype, "ionContent", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonInfiniteScroll"], null),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonInfiniteScroll"])
+    ], SelectReceptioncommissionerComponent.prototype, "ionInfiniteScroll", void 0);
     SelectReceptioncommissionerComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-select-receptioncommissioner',
@@ -3017,6 +3031,7 @@ var SelectReceptioncommissionerComponent = /** @class */ (function () {
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
             app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Valid"],
             app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"]])
     ], SelectReceptioncommissionerComponent);
     return SelectReceptioncommissionerComponent;
@@ -3056,9 +3071,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var SelectReservationconfigurationComponent = /** @class */ (function () {
-    function SelectReservationconfigurationComponent(modalCtrl, _http, _page) {
+    function SelectReservationconfigurationComponent(modalCtrl, _http, _valid, _page) {
         this.modalCtrl = modalCtrl;
         this._http = _http;
+        this._valid = _valid;
         this._page = _page;
         this.selectItemValue = '';
         this.seachkey = '';
@@ -3071,14 +3087,14 @@ var SelectReservationconfigurationComponent = /** @class */ (function () {
                 carmodel: '',
                 dealerid: '',
                 search: "",
-                pagesize: 10
+                pagesize: 20
             }
         };
         this.objectKeys = Object.keys;
         this.mod.apiUrl = "/Api/basedata/QueryReservationconfig";
         this.mod.searchData.search = "";
         this.mod.searchData.pageindex = 1;
-        this.mod.searchData.pagesize = 10;
+        this.mod.searchData.pagesize = 20;
     }
     SelectReservationconfigurationComponent.prototype.ngOnInit = function () {
         this.listOnBind();
@@ -3086,10 +3102,12 @@ var SelectReservationconfigurationComponent = /** @class */ (function () {
     SelectReservationconfigurationComponent.prototype.searchOnKeyup = function (event) {
         this.listOnBind();
     };
+    SelectReservationconfigurationComponent.prototype.doInfinite = function (event) {
+        this.mod.searchData.pageindex++;
+        this.listOnBind();
+    };
     SelectReservationconfigurationComponent.prototype.listOnBind = function () {
         var _this = this;
-        this._page.loadingShow();
-        this.mod.data = [];
         this._http.get(this.mod.apiUrl, {
             params: {
                 dealerid: this.mod.searchData.dealerid,
@@ -3099,7 +3117,7 @@ var SelectReservationconfigurationComponent = /** @class */ (function () {
                 pageSize: this.mod.searchData.pagesize
             }
         }, function (res) {
-            if (res.Results !== null) {
+            if (!_this._valid.isNull(res.Results) !== null && res.Results.length > 0) {
                 for (var key in res.Results) {
                     var obj = {};
                     obj["Id"] = res.Results[key]["Id"];
@@ -3111,15 +3129,13 @@ var SelectReservationconfigurationComponent = /** @class */ (function () {
                     obj["carmodelname"] = res.Results[key]["Attributes"]["carmodelname"];
                     _this.mod.data.push(obj);
                 }
-                _this._page.loadingHide();
             }
             else {
-                _this._page.alert("消息提示", "数据加载异常");
-                _this._page.loadingHide();
+                _this.ionInfiniteScroll.disabled = true;
+                _this.ionInfiniteScroll.complete();
             }
         }, function (err) {
             _this._page.alert("消息提示", "数据加载异常");
-            _this._page.loadingHide();
         });
     };
     SelectReservationconfigurationComponent.prototype.dismissModal = function () {
@@ -3137,8 +3153,17 @@ var SelectReservationconfigurationComponent = /** @class */ (function () {
     SelectReservationconfigurationComponent.ctorParameters = function () { return [
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] },
         { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Valid"] },
         { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"] }
     ]; };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonContent"], null),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonContent"])
+    ], SelectReservationconfigurationComponent.prototype, "ionContent", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonInfiniteScroll"], null),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonInfiniteScroll"])
+    ], SelectReservationconfigurationComponent.prototype, "ionInfiniteScroll", void 0);
     SelectReservationconfigurationComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-select-reservationconfiguration',
@@ -3147,6 +3172,7 @@ var SelectReservationconfigurationComponent = /** @class */ (function () {
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
             app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Valid"],
             app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"]])
     ], SelectReservationconfigurationComponent);
     return SelectReservationconfigurationComponent;
@@ -3186,10 +3212,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var SelectSysareaComponent = /** @class */ (function () {
-    function SelectSysareaComponent(modalCtrl, _http, _page, _navParams) {
+    function SelectSysareaComponent(modalCtrl, _http, _page, _valid, _navParams) {
         this.modalCtrl = modalCtrl;
         this._http = _http;
         this._page = _page;
+        this._valid = _valid;
         this._navParams = _navParams;
         this.selectItemValue = '';
         this.seachkey = '';
@@ -3209,7 +3236,7 @@ var SelectSysareaComponent = /** @class */ (function () {
         this.mod.apiUrl = "/Api/basedata/QuerySysarea";
         this.mod.searchData.search = "";
         this.mod.searchData.pageindex = 1;
-        this.mod.searchData.pagesize = 10;
+        this.mod.searchData.pagesize = 20;
         this.mod.searchData.pid = _navParams.get('pid');
         this.mod.searchData.level = _navParams.get('level');
     }
@@ -3219,23 +3246,22 @@ var SelectSysareaComponent = /** @class */ (function () {
     SelectSysareaComponent.prototype.searchOnKeyup = function (event) {
         var keyCode = event ? event.keyCode : "";
         if (keyCode == 13) {
+            this.ionInfiniteScroll.disabled = false;
             this.listOnBind();
         }
     };
     SelectSysareaComponent.prototype.listOnBind = function () {
         var _this = this;
-        this._page.loadingShow();
-        this.mod.data = [];
         this._http.get(this.mod.apiUrl, {
             params: {
                 pid: this.mod.searchData.pid,
                 level: this.mod.searchData.level,
-                pageindex: this.mod.searchData.pageindex,
+                page: this.mod.searchData.pageindex,
                 seachkey: this.mod.searchData.search,
                 pageSize: this.mod.searchData.pagesize
             }
         }, function (res) {
-            if (res.Results !== null) {
+            if (!_this._valid.isNull(res.Results) !== null && res.Results.length > 0) {
                 for (var key in res.Results) {
                     var obj = {};
                     obj["Id"] = res.Results[key]["Id"];
@@ -3243,16 +3269,20 @@ var SelectSysareaComponent = /** @class */ (function () {
                     obj["mcs_code"] = res.Results[key]["Attributes"]["mcs_code"];
                     _this.mod.data.push(obj);
                 }
-                _this._page.loadingHide();
             }
             else {
-                _this._page.alert("消息提示", "数据加载异常");
-                _this._page.loadingHide();
+                _this.ionInfiniteScroll.disabled = true;
+                _this.ionInfiniteScroll.complete();
             }
         }, function (err) {
             _this._page.alert("消息提示", "数据加载异常");
             _this._page.loadingHide();
+            _this.ionInfiniteScroll.complete();
         });
+    };
+    SelectSysareaComponent.prototype.doInfinite = function (event) {
+        this.mod.searchData.pageindex++;
+        this.listOnBind();
     };
     SelectSysareaComponent.prototype.dismissModal = function () {
         this.modalCtrl.dismiss({
@@ -3270,8 +3300,17 @@ var SelectSysareaComponent = /** @class */ (function () {
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] },
         { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"] },
         { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Valid"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavParams"] }
     ]; };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonContent"], null),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonContent"])
+    ], SelectSysareaComponent.prototype, "ionContent", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonInfiniteScroll"], null),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonInfiniteScroll"])
+    ], SelectSysareaComponent.prototype, "ionInfiniteScroll", void 0);
     SelectSysareaComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-select-sysarea',
@@ -3281,6 +3320,7 @@ var SelectSysareaComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
             app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"],
             app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Valid"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavParams"]])
     ], SelectSysareaComponent);
     return SelectSysareaComponent;
@@ -3320,9 +3360,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var SelectVehiclecolorComponent = /** @class */ (function () {
-    function SelectVehiclecolorComponent(modalCtrl, _http, _page) {
+    function SelectVehiclecolorComponent(modalCtrl, _http, _valid, _page) {
         this.modalCtrl = modalCtrl;
         this._http = _http;
+        this._valid = _valid;
         this._page = _page;
         this.selectItemValue = '';
         this.seachkey = '';
@@ -3334,28 +3375,31 @@ var SelectVehiclecolorComponent = /** @class */ (function () {
                 pageindex: 1,
                 carmodel: '',
                 search: "",
-                pagesize: 10
+                pagesize: 20
             }
         };
         this.objectKeys = Object.keys;
         this.mod.apiUrl = "/Api/basedata/QueryVehicleColor";
         this.mod.searchData.search = "";
         this.mod.searchData.pageindex = 1;
-        this.mod.searchData.pagesize = 10;
+        this.mod.searchData.pagesize = 20;
     }
     SelectVehiclecolorComponent.prototype.ngOnInit = function () {
+        this.listOnBind();
+    };
+    SelectVehiclecolorComponent.prototype.doInfinite = function (event) {
+        this.mod.searchData.pageindex++;
         this.listOnBind();
     };
     SelectVehiclecolorComponent.prototype.searchOnKeyup = function (event) {
         var keyCode = event ? event.keyCode : "";
         if (keyCode == 13) {
+            this.ionInfiniteScroll.disabled = false;
             this.listOnBind();
         }
     };
     SelectVehiclecolorComponent.prototype.listOnBind = function () {
         var _this = this;
-        this._page.loadingShow();
-        this.mod.data = [];
         this._http.get(this.mod.apiUrl, {
             params: {
                 carmodel: this.mod.searchData.carmodel,
@@ -3364,7 +3408,7 @@ var SelectVehiclecolorComponent = /** @class */ (function () {
                 pageSize: this.mod.searchData.pagesize
             }
         }, function (res) {
-            if (res.Results !== null) {
+            if (!_this._valid.isNull(res.Results) !== null && res.Results.length > 0) {
                 for (var key in res.Results) {
                     var obj = {};
                     obj["Id"] = res.Results[key]["Id"];
@@ -3373,11 +3417,10 @@ var SelectVehiclecolorComponent = /** @class */ (function () {
                     obj["vehicletypename"] = res.Results[key]["Attributes"]["vehicletypename"] == null ? "" : res.Results[key]["Attributes"]["vehicletypename"];
                     _this.mod.data.push(obj);
                 }
-                _this._page.loadingHide();
             }
             else {
-                _this._page.alert("消息提示", "数据加载异常");
-                _this._page.loadingHide();
+                _this.ionInfiniteScroll.disabled = true;
+                _this.ionInfiniteScroll.complete();
             }
         }, function (err) {
             _this._page.alert("消息提示", "数据加载异常");
@@ -3399,8 +3442,17 @@ var SelectVehiclecolorComponent = /** @class */ (function () {
     SelectVehiclecolorComponent.ctorParameters = function () { return [
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] },
         { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Valid"] },
         { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"] }
     ]; };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonContent"], null),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonContent"])
+    ], SelectVehiclecolorComponent.prototype, "ionContent", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonInfiniteScroll"], null),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonInfiniteScroll"])
+    ], SelectVehiclecolorComponent.prototype, "ionInfiniteScroll", void 0);
     SelectVehiclecolorComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-select-vehiclecolor',
@@ -3409,6 +3461,7 @@ var SelectVehiclecolorComponent = /** @class */ (function () {
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
             app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Valid"],
             app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"]])
     ], SelectVehiclecolorComponent);
     return SelectVehiclecolorComponent;
@@ -3461,14 +3514,14 @@ var SelectVehicletypeComponent = /** @class */ (function () {
             searchData: {
                 pageindex: 1,
                 search: "",
-                pagesize: 10
+                pagesize: 20
             }
         };
         this.objectKeys = Object.keys;
         this.mod.apiUrl = "/Api/basedata/QueryVehicletype";
         this.mod.searchData.search = "";
         this.mod.searchData.pageindex = 1;
-        this.mod.searchData.pagesize = 10;
+        this.mod.searchData.pagesize = 20;
     }
     SelectVehicletypeComponent.prototype.ngOnInit = function () {
         this.listOnBind();
@@ -3482,7 +3535,6 @@ var SelectVehicletypeComponent = /** @class */ (function () {
     SelectVehicletypeComponent.prototype.listOnBind = function () {
         var _this = this;
         this._page.loadingShow();
-        this.mod.data = [];
         this._http.get(this.mod.apiUrl, {
             params: {
                 pageindex: this.mod.searchData.pageindex,
