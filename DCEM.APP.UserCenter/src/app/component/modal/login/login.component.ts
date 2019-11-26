@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
+  public valmsg:any=true;
+  public disstatus:any=false;
+  public phone:any='13635425950';
   constructor() { }
 
   ngOnInit() {}

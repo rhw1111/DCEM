@@ -116,6 +116,7 @@
     <Content Include="src\app\page\servicecenter\index\index.page.html" />
     <Content Include="src\app\page\servicecenter\index\index.page.scss" />
     <Content Include="src\assets\icon\favicon.png" />
+    <Content Include="src\assets\img\back.png" />
     <Content Include="src\assets\img\1png.png" />
     <Content Include="src\assets\img\2.jpg" />
     <Content Include="src\assets\shapes.svg" />
