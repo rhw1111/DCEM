@@ -4,6 +4,9 @@
             <ion-back-button text="返回" defaultHref="/saleing/driverecord/list"></ion-back-button>
         </ion-buttons>
         <ion-title>预约开单</ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
     </ion-toolbar>
     <div *ngIf="model.ifEdit">
         <ion-toolbar>
@@ -55,14 +58,16 @@
                         <ion-label position="stacked">预约日期<ion-text color="danger">*</ion-text></ion-label>
                         <ion-datetime displayFormat="YYYY-MM-DD" min="1997" placeholder="请输入预约日期" cancelText="取消" doneText="确定" (ionChange)="OrderTimeChange()" [(ngModel)]="model.driveRecord['mcs_ordertime']"></ion-datetime>
                     </ion-item>
-                    <ion-item>
-                        <ion-label position="stacked">试驾预约时段 <ion-text color="danger">*</ion-text></ion-label>
-                        <ion-select [(ngModel)]="model.driveRecord['mcs_testdrivetime']" placeholder="请选择试驾预约时段" okText="确认" cancelText="取消" required>
-                            <ion-select-option *ngFor="let item of model.driveTimeOption" value="{{item.value}}">
-                                {{item.name}}
-                            </ion-select-option>
-                        </ion-select>
-                    </ion-item>
+                    <div *ngIf="model.ifHaveTime">
+                        <ion-item>
+                            <ion-label position="stacked">试驾预约时段 <ion-text color="danger">*</ion-text></ion-label>
+                            <ion-select [(ngModel)]="model.driveRecord['mcs_testdrivetime']" placeholder="请选择试驾预约时段" okText="确认" cancelText="取消" required>
+                                <ion-select-option *ngFor="let item of model.driveTimeOption" value="{{item.value}}">
+                                    {{item.name}}
+                                </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </div>
                     <div *ngIf="model.ifSchedule">
                         <ion-item>
                             <ion-label position="stacked">试驾车辆 <ion-text color="danger">*</ion-text></ion-label>
@@ -98,12 +103,13 @@
             <div *ngSwitchCase="'check'">
                 <ion-grid class="ionatt">
                     <ion-row *ngIf="model.attachment.length===0">
-                        <ion-col>
-                            <div class="ionattbody">
-                                当前无附件记录
-                            </div>
+                        <ion-col text-center>
+                            <ion-label>
+                                <p>
+                                    当前无附件记录
+                                </p>
+                            </ion-label>
                         </ion-col>
-
                     </ion-row>
                 </ion-grid>
 

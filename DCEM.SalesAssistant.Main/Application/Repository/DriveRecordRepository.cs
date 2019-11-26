@@ -305,7 +305,8 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
             var fetchString = $@"<fetch version='1.0' count='{request.PageSize}' page='{request.PageIndex}' output-format='xml-platform' mapping='logical' distinct='false'>
                   <entity name='mcs_reservationconfiguration'>
                     <all-attributes />
-                    <order attribute='mcs_reservationdate' descending='false' />
+                    <order attribute='mcs_reservationdate' descending='true' />
+                    <order attribute='mcs_begintime' descending='false' />
                     <filter type='and'>
                       <condition attribute='statecode' operator='eq' value='0' />
                       {filter}
