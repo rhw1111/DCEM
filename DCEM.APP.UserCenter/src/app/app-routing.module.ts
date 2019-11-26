@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+ï»¿import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
@@ -7,37 +7,37 @@ const routes: Routes = [
         loadChildren: () => import('./page/home/tabs/tabs.module').then(m => m.TabsPageModule)
     },
     {
-        path: 'home',  //Í¨ÓÃÄ¿Â¼
+        path: 'home',  //é€šç”¨ç›®å½•
         children: [
             { path: 'tab', loadChildren: () => import('./page/home/tabs/tabs.module').then(m => m.TabsPageModule) },
         ]
     },
     {
-        path: 'carcenter',  //Æû³µÖÐÐÄ(°®³µ)
+        path: 'carcenter',  //æ±½è½¦ä¸­å¿ƒ(çˆ±è½¦)
         children: [
             { path: 'index', loadChildren: () => import('./page/carcenter/index/index.module').then(m => m.IndexPageModule) },
         ]
     },
     {
-        path: 'charging',  //³äµç×®
+        path: 'charging',  //å……ç”µæ¡©
         children: [
             { path: 'index', loadChildren: () => import('./page/charging/index/index.module').then(m => m.IndexPageModule) },
         ]
     },
     {
-        path: 'community',  //ÉçÇø
+        path: 'community',  //ç¤¾åŒº
         children: [
             { path: 'index', loadChildren: () => import('./page/community/index/index.module').then(m => m.IndexPageModule) },
         ]
     },
     {
-        path: 'personalcenter',  //ÓÃ»§ÖÐÐÄ
+        path: 'personalcenter',  //ç”¨æˆ·ä¸­å¿ƒ
         children: [
             { path: 'index', loadChildren: () => import('./page/personalcenter/index/index.module').then(m => m.IndexPageModule) },
         ]
     },
     {
-        path: 'servicecenter',  //·þÎñÖÐÐÄ
+        path: 'servicecenter',  //æœåŠ¡ä¸­å¿ƒ
         children: [
             { path: 'index', loadChildren: () => import('./page/servicecenter/index/index.module').then(m => m.IndexPageModule) },
         ]
