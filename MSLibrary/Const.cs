@@ -2487,9 +2487,22 @@ namespace MSLibrary
 
     public static class CrmServiceTokenGenerateServiceNames
     {
+        /// <summary>
+        /// 基于AD的基本认证模式
+        /// </summary>
+        public const string AD = "AD";
+        /// <summary>
+        /// 基于ADFS Oauth的Code模式
+        /// </summary>
+        public const string ADFS = "ADFS";
+        /// <summary>
+        /// 基于ADFS Oauth的Password模式
+        /// </summary>
+        public const string ADFSPassword = "ADFSPassword";
+        /// <summary>
+        /// 基于AAD Oauth的客户端模式
+        /// </summary>
         public const string S2S = "S2S";
-        public const string Adfs = "Adfs";
-        public const string AdfsPassword = "AdfsPassword";
     }
 
 
