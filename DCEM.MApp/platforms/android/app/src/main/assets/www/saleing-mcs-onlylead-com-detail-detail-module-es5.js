@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n      <ion-buttons slot=\"start\">\r\n          <ion-back-button text=\"返回\" defaultHref=\"/saleing/onlylead/list\"></ion-back-button>\r\n      </ion-buttons>\r\n      <ion-title>\r\n          <ion-label>唯一线索明细</ion-label>\r\n      </ion-title>\r\n      <ion-buttons slot=\"end\">\r\n        <ion-menu-button></ion-menu-button>\r\n    </ion-buttons>\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n    <ion-segment [(ngModel)]=\"tab\">\r\n        <ion-segment-button value=\"infolist\" checked (click)=\"pageOnBind()\">\r\n            <ion-label>基础信息</ion-label>\r\n        </ion-segment-button>\r\n        <ion-segment-button value=\"Linklist\" (click)=\"pageOnLogCalllist()\">\r\n            <ion-label>跟进记录</ion-label>\r\n        </ion-segment-button>\r\n\r\n        <ion-segment-button value=\"Breedlist\" (click)=\"pageOnActivitylist()\">\r\n            <ion-label>培育任务</ion-label>\r\n        </ion-segment-button>\r\n    </ion-segment>\r\n</ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <div [ngSwitch]=\"tab\">\r\n     <div *ngSwitchCase=\"'infolist'\">\r\n        <ion-list lines=\"full\">\r\n            <ion-item>\r\n                <ion-label>\r\n                    <h2>\r\n                        姓名\r\n                    </h2>\r\n                    <p>{{mod.data.mcs_name}}&nbsp;</p>\r\n                </ion-label>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label>\r\n                    <h2>\r\n                        手机\r\n                    </h2>\r\n                    <p>{{mod.data.mcs_mobilephone}}&nbsp;</p>\r\n                </ion-label>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label>\r\n                    <h2>\r\n                        线索来源\r\n                    </h2>\r\n                    <p>{{mod.data.mcs_leadorigin}}&nbsp;</p>\r\n                </ion-label>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label>\r\n                    <h2>\r\n                        称呼\r\n                    </h2>\r\n                    <p>{{mod.data.mcs_gender}}&nbsp;</p>\r\n                </ion-label>\r\n            </ion-item>\r\n            <ion-item>\r\n              <ion-label>\r\n                  <h2>\r\n                      邮箱\r\n                  </h2>\r\n                  <p>{{mod.data.mcs_emailaddress1}}&nbsp;</p>\r\n              </ion-label>\r\n          </ion-item>\r\n          <ion-item>\r\n              <ion-label>\r\n                  <h2>\r\n                      评分\r\n                  </h2>\r\n                  <p>{{mod.data.mcs_accountpoints}}&nbsp;</p>\r\n              </ion-label>\r\n          </ion-item>\r\n          <ion-item>\r\n              <ion-label>\r\n                  <h2>\r\n                      省\r\n                  </h2>\r\n                  <p>{{mod.data.mcs_provinceid}}&nbsp;</p>\r\n              </ion-label>\r\n          </ion-item>\r\n          <ion-item>\r\n              <ion-label>\r\n                  <h2>\r\n                      市\r\n                  </h2>\r\n                  <p>{{mod.data.mcs_cityid}}&nbsp;</p>\r\n              </ion-label>\r\n          </ion-item>\r\n          <ion-item>\r\n              <ion-label>\r\n                  <h2>\r\n                      区\r\n                  </h2>\r\n                  <p>{{mod.data.mcs_districtid}}&nbsp;</p>\r\n              </ion-label>\r\n          </ion-item>         \r\n          <ion-item>\r\n              <ion-label>\r\n                  <h2>\r\n                      用车省份\r\n                  </h2>\r\n                  <p>{{mod.data.mcs_usecarprovince}}&nbsp;</p>\r\n              </ion-label>\r\n          </ion-item>\r\n          <ion-item>\r\n              <ion-label>\r\n                  <h2>\r\n                      用车城市\r\n                  </h2>\r\n                  <p>{{mod.data.mcs_usecarcity}}&nbsp;</p>\r\n              </ion-label>\r\n          </ion-item>\r\n        </ion-list>\r\n\r\n        <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\r\n            <ion-fab-button>\r\n                <ion-icon name=\"arrow-dropup\"></ion-icon>\r\n            </ion-fab-button>\r\n            <ion-fab-list side=\"top\">\r\n                <ion-fab-button [routerLink]=\"['/saleing/contactrecord/edit']\" [queryParams]=\"{id:mod.data.mcs_onlyleadid}\" color=\"primary\"><ion-icon name=\"add\"></ion-icon>联络</ion-fab-button>\r\n                <ion-fab-button [routerLink]=\"['/saleing/cultivatetask/edit']\" [queryParams]=\"{sourid:mod.data.mcs_onlyleadid,type:'1'}\" color=\"primary\"><ion-icon name=\"add\"></ion-icon>培育</ion-fab-button>\r\n                <ion-fab-button [routerLink]=\"['/saleing/account/edit']\" [queryParams]=\"{onlyleadid:mod.data.mcs_onlyleadid}\" color=\"primary\"><ion-icon name=\"add\"></ion-icon>销售</ion-fab-button>\r\n                <ion-fab-button [routerLink]=\"['/saleing/onlylead/edit']\" [queryParams]=\"{onlyleadid:mod.data.mcs_onlyleadid}\" color=\"primary\"><ion-icon name=\"create\"></ion-icon>编辑</ion-fab-button>\r\n            </ion-fab-list>\r\n        </ion-fab>\r\n\r\n     </div>\r\n     <div *ngSwitchCase=\"'Linklist'\">\r\n           <!--  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefreshLog()\">\r\n            <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\" refreshingText=\"刷新中...\">\r\n            </ion-refresher-content>\r\n            </ion-refresher> -->\r\n            <ion-list lines=\"full\" >\r\n             <ion-item-sliding *ngFor=\"let r of mod.datalist\">\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>回访时间：{{FormatToDateTime(r.mcs_visittime)}}</h2>\r\n                        <p>回访时间：{{r.mcs_results}}</p>\r\n                        <p>回访内容：{{r.mcs_content}}</p>\r\n                    </ion-label>\r\n                    <ion-icon *ngIf=\"\" name=\"phone-portrait\" size=\"small\"></ion-icon>\r\n                </ion-item>\r\n                <ion-item-options side=\"end\">\r\n                    <ion-item-option color=\"tertiary\" expandable [routerLink]=\"['/saleing/contactrecord/edit']\" [queryParams]=\"{mcslogcallid:r.mcs_logcallid}\">\r\n                        编辑\r\n                    </ion-item-option>\r\n                   \r\n                </ion-item-options>\r\n             </ion-item-sliding>\r\n            </ion-list>\r\n            <ion-row *ngIf=\"mod.isending\">\r\n                <ion-col class=\"nodata\" text-center>\r\n                    没有更多logcall\r\n                </ion-col>\r\n            </ion-row>\r\n         <!--    <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doNextLoadingLog()\"> \r\n                <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\"> \r\n                </ion-infinite-scroll-content>\r\n            </ion-infinite-scroll> -->\r\n            <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\r\n                <ion-fab-button [routerLink]=\"['/saleing/contactrecord/edit']\" [queryParams]=\"{id:mod.data.mcs_onlyleadid}\">\r\n                    <ion-icon name=\"add\"></ion-icon>\r\n                </ion-fab-button>\r\n            </ion-fab>\r\n     </div>\r\n     <div *ngSwitchCase=\"'Breedlist'\">\r\n            <!-- <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefreshAc()\">\r\n            <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\" refreshingText=\"刷新中...\">\r\n            </ion-refresher-content>\r\n            </ion-refresher> -->\r\n            <ion-list lines=\"full\" >\r\n            <ion-item-sliding *ngFor=\"let r of mod.datalist2\">\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>跟进时间：{{FormatToDateTime(r.createdon)}}</h2>                                          \r\n                        <p>任务状态：{{r.mcs_activitystatus}}</p>      \r\n                        <p>重要级别：{{r.mcs_importantlevel}}</p>      \r\n                        <p>本次跟进内容：{{r.mcs_thisfollowupcontent}}</p>              \r\n                    </ion-label>\r\n                </ion-item>\r\n                <ion-item-options side=\"end\">\r\n                    <ion-item-option color=\"tertiary\" [routerLink]=\"['/saleing/cultivatetask/edit']\" [queryParams]=\"{id:r.mcs_activityid}\">\r\n                        编辑\r\n                    </ion-item-option>               \r\n                </ion-item-options>\r\n            </ion-item-sliding>\r\n            </ion-list>\r\n            <ion-row *ngIf=\"mod.isending2\">\r\n                <ion-col class=\"nodata\" text-center>\r\n                    没有更多培育任务\r\n                </ion-col>\r\n            </ion-row>\r\n           <!--  <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doNextLoadingAc()\"> \r\n                <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\"> \r\n                </ion-infinite-scroll-content>\r\n            </ion-infinite-scroll> -->\r\n            <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\r\n                <ion-fab-button [routerLink]=\"['/saleing/cultivatetask/edit']\" [queryParams]=\"{sourid:mod.data.mcs_onlyleadid,type:'1'}\">\r\n                    <ion-icon name=\"add\"></ion-icon>\r\n                </ion-fab-button>\r\n            </ion-fab>\r\n     </div>\r\n    </div>\r\n    \r\n</ion-content>\r\n\r\n"
+module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n      <ion-buttons slot=\"start\">\r\n          <ion-back-button text=\"返回\" defaultHref=\"/saleing/onlylead/list\"></ion-back-button>\r\n      </ion-buttons>\r\n      <ion-title>\r\n          <ion-label>唯一线索明细</ion-label>\r\n      </ion-title>\r\n      <ion-buttons slot=\"end\">\r\n        <ion-menu-button></ion-menu-button>\r\n    </ion-buttons>\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n    <ion-segment [(ngModel)]=\"tab\">\r\n        <ion-segment-button value=\"infolist\" checked (click)=\"pageOnBind()\">\r\n            <ion-label>基础信息</ion-label>\r\n        </ion-segment-button>\r\n        <ion-segment-button value=\"Linklist\" (click)=\"pageOnLogCalllist()\">\r\n            <ion-label>跟进记录</ion-label>\r\n        </ion-segment-button>\r\n\r\n        <ion-segment-button value=\"Breedlist\" (click)=\"pageOnActivitylist()\">\r\n            <ion-label>培育任务</ion-label>\r\n        </ion-segment-button>\r\n    </ion-segment>\r\n</ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <div [ngSwitch]=\"tab\">\r\n     <div *ngSwitchCase=\"'infolist'\">\r\n        <ion-list lines=\"full\">\r\n            <ion-item>\r\n                <ion-label>\r\n                    <h2>\r\n                        姓名\r\n                    </h2>\r\n                    <p>{{mod.data.mcs_name}}&nbsp;</p>\r\n                </ion-label>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label>\r\n                    <h2>\r\n                        手机\r\n                    </h2>\r\n                    <p>{{mod.data.mcs_mobilephone}}&nbsp;</p>\r\n                </ion-label>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label>\r\n                    <h2>\r\n                        线索来源\r\n                    </h2>\r\n                    <p>{{mod.data.mcs_leadorigin}}&nbsp;</p>\r\n                </ion-label>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label>\r\n                    <h2>\r\n                        称呼\r\n                    </h2>\r\n                    <p>{{mod.data.mcs_gender}}&nbsp;</p>\r\n                </ion-label>\r\n            </ion-item>\r\n            <ion-item>\r\n              <ion-label>\r\n                  <h2>\r\n                      邮箱\r\n                  </h2>\r\n                  <p>{{mod.data.mcs_emailaddress1}}&nbsp;</p>\r\n              </ion-label>\r\n          </ion-item>\r\n          <ion-item>\r\n              <ion-label>\r\n                  <h2>\r\n                      评分\r\n                  </h2>\r\n                  <p>{{mod.data.mcs_accountpoints}}&nbsp;</p>\r\n              </ion-label>\r\n          </ion-item>\r\n          <ion-item>\r\n              <ion-label>\r\n                  <h2>\r\n                      省\r\n                  </h2>\r\n                  <p>{{mod.data.mcs_provinceid}}&nbsp;</p>\r\n              </ion-label>\r\n          </ion-item>\r\n          <ion-item>\r\n              <ion-label>\r\n                  <h2>\r\n                      市\r\n                  </h2>\r\n                  <p>{{mod.data.mcs_cityid}}&nbsp;</p>\r\n              </ion-label>\r\n          </ion-item>\r\n          <ion-item>\r\n              <ion-label>\r\n                  <h2>\r\n                      区\r\n                  </h2>\r\n                  <p>{{mod.data.mcs_districtid}}&nbsp;</p>\r\n              </ion-label>\r\n          </ion-item>         \r\n          <ion-item>\r\n              <ion-label>\r\n                  <h2>\r\n                      用车省份\r\n                  </h2>\r\n                  <p>{{mod.data.mcs_usecarprovince}}&nbsp;</p>\r\n              </ion-label>\r\n          </ion-item>\r\n          <ion-item>\r\n              <ion-label>\r\n                  <h2>\r\n                      用车城市\r\n                  </h2>\r\n                  <p>{{mod.data.mcs_usecarcity}}&nbsp;</p>\r\n              </ion-label>\r\n          </ion-item>\r\n        </ion-list>\r\n\r\n        <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\r\n            <ion-fab-button>\r\n                <ion-icon name=\"arrow-dropup\"></ion-icon>\r\n            </ion-fab-button>\r\n            <ion-fab-list side=\"top\">\r\n                <ion-fab-button [routerLink]=\"['/saleing/contactrecord/edit']\" [queryParams]=\"{id:mod.data.mcs_onlyleadid}\" color=\"primary\"><ion-icon name=\"add\"></ion-icon>联络</ion-fab-button>\r\n                <ion-fab-button [routerLink]=\"['/saleing/cultivatetask/edit']\" [queryParams]=\"{sourid:mod.data.mcs_onlyleadid,type:'1'}\" color=\"primary\"><ion-icon name=\"add\"></ion-icon>培育</ion-fab-button>\r\n                <ion-fab-button [routerLink]=\"['/saleing/account/edit']\" [queryParams]=\"{onlyleadid:mod.data.mcs_onlyleadid}\" color=\"primary\"><ion-icon name=\"add\"></ion-icon>销售</ion-fab-button>\r\n                <ion-fab-button [routerLink]=\"['/saleing/onlylead/edit']\" [queryParams]=\"{onlyleadid:mod.data.mcs_onlyleadid}\" color=\"primary\"><ion-icon name=\"create\"></ion-icon>编辑</ion-fab-button>\r\n            </ion-fab-list>\r\n        </ion-fab>\r\n\r\n     </div>\r\n     <div *ngSwitchCase=\"'Linklist'\">\r\n           <!--  <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefreshLog()\">\r\n            <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\" refreshingText=\"刷新中...\">\r\n            </ion-refresher-content>\r\n            </ion-refresher> -->\r\n            <ion-list lines=\"full\" >\r\n             <ion-item-sliding *ngFor=\"let r of mod.datalist\">\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>回访时间：{{FormatToDateTime(r.mcs_visittime)}}</h2>\r\n                        <p>回访时间：{{r.mcs_results}}</p>\r\n                        <p>回访内容：{{r.mcs_content}}</p>\r\n                    </ion-label>\r\n                    <ion-icon *ngIf=\"\" name=\"phone-portrait\" size=\"small\"></ion-icon>\r\n                </ion-item>\r\n                <ion-item-options side=\"end\">\r\n                    <ion-item-option color=\"tertiary\" expandable [routerLink]=\"['/saleing/contactrecord/edit']\" [queryParams]=\"{mcslogcallid:r.mcs_logcallid}\">\r\n                        编辑\r\n                    </ion-item-option>\r\n                   \r\n                </ion-item-options>\r\n             </ion-item-sliding>\r\n            </ion-list>\r\n            <ion-label *ngIf=\"mod.isending\" text-center>  \r\n                <p>\r\n                    没有更多的记录显示啦\r\n                 </p>  \r\n            </ion-label>\r\n         <!--    <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doNextLoadingLog()\"> \r\n                <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\"> \r\n                </ion-infinite-scroll-content>\r\n            </ion-infinite-scroll> -->\r\n            <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\r\n                <ion-fab-button [routerLink]=\"['/saleing/contactrecord/edit']\" [queryParams]=\"{id:mod.data.mcs_onlyleadid}\">\r\n                    <ion-icon name=\"add\"></ion-icon>\r\n                </ion-fab-button>\r\n            </ion-fab>\r\n     </div>\r\n     <div *ngSwitchCase=\"'Breedlist'\">\r\n            <!-- <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefreshAc()\">\r\n            <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\" refreshingText=\"刷新中...\">\r\n            </ion-refresher-content>\r\n            </ion-refresher> -->\r\n            <ion-list lines=\"full\" >\r\n            <ion-item-sliding *ngFor=\"let r of mod.datalist2\">\r\n                <ion-item>\r\n                    <ion-label>\r\n                        <h2>跟进时间：{{FormatToDateTime(r.createdon)}}</h2>                                          \r\n                        <p>任务状态：{{r.mcs_activitystatus}}</p>      \r\n                        <p>重要级别：{{r.mcs_importantlevel}}</p>      \r\n                        <p>本次跟进内容：{{r.mcs_thisfollowupcontent}}</p>              \r\n                    </ion-label>\r\n                </ion-item>\r\n                <ion-item-options side=\"end\">\r\n                    <ion-item-option color=\"tertiary\" [routerLink]=\"['/saleing/cultivatetask/edit']\" [queryParams]=\"{id:r.mcs_activityid}\">\r\n                        编辑\r\n                    </ion-item-option>               \r\n                </ion-item-options>\r\n            </ion-item-sliding>\r\n            </ion-list>\r\n            <ion-label *ngIf=\"mod.isending2\" text-center>\r\n                <p>\r\n                    没有更多的记录显示啦\r\n                 </p>  \r\n            </ion-label>\r\n           <!--  <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doNextLoadingAc()\"> \r\n                <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\"> \r\n                </ion-infinite-scroll-content>\r\n            </ion-infinite-scroll> -->\r\n            <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\r\n                <ion-fab-button [routerLink]=\"['/saleing/cultivatetask/edit']\" [queryParams]=\"{sourid:mod.data.mcs_onlyleadid,type:'1'}\">\r\n                    <ion-icon name=\"add\"></ion-icon>\r\n                </ion-fab-button>\r\n            </ion-fab>\r\n     </div>\r\n    </div>\r\n    \r\n</ion-content>\r\n\r\n"
 
 /***/ }),
 
@@ -128,16 +128,24 @@ var DetailPage = /** @class */ (function () {
             systemUserId: "",
             //联络记录参数
             datalist: [],
-            pageSize: 10,
-            page: 1,
-            sort: '',
             isending: false,
+            params: {
+                mcs_onlyleadid: "",
+                Sort: '',
+                PageSize: 10,
+                PageIndex: 1,
+                UserId: ""
+            },
             //培育任务参数
             datalist2: [],
-            pageSize2: 10,
-            page2: 1,
-            sort2: '',
             isending2: false,
+            params2: {
+                mcs_onlyleadid: "",
+                Sort: '',
+                PageSize: 10,
+                PageIndex: 1,
+                UserId: ""
+            }
         };
     }
     DetailPage.prototype.ngOnInit = function () {
@@ -147,7 +155,12 @@ var DetailPage = /** @class */ (function () {
         this.activeRoute.queryParams.subscribe(function (params) {
             if (params['id'] != null && params['id'] != undefined) {
                 _this.mod.data.mcs_onlyleadid = params['id'];
-                _this.pageOnBind();
+                if (params['source'] != null && params['source'] != undefined && params['source'] == 2) {
+                    _this.pageOnLogCalllist();
+                }
+                else {
+                    _this.pageOnBind();
+                }
             }
         });
         this.mod.systemUserId = this._logininfo.GetSystemUserId();
@@ -190,18 +203,12 @@ var DetailPage = /** @class */ (function () {
     //加载联络记录(logcall)列表
     DetailPage.prototype.pageOnLogCalllist = function () {
         var _this = this;
+        this.mod.params.mcs_onlyleadid = this.mod.data.mcs_onlyleadid;
+        this.mod.params.UserId = this.mod.systemUserId;
         this.mod.datalist = [];
         // debugger;
         this._page.loadingShow();
-        this._http.get(this.mod.apiUrlList1, {
-            params: {
-                entityid: this.mod.data.mcs_onlyleadid,
-                sort: this.mod.sort,
-                pageSize: this.mod.pageSize,
-                page: this.mod.page,
-                systemuserid: this.mod.systemUserId,
-            }
-        }, function (res) {
+        this._http.postForToaken(this.mod.apiUrlList1, this.mod.params, function (res) {
             // debugger;
             if (res !== null) {
                 if (res.Results !== null) {
@@ -216,7 +223,7 @@ var DetailPage = /** @class */ (function () {
                     }
                     //console.log(res);
                 } //判断是否有新数据
-                if (res.Results.length < _this.mod.page) {
+                if (res.Results.length < _this.mod.params.PageIndex) {
                     _this.mod.isending = true;
                 }
             }
@@ -233,17 +240,11 @@ var DetailPage = /** @class */ (function () {
     DetailPage.prototype.pageOnActivitylist = function () {
         var _this = this;
         debugger;
+        this.mod.params2.mcs_onlyleadid = this.mod.data.mcs_onlyleadid;
+        this.mod.params2.UserId = this.mod.systemUserId;
         this.mod.datalist2 = [];
         this._page.loadingShow();
-        this._http.get(this.mod.apiUrlList2, {
-            params: {
-                entityid: this.mod.data.mcs_onlyleadid,
-                sort: this.mod.sort2,
-                pageSize: this.mod.pageSize2,
-                page: this.mod.page2,
-                systemuserid: this.mod.systemUserId,
-            }
-        }, function (res) {
+        this._http.postForToaken(this.mod.apiUrlList2, this.mod.params2, function (res) {
             debugger;
             if (res !== null) {
                 if (res.Results !== null) {
@@ -258,7 +259,7 @@ var DetailPage = /** @class */ (function () {
                     }
                     //console.log(res);
                 } //判断是否有新数据
-                if (res.Results.length < _this.mod.page2) {
+                if (res.Results.length < _this.mod.params2.PageIndex) {
                     _this.mod.isending2 = true;
                 }
             }
@@ -273,7 +274,7 @@ var DetailPage = /** @class */ (function () {
     };
     //logcall加载下一页
     DetailPage.prototype.doNextLoadingLog = function () {
-        this.mod.page++;
+        this.mod.params.PageIndex++;
         this.pageOnLogCalllist();
     };
     //下拉刷新log
@@ -285,7 +286,7 @@ var DetailPage = /** @class */ (function () {
     } */
     //培育任务加载下一页
     DetailPage.prototype.doNextLoadingAc = function () {
-        this.mod.page2++;
+        this.mod.params2.PageIndex++;
         this.pageOnActivitylist();
     };
     //下拉刷新培育任务

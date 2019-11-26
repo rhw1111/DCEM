@@ -138,7 +138,7 @@ var EditPage = /** @class */ (function () {
                 _this.model.scoreoption = _this._optionset.Get("lead_mcs_accountpoints");
                 _this.model.genderoption = _this._optionset.Get("lead_mcs_gender");
                 _this.model.leadoriginoption = _this._optionset.Get("lead_mcs_leadorigin");
-                _this.model.systemUserId = _this._logininfo.GetSystemUserId();
+                //this.model.systemUserId = this._logininfo.GetSystemUserId();
             }
         });
     };
@@ -387,15 +387,15 @@ var EditPage = /** @class */ (function () {
             this._page.presentToastError("请选择区");
             return;
         }
-        this.onlylead["systemuserid"] = this.model.systemUserId;
-        this.model.postData["actioncode"] = 1;
+        //this.onlylead["systemuserid"] = this.model.systemUserId;
+        //this.model.postData["actioncode"] = 1;
         this.model.postData["onlylead"] = this.onlylead;
         this.model.postData["onlylead"]["mcs_leadorigin"] = Number(this.onlylead["mcs_leadorigin"]);
         this.model.postData["onlylead"]["mcs_gender"] = Number(this.onlylead["mcs_gender"]);
         this.model.postData["onlylead"]["mcs_accountpoints"] = Number(this.onlylead["mcs_accountpoints"]);
         this._page.loadingShow();
         console.log(this.model.postData);
-        this._http.post(this.model.postApiUrl, this.model.postData, function (res) {
+        this._http.postForToaken(this.model.postApiUrl, this.model.postData, function (res) {
             debugger;
             if (res !== null) {
                 var guid = res["Data"]["Id"];

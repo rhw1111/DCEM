@@ -41,8 +41,8 @@
     <feature name="IonicWebView">
         <param name="android-package" value="com.ionicframework.cordova.webview.IonicWebView" />
     </feature>
-    <name>销售助手</name>
-    <description>销售助手V1.0</description>
+    <name>经销商助手</name>
+    <description>经销商助手V1.0</description>
     <author email="190563430@qq.com" href="http://106.14.121.65/crm9/main.aspx">微软Dynamic CRM开发团队</author>
     <content src="index.html" />
     <access origin="*" />
