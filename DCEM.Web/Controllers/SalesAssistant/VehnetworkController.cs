@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿//开票信息
+//xiontao 2019-11-26
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using MSLibrary.Xrm;
 using MSLibrary;
@@ -14,6 +16,9 @@ using DCEM.SalesAssistant.Main.Application.App.Contrac;
 
 namespace DCEM.Web.Controllers
 {
+    /// <summary>
+    /// 发票信息
+    /// </summary>
     [Route("api/vehnetwork")]
     [EnableCors("any")]
     [ApiController]

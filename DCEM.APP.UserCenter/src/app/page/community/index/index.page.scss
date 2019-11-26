@@ -1,5 +1,59 @@
-* {
+﻿* {
     margin: 0px;
     padding: 0px;
 }
 
+//顶部导航
+.dm-top-nav {
+    background-color: rgb(254,251,255);
+    height: 70px;
+
+    ion-toolbar {
+        height: 100%;
+        padding: 0px;
+
+        ion-title {
+            height: 70px;
+        }
+    }
+}
+
+.dm-top-nav-tag {
+    padding-left: 60px;
+    padding-right: 60px;
+    height: 50px;
+
+    .dm-top-nav-tag-text {
+        font-size: 16px;
+        height: 50px;
+
+        &.selected {
+            font-size: 20px;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 0px;
+            left: 0;
+            width: 0%;
+            height: 5px;
+            background-color: RGB(139,195,54);
+            transition: all .3s;
+            -webkit-transition: all .5s;
+        }
+
+        &.selected::after {
+            width: 100%;
+        }
+    }
+}
+
+
+.dm-top-nav-ion {
+    font-size: 30px;
+}
+
+.dm-top-nav-ion-last {
+    color: #00ff00;
+}

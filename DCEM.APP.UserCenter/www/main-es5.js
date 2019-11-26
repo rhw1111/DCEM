@@ -472,13 +472,48 @@ var routes = [
         path: '',
         loadChildren: function () { return __webpack_require__.e(/*! import() | page-home-tabs-tabs-module */ "page-home-tabs-tabs-module").then(__webpack_require__.bind(null, /*! ./page/home/tabs/tabs.module */ "./src/app/page/home/tabs/tabs.module.ts")).then(function (m) { return m.TabsPageModule; }); }
     },
-<<<<<<< HEAD
     {
         path: 'home',
-        loadChildren: function () { return __webpack_require__.e(/*! import() | page-home-tabs-tabs-module */ "page-home-tabs-tabs-module").then(__webpack_require__.bind(null, /*! ./page/home/tabs/tabs.module */ "./src/app/page/home/tabs/tabs.module.ts")).then(function (m) { return m.TabsPageModule; }); }
+        children: [
+            { path: 'tab', loadChildren: function () { return __webpack_require__.e(/*! import() | page-home-tabs-tabs-module */ "page-home-tabs-tabs-module").then(__webpack_require__.bind(null, /*! ./page/home/tabs/tabs.module */ "./src/app/page/home/tabs/tabs.module.ts")).then(function (m) { return m.TabsPageModule; }); } },
+        ]
     },
-=======
->>>>>>> d6b62a7fcf23fc5759b021c4acd752233cf90399
+    {
+        path: 'carcenter',
+        children: [
+            { path: 'index', loadChildren: function () { return __webpack_require__.e(/*! import() | page-carcenter-index-index-module */ "carcenter-index-index-module").then(__webpack_require__.bind(null, /*! ./page/carcenter/index/index.module */ "./src/app/page/carcenter/index/index.module.ts")).then(function (m) { return m.IndexPageModule; }); } },
+        ]
+    },
+    {
+        path: 'charging',
+        children: [
+            { path: 'index', loadChildren: function () { return __webpack_require__.e(/*! import() | page-charging-index-index-module */ "charging-index-index-module").then(__webpack_require__.bind(null, /*! ./page/charging/index/index.module */ "./src/app/page/charging/index/index.module.ts")).then(function (m) { return m.IndexPageModule; }); } },
+        ]
+    },
+    {
+        path: 'community',
+        children: [
+            { path: 'index', loadChildren: function () { return __webpack_require__.e(/*! import() | page-community-index-index-module */ "community-index-index-module").then(__webpack_require__.bind(null, /*! ./page/community/index/index.module */ "./src/app/page/community/index/index.module.ts")).then(function (m) { return m.IndexPageModule; }); } },
+        ]
+    },
+    {
+        path: 'personalcenter',
+        children: [
+            { path: 'index', loadChildren: function () { return __webpack_require__.e(/*! import() | page-personalcenter-index-index-module */ "personalcenter-index-index-module").then(__webpack_require__.bind(null, /*! ./page/personalcenter/index/index.module */ "./src/app/page/personalcenter/index/index.module.ts")).then(function (m) { return m.IndexPageModule; }); } },
+        ]
+    },
+    {
+        path: 'servicecenter',
+        children: [
+            {
+                path: 'vehiclemall',
+                children: [
+                    { path: 'list', loadChildren: function () { return __webpack_require__.e(/*! import() | page-servicecenter-vehiclecenter-list-list-module */ "page-servicecenter-vehiclecenter-list-list-module").then(__webpack_require__.bind(null, /*! ./page/servicecenter/vehiclecenter/list/list.module */ "./src/app/page/servicecenter/vehiclecenter/list/list.module.ts")).then(function (m) { return m.ListPageModule; }); } },
+                ]
+            },
+            { path: 'index', loadChildren: function () { return __webpack_require__.e(/*! import() | page-servicecenter-index-index-module */ "servicecenter-index-index-module").then(__webpack_require__.bind(null, /*! ./page/servicecenter/index/index.module */ "./src/app/page/servicecenter/index/index.module.ts")).then(function (m) { return m.IndexPageModule; }); } },
+        ]
+    },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -681,11 +716,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
-module.exports = __webpack_require__(/*! D:\Gitlab\SF\Project\DCEM\DCEM.APP.UserCenter\src\main.ts */"./src/main.ts");
-=======
 module.exports = __webpack_require__(/*! C:\工作\项目\app\DCEM.APP.UserCenter\src\main.ts */"./src/main.ts");
->>>>>>> d6b62a7fcf23fc5759b021c4acd752233cf90399
 
 
 /***/ })
