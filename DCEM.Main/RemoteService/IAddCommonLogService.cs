@@ -15,6 +15,8 @@ namespace DCEM.Main.RemoteService
     public class CommonLogModel
     {
         [DataMember]
+        public Guid ID { get; set; }
+        [DataMember]
         public Guid ParentID { get; set; }
         [DataMember]
         public string ParentActionName { get; set; }
@@ -22,6 +24,8 @@ namespace DCEM.Main.RemoteService
         public Guid PreLevelID { get; set; }
         [DataMember]
         public Guid CurrentLevelID { get; set; }
+        [DataMember]
+        public int Level { get; set; }
         [DataMember]
         public string ActionName { get; set; }
         [DataMember]

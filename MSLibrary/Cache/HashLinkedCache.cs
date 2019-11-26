@@ -90,7 +90,10 @@ namespace MSLibrary.Cache
                 {
                     lock (_dict)
                     {
-                        _linkedStrategy.Hit(tNode, _linked);
+                        if (_dict.TryGetValue(key, out tNode))
+                        {
+                            _linkedStrategy.Hit(tNode, _linked);
+                        }                   
                     }
                 });
             }
@@ -129,7 +132,10 @@ namespace MSLibrary.Cache
                 {
                     lock (_dict)
                     {
-                        _linkedStrategy.Hit(tNode, _linked);
+                        if (_dict.TryGetValue(key, out tNode))
+                        {
+                            _linkedStrategy.Hit(tNode, _linked);
+                        }
                     }
                 });
             }

@@ -3,6 +3,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { OptionSetService } from '../../saleing.ser/optionset.service';
 import sd from 'silly-datetime';
+import { ModalController } from '@ionic/angular';
+import { SelectFileEditComponent } from 'app/serving/serving.ser/components/select-file-edit/select-file-edit.component';
 
 @Component({
   selector: 'app-edit',
@@ -11,6 +13,7 @@ import sd from 'silly-datetime';
 })
 export class EditPage implements OnInit {
 
+    public tab: any = "info";
     model = {
         getApiUrl: '/api/drive-record/GetDetail',//试乘试驾详情地址
         postApiUrl: '/Api/drive-record/AddOrEdit',//试乘试驾编辑地址
@@ -18,8 +21,10 @@ export class EditPage implements OnInit {
         driveCarApiUrl: '/api/drive-record/QueryDriveCarList',//试驾车辆
         driveRouteApiUrl: '/api/drive-record/QueryDriveRouteList',//试驾路线
         reservationApiUrl: '/Api/drive-record/QueryReservationList',//预约时段地址
+        uploadUrl: '/api/attachment/add',//附件上传
         postData: {},
         driveRecord: {},
+        attachment:[],
         driveRecordId: null,//当前记录id
         businessTypeOption: [],//业务类型
         carModelOption: [],//试驾车型
@@ -31,7 +36,8 @@ export class EditPage implements OnInit {
         actionCode: null,//1-新增、2-编辑、3-排程、4-取消、5-开始试驾、6-结束试驾
         ifSchedule: false,//是否排程操作
         ifCancel: false,//是否取消操作
-        ifSave: true//是否新增或编辑
+        ifSave: true,//是否新增或编辑
+        ifEdit: false,//编辑
     };
 
     constructor(
@@ -39,14 +45,11 @@ export class EditPage implements OnInit {
         private _page: DCore_Page,
         private _valid: DCore_Valid,
         private activeRoute: ActivatedRoute,
+        private modalCtrl: ModalController,
         private _optionset: OptionSetService) { }
 
     ngOnInit() {
-  }
-
-    ionViewWillEnter() {
-        //业务类型
-        this.model.businessTypeOption = this._optionset.Get("mcs_drivebusinesstype");
+        debugger;
         //预约车型
         this.CarModelOption();
 
@@ -55,12 +58,14 @@ export class EditPage implements OnInit {
             if (params['id'] != null && params['id'] != undefined) {
                 this.model.driveRecordId = params['id'];
                 this.pageOnBind(this.model.driveRecordId);
+                //编辑
+                this.model.ifEdit = true;
             }
 
             //编辑绑定预约单数据
             if (params['actionCode'] != null && params['actionCode'] != undefined) {
                 this.model.actionCode = params['actionCode'];
-                var drivestatus=this.model.driveRecord["mcs_drivestatus"]
+                var drivestatus = this.model.driveRecord["mcs_drivestatus"]
                 if (this.model.actionCode == 3 && (drivestatus == 10 || drivestatus == 11)) {
                     this.model.ifSchedule = true;
                     this.model.ifSave = false;
@@ -76,9 +81,14 @@ export class EditPage implements OnInit {
                 }
             }
 
-        });
+            //业务类型
+            this.model.businessTypeOption = this._optionset.Get("mcs_drivebusinesstype");
 
-    }
+        });
+  }
+
+    //ionViewWillEnter() {
+    //}
 
     //试驾路线
     public DriveRouteOption() {
@@ -165,7 +175,21 @@ export class EditPage implements OnInit {
                     var ordertime = this.FormatToDate(this.model.driveRecord["mcs_ordertime"]);
                     //处理预约时段
                     this.DriveTimeOption(carmodel, ordertime, res["Detail"]["Attributes"]["_mcs_testdrivetime_value"]);
-                   
+
+                    if (!this._valid.isNull(res.AttmDetail)) {
+                        for (var key in res.AttmDetail) {
+
+                            var obj = {};
+                            obj["mcs_filename"] = res.AttmDetail[key]["Attributes"]["mcs_filename"];
+                            obj["mcs_filetype"] = res.AttmDetail[key]["Attributes"]["mcs_filetype"];
+                            obj["mcs_fileurl"] = res.AttmDetail[key]["Attributes"]["mcs_fileurl"];
+                            obj["mcs_code"] = res.AttmDetail[key]["Attributes"]["mcs_code"];
+                            obj["mcs_filesize"] = res.AttmDetail[key]["Attributes"]["mcs_filesize"];
+                            this.model.attachment.push(obj);
+                        }
+                    }
+
+
                     console.log(res);
                 }
                 else {
@@ -182,7 +206,6 @@ export class EditPage implements OnInit {
 
     //获取试驾车型
     public CarModelOption() {
-        debugger;
         this.model.carModelOption = [];
         this._http.getForToaken(
             this.model.carModelApiUrl,
@@ -371,4 +394,65 @@ export class EditPage implements OnInit {
             }
         );
     }
+
+    //选择附件模式窗口 
+    async presentFileModal(id: any) {
+        var fileInputArray = [];
+        const modalWin = await this.modalCtrl.create({
+            component: SelectFileEditComponent,
+            componentProps: { fileArray: fileInputArray }
+        });
+
+        this._page.loadingShow();
+        await modalWin.present();
+        const { data } = await modalWin.onDidDismiss();
+        if (data.command === 1) {
+            var uploaddata = [];
+            data.fileArray.forEach(element => {
+                var postData = {
+                    filename: "",
+                    filesize: 0,
+                    url: "",
+                    id: "",
+                    mcs_filecategory: 0,
+                    mcs_partnertype: 0,
+                    lookup: "",
+                    attrname: "",
+                    entitylookup: ""
+                };
+                postData.filename = element["fileName"];
+                postData.filesize = parseInt(element["fileSize"]);
+                postData.url = element["url"];
+                postData.id = id;
+                postData.mcs_filecategory = 22; //附件类型
+                postData.mcs_partnertype = 19;  //上牌记录
+                postData.attrname = "mcs_driverecordid";
+                postData.entitylookup = "mcs_driverecord";
+                uploaddata.push(postData);
+            });
+
+
+            this._http.post(
+                this.model.uploadUrl,
+                uploaddata,
+                (res: any) => {
+                    this._page.loadingHide();
+                    if (res.result == true) {
+                        const that = this;
+                        this._page.alert("消息提示", "操作成功", function () {
+                            this._page.goto("/saleing/driverecord/edit", { id: this.model.driveRecordId});
+                        });
+                    }
+                    else {
+                        this._page.alert("消息提示", "操作失败");
+                    }
+                },
+                (err: any) => {
+                    this._page.loadingHide();
+                    this._page.alert("消息提示", "操作失败");
+                }
+            );
+        }
+    }
+
 }

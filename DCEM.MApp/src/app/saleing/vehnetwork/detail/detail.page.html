@@ -186,24 +186,19 @@
           </ion-label>
         </ion-item>
       </ion-list>
-      <section style="text-align:center;">
-        <ion-button style="width:80%" color="primary" (click)="postover(mod.data.detail.id,2)">
+      <section style="text-align:center;" *ngIf="mod.data.detail.mcs_tservicestatus ==0">
+        <ion-button style="width:80%" color="primary" (click)="postover()">
           交车完成</ion-button>
       </section>
     </div>
     <div *ngSwitchCase="'check'">
 
-      <ion-grid class="ionatt">
-        <ion-row *ngIf="mod.data.cardNodetail.length===0">
-          <ion-col>
-            <div class="ionattbody">
-              当前无附件记录
-            </div>
-          </ion-col>
-
-        </ion-row>
-      </ion-grid>
-
+       
+      <ion-label *ngIf="mod.data.cardNodetail.length===0" text-center>
+        <p>
+          当前无附件记录
+        </p>
+      </ion-label>
 
 
 
@@ -213,13 +208,10 @@
           <ion-label>
             <h2>{{item.mcs_filename}}</h2>
             <p>大小：{{item.mcs_filesize}}</p>
-          </ion-label>
-          <ion-button size="default" color="primary" class="button-outline" (click)="down(item.fileurl)">
-            下载 <ion-icon color="primary" name="arrow-down"></ion-icon>
-          </ion-button>
+          </ion-label> 
         </ion-item> 
       </ion-list>
-      <section style="text-align:center;"  *ngIf="mod.data.detail.mcs_tservicestatus !=5 || mod.data.detail.mcs_tservicestatus!=99">
+      <section style="text-align:center;"  *ngIf="mod.data.detail.mcs_tservicestatus ==0">
         <ion-button style="width:80%" color="primary" (click)="presentFileModal(mod.data.detail.id,1)">
           上传身份证附件</ion-button>
       </section>
@@ -228,18 +220,13 @@
     <div *ngSwitchCase="'att'">
 
 
-      <ion-grid class="ionatt">
-        <ion-row *ngIf="mod.data.invoicedetail.length===0">
-          <ion-col>
-            <div class="ionattbody">
-              当前无附件记录
-            </div>
-          </ion-col>
+    
 
-        </ion-row>
-      </ion-grid>
-
-
+      <ion-label *ngIf="mod.data.invoicedetail.length===0" text-center>
+        <p>
+          当前无附件记录
+        </p>
+      </ion-label>
 
 
       <ion-list>
@@ -248,14 +235,11 @@
           <ion-label>
             <h2>{{item.mcs_filename}}</h2>
             <p>大小：{{item.mcs_filesize}}</p>
-          </ion-label>
-          <ion-button size="default" color="primary" class="button-outline" (click)="down(item.fileurl)">
-            下载 <ion-icon color="primary" name="arrow-down"></ion-icon>
-          </ion-button>
+          </ion-label> 
         </ion-item>
       </ion-list>
      
-    <section style="text-align:center;"  *ngIf="mod.data.detail.mcs_tservicestatus !=5 || mod.data.detail.mcs_tservicestatus!=99">
+    <section style="text-align:center;" *ngIf="mod.data.detail.mcs_tservicestatus ==0">
       <ion-button style="width:80%" color="primary" (click)="presentFileModal(mod.data.detail.id,2)">
         上传发票附件</ion-button>
     </section>

@@ -29,6 +29,7 @@ namespace DCEM.Main.Logger
                 ActionName = log.ActionName,
                 ContextInfo = log.ContextInfo,
                 CurrentLevelID = log.CurrentLevelID,
+                Level=log.Level,
                 Message = log.Message,
                 ParentActionName = log.ParentActionName,
                 ParentContextInfo = log.ParentContextInfo,

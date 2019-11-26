@@ -56,10 +56,7 @@ namespace DCEM.LoggerService
                 endpoints.MapControllers();
               
             });
-            
- 
-       
-            
+                        
 
             app.UseDIWrapper(ContextExtensionTypes.DI,LoggerCategoryNames.DIWrapper);
 

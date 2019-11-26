@@ -2,22 +2,20 @@ import { Component, OnInit, ViewChild  } from '@angular/core';
 import { DCore_Page, DCore_Http } from 'app/base/base.ser/Dcem.core';
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular'; 
-import { DragrouteComponent} from'app/base/base.ser/components/map/dragroute/dragroute.component'
+import { AlertController } from '@ionic/angular';  
+
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.page.html',
   styleUrls: ['./detail.page.scss'],
 })
 export class DetailPage implements OnInit {
-
-  @ViewChild("view1",{static: false}) view1:DragrouteComponent;
+ 
 
   constructor(private _http: DCore_Http,
     private _page: DCore_Page,
     private _userinfo: Storage_LoginInfo,
-    public alertController: AlertController,
-    public _map:DragrouteComponent) { }
+    public alertController: AlertController) { }
  
     public model = {
     headimg: "assets/img/userhead.png",
@@ -31,8 +29,7 @@ export class DetailPage implements OnInit {
   }
 
   ngOnInit() {
-    this.pageOnBind();
-    this._map.draw(116.303843,39.983412,116.407012,39.992093);
+    this.pageOnBind(); 
   }
   //获取交车单基础信息
   pageOnBind() {

@@ -27,45 +27,47 @@
 </ion-header>
 
 <ion-content>
-    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <!--<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
         <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中...">
         </ion-refresher-content>
-    </ion-refresher>
+    </ion-refresher>-->
     <ion-list lines="full">
-        <ion-item *ngFor="let r of model.data" button="true" [routerLink]="['/serving/reservation/detail']" [queryParams]="{id:r.mcs_appointmentinfoid}">
-            <ion-icon slot="start" color="{{r.appointment}}" name="calendar" size="large" style="width:50px;height:50px;"></ion-icon>
-            <ion-label>
-                <h2>车牌号：{{r.mcs_carplate}}</h2>
-                <p>车主姓名：{{r.mcs_customername}}</p>
-                <p>预约日期：{{FormatToDate(r.mcs_appointmentat)}}</p>
-                <p>预约时段：{{r.mcs_appointmentconfigid}}</p>
-            </ion-label>
-            <ion-note slot="end" *ngIf="r.mcs_status==10">待跟进</ion-note>
-            <ion-note slot="end" *ngIf="r.mcs_status==20">已跟进</ion-note>
-            <ion-note slot="end" *ngIf="r.mcs_status==30">已入场</ion-note>
-            <ion-note slot="end" *ngIf="r.mcs_status==50">已取消</ion-note>
-            <ion-note slot="end" *ngIf="r.mcs_status=='undefined'">--</ion-note>
-            <ion-note slot="end" *ngIf="r.mcs_status==40">--</ion-note>
-        </ion-item>
+        <ion-item-sliding *ngFor="let r of model.data">
+            <ion-item button="true" [routerLink]="['/serving/reservation/detail']" [queryParams]="{id:r.mcs_appointmentinfoid}">
+                <ion-icon slot="start" name="calendar"></ion-icon>
+                <ion-label>
+                    <h2>{{r.mcs_carplate}}&nbsp;</h2>
+                    <p>{{r.mcs_customername}}&nbsp;</p>
+                    <p>{{FormatToDate(r.mcs_appointmentat)}} {{r.mcs_appointmentconfigid}}&nbsp;</p>
+                </ion-label>
+                <ion-note slot="end">{{r.mcs_statusvalue}}</ion-note>
+            </ion-item>
+            <ion-item-options side="end">
+                <ion-item-option *ngIf="r.mcs_status!==50" color="danger" expandable [routerLink]="['/serving/reservation/cancel']" [queryParams]="{id:r.mcs_appointmentinfoid}">
+                    取消
+                </ion-item-option>
+            </ion-item-options>
+        </ion-item-sliding>
     </ion-list>
-    <ion-row *ngIf="model.isending">
-        <ion-col class="nodata" text-center>
-            没有更多内容啦
+    <ion-row *ngIf="model.ifDoLoading&&model.isending">
+        <ion-col text-center>
+            <ion-label>
+                <p>
+                    没有更多内容啦
+                </p>
+            </ion-label>
         </ion-col>
     </ion-row>
     <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doLoading($event)">
         <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
         </ion-infinite-scroll-content>
     </ion-infinite-scroll>
-
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button>
             <ion-icon name="arrow-dropup"></ion-icon>
         </ion-fab-button>
         <ion-fab-list side="top">
-            <ion-fab-button [routerLink]="['/serving/reservation/edit']">
-                <ion-icon color="success" name="add"></ion-icon>
-            </ion-fab-button>
+            <ion-fab-button color="success" [routerLink]="['/serving/reservation/edit']"><ion-icon name="add"></ion-icon></ion-fab-button>
         </ion-fab-list>
     </ion-fab>
 </ion-content>

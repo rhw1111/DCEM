@@ -1,4 +1,4 @@
-import { Platform } from '@ionic/angular';
+import { Platform,NavController } from '@ionic/angular';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Storage } from '@ionic/storage';
@@ -13,7 +13,9 @@ export class AuthenticationService {
 
   authenticationState = new BehaviorSubject(false);
 
-  constructor(private storage: Storage, private plt: Platform,private httpService:HttpService) {
+  constructor(private storage: Storage, private plt: Platform,
+    private httpService:HttpService,
+    private navCtr:NavController) {
     this.plt.ready().then(() => {
       this.checkToken();
     });
@@ -31,6 +33,7 @@ export class AuthenticationService {
   logout() {
     return this.storage.remove(TOKEN_KEY).then(() => {
       this.authenticationState.next(false);
+      this.navCtr.navigateRoot("/base/uc/login", {});
     });
   }
 

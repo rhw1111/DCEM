@@ -6,7 +6,7 @@ import sd from 'silly-datetime';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { OptionSetService } from '../../saleing.ser/optionset.service';
-
+ 
 @Component({
     selector: 'app-edit',
     templateUrl: './edit.page.html',
@@ -57,7 +57,7 @@ export class EditPage implements OnInit {
                 this.model.genderoption = this._optionset.Get("lead_mcs_gender");
                 this.model.leadoriginoption = this._optionset.Get("lead_mcs_leadorigin");
 
-                this.model.systemUserId = this._logininfo.GetSystemUserId();
+                //this.model.systemUserId = this._logininfo.GetSystemUserId();
             }
         });
     }
@@ -274,16 +274,16 @@ export class EditPage implements OnInit {
             this._page.presentToastError("请选择区");
             return;
         }
-        this.onlylead["systemuserid"] = this.model.systemUserId;
+        //this.onlylead["systemuserid"] = this.model.systemUserId;
 
-        this.model.postData["actioncode"] = 1;
+        //this.model.postData["actioncode"] = 1;
         this.model.postData["onlylead"] = this.onlylead;
         this.model.postData["onlylead"]["mcs_leadorigin"] = Number(this.onlylead["mcs_leadorigin"]);
         this.model.postData["onlylead"]["mcs_gender"] = Number(this.onlylead["mcs_gender"]);
         this.model.postData["onlylead"]["mcs_accountpoints"] = Number(this.onlylead["mcs_accountpoints"]);
         this._page.loadingShow();
         console.log(this.model.postData);
-        this._http.post(
+        this._http.postForToaken(
             this.model.postApiUrl,
             this.model.postData,
             (res: any) => {

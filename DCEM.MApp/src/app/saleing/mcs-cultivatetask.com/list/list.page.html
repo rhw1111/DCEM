@@ -39,7 +39,7 @@
     <ion-list lines="full">
         <ion-item-sliding *ngFor="let item of model.datalist" >
             <ion-item [routerLink]="['/saleing/cultivatetask/detail']" [queryParams]="{id:item.mcs_activityid}">
-                <ion-icon slot="start" name="logo-instagram" size="large" color="tertiary"></ion-icon>
+                <ion-icon slot="start" name="logo-instagram" size="large" color="primary"></ion-icon>
                 <ion-label>
                     <h2>{{item.Custname}}</h2>
                     <p>{{item.mcs_name}}</p>
@@ -54,17 +54,19 @@
                <ion-item-option color="tertiary" expandable [routerLink]="['/saleing/cultivatetask/edit']" [queryParams]="{id:item.mcs_activityid}">
                  编辑
                </ion-item-option> 
-               <ion-item-option color="tertiary" expandable (click)="TaskFinish(item.mcs_activityid)">
+               <ion-item-option color="primary" expandable (click)="TaskFinish(item.mcs_activityid)">
                  完成
                </ion-item-option>                   
             </ion-item-options>
         </ion-item-sliding>
     </ion-list>
-    <ion-row *ngIf="model.isending">
-        <ion-col class="nodata" text-center>
-            <label>没有更多内容啦</label>
-        </ion-col>
-    </ion-row>
+   
+        <ion-label *ngIf="model.isending"  text-center>
+            <p>
+                没有更多的记录显示啦
+            </p>
+        </ion-label>
+   
 
     <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doLoading($event)">
         <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">

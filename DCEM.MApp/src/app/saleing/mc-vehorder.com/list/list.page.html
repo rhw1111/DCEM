@@ -35,7 +35,7 @@
     </ion-refresher>
     <ion-list lines="full">
         <ion-item *ngFor="let item of model.datalist" [routerLink]="['/saleing/vehorder/detail']" [queryParams]="{id:item.mcs_vehorderid}">          
-            <ion-icon slot="start" name="logo-instagram" size="large" color="tertiary"></ion-icon>
+            <ion-icon slot="start" name="logo-instagram" size="large" color="primary"></ion-icon>
             <ion-label>
                 <h2>{{item.mcs_code}}</h2> 
                 <p>{{item.mcs_contactname}}</p>
@@ -53,11 +53,11 @@
         </ion-item>
     </ion-list>
 
-    <ion-row *ngIf="model.isending">
-        <ion-col class="nodata" text-center>
-            <label>没有更多内容啦</label>
-        </ion-col>
-    </ion-row>
+    <ion-label *ngIf="model.isending" text-center>    
+      <p>
+         没有更多的记录显示啦
+      </p>      
+    </ion-label>
     
     <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doLoading($event)"> 
         <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多..."> 

@@ -1,4 +1,5 @@
 import * as tslib_1 from "tslib";
+var _a, _b, _c;
 import { Component } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
 import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
@@ -31,7 +32,8 @@ let EditPage = class EditPage {
             isAppointmentAtChange: true,
             isAppointmentConfigChange: true,
             customerId: "",
-            appointmentConfigOptionMap: {} //预约时段
+            appointmentConfigOptionMap: {},
+            ifAddOrEdit: false //是否新增或编辑(控制页面title)
         };
         //定义共享数据
         this.shareData = {
@@ -48,6 +50,7 @@ let EditPage = class EditPage {
                 console.log("记录Id:" + this.model.appointmentinfoId);
                 this.model.appointmentinfoId = params['id'];
                 this.pageOnBind(this.model.appointmentinfoId);
+                this.model.ifAddOrEdit = true;
             }
             //编辑绑定客户数据
             if (params['customerid'] != null && params['customerid'] != undefined) {
@@ -324,14 +327,11 @@ EditPage = tslib_1.__decorate([
         templateUrl: './edit.page.html',
         styleUrls: ['./edit.page.scss'],
     }),
-    tslib_1.__metadata("design:paramtypes", [ModalController,
-        NavController,
-        DCore_Http,
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof ModalController !== "undefined" && ModalController) === "function" ? _a : Object, typeof (_b = typeof NavController !== "undefined" && NavController) === "function" ? _b : Object, DCore_Http,
         DCore_Page,
         Storage_LoginInfo,
         DCore_ShareData,
-        DCore_Valid,
-        ActivatedRoute])
+        DCore_Valid, typeof (_c = typeof ActivatedRoute !== "undefined" && ActivatedRoute) === "function" ? _c : Object])
 ], EditPage);
 export { EditPage };
 //# sourceMappingURL=edit.page.js.map

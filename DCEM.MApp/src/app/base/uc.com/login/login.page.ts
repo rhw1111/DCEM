@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page, DCore_Window } from 'app/base/base.ser/Dcem.core';
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
+import { AuthenticationService } from 'app/base/base.ser/authentication.service';
 
 @Component({
     selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginPage implements OnInit {
         private _http: DCore_Http,
         private _page: DCore_Page,
         private _window: DCore_Window,
-        private _logininfo: Storage_LoginInfo
+        private _logininfo: Storage_LoginInfo,
+        private authservice:AuthenticationService
     ) {
     }
     // 定义模型
@@ -40,6 +42,10 @@ export class LoginPage implements OnInit {
 
         this.mod.apiurl = '/api/User/GetAuthToken';
         this.mod.domainType = 'local';
+        //var welcomeisloading= this._window.storageGet("welcomeisloading");
+        //if(welcomeisloading==null || welcomeisloading==""){
+        //    this._window.storageSet("welcomeisloading","true");
+        //}
     }
 
     // 提交
@@ -67,7 +73,7 @@ export class LoginPage implements OnInit {
                 this.mod.domain = "https://mscrm.sokon.com/dcem";
                 break;
             case 'localhost':
-                this.mod.domain = "http://localhost:52151";
+                this.mod.domain = "https://localhost:44382";
                 break;
             default:
                 this.mod.domain = "http://localhost:9099";
@@ -92,7 +98,9 @@ export class LoginPage implements OnInit {
                    this._page.loadingHide();
                    return false;
                 }
-                this._http.setToken(res.access_token);
+                //this._http.setToken(res.access_token);
+                //登录实现
+                this.authservice.login(res.access_token);
                 this._logininfo.SetInfo(JSON.stringify(res));
                 this._page.loadingHide();
                 this._page.alert('消息提示', '登录认证成功');

@@ -81,7 +81,15 @@ export class DetailPage implements OnInit {
   public deliverorderflowmodel = {
     apiUrl: '/api/delivery/getdeliverorderflow',
     status: 10,
-    model:{}
+    model: {
+      issubmitpdi: "是否提交pdi检测:",
+      pdisubmittime: "PDI检测提交时间:",
+      pditime: "PDI检测时间:",
+      appointmenton: "预约时间:",
+      settlestatus: "结清状态:",
+      receipton: "收尾款时间:",
+      deliveryon: "交车时间:"
+    }
   }
   ngOnInit() {
     this.activeRoute.queryParams.subscribe((data: Params) => {
@@ -93,7 +101,7 @@ export class DetailPage implements OnInit {
       }
     });
   }
-    
+
   //获取交车单基础信息
   pageOnBind() {
     this._page.loadingShow();
@@ -122,38 +130,45 @@ export class DetailPage implements OnInit {
           this.materielmodel.materielId = attr["_mcs_vehmaterial_value"];
 
           //交车单跟踪详情 
-          this.deliverorderflowmodel.model["issubmitpdi"]="是否提交pdi检测:"+attr["mcs_submitpdi@OData.Community.Display.V1.FormattedValue"];//是否提交pdi检测
-          this.deliverorderflowmodel.model["pdisubmittime"]="PDI检测提交时间:"+attr["mcs_submitpdion@OData.Community.Display.V1.FormattedValue"];//PDI检测提交时间
-          this.deliverorderflowmodel.model["pditime"]="PDI检测时间:"+attr["mcs_pdidetecton@OData.Community.Display.V1.FormattedValue"];//PDI检测时间
-          this.deliverorderflowmodel.model["appointmenton"]="预约时间:"+attr["mcs_appointmenton@OData.Community.Display.V1.FormattedValue"];//预约时间
-          this.deliverorderflowmodel.model["settlestatus"]="结清状态:"+attr["mcs_settlestatus@OData.Community.Display.V1.FormattedValue"];//结清状态
-          this.deliverorderflowmodel.model["receipton"]="收尾款时间:"+attr["mcs_receipton@OData.Community.Display.V1.FormattedValue"];
-          this.deliverorderflowmodel.model["deliveryon"]="交车时间:"+attr["mcs_deliveryon@OData.Community.Display.V1.FormattedValue"];//交车时间
-          
-          var submitpdi=attr["mcs_submitpdi"];
-          if(!submitpdi)
-          {
-            this.deliverorderflowmodel.status=2;
+          if (attr["mcs_submitpdi@OData.Community.Display.V1.FormattedValue"] != null) {
+            this.deliverorderflowmodel.model.issubmitpdi += attr["mcs_submitpdi@OData.Community.Display.V1.FormattedValue"];//是否提交pdi检测
           }
-          else 
-          {
-            this.deliverorderflowmodel.status=4;
+          if (attr["mcs_submitpdion@OData.Community.Display.V1.FormattedValue"] != null) {
+            this.deliverorderflowmodel.model.pdisubmittime += attr["mcs_submitpdion@OData.Community.Display.V1.FormattedValue"];//PDI检测提交时间
           }
-          if(this.model.status==3) 
-          {
-            this.deliverorderflowmodel.status=6;
+          if (attr["mcs_pdidetecton@OData.Community.Display.V1.FormattedValue"] != null) {
+            this.deliverorderflowmodel.model.pditime += attr["mcs_pdidetecton@OData.Community.Display.V1.FormattedValue"];//PDI检测时间
           }
-          if(this.model.status==4) 
-          {
-            this.deliverorderflowmodel.status=8;
+          if (attr["mcs_appointmenton@OData.Community.Display.V1.FormattedValue"] != null) {
+            this.deliverorderflowmodel.model.appointmenton += attr["mcs_appointmenton@OData.Community.Display.V1.FormattedValue"];//预约时间
           }
-          if(this.model.status==5) 
-          {
-            this.deliverorderflowmodel.status=11;
+          if (attr["mcs_settlestatus@OData.Community.Display.V1.FormattedValue"] != null) {
+            this.deliverorderflowmodel.model.settlestatus += attr["mcs_settlestatus@OData.Community.Display.V1.FormattedValue"];//结清状态
           }
-          if(this.model.status==7) 
-          {
-            this.deliverorderflowmodel.status=13;
+          if (attr["mcs_receipton@OData.Community.Display.V1.FormattedValue"] != null) {
+            this.deliverorderflowmodel.model.receipton += attr["mcs_receipton@OData.Community.Display.V1.FormattedValue"];
+          }
+          if (attr["mcs_deliveryon@OData.Community.Display.V1.FormattedValue"] != null) {
+            this.deliverorderflowmodel.model.deliveryon += attr["mcs_deliveryon@OData.Community.Display.V1.FormattedValue"];//交车时间
+          }
+          var submitpdi = attr["mcs_submitpdi"];
+          if (!submitpdi) {
+            this.deliverorderflowmodel.status = 2;
+          }
+          else {
+            this.deliverorderflowmodel.status = 4;
+          }
+          if (this.model.status == 3) {
+            this.deliverorderflowmodel.status = 6;
+          }
+          if (this.model.status == 4) {
+            this.deliverorderflowmodel.status = 8;
+          }
+          if (this.model.status == 5) {
+            this.deliverorderflowmodel.status = 11;
+          }
+          if (this.model.status == 7) {
+            this.deliverorderflowmodel.status = 13;
           }
           //结清状态
           this.pageOnActivitylist();
@@ -204,7 +219,9 @@ export class DetailPage implements OnInit {
           event ? event.target.complete() : '';
           if (data.length < this.orderpaymodel.search.pagesize) {
             event ? event.target.disabled = true : "";
-            this.orderpaymodel.isending = true;
+            if (this.orderpaymodel.search.pageindex != 1) {
+              this.orderpaymodel.isending = true;
+            }
           }
           this._page.loadingHide();
         }
@@ -279,5 +296,5 @@ export class DetailPage implements OnInit {
       ]
     });
     await alert.present();
-  } 
+  }
 }

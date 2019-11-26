@@ -38,6 +38,7 @@ export class ListPage implements OnInit {
     ionViewWillEnter() {
         this.ionInfiniteScroll.disabled = false;
         this.model.params.PageIndex = 1;
+        this._page.loadingShow();
         this.listOnBind();
     }
 
@@ -56,21 +57,23 @@ export class ListPage implements OnInit {
      doInfinite() {
         this.model.params.PageIndex += 1;
         this.listOnBind();
+        this.ionContent.scrollToBottom(0);
     }
     //切换tab
     tagOnClick(status){
+        this.ionInfiniteScroll.disabled = false;
         this.model.data=[];
         this.model.params.PageIndex = 1;
         this.model.params.mcs_customerstatus=status;
-        this.ionInfiniteScroll.disabled = false;
+       
         this.ionContent.scrollToTop(0);
+        this._page.loadingShow();
         this.listOnBind();
     }
 
     //列表数据绑定
     listOnBind() {
-        this._page.loadingShow();
-        this._http.post(this.model.apiUrl, this.model.params,
+        this._http.postForToaken(this.model.apiUrl, this.model.params,
             (res: any) => {
                 if (res.Results !== null) {
                     //绑定数据
@@ -81,7 +84,7 @@ export class ListPage implements OnInit {
                                 "Id": value.accountid,
                                 "name": value.name,
                                 "accountnumber": value.accountnumber,
-                                "mcs_mobilephone": value.mcs_mobilephone,
+                                "mcs_mobilephone": value.mcs_mobilephone==""?"--":value.mcs_mobilephon,
                                 "mcs_customerstatus":this.optionset.GetOptionSetNameByValue("mcs_customerstatus",value.mcs_customerstatus),
                                 "createdon": value.createdon
                             });
@@ -90,7 +93,9 @@ export class ListPage implements OnInit {
                     this.ionInfiniteScroll.complete();
                     //判断是否有新数据
                     if (res.Results.length < this.model.params.PageSize) {
-                        this.ionInfiniteScroll.disabled = true;
+                        if(this.model.params.PageIndex>1){
+                            this.ionInfiniteScroll.disabled = true;
+                        }
                     }
                 }
                 else {

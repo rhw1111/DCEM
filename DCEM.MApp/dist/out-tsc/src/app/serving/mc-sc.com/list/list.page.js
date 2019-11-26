@@ -1,4 +1,5 @@
 import * as tslib_1 from "tslib";
+var _a, _b, _c;
 import { Component, ViewChild } from '@angular/core';
 import { IonContent, IonInfiniteScroll } from '@ionic/angular';
 import { DatePipe } from '@angular/common';
@@ -108,11 +109,11 @@ let ListPage = class ListPage {
 };
 tslib_1.__decorate([
     ViewChild(IonContent, null),
-    tslib_1.__metadata("design:type", IonContent)
+    tslib_1.__metadata("design:type", typeof (_a = typeof IonContent !== "undefined" && IonContent) === "function" ? _a : Object)
 ], ListPage.prototype, "ionContent", void 0);
 tslib_1.__decorate([
     ViewChild(IonInfiniteScroll, null),
-    tslib_1.__metadata("design:type", IonInfiniteScroll)
+    tslib_1.__metadata("design:type", typeof (_b = typeof IonInfiniteScroll !== "undefined" && IonInfiniteScroll) === "function" ? _b : Object)
 ], ListPage.prototype, "ionInfiniteScroll", void 0);
 ListPage = tslib_1.__decorate([
     Component({
@@ -122,8 +123,7 @@ ListPage = tslib_1.__decorate([
     }),
     tslib_1.__metadata("design:paramtypes", [DCore_Http,
         DCore_Page,
-        DCore_Valid,
-        DatePipe])
+        DCore_Valid, typeof (_c = typeof DatePipe !== "undefined" && DatePipe) === "function" ? _c : Object])
 ], ListPage);
 export { ListPage };
 //# sourceMappingURL=list.page.js.map

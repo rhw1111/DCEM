@@ -4,6 +4,9 @@
             <ion-back-button text="返回" defaultHref="/serving/reservation/list"></ion-back-button>
         </ion-buttons>
         <ion-title>预约单详情</ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
     </ion-toolbar>
     <ion-toolbar>
         <ion-segment [(ngModel)]="tab" color="primary">
@@ -172,6 +175,7 @@
         <div *ngSwitchCase="'loglist'">
             <ion-list lines="full">
                 <ion-item *ngFor="let r of model.datalist">
+                    <ion-icon slot="start" name="call"></ion-icon>
                     <ion-label>
                         <p>跟进人：{{r.createdby}}</p>
                         <p>跟进内容：{{r.mcs_remark}}</p>
@@ -180,21 +184,30 @@
                 </ion-item>
             </ion-list>
             <ion-row *ngIf="model.isending">
-                <ion-col class="nodata" text-center>
-                    没有更多跟进
+                <ion-col text-center>
+                    <ion-label>
+                        <p>
+                            没有更多内容啦
+                        </p>
+                    </ion-label>
                 </ion-col>
             </ion-row>
         </div>
     </div>
+    
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button>
             <ion-icon name="arrow-dropup"></ion-icon>
         </ion-fab-button>
         <ion-fab-list side="top">
-            <ion-fab-button [routerLink]="['/serving/reservation/edit']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid}"><ion-icon name="create" color="warning"></ion-icon></ion-fab-button><!--编辑-->
-            <ion-fab-button [routerLink]="['/serving/reservation/cancel']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid}"><ion-icon name="close" color="danger"></ion-icon></ion-fab-button><!--取消-->
-            <ion-fab-button [routerLink]="['/serving/ri/edit']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid,actionCode:3}"><ion-icon name="medkit" color="tertiary"></ion-icon></ion-fab-button><!--问诊-->
-            <ion-fab-button [routerLink]="['/serving/sc/edit']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid,actionCode:3}"><ion-icon name="hammer" color="success"></ion-icon></ion-fab-button><!--服务委托书-->
+            <ion-fab-button  color="warning" [routerLink]="['/serving/reservation/edit']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid}">
+            <ion-icon name="create"></ion-icon></ion-fab-button><!--编辑-->
+            <ion-fab-button color="danger" [routerLink]="['/serving/reservation/cancel']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid}">
+            <ion-icon name="close" ></ion-icon></ion-fab-button><!--取消-->
+            <ion-fab-button  color="tertiary" [routerLink]="['/serving/ri/edit']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid,actionCode:3}">
+            <ion-icon name="medkit"></ion-icon></ion-fab-button><!--问诊-->
+            <ion-fab-button  color="success" [routerLink]="['/serving/sc/edit']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid,actionCode:3}">
+            <ion-icon name="hammer"></ion-icon></ion-fab-button><!--服务委托书-->
         </ion-fab-list>
     </ion-fab>
 </ion-content>

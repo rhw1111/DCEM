@@ -144,7 +144,6 @@ const routes = [
                 path: 'contactrecord',
                 children: [
                     { path: 'list', loadChildren: './saleing/mcs-contactrecord/list/list.module#ListPageModule' },
-                    { path: 'edit', loadChildren: './saleing/mcs-contactrecord/edit/edit.module#EditPageModule' },
                 ]
             },
             {
@@ -251,6 +250,7 @@ const routes = [
     { path: 'fileupload', loadChildren: './serving/serving.ser/components/fileupload/fileupload.module#FileuploadPageModule' },
     { path: 'list', loadChildren: './saleing/mcs_installationorder/list/list.module#ListPageModule' },
     { path: 'detail', loadChildren: './saleing/mcs_installationorder/detail/detail.module#DetailPageModule' },
+    { path: 'success', loadChildren: './saleing/mcs-contactrecord/success/success.module#SuccessPageModule' },
 ];
 let AppRoutingModule = class AppRoutingModule {
 };

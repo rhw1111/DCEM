@@ -15,4 +15,8 @@
     <ProjectReference Include="..\MSLibrary\MSLibrary.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTOModel\" />
+  </ItemGroup>
+
 </Project>

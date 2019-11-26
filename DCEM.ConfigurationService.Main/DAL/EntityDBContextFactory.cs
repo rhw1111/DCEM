@@ -44,7 +44,7 @@ namespace DCEM.ConfigurationService.Main.DAL
         /// <summary>
         /// 服务描述
         /// </summary>
-        public DbSet<ServiceDescription> ServiceDescription { get; set; }
+        public DbSet<ServiceDescription> ServiceDescriptions { get; set; }
 
         /// <summary>
         /// 配置实体映射

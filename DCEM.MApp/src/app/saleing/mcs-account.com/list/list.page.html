@@ -13,14 +13,14 @@
       (keyup)="searchOnKeyup($event)"></ion-searchbar>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-segment [(ngModel)]="tab">
-      <ion-segment-button value="0" (click)="tagOnClick(0)">
+    <ion-segment>
+      <ion-segment-button value="0" checked (click)="tagOnClick(0)">
         <ion-label>全部</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="1" (click)="tagOnClick(1)">
+      <ion-segment-button (click)="tagOnClick(1)">
         <ion-label>待指派</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="2" (click)="tagOnClick(2)">
+      <ion-segment-button (click)="tagOnClick(2)">
         <ion-label>已指派</ion-label>
       </ion-segment-button>
     </ion-segment>
@@ -31,12 +31,13 @@
   <ion-list lines="full">
     <ion-item-sliding *ngFor="let item of model.data;let key=index">
       <ion-item [routerLink]="['/saleing/account/detail']" [queryParams]="{id:item.Id}">
-        <ion-icon slot="start" name="contact" size="large"></ion-icon>
+        <ion-avatar class="header-ion-avatar" item-start>机</ion-avatar>
         <ion-label>
-          <h2>{{item.name}}</h2>
+          <h2 *ngIf="item.name">{{item.name}}</h2>
+          <h2 *ngIf="!item.name">--</h2>
           <p>{{item.accountnumber}}</p>
           <p>
-            <ion-icon *ngIf="item.mcs_mobilephone" name="phone-portrait" size="small"></ion-icon>
+            <ion-icon name="phone-portrait" size="small"></ion-icon>
             {{item.mcs_mobilephone}}
           </p>
         </ion-label>
@@ -55,12 +56,12 @@
     </ion-item-sliding>
   </ion-list>
   <ion-label *ngIf="ionInfiniteScroll.disabled" text-center>
-    <p>
+    <p style="height: 30px;">
       没有更多的记录显示啦
     </p>
   </ion-label>
   <ion-infinite-scroll (ionInfinite)="doInfinite()">
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多..."></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">

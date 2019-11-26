@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MSLibrary.Configuration;
 using MSLibrary.Logger;
+using MSLibrary.DI;
 using DCEM.Main;
 using DCEM.ConfigurationService.Main;
 
@@ -29,6 +30,15 @@ namespace DCEM.ConfigurationService
             _baseUrl = Path.GetDirectoryName(typeof(Program).Assembly.Location);
             Environment.CurrentDirectory = _baseUrl ?? Environment.CurrentDirectory;
 
+            //获取运行环境名称
+            var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_APPLICATIONNAME");
+            if (environmentName == null)
+            {
+                environmentName = string.Empty;
+            }
+            //初始化配置容器
+            MainStartupHelper.InitConfigurationContainer(environmentName, _baseUrl);
+
             //初始化上下文容器
             MainStartupHelper.InitContext();
             StartupHelper.InitContext();
@@ -40,8 +50,7 @@ namespace DCEM.ConfigurationService
             WebHost.CreateDefaultBuilder(args)
             .ConfigureServices((context, services) =>
             {
-                //初始化配置容器
-                MainStartupHelper.InitConfigurationContainer(context.HostingEnvironment.EnvironmentName, _baseUrl);
+                //初始化配置容器                  
                 StartupHelper.InitConfigurationContainer(context.HostingEnvironment.EnvironmentName, _baseUrl);
 
                 //获取核心配置
@@ -56,13 +65,21 @@ namespace DCEM.ConfigurationService
                 StartupHelper.InitStaticInfo();
 
 
+                //配置日志工厂
+                var loggerFactory = LoggerFactory.Create((builder) =>
+                {
+                    MainStartupHelper.InitLogger(builder);
+                });
+                DIContainerContainer.Inject<ILoggerFactory>(loggerFactory);
 
             })
             .ConfigureLogging((builder) =>
             {
-                builder.ClearProviders();
-                //初始化日志配置
-                MainStartupHelper.InitLogger(builder);
+
+            })
+            .ConfigureKestrel((options)=>
+            {
+
             })
             .UseConfiguration(ConfigurationContainer.GetConfiguration(ConfigurationNames.Host))
             .UseStartup<Startup>();

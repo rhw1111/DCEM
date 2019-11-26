@@ -23,8 +23,13 @@ namespace DCEM.Web.Controllers
         private IAppVehnetwork _appVehnetwork;
         public VehnetworkController()
         {
-            _appVehnetwork = new  VehnetworkFactory().Create().Result;
+            _appVehnetwork = new VehnetworkFactory().Create().Result;
         }
+        /// <summary>
+        /// 列表获取
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [Route("getlist")]
         [HttpPost]
         public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> getlist(VehnetworkListRequest request)
@@ -32,14 +37,28 @@ namespace DCEM.Web.Controllers
             return await _appVehnetwork.getlist(request);
         }
 
+        /// <summary>
+        /// 明细获取
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("getdetail")]
         [HttpGet]
         public async Task<NewtonsoftJsonActionResult<VehnetworkDetailRepository>> get(Guid id)
         {
             return await _appVehnetwork.getdetail(id);
         }
-
-        
+        /// <summary>
+        /// 完成交车
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Route("updateover")]
+        [HttpGet]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<string>>> updatestatus(Guid id)
+        {
+            return await _appVehnetwork.PostStatus(id);
+        }
     }
 }
 

@@ -27,6 +27,11 @@ namespace DCEM.SalesAssistant.Main.Application.App
         {
             return await _service.getdetail(id);
         }
+        public async Task<ValidateResult<string>> PostStatus(Guid id)
+        {
+            return await _service.PostStatus(id);
+
+        }
 
     }
 }

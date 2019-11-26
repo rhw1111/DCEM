@@ -14,6 +14,7 @@ namespace DCEM.SalesAssistant.Main.Application.App.Contrac
     {
         Task<QueryResult<CrmEntity>> getlist(VehnetworkListRequest request);
         Task<VehnetworkDetailRepository> getdetail(Guid id);
-         
+
+        Task<ValidateResult<string>> PostStatus(Guid id);
     }
 }

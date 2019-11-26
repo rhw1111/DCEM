@@ -5,26 +5,26 @@
     </ion-buttons>
     <ion-title>安装单详情</ion-title>
   </ion-toolbar>
-  <!-- <ion-toolbar>
-    <ion-segment [(ngModel)]="tab">
-      <ion-segment-button value="baseinfo" checked >
-        <ion-label>基础信息</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="rightitemuselist">
-        <ion-label>权益项</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="vehordertracklist">
-        <ion-label>透明化状态</ion-label>
-      </ion-segment-button>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="tab" color="primary">
+        <ion-segment-button value="infolist" checked (ionSelect)="infolistFun()">
+            <ion-label>基础信息</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="userlist" (ionSelect)="userlistFun()">
+            <ion-label>用户反馈</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="processlist" (ionSelect)="processlistFun()" >
+            <ion-label>安装进程</ion-label>
+        </ion-segment-button>
     </ion-segment>
-  </ion-toolbar> -->
+</ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div [ngSwitch]="tab">
-    <div *ngSwitchCase="'baseinfo'">
+    <div *ngSwitchCase="'infolist'">
       <ion-list lines="full">
-        <ion-item-divider color="dark">
+        <ion-item-divider color="primary">
           <ion-label>
             基础信息
           </ion-label>
@@ -183,7 +183,7 @@
           </ion-label>
         </ion-item>
 
-        <ion-item-divider color="dark">
+        <ion-item-divider color="primary">
           <ion-label>
             安装服务商
           </ion-label>
@@ -229,7 +229,7 @@
           </ion-label>
         </ion-item>
 
-        <ion-item-divider color="dark">
+        <ion-item-divider color="primary">
           <ion-label>
             安装结果
           </ion-label>
@@ -396,59 +396,38 @@
         </ion-item>
       </ion-list>
     </div>
-    <div *ngSwitchCase="'rightitemuselist'">
+    <div *ngSwitchCase="'userlist'">
       <ion-list lines="full">
-          <ion-item-sliding *ngFor="let item of model.RightitemuseList">
-              <ion-item >
-                  <ion-icon slot="start" name="hammer" size="large"></ion-icon>
-                  <ion-label>
-                    <h3>{{item.mcs_name}}</h3>
-                    <p>{{item.mcs_code}}</p>
-                  </ion-label>
-                  <ion-note>
-                    <p>{{item.mcs_amount}}</p>
-                  </ion-note>
-                </ion-item>                              
-          </ion-item-sliding>
-           <ion-row *ngIf="model.RightitemuseList.length==0">
-              <ion-col>
-                <div class="ionattbody">
-                  当前无权益项记录
-                </div>
-              </ion-col>
-          </ion-row>
-      </ion-list>
+        <ion-item *ngFor="let item of model.user">
+          <ion-icon color="tertiary" name="person"></ion-icon>
+          <ion-label style="margin-left:10px">
+              <h6>{{item.Attributes.mcs_username}}</h6>
+              <p>{{item.Attributes.mcs_userphone}}</p>
+              <p>{{FormatToDate(item.Attributes.mcs_survey)}}</p>  
+          </ion-label>
+          <ion-label style="text-align:right;color:orange;">
+            <p style="color:orange;">{{item.Attributes.mcs_score}}分</p> 
+          </ion-label>
+          <!-- <ion-note slot="end">
+            <p>{{item.mcs_installationstatus}}</p>  
+          </ion-note> -->
+      </ion-item>
+      <ion-item *ngIf="model.user.length<=0">
+          <div style="color:gray;text-align:center;width:100%;">没有数据</div>
+      </ion-item>
+    </ion-list>
     </div>
-    <div *ngSwitchCase="'vehordertracklist'">
-      <ion-list lines="full">
-       <ion-item-sliding *ngFor="let item of model.VehordertrackList">
-          <ion-item >
-              <ion-icon slot="start" name="arrow-round-up" size="large"></ion-icon>
-              <ion-label>
-                <h3>{{item.mcs_optionon}}</h3>
-                <!-- <p>{{item.mcs_rostatus}}</p> -->
-              </ion-label>
-              <ion-note>
-                <p>{{item.mcs_rostatus}}</p>
-              </ion-note>
-            </ion-item>          
-       </ion-item-sliding>
-      <!--  <nz-timeline *ngFor="let item of model.VehordertrackList">
-          <nz-timeline-item>{{item.mcs_optionon}}</nz-timeline-item>       
-        </nz-timeline> -->
-       <!--  <Steps [size]="'small'" [current]="1" *ngFor="let item of model.VehordertrackList">
-          <Step [title]="Finished" [description]="'This is description'">我们</Step>
-          <Step [title]="'In Progress'" [description]="'This is description'"></Step>
-          <Step [title]="'Waiting'" [description]="'This is description'"></Step>
-        </Steps> -->
-       <ion-row *ngIf="model.VehordertrackList.length==0">
-          <ion-col>
-            <div class="ionattbody">
-              当前无记录
-            </div>
-          </ion-col>
-        </ion-row>
-      </ion-list>
+    <div *ngSwitchCase="'processlist'">
+      <ion-card *ngIf="model.process.length>0">
+        <ion-card-content>
+          <Steps [size]="'small'"  [current]="5" *ngFor="let item of model.process">
+              <Step  [title]="item.Attributes[getOptionName('mcs_status')]"></Step> 
+              <Step  [icon]="ellipsis" [description]="FormatToDateTime(item.Attributes.createdon)"></Step> 
+              <Step  [icon]="ellipsis" [description]="item.Attributes.mcs_name"></Step> 
+          </Steps>
+        </ion-card-content>
+    </ion-card>
+    <div *ngIf="model.process.length<=0" style="color:gray;text-align:center;width:100%;">没有数据</div>
     </div>
   </div>
 </ion-content>

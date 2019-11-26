@@ -129,6 +129,7 @@ export class DCore_Http {
         // 目前只解析token字段，缓存先只存该字段
         // JSON.stringify(token)
         window.localStorage.setItem('auth-token', token);
+        window.localStorage.setItem('auth-logintime', new Date().toLocaleTimeString());
     }
 }
 

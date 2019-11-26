@@ -342,6 +342,7 @@ var EditPage = /** @class */ (function () {
     };
     //触发区事件
     EditPage.prototype.districtOnClick = function () {
+        debugger;
         if (this.model.cityId != "") {
             this.districtModal();
         }

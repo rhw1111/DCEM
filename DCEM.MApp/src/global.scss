@@ -24,3 +24,41 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+/*列表的图标样式*/
+
+.header-ion-avatar{
+    background-color: #237cca;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 10px;
+    height: 45px;
+    width: 45px;
+    font-size: 18px;
+    color: #ffffff;
+    margin-right: 5px;
+}
+.bggray{
+    background-color: #cccccc;
+}
+.bgorage{
+    background-color: #ffaf1d;
+}
+.bgred{
+    background-color: #ff0000;
+}
+// .headionc{
+//     background-color: #237cca;
+//     -moz-border-radius: 50%;
+//     -webkit-border-radius: 50%;
+//     text-align: center;
+//     vertical-align: middle;
+//     padding-top: 10px;
+//     height: 50px;
+//     width: 50px;
+//     font-size: 20px;
+//     color: #ffffff;
+//     margin-right: 5px;
+// }
