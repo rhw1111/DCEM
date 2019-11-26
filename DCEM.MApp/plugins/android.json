@@ -37,6 +37,9 @@
     },
     "cordova-plugin-x-toast": {
       "PACKAGE_NAME": "ms.crmapp.seleassist"
+    },
+    "es.keensoft.fullscreenimage": {
+      "PACKAGE_NAME": "ms.crmapp.seleassist"
     }
   },
   "dependent_plugins": {

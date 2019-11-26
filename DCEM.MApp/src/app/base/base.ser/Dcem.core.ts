@@ -152,7 +152,7 @@ export class DCore_Page {
     //顶部错误提示
     async presentToastError(msg: string) {
         const toast = await this.toastCtrl.create({
-            header: '错误提示',
+            header: '错误提示：',
             message: msg,
             position: 'top',
             color: 'dark',

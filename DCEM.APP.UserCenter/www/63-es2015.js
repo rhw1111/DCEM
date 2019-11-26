@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[63],{
 
-/***/ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm/ion-slide_2-md.entry.js":
-/*!***************************************************************************************!*\
-  !*** ./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm/ion-slide_2-md.entry.js ***!
-  \***************************************************************************************/
+/***/ "./node_modules/@ionic/core/dist/esm/ion-slide_2-md.entry.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm/ion-slide_2-md.entry.js ***!
+  \*******************************************************************/
 /*! exports provided: ion_slide, ion_slides */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -11,8 +11,8 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_slide", function() { return Slide; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_slides", function() { return Slides; });
-/* harmony import */ var _core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core-ca0488fc.js */ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm/core-ca0488fc.js");
-/* harmony import */ var _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./config-3c7f3790.js */ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm/config-3c7f3790.js");
+/* harmony import */ var _core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core-ca0488fc.js */ "./node_modules/@ionic/core/dist/esm/core-ca0488fc.js");
+/* harmony import */ var _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./config-3c7f3790.js */ "./node_modules/@ionic/core/dist/esm/config-3c7f3790.js");
 
 
 
@@ -241,7 +241,7 @@ const Slides = class {
         const finalOptions = this.normalizeOptions();
         // init swiper core
         // @ts-ignore
-        const { Swiper } = await __webpack_require__.e(/*! import() | swiper-bundle-ccdaac54-js */ "swiper-bundle-ccdaac54-js").then(__webpack_require__.bind(null, /*! ./swiper.bundle-ccdaac54.js */ "./node_modules/_@ionic_core@4.11.5@@ionic/core/dist/esm/swiper.bundle-ccdaac54.js"));
+        const { Swiper } = await __webpack_require__.e(/*! import() | swiper-bundle-ccdaac54-js */ "swiper-bundle-ccdaac54-js").then(__webpack_require__.bind(null, /*! ./swiper.bundle-ccdaac54.js */ "./node_modules/@ionic/core/dist/esm/swiper.bundle-ccdaac54.js"));
         await waitForSlides(this.el);
         const swiper = new Swiper(this.el, finalOptions);
         this.swiperReady = true;
