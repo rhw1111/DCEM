@@ -125,7 +125,7 @@ let DCore_Page = class DCore_Page {
     presentToastError(msg) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             const toast = yield this.toastCtrl.create({
-                header: '错误提示',
+                header: '错误提示：',
                 message: msg,
                 position: 'top',
                 color: 'dark',

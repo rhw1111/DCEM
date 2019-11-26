@@ -34,6 +34,9 @@ const routes: Routes = [
                     { path: 'index', loadChildren: './serving/home.com/index/index.module#IndexPageModule' },
                     { path: 'tabs', loadChildren: './serving/home.com/tabs/tabs.module#TabsPageModule' },
                     { path: 'mywork', loadChildren: './serving/home.com/mywork/mywork.module#MyworkPageModule' },
+                    { path: 'systemsetup', loadChildren: './serving/home.com/systemsetup/systemsetup.module#SystemsetupPageModule' },
+                    { path: 'about', loadChildren: './serving/home.com/about/about.module#AboutPageModule' },
+                    { path: 'change-password', loadChildren: './serving/home.com/change-password/change-password.module#ChangePasswordPageModule' }
                 ]
             },
             {
@@ -258,6 +261,12 @@ const routes: Routes = [
   { path: 'list', loadChildren: './saleing/mcs_installationorder/list/list.module#ListPageModule' },
   { path: 'detail', loadChildren: './saleing/mcs_installationorder/detail/detail.module#DetailPageModule' },
   { path: 'success', loadChildren: './saleing/mcs-contactrecord/success/success.module#SuccessPageModule' },
+  { path: 'systemsetup', loadChildren: './serving/home.com/systemsetup/systemsetup.module#SystemsetupPageModule' },
+  { path: 'about', loadChildren: './serving/home.com/about/about.module#AboutPageModule' },
+  { path: 'change-password', loadChildren: './serving/home.com/change-password/change-password.module#ChangePasswordPageModule' },
+
+
+
 
 
  
