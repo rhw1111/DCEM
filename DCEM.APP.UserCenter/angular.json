@@ -33,6 +33,9 @@
             ],
             "styles": [
               {
+                "input": "src/assets/css/ng-zorro-antd-mobile.css"
+              },
+              {
                 "input": "src/theme/variables.scss"
               },
               {
