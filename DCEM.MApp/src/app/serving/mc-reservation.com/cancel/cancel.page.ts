@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page,DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { OptionSetService } from '../../../base/base.ser/optionset.service';
 
 @Component({
   selector: 'app-cancel',
@@ -15,6 +16,7 @@ export class CancelPage implements OnInit {
         },
         postData: {},
         appointmentinfoid: "",//当前记录id
+        cancelReasonOption:[]//取消原因
     };
 
     //定义共享数据
@@ -28,6 +30,7 @@ export class CancelPage implements OnInit {
         private _page: DCore_Page,
         private activeRoute: ActivatedRoute,
         private _valid: DCore_Valid,
+        private _optionset: OptionSetService
     ) { }
 
     ngOnInit() {
@@ -36,6 +39,9 @@ export class CancelPage implements OnInit {
                 this.model.appointmentinfoid = params['id'];
             }
         });
+
+        //取消原因
+        this.model.cancelReasonOption = this._optionset.Get("mcs_cancelreasonnew");
   }
 
     saveOnClick() {
