@@ -36,6 +36,7 @@ export class ListPage implements OnInit {
 
   ngOnInit() {
     this.model.params.PageIndex = 1;
+    this._page.loadingShow();
     this.getList(null);
   }
 
@@ -75,14 +76,12 @@ selectTab(status) {
     else {
         this.model.params.mcs_rostatus = 0;
     }
+    this._page.loadingShow();
     this.getList(null);
 }
 
  //获取列表数据
  getList(event) {
-  //debugger;
- 
-  this._page.loadingShow();
   this._http.postForToaken(this.model.apiUrl,
       this.model.params,
       (res: any) => {

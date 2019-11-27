@@ -3,7 +3,7 @@
         <ion-buttons slot="start">
             <ion-back-button text="返回" defaultHref="/"></ion-back-button>
         </ion-buttons>
-        <ion-title>创建或编辑技术支持</ion-title>
+        <ion-title>{{model.viewData.title}}</ion-title>
         <ion-buttons slot="end">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
@@ -176,7 +176,7 @@
             </ion-label>
         </ion-item-divider>
         <ion-item>
-            <ion-label position="stacked">技术系统</ion-label>
+            <ion-label position="stacked">技术系统<ion-text color="danger">*</ion-text></ion-label>
             <ion-select [(ngModel)]="model.postData.mcs_techsystem" value="" okText="确认" cancelText="取消">
                 <ion-select-option value="10">车身</ion-select-option>
                 <ion-select-option value="20">底盘</ion-select-option>

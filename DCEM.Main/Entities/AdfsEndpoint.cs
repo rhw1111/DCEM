@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using MSLibrary;
 using MSLibrary.DI;
 using MSLibrary.Oauth.ADFS;
+using MSLibrary.LanguageTranslate;
 
 namespace DCEM.Main.Entities
 {
@@ -150,8 +151,23 @@ namespace DCEM.Main.Entities
 
             SecurityToken validatedToken;
             JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
-            var claims = handler.ValidateToken(token, validationParameters, out validatedToken);
-            return claims;
+            try
+            {
+                var claims = handler.ValidateToken(token, validationParameters, out validatedToken);
+                return claims;
+            }
+            catch (Exception ex)
+            {
+                var fragment = new TextFragment()
+                {
+                    Code = TextCodes.JWTExpire,
+                    DefaultFormatting = $"JWT字符串{token}已经过期，请重新登录！",
+                    ReplaceParameters = new List<object>() { token
+                    , HashEntityNames.CommonLog }
+                };
+
+                throw new UtilityException((int)Errors.EntityAttributeMetadataValueTypeNotMatchEntityAttributeValueKeyConvertService, fragment);
+            }
         }
     }
 }
