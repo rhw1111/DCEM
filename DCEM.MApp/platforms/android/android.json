@@ -75,7 +75,7 @@
           "/*": [
             {
               "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
-              "count": 2
+              "count": 3
             }
           ],
           "/manifest/application": [
@@ -117,6 +117,10 @@
             },
             {
               "xml": "<feature name=\"IonicWebView\"><param name=\"android-package\" value=\"com.ionicframework.cordova.webview.IonicWebView\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"FullScreenImage\"><param name=\"android-package\" value=\"es.keensoft.fullscreenimage.FullScreenImage\" /></feature>",
               "count": 1
             }
           ]
@@ -164,6 +168,9 @@
       "PACKAGE_NAME": "ms.crmapp.seleassist"
     },
     "cordova-plugin-x-toast": {
+      "PACKAGE_NAME": "ms.crmapp.seleassist"
+    },
+    "es.keensoft.fullscreenimage": {
       "PACKAGE_NAME": "ms.crmapp.seleassist"
     }
   },
@@ -427,6 +434,14 @@
       "clobbers": [
         "window.plugins.toast"
       ]
+    },
+    {
+      "id": "es.keensoft.fullscreenimage.FullScreenImage",
+      "file": "plugins/es.keensoft.fullscreenimage/www/fullscreenimage.js",
+      "pluginId": "es.keensoft.fullscreenimage",
+      "clobbers": [
+        "window.FullScreenImage"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -442,6 +457,7 @@
     "cordova-plugin-statusbar": "2.4.2",
     "cordova-plugin-telerik-imagepicker": "2.3.3",
     "cordova-plugin-whitelist": "1.3.3",
-    "cordova-plugin-x-toast": "2.7.2"
+    "cordova-plugin-x-toast": "2.7.2",
+    "es.keensoft.fullscreenimage": "1.0.1"
   }
 }

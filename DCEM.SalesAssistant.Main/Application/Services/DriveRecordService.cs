@@ -102,9 +102,10 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 entity.Attributes.Add("mcs_carmodel", carModelEntityRef);
             }
             //业务类型
-            if (request.driveRecord.mcs_businesstype != null)
+            if (!string.IsNullOrWhiteSpace(request.driveRecord.mcs_businesstype))
             {
-                entity.Attributes.Add("mcs_businesstype", request.driveRecord.mcs_businesstype);
+                var mcs_businesstype = int.Parse(request.driveRecord.mcs_businesstype);
+                entity.Attributes.Add("mcs_businesstype", mcs_businesstype);
             }
             //预约日期
             if (request.driveRecord.mcs_ordertime != null)

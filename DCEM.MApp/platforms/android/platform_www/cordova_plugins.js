@@ -258,6 +258,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "window.plugins.toast"
       ]
+    },
+    {
+      "id": "es.keensoft.fullscreenimage.FullScreenImage",
+      "file": "plugins/es.keensoft.fullscreenimage/www/fullscreenimage.js",
+      "pluginId": "es.keensoft.fullscreenimage",
+      "clobbers": [
+        "window.FullScreenImage"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -273,6 +281,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-statusbar": "2.4.2",
     "cordova-plugin-telerik-imagepicker": "2.3.3",
     "cordova-plugin-whitelist": "1.3.3",
-    "cordova-plugin-x-toast": "2.7.2"
+    "cordova-plugin-x-toast": "2.7.2",
+    "es.keensoft.fullscreenimage": "1.0.1"
   };
 });

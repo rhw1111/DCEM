@@ -1,3 +1,83 @@
-<p>
-  login works!
-</p>
+<ion-item lines="none">
+  <ion-label style="margin-top: 20px;">
+    <img src="../assets/img/close.png" style="width: 20px;">
+  </ion-label>
+</ion-item>
+
+
+<ion-content *ngIf="disstatus">
+  <ion-card-header style="margin-bottom: 50px;">
+    <ion-card-title style="height: 50px;"> 您好，</ion-card-title>
+    <ion-card-subtitle style="color: #504e4e;font-weight: 100;"> 欢迎来到车联网DEMO</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-item>
+      <ion-input placeholder="输入您的电话号码"></ion-input>
+    </ion-item>
+    <ion-item lines="none" style="font-size: 0.9rem;" *ngIf="valmsg">
+      <ion-label color="danger">
+        验证信息
+      </ion-label>
+    </ion-item>
+
+  </ion-card-content>
+  <div class="ion-padding">
+    <ion-label style="color: #a0a0a0;font-size: 0.8rem;">
+      &nbsp;&nbsp;&nbsp;&nbsp;点击获取验证码视为您已阅读
+      <ion-router-link href="#" class="underline ios ion-activatable hydrated">《用户协议》</ion-router-link>
+      与
+      <ion-router-link href="#" class="underline ios ion-activatable hydrated">《隐私协议》</ion-router-link>
+    </ion-label>
+  </div>
+  <div class="ion-padding">
+    <ion-button expand="block" type="submit"
+      class="ion-no-margin ios button button-block button-solid ion-activatable ion-focusable hydrated">
+      获取验证码
+    </ion-button>
+  </div>
+</ion-content>
+
+
+<ion-content *ngIf="!disstatus">
+  <ion-card-header style="margin-bottom: 50px;">
+    <ion-card-title style="height: 50px;"> 期待您的加入</ion-card-title>
+    <ion-card-subtitle style="color: #504e4e;font-weight: 100;"> 您的加入使DEMO更加精彩</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content>
+      <ion-item lines="none" style="font-size: 0.9rem;" *ngIf="valmsg">
+          <ion-label  >
+            已发送验证码至 {{phone}}
+          </ion-label>
+        </ion-item>
+    <ion-item lines="none" style="font-size: 0.9rem;" *ngIf="valmsg">
+      <ion-row>
+        <ion-col>
+          <input type="number" style=" width: 100%;height: 50px;border: 0px;border-bottom: 1px solid #4a4a4a;" />
+        </ion-col>
+        <ion-col>
+          <input type="number" style=" width: 100%;height: 50px;border: 0px;border-bottom: 1px solid #4a4a4a;" />
+        </ion-col>
+        <ion-col>
+          <input type="number" style=" width: 100%;height: 50px;border: 0px;border-bottom: 1px solid #4a4a4a;" />
+        </ion-col>
+        <ion-col>
+          <input type="number" style=" width: 100%;height: 50px;border: 0px;border-bottom: 1px solid #4a4a4a;" />
+        </ion-col>  
+      </ion-row>
+
+    </ion-item>
+
+  </ion-card-content>
+</ion-content>
+<ion-footer style="text-align: center;color: #8e8c8c;font-size: 0.8rem;">
+  <ion-item lines="none" style="text-align:center;    color: #a0a0a0;">
+    <ion-label>其它登陆方式</ion-label>
+  </ion-item>
+  <ion-toolbar>
+    <ion-title>
+      <img src="../assets/img/wechat.png" style="width: 35px;">
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>

@@ -6,22 +6,51 @@
     <ion-title>
       <ion-label>体验中心</ion-label>
     </ion-title>
-  </ion-toolbar> 
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item (click)="provinceOnClick()">
+
+  <div id="container" class="container">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-chip color="primary" class="ionchip" (click)="provinceOnClick()">
+            <ion-icon name="pin"></ion-icon>
+            <ion-label class="ionlabel" >{{model.info.provincename}}</ion-label>
+          </ion-chip>
+        </ion-col>
+        <ion-col>
+          <ion-chip color="primary" class="ionchip" (click)="cityOnClick()">
+            <ion-icon name="pin"></ion-icon>
+            <ion-label class="ionlabel" >{{model.info.cityname}}</ion-label>
+          </ion-chip>
+        </ion-col>
+        <ion-col>
+          <ion-chip color="primary" class="ionchip" (click)="districtOnClick()">
+            <ion-icon name="pin"></ion-icon>
+            <ion-label class="ionlabel">{{model.info.areaname}}</ion-label>
+          </ion-chip>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </div>
+
+
+
+
+  <!--<ion-item (click)="provinceOnClick()">
       <ion-label position="stacked">省：</ion-label>
       <p>{{model.info.provincename}}&nbsp;</p>
-  </ion-item>
-  <ion-item (click)="cityOnClick()">
+    </ion-item>
+    <ion-item (click)="cityOnClick()">
       <ion-label position="stacked">市：</ion-label>
       <p>{{model.info.cityname}}&nbsp;</p>
-  </ion-item>
-  <ion-item (click)="districtOnClick()">
+    </ion-item>
+    <ion-item (click)="districtOnClick()">
       <ion-label position="stacked">区：</ion-label>
       <p>{{model.info.areaname}}&nbsp;</p>
-  </ion-item>
-  </ion-list>
+    </ion-item>
+  </ion-list>-->
 </ion-content>

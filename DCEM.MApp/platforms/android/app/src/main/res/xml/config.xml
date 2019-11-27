@@ -85,4 +85,7 @@
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
+    <feature name="FullScreenImage">
+        <param name="android-package" value="es.keensoft.fullscreenimage.FullScreenImage" />
+    </feature>
 </widget>

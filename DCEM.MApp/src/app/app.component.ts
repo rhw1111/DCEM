@@ -71,9 +71,15 @@ export class AppComponent {
             //this.splashScreen.hide();
             /** 设置智能竖屏*/
             //this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY);
-            if(location.href.indexOf('base/uc/welcome')==-1 && !this.authService.isAuthenticated()){
-                this._page.goto("base/uc/login");
+            if(location.href.indexOf('base/uc/welcome')==-1){
+                if(!this.authService.isAuthenticated()){
+                    this._page.goto("base/uc/login");
+                }
+                else{
+                    this._page.goto("serving/home/index");
+                }
             }
+            
             //this.headpicture = "assets/img/head_default.jpg";
             //console.log("开始welcomeisloading");
             //var welcomeisloading=this._window.storageGet("welcomeisloading");

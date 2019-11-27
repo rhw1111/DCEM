@@ -38,6 +38,7 @@ export class EditPage implements OnInit {
         ifCancel: false,//是否取消操作
         ifSave: true,//是否新增或编辑
         ifEdit: false,//编辑
+        ifHaveTime: false//是否有时段
     };
 
     constructor(
@@ -49,6 +50,9 @@ export class EditPage implements OnInit {
         private _optionset: OptionSetService) { }
 
     ngOnInit() {
+  }
+
+    ionViewWillEnter() {
         debugger;
         //预约车型
         this.CarModelOption();
@@ -82,13 +86,10 @@ export class EditPage implements OnInit {
             }
 
             //业务类型
-            this.model.businessTypeOption = this._optionset.Get("mcs_drivebusinesstype");
+            this.model.businessTypeOption = this._optionset.Get("mcs_businesstype");
 
         });
-  }
-
-    //ionViewWillEnter() {
-    //}
+    }
 
     //试驾路线
     public DriveRouteOption() {
@@ -254,6 +255,7 @@ export class EditPage implements OnInit {
                     if (testdrivetime != null) {
                         this.model.driveRecord["mcs_testdrivetime"] = testdrivetime;
                     }
+                    this.model.ifHaveTime = true;
                 }
                 else {
                     this._page.alert("消息提示", "试驾车型数据加载异常");
@@ -346,37 +348,41 @@ export class EditPage implements OnInit {
             this._page.presentToastError("请选择试驾预约时段");
             return;
         }
-
         this.model.postData["driveRecord"] = this.model.driveRecord;
-        this.model.postData["driveRecord"]["mcs_businesstype"] = Number(this.model.driveRecord["mcs_businesstype"]);
-
+        //let mcs_businesstype: number = this.model.driveRecord["mcs_businesstype"];
+        //this.model.postData["driveRecord"]["mcs_businesstype"] = Number(mcs_businesstype);
         //试驾状态(已提交 10、已预约 11、已排程 12、已取消 13、试驾开始 14、试驾结束  15、已反馈  16，已删除 17)
         //新增
-        if (this.model.actionCode==1) {
-            this.model.postData["driveRecord"]["mcs_drivestatus"] = 10;
+        var mcs_drivestatus: number = this.model.driveRecord["mcs_drivestatus"];
+        if (this.model.actionCode == 1) {
+            mcs_drivestatus = 10;
+            this.model.postData["driveRecord"]["mcs_drivestatus"] = mcs_drivestatus;
         }
         //编辑
         if (this.model.actionCode == 2) {
-            this.model.postData["driveRecord"]["mcs_drivestatus"] = Number(this.model.driveRecord["mcs_drivestatus"]);
+            this.model.postData["driveRecord"]["mcs_drivestatus"] = Number(mcs_drivestatus);
         }
         //排程
         if (this.model.actionCode == 3) {
-            this.model.postData["driveRecord"]["mcs_drivestatus"] = 12;
+            mcs_drivestatus = 12;
+            this.model.postData["driveRecord"]["mcs_drivestatus"] = mcs_drivestatus;
         }
         //已取消
         if (this.model.actionCode == 4) {
+            mcs_drivestatus = 14;
             //校验试驾取消
             if (this._valid.isNullOrEmpty(this.model.driveRecord["mcs_cancelreason"])) {
                 this._page.presentToastError("请填写取消原因");
                 return;
             }
-            this.model.postData["driveRecord"]["mcs_drivestatus"] = 14;
+            this.model.postData["driveRecord"]["mcs_drivestatus"] = mcs_drivestatus;
         }
 
         this._page.loadingShow();
         this._http.postForToaken(
             this.model.postApiUrl, this.model.postData,
             (res: any) => {
+              
                 this._page.loadingHide();
                 if (res.Result == true) {
                     console.log("res");
@@ -425,7 +431,7 @@ export class EditPage implements OnInit {
                 postData.url = element["url"];
                 postData.id = id;
                 postData.mcs_filecategory = 22; //附件类型
-                postData.mcs_partnertype = 19;  //上牌记录
+                postData.mcs_partnertype = 19;  //合作类型
                 postData.attrname = "mcs_driverecordid";
                 postData.entitylookup = "mcs_driverecord";
                 uploaddata.push(postData);
