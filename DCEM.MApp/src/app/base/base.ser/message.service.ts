@@ -10,7 +10,7 @@ export class MessageService {
   //------------标题信息-----------------
   /**消息提醒 */
   public static AlterTitleMessage:any='消息提醒';
-  
+ 
   //------------错误提示-----------------
   /**请求异常*/
   public static ErrorRequestException:string='请求异常';
@@ -40,4 +40,8 @@ export class MessageService {
   public static PageTitleEditTech:any='编辑技术支持申请单';
   /**新增技术支持申请单*/
   public static PageTitleAddTech:any='新增技术支持申请单';
+  /**暂时没有数据 */
+  public static PageNoData:any='暂时没有数据';
+  /**没有更多数据了 */
+  public static PageNoMore:any='没有更多数据了';
 }

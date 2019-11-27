@@ -26,6 +26,10 @@ export class ListPage implements OnInit {
         sort: 'mcs_supportorderid desc',//排序的参数
         isending: false//是否加载完成
     };
+    public PageMessage:any={
+        PageNoMore:MessageService.PageNoMore,
+        PageNoData:MessageService.PageNoData,
+    }
 
     constructor(
         private _http: DCore_Http,

@@ -4,6 +4,7 @@ import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { OptionSetService } from '../../../base/base.ser/optionset.service';
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
+import { MessageService } from 'app/base/base.ser/message.service';
 @Component({
   selector: 'app-list',
   templateUrl: './list.page.html',
@@ -28,7 +29,14 @@ export class ListPage implements OnInit {
     scheduledCount:0,//已排程数量
     submittedCount:0,//已提交数量
     ifDoLoading: false,//是否初始加载
+    searchnodata:false,
   };
+
+  public PageMessage={
+    PageNoData:MessageService.PageNoData,
+    PageNoMore:MessageService.PageNoMore,
+  } ;
+
 
   constructor(
     private _http: DCore_Http,
@@ -123,10 +131,13 @@ export class ListPage implements OnInit {
             this.httpService.SetDataCache(this.model.name, JSON.stringify(this.model.datalist).toString());
           }
           event ? event.target.complete() : '';
+          this.model.searchnodata=res.Results.length==0;
           //判断是否有新数据
           if (res.Results.length < this.model.pageSize) {
-            event ? event.target.disabled = true : "";
-            this.model.isending = true;
+            if(this.model.page>1){
+              event ? event.target.disabled = true : "";
+              this.model.isending = true;
+            }
           }
         }
         else {
