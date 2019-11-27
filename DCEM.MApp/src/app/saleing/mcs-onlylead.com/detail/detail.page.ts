@@ -65,7 +65,7 @@ constructor(
 ) {}
 
 ngOnInit() {
-    debugger;
+    //debugger;
     this.mod.datalist= [];
     this.mod.datalist2= [];
     
@@ -77,6 +77,7 @@ ngOnInit() {
 
             if (params['source'] != null && params['source'] != undefined && params['source'] == 2)  {          
                 this.pageOnLogCalllist();
+                this.tab = "Linklist";
             }
             else {
 

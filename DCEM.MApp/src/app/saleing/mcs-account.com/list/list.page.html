@@ -46,11 +46,11 @@
         </ion-note>
       </ion-item>
       <ion-item-options side="end">
-        <ion-item-option color="tertiary" [routerLink]="['/saleing/logcall/edit']" [queryParams]="{id:item.Id}">
-          +联络
+        <ion-item-option color="tertiary" [routerLink]="['/saleing/contactrecord/edit']" [queryParams]="{id:item.Id}">
+          联络
         </ion-item-option>
-        <ion-item-option color="warning" [routerLink]="['/saleing/activity/edit']" [queryParams]="{id:item.Id}">
-          +培育
+        <ion-item-option color="primary" [routerLink]="['/saleing/cultivatetask/edit']" [queryParams]="{type:3,sourid:item.Id}">
+          培育
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
@@ -64,7 +64,7 @@
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多..."></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button>
       <ion-icon name="arrow-dropup"></ion-icon>
     </ion-fab-button>
@@ -77,5 +77,5 @@
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
-  </ion-fab>
+  </ion-fab> -->
 </ion-content>
