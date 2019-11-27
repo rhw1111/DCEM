@@ -25,154 +25,36 @@
 </ion-header>
 
 <ion-content>
-    <div class="goods-list">
-        <div class="panel">
-            <ion-tab-button class="panellist" [routerLink]="['/servicecenter/vehiclemall/detail']">
-                <div class="img">
-                    <img src="./assets/img/goods-list.jpg" />
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+            <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中...">
+            </ion-refresher-content> 
+    </ion-refresher>
+    <ion-list lines="full">
+            <div class="goods-list" *ngFor="let item of model.datalist ">
+                    <div class="panel">
+                        <ion-tab-button class="panellist" [routerLink]="['/servicecenter/vehiclemall/detail']">
+                            <div class="img">
+                                <img src="./assets/img/goods-list.jpg" />
+                            </div>
+                            <div class="name">
+                                {{item.Name}}
+                            </div>
+                            <div class="price">
+                                ¥{{item.BasePrice}}元
+                            </div>
+                        </ion-tab-button>
+                    </div>
                 </div>
-                <div class="name">
-                    奥迪 S7 Sportback
-                </div>
-                <div class="price">
-                    ¥9999元
-                </div>
-            </ion-tab-button>
-        </div>
-    </div>
-    <div class="goods-list">
-        <div class="panel">
-            <ion-tab-button class="panellist" [routerLink]="['/servicecenter/vehiclemall/detail']">
-                <div class="img">
-                    <img src="./assets/img/goods-list.jpg" />
-                </div>
-                <div class="name">
-                    奥迪 S7 Sportback
-                </div>
-                <div class="price">
-                    ¥9999元
-                </div>
-            </ion-tab-button>
-        </div>
-    </div>
-    <div class="goods-list">
-        <div class="panel">
-            <ion-tab-button class="panellist" [routerLink]="['/servicecenter/vehiclemall/detail']">
-                <div class="img">
-                    <img src="./assets/img/goods-list.jpg" />
-                </div>
-                <div class="name">
-                    奥迪 S7 Sportback
-                </div>
-                <div class="price">
-                    ¥9999元
-                </div>
-            </ion-tab-button>
-        </div>
-    </div>
-    <div class="goods-list">
-        <div class="panel">
-            <ion-tab-button class="panellist" [routerLink]="['/servicecenter/vehiclemall/detail']">
-                <div class="img">
-                    <img src="./assets/img/goods-list.jpg" />
-                </div>
-                <div class="name">
-                    奥迪 S7 Sportback
-                </div>
-                <div class="price">
-                    ¥9999元
-                </div>
-            </ion-tab-button>
-        </div>
-    </div>
-    <div class="goods-list">
-        <div class="panel">
-            <ion-tab-button class="panellist" [routerLink]="['/servicecenter/vehiclemall/detail']">
-                <div class="img">
-                    <img src="./assets/img/goods-list.jpg" />
-                </div>
-                <div class="name">
-                    奥迪 S7 Sportback
-                </div>
-                <div class="price">
-                    ¥9999元
-                </div>
-            </ion-tab-button>
-        </div>
-    </div>
-    <div class="goods-list">
-        <div class="panel">
-            <ion-tab-button class="panellist" [routerLink]="['/servicecenter/vehiclemall/detail']">
-                <div class="img">
-                    <img src="./assets/img/goods-list.jpg" />
-                </div>
-                <div class="name">
-                    奥迪 S7 Sportback
-                </div>
-                <div class="price">
-                    ¥9999元
-                </div>
-            </ion-tab-button>
-        </div>
-    </div>
-    <div class="goods-list">
-        <div class="panel">
-            <ion-tab-button class="panellist" [routerLink]="['/servicecenter/vehiclemall/detail']">
-                <div class="img">
-                    <img src="./assets/img/goods-list.jpg" />
-                </div>
-                <div class="name">
-                    奥迪 S7 Sportback
-                </div>
-                <div class="price">
-                    ¥9999元
-                </div>
-            </ion-tab-button>
-        </div>
-    </div>
-    <div class="goods-list">
-        <div class="panel">
-            <ion-tab-button class="panellist" [routerLink]="['/servicecenter/vehiclemall/detail']">
-                <div class="img">
-                    <img src="./assets/img/goods-list.jpg" />
-                </div>
-                <div class="name">
-                    奥迪 S7 Sportback
-                </div>
-                <div class="price">
-                    ¥9999元
-                </div>
-            </ion-tab-button>
-        </div>
-    </div>
-    <div class="goods-list">
-        <div class="panel">
-            <ion-tab-button class="panellist" [routerLink]="['/servicecenter/vehiclemall/detail']">
-                <div class="img">
-                    <img src="./assets/img/goods-list.jpg" />
-                </div>
-                <div class="name">
-                    奥迪 S7 Sportback
-                </div>
-                <div class="price">
-                    ¥9999元
-                </div>
-            </ion-tab-button>
-        </div>
-    </div>
-    <div class="goods-list">
-        <div class="panel">
-            <ion-tab-button class="panellist" [routerLink]="['/servicecenter/vehiclemall/detail']">
-                <div class="img">
-                    <img src="./assets/img/goods-list.jpg" />
-                </div>
-                <div class="name">
-                    奥迪 S7 Sportback
-                </div>
-                <div class="price">
-                    ¥9999元
-                </div>
-            </ion-tab-button>
-        </div>
-    </div>
+    </ion-list>
+
+    <ion-row *ngIf="model.isending">
+        <ion-col class="nodata" text-center>
+          <label style="color:gray;">没有更多内容啦</label>
+        </ion-col>
+      </ion-row>
+      
+      <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doLoading($event)"> 
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多..."> 
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
 </ion-content>
