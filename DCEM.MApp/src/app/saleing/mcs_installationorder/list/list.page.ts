@@ -2,7 +2,7 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 import { HttpService } from '../../../base/base.ser/http-service.service';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { IonInfiniteScroll } from '@ionic/angular';
-import { OptionSetService } from '../../saleing.ser/optionset.service';
+import { OptionSetService } from '../../../base/base.ser/optionset.service';
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 
 @Component({

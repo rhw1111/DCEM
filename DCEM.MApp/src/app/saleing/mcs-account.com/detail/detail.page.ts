@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { OptionSetService } from '../../saleing.ser/optionset.service';
+import { OptionSetService } from '../../../base/base.ser/optionset.service';
 import { Dateformat } from '../../../base/base.ser/dateformat';
 import { Storage_LoginInfo } from '../../../base/base.ser/logininfo.storage';
 import { IonContent, IonInfiniteScroll } from '@ionic/angular';

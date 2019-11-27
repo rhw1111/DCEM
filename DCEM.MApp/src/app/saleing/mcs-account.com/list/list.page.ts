@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonContent, IonInfiniteScroll } from '@ionic/angular';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
-import { OptionSetService } from '../../saleing.ser/optionset.service';
+import { OptionSetService } from '../../../base/base.ser/optionset.service';
 
 @Component({
     selector: 'app-list',
