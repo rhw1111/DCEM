@@ -76,14 +76,17 @@ namespace DCEM.Web
                 }
             });
 
-            app.UseFileServer(new FileServerOptions()
+            if (Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "FilesDir")))
             {
-                FileProvider = new PhysicalFileProvider
-                (
-                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "FilesDir")),   //实际目录地址
-                RequestPath = new Microsoft.AspNetCore.Http.PathString("/FilesDir"),  //用户访问地址
-                EnableDirectoryBrowsing = true                                     //开启目录浏览
-            });
+                app.UseFileServer(new FileServerOptions()
+                {
+                    FileProvider = new PhysicalFileProvider
+                                (
+                                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "FilesDir")),   //实际目录地址
+                    RequestPath = new Microsoft.AspNetCore.Http.PathString("/FilesDir"),  //用户访问地址
+                    EnableDirectoryBrowsing = true                                     //开启目录浏览
+                });
+            }
 
             app.UseWhen(
                c => c.Request.Path.Value.Contains("FilesDir"),
