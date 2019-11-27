@@ -7,8 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
+  public valmsg:any=true;
+  public disstatus:any=true;
+  public phone:any='';
   constructor() { }
 
+  onSendMsg(){
+    this.disstatus=true; 
+  }
   ngOnInit() {}
 
 }

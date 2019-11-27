@@ -37,7 +37,7 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         /// <summary>
         /// 业务类型 10-试乘，11-试驾
         /// </summary>
-        public int? mcs_businesstype { get; set; }
+        public string mcs_businesstype { get; set; }
 
         /// <summary>
         /// 预约日期
@@ -60,7 +60,7 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         public Guid? mcs_consultantid { get; set; }
 
         /// <summary>
-        /// 试驾类型 10-试乘，11-试驾
+        /// 试驾状态(已提交 10、已预约 11、已排程 12、已取消 13、试驾开始 14、试驾结束  15、已反馈  16，已删除 17)
         /// </summary>
         public int? mcs_drivestatus { get; set; }
 

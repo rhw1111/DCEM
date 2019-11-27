@@ -10,14 +10,15 @@
                         <ion-col text-center>
                             <div class="dm-top-nav-tag-text selected">推荐</div>
                         </ion-col>
+
                         <ion-col text-center>
-                            <div class="dm-top-nav-tag-text">朋友圈</div>
+                            <div class="dm-top-nav-tag-text">活动</div>
+                        </ion-col>
+                        <ion-col text-center>
+                            <div class="dm-top-nav-tag-text">资讯</div>
                         </ion-col>
                         <ion-col text-center>
                             <div class="dm-top-nav-tag-text">问答</div>
-                        </ion-col>
-                        <ion-col text-center>
-                            <div class="dm-top-nav-tag-text">活动</div>
                         </ion-col>
                     </ion-row>
                 </ion-grid>
@@ -30,36 +31,25 @@
 </ion-header>
 
 <ion-content style="overflow:no-display">
-    <ion-slides style="height:100%">
+    <ion-slides style="height:100%" (ionSlideWillChange)="slideChange($event)">
         <ion-slide style="height:100%">
             <div style="width:100%; height:100%;overflow:scroll;overflow-y:auto;overflow-x:hidden">
-                <ion-grid>
-                    <ion-row>
-                        <ion-col>
-                            头
-                            <br />
-                            <img src="../assets/img/1png.png" />
-                            <img src="../assets/img/1png.png" />
-                            <img src="../assets/img/1png.png" />
-                            <img src="../assets/img/1png.png" />
-                            <br />
-                            尾
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
+                推荐
             </div>
         </ion-slide>
         <ion-slide style="height:100%">
             <div style="width:100%; height:100%;overflow:scroll;overflow-y:auto;overflow-x:hidden">
-                <ion-grid>
-                    <ion-row>
-                        <ion-col>
-                            头
-
-                            尾
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
+                朋友圈
+            </div>
+        </ion-slide>
+        <ion-slide style="height:100%">
+            <div style="width:100%; height:100%;overflow:scroll;overflow-y:auto;overflow-x:hidden">
+                问答
+            </div>
+        </ion-slide>
+        <ion-slide style="height:100%">
+            <div style="width:100%; height:100%;overflow:scroll;overflow-y:auto;overflow-x:hidden">
+                活动
             </div>
         </ion-slide>
     </ion-slides>

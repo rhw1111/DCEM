@@ -11,7 +11,7 @@ import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 })
 export class ListPage implements OnInit {
   @ViewChild(IonInfiniteScroll, null) infiniteScroll: IonInfiniteScroll;
-
+  public tab: any = "all";
   public model = {
     name: 'mcs_driverecord',//模块实体名称
     apiUrl: '/api/drive-record/QueryList',//请求地址
@@ -26,8 +26,8 @@ export class ListPage implements OnInit {
     systemUserId:'',
     aLLTotalCount:0,//总数量
     scheduledCount:0,//已排程数量
-    submittedCount:0//已提交数量
-
+    submittedCount:0,//已提交数量
+    ifDoLoading: false,//是否初始加载
   };
 
   constructor(
@@ -66,7 +66,8 @@ export class ListPage implements OnInit {
   }
   //加载下一页
   doLoading(event) {
-    this.model.page++;
+      this.model.page++;
+      this.model.ifDoLoading = true;
     this.getList(event);
   }
   //切换tab
@@ -80,25 +81,24 @@ export class ListPage implements OnInit {
     }
     else {
       this.model.status = 0;
-    }
+      }
+      this.model.ifDoLoading = false;
     this.getList(null);
   }
 
   //获取列表数据
   getList(event) {
     //debugger;
-    this._page.loadingShow();
-    this._http.get(this.model.apiUrl,
+      if (!this.model.ifDoLoading) {
+          this._page.loadingShow();
+      }
+      this._http.getForToaken(this.model.apiUrl,
       {
-        params: {
-          Status: this.model.status,
-          Search: this.model.seachkey,
-          DealerId:this.model.DealerId,
-          sort: this.model.sort,
-          pageSize: this.model.pageSize,
-          page: this.model.page,
-          systemuserid: this.model.systemUserId
-        }
+          "Status": this.model.status,
+          "Search": this.model.seachkey,
+          "Sort": this.model.sort,
+          "PageSize": this.model.pageSize,
+          "PageIndex": this.model.page,
       },
       (res: any) => { 
          
