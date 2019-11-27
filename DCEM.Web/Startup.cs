@@ -81,11 +81,14 @@ namespace DCEM.Web
                 app.UseFileServer(new FileServerOptions()
                 {
                     FileProvider = new PhysicalFileProvider
-                                (
-                                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "FilesDir")),   //实际目录地址
+                               (
+                                   Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "FilesDir")),   //实际目录地址
                     RequestPath = new Microsoft.AspNetCore.Http.PathString("/FilesDir"),  //用户访问地址
                     EnableDirectoryBrowsing = true                                     //开启目录浏览
                 });
+            }
+            else {
+                Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "FilesDir"));
             }
 
             app.UseWhen(

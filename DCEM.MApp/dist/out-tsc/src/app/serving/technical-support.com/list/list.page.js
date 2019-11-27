@@ -2,6 +2,7 @@ import * as tslib_1 from "tslib";
 import { Component, ViewChild } from '@angular/core';
 import { HttpService } from '../../../base/base.ser/http-service.service';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
+import { MessageService } from 'app/base/base.ser/message.service';
 import sd from 'silly-datetime';
 import { IonInfiniteScroll } from '@ionic/angular';
 let ListPage = class ListPage {
@@ -23,12 +24,12 @@ let ListPage = class ListPage {
         };
     }
     ngOnInit() {
-    }
-    //每次页面加载
-    ionViewWillEnter() {
         this.model.page = 1;
         this._page.loadingShow();
         this.getList(null);
+    }
+    //每次页面加载
+    ionViewWillEnter() {
     }
     //搜索方法
     search(event) {
@@ -104,11 +105,11 @@ let ListPage = class ListPage {
                 }
             }
             else {
-                this._page.alert("消息提示", "数据加载异常");
+                this._page.alert(MessageService.AlterTitleMessage, MessageService.ErrorRequestException);
             }
             this._page.loadingHide();
         }, (err) => {
-            this._page.alert("消息提示", "数据加载异常");
+            this._page.alert(MessageService.AlterTitleMessage, MessageService.ErrorRequestException);
             this._page.loadingHide();
         });
     }

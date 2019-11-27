@@ -7,8 +7,9 @@ import { SelectAppointmentconfigComponent } from 'app/serving/serving.ser/compon
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 import sd from 'silly-datetime';
 import { ActivatedRoute } from '@angular/router';
+import { OptionSetService } from '../../../base/base.ser/optionset.service';
 let EditPage = class EditPage {
-    constructor(_modalCtrl, _navCtrl, _http, _page, _logininfo, _shareData, _valid, activeRoute) {
+    constructor(_modalCtrl, _navCtrl, _http, _page, _logininfo, _shareData, _valid, activeRoute, _optionset) {
         this._modalCtrl = _modalCtrl;
         this._navCtrl = _navCtrl;
         this._http = _http;
@@ -17,6 +18,7 @@ let EditPage = class EditPage {
         this._shareData = _shareData;
         this._valid = _valid;
         this.activeRoute = activeRoute;
+        this._optionset = _optionset;
         this.model = {
             apiUrl: '/api/appointment-info/GetDetail',
             postApiUrl: '/Api/appointment-info/AddOrEdit',
@@ -32,7 +34,8 @@ let EditPage = class EditPage {
             isAppointmentConfigChange: true,
             customerId: "",
             appointmentConfigOptionMap: {},
-            ifAddOrEdit: false //是否新增或编辑(控制页面title)
+            ifAddOrEdit: false,
+            orderTypeOption: [] //服务类型
         };
         //定义共享数据
         this.shareData = {
@@ -58,6 +61,8 @@ let EditPage = class EditPage {
                 this.customerOnBind(this.model.customerId);
             }
         });
+        //服务类型
+        this.model.orderTypeOption = this._optionset.Get("mcs_ordertype");
     }
     //获取预约时段
     AppointmentConfigOption(ordertype, appointmentat) {
@@ -333,7 +338,8 @@ EditPage = tslib_1.__decorate([
         Storage_LoginInfo,
         DCore_ShareData,
         DCore_Valid,
-        ActivatedRoute])
+        ActivatedRoute,
+        OptionSetService])
 ], EditPage);
 export { EditPage };
 //# sourceMappingURL=edit.page.js.map

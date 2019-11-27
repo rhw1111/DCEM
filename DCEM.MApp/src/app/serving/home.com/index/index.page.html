@@ -58,7 +58,6 @@
                    </div>
                 </ion-col>
             </ion-row>
-    
         </ion-grid>
     <ion-item-divider>
             <ion-label>销售</ion-label>
@@ -82,6 +81,14 @@
                    </div>
                 </ion-col>
                 <ion-col class="colbackground">
+                    <div>
+                          <ion-tab-button [routerLink]="['/saleing/account/list']">
+                              <ion-icon color="primary" size="large" name="logo-model-s"></ion-icon>
+                              <ion-label>销售机会</ion-label>
+                          </ion-tab-button>
+                    </div>
+                  </ion-col>
+                <ion-col class="colbackground">
                    <div>
                         <ion-tab-button [routerLink]="['/saleing/cultivatetask/list']">
                             <ion-icon color="primary" size="large" name="map"></ion-icon>
@@ -89,16 +96,16 @@
                         </ion-tab-button>
                    </div>
                 </ion-col>
-                <ion-col class="colbackground">
-                  <div>
-                        <ion-tab-button [routerLink]="['/saleing/account/list']">
-                            <ion-icon color="primary" size="large" name="logo-model-s"></ion-icon>
-                            <ion-label>销售机会</ion-label>
-                        </ion-tab-button>
-                  </div>
-                </ion-col>
             </ion-row>
             <ion-row>
+                    <ion-col>
+                            <div>
+                                 <ion-tab-button [routerLink]="['/saleing/driverecord/list']">
+                                     <ion-icon name="logo-model-s" color="primary" size="large"></ion-icon>
+                                     <ion-label>试乘试驾</ion-label>
+                                 </ion-tab-button>
+                            </div>
+                         </ion-col>
                 <ion-col>
                    <div>
                         <ion-tab-button [routerLink]="['/saleing/deliverycentercarstock/list']">
@@ -123,16 +130,16 @@
                             </ion-tab-button>
                     </div>
                 </ion-col>
-                <ion-col>
-                   <div>
-                        <ion-tab-button [routerLink]="['/saleing/vehnetwork/list']">
-                            <ion-icon color="primary"  size="large" name="logo-model-s"></ion-icon>
-                            <ion-label>开票信息</ion-label>
-                        </ion-tab-button>
-                   </div>
-                </ion-col>
             </ion-row>
             <ion-row>
+                    <ion-col>
+                            <div>
+                                 <ion-tab-button [routerLink]="['/saleing/vehnetwork/list']">
+                                     <ion-icon color="primary"  size="large" name="logo-model-s"></ion-icon>
+                                     <ion-label>开票信息</ion-label>
+                                 </ion-tab-button>
+                            </div>
+                         </ion-col>
                 <ion-col>
                  <div>
                         <ion-tab-button [routerLink]="['/saleing/vehlisense/list']">
@@ -150,37 +157,6 @@
                   </div>
                 </ion-col>
                 <ion-col>
-                  <div>
-                        <ion-tab-button [routerLink]="['/saleing/surveyorder/list']">
-                            <ion-icon name="cube" color="primary" size="large"></ion-icon>
-                            <ion-label>勘测单</ion-label>
-                        </ion-tab-button>
-                  </div>
-                </ion-col>
-    
-                <ion-col>
-                   <div>
-                        <ion-tab-button [routerLink]="['/saleing/driverecord/list']">
-                            <ion-icon name="logo-model-s" color="primary" size="large"></ion-icon>
-                            <ion-label>试乘试驾</ion-label>
-                        </ion-tab-button>
-                   </div>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                 <div>
-                        <ion-tab-button [routerLink]="['/saleing/installationorder/list']">
-                            <ion-icon name="cube" color="primary" size="large"></ion-icon>
-                            <ion-label>安装单</ion-label>
-                        </ion-tab-button>
-                 </div>
-                </ion-col>
-                <ion-col>
-                </ion-col>
-                <ion-col>
-                </ion-col>
-                <ion-col>
                 </ion-col>
             </ion-row>
         </ion-grid>
@@ -189,6 +165,14 @@
     </ion-item-divider>
     <ion-grid>
         <ion-row>
+                <ion-col>
+                        <div>
+                              <ion-tab-button [routerLink]="['/serving/mycustomer/list']">
+                                  <ion-icon color="primary" size="large" name="contacts"></ion-icon>
+                                  <ion-label>客户</ion-label>
+                              </ion-tab-button>
+                        </div>
+                      </ion-col>
             <ion-col>
                <div>
                     <ion-tab-button [routerLink]="['/serving/reservation/list']">
@@ -213,16 +197,7 @@
                     </ion-tab-button>
                </div>
             </ion-col>
-            <ion-col>
-              <div>
-                    <ion-tab-button [routerLink]="['/serving/mycustomer/list']">
-                        <ion-icon color="primary" size="large" name="contacts"></ion-icon>
-                        <ion-label>客户</ion-label>
-                    </ion-tab-button>
-              </div>
-            </ion-col>
         </ion-row>
-
         <ion-row>
             <ion-col>
                <div>
@@ -233,32 +208,55 @@
                </div>
             </ion-col>
             <ion-col>
-              <div>
-                    <ion-tab-button [routerLink]="['/serving/report/analytics']">
-                        <ion-icon color="primary" size="large" name="analytics"></ion-icon>
-                        <ion-label>报表</ion-label>
-                    </ion-tab-button>
-              </div>
-            </ion-col>
-            <ion-col>
-               <div>
-                    <ion-tab-button [routerLink]="['/serving/spmdspstock/list']">
-                        <ion-icon color="primary" size="large" name="cube"></ion-icon>
-                        <ion-label>备件库存</ion-label>
-                    </ion-tab-button>
-               </div>
-            </ion-col>
-            <ion-col>
-               <div>
-                    <ion-tab-button [routerLink]="['/serving/maintenance/calendar']">
-                        <ion-icon name="calendar" color="primary" size="large"></ion-icon>
-                        <ion-label>维保预约</ion-label>
-                    </ion-tab-button>
-               </div>
-            </ion-col>
+                    <div>
+                         <ion-tab-button [routerLink]="['/serving/spmdspstock/list']">
+                             <ion-icon color="primary" size="large" name="cube"></ion-icon>
+                             <ion-label>备件库存</ion-label>
+                         </ion-tab-button>
+                    </div>
+                 </ion-col>
+                 <ion-col>
+                        <div>
+                             <ion-tab-button [routerLink]="['/serving/maintenance/calendar']">
+                                 <ion-icon name="calendar" color="primary" size="large"></ion-icon>
+                                 <ion-label>维保预约</ion-label>
+                             </ion-tab-button>
+                        </div>
+                     </ion-col>
+                     <ion-col>
+                            <div>
+                                  <ion-tab-button [routerLink]="['/saleing/surveyorder/list']">
+                                      <ion-icon name="cube" color="primary" size="large"></ion-icon>
+                                      <ion-label>勘测单</ion-label>
+                                  </ion-tab-button>
+                            </div>
+                          </ion-col>
+           
+        </ion-row>
+        <ion-row>
+              
+                <ion-col>
+                        <div>
+                               <ion-tab-button [routerLink]="['/saleing/installationorder/list']">
+                                   <ion-icon name="cube" color="primary" size="large"></ion-icon>
+                                   <ion-label>安装单</ion-label>
+                               </ion-tab-button>
+                        </div>
+                       </ion-col>
+                       <ion-col>
+                            <div>
+                                  <ion-tab-button [routerLink]="['/serving/report/analytics']">
+                                      <ion-icon color="primary" size="large" name="analytics"></ion-icon>
+                                      <ion-label>报表</ion-label>
+                                  </ion-tab-button>
+                            </div>
+                          </ion-col>
+                          <ion-col>
+                          </ion-col>
+                          <ion-col>
+                            </ion-col>
         </ion-row>
     </ion-grid>
-
     
     <!-- <ion-grid>
         <ion-row>

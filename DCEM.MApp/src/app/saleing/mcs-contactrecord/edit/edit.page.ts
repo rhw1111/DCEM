@@ -19,7 +19,7 @@ export class EditPage implements OnInit {
     mcs_visittime:null,
     systemUserId: "",//当前用户id
     mcs_logcallid:"",
-    entityid:""  //唯一线索ID
+    mcs_onlyleadid:""  //唯一线索ID
   }
 }
   constructor(
@@ -32,13 +32,13 @@ export class EditPage implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    //debugger;
     this.activeRoute.queryParams.subscribe((params: Params) => {
 
       this.model.postData.systemUserId = this._logininfo.GetSystemUserId(); 
       if (params['id'] != null && params['id'] != undefined) {  //唯一线索主键id
 
-          this.model.postData.entityid = params['id'];         
+          this.model.postData.mcs_onlyleadid = params['id'];         
       }
       if (params['mcslogcallid'] != null && params['mcslogcallid'] != undefined) {  //联络任务 主键id
 
@@ -52,7 +52,7 @@ export class EditPage implements OnInit {
    
 //根据主键加载联络记录(logcall)
 pageOnBind(id: any) {
-   debugger;
+   //debugger;
   this._page.loadingShow();
   this._http.get(
       this.model.detailApiUrl,
@@ -69,7 +69,7 @@ pageOnBind(id: any) {
                       this.model.postData.mcs_content = res.Results[0]["Attributes"]["mcs_content"];
                       this.model.postData.mcs_visittime = res.Results[0]["Attributes"]["mcs_visittime"];
                       this.model.postData.mcs_results = res.Results[0]["Attributes"]["mcs_results"];                      
-                      this.model.postData.entityid = res.Results[0]["Attributes"]["_mcs_onlyleadid_value"];                                  
+                      this.model.postData.mcs_onlyleadid = res.Results[0]["Attributes"]["_mcs_onlyleadid_value"];                                  
               }
               else{
                 this._page.alert("消息提示", "数据加载异常");
@@ -110,15 +110,15 @@ pageOnBind(id: any) {
       }
 
       this._page.loadingShow();
-      this._http.post(
+      this._http.postForToaken(
           this.model.postApiUrl, this.model.postData,
           (res: any) => {
-              debugger;
+              //debugger;
               this._page.loadingHide();
               if (res.Result == true) {              
                   console.log(res);              
                   //this._shareData.delete(this.mod.shareDataKey);
-                  this._page.goto("/saleing/contactrecord/success", {id: this.model.postData.entityid });
+                  this._page.goto("/saleing/contactrecord/success", {id: this.model.postData.mcs_onlyleadid });
               }
               else {
                   this._page.alert("消息提示", res.Description);

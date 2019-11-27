@@ -6,6 +6,7 @@ import { SelectAppointmentconfigComponent } from 'app/serving/serving.ser/compon
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 import sd from 'silly-datetime';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { OptionSetService } from '../../../base/base.ser/optionset.service';
 
 @Component({
     selector: 'app-edit',
@@ -30,7 +31,8 @@ export class EditPage implements OnInit {
         isAppointmentConfigChange: true,//预约时段是否改变
         customerId: "",//客户ID
         appointmentConfigOptionMap: {},//预约时段
-        ifAddOrEdit: false//是否新增或编辑(控制页面title)
+        ifAddOrEdit: false,//是否新增或编辑(控制页面title)
+        orderTypeOption:[]//服务类型
     };
 
     //定义共享数据
@@ -50,7 +52,8 @@ export class EditPage implements OnInit {
         private _logininfo: Storage_LoginInfo,
         private _shareData: DCore_ShareData,
         private _valid: DCore_Valid,
-        private activeRoute: ActivatedRoute
+        private activeRoute: ActivatedRoute,
+        private _optionset: OptionSetService
     ) { }
 
     ngOnInit() {
@@ -76,6 +79,9 @@ export class EditPage implements OnInit {
             }
 
         });
+
+         //服务类型
+         this.model.orderTypeOption = this._optionset.Get("mcs_ordertype");
     }
 
     //获取预约时段
