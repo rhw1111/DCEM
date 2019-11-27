@@ -14,6 +14,7 @@ namespace DCEM.Web.Controllers
 {
     [EnableCors("any")]
     [Route("api/changepwd")]
+    [ApiController]
     public class IChangePasswordController : ApiController
     {
 
