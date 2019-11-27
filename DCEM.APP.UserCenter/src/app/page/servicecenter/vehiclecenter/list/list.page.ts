@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DCore_Http, DCore_Page } from '../../../../../app/component/typescript/dcem.core';
 
 @Component({
   selector: 'app-list',
@@ -13,7 +14,11 @@ export class ListPage implements OnInit {
       opack:"-1"
     }
   }
-  constructor() { }
+  constructor(
+    private _http: DCore_Http,
+    private _page: DCore_Page,
+
+  ) { }
 
   ngOnInit() {
   }
