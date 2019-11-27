@@ -4,7 +4,7 @@ import { DCore_Page, DCore_Http } from 'app/base/base.ser/Dcem.core';
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 import { debug } from 'util';
 import { IonInfiniteScroll } from '@ionic/angular';
-import { OptionSetService } from '../../saleing.ser/optionset.service';
+import { OptionSetService } from '../../../base/base.ser/optionset.service';
 @Component({
   selector: 'app-list',
   templateUrl: './list.page.html',

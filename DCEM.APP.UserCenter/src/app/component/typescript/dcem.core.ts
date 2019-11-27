@@ -37,6 +37,20 @@ export class DCore_Config {
         this.serverUrl = this._window.storageGet("apiDomainUrl");
         return this.serverUrl;
     }
+    /*
+        获取商城的接口地址
+        @server：dev|sit|uat
+    
+    */
+    getShoppingDomain(server){
+        var url="";
+        switch(server){
+            case "dev":url="https://subcrmdevapi.sokon.com/tc/";break;
+            case "sit":url="https://subcrmsitapi.sokon.com/tc/";break;
+            case "uat":url="https://subcrmuatapi.sokon.com/tc/";break;
+        }
+        return url;
+    }
 }
 
 @Injectable({
@@ -48,6 +62,38 @@ export class DCore_Http {
         private _config: DCore_Config
     ) {
     }
+
+    
+    //商城接口get请求
+    getForShopping(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
+        this._httpClient.get(this._config.getShoppingDomain("uat") + url,
+            {
+                params: params,
+                headers: this.getHeadersForShopping()
+            }).subscribe(
+                (res: any) => {
+                    rescallback && rescallback(res);
+                },
+                (err: any) => {
+                    errcallback && errcallback(err);
+                });
+    }
+    //商城接口post请求
+    postForShopping(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
+        this._httpClient.post(
+            this._config.getShoppingDomain("uat") + url,
+            params,
+            {
+                headers: this.getHeadersForShopping()
+            }).subscribe(
+                (res: any) => {
+                    rescallback && rescallback(res);
+                },
+                (err: any) => {
+                    errcallback && errcallback(err);
+                });
+    }
+
     //带请求头get请求
     getForToaken(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
         this._httpClient.get(this._config.getDomain() + url,
@@ -114,6 +160,21 @@ export class DCore_Http {
             // 'Accept': 'application/json'
         }) : null;
     }
+
+    /*
+        商城接口请求头
+
+    */
+    private getHeadersForShopping(){
+        return new HttpHeaders({
+            "Content-Type":"application/json;charset=UTF-8",
+            "appid":"1001",
+            "md5sum":"1fdcab853713fbc2b8f4d58bac32f420",
+            "true-client-ip":"10.1.1.1"
+        });
+    }
+
+
     /*
      * 使用本地缓存的方式来获取token信息
      */
