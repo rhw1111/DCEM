@@ -24,7 +24,6 @@ namespace DCEM.SalesAssistant.Main.Factory
                 IVehorderRepository vehorderRepository = new VehorderRepository();
                 IVehorderService VehorderService = new VehorderService(crmService, vehorderRepository);
                 IAppVehorder app = new AppVehorder(VehorderService);
-
                 return app;
             }
             catch (Exception ex)

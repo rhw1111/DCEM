@@ -647,6 +647,8 @@
     <TypeScriptCompile Include="src\app\base\base.ser\http-service.service.spec.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\http-service.service.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\logininfo.storage.ts" />
+    <TypeScriptCompile Include="src\app\base\base.ser\message.service.ts" />
+    <TypeScriptCompile Include="src\app\base\base.ser\optionset.service.ts" />
     <TypeScriptCompile Include="src\app\base\demo\calendar\calendar.module.ts" />
     <TypeScriptCompile Include="src\app\base\demo\calendar\calendar.page.spec.ts" />
     <TypeScriptCompile Include="src\app\base\demo\calendar\calendar.page.ts" />
