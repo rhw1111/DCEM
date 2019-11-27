@@ -16,19 +16,42 @@ namespace DCEM.UserCenterService.Main.Application.Services
     using DCEM.UserCenterService.Main.ViewModel.Response;
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
-    
-    
+    using System;
+    using System.Xml.Linq;
+    using DCEM.UserCenterService.Main.Common;
+
     public class DealerService : IDealerService
     {
-        
+
         private ICrmService _crmService;
-        
-        public IDealerRepository _DealerRepository;
-        
-        public DealerService(ICrmService crmService, IDealerRepository DealerRepository)
+
+        public IDealerRepository _dealerRepository;
+        private const string entityName = "mcs_dealer";
+        public DealerService(ICrmService crmService, IDealerRepository dealerRepository)
         {
-             _crmService = crmService;
-                     _DealerRepository=DealerRepository;
+            _crmService = crmService;
+            _dealerRepository = dealerRepository;
+        }
+
+        public async Task<DealerListResponse> getlist(DealerListRequest dealerListRequest)
+        {
+            try
+            {
+                var crmRequestHelper = new CrmRequestHelper();
+                var response = new DealerListResponse() { };
+                XDocument fetchXdoc = null;
+                fetchXdoc = await _dealerRepository.GetListFetchXml(dealerListRequest);
+                var entities = await crmRequestHelper.ExecuteAsync(_crmService, entityName, fetchXdoc);
+                response.dealers = entities.Results;
+                response.ALLTotalCount = entities.Count;
+                response.PageSize = dealerListRequest.PageSize;
+                response.CurrentPage = dealerListRequest.PageIndex;
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

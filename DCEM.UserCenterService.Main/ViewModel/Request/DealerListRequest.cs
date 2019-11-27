@@ -12,9 +12,12 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
 {
     using System.Collections.Generic;
     using MSLibrary.Xrm;
-    
-    
+
+
     public class DealerListRequest : PageBaseRequestModel
     {
+        public string provinceid { get; set; }
+        public string cityid { get; set; }
+        public string dealertype { get; set; }
     }
 }
