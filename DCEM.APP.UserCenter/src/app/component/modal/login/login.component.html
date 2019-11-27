@@ -13,7 +13,7 @@
 
   <ion-card-content>
     <ion-item>
-      <ion-input placeholder="输入您的电话号码"></ion-input>
+      <ion-input placeholder="输入您的电话号码" [(ngModel)]="phone"></ion-input>
     </ion-item>
     <ion-item lines="none" style="font-size: 0.9rem;" *ngIf="valmsg">
       <ion-label color="danger">
@@ -31,7 +31,7 @@
     </ion-label>
   </div>
   <div class="ion-padding">
-    <ion-button expand="block" type="submit"
+    <ion-button expand="block" type="button"  (click)="onSendMsg()"
       class="ion-no-margin ios button button-block button-solid ion-activatable ion-focusable hydrated">
       获取验证码
     </ion-button>
