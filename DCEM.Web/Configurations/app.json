@@ -1,4 +1,4 @@
-//Dev
+////Dev
 {
   "Connections": null,
   "DISetting": {
@@ -17,7 +17,7 @@
     "RedirectUri": ""
   }
 }
-////Dev-AD认证CRM9
+//Dev-AD认证CRM9
 //{
 //  "Connections": null,
 //  "DISetting": {

@@ -2,6 +2,7 @@ import * as tslib_1 from "tslib";
 import { Component } from '@angular/core';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute } from '@angular/router';
+import { FullScreenImage } from '@ionic-native/full-screen-image';
 let DetailPage = class DetailPage {
     constructor(_http, _page, activeRoute) {
         this._http = _http;
@@ -51,9 +52,10 @@ let DetailPage = class DetailPage {
         });
     }
     //下载
-    down(url) {
-        debugger;
-        console.log(url);
+    showImage(url) {
+        FullScreenImage.showImageURL(url)
+            .then((data) => console.log(data))
+            .catch((error) => console.error(error));
     }
     pageOnBind(id) {
         this._page.loadingShow();

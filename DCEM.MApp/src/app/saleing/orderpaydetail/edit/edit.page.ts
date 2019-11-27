@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DCore_Page, DCore_Http, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { OptionSetService } from '../../saleing.ser/optionset.service';
+import { OptionSetService } from '../../../base/base.ser/optionset.service';
 
 @Component({
   selector: 'app-edit',

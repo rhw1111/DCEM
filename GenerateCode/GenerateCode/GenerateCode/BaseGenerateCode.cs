@@ -10,6 +10,6 @@ namespace GenerateCode.GenerateCode
     public class BaseGenerateCode
     {
         public static string basePath = Path.GetFullPath("../../../../");
-        public const string baseNamespace = "DCEM.SalesAssistant.Main";
+        public const string baseNamespace = "DCEM.UserCenterService.Main";
     }
 }
