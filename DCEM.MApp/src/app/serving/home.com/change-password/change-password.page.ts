@@ -13,11 +13,11 @@ export class ChangePasswordPage implements OnInit {
     postData:{
       OldPwd:"",
       FirstNewPwd:"",
-      SecondNewPwd:""      
+      SecondNewPwd:"" ,
+      systemUserId: "",//当前用户id
+      systemUserName: ""//当前用户名称     
     },
-    systemUserId: "",//当前用户id
-    systemUserName: ""//当前用户名称
-
+   
   }
   constructor(
     private _http: DCore_Http,
@@ -27,8 +27,8 @@ export class ChangePasswordPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.model.systemUserId = this._logininfo.GetSystemUserId(); 
-    this.model.systemUserName = this._logininfo.GetDomainname(); 
+    this.model.postData.systemUserId = this._logininfo.GetSystemUserId(); 
+    this.model.postData.systemUserName = this._logininfo.GetDomainname(); 
   }
 
   public savepwd(){

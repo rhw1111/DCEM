@@ -48,8 +48,16 @@
         </ion-item>
   </ion-list>
   <section style="text-align:center;">
-        <ion-button  expand="block" type="button"  (click)="logout()">退出登录</ion-button>
+        <ion-button  expand="block" type="button"  (click)="showModal()">退出登录</ion-button>
   </section>   
+
+  <Modal [(ngModel)]="this.state.modal1" [popup]="true" [animationType]="'slide-up'" (onClose)="onClose()">
+        <List [renderHeader]="renderHeader" [className]="'popup-list'">      
+          <ListItem> <div Button [type]="''" (onClick)="logout()" style="color:red">退出登录</div> </ListItem>
+          <ListItem> <div Button [type]="''" (onClick)="onClose()">取消</div> </ListItem>
+        </List>
+</Modal>
   <br />
   <br />    
+  
 </ion-content>
