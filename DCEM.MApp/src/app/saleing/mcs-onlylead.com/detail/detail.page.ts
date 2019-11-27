@@ -65,6 +65,7 @@ constructor(
 ) {}
 
 ngOnInit() {
+    debugger;
     this.mod.datalist= [];
     this.mod.datalist2= [];
     
@@ -180,7 +181,6 @@ pageOnLogCalllist() {
 
 //加载培育任务列表
 pageOnActivitylist() {
-    debugger;
 
     this.mod.params2.mcs_onlyleadid=this.mod.data.mcs_onlyleadid;
     this.mod.params2.UserId=this.mod.systemUserId;
