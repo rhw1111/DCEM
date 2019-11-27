@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
-import { OptionSetService } from '../../saleing.ser/optionset.service';
+import { OptionSetService } from '../../../base/base.ser/optionset.service';
 import sd from 'silly-datetime';
 @Component({
   selector: 'app-detail',

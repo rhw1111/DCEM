@@ -1,37 +1,6 @@
-form{
-    display: flex;
-    justify-content: space-around;
-    width:100%;
-  }
-  form input{
-    height: 94rpx;
-    width:94rpx;
-    border:1px solid #cdcdcd;
-    border-radius: 8rpx;
-    display: inline-block;
-    line-height: 94px;
-    text-align: center;
-    font-size: 48rpx;
-    color:#323232;
-    margin:0 8rpx;
-  }
-  form .hidden_ipt{
-    height: 0rpx;
-    width:0rpx;
-    border:none;
-    margin:0;
-  }
-  
-  .scan_code{
-    width:400rpx;
-    height: 98rpx;
-    display: block;
-    margin:0 auto;
-    line-height: 98rpx;
-    font-size: 32rpx;
-    color:#fff;
-    background: #6f5bde;
-    text-align: center;
-    border-radius: 50rpx;
-    margin-top:60rpx;
-  }
+valcode{
+    width: 50px;
+    height: 50px;
+    border: 0px;
+    border-bottom: 1px solid #4a4a4a;
+}

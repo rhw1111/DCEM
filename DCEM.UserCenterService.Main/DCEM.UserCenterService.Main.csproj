@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Application\App\Contrac\" />
+    <Folder Include="Application\Repository\Contrac\" />
+    <Folder Include="Application\Services\Contrac\" />
+    <Folder Include="Factory\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DCEM.ConfigurationService.Main\DCEM.ConfigurationService.Main.csproj" />
+    <ProjectReference Include="..\DCEM.Main\DCEM.Main.csproj" />
+    <ProjectReference Include="..\MSLibrary\MSLibrary.csproj" />
+  </ItemGroup>
+
+</Project>
