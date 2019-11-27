@@ -1,6 +1,7 @@
 import { Component, OnInit ,ViewChild } from '@angular/core';
 import { HttpService } from '../../../base/base.ser/http-service.service';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
+import { MessageService } from 'app/base/base.ser/message.service';
 import sd from 'silly-datetime';
 import { debug } from 'util';
 import { IonInfiniteScroll } from '@ionic/angular';
@@ -33,14 +34,14 @@ export class ListPage implements OnInit {
     }
 
     ngOnInit() {
-        
+        this.model.page = 1;
+        this._page.loadingShow();
+        this.getList(null);
     }
 
     //每次页面加载
     ionViewWillEnter() {
-        this.model.page = 1;
-        this._page.loadingShow();
-        this.getList(null);
+       
     }
 
     //搜索方法
@@ -120,12 +121,12 @@ export class ListPage implements OnInit {
                     }
                 }
                 else {
-                    this._page.alert("消息提示", "数据加载异常");
+                    this._page.alert(MessageService.AlterTitleMessage,MessageService.ErrorRequestException);
                 }
                 this._page.loadingHide();
             },
             (err: any) => {
-                this._page.alert("消息提示", "数据加载异常");
+                this._page.alert(MessageService.AlterTitleMessage,MessageService.ErrorRequestException);
                 this._page.loadingHide();
             }
         );

@@ -15,7 +15,7 @@
     </ion-toolbar>
     <ion-toolbar>
         <ion-segment>
-            <ion-segment-button checked (click)="selectTab(-1)">
+            <ion-segment-button checked (click)="selectTab(-1)" value="0">
                 <ion-label>全部</ion-label>
             </ion-segment-button>
 
@@ -44,9 +44,9 @@
                     <h2>{{item.Custname}}</h2>
                     <p>{{item.mcs_name}}</p>
                     <p>{{item.mcs_mobilephone}}</p>
-                </ion-label>
-                <ion-note slot="end">
                     <p>{{item.mcs_importantlevel}}</p>
+                </ion-label>
+                <ion-note slot="end">                   
                     <p>{{item.mcs_activitystatus}}</p>
                 </ion-note>
             </ion-item>

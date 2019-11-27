@@ -29,6 +29,7 @@ export class AuthenticationService {
       }
     );
   }
+
   //注销，清空登录状态
   logout() {
     return this.storage.remove(TOKEN_KEY).then(() => {

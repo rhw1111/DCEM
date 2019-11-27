@@ -11,17 +11,23 @@
 </ion-header>
 <ion-content color="light">
     <ion-list lines="full">
-        <ion-item>
+        <ion-item [routerLink]="['/base/uc/detail']" >
             <ion-icon color="primary" slot="start" name="person" size="large"></ion-icon>
             <ion-label>
-                <h2>张三</h2>
-                <p>15088888888</p>
+                <h2>{{UserInfo["firstname"]}}</h2>
+                <p>{{UserInfo["mcs_dealername"]}}</p>
             </ion-label>
         </ion-item>
 
     </ion-list>
 
     <ion-list lines="full">
+        <ion-item [routerLink]="['/serving/home/message']">
+            <ion-icon color="primary" slot="start" name="notifications" size="large"></ion-icon>
+            <ion-label>
+                <h3>我的消息</h3>
+            </ion-label>
+        </ion-item>
         <ion-item [routerLink]="['/serving/mycustomer/list']">
             <ion-icon color="primary" slot="start" name="contacts" size="large"></ion-icon>
             <ion-label>
@@ -31,7 +37,7 @@
     </ion-list>
 
     <ion-list lines="full">
-        <ion-item>
+        <ion-item [routerLink]="['/serving/reservation/list']">
             <ion-icon  color="primary" slot="start" name="alarm" size="large"></ion-icon>
             <ion-label>
                 <h3>我的预约</h3>
@@ -47,12 +53,6 @@
             <ion-icon  color="primary" slot="start" name="hammer" size="large"></ion-icon>
             <ion-label>
                 <h3>我的维修</h3>
-            </ion-label>
-        </ion-item>
-        <ion-item>
-            <ion-icon  color="primary"  slot="start" name="happy" size="large"></ion-icon>
-            <ion-label>
-                <h3>技术支持</h3>
             </ion-label>
         </ion-item>
     </ion-list>
