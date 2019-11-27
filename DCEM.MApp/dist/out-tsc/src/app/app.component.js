@@ -29,20 +29,14 @@ let AppComponent = class AppComponent {
                 num: 0
             },
             {
-                title: '个人信息',
-                url: '/base/uc/detail',
-                icon: 'person',
-                num: 0,
-            },
-            {
                 title: '消息中心',
                 url: '/serving/home/tabs/message',
-                icon: 'alert',
+                icon: 'notifications',
                 num: 0
             },
             {
                 title: '设置',
-                url: '/tabs',
+                url: '/serving/home/systemsetup',
                 icon: 'settings',
                 num: 0
             }
@@ -51,46 +45,13 @@ let AppComponent = class AppComponent {
     }
     initializeApp() {
         this.platform.ready().then(() => {
-            ////this.statusBar.styleDefault();
-            //// let status bar overlay webview
-            //this.statusBar.overlaysWebView(false);
-            //// set status bar to white
-            this.statusBar.backgroundColorByHexString('#000000');
-            //this.splashScreen.hide();
+            this.statusBar.styleDefault();
             /** 设置智能竖屏*/
-            //this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY);
+            this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY);
             if (location.href.indexOf('base/uc/welcome') == -1) {
-                if (!this.authService.isAuthenticated()) {
-                    this._page.goto("base/uc/login");
-                }
-                else {
-                    this._page.goto("serving/home/index");
-                }
+                //设置定时器监控token是否过期
+                this._http.reflashToken();
             }
-            //this.headpicture = "assets/img/head_default.jpg";
-            //console.log("开始welcomeisloading");
-            //var welcomeisloading=this._window.storageGet("welcomeisloading");
-            //console.log("取值:"+welcomeisloading);
-            //if(welcomeisloading=="true"){
-            //    var token= this._http.getToken();
-            //    if(token== undefined || token==""){
-            //        this._page.goto("base/uc/login");
-            //    }
-            //    else{
-            //        var lastlogintime=this._window.storageGet("auth-logintime");
-            //        if(lastlogintime!=null && lastlogintime!==""){
-            //            var lastdateTime=new Date(lastlogintime);
-            //            var time = 20*60*1000;
-            //            if (new Date().getTime()-lastdateTime.getTime()>=time) {
-            //                console.log("登录超时20分钟,重新登录");
-            //                this._page.goto("base/uc/login");
-            //            }
-            //        }
-            //    }
-            //}
-            //else{
-            //  this._page.goto("base/uc/welcome");
-            //}
         });
     }
     loginout() {

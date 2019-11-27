@@ -2,17 +2,20 @@ import * as tslib_1 from "tslib";
 import { Component } from '@angular/core';
 import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute } from '@angular/router';
+import { OptionSetService } from '../../../base/base.ser/optionset.service';
 let CancelPage = class CancelPage {
-    constructor(_http, _page, activeRoute, _valid) {
+    constructor(_http, _page, activeRoute, _valid, _optionset) {
         this._http = _http;
         this._page = _page;
         this.activeRoute = activeRoute;
         this._valid = _valid;
+        this._optionset = _optionset;
         this.model = {
             postApiUrl: '/Api/appointment-info/AddOrEdit',
             data: {},
             postData: {},
             appointmentinfoid: "",
+            cancelReasonOption: [] //取消原因
         };
         //定义共享数据
         this.shareData = {
@@ -25,6 +28,8 @@ let CancelPage = class CancelPage {
                 this.model.appointmentinfoid = params['id'];
             }
         });
+        //取消原因
+        this.model.cancelReasonOption = this._optionset.Get("mcs_cancelreasonnew");
     }
     saveOnClick() {
         if (this._valid.isNullOrEmpty(this.shareData.appointmentinfo["mcs_cancelreasonnew"])) {
@@ -70,7 +75,8 @@ CancelPage = tslib_1.__decorate([
     tslib_1.__metadata("design:paramtypes", [DCore_Http,
         DCore_Page,
         ActivatedRoute,
-        DCore_Valid])
+        DCore_Valid,
+        OptionSetService])
 ], CancelPage);
 export { CancelPage };
 //# sourceMappingURL=cancel.page.js.map
