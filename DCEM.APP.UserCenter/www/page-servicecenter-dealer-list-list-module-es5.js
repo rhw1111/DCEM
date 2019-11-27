@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-buttons slot=\"start\">\r\n      <ion-back-button text=\"返回\" defaultHref=\"/\"></ion-back-button>\r\n    </ion-buttons>\r\n    <ion-title>\r\n      <ion-label>体验中心</ion-label>\r\n    </ion-title>\r\n  </ion-toolbar> \r\n</ion-header>\r\n\r\n<ion-content>\r\n  <ion-list>\r\n    <ion-item (click)=\"provinceOnClick()\">\r\n      <ion-label position=\"stacked\">省：</ion-label>\r\n      <p>{{model.info.provincename}}&nbsp;</p>\r\n  </ion-item>\r\n  <ion-item (click)=\"cityOnClick()\">\r\n      <ion-label position=\"stacked\">市：</ion-label>\r\n      <p>{{model.info.cityname}}&nbsp;</p>\r\n  </ion-item>\r\n  <ion-item (click)=\"districtOnClick()\">\r\n      <ion-label position=\"stacked\">区：</ion-label>\r\n      <p>{{model.info.areaname}}&nbsp;</p>\r\n  </ion-item>\r\n  </ion-list>\r\n</ion-content>"
+module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-buttons slot=\"start\">\r\n      <ion-back-button text=\"返回\" defaultHref=\"/\"></ion-back-button>\r\n    </ion-buttons>\r\n    <ion-title>\r\n      <ion-label>体验中心</ion-label>\r\n    </ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n\r\n  <div id=\"container\" class=\"container\">\r\n    <ion-grid>\r\n      <ion-row>\r\n        <ion-col>\r\n          <ion-chip color=\"primary\" class=\"ionchip\" (click)=\"provinceOnClick()\">\r\n            <ion-icon name=\"pin\"></ion-icon>\r\n            <ion-label class=\"ionlabel\" >{{model.info.provincename}}</ion-label>\r\n          </ion-chip>\r\n        </ion-col>\r\n        <ion-col>\r\n          <ion-chip color=\"primary\" class=\"ionchip\" (click)=\"cityOnClick()\">\r\n            <ion-icon name=\"pin\"></ion-icon>\r\n            <ion-label class=\"ionlabel\" >{{model.info.cityname}}</ion-label>\r\n          </ion-chip>\r\n        </ion-col>\r\n        <ion-col>\r\n          <ion-chip color=\"primary\" class=\"ionchip\" (click)=\"districtOnClick()\">\r\n            <ion-icon name=\"pin\"></ion-icon>\r\n            <ion-label class=\"ionlabel\">{{model.info.areaname}}</ion-label>\r\n          </ion-chip>\r\n        </ion-col>\r\n      </ion-row>\r\n    </ion-grid>\r\n\r\n  </div>\r\n\r\n\r\n\r\n\r\n  <!--<ion-item (click)=\"provinceOnClick()\">\r\n      <ion-label position=\"stacked\">省：</ion-label>\r\n      <p>{{model.info.provincename}}&nbsp;</p>\r\n    </ion-item>\r\n    <ion-item (click)=\"cityOnClick()\">\r\n      <ion-label position=\"stacked\">市：</ion-label>\r\n      <p>{{model.info.cityname}}&nbsp;</p>\r\n    </ion-item>\r\n    <ion-item (click)=\"districtOnClick()\">\r\n      <ion-label position=\"stacked\">区：</ion-label>\r\n      <p>{{model.info.areaname}}&nbsp;</p>\r\n    </ion-item>\r\n  </ion-list>-->\r\n</ion-content>"
 
 /***/ }),
 
@@ -103,7 +103,7 @@ var ListPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3BhZ2Uvc2VydmljZWNlbnRlci9kZWFsZXIvbGlzdC9saXN0LnBhZ2Uuc2NzcyJ9 */"
+module.exports = ".ionchip {\n  position: absolute;\n  z-index: 9999;\n  margin-top: 20px;\n}\n\n.ionlabel {\n  margin-left: 15px;\n  width: 50px;\n  color: black;\n}\n\n.container {\n  width: 100%;\n  height: 100%;\n}\n\n.actionsheep {\n  height: 50%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZS9zZXJ2aWNlY2VudGVyL2RlYWxlci9saXN0L0Q6XFxHaXRsYWJcXFNGXFxQcm9qZWN0XFxEQ0VNXFxEQ0VNLkFQUC5Vc2VyQ2VudGVyL3NyY1xcYXBwXFxwYWdlXFxzZXJ2aWNlY2VudGVyXFxkZWFsZXJcXGxpc3RcXGxpc3QucGFnZS5zY3NzIiwic3JjL2FwcC9wYWdlL3NlcnZpY2VjZW50ZXIvZGVhbGVyL2xpc3QvbGlzdC5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFFSSxrQkFBQTtFQUFrQixhQUFBO0VBQWEsZ0JBQUE7QUNFbkM7O0FEQUE7RUFFSSxpQkFBQTtFQUFrQixXQUFBO0VBQVcsWUFBQTtBQ0lqQzs7QURGQTtFQUVJLFdBQUE7RUFBVyxZQUFBO0FDS2Y7O0FESEE7RUFFSSxXQUFBO0FDS0oiLCJmaWxlIjoic3JjL2FwcC9wYWdlL3NlcnZpY2VjZW50ZXIvZGVhbGVyL2xpc3QvbGlzdC5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuaW9uY2hpcFxyXG57XHJcbiAgICBwb3NpdGlvbjphYnNvbHV0ZTt6LWluZGV4Ojk5OTk7bWFyZ2luLXRvcDogMjBweDtcclxufVxyXG4uaW9ubGFiZWxcclxue1xyXG4gICAgbWFyZ2luLWxlZnQ6IDE1cHg7d2lkdGg6NTBweDtjb2xvcjogYmxhY2s7XHJcbn1cclxuLmNvbnRhaW5lclxyXG57XHJcbiAgICB3aWR0aDoxMDAlO2hlaWdodDogMTAwJTtcclxufVxyXG4uYWN0aW9uc2hlZXBcclxue1xyXG4gICAgaGVpZ2h0OiA1MCU7XHJcbn0iLCIuaW9uY2hpcCB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgei1pbmRleDogOTk5OTtcbiAgbWFyZ2luLXRvcDogMjBweDtcbn1cblxuLmlvbmxhYmVsIHtcbiAgbWFyZ2luLWxlZnQ6IDE1cHg7XG4gIHdpZHRoOiA1MHB4O1xuICBjb2xvcjogYmxhY2s7XG59XG5cbi5jb250YWluZXIge1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAxMDAlO1xufVxuXG4uYWN0aW9uc2hlZXAge1xuICBoZWlnaHQ6IDUwJTtcbn0iXX0= */"
 
 /***/ }),
 
@@ -127,11 +127,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var ListPage = /** @class */ (function () {
-    function ListPage(_http, _page, _modalCtrl) {
+    function ListPage(_http, _page, _modalCtrl, actionSheetController) {
         this._http = _http;
         this._page = _page;
         this._modalCtrl = _modalCtrl;
+        this.actionSheetController = actionSheetController;
         this.model = {
             apiUrl: '/api/Originalclue/create',
             //国家默认中国
@@ -139,15 +141,25 @@ var ListPage = /** @class */ (function () {
             level: null,
             info: {
                 province: "",
-                provincename: "",
+                provincename: "省",
                 city: "",
-                cityname: "",
+                cityname: "市",
                 area: "",
-                areaname: "",
+                areaname: "区",
             }
         };
     }
     ListPage.prototype.ngOnInit = function () {
+        var marker, map = new AMap.Map("container", {
+            resizeEnable: true,
+            center: [116.397428, 39.90923],
+            zoom: 6
+        });
+        var marker = new AMap.Marker({
+            position: new AMap.LngLat(116.39, 39.9),
+            title: '北京'
+        });
+        map.add(marker);
     };
     //获取省组件
     ListPage.prototype.provinceModal = function () {
@@ -173,10 +185,9 @@ var ListPage = /** @class */ (function () {
                         return [4 /*yield*/, modal.onDidDismiss()];
                     case 3:
                         data = (_a.sent()).data;
-                        if (data != null && typeof data != "undefined") {
-                            if (data != null && typeof data != "undefined") {
-                                console.log(data);
-                                if (data.id != "undefined") {
+                        if (data != null && typeof data != undefined) {
+                            if (data != null && typeof data != undefined) {
+                                if (data.id != undefined) {
                                     this.model.info.province = data.id;
                                     this.model.info.provincename = data.name;
                                 }
@@ -222,10 +233,10 @@ var ListPage = /** @class */ (function () {
                         return [4 /*yield*/, modal.onDidDismiss()];
                     case 3:
                         data = (_a.sent()).data;
-                        if (data != null && typeof data != "undefined") {
-                            if (data != null && typeof data != "undefined") {
+                        if (data != null && typeof data != undefined) {
+                            if (data != null && typeof data != undefined) {
                                 console.log(data);
-                                if (data.id != "undefined") {
+                                if (data.id != undefined) {
                                     this.model.info.city = data.id;
                                     this.model.info.cityname = data.name;
                                 }
@@ -267,8 +278,8 @@ var ListPage = /** @class */ (function () {
                         return [4 /*yield*/, modal.onDidDismiss()];
                     case 3:
                         data = (_a.sent()).data;
-                        if (data != null && typeof data != "undefined") {
-                            if (data != null && typeof data != "undefined") {
+                        if (data != null && typeof data != undefined) {
+                            if (data != null && typeof data != undefined) {
                                 console.log(data);
                                 if (data.id != "undefined") {
                                     this.model.info.area = data.id;
@@ -297,10 +308,46 @@ var ListPage = /** @class */ (function () {
             this.districtModal();
         }
     };
+    ListPage.prototype.presentActionSheet = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var actionSheetbuttons, actionSheetOptions, _loop_1, actionSheetbuttons, i, actionSheet;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        actionSheetbuttons = {};
+                        actionSheetOptions = {};
+                        actionSheetOptions["header"] = "省市区";
+                        actionSheetOptions.buttons = [];
+                        _loop_1 = function (i) {
+                            actionSheetbuttons = {};
+                            actionSheetbuttons.text = "这是第" + i + "个按钮";
+                            actionSheetbuttons.handler = function () {
+                                console.log('点击事件:' + i);
+                            };
+                            actionSheetOptions.buttons.push(actionSheetbuttons);
+                        };
+                        for (i = 0; i < 30; i++) {
+                            _loop_1(i);
+                        }
+                        debugger;
+                        return [4 /*yield*/, this.actionSheetController.create(actionSheetOptions)];
+                    case 1:
+                        actionSheet = _a.sent();
+                        actionSheet.style.maxHeight = "50%";
+                        actionSheet.style.overflow = "scroll";
+                        return [4 /*yield*/, actionSheet.present()];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     ListPage.ctorParameters = function () { return [
         { type: _component_typescript_dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"] },
         { type: _component_typescript_dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] }
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ActionSheetController"] }
     ]; };
     ListPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -310,7 +357,8 @@ var ListPage = /** @class */ (function () {
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_component_typescript_dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"],
             _component_typescript_dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]])
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ActionSheetController"]])
     ], ListPage);
     return ListPage;
 }());
