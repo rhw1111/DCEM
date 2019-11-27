@@ -21,6 +21,7 @@
     <ProjectReference Include="..\DCEM.SalesAssistant.Main\DCEM.SalesAssistant.Main.csproj" />
     <ProjectReference Include="..\DCEM.ServiceAssistantService.Main\DCEM.ServiceAssistantService.Main.csproj" />
     <ProjectReference Include="..\DCEM.Main\DCEM.Main.csproj" />
+    <ProjectReference Include="..\DCEM.UserCenterService.Main\DCEM.UserCenterService.Main.csproj" />
     <ProjectReference Include="..\MSLibrary\MSLibrary.csproj" />
   </ItemGroup>
 
@@ -28,10 +29,6 @@
     <Content Update="Configurations\Langs\language.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\UCenter\" />
   </ItemGroup>
 
 </Project>

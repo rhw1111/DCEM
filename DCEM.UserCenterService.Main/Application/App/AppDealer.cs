@@ -27,5 +27,9 @@ namespace DCEM.UserCenterService.Main.Application.App
         {
             _dealerService=dealerService;
         }
+        public async Task<DealerListResponse> getlist(DealerListRequest dealerListRequest)
+        {
+            return await _dealerService.getlist(dealerListRequest);
+        }
     }
 }
