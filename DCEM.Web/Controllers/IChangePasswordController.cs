@@ -20,19 +20,19 @@ namespace DCEM.Web.Controllers
 
         public IChangePasswordService app = null;
 
-        private IFactory<IChangePasswordService> _remoteServiceFactory;
+        //private IFactory<IChangePasswordService> _remoteServiceFactory;
 
-        public IChangePasswordController(IFactory<IChangePasswordService> remoteServiceFactory)
-        {
-            _remoteServiceFactory = remoteServiceFactory;
-        }
-        public IChangePasswordController()
-        {
-            if (app == null)
-            {
-                app = _remoteServiceFactory.Create();
-            }
-        }
+        //public IChangePasswordController(IFactory<IChangePasswordService> remoteServiceFactory)
+        //{
+        //    _remoteServiceFactory = remoteServiceFactory;
+        //}
+        //public IChangePasswordController()
+        //{
+        //    if (app == null)
+        //    {
+        //        app = _remoteServiceFactory.Create();
+        //    }
+        //}
 
         [HttpPost]
         [Route("EditPwd")]

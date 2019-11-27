@@ -11,7 +11,6 @@ import { OptionSetService } from '../../../base/base.ser/optionset.service';
 })
 export class ListPage implements OnInit {
   @ViewChild(IonInfiniteScroll,null) infiniteScroll: IonInfiniteScroll;
-
   public model = {
     name: 'vehorderlist',//模块实体名称
     apiUrl: '/api/vehorder/GetVehorderList',//请求地址

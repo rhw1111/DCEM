@@ -36,7 +36,8 @@ const routes: Routes = [
                     { path: 'mywork', loadChildren: './serving/home.com/mywork/mywork.module#MyworkPageModule' },
                     { path: 'systemsetup', loadChildren: './serving/home.com/systemsetup/systemsetup.module#SystemsetupPageModule' },
                     { path: 'about', loadChildren: './serving/home.com/about/about.module#AboutPageModule' },
-                    { path: 'change-password', loadChildren: './serving/home.com/change-password/change-password.module#ChangePasswordPageModule' }
+                    { path: 'change-password', loadChildren: './serving/home.com/change-password/change-password.module#ChangePasswordPageModule' },
+                    { path: 'message-settings', loadChildren: './serving/home.com/message-settings/message-settings.module#MessageSettingsPageModule' }
                 ]
             },
             {
@@ -264,6 +265,8 @@ const routes: Routes = [
   { path: 'systemsetup', loadChildren: './serving/home.com/systemsetup/systemsetup.module#SystemsetupPageModule' },
   { path: 'about', loadChildren: './serving/home.com/about/about.module#AboutPageModule' },
   { path: 'change-password', loadChildren: './serving/home.com/change-password/change-password.module#ChangePasswordPageModule' },
+  { path: 'message-settings', loadChildren: './serving/home.com/message-settings/message-settings.module#MessageSettingsPageModule' },
+
 
 
 

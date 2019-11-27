@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 
 namespace DCEM.Main.RemoteService
 {
-    [Injection(InterfaceType = typeof(IChangePasswordService), Scope = InjectionScope.Singleton)]
+    //[Injection(InterfaceType = typeof(IChangePasswordService), Scope = InjectionScope.Singleton)]
     public class ChangePasswordService: IChangePasswordService
     {
-        private ICommonLogInfoGeneratorService _commonLogInfoGeneratorService;
-        private ISystemConfigurationRepository _systemConigurationRepository;
-        public ChangePasswordService(ICommonLogInfoGeneratorService commonLogInfoGeneratorService, ISystemConfigurationRepository systemConigurationRepository)
-        {
-            _commonLogInfoGeneratorService = commonLogInfoGeneratorService;
-            _systemConigurationRepository = systemConigurationRepository;
-        }
+        //private ICommonLogInfoGeneratorService _commonLogInfoGeneratorService;
+        //private ISystemConfigurationRepository _systemConigurationRepository;
+        //public ChangePasswordService(ICommonLogInfoGeneratorService commonLogInfoGeneratorService)
+        //{
+        //    _commonLogInfoGeneratorService = commonLogInfoGeneratorService;
+        //    _systemConigurationRepository = systemConigurationRepository;
+        //}
 
 
         public async Task<QueryResult<CrmEntity>> UpdatePwd(ChangePasswordModel model)
@@ -36,7 +36,7 @@ namespace DCEM.Main.RemoteService
             var userId = "1000004";
 
             var serviceAddress = "http://mtkprd.seres.cn/mktcloud/order/v1/queryOrderRight?primaryActiveCode=" + primaryActiveCode + "&userId=" + userId + "&orderNo=";
-            var headDic = await _commonLogInfoGeneratorService.Generate();
+            //var headDic = await _commonLogInfoGeneratorService.Generate();
 
             //headDic.Add("Authorization", "bearer " + accesstoken);
             //调用配置服务中获取服务信息的方法
