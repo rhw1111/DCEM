@@ -16,5 +16,6 @@ namespace DCEM.UserCenterService.Main.ViewModel.Response
     
     public class DealerListResponse : PageBaseResponseModel
     {
+        public List<CrmEntity> dealers { get; set; }
     }
 }

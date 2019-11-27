@@ -20,7 +20,8 @@ namespace DCEM.UserCenterService.Main.Application.Services.Contrac
     
     public interface IDealerService
     {
-        
-        
+
+        Task<DealerListResponse> getlist(DealerListRequest dealerListRequest);
+       
     }
 }

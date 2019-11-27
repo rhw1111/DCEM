@@ -23,7 +23,8 @@ export class ListPage implements OnInit {
     sort: '',//排序的参数
     isending: false,//是否加载完成
     datalist: [],//列表数据
-    systemUserId:''
+    systemUserId:'',
+    searchnodata:false,
   };
 
   constructor(
@@ -37,6 +38,7 @@ export class ListPage implements OnInit {
   ngOnInit() {
     this.model.page = 1;
     this.model.systemUserId = this._logininfo.GetSystemUserId(); 
+    this._page.loadingShow();
     this.getList(null);
   }
 
@@ -45,9 +47,10 @@ export class ListPage implements OnInit {
   search(event) {
     var keyCode = event ? event.keyCode : "";
     if (keyCode == 13) {
+      this.model.searchnodata=false;
       this.model.datalist = [];
       this.model.page = 1;
-      this.model.isending = false;
+      this._page.loadingShow();
       this.getList(null);
     }
   }
@@ -77,14 +80,12 @@ export class ListPage implements OnInit {
     else {
       this.model.mcs_activitystatus = -1;
     }
+    this._page.loadingShow();
     this.getList(null);
   }
 
   //获取列表数据
   getList(event) {
-    //debugger;
-    //this.model.datalist=[];
-    this._page.loadingShow();
     this._http.get(this.model.apiUrl,
       {
         params: {
@@ -119,9 +120,11 @@ export class ListPage implements OnInit {
           }
           event ? event.target.complete() : '';
           //判断是否有新数据
+          this.model.searchnodata = res.Results.length==0;
           if (res.Results.length < this.model.pageSize) {
-            event ? event.target.disabled = true : "";
-            this.model.isending = true;
+             if(this.model.page>1){
+              this.infiniteScroll.disabled = true;
+            }
           }
         }
         else {
