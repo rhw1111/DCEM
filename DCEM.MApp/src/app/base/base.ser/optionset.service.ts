@@ -313,6 +313,28 @@ export class OptionSetService {
                     { "name": "已删除", "value": 17 }
                 ];
                 break;
+            //维保-维保预约-取消原因(待料 10、价格太高 20、设备不足 30、堵车 40、技术不足 50、天气不好  60)
+            case "mcs_cancelreasonnew":
+                optionlist = [
+                    { "name": "待料", "value": 10 },
+                    { "name": "价格太高", "value": 20 },
+                    { "name": "设备不足", "value": 30 },
+                    { "name": "堵车", "value": 40 },
+                    { "name": "技术不足", "value": 50 },
+                    { "name": "天气不好", "value": 60 }
+                ];
+                break;
+                 //维保-维保预约-服务类型(10-汽车美容 20-钣金喷漆 30-常规保养 40-一般维修 50-保修 60-其他)
+            case "mcs_ordertype":
+                optionlist = [
+                    { "name": "汽车美容", "value": 10 },
+                    { "name": "钣金喷漆", "value": 20 },
+                    { "name": "常规保养", "value": 30 },
+                    { "name": "一般维修", "value": 40 },
+                    { "name": "保修", "value": 50 },
+                    { "name": "其他", "value": 60 }
+                ];
+                break;
 
         }
         return optionlist;

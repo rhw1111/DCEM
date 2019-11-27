@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile';
  
 import { LoginComponent } from './component/modal/login/login.component' 
 @NgModule({
@@ -24,6 +24,7 @@ import { LoginComponent } from './component/modal/login/login.component'
         IonicStorageModule.forRoot(),
         FormsModule,
         ReactiveFormsModule,
+        NgZorroAntdMobileModule
     ],
     providers: [
         StatusBar,
