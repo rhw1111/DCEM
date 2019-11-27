@@ -5,11 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { ListPageRoutingModule } from './list-routing.module';
-
+import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile';
 import { ListPage } from './list.page';
 
 @NgModule({
   imports: [
+    NgZorroAntdMobileModule,
     CommonModule,
     FormsModule,
     IonicModule,

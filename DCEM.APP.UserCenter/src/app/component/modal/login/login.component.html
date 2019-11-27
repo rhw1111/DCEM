@@ -1,73 +1,143 @@
-<ion-item lines="none">
-  <ion-label style="margin-top: 20px;">
+<ion-item lines="none" style="border-bottom: 1px solid #484848;">
+  <ion-label style="margin-top: 12px">
     <img src="../assets/img/close.png" style="width: 20px;" (click)="dismissModal()">
+    <ion-label style="text-align:center;margin-top:-23px">
+      {{title}}
+    </ion-label>
   </ion-label>
 </ion-item>
-
-<!-- 电话号码输入页面 -->
+<!-- 用户登陆页面 -->
 <ion-content *ngIf="disstatus==1">
+  <ion-card-header style="margin-bottom: 20px;">
+    <ion-card-title style="height: 50px;"> 您好，</ion-card-title>
+    <ion-card-subtitle class="loginsubtitle"> 欢迎来到车联网DEMO</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="tab" color="primary" model="md">
+      <ion-segment-button value="account">
+        <ion-label>账号登陆</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="phone">
+        <ion-label>电话号码登陆</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+  <div [ngSwitch]="tab">
+    <div *ngSwitchCase="'account'">
+      <ion-card-content>
+        <ion-item>
+          <ion-input type="phone" placeholder="输入您的账号" [(ngModel)]="mod.model.account"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="password" placeholder="输入您的密码" [(ngModel)]="mod.model.pwd"></ion-input>
+        </ion-item>
+
+      </ion-card-content>
+      <div class="ion-padding">
+        <ion-button expand="block" type="button" (click)="onLogin()"
+          class="ion-no-margin ios button button-block button-solid ion-activatable ion-focusable hydrated">
+          登陆
+        </ion-button>
+      </div>
+    </div>
+    <div *ngSwitchCase="'phone'">
+      <ion-card-content>
+        <ion-item>
+          <ion-input type="tel" placeholder="输入您的电话号码" [(ngModel)]="mod.model.account"></ion-input>
+        </ion-item>
+        <ion-item lines="none" class="loginfontsize09" *ngIf="valmsg">
+          <ion-label color="danger">
+            验证信息
+          </ion-label>
+        </ion-item>
+      </ion-card-content> 
+      <div class="ion-padding">
+        <ion-button expand="block" type="button" (click)="onLoginSendMsg()"
+          class="ion-no-margin ios button button-block button-solid ion-activatable ion-focusable hydrated">
+          获取验证码
+        </ion-button>
+      </div>
+    </div>
+  </div>
+  <ion-item lines="none"  >
+    <ion-label style="    text-align: right;
+    margin-right: 15px;
+    margin-top: 0px;"> 
+      <ion-router-link (click)="OnReg()"  class="underline ios ion-activatable hydrated">用户注册</ion-router-link>
+    </ion-label>
+  </ion-item>
+</ion-content>
+
+
+<!-- 注册电话号码页面 -->
+<ion-content *ngIf="disstatus==3">
+    <ion-card-header style="margin-bottom: 50px;">
+      <ion-card-title style="height: 50px;"> 您好，</ion-card-title>
+      <ion-card-subtitle class="loginsubtitle"> 欢迎来到车联网DEMO</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+        <ion-card-content>
+            <ion-item>
+              <ion-input type="tel" placeholder="输入您的电话号码" [(ngModel)]="mod.model.account"></ion-input>
+            </ion-item>
+            <ion-item lines="none" class="loginfontsize09" *ngIf="valmsg">
+              <ion-label color="danger">
+                验证信息
+              </ion-label>
+            </ion-item>
+          </ion-card-content>
+    
+          <div class="ion-padding loginx"  >
+            <ion-label>
+              获取验证码视为您已阅读
+              <ion-router-link href="#" class="underline ios ion-activatable hydrated">《用户协议》</ion-router-link>
+              与
+              <ion-router-link href="#"  class="underline ios ion-activatable hydrated">《隐私协议》</ion-router-link>
+            </ion-label>
+          </div>
+          <div class="ion-padding">
+            <ion-button expand="block" type="button" (click)="onRegSendMsg()"
+              class="ion-no-margin ios button button-block button-solid ion-activatable ion-focusable hydrated">
+              获取验证码
+            </ion-button>
+          </div>
+  
+    </ion-card-content>
+  </ion-content>
+   
+
+<!-- 验证码输入页面 -->
+<ion-content *ngIf="disstatus==2 || disstatus==5">
   <ion-card-header style="margin-bottom: 50px;">
     <ion-card-title style="height: 50px;"> 您好，</ion-card-title>
     <ion-card-subtitle class="loginsubtitle"> 欢迎来到车联网DEMO</ion-card-subtitle>
   </ion-card-header>
 
   <ion-card-content>
-    <ion-item>
-      <ion-input type="phone" placeholder="输入您的电话号码" [(ngModel)]="model.phone"></ion-input>
-    </ion-item>
-    <ion-item lines="none" class="loginfontsize09" *ngIf="valmsg">
-      <ion-label color="danger">
-        验证信息
-      </ion-label>
-    </ion-item>
-
-  </ion-card-content>
-  <div class="ion-padding loginx" *ngIf="disstatus !=3">
-    <ion-label>
-      获取验证码视为您已阅读  
-      <ion-router-link href="#" class="underline ios ion-activatable hydrated">《用户协议》</ion-router-link>
-      与
-      <ion-router-link href="#" class="underline ios ion-activatable hydrated">《隐私协议》</ion-router-link>
-    </ion-label>
-  </div>
-  <div class="ion-padding">
-    <ion-button expand="block" type="button" (click)="onSendMsg()"
-      class="ion-no-margin ios button button-block button-solid ion-activatable ion-focusable hydrated">
-      获取验证码
-    </ion-button>
-  </div>
-</ion-content>
-
-
-<!-- 验证码输入页面 -->
-<ion-content *ngIf="disstatus==2">
-  <ion-card-header style="margin-bottom: 50px;">
-    <ion-card-title style="height: 50px;"> 期待您的加入</ion-card-title>
-    <ion-card-subtitle class="loginsubtitle"> 您的加入使DEMO更加精彩</ion-card-subtitle>
-  </ion-card-header>
-
-  <ion-card-content>
     <ion-item lines="none" class="loginfontsize09">
       <ion-label>
-        已发送验证码至 {{model.phone}}
+        已发送验证码至 {{mod.model.account}}
       </ion-label>
     </ion-item>
     <ion-item lines="none">
       <ion-row>
         <ion-col>
-          <input type="number" class="loginvalinput" [(ngModel)]="model.val1" id="inputcode1" (focus)="model.val1=''"
+          <input type="number" class="loginvalinput" [(ngModel)]="mod.val1" id="inputcode1" (focus)="mod.val1=''"
             (ngModelChange)="OnVlaCodeChange($event,2)" />
         </ion-col>
         <ion-col>
-          <input type="number" class="loginvalinput" [(ngModel)]="model.val2" id="inputcode2" (focus)="model.val2=''"
+          <input type="number" class="loginvalinput" [(ngModel)]="mod.val2" id="inputcode2" (focus)="mod.val2=''"
             (ngModelChange)="OnVlaCodeChange($event,3)" />
         </ion-col>
         <ion-col>
-          <input type="number" class="loginvalinput" [(ngModel)]="model.val3" id="inputcode3" (focus)="model.val3=''"
+          <input type="number" class="loginvalinput" [(ngModel)]="mod.val3" id="inputcode3" (focus)="mod.val3=''"
             (ngModelChange)="OnVlaCodeChange($event,4)" />
         </ion-col>
         <ion-col>
-          <input type="number" class="loginvalinput" [(ngModel)]="model.val4" id="inputcode4" (focus)="model.val4=''"
+          <input type="number" class="loginvalinput" [(ngModel)]="mod.val4" id="inputcode4" (focus)="mod.val4=''"
             (ngModelChange)="OnVlaCodeChange($event,0)" />
         </ion-col>
       </ion-row>
@@ -76,7 +146,7 @@
 
   </ion-card-content>
 </ion-content>
-<ion-footer class="loginfooter" *ngIf="disstatus!=3">
+<ion-footer class="loginfooter" *ngIf="disstatus!=4">
   <ion-item lines="none" style="text-align:center;    color: #a0a0a0;">
     <ion-label>其它登陆方式</ion-label>
   </ion-item>
@@ -89,18 +159,66 @@
 
 
 
-<!-- 昵称输入界面（未注册用户） -->
-<ion-content *ngIf="disstatus==3">
-  <ion-card-header style="margin-bottom: 50px;">
-    <ion-card-title style="height: 50px;"> 输入您的昵称</ion-card-title>
+<!-- 注册内容输入界面（未注册用户） -->
+
+
+<ion-content *ngIf="disstatus==4">
+  <ion-card-content>
+    <ion-item style="font-size: 1rem;">
+      <ion-row style="width: 100%;">
+        <ion-col size="2">
+          <ion-label style="line-height: 40px;">昵称</ion-label>
+        </ion-col>
+        <ion-col size="10">
+          <ion-input placeholder="昵称" [(ngModel)]="mod.model.name"></ion-input>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+
+    <ion-item style="font-size: 1rem;">
+      <ion-row style="width: 100%;">
+        <ion-col size="2">
+          <ion-label style="line-height: 40px;">密码</ion-label>
+        </ion-col>
+        <ion-col size="10">
+          <ion-input type="password" placeholder="密码" [(ngModel)]="mod.model.pwd"></ion-input>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-card-content>
+  <ion-card-header>
+    <ion-card-title>安全问题</ion-card-title>
   </ion-card-header>
 
   <ion-card-content>
-    <ion-item>
-      <ion-input placeholder="昵称" [(ngModel)]="model.name"></ion-input>
+    <ion-item style="font-size: 1rem;">
+      <ion-select [(ngModel)]="mod.model.quest1" okText="确认" cancelText="取消">
+        <ion-select-option value="">安全问题选择</ion-select-option>
+        <ion-select-option value="20">出生地是哪里？</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item style="font-size: 1rem;">
+      <ion-input type="text" [(ngModel)]="mod.model.quest1value" placeholder="回答"></ion-input>
+    </ion-item>
+    <ion-item style="font-size: 1rem;">
+      <ion-select [(ngModel)]="mod.model.quest2" okText="确认" cancelText="取消">
+        <ion-select-option value="">安全问题选择</ion-select-option>
+        <ion-select-option value="20">出生地是哪里？</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item style="font-size: 1rem;">
+      <ion-input type="text" [(ngModel)]="mod.model.quest2value" placeholder="回答"></ion-input>
+    </ion-item>
+    <ion-item style="font-size: 1rem;">
+      <ion-select [(ngModel)]="mod.model.quest3" okText="确认" cancelText="取消">
+        <ion-select-option value="">安全问题选择</ion-select-option>
+        <ion-select-option value="20">出生地是哪里？</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item style="font-size: 1rem;">
+      <ion-input type="text" [(ngModel)]="mod.model.quest3value" placeholder="回答"></ion-input>
     </ion-item>
   </ion-card-content>
-
   <div class="ion-padding">
     <ion-button expand="block" type="button" (click)="onReg()"
       class="ion-no-margin ios button button-block button-solid ion-activatable ion-focusable hydrated">

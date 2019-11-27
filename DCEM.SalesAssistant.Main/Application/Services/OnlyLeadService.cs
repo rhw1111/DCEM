@@ -204,7 +204,6 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
 
