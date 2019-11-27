@@ -33,7 +33,7 @@
                   </ion-col>
               </ion-row>
               <ion-row>
-                  <ion-col class="title">
+                  <ion-col class="title" style="text-align:center">
                       创建联络记录成功
                   </ion-col>
               </ion-row>
@@ -41,9 +41,14 @@
                   <ion-col>
                       <ion-button color="primary" class="button-outline" [routerLink]="['/saleing/onlylead/detail']"
                           [queryParams]="{id:mod.id,source:2}">
-                          返回唯一线索详情
+                          查看详情
                       </ion-button>
-                  </ion-col>                
+                    </ion-col>    
+                    <ion-col>
+                         <ion-button color="primary" class="button-outline" [routerLink]="['/saleing/onlylead/list']">
+                             返回列表
+                        </ion-button>
+                     </ion-col>
               </ion-row>
           </ion-grid>
       </ion-card-content>
