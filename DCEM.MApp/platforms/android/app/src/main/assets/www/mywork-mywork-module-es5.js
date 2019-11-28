@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/home/tabs\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>我的</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n                <ion-menu-button></ion-menu-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n</ion-header>\r\n<ion-content color=\"light\">\r\n    <ion-list lines=\"full\">\r\n        <ion-item>\r\n            <ion-icon color=\"primary\" slot=\"start\" name=\"person\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h2>张三</h2>\r\n                <p>15088888888</p>\r\n            </ion-label>\r\n        </ion-item>\r\n\r\n    </ion-list>\r\n\r\n    <ion-list lines=\"full\">\r\n        <ion-item [routerLink]=\"['/serving/mycustomer/list']\">\r\n            <ion-icon color=\"primary\" slot=\"start\" name=\"contacts\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>我的客户</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n\r\n    <ion-list lines=\"full\">\r\n        <ion-item>\r\n            <ion-icon  color=\"primary\" slot=\"start\" name=\"alarm\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>我的预约</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item [routerLink]=\"['/serving/ri/list']\">\r\n            <ion-icon  color=\"primary\"  slot=\"start\" name=\"clipboard\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>我的问诊</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item [routerLink]=\"['/serving/sc/list']\">\r\n            <ion-icon  color=\"primary\" slot=\"start\" name=\"hammer\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>我的维修</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-icon  color=\"primary\"  slot=\"start\" name=\"happy\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>技术支持</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n\r\n    <ion-list lines=\"full\">\r\n        <ion-item>\r\n            <ion-icon  color=\"primary\"  slot=\"start\" name=\"settings\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>系统设置</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/home/tabs\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>我的</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n                <ion-menu-button></ion-menu-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n</ion-header>\r\n<ion-content color=\"light\">\r\n    <ion-list lines=\"full\">\r\n        <ion-item [routerLink]=\"['/base/uc/detail']\" >\r\n            <ion-icon color=\"primary\" slot=\"start\" name=\"person\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h2>{{UserInfo[\"firstname\"]}}</h2>\r\n                <p>{{UserInfo[\"mcs_dealername\"]}}</p>\r\n            </ion-label>\r\n        </ion-item>\r\n\r\n    </ion-list>\r\n\r\n    <ion-list lines=\"full\">\r\n        <ion-item [routerLink]=\"['/serving/home/message']\">\r\n            <ion-icon color=\"primary\" slot=\"start\" name=\"notifications\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>我的消息</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item [routerLink]=\"['/serving/mycustomer/list']\">\r\n            <ion-icon color=\"primary\" slot=\"start\" name=\"contacts\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>我的客户</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n\r\n    <ion-list lines=\"full\">\r\n        <ion-item [routerLink]=\"['/serving/reservation/list']\">\r\n            <ion-icon  color=\"primary\" slot=\"start\" name=\"alarm\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>我的预约</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item [routerLink]=\"['/serving/ri/list']\">\r\n            <ion-icon  color=\"primary\"  slot=\"start\" name=\"clipboard\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>我的问诊</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n        <ion-item [routerLink]=\"['/serving/sc/list']\">\r\n            <ion-icon  color=\"primary\" slot=\"start\" name=\"hammer\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>我的维修</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n\r\n    <ion-list lines=\"full\">\r\n        <ion-item [routerLink]=\"['/serving/home/systemsetup']\">\r\n            <ion-icon  color=\"primary\"  slot=\"start\" name=\"settings\" size=\"large\"></ion-icon>\r\n            <ion-label>\r\n                <h3>系统设置</h3>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n\r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -87,17 +87,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var app_serving_serving_ser_components_select_file_edit_select_file_edit_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/serving/serving.ser/components/select-file-edit/select-file-edit.component */ "./src/app/serving/serving.ser/components/select-file-edit/select-file-edit.component.ts");
+/* harmony import */ var app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/base/base.ser/logininfo.storage */ "./src/app/base/base.ser/logininfo.storage.ts");
+
 
 
 
 
 var MyworkPage = /** @class */ (function () {
-    function MyworkPage(_modalCtrl) {
+    function MyworkPage(_modalCtrl, _userinfo) {
         this._modalCtrl = _modalCtrl;
+        this._userinfo = _userinfo;
+        this.UserInfo = null;
     }
     MyworkPage.prototype.ngOnInit = function () {
+        this.UserInfo = this._userinfo.GetUserInfo();
     };
-    //ѡ�񸽼�
     MyworkPage.prototype.presentFileModal = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var modal;
@@ -117,7 +121,8 @@ var MyworkPage = /** @class */ (function () {
         });
     };
     MyworkPage.ctorParameters = function () { return [
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] }
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] },
+        { type: app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_4__["Storage_LoginInfo"] }
     ]; };
     MyworkPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -125,7 +130,8 @@ var MyworkPage = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./mywork.page.html */ "./node_modules/raw-loader/index.js!./src/app/serving/home.com/mywork/mywork.page.html"),
             styles: [__webpack_require__(/*! ./mywork.page.scss */ "./src/app/serving/home.com/mywork/mywork.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
+            app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_4__["Storage_LoginInfo"]])
     ], MyworkPage);
     return MyworkPage;
 }());
