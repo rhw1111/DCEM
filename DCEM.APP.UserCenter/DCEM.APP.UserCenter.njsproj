@@ -72,9 +72,6 @@
     <TypeScriptCompile Include="src\app\app.component.spec.ts" />
     <TypeScriptCompile Include="src\app\app.component.ts" />
     <TypeScriptCompile Include="src\app\app.module.ts" />
-    <TypeScriptCompile Include="src\app\component\modal\login\login.module.ts" />
-    <TypeScriptCompile Include="src\app\component\modal\login\login.page.spec.ts" />
-    <TypeScriptCompile Include="src\app\component\modal\login\login.page.ts" />
     <TypeScriptCompile Include="src\app\component\typescript\dcem.core.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\index\index.module.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\index\index.page.spec.ts" />
@@ -131,8 +128,6 @@
     <Content Include="package.json" />
     <Content Include="src\app\app.component.html" />
     <Content Include="src\app\app.component.scss" />
-    <Content Include="src\app\component\modal\login\login.page.html" />
-    <Content Include="src\app\component\modal\login\login.page.scss" />
     <Content Include="src\app\page\carcenter\index\index.page.html" />
     <Content Include="src\app\page\carcenter\index\index.page.scss" />
     <Content Include="src\app\page\charging\index\index.page.html" />
