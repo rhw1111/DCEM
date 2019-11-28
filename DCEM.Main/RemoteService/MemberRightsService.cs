@@ -18,13 +18,17 @@ namespace DCEM.Main.RemoteService
         private ICommonLogInfoGeneratorService _commonLogInfoGeneratorService;
         private ISystemConfigurationRepository _systemConigurationRepository;
 
-        public MemberRightsService(ICommonLogInfoGeneratorService commonLogInfoGeneratorService, ISystemConfigurationRepository systemConigurationRepository)
-        {
-            _commonLogInfoGeneratorService = commonLogInfoGeneratorService;
-            _systemConigurationRepository = systemConigurationRepository;
-        }
+        //public MemberRightsService(ICommonLogInfoGeneratorService commonLogInfoGeneratorService, ISystemConfigurationRepository systemConigurationRepository)
+        //{
+        //    _commonLogInfoGeneratorService = commonLogInfoGeneratorService;
+        //    _systemConigurationRepository = systemConigurationRepository;
+        //}
 
-        public async Task<MemberRightsResponse> GetTest()
+            /// <summary>
+            /// 获取整车订单权益项
+            /// </summary>
+            /// <returns></returns>
+        public async Task<MemberRightsResponse> GetMemberRights()
         {
             //var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
             //var ProxyUserId = userInfo != null ? userInfo.systemuserid : null;
@@ -38,11 +42,11 @@ namespace DCEM.Main.RemoteService
             var userId = "1000004";
 
             var serviceAddress = "http://mtkprd.seres.cn/mktcloud/order/v1/queryOrderRight?primaryActiveCode=" + primaryActiveCode + "&userId=" + userId + "&orderNo=";
-            var headDic = await _commonLogInfoGeneratorService.Generate();
-
-            //headDic.Add("Authorization", "bearer " + accesstoken);
+            //var headDic = await _commonLogInfoGeneratorService.Generate();
+            //var headDic = new Dictionary<string, string>();
+        
             //调用配置服务中获取服务信息的方法
-            var serviceInfo = await HttpClinetHelper.GetAsync<MemberRightsResponse>($"{serviceAddress}", headDic);
+            var serviceInfo = await HttpClinetHelper.GetAsync<MemberRightsResponse>($"{serviceAddress}");
             return serviceInfo;
         }
     }

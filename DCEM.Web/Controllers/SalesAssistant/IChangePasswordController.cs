@@ -19,29 +19,28 @@ namespace DCEM.Web.Controllers
     [ApiController]
     public class IChangePasswordController : ApiController
     {
-
-        public IChangePasswordService app = null;
-
-        //private IFactory<IChangePasswordService> _remoteServiceFactory;
-
-        //public IChangePasswordController(IFactory<IChangePasswordService> remoteServiceFactory)
-        //{
-        //    _remoteServiceFactory = remoteServiceFactory;
-        //}
-        //public IChangePasswordController()
-        //{
-        //    if (app == null)
-        //    {
-        //        app = _remoteServiceFactory.Create();
-        //    }
-        //}
-
+       
+        /// <summary>
+        /// 修改用户登录密码
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("EditPwd")]
         public async Task<NewtonsoftJsonActionResult<ResultResponse>> EditPwd(ChangePasswordModel model)
-        {        
-            var result = await app.UpdatePwd(model);
-            return result;
+        {
+            IChangePasswordService app = new ChangePasswordService();
+            try
+            {
+                var result = await app.UpdatePwd(model);
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+          
         }
     }
 }

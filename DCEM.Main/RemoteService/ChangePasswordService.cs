@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace DCEM.Main.RemoteService
 {
-    //[Injection(InterfaceType = typeof(IChangePasswordService), Scope = InjectionScope.Singleton)]
+    [Injection(InterfaceType = typeof(IChangePasswordService), Scope = InjectionScope.Singleton)]
     public class ChangePasswordService: IChangePasswordService
     {
         //private ICommonLogInfoGeneratorService _commonLogInfoGeneratorService;
@@ -33,7 +33,6 @@ namespace DCEM.Main.RemoteService
 
             var serviceAddress = "https://subcrmuatceo.sokon.com/uc.inapitocrm/swagger/ui/index#!/User/User_UserResetPassWord?UserName=" + model.systemUserName + "&PassWord=" + model.FirstNewPwd + "&OldPassWord="+ model.OldPwd;
             //var headDic = await _commonLogInfoGeneratorService.Generate();
-
             // headDic.Add("Authorization", "bearer " + accesstoken);
             //调用配置服务中获取服务信息的方法
              var serviceInfo = await HttpClinetHelper.GetAsync<ResultResponse>($"{serviceAddress}");
