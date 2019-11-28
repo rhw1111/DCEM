@@ -62,6 +62,8 @@
     <Folder Include="src\assets\" />
     <Folder Include="src\assets\icon\" />
     <Folder Include="src\assets\img\" />
+    <Folder Include="src\assets\img\community\" />
+    <Folder Include="src\assets\img\community\index\" />
     <Folder Include="src\environments\" />
     <Folder Include="src\theme\" />
   </ItemGroup>

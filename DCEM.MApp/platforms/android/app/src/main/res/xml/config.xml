@@ -41,6 +41,9 @@
     <feature name="IonicWebView">
         <param name="android-package" value="com.ionicframework.cordova.webview.IonicWebView" />
     </feature>
+    <feature name="FullScreenImage">
+        <param name="android-package" value="es.keensoft.fullscreenimage.FullScreenImage" />
+    </feature>
     <name>经销商助手</name>
     <description>经销商助手V1.0</description>
     <author email="190563430@qq.com" href="http://106.14.121.65/crm9/main.aspx">微软Dynamic CRM开发团队</author>
@@ -85,7 +88,4 @@
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
-    <feature name="FullScreenImage">
-        <param name="android-package" value="es.keensoft.fullscreenimage.FullScreenImage" />
-    </feature>
 </widget>

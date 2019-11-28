@@ -57,12 +57,22 @@ export class AppComponent {
 
     initializeApp() {
         this.platform.ready().then(() => {
-            this.statusBar.styleDefault();
+            //样式设置
+            this.statusBar.styleBlackTranslucent();
+            //是否重叠
+            this.statusBar.overlaysWebView(false);
             /** 设置智能竖屏*/
             this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY);
             if(location.href.indexOf('base/uc/welcome')==-1){
                 //设置定时器监控token是否过期
                 this._http.reflashToken();
+                var token = this._http.getToken();
+                if (token != undefined && token != "") {
+                    this._page.goto("/serving/home/tabs/index");
+                }
+                else{
+                    this._page.goto("/base/uc/login");
+                }
             }
         });
     }

@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/reservation/list\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>\r\n            <div *ngIf=\"!model.ifAddOrEdit\">\r\n                创建预约单\r\n            </div>\r\n            <div  *ngIf=\"model.ifAddOrEdit\">\r\n                编辑预约单\r\n            </div>\r\n        </ion-title>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list>\r\n        <ion-item-group>\r\n            <ion-item-divider color=\"primary\">\r\n                <ion-label>车主资料</ion-label>\r\n            </ion-item-divider>\r\n            <ion-item (click)=\"customerOnClick()\">\r\n                <ion-label position=\"stacked\">姓名<ion-text color=\"danger\">*</ion-text></ion-label>\r\n                <ion-note>{{shareData.appointmentinfo[\"mcs_customername\"]}}&nbsp;</ion-note>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">车牌号</ion-label>\r\n                <ion-note>{{shareData.appointmentinfo[\"mcs_carplate\"]}}</ion-note>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">车主手机</ion-label>\r\n                <ion-note>{{shareData.appointmentinfo[\"mcs_customerphone\"]}}</ion-note>\r\n            </ion-item>\r\n        </ion-item-group>\r\n        <ion-item-group>\r\n            <ion-item-divider color=\"primary\">\r\n                <ion-label>预约信息</ion-label>\r\n            </ion-item-divider>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">服务类型<ion-text color=\"danger\">*</ion-text></ion-label>\r\n                <ion-select [(ngModel)]=\"shareData.appointmentinfo['mcs_ordertype']\" placeholder=\"请选择服务类型\" (ionChange)=\"orderTypeChange()\" okText=\"确认\" cancelText=\"取消\">\r\n                    <ion-select-option value=\"10\">汽车美容</ion-select-option>\r\n                    <ion-select-option value=\"20\">钣金喷漆</ion-select-option>\r\n                    <ion-select-option value=\"30\">常规保养</ion-select-option>\r\n                    <ion-select-option value=\"40\">一般维修</ion-select-option>\r\n                    <ion-select-option value=\"50\">保修</ion-select-option>\r\n                    <ion-select-option value=\"60\">其他</ion-select-option>\r\n                </ion-select>\r\n            </ion-item>\r\n            <ion-item >\r\n                <ion-label position=\"stacked\">预约日期<ion-text color=\"danger\">*</ion-text></ion-label>\r\n                <ion-datetime displayFormat=\"YYYY-MM-DD\" min=\"1997\"  cancelText=\"取消\" doneText=\"确定\" (ionChange)=\"appointmentAtChange()\"  [(ngModel)]=\"shareData.appointmentinfo['mcs_appointmentat']\"></ion-datetime>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">预约时段<ion-text color=\"danger\">*</ion-text></ion-label>\r\n                <ion-select [(ngModel)]=\"shareData.appointmentinfo['mcs_appointmentconfigid']\" (ionChange)=\"appointmentConfigChange()\" placeholder=\"请选择时段\" okText=\"确认\" cancelText=\"取消\">\r\n                    <ion-select-option *ngFor=\"let key of objectKeys(model.appointmentConfigOptionMap)\" value=\"{{model.appointmentConfigOptionMap[key].value}}\">\r\n                        {{model.appointmentConfigOptionMap[key].name}}\r\n                    </ion-select-option>\r\n                </ion-select>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label>可预约数量</ion-label>\r\n                <ion-note slot=\"end\">{{shareData.appointmentinfo[\"mcs_surplusnum\"]}}</ion-note>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">客户要求</ion-label>\r\n                <ion-textarea [(ngModel)]=\"shareData.appointmentinfo['mcs_customercomment']\"></ion-textarea>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">问题描述</ion-label>\r\n                <ion-textarea [(ngModel)]=\"shareData.appointmentinfo['mcs_appointmendescript']\"></ion-textarea>\r\n            </ion-item>\r\n        </ion-item-group>\r\n        <ion-button expand=\"block\" type=\"button\" (click)=\"saveOnClick()\">确定</ion-button>\r\n    </ion-list>\r\n</ion-content>"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/reservation/list\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>\r\n            <div *ngIf=\"!model.ifAddOrEdit\">\r\n                创建预约单\r\n            </div>\r\n            <div  *ngIf=\"model.ifAddOrEdit\">\r\n                编辑预约单\r\n            </div>\r\n        </ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-menu-button></ion-menu-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list>\r\n        <ion-item-group>\r\n            <ion-item-divider color=\"primary\">\r\n                <ion-label>车主资料</ion-label>\r\n            </ion-item-divider>\r\n            <ion-item (click)=\"customerOnClick()\">\r\n                <ion-label position=\"stacked\">姓名<ion-text color=\"danger\">*</ion-text></ion-label>\r\n                <ion-note>{{shareData.appointmentinfo[\"mcs_customername\"]}}&nbsp;</ion-note>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">车牌号</ion-label>\r\n                <ion-note>{{shareData.appointmentinfo[\"mcs_carplate\"]}}</ion-note>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">车主手机</ion-label>\r\n                <ion-note>{{shareData.appointmentinfo[\"mcs_customerphone\"]}}</ion-note>\r\n            </ion-item>\r\n        </ion-item-group>\r\n        <ion-item-group>\r\n            <ion-item-divider color=\"primary\">\r\n                <ion-label>预约信息</ion-label>\r\n            </ion-item-divider>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">服务类型<ion-text color=\"danger\">*</ion-text></ion-label>\r\n                <ion-select [(ngModel)]=\"shareData.appointmentinfo['mcs_ordertype']\" placeholder=\"请选择服务类型\" (ionChange)=\"orderTypeChange()\" okText=\"确认\" cancelText=\"取消\">\r\n                    <ion-select-option *ngFor=\"let item of model.orderTypeOption\" value=\"{{item.value}}\">\r\n                        {{item.name}}\r\n                    </ion-select-option>\r\n                </ion-select>\r\n            </ion-item>\r\n            <ion-item >\r\n                <ion-label position=\"stacked\">预约日期<ion-text color=\"danger\">*</ion-text></ion-label>\r\n                <ion-datetime displayFormat=\"YYYY-MM-DD\" min=\"1997\"  cancelText=\"取消\" doneText=\"确定\" (ionChange)=\"appointmentAtChange()\"  [(ngModel)]=\"shareData.appointmentinfo['mcs_appointmentat']\"></ion-datetime>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">预约时段<ion-text color=\"danger\">*</ion-text></ion-label>\r\n                <ion-select [(ngModel)]=\"shareData.appointmentinfo['mcs_appointmentconfigid']\" (ionChange)=\"appointmentConfigChange()\" placeholder=\"请选择时段\" okText=\"确认\" cancelText=\"取消\">\r\n                    <ion-select-option *ngFor=\"let key of objectKeys(model.appointmentConfigOptionMap)\" value=\"{{model.appointmentConfigOptionMap[key].value}}\">\r\n                        {{model.appointmentConfigOptionMap[key].name}}\r\n                    </ion-select-option>\r\n                </ion-select>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label>可预约数量</ion-label>\r\n                <ion-note slot=\"end\">{{shareData.appointmentinfo[\"mcs_surplusnum\"]}}</ion-note>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">客户要求</ion-label>\r\n                <ion-textarea [(ngModel)]=\"shareData.appointmentinfo['mcs_customercomment']\"></ion-textarea>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">问题描述</ion-label>\r\n                <ion-textarea [(ngModel)]=\"shareData.appointmentinfo['mcs_appointmendescript']\"></ion-textarea>\r\n            </ion-item>\r\n        </ion-item-group>\r\n        <ion-button expand=\"block\" type=\"button\" (click)=\"saveOnClick()\">确定</ion-button>\r\n    </ion-list>\r\n</ion-content>"
 
 /***/ }),
 
@@ -90,6 +90,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var silly_datetime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! silly-datetime */ "./node_modules/silly-datetime/dest/index.js");
 /* harmony import */ var silly_datetime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(silly_datetime__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _base_base_ser_optionset_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../base/base.ser/optionset.service */ "./src/app/base/base.ser/optionset.service.ts");
+
 
 
 
@@ -100,7 +102,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let EditPage = class EditPage {
-    constructor(_modalCtrl, _navCtrl, _http, _page, _logininfo, _shareData, _valid, activeRoute) {
+    constructor(_modalCtrl, _navCtrl, _http, _page, _logininfo, _shareData, _valid, activeRoute, _optionset) {
         this._modalCtrl = _modalCtrl;
         this._navCtrl = _navCtrl;
         this._http = _http;
@@ -109,6 +111,7 @@ let EditPage = class EditPage {
         this._shareData = _shareData;
         this._valid = _valid;
         this.activeRoute = activeRoute;
+        this._optionset = _optionset;
         this.model = {
             apiUrl: '/api/appointment-info/GetDetail',
             postApiUrl: '/Api/appointment-info/AddOrEdit',
@@ -124,7 +127,8 @@ let EditPage = class EditPage {
             isAppointmentConfigChange: true,
             customerId: "",
             appointmentConfigOptionMap: {},
-            ifAddOrEdit: false //是否新增或编辑(控制页面title)
+            ifAddOrEdit: false,
+            orderTypeOption: [] //服务类型
         };
         //定义共享数据
         this.shareData = {
@@ -150,6 +154,8 @@ let EditPage = class EditPage {
                 this.customerOnBind(this.model.customerId);
             }
         });
+        //服务类型
+        this.model.orderTypeOption = this._optionset.Get("mcs_ordertype");
     }
     //获取预约时段
     AppointmentConfigOption(ordertype, appointmentat) {
@@ -420,7 +426,8 @@ EditPage.ctorParameters = () => [
     { type: app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_6__["Storage_LoginInfo"] },
     { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__["DCore_ShareData"] },
     { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__["DCore_Valid"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_8__["ActivatedRoute"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_8__["ActivatedRoute"] },
+    { type: _base_base_ser_optionset_service__WEBPACK_IMPORTED_MODULE_9__["OptionSetService"] }
 ];
 EditPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -435,7 +442,8 @@ EditPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_6__["Storage_LoginInfo"],
         app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__["DCore_ShareData"],
         app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_4__["DCore_Valid"],
-        _angular_router__WEBPACK_IMPORTED_MODULE_8__["ActivatedRoute"]])
+        _angular_router__WEBPACK_IMPORTED_MODULE_8__["ActivatedRoute"],
+        _base_base_ser_optionset_service__WEBPACK_IMPORTED_MODULE_9__["OptionSetService"]])
 ], EditPage);
 
 

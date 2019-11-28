@@ -54,7 +54,7 @@ var map = {
 	],
 	"./saleing/delivery/list/list.module": [
 		"./src/app/saleing/delivery/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
 		"saleing-delivery-list-list-module"
 	],
 	"./saleing/delivery/pdiservice/pdiservice.module": [
@@ -75,12 +75,12 @@ var map = {
 	],
 	"./saleing/lead.com/edit/edit.module": [
 		"./src/app/saleing/lead.com/edit/edit.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
 		"saleing-lead-com-edit-edit-module"
 	],
 	"./saleing/lead.com/list/list.module": [
 		"./src/app/saleing/lead.com/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
 		"saleing-lead-com-list-list-module"
 	],
 	"./saleing/lead.com/success/success.module": [
@@ -89,29 +89,29 @@ var map = {
 	],
 	"./saleing/mc-vehorder.com/detail/detail.module": [
 		"./src/app/saleing/mc-vehorder.com/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
 		"common",
 		"saleing-mc-vehorder-com-detail-detail-module"
 	],
 	"./saleing/mc-vehorder.com/list/list.module": [
 		"./src/app/saleing/mc-vehorder.com/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
 		"saleing-mc-vehorder-com-list-list-module"
 	],
 	"./saleing/mcs-account.com/detail/detail.module": [
 		"./src/app/saleing/mcs-account.com/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
 		"common",
 		"saleing-mcs-account-com-detail-detail-module"
 	],
 	"./saleing/mcs-account.com/edit/edit.module": [
 		"./src/app/saleing/mcs-account.com/edit/edit.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
 		"saleing-mcs-account-com-edit-edit-module"
 	],
 	"./saleing/mcs-account.com/list/list.module": [
 		"./src/app/saleing/mcs-account.com/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
 		"saleing-mcs-account-com-list-list-module"
 	],
 	"./saleing/mcs-account.com/success/success.module": [
@@ -132,18 +132,18 @@ var map = {
 	],
 	"./saleing/mcs-cultivatetask.com/detail/detail.module": [
 		"./src/app/saleing/mcs-cultivatetask.com/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
 		"common",
 		"saleing-mcs-cultivatetask-com-detail-detail-module"
 	],
 	"./saleing/mcs-cultivatetask.com/edit/edit.module": [
 		"./src/app/saleing/mcs-cultivatetask.com/edit/edit.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
 		"saleing-mcs-cultivatetask-com-edit-edit-module"
 	],
 	"./saleing/mcs-cultivatetask.com/list/list.module": [
 		"./src/app/saleing/mcs-cultivatetask.com/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
 		"saleing-mcs-cultivatetask-com-list-list-module"
 	],
 	"./saleing/mcs-cultivatetask.com/success/success.module": [
@@ -160,13 +160,13 @@ var map = {
 	],
 	"./saleing/mcs-onlylead.com/detail/detail.module": [
 		"./src/app/saleing/mcs-onlylead.com/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
 		"common",
 		"saleing-mcs-onlylead-com-detail-detail-module"
 	],
 	"./saleing/mcs-onlylead.com/edit/edit.module": [
 		"./src/app/saleing/mcs-onlylead.com/edit/edit.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
 		"saleing-mcs-onlylead-com-edit-edit-module"
 	],
 	"./saleing/mcs-onlylead.com/list/list.module": [
@@ -184,23 +184,24 @@ var map = {
 	],
 	"./saleing/mcs_driverecord.com/detail/detail.module": [
 		"./src/app/saleing/mcs_driverecord.com/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
 		"saleing-mcs_driverecord-com-detail-detail-module"
 	],
 	"./saleing/mcs_driverecord.com/edit/edit.module": [
 		"./src/app/saleing/mcs_driverecord.com/edit/edit.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
 		"common",
 		"saleing-mcs_driverecord-com-edit-edit-module"
 	],
 	"./saleing/mcs_driverecord.com/feedback/feedback.module": [
 		"./src/app/saleing/mcs_driverecord.com/feedback/feedback.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
 		"saleing-mcs_driverecord-com-feedback-feedback-module"
 	],
 	"./saleing/mcs_driverecord.com/list/list.module": [
 		"./src/app/saleing/mcs_driverecord.com/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
+		"common",
 		"saleing-mcs_driverecord-com-list-list-module"
 	],
 	"./saleing/mcs_driverecord.com/success/success.module": [
@@ -209,24 +210,24 @@ var map = {
 	],
 	"./saleing/mcs_installationorder/detail/detail.module": [
 		"./src/app/saleing/mcs_installationorder/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
 		"common",
 		"saleing-mcs_installationorder-detail-detail-module"
 	],
 	"./saleing/mcs_installationorder/list/list.module": [
 		"./src/app/saleing/mcs_installationorder/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
 		"saleing-mcs_installationorder-list-list-module"
 	],
 	"./saleing/mcs_surveyorder/detail/detail.module": [
 		"./src/app/saleing/mcs_surveyorder/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
 		"common",
 		"saleing-mcs_surveyorder-detail-detail-module"
 	],
 	"./saleing/mcs_surveyorder/list/list.module": [
 		"./src/app/saleing/mcs_surveyorder/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
 		"saleing-mcs_surveyorder-list-list-module"
 	],
 	"./saleing/orderpaydetail/detail/detail.module": [
@@ -235,17 +236,17 @@ var map = {
 	],
 	"./saleing/orderpaydetail/edit/edit.module": [
 		"./src/app/saleing/orderpaydetail/edit/edit.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
 		"saleing-orderpaydetail-edit-edit-module"
 	],
 	"./saleing/vehlisense/detail/detail.module": [
 		"./src/app/saleing/vehlisense/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
 		"saleing-vehlisense-detail-detail-module"
 	],
 	"./saleing/vehlisense/list/list.module": [
 		"./src/app/saleing/vehlisense/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
 		"saleing-vehlisense-list-list-module"
 	],
 	"./saleing/vehlisense/success/success.module": [
@@ -254,25 +255,45 @@ var map = {
 	],
 	"./saleing/vehnetwork/detail/detail.module": [
 		"./src/app/saleing/vehnetwork/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
 		"saleing-vehnetwork-detail-detail-module"
 	],
 	"./saleing/vehnetwork/list/list.module": [
 		"./src/app/saleing/vehnetwork/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~0609f10b",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
 		"saleing-vehnetwork-list-list-module"
 	],
 	"./saleing/vehnetwork/success/success.module": [
 		"./src/app/saleing/vehnetwork/success/success.module.ts",
 		"saleing-vehnetwork-success-success-module"
 	],
+	"./serving/home.com/about/about.module": [
+		"./src/app/serving/home.com/about/about.module.ts",
+		"serving-home-com-about-about-module"
+	],
+	"./serving/home.com/change-password/change-password.module": [
+		"./src/app/serving/home.com/change-password/change-password.module.ts",
+		"serving-home-com-change-password-change-password-module"
+	],
 	"./serving/home.com/index/index.module": [
 		"./src/app/serving/home.com/index/index.module.ts",
 		"index-index-module"
 	],
+	"./serving/home.com/message-settings/message-settings.module": [
+		"./src/app/serving/home.com/message-settings/message-settings.module.ts",
+		"serving-home-com-message-settings-message-settings-module"
+	],
+	"./serving/home.com/message/message.module": [
+		"./src/app/serving/home.com/message/message.module.ts",
+		"message-message-module"
+	],
 	"./serving/home.com/mywork/mywork.module": [
 		"./src/app/serving/home.com/mywork/mywork.module.ts",
 		"mywork-mywork-module"
+	],
+	"./serving/home.com/systemsetup/systemsetup.module": [
+		"./src/app/serving/home.com/systemsetup/systemsetup.module.ts",
+		"serving-home-com-systemsetup-systemsetup-module"
 	],
 	"./serving/home.com/tabs/tabs.module": [
 		"./src/app/serving/home.com/tabs/tabs.module.ts",
@@ -289,6 +310,7 @@ var map = {
 	],
 	"./serving/mc-reservation.com/cancel/cancel.module": [
 		"./src/app/serving/mc-reservation.com/cancel/cancel.module.ts",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
 		"serving-mc-reservation-com-cancel-cancel-module"
 	],
 	"./serving/mc-reservation.com/detail/detail.module": [
@@ -298,6 +320,7 @@ var map = {
 	],
 	"./serving/mc-reservation.com/edit/edit.module": [
 		"./src/app/serving/mc-reservation.com/edit/edit.module.ts",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
 		"common",
 		"serving-mc-reservation-com-edit-edit-module"
 	],
@@ -427,6 +450,7 @@ var map = {
 	],
 	"./serving/technical-support.com/edit/edit.module": [
 		"./src/app/serving/technical-support.com/edit/edit.module.ts",
+		"common",
 		"serving-technical-support-com-edit-edit-module"
 	],
 	"./serving/technical-support.com/list/list.module": [
@@ -1169,6 +1193,11 @@ var routes = [
                     { path: 'index', loadChildren: './serving/home.com/index/index.module#IndexPageModule' },
                     { path: 'tabs', loadChildren: './serving/home.com/tabs/tabs.module#TabsPageModule' },
                     { path: 'mywork', loadChildren: './serving/home.com/mywork/mywork.module#MyworkPageModule' },
+                    { path: 'message', loadChildren: './serving/home.com/message/message.module#MessagePageModule' },
+                    { path: 'systemsetup', loadChildren: './serving/home.com/systemsetup/systemsetup.module#SystemsetupPageModule' },
+                    { path: 'about', loadChildren: './serving/home.com/about/about.module#AboutPageModule' },
+                    { path: 'change-password', loadChildren: './serving/home.com/change-password/change-password.module#ChangePasswordPageModule' },
+                    { path: 'message-settings', loadChildren: './serving/home.com/message-settings/message-settings.module#MessageSettingsPageModule' }
                 ]
             },
             {
@@ -1388,6 +1417,10 @@ var routes = [
     { path: 'list', loadChildren: './saleing/mcs_installationorder/list/list.module#ListPageModule' },
     { path: 'detail', loadChildren: './saleing/mcs_installationorder/detail/detail.module#DetailPageModule' },
     { path: 'success', loadChildren: './saleing/mcs-contactrecord/success/success.module#SuccessPageModule' },
+    { path: 'systemsetup', loadChildren: './serving/home.com/systemsetup/systemsetup.module#SystemsetupPageModule' },
+    { path: 'about', loadChildren: './serving/home.com/about/about.module#AboutPageModule' },
+    { path: 'change-password', loadChildren: './serving/home.com/change-password/change-password.module#ChangePasswordPageModule' },
+    { path: 'message-settings', loadChildren: './serving/home.com/message-settings/message-settings.module#MessageSettingsPageModule' },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -1436,7 +1469,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _base_base_ser_authentication_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./base/base.ser/authentication.service */ "./src/app/base/base.ser/authentication.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
-/* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "./node_modules/_@ionic-native_screen-orientation@5.17.0@@ionic-native/screen-orientation/ngx/index.js");
+/* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "./node_modules/@ionic-native/screen-orientation/ngx/index.js");
 
 
 
@@ -1468,20 +1501,14 @@ var AppComponent = /** @class */ (function () {
                 num: 0
             },
             {
-                title: '个人信息',
-                url: '/base/uc/detail',
-                icon: 'person',
-                num: 0,
-            },
-            {
                 title: '消息中心',
                 url: '/serving/home/tabs/message',
-                icon: 'alert',
+                icon: 'notifications',
                 num: 0
             },
             {
                 title: '设置',
-                url: '/tabs',
+                url: '/serving/home/systemsetup',
                 icon: 'settings',
                 num: 0
             }
@@ -1491,41 +1518,20 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.initializeApp = function () {
         var _this = this;
         this.platform.ready().then(function () {
-            ////this.statusBar.styleDefault();
-            //// let status bar overlay webview
-            //this.statusBar.overlaysWebView(false);
-            //// set status bar to white
-            _this.statusBar.backgroundColorByHexString('#000000');
-            //this.splashScreen.hide();
+            _this.statusBar.styleDefault();
             /** 设置智能竖屏*/
-            //this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY);
-            if (location.href.indexOf('base/uc/welcome') == -1 && !_this.authService.isAuthenticated()) {
-                _this._page.goto("base/uc/login");
+            _this.screenOrientation.lock(_this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY);
+            if (location.href.indexOf('base/uc/welcome') == -1) {
+                //设置定时器监控token是否过期
+                _this._http.reflashToken();
+                var token = _this._http.getToken();
+                if (token != undefined && token != "") {
+                    _this._page.goto("/serving/home/tabs/index");
+                }
+                else {
+                    _this._page.goto("/base/uc/login");
+                }
             }
-            //this.headpicture = "assets/img/head_default.jpg";
-            //console.log("开始welcomeisloading");
-            //var welcomeisloading=this._window.storageGet("welcomeisloading");
-            //console.log("取值:"+welcomeisloading);
-            //if(welcomeisloading=="true"){
-            //    var token= this._http.getToken();
-            //    if(token== undefined || token==""){
-            //        this._page.goto("base/uc/login");
-            //    }
-            //    else{
-            //        var lastlogintime=this._window.storageGet("auth-logintime");
-            //        if(lastlogintime!=null && lastlogintime!==""){
-            //            var lastdateTime=new Date(lastlogintime);
-            //            var time = 20*60*1000;
-            //            if (new Date().getTime()-lastdateTime.getTime()>=time) {
-            //                console.log("登录超时20分钟,重新登录");
-            //                this._page.goto("base/uc/login");
-            //            }
-            //        }
-            //    }
-            //}
-            //else{
-            //  this._page.goto("base/uc/welcome");
-            //}
         });
     };
     AppComponent.prototype.loginout = function () {
@@ -1642,7 +1648,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! @ionic-native/file-transfer/ngx */ "./node_modules/@ionic-native/file-transfer/ngx/index.js");
 /* harmony import */ var _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! @ionic-native/camera/ngx */ "./node_modules/@ionic-native/camera/ngx/index.js");
 /* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/fesm5/ng2-file-upload.js");
-/* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "./node_modules/_@ionic-native_screen-orientation@5.17.0@@ionic-native/screen-orientation/ngx/index.js");
+/* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "./node_modules/@ionic-native/screen-orientation/ngx/index.js");
 
 
 
@@ -1837,6 +1843,7 @@ var DCore_Http = /** @class */ (function () {
     function DCore_Http(_httpClient, _config) {
         this._httpClient = _httpClient;
         this._config = _config;
+        this.ReflashInterval = null;
     }
     //带请求头get请求
     DCore_Http.prototype.getForToaken = function (url, params, rescallback, errcallback) {
@@ -1880,7 +1887,6 @@ var DCore_Http = /** @class */ (function () {
     **/
     DCore_Http.prototype.getHeaders = function () {
         var token = this.getToken();
-        console.log(token);
         return token ? new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
             token: token,
         }) : null;
@@ -1895,11 +1901,53 @@ var DCore_Http = /** @class */ (function () {
      * 将token信息保存到本地缓存中 用缓存的形式实现token验证
      * @param token
      */
-    DCore_Http.prototype.setToken = function (token) {
+    DCore_Http.prototype.setToken = function (token, account, password) {
+        if (account === void 0) { account = ''; }
+        if (password === void 0) { password = ''; }
         // 目前只解析token字段，缓存先只存该字段
         // JSON.stringify(token)
         window.localStorage.setItem('auth-token', token);
-        window.localStorage.setItem('auth-logintime', new Date().toLocaleTimeString());
+        window.localStorage.setItem('auth-account', account);
+        window.localStorage.setItem('auth-password', password);
+        window.localStorage.setItem('auth-logintime', new Date().getTime().toString());
+    };
+    //刷新token
+    DCore_Http.prototype.reflashToken = function () {
+        var _this = this;
+        //设置定时器监控token是否过期
+        if (this.ReflashInterval == null) {
+            this.ReflashInterval = setInterval(function () {
+                console.log("定时刷新" + new Date().getTime());
+                var lastlogintime = window.localStorage.getItem("auth-logintime");
+                if (lastlogintime != null && lastlogintime !== "") {
+                    var lastdateTime = parseInt(lastlogintime);
+                    var time = 10 * 60 * 1000;
+                    console.log("time：" + time + " last:" + lastdateTime + " now:" + new Date().getTime());
+                    if (new Date().getTime() - lastdateTime >= time) {
+                        console.log("登录超时10分钟,重新登录");
+                        var account = window.localStorage.getItem('auth-account');
+                        var password = window.localStorage.getItem('auth-password');
+                        if (account != "" && password != "") {
+                            _this.get('/api/User/GetAuthToken', {
+                                params: {
+                                    username: encodeURIComponent(account),
+                                    password: encodeURIComponent(password)
+                                }
+                            }, function (res) {
+                                if (res.access_token == "") {
+                                    return false;
+                                }
+                                window.localStorage.setItem('auth-token', res.access_token);
+                                window.localStorage.setItem('auth-account', account);
+                                window.localStorage.setItem('auth-password', password);
+                                window.localStorage.setItem('auth-logintime', new Date().toLocaleTimeString());
+                            }, function (err) {
+                            });
+                        }
+                    }
+                }
+            }, 3000);
+        }
     };
     DCore_Http.ctorParameters = function () { return [
         { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] },
@@ -1931,7 +1979,7 @@ var DCore_Page = /** @class */ (function () {
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.toastCtrl.create({
-                            header: '错误提示',
+                            header: '错误提示：',
                             message: msg,
                             position: 'top',
                             color: 'dark',
