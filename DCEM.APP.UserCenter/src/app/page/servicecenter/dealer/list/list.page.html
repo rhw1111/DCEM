@@ -48,7 +48,7 @@
 
 
   <Modal [(ngModel)]="this.state.modal2" [popup]="true" [animationType]="'slide-up'" (onClose)="onClose('modal2')">
-    <List [renderHeader]="" [className]="'popup-list'">
+    <List [className]="'popup-list'">
       <ListItem *ngFor="let item of model.data">
         <ion-item-group (click)="clickmarker(item.mcsx,item.mcsy,item)">
           <ion-item lines="none">
