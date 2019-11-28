@@ -172,9 +172,9 @@ var LoginPage = /** @class */ (function () {
                 _this._page.loadingHide();
                 return false;
             }
-            //this._http.setToken(res.access_token);
+            _this._http.setToken(res.access_token, _this.mod.username, _this.mod.password);
             //登录实现
-            _this.authservice.login(res.access_token);
+            //this.authservice.login(res.access_token);
             _this._logininfo.SetInfo(JSON.stringify(res));
             _this._page.loadingHide();
             _this._page.alert('消息提示', '登录认证成功');

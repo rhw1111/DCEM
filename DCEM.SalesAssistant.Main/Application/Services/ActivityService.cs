@@ -1,4 +1,6 @@
-﻿using DCEM.SalesAssistant.Main.Application.Repository.Contrac;
+﻿using DCEM.Main;
+using DCEM.Main.Entities;
+using DCEM.SalesAssistant.Main.Application.Repository.Contrac;
 using DCEM.SalesAssistant.Main.Application.Services.Contrac;
 using DCEM.SalesAssistant.Main.ViewModel.Request;
 using DCEM.SalesAssistant.Main.ViewModel.Response;
@@ -13,6 +15,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
     {
         private ICrmService _crmService;
         private IActivityRepository _Repository;
+
         public ActivityService(ICrmService crmService, IActivityRepository repository)
         {
             _crmService = crmService;
@@ -25,13 +28,15 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         /// <returns></returns>
         public async Task<QueryResult<CrmEntity>> getlist(ActivityRequest request)
         {
+            var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
             try
             {
                 var fetchXdoc = _Repository.GetListFetchXml(request);
                 var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {
                     EntityName = "mcs_activity",
-                    FetchXml = fetchXdoc.Result
+                    FetchXml = fetchXdoc.Result,
+                    ProxyUserId = userInfo?.systemuserid
                 };
                 var fetchResponse = await _crmService.Execute(fetchRequest);
                 var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
@@ -50,18 +55,20 @@ namespace DCEM.SalesAssistant.Main.Application.Services
 
         public async Task<CrmEntity> getdetail(Guid id)
         {
-
+            var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
             try
             {
                 var fetchXdoc = _Repository.GetDetaillFetchXml(id);
                 var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {
                     EntityName = "mcs_activity",
-                    FetchXml = fetchXdoc.Result
+                    FetchXml = fetchXdoc.Result,
+                    ProxyUserId = userInfo?.systemuserid
                 };
                 var fetchResponse = await _crmService.Execute(fetchRequest);
                 var detailResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
-                return detailResult.Value.Results[0];
+               
+                return detailResult?.Value.Results[0];
             }
             catch (Exception ex)
             {
@@ -70,14 +77,15 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         }
         public async Task<CrmEntity> getaccountdetail(Guid id)
         {
-
+            var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
             try
             {
                 var fetchXdoc = _Repository.GetAccountFetchXml(id);
                 var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {
                     EntityName = "account",
-                    FetchXml = fetchXdoc.Result
+                    FetchXml = fetchXdoc.Result,
+                    ProxyUserId = userInfo?.systemuserid
                 };
                 var fetchResponse = await _crmService.Execute(fetchRequest);
                 var detailResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
@@ -92,14 +100,15 @@ namespace DCEM.SalesAssistant.Main.Application.Services
 
         public async Task<CrmEntity> getcontactdetail(Guid id)
         {
-
+            var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
             try
             {
                 var fetchXdoc = _Repository.GetContactFetchXml(id);
                 var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {
                     EntityName = "contact",
-                    FetchXml = fetchXdoc.Result
+                    FetchXml = fetchXdoc.Result,
+                    ProxyUserId = userInfo?.systemuserid
                 };
                 var fetchResponse = await _crmService.Execute(fetchRequest);
                 var detailResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
@@ -114,14 +123,15 @@ namespace DCEM.SalesAssistant.Main.Application.Services
 
         public async Task<CrmEntity> getonlyleaddetail(Guid id)
         {
-
+            var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
             try
             {
                 var fetchXdoc = _Repository.GetOnlyleadFetchXml(id);
                 var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {
                     EntityName = "mcs_onlylead",
-                    FetchXml = fetchXdoc.Result
+                    FetchXml = fetchXdoc.Result,
+                    ProxyUserId = userInfo?.systemuserid
                 };
                 var fetchResponse = await _crmService.Execute(fetchRequest);
                 var detailResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
@@ -141,7 +151,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         /// <returns></returns>
         public async Task<ValidateResult> AddOrUpdate(ActivityEditRequest model)
         {
-
+            var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
             var validateResult = new ValidateResult();
             try
             {
@@ -178,7 +188,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 if (Guid.Empty == model.id)
                 {
                     entity.Id = Guid.NewGuid();
-                    await _crmService.Create(entity, null);
+                    await _crmService.Create(entity, userInfo?.systemuserid);
                 }
                 else
                 {

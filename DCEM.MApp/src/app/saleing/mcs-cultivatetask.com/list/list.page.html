@@ -15,7 +15,7 @@
     </ion-toolbar>
     <ion-toolbar>
         <ion-segment>
-            <ion-segment-button checked (click)="selectTab(-1)">
+            <ion-segment-button checked (click)="selectTab(-1)" value="0">
                 <ion-label>全部</ion-label>
             </ion-segment-button>
 
@@ -31,11 +31,11 @@
 </ion-header>
 
 <ion-content>
-    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <!-- <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
         <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles"
             refreshingText="刷新中...">
         </ion-refresher-content>
-    </ion-refresher>
+    </ion-refresher> -->
     <ion-list lines="full">
         <ion-item-sliding *ngFor="let item of model.datalist" >
             <ion-item [routerLink]="['/saleing/cultivatetask/detail']" [queryParams]="{id:item.mcs_activityid}">
@@ -44,9 +44,9 @@
                     <h2>{{item.Custname}}</h2>
                     <p>{{item.mcs_name}}</p>
                     <p>{{item.mcs_mobilephone}}</p>
-                </ion-label>
-                <ion-note slot="end">
                     <p>{{item.mcs_importantlevel}}</p>
+                </ion-label>
+                <ion-note slot="end">                   
                     <p>{{item.mcs_activitystatus}}</p>
                 </ion-note>
             </ion-item>
@@ -61,12 +61,16 @@
         </ion-item-sliding>
     </ion-list>
    
-        <ion-label *ngIf="model.isending"  text-center>
+        <ion-label *ngIf="infiniteScroll.disabled && !model.searchnodata"  text-center>
             <p>
                 没有更多的记录显示啦
             </p>
         </ion-label>
-   
+        <ion-label *ngIf="!infiniteScroll.disabled && model.searchnodata"  text-center>
+            <p>
+                没有数据！
+            </p>
+        </ion-label>
 
     <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doLoading($event)">
         <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">

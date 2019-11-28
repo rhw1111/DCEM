@@ -18,13 +18,10 @@
             </ion-item-divider>-->
             <ion-item>
                 <ion-label position="stacked">取消原因<ion-text color="danger">*</ion-text></ion-label>
-                <ion-select [(ngModel)]="shareData.appointmentinfo['mcs_cancelreasonnew']" okText="确认" cancelText="取消">
-                    <ion-select-option value="10">待料</ion-select-option>
-                    <ion-select-option value="20">价格太高</ion-select-option>
-                    <ion-select-option value="30">设备不足</ion-select-option>
-                    <ion-select-option value="40">堵车</ion-select-option>
-                    <ion-select-option value="50">技术不足</ion-select-option>
-                    <ion-select-option value="60">天气不好</ion-select-option>
+                <ion-select [(ngModel)]="shareData.appointmentinfo['mcs_cancelreasonnew']" placeholder="请选择取消原因" okText="确认" cancelText="取消">
+                    <ion-select-option *ngFor="let item of model.cancelReasonOption" value="{{item.value}}">
+                        {{item.name}}
+                    </ion-select-option>
                 </ion-select>
             </ion-item>
             <ion-item>

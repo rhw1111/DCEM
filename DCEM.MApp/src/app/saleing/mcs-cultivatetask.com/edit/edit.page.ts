@@ -3,7 +3,7 @@ import { ModalController, NavController, ToastController, IonBackButton, IonBack
 import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
 import { DCore_Http, DCore_Page, DCore_ShareData, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { OptionSetService } from '../../saleing.ser/optionset.service';
+import { OptionSetService } from '../../../base/base.ser/optionset.service';
 import { SelectAppointmentinfoComponent } from 'app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component';
 
 @Component({
@@ -23,7 +23,7 @@ export class EditPage implements OnInit {
   showactivitystatus: boolean = false;
   mod = {
     addoreditUrl: '/api/activity/addoredit',//培育任务的新增修改接口
-    querydetailUrl: '/api/activity/GetDetail',//培育任务的查询接口
+    querydetailUrl: '/api/activity/getdetail',//培育任务的查询接口
     getContactcDetail: '/api/activity/getcontactdetail',//潜客的查询接口
     getOnlyleadDetail: '/api/activity/getonlyleaddetail',//唯一线索的查询接口
     getAccountDetail: '/api/activity/getaccountdetail',//销售机会的查询接口
@@ -56,6 +56,7 @@ export class EditPage implements OnInit {
 
 
   ngOnInit() {
+    debugger;
     this._activeRoute.queryParams.subscribe((params: Params) => {
       this.shareData.selectexcutestatus = this._optionset.Get("act_mcs_excutestatus");
       this.shareData.selectimportantlevel = this._optionset.Get("mcs_importantlevel");
@@ -77,12 +78,10 @@ export class EditPage implements OnInit {
     this.shareData.edititem["mcs_iffollowed"] = false;
     if (type == '1') { 
       this.shareData.edititem["mcs_onlyleadid"] = sourid;
-      this._http.get(
+      this._http.getForToaken(
         this.mod.getOnlyleadDetail,
         {
-          params: {
-            id: sourid,
-          }
+          "id": sourid,
         },
         (res: any) => {
           this.showonlylead = true;
@@ -110,12 +109,10 @@ export class EditPage implements OnInit {
     }
     else if (type == '2') { 
       this.shareData.edititem["mcs_contactid"] = sourid;
-      this._http.get(
+      this._http.getForToaken(
         this.mod.getContactcDetail,
         {
-          params: {
-            id: sourid,
-          }
+            "id": sourid,
         },
         (res: any) => {
           this.showcontact = true;
@@ -140,12 +137,10 @@ export class EditPage implements OnInit {
 
     } else if (type == '3') {
       this.shareData.edititem["mcs_accountid"] = sourid; 
-      this._http.get(
+      this._http.getForToaken(
         this.mod.getAccountDetail,
         {
-          params: {
-            id: sourid,
-          }
+            "id": sourid,
         },
         (res: any) => {
           this.showcount = true;
@@ -180,12 +175,10 @@ export class EditPage implements OnInit {
   EditOnBind(id: any) {
     this.shareData.viewTitle = '修改';
     this._page.loadingShow();
-    this._http.get(
+    this._http.getForToaken(
       this.mod.querydetailUrl,
       {
-        params: {
-          id: id,
-        }
+          "id": id,
       },
       (res: any) => {
         if (!this._valid.isNull(res["Attributes"])) {
@@ -274,7 +267,7 @@ export class EditPage implements OnInit {
     postData["mcs_nextfollowupcontent"] = this.shareData.edititem["mcs_nextfollowupcontent"];
     postData["mcs_nextfollowuptime"] = this.shareData.edititem["mcs_nextfollowuptime"];
     this._page.loadingShow();
-    this._http.post(
+    this._http.postForToaken(
       this.mod.addoreditUrl,
       postData,
       (res: any) => {

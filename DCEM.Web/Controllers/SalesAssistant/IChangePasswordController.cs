@@ -9,33 +9,36 @@ using Microsoft.AspNetCore.Cors;
 using MSLibrary;
 using DCEM.SalesAssistant.Main.ViewModel.Request;
 using MSLibrary.Xrm;
+using DCEM.Main.Entities;
+using DCEM.Main.Response;
 
 namespace DCEM.Web.Controllers
 {
     [EnableCors("any")]
     [Route("api/changepwd")]
+    [ApiController]
     public class IChangePasswordController : ApiController
     {
 
         public IChangePasswordService app = null;
 
-        private IFactory<IChangePasswordService> _remoteServiceFactory;
+        //private IFactory<IChangePasswordService> _remoteServiceFactory;
 
-        public IChangePasswordController(IFactory<IChangePasswordService> remoteServiceFactory)
-        {
-            _remoteServiceFactory = remoteServiceFactory;
-        }
-        public IChangePasswordController()
-        {
-            if (app == null)
-            {
-                app = _remoteServiceFactory.Create();
-            }
-        }
+        //public IChangePasswordController(IFactory<IChangePasswordService> remoteServiceFactory)
+        //{
+        //    _remoteServiceFactory = remoteServiceFactory;
+        //}
+        //public IChangePasswordController()
+        //{
+        //    if (app == null)
+        //    {
+        //        app = _remoteServiceFactory.Create();
+        //    }
+        //}
 
         [HttpPost]
         [Route("EditPwd")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> EditPwd(ChangePasswordModel model)
+        public async Task<NewtonsoftJsonActionResult<ResultResponse>> EditPwd(ChangePasswordModel model)
         {        
             var result = await app.UpdatePwd(model);
             return result;

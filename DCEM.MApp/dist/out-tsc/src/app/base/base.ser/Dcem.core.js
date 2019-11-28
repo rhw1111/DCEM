@@ -39,6 +39,7 @@ let DCore_Http = class DCore_Http {
     constructor(_httpClient, _config) {
         this._httpClient = _httpClient;
         this._config = _config;
+        this.ReflashInterval = null;
     }
     //带请求头get请求
     getForToaken(url, params, rescallback, errcallback) {
@@ -82,7 +83,6 @@ let DCore_Http = class DCore_Http {
     **/
     getHeaders() {
         const token = this.getToken();
-        console.log(token);
         return token ? new HttpHeaders({
             token: token,
         }) : null;
@@ -97,11 +97,50 @@ let DCore_Http = class DCore_Http {
      * 将token信息保存到本地缓存中 用缓存的形式实现token验证
      * @param token
      */
-    setToken(token) {
+    setToken(token, account = '', password = '') {
         // 目前只解析token字段，缓存先只存该字段
         // JSON.stringify(token)
         window.localStorage.setItem('auth-token', token);
-        window.localStorage.setItem('auth-logintime', new Date().toLocaleTimeString());
+        window.localStorage.setItem('auth-account', account);
+        window.localStorage.setItem('auth-password', password);
+        window.localStorage.setItem('auth-logintime', new Date().getTime().toString());
+    }
+    //刷新token
+    reflashToken() {
+        //设置定时器监控token是否过期
+        if (this.ReflashInterval == null) {
+            this.ReflashInterval = setInterval(() => {
+                console.log("定时刷新" + new Date().getTime());
+                var lastlogintime = window.localStorage.getItem("auth-logintime");
+                if (lastlogintime != null && lastlogintime !== "") {
+                    var lastdateTime = parseInt(lastlogintime);
+                    var time = 10 * 60 * 1000;
+                    console.log("time：" + time + " last:" + lastdateTime + " now:" + new Date().getTime());
+                    if (new Date().getTime() - lastdateTime >= time) {
+                        console.log("登录超时10分钟,重新登录");
+                        var account = window.localStorage.getItem('auth-account');
+                        var password = window.localStorage.getItem('auth-password');
+                        if (account != "" && password != "") {
+                            this.get('/api/User/GetAuthToken', {
+                                params: {
+                                    username: encodeURIComponent(account),
+                                    password: encodeURIComponent(password)
+                                }
+                            }, (res) => {
+                                if (res.access_token == "") {
+                                    return false;
+                                }
+                                window.localStorage.setItem('auth-token', res.access_token);
+                                window.localStorage.setItem('auth-account', account);
+                                window.localStorage.setItem('auth-password', password);
+                                window.localStorage.setItem('auth-logintime', new Date().toLocaleTimeString());
+                            }, (err) => {
+                            });
+                        }
+                    }
+                }
+            }, 3000);
+        }
     }
 };
 DCore_Http = tslib_1.__decorate([

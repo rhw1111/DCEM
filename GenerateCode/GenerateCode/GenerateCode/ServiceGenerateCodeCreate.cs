@@ -25,8 +25,8 @@ namespace GenerateCode
             className = $@"{moduleName}Service";
             interfaceName = $@"I{moduleName}Service";
             constructorParametTypeName = $@"I{moduleName}Repository";
-            constructorParametName = $@"{moduleName}Repository";
-            PropertyParametName = $@"_{moduleName}Repository";
+            constructorParametName = $@"{moduleName.ToLower()}Repository";
+            PropertyParametName = $@"_{moduleName.ToLower()}Repository";
         }
         private List<string> namespaceList = new List<string>() {
              $@"{baseNamespace}.Application.Repository.Contrac",

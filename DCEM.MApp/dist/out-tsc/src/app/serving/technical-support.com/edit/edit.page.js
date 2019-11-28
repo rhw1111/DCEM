@@ -9,6 +9,7 @@ import { SelectCustomerComponent } from 'app/serving/serving.ser/components/sele
 import { SelectSystemuserComponent } from 'app/base/base.ser/components/select-systemuser/select-systemuser.component';
 import { SelectMalFunctionTypeComponent } from 'app/serving/serving.ser/components/select-malfunctiontype/select.malfunctiontype.component';
 import { SelectFileEditComponent } from 'app/serving/serving.ser/components/select-file-edit/select-file-edit.component';
+import { MessageService } from 'app/base/base.ser/message.service';
 let EditPage = class EditPage {
     constructor(_http, _page, _valid, _userInfo, modalCtrl, activeRoute) {
         this._http = _http;
@@ -21,6 +22,7 @@ let EditPage = class EditPage {
             postApiUrl: '/api/tech-support/AddOrUpdate',
             detailApiUrl: '/api/tech-support/GetDetail',
             viewData: {
+                title: '',
                 mcs_serviceorderid_name: '',
                 vin: '',
                 mcs_customername: '',
@@ -64,6 +66,10 @@ let EditPage = class EditPage {
         this.activeRoute.queryParams.subscribe((params) => {
             if (params['id'] != null && params['id'] != undefined) {
                 this.GetDetail(params['id']);
+                this.model.viewData.title = MessageService.PageTitleEditTech;
+            }
+            else {
+                this.model.viewData.title = MessageService.PageTitleAddTech;
             }
         });
         this.model.postData.mcs_serviceadvisorid = this._userInfo.GetSystemUserId();
@@ -108,11 +114,9 @@ let EditPage = class EditPage {
                 this.model.postData.mcs_cartypeid = res["TechnicalSupport"]["Attributes"]["_mcs_cartypeid_value"];
                 this.model.viewData.mcs_cartypeid_vale = res["TechnicalSupport"]["Attributes"]["_mcs_mcs_cartypeid_value@OData.Community.Display.V1.FormattedValue"];
             }
-            console.log(res);
             if (res.DealerAttachment != null) {
                 this.model.fileArray = [];
                 for (let item of res.DealerAttachment) {
-                    console.log(item);
                     var obj = {};
                     obj["fileName"] = item["Attributes"]["mcs_filename"];
                     obj["fileSize"] = item["Attributes"]["mcs_filesize"];
@@ -122,7 +126,7 @@ let EditPage = class EditPage {
             }
             this._page.loadingHide();
         }, (err) => {
-            this._page.alert("消息提示", "数据加载异常");
+            this._page.alert(MessageService.AlterTitleMessage, MessageService.ErrorRequestException);
             this._page.loadingHide();
         });
     }
@@ -204,6 +208,7 @@ let EditPage = class EditPage {
                     var obj = {};
                     obj["mcs_filename"] = file["fileName"];
                     obj["mcs_filesize"] = file["fileSize"];
+                    debugger;
                     obj["mcs_fileurl"] = file["url"];
                     this.model.postData.fileEntityArray.push(obj);
                 }
@@ -288,34 +293,25 @@ let EditPage = class EditPage {
         });
     }
     save() {
-        //数据验证
-        var errMessage = "";
         if (this._valid.isNullOrEmpty(this.model.postData.mcs_title)) {
-            errMessage += "请输入主题<br>";
-        }
-        //if (this._valid.isNullOrEmpty(this.model.viewData.mcs_customername)) {
-        //    errMessage += "请选择车主<br>";
-        //}
-        if (this._valid.isNullOrEmpty(this.model.postData.mcs_techsystem)) {
-            errMessage += "请选择技术系统<br>";
-        }
-        if (this._valid.isNullOrEmpty(this.model.viewData.mcs_malfunctiontype_value)) {
-            errMessage += "请选择故障类别代码";
-        }
-        if (errMessage !== "") {
-            this._page.presentToastError(errMessage);
+            this._page.presentToastError(MessageService.ValidTitleIsNull);
             return;
         }
-        //请求
+        if (this.model.postData.mcs_techsystem <= 0) {
+            this._page.presentToastError(MessageService.ValidTechsystemIsNull);
+            return;
+        }
+        if (this._valid.isNullOrEmpty(this.model.viewData.mcs_malfunctiontype_value)) {
+            this._page.presentToastError(MessageService.ValidMalfunctiontypeIsNull);
+            return;
+        }
         this._page.loadingShow();
         this._http.post(this.model.postApiUrl, this.model.postData, (res) => {
-            console.log(res);
-            console.log(res.Data.Attributes["mcs_name"]);
             this._page.loadingHide();
             this._page.goto("/serving/ts/success", { guid: res.Data.Id, no: res.Data.Attributes["mcs_name"] });
         }, (err) => {
             this._page.loadingHide();
-            this._page.alert("消息提示", "保存失败！");
+            this._page.alert(MessageService.AlterTitleMessage, MessageService.InfoSaveFailed);
         });
     }
     changePhone(value) {
@@ -325,7 +321,6 @@ let EditPage = class EditPage {
             const ischeck = /^(13[0-9]|14[5|7|9]|15[0|1|2|3|5|6|7|8|9]|16[6]|17[0|1|2|3|5|6|7|8]|18[0-9]|19[8|9])\d{8}$/;
             if (!ischeck.test(phone)) {
                 this.model.phone = '';
-                //super.showToast(this.toastCtrl, '请输入正确的手机号');
             }
         }
     }
@@ -334,7 +329,6 @@ let EditPage = class EditPage {
             const ischeck = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(value);
             if (!ischeck) {
                 this.model.email = '';
-                //super.showToast(this.toastCtrl, '请输入正确的邮箱格式');
             }
         }
     }

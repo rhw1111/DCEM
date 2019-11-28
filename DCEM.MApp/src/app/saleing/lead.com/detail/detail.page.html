@@ -93,7 +93,9 @@
                         <ion-label>
                             <h2>线索描述</h2>
                         </ion-label>
-                        <ion-textarea readonly>{{model.info.describe}}</ion-textarea>
+                        <ion-note slot="end">
+                                <textarea readonly>{{model.info.describe}}</textarea>
+                        </ion-note>
                     </ion-item>
                 </ion-item-group>
             </ion-list>

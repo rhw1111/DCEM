@@ -204,7 +204,6 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
 
@@ -221,7 +220,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         public async Task<ValidateResult<CrmEntity>> AddOrEditEntity(LogCallRequest request)
         {
             var validateResult = new ValidateResult<CrmEntity>();
-
+            var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
             try
             {
                 Guid guid = string.IsNullOrEmpty(request.mcs_logcallid) ? Guid.NewGuid() : Guid.Parse(request.mcs_logcallid);
@@ -257,11 +256,11 @@ namespace DCEM.SalesAssistant.Main.Application.Services
 
                 if (!string.IsNullOrEmpty(request.mcs_logcallid))
                 {
-                    await _crmService.Update(Entity);
+                    await _crmService.Update(Entity, userInfo?.systemuserid);
                 }
                 else
                 {
-                    guid = await _crmService.Create(Entity);
+                    guid = await _crmService.Create(Entity, userInfo?.systemuserid);
                 }
 
                 validateResult.Result = true;

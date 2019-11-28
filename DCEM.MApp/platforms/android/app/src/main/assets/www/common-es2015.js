@@ -887,6 +887,72 @@ Dateformat = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 
 
+/***/ }),
+
+/***/ "./src/app/base/base.ser/message.service.ts":
+/*!**************************************************!*\
+  !*** ./src/app/base/base.ser/message.service.ts ***!
+  \**************************************************/
+/*! exports provided: MessageService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MessageService", function() { return MessageService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+let MessageService = 
+/**
+ * 错误信息定义
+ */
+class MessageService {
+};
+//------------标题信息-----------------
+/**消息提醒 */
+MessageService.AlterTitleMessage = '消息提醒';
+//------------错误提示-----------------
+/**请求异常*/
+MessageService.ErrorRequestException = '请求异常';
+/**请求超时*/
+MessageService.ErrorRequestTimeout = '请求超时';
+//------------信息提醒-----------------
+/**操作成功*/
+MessageService.InfoOprationSucceed = '操作成功';
+/**操作成功*/
+MessageService.InfoOprationFailed = '操作失败';
+/**保存失败！*/
+MessageService.InfoSaveFailed = '保存失败！';
+//------------验证信息---------------------
+/**手机号不能为空*/
+MessageService.ValidPhoneIsNull = '手机号不能为空';
+/**请输入主题*/
+MessageService.ValidTitleIsNull = '请输入主题';
+/**请选择技术系统*/
+MessageService.ValidTechsystemIsNull = '请选择技术系统';
+/**请选择故障类别代码*/
+MessageService.ValidMalfunctiontypeIsNull = '请选择故障类别代码';
+//-------------页面标题----------------
+/**编辑技术支持申请单*/
+MessageService.PageTitleEditTech = '编辑技术支持申请单';
+/**新增技术支持申请单*/
+MessageService.PageTitleAddTech = '新增技术支持申请单';
+/**暂时没有数据 */
+MessageService.PageNoData = '暂时没有数据';
+/**没有更多数据了 */
+MessageService.PageNoMore = '没有更多数据了';
+MessageService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    })
+    /**
+     * 错误信息定义
+     */
+], MessageService);
+
+
+
 /***/ })
 
 }]);

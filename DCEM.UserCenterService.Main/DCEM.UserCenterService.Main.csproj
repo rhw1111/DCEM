@@ -9,7 +9,6 @@
     <Folder Include="Application\Repository\Contrac\" />
     <Folder Include="Application\Services\Contrac\" />
     <Folder Include="Factory\" />
-    <Folder Include="ViewModel\" />
   </ItemGroup>
 
   <ItemGroup>

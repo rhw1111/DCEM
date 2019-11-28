@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/reservation/list\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>预约取消</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-menu-button></ion-menu-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list>\r\n        <ion-item-group>\r\n            <!--<ion-item-divider color=\"primary\">\r\n                <ion-label>取消原因</ion-label>\r\n            </ion-item-divider>-->\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">取消原因<ion-text color=\"danger\">*</ion-text></ion-label>\r\n                <ion-select [(ngModel)]=\"shareData.appointmentinfo['mcs_cancelreasonnew']\" okText=\"确认\" cancelText=\"取消\">\r\n                    <ion-select-option value=\"10\">待料</ion-select-option>\r\n                    <ion-select-option value=\"20\">价格太高</ion-select-option>\r\n                    <ion-select-option value=\"30\">设备不足</ion-select-option>\r\n                    <ion-select-option value=\"40\">堵车</ion-select-option>\r\n                    <ion-select-option value=\"50\">技术不足</ion-select-option>\r\n                    <ion-select-option value=\"60\">天气不好</ion-select-option>\r\n                </ion-select>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">取消描述<ion-text color=\"danger\">*</ion-text></ion-label>\r\n                <ion-textarea [(ngModel)]=\"shareData.appointmentinfo['mcs_canceldes']\"></ion-textarea>\r\n            </ion-item>\r\n        </ion-item-group>\r\n    </ion-list>\r\n    <ion-button expand=\"block\" type=\"button\" (click)=\"saveOnClick()\">确定</ion-button>\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/serving/reservation/list\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>预约取消</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-menu-button></ion-menu-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list>\r\n        <ion-item-group>\r\n            <!--<ion-item-divider color=\"primary\">\r\n                <ion-label>取消原因</ion-label>\r\n            </ion-item-divider>-->\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">取消原因<ion-text color=\"danger\">*</ion-text></ion-label>\r\n                <ion-select [(ngModel)]=\"shareData.appointmentinfo['mcs_cancelreasonnew']\" placeholder=\"请选择取消原因\" okText=\"确认\" cancelText=\"取消\">\r\n                    <ion-select-option *ngFor=\"let item of model.cancelReasonOption\" value=\"{{item.value}}\">\r\n                        {{item.name}}\r\n                    </ion-select-option>\r\n                </ion-select>\r\n            </ion-item>\r\n            <ion-item>\r\n                <ion-label position=\"stacked\">取消描述<ion-text color=\"danger\">*</ion-text></ion-label>\r\n                <ion-textarea [(ngModel)]=\"shareData.appointmentinfo['mcs_canceldes']\"></ion-textarea>\r\n            </ion-item>\r\n        </ion-item-group>\r\n    </ion-list>\r\n    <ion-button expand=\"block\" type=\"button\" (click)=\"saveOnClick()\">确定</ion-button>\r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -84,21 +84,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _base_base_ser_optionset_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../base/base.ser/optionset.service */ "./src/app/base/base.ser/optionset.service.ts");
+
 
 
 
 
 let CancelPage = class CancelPage {
-    constructor(_http, _page, activeRoute, _valid) {
+    constructor(_http, _page, activeRoute, _valid, _optionset) {
         this._http = _http;
         this._page = _page;
         this.activeRoute = activeRoute;
         this._valid = _valid;
+        this._optionset = _optionset;
         this.model = {
             postApiUrl: '/Api/appointment-info/AddOrEdit',
             data: {},
             postData: {},
             appointmentinfoid: "",
+            cancelReasonOption: [] //取消原因
         };
         //定义共享数据
         this.shareData = {
@@ -111,6 +115,8 @@ let CancelPage = class CancelPage {
                 this.model.appointmentinfoid = params['id'];
             }
         });
+        //取消原因
+        this.model.cancelReasonOption = this._optionset.Get("mcs_cancelreasonnew");
     }
     saveOnClick() {
         if (this._valid.isNullOrEmpty(this.shareData.appointmentinfo["mcs_cancelreasonnew"])) {
@@ -151,7 +157,8 @@ CancelPage.ctorParameters = () => [
     { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Http"] },
     { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Page"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] },
-    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Valid"] }
+    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Valid"] },
+    { type: _base_base_ser_optionset_service__WEBPACK_IMPORTED_MODULE_4__["OptionSetService"] }
 ];
 CancelPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -162,7 +169,8 @@ CancelPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Http"],
         app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Page"],
         _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
-        app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Valid"]])
+        app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Valid"],
+        _base_base_ser_optionset_service__WEBPACK_IMPORTED_MODULE_4__["OptionSetService"]])
 ], CancelPage);
 
 

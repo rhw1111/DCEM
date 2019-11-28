@@ -3,7 +3,7 @@ import { DCore_Page, DCore_Http, DCore_Valid } from 'app/base/base.ser/Dcem.core
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 import { ModalController, NavController } from '@ionic/angular';
 import { SelectSysareaComponent } from 'app/saleing/saleing.ser/components/select-sysarea/select-sysarea.component';
-import { OptionSetService } from '../../saleing.ser/optionset.service';
+import { OptionSetService } from '../../../base/base.ser/optionset.service';
 @Component({
   selector: 'app-list',
   templateUrl: './list.page.html',

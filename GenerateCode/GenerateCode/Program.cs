@@ -14,13 +14,6 @@ namespace GenerateCode
 {
     class Program
     {
-        public string appNamespace = "DCEM.SalesAssistant.Main.Application.App";
-        public string iAppNamespace = "DCEM.SalesAssistant.Main.Application.App.Contrac";
-        public string serviceNamespace = "DCEM.SalesAssistant.Main.Application.Services";
-        public string iServiceNamespace = "DCEM.SalesAssistant.Main.Application.Services.Contrac";
-        public string repositoryNamespace = "DCEM.SalesAssistant.Main.Application.Repository";
-        public string iRepositoryNamespace = "DCEM.SalesAssistant.Main.Application.Repository.Contrac";
-        public string factoryNamespace = "DCEM.SalesAssistant.Main.Factory";
         static void Main(string[] args)
         {
             //需求生成必须的cs文件
