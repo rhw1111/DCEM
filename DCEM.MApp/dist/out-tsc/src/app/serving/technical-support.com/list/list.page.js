@@ -22,6 +22,10 @@ let ListPage = class ListPage {
             sort: 'mcs_supportorderid desc',
             isending: false //是否加载完成
         };
+        this.PageMessage = {
+            PageNoMore: MessageService.PageNoMore,
+            PageNoData: MessageService.PageNoData,
+        };
     }
     ngOnInit() {
         this.model.page = 1;
