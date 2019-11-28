@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-buttons slot=\"start\">\r\n      <ion-back-button text=\"返回\" defaultHref=\"/\"></ion-back-button>\r\n    </ion-buttons>\r\n    <ion-title>整车订单</ion-title>\r\n    <ion-buttons slot=\"end\">\r\n        <ion-menu-button></ion-menu-button>\r\n    </ion-buttons>\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n      <ion-searchbar [(ngModel)]=\"this.model.params.SearchKey\" placeholder=\"可根据订单编码、姓名、手机号模糊查找\" (keyup)=\"search($event)\" ></ion-searchbar>\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n      <ion-segment>\r\n        <ion-segment-button checked (click)=\"selectTab(0)\">\r\n            <ion-label>全部</ion-label>\r\n        </ion-segment-button>\r\n      \r\n        <ion-segment-button (click)=\"selectTab(1)\">\r\n            <ion-label>订金待支付</ion-label>\r\n        </ion-segment-button>\r\n        <ion-segment-button (click)=\"selectTab(2)\">\r\n            <ion-label>订金已支付</ion-label>\r\n        </ion-segment-button>\r\n       \r\n      </ion-segment>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n        <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\" refreshingText=\"刷新中...\">\r\n        </ion-refresher-content> \r\n    </ion-refresher>\r\n    <ion-list lines=\"full\">\r\n        <ion-item *ngFor=\"let item of model.datalist\" [routerLink]=\"['/saleing/vehorder/detail']\" [queryParams]=\"{id:item.mcs_vehorderid}\">          \r\n            <ion-icon slot=\"start\" name=\"logo-instagram\" size=\"large\" color=\"primary\"></ion-icon>\r\n            <ion-label>\r\n                <h2>{{item.mcs_code}}</h2> \r\n                <p>{{item.mcs_contactname}}</p>\r\n                <p>{{item.mcs_contactphone}}</p>            \r\n            </ion-label>\r\n           <!--  <ion-note slot=\"end\" >\r\n                 <ion-icon color=\"primary\" name=\"hourglass\" size=\"small\"></ion-icon> \r\n                <p>{{item.mcs_code}}</p>    \r\n            </ion-note> -->\r\n            <ion-note slot=\"end\" >\r\n                <!-- <ion-icon color=\"primary\" name=\"hourglass\" size=\"small\"></ion-icon>  -->\r\n                <p>{{item.mcs_rostatus}}</p>   \r\n            </ion-note>\r\n            \r\n        </ion-item>\r\n    </ion-list>\r\n\r\n    <ion-label *ngIf=\"model.isending\" text-center>    \r\n      <p>\r\n         没有更多的记录显示啦\r\n      </p>      \r\n    </ion-label>\r\n    \r\n    <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doLoading($event)\"> \r\n        <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\"> \r\n        </ion-infinite-scroll-content>\r\n    </ion-infinite-scroll>\r\n  \r\n</ion-content>\r\n"
+module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-buttons slot=\"start\">\r\n      <ion-back-button text=\"返回\" defaultHref=\"/\"></ion-back-button>\r\n    </ion-buttons>\r\n    <ion-title>整车订单</ion-title>\r\n    <ion-buttons slot=\"end\">\r\n        <ion-menu-button></ion-menu-button>\r\n    </ion-buttons>\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n      <ion-searchbar [(ngModel)]=\"this.model.params.SearchKey\" placeholder=\"可根据订单编码、姓名、手机号模糊查找\" (keyup)=\"search($event)\" ></ion-searchbar>\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n      <ion-segment>\r\n        <ion-segment-button checked (click)=\"selectTab(0)\" value=\"0\">\r\n            <ion-label>全部</ion-label>\r\n        </ion-segment-button>\r\n      \r\n        <ion-segment-button (click)=\"selectTab(1)\">\r\n            <ion-label>订金待支付</ion-label>\r\n        </ion-segment-button>\r\n        <ion-segment-button (click)=\"selectTab(2)\">\r\n            <ion-label>订金已支付</ion-label>\r\n        </ion-segment-button>\r\n       \r\n      </ion-segment>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n        <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\" refreshingText=\"刷新中...\">\r\n        </ion-refresher-content> \r\n    </ion-refresher>\r\n    <ion-list lines=\"full\">\r\n        <ion-item *ngFor=\"let item of model.datalist\" [routerLink]=\"['/saleing/vehorder/detail']\" [queryParams]=\"{id:item.mcs_vehorderid}\">          \r\n            <ion-icon slot=\"start\" name=\"logo-instagram\" size=\"large\" color=\"primary\"></ion-icon>\r\n            <ion-label>\r\n                <h2>{{item.mcs_code}}</h2> \r\n                <p>{{item.mcs_contactname}}</p>\r\n                <p>{{item.mcs_contactphone}}</p>            \r\n            </ion-label>\r\n           <!--  <ion-note slot=\"end\" >\r\n                 <ion-icon color=\"primary\" name=\"hourglass\" size=\"small\"></ion-icon> \r\n                <p>{{item.mcs_code}}</p>    \r\n            </ion-note> -->\r\n            <ion-note slot=\"end\" >\r\n                <!-- <ion-icon color=\"primary\" name=\"hourglass\" size=\"small\"></ion-icon>  -->\r\n                <p>{{item.mcs_rostatus}}</p>   \r\n            </ion-note>\r\n            \r\n        </ion-item>\r\n    </ion-list>\r\n\r\n    <ion-label *ngIf=\"model.isending\" text-center>    \r\n      <p>\r\n         没有更多的记录显示啦\r\n      </p>      \r\n    </ion-label>\r\n    \r\n    <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doLoading($event)\"> \r\n        <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\"> \r\n        </ion-infinite-scroll-content>\r\n    </ion-infinite-scroll>\r\n  \r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -85,7 +85,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _base_base_ser_http_service_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../base/base.ser/http-service.service */ "./src/app/base/base.ser/http-service.service.ts");
 /* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _saleing_ser_optionset_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../saleing.ser/optionset.service */ "./src/app/saleing/saleing.ser/optionset.service.ts");
+/* harmony import */ var _base_base_ser_optionset_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../base/base.ser/optionset.service */ "./src/app/base/base.ser/optionset.service.ts");
 
 
 
@@ -114,6 +114,7 @@ let ListPage = class ListPage {
     }
     ngOnInit() {
         this.model.params.PageIndex = 1;
+        this._page.loadingShow();
         this.getList(null);
     }
     //搜索方法
@@ -150,12 +151,11 @@ let ListPage = class ListPage {
         else {
             this.model.params.mcs_rostatus = 0;
         }
+        this._page.loadingShow();
         this.getList(null);
     }
     //获取列表数据
     getList(event) {
-        //debugger;
-        this._page.loadingShow();
         this._http.postForToaken(this.model.apiUrl, this.model.params, (res) => {
             //debugger;
             if (res.Results !== null) {
@@ -194,7 +194,7 @@ ListPage.ctorParameters = () => [
     { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"] },
     { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"] },
     { type: _base_base_ser_http_service_service__WEBPACK_IMPORTED_MODULE_2__["HttpService"] },
-    { type: _saleing_ser_optionset_service__WEBPACK_IMPORTED_MODULE_5__["OptionSetService"] }
+    { type: _base_base_ser_optionset_service__WEBPACK_IMPORTED_MODULE_5__["OptionSetService"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonInfiniteScroll"], null),
@@ -209,7 +209,7 @@ ListPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"],
         app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"],
         _base_base_ser_http_service_service__WEBPACK_IMPORTED_MODULE_2__["HttpService"],
-        _saleing_ser_optionset_service__WEBPACK_IMPORTED_MODULE_5__["OptionSetService"]])
+        _base_base_ser_optionset_service__WEBPACK_IMPORTED_MODULE_5__["OptionSetService"]])
 ], ListPage);
 
 
