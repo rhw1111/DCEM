@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>我的任务</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-menu-button></ion-menu-button>\r\n        </ion-buttons>\r\n        \r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-searchbar [(ngModel)]=\"this.model.seachkey\" placeholder=\"可根据姓名、手机号模糊查找\" (keyup)=\"search($event)\">\r\n        </ion-searchbar>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-segment>\r\n            <ion-segment-button checked (click)=\"selectTab(-1)\">\r\n                <ion-label>全部</ion-label>\r\n            </ion-segment-button>\r\n\r\n            <ion-segment-button (click)=\"selectTab(0)\">\r\n                <ion-label>打开</ion-label>\r\n            </ion-segment-button>\r\n            <ion-segment-button (click)=\"selectTab(1)\">\r\n                <ion-label>关闭</ion-label>\r\n            </ion-segment-button>\r\n\r\n        </ion-segment>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n        <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\"\r\n            refreshingText=\"刷新中...\">\r\n        </ion-refresher-content>\r\n    </ion-refresher>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-sliding *ngFor=\"let item of model.datalist\" >\r\n            <ion-item [routerLink]=\"['/saleing/cultivatetask/detail']\" [queryParams]=\"{id:item.mcs_activityid}\">\r\n                <ion-icon slot=\"start\" name=\"logo-instagram\" size=\"large\" color=\"primary\"></ion-icon>\r\n                <ion-label>\r\n                    <h2>{{item.Custname}}</h2>\r\n                    <p>{{item.mcs_name}}</p>\r\n                    <p>{{item.mcs_mobilephone}}</p>\r\n                </ion-label>\r\n                <ion-note slot=\"end\">\r\n                    <p>{{item.mcs_importantlevel}}</p>\r\n                    <p>{{item.mcs_activitystatus}}</p>\r\n                </ion-note>\r\n            </ion-item>\r\n            <ion-item-options side=\"end\" *ngIf=\"item.mcs_activitystatus=='open'\">\r\n               <ion-item-option color=\"tertiary\" expandable [routerLink]=\"['/saleing/cultivatetask/edit']\" [queryParams]=\"{id:item.mcs_activityid}\">\r\n                 编辑\r\n               </ion-item-option> \r\n               <ion-item-option color=\"primary\" expandable (click)=\"TaskFinish(item.mcs_activityid)\">\r\n                 完成\r\n               </ion-item-option>                   \r\n            </ion-item-options>\r\n        </ion-item-sliding>\r\n    </ion-list>\r\n   \r\n        <ion-label *ngIf=\"model.isending\"  text-center>\r\n            <p>\r\n                没有更多的记录显示啦\r\n            </p>\r\n        </ion-label>\r\n   \r\n\r\n    <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doLoading($event)\">\r\n        <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\">\r\n        </ion-infinite-scroll-content>\r\n    </ion-infinite-scroll>\r\n    \r\n    <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\r\n            <ion-fab-button [routerLink]=\"['/saleing/cultivatetask/edit']\" [queryParams]=\"\">\r\n                <ion-icon name=\"add\"></ion-icon>\r\n            </ion-fab-button>\r\n    </ion-fab>\r\n\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-buttons slot=\"start\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-title>我的任务</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-menu-button></ion-menu-button>\r\n        </ion-buttons>\r\n        \r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-searchbar [(ngModel)]=\"this.model.seachkey\" placeholder=\"可根据姓名、手机号模糊查找\" (keyup)=\"search($event)\">\r\n        </ion-searchbar>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-segment>\r\n            <ion-segment-button checked (click)=\"selectTab(-1)\" value=\"0\">\r\n                <ion-label>全部</ion-label>\r\n            </ion-segment-button>\r\n\r\n            <ion-segment-button (click)=\"selectTab(0)\">\r\n                <ion-label>打开</ion-label>\r\n            </ion-segment-button>\r\n            <ion-segment-button (click)=\"selectTab(1)\">\r\n                <ion-label>关闭</ion-label>\r\n            </ion-segment-button>\r\n\r\n        </ion-segment>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <!-- <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n        <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\"\r\n            refreshingText=\"刷新中...\">\r\n        </ion-refresher-content>\r\n    </ion-refresher> -->\r\n    <ion-list lines=\"full\">\r\n        <ion-item-sliding *ngFor=\"let item of model.datalist\" >\r\n            <ion-item [routerLink]=\"['/saleing/cultivatetask/detail']\" [queryParams]=\"{id:item.mcs_activityid}\">\r\n                <ion-icon slot=\"start\" name=\"logo-instagram\" size=\"large\" color=\"primary\"></ion-icon>\r\n                <ion-label>\r\n                    <h2>{{item.Custname}}</h2>\r\n                    <p>{{item.mcs_name}}</p>\r\n                    <p>{{item.mcs_mobilephone}}</p>\r\n                    <p>{{item.mcs_importantlevel}}</p>\r\n                </ion-label>\r\n                <ion-note slot=\"end\">                   \r\n                    <p>{{item.mcs_activitystatus}}</p>\r\n                </ion-note>\r\n            </ion-item>\r\n            <ion-item-options side=\"end\" *ngIf=\"item.mcs_activitystatus=='open'\">\r\n               <ion-item-option color=\"tertiary\" expandable [routerLink]=\"['/saleing/cultivatetask/edit']\" [queryParams]=\"{id:item.mcs_activityid}\">\r\n                 编辑\r\n               </ion-item-option> \r\n               <ion-item-option color=\"primary\" expandable (click)=\"TaskFinish(item.mcs_activityid)\">\r\n                 完成\r\n               </ion-item-option>                   \r\n            </ion-item-options>\r\n        </ion-item-sliding>\r\n    </ion-list>\r\n   \r\n        <ion-label *ngIf=\"infiniteScroll.disabled && !model.searchnodata\"  text-center>\r\n            <p>\r\n                没有更多的记录显示啦\r\n            </p>\r\n        </ion-label>\r\n        <ion-label *ngIf=\"!infiniteScroll.disabled && model.searchnodata\"  text-center>\r\n            <p>\r\n                没有数据！\r\n            </p>\r\n        </ion-label>\r\n\r\n    <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doLoading($event)\">\r\n        <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\">\r\n        </ion-infinite-scroll-content>\r\n    </ion-infinite-scroll>\r\n    \r\n    <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\r\n            <ion-fab-button [routerLink]=\"['/saleing/cultivatetask/edit']\" [queryParams]=\"\">\r\n                <ion-icon name=\"add\"></ion-icon>\r\n            </ion-fab-button>\r\n    </ion-fab>\r\n\r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -85,7 +85,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _base_base_ser_http_service_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../base/base.ser/http-service.service */ "./src/app/base/base.ser/http-service.service.ts");
 /* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _saleing_ser_optionset_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../saleing.ser/optionset.service */ "./src/app/saleing/saleing.ser/optionset.service.ts");
+/* harmony import */ var _base_base_ser_optionset_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../base/base.ser/optionset.service */ "./src/app/base/base.ser/optionset.service.ts");
 /* harmony import */ var app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! app/base/base.ser/logininfo.storage */ "./src/app/base/base.ser/logininfo.storage.ts");
 
 
@@ -112,21 +112,24 @@ let ListPage = class ListPage {
             sort: '',
             isending: false,
             datalist: [],
-            systemUserId: ''
+            systemUserId: '',
+            searchnodata: false,
         };
     }
     ngOnInit() {
         this.model.page = 1;
         this.model.systemUserId = this._logininfo.GetSystemUserId();
+        this._page.loadingShow();
         this.getList(null);
     }
     //搜索方法
     search(event) {
         var keyCode = event ? event.keyCode : "";
         if (keyCode == 13) {
+            this.model.searchnodata = false;
             this.model.datalist = [];
             this.model.page = 1;
-            this.model.isending = false;
+            this._page.loadingShow();
             this.getList(null);
         }
     }
@@ -155,13 +158,11 @@ let ListPage = class ListPage {
         else {
             this.model.mcs_activitystatus = -1;
         }
+        this._page.loadingShow();
         this.getList(null);
     }
     //获取列表数据
     getList(event) {
-        //debugger;
-        //this.model.datalist=[];
-        this._page.loadingShow();
         this._http.get(this.model.apiUrl, {
             params: {
                 mcs_activitystatus: this.model.mcs_activitystatus,
@@ -192,9 +193,11 @@ let ListPage = class ListPage {
                 }
                 event ? event.target.complete() : '';
                 //判断是否有新数据
+                this.model.searchnodata = res.Results.length == 0;
                 if (res.Results.length < this.model.pageSize) {
-                    event ? event.target.disabled = true : "";
-                    this.model.isending = true;
+                    if (this.model.page > 1) {
+                        this.infiniteScroll.disabled = true;
+                    }
                 }
             }
             else {
@@ -243,7 +246,7 @@ ListPage.ctorParameters = () => [
     { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"] },
     { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"] },
     { type: _base_base_ser_http_service_service__WEBPACK_IMPORTED_MODULE_2__["HttpService"] },
-    { type: _saleing_ser_optionset_service__WEBPACK_IMPORTED_MODULE_5__["OptionSetService"] },
+    { type: _base_base_ser_optionset_service__WEBPACK_IMPORTED_MODULE_5__["OptionSetService"] },
     { type: app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_6__["Storage_LoginInfo"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -259,7 +262,7 @@ ListPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"],
         app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"],
         _base_base_ser_http_service_service__WEBPACK_IMPORTED_MODULE_2__["HttpService"],
-        _saleing_ser_optionset_service__WEBPACK_IMPORTED_MODULE_5__["OptionSetService"],
+        _base_base_ser_optionset_service__WEBPACK_IMPORTED_MODULE_5__["OptionSetService"],
         app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_6__["Storage_LoginInfo"]])
 ], ListPage);
 

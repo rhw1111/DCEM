@@ -3,7 +3,18 @@
         <ion-buttons slot="start">
             <ion-back-button text="返回" defaultHref="/saleing/driverecord/list"></ion-back-button>
         </ion-buttons>
-        <ion-title>预约开单</ion-title>
+        <div *ngIf="model.ifEdit">
+            <ion-title>试乘试驾预约编辑</ion-title>
+        </div>
+        <div *ngIf="model.ifSchedule">
+            <ion-title>试乘试驾预约排程</ion-title>
+        </div>
+        <div *ngIf="model.ifCancel">
+            <ion-title>试乘试驾预约取消</ion-title>
+        </div>
+        <div *ngIf="model.ifAdd">
+            <ion-title>试乘试驾预约新增</ion-title>
+        </div>
         <ion-buttons slot="end">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>

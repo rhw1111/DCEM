@@ -1,218 +1,294 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[73],{
 
-/***/ "./node_modules/@ionic/core/dist/esm/ion-textarea-md.entry.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm/ion-textarea-md.entry.js ***!
-  \********************************************************************/
-/*! exports provided: ion_textarea */
+/***/ "./node_modules/@ionic/core/dist/esm/ion-toast-ios.entry.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm/ion-toast-ios.entry.js ***!
+  \******************************************************************/
+/*! exports provided: ion_toast */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_textarea", function() { return Textarea; });
-/* harmony import */ var _chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chunk-d0403a2f.js */ "./node_modules/@ionic/core/dist/esm/chunk-d0403a2f.js");
-/* harmony import */ var _chunk_1074393c_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./chunk-1074393c.js */ "./node_modules/@ionic/core/dist/esm/chunk-1074393c.js");
-/* harmony import */ var _chunk_353a032e_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./chunk-353a032e.js */ "./node_modules/@ionic/core/dist/esm/chunk-353a032e.js");
-/* harmony import */ var _chunk_c90aaa66_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./chunk-c90aaa66.js */ "./node_modules/@ionic/core/dist/esm/chunk-c90aaa66.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_toast", function() { return Toast; });
+/* harmony import */ var _core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core-ca0488fc.js */ "./node_modules/@ionic/core/dist/esm/core-ca0488fc.js");
+/* harmony import */ var _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./config-3c7f3790.js */ "./node_modules/@ionic/core/dist/esm/config-3c7f3790.js");
+/* harmony import */ var _helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-46f4a262.js */ "./node_modules/@ionic/core/dist/esm/helpers-46f4a262.js");
+/* harmony import */ var _animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./animation-af478fe9.js */ "./node_modules/@ionic/core/dist/esm/animation-af478fe9.js");
+/* harmony import */ var _overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./overlays-10640d86.js */ "./node_modules/@ionic/core/dist/esm/overlays-10640d86.js");
+/* harmony import */ var _theme_18cbe2cc_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./theme-18cbe2cc.js */ "./node_modules/@ionic/core/dist/esm/theme-18cbe2cc.js");
+/* harmony import */ var _index_3476b023_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./index-3476b023.js */ "./node_modules/@ionic/core/dist/esm/index-3476b023.js");
+
+
+
 
 
 
 
 
 /**
- * @virtualProp {"ios" | "md"} mode - The mode determines which platform styles to use.
+ * iOS Toast Enter Animation
  */
-class Textarea {
+const iosEnterAnimation = (baseEl, position) => {
+    const baseAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+    const wrapperAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+    const hostEl = baseEl.host || baseEl;
+    const wrapperEl = baseEl.querySelector('.toast-wrapper');
+    const bottom = `calc(-10px - var(--ion-safe-area-bottom, 0px))`;
+    const top = `calc(10px + var(--ion-safe-area-top, 0px))`;
+    wrapperAnimation.addElement(wrapperEl);
+    switch (position) {
+        case 'top':
+            wrapperAnimation.fromTo('transform', 'translateY(-100%)', `translateY(${top})`);
+            break;
+        case 'middle':
+            const topPosition = Math.floor(hostEl.clientHeight / 2 - wrapperEl.clientHeight / 2);
+            wrapperEl.style.top = `${topPosition}px`;
+            wrapperAnimation.fromTo('opacity', 0.01, 1);
+            break;
+        default:
+            wrapperAnimation.fromTo('transform', 'translateY(100%)', `translateY(${bottom})`);
+            break;
+    }
+    return baseAnimation
+        .addElement(hostEl)
+        .easing('cubic-bezier(.155,1.105,.295,1.12)')
+        .duration(400)
+        .addAnimation(wrapperAnimation);
+};
+
+/**
+ * iOS Toast Leave Animation
+ */
+const iosLeaveAnimation = (baseEl, position) => {
+    const baseAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+    const wrapperAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+    const hostEl = baseEl.host || baseEl;
+    const wrapperEl = baseEl.querySelector('.toast-wrapper');
+    const bottom = `calc(-10px - var(--ion-safe-area-bottom, 0px))`;
+    const top = `calc(10px + var(--ion-safe-area-top, 0px))`;
+    wrapperAnimation.addElement(wrapperEl);
+    switch (position) {
+        case 'top':
+            wrapperAnimation.fromTo('transform', `translateY(${top})`, 'translateY(-100%)');
+            break;
+        case 'middle':
+            wrapperAnimation.fromTo('opacity', 0.99, 0);
+            break;
+        default:
+            wrapperAnimation.fromTo('transform', `translateY(${bottom})`, 'translateY(100%)');
+            break;
+    }
+    return baseAnimation
+        .addElement(hostEl)
+        .easing('cubic-bezier(.36,.66,.04,1)')
+        .duration(300)
+        .addAnimation(wrapperAnimation);
+};
+
+/**
+ * MD Toast Enter Animation
+ */
+const mdEnterAnimation = (baseEl, position) => {
+    const baseAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+    const wrapperAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+    const hostEl = baseEl.host || baseEl;
+    const wrapperEl = baseEl.querySelector('.toast-wrapper');
+    const bottom = `calc(8px + var(--ion-safe-area-bottom, 0px))`;
+    const top = `calc(8px + var(--ion-safe-area-top, 0px))`;
+    wrapperAnimation.addElement(wrapperEl);
+    switch (position) {
+        case 'top':
+            wrapperEl.style.top = top;
+            wrapperAnimation.fromTo('opacity', 0.01, 1);
+            break;
+        case 'middle':
+            const topPosition = Math.floor(hostEl.clientHeight / 2 - wrapperEl.clientHeight / 2);
+            wrapperEl.style.top = `${topPosition}px`;
+            wrapperAnimation.fromTo('opacity', 0.01, 1);
+            break;
+        default:
+            wrapperEl.style.bottom = bottom;
+            wrapperAnimation.fromTo('opacity', 0.01, 1);
+            break;
+    }
+    return baseAnimation
+        .addElement(hostEl)
+        .easing('cubic-bezier(.36,.66,.04,1)')
+        .duration(400)
+        .addAnimation(wrapperAnimation);
+};
+
+/**
+ * md Toast Leave Animation
+ */
+const mdLeaveAnimation = (baseEl) => {
+    const baseAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+    const wrapperAnimation = Object(_animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+    const hostEl = baseEl.host || baseEl;
+    const wrapperEl = baseEl.querySelector('.toast-wrapper');
+    wrapperAnimation
+        .addElement(wrapperEl)
+        .fromTo('opacity', 0.99, 0);
+    return baseAnimation
+        .addElement(hostEl)
+        .easing('cubic-bezier(.36,.66,.04,1)')
+        .duration(300)
+        .addAnimation(wrapperAnimation);
+};
+
+const Toast = class {
     constructor(hostRef) {
-        Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
-        this.inputId = `ion-input-${textareaIds++}`;
-        this.didBlurAfterEdit = false;
-        this.hasFocus = false;
+        Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
+        this.presented = false;
+        this.mode = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this);
         /**
-         * Indicates whether and how the text value should be automatically capitalized as it is entered/edited by the user.
+         * How many milliseconds to wait before hiding the toast. By default, it will show
+         * until `dismiss()` is called.
          */
-        this.autocapitalize = 'none';
+        this.duration = 0;
         /**
-         * This Boolean attribute lets you specify that a form control should have input focus when the page loads.
+         * If `true`, the keyboard will be automatically dismissed when the overlay is presented.
          */
-        this.autofocus = false;
+        this.keyboardClose = false;
         /**
-         * If `true`, the value will be cleared after focus upon edit. Defaults to `true` when `type` is `"password"`, `false` for all other types.
+         * The position of the toast on the screen.
          */
-        this.clearOnEdit = false;
+        this.position = 'bottom';
         /**
-         * Set the amount of time, in milliseconds, to wait to trigger the `ionChange` event after each keystroke.
+         * @deprecated Use `buttons` instead. If `true`, the close button will be displayed.
          */
-        this.debounce = 0;
+        this.showCloseButton = false;
         /**
-         * If `true`, the user cannot interact with the textarea.
+         * If `true`, the toast will be translucent.
+         * Only applies when the mode is `"ios"` and the device supports
+         * [`backdrop-filter`](https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter#Browser_compatibility).
          */
-        this.disabled = false;
+        this.translucent = false;
         /**
-         * The name of the control, which is submitted with the form data.
+         * If `true`, the toast will animate.
          */
-        this.name = this.inputId;
-        /**
-         * If `true`, the user cannot modify the value.
-         */
-        this.readonly = false;
-        /**
-         * If `true`, the user must fill in a value before submitting a form.
-         */
-        this.required = false;
-        /**
-         * If `true`, the element will have its spelling and grammar checked.
-         */
-        this.spellcheck = false;
-        /**
-         * If `true`, the element height will increase based on the value.
-         */
-        this.autoGrow = false;
-        /**
-         * The value of the textarea.
-         */
-        this.value = '';
-        this.onInput = (ev) => {
-            if (this.nativeInput) {
-                this.value = this.nativeInput.value;
-            }
-            this.emitStyle();
-            this.ionInput.emit(ev);
-        };
-        this.onFocus = () => {
-            this.hasFocus = true;
-            this.focusChange();
-            this.ionFocus.emit();
-        };
-        this.onBlur = () => {
-            this.hasFocus = false;
-            this.focusChange();
-            this.ionBlur.emit();
-        };
-        this.onKeyDown = () => {
-            this.checkClearOnEdit();
-        };
-        this.ionChange = Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionChange", 7);
-        this.ionInput = Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionInput", 7);
-        this.ionStyle = Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionStyle", 7);
-        this.ionBlur = Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionBlur", 7);
-        this.ionFocus = Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionFocus", 7);
-        this.ionInputDidLoad = Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionInputDidLoad", 7);
-        this.ionInputDidUnload = Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionInputDidUnload", 7);
-    }
-    debounceChanged() {
-        this.ionChange = Object(_chunk_c90aaa66_js__WEBPACK_IMPORTED_MODULE_3__["d"])(this.ionChange, this.debounce);
-    }
-    disabledChanged() {
-        this.emitStyle();
+        this.animated = true;
+        Object(_overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_4__["d"])(this.el);
+        this.didPresent = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionToastDidPresent", 7);
+        this.willPresent = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionToastWillPresent", 7);
+        this.willDismiss = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionToastWillDismiss", 7);
+        this.didDismiss = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionToastDidDismiss", 7);
     }
     /**
-     * Update the native input element when the value changes
+     * Present the toast overlay after it has been created.
      */
-    valueChanged() {
-        const nativeInput = this.nativeInput;
-        const value = this.getValue();
-        if (nativeInput && nativeInput.value !== value) {
-            nativeInput.value = value;
+    async present() {
+        await Object(_overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_4__["e"])(this, 'toastEnter', iosEnterAnimation, mdEnterAnimation, this.position);
+        if (this.duration > 0) {
+            this.durationTimeout = setTimeout(() => this.dismiss(undefined, 'timeout'), this.duration);
         }
-        this.runAutoGrow();
-        this.emitStyle();
-        this.ionChange.emit({ value });
     }
-    componentWillLoad() {
-        this.emitStyle();
+    /**
+     * Dismiss the toast overlay after it has been presented.
+     *
+     * @param data Any data to emit in the dismiss events.
+     * @param role The role of the element that is dismissing the toast.
+     * This can be useful in a button handler for determining which button was
+     * clicked to dismiss the toast.
+     * Some examples include: ``"cancel"`, `"destructive"`, "selected"`, and `"backdrop"`.
+     */
+    dismiss(data, role) {
+        if (this.durationTimeout) {
+            clearTimeout(this.durationTimeout);
+        }
+        return Object(_overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_4__["f"])(this, data, role, 'toastLeave', iosLeaveAnimation, mdLeaveAnimation, this.position);
     }
-    componentDidLoad() {
-        this.debounceChanged();
-        this.runAutoGrow();
-        this.ionInputDidLoad.emit();
+    /**
+     * Returns a promise that resolves when the toast did dismiss.
+     */
+    onDidDismiss() {
+        return Object(_overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_4__["g"])(this.el, 'ionToastDidDismiss');
     }
-    // TODO: performance hit, this cause layout thrashing
-    runAutoGrow() {
-        const nativeInput = this.nativeInput;
-        if (nativeInput && this.autoGrow) {
-            Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["f"])(() => {
-                nativeInput.style.height = 'inherit';
-                nativeInput.style.height = nativeInput.scrollHeight + 'px';
+    /**
+     * Returns a promise that resolves when the toast will dismiss.
+     */
+    onWillDismiss() {
+        return Object(_overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_4__["g"])(this.el, 'ionToastWillDismiss');
+    }
+    getButtons() {
+        const buttons = this.buttons
+            ? this.buttons.map(b => {
+                return (typeof b === 'string')
+                    ? { text: b }
+                    : b;
+            })
+            : [];
+        // tslint:disable-next-line: deprecation
+        if (this.showCloseButton) {
+            buttons.push({
+                // tslint:disable-next-line: deprecation
+                text: this.closeButtonText || 'Close',
+                handler: () => this.dismiss(undefined, 'cancel')
             });
         }
+        return buttons;
     }
-    componentDidUnload() {
-        this.ionInputDidUnload.emit();
-    }
-    /**
-     * Sets focus on the specified `ion-textarea`. Use this method instead of the global
-     * `input.focus()`.
-     */
-    async setFocus() {
-        if (this.nativeInput) {
-            this.nativeInput.focus();
+    async buttonClick(button) {
+        const role = button.role;
+        if (Object(_overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_4__["i"])(role)) {
+            return this.dismiss(undefined, role);
         }
+        const shouldDismiss = await this.callButtonHandler(button);
+        if (shouldDismiss) {
+            return this.dismiss(undefined, button.role);
+        }
+        return Promise.resolve();
     }
-    /**
-     * Returns the native `<textarea>` element used under the hood.
-     */
-    getInputElement() {
-        return Promise.resolve(this.nativeInput);
+    async callButtonHandler(button) {
+        if (button && button.handler) {
+            // a handler has been provided, execute it
+            // pass the handler the values from the inputs
+            try {
+                const rtn = await Object(_overlays_10640d86_js__WEBPACK_IMPORTED_MODULE_4__["s"])(button.handler);
+                if (rtn === false) {
+                    // if the return value of the handler is false then do not dismiss
+                    return false;
+                }
+            }
+            catch (e) {
+                console.error(e);
+            }
+        }
+        return true;
     }
-    emitStyle() {
-        this.ionStyle.emit({
-            'interactive': true,
-            'textarea': true,
-            'input': true,
-            'interactive-disabled': this.disabled,
-            'has-placeholder': this.placeholder != null,
-            'has-value': this.hasValue(),
-            'has-focus': this.hasFocus
-        });
-    }
-    /**
-     * Check if we need to clear the text input if clearOnEdit is enabled
-     */
-    checkClearOnEdit() {
-        if (!this.clearOnEdit) {
+    renderButtons(buttons, side) {
+        if (buttons.length === 0) {
             return;
         }
-        // Did the input value change after it was blurred and edited?
-        if (this.didBlurAfterEdit && this.hasValue()) {
-            // Clear the input
-            this.value = '';
-        }
-        // Reset the flag
-        this.didBlurAfterEdit = false;
-    }
-    focusChange() {
-        // If clearOnEdit is enabled and the input blurred but has a value, set a flag
-        if (this.clearOnEdit && !this.hasFocus && this.hasValue()) {
-            this.didBlurAfterEdit = true;
-        }
-        this.emitStyle();
-    }
-    hasValue() {
-        return this.getValue() !== '';
-    }
-    getValue() {
-        return this.value || '';
+        const mode = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this);
+        const buttonGroupsClasses = {
+            'toast-button-group': true,
+            [`toast-button-group-${side}`]: true
+        };
+        return (Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: buttonGroupsClasses }, buttons.map(b => Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["h"])("button", { type: "button", class: buttonClass(b), tabIndex: 0, onClick: () => this.buttonClick(b) }, Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "toast-button-inner" }, b.icon &&
+            Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-icon", { icon: b.icon, slot: b.text === undefined ? 'icon-only' : undefined, class: "toast-icon" }), b.text), mode === 'md' && Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-ripple-effect", { type: b.icon !== undefined && b.text === undefined ? 'unbounded' : 'bounded' })))));
     }
     render() {
-        const mode = Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this);
-        const value = this.getValue();
-        const labelId = this.inputId + '-lbl';
-        const label = Object(_chunk_c90aaa66_js__WEBPACK_IMPORTED_MODULE_3__["f"])(this.el);
-        if (label) {
-            label.id = labelId;
-        }
-        return (Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["H"], { "aria-disabled": this.disabled ? 'true' : null, class: Object.assign({}, Object(_chunk_353a032e_js__WEBPACK_IMPORTED_MODULE_2__["c"])(this.color), { [mode]: true }) }, Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["h"])("textarea", { class: "native-textarea", ref: el => this.nativeInput = el, autoCapitalize: this.autocapitalize, autoFocus: this.autofocus, disabled: this.disabled, maxLength: this.maxlength, minLength: this.minlength, name: this.name, placeholder: this.placeholder || '', readOnly: this.readonly, required: this.required, spellCheck: this.spellcheck, cols: this.cols, rows: this.rows, wrap: this.wrap, onInput: this.onInput, onBlur: this.onBlur, onFocus: this.onFocus, onKeyDown: this.onKeyDown }, value)));
+        const allButtons = this.getButtons();
+        const startButtons = allButtons.filter(b => b.side === 'start');
+        const endButtons = allButtons.filter(b => b.side !== 'start');
+        const mode = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this);
+        const wrapperClass = {
+            'toast-wrapper': true,
+            [`toast-${this.position}`]: true
+        };
+        return (Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["H"], { style: {
+                zIndex: `${60000 + this.overlayIndex}`,
+            }, class: Object.assign(Object.assign(Object.assign({ [mode]: true }, Object(_theme_18cbe2cc_js__WEBPACK_IMPORTED_MODULE_5__["c"])(this.color)), Object(_theme_18cbe2cc_js__WEBPACK_IMPORTED_MODULE_5__["g"])(this.cssClass)), { 'toast-translucent': this.translucent }) }, Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: wrapperClass }, Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "toast-container" }, this.renderButtons(startButtons, 'start'), Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "toast-content" }, this.header !== undefined &&
+            Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "toast-header" }, this.header), this.message !== undefined &&
+            Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "toast-message", innerHTML: Object(_index_3476b023_js__WEBPACK_IMPORTED_MODULE_6__["s"])(this.message) })), this.renderButtons(endButtons, 'end')))));
     }
-    get el() { return Object(_chunk_d0403a2f_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this); }
-    static get watchers() { return {
-        "debounce": ["debounceChanged"],
-        "disabled": ["disabledChanged"],
-        "value": ["valueChanged"]
-    }; }
-    static get style() { return ".sc-ion-textarea-md-h{--background:initial;--color:initial;--placeholder-color:initial;--placeholder-font-style:initial;--placeholder-font-weight:initial;--placeholder-opacity:.5;--padding-top:0;--padding-bottom:0;--padding-start:0;--border-radius:0;display:block;position:relative;-ms-flex:1;flex:1;width:100%;-webkit-box-sizing:border-box;box-sizing:border-box;background:var(--background);color:var(--color);font-family:var(--ion-font-family,inherit);white-space:pre-wrap;z-index:2}.ion-color.sc-ion-textarea-md-h{background:initial;color:var(--ion-color-base)}ion-item.sc-ion-textarea-md-h, ion-item .sc-ion-textarea-md-h{-ms-flex-item-align:baseline;align-self:baseline}ion-item.sc-ion-textarea-md-h:not(.item-label), ion-item:not(.item-label) .sc-ion-textarea-md-h{--padding-start:0}.native-textarea.sc-ion-textarea-md{border-radius:var(--border-radius);margin-left:0;margin-right:0;margin-top:0;margin-bottom:0;padding-left:var(--padding-start);padding-right:var(--padding-end);padding-top:var(--padding-top);padding-bottom:var(--padding-bottom);font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;text-decoration:inherit;text-overflow:inherit;text-transform:inherit;text-align:inherit;white-space:inherit;color:inherit;display:block;width:100%;max-width:100%;max-height:100%;border:0;outline:none;background:transparent;-webkit-box-sizing:border-box;box-sizing:border-box;resize:none;-webkit-appearance:none;-moz-appearance:none;appearance:none}\@supports ((-webkit-margin-start:0) or (margin-inline-start:0)) or (-webkit-margin-start:0){.native-textarea.sc-ion-textarea-md{padding-left:unset;padding-right:unset;-webkit-padding-start:var(--padding-start);padding-inline-start:var(--padding-start);-webkit-padding-end:var(--padding-end);padding-inline-end:var(--padding-end)}}.native-textarea.sc-ion-textarea-md::-webkit-input-placeholder{color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-textarea.sc-ion-textarea-md::-moz-placeholder{color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-textarea.sc-ion-textarea-md:-ms-input-placeholder{color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-textarea.sc-ion-textarea-md::-ms-input-placeholder{color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-textarea.sc-ion-textarea-md::placeholder{color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-textarea[disabled].sc-ion-textarea-md{opacity:.4}.cloned-input.sc-ion-textarea-md{left:0;top:0;position:absolute;pointer-events:none}[dir=rtl].sc-ion-textarea-md-h .cloned-input.sc-ion-textarea-md, [dir=rtl] .sc-ion-textarea-md-h .cloned-input.sc-ion-textarea-md, [dir=rtl].sc-ion-textarea-md .cloned-input.sc-ion-textarea-md{left:unset;right:unset;right:0}.sc-ion-textarea-md-h{--padding-top:10px;--padding-end:0;--padding-bottom:11px;--padding-start:8px;margin-left:0;margin-right:0;margin-top:8px;margin-bottom:0;font-size:inherit}.item-label-floating.sc-ion-textarea-md-h, .item-label-floating .sc-ion-textarea-md-h, .item-label-stacked.sc-ion-textarea-md-h, .item-label-stacked .sc-ion-textarea-md-h{--padding-top:8px;--padding-bottom:8px;--padding-start:0}"; }
-}
-let textareaIds = 0;
+    get el() { return Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this); }
+    static get style() { return ":host{--border-width:0;--border-style:none;--border-color:initial;--box-shadow:none;--min-width:auto;--width:auto;--min-height:auto;--height:auto;--max-height:auto;left:0;top:0;display:block;position:absolute;width:100%;height:100%;color:var(--color);font-family:var(--ion-font-family,inherit);contain:strict;z-index:1001;pointer-events:none}:host-context([dir=rtl]){left:unset;right:unset;right:0}:host(.overlay-hidden){display:none}:host(.ion-color){--button-color:inherit;color:var(--ion-color-contrast)}:host(.ion-color) .toast-wrapper{background:var(--ion-color-base)}.toast-wrapper{border-radius:var(--border-radius);left:var(--start);right:var(--end);width:var(--width);min-width:var(--min-width);max-width:var(--max-width);height:var(--height);min-height:var(--min-height);max-height:var(--max-height);border-width:var(--border-width);border-style:var(--border-style);border-color:var(--border-color);background:var(--background);-webkit-box-shadow:var(--box-shadow);box-shadow:var(--box-shadow)}:host-context([dir=rtl]) .toast-wrapper,[dir=rtl] .toast-wrapper{left:unset;right:unset;left:var(--end);right:var(--start)}.toast-container{-ms-flex-align:center;align-items:center;pointer-events:auto;contain:content}.toast-container,.toast-content{display:-ms-flexbox;display:flex}.toast-content{-ms-flex:1;flex:1;-ms-flex-direction:column;flex-direction:column;-ms-flex-pack:center;justify-content:center}.toast-message{-ms-flex:1;flex:1;white-space:pre-wrap}.toast-button-group{display:-ms-flexbox;display:flex}.toast-button{outline:none;color:var(--button-color);z-index:0}.toast-icon{font-size:1.4em}.toast-button-inner{display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center}\@media (any-hover:hover){.toast-button:hover{cursor:pointer}}:host{--background:var(--ion-color-step-50,#f2f2f2);--border-radius:14px;--button-color:var(--ion-color-primary,#3880ff);--color:var(--ion-color-step-850,#262626);--max-width:700px;--start:10px;--end:10px;font-size:14px}.toast-wrapper{margin-left:auto;margin-right:auto;margin-top:auto;margin-bottom:auto;display:block;position:absolute;z-index:10}\@supports ((-webkit-margin-start:0) or (margin-inline-start:0)) or (-webkit-margin-start:0){.toast-wrapper{margin-left:unset;margin-right:unset;-webkit-margin-start:auto;margin-inline-start:auto;-webkit-margin-end:auto;margin-inline-end:auto}}\@supports ((-webkit-backdrop-filter:blur(0)) or (backdrop-filter:blur(0))){:host(.toast-translucent) .toast-wrapper{background:rgba(var(--ion-background-color-rgb,255,255,255),.8);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px)}}.toast-wrapper.toast-top{-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0);top:0}.toast-wrapper.toast-middle{opacity:.01}.toast-wrapper.toast-bottom{-webkit-transform:translate3d(0,100%,0);transform:translate3d(0,100%,0);bottom:0}.toast-content{padding-left:15px;padding-right:15px;padding-top:15px;padding-bottom:15px}\@supports ((-webkit-margin-start:0) or (margin-inline-start:0)) or (-webkit-margin-start:0){.toast-content{padding-left:unset;padding-right:unset;-webkit-padding-start:15px;padding-inline-start:15px;-webkit-padding-end:15px;padding-inline-end:15px}}.toast-header{margin-bottom:2px;font-weight:500}.toast-button{padding-left:15px;padding-right:15px;padding-top:10px;padding-bottom:10px;height:44px;-webkit-transition:background-color,opacity .1s linear;transition:background-color,opacity .1s linear;border:0;background-color:transparent;font-family:var(--ion-font-family);font-size:17px;font-weight:500;overflow:hidden}\@supports ((-webkit-margin-start:0) or (margin-inline-start:0)) or (-webkit-margin-start:0){.toast-button{padding-left:unset;padding-right:unset;-webkit-padding-start:15px;padding-inline-start:15px;-webkit-padding-end:15px;padding-inline-end:15px}}.toast-button.activated{opacity:.4}\@media (any-hover:hover){.toast-button:hover{opacity:.6}}"; }
+};
+const buttonClass = (button) => {
+    return Object.assign({ 'toast-button': true, 'toast-button-icon-only': button.icon !== undefined && button.text === undefined, [`toast-button-${button.role}`]: button.role !== undefined, 'ion-focusable': true, 'ion-activatable': true }, Object(_theme_18cbe2cc_js__WEBPACK_IMPORTED_MODULE_5__["g"])(button.cssClass));
+};
 
 
 

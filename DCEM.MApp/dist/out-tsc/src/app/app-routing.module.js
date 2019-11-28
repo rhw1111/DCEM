@@ -37,7 +37,8 @@ const routes = [
                     { path: 'message', loadChildren: './serving/home.com/message/message.module#MessagePageModule' },
                     { path: 'systemsetup', loadChildren: './serving/home.com/systemsetup/systemsetup.module#SystemsetupPageModule' },
                     { path: 'about', loadChildren: './serving/home.com/about/about.module#AboutPageModule' },
-                    { path: 'change-password', loadChildren: './serving/home.com/change-password/change-password.module#ChangePasswordPageModule' }
+                    { path: 'change-password', loadChildren: './serving/home.com/change-password/change-password.module#ChangePasswordPageModule' },
+                    { path: 'message-settings', loadChildren: './serving/home.com/message-settings/message-settings.module#MessageSettingsPageModule' }
                 ]
             },
             {
@@ -260,6 +261,7 @@ const routes = [
     { path: 'systemsetup', loadChildren: './serving/home.com/systemsetup/systemsetup.module#SystemsetupPageModule' },
     { path: 'about', loadChildren: './serving/home.com/about/about.module#AboutPageModule' },
     { path: 'change-password', loadChildren: './serving/home.com/change-password/change-password.module#ChangePasswordPageModule' },
+    { path: 'message-settings', loadChildren: './serving/home.com/message-settings/message-settings.module#MessageSettingsPageModule' },
 ];
 let AppRoutingModule = class AppRoutingModule {
 };

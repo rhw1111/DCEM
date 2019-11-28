@@ -168,9 +168,9 @@ let LoginPage = class LoginPage {
                 this._page.loadingHide();
                 return false;
             }
-            //this._http.setToken(res.access_token);
+            this._http.setToken(res.access_token, this.mod.username, this.mod.password);
             //登录实现
-            this.authservice.login(res.access_token);
+            //this.authservice.login(res.access_token);
             this._logininfo.SetInfo(JSON.stringify(res));
             this._page.loadingHide();
             this._page.alert('消息提示', '登录认证成功');

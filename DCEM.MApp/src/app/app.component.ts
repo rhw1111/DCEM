@@ -57,7 +57,10 @@ export class AppComponent {
 
     initializeApp() {
         this.platform.ready().then(() => {
-            this.statusBar.styleDefault();
+            //样式设置
+            this.statusBar.styleBlackTranslucent();
+            //是否重叠
+            this.statusBar.overlaysWebView(false);
             /** 设置智能竖屏*/
             this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY);
             if(location.href.indexOf('base/uc/welcome')==-1){
