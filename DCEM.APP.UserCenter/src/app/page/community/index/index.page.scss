@@ -75,3 +75,212 @@
         }
     }
 }
+
+//滑动区域
+.dm-main-slides {
+    height: 100%;
+
+    ion-slide {
+        height: 100%;
+    }
+
+    .dm-main-slide {
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+}
+
+//搜索样式
+.dm-main-search {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+//推荐相关样式
+.dm-main-recommend {
+    border-bottom: 1px solid rgb(237,237,237);
+    padding-bottom: 25px;
+    padding-top: 25px;
+
+    .dm-main-recommen-userinfo {
+        img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+        }
+
+        ion-col:last-child {
+            padding-left: 5px;
+            padding-top: 5px;
+
+            p:first-child {
+                font-size: 14px;
+                font-weight: bold;
+            }
+
+            p:last-child {
+                font-size: 12px;
+                color: rgb(140,140,140)
+            }
+        }
+    }
+
+    .dm-main-recommen-title {
+        padding-top: 5px;
+
+        ion-col {
+            padding-left: 10px;
+
+            p {
+                font-size: 16px;
+                font-weight: bold;
+            }
+        }
+    }
+
+    .dm-main-recommen-content {
+        padding-top: 15px;
+
+        ion-col {
+            padding-left: 10px;
+            padding-right: 10px;
+
+            img {
+                border-radius: 10px;
+                height: 150px;
+                width: 100%;
+            }
+        }
+    }
+
+    .dm-main-recommen-bottom {
+        padding-left: 15px;
+        padding-top: 15px;
+
+        p {
+            font-size: 12px;
+            color: rgb(140,140,140);
+
+            span:last-child {
+                padding-left: 15px;
+            }
+        }
+    }
+}
+
+//问答相关样式
+.dm-main-questions {
+    border-bottom: 3px solid rgb(237,237,237);
+    padding-bottom: 25px;
+    padding-top: 25px;
+
+    .dm-main-questions-userinfo {
+        img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+        }
+
+        ion-col:last-child {
+            padding-left: 5px;
+            padding-top: 5px;
+
+            p:first-child {
+                font-size: 14px;
+                font-weight: bold;
+            }
+
+            p:last-child {
+                font-size: 12px;
+                color: rgb(140,140,140);
+
+                span:last-child {
+                    margin-left: 15px;
+                }
+            }
+        }
+    }
+
+    .dm-main-questions-title {
+        padding-top: 5px;
+
+        ion-col {
+            padding-left: 10px;
+
+            p {
+                font-size: 16px;
+                font-weight: bold;
+            }
+        }
+    }
+
+    .dm-main-questions-content {
+        padding-top: 15px;
+
+        ion-col {
+            padding-left: 10px;
+            padding-right: 10px;
+
+            p {
+                font-size: 14px;
+                color: rgb(140,140,140);
+            }
+        }
+    }
+}
+
+//活动相关样式
+.dm-main-activity {
+    padding: 15px;
+
+
+    ion-grid {
+        border-radius: 15px;
+        border: 1px solid rgb(237,237,237);
+    }
+
+    .dm-main-activity-img {
+        img {
+            border-radius: 15px 15px 0px 0px;
+        }
+
+        .dm-main-activity-img-status {
+            position: absolute;
+            left: 15px;
+            bottom: 20px;
+            background-color: #fff;
+            font-size: 14px;
+            padding-left: 5px;
+            padding-right: 5px;
+            font-weight: bold;
+        }
+    }
+
+    .dm-main-activity-title {
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgb(237,237,237);
+
+        h1 {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        p {
+            margin-top: 5px;
+            font-size: 14px;
+            color: rgb(140,140,140)
+        }
+    }
+
+    .dm-main-activity-bottom {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-weight: bold;
+        font-size: 16px;
+    }
+}

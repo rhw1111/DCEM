@@ -1,5 +1,6 @@
 ﻿
 using DCEM.Main.Entities;
+using DCEM.Main.Response;
 using MSLibrary;
 using MSLibrary.Configuration;
 using MSLibrary.DI;
@@ -23,7 +24,7 @@ namespace DCEM.Main.RemoteService
             _systemConigurationRepository = systemConigurationRepository;
         }
 
-        public async Task<MemberRightsResponse> GetTest(string name)
+        public async Task<MemberRightsResponse> GetTest()
         {
             //var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
             //var ProxyUserId = userInfo != null ? userInfo.systemuserid : null;

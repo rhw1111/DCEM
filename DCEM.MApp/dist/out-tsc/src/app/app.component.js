@@ -51,6 +51,13 @@ let AppComponent = class AppComponent {
             if (location.href.indexOf('base/uc/welcome') == -1) {
                 //设置定时器监控token是否过期
                 this._http.reflashToken();
+                var token = this._http.getToken();
+                if (token != undefined && token != "") {
+                    this._page.goto("/serving/home/tabs/index");
+                }
+                else {
+                    this._page.goto("/base/uc/login");
+                }
             }
         });
     }
