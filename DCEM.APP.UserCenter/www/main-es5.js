@@ -458,7 +458,7 @@ module.exports = "<ion-app>\r\n  <ion-router-outlet></ion-router-outlet>\r\n</io
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-item lines=\"none\">\n  <ion-label style=\"margin-top: 20px;\">\n    <img src=\"../assets/img/close.png\" style=\"width: 20px;\" (click)=\"dismissModal()\">\n  </ion-label>\n</ion-item>\n\n<!-- 电话号码输入页面 -->\n<ion-content *ngIf=\"disstatus==1\">\n  <ion-card-header style=\"margin-bottom: 50px;\">\n    <ion-card-title style=\"height: 50px;\"> 您好，</ion-card-title>\n    <ion-card-subtitle class=\"loginsubtitle\"> 欢迎来到车联网DEMO</ion-card-subtitle>\n  </ion-card-header>\n\n  <ion-card-content>\n    <ion-item>\n      <ion-input type=\"phone\" placeholder=\"输入您的电话号码\" [(ngModel)]=\"model.phone\"></ion-input>\n    </ion-item>\n    <ion-item lines=\"none\" class=\"loginfontsize09\" *ngIf=\"valmsg\">\n      <ion-label color=\"danger\">\n        验证信息\n      </ion-label>\n    </ion-item>\n\n  </ion-card-content>\n  <div class=\"ion-padding loginx\" *ngIf=\"disstatus !=3\">\n    <ion-label>\n      获取验证码视为您已阅读  \n      <ion-router-link href=\"#\" class=\"underline ios ion-activatable hydrated\">《用户协议》</ion-router-link>\n      与\n      <ion-router-link href=\"#\" class=\"underline ios ion-activatable hydrated\">《隐私协议》</ion-router-link>\n    </ion-label>\n  </div>\n  <div class=\"ion-padding\">\n    <ion-button expand=\"block\" type=\"button\" (click)=\"onSendMsg()\"\n      class=\"ion-no-margin ios button button-block button-solid ion-activatable ion-focusable hydrated\">\n      获取验证码\n    </ion-button>\n  </div>\n</ion-content>\n\n\n<!-- 验证码输入页面 -->\n<ion-content *ngIf=\"disstatus==2\">\n  <ion-card-header style=\"margin-bottom: 50px;\">\n    <ion-card-title style=\"height: 50px;\"> 期待您的加入</ion-card-title>\n    <ion-card-subtitle class=\"loginsubtitle\"> 您的加入使DEMO更加精彩</ion-card-subtitle>\n  </ion-card-header>\n\n  <ion-card-content>\n    <ion-item lines=\"none\" class=\"loginfontsize09\">\n      <ion-label>\n        已发送验证码至 {{model.phone}}\n      </ion-label>\n    </ion-item>\n    <ion-item lines=\"none\">\n      <ion-row>\n        <ion-col>\n          <input type=\"number\" class=\"loginvalinput\" [(ngModel)]=\"model.val1\" id=\"inputcode1\" (focus)=\"model.val1=''\"\n            (ngModelChange)=\"OnVlaCodeChange($event,2)\" />\n        </ion-col>\n        <ion-col>\n          <input type=\"number\" class=\"loginvalinput\" [(ngModel)]=\"model.val2\" id=\"inputcode2\" (focus)=\"model.val2=''\"\n            (ngModelChange)=\"OnVlaCodeChange($event,3)\" />\n        </ion-col>\n        <ion-col>\n          <input type=\"number\" class=\"loginvalinput\" [(ngModel)]=\"model.val3\" id=\"inputcode3\" (focus)=\"model.val3=''\"\n            (ngModelChange)=\"OnVlaCodeChange($event,4)\" />\n        </ion-col>\n        <ion-col>\n          <input type=\"number\" class=\"loginvalinput\" [(ngModel)]=\"model.val4\" id=\"inputcode4\" (focus)=\"model.val4=''\"\n            (ngModelChange)=\"OnVlaCodeChange($event,0)\" />\n        </ion-col>\n      </ion-row>\n\n    </ion-item>\n\n  </ion-card-content>\n</ion-content>\n<ion-footer class=\"loginfooter\" *ngIf=\"disstatus!=3\">\n  <ion-item lines=\"none\" style=\"text-align:center;    color: #a0a0a0;\">\n    <ion-label>其它登陆方式</ion-label>\n  </ion-item>\n  <ion-toolbar>\n    <ion-title>\n      <img src=\"../assets/img/wechat.png\" style=\"width: 35px;\">\n    </ion-title>\n  </ion-toolbar>\n</ion-footer>\n\n\n\n<!-- 昵称输入界面（未注册用户） -->\n<ion-content *ngIf=\"disstatus==3\">\n  <ion-card-header style=\"margin-bottom: 50px;\">\n    <ion-card-title style=\"height: 50px;\"> 输入您的昵称</ion-card-title>\n  </ion-card-header>\n\n  <ion-card-content>\n    <ion-item>\n      <ion-input placeholder=\"昵称\" [(ngModel)]=\"model.name\"></ion-input>\n    </ion-item>\n  </ion-card-content>\n\n  <div class=\"ion-padding\">\n    <ion-button expand=\"block\" type=\"button\" (click)=\"onReg()\"\n      class=\"ion-no-margin ios button button-block button-solid ion-activatable ion-focusable hydrated\">\n      确定\n    </ion-button>\n  </div>\n</ion-content>"
+module.exports = "<ion-item lines=\"none\" style=\"border-bottom: 1px solid #484848;\">\n  <ion-label style=\"margin-top: 12px\">\n    <img src=\"../assets/img/close.png\" style=\"width: 20px;\" (click)=\"dismissModal()\">\n    <ion-label style=\"text-align:center;margin-top:-23px\">\n      {{title}}\n    </ion-label>\n  </ion-label>\n</ion-item>\n<!-- 用户登陆页面 -->\n<ion-content *ngIf=\"disstatus==1\">\n  <ion-card-header style=\"margin-bottom: 20px;\">\n    <ion-card-title style=\"height: 50px;\"> 您好，</ion-card-title>\n    <ion-card-subtitle class=\"loginsubtitle\"> 欢迎来到车联网DEMO</ion-card-subtitle>\n  </ion-card-header>\n\n  <ion-toolbar>\n    <ion-segment [(ngModel)]=\"tab\" color=\"primary\" model=\"md\">\n      <ion-segment-button value=\"account\">\n        <ion-label>账号登陆</ion-label>\n      </ion-segment-button>\n      <ion-segment-button value=\"phone\">\n        <ion-label>电话号码登陆</ion-label>\n      </ion-segment-button>\n    </ion-segment>\n  </ion-toolbar>\n\n  <div [ngSwitch]=\"tab\">\n    <div *ngSwitchCase=\"'account'\">\n      <ion-card-content>\n        <ion-item>\n          <ion-input type=\"phone\" placeholder=\"输入您的账号\" [(ngModel)]=\"mod.model.account\"></ion-input>\n        </ion-item>\n        <ion-item>\n          <ion-input type=\"password\" placeholder=\"输入您的密码\" [(ngModel)]=\"mod.model.pwd\"></ion-input>\n        </ion-item>\n\n      </ion-card-content>\n      <div class=\"ion-padding\">\n        <ion-button expand=\"block\" type=\"button\" (click)=\"onLogin()\"\n          class=\"ion-no-margin ios button button-block button-solid ion-activatable ion-focusable hydrated\">\n          登陆\n        </ion-button>\n      </div>\n    </div>\n    <div *ngSwitchCase=\"'phone'\">\n      <ion-card-content>\n        <ion-item>\n          <ion-input type=\"tel\" maxlength=\"11\" placeholder=\"输入您的电话号码\" [(ngModel)]=\"mod.model.account\"></ion-input>\n        </ion-item>\n        <ion-item lines=\"none\" class=\"loginfontsize09\" *ngIf=\"valmsg\">\n          <ion-label color=\"danger\">\n            验证信息\n          </ion-label>\n        </ion-item>\n      </ion-card-content>\n      <div class=\"ion-padding\">\n        <ion-button expand=\"block\" type=\"button\" (click)=\"onSendMsg(2)\"\n          class=\"ion-no-margin ios button button-block button-solid ion-activatable ion-focusable hydrated\">\n          获取验证码\n        </ion-button>\n      </div>\n    </div>\n  </div>\n  <ion-item lines=\"none\">\n    <ion-label style=\"    text-align: right;\n    margin-right: 15px;\n    margin-top: 0px;\"> \n      <input type=\"button\"  style=\"font-size: 1.2rem;\"  class=\"logina\"  (click)=\"OnReg(2)\" value=\"注册\"/>\n    </ion-label>\n  </ion-item>\n</ion-content>\n\n\n<!-- 注册电话号码页面 -->\n<ion-content *ngIf=\"disstatus==3\">\n  <ion-card-header style=\"margin-bottom: 50px;\">\n    <ion-card-title style=\"height: 50px;\"> 您好，</ion-card-title>\n    <ion-card-subtitle class=\"loginsubtitle\"> 欢迎来到车联网DEMO</ion-card-subtitle>\n  </ion-card-header>\n\n  <ion-card-content>\n    <ion-card-content>\n      <ion-item>\n        <ion-input type=\"tel\" maxlength=\"11\" placeholder=\"输入您的电话号码\" [(ngModel)]=\"mod.model.account\"></ion-input>\n      </ion-item>\n      <ion-item lines=\"none\" class=\"loginfontsize09\" *ngIf=\"valmsg\">\n        <ion-label color=\"danger\">\n          验证信息\n        </ion-label>\n      </ion-item>\n    </ion-card-content>\n\n    <div class=\"ion-padding loginx\">\n      <ion-label>\n        获取验证码视为您已阅读 \n      <input type=\"button\"  class=\"logina\"  value=\" 《用户协议》\"/>\n        与 \n      <input type=\"button\"  class=\"logina\"   value=\"《隐私协议》\"/>\n      </ion-label>\n    </div>\n    <div class=\"ion-padding\">\n      <ion-button expand=\"block\" type=\"button\" (click)=\"onSendMsg(5)\"\n        class=\"ion-no-margin ios button button-block button-solid ion-activatable ion-focusable hydrated\">\n        获取验证码\n      </ion-button>\n    </div>\n\n  </ion-card-content>\n</ion-content>\n\n\n<!-- 验证码输入页面 -->\n<ion-content *ngIf=\"disstatus==2 || disstatus==5\">\n  <ion-card-header style=\"margin-bottom: 50px;\">\n    <ion-card-title style=\"height: 50px;\"> 您好，</ion-card-title>\n    <ion-card-subtitle class=\"loginsubtitle\"> 欢迎来到车联网DEMO</ion-card-subtitle>\n  </ion-card-header>\n\n  <ion-card-content>\n    <ion-item lines=\"none\" class=\"loginfontsize09\">\n      <ion-label>\n        已发送验证码至 {{mod.model.account}}\n      </ion-label>\n    </ion-item>\n    <ion-item lines=\"none\">\n      <ion-row>\n        <ion-col>\n          <input type=\"number\" class=\"loginvalinput\" [(ngModel)]=\"mod.val1\" id=\"inputcode1\" (focus)=\"mod.val1=''\"\n            (ngModelChange)=\"OnVlaCodeChange($event,2)\" />\n        </ion-col>\n        <ion-col>\n          <input type=\"number\" class=\"loginvalinput\" [(ngModel)]=\"mod.val2\" id=\"inputcode2\" (focus)=\"mod.val2=''\"\n            (ngModelChange)=\"OnVlaCodeChange($event,3)\" />\n        </ion-col>\n        <ion-col>\n          <input type=\"number\" class=\"loginvalinput\" [(ngModel)]=\"mod.val3\" id=\"inputcode3\" (focus)=\"mod.val3=''\"\n            (ngModelChange)=\"OnVlaCodeChange($event,4)\" />\n        </ion-col>\n        <ion-col>\n          <input type=\"number\" class=\"loginvalinput\" [(ngModel)]=\"mod.val4\" id=\"inputcode4\" (focus)=\"mod.val4=''\"\n            (ngModelChange)=\"OnVlaCodeChange($event,0)\" />\n        </ion-col>\n      </ion-row>\n\n    </ion-item>\n\n  </ion-card-content>\n</ion-content>\n<ion-footer class=\"loginfooter\" *ngIf=\"disstatus!=4\">\n  <ion-item lines=\"none\" style=\"text-align:center;    color: #a0a0a0;\">\n    <ion-label>其它登陆方式</ion-label>\n  </ion-item>\n  <ion-toolbar>\n    <ion-title>\n      <img src=\"../assets/img/wechat.png\" style=\"width: 35px;\">\n    </ion-title>\n  </ion-toolbar>\n</ion-footer>\n\n\n\n<!-- 注册内容输入界面（未注册用户） -->\n\n\n<ion-content *ngIf=\"disstatus==4\">\n  <ion-card-content>\n    <ion-item style=\"font-size: 1rem;\">\n      <ion-row style=\"width: 100%;\">\n        <ion-col size=\"2\">\n          <ion-label style=\"line-height: 40px;\">昵称</ion-label>\n        </ion-col>\n        <ion-col size=\"10\">\n          <ion-input placeholder=\"昵称\" [(ngModel)]=\"mod.model.name\"></ion-input>\n        </ion-col>\n      </ion-row>\n    </ion-item>\n\n    <ion-item style=\"font-size: 1rem;\">\n      <ion-row style=\"width: 100%;\">\n        <ion-col size=\"2\">\n          <ion-label style=\"line-height: 40px;\">密码</ion-label>\n        </ion-col>\n        <ion-col size=\"10\">\n          <ion-input type=\"password\" placeholder=\"密码\" [(ngModel)]=\"mod.model.pwd\"></ion-input>\n        </ion-col>\n      </ion-row>\n    </ion-item>\n  </ion-card-content>\n  <ion-card-header>\n    <ion-card-title>安全问题</ion-card-title>\n  </ion-card-header>\n\n  <ion-card-content>\n    <ion-item style=\"font-size: 1rem;\">\n      <ion-select [(ngModel)]=\"mod.model.quest1\" okText=\"确认\" cancelText=\"取消\">\n        <ion-select-option value=\"\">安全问题选择</ion-select-option>\n        <ion-select-option value=\"20\">出生地是哪里？</ion-select-option>\n      </ion-select>\n    </ion-item>\n    <ion-item style=\"font-size: 1rem;\">\n      <ion-input type=\"text\" [(ngModel)]=\"mod.model.quest1value\" placeholder=\"回答\"></ion-input>\n    </ion-item>\n    <ion-item style=\"font-size: 1rem;\">\n      <ion-select [(ngModel)]=\"mod.model.quest2\" okText=\"确认\" cancelText=\"取消\">\n        <ion-select-option value=\"\">安全问题选择</ion-select-option>\n        <ion-select-option value=\"20\">出生地是哪里？</ion-select-option>\n      </ion-select>\n    </ion-item>\n    <ion-item style=\"font-size: 1rem;\">\n      <ion-input type=\"text\" [(ngModel)]=\"mod.model.quest2value\" placeholder=\"回答\"></ion-input>\n    </ion-item>\n    <ion-item style=\"font-size: 1rem;\">\n      <ion-select [(ngModel)]=\"mod.model.quest3\" okText=\"确认\" cancelText=\"取消\">\n        <ion-select-option value=\"\">安全问题选择</ion-select-option>\n        <ion-select-option value=\"20\">出生地是哪里？</ion-select-option>\n      </ion-select>\n    </ion-item>\n    <ion-item style=\"font-size: 1rem;\">\n      <ion-input type=\"text\" [(ngModel)]=\"mod.model.quest3value\" placeholder=\"回答\"></ion-input>\n    </ion-item>\n  </ion-card-content>\n  <div class=\"ion-padding\">\n    <ion-button expand=\"block\" type=\"button\" (click)=\"onRegPost()\"\n      class=\"ion-no-margin ios button button-block button-solid ion-activatable ion-focusable hydrated\">\n      确定\n    </ion-button>\n  </div>\n</ion-content>"
 
 /***/ }),
 
@@ -714,7 +714,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "@charset \"UTF-8\";\n.loginfontsize09 {\n  font-size: 0.9rem;\n}\n.loginx {\n  color: #a0a0a0;\n  font-size: 0.8rem;\n  padding-left: 30px;\n  padding-right: 30px;\n  padding-top: 0px;\n}\n.loginfooter {\n  text-align: center;\n  color: #8e8c8c;\n  font-size: 0.8rem;\n  bottom: 5%;\n}\n.loginsubtitle {\n  color: #504e4e;\n  font-weight: 100;\n}\n.loginvalinput {\n  caret-color: rgba(0, 0, 0, 0);\n  width: 100%;\n  height: 50px;\n  border: 0px;\n  border-bottom: 1px solid #4a4a4a;\n  font-size: 25px;\n  text-align: center;\n}\n.loginvalinput:focus {\n  border-bottom: 1px solid #4a4a4a;\n  animation-name: breath;\n  /* 动画名称 */\n  animation-duration: 1s;\n  /* 动画时长3秒 */\n  animation-timing-function: ease-in-out;\n  /* 动画速度曲线：以低速开始和结束 */\n  animation-iteration-count: infinite;\n  /* 播放次数：无限 */\n  /* Safari and Chrome */\n  -webkit-animation-name: breath;\n  /* 动画名称 */\n  -webkit-animation-duration: 1s;\n  /* 动画时长3秒 */\n  -webkit-animation-timing-function: ease-in-out;\n  /* 动画速度曲线：以低速开始和结束 */\n  -webkit-animation-iteration-count: infinite;\n  /* 播放次数：无限 */\n}\n@keyframes breath {\n  from {\n    opacity: 0.1;\n  }\n  /* 动画开始时的不透明度 */\n  50% {\n    opacity: 1;\n  }\n  /* 动画50% 时的不透明度 */\n  to {\n    opacity: 0.1;\n  }\n  /* 动画结束时的不透明度 */\n}\n@-webkit-keyframes breath {\n  from {\n    opacity: 0.1;\n  }\n  /* 动画开始时的不透明度 */\n  50% {\n    opacity: 1;\n  }\n  /* 动画50% 时的不透明度 */\n  to {\n    opacity: 0.1;\n  }\n  /* 动画结束时的不透明度 */\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50L21vZGFsL2xvZ2luL2xvZ2luLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnQvbW9kYWwvbG9naW4vQzpcXOW3peS9nFxc6aG555uuXFxhcHBcXERDRU0uQVBQLlVzZXJDZW50ZXIvc3JjXFxhcHBcXGNvbXBvbmVudFxcbW9kYWxcXGxvZ2luXFxsb2dpbi5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxnQkFBZ0I7QUNBaEI7RUFDSSxpQkFBQTtBREVKO0FDQUE7RUFDSSxjQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtFQUNBLG1CQUFBO0VBQ0EsZ0JBQUE7QURHSjtBQ0RBO0VBQ0ksa0JBQUE7RUFDQSxjQUFBO0VBQ0EsaUJBQUE7RUFDQSxVQUFBO0FESUo7QUNGQTtFQUNJLGNBQUE7RUFDQSxnQkFBQTtBREtKO0FDSEE7RUFDSSw2QkFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLGdDQUFBO0VBQ0EsZUFBQTtFQUNBLGtCQUFBO0FETUo7QUNKQTtFQUNJLGdDQUFBO0VBQ0Esc0JBQUE7RUFBOEMsU0FBQTtFQUM5QyxzQkFBQTtFQUFnRCxXQUFBO0VBQ2hELHNDQUFBO0VBQWdELG9CQUFBO0VBQ2hELG1DQUFBO0VBQWdELFlBQUE7RUFFaEQsc0JBQUE7RUFDQSw4QkFBQTtFQUFnRCxTQUFBO0VBQ2hELDhCQUFBO0VBQWdELFdBQUE7RUFDaEQsOENBQUE7RUFBZ0Qsb0JBQUE7RUFDaEQsMkNBQUE7RUFBZ0QsWUFBQTtBRGNwRDtBQ1pBO0VBQ0k7SUFBTyxZQUFBO0VEZ0JUO0VDaEJrRCxlQUFBO0VBQ2hEO0lBQU8sVUFBQTtFRG1CVDtFQ25Ca0QsaUJBQUE7RUFDaEQ7SUFBTyxZQUFBO0VEc0JUO0VDdEJrRCxlQUFBO0FEd0JwRDtBQ3JCQTtFQUNJO0lBQU8sWUFBQTtFRHdCVDtFQ3hCa0QsZUFBQTtFQUNoRDtJQUFPLFVBQUE7RUQyQlQ7RUMzQmtELGlCQUFBO0VBQ2hEO0lBQU8sWUFBQTtFRDhCVDtFQzlCa0QsZUFBQTtBRGdDcEQiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnQvbW9kYWwvbG9naW4vbG9naW4uY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAY2hhcnNldCBcIlVURi04XCI7XG4ubG9naW5mb250c2l6ZTA5IHtcbiAgZm9udC1zaXplOiAwLjlyZW07XG59XG5cbi5sb2dpbngge1xuICBjb2xvcjogI2EwYTBhMDtcbiAgZm9udC1zaXplOiAwLjhyZW07XG4gIHBhZGRpbmctbGVmdDogMzBweDtcbiAgcGFkZGluZy1yaWdodDogMzBweDtcbiAgcGFkZGluZy10b3A6IDBweDtcbn1cblxuLmxvZ2luZm9vdGVyIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBjb2xvcjogIzhlOGM4YztcbiAgZm9udC1zaXplOiAwLjhyZW07XG4gIGJvdHRvbTogNSU7XG59XG5cbi5sb2dpbnN1YnRpdGxlIHtcbiAgY29sb3I6ICM1MDRlNGU7XG4gIGZvbnQtd2VpZ2h0OiAxMDA7XG59XG5cbi5sb2dpbnZhbGlucHV0IHtcbiAgY2FyZXQtY29sb3I6IHJnYmEoMCwgMCwgMCwgMCk7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDUwcHg7XG4gIGJvcmRlcjogMHB4O1xuICBib3JkZXItYm90dG9tOiAxcHggc29saWQgIzRhNGE0YTtcbiAgZm9udC1zaXplOiAyNXB4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5sb2dpbnZhbGlucHV0OmZvY3VzIHtcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkICM0YTRhNGE7XG4gIGFuaW1hdGlvbi1uYW1lOiBicmVhdGg7XG4gIC8qIOWKqOeUu+WQjeensCAqL1xuICBhbmltYXRpb24tZHVyYXRpb246IDFzO1xuICAvKiDliqjnlLvml7bplb8z56eSICovXG4gIGFuaW1hdGlvbi10aW1pbmctZnVuY3Rpb246IGVhc2UtaW4tb3V0O1xuICAvKiDliqjnlLvpgJ/luqbmm7Lnur/vvJrku6XkvY7pgJ/lvIDlp4vlkoznu5PmnZ8gKi9cbiAgYW5pbWF0aW9uLWl0ZXJhdGlvbi1jb3VudDogaW5maW5pdGU7XG4gIC8qIOaSreaUvuasoeaVsO+8muaXoOmZkCAqL1xuICAvKiBTYWZhcmkgYW5kIENocm9tZSAqL1xuICAtd2Via2l0LWFuaW1hdGlvbi1uYW1lOiBicmVhdGg7XG4gIC8qIOWKqOeUu+WQjeensCAqL1xuICAtd2Via2l0LWFuaW1hdGlvbi1kdXJhdGlvbjogMXM7XG4gIC8qIOWKqOeUu+aXtumVvzPnp5IgKi9cbiAgLXdlYmtpdC1hbmltYXRpb24tdGltaW5nLWZ1bmN0aW9uOiBlYXNlLWluLW91dDtcbiAgLyog5Yqo55S76YCf5bqm5puy57q/77ya5Lul5L2O6YCf5byA5aeL5ZKM57uT5p2fICovXG4gIC13ZWJraXQtYW5pbWF0aW9uLWl0ZXJhdGlvbi1jb3VudDogaW5maW5pdGU7XG4gIC8qIOaSreaUvuasoeaVsO+8muaXoOmZkCAqL1xufVxuXG5Aa2V5ZnJhbWVzIGJyZWF0aCB7XG4gIGZyb20ge1xuICAgIG9wYWNpdHk6IDAuMTtcbiAgfVxuICAvKiDliqjnlLvlvIDlp4vml7bnmoTkuI3pgI/mmI7luqYgKi9cbiAgNTAlIHtcbiAgICBvcGFjaXR5OiAxO1xuICB9XG4gIC8qIOWKqOeUuzUwJSDml7bnmoTkuI3pgI/mmI7luqYgKi9cbiAgdG8ge1xuICAgIG9wYWNpdHk6IDAuMTtcbiAgfVxuICAvKiDliqjnlLvnu5PmnZ/ml7bnmoTkuI3pgI/mmI7luqYgKi9cbn1cbkAtd2Via2l0LWtleWZyYW1lcyBicmVhdGgge1xuICBmcm9tIHtcbiAgICBvcGFjaXR5OiAwLjE7XG4gIH1cbiAgLyog5Yqo55S75byA5aeL5pe255qE5LiN6YCP5piO5bqmICovXG4gIDUwJSB7XG4gICAgb3BhY2l0eTogMTtcbiAgfVxuICAvKiDliqjnlLs1MCUg5pe255qE5LiN6YCP5piO5bqmICovXG4gIHRvIHtcbiAgICBvcGFjaXR5OiAwLjE7XG4gIH1cbiAgLyog5Yqo55S757uT5p2f5pe255qE5LiN6YCP5piO5bqmICovXG59IiwiLmxvZ2luZm9udHNpemUwOXtcclxuICAgIGZvbnQtc2l6ZTogMC45cmVtO1xyXG59XHJcbi5sb2dpbnh7XHJcbiAgICBjb2xvcjogI2EwYTBhMDtcclxuICAgIGZvbnQtc2l6ZTogMC44cmVtOyAgICBcclxuICAgIHBhZGRpbmctbGVmdDogMzBweDtcclxuICAgIHBhZGRpbmctcmlnaHQ6IDMwcHg7XHJcbiAgICBwYWRkaW5nLXRvcDogMHB4O1xyXG59XHJcbi5sb2dpbmZvb3RlcntcclxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICAgIGNvbG9yOiAjOGU4YzhjO1xyXG4gICAgZm9udC1zaXplOiAwLjhyZW07XHJcbiAgICBib3R0b206IDUlO1xyXG59XHJcbi5sb2dpbnN1YnRpdGxle1xyXG4gICAgY29sb3I6ICM1MDRlNGU7XHJcbiAgICBmb250LXdlaWdodDogMTAwO1xyXG59XHJcbi5sb2dpbnZhbGlucHV0e1xyXG4gICAgY2FyZXQtY29sb3I6IHJnYmEoMCwgMCwgMCwgMCk7IFxyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBoZWlnaHQ6IDUwcHg7XHJcbiAgICBib3JkZXI6IDBweDtcclxuICAgIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCAjNGE0YTRhO1xyXG4gICAgZm9udC1zaXplOiAyNXB4O1xyXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcbi5sb2dpbnZhbGlucHV0OmZvY3VzeyBcclxuICAgIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCAjNGE0YTRhOyAgXHJcbiAgICBhbmltYXRpb24tbmFtZTogYnJlYXRoOyAgICAgICAgICAgICAgICAgICAgICAgLyog5Yqo55S75ZCN56ewICovXHJcbiAgICBhbmltYXRpb24tZHVyYXRpb246IDFzOyAgICAgICAgICAgICAgICAgICAgICAgICAvKiDliqjnlLvml7bplb8z56eSICovXHJcbiAgICBhbmltYXRpb24tdGltaW5nLWZ1bmN0aW9uOiBlYXNlLWluLW91dDsgICAgICAgICAvKiDliqjnlLvpgJ/luqbmm7Lnur/vvJrku6XkvY7pgJ/lvIDlp4vlkoznu5PmnZ8gKi9cclxuICAgIGFuaW1hdGlvbi1pdGVyYXRpb24tY291bnQ6IGluZmluaXRlOyAgICAgICAgICAgIC8qIOaSreaUvuasoeaVsO+8muaXoOmZkCAqL1xyXG4gXHJcbiAgICAvKiBTYWZhcmkgYW5kIENocm9tZSAqL1xyXG4gICAgLXdlYmtpdC1hbmltYXRpb24tbmFtZTogYnJlYXRoOyAgICAgICAgICAgICAgICAgLyog5Yqo55S75ZCN56ewICovXHJcbiAgICAtd2Via2l0LWFuaW1hdGlvbi1kdXJhdGlvbjogMXM7ICAgICAgICAgICAgICAgICAvKiDliqjnlLvml7bplb8z56eSICovXHJcbiAgICAtd2Via2l0LWFuaW1hdGlvbi10aW1pbmctZnVuY3Rpb246IGVhc2UtaW4tb3V0OyAvKiDliqjnlLvpgJ/luqbmm7Lnur/vvJrku6XkvY7pgJ/lvIDlp4vlkoznu5PmnZ8gKi9cclxuICAgIC13ZWJraXQtYW5pbWF0aW9uLWl0ZXJhdGlvbi1jb3VudDogaW5maW5pdGU7ICAgIC8qIOaSreaUvuasoeaVsO+8muaXoOmZkCAqLyBcclxufVxyXG5Aa2V5ZnJhbWVzIGJyZWF0aCB7XHJcbiAgICBmcm9tIHsgb3BhY2l0eTogMC4xOyB9ICAgICAgICAgICAgICAgICAgICAgICAgICAvKiDliqjnlLvlvIDlp4vml7bnmoTkuI3pgI/mmI7luqYgKi9cclxuICAgIDUwJSAgeyBvcGFjaXR5OiAgIDE7IH0gICAgICAgICAgICAgICAgICAgICAgICAgIC8qIOWKqOeUuzUwJSDml7bnmoTkuI3pgI/mmI7luqYgKi9cclxuICAgIHRvICAgeyBvcGFjaXR5OiAwLjE7IH0gICAgICAgICAgICAgICAgICAgICAgICAgIC8qIOWKqOeUu+e7k+adn+aXtueahOS4jemAj+aYjuW6piAqLyAgICBcclxufVxyXG4gXHJcbkAtd2Via2l0LWtleWZyYW1lcyBicmVhdGgge1xyXG4gICAgZnJvbSB7IG9wYWNpdHk6IDAuMTsgfSAgICAgICAgICAgICAgICAgICAgICAgICAgLyog5Yqo55S75byA5aeL5pe255qE5LiN6YCP5piO5bqmICovXHJcbiAgICA1MCUgIHsgb3BhY2l0eTogICAxOyB9ICAgICAgICAgICAgICAgICAgICAgICAgICAvKiDliqjnlLs1MCUg5pe255qE5LiN6YCP5piO5bqmICovXHJcbiAgICB0byAgIHsgb3BhY2l0eTogMC4xOyB9ICAgICAgICAgICAgICAgICAgICAgICAgICAvKiDliqjnlLvnu5PmnZ/ml7bnmoTkuI3pgI/mmI7luqYgKi9cclxufSAiXX0= */"
+module.exports = "@charset \"UTF-8\";\n.loginfontsize09 {\n  font-size: 0.9rem;\n}\n.loginx {\n  color: #a0a0a0;\n  font-size: 0.8rem;\n  padding-left: 30px;\n  padding-right: 30px;\n  padding-top: 0px;\n}\n.loginfooter {\n  text-align: center;\n  color: #8e8c8c;\n  font-size: 0.8rem;\n  bottom: 5%;\n}\n.loginsubtitle {\n  color: #504e4e;\n  font-weight: 100;\n}\n.loginvalinput {\n  caret-color: rgba(0, 0, 0, 0);\n  width: 100%;\n  height: 50px;\n  border: 0px;\n  border-bottom: 1px solid #4a4a4a;\n  font-size: 25px;\n  text-align: center;\n}\n.loginvalinput:focus {\n  border-bottom: 1px solid #4a4a4a;\n  animation-name: breath;\n  /* 动画名称 */\n  animation-duration: 1s;\n  /* 动画时长3秒 */\n  animation-timing-function: ease-in-out;\n  /* 动画速度曲线：以低速开始和结束 */\n  animation-iteration-count: infinite;\n  /* 播放次数：无限 */\n  /* Safari and Chrome */\n  -webkit-animation-name: breath;\n  /* 动画名称 */\n  -webkit-animation-duration: 1s;\n  /* 动画时长3秒 */\n  -webkit-animation-timing-function: ease-in-out;\n  /* 动画速度曲线：以低速开始和结束 */\n  -webkit-animation-iteration-count: infinite;\n  /* 播放次数：无限 */\n}\n@keyframes breath {\n  from {\n    opacity: 0.1;\n  }\n  /* 动画开始时的不透明度 */\n  50% {\n    opacity: 1;\n  }\n  /* 动画50% 时的不透明度 */\n  to {\n    opacity: 0.1;\n  }\n  /* 动画结束时的不透明度 */\n}\n@-webkit-keyframes breath {\n  from {\n    opacity: 0.1;\n  }\n  /* 动画开始时的不透明度 */\n  50% {\n    opacity: 1;\n  }\n  /* 动画50% 时的不透明度 */\n  to {\n    opacity: 0.1;\n  }\n  /* 动画结束时的不透明度 */\n}\n.logina {\n  border: 0px;\n  background: #f0f8ff00;\n  color: #4380fe;\n  font-weight: 700;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50L21vZGFsL2xvZ2luL2xvZ2luLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jb21wb25lbnQvbW9kYWwvbG9naW4vQzpcXOW3peS9nFxc6aG555uuXFxhcHBcXERDRU0uQVBQLlVzZXJDZW50ZXIvc3JjXFxhcHBcXGNvbXBvbmVudFxcbW9kYWxcXGxvZ2luXFxsb2dpbi5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxnQkFBZ0I7QUNBaEI7RUFDSSxpQkFBQTtBREVKO0FDQUE7RUFDSSxjQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtFQUNBLG1CQUFBO0VBQ0EsZ0JBQUE7QURHSjtBQ0RBO0VBQ0ksa0JBQUE7RUFDQSxjQUFBO0VBQ0EsaUJBQUE7RUFDQSxVQUFBO0FESUo7QUNGQTtFQUNJLGNBQUE7RUFDQSxnQkFBQTtBREtKO0FDSEE7RUFDSSw2QkFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLGdDQUFBO0VBQ0EsZUFBQTtFQUNBLGtCQUFBO0FETUo7QUNKQTtFQUNJLGdDQUFBO0VBQ0Esc0JBQUE7RUFBOEMsU0FBQTtFQUM5QyxzQkFBQTtFQUFnRCxXQUFBO0VBQ2hELHNDQUFBO0VBQWdELG9CQUFBO0VBQ2hELG1DQUFBO0VBQWdELFlBQUE7RUFFaEQsc0JBQUE7RUFDQSw4QkFBQTtFQUFnRCxTQUFBO0VBQ2hELDhCQUFBO0VBQWdELFdBQUE7RUFDaEQsOENBQUE7RUFBZ0Qsb0JBQUE7RUFDaEQsMkNBQUE7RUFBZ0QsWUFBQTtBRGNwRDtBQ1pBO0VBQ0k7SUFBTyxZQUFBO0VEZ0JUO0VDaEJrRCxlQUFBO0VBQ2hEO0lBQU8sVUFBQTtFRG1CVDtFQ25Ca0QsaUJBQUE7RUFDaEQ7SUFBTyxZQUFBO0VEc0JUO0VDdEJrRCxlQUFBO0FEd0JwRDtBQ3JCQTtFQUNJO0lBQU8sWUFBQTtFRHdCVDtFQ3hCa0QsZUFBQTtFQUNoRDtJQUFPLFVBQUE7RUQyQlQ7RUMzQmtELGlCQUFBO0VBQ2hEO0lBQU8sWUFBQTtFRDhCVDtFQzlCa0QsZUFBQTtBRGdDcEQ7QUM3QkE7RUFDSSxXQUFBO0VBQ0EscUJBQUE7RUFDQSxjQUFBO0VBQ0EsZ0JBQUE7QUQrQkoiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnQvbW9kYWwvbG9naW4vbG9naW4uY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAY2hhcnNldCBcIlVURi04XCI7XG4ubG9naW5mb250c2l6ZTA5IHtcbiAgZm9udC1zaXplOiAwLjlyZW07XG59XG5cbi5sb2dpbngge1xuICBjb2xvcjogI2EwYTBhMDtcbiAgZm9udC1zaXplOiAwLjhyZW07XG4gIHBhZGRpbmctbGVmdDogMzBweDtcbiAgcGFkZGluZy1yaWdodDogMzBweDtcbiAgcGFkZGluZy10b3A6IDBweDtcbn1cblxuLmxvZ2luZm9vdGVyIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBjb2xvcjogIzhlOGM4YztcbiAgZm9udC1zaXplOiAwLjhyZW07XG4gIGJvdHRvbTogNSU7XG59XG5cbi5sb2dpbnN1YnRpdGxlIHtcbiAgY29sb3I6ICM1MDRlNGU7XG4gIGZvbnQtd2VpZ2h0OiAxMDA7XG59XG5cbi5sb2dpbnZhbGlucHV0IHtcbiAgY2FyZXQtY29sb3I6IHJnYmEoMCwgMCwgMCwgMCk7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDUwcHg7XG4gIGJvcmRlcjogMHB4O1xuICBib3JkZXItYm90dG9tOiAxcHggc29saWQgIzRhNGE0YTtcbiAgZm9udC1zaXplOiAyNXB4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5sb2dpbnZhbGlucHV0OmZvY3VzIHtcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkICM0YTRhNGE7XG4gIGFuaW1hdGlvbi1uYW1lOiBicmVhdGg7XG4gIC8qIOWKqOeUu+WQjeensCAqL1xuICBhbmltYXRpb24tZHVyYXRpb246IDFzO1xuICAvKiDliqjnlLvml7bplb8z56eSICovXG4gIGFuaW1hdGlvbi10aW1pbmctZnVuY3Rpb246IGVhc2UtaW4tb3V0O1xuICAvKiDliqjnlLvpgJ/luqbmm7Lnur/vvJrku6XkvY7pgJ/lvIDlp4vlkoznu5PmnZ8gKi9cbiAgYW5pbWF0aW9uLWl0ZXJhdGlvbi1jb3VudDogaW5maW5pdGU7XG4gIC8qIOaSreaUvuasoeaVsO+8muaXoOmZkCAqL1xuICAvKiBTYWZhcmkgYW5kIENocm9tZSAqL1xuICAtd2Via2l0LWFuaW1hdGlvbi1uYW1lOiBicmVhdGg7XG4gIC8qIOWKqOeUu+WQjeensCAqL1xuICAtd2Via2l0LWFuaW1hdGlvbi1kdXJhdGlvbjogMXM7XG4gIC8qIOWKqOeUu+aXtumVvzPnp5IgKi9cbiAgLXdlYmtpdC1hbmltYXRpb24tdGltaW5nLWZ1bmN0aW9uOiBlYXNlLWluLW91dDtcbiAgLyog5Yqo55S76YCf5bqm5puy57q/77ya5Lul5L2O6YCf5byA5aeL5ZKM57uT5p2fICovXG4gIC13ZWJraXQtYW5pbWF0aW9uLWl0ZXJhdGlvbi1jb3VudDogaW5maW5pdGU7XG4gIC8qIOaSreaUvuasoeaVsO+8muaXoOmZkCAqL1xufVxuXG5Aa2V5ZnJhbWVzIGJyZWF0aCB7XG4gIGZyb20ge1xuICAgIG9wYWNpdHk6IDAuMTtcbiAgfVxuICAvKiDliqjnlLvlvIDlp4vml7bnmoTkuI3pgI/mmI7luqYgKi9cbiAgNTAlIHtcbiAgICBvcGFjaXR5OiAxO1xuICB9XG4gIC8qIOWKqOeUuzUwJSDml7bnmoTkuI3pgI/mmI7luqYgKi9cbiAgdG8ge1xuICAgIG9wYWNpdHk6IDAuMTtcbiAgfVxuICAvKiDliqjnlLvnu5PmnZ/ml7bnmoTkuI3pgI/mmI7luqYgKi9cbn1cbkAtd2Via2l0LWtleWZyYW1lcyBicmVhdGgge1xuICBmcm9tIHtcbiAgICBvcGFjaXR5OiAwLjE7XG4gIH1cbiAgLyog5Yqo55S75byA5aeL5pe255qE5LiN6YCP5piO5bqmICovXG4gIDUwJSB7XG4gICAgb3BhY2l0eTogMTtcbiAgfVxuICAvKiDliqjnlLs1MCUg5pe255qE5LiN6YCP5piO5bqmICovXG4gIHRvIHtcbiAgICBvcGFjaXR5OiAwLjE7XG4gIH1cbiAgLyog5Yqo55S757uT5p2f5pe255qE5LiN6YCP5piO5bqmICovXG59XG4ubG9naW5hIHtcbiAgYm9yZGVyOiAwcHg7XG4gIGJhY2tncm91bmQ6ICNmMGY4ZmYwMDtcbiAgY29sb3I6ICM0MzgwZmU7XG4gIGZvbnQtd2VpZ2h0OiA3MDA7XG59IiwiLmxvZ2luZm9udHNpemUwOXtcclxuICAgIGZvbnQtc2l6ZTogMC45cmVtO1xyXG59XHJcbi5sb2dpbnh7XHJcbiAgICBjb2xvcjogI2EwYTBhMDtcclxuICAgIGZvbnQtc2l6ZTogMC44cmVtOyAgICBcclxuICAgIHBhZGRpbmctbGVmdDogMzBweDtcclxuICAgIHBhZGRpbmctcmlnaHQ6IDMwcHg7XHJcbiAgICBwYWRkaW5nLXRvcDogMHB4O1xyXG59XHJcbi5sb2dpbmZvb3RlcntcclxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICAgIGNvbG9yOiAjOGU4YzhjO1xyXG4gICAgZm9udC1zaXplOiAwLjhyZW07XHJcbiAgICBib3R0b206IDUlO1xyXG59XHJcbi5sb2dpbnN1YnRpdGxle1xyXG4gICAgY29sb3I6ICM1MDRlNGU7XHJcbiAgICBmb250LXdlaWdodDogMTAwO1xyXG59XHJcbi5sb2dpbnZhbGlucHV0e1xyXG4gICAgY2FyZXQtY29sb3I6IHJnYmEoMCwgMCwgMCwgMCk7IFxyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBoZWlnaHQ6IDUwcHg7XHJcbiAgICBib3JkZXI6IDBweDtcclxuICAgIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCAjNGE0YTRhO1xyXG4gICAgZm9udC1zaXplOiAyNXB4O1xyXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcbi5sb2dpbnZhbGlucHV0OmZvY3VzeyBcclxuICAgIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCAjNGE0YTRhOyAgXHJcbiAgICBhbmltYXRpb24tbmFtZTogYnJlYXRoOyAgICAgICAgICAgICAgICAgICAgICAgLyog5Yqo55S75ZCN56ewICovXHJcbiAgICBhbmltYXRpb24tZHVyYXRpb246IDFzOyAgICAgICAgICAgICAgICAgICAgICAgICAvKiDliqjnlLvml7bplb8z56eSICovXHJcbiAgICBhbmltYXRpb24tdGltaW5nLWZ1bmN0aW9uOiBlYXNlLWluLW91dDsgICAgICAgICAvKiDliqjnlLvpgJ/luqbmm7Lnur/vvJrku6XkvY7pgJ/lvIDlp4vlkoznu5PmnZ8gKi9cclxuICAgIGFuaW1hdGlvbi1pdGVyYXRpb24tY291bnQ6IGluZmluaXRlOyAgICAgICAgICAgIC8qIOaSreaUvuasoeaVsO+8muaXoOmZkCAqL1xyXG4gXHJcbiAgICAvKiBTYWZhcmkgYW5kIENocm9tZSAqL1xyXG4gICAgLXdlYmtpdC1hbmltYXRpb24tbmFtZTogYnJlYXRoOyAgICAgICAgICAgICAgICAgLyog5Yqo55S75ZCN56ewICovXHJcbiAgICAtd2Via2l0LWFuaW1hdGlvbi1kdXJhdGlvbjogMXM7ICAgICAgICAgICAgICAgICAvKiDliqjnlLvml7bplb8z56eSICovXHJcbiAgICAtd2Via2l0LWFuaW1hdGlvbi10aW1pbmctZnVuY3Rpb246IGVhc2UtaW4tb3V0OyAvKiDliqjnlLvpgJ/luqbmm7Lnur/vvJrku6XkvY7pgJ/lvIDlp4vlkoznu5PmnZ8gKi9cclxuICAgIC13ZWJraXQtYW5pbWF0aW9uLWl0ZXJhdGlvbi1jb3VudDogaW5maW5pdGU7ICAgIC8qIOaSreaUvuasoeaVsO+8muaXoOmZkCAqLyBcclxufVxyXG5Aa2V5ZnJhbWVzIGJyZWF0aCB7XHJcbiAgICBmcm9tIHsgb3BhY2l0eTogMC4xOyB9ICAgICAgICAgICAgICAgICAgICAgICAgICAvKiDliqjnlLvlvIDlp4vml7bnmoTkuI3pgI/mmI7luqYgKi9cclxuICAgIDUwJSAgeyBvcGFjaXR5OiAgIDE7IH0gICAgICAgICAgICAgICAgICAgICAgICAgIC8qIOWKqOeUuzUwJSDml7bnmoTkuI3pgI/mmI7luqYgKi9cclxuICAgIHRvICAgeyBvcGFjaXR5OiAwLjE7IH0gICAgICAgICAgICAgICAgICAgICAgICAgIC8qIOWKqOeUu+e7k+adn+aXtueahOS4jemAj+aYjuW6piAqLyAgICBcclxufVxyXG4gXHJcbkAtd2Via2l0LWtleWZyYW1lcyBicmVhdGgge1xyXG4gICAgZnJvbSB7IG9wYWNpdHk6IDAuMTsgfSAgICAgICAgICAgICAgICAgICAgICAgICAgLyog5Yqo55S75byA5aeL5pe255qE5LiN6YCP5piO5bqmICovXHJcbiAgICA1MCUgIHsgb3BhY2l0eTogICAxOyB9ICAgICAgICAgICAgICAgICAgICAgICAgICAvKiDliqjnlLs1MCUg5pe255qE5LiN6YCP5piO5bqmICovXHJcbiAgICB0byAgIHsgb3BhY2l0eTogMC4xOyB9ICAgICAgICAgICAgICAgICAgICAgICAgICAvKiDliqjnlLvnu5PmnZ/ml7bnmoTkuI3pgI/mmI7luqYgKi9cclxufSBcclxuXHJcbi5sb2dpbmF7XHJcbiAgICBib3JkZXI6IDBweDtcclxuICAgIGJhY2tncm91bmQ6ICNmMGY4ZmYwMDtcclxuICAgIGNvbG9yOiAjNDM4MGZlO1xyXG4gICAgZm9udC13ZWlnaHQ6IDcwMDtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -745,15 +745,31 @@ var LoginComponent = /** @class */ (function () {
         this._http = _http;
         this._page = _page;
         this._valid = _valid;
+        this.tab = 'account';
+        this.title = '登陆';
         this.valmsg = false; //验证消息显示开关
-        this.disstatus = 1; //界面切换开关
-        this.model = {
-            phone: '',
-            name: '',
+        this.disstatus = 1; //界面切换开关 1 登陆输入；2登陆验证码输入；5 注册验证码输入；3 注册；4个人输入页面 
+        this.mod = {
+            loginurl: '',
+            loginphoneurl: '',
+            regurl: '',
+            sendmsgurl: '',
             val1: '',
             val2: '',
             val3: '',
-            val4: ''
+            val4: '',
+            model: {
+                account: '',
+                pwd: '',
+                name: '',
+                sex: '',
+                quest1: '',
+                quest2: '',
+                quest3: '',
+                quest1value: '',
+                quest2value: '',
+                quest3value: ''
+            }
         };
     }
     LoginComponent.prototype.dismissModal = function () {
@@ -761,29 +777,109 @@ var LoginComponent = /** @class */ (function () {
             'dismissed': true
         });
     };
-    LoginComponent.prototype.onSendMsg = function () {
-        if (this.model.phone == '') {
+    //短信发送
+    LoginComponent.prototype.onSendMsg = function (status) {
+        var _this = this;
+        if (this.mod.model.account == '') {
             this._page.alert("消息提示", "请填写手机号码！");
             return false;
         }
-        this.disstatus = 2;
+        var postData = {
+            phone: this.mod.model.account
+        };
+        this._http.get(this.mod.sendmsgurl, postData, function (res) {
+            if (res.result == true) {
+                _this.disstatus = status;
+            }
+        }, function (err) {
+            _this._page.alert("消息提示", "操作失败");
+        });
     };
+    //手机短信验证接口
     LoginComponent.prototype.OnVlaCodeChange = function (value, code) {
+        var _this = this;
         var inputval = '#inputcode' + code;
         if (code != 0) {
             jquery__WEBPACK_IMPORTED_MODULE_4__(inputval).focus();
         }
         else {
-            this.onLogin();
-            //验证码输入结束提交验证，如果当前账户已存在，直接登陆，如果不存在，弹出昵称输入界面
-            this.disstatus = 3;
+            this._page.loadingShow();
+            var valcode = this.mod.val1 + this.mod.val2 + this.mod.val3 + this.mod.val4;
+            var postData = {
+                account: this.mod.model.account,
+                valcode: valcode,
+                type: this.disstatus
+            };
+            this._http.post(this.mod.loginphoneurl, postData, function (res) {
+                _this._page.loadingHide();
+                if (res.result == true) {
+                    //验证码输入结束提交验证，如果当前账户已存在，直接登陆，如果不存在，弹出个人信息输入界面
+                    if (_this.disstatus == 5)
+                        _this.disstatus = 4;
+                }
+                else {
+                    _this._page.alert("消息提示", "登陆失败，验证码无效");
+                }
+            }, function (err) {
+                _this._page.loadingHide();
+                _this._page.alert("消息提示", "操作失败");
+            });
         }
     };
     //登陆
     LoginComponent.prototype.onLogin = function () {
+        var _this = this;
+        this._page.loadingShow();
+        var postData = {
+            account: this.mod.model.account,
+            pwd: this.mod.model.pwd,
+            keytype: 1,
+            status: 2,
+            certificationtype: 1
+        };
+        this._http.post(this.mod.loginurl, postData, function (res) {
+            _this._page.loadingHide();
+            if (res.result == true) {
+                _this.modalCtrl.dismiss({
+                    'dismissed': true
+                });
+            }
+            else {
+                _this._page.alert("消息提示", "登陆失败,账户密码错误！");
+            }
+        }, function (err) {
+            _this._page.loadingHide();
+            _this._page.alert("消息提示", "操作失败");
+        });
+    };
+    LoginComponent.prototype.OnReg = function () {
+        this.title = '用户注册';
+        this.disstatus = 3;
     };
     //注册
-    LoginComponent.prototype.onReg = function () {
+    LoginComponent.prototype.onRegPost = function () {
+        var _this = this;
+        this._page.loadingShow();
+        var valcode = this.mod.val1 + this.mod.val2 + this.mod.val3 + this.mod.val4;
+        var postData = {
+            account: this.mod.model.account,
+            valcode: valcode,
+            name: this.mod.model.name
+        };
+        this._http.post(this.mod.regurl, postData, function (res) {
+            _this._page.loadingHide();
+            if (res.result == true) {
+                _this.modalCtrl.dismiss({
+                    'dismissed': true
+                });
+            }
+            else {
+                _this._page.alert("消息提示", "注册失败，验证码无效");
+            }
+        }, function (err) {
+            _this._page.loadingHide();
+            _this._page.alert("消息提示", "操作失败");
+        });
     };
     LoginComponent.prototype.ngOnInit = function () { };
     LoginComponent.ctorParameters = function () { return [
