@@ -107,7 +107,6 @@
       "es.keensoft.fullscreenimage": {}
     },
     "platforms": [
-      "ios",
       "browser"
     ]
   }
