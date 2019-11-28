@@ -38,6 +38,7 @@ export class EditPage implements OnInit {
         ifCancel: false,//是否取消操作
         ifSave: true,//是否新增或编辑
         ifEdit: false,//编辑
+        ifAdd:true,//默认新增
         ifHaveTime: false//是否有时段
     };
 
@@ -60,31 +61,35 @@ export class EditPage implements OnInit {
         this.activeRoute.queryParams.subscribe((params: Params) => {
             //编辑绑定预约单数据
             if (params['id'] != null && params['id'] != undefined) {
-                this.model.driveRecordId = params['id'];
-                this.pageOnBind(this.model.driveRecordId);
-                //编辑
-                this.model.ifEdit = true;
-            }
 
-            //编辑绑定预约单数据
-            if (params['actionCode'] != null && params['actionCode'] != undefined) {
-                this.model.actionCode = params['actionCode'];
-                var drivestatus = this.model.driveRecord["mcs_drivestatus"]
-                if (this.model.actionCode == 3 && (drivestatus == 10 || drivestatus == 11)) {
-                    this.model.ifSchedule = true;
-                    this.model.ifSave = false;
-                    //试驾车辆
-                    this.DriveCarOption();
+                //编辑绑定预约单数据
+                if (params['actionCode'] != null && params['actionCode'] != undefined) {
+                    this.model.actionCode = params['actionCode'];
+                    var drivestatus = this.model.driveRecord["mcs_drivestatus"]
+                    if (this.model.actionCode == 3) {
+                        this.model.ifSchedule = true;
+                        this.model.ifSave = false;
+                        this.model.ifAdd=false;
+                        //试驾车辆
+                        this.DriveCarOption();
 
-                    //试驾路线
-                    this.DriveRouteOption();
+                        //试驾路线
+                        this.DriveRouteOption();
+                    }
+                    if (this.model.actionCode == 4) {
+                        this.model.ifCancel = true;
+                        this.model.ifSave = false;
+                        this.model.ifAdd=false;
+                    }
                 }
-                if (this.model.actionCode == 4) {
-                    this.model.ifCancel = true;
-                    this.model.ifSave = false;
-                }
+                if(params['actionCode'] == null || params['actionCode'] == undefined||params['actionCode']==2){
+                    //编辑
+                    this.model.ifEdit = true;
+                    this.model.ifAdd=false;
+                }     
+            this.model.driveRecordId = params['id'];
+            this.pageOnBind(this.model.driveRecordId);
             }
-
             //业务类型
             this.model.businessTypeOption = this._optionset.Get("mcs_businesstype");
 
@@ -177,15 +182,15 @@ export class EditPage implements OnInit {
                     //处理预约时段
                     this.DriveTimeOption(carmodel, ordertime, res["Detail"]["Attributes"]["_mcs_testdrivetime_value"]);
 
-                    if (!this._valid.isNull(res.AttmDetail)) {
-                        for (var key in res.AttmDetail) {
+                    if (!this._valid.isNull(res.AttachmentDetail)) {
+                        for (var key in res.AttachmentDetail) {
 
                             var obj = {};
-                            obj["mcs_filename"] = res.AttmDetail[key]["Attributes"]["mcs_filename"];
-                            obj["mcs_filetype"] = res.AttmDetail[key]["Attributes"]["mcs_filetype"];
-                            obj["mcs_fileurl"] = res.AttmDetail[key]["Attributes"]["mcs_fileurl"];
-                            obj["mcs_code"] = res.AttmDetail[key]["Attributes"]["mcs_code"];
-                            obj["mcs_filesize"] = res.AttmDetail[key]["Attributes"]["mcs_filesize"];
+                            obj["mcs_filename"] = res.AttachmentDetail[key]["Attributes"]["mcs_filename"];
+                            obj["mcs_filetype"] = res.AttachmentDetail[key]["Attributes"]["mcs_filetype"];
+                            obj["mcs_fileurl"] = res.AttachmentDetail[key]["Attributes"]["mcs_fileurl"];
+                            obj["mcs_code"] = res.AttachmentDetail[key]["Attributes"]["mcs_code"];
+                            obj["mcs_filesize"] = res.AttachmentDetail[key]["Attributes"]["mcs_filesize"];
                             this.model.attachment.push(obj);
                         }
                     }
@@ -235,7 +240,6 @@ export class EditPage implements OnInit {
 
     //试驾预约时段
     public DriveTimeOption(carmodelid, reservationdate,testdrivetime) {
-        this.model.driveTimeOption = [];
         this._http.getForToaken(
             this.model.reservationApiUrl,
             {
@@ -244,7 +248,7 @@ export class EditPage implements OnInit {
             },
             (res: any) => {
                 if (res.Results !== null) {
-
+                    this.model.driveTimeOption = [];
                     for (var key in res.Results) {
                         var obj = {};
                         obj["model"] = res.Results[key]["Attributes"];
@@ -256,13 +260,15 @@ export class EditPage implements OnInit {
                         this.model.driveRecord["mcs_testdrivetime"] = testdrivetime;
                     }
                     this.model.ifHaveTime = true;
+                }else if(res.Results.length==0){
+                    this._page.alert("消息提示", "该预约日期没有预约时段");
                 }
                 else {
-                    this._page.alert("消息提示", "试驾车型数据加载异常");
+                    this._page.alert("消息提示", "试驾预约时段数据加载异常");
                 }
             },
             (err: any) => {
-                this._page.alert("消息提示", "试驾车型数据加载异常");
+                this._page.alert("消息提示", "试驾预约时段数据加载异常");
             }
         );
     }
@@ -272,15 +278,14 @@ export class EditPage implements OnInit {
         if (this.model.isOrderTimeChange) {
             var date = new Date();
             if (this.FormatToDate(date) > this.FormatToDate(this.model.driveRecord['mcs_ordertime'])) {
-                this._page.presentToastError("预约日期必须大于当天日期");
+               // this._page.presentToastError("预约日期必须大于当天日期");
             }
             var carmodel = this.model.driveRecord["mcs_carmodel"];
             var ordertime = this.FormatToDate(this.model.driveRecord["mcs_ordertime"]);
             if (carmodel != "" && ordertime != "") {
-                this.model.driveTimeOption = [];
-                this.model.driveRecord['mcs_testdrivetime'] = null;
+                //this.model.driveTimeOption = [];
                 //处理预约时段
-                this.DriveTimeOption(carmodel, ordertime, null);
+                this.DriveTimeOption(carmodel, ordertime, this.model.driveRecord['mcs_testdrivetime']);
             }
         }
         this.model.isOrderTimeChange = true;
@@ -292,10 +297,9 @@ export class EditPage implements OnInit {
             var carmodel = this.model.driveRecord["mcs_carmodel"];
             var ordertime = this.FormatToDate(this.model.driveRecord["mcs_ordertime"]);
             if (carmodel != "" && ordertime != "") {
-                this.model.driveTimeOption = [];
-                this.model.driveRecord['mcs_testdrivetime'] = null;
+                //this.model.driveTimeOption = [];
                 //处理预约时段
-                this.DriveTimeOption(carmodel, ordertime, null);
+                this.DriveTimeOption(carmodel, ordertime, this.model.driveRecord['mcs_testdrivetime']);
             }
         }
         this.model.isCarModelChange = true;
@@ -437,7 +441,7 @@ export class EditPage implements OnInit {
                 uploaddata.push(postData);
             });
 
-
+            this._page.goto("/saleing/driverecord/edit", {id:this.model.driveRecordId});
             this._http.post(
                 this.model.uploadUrl,
                 uploaddata,
@@ -446,7 +450,7 @@ export class EditPage implements OnInit {
                     if (res.result == true) {
                         const that = this;
                         this._page.alert("消息提示", "操作成功", function () {
-                            this._page.goto("/saleing/driverecord/edit", { id: this.model.driveRecordId});
+                            that._page.goto("/saleing/driverecord/edit", {id:this.model.driveRecordId});
                         });
                     }
                     else {
