@@ -47,11 +47,13 @@ export class ListPage implements OnInit {
   ) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
     this.model.page = 1;
     this.model.systemUserId = this._logininfo.GetSystemUserId(); 
     this.getList(null);
   }
-
 
   //搜索方法
   search(event) {

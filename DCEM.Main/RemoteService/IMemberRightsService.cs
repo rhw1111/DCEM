@@ -13,7 +13,7 @@ namespace DCEM.Main.RemoteService
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        Task<MemberRightsResponse> GetTest();
+        Task<MemberRightsResponse> GetMemberRights();
     }
 
 }
