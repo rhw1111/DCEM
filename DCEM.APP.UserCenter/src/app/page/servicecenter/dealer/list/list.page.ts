@@ -43,9 +43,8 @@ export class ListPage implements OnInit {
     this.state[key] = false;
   }
   showModal(key) {
-    if(this.model.data.length>0)
-    { 
-    this.state[key] = true;
+    if (this.model.data.length > 0) {
+      this.state[key] = true;
     }
   }
   public map: any = {};
@@ -79,17 +78,14 @@ export class ListPage implements OnInit {
     const { data } = await modal.onDidDismiss();
     if (data != null && typeof data != undefined) {
       if (data != null && typeof data != undefined) {
-        if (data.id != undefined) {
-          this.model.paramets.provinceid = data.id;
-          this.model.info.provincename = data.name;
-        }
-        //重置省市区
-        if (this.model.paramets.provinceid != data.id) {
-          //城市名称
-          this.model.info.cityname = "--";
-          //城市ID
-          this.model.paramets.cityid = "";
-          this.model.paramets.provinceid = data.id;
+        if (data.id != null) {
+          //重置省市区
+          if (this.model.paramets.provinceid != data.id) {
+            this.model.info.cityname = "--";
+            this.model.paramets.cityid = "";
+            this.model.paramets.provinceid = data.id;
+            this.model.info.provincename = data.name;
+          }
         }
       }
     }
@@ -108,16 +104,11 @@ export class ListPage implements OnInit {
     const { data } = await modal.onDidDismiss();
     if (data != null && typeof data != undefined) {
       if (data != null && typeof data != undefined) {
-        if (data.id != undefined) {
+        if (data.id != null) {
           this.model.paramets.cityid = data.id;
           this.model.info.cityname = data.name;
           this.markLocation(this.map, this.markers, this.model.info.provincename + this.model.info.cityname)
           this.searchData();
-         
-        }
-        //重置省市区
-        if (this.model.cityId != data.id) {
-          this.model.info.city = data.id;
         }
       }
     }
@@ -142,7 +133,6 @@ export class ListPage implements OnInit {
           var lat = result.geocodes[0].location.lat;
           var marker = new AMap.Marker({
             position: new AMap.LngLat(lng, lat),
-            title: address
           });
           map.setCenter([lng, lat]);
           map.remove(markers);
@@ -155,8 +145,9 @@ export class ListPage implements OnInit {
       });
     });
   }
+  //搜索体验店
   searchData() {
-    this.model.data=[];
+    this.model.data = [];
     this._page.loadingShow();
     this._http.postForToaken(
       this.model.apiUrl,
@@ -188,4 +179,37 @@ export class ListPage implements OnInit {
     );
 
   }
+
+  clickmarker(lng, lat, obj) {
+    this.markDealerLocation(lng, lat, obj, this.model, this.state)
+  }
+  //重新定位体验店地图
+  markDealerLocation(lng, lat, obj, model, state) {
+    var marker = new AMap.Marker({
+      position: new AMap.LngLat(lng, lat),
+      extData: obj,
+      cursor: "pointer"
+    });
+    var markerContent = document.createElement("div");
+    var markerImg = document.createElement("img");
+    markerImg.className = "markerlnglat";
+    markerImg.src = "/assets/img/car.png";
+    markerContent.appendChild(markerImg);
+    marker.setContent(markerContent);
+    this.map.setCenter([lng, lat]);
+    this.map.remove(this.markers);
+    this.markers.push(marker);
+    this.map.add(marker);
+    this.map.setZoom(14);
+    this.onClose('modal2');
+    AMap.event.addListener(marker, 'click', function (e) {
+      var obj = e.target.B.extData;
+      model.data = [];
+      model.data.push(obj);
+      if (model.data.length > 0) {
+        state['modal2'] = true;
+      }
+    });
+  }
+
 }

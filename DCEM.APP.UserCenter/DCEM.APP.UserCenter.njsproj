@@ -50,15 +50,20 @@
     <Folder Include="src\app\page\servicecenter\" />
     <Folder Include="src\app\page\personalcenter\" />
     <Folder Include="src\app\page\personalcenter\index\" />
+    <Folder Include="src\app\page\servicecenter\boutique\detail\" />
+    <Folder Include="src\app\page\servicecenter\boutique\list\" />
     <Folder Include="src\app\page\servicecenter\dealer\" />
     <Folder Include="src\app\page\servicecenter\dealer\list\" />
     <Folder Include="src\app\page\servicecenter\index\" />
+    <Folder Include="src\app\page\servicecenter\boutique\" />
     <Folder Include="src\app\page\servicecenter\vehiclecenter\" />
     <Folder Include="src\app\page\servicecenter\vehiclecenter\detail\" />
     <Folder Include="src\app\page\servicecenter\vehiclecenter\list\" />
     <Folder Include="src\assets\" />
     <Folder Include="src\assets\icon\" />
     <Folder Include="src\assets\img\" />
+    <Folder Include="src\assets\img\community\" />
+    <Folder Include="src\assets\img\community\index\" />
     <Folder Include="src\environments\" />
     <Folder Include="src\theme\" />
   </ItemGroup>
@@ -67,9 +72,6 @@
     <TypeScriptCompile Include="src\app\app.component.spec.ts" />
     <TypeScriptCompile Include="src\app\app.component.ts" />
     <TypeScriptCompile Include="src\app\app.module.ts" />
-    <TypeScriptCompile Include="src\app\component\modal\login\login.module.ts" />
-    <TypeScriptCompile Include="src\app\component\modal\login\login.page.spec.ts" />
-    <TypeScriptCompile Include="src\app\component\modal\login\login.page.ts" />
     <TypeScriptCompile Include="src\app\component\typescript\dcem.core.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\index\index.module.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\index\index.page.spec.ts" />
@@ -87,6 +89,14 @@
     <TypeScriptCompile Include="src\app\page\personalcenter\index\index.module.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\index\index.page.spec.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\index\index.page.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\boutique\detail\detail-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\boutique\detail\detail.module.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\boutique\detail\detail.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\boutique\detail\detail.page.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\boutique\list\list-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\boutique\list\list.module.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\boutique\list\list.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\boutique\list\list.page.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\dealer\list\list-routing.module.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\dealer\list\list.module.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\dealer\list\list.page.spec.ts" />
@@ -118,8 +128,6 @@
     <Content Include="package.json" />
     <Content Include="src\app\app.component.html" />
     <Content Include="src\app\app.component.scss" />
-    <Content Include="src\app\component\modal\login\login.page.html" />
-    <Content Include="src\app\component\modal\login\login.page.scss" />
     <Content Include="src\app\page\carcenter\index\index.page.html" />
     <Content Include="src\app\page\carcenter\index\index.page.scss" />
     <Content Include="src\app\page\charging\index\index.page.html" />
@@ -130,6 +138,10 @@
     <Content Include="src\app\page\home\tabs\tabs.page.scss" />
     <Content Include="src\app\page\personalcenter\index\index.page.html" />
     <Content Include="src\app\page\personalcenter\index\index.page.scss" />
+    <Content Include="src\app\page\servicecenter\boutique\detail\detail.page.html" />
+    <Content Include="src\app\page\servicecenter\boutique\detail\detail.page.scss" />
+    <Content Include="src\app\page\servicecenter\boutique\list\list.page.html" />
+    <Content Include="src\app\page\servicecenter\boutique\list\list.page.scss" />
     <Content Include="src\app\page\servicecenter\dealer\list\list.page.html" />
     <Content Include="src\app\page\servicecenter\dealer\list\list.page.scss" />
     <Content Include="src\app\page\servicecenter\index\index.page.html" />

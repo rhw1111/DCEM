@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+Ôªøimport { Component, ViewChild } from '@angular/core';
 import { IonSlides, IonSlide } from '@ionic/angular';
 import * as $ from 'jquery';
 
@@ -9,7 +9,7 @@ import * as $ from 'jquery';
 })
 export class IndexPage {
 
-    @ViewChild(IonSlides, null) ionSlides: IonSlides;
+    @ViewChild('mainSlide', null) mainSlide: IonSlides;
 
     constructor() {
     }
@@ -19,22 +19,23 @@ export class IndexPage {
     }
 
     init() {
-        //«–ªª ¬º˛tab
+        //ÂàáÊç¢‰∫ã‰ª∂tab
         var that: IndexPage = this;
         $(".dm-top-nav-tag").find("div").click(function () {
-            $(".dm-top-nav-tag").find("div").attr("class", "dm-top-nav-tag-text");
-            $(this).addClass("selected");
             var index = $(this).parent().index();
-            that.ionSlides.slideTo(index);
+            that.mainSlide.slideTo(index);
         })
     }
 
-    //«–ªª ¬º˛slides
-    slideChange($event) {
-        // var index = this.ionSlides.getActiveIndex;
-        var index = this.ionSlides.getActiveIndex();
-        console.log(index);
-        console.log(index["__zone_symbol__value"]);
+    tagChange(index) {
+        $(".dm-top-nav-tag").find("div").attr("class", "dm-top-nav-tag-text");
+        $(".dm-top-nav-tag").find("div").eq(index).addClass("selected");
+    }
+
+    //ÂàáÊç¢‰∫ã‰ª∂slides
+    async slideChange($event) {
+        let index: number = await this.mainSlide.getActiveIndex();
+        this.tagChange(index);
 
     }
 }

@@ -14,7 +14,7 @@
         <ion-item [routerLink]="['/base/uc/detail']" >
             <ion-icon color="primary" slot="start" name="person" size="large"></ion-icon>
             <ion-label>
-                <h2>{{UserInfo["firstname"]}}</h2>
+                <h2>{{UserInfo["lastname"]}}{{UserInfo["firstname"]}}</h2>
                 <p>{{UserInfo["mcs_dealername"]}}</p>
             </ion-label>
         </ion-item>

@@ -132,7 +132,7 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-  OnReg() {
+  onReg() {
     this.title = '用户注册';
     this.disstatus = 3;
   }
