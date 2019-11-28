@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Cors;
 using MSLibrary;
 using DCEM.SalesAssistant.Main.ViewModel.Request;
 using MSLibrary.Xrm;
+using DCEM.Main.Entities;
+using DCEM.Main.Response;
 
 namespace DCEM.Web.Controllers
 {
@@ -36,7 +38,7 @@ namespace DCEM.Web.Controllers
 
         [HttpPost]
         [Route("EditPwd")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> EditPwd(ChangePasswordModel model)
+        public async Task<NewtonsoftJsonActionResult<ResultResponse>> EditPwd(ChangePasswordModel model)
         {        
             var result = await app.UpdatePwd(model);
             return result;

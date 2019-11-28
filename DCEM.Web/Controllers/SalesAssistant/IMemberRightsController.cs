@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DCEM.Main.RemoteService;
+using DCEM.Main.Response;
 using DCEM.SalesAssistant.Main.Factory;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -21,27 +22,27 @@ namespace DCEM.Web.Controllers
     {
         public IMemberRightsService app = null;
        
-        private IFactory<IMemberRightsService> _remoteServiceFactory;
+        //private IFactory<IMemberRightsService> _remoteServiceFactory;
 
-        public IMemberRightsController(IFactory<IMemberRightsService> remoteServiceFactory)
-        {
-            _remoteServiceFactory = remoteServiceFactory;
-        }
+        //public IMemberRightsController(IFactory<IMemberRightsService> remoteServiceFactory)
+        //{
+        //    _remoteServiceFactory = remoteServiceFactory;
+        //}
 
-        public IMemberRightsController()
-        {
-            if (app == null)
-            {                
-                app = _remoteServiceFactory.Create();
-            }
-        }
+        //public IMemberRightsController()
+        //{
+        //    if (app == null)
+        //    {                
+        //        app = _remoteServiceFactory.Create();
+        //    }
+        //}
 
         [HttpPost]
         [Route("GetMemberRightsList")]
-        public async Task<NewtonsoftJsonActionResult<MemberRightsResponse>> GetMemberRightsList(string mcs_vehorderid)
+        public async Task<NewtonsoftJsonActionResult<MemberRightsResponse>> GetMemberRightsList()
         {
-            var service = _remoteServiceFactory.Create();
-            var result = await app.GetTest(mcs_vehorderid);
+            //var service = _remoteServiceFactory.Create();
+            var result = await app.GetTest();
             return result;
         }
     }
