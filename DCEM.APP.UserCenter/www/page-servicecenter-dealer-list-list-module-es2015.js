@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-buttons slot=\"start\">\r\n      <ion-back-button text=\"返回\" defaultHref=\"/\"></ion-back-button>\r\n    </ion-buttons>\r\n    <ion-title>\r\n      <ion-label>体验中心</ion-label>\r\n    </ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n\r\n  <div id=\"container\" class=\"container\">\r\n    <ion-grid>\r\n      <ion-row>\r\n        <ion-col>\r\n          <ion-chip color=\"primary\" class=\"ionchip\" (click)=\"provinceOnClick()\">\r\n            <ion-icon name=\"pin\"></ion-icon>\r\n            <ion-label class=\"ionlabel\">{{model.info.provincename}}</ion-label>\r\n          </ion-chip>\r\n        </ion-col>\r\n        <ion-col>\r\n          <ion-chip color=\"primary\" class=\"ionchip\" (click)=\"cityOnClick()\">\r\n            <ion-icon name=\"pin\"></ion-icon>\r\n            <ion-label class=\"ionlabel\">{{model.info.cityname}}</ion-label>\r\n          </ion-chip>\r\n        </ion-col>\r\n        <ion-col>\r\n          <ion-chip color=\"primary\" class=\"ionchip\">\r\n            <ion-icon name=\"pin\"></ion-icon>\r\n            <ion-select name=\"gender\" okText=\"确认\" cancelText=\"取消\" [(ngModel)]=\"model.paramets.dealertype\"\r\n              class=\"selectbtn\" (ionChange)=\"searchData()\">\r\n              <ion-select-option value=\"0\">全部类型</ion-select-option>\r\n              <ion-select-option value=\"1\">体验中心</ion-select-option>\r\n              <ion-select-option value=\"3\">服务中心</ion-select-option>\r\n            </ion-select>\r\n          </ion-chip>\r\n        </ion-col>\r\n      </ion-row>\r\n    </ion-grid>\r\n  </div> \r\n  <ion-fab slot=\"fixed\" vertical=\"bottom\" horizontal=\"center\">\r\n    <ion-fab-button color=\"light\" (click)=\"showModal('modal2')\">\r\n      <ion-icon name=\"arrow-dropup\" color=\"secondary\"></ion-icon>\r\n    </ion-fab-button>\r\n  </ion-fab>\r\n\r\n\r\n  <Modal [(ngModel)]=\"this.state.modal2\" [popup]=\"true\" [animationType]=\"'slide-up'\" (onClose)=\"onClose('modal2')\">\r\n    <List [renderHeader]=\"renderHeader\" [className]=\"'popup-list'\">\r\n      <ListItem *ngFor=\"let item of model.data\">\r\n        <ion-item-group>\r\n          <ion-item lines=\"none\">\r\n            <ion-label style=\"line-height:50px\">\r\n              <h2>{{item.mcs_name}}</h2>\r\n              <ion-note>{{item.mcs_address}} </ion-note>\r\n            </ion-label>\r\n          </ion-item>\r\n          <ion-item>\r\n            <ion-chip outline color=\"primary\" style=\"width: 100%;\">\r\n              <ion-label style=\"width: 100%;text-align: center;color: black;\">\r\n                <h2>预约试驾</h2>\r\n              </ion-label>\r\n            </ion-chip>\r\n          </ion-item>\r\n        </ion-item-group>\r\n      </ListItem> \r\n    </List>\r\n  </Modal>\r\n\r\n\r\n\r\n  <!--<ion-item (click)=\"provinceOnClick()\">\r\n      <ion-label position=\"stacked\">省：</ion-label>\r\n      <p>{{model.info.provincename}}&nbsp;</p>\r\n    </ion-item>\r\n    <ion-item (click)=\"cityOnClick()\">\r\n      <ion-label position=\"stacked\">市：</ion-label>\r\n      <p>{{model.info.cityname}}&nbsp;</p>\r\n    </ion-item>\r\n    <ion-item (click)=\"districtOnClick()\">\r\n      <ion-label position=\"stacked\">区：</ion-label>\r\n      <p>{{model.info.areaname}}&nbsp;</p>\r\n    </ion-item>\r\n  </ion-list>-->\r\n</ion-content>"
+module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-buttons slot=\"start\">\r\n      <ion-back-button text=\"返回\" defaultHref=\"/\"></ion-back-button>\r\n    </ion-buttons>\r\n    <ion-title>\r\n      <ion-label>体验中心</ion-label>\r\n    </ion-title>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n\r\n  <div id=\"container\" class=\"container\">\r\n    <ion-grid>\r\n      <ion-row>\r\n        <ion-col>\r\n          <ion-chip color=\"primary\" class=\"ionchip\" (click)=\"provinceOnClick()\">\r\n            <ion-icon name=\"pin\"></ion-icon>\r\n            <ion-label class=\"ionlabel\">{{model.info.provincename}}</ion-label>\r\n          </ion-chip>\r\n        </ion-col>\r\n        <ion-col>\r\n          <ion-chip color=\"primary\" class=\"ionchip\" (click)=\"cityOnClick()\">\r\n            <ion-icon name=\"pin\"></ion-icon>\r\n            <ion-label class=\"ionlabel\">{{model.info.cityname}}</ion-label>\r\n          </ion-chip>\r\n        </ion-col>\r\n        <ion-col>\r\n          <ion-chip color=\"primary\" class=\"ionchip\">\r\n            <ion-icon name=\"pin\"></ion-icon>\r\n            <ion-select name=\"gender\" okText=\"确认\" cancelText=\"取消\" [(ngModel)]=\"model.paramets.dealertype\"\r\n              class=\"selectbtn\" (ionChange)=\"searchData()\">\r\n              <ion-select-option value=\"0\">全部类型</ion-select-option>\r\n              <ion-select-option value=\"1\">体验中心</ion-select-option>\r\n              <ion-select-option value=\"3\">服务中心</ion-select-option>\r\n            </ion-select>\r\n          </ion-chip>\r\n        </ion-col>\r\n      </ion-row>\r\n    </ion-grid>\r\n  </div>  \r\n  <ion-fab slot=\"fixed\" vertical=\"bottom\" horizontal=\"center\">\r\n    <ion-fab-button color=\"light\" (click)=\"showModal('modal2')\">\r\n      <ion-icon name=\"arrow-dropup\" color=\"secondary\"></ion-icon>\r\n    </ion-fab-button>\r\n  </ion-fab>\r\n\r\n\r\n  <Modal [(ngModel)]=\"this.state.modal2\" [popup]=\"true\" [animationType]=\"'slide-up'\" (onClose)=\"onClose('modal2')\">\r\n    <List [renderHeader]=\"renderHeader\" [className]=\"'popup-list'\">\r\n      <ListItem *ngFor=\"let item of model.data\">\r\n        <ion-item-group (click)=\"clickmarker(item.mcsx,item.mcsy,item)\">\r\n          <ion-item lines=\"none\">\r\n            <ion-label style=\"line-height:50px\">\r\n              <h2>{{item.mcs_name}}</h2>\r\n              <ion-note>{{item.mcs_address}} </ion-note>\r\n              <p>营业时间：10:00-22:00(工作日)</p>\r\n            </ion-label>\r\n          </ion-item>\r\n          <ion-item>\r\n            <ion-chip outline color=\"primary\" style=\"width: 100%;\">\r\n              <ion-label style=\"width: 100%;text-align: center;color: black;\">\r\n                <h2>预约试驾</h2>\r\n              </ion-label>\r\n            </ion-chip>\r\n          </ion-item> \r\n        </ion-item-group>\r\n    \r\n      </ListItem> \r\n    </List>\r\n  </Modal>\r\n</ion-content>"
 
 /***/ }),
 
@@ -194,17 +194,14 @@ let ListPage = class ListPage {
             const { data } = yield modal.onDidDismiss();
             if (data != null && typeof data != undefined) {
                 if (data != null && typeof data != undefined) {
-                    if (data.id != undefined) {
-                        this.model.paramets.provinceid = data.id;
-                        this.model.info.provincename = data.name;
-                    }
-                    //重置省市区
-                    if (this.model.paramets.provinceid != data.id) {
-                        //城市名称
-                        this.model.info.cityname = "--";
-                        //城市ID
-                        this.model.paramets.cityid = "";
-                        this.model.paramets.provinceid = data.id;
+                    if (data.id != null) {
+                        //重置省市区
+                        if (this.model.paramets.provinceid != data.id) {
+                            this.model.info.cityname = "--";
+                            this.model.paramets.cityid = "";
+                            this.model.paramets.provinceid = data.id;
+                            this.model.info.provincename = data.name;
+                        }
                     }
                 }
             }
@@ -225,15 +222,11 @@ let ListPage = class ListPage {
             const { data } = yield modal.onDidDismiss();
             if (data != null && typeof data != undefined) {
                 if (data != null && typeof data != undefined) {
-                    if (data.id != undefined) {
+                    if (data.id != null) {
                         this.model.paramets.cityid = data.id;
                         this.model.info.cityname = data.name;
                         this.markLocation(this.map, this.markers, this.model.info.provincename + this.model.info.cityname);
                         this.searchData();
-                    }
-                    //重置省市区
-                    if (this.model.cityId != data.id) {
-                        this.model.info.city = data.id;
                     }
                 }
             }
@@ -259,7 +252,6 @@ let ListPage = class ListPage {
                     var lat = result.geocodes[0].location.lat;
                     var marker = new AMap.Marker({
                         position: new AMap.LngLat(lng, lat),
-                        title: address
                     });
                     map.setCenter([lng, lat]);
                     map.remove(markers);
@@ -273,6 +265,7 @@ let ListPage = class ListPage {
             });
         });
     }
+    //搜索体验店
     searchData() {
         this.model.data = [];
         this._page.loadingShow();
@@ -298,6 +291,37 @@ let ListPage = class ListPage {
         }, (err) => {
             this._page.alert("消息提示", "门店信息加载异常");
             this._page.loadingHide();
+        });
+    }
+    clickmarker(lng, lat, obj) {
+        this.markDealerLocation(lng, lat, obj, this.model, this.state);
+    }
+    //重新定位体验店地图
+    markDealerLocation(lng, lat, obj, model, state) {
+        var marker = new AMap.Marker({
+            position: new AMap.LngLat(lng, lat),
+            extData: obj,
+            cursor: "pointer"
+        });
+        var markerContent = document.createElement("div");
+        var markerImg = document.createElement("img");
+        markerImg.className = "markerlnglat";
+        markerImg.src = "/assets/img/car.png";
+        markerContent.appendChild(markerImg);
+        marker.setContent(markerContent);
+        this.map.setCenter([lng, lat]);
+        this.map.remove(this.markers);
+        this.markers.push(marker);
+        this.map.add(marker);
+        this.map.setZoom(14);
+        this.onClose('modal2');
+        AMap.event.addListener(marker, 'click', function (e) {
+            var obj = e.target.B.extData;
+            model.data = [];
+            model.data.push(obj);
+            if (model.data.length > 0) {
+                state['modal2'] = true;
+            }
         });
     }
 };
