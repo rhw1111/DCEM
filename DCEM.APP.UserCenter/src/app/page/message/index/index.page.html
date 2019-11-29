@@ -1,6 +1,8 @@
-<ion-header>
+<ion-header >
   <ion-toolbar style="--border-width:0px;">
-    <ion-title>消息中心</ion-title>
+    <ion-title size="undefined">朋友</ion-title>
+    <ion-icon name="people" slot="end" size="large" ></ion-icon>
+    <ion-icon name="add" slot="end" size="large" ></ion-icon>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -8,7 +10,7 @@
         <ion-item-sliding *ngFor="let room of activities;let key=index">
             <div class="content">
                 <ion-item [routerLink]="['message/detail']" lines="none" (click)="toRoomMessage(room)">
-                    <ion-avatar size="large" slot="start">
+                    <ion-avatar item-start>
                         <img src="{{room.thumbnail}}">
                     </ion-avatar>
                     <ion-label>
