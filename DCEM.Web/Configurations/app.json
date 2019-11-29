@@ -18,25 +18,25 @@
 //  }
 //}
 //Dev-AD»œ÷§CRM9
-////{
-////  "Connections": null,
-////  "DISetting": {
-////    "SearchAssemblyNames": [ "MSLibrary", "DCEM.Main", "DCEM.ServiceAssistantService.Main", "DCEM.Web" ]
-////  },
-////  "DyCRMSetting": {
-////    "CrmApiMaxRetry": 10,
-////    "CrmApiVersion": "9.0",
-////    "TokenServiceType": "AD",
-////    "Domain": "mcs.com",
-////    "AdfsUrl": "",
-////    "CrmUrl": "http://106.14.121.65/crm9",
-////    "ClientId": "",
-////    "ClientSecret": "",
-////    "UserName": "crm9admin",
-////    "Password": "@Msc.com@",
-////    "RedirectUri": ""
-////  }
-////}
+//{
+//  "Connections": null,
+//  "DISetting": {
+//    "SearchAssemblyNames": [ "MSLibrary", "DCEM.Main", "DCEM.ServiceAssistantService.Main", "DCEM.Web" ]
+//  },
+//  "DyCRMSetting": {
+//    "CrmApiMaxRetry": 10,
+//    "CrmApiVersion": "9.0",
+//    "TokenServiceType": "AD",
+//    "Domain": "mcs.com",
+//    "AdfsUrl": "",
+//    "CrmUrl": "http://106.14.121.65/crm9",
+//    "ClientId": "",
+//    "ClientSecret": "",
+//    "UserName": "crm9admin",
+//    "Password": "@Msc.com@",
+//    "RedirectUri": ""
+//  }
+//}
 //Uat
 {
   "Connections": null,
