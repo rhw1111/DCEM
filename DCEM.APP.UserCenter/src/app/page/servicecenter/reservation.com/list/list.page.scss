@@ -1,0 +1,45 @@
+.cardcontent{
+    margin: unset;
+    padding-top: 15px;
+
+    ion-card-title{
+        font-size: 15px;
+    } 
+}
+
+.option{
+    display:flex;
+}
+
+.messagelist {
+    width: 100%;
+    // float: left;
+    position: relative;
+}
+
+.messagelist .panel{
+    padding: 0px !important;
+    background-color: #EDEDED;
+    height: 255px;
+}
+
+.messagelist .panel .panelheard{
+    padding: 5px;
+}
+
+.messagelist .panel .panelheard .noteleft{
+    float: left;
+    padding: 5px;;
+}
+
+.messagelist .panel .panelheard .noteright{
+    float: right;
+    padding: 5px;;
+}
+
+.panelcontent{
+    clear: both;
+}
+.panelbutton{
+    clear: both;
+}

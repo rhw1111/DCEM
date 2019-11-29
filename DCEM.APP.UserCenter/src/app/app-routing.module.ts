@@ -52,12 +52,22 @@ const routes: Routes = [
                     { path: 'list',    loadChildren: () => import('./page/servicecenter/dealer/list/list.module').then( m => m.ListPageModule) },
                 ]
             },
+            {
+                path: 'reservation',  //维保预约
+                children: [
+                    { path: 'list',    loadChildren: () => import('./page/servicecenter/reservation.com/list/list.module').then( m => m.ListPageModule) },
+                ]
+            },
             { path: 'index', loadChildren: () => import('./page/servicecenter/index/index.module').then(m => m.IndexPageModule) },
         ]
     },
   {
     path: 'detail',
     loadChildren: () => import('./page/servicecenter/vehiclecenter/detail/detail.module').then( m => m.DetailPageModule)
+  },
+  {
+    path: 'list',
+    loadChildren: () => import('./page/servicecenter/reservation.com/list/list.module').then( m => m.ListPageModule)
   },
 ];
 @NgModule({
