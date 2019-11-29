@@ -4,20 +4,17 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-    <ion-list ng-if="activities">
+    <ion-list ng-if="activities" mode="ios">
         <ion-item-sliding *ngFor="let room of activities;let key=index">
             <div class="content">
-                <ion-item (click)="toRoomMessage(room)">
+                <ion-item [routerLink]="['message/detail']" lines="none" (click)="toRoomMessage(room)">
                     <ion-avatar size="large" slot="start">
                         <img src="{{room.thumbnail}}">
                     </ion-avatar>
-                    <div>
-                        <h2>{{room.title}}</h2>
-                        <p>{{room.latest_chat}}</p>
-                    </div>
-                    <!-- <ion-label style="flex:0px;--border-width:0px;">
-                      
-                    </ion-label> -->
+                    <ion-label>
+                      <h2>{{room.title}}</h2>
+                      <p>{{room.latest_chat}}</p>
+                    </ion-label>
                  
                   <ion-note slot="end">
                     {{room.activeTime}}

@@ -1,0 +1,31 @@
+.content{
+    margin: 10px 20px;
+    
+}
+ion-list {
+    ion-item{
+        --background: #f7f6fb;
+        --border-width:0px;
+        ion-label{
+            --border-width:0px;
+            h2{
+                font-size: 16px;
+                font-weight: 100px;
+                color: #151723;
+                margin-bottom: 10px;
+            }
+            p{
+                font-size: 14px;
+                color: #adabb6;
+            }
+        }
+        
+        ion-note{
+            font-size: 10px;
+        }
+    }
+}
+
+ion-toolbar{
+    --border-width:0px;
+}

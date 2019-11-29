@@ -18,6 +18,26 @@
 //  }
 //}
 //Dev-AD»œ÷§CRM9
+////{
+////  "Connections": null,
+////  "DISetting": {
+////    "SearchAssemblyNames": [ "MSLibrary", "DCEM.Main", "DCEM.ServiceAssistantService.Main", "DCEM.Web" ]
+////  },
+////  "DyCRMSetting": {
+////    "CrmApiMaxRetry": 10,
+////    "CrmApiVersion": "9.0",
+////    "TokenServiceType": "AD",
+////    "Domain": "mcs.com",
+////    "AdfsUrl": "",
+////    "CrmUrl": "http://106.14.121.65/crm9",
+////    "ClientId": "",
+////    "ClientSecret": "",
+////    "UserName": "crm9admin",
+////    "Password": "@Msc.com@",
+////    "RedirectUri": ""
+////  }
+////}
+//Uat
 {
   "Connections": null,
   "DISetting": {
@@ -25,34 +45,14 @@
   },
   "DyCRMSetting": {
     "CrmApiMaxRetry": 10,
-    "CrmApiVersion": "9.0",
-    "TokenServiceType": "AD",
-    "Domain": "mcs.com",
-    "AdfsUrl": "",
-    "CrmUrl": "http://106.14.121.65/crm9",
-    "ClientId": "",
-    "ClientSecret": "",
-    "UserName": "crm9admin",
-    "Password": "@Msc.com@",
+    "CrmApiVersion": "8.2",
+    "TokenServiceType": "ADFSPassword",
+    "AdfsUrl": "https://subcrmadfs.sokon.com/",
+    "CrmUrl": "https://subcrmuat.sokon.com",
+    "ClientId": "e3053682-935d-41df-bcc3-f7fc4de37040",
+    "ClientSecret": "VfEqoCGnQ9p-pFFS2jUXmiYI0zzo8XzhQBYj18wD",
+    "UserName": "sfmotors\\subuatcrmadmin",
+    "Password": "P@ssw0rd",
     "RedirectUri": ""
   }
 }
-//Uat
-//{
-//  "Connections": null,
-//  "DISetting": {
-//    "SearchAssemblyNames": [ "MSLibrary", "DCEM.Main", "DCEM.ServiceAssistantService.Main", "DCEM.Web" ]
-//  },
-//  "DyCRMSetting": {
-//    "CrmApiMaxRetry": 10,
-//    "CrmApiVersion": "8.2",
-//    "TokenServiceType": "ADFSPassword",
-//    "AdfsUrl": "https://subcrmadfs.sokon.com/",
-//    "CrmUrl": "https://subcrmuat.sokon.com",
-//    "ClientId": "e3053682-935d-41df-bcc3-f7fc4de37040",
-//    "ClientSecret": "VfEqoCGnQ9p-pFFS2jUXmiYI0zzo8XzhQBYj18wD",
-//    "UserName": "sfmotors\\subuatcrmadmin",
-//    "Password": "P@ssw0rd",
-//    "RedirectUri": ""
-//  }
-//}
