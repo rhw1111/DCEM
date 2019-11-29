@@ -12,6 +12,6 @@ export class DetailPage implements OnInit {
     constructor() { }
 
     ngOnInit() {
-    }
 
+    }
 }
