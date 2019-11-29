@@ -35,7 +35,7 @@
             <h2>
               VIN
             </h2>
-            <p>{{mod.data.detail.vinname}}&nbsp;</p>
+            <p>{{mod.data.detail["vinname"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -43,7 +43,7 @@
             <h2>
               交车单
             </h2>
-            <p>{{mod.data.detail.vehdeliverycode}}&nbsp;</p>
+            <p>{{mod.data.detail["vehdeliverycode"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -51,7 +51,7 @@
             <h2>
               交车状态
             </h2>
-            <p>{{mod.data.detail.deliverystatus}}&nbsp;</p>
+            <p>{{mod.data.detail["deliverystatus"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -59,7 +59,7 @@
             <h2>
               整车订单号
             </h2>
-            <p>{{mod.data.detail.vehordercode}}&nbsp;</p>
+            <p>{{mod.data.detail["vehordercode"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
 
@@ -68,7 +68,7 @@
             <h2>
               姓名
             </h2>
-            <p>{{mod.data.detail.mcs_fullname}}&nbsp;</p>
+            <p>{{mod.data.detail["mcs_fullname"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -76,7 +76,7 @@
             <h2>
               身份证号
             </h2>
-            <p>{{mod.data.detail.mcs_idcard}}&nbsp;</p>
+            <p>{{mod.data.detail["mcs_idcard"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -84,7 +84,7 @@
             <h2>
               上牌日期
             </h2>
-            <p>{{mod.data.detail.mcs_lisensedate | date:'yyyy-MM-dd HH:mm:ss' }}&nbsp;</p>
+            <p>{{mod.data.detail["mcs_lisensedate | date:'yyyy-MM-dd HH:mm:ss' "]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -92,7 +92,7 @@
             <h2>
               上牌地址
             </h2>
-            <p>{{mod.data.detail.mcs_address}}&nbsp;</p>
+            <p>{{mod.data.detail["mcs_address"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -100,7 +100,7 @@
             <h2>
               上牌费用
             </h2>
-            <p>{{mod.data.detail.mcs_fee}}&nbsp;</p>
+            <p>{{mod.data.detail["mcs_fee"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
 
@@ -116,7 +116,7 @@
             <h2>
               订单号码
             </h2>
-            <p>{{mod.data.detail.vehordercode}}&nbsp;</p>
+            <p>{{mod.data.detail["vehordercode"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -124,7 +124,7 @@
             <h2>
               车主姓名
             </h2>
-            <p>{{mod.data.detail.carusename}}&nbsp;</p>
+            <p>{{mod.data.detail["carusename"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -132,7 +132,7 @@
             <h2>
               车主手机号
             </h2>
-            <p>{{mod.data.detail.contactphone}}&nbsp;</p>
+            <p>{{mod.data.detail["contactphone"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -140,7 +140,7 @@
             <h2>
               整车订单状态
             </h2>
-            <p>{{mod.data.detail.rostatus}}&nbsp;</p>
+            <p>{{mod.data.detail["rostatus"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -148,7 +148,7 @@
             <h2>
               商城下单时间
             </h2>
-            <p>{{mod.data.detail.orderon | date:'yyyy-MM-dd HH:mm:ss' }}&nbsp;</p>
+            <p>{{mod.data.detail["orderon | date:'yyyy-MM-dd HH:mm:ss' "]}}&nbsp;</p>
           </ion-label>
         </ion-item>
       </ion-list>
@@ -178,7 +178,7 @@
         </ion-item>
       </ion-list>
       <section style="text-align:center;">
-        <ion-button style="width:80%" color="primary" (click)="presentFileModal(mod.data.detail.id)">
+        <ion-button style="width:80%" color="primary" (click)="presentFileModal(mod.data.detail['id'])">
           上传附件</ion-button>
       </section>
     </div>
