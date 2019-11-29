@@ -45,27 +45,28 @@
     <div *ngSwitchCase="'phone'">
       <ion-card-content>
         <ion-item>
-          <ion-input type="tel" placeholder="输入您的电话号码" [(ngModel)]="mod.model.account"></ion-input>
+          <ion-input type="tel" maxlength="11" placeholder="输入您的电话号码" [(ngModel)]="mod.model.account"></ion-input>
         </ion-item>
         <ion-item lines="none" class="loginfontsize09" *ngIf="valmsg">
           <ion-label color="danger">
             验证信息
           </ion-label>
         </ion-item>
-      </ion-card-content> 
+      </ion-card-content>
       <div class="ion-padding">
-        <ion-button expand="block" type="button" (click)="onLoginSendMsg()"
+        <ion-button expand="block" type="button" (click)="onSendMsg(2)"
           class="ion-no-margin ios button button-block button-solid ion-activatable ion-focusable hydrated">
           获取验证码
         </ion-button>
       </div>
     </div>
   </div>
-  <ion-item lines="none"  >
+  <ion-item lines="none">
     <ion-label style="    text-align: right;
     margin-right: 15px;
-    margin-top: 0px;"> 
-      <!-- <ion-route (click)="OnReg()"  class="underline ios ion-activatable hydrated">用户注册</ion-route> -->
+    margin-top: 0px;">  
+      <input type="button"  style="font-size: 1.2rem;"  class="logina"  (click)="OnReg(2)" value="注册"/>
+ 
     </ion-label>
   </ion-item>
 </ion-content>
@@ -73,42 +74,41 @@
 
 <!-- 注册电话号码页面 -->
 <ion-content *ngIf="disstatus==3">
-    <ion-card-header style="margin-bottom: 50px;">
-      <ion-card-title style="height: 50px;"> 您好，</ion-card-title>
-      <ion-card-subtitle class="loginsubtitle"> 欢迎来到车联网DEMO</ion-card-subtitle>
-    </ion-card-header>
-  
+  <ion-card-header style="margin-bottom: 50px;">
+    <ion-card-title style="height: 50px;"> 您好，</ion-card-title>
+    <ion-card-subtitle class="loginsubtitle"> 欢迎来到车联网DEMO</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content>
     <ion-card-content>
-        <ion-card-content>
-            <ion-item>
-              <ion-input type="tel" placeholder="输入您的电话号码" [(ngModel)]="mod.model.account"></ion-input>
-            </ion-item>
-            <ion-item lines="none" class="loginfontsize09" *ngIf="valmsg">
-              <ion-label color="danger">
-                验证信息
-              </ion-label>
-            </ion-item>
-          </ion-card-content>
-    
-          <div class="ion-padding loginx"  >
-            <!-- <ion-router>
-                <ion-route url="/tutorial" component="《用户协议》"></ion-route> 与
-                <ion-route url="/login" component="《隐私协议》"></ion-route>
-            </ion-router> -->
-            <ion-label>
-              获取验证码视为您已阅读
-            </ion-label>
-          </div>
-          <div class="ion-padding">
-            <ion-button expand="block" type="button" (click)="onRegSendMsg()"
-              class="ion-no-margin ios button button-block button-solid ion-activatable ion-focusable hydrated">
-              获取验证码
-            </ion-button>
-          </div>
-  
+      <ion-item>
+        <ion-input type="tel" maxlength="11" placeholder="输入您的电话号码" [(ngModel)]="mod.model.account"></ion-input>
+      </ion-item>
+      <ion-item lines="none" class="loginfontsize09" *ngIf="valmsg">
+        <ion-label color="danger">
+          验证信息
+        </ion-label>
+      </ion-item>
     </ion-card-content>
-  </ion-content>
-   
+
+    <div class="ion-padding loginx">
+      <ion-label>
+        获取验证码视为您已阅读 
+      <input type="button"  class="logina"  value=" 《用户协议》"/>
+        与 
+      <input type="button"  class="logina"   value="《隐私协议》"/>
+      </ion-label>
+    </div>
+    <div class="ion-padding">
+      <ion-button expand="block" type="button" (click)="onSendMsg(5)"
+        class="ion-no-margin ios button button-block button-solid ion-activatable ion-focusable hydrated">
+        获取验证码
+      </ion-button>
+    </div>
+
+  </ion-card-content>
+</ion-content>
+
 
 <!-- 验证码输入页面 -->
 <ion-content *ngIf="disstatus==2 || disstatus==5">
@@ -221,7 +221,7 @@
     </ion-item>
   </ion-card-content>
   <div class="ion-padding">
-    <ion-button expand="block" type="button" (click)="OnReg()"
+    <ion-button expand="block" type="button" (click)="onRegPost()"
       class="ion-no-margin ios button button-block button-solid ion-activatable ion-focusable hydrated">
       确定
     </ion-button>

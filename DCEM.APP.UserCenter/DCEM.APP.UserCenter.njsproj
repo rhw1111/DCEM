@@ -154,6 +154,8 @@
     <Content Include="src\assets\img\back.png" />
     <Content Include="src\assets\img\1png.png" />
     <Content Include="src\assets\img\2.jpg" />
+    <Content Include="src\assets\img\xiaopeng1.jpg" />
+    <Content Include="src\assets\img\xiaopeng2.jpg" />
     <Content Include="src\assets\shapes.svg" />
     <Content Include="src\global.scss" />
     <Content Include="src\index.html" />
