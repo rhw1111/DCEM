@@ -23,27 +23,26 @@
     }
 
     .dm-top-nav-ico {
-        width: 50px;
 
-        ion-icon {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            width: 30px;
-            height: 30px;
-            margin: -15px 0 0 -15px;
+        svg {
+            line-height: $height;
+            margin: 0 auto;
+            text-align: center;
+            height: $height;
         }
 
-        &.blue {
-            ion-icon {
-                color: rgb(49,113,224);
-            }
+        &.left {
+            padding-left: 10px;
+        }
+
+        &.right {
+            padding-right: 10px;
         }
     }
 
     .dm-top-nav-tag {
-        padding-left: 50px;
-        padding-right: 50px;
+        padding-left: 30px;
+        padding-right: 30px;
 
         .dm-top-nav-tag-text {
             font-size: 16px;

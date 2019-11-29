@@ -35,7 +35,7 @@
             <h2>
               姓名
             </h2>
-            <p>{{mod.data.master.mcs_username}}&nbsp;</p>
+            <p>{{mod.data.master["mcs_username"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -43,7 +43,7 @@
             <h2>
               手机号码
             </h2>
-            <p>{{mod.data.master.mcs_userphone}}&nbsp;</p>
+            <p>{{mod.data.master["mcs_userphone"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -51,7 +51,7 @@
             <h2>
               试驾车型
             </h2>
-            <p>{{mod.data.master.carmodelname}}&nbsp;</p>
+            <p>{{mod.data.master["carmodelname"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -59,7 +59,7 @@
             <h2>
               综合评分
             </h2>
-            <p>{{mod.data.master.mcs_score}}&nbsp;</p>
+            <p>{{mod.data.master["mcs_score"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -67,7 +67,7 @@
             <h2>
               平均评分
             </h2>
-            <p>{{mod.data.master.mcs_averagescore}}&nbsp;</p>
+            <p>{{mod.data.master["mcs_averagescore"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -75,7 +75,7 @@
             <h2>
               反馈时间
             </h2>
-            <p>{{mod.data.master.mcs_surveytime | date:'yyyy-MM-dd HH:mm:ss'}}&nbsp;</p>
+            <p>{{mod.data.master["mcs_surveytime | date:'yyyy-MM-dd HH:mm:ss'"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
       </ion-list>
