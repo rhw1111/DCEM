@@ -37,6 +37,15 @@ const routes: Routes = [
         ]
     },
     {
+        path: 'message',  //消息中心
+        children: [
+            { path: 'index', loadChildren: () => import('./page/message.com/index/index.module').then(m => m.IndexPageModule) },
+            { path: 'room',  loadChildren: () => import('./page/message.com/room/room.module').then( m => m.RoomPageModule)},
+            { path: 'sys', loadChildren: () => import('./page/message.com/sys/sys.module').then( m => m.SysPageModule) },
+            { path: 'detail', loadChildren: () => import('./page/message.com/detail/detail.module').then( m => m.DetailPageModule)},
+        ]
+    },
+    {
         path: 'servicecenter',  //服务中心
         children: [
             {
@@ -47,15 +56,16 @@ const routes: Routes = [
                 ]
             },
             {
-                path: 'dealer',  //体验中心
+                path: 'boutique',  //精品商城
                 children: [
-                    { path: 'list',    loadChildren: () => import('./page/servicecenter/dealer/list/list.module').then( m => m.ListPageModule) },
+                    { path: 'list', loadChildren: () => import('./page/servicecenter/boutique/list/list.module').then(m => m.ListPageModule) },
+                    { path: 'detail', loadChildren: () => import('./page/servicecenter/boutique/detail/detail.module').then(m => m.DetailPageModule) },
                 ]
             },
             {
-                path: 'reservation',  //维保预约
+                path: 'dealer',  //体验中心
                 children: [
-                    { path: 'list',    loadChildren: () => import('./page/servicecenter/reservation.com/list/list.module').then( m => m.ListPageModule) },
+                    { path: 'list',    loadChildren: () => import('./page/servicecenter/dealer/list/list.module').then( m => m.ListPageModule) },
                 ]
             },
             { path: 'index', loadChildren: () => import('./page/servicecenter/index/index.module').then(m => m.IndexPageModule) },
@@ -67,7 +77,11 @@ const routes: Routes = [
   },
   {
     path: 'list',
-    loadChildren: () => import('./page/servicecenter/reservation.com/list/list.module').then( m => m.ListPageModule)
+    loadChildren: () => import('./page/servicecenter/boutique/list/list.module').then( m => m.ListPageModule)
+  },
+  {
+    path: 'detail',
+    loadChildren: () => import('./page/servicecenter/boutique/detail/detail.module').then(m => m.DetailPageModule)
   },
 ];
 @NgModule({
