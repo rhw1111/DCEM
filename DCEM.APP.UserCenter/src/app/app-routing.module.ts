@@ -71,6 +71,14 @@ const routes: Routes = [
             { path: 'index', loadChildren: () => import('./page/servicecenter/index/index.module').then(m => m.IndexPageModule) },
         ]
     },
+    {
+        path: 'testdrive',  //试乘试驾
+        children: [
+            { path: 'edit', loadChildren: () => import('./page/testdrive/edit/edit.module').then(m => m.EditPageModule) },
+            { path: 'list', loadChildren: () => import('./page/testdrive/list/list.module').then(m => m.ListPageModule) },
+        ]
+    },
+
   {
     path: 'detail',
     loadChildren: () => import('./page/servicecenter/vehiclecenter/detail/detail.module').then( m => m.DetailPageModule)
