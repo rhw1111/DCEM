@@ -37,6 +37,7 @@
     <Folder Include="src\app\component\" />
     <Folder Include="src\app\component\modal\" />
     <Folder Include="src\app\component\modal\login\" />
+    <Folder Include="src\app\component\modal\select-dealer\" />
     <Folder Include="src\app\component\modal\select-sysarea\" />
     <Folder Include="src\app\component\typescript\" />
     <Folder Include="src\app\page\carcenter\index\" />
@@ -77,6 +78,8 @@
     <TypeScriptCompile Include="src\app\app.module.ts" />
     <TypeScriptCompile Include="src\app\component\modal\login\login.component.spec.ts" />
     <TypeScriptCompile Include="src\app\component\modal\login\login.component.ts" />
+    <TypeScriptCompile Include="src\app\component\modal\select-dealer\select-dealer.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\component\modal\select-dealer\select-dealer.component.ts" />
     <TypeScriptCompile Include="src\app\component\modal\select-sysarea\select-sysarea.component.spec.ts" />
     <TypeScriptCompile Include="src\app\component\modal\select-sysarea\select-sysarea.component.ts" />
     <TypeScriptCompile Include="src\app\component\typescript\dcem.core.ts" />
@@ -142,6 +145,8 @@
     <Content Include="src\app\app.component.scss" />
     <Content Include="src\app\component\modal\login\login.component.html" />
     <Content Include="src\app\component\modal\login\login.component.scss" />
+    <Content Include="src\app\component\modal\select-dealer\select-dealer.component.html" />
+    <Content Include="src\app\component\modal\select-dealer\select-dealer.component.scss" />
     <Content Include="src\app\component\modal\select-sysarea\select-sysarea.component.html" />
     <Content Include="src\app\component\modal\select-sysarea\select-sysarea.component.scss" />
     <Content Include="src\app\page\carcenter\index\index.page.html" />
