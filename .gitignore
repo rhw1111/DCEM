@@ -271,3 +271,4 @@ DCEM.Web/Configurations/app.json
 /DCEM.MApp/resources/android/icon.png
 /DCEM.APP.UserCenter/www/*
 DCEM.APP.UserCenter/plugins/
+DCEM.APP.UserCenter/platforms/
