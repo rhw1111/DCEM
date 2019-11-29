@@ -23,6 +23,7 @@
 		946896AADBE445048D961963 /* CDVSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 6600C01482144E2F8616F184 /* CDVSplashScreen.m */; };
 		EAF837E6254C42ECB75F2FD2 /* CDVViewController+SplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E6406C9072B4265A121897E /* CDVViewController+SplashScreen.m */; };
 		C58DFF135F3D4C5DAE8F52ED /* CDVStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = AF563C43D3034E3FA8715996 /* CDVStatusBar.m */; };
+		F151C62E7610497386CBEAB2 /* CDVOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EB57C2F300F44B38346464D /* CDVOrientation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,8 @@
 		D0C56A9862B1481E9EFC790A /* CDVViewController+SplashScreen.h */ = {isa = PBXFileReference; name = "CDVViewController+SplashScreen.h"; path = "cordova-plugin-splashscreen/CDVViewController+SplashScreen.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		AF563C43D3034E3FA8715996 /* CDVStatusBar.m */ = {isa = PBXFileReference; name = "CDVStatusBar.m"; path = "cordova-plugin-statusbar/CDVStatusBar.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
 		B9E27A088EE543519464AB32 /* CDVStatusBar.h */ = {isa = PBXFileReference; name = "CDVStatusBar.h"; path = "cordova-plugin-statusbar/CDVStatusBar.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		6EB57C2F300F44B38346464D /* CDVOrientation.m */ = {isa = PBXFileReference; name = "CDVOrientation.m"; path = "cordova-plugin-screen-orientation/CDVOrientation.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		BCF13F3C145D48B29EE1E5C2 /* CDVOrientation.h */ = {isa = PBXFileReference; name = "CDVOrientation.h"; path = "cordova-plugin-screen-orientation/CDVOrientation.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +216,8 @@
 				D0C56A9862B1481E9EFC790A /* CDVViewController+SplashScreen.h */,
 				AF563C43D3034E3FA8715996 /* CDVStatusBar.m */,
 				B9E27A088EE543519464AB32 /* CDVStatusBar.h */,
+				6EB57C2F300F44B38346464D /* CDVOrientation.m */,
+				BCF13F3C145D48B29EE1E5C2 /* CDVOrientation.h */,
 			);
 			name = Plugins;
 			path = "MyApp/Plugins";
@@ -346,6 +351,7 @@
 				946896AADBE445048D961963 /* CDVSplashScreen.m in Sources */,
 				EAF837E6254C42ECB75F2FD2 /* CDVViewController+SplashScreen.m in Sources */,
 				C58DFF135F3D4C5DAE8F52ED /* CDVStatusBar.m in Sources */,
+				F151C62E7610497386CBEAB2 /* CDVOrientation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

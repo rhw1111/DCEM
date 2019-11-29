@@ -48,6 +48,11 @@ namespace DCEM.UserCenterService.Main.Configuration
         [DataMember]
         public string AdfsUrl { get; set; }
         /// <summary>
+        /// 所属域
+        /// </summary>
+        [DataMember]
+        public string Domain { get; set; }
+        /// <summary>
         /// 
         /// </summary>
         [DataMember]
