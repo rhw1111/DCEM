@@ -14,10 +14,10 @@ export class LoginComponent implements OnInit {
   public valmsg: any = false;//验证消息显示开关
   public disstatus: any = 1; //界面切换开关 1 登陆输入；2登陆验证码输入；5 注册验证码输入；3 注册；4个人输入页面 
   public mod: any = {
-    loginurl: '',//账号登陆url
-    loginphoneurl: '',//手机号码登陆url
-    regurl: '',//注册url 
-    sendmsgurl: '',//短信发送url
+    loginurl: '/api/user/loginaccount',//账号登陆url
+    loginphoneurl: '/api/user/loginphone',//手机号码登陆url
+    regurl: '/api/user/adduser',//注册url 
+    sendmsgurl: '/api/user/sendmsg',//短信发送url 
     val1: '',
     val2: '',
     val3: '',
@@ -104,13 +104,16 @@ export class LoginComponent implements OnInit {
   }
   //登陆
   onLogin() {
+    debugger;
     this._page.loadingShow();
       var postData = {
       account: this.mod.model.account,
       pwd: this.mod.model.pwd,
       keytype:1,
       status:2,
-      certificationtype:1
+      certificationtype:1,
+      valcode:"",
+      type:"2"
     };
     this._http.post(
       this.mod.loginurl,
