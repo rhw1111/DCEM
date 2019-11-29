@@ -48,24 +48,25 @@ export class LoginComponent implements OnInit {
   }
   //短信发送
   onSendMsg(status) {
+    this.disstatus = status;
     if (this.mod.model.account == '') {
       this._page.alert("消息提示", "请填写手机号码！");
       return false;
     } var postData = {
       phone: this.mod.model.account
     };
-    this._http.get(
-      this.mod.sendmsgurl,
-      postData,
-      (res: any) => {
-        if (res.result == true) {
-          this.disstatus = status;
-        }
-      },
-      (err: any) => {
-        this._page.alert("消息提示", "操作失败");
-      }
-    );
+    // this._http.get(
+    //   this.mod.sendmsgurl,
+    //   postData,
+    //   (res: any) => {
+    //     if (res.result == true) {
+         
+    //     }
+    //   },
+    //   (err: any) => {
+    //     this._page.alert("消息提示", "操作失败");
+    //   }
+    // );
   }
   //手机短信验证接口
   OnVlaCodeChange(value, code) {
@@ -81,25 +82,26 @@ export class LoginComponent implements OnInit {
         valcode: valcode,
         type: this.disstatus
       };
-      this._http.post(
-        this.mod.loginphoneurl,
-        postData,
-        (res: any) => {
-          this._page.loadingHide();
-          if (res.result == true) {
-            //验证码输入结束提交验证，如果当前账户已存在，直接登陆，如果不存在，弹出个人信息输入界面
-            if (this.disstatus == 5)
-              this.disstatus = 4;
-          }
-          else {
-            this._page.alert("消息提示", "登陆失败，验证码无效");
-          }
-        },
-        (err: any) => {
-          this._page.loadingHide();
-          this._page.alert("消息提示", "操作失败");
-        }
-      );
+      if (this.disstatus == 5)
+      this.disstatus = 4;
+      // this._http.post(
+      //   this.mod.loginphoneurl,
+      //   postData,
+      //   (res: any) => {
+      //     this._page.loadingHide();
+      //     if (res.result == true) {
+      //       //验证码输入结束提交验证，如果当前账户已存在，直接登陆，如果不存在，弹出个人信息输入界面
+           
+      //     }
+      //     else {
+      //       this._page.alert("消息提示", "登陆失败，验证码无效");
+      //     }
+      //   },
+      //   (err: any) => {
+      //     this._page.loadingHide();
+      //     this._page.alert("消息提示", "操作失败");
+      //   }
+      // );
     }
   }
   //登陆
