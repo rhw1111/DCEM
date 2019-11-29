@@ -51,9 +51,12 @@
     <Folder Include="src\app\page\servicecenter\" />
     <Folder Include="src\app\page\personalcenter\" />
     <Folder Include="src\app\page\personalcenter\index\" />
+    <Folder Include="src\app\page\servicecenter\boutique\detail\" />
+    <Folder Include="src\app\page\servicecenter\boutique\list\" />
     <Folder Include="src\app\page\servicecenter\dealer\" />
     <Folder Include="src\app\page\servicecenter\dealer\list\" />
     <Folder Include="src\app\page\servicecenter\index\" />
+    <Folder Include="src\app\page\servicecenter\boutique\" />
     <Folder Include="src\app\page\servicecenter\vehiclecenter\" />
     <Folder Include="src\app\page\servicecenter\vehiclecenter\detail\" />
     <Folder Include="src\app\page\servicecenter\vehiclecenter\list\" />
@@ -91,6 +94,14 @@
     <TypeScriptCompile Include="src\app\page\personalcenter\index\index.module.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\index\index.page.spec.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\index\index.page.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\boutique\detail\detail-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\boutique\detail\detail.module.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\boutique\detail\detail.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\boutique\detail\detail.page.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\boutique\list\list-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\boutique\list\list.module.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\boutique\list\list.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\boutique\list\list.page.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\dealer\list\list-routing.module.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\dealer\list\list.module.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\dealer\list\list.page.spec.ts" />
@@ -137,6 +148,10 @@
     <Content Include="src\app\page\home\tabs\tabs.page.scss" />
     <Content Include="src\app\page\personalcenter\index\index.page.html" />
     <Content Include="src\app\page\personalcenter\index\index.page.scss" />
+    <Content Include="src\app\page\servicecenter\boutique\detail\detail.page.html" />
+    <Content Include="src\app\page\servicecenter\boutique\detail\detail.page.scss" />
+    <Content Include="src\app\page\servicecenter\boutique\list\list.page.html" />
+    <Content Include="src\app\page\servicecenter\boutique\list\list.page.scss" />
     <Content Include="src\app\page\servicecenter\dealer\list\list.page.html" />
     <Content Include="src\app\page\servicecenter\dealer\list\list.page.scss" />
     <Content Include="src\app\page\servicecenter\index\index.page.html" />
@@ -149,6 +164,8 @@
     <Content Include="src\assets\img\back.png" />
     <Content Include="src\assets\img\1png.png" />
     <Content Include="src\assets\img\2.jpg" />
+    <Content Include="src\assets\img\xiaopeng1.jpg" />
+    <Content Include="src\assets\img\xiaopeng2.jpg" />
     <Content Include="src\assets\shapes.svg" />
     <Content Include="src\global.scss" />
     <Content Include="src\index.html" />
