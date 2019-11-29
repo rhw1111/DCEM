@@ -82,7 +82,11 @@ const routes: Routes = [
   {
     path: 'detail',
     loadChildren: () => import('./page/servicecenter/boutique/detail/detail.module').then(m => m.DetailPageModule)
-  },
+  },
+  {
+    path: 'select-dealer-demo',
+    loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then( m => m.SelectDealerDemoPageModule)
+  }
 ];
 @NgModule({
     imports: [
