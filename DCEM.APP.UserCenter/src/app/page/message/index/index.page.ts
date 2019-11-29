@@ -10,17 +10,17 @@ export class IndexPage implements OnInit {
   public activities:any=[
     {
       id:1,
-      thumbnail:"assets/img/userhead/thumbnail03.jpg",
+      thumbnail:"assets/img/logo.png",
       roomType:"group",//group,ms_friend,fb_friend
       title:"系统管理员",
-      activeTime:"最新消息",
+      activeTime:"11-29",
       latest_chat:"本周官方举办活动！",
       unreadcount:1,//未读信息
       chatList:[
         {
           userId: 1,
           user: {
-            face: "assets/img/userhead/thumbnail03.jpg",
+            face: "assets/img/logo.png",
             friendType: "Messenger",//Messenger,facebook
           },
           chatText: "本周官方举办活动！",
@@ -29,20 +29,20 @@ export class IndexPage implements OnInit {
     },
     {
       id:2,
-      thumbnail:"assets/img/userhead/thumbnail01.jpg",
+      thumbnail:"assets/img/logo.png",
       roomType:"ms_friend",//group,ms_friend,fb_friend
       title:"我的朋友A",
-      activeTime:"昨日消息",
+      activeTime:"11-27",
       latest_chat:"你好，最近怎么样？",
       unreadcount:0,//未读信息
       chatList:[]
     },
     {
       id:3,
-      thumbnail:"assets/img/userhead/user01.jpg",
+      thumbnail:"assets/img/logo.png",
       roomType:"fb_friend",//group,ms_friend,fb_friend
       title:"朋友B",
-      activeTime:"3天前消息",
+      activeTime:"11-25",
       latest_chat:"你好，最近怎么样？",
       unreadcount:0,//未读信息
       chatList:[
@@ -66,20 +66,20 @@ export class IndexPage implements OnInit {
     },
     {
       id:4,
-      thumbnail:"assets/img/userhead/user02.jpg",
+      thumbnail:"assets/img/logo.png",
       roomType:"fb_friend",//group,ms_friend,fb_friend
       title:"张小明",
-      activeTime:"暂无消息",
+      activeTime:"11-24",
       latest_chat:"暂无消息",
       unreadcount:0,//未读信息
       chatList:[]
     },
     {
       id:5,
-      thumbnail:"assets/img/userhead/user03.jpg",
+      thumbnail:"assets/img/logo.png",
       roomType:"fb_friend",//group,ms_friend,fb_friend
       title:"销售顾问A",
-      activeTime:"消息未读",
+      activeTime:"11-23",
       latest_chat:"可有很强的购车意愿。",
       unreadcount:5,//未读信息
       chatList:[
