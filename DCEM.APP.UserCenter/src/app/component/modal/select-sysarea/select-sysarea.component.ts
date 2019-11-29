@@ -54,6 +54,7 @@ export class SelectSysareaComponent implements OnInit {
     var keyCode = event ? event.keyCode : "";
     if (keyCode == 13) {
       this.ionInfiniteScroll.disabled = false;
+      this.mod.data=[];
       this.listOnBind();
     }
   }
