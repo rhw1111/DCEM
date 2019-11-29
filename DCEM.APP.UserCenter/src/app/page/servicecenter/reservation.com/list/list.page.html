@@ -8,7 +8,7 @@
         <ion-icon name="call"></ion-icon>
       </ion-buttons>
   </ion-toolbar>
-  <ion-toolbar>
+  <!-- <ion-toolbar>
       <ion-grid>
           <ion-row>
             <ion-col>
@@ -31,7 +31,7 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-  </ion-toolbar>
+  </ion-toolbar> -->
 </ion-header>
 
 <ion-content>
@@ -67,12 +67,13 @@
                                <ion-note class="noteright">待服务</ion-note>
                             </div>
                             <div class="panelcontent">
-                                <div class="img">
-                                  <ion-icon name="logo-model-s"></ion-icon>
-                                </div>
                                 <div>
+                                    <img class="img" src="./assets/img/reservation.png"/>
+                                  <!-- <ion-icon style="width: 80px;height: 80px;" name="logo-model-s"></ion-icon Size="large"> -->
+                                </div>
+                                <div class="detail">
                                   <p>服务项目：<ion-note>预约保养</ion-note></p>
-                                  <p>项目明细：<ion-note>更换火花器、更换制动液、汽车检测...</ion-note></p>
+                                  <p>项目明细：<ion-note>更换火花器、更换制动液</ion-note></p>
                                   <p>服务时间：<ion-note>2019-01-01 10:00:00</ion-note></p>
                                   <p>总价：<ion-note>￥100</ion-note></p>
                                 </div>
@@ -80,9 +81,8 @@
                              <div  class="panelbutton">
                                <ion-grid fixed>
                                  <ion-row>
-                                   <ion-col size="6"> <ion-button Size="small"  fill="clear" color="medium">联系经销商</ion-button></ion-col>
-                                   <ion-col size="6"> <ion-button Size="small"  fill="clear" color="medium">修改订单</ion-button></ion-col>
-                                   <ion-col size="6"></ion-col>
+                                   <ion-col size="6"> <ion-button Size="small"  fill="solid" color="light">联系经销商</ion-button></ion-col>
+                                   <ion-col size="6"> <ion-button Size="small"  fill="solid" color="light">修改订单</ion-button></ion-col>
                                  </ion-row>
                                </ion-grid>
                              </div>

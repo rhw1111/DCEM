@@ -57,6 +57,8 @@
     <Folder Include="src\app\page\servicecenter\dealer\list\" />
     <Folder Include="src\app\page\servicecenter\index\" />
     <Folder Include="src\app\page\servicecenter\boutique\" />
+    <Folder Include="src\app\page\servicecenter\reservation.com\" />
+    <Folder Include="src\app\page\servicecenter\reservation.com\list\" />
     <Folder Include="src\app\page\servicecenter\vehiclecenter\" />
     <Folder Include="src\app\page\servicecenter\vehiclecenter\detail\" />
     <Folder Include="src\app\page\servicecenter\vehiclecenter\list\" />
@@ -109,6 +111,10 @@
     <TypeScriptCompile Include="src\app\page\servicecenter\index\index.module.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\index\index.page.spec.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\index\index.page.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\reservation.com\list\list-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\reservation.com\list\list.module.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\reservation.com\list\list.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\reservation.com\list\list.page.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\vehiclecenter\detail\detail-routing.module.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\vehiclecenter\detail\detail.module.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\vehiclecenter\detail\detail.page.spec.ts" />
@@ -156,6 +162,8 @@
     <Content Include="src\app\page\servicecenter\dealer\list\list.page.scss" />
     <Content Include="src\app\page\servicecenter\index\index.page.html" />
     <Content Include="src\app\page\servicecenter\index\index.page.scss" />
+    <Content Include="src\app\page\servicecenter\reservation.com\list\list.page.html" />
+    <Content Include="src\app\page\servicecenter\reservation.com\list\list.page.scss" />
     <Content Include="src\app\page\servicecenter\vehiclecenter\detail\detail.page.html" />
     <Content Include="src\app\page\servicecenter\vehiclecenter\detail\detail.page.scss" />
     <Content Include="src\app\page\servicecenter\vehiclecenter\list\list.page.html" />

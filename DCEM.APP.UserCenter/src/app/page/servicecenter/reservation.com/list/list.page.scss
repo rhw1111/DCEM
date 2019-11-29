@@ -40,6 +40,19 @@
 .panelcontent{
     clear: both;
 }
+
+.panelcontent .img{
+    float: left;
+    width: 20%;
+    padding: 10px;
+}
+
+.panelcontent .detail{
+    float: left;
+    width: 80%;
+}
+
 .panelbutton{
     clear: both;
 }
+
