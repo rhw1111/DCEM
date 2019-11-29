@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
+import { DCore_Http, DCore_Page } from '../../../../../app/component/typescript/dcem.core';
 
 @Component({
     selector: 'app-detail',
@@ -7,11 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailPage implements OnInit {
     public model: any = {
-        title: "????"
+        title:"商品详情"
     }
-    constructor() { }
+    constructor(
+        private _http: DCore_Http,
+        private _page: DCore_Page,
+    )
+    { }
 
-    ngOnInit() {
+ngOnInit() {
+    this.initListLoading();
     }
-
+    //初始化页面数据加载
+    initListLoading() {
+    }
 }
