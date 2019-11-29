@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
       $(inputval).focus();
     }
     else { 
-      this._page.loadingShow();
+      //this._page.loadingShow();
       var valcode = this.mod.val1 + this.mod.val2 + this.mod.val3 + this.mod.val4;
       var postData = {
         account: this.mod.model.account,
