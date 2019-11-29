@@ -7,6 +7,7 @@ import { DCore_Http, DCore_Page } from '../../../../../app/component/typescript/
     styleUrls: ['./detail.page.scss'],
 })
 export class DetailPage implements OnInit {
+    public tab: any = 'probably';
     public model: any = {
         title:"商品详情"
     }

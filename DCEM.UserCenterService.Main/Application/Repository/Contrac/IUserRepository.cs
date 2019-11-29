@@ -22,5 +22,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
         Task<XDocument> LoginAccount(UserLoginRequest request);
         Task<XDocument> GetUser(UserLoginRequest request);
 
+        Task<XDocument> GetSecurityquestion();
+
     }
 }
