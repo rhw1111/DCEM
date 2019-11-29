@@ -7,6 +7,10 @@
     } 
 }
 
+.cardcontent ion-card-header{
+    padding-top: 0px;
+}
+
 .option{
     display:flex;
 }
@@ -15,16 +19,21 @@
     width: 100%;
     // float: left;
     position: relative;
+    margin-top: 18px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .messagelist .panel{
     padding: 0px !important;
     background-color: #EDEDED;
-    height: 255px;
+    height: 240px;
 }
 
 .messagelist .panel .panelheard{
-    padding: 5px;
+    padding: 7px;
+    height: 45px;
+    border-bottom: 1px solid #dedede !important;
 }
 
 .messagelist .panel .panelheard .noteleft{
@@ -43,16 +52,20 @@
 
 .panelcontent .img{
     float: left;
-    width: 20%;
+    width: 24%;
     padding: 10px;
 }
 
 .panelcontent .detail{
     float: left;
-    width: 80%;
+    width: 76%;
 }
 
 .panelbutton{
     clear: both;
+}
+
+.panelbutton ion-row{
+    float: right;
 }
 
