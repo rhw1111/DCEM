@@ -58,11 +58,14 @@ export class AppComponent {
     initializeApp() {
         this.platform.ready().then(() => {
             //样式设置
-            this.statusBar.styleBlackTranslucent();
+            this.statusBar.styleDefault();
+            //隐藏启动页,防止白屏
+            this.splashScreen.hide();
             //是否重叠
             this.statusBar.overlaysWebView(false);
             /** 设置智能竖屏*/
             this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY);
+            
             if(location.href.indexOf('base/uc/welcome')==-1){
                 //设置定时器监控token是否过期
                 this._http.reflashToken();

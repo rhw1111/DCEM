@@ -37,6 +37,7 @@
     <Folder Include="src\app\component\" />
     <Folder Include="src\app\component\modal\" />
     <Folder Include="src\app\component\modal\login\" />
+    <Folder Include="src\app\component\modal\select-sysarea\" />
     <Folder Include="src\app\component\typescript\" />
     <Folder Include="src\app\page\carcenter\index\" />
     <Folder Include="src\app\page\charging\index\" />
@@ -72,6 +73,10 @@
     <TypeScriptCompile Include="src\app\app.component.spec.ts" />
     <TypeScriptCompile Include="src\app\app.component.ts" />
     <TypeScriptCompile Include="src\app\app.module.ts" />
+    <TypeScriptCompile Include="src\app\component\modal\login\login.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\component\modal\login\login.component.ts" />
+    <TypeScriptCompile Include="src\app\component\modal\select-sysarea\select-sysarea.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\component\modal\select-sysarea\select-sysarea.component.ts" />
     <TypeScriptCompile Include="src\app\component\typescript\dcem.core.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\index\index.module.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\index\index.page.spec.ts" />
@@ -122,12 +127,17 @@
   <ItemGroup>
     <Content Include="angular.json" />
     <Content Include="browserslist" />
+    <Content Include="config.xml" />
     <Content Include="ionic.config.json" />
     <Content Include="karma.conf.js" />
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
     <Content Include="src\app\app.component.html" />
     <Content Include="src\app\app.component.scss" />
+    <Content Include="src\app\component\modal\login\login.component.html" />
+    <Content Include="src\app\component\modal\login\login.component.scss" />
+    <Content Include="src\app\component\modal\select-sysarea\select-sysarea.component.html" />
+    <Content Include="src\app\component\modal\select-sysarea\select-sysarea.component.scss" />
     <Content Include="src\app\page\carcenter\index\index.page.html" />
     <Content Include="src\app\page\carcenter\index\index.page.scss" />
     <Content Include="src\app\page\charging\index\index.page.html" />
@@ -154,6 +164,8 @@
     <Content Include="src\assets\img\back.png" />
     <Content Include="src\assets\img\1png.png" />
     <Content Include="src\assets\img\2.jpg" />
+    <Content Include="src\assets\img\xiaopeng1.jpg" />
+    <Content Include="src\assets\img\xiaopeng2.jpg" />
     <Content Include="src\assets\shapes.svg" />
     <Content Include="src\global.scss" />
     <Content Include="src\index.html" />
