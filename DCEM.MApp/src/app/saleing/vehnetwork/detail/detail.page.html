@@ -38,7 +38,7 @@
             <h2>
               VIN
             </h2>
-            <p>{{mod.data.detail.vinname}}&nbsp;</p>
+            <p>{{mod.data.detail["vinname"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -46,7 +46,7 @@
             <h2>
               交车单
             </h2>
-            <p>{{mod.data.detail.vehdeliverycode}}&nbsp;</p>
+            <p>{{mod.data.detail["vehdeliverycode"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -54,7 +54,7 @@
             <h2>
               交车状态
             </h2>
-            <p>{{mod.data.detail.deliverystatus}}&nbsp;</p>
+            <p>{{mod.data.detail["deliverystatus"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -62,7 +62,7 @@
             <h2>
               整车订单号
             </h2>
-            <p>{{mod.data.detail.vehordercode}}&nbsp;</p>
+            <p>{{mod.data.detail["vehordercode"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
 
@@ -71,7 +71,7 @@
             <h2>
               开票名称
             </h2>
-            <p>{{mod.data.detail.mcs_invoicename}}&nbsp;</p>
+            <p>{{mod.data.detail["mcs_invoicename"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -79,7 +79,7 @@
             <h2>
               发票号
             </h2>
-            <p>{{mod.data.detail.mcs_code}}&nbsp;</p>
+            <p>{{mod.data.detail["mcs_code"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -87,7 +87,7 @@
             <h2>
               开票时间
             </h2>
-            <p>{{mod.data.detail.mcs_invoiceon | date:'yyyy-MM-dd' }}&nbsp;</p>
+            <p>{{mod.data.detail["mcs_invoiceon | date:'yyyy-MM-dd' "]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -95,7 +95,7 @@
             <h2>
               车主手机
             </h2>
-            <p>{{mod.data.detail.mcs_invoicephone}}&nbsp;</p>
+            <p>{{mod.data.detail["mcs_invoicephone"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -103,7 +103,7 @@
             <h2>
               车主证件类型
             </h2>
-            <p>{{mod.data.detail.mcs_invoiceidtype}}&nbsp;</p>
+            <p>{{mod.data.detail["mcs_invoiceidtype"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -111,7 +111,7 @@
             <h2>
               车主证件号
             </h2>
-            <p>{{mod.data.detail.mcs_invoiceidcode}}&nbsp;</p>
+            <p>{{mod.data.detail["mcs_invoiceidcode"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -119,7 +119,7 @@
             <h2>
               车辆属性
             </h2>
-            <p>{{mod.data.detail.mcs_carproperty}}&nbsp;</p>
+            <p>{{mod.data.detail["mcs_carproperty"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -127,7 +127,7 @@
             <h2>
               车辆用途
             </h2>
-            <p>{{mod.data.detail.carusename}}&nbsp;</p>
+            <p>{{mod.data.detail["carusename"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -135,7 +135,7 @@
             <h2>
               备注
             </h2>
-            <p>{{mod.data.detail.mcs_remark}}&nbsp;</p>
+            <p>{{mod.data.detail["mcs_remark"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
 
@@ -150,7 +150,7 @@
             <h2>
               订单号码
             </h2>
-            <p>{{mod.data.detail.vehordercode}}&nbsp;</p>
+            <p>{{mod.data.detail["vehordercode"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -158,7 +158,7 @@
             <h2>
               车主姓名
             </h2>
-            <p>{{mod.data.detail.contactname}}&nbsp;</p>
+            <p>{{mod.data.detail["contactname"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -166,7 +166,7 @@
             <h2>
               车主手机号
             </h2>
-            <p>{{mod.data.detail.contactphone}}&nbsp;</p>
+            <p>{{mod.data.detail["contactphone"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -174,7 +174,7 @@
             <h2>
               整车订单状态
             </h2>
-            <p>{{mod.data.detail.rostatus}}&nbsp;</p>
+            <p>{{mod.data.detail["rostatus"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -182,11 +182,11 @@
             <h2>
               商城下单时间
             </h2>
-            <p>{{mod.data.detail.orderon | date:'yyyy-MM-dd HH:mm:ss' }}&nbsp;</p>
+            <p>{{mod.data.detail["orderon"] | date:'yyyy-MM-dd HH:mm:ss'}}&nbsp;</p>
           </ion-label>
         </ion-item>
       </ion-list>
-      <section style="text-align:center;" *ngIf="mod.data.detail.mcs_tservicestatus ==0">
+      <section style="text-align:center;" *ngIf="mod.data.detail['mcs_tservicestatus'] ==0">
         <ion-button style="width:80%" color="primary" (click)="postover()">
           交车完成</ion-button>
       </section>
@@ -211,8 +211,8 @@
           </ion-label> 
         </ion-item> 
       </ion-list>
-      <section style="text-align:center;"  *ngIf="mod.data.detail.mcs_tservicestatus ==0">
-        <ion-button style="width:80%" color="primary" (click)="presentFileModal(mod.data.detail.id,1)">
+      <section style="text-align:center;"  *ngIf="mod.data.detail['mcs_tservicestatus'] ==0">
+        <ion-button style="width:80%" color="primary" (click)="presentFileModal(mod.data.detail['id'],1)">
           上传身份证附件</ion-button>
       </section>
       
@@ -239,8 +239,8 @@
         </ion-item>
       </ion-list>
      
-    <section style="text-align:center;" *ngIf="mod.data.detail.mcs_tservicestatus ==0">
-      <ion-button style="width:80%" color="primary" (click)="presentFileModal(mod.data.detail.id,2)">
+    <section style="text-align:center;" *ngIf="mod.data.detail['mcs_tservicestatus'] ==0">
+      <ion-button style="width:80%" color="primary" (click)="presentFileModal(mod.data.detail['id'],2)">
         上传发票附件</ion-button>
     </section>
     </div>
