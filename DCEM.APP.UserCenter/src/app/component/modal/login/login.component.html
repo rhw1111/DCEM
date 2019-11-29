@@ -1,6 +1,6 @@
 <ion-item lines="none" style="border-bottom: 1px solid #484848;">
   <ion-label style="margin-top: 12px">
-    <img src="../assets/img/close.png" style="width: 20px;" (click)="dismissModal()">
+    <img src="../assets/img/close.png" style="width: 20px;" (click)="onReturn(false)">
     <ion-label style="text-align:center;margin-top:-23px">
       {{title}}
     </ion-label>
@@ -64,9 +64,9 @@
   <ion-item lines="none">
     <ion-label style="    text-align: right;
     margin-right: 15px;
-    margin-top: 0px;">  
-      <input type="button"  style="font-size: 1.2rem;"  class="logina"  (click)="onReg(2)" value="注册"/>
- 
+    margin-top: 0px;">
+      <input type="button" style="font-size: 1.2rem;" class="logina" (click)="onReg(2)" value="注册" />
+
     </ion-label>
   </ion-item>
 </ion-content>
@@ -93,10 +93,10 @@
 
     <div class="ion-padding loginx">
       <ion-label>
-        获取验证码视为您已阅读 
-      <input type="button"  class="logina"  value=" 《用户协议》"/>
-        与 
-      <input type="button"  class="logina"   value="《隐私协议》"/>
+        获取验证码视为您已阅读
+        <input type="button" class="logina" value=" 《用户协议》" />
+        与
+        <input type="button" class="logina" value="《隐私协议》" />
       </ion-label>
     </div>
     <div class="ion-padding">
@@ -126,25 +126,23 @@
     <ion-item lines="none">
       <ion-row>
         <ion-col>
-          <input type="number" class="loginvalinput" [(ngModel)]="mod.val1" id="inputcode1" (focus)="mod.val1=''"
-            (ngModelChange)="OnVlaCodeChange($event,2)" />
+          <input type="number" class="loginvalinput" maxlength="1" [(ngModel)]="mod.val1" id="inputcode1"
+            (focus)="mod.val1=''" (ngModelChange)="OnNextFocus(2)" />
         </ion-col>
         <ion-col>
-          <input type="number" class="loginvalinput" [(ngModel)]="mod.val2" id="inputcode2" (focus)="mod.val2=''"
-            (ngModelChange)="OnVlaCodeChange($event,3)" />
+          <input type="number" class="loginvalinput" maxlength="1" [(ngModel)]="mod.val2" id="inputcode2"
+            (focus)="mod.val2=''" (ngModelChange)="OnNextFocus(3)" />
         </ion-col>
         <ion-col>
-          <input type="number" class="loginvalinput" [(ngModel)]="mod.val3" id="inputcode3" (focus)="mod.val3=''"
-            (ngModelChange)="OnVlaCodeChange($event,4)" />
+          <input type="number" class="loginvalinput" maxlength="1" [(ngModel)]="mod.val3" id="inputcode3"
+            (focus)="mod.val3=''" (ngModelChange)="OnNextFocus(4)" />
         </ion-col>
         <ion-col>
-          <input type="number" class="loginvalinput" [(ngModel)]="mod.val4" id="inputcode4" (focus)="mod.val4=''"
-            (ngModelChange)="OnVlaCodeChange($event,0)" />
+          <input type="number" class="loginvalinput" maxlength="1" [(ngModel)]="mod.val4" id="inputcode4"
+            (ngModelChange)="OnVlaCodeChange()" />
         </ion-col>
       </ion-row>
-
     </ion-item>
-
   </ion-card-content>
 </ion-content>
 <ion-footer class="loginfooter" *ngIf="disstatus!=4">
@@ -190,30 +188,35 @@
   <ion-card-header>
     <ion-card-title>安全问题</ion-card-title>
   </ion-card-header>
-
   <ion-card-content>
     <ion-item style="font-size: 1rem;">
-      <ion-select [(ngModel)]="mod.model.quest1" okText="确认" cancelText="取消">
+      <ion-select [(ngModel)]="mod.model.quest1" style="width: 100%;max-width: 100%;" okText="确认" cancelText="取消">
         <ion-select-option value="">安全问题选择</ion-select-option>
-        <ion-select-option value="20">出生地是哪里？</ion-select-option>
+        <ion-select-option *ngFor="let item of  mod.questiondata;let key=index" [value]="item['mcs_securityquestionid']">
+          {{item['mcs_name']}}
+        </ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item style="font-size: 1rem;">
       <ion-input type="text" [(ngModel)]="mod.model.quest1value" placeholder="回答"></ion-input>
     </ion-item>
     <ion-item style="font-size: 1rem;">
-      <ion-select [(ngModel)]="mod.model.quest2" okText="确认" cancelText="取消">
+      <ion-select [(ngModel)]="mod.model.quest2" style="width: 100%;max-width: 100%;" okText="确认" cancelText="取消">
         <ion-select-option value="">安全问题选择</ion-select-option>
-        <ion-select-option value="20">出生地是哪里？</ion-select-option>
+        <ion-select-option *ngFor="let item of  mod.questiondata;let key=index" [value]="item['mcs_securityquestionid']">
+            {{item['mcs_name']}}
+          </ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item style="font-size: 1rem;">
       <ion-input type="text" [(ngModel)]="mod.model.quest2value" placeholder="回答"></ion-input>
     </ion-item>
     <ion-item style="font-size: 1rem;">
-      <ion-select [(ngModel)]="mod.model.quest3" okText="确认" cancelText="取消">
+      <ion-select [(ngModel)]="mod.model.quest3" style="width: 100%;max-width: 100%;" okText="确认" cancelText="取消">
         <ion-select-option value="">安全问题选择</ion-select-option>
-        <ion-select-option value="20">出生地是哪里？</ion-select-option>
+        <ion-select-option *ngFor="let item of  mod.questiondata;let key=index" [value]="item['mcs_securityquestionid']">
+            {{item['mcs_name']}}
+          </ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item style="font-size: 1rem;">

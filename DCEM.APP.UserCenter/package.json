@@ -35,8 +35,7 @@
     "ng-zorro-antd-mobile": "^1.0.1",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
-    "zone.js": "~0.9.1",
-    "es6-promise-plugin": "^4.2.2"
+    "zone.js": "~0.9.1"
   },
   "devDependencies": {
     "@angular-devkit/architect": "~0.801.2",

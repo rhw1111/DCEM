@@ -23,7 +23,7 @@ const routes: Routes = [
                     {
                         path: '',
                         loadChildren: () =>
-                            import('../../message.com/index/index.module').then(m => m.IndexPageModule)
+                            import('../../message/index/index.module').then(m => m.IndexPageModule)
                     }
                 ]
             },

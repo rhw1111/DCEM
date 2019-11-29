@@ -10,6 +10,11 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
         /// 账户
         /// </summary>
         public string account { get; set; }
+
+        /// <summary>
+        /// 用户登陆类型
+        /// </summary>
+        public int? logintype { get; set; }
         /// <summary>
         /// 姓名
         /// </summary>

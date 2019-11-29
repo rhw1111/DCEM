@@ -16,6 +16,13 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
         public string account { get; set; }
 
         /// <summary>
+        /// 登陆类型 1：手机号，2：邮箱，3：身份证
+        /// </summary>
+        public int logintype { get; set; }
+
+        public string ip { get; set; }
+
+        /// <summary>
         /// 验证码
         /// </summary>
         public string valcode { get; set; }

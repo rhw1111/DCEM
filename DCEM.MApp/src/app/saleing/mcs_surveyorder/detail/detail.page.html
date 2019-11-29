@@ -21,7 +21,7 @@
             <h2>
               勘测单编号
             </h2>
-            <p>{{model.data.mcs_name}}&nbsp;</p>
+            <p>{{model.data["mcs_name"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -46,7 +46,7 @@
             <h2>
               姓名
             </h2>
-            <p>{{model.data.mcs_username}}&nbsp;</p>
+            <p>{{model.data["mcs_username"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -54,7 +54,7 @@
             <h2>
               身份证号
             </h2>
-            <p>{{model.data.mcs_idcard}}&nbsp;</p>
+            <p>{{model.data["mcs_idcard"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -62,7 +62,7 @@
             <h2>
               手机电话
             </h2>
-            <p>{{model.data.mcs_userphone}}&nbsp;</p>
+            <p>{{model.data["mcs_userphone"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -70,7 +70,7 @@
             <h2>
               邮箱
             </h2>
-            <p>{{model.data.mcs_email}}&nbsp;</p>
+            <p>{{model.data["mcs_email"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -102,7 +102,7 @@
             <h2>
               提交时间
             </h2>
-            <p>{{FormatToDateTime(model.data.mcs_ordertime)}}&nbsp;</p>
+            <p>{{FormatToDateTime(model.data["mcs_ordertime"])}}&nbsp;</p>
           </ion-label>
         </ion-item>
 
@@ -116,7 +116,7 @@
             <h2>
               联系人姓名
             </h2>
-            <p>{{model.data.mcs_contactname}}&nbsp;</p>
+            <p>{{model.data["mcs_contactname"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -124,7 +124,7 @@
             <h2>
               联系电话
             </h2>
-            <p>{{model.data.mcs_contactphone}}&nbsp;</p>
+            <p>{{model.data["mcs_contactphone"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -132,7 +132,7 @@
             <h2>
               联系邮箱
             </h2>
-            <p>{{model.data.mcs_contactemail}}&nbsp;</p>
+            <p>{{model.data["mcs_contactemail"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -164,7 +164,7 @@
             <h2>
               安装地址
             </h2>
-            <p>{{model.data.mcs_installationaddress}}&nbsp;</p>
+            <p>{{model.data["mcs_installationaddress"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -172,7 +172,7 @@
             <h2>
               详细地址
             </h2>
-            <p>{{model.data.mcs_detailaddress}}&nbsp;</p>
+            <p>{{model.data["mcs_detailaddress"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -188,7 +188,7 @@
             <h2>
               小区名称
             </h2>
-            <p>{{model.data.mcs_communityname}}&nbsp;</p>
+            <p>{{model.data["mcs_communityname"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -212,7 +212,7 @@
             <h2>
               套餐金额
             </h2>
-            <p>{{model.data.mcs_price}}&nbsp;</p>
+            <p>{{model.data["mcs_price"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -228,7 +228,7 @@
             <h2>
               备注
             </h2>
-            <p>{{model.data.mcs_remark}}&nbsp;</p>
+            <p>{{model.data["mcs_remark"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item-divider color="primary">
@@ -249,7 +249,7 @@
             <h2>
               勘测服务商联系人
             </h2>
-            <p>{{model.data.mcs_contact}}&nbsp;</p>
+            <p>{{model.data["mcs_contact"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -257,7 +257,7 @@
             <h2>
               勘测服务商电话
             </h2>
-            <p>{{model.data.mcs_surveyproviderphone}}&nbsp;</p>
+            <p>{{model.data["mcs_surveyproviderphone"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -265,7 +265,7 @@
             <h2>
               预约勘测时间
             </h2>
-            <p>{{FormatToDateTime(model.data.mcs_appointmentdate)}}&nbsp;</p>
+            <p>{{FormatToDateTime(model.data["mcs_appointmentdate"])}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -281,7 +281,7 @@
             <h2>
               勘测交付工程师电话
             </h2>
-            <p>{{model.data.mcs_surveyengineerphone}}&nbsp;</p>
+            <p>{{model.data["mcs_surveyengineerphone"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item-divider color="primary">
@@ -294,7 +294,7 @@
             <h2>
               实际开始勘测时间
             </h2>
-            <p>{{FormatToDateTime(model.data.mcs_begintime)}}&nbsp;</p>
+            <p>{{FormatToDateTime(model.data["mcs_begintime"])}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -302,7 +302,7 @@
             <h2>
               实际结束勘测时间
             </h2>
-            <p>{{FormatToDateTime(model.data.mcs_endtime)}}&nbsp;</p>
+            <p>{{FormatToDateTime(model.data["mcs_endtime"])}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -310,7 +310,7 @@
             <h2>
               实际勘测人
             </h2>
-            <p>{{model.data.mcs_surveyorderman}}&nbsp;</p>
+            <p>{{model.data["mcs_surveyorderman"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -318,7 +318,7 @@
             <h2>
               勘测人联系电话
             </h2>
-            <p>{{model.data.mcs_surveyorderphone}}&nbsp;</p>
+            <p>{{model.data["mcs_surveyorderphone"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -334,7 +334,7 @@
             <h2>
               报价客户自费金额
             </h2>
-            <p>¥{{model.data.mcs_selfprice}}&nbsp;</p>
+            <p>¥{{model.data["mcs_selfprice"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -342,7 +342,7 @@
             <h2>
               预计电缆长度
             </h2>
-            <p>{{model.data.mcs_cablelength}}&nbsp;</p>
+            <p>{{model.data["mcs_cablelength"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -358,7 +358,7 @@
             <h2>
               物业名称
             </h2>
-            <p>{{model.data.mcs_propertycompany}}&nbsp;</p>
+            <p>{{model.data["mcs_propertycompany"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -366,7 +366,7 @@
             <h2>
               物业联系人
             </h2>
-            <p>{{model.data.mcs_propertycontact}}&nbsp;</p>
+            <p>{{model.data["mcs_propertycontact"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -374,7 +374,7 @@
             <h2>
               物业联系电话
             </h2>
-            <p>{{model.data.mcs_propertyphone}}&nbsp;</p>
+            <p>{{model.data["mcs_propertyphone"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -382,7 +382,7 @@
             <h2>
               物业态度
             </h2>
-            <p>{{model.data.mcs_propertyattitude}}&nbsp;</p>
+            <p>{{model.data["mcs_propertyattitude"]}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -390,7 +390,7 @@
             <h2>
               出具方案日期
             </h2>
-            <p>{{FormatToDate(model.data.mcs_solutiondate)}}&nbsp;</p>
+            <p>{{FormatToDate(model.data["mcs_solutiondate"])}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -398,7 +398,7 @@
             <h2>
               用户确认方案日期
             </h2>
-            <p>{{FormatToDate(model.data.mcs_confirmdate)}}&nbsp;</p>
+            <p>{{FormatToDate(model.data["mcs_confirmdate"])}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -406,7 +406,7 @@
             <h2>
               报装原件收到日期
             </h2>
-            <p>{{FormatToDate(model.data.mcs_receiveddeclaredate)}}&nbsp;</p>
+            <p>{{FormatToDate(model.data["mcs_receiveddeclaredate"])}}&nbsp;</p>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -414,7 +414,7 @@
             <h2>
               递交报装资料日期
             </h2>
-            <p>{{FormatToDate(model.data.mcs_declaredate)}}&nbsp;</p>
+            <p>{{FormatToDate(model.data["mcs_declaredate"])}}&nbsp;</p>
           </ion-label>
         </ion-item>
       </ion-list>

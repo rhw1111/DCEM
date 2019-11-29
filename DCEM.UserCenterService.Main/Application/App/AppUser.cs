@@ -17,6 +17,7 @@ namespace DCEM.UserCenterService.Main.Application.App
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
     using MSLibrary;
+    using System.Collections.Generic;
 
     public class AppUser : IAppUser
     {
@@ -42,6 +43,11 @@ namespace DCEM.UserCenterService.Main.Application.App
         public async Task<ValidateResult> AddUser(UserAddRequest request)
         {
             return await _userService.AddUser(request);
+        }
+
+        public async Task<ValidateResult<List<CrmEntity>>> GetSecurityquestion()
+        {
+            return await _userService.GetSecurityquestion();
         }
     }
 }
