@@ -65,7 +65,7 @@
     <ion-label style="    text-align: right;
     margin-right: 15px;
     margin-top: 0px;"> 
-      <ion-router-link (click)="OnReg()"  class="underline ios ion-activatable hydrated">用户注册</ion-router-link>
+      <!-- <ion-route (click)="OnReg()"  class="underline ios ion-activatable hydrated">用户注册</ion-route> -->
     </ion-label>
   </ion-item>
 </ion-content>
@@ -91,11 +91,12 @@
           </ion-card-content>
     
           <div class="ion-padding loginx"  >
+            <!-- <ion-router>
+                <ion-route url="/tutorial" component="《用户协议》"></ion-route> 与
+                <ion-route url="/login" component="《隐私协议》"></ion-route>
+            </ion-router> -->
             <ion-label>
               获取验证码视为您已阅读
-              <ion-router-link href="#" class="underline ios ion-activatable hydrated">《用户协议》</ion-router-link>
-              与
-              <ion-router-link href="#"  class="underline ios ion-activatable hydrated">《隐私协议》</ion-router-link>
             </ion-label>
           </div>
           <div class="ion-padding">
@@ -220,7 +221,7 @@
     </ion-item>
   </ion-card-content>
   <div class="ion-padding">
-    <ion-button expand="block" type="button" (click)="onReg()"
+    <ion-button expand="block" type="button" (click)="OnReg()"
       class="ion-no-margin ios button button-block button-solid ion-activatable ion-focusable hydrated">
       确定
     </ion-button>

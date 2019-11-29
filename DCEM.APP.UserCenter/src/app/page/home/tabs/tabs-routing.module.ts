@@ -18,6 +18,17 @@ const routes: Routes = [
                 ]
             },
             {
+                path: 'message',
+                children: [
+                    {
+                        path: '',
+                        loadChildren: () =>
+                            import('../../message.com/index/index.module').then(m => m.IndexPageModule)
+                    }
+                ]
+            },
+
+            {
                 path: 'charging',
                 children: [
                     {
@@ -57,7 +68,6 @@ const routes: Routes = [
                     }
                 ]
             },
-
             {
                 path: '',
                 redirectTo: '/tabs/carcenter',
