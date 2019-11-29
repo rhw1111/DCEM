@@ -50,13 +50,14 @@ export class SelectSysareaComponent implements OnInit {
         this.listOnBind();
     }
 
-    searchOnKeyup(event: any) {
-        var keyCode = event ? event.keyCode : "";
-        if (keyCode == 13) {
-            this.ionInfiniteScroll.disabled = false;
-            this.listOnBind();
-        }
+  searchOnKeyup(event: any) {
+    var keyCode = event ? event.keyCode : "";
+    if (keyCode == 13) {
+      this.ionInfiniteScroll.disabled = false;
+      this.mod.data=[];
+      this.listOnBind();
     }
+  }
 
     listOnBind() {
         this._http.get(

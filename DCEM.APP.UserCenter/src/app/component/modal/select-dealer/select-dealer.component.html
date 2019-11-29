@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>选择门店</ion-title>
+    <ion-buttons slot="end"> 
+      <ion-icon name="close" size="large" (click)="dismissModal()"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div id="container" class="container">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-chip color="primary" class="ionchip" (click)="provinceOnClick()">
+            <ion-icon name="pin"></ion-icon>
+            <ion-label class="ionlabel">{{model.info.provincename}}</ion-label>
+          </ion-chip>
+        </ion-col>
+        <ion-col>
+          <ion-chip color="primary" class="ionchip" (click)="cityOnClick()">
+            <ion-icon name="pin"></ion-icon>
+            <ion-label class="ionlabel">{{model.info.cityname}}</ion-label>
+          </ion-chip>
+        </ion-col>
+        <ion-col>
+          <ion-chip color="primary" class="ionchip">
+            <ion-icon name="pin"></ion-icon>
+            <ion-select name="gender" okText="确认" cancelText="取消" [(ngModel)]="model.paramets.dealertype"
+              class="selectbtn" (ionChange)="searchData()">
+              <ion-select-option value="0">全部类型</ion-select-option>
+              <ion-select-option value="1">体验中心</ion-select-option>
+              <ion-select-option value="3">服务中心</ion-select-option>
+            </ion-select>
+          </ion-chip>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>  
+  <ion-fab slot="fixed" vertical="bottom" horizontal="center">
+    <ion-fab-button color="light" (click)="showModal('modal2')">
+      <ion-icon name="arrow-dropup" color="secondary"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+
+  <Modal [(ngModel)]="this.state.modal2" [popup]="true" [animationType]="'slide-up'" (onClose)="onClose('modal2')">
+    <List [className]="'popup-list'">
+      <ListItem *ngFor="let item of model.data">
+        <ion-item-group (click)="clickmarker(item.mcsx,item.mcsy,item)">
+          <ion-item lines="none">
+            <ion-label style="line-height:50px">
+              <h2>{{item.mcs_name}}</h2>
+              <ion-note>{{item.mcs_address}} </ion-note>
+              <p>营业时间：10:00-22:00(工作日)</p>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-chip outline color="primary" style="width: 100%;">
+              <ion-label style="width: 100%;text-align: center;color: black;">
+                <h2>预约试驾</h2>
+              </ion-label>
+            </ion-chip>
+          </ion-item> 
+        </ion-item-group>
+    
+      </ListItem> 
+    </List>
+  </Modal>
+</ion-content>
