@@ -42,12 +42,12 @@ export class DCore_Config {
         @server：dev|sit|uat
     
     */
-    getShoppingDomain(server){
-        var url="";
-        switch(server){
-            case "dev":url="https://subcrmdevapi.sokon.com/tc/";break;
-            case "sit":url="https://subcrmsitapi.sokon.com/tc/";break;
-            case "uat":url="https://subcrmuatapi.sokon.com/tc/";break;
+    getShoppingDomain(server) {
+        var url = "";
+        switch (server) {
+            case "dev": url = "https://subcrmdevapi.sokon.com/tc/"; break;
+            case "sit": url = "https://subcrmsitapi.sokon.com/tc/"; break;
+            case "uat": url = "https://subcrmuatapi.sokon.com/tc/"; break;
         }
         return url;
     }
@@ -63,7 +63,7 @@ export class DCore_Http {
     ) {
     }
 
-    
+
     //商城接口get请求
     getForShopping(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
         this._httpClient.get(this._config.getShoppingDomain("uat") + url,
@@ -165,12 +165,12 @@ export class DCore_Http {
         商城接口请求头
 
     */
-    private getHeadersForShopping(){
+    private getHeadersForShopping() {
         return new HttpHeaders({
-            "Content-Type":"application/json;charset=UTF-8",
-            "appid":"1001",
-            "md5sum":"1fdcab853713fbc2b8f4d58bac32f420",
-            "true-client-ip":"10.1.1.1"
+            "Content-Type": "application/json;charset=UTF-8",
+            "appid": "1001",
+            "md5sum": "1fdcab853713fbc2b8f4d58bac32f420",
+            "true-client-ip": "10.1.1.1"
         });
     }
 

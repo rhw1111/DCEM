@@ -16,6 +16,12 @@ const routes: Routes = [
         path: 'carcenter',  //汽车中心(爱车)
         children: [
             { path: 'index', loadChildren: () => import('./page/carcenter/index/index.module').then(m => m.IndexPageModule) },
+            {
+                path: 'carstore',  //整车商城(new)
+                children: [
+                    { path: 'index', loadChildren: () => import('./page/carcenter/carstore/index/index.module').then(m => m.IndexPageModule) }
+                ]
+            },
         ]
     },
     {
@@ -50,12 +56,6 @@ const routes: Routes = [
         children: [
             {
                 path: 'index', loadChildren: () => import('./page/servicecenter/index/index.module').then(m => m.IndexPageModule)
-            },
-            {
-                path: 'carstore',  //整车商城(new)
-                children: [
-                    { path: 'index', loadChildren: () => import('./page/servicecenter/carstore/index/index.module').then(m => m.IndexPageModule) }
-                ]
             },
             {
 
