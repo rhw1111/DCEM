@@ -1,7 +1,7 @@
 ﻿<ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button text="返回" defaultHref="/servicecenter/vehiclemall/list"></ion-back-button>
+            <ion-back-button text="返回" defaultHref="/servicecenter/boutique/list"></ion-back-button>
         </ion-buttons>
         <ion-title>{{model.title}}</ion-title>
     </ion-toolbar>
@@ -17,7 +17,7 @@
                         <ion-grid class="padding0">
                             <ion-row>
                                 <ion-col class="padding0">
-                                    <img src="../assets/img/xiaopeng1.jpg" />
+                                    <img src="../assets/img/temp/xiaopeng1.jpg" />
                                 </ion-col>
                             </ion-row>
                         </ion-grid>
@@ -26,7 +26,7 @@
                         <ion-grid class="padding0">
                             <ion-row>
                                 <ion-col class="padding0">
-                                    <img src="../assets/img/xiaopeng2.jpg" />
+                                    <img src="../assets/img/temp/xiaopeng2.jpg" />
                                 </ion-col>
                             </ion-row>
                         </ion-grid>
@@ -38,10 +38,10 @@
         <ion-row>
             <ion-col style="padding-left:20px;margin-top:5px">
                 <ion-label style="margin-top:30px">
-                    <p style="font-size:18px; font-weight:bold; color:#000;">
+                    <p style="font-size:24px; font-weight:500; color:#000;">
                         无极变色全景天幕
                     </p>
-                    <p style="margin-top:10px">
+                    <p style="margin-top:10px; font-size:16px;">
                         无极变色全景天幕
                     </p>
                 </ion-label>
@@ -49,12 +49,15 @@
         </ion-row>
         <!--价格-->
         <ion-row style="padding-top:20px; padding-bottom:15px">
-            <ion-col style="padding-left:20px;">
-                <ion-label style="font-weight:bold; color:#66C3E9; font-size:18px;">
-                    ￥ 100.00
+            <ion-col style="padding-left:20px;font-weight:bold; color:#2FACE5; ">
+                <ion-label style="font-size:18px;">
+                    ￥
+                </ion-label>
+                <ion-label style="font-size:24px;">
+                    100.00
                 </ion-label>
             </ion-col>
-            <ion-col style="padding-right:15px;text-align:right;">
+            <ion-col style="padding-right:15px;text-align:right; font-size:16px;">
                 <ion-label>
                     <p>
                         快递: 包邮
@@ -64,20 +67,69 @@
         </ion-row>
         <!--规格-->
         <ion-row style="background-color:#F6F6F6;">
-            <ion-row style="padding:10px 10px 5px 10px; background-color:#fff; width:100%;margin:20px 0; ">
-                <ion-col style="padding-left:15px;">
-                    <ion-label>
-                        选择: 无极变色全景天幕
+            <ion-row style="padding:15px 10px; background-color:#fff; width:100%;margin:20px 0;">
+                <ion-col style="padding-left:15px;font-size:16px;">
+                    <ion-label style="color:#000;">
+                        选择:
+                    </ion-label>
+                    <ion-label style="color:#a5a2a2;">
+                        无极变色全景天幕
                     </ion-label>
                 </ion-col>
                 <ion-col style="padding-right:15px;text-align:right;">
-                    <ion-label>
-                        <p style="font-size:22px; font-weight:100;color:#000;line-height:15px;">
-                            >
-                        </p>
+                    <ion-label style="font-size:22px;line-height:0px;color:#a5a2a2;">
+                        >
                     </ion-label>
                 </ion-col>
             </ion-row>
         </ion-row>
+        <!--商品概览-->
+        <ion-segment [(ngModel)]="tab" color="primary" model="md" class="segment-custom">
+            <ion-segment-button value="probably">
+                <ion-label>商品概览</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="aftersale">
+                <ion-label>售后服务</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+        <div [ngSwitch]="tab">
+            <div *ngSwitchCase="'probably'" style="line-height:0;">
+                <img src="../assets/img/temp/xiaopengdetail1.jpg" />
+                <img src="../assets/img/temp/xiaopengdetail2.jpg" />
+                <img src="../assets/img/temp/xiaopengdetail3.jpg" />
+                <img src="../assets/img/temp/xiaopengdetail4.jpg" />
+                <img src="../assets/img/temp/xiaopengdetail5.jpg" />
+                <img src="../assets/img/temp/xiaopengdetail6.jpg" />
+            </div>
+            <div *ngSwitchCase="'aftersale'">
+                <div>
+                    售后服务
+                </div>
+            </div>
+        </div>
     </ion-grid>
 </ion-content>
+
+<!--<ion-footer align-title="left" class="bar-assertive">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/servicecenter/boutique/list"></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{model.title}}</ion-title>
+    </ion-toolbar>
+</ion-footer>-->
+
+    <ion-tab-bar slot="bottom" style="padding:5px 0;">
+        <ion-tab-button tab="community" style="max-width:110px;">
+            <ion-icon name="aperture"></ion-icon>
+        </ion-tab-button>
+
+        <ion-tab-button tab="servicecenter">
+            <ion-label style="font-size:20px; color:#000;">加入购物车</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="personalcenter" style="background-color:#38B3EE;">
+            <ion-label style="font-size:20px; color:#fff;">立即购买</ion-label>
+        </ion-tab-button>
+    </ion-tab-bar>
+
