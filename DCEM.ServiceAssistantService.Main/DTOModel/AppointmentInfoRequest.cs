@@ -46,5 +46,10 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
         /// 预约状态
         /// </summary>
         public int status { get; set; }
+
+        /// <summary>
+        /// 手机号
+        /// </summary>
+        public string mcs_customerphone { get; set; }
     }
 }
