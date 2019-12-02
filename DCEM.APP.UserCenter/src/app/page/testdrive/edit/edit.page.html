@@ -13,7 +13,7 @@
                 <ion-row style="background-color:#000">
                     <ion-col>
                         <br />
-                        <img src="../assets/img/xiaopeng2.jpg" />
+                        <img src="../assets/img/temp/xiaopeng2.jpg" />
                     </ion-col>
                 </ion-row>             
             </ion-grid>
@@ -30,6 +30,20 @@
             </ion-grid>
         </ion-slide>
     </ion-slides>
+  <!--   <WingBlank>
+        <Carousel >
+          <CarouselSlide >
+            <div style="display: inline-block; width: 100%;" [ngStyle]="{ height: state.imgHeight }">
+              <img src="../assets/img/temp/xiaopeng2.jpg" style=" pointer-events: none; width: 100%;"/>
+            </div>
+          </CarouselSlide>
+          <CarouselSlide >
+            <div style="display: inline-block; width: 100%;" [ngStyle]="{ height: state.imgHeight }">
+              <img src="../assets/img/1png.png" style=" pointer-events: none; width: 100%;"/>
+            </div>
+          </CarouselSlide>
+        </Carousel>
+      </WingBlank> -->
   </ion-list>
 
   <ion-list lines="full">    
@@ -80,13 +94,14 @@
                </ion-select-option>
           </ion-select>
       </ion-item>
-      <ion-item>
+      <ion-item (click)="selectDealerModal()">
           <ion-label position="stacked">
               试乘试驾地点
               <ion-text color="danger">*</ion-text>
           </ion-label>
-          <ion-input placeholder="请选择地点" [(ngModel)]="model.postData.mcs_dealerid" required></ion-input>
-      </ion-item>
+          <ion-input placeholder="请选择地点" [(ngModel)]="model.postData.mcs_dealername" required></ion-input>
+          <ion-icon slot="end" name="search"></ion-icon>
+        </ion-item>
       <ion-item>
           <ion-label position="stacked">
               预约时间

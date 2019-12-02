@@ -1,14 +1,10 @@
 .cardcontent{
     margin: unset;
     padding-top: 15px;
-
-    ion-card-title{
-        font-size: 15px;
+    padding-left: 15px;
+    ion-label{
+        font-weight: bold;
     } 
-}
-
-.cardcontent ion-card-header{
-    padding-top: 0px;
 }
 
 .option{
@@ -17,7 +13,6 @@
 
 .messagelist {
     width: 100%;
-    // float: left;
     position: relative;
     margin-top: 18px;
     padding-left: 10px;
@@ -27,7 +22,8 @@
 .messagelist .panel{
     padding: 0px !important;
     background-color: #EDEDED;
-    height: 240px;
+    height: auto;
+    margin-bottom: 10px;
 }
 
 .messagelist .panel .panelheard{
@@ -63,6 +59,7 @@
 
 .panelbutton{
     clear: both;
+    height: 50px;
 }
 
 .panelbutton ion-row{

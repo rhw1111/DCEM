@@ -39,7 +39,7 @@ export class DCore_Config {
             case "sit":url="https://subcrmsitapi.sokon.com/tc/";break;
             case "uat":url="https://subcrmuatapi.sokon.com/tc/";break;
             case "uat":url="https://subcrmuatapi.sokon.com/tc/";break;
-            case "localhost":url="http://localhost:52151/";break;
+            case "localhost":url="https://localhost:44382/";break;
         }
         return url;
     }

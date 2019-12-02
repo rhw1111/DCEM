@@ -213,6 +213,17 @@ namespace DCEM.Web.Controllers
         {
             return await _appUser.GetSecurityquestion();
         }
+
+        /// <summary>
+        /// 详情接口
+        /// </summary>
+        /// <returns></returns>
+        [Route("getuserdetail")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<CrmEntity>> getuserdetail(UserDetailRequest userDetailRequest )
+        {
+            return await _appUser.getuserdetail(userDetailRequest);
+        }
     }
 }
 

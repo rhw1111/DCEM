@@ -61,8 +61,13 @@ namespace DCEM.UserCenterService.Main.Application.App
 
 
         public async Task<ValidateResult> UpdateUserPwd(UserLoginRequest model)
-        { 
-            return await _userService.UpdateUserPwd(model);
+        {
+            return await _userService.UpdateUserPwd(model); 
+        }
+
+        public Task<CrmEntity> getuserdetail(UserDetailRequest userDetailRequest)
+        {
+          return  _userService.getuserdetail(userDetailRequest); 
         }
     }
 }

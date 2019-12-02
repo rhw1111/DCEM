@@ -125,7 +125,25 @@ namespace DCEM.UserCenterService.Main.Application.Services
             }
         }
 
-
+        /// <summary>
+        /// 获取详情
+        /// </summary>
+        /// <param name="userDetailRequest"></param>
+        /// <returns></returns>
+        public async Task<CrmEntity> getuserdetail(UserDetailRequest userDetailRequest)
+        {
+            try
+            {
+                var validateResult = new ValidateResult<CrmEntity>();
+                var crmRequestHelper = new CrmRequestHelper();
+                var entitie = await crmRequestHelper.Retrieve(_crmService, entityName, Guid.Parse(userDetailRequest.id));
+                return entitie;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
 
         /// <summary>

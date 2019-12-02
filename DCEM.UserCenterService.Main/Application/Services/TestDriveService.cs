@@ -5,10 +5,12 @@ using DCEM.UserCenterService.Main.Application.Services.Contrac;
 using DCEM.UserCenterService.Main.ViewModel.Request;
 using MSLibrary;
 using MSLibrary.Xrm;
+using MSLibrary.Xrm.Message.RetrieveMultipleFetch;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace DCEM.UserCenterService.Main.Application.Services
 {
@@ -30,7 +32,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<ValidateResult<CrmEntity>> CreateTestDrive(TestDriveRequest request)
+        public async Task<ValidateResult<CrmEntity>> CreateTestDrive(TestDriveViewModel request)
         {
             var validateResult = new ValidateResult<CrmEntity>();
             var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
@@ -97,6 +99,43 @@ namespace DCEM.UserCenterService.Main.Application.Services
         }
         #endregion
 
+
+        #region 我的试乘试驾查询
+        /// <summary>
+        /// 我的试乘试驾查询
+        /// </summary>
+        /// <param name="GetDriveRecordList"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> GetDriveRecordList(TestDriveRequest Request)
+        {
+            try
+            {
+                var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+                var ProxyUserId = userInfo != null ? userInfo.systemuserid : null;
+
+                var fetchString = _Repository.GetDriveRecordList(Request);
+                var fetchXdoc = XDocument.Parse(fetchString);
+                var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "mcs_vehorder",
+                    FetchXml = fetchXdoc,
+                    ProxyUserId = ProxyUserId
+                };
+                var fetchResponse = await _crmService.Execute(fetchRequest);
+                var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+
+                var queryResult = new QueryResult<CrmEntity>();
+                queryResult.Results = fetchResponseResult.Value.Results;
+                queryResult.CurrentPage = Request.PageIndex;
+                queryResult.TotalCount = 0;
+                return queryResult;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion
 
     }
 }
