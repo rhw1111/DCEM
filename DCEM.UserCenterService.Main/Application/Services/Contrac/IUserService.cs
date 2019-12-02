@@ -23,5 +23,7 @@ namespace DCEM.UserCenterService.Main.Application.Services.Contrac
         Task<ValidateResult<List<CrmEntity>>> GetSecurityquestion();
 
         void LoginLog(UserLoginRequest model, Guid userid, int type);
+
+        Task<CrmEntity> getuserdetail(UserDetailRequest userDetailRequest);
     }
 }

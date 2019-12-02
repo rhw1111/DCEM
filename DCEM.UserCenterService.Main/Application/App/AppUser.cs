@@ -55,5 +55,10 @@ namespace DCEM.UserCenterService.Main.Application.App
         {
             _userService.LoginLog(model, userid, type);
         }
+
+        public Task<CrmEntity> getuserdetail(UserDetailRequest userDetailRequest)
+        {
+          return  _userService.getuserdetail(userDetailRequest);
+        }
     }
 }
