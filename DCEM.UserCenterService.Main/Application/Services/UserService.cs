@@ -53,13 +53,13 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 var entities = await crmRequestHelper.ExecuteAsync(_crmService, entityName, fetchXdoc);
                 if (entities.Results.Count > 0)
                 {
-                    loginlog(request, entities.Results[0].Id, 1);
+                    LoginLog(request, entities.Results[0].Id, (int)UserEnum.LoginlogEnum.成功);
                     validateResult.Result = true;
                     validateResult.Data = entities.Results[0];
                 }
                 else
                 {
-                    loginlog(request, entities.Results[0].Id, 2);
+                    LoginLog(request, entities.Results[0].Id, (int)UserEnum.LoginlogEnum.失败);
                     validateResult.Result = false;
                     validateResult.Description = "账号密码错误！";
                 }
@@ -79,15 +79,15 @@ namespace DCEM.UserCenterService.Main.Application.Services
         /// <param name="model"></param>
         /// <param name="id"></param>
         /// <param name="type">1 成功；2失败</param>
-        public void loginlog(UserLoginRequest model,Guid id,int type)
+        public void LoginLog(UserLoginRequest model,Guid userid,int type)
         {
             var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
             Guid logid = Guid.NewGuid();
             var  entity = new CrmExecuteEntity("mcs_userloginlog", logid);
-            entity.Attributes.Add("mcs_userid", new CrmEntityReference("mcs_user", id));
+            entity.Attributes.Add("mcs_userid", new CrmEntityReference(entityName, userid));
             entity.Attributes.Add("mcs_ip", model.ip);
             entity.Attributes.Add("mcs_loginresult", type);
-            entity.Attributes.Add("mcs_logintime", (new DateTime()).ToUniversalTime()); 
+            entity.Attributes.Add("mcs_logintime", DateTime.Now.ToUniversalTime()); 
               _crmService.Create(entity, userInfo?.systemuserid);
         }
 
@@ -140,7 +140,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
             try
             {
                 Guid id = Guid.NewGuid();
-                var entity = new CrmExecuteEntity("mcs_user", id);
+                var entity = new CrmExecuteEntity(entityName, id);
                 if (!string.IsNullOrEmpty(model.account))
                     entity.Attributes.Add("mcs_phone", model.account);
                 if (!string.IsNullOrEmpty(model.birthday))
@@ -171,7 +171,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 Guid userkeyid = Guid.NewGuid();
                 entity = new CrmExecuteEntity("mcs_userkeys", userkeyid);
                 model.userkey.pwd = EncrypHelper.encrypt(model.userkey.pwd);
-                entity.Attributes.Add("mcs_userid", new CrmEntityReference("mcs_user", id));
+                entity.Attributes.Add("mcs_userid", new CrmEntityReference(entityName, id));
                 entity.Attributes.Add("mcs_hashvalue", model.userkey.pwd);
                 entity.Attributes.Add("mcs_keytype", model.userkey.keytype);
                 entity.Attributes.Add("mcs_status", model.userkey.status);
@@ -181,7 +181,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 //用户登陆
                 Guid loginnamekeyid = Guid.NewGuid();
                 entity = new CrmExecuteEntity("mcs_loginname", loginnamekeyid);
-                entity.Attributes.Add("mcs_userid", new CrmEntityReference("mcs_user", id));
+                entity.Attributes.Add("mcs_userid", new CrmEntityReference(entityName, id));
                 entity.Attributes.Add("mcs_logintype", model.logintype);
                 entity.Attributes.Add("mcs_name", model.account);
                 entity.Attributes.Add("mcs_status", 1);
@@ -194,7 +194,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     {
                         Guid usersecurityquestionid = Guid.NewGuid();
                         entity = new CrmExecuteEntity("mcs_usersecurityquestion", usersecurityquestionid);
-                        entity.Attributes.Add("mcs_userid", new CrmEntityReference("mcs_user", id));
+                        entity.Attributes.Add("mcs_userid", new CrmEntityReference(entityName, id));
                         entity.Attributes.Add("mcs_securityquestionid", new CrmEntityReference("mcs_securityquestion", Guid.Parse(item.securityquestion)));
                         entity.Attributes.Add("mcs_answer", item.answer);
                         await _crmService.Create(entity, userInfo?.systemuserid);
