@@ -25,11 +25,20 @@ namespace DCEM.UserCenterService.Main.Application.App
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<ValidateResult<CrmEntity>> CreateTestDrive(TestDriveRequest request)
+        public async Task<ValidateResult<CrmEntity>> CreateTestDrive(TestDriveViewModel request)
         {
             return await _testDriveService.CreateTestDrive(request);
         }
 
 
+        /// <summary>
+        /// 我的试乘试驾查询
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> GetDriveRecordList(TestDriveRequest request)
+        {
+            return await _testDriveService.GetDriveRecordList(request);
+        }
     }
 }
