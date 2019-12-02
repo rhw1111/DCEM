@@ -13,11 +13,11 @@ export class ListPage implements OnInit {
   @ViewChild(IonInfiniteScroll, null) infiniteScroll: IonInfiniteScroll;
   public tab: any = "all";
   model = {
-      apiUrl: '/api/uc-appointment-info/GetList',
+      apiUrl: 'api/uc-appointment-info/GetList',
       seachkey: '',//搜索关键字
       status: 0,//预约状态
       data: [],//列表数据
-      pageSize: 3,//页数
+      pageSize: 10,//页数
       page: 1,//分页
       isending: false,//是否加载完成
       nodata: false,
@@ -90,7 +90,7 @@ export class ListPage implements OnInit {
                 // }
                 event ? event.target.complete() : '';
                 //判断是否有新数据
-                if (res.Results.length < 10) {
+                if (res.Results.length < this.model.pageSize) {
                     event ? event.target.disabled = true : "";
                     this.model.isending = true;
                 }
@@ -115,7 +115,7 @@ export class ListPage implements OnInit {
 }
 //切换tab
 selectTab(status) {
-  //this.infiniteScroll.disabled = false;//切换标签初始化下拉控件事件
+  this.infiniteScroll.disabled = false;//切换标签初始化下拉控件事件
   this.model.data = [];
   this.model.page = 1;
   this.model.isending = false;
@@ -125,7 +125,7 @@ selectTab(status) {
   else {
       this.model.status = 0;
   }
-  this.model.ifDoLoading = false;
+  this.model.ifDoLoading = true;
   this.showlist(null);
 
   this.SettabClass(this.model.status);
