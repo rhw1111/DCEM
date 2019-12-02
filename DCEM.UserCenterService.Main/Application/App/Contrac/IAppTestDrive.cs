@@ -15,6 +15,14 @@ namespace DCEM.UserCenterService.Main.Application.App.Contrac
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<ValidateResult<CrmEntity>> CreateTestDrive(TestDriveRequest request);
+        Task<ValidateResult<CrmEntity>> CreateTestDrive(TestDriveViewModel request);
+
+        /// <summary>
+        /// 我的试乘试驾预约查询
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<QueryResult<CrmEntity>> GetDriveRecordList(TestDriveRequest request);
+     
     }
 }
