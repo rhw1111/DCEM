@@ -20,6 +20,14 @@ namespace MSLibrary.Workflow.DAL
             _dbConnectionFactory = dbConnectionFactory;
         }
 
+        public async Task Lock(string lockName, Func<Task> callBack, int timeout = -1)
+        {
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _dbConnectionFactory.CreateAllForWorkflow(), async (conn, transaction) =>
+            {
+                await SqlServerApplicationLockHelper.Execute((SqlConnection)conn, (SqlTransaction)transaction, lockName, callBack, timeout);
+
+            });
+        }
 
         public async Task QueryByEntityType(string entityType, Func<CommonSignConfiguration, Task> callback)
         {

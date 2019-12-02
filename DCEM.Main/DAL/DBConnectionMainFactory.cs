@@ -152,6 +152,11 @@ namespace DCEM.Main.DAL
             throw new NotImplementedException();
         }
 
+        public string CreateAllForWorkflow()
+        {
+            throw new NotImplementedException();
+        }
+
         public string CreateAllForXrm()
         {
             throw new NotImplementedException();
