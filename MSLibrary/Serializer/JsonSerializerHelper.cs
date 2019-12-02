@@ -296,8 +296,35 @@ namespace MSLibrary.Serializer
                         //反序列化为实际类型
                         result = serializer.Deserialize(typeReader, type);
                         break;
+                    case JTokenType.Boolean:
+                      
+                        //反序列化为实际类型
+                        result = serializer.Deserialize<bool>(reader);
+                        break;
+                    case JTokenType.Date:
+                        //反序列化为实际类型
+                        result = serializer.Deserialize<DateTime>(reader);
+                        break;
+                    case JTokenType.Float:
+                        //反序列化为实际类型
+                        result = serializer.Deserialize<decimal>(reader);
+                        break;
+                    case JTokenType.Guid:
+                        //反序列化为实际类型
+                        result = serializer.Deserialize<Guid>(reader);
+                        break;
+                    case JTokenType.String:
+                        //反序列化为实际类型
+                        result = serializer.Deserialize<string>(reader);
+                        break;
+                    case JTokenType.Integer:
+                        //反序列化为实际类型
+                        result = serializer.Deserialize<int>(reader);
+                        break;
+                    default:
+                        result = null;
+                        break;
                 }
-                //反序列化为字符串
 
             }
 
@@ -307,7 +334,27 @@ namespace MSLibrary.Serializer
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
 
-
+            //获取实际类型
+            var type = value.GetType();
+            var strJson=JsonConvert.SerializeObject(value, _settings);
+            var jObj=JObject.Parse(strJson);
+            switch(jObj.Type)
+            {
+                case JTokenType.Array:
+                    //转换成JArray，添加数组最后一个为类型字符串
+                    JArray arrayValue = JArray.Parse(strJson);
+                    arrayValue.Add(type.AssemblyQualifiedName);
+                    arrayValue.WriteTo(writer);
+                    break;
+                case JTokenType.Object:
+                    //增加属性_type
+                    jObj["_type"] = type.AssemblyQualifiedName;
+                    jObj.WriteTo(writer);
+                    break;
+                default:
+                    jObj.WriteTo(writer);
+                    break;
+            }
 
         }
 
