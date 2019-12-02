@@ -39,7 +39,21 @@ const routes: Routes = [
     {
         path: 'personalcenter',  //用户中心
         children: [
+            {
+                path: 'userinfo',  //整车商城
+                children: [
+                    {
+                        path: 'detail',
+                        loadChildren: () => import('./page/personalcenter/userinfo/detail/detail.module').then(m => m.DetailPageModule)
+                    }
+                    , {
+                        path: 'edit',
+                        loadChildren: () => import('./page/personalcenter/userinfo/edit/edit.module').then(m => m.EditPageModule)
+                    }
+                ]
+            },
             { path: 'index', loadChildren: () => import('./page/personalcenter/index/index.module').then(m => m.IndexPageModule) },
+
         ]
     },
     {
@@ -101,7 +115,7 @@ const routes: Routes = [
         loadChildren: () => import('./page/servicecenter/boutique/detail/detail.module').then(m => m.DetailPageModule)
     },
     {
-        path: 'demo',  //服务中心
+        path: 'demo',
         children: [
             {
                 path: 'dealer',
@@ -109,7 +123,8 @@ const routes: Routes = [
             }
         ]
     }
-];
+]
+    ;
 @NgModule({
     imports: [
         RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
