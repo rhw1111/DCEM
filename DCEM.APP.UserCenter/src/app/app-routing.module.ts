@@ -88,18 +88,27 @@ const routes: Routes = [
         ]
     },
 
-  {
-    path: 'detail',
-    loadChildren: () => import('./page/servicecenter/vehiclecenter/detail/detail.module').then( m => m.DetailPageModule)
-  },
-  {
-    path: 'list',
-    loadChildren: () => import('./page/servicecenter/boutique/list/list.module').then( m => m.ListPageModule)
-  },
-  {
-    path: 'detail',
-    loadChildren: () => import('./page/servicecenter/boutique/detail/detail.module').then(m => m.DetailPageModule)
-  },
+    {
+        path: 'detail',
+        loadChildren: () => import('./page/servicecenter/vehiclecenter/detail/detail.module').then(m => m.DetailPageModule)
+    },
+    {
+        path: 'list',
+        loadChildren: () => import('./page/servicecenter/boutique/list/list.module').then(m => m.ListPageModule)
+    },
+    {
+        path: 'detail',
+        loadChildren: () => import('./page/servicecenter/boutique/detail/detail.module').then(m => m.DetailPageModule)
+    },
+    {
+        path: 'demo',  //服务中心
+        children: [
+            {
+                path: 'dealer',
+                loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
+            }
+        ]
+    }
 ];
 @NgModule({
     imports: [

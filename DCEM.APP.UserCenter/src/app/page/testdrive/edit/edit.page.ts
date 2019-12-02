@@ -8,7 +8,7 @@ import { DCore_Http, DCore_Page, DCore_Valid } from 'app/component/typescript/Dc
 export class EditPage implements OnInit {
 
   model={
-    postApiUrl:'/api/changepwd/',
+    postApiUrl:'/api/testdrive/CreateTestDrive',
     postData:{
       mcs_fullname:"", //姓名
       mcs_mobilephone:"", //手机号
@@ -54,14 +54,18 @@ export class EditPage implements OnInit {
       }
       if (this._valid.isNullOrEmpty(this.model.postData.mcs_testdrivetime)) {
         errMessage += "请选择预约时段<br>";
-    }
-
-      
+    }    
      if (errMessage !== "") {
        this._page.presentToastError(errMessage);
        return;
      }
    
+     if(this.model.postData.isChecked==false){
+
+      this._page.presentToastError("请阅读并勾选《试乘试驾指南和协议》");
+      return;
+     }
+
      this._page.loadingShow();
      this._http.post(
          this.model.postApiUrl, 
@@ -71,7 +75,7 @@ export class EditPage implements OnInit {
              this._page.loadingHide();
              if (res.Result == true) {              
                  console.log(res);                         
-                 this._page.goto("/serving/home/systemsetup");
+                //  this._page.goto("/serving/home/systemsetup");
              }
              else {
                  this._page.alert("消息提示", res.Description);
