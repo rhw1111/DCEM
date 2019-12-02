@@ -19,7 +19,9 @@ const routes: Routes = [
             {
                 path: 'carstore',  //整车商城(new)
                 children: [
-                    { path: 'index', loadChildren: () => import('./page/carcenter/carstore/index/index.module').then(m => m.IndexPageModule) }
+                    { path: 'index', loadChildren: () => import('./page/carcenter/carstore/index/index.module').then(m => m.IndexPageModule) },
+                    { path: 'selectattr', loadChildren: () => import('./page/carcenter/carstore/selectattr/selectattr.module').then(m => m.SelectattrPageModule) },
+                    { path: 'selectitem', loadChildren: () => import('./page/carcenter/carstore/selectitem/selectitem.module').then(m => m.SelectitemPageModule) }
                 ]
             },
         ]
