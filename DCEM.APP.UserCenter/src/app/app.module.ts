@@ -18,10 +18,11 @@ import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile';
 //自定义组件
 import {SelectSysareaComponent} from './component/modal/select-sysarea/select-sysarea.component'
 import { LoginComponent } from './component/modal/login/login.component' 
+import { SelectDealerComponent } from './component/modal/select-dealer/select-dealer.component';
 
 @NgModule({
-  declarations: [AppComponent,SelectSysareaComponent,LoginComponent],
-  entryComponents: [SelectSysareaComponent,LoginComponent],
+  declarations: [AppComponent,SelectSysareaComponent,LoginComponent,SelectDealerComponent],
+  entryComponents: [SelectSysareaComponent,LoginComponent,SelectDealerComponent],
   imports: [
       BrowserModule, 
       IonicModule.forRoot({ mode: 'ios' }),
