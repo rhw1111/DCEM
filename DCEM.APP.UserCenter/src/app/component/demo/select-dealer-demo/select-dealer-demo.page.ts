@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import { ModalController, NavController } from '@ionic/angular';
+import { DCore_Page, DCore_Http, DCore_Valid } from "../../typescript/dcem.core";
+import { SelectDealerComponent } from "../../modal/select-dealer/select-dealer.component";
 @Component({
   selector: 'app-select-dealer-demo',
   templateUrl: './select-dealer-demo.page.html',
@@ -7,9 +9,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SelectDealerDemoPage implements OnInit {
 
-  constructor() { }
-
+  constructor(
+    private _modalCtrl: ModalController
+   ) { }
+  public model= {
+    dealer: {
+      id:"",
+      name: ""
+    }
+  }
   ngOnInit() {
   }
+  //获取门店
+  async provinceModal() {
 
-}
+    const modal = await this._modalCtrl.create({
+      component: SelectDealerComponent
+    });
+    await modal.present();
+    const { data } = await modal.onDidDismiss();
+    if (data != null && typeof data != undefined) {
+      if (data != null && typeof data != undefined) {
+        if (data.id != null) {
+           this.model.dealer.name=data.name;
+           this.model.dealer.id=data.id;
+        }
+      }
+    }
+  }
+} 

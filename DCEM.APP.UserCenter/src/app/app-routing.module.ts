@@ -16,6 +16,12 @@ const routes: Routes = [
         path: 'carcenter',  //汽车中心(爱车)
         children: [
             { path: 'index', loadChildren: () => import('./page/carcenter/index/index.module').then(m => m.IndexPageModule) },
+            {
+                path: 'carstore',  //整车商城(new)
+                children: [
+                    { path: 'index', loadChildren: () => import('./page/carcenter/carstore/index/index.module').then(m => m.IndexPageModule) }
+                ]
+            },
         ]
     },
     {
@@ -52,12 +58,6 @@ const routes: Routes = [
                 path: 'index', loadChildren: () => import('./page/servicecenter/index/index.module').then(m => m.IndexPageModule)
             },
             {
-                path: 'carstore',  //整车商城(new)
-                children: [
-                    { path: 'index', loadChildren: () => import('./page/servicecenter/carstore/index/index.module').then(m => m.IndexPageModule) }
-                ]
-            },
-            {
 
                 path: 'vehiclemall',  //整车商城
                 children: [
@@ -88,18 +88,27 @@ const routes: Routes = [
         ]
     },
 
-  {
-    path: 'detail',
-    loadChildren: () => import('./page/servicecenter/vehiclecenter/detail/detail.module').then( m => m.DetailPageModule)
-  },
-  {
-    path: 'list',
-    loadChildren: () => import('./page/servicecenter/boutique/list/list.module').then( m => m.ListPageModule)
-  },
-  {
-    path: 'detail',
-    loadChildren: () => import('./page/servicecenter/boutique/detail/detail.module').then(m => m.DetailPageModule)
-  },
+    {
+        path: 'detail',
+        loadChildren: () => import('./page/servicecenter/vehiclecenter/detail/detail.module').then(m => m.DetailPageModule)
+    },
+    {
+        path: 'list',
+        loadChildren: () => import('./page/servicecenter/boutique/list/list.module').then(m => m.ListPageModule)
+    },
+    {
+        path: 'detail',
+        loadChildren: () => import('./page/servicecenter/boutique/detail/detail.module').then(m => m.DetailPageModule)
+    },
+    {
+        path: 'demo',  //服务中心
+        children: [
+            {
+                path: 'dealer',
+                loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
+            }
+        ]
+    }
 ];
 @NgModule({
     imports: [
