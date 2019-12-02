@@ -48,7 +48,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     var code = ent.Attributes["mcs_name"].ToString();
                     var createdon = DateTime.Parse(ent.Attributes["createdon"].ToString());
                     //60秒过期判断
-                    if (createdon.AddSeconds(60) >= new DateTime())
+                    if (createdon.AddSeconds(180) >= new DateTime())
                     {
                         //判断当前验证码是否错误   
                         if (code != request.valcode)

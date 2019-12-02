@@ -5,8 +5,8 @@
 </ion-header>
 
 <ion-content>
-  <ion-item> 
-  </ion-item>
-  <ion-item> 
+  <ion-item (click)="provinceModal()">
+    <ion-label position="stacked">请选择门店：</ion-label>
+    <p>{{model.dealer.name}}&nbsp;</p>
   </ion-item>
 </ion-content>

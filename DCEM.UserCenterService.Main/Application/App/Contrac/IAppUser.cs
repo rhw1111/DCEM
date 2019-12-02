@@ -17,6 +17,8 @@ namespace DCEM.UserCenterService.Main.Application.App
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
     using MSLibrary;
+    using System.Collections.Generic;
+    using System;
 
     public interface IAppUser
     {
@@ -25,6 +27,10 @@ namespace DCEM.UserCenterService.Main.Application.App
         Task<ValidateResult<CrmEntity>> GetUser(UserLoginRequest request);
 
         Task<ValidateResult> AddUser(UserAddRequest request);
+
+        Task<ValidateResult<List<CrmEntity>>> GetSecurityquestion();
+
+        void LoginLog(UserLoginRequest model, Guid userid, int type);
 
     }
 }

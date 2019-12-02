@@ -53,30 +53,18 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 var entities = await crmRequestHelper.ExecuteAsync(_crmService, entityName, fetchXdoc);
                 if (entities.Results.Count > 0)
                 {
+                    LoginLog(request, entities.Results[0].Id, (int)UserEnum.LoginlogEnum.成功);
                     validateResult.Result = true;
                     validateResult.Data = entities.Results[0];
                 }
                 else
                 {
+                    LoginLog(request, entities.Results[0].Id, (int)UserEnum.LoginlogEnum.失败);
                     validateResult.Result = false;
                     validateResult.Description = "账号密码错误！";
                 }
                 return validateResult;
 
-
-                // var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
-                //var fetchXdoc = await _repository.LoginAccount(request);
-                // var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
-                // {
-                //     EntityName = entityName,
-                //     FetchXml = fetchXdoc,
-                //     ProxyUserId = userInfo?.systemuserid
-                // };
-                // fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
-                // var fetchResponse = await _crmService.Execute(fetchRequest);
-                // var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
-
-                return validateResult;
             }
             catch (Exception ex)
             {
@@ -84,6 +72,24 @@ namespace DCEM.UserCenterService.Main.Application.Services
             }
         }
 
+
+        /// <summary>
+        /// 登陆日志
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="id"></param>
+        /// <param name="type">1 成功；2失败</param>
+        public void LoginLog(UserLoginRequest model,Guid userid,int type)
+        {
+            var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+            Guid logid = Guid.NewGuid();
+            var  entity = new CrmExecuteEntity("mcs_userloginlog", logid);
+            entity.Attributes.Add("mcs_userid", new CrmEntityReference(entityName, userid));
+            entity.Attributes.Add("mcs_ip", model.ip);
+            entity.Attributes.Add("mcs_loginresult", type);
+            entity.Attributes.Add("mcs_logintime", DateTime.Now.ToUniversalTime()); 
+              _crmService.Create(entity, userInfo?.systemuserid);
+        }
 
         /// <summary>
         /// 获取账户
@@ -134,7 +140,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
             try
             {
                 Guid id = Guid.NewGuid();
-                var entity = new CrmExecuteEntity("mcs_user", id);
+                var entity = new CrmExecuteEntity(entityName, id);
                 if (!string.IsNullOrEmpty(model.account))
                     entity.Attributes.Add("mcs_phone", model.account);
                 if (!string.IsNullOrEmpty(model.birthday))
@@ -165,22 +171,35 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 Guid userkeyid = Guid.NewGuid();
                 entity = new CrmExecuteEntity("mcs_userkeys", userkeyid);
                 model.userkey.pwd = EncrypHelper.encrypt(model.userkey.pwd);
-                entity.Attributes.Add("mcs_userid", new CrmEntityReference("mcs_user", id));
+                entity.Attributes.Add("mcs_userid", new CrmEntityReference(entityName, id));
                 entity.Attributes.Add("mcs_hashvalue", model.userkey.pwd);
                 entity.Attributes.Add("mcs_keytype", model.userkey.keytype);
                 entity.Attributes.Add("mcs_status", model.userkey.status);
                 entity.Attributes.Add("mcs_certificationtype", model.userkey.certificationtype);
                 await _crmService.Create(entity, userInfo?.systemuserid);
 
+                //用户登陆
+                Guid loginnamekeyid = Guid.NewGuid();
+                entity = new CrmExecuteEntity("mcs_loginname", loginnamekeyid);
+                entity.Attributes.Add("mcs_userid", new CrmEntityReference(entityName, id));
+                entity.Attributes.Add("mcs_logintype", model.logintype);
+                entity.Attributes.Add("mcs_name", model.account);
+                entity.Attributes.Add("mcs_status", 1);
+                await _crmService.Create(entity, userInfo?.systemuserid);
+
                 ///问题选择
                 foreach (var item in model.quests)
                 {
-                    Guid usersecurityquestionid = Guid.NewGuid();
-                    entity = new CrmExecuteEntity("mcs_usersecurityquestion", usersecurityquestionid);
-                    entity.Attributes.Add("mcs_userid", new CrmEntityReference("mcs_user", id));
-                    entity.Attributes.Add("mcs_securityquestionid", new CrmEntityReference("mcs_securityquestion", Guid.Parse(item.securityquestion)));
-                    entity.Attributes.Add("mcs_answer", item.answer);
-                    await _crmService.Create(entity, userInfo?.systemuserid);
+                    if (!string.IsNullOrEmpty(item.securityquestion) && !string.IsNullOrEmpty(item.answer))
+                    {
+                        Guid usersecurityquestionid = Guid.NewGuid();
+                        entity = new CrmExecuteEntity("mcs_usersecurityquestion", usersecurityquestionid);
+                        entity.Attributes.Add("mcs_userid", new CrmEntityReference(entityName, id));
+                        entity.Attributes.Add("mcs_securityquestionid", new CrmEntityReference("mcs_securityquestion", Guid.Parse(item.securityquestion)));
+                        entity.Attributes.Add("mcs_answer", item.answer);
+                        await _crmService.Create(entity, userInfo?.systemuserid);
+                    }
+
                 }
                 #region 组装数据返回 
                 validateResult.Result = true;
@@ -196,6 +215,31 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
             return validateResult;
 
+        }
+
+
+        /// <summary>
+        /// 安全问题设置列表获取
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ValidateResult<List<CrmEntity>>> GetSecurityquestion()
+        {
+            var validateResult = new ValidateResult<List<CrmEntity>>();
+            var crmRequestHelper = new CrmRequestHelper();
+            XDocument fetchXdoc = null;
+            fetchXdoc = await _repository.GetSecurityquestion();
+            var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_securityquestion", fetchXdoc);
+            if (entities.Results.Count > 0)
+            {
+                validateResult.Result = true;
+                validateResult.Data = entities.Results;
+            }
+            else
+            {
+                validateResult.Result = false;
+            }
+            return validateResult;
         }
     }
 }

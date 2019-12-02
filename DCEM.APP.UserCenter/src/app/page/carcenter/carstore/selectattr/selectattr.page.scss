@@ -1,0 +1,204 @@
+﻿* {
+    margin: 0px;
+    padding: 0px;
+}
+
+//颜色
+$dm-orange: RGB(240,110,35); //(橘色)
+$dm-darkblue: RGB(32,48,61); //(深蓝)
+$dm-white: RGB(255,255,255); //(白)
+$dm-gray: RGB(150,153,154); //(灰)
+$dm-gray-line: RGB(238,238,238); //(灰线)
+
+//自定义颜色
+.ion-color-org {
+    --ion-color-base: RGB(240,110,35);
+    --ion-color-base-rgb: RGB(240,110,35);
+    --ion-color-contrast: #ffffff;
+    --ion-color-contrast-rgb: 255,255,255;
+    --ion-color-shade: RGB(240,110,35);
+    --ion-color-tint: RGB(240,110,35);
+}
+
+.ion-color-dis {
+    --ion-color-base: RGB(248,248,248);
+    --ion-color-base-rgb: RGB(248,248,248);
+    --ion-color-contrast: RGB(200,200,200);
+    --ion-color-contrast-rgb: 0,0,0;
+    --ion-color-shade: RGB(248,248,248);
+    --ion-color-tint: RGB(248,248,248);
+}
+
+.ion-color-darkblue {
+    --ion-color-base: RGB(32,48,61);
+    --ion-color-base-rgb: RGB(32,48,61);
+    --ion-color-contrast: RGB(32,48,61);
+    --ion-color-contrast-rgb: 0,0,0;
+    --ion-color-shade: RGB(32,48,61);
+    --ion-color-tint: RGB(32,48,61);
+}
+
+//顶部导航
+.dm-top-nav {
+    $height: 40px;
+
+    background-color: rgb(244,241,245);
+    height: $height;
+
+
+    .dm-top-nav-tag {
+        text-align: center;
+
+        ul {
+            display: block;
+            list-style: none;
+            position: relative;
+
+            li {
+                display: inline-block;
+                padding-left: 5px;
+                padding-right: 5px;
+                color: $dm-darkblue;
+                font-size: 14px;
+                position: relative;
+                height: 46px;
+                line-height: 46px;
+
+                &.selected {
+                    font-size: 14px;
+                    color: RGB(240,110,35);
+                }
+
+                &.selected::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0px;
+                    left: 0px;
+                    margin-top: 30px;
+                    width: 100%;
+                    height: 3px;
+                    background-color: RGB(240,110,35);
+                    transition: all .3s;
+                    -webkit-transition: all .3s;
+                }
+            }
+        }
+    }
+}
+
+//图片
+.dm-img {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+//标题
+.dm-title {
+
+    ion-grid {
+        ion-row {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            text-align: center;
+
+            ion-col:first-child {
+                padding-left: 20px;
+                text-align: left;
+                font-size: 20px;
+                color: $dm-darkblue;
+            }
+
+            ion-col:last-child {
+                padding-right: 20px;
+                text-align: right;
+                font-size: 16px;
+                color: $dm-darkblue;
+            }
+
+            &::after {
+                position: absolute;
+                display: inline-block;
+                content: ' ';
+                bottom: 0px;
+                width: 100%;
+                height: 1px;
+                background-color: $dm-gray-line;
+            }
+        }
+    }
+}
+//介绍
+.dm-description {
+    padding-top: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 13px;
+    color: $dm-darkblue;
+}
+
+//图片有边距
+.dm-imgpadding {
+    padding-top: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+//图片列表
+.dm-imglist {
+    padding-top: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 30px;
+
+    ion-col {
+        text-align: center;
+    }
+
+    .dm-imglist-item {
+
+        div {
+            margin: 0 auto;
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 5px 0 rgba(0,0,0,.05);
+        }
+
+        &.select div::after {
+            content: " ";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 1px solid #f06e23;
+            opacity: 1;
+        }
+
+
+
+        p {
+            text-align: center;
+            padding-left: 5px;
+            padding-right: 5px;
+            margin-top: 10px;
+            font-size: 14px;
+            color: $dm-darkblue
+        }
+    }
+}
+
+//底部
+.dm-footer {
+    padding: 20px;
+
+    h6 {
+        color: $dm-darkblue;
+        font-size: 16px;
+    }
+
+    span {
+        color: orange;
+        font-size: 14px;
+    }
+}

@@ -1,1 +1,23 @@
 .padding0 { padding: 0 }
+.segment-custom {
+    position: sticky;
+    top: 0px;
+    background-color: #fff;
+}
+.sc-ion-segment-ios-h.ion-color.sc-ion-segment-ios-s > ion-segment-button {
+    border: none;
+    font-size: 20px;
+    color: #898a8c;
+    height: 60px;
+}
+.sc-ion-segment-ios-h.ion-color.sc-ion-segment-ios-s > .segment-button-checked {
+    background: none;
+    color: #47B0E4;
+}
+.sc-ion-segment-ios-h.ion-color.sc-ion-segment-ios-s > .segment-button-checked::after {
+    content: "";
+    display: inline-block;
+    width: 20%;
+    margin: 0 40%;
+    border-bottom: 2px solid #47B0E4;
+}
