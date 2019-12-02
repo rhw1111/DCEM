@@ -25,7 +25,10 @@ export class IndexPage {
         if (this.name != "登陆")
             return false;
         const modal = await this.modalCtrl.create({
-            component: LoginComponent
+            component: LoginComponent,
+            componentProps: {
+                'status': 1
+            }
         });
         await modal.present();
         //监听销毁的事件

@@ -18,15 +18,16 @@ namespace DCEM.UserCenterService.Main.Application.App
     using MSLibrary.Xrm;
     using MSLibrary;
     using System.Collections.Generic;
+    using System;
 
     public class AppUser : IAppUser
     {
-        
+
         public IUserService _userService;
-        
+
         public AppUser(IUserService userService)
         {
-            _userService=userService;
+            _userService = userService;
         }
 
         public async Task<ValidateResult<CrmEntity>> LoginAccount(UserLoginRequest request)
@@ -48,6 +49,11 @@ namespace DCEM.UserCenterService.Main.Application.App
         public async Task<ValidateResult<List<CrmEntity>>> GetSecurityquestion()
         {
             return await _userService.GetSecurityquestion();
+        }
+
+        public void LoginLog(UserLoginRequest model, Guid userid, int type)
+        {
+            _userService.LoginLog(model, userid, type);
         }
     }
 }

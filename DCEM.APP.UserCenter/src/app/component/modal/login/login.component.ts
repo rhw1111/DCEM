@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
 import { DCore_Http, DCore_Page, DCore_Valid } from '../../typescript/dcem.core';
+import { ModalController, IonContent, NavParams } from '@ionic/angular';
 import * as $ from 'jquery';
 import { Storage_LoginInfo } from '../../typescript/logininfo.storage';
 
@@ -13,15 +13,18 @@ export class LoginComponent implements OnInit {
   public tab: any = 'account';
   public title: any = '登陆';
   public valmsg: any = false;//验证消息显示开关
-  public disstatus: any = 1; //界面切换开关 1 登陆输入；2登陆验证码输入；5 注册验证码输入；3 注册；4个人输入页面 
+  //界面切换开关 1 登陆输入；2登陆验证码输入；5 注册验证码输入；3 注册电话号码页面；4 注册个人信息输入页面 
+  //6 忘记密码手机号码录入界面；//7 密码重置成功页面
+  public disstatus: any = 7;
   public mod: any = {
     loginurl: 'api/user/loginaccount',//账号登陆url
     loginphoneurl: 'api/user/loginphone',//手机号码登陆url
     regurl: 'api/user/adduser',//注册url 
     sendmsgurl: 'api/user/sendmsg',//短信发送url 
     questionsurl: 'api/user/getquestions',//用户问题设置列表url 
-    getuserurl:'api/user/getuser',
+    getuserurl: 'api/user/getuser',
     questiondata: [],
+    sendmsgtital: '获取验证码',
     val1: '',
     val2: '',
     val3: '',
@@ -31,6 +34,8 @@ export class LoginComponent implements OnInit {
       pwd: '',//密码 
       name: '',//昵称
       sex: '',
+      msg: '',
+      pwd1: '',
       quest1: '',
       quest2: '',
       quest3: '',
@@ -59,8 +64,20 @@ export class LoginComponent implements OnInit {
     private _http: DCore_Http,
     private _logininfo: Storage_LoginInfo,
     private _page: DCore_Page,
-    private _valid: DCore_Valid) {
+    private _valid: DCore_Valid,
+    private _navParams: NavParams) {
+    this.disstatus = _navParams.get('status')
     this.OnQuests();
+  }
+
+  //切换到登陆界面
+  OnLogin() {
+    this.disstatus = 1;
+  }
+
+  OnPwdReset() {
+    this.title = '重置密码';
+    this.disstatus = 6;
   }
   //关闭
   onReturn(islogin) {
@@ -80,7 +97,7 @@ export class LoginComponent implements OnInit {
       (res: any) => {
         if (res.Result == true) {
           for (var key in res.Data) {
-            var obj = {}; 
+            var obj = {};
             obj = res.Data[key]["Attributes"];
             this.mod.questiondata.push(obj);
           }
@@ -90,6 +107,26 @@ export class LoginComponent implements OnInit {
         this._page.alert("消息提示", "操作失败");
       }
     );
+  }
+
+  GetColor() {
+    if (this.mod.sendmsgtital == '180s') {
+      return 'medium';
+    }else{
+      return 'secondary';
+    }
+  }
+  //修改密码获取验证码
+  onSendMsgPwd(status) {
+    var i: any = 180;
+    var interval = setInterval(function () {
+      i--;
+      this.mod.sendmsgtital = String(i) + 's';
+      if (i == 0) {
+        clearInterval(interval);
+      }
+    }, 1000);
+    this.onSendMsg(status);
   }
   //短信发送
   onSendMsg(status) {
@@ -104,7 +141,7 @@ export class LoginComponent implements OnInit {
     this._page.loadingShow();
     var postData = {
       phone: this.mod.model.account,
-      type: (status == "2" ? 2 : 1),
+      type: (status == "2" ? 2 : (status == "5" ? 1 : (status == "3" ? 3 : 4))),
       valcode: ""
     };
     this._http.post(
@@ -112,7 +149,9 @@ export class LoginComponent implements OnInit {
       postData,
       (res: any) => {
         if (res.Result == true) {
-          this.disstatus = status;
+          //验证码获取不是登陆或者注册不需要跳转页面
+          if (status != 2 && status != 5)
+            this.disstatus = status;
           this._page.loadingHide();
         } else {
           this._page.loadingHide();
@@ -142,7 +181,7 @@ export class LoginComponent implements OnInit {
       keytype: 1,
       status: 2,
       pwd: this.mod.model.pwd
-    }; 
+    };
 
     this._http.post(
       this.mod.loginphoneurl,
@@ -172,7 +211,7 @@ export class LoginComponent implements OnInit {
 
   }
 
-  
+
 
   OnNextFocus(code) {
     var inputval = '#inputcode' + code;
@@ -213,6 +252,7 @@ export class LoginComponent implements OnInit {
 
   LoginModel(data: any) {
     this.mod.loginaccount.account = data["Attributes"]["account"];
+    this.mod.loginaccount.systemuserid = data["Attributes"]["mcs_userid"];
     this.mod.loginaccount.code = data["Attributes"]["mcs_code"];
     this.mod.loginaccount.name = data["Attributes"]["mcs_name"];
     this.mod.loginaccount.nickname = data["Attributes"]["mcs_nickname"];
@@ -244,14 +284,14 @@ export class LoginComponent implements OnInit {
       this._page.alert("消息提示", "请填写密码！");
       return false;
     }
-     
+
     this._page.loadingShow();
     var postData = {
       account: this.mod.model.account,
-      phone:this.mod.model.account,
+      phone: this.mod.model.account,
       valcode: null,
       name: this.mod.model.name,
-      nickname:this.mod.model.name,
+      nickname: this.mod.model.name,
       gender: null,
       mcs_cardid: null,
       mcs_email: null,
@@ -259,31 +299,31 @@ export class LoginComponent implements OnInit {
       marriagestatus: null,
       profession: null,
       company: null,
-      signature:null,
-      description: null, 
-      logintype:1,
+      signature: null,
+      description: null,
+      logintype: 1,
       userkey: {
-        pwd:this.mod.model.pwd,
-        keytype:1,
-        status:2,
-        certificationtype:1 
-      },quests:[
+        pwd: this.mod.model.pwd,
+        keytype: 1,
+        status: 2,
+        certificationtype: 1
+      }, quests: [
         {
-          securityquestion:this.mod.model.quest1,
-          answer:this.mod.model.quest1value,
-        },{
-          securityquestion:this.mod.model.quest2,
-          answer:this.mod.model.quest2value,
-        },{
-          securityquestion:this.mod.model.quest3,
-          answer:this.mod.model.quest3value,
+          securityquestion: this.mod.model.quest1,
+          answer: this.mod.model.quest1value,
+        }, {
+          securityquestion: this.mod.model.quest2,
+          answer: this.mod.model.quest2value,
+        }, {
+          securityquestion: this.mod.model.quest3,
+          answer: this.mod.model.quest3value,
         }
       ]
     };
     this._http.post(
       this.mod.regurl,
       postData,
-      (res: any) => { 
+      (res: any) => {
         if (res.Result == true) {
           var postData = {
             account: this.mod.model.account,
@@ -293,15 +333,16 @@ export class LoginComponent implements OnInit {
             keytype: 1,
             status: 2,
             pwd: ""
-          }; 
+          };
+          //获取用户信息
           this._http.post(
             this.mod.getuserurl,
             postData,
             (res: any) => {
               this._page.loadingHide();
-              if (res.Result == true) { 
-                  this.LoginModel(res.Data);
-                  this.onReturn(true); 
+              if (res.Result == true) {
+                this.LoginModel(res.Data);
+                this.onReturn(true);
               }
               else {
                 this.i = 0;
@@ -314,7 +355,7 @@ export class LoginComponent implements OnInit {
               this._page.alert("消息提示", "操作失败");
             }
           );
-      
+
         }
         else {
           this._page.alert("消息提示", "注册失败，验证码无效");
