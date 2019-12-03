@@ -144,6 +144,8 @@ export class DCore_Http {
             this.ReflashInterval=setInterval(() => {
                 console.log("定时刷新" + new Date().getTime());
                 var lastlogintime = window.localStorage.getItem("auth-logintime");
+                var token = window.localStorage.getItem("auth-token");
+                if (token != undefined && token != "") {
                     if (lastlogintime != null && lastlogintime !== "") {
                         var lastdateTime =parseInt(lastlogintime);
                         var time = 30 * 60 * 1000;
@@ -161,9 +163,6 @@ export class DCore_Http {
                                         }
                                     },
                                     (res: any) => {
-                                        if (res.access_token == "") {
-                                            return false;
-                                        }
                                         window.localStorage.setItem('auth-token', res.access_token);
                                         window.localStorage.setItem('auth-account', account);
                                         window.localStorage.setItem('auth-password', password);
@@ -175,7 +174,8 @@ export class DCore_Http {
                             }
                         }
                     }
-            }, 5000);
+                }
+            }, 30000);
         }
     }
 }

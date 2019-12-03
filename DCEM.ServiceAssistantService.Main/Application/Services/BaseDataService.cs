@@ -93,7 +93,39 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
             }
         }
 
-     
+        /// <summary>
+        /// 查询基本车型
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> GetCarmodel(VehicleTypeRequest request)
+        {
+            try
+            {
+                var fetchString = _baseDataRepository.GetCarmodel(request);
+
+                var fetchXdoc = XDocument.Parse(fetchString);
+                var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "mcs_carmodel",
+                    FetchXml = fetchXdoc
+                };
+                var fetchResponse = await _crmService.Execute(fetchRequest);
+                var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+
+                var queryResult = new QueryResult<CrmEntity>();
+                queryResult.Results = fetchResponseResult.Value.Results;
+                queryResult.CurrentPage = request.page;
+                queryResult.TotalCount = 0;
+                return queryResult;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
         /// <summary>
         /// 查询车型颜色
         /// </summary>
