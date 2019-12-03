@@ -4,21 +4,21 @@ import { IonicModule } from '@ionic/angular';
 import { SelectitemPage } from './selectitem.page';
 
 describe('SelectitemPage', () => {
-  let component: SelectitemPage;
-  let fixture: ComponentFixture<SelectitemPage>;
+    let component: SelectitemPage;
+    let fixture: ComponentFixture<SelectitemPage>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ SelectitemPage ],
-      imports: [IonicModule.forRoot()]
-    }).compileComponents();
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [SelectitemPage],
+            imports: [IonicModule.forRoot()]
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(SelectitemPage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+        fixture = TestBed.createComponent(SelectitemPage);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

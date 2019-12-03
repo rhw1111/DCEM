@@ -82,6 +82,7 @@ export class LoginComponent implements OnInit {
   }
   //关闭
   onReturn(islogin) {
+    clearInterval(this.applicationInterval);
     this.modalCtrl.dismiss({
       'login': islogin
     });
@@ -354,16 +355,23 @@ export class LoginComponent implements OnInit {
     );
   }
   ngOnInit() { }
-
-
-
+ 
+  applicationInterval:any; 
   //修改密码获取验证码
-  onSendMsgPwd(status) {
-    var ii = 180;
-    $('#btnsendmsg').text('180s');
+  onSendMsgPwd(status) {  
+    if (this.mod.model.account == '') {
+      this._page.alert("消息提示", "请填写手机号码！");
+      return false;
+    }
+    if (String(this.mod.model.account).length != 11) {
+      this._page.alert("消息提示", "手机号码错误！");
+      return false;
+    }
+    var ii = 90;
+    $('#btnsendmsg').text('90s');
     $("#btnsendmsg").attr("class", "ion-color ion-color-medium  ios button button-block button-small button-solid ion-activatable ion-focusable hydrated");
     $('#btnsendmsg').attr('disabled', 'true');
-    var interval = setInterval(function () {
+    this.applicationInterval = setInterval(function () {
       ii--;
       var cc = String(ii) + 's';
       $('#btnsendmsg').text(cc);
@@ -371,14 +379,17 @@ export class LoginComponent implements OnInit {
         $('#btnsendmsg').text('重新获取');
         $("#btnsendmsg").attr("class", "ion-color ion-color-secondary ios button button-block button-small button-solid ion-activatable ion-focusable hydrated");
         $('#btnsendmsg').attr('disabled', 'false');
-        clearInterval(interval);
+        clearInterval(this.applicationInterval);
       }
     }, 1000);
 
     this.onSendMsg(status);
   }
+
+   
   //修改用户密码
   onPwdReset(type) {
+    
     if (this.mod.model.account == '') {
       this.valmsg = '请填写手机号！';
       this.isval = true;

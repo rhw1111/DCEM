@@ -172,7 +172,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     entity.Attributes.Add("mcs_phone", model.account);
                 }
                 if (!string.IsNullOrEmpty(model.birthday))
-                    entity.Attributes.Add("mcs_birthday", model.birthday);
+                    entity.Attributes.Add("mcs_birthday", DateTime.Parse(model.birthday).ToUniversalTime());
                 if (!string.IsNullOrEmpty(model.company))
                     entity.Attributes.Add("company", model.company);
                 if (!string.IsNullOrEmpty(model.description))
@@ -267,19 +267,17 @@ namespace DCEM.UserCenterService.Main.Application.Services
         /// <returns></returns>
         public async Task<ValidateResult> UpdateUser(UserAddRequest model)
         {
-            var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
-            var validateResult = new ValidateResult();
-
-
+             var validateResult = new ValidateResult();
+             
             try
             {
                 var entity = new CrmExecuteEntity(entityName, model.userid);
                 if (!string.IsNullOrEmpty(model.phone))
                     entity.Attributes.Add("mcs_phone", model.phone);
                 if (!string.IsNullOrEmpty(model.birthday))
-                    entity.Attributes.Add("mcs_birthday", model.birthday);
+                    entity.Attributes.Add("mcs_birthday", DateTime.Parse( model.birthday).ToUniversalTime());
                 if (!string.IsNullOrEmpty(model.company))
-                    entity.Attributes.Add("company", model.company);
+                    entity.Attributes.Add("mcs_company", model.company);
                 if (!string.IsNullOrEmpty(model.description))
                     entity.Attributes.Add("mcs_description", model.description);
                 if (model.gender != null)
@@ -299,7 +297,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     entity.Attributes.Add("mcs_signature", model.signature);
 
                 //c端用户实体
-                await _crmService.Update(entity, userInfo?.systemuserid);
+                await _crmService.Update(entity);
 
 
                 #region 组装数据返回 

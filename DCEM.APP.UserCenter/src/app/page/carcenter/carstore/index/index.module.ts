@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { IndexPageRoutingModule } from './index-routing.module';
 
 import { IndexPage } from './index.page';
-import { SpeclistComponent } from 'app/page/carcenter/carstore/component/speclist/speclist.component';
+import { SpeclistComponent } from 'app/page/carcenter/carstore/component/model/speclist/speclist.component';
 
 
 @NgModule({

@@ -1,0 +1,135 @@
+<ion-item *ngIf="disstatus!=7" lines="none" style="border-bottom: 1px solid #d6d2d2">
+  <ion-label style="margin-top: 12px">
+    <img src="../assets/img/back.png" style="width: 20px;" (click)="onReturn(false)">
+    <ion-label style="text-align:center;margin-top:-23px">
+      用户信息
+    </ion-label>
+  </ion-label>
+</ion-item>
+
+
+<!-- 用户信息修改 -->
+<ion-content>
+  <div style="    height: 30%;">
+    <img src="../../../../assets/img/logo.png" style="margin-top: 15%;margin-left: 40%;">
+  </div>
+  <ion-row class="row">
+    <ion-col size="4" class="lable">
+      姓名
+    </ion-col>
+    <ion-col size="8">
+      <input placeholder="请输入姓名"   (focus)="OnselectText('#username')" id="username"    style="text-align: right;" [(ngModel)]="mod.model.mcs_name"/>
+    </ion-col>
+  </ion-row>
+  <ion-row class="row">
+    <ion-col size="4" class="lable">
+      昵称
+    </ion-col>
+    <ion-col size="8">
+      <input placeholder="请输入昵称"  (focus)="OnselectText('#usernickname')" id="usernickname"   style="text-align: right;" [(ngModel)]="mod.model.mcs_nickname"/>
+    </ion-col>
+  </ion-row>
+  <ion-row class="row">
+    <ion-col size="4" class="lable">
+      手机号码
+    </ion-col>
+    <ion-col size="8">
+      <input type="tel" maxlength="11"  (focus)="OnselectText('#userphone')" id="userphone"   style="text-align: right;" placeholder="请输入手机号码"
+        [(ngModel)]="mod.model.mcs_phone"/>
+    </ion-col>
+  </ion-row>
+  <ion-row class="row">
+      <ion-col size="4" class="lable">
+        邮箱
+      </ion-col>
+      <ion-col size="8">
+        <input type="tel" maxlength="11"  (focus)="OnselectText('#useremai')" id="useremai"   style="text-align: right;" placeholder="请输入手机号码"
+          [(ngModel)]="mod.model.mcs_email"/>
+      </ion-col>
+    </ion-row>
+  <ion-row class="row">
+    <ion-col size="4" class="lable">
+      身份证号码
+    </ion-col>
+    <ion-col size="8">
+      <input placeholder="请输入身份证号码"  (focus)="OnselectText('#usercard')" id="usercard"   style="text-align: right;" [(ngModel)]="mod.model.mcs_cardid"/>
+    </ion-col>
+  </ion-row>
+  <ion-row class="row">
+    <ion-col size="4" class="lable">
+      职业
+    </ion-col>
+    <ion-col size="8">
+      <input placeholder="请输入职业" (focus)="OnselectText('#profession')" id="profession"   style="text-align: right;" [(ngModel)]="mod.model.mcs_profession"/>
+    </ion-col>
+  </ion-row>
+  <ion-row class="row">
+    <ion-col size="4" class="lable">
+      公司
+    </ion-col>
+    <ion-col size="8">
+      <input placeholder="请输入公司" (focus)="OnselectText('#usercompany')" id="usercompany"   style="text-align: right;" [(ngModel)]="mod.model.mcs_company"/>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row class="row">
+    <ion-col size="4" class="lable">
+      出生年月
+    </ion-col>
+    <ion-col size="8">
+      <ion-datetime displayFormat="YYYY-MM-DD" style="text-align: right;" min="1997" placeholder="请输入出生年月"
+        cancelText="取消" doneText="确定" [(ngModel)]="mod.model.mcs_birthday"></ion-datetime>
+    </ion-col>
+  </ion-row>
+  <ion-row class="row">
+    <ion-col size="4" class="lable">
+      性别
+    </ion-col>
+    <ion-col size="8">
+      <ion-select interface="popover" placeholder="请选择性别" style="text-align: right;" cancelText="取消" okText="确定"
+        [(ngModel)]="mod.model.mcs_gender">
+        <ion-select-option *ngFor="let item of mod.genderArray" [value]="item.value">
+          {{item.name}}
+        </ion-select-option>
+      </ion-select>
+    </ion-col>
+  </ion-row>
+  <ion-row class="row">
+    <ion-col size="4" class="lable">
+      婚姻状况
+    </ion-col>
+    <ion-col size="8">
+      <ion-select interface="popover" placeholder="请选择婚姻状况" style="text-align: right;" cancelText="取消" okText="确定"
+        [(ngModel)]="mod.model.mcs_marriagestatus">
+        <ion-select-option *ngFor="let item of mod.marriagestatusArray" [value]="item.value">
+          {{item.name}}
+        </ion-select-option>
+      </ion-select>
+    </ion-col>
+  </ion-row>
+  <ion-row class="row">
+    <ion-col size="4" class="lable">
+      个性化签名
+    </ion-col>
+    <ion-col size="8">
+      <ion-textarea style="height: 80px;" [(ngModel)]="mod.model.mcs_signature">
+      </ion-textarea>
+    </ion-col>
+  </ion-row>
+  <ion-row class="row">
+    <ion-col size="4" class="lable">
+      个人说明
+    </ion-col>
+    <ion-col size="8">
+      <ion-textarea style="height: 100px;" [(ngModel)]="mod.model.mcs_description">
+      </ion-textarea>
+    </ion-col>
+  </ion-row>
+  <div class="ion-padding">
+    <ion-button expand="block" type="button" (click)="onPost()"
+      class="ion-no-margin ios button button-block button-solid ion-activatable ion-focusable hydrated">
+      提交
+    </ion-button>
+  </div>
+</ion-content>
