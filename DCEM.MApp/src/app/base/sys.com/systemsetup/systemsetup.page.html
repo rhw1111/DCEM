@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
       <ion-buttons slot="start">
-          <ion-back-button text="返回" defaultHref="/serving/home/mywork"></ion-back-button>
+          <ion-back-button text="返回" defaultHref="/"></ion-back-button>
       </ion-buttons>
       <ion-title>系统设置</ion-title>
   </ion-toolbar>
@@ -10,7 +10,7 @@
   <ion-list lines="full">           
   </ion-list>
   <ion-list lines="full">
-      <ion-item [routerLink]="['/serving/home/message-settings']">
+      <ion-item [routerLink]="['/base/sys/message-settings']">
           <ion-icon  color="primary" slot="start" name="volume-high" size="large"></ion-icon>
           <ion-label>
               <h3>消息通知设置</h3>
@@ -18,7 +18,7 @@
       </ion-item>    
   </ion-list>
   <ion-list lines="full">
-        <ion-item [routerLink]="['/serving/home/change-password']">
+        <ion-item [routerLink]="['/base/sys/change-password']">
             <ion-icon  color="primary"  slot="start" name="clipboard" size="large"></ion-icon>
             <ion-label>
                 <h3>修改密码</h3>
@@ -26,24 +26,24 @@
         </ion-item>
   </ion-list>
   <ion-list lines="full">
-        <ion-item [routerLink]="">
+        <ion-item (click)="clearCache()" >
                 <ion-icon  color="primary" slot="start" name="logo-buffer" size="large"></ion-icon>
                 <ion-label>
                     <h3>清除缓存</h3>
                 </ion-label>
                 <ion-note slot="end" >                     
-                  <p>10M</p>   
+                  <p>{{mod.CacheSize}} M</p>   
                 </ion-note>
         </ion-item>
   </ion-list>
   <ion-list >
-        <ion-item [routerLink]="['/serving/home/about']">
+        <ion-item [routerLink]="['/base/sys/about']">
             <ion-icon  color="primary"  slot="start" name="logo-octocat" size="large"></ion-icon>
             <ion-label>
                 <h3>关于</h3>
             </ion-label>
             <ion-note slot="end" >                     
-                    <p>版本1.01</p>   
+                    <p>版本 0.0.1</p>   
             </ion-note>
         </ion-item>
   </ion-list>

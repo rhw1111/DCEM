@@ -10,6 +10,11 @@ export class SystemsetupPage implements OnInit {
   state = {
     modal1: false
   };
+
+  public mod:any={
+    CacheSize:13.5,//缓存大小
+  };
+
   constructor(
     private _page: DCore_Page
   ) { }
@@ -29,6 +34,10 @@ export class SystemsetupPage implements OnInit {
 
     this._page.goto("/base/uc/login");
     
+  }
+
+  clearCache(){
+    this.mod.CacheSize=0;
   }
 
   renderHeader(){

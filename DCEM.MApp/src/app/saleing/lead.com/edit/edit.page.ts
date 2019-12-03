@@ -45,7 +45,7 @@ export class EditPage implements OnInit {
             score: -1,
             describe: "",
             userid: this._userinfo.GetSystemUserId(),
-            dealerid: "3EFBFFF6-EF1A-E911-A821-A4A314186A20",//this._userinfo.GetDealerid()
+            dealerid: this._userinfo.GetDealerid()
         }
     }
     public CustomerTagModel: any = {
