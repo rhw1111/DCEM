@@ -8,6 +8,7 @@ import { IonContent, IonInfiniteScroll } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { SelectSystemuserComponent } from 'app/base/base.ser/components/select-systemuser/select-systemuser.component';
 import { throwError } from 'rxjs';
+import sd from 'silly-datetime';
 
 @Component({
     selector: 'app-detail',
@@ -366,6 +367,14 @@ pageOnActivitylist() {
     );
 }
 
+FormatToDateTime(date) {
+    if (date != null && date != undefined) {
+        return sd.format(date, 'YYYY-MM-DD');
+    }
+    else {
+        return '';
+    }
+}
 //     /**
 //      * 加载logcall记录
 //      */

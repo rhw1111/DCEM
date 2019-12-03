@@ -162,7 +162,7 @@ var ListPage = /** @class */ (function () {
                             "Id": value.accountid,
                             "name": value.name,
                             "accountnumber": value.accountnumber,
-                            "mcs_mobilephone": value.mcs_mobilephone == "" ? "--" : value.mcs_mobilephon,
+                            "mcs_mobilephone": value.mcs_mobilephone == "" ? "--" : value.mcs_mobilephone,
                             "mcs_customerstatus": _this.optionset.GetOptionSetNameByValue("mcs_customerstatus", value.mcs_customerstatus),
                             "createdon": value.createdon
                         });

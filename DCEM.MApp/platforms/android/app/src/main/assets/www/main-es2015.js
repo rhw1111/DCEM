@@ -28,6 +28,22 @@ var map = {
 		"./src/app/base/message.com/room/room.module.ts",
 		"base-message-com-room-room-module"
 	],
+	"./base/sys.com/about/about.module": [
+		"./src/app/base/sys.com/about/about.module.ts",
+		"base-sys-com-about-about-module"
+	],
+	"./base/sys.com/change-password/change-password.module": [
+		"./src/app/base/sys.com/change-password/change-password.module.ts",
+		"base-sys-com-change-password-change-password-module"
+	],
+	"./base/sys.com/message-settings/message-settings.module": [
+		"./src/app/base/sys.com/message-settings/message-settings.module.ts",
+		"base-sys-com-message-settings-message-settings-module"
+	],
+	"./base/sys.com/systemsetup/systemsetup.module": [
+		"./src/app/base/sys.com/systemsetup/systemsetup.module.ts",
+		"base-sys-com-systemsetup-systemsetup-module"
+	],
 	"./base/uc.com/detail/detail.module": [
 		"./src/app/base/uc.com/detail/detail.module.ts",
 		"base-uc-com-detail-detail-module"
@@ -201,7 +217,6 @@ var map = {
 	"./saleing/mcs_driverecord.com/list/list.module": [
 		"./src/app/saleing/mcs_driverecord.com/list/list.module.ts",
 		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
-		"common",
 		"saleing-mcs_driverecord-com-list-list-module"
 	],
 	"./saleing/mcs_driverecord.com/success/success.module": [
@@ -267,21 +282,9 @@ var map = {
 		"./src/app/saleing/vehnetwork/success/success.module.ts",
 		"saleing-vehnetwork-success-success-module"
 	],
-	"./serving/home.com/about/about.module": [
-		"./src/app/serving/home.com/about/about.module.ts",
-		"serving-home-com-about-about-module"
-	],
-	"./serving/home.com/change-password/change-password.module": [
-		"./src/app/serving/home.com/change-password/change-password.module.ts",
-		"serving-home-com-change-password-change-password-module"
-	],
 	"./serving/home.com/index/index.module": [
 		"./src/app/serving/home.com/index/index.module.ts",
 		"index-index-module"
-	],
-	"./serving/home.com/message-settings/message-settings.module": [
-		"./src/app/serving/home.com/message-settings/message-settings.module.ts",
-		"serving-home-com-message-settings-message-settings-module"
 	],
 	"./serving/home.com/message/message.module": [
 		"./src/app/serving/home.com/message/message.module.ts",
@@ -290,10 +293,6 @@ var map = {
 	"./serving/home.com/mywork/mywork.module": [
 		"./src/app/serving/home.com/mywork/mywork.module.ts",
 		"mywork-mywork-module"
-	],
-	"./serving/home.com/systemsetup/systemsetup.module": [
-		"./src/app/serving/home.com/systemsetup/systemsetup.module.ts",
-		"serving-home-com-systemsetup-systemsetup-module"
 	],
 	"./serving/home.com/tabs/tabs.module": [
 		"./src/app/serving/home.com/tabs/tabs.module.ts",
@@ -332,22 +331,6 @@ var map = {
 	"./serving/mc-reservation.com/success/success.module": [
 		"./src/app/serving/mc-reservation.com/success/success.module.ts",
 		"serving-mc-reservation-com-success-success-module"
-	],
-	"./serving/mc-resume.com/detail/detail.module": [
-		"./src/app/serving/mc-resume.com/detail/detail.module.ts",
-		"serving-mc-resume-com-detail-detail-module"
-	],
-	"./serving/mc-resume.com/edit/edit.module": [
-		"./src/app/serving/mc-resume.com/edit/edit.module.ts",
-		"serving-mc-resume-com-edit-edit-module"
-	],
-	"./serving/mc-resume.com/list/list.module": [
-		"./src/app/serving/mc-resume.com/list/list.module.ts",
-		"serving-mc-resume-com-list-list-module"
-	],
-	"./serving/mc-resume.com/success/success.module": [
-		"./src/app/serving/mc-resume.com/success/success.module.ts",
-		"serving-mc-resume-com-success-success-module"
 	],
 	"./serving/mc-sc.com/detail/detail.module": [
 		"./src/app/serving/mc-sc.com/detail/detail.module.ts",
@@ -388,10 +371,6 @@ var map = {
 	"./serving/my-customer.com/list/list.module": [
 		"./src/app/serving/my-customer.com/list/list.module.ts",
 		"serving-my-customer-com-list-list-module"
-	],
-	"./serving/my-customer.com/select/select.module": [
-		"./src/app/serving/my-customer.com/select/select.module.ts",
-		"serving-my-customer-com-select-select-module"
 	],
 	"./serving/reception-interrogation.com/detail/detail.module": [
 		"./src/app/serving/reception-interrogation.com/detail/detail.module.ts",
@@ -450,7 +429,6 @@ var map = {
 	],
 	"./serving/technical-support.com/edit/edit.module": [
 		"./src/app/serving/technical-support.com/edit/edit.module.ts",
-		"common",
 		"serving-technical-support-com-edit-edit-module"
 	],
 	"./serving/technical-support.com/list/list.module": [
@@ -903,7 +881,7 @@ module.exports = webpackAsyncContext;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\r\n    <ion-split-pane>\r\n      <ion-menu type=\"overlay\" menuId=\"homeMenu\">\r\n        <ion-header>\r\n          <ion-toolbar>\r\n            <!-- <ion-avatar item-start>\r\n              <img src=\"{{headpicture}}\" />\r\n            </ion-avatar> -->\r\n            <ion-title style=\"text-align: left;\">张云，你好!</ion-title>\r\n          </ion-toolbar>\r\n        </ion-header>\r\n        <ion-content>\r\n          <ion-list>\r\n            <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of appPages\">\r\n              <ion-item [routerDirection]=\"'root'\" [routerLink]=\"[p.url]\">\r\n                <ion-icon  color=\"primary\"  slot=\"start\" [name]=\"p.icon\"></ion-icon>\r\n                <ion-label>\r\n                  {{p.title}}\r\n                </ion-label>\r\n                <ion-badge *ngIf=\"p.num>0\" color=\"danger\" >{{p.num}}</ion-badge>\r\n              </ion-item>\r\n            </ion-menu-toggle>\r\n            <ion-item (click)=\"loginout()\">\r\n                <ion-icon  color=\"danger\" slot=\"start\" name=\"log-out\"></ion-icon>\r\n                <ion-label>\r\n                  注销\r\n                </ion-label>\r\n            </ion-item>\r\n          </ion-list>\r\n        </ion-content>\r\n      </ion-menu>\r\n      <ion-router-outlet main></ion-router-outlet>\r\n    </ion-split-pane>\r\n  </ion-app>\r\n<!-- \r\n<ion-app>\r\n    <ion-router-outlet></ion-router-outlet>\r\n</ion-app>\r\n -->\r\n"
+module.exports = "<ion-app>\r\n    <ion-split-pane>\r\n      <ion-menu type=\"overlay\" menuId=\"homeMenu\">\r\n        <ion-header>\r\n          <ion-toolbar>\r\n            <ion-title style=\"text-align: left;\">张云，你好!</ion-title>\r\n          </ion-toolbar>\r\n        </ion-header>\r\n        <ion-content>\r\n          <ion-list>\r\n            <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of appPages\">\r\n              <ion-item [routerDirection]=\"'root'\" [routerLink]=\"[p.url]\">\r\n                <ion-icon  color=\"primary\"  slot=\"start\" [name]=\"p.icon\"></ion-icon>\r\n                <ion-label>\r\n                  {{p.title}}\r\n                </ion-label>\r\n                <ion-badge *ngIf=\"p.num>0\" color=\"danger\" >{{p.num}}</ion-badge>\r\n              </ion-item>\r\n            </ion-menu-toggle>\r\n            <ion-item (click)=\"loginout()\">\r\n                <ion-icon  color=\"danger\" slot=\"start\" name=\"log-out\"></ion-icon>\r\n                <ion-label>\r\n                  注销\r\n                </ion-label>\r\n            </ion-item>\r\n          </ion-list>\r\n        </ion-content>\r\n      </ion-menu>\r\n      <ion-router-outlet main></ion-router-outlet>\r\n    </ion-split-pane>\r\n  </ion-app>\r\n"
 
 /***/ }),
 
@@ -1175,6 +1153,15 @@ const routes = [
                     { path: 'room', loadChildren: './base/message.com/room/room.module#RoomPageModule' },
                     { path: 'activities', loadChildren: './base/message.com/activities/activities.module#ActivitiesPageModule' },
                 ]
+            },
+            {
+                path: 'sys',
+                children: [
+                    { path: 'systemsetup', loadChildren: './base/sys.com/systemsetup/systemsetup.module#SystemsetupPageModule' },
+                    { path: 'about', loadChildren: './base/sys.com/about/about.module#AboutPageModule' },
+                    { path: 'change-password', loadChildren: './base/sys.com/change-password/change-password.module#ChangePasswordPageModule' },
+                    { path: 'message-settings', loadChildren: './base/sys.com/message-settings/message-settings.module#MessageSettingsPageModule' },
+                ]
             }
         ]
     },
@@ -1188,10 +1175,6 @@ const routes = [
                     { path: 'tabs', loadChildren: './serving/home.com/tabs/tabs.module#TabsPageModule' },
                     { path: 'mywork', loadChildren: './serving/home.com/mywork/mywork.module#MyworkPageModule' },
                     { path: 'message', loadChildren: './serving/home.com/message/message.module#MessagePageModule' },
-                    { path: 'systemsetup', loadChildren: './serving/home.com/systemsetup/systemsetup.module#SystemsetupPageModule' },
-                    { path: 'about', loadChildren: './serving/home.com/about/about.module#AboutPageModule' },
-                    { path: 'change-password', loadChildren: './serving/home.com/change-password/change-password.module#ChangePasswordPageModule' },
-                    { path: 'message-settings', loadChildren: './serving/home.com/message-settings/message-settings.module#MessageSettingsPageModule' }
                 ]
             },
             {
@@ -1199,7 +1182,6 @@ const routes = [
                 children: [
                     { path: 'list', loadChildren: './serving/my-customer.com/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './serving/my-customer.com/detail/detail.module#DetailPageModule' },
-                    { path: 'select', loadChildren: './serving/my-customer.com/select/select.module#SelectPageModule' },
                     { path: 'edit', loadChildren: './serving/my-customer.com/edit/edit.module#EditPageModule' }
                 ]
             },
@@ -1224,15 +1206,6 @@ const routes = [
                     { path: 'subeditworking', loadChildren: './serving/mc-sc.com/subeditworking/subeditworking.module#SubeditworkingPageModule' },
                     { path: 'subeditpart', loadChildren: './serving/mc-sc.com/subeditpart/subeditpart.module#SubeditpartPageModule' },
                     { path: 'success', loadChildren: './serving/mc-sc.com/success/success.module#SuccessPageModule' }
-                ]
-            },
-            {
-                path: 'resume',
-                children: [
-                    { path: 'list', loadChildren: './serving/mc-resume.com/list/list.module#ListPageModule' },
-                    { path: 'detail', loadChildren: './serving/mc-resume.com/detail/detail.module#DetailPageModule' },
-                    { path: 'edit', loadChildren: './serving/mc-resume.com/edit/edit.module#EditPageModule' },
-                    { path: 'success', loadChildren: './serving/mc-resume.com/success/success.module#SuccessPageModule' }
                 ]
             },
             {
@@ -1411,10 +1384,6 @@ const routes = [
     { path: 'list', loadChildren: './saleing/mcs_installationorder/list/list.module#ListPageModule' },
     { path: 'detail', loadChildren: './saleing/mcs_installationorder/detail/detail.module#DetailPageModule' },
     { path: 'success', loadChildren: './saleing/mcs-contactrecord/success/success.module#SuccessPageModule' },
-    { path: 'systemsetup', loadChildren: './serving/home.com/systemsetup/systemsetup.module#SystemsetupPageModule' },
-    { path: 'about', loadChildren: './serving/home.com/about/about.module#AboutPageModule' },
-    { path: 'change-password', loadChildren: './serving/home.com/change-password/change-password.module#ChangePasswordPageModule' },
-    { path: 'message-settings', loadChildren: './serving/home.com/message-settings/message-settings.module#MessageSettingsPageModule' },
 ];
 let AppRoutingModule = class AppRoutingModule {
 };
@@ -1508,7 +1477,12 @@ let AppComponent = class AppComponent {
     }
     initializeApp() {
         this.platform.ready().then(() => {
+            //样式设置
             this.statusBar.styleDefault();
+            //隐藏启动页,防止白屏
+            this.splashScreen.hide();
+            //是否重叠
+            this.statusBar.overlaysWebView(false);
             /** 设置智能竖屏*/
             this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY);
             if (location.href.indexOf('base/uc/welcome') == -1) {
@@ -1611,33 +1585,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm2015/ionic-storage.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
-/* harmony import */ var _serving_serving_ser_components_sc_select_sc_select_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./serving/serving.ser/components/sc-select/sc-select.component */ "./src/app/serving/serving.ser/components/sc-select/sc-select.component.ts");
-/* harmony import */ var app_serving_serving_ser_components_select_customer_select_customer_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! app/serving/serving.ser/components/select-customer/select-customer.component */ "./src/app/serving/serving.ser/components/select-customer/select-customer.component.ts");
-/* harmony import */ var app_serving_serving_ser_components_select_customer_edit_select_customer_edit_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! app/serving/serving.ser/components/select-customer-edit/select-customer-edit.component */ "./src/app/serving/serving.ser/components/select-customer-edit/select-customer-edit.component.ts");
-/* harmony import */ var app_serving_serving_ser_components_select_repairlocation_select_repairlocation_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! app/serving/serving.ser/components/select-repairlocation/select-repairlocation.component */ "./src/app/serving/serving.ser/components/select-repairlocation/select-repairlocation.component.ts");
-/* harmony import */ var app_serving_serving_ser_components_select_carmodel_select_carmodel_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! app/serving/serving.ser/components/select-carmodel/select-carmodel.component */ "./src/app/serving/serving.ser/components/select-carmodel/select-carmodel.component.ts");
-/* harmony import */ var app_base_base_ser_components_select_systemuser_select_systemuser_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! app/base/base.ser/components/select-systemuser/select-systemuser.component */ "./src/app/base/base.ser/components/select-systemuser/select-systemuser.component.ts");
-/* harmony import */ var app_serving_serving_ser_components_select_maintenance_select_maintenance_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! app/serving/serving.ser/components/select-maintenance/select-maintenance.component */ "./src/app/serving/serving.ser/components/select-maintenance/select-maintenance.component.ts");
-/* harmony import */ var app_serving_serving_ser_components_select_appointmentconfig_select_appointmentconfig_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! app/serving/serving.ser/components/select-appointmentconfig/select-appointmentconfig.component */ "./src/app/serving/serving.ser/components/select-appointmentconfig/select-appointmentconfig.component.ts");
-/* harmony import */ var app_serving_serving_ser_components_select_parts_select_parts_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! app/serving/serving.ser/components/select-parts/select-parts.component */ "./src/app/serving/serving.ser/components/select-parts/select-parts.component.ts");
-/* harmony import */ var app_serving_serving_ser_components_select_repairitem_select_repairitem_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! app/serving/serving.ser/components/select-repairitem/select-repairitem.component */ "./src/app/serving/serving.ser/components/select-repairitem/select-repairitem.component.ts");
-/* harmony import */ var app_serving_serving_ser_components_select_malfunctiontype_select_malfunctiontype_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! app/serving/serving.ser/components/select-malfunctiontype/select.malfunctiontype.component */ "./src/app/serving/serving.ser/components/select-malfunctiontype/select.malfunctiontype.component.ts");
-/* harmony import */ var app_saleing_saleing_ser_components_select_receptioncommissioner_select_receptioncommissioner_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! app/saleing/saleing.ser/components/select-receptioncommissioner/select-receptioncommissioner.component */ "./src/app/saleing/saleing.ser/components/select-receptioncommissioner/select-receptioncommissioner.component.ts");
-/* harmony import */ var app_saleing_saleing_ser_components_select_reservationconfiguration_select_reservationconfiguration_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! app/saleing/saleing.ser/components/select-reservationconfiguration/select-reservationconfiguration.component */ "./src/app/saleing/saleing.ser/components/select-reservationconfiguration/select-reservationconfiguration.component.ts");
-/* harmony import */ var app_saleing_saleing_ser_components_select_sysarea_select_sysarea_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! app/saleing/saleing.ser/components/select-sysarea/select-sysarea.component */ "./src/app/saleing/saleing.ser/components/select-sysarea/select-sysarea.component.ts");
-/* harmony import */ var app_saleing_saleing_ser_components_select_vehiclecolor_select_vehiclecolor_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! app/saleing/saleing.ser/components/select-vehiclecolor/select-vehiclecolor.component */ "./src/app/saleing/saleing.ser/components/select-vehiclecolor/select-vehiclecolor.component.ts");
-/* harmony import */ var app_saleing_saleing_ser_components_select_vehicletype_select_vehicletype_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! app/saleing/saleing.ser/components/select-vehicletype/select-vehicletype.component */ "./src/app/saleing/saleing.ser/components/select-vehicletype/select-vehicletype.component.ts");
-/* harmony import */ var ng_zorro_antd_mobile__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ng-zorro-antd-mobile */ "./node_modules/ng-zorro-antd-mobile/fesm2015/ng-zorro-antd-mobile.js");
-/* harmony import */ var app_serving_serving_ser_components_select_repairitemtype_select_repairitemtype_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component */ "./src/app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component.ts");
-/* harmony import */ var app_serving_serving_ser_components_select_repairitemtypedetail_select_repairitemtypedetail_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component */ "./src/app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component.ts");
-/* harmony import */ var app_serving_serving_ser_components_select_appointmentinfo_select_appointmentinfo_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component */ "./src/app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component.ts");
-/* harmony import */ var app_serving_serving_ser_components_select_file_edit_select_file_edit_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! app/serving/serving.ser/components/select-file-edit/select-file-edit.component */ "./src/app/serving/serving.ser/components/select-file-edit/select-file-edit.component.ts");
-/* harmony import */ var app_base_base_ser_components_map_dragroute_dragroute_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! app/base/base.ser/components/map/dragroute/dragroute.component */ "./src/app/base/base.ser/components/map/dragroute/dragroute.component.ts");
-/* harmony import */ var _ionic_native_image_picker_ngx__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! @ionic-native/image-picker/ngx */ "./node_modules/@ionic-native/image-picker/ngx/index.js");
-/* harmony import */ var _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! @ionic-native/file-transfer/ngx */ "./node_modules/@ionic-native/file-transfer/ngx/index.js");
-/* harmony import */ var _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! @ionic-native/camera/ngx */ "./node_modules/@ionic-native/camera/ngx/index.js");
-/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/fesm2015/ng2-file-upload.js");
-/* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "./node_modules/@ionic-native/screen-orientation/ngx/index.js");
+/* harmony import */ var app_base_base_ser_global_error_handler__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! app/base/base.ser/global.error.handler */ "./src/app/base/base.ser/global.error.handler.ts");
+/* harmony import */ var _serving_serving_ser_components_sc_select_sc_select_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./serving/serving.ser/components/sc-select/sc-select.component */ "./src/app/serving/serving.ser/components/sc-select/sc-select.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_customer_select_customer_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! app/serving/serving.ser/components/select-customer/select-customer.component */ "./src/app/serving/serving.ser/components/select-customer/select-customer.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_customer_edit_select_customer_edit_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! app/serving/serving.ser/components/select-customer-edit/select-customer-edit.component */ "./src/app/serving/serving.ser/components/select-customer-edit/select-customer-edit.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_repairlocation_select_repairlocation_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! app/serving/serving.ser/components/select-repairlocation/select-repairlocation.component */ "./src/app/serving/serving.ser/components/select-repairlocation/select-repairlocation.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_carmodel_select_carmodel_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! app/serving/serving.ser/components/select-carmodel/select-carmodel.component */ "./src/app/serving/serving.ser/components/select-carmodel/select-carmodel.component.ts");
+/* harmony import */ var app_base_base_ser_components_select_systemuser_select_systemuser_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! app/base/base.ser/components/select-systemuser/select-systemuser.component */ "./src/app/base/base.ser/components/select-systemuser/select-systemuser.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_maintenance_select_maintenance_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! app/serving/serving.ser/components/select-maintenance/select-maintenance.component */ "./src/app/serving/serving.ser/components/select-maintenance/select-maintenance.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_appointmentconfig_select_appointmentconfig_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! app/serving/serving.ser/components/select-appointmentconfig/select-appointmentconfig.component */ "./src/app/serving/serving.ser/components/select-appointmentconfig/select-appointmentconfig.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_parts_select_parts_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! app/serving/serving.ser/components/select-parts/select-parts.component */ "./src/app/serving/serving.ser/components/select-parts/select-parts.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_repairitem_select_repairitem_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! app/serving/serving.ser/components/select-repairitem/select-repairitem.component */ "./src/app/serving/serving.ser/components/select-repairitem/select-repairitem.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_malfunctiontype_select_malfunctiontype_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! app/serving/serving.ser/components/select-malfunctiontype/select.malfunctiontype.component */ "./src/app/serving/serving.ser/components/select-malfunctiontype/select.malfunctiontype.component.ts");
+/* harmony import */ var app_saleing_saleing_ser_components_select_receptioncommissioner_select_receptioncommissioner_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! app/saleing/saleing.ser/components/select-receptioncommissioner/select-receptioncommissioner.component */ "./src/app/saleing/saleing.ser/components/select-receptioncommissioner/select-receptioncommissioner.component.ts");
+/* harmony import */ var app_saleing_saleing_ser_components_select_reservationconfiguration_select_reservationconfiguration_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! app/saleing/saleing.ser/components/select-reservationconfiguration/select-reservationconfiguration.component */ "./src/app/saleing/saleing.ser/components/select-reservationconfiguration/select-reservationconfiguration.component.ts");
+/* harmony import */ var app_saleing_saleing_ser_components_select_sysarea_select_sysarea_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! app/saleing/saleing.ser/components/select-sysarea/select-sysarea.component */ "./src/app/saleing/saleing.ser/components/select-sysarea/select-sysarea.component.ts");
+/* harmony import */ var app_saleing_saleing_ser_components_select_vehiclecolor_select_vehiclecolor_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! app/saleing/saleing.ser/components/select-vehiclecolor/select-vehiclecolor.component */ "./src/app/saleing/saleing.ser/components/select-vehiclecolor/select-vehiclecolor.component.ts");
+/* harmony import */ var app_saleing_saleing_ser_components_select_vehicletype_select_vehicletype_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! app/saleing/saleing.ser/components/select-vehicletype/select-vehicletype.component */ "./src/app/saleing/saleing.ser/components/select-vehicletype/select-vehicletype.component.ts");
+/* harmony import */ var ng_zorro_antd_mobile__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ng-zorro-antd-mobile */ "./node_modules/ng-zorro-antd-mobile/fesm2015/ng-zorro-antd-mobile.js");
+/* harmony import */ var app_serving_serving_ser_components_select_repairitemtype_select_repairitemtype_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component */ "./src/app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_repairitemtypedetail_select_repairitemtypedetail_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component */ "./src/app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_appointmentinfo_select_appointmentinfo_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component */ "./src/app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_file_edit_select_file_edit_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! app/serving/serving.ser/components/select-file-edit/select-file-edit.component */ "./src/app/serving/serving.ser/components/select-file-edit/select-file-edit.component.ts");
+/* harmony import */ var app_base_base_ser_components_map_dragroute_dragroute_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! app/base/base.ser/components/map/dragroute/dragroute.component */ "./src/app/base/base.ser/components/map/dragroute/dragroute.component.ts");
+/* harmony import */ var _ionic_native_image_picker_ngx__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! @ionic-native/image-picker/ngx */ "./node_modules/@ionic-native/image-picker/ngx/index.js");
+/* harmony import */ var _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! @ionic-native/file-transfer/ngx */ "./node_modules/@ionic-native/file-transfer/ngx/index.js");
+/* harmony import */ var _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! @ionic-native/camera/ngx */ "./node_modules/@ionic-native/camera/ngx/index.js");
+/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/fesm2015/ng2-file-upload.js");
+/* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "./node_modules/@ionic-native/screen-orientation/ngx/index.js");
+
 
 
 
@@ -1684,72 +1660,73 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
         declarations: [
             _app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"],
-            _serving_serving_ser_components_sc_select_sc_select_component__WEBPACK_IMPORTED_MODULE_12__["ScSelectComponent"],
-            app_serving_serving_ser_components_select_customer_select_customer_component__WEBPACK_IMPORTED_MODULE_13__["SelectCustomerComponent"],
-            app_serving_serving_ser_components_select_customer_edit_select_customer_edit_component__WEBPACK_IMPORTED_MODULE_14__["SelectCustomerEditComponent"],
-            app_serving_serving_ser_components_select_repairlocation_select_repairlocation_component__WEBPACK_IMPORTED_MODULE_15__["SelectRepairlocationComponent"],
-            app_serving_serving_ser_components_select_carmodel_select_carmodel_component__WEBPACK_IMPORTED_MODULE_16__["SelectCarmodelComponent"],
-            app_serving_serving_ser_components_select_maintenance_select_maintenance_component__WEBPACK_IMPORTED_MODULE_18__["SelectMaintenanceComponent"],
-            app_base_base_ser_components_select_systemuser_select_systemuser_component__WEBPACK_IMPORTED_MODULE_17__["SelectSystemuserComponent"],
-            app_serving_serving_ser_components_select_appointmentconfig_select_appointmentconfig_component__WEBPACK_IMPORTED_MODULE_19__["SelectAppointmentconfigComponent"],
-            app_serving_serving_ser_components_select_malfunctiontype_select_malfunctiontype_component__WEBPACK_IMPORTED_MODULE_22__["SelectMalFunctionTypeComponent"],
-            app_serving_serving_ser_components_select_parts_select_parts_component__WEBPACK_IMPORTED_MODULE_20__["SelectPartsComponent"],
-            app_serving_serving_ser_components_select_repairitem_select_repairitem_component__WEBPACK_IMPORTED_MODULE_21__["SelectRepairitemComponent"],
-            app_serving_serving_ser_components_select_malfunctiontype_select_malfunctiontype_component__WEBPACK_IMPORTED_MODULE_22__["SelectMalFunctionTypeComponent"],
-            app_saleing_saleing_ser_components_select_vehicletype_select_vehicletype_component__WEBPACK_IMPORTED_MODULE_27__["SelectVehicletypeComponent"],
-            app_saleing_saleing_ser_components_select_receptioncommissioner_select_receptioncommissioner_component__WEBPACK_IMPORTED_MODULE_23__["SelectReceptioncommissionerComponent"],
-            app_saleing_saleing_ser_components_select_reservationconfiguration_select_reservationconfiguration_component__WEBPACK_IMPORTED_MODULE_24__["SelectReservationconfigurationComponent"],
-            app_saleing_saleing_ser_components_select_sysarea_select_sysarea_component__WEBPACK_IMPORTED_MODULE_25__["SelectSysareaComponent"],
-            app_saleing_saleing_ser_components_select_vehiclecolor_select_vehiclecolor_component__WEBPACK_IMPORTED_MODULE_26__["SelectVehiclecolorComponent"],
-            app_serving_serving_ser_components_select_repairitemtype_select_repairitemtype_component__WEBPACK_IMPORTED_MODULE_29__["SelectRepairitemtypeComponent"],
-            app_serving_serving_ser_components_select_repairitemtypedetail_select_repairitemtypedetail_component__WEBPACK_IMPORTED_MODULE_30__["SelectRepairitemtypedetailComponent"],
-            app_serving_serving_ser_components_select_appointmentinfo_select_appointmentinfo_component__WEBPACK_IMPORTED_MODULE_31__["SelectAppointmentinfoComponent"],
-            app_serving_serving_ser_components_select_file_edit_select_file_edit_component__WEBPACK_IMPORTED_MODULE_32__["SelectFileEditComponent"],
-            app_base_base_ser_components_map_dragroute_dragroute_component__WEBPACK_IMPORTED_MODULE_33__["DragrouteComponent"]
+            _serving_serving_ser_components_sc_select_sc_select_component__WEBPACK_IMPORTED_MODULE_13__["ScSelectComponent"],
+            app_serving_serving_ser_components_select_customer_select_customer_component__WEBPACK_IMPORTED_MODULE_14__["SelectCustomerComponent"],
+            app_serving_serving_ser_components_select_customer_edit_select_customer_edit_component__WEBPACK_IMPORTED_MODULE_15__["SelectCustomerEditComponent"],
+            app_serving_serving_ser_components_select_repairlocation_select_repairlocation_component__WEBPACK_IMPORTED_MODULE_16__["SelectRepairlocationComponent"],
+            app_serving_serving_ser_components_select_carmodel_select_carmodel_component__WEBPACK_IMPORTED_MODULE_17__["SelectCarmodelComponent"],
+            app_serving_serving_ser_components_select_maintenance_select_maintenance_component__WEBPACK_IMPORTED_MODULE_19__["SelectMaintenanceComponent"],
+            app_base_base_ser_components_select_systemuser_select_systemuser_component__WEBPACK_IMPORTED_MODULE_18__["SelectSystemuserComponent"],
+            app_serving_serving_ser_components_select_appointmentconfig_select_appointmentconfig_component__WEBPACK_IMPORTED_MODULE_20__["SelectAppointmentconfigComponent"],
+            app_serving_serving_ser_components_select_malfunctiontype_select_malfunctiontype_component__WEBPACK_IMPORTED_MODULE_23__["SelectMalFunctionTypeComponent"],
+            app_serving_serving_ser_components_select_parts_select_parts_component__WEBPACK_IMPORTED_MODULE_21__["SelectPartsComponent"],
+            app_serving_serving_ser_components_select_repairitem_select_repairitem_component__WEBPACK_IMPORTED_MODULE_22__["SelectRepairitemComponent"],
+            app_serving_serving_ser_components_select_malfunctiontype_select_malfunctiontype_component__WEBPACK_IMPORTED_MODULE_23__["SelectMalFunctionTypeComponent"],
+            app_saleing_saleing_ser_components_select_vehicletype_select_vehicletype_component__WEBPACK_IMPORTED_MODULE_28__["SelectVehicletypeComponent"],
+            app_saleing_saleing_ser_components_select_receptioncommissioner_select_receptioncommissioner_component__WEBPACK_IMPORTED_MODULE_24__["SelectReceptioncommissionerComponent"],
+            app_saleing_saleing_ser_components_select_reservationconfiguration_select_reservationconfiguration_component__WEBPACK_IMPORTED_MODULE_25__["SelectReservationconfigurationComponent"],
+            app_saleing_saleing_ser_components_select_sysarea_select_sysarea_component__WEBPACK_IMPORTED_MODULE_26__["SelectSysareaComponent"],
+            app_saleing_saleing_ser_components_select_vehiclecolor_select_vehiclecolor_component__WEBPACK_IMPORTED_MODULE_27__["SelectVehiclecolorComponent"],
+            app_serving_serving_ser_components_select_repairitemtype_select_repairitemtype_component__WEBPACK_IMPORTED_MODULE_30__["SelectRepairitemtypeComponent"],
+            app_serving_serving_ser_components_select_repairitemtypedetail_select_repairitemtypedetail_component__WEBPACK_IMPORTED_MODULE_31__["SelectRepairitemtypedetailComponent"],
+            app_serving_serving_ser_components_select_appointmentinfo_select_appointmentinfo_component__WEBPACK_IMPORTED_MODULE_32__["SelectAppointmentinfoComponent"],
+            app_serving_serving_ser_components_select_file_edit_select_file_edit_component__WEBPACK_IMPORTED_MODULE_33__["SelectFileEditComponent"],
+            app_base_base_ser_components_map_dragroute_dragroute_component__WEBPACK_IMPORTED_MODULE_34__["DragrouteComponent"]
         ],
         entryComponents: [
-            _serving_serving_ser_components_sc_select_sc_select_component__WEBPACK_IMPORTED_MODULE_12__["ScSelectComponent"],
-            app_serving_serving_ser_components_select_customer_select_customer_component__WEBPACK_IMPORTED_MODULE_13__["SelectCustomerComponent"],
-            app_serving_serving_ser_components_select_customer_edit_select_customer_edit_component__WEBPACK_IMPORTED_MODULE_14__["SelectCustomerEditComponent"],
-            app_serving_serving_ser_components_select_repairlocation_select_repairlocation_component__WEBPACK_IMPORTED_MODULE_15__["SelectRepairlocationComponent"],
-            app_serving_serving_ser_components_select_carmodel_select_carmodel_component__WEBPACK_IMPORTED_MODULE_16__["SelectCarmodelComponent"],
-            app_serving_serving_ser_components_select_maintenance_select_maintenance_component__WEBPACK_IMPORTED_MODULE_18__["SelectMaintenanceComponent"],
-            app_base_base_ser_components_select_systemuser_select_systemuser_component__WEBPACK_IMPORTED_MODULE_17__["SelectSystemuserComponent"],
-            app_serving_serving_ser_components_select_appointmentconfig_select_appointmentconfig_component__WEBPACK_IMPORTED_MODULE_19__["SelectAppointmentconfigComponent"],
-            app_serving_serving_ser_components_select_malfunctiontype_select_malfunctiontype_component__WEBPACK_IMPORTED_MODULE_22__["SelectMalFunctionTypeComponent"],
-            app_serving_serving_ser_components_select_parts_select_parts_component__WEBPACK_IMPORTED_MODULE_20__["SelectPartsComponent"],
-            app_serving_serving_ser_components_select_repairitem_select_repairitem_component__WEBPACK_IMPORTED_MODULE_21__["SelectRepairitemComponent"],
-            app_serving_serving_ser_components_select_malfunctiontype_select_malfunctiontype_component__WEBPACK_IMPORTED_MODULE_22__["SelectMalFunctionTypeComponent"],
-            app_saleing_saleing_ser_components_select_vehicletype_select_vehicletype_component__WEBPACK_IMPORTED_MODULE_27__["SelectVehicletypeComponent"],
-            app_saleing_saleing_ser_components_select_receptioncommissioner_select_receptioncommissioner_component__WEBPACK_IMPORTED_MODULE_23__["SelectReceptioncommissionerComponent"],
-            app_saleing_saleing_ser_components_select_reservationconfiguration_select_reservationconfiguration_component__WEBPACK_IMPORTED_MODULE_24__["SelectReservationconfigurationComponent"],
-            app_saleing_saleing_ser_components_select_sysarea_select_sysarea_component__WEBPACK_IMPORTED_MODULE_25__["SelectSysareaComponent"],
-            app_saleing_saleing_ser_components_select_vehiclecolor_select_vehiclecolor_component__WEBPACK_IMPORTED_MODULE_26__["SelectVehiclecolorComponent"],
-            app_serving_serving_ser_components_select_repairitemtype_select_repairitemtype_component__WEBPACK_IMPORTED_MODULE_29__["SelectRepairitemtypeComponent"],
-            app_serving_serving_ser_components_select_repairitemtypedetail_select_repairitemtypedetail_component__WEBPACK_IMPORTED_MODULE_30__["SelectRepairitemtypedetailComponent"],
-            app_serving_serving_ser_components_select_appointmentinfo_select_appointmentinfo_component__WEBPACK_IMPORTED_MODULE_31__["SelectAppointmentinfoComponent"],
-            app_serving_serving_ser_components_select_file_edit_select_file_edit_component__WEBPACK_IMPORTED_MODULE_32__["SelectFileEditComponent"],
-            app_base_base_ser_components_map_dragroute_dragroute_component__WEBPACK_IMPORTED_MODULE_33__["DragrouteComponent"]
+            _serving_serving_ser_components_sc_select_sc_select_component__WEBPACK_IMPORTED_MODULE_13__["ScSelectComponent"],
+            app_serving_serving_ser_components_select_customer_select_customer_component__WEBPACK_IMPORTED_MODULE_14__["SelectCustomerComponent"],
+            app_serving_serving_ser_components_select_customer_edit_select_customer_edit_component__WEBPACK_IMPORTED_MODULE_15__["SelectCustomerEditComponent"],
+            app_serving_serving_ser_components_select_repairlocation_select_repairlocation_component__WEBPACK_IMPORTED_MODULE_16__["SelectRepairlocationComponent"],
+            app_serving_serving_ser_components_select_carmodel_select_carmodel_component__WEBPACK_IMPORTED_MODULE_17__["SelectCarmodelComponent"],
+            app_serving_serving_ser_components_select_maintenance_select_maintenance_component__WEBPACK_IMPORTED_MODULE_19__["SelectMaintenanceComponent"],
+            app_base_base_ser_components_select_systemuser_select_systemuser_component__WEBPACK_IMPORTED_MODULE_18__["SelectSystemuserComponent"],
+            app_serving_serving_ser_components_select_appointmentconfig_select_appointmentconfig_component__WEBPACK_IMPORTED_MODULE_20__["SelectAppointmentconfigComponent"],
+            app_serving_serving_ser_components_select_malfunctiontype_select_malfunctiontype_component__WEBPACK_IMPORTED_MODULE_23__["SelectMalFunctionTypeComponent"],
+            app_serving_serving_ser_components_select_parts_select_parts_component__WEBPACK_IMPORTED_MODULE_21__["SelectPartsComponent"],
+            app_serving_serving_ser_components_select_repairitem_select_repairitem_component__WEBPACK_IMPORTED_MODULE_22__["SelectRepairitemComponent"],
+            app_serving_serving_ser_components_select_malfunctiontype_select_malfunctiontype_component__WEBPACK_IMPORTED_MODULE_23__["SelectMalFunctionTypeComponent"],
+            app_saleing_saleing_ser_components_select_vehicletype_select_vehicletype_component__WEBPACK_IMPORTED_MODULE_28__["SelectVehicletypeComponent"],
+            app_saleing_saleing_ser_components_select_receptioncommissioner_select_receptioncommissioner_component__WEBPACK_IMPORTED_MODULE_24__["SelectReceptioncommissionerComponent"],
+            app_saleing_saleing_ser_components_select_reservationconfiguration_select_reservationconfiguration_component__WEBPACK_IMPORTED_MODULE_25__["SelectReservationconfigurationComponent"],
+            app_saleing_saleing_ser_components_select_sysarea_select_sysarea_component__WEBPACK_IMPORTED_MODULE_26__["SelectSysareaComponent"],
+            app_saleing_saleing_ser_components_select_vehiclecolor_select_vehiclecolor_component__WEBPACK_IMPORTED_MODULE_27__["SelectVehiclecolorComponent"],
+            app_serving_serving_ser_components_select_repairitemtype_select_repairitemtype_component__WEBPACK_IMPORTED_MODULE_30__["SelectRepairitemtypeComponent"],
+            app_serving_serving_ser_components_select_repairitemtypedetail_select_repairitemtypedetail_component__WEBPACK_IMPORTED_MODULE_31__["SelectRepairitemtypedetailComponent"],
+            app_serving_serving_ser_components_select_appointmentinfo_select_appointmentinfo_component__WEBPACK_IMPORTED_MODULE_32__["SelectAppointmentinfoComponent"],
+            app_serving_serving_ser_components_select_file_edit_select_file_edit_component__WEBPACK_IMPORTED_MODULE_33__["SelectFileEditComponent"],
+            app_base_base_ser_components_map_dragroute_dragroute_component__WEBPACK_IMPORTED_MODULE_34__["DragrouteComponent"]
         ],
         imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot({ mode: 'ios' }),
-            ng2_file_upload__WEBPACK_IMPORTED_MODULE_37__["FileUploadModule"],
+            ng2_file_upload__WEBPACK_IMPORTED_MODULE_38__["FileUploadModule"],
             _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"],
             _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HttpClientModule"],
             _ionic_storage__WEBPACK_IMPORTED_MODULE_10__["IonicStorageModule"].forRoot(),
             _angular_forms__WEBPACK_IMPORTED_MODULE_11__["FormsModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_11__["ReactiveFormsModule"],
-            ng_zorro_antd_mobile__WEBPACK_IMPORTED_MODULE_28__["NgZorroAntdMobileModule"]
+            ng_zorro_antd_mobile__WEBPACK_IMPORTED_MODULE_29__["NgZorroAntdMobileModule"]
         ],
         providers: [
-            app_base_base_ser_components_map_dragroute_dragroute_component__WEBPACK_IMPORTED_MODULE_33__["DragrouteComponent"],
+            app_base_base_ser_components_map_dragroute_dragroute_component__WEBPACK_IMPORTED_MODULE_34__["DragrouteComponent"],
             _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],
             _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"],
-            _ionic_native_image_picker_ngx__WEBPACK_IMPORTED_MODULE_34__["ImagePicker"],
-            _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_35__["FileTransfer"],
-            _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_36__["Camera"],
-            _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_38__["ScreenOrientation"],
-            { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] }
+            _ionic_native_image_picker_ngx__WEBPACK_IMPORTED_MODULE_35__["ImagePicker"],
+            _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_36__["FileTransfer"],
+            _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_37__["Camera"],
+            _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_39__["ScreenOrientation"],
+            { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] },
+            { provide: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ErrorHandler"], useClass: app_base_base_ser_global_error_handler__WEBPACK_IMPORTED_MODULE_12__["GlobalErrorHandler"] }
         ],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
     })
@@ -1804,6 +1781,7 @@ DCore_Window = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 let DCore_Config = class DCore_Config {
     constructor(_window) {
         this._window = _window;
+        this.userCheckNum = true;
         this.serverUrl = _window.storageGet("apiDomainUrl");
     }
     getDomain() {
@@ -1836,6 +1814,7 @@ let DCore_Http = class DCore_Http {
             rescallback && rescallback(res);
         }, (err) => {
             errcallback && errcallback(err);
+            throw err;
         });
     }
     //get请求
@@ -1854,6 +1833,7 @@ let DCore_Http = class DCore_Http {
             rescallback && rescallback(res);
         }, (err) => {
             errcallback && errcallback(err);
+            throw err;
         });
     }
     //post请求
@@ -1889,7 +1869,7 @@ let DCore_Http = class DCore_Http {
         window.localStorage.setItem('auth-token', token);
         window.localStorage.setItem('auth-account', account);
         window.localStorage.setItem('auth-password', password);
-        window.localStorage.setItem('auth-logintime', new Date().getTime().toString());
+        window.localStorage.setItem('auth-logintime', (new Date().getTime()).toString());
     }
     //刷新token
     reflashToken() {
@@ -1898,34 +1878,34 @@ let DCore_Http = class DCore_Http {
             this.ReflashInterval = setInterval(() => {
                 console.log("定时刷新" + new Date().getTime());
                 var lastlogintime = window.localStorage.getItem("auth-logintime");
-                if (lastlogintime != null && lastlogintime !== "") {
-                    var lastdateTime = parseInt(lastlogintime);
-                    var time = 10 * 60 * 1000;
-                    console.log("time：" + time + " last:" + lastdateTime + " now:" + new Date().getTime());
-                    if (new Date().getTime() - lastdateTime >= time) {
-                        console.log("登录超时10分钟,重新登录");
-                        var account = window.localStorage.getItem('auth-account');
-                        var password = window.localStorage.getItem('auth-password');
-                        if (account != "" && password != "") {
-                            this.get('/api/User/GetAuthToken', {
-                                params: {
-                                    username: encodeURIComponent(account),
-                                    password: encodeURIComponent(password)
-                                }
-                            }, (res) => {
-                                if (res.access_token == "") {
-                                    return false;
-                                }
-                                window.localStorage.setItem('auth-token', res.access_token);
-                                window.localStorage.setItem('auth-account', account);
-                                window.localStorage.setItem('auth-password', password);
-                                window.localStorage.setItem('auth-logintime', new Date().toLocaleTimeString());
-                            }, (err) => {
-                            });
+                var token = window.localStorage.getItem("auth-token");
+                if (token != undefined && token != "") {
+                    if (lastlogintime != null && lastlogintime !== "") {
+                        var lastdateTime = parseInt(lastlogintime);
+                        var time = 30 * 60 * 1000;
+                        if (new Date().getTime() - lastdateTime >= time) {
+                            console.log("登录超时10分钟,重新登录");
+                            var account = window.localStorage.getItem('auth-account');
+                            var password = window.localStorage.getItem('auth-password');
+                            if (account != "" && password != "") {
+                                console.log("域url：" + this._config.getDomain());
+                                this.get('/api/User/GetAuthToken', {
+                                    params: {
+                                        username: encodeURIComponent(account),
+                                        password: encodeURIComponent(password)
+                                    }
+                                }, (res) => {
+                                    window.localStorage.setItem('auth-token', res.access_token);
+                                    window.localStorage.setItem('auth-account', account);
+                                    window.localStorage.setItem('auth-password', password);
+                                    window.localStorage.setItem('auth-logintime', (new Date().getTime()).toString());
+                                }, (err) => {
+                                });
+                            }
                         }
                     }
                 }
-            }, 3000);
+            }, 30000);
         }
     }
 };
@@ -2036,7 +2016,7 @@ let DCore_Page = class DCore_Page {
             this.loading = this.loadingCtr.create({
                 //message: "请稍后...",
                 translucent: true,
-                duration: 30000
+                duration: 60000
             });
             this.loading.then(a => {
                 a.present();
@@ -2426,6 +2406,86 @@ SelectSystemuserComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"],
         app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"]])
 ], SelectSystemuserComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/base/base.ser/global.error.handler.ts":
+/*!*******************************************************!*\
+  !*** ./src/app/base/base.ser/global.error.handler.ts ***!
+  \*******************************************************/
+/*! exports provided: GlobalErrorHandler */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GlobalErrorHandler", function() { return GlobalErrorHandler; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
+/* harmony import */ var app_base_base_ser_message_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/base/base.ser/message.service */ "./src/app/base/base.ser/message.service.ts");
+// import {ErrorHandler, Injectable} from "@angular/core";
+// import {Events} from "@ionic/angular";
+
+// @Injectable({
+//     providedIn: 'root'
+// })
+// export class GlobalErrorHandler implements ErrorHandler {
+//   constructor(private events: Events) {
+//   }
+//   handleError(err: any): void {
+//     if (err.status === 401) {
+//       this.events.publish('userCheck');
+//       alert("接口请求异常，无权限");
+//     }
+//     console.log("请求异常：err.status："+err.status);
+//     // do something with the errorswitch
+//   }
+// }
+
+
+
+
+// import { NGXLogger } from 'ngx-logger';
+// import * as StackTrace from 'stacktrace-js';
+/**
+ * 全局异常处理
+ */
+let GlobalErrorHandler = class GlobalErrorHandler {
+    constructor(injector, events, _page) {
+        this.injector = injector;
+        this.events = events;
+        this._page = _page;
+    }
+    handleError(error) {
+        this.events.publish('userCheck');
+        const message = error.message ? error.message : error.toString();
+        const status = error.status ? error.status : error.toString();
+        if (status === 0
+            && error.name === 'HttpErrorResponse'
+            && error.statusText === 'Unknown Error') {
+            this._page.alert(app_base_base_ser_message_service__WEBPACK_IMPORTED_MODULE_4__["MessageService"].ErrorRequestException, app_base_base_ser_message_service__WEBPACK_IMPORTED_MODULE_4__["MessageService"].ErrorRequestServer);
+        }
+        else if (status === 401) {
+            this.events.publish('userCheck');
+            this._page.alert(app_base_base_ser_message_service__WEBPACK_IMPORTED_MODULE_4__["MessageService"].ErrorRequestException, app_base_base_ser_message_service__WEBPACK_IMPORTED_MODULE_4__["MessageService"].ErrorNoAuth);
+        }
+        //this._page.alert(MessageService.ErrorRequestException,message);
+    }
+};
+GlobalErrorHandler.ctorParameters = () => [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Events"] },
+    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"] }
+];
+GlobalErrorHandler = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Events"],
+        app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"]])
+], GlobalErrorHandler);
 
 
 
@@ -2850,6 +2910,78 @@ Storage_LoginInfo = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     用户信息
     */
 ], Storage_LoginInfo);
+
+
+
+/***/ }),
+
+/***/ "./src/app/base/base.ser/message.service.ts":
+/*!**************************************************!*\
+  !*** ./src/app/base/base.ser/message.service.ts ***!
+  \**************************************************/
+/*! exports provided: MessageService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MessageService", function() { return MessageService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+
+
+let MessageService = 
+/**
+ * 错误信息定义
+ */
+class MessageService {
+};
+//------------标题信息-----------------
+/**消息提醒 */
+MessageService.AlterTitleMessage = '消息提醒';
+//------------错误提示-----------------
+/**请求异常*/
+MessageService.ErrorRequestException = '请求异常';
+/**请求超时*/
+MessageService.ErrorRequestTimeout = '请求超时';
+/**服务器响应失败500 */
+MessageService.ErrorRequestServer = "后台服务遇到了问题，目前正在修复中，请稍后访问，给您带来不便,深表歉意。";
+/**权限不够 */
+MessageService.ErrorNoAuth = "权限不够，请重新登录。";
+//------------信息提醒-----------------
+/**操作成功*/
+MessageService.InfoOprationSucceed = '操作成功';
+/**操作成功*/
+MessageService.InfoOprationFailed = '操作失败';
+/**保存失败！*/
+MessageService.InfoSaveFailed = '保存失败！';
+//------------验证信息---------------------
+/**手机号不能为空*/
+MessageService.ValidPhoneIsNull = '手机号不能为空';
+/**请输入主题*/
+MessageService.ValidTitleIsNull = '请输入主题';
+/**请选择技术系统*/
+MessageService.ValidTechsystemIsNull = '请选择技术系统';
+/**请选择故障类别代码*/
+MessageService.ValidMalfunctiontypeIsNull = '请选择故障类别代码';
+//-------------页面标题----------------
+/**编辑技术支持申请单*/
+MessageService.PageTitleEditTech = '编辑技术支持申请单';
+/**新增技术支持申请单*/
+MessageService.PageTitleAddTech = '新增技术支持申请单';
+/**暂时没有数据 */
+MessageService.PageNoData = '暂时没有数据';
+/**没有更多数据了 */
+MessageService.PageNoMore = '没有更多数据了';
+//订单状态不允许修改！
+MessageService.PageCannotEdit = '订单状态不允许修改！';
+MessageService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    })
+    /**
+     * 错误信息定义
+     */
+], MessageService);
 
 
 

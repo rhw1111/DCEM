@@ -230,7 +230,7 @@ let ListPage = class ListPage {
             if (res.Result == true) {
                 const that = this;
                 this._page.alert("消息提示", "操作成功", () => {
-                    this.getList(null);
+                    this.doRefresh(null);
                 });
             }
             else {
