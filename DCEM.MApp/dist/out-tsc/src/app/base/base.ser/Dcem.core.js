@@ -121,6 +121,7 @@ let DCore_Http = class DCore_Http {
                         var account = window.localStorage.getItem('auth-account');
                         var password = window.localStorage.getItem('auth-password');
                         if (account != "" && password != "") {
+                            console.log("域url：" + this._config.getDomain());
                             this.get('/api/User/GetAuthToken', {
                                 params: {
                                     username: encodeURIComponent(account),
