@@ -82,7 +82,7 @@ export class AppComponent {
 
     loginout() {
         this.menu.close("homeMenu");
-        this.authService.logout();
+        this._http.loginout();
     }
 }
 
