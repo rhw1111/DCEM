@@ -9,7 +9,7 @@ const routes: Routes = [
     {
         path: 'home',  //通用目录
         children: [
-            { path: 'tab', loadChildren: () => import('./page/home/tabs/tabs.module').then(m => m.TabsPageModule) },
+            { path: 'tabs', loadChildren: () => import('./page/home/tabs/tabs.module').then(m => m.TabsPageModule) },
         ]
     },
     {
