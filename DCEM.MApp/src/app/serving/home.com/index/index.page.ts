@@ -1,4 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
+import { MenuController } from '@ionic/angular';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 @Component({
     selector: 'app-index',
@@ -7,9 +9,12 @@
 })
 export class IndexPage implements OnInit {
 
-    constructor() { }
+    constructor(private menuController: MenuController,private statusBar: StatusBar) { }
 
     ngOnInit() {
+         //是否重叠
+         //this.statusBar.overlaysWebView(true);
     }
 
+    
 }

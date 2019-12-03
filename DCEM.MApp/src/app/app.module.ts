@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -11,6 +11,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import {GlobalErrorHandler} from "app/base/base.ser/global.error.handler";
 
 //自定义组件
 import { ScSelectComponent } from './serving/serving.ser/components/sc-select/sc-select.component';
@@ -113,7 +115,8 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
         FileTransfer,
         Camera,
         ScreenOrientation,
-        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+        { provide: ErrorHandler, useClass: GlobalErrorHandler}
     ],
     bootstrap: [AppComponent]
 })

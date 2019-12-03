@@ -17,7 +17,6 @@ ion-title{
 ion-list {
     ion-item{
         --background: #f7f6fb;
-        --border-width:0px;
         ion-avatar {
             -moz-border-radius: 50%;
             -webkit-border-radius: 50%;
@@ -26,9 +25,10 @@ ion-list {
             height: 60px;
             width: 60px;
             margin-right: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
         ion-label{
-            --border-width:0px;
             h2{
                 font-size: 16px;
                 font-weight: 100px;

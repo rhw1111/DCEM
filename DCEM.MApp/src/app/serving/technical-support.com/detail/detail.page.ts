@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FullScreenImage } from '@ionic-native/full-screen-image';
+import { MenuController } from '@ionic/angular';
 
 @Component({
     selector: 'app-detail',
@@ -17,6 +18,7 @@ export class DetailPage implements OnInit {
           TechnicalSupport: {
             Id:"",
             mcs_title: "",//主题
+            mcs_orderstatus:null,//状态
             mcs_serviceorderid: "",//服务委托书
             mcs_repairnameid: "",//技术主管
             mcs_repairdate: "",//维修日期
@@ -49,8 +51,14 @@ export class DetailPage implements OnInit {
         private _http: DCore_Http,
         private _page: DCore_Page,
         private activeRoute: ActivatedRoute,
+        private menuController:MenuController
     ) {
        
+    }
+
+    //每次页面加载
+    ionViewWillEnter() {
+        this.menuController.enable(true);
     }
 
     ngOnInit() {
@@ -82,6 +90,7 @@ export class DetailPage implements OnInit {
                 if (res.TechnicalSupport != null) { 
                     this.mod.data.TechnicalSupport.mcs_title = res["TechnicalSupport"]["Attributes"]["mcs_title"];
                     this.mod.data.TechnicalSupport.mcs_serviceorderid = res["TechnicalSupport"]["Attributes"]["_mcs_serviceorderid_value@OData.Community.Display.V1.FormattedValue"];
+                    this.mod.data.TechnicalSupport.mcs_orderstatus = res["TechnicalSupport"]["Attributes"]["mcs_orderstatus"];
                     this.mod.data.TechnicalSupport.mcs_repairnameid = res["TechnicalSupport"]["Attributes"]["_mcs_repairnameid_value@OData.Community.Display.V1.FormattedValue"];
                     this.mod.data.TechnicalSupport.mcs_repairdate = res["TechnicalSupport"]["Attributes"]["mcs_repairdate@OData.Community.Display.V1.FormattedValue"];
                     this.mod.data.TechnicalSupport.mcs_email = res["TechnicalSupport"]["Attributes"]["mcs_email"];
