@@ -117,7 +117,7 @@ let DCore_Http = class DCore_Http {
                 var lastlogintime = window.localStorage.getItem("auth-logintime");
                 if (lastlogintime != null && lastlogintime !== "") {
                     var lastdateTime = parseInt(lastlogintime);
-                    var time = 50 * 60 * 1000;
+                    var time = 30 * 60 * 1000;
                     if (new Date().getTime() - lastdateTime >= time) {
                         console.log("登录超时10分钟,重新登录");
                         var account = window.localStorage.getItem('auth-account');
