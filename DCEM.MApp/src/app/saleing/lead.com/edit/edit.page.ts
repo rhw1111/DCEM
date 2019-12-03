@@ -45,7 +45,7 @@ export class EditPage implements OnInit {
             score: -1,
             describe: "",
             userid: this._userinfo.GetSystemUserId(),
-            dealerid: "3EFBFFF6-EF1A-E911-A821-A4A314186A20",//this._userinfo.GetDealerid()
+            dealerid: "c2440bdb-380f-ea11-a823-c49163095567",//this._userinfo.GetDealerid()
         }
     }
     public CustomerTagModel: any = {
@@ -244,6 +244,7 @@ export class EditPage implements OnInit {
             }
         }
         this.model.info.describe = tagName;
+        this.model.info.gender=parseInt(this.model.info.gender);
         this._page.loadingShow();
         this._http.postForToaken(
             this.model.apiUrl,

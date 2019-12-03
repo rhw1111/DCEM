@@ -298,6 +298,23 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 if (!string.IsNullOrEmpty(model.signature))
                     entity.Attributes.Add("mcs_signature", model.signature);
 
+
+                if (!string.IsNullOrEmpty(model.province))
+                {
+                    var province = new CrmEntityReference("mcs_sysarea", Guid.Parse(model.province));
+                    entity.Attributes.Add("mcs_province", province);
+                }
+                if (!string.IsNullOrEmpty(model.city))
+                {
+                    var city = new CrmEntityReference("mcs_sysarea", Guid.Parse(model.city));
+                    entity.Attributes.Add("mcs_city", city);
+                }
+                if (!string.IsNullOrEmpty(model.area))
+                {
+                    var area = new CrmEntityReference("mcs_sysarea", Guid.Parse(model.area));
+                    entity.Attributes.Add("mcs_area", area);
+                }
+
                 //c端用户实体
                 await _crmService.Update(entity, userInfo?.systemuserid);
 
@@ -369,7 +386,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
         }
 
-
+         
 
 
 
