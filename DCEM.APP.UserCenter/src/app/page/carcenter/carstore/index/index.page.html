@@ -1,178 +1,159 @@
 ﻿<ion-header class="dm-top-nav">
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button text="返回" color="darkblue" defaultHref="/serving/home/mywork"></ion-back-button>
+            <ion-back-button text="返回" color="darkblue" defaultHref="/carcenter/index"></ion-back-button>
         </ion-buttons>
-        <ion-grid>
-            <ion-row>
-                <ion-col text-left class="dm-top-nav-tag">
-                    <ul>
-                        <li class="dm-top-nav-tag-text selected">车型版本</li>
-                        <li class="dm-top-nav-tag-text">外观内饰</li>
-                        <li class="dm-top-nav-tag-text">选装</li>
-                    </ul>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
+        <ion-title class="dm-top-nav-tag">
+            <ul>
+                <li class="selected">车型版本</li>
+                <li>外观内饰</li>
+                <li>选装</li>
+            </ul>
+        </ion-title>
     </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen scroll-y="false">
-    <ion-slides class="dm-main-slides" #mainSlide (ionSlideWillChange)="slideChange($event)">
-        <ion-slide>
-            <!--车型版本-->
-            <div class="dm-main-slide">
+<ion-content fullscreen>
+    <ion-grid>
+        <ion-row>
+            <ion-col class="dm-slides">
+                <ion-slides pager>
+                    <ion-slide>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col>
+                                    <img src="https://ceo-oss.oss-cn-hangzhou.aliyuncs.com/seres_sf7_front_34_urban_sfmotors-optimized.jpg" />
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-slide>
+                    <ion-slide>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col>
+                                    <img src="https://ceo-oss.oss-cn-hangzhou.aliyuncs.com/seres_sf7_front_34_urban_sfmotors-optimized.jpg" />
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-slide>
+                </ion-slides>
+            </ion-col>
+        </ion-row>
+        <ion-row class="dm-title">
+            <ion-col>
+                EVR增强型
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
                 <ion-grid>
                     <ion-row>
-                        <ion-col class="dm-slides">
-                            <ion-slides pager>
-                                <ion-slide>
-                                    <ion-grid>
-                                        <ion-row>
-                                            <ion-col>
-                                                <img src="https://ceo-oss.oss-cn-hangzhou.aliyuncs.com/seres_sf7_front_34_urban_sfmotors-optimized.jpg" />
-                                            </ion-col>
-                                        </ion-row>
-                                    </ion-grid>
-                                </ion-slide>
-                                <ion-slide>
-                                    <ion-grid>
-                                        <ion-row>
-                                            <ion-col>
-                                                <img src="https://ceo-oss.oss-cn-hangzhou.aliyuncs.com/seres_sf7_front_34_urban_sfmotors-optimized.jpg" />
-                                            </ion-col>
-                                        </ion-row>
-                                    </ion-grid>
-                                </ion-slide>
-                            </ion-slides>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row class="dm-title">
-                        <ion-col>
-                            EVR增强型
+                        <ion-col class="dm-main-car">
+                            <ion-grid>
+                                <ion-row class="dm-main-car-top">
+                                    <ion-col>
+                                        <h5>SF5 EV纯电型</h5>
+                                    </ion-col>
+                                    <ion-col>
+                                        <h5>¥280,000.00<small>元起</small></h5>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row class="dm-main-car-middle">
+                                    <ion-col>
+                                        <h5>前后双电机后驱</h5>
+                                        <p>驱动形式</p>
+                                    </ion-col>
+                                    <ion-col>
+                                        <h5>35kWh</h5>
+                                        <p>电池容量</p>
+                                    </ion-col>
+                                    <ion-col>
+                                        <h5>6.4s</h5>
+                                        <p>百公里加速</p>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row class="dm-main-car-bottom">
+                                    <ion-col>
+                                        <p (click)="presentSpeclistModal()">查看更多配置</p>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
                         </ion-col>
                     </ion-row>
                     <ion-row>
-                        <ion-col>
+                        <ion-col class="dm-main-car select">
                             <ion-grid>
-                                <ion-row>
-                                    <ion-col class="dm-main-car">
-                                        <ion-grid>
-                                            <ion-row class="dm-main-car-top">
-                                                <ion-col>
-                                                    <h5>SF5 EV纯电型</h5>
-                                                </ion-col>
-                                                <ion-col>
-                                                    <h5>¥280,000.00<small>元起</small></h5>
-                                                </ion-col>
-                                            </ion-row>
-                                            <ion-row class="dm-main-car-middle">
-                                                <ion-col>
-                                                    <h5>前后双电机后驱</h5>
-                                                    <p>驱动形式</p>
-                                                </ion-col>
-                                                <ion-col>
-                                                    <h5>35kWh</h5>
-                                                    <p>电池容量</p>
-                                                </ion-col>
-                                                <ion-col>
-                                                    <h5>6.4s</h5>
-                                                    <p>百公里加速</p>
-                                                </ion-col>
-                                            </ion-row>
-                                            <ion-row class="dm-main-car-bottom">
-                                                <ion-col>
-                                                    <p>查看更多配置</p>
-                                                </ion-col>
-                                            </ion-row>
-                                        </ion-grid>
+                                <ion-row class="dm-main-car-top">
+                                    <ion-col>
+                                        <h5>SF5 EV纯电型</h5>
+                                    </ion-col>
+                                    <ion-col>
+                                        <h5>¥280,000.00</h5>
                                     </ion-col>
                                 </ion-row>
-                                <ion-row>
-                                    <ion-col class="dm-main-car select">
-                                        <ion-grid>
-                                            <ion-row class="dm-main-car-top">
-                                                <ion-col>
-                                                    <h5>SF5 EV纯电型</h5>
-                                                </ion-col>
-                                                <ion-col>
-                                                    <h5>¥280,000.00</h5>
-                                                </ion-col>
-                                            </ion-row>
-                                            <ion-row class="dm-main-car-middle">
-                                                <ion-col>
-                                                    <h5>单电机后驱</h5>
-                                                    <p>驱动形式</p>
-                                                </ion-col>
-                                                <ion-col>
-                                                    <h5>35kWh</h5>
-                                                    <p>电池容量</p>
-                                                </ion-col>
-                                                <ion-col>
-                                                    <h5>6.4s</h5>
-                                                    <p>百公里加速</p>
-                                                </ion-col>
-                                            </ion-row>
-                                            <ion-row class="dm-main-car-bottom">
-                                                <ion-col>
-                                                    <p>查看更多配置</p>
-                                                </ion-col>
-                                            </ion-row>
-                                        </ion-grid>
+                                <ion-row class="dm-main-car-middle">
+                                    <ion-col>
+                                        <h5>单电机后驱</h5>
+                                        <p>驱动形式</p>
+                                    </ion-col>
+                                    <ion-col>
+                                        <h5>35kWh</h5>
+                                        <p>电池容量</p>
+                                    </ion-col>
+                                    <ion-col>
+                                        <h5>6.4s</h5>
+                                        <p>百公里加速</p>
                                     </ion-col>
                                 </ion-row>
-                                <ion-row>
-                                    <ion-col class="dm-main-car">
-                                        <ion-grid>
-                                            <ion-row class="dm-main-car-top">
-                                                <ion-col>
-                                                    <h5>SF5 EV纯电型</h5>
-                                                </ion-col>
-                                                <ion-col>
-                                                    <h5>¥280,000.00</h5>
-                                                </ion-col>
-                                            </ion-row>
-                                            <ion-row class="dm-main-car-middle">
-                                                <ion-col>
-                                                    <h5>单电机后驱</h5>
-                                                    <p>驱动形式</p>
-                                                </ion-col>
-                                                <ion-col>
-                                                    <h5>35kWh</h5>
-                                                    <p>电池容量</p>
-                                                </ion-col>
-                                                <ion-col>
-                                                    <h5>6.4s</h5>
-                                                    <p>百公里加速</p>
-                                                </ion-col>
-                                            </ion-row>
-                                            <ion-row class="dm-main-car-bottom">
-                                                <ion-col>
-                                                    <p>查看更多配置</p>
-                                                </ion-col>
-                                            </ion-row>
-                                        </ion-grid>
+                                <ion-row class="dm-main-car-bottom">
+                                    <ion-col>
+                                        <p>查看更多配置</p>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col class="dm-main-car">
+                            <ion-grid>
+                                <ion-row class="dm-main-car-top">
+                                    <ion-col>
+                                        <h5>SF5 EV纯电型</h5>
+                                    </ion-col>
+                                    <ion-col>
+                                        <h5>¥280,000.00</h5>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row class="dm-main-car-middle">
+                                    <ion-col>
+                                        <h5>单电机后驱</h5>
+                                        <p>驱动形式</p>
+                                    </ion-col>
+                                    <ion-col>
+                                        <h5>35kWh</h5>
+                                        <p>电池容量</p>
+                                    </ion-col>
+                                    <ion-col>
+                                        <h5>6.4s</h5>
+                                        <p>百公里加速</p>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row class="dm-main-car-bottom">
+                                    <ion-col>
+                                        <p>查看更多配置</p>
                                     </ion-col>
                                 </ion-row>
                             </ion-grid>
                         </ion-col>
                     </ion-row>
                 </ion-grid>
-            </div>
-        </ion-slide>
-        <ion-slide>
-            <!--外观内饰-->
-            外观内饰
-        </ion-slide>
-        <ion-slide>
-            <!--选装-->
-            选装
-        </ion-slide>
-    </ion-slides>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>
 
 <ion-footer>
     <ion-toolbar class="dm-footer">
-        <ion-button color="dis" expand="block" shape="round">下一步</ion-button>
+        <ion-button color="org" expand="block" shape="round" [routerLink]="['/carcenter/carstore/selectattr']">下一步</ion-button>
     </ion-toolbar>
 </ion-footer>

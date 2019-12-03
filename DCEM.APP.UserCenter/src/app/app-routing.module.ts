@@ -19,7 +19,9 @@ const routes: Routes = [
             {
                 path: 'carstore',  //整车商城(new)
                 children: [
-                    { path: 'index', loadChildren: () => import('./page/carcenter/carstore/index/index.module').then(m => m.IndexPageModule) }
+                    { path: 'index', loadChildren: () => import('./page/carcenter/carstore/index/index.module').then(m => m.IndexPageModule) },
+                    { path: 'selectattr', loadChildren: () => import('./page/carcenter/carstore/selectattr/selectattr.module').then(m => m.SelectattrPageModule) },
+                    { path: 'selectitem', loadChildren: () => import('./page/carcenter/carstore/selectitem/selectitem.module').then(m => m.SelectitemPageModule) }
                 ]
             },
         ]
@@ -39,7 +41,21 @@ const routes: Routes = [
     {
         path: 'personalcenter',  //用户中心
         children: [
+            {
+                path: 'userinfo',  //整车商城
+                children: [
+                    {
+                        path: 'detail',
+                        loadChildren: () => import('./page/personalcenter/userinfo/detail/detail.module').then(m => m.DetailPageModule)
+                    }
+                    , {
+                        path: 'edit',
+                        loadChildren: () => import('./page/personalcenter/userinfo/edit/edit.module').then(m => m.EditPageModule)
+                    }
+                ]
+            },
             { path: 'index', loadChildren: () => import('./page/personalcenter/index/index.module').then(m => m.IndexPageModule) },
+
         ]
     },
     {
@@ -84,6 +100,12 @@ const routes: Routes = [
                     { path: 'list', loadChildren: () => import('./page/servicecenter/shoppingcart/list/list.module').then(m => m.ListPageModule) },
                 ]
             },
+            {
+                path: 'reservation',  //维保预约
+                children: [
+                    { path: 'list', loadChildren: () => import('./page/servicecenter/reservation.com/list/list.module').then(m => m.ListPageModule) },
+                ]
+            }
         ]
     },
     {
@@ -110,7 +132,17 @@ const routes: Routes = [
     path: 'list',
     loadChildren: () => import('./page/servicecenter/shoppingcart/list/list.module').then( m => m.ListPageModule)
   },
+  {
+      path: 'demo',
+      children: [
+          {
+              path: 'dealer',
+              loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
+          }
+      ]
+  }
 ];
+    ;
 @NgModule({
     imports: [
         RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })

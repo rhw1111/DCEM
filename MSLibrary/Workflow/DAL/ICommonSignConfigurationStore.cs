@@ -23,5 +23,7 @@ namespace MSLibrary.Workflow.DAL
         /// <param name="callback"></param>
         /// <returns></returns>
         Task QueryByEntityType(string entityType, Func<CommonSignConfiguration, Task> callback);
+
+        Task Lock(string lockName, Func<Task> callBack, int timeout = -1);
     }
 }

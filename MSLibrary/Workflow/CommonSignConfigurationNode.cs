@@ -453,7 +453,7 @@ namespace MSLibrary.Workflow
 
 
 
-            await _applicationLockService.Execute(string.Format(ApplicationLockBaseNames.CommonSignConfiguration, configuration.EntityType, entityKey),
+            await _commonSignConfigurationNodeStore.Lock(string.Format(ApplicationLockBaseNames.CommonSignConfiguration, configuration.EntityType, entityKey),
                 async () =>
                 {
                     using (DBTransactionScope scope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 5, 0) }))
@@ -520,7 +520,7 @@ namespace MSLibrary.Workflow
                 throw new UtilityException((int)Errors.NotFoundCommonSignConfigurationNodeActionByActionName, fragment);
             }
 
-            await _applicationLockService.Execute(string.Format(ApplicationLockBaseNames.CommonSignConfiguration, configuration.EntityType, entityKey),
+            await _commonSignConfigurationNodeStore.Lock(string.Format(ApplicationLockBaseNames.CommonSignConfiguration, configuration.EntityType, entityKey),
                 async () =>
                 {
                     using (DBTransactionScope scope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 5, 0) }))

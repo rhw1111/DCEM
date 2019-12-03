@@ -10,6 +10,7 @@ namespace DCEM.UserCenterService.Main.Application.Services.Contrac
     using MSLibrary.Xrm;
     using MSLibrary;
     using System.Collections.Generic;
+    using System;
 
     public interface IUserService
     {
@@ -20,5 +21,12 @@ namespace DCEM.UserCenterService.Main.Application.Services.Contrac
         Task<ValidateResult> AddUser(UserAddRequest model);
 
         Task<ValidateResult<List<CrmEntity>>> GetSecurityquestion();
+
+        void LoginLog(UserLoginRequest model, Guid userid, int type);
+         
+        Task<ValidateResult> UpdateUser(UserAddRequest model);
+
+        Task<ValidateResult> UpdateUserPwd(UserLoginRequest model); 
+        Task<CrmEntity> getuserdetail(UserDetailRequest userDetailRequest); 
     }
 }

@@ -24,5 +24,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
 
         Task<XDocument> GetSecurityquestion();
 
+        Task<XDocument> GetUserPwd(UserLoginRequest request);
+
     }
 }
