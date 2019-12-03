@@ -1,5 +1,5 @@
 import * as tslib_1 from "tslib";
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { GlobalErrorHandler } from "app/base/base.ser/global.error.handler";
 //自定义组件
 import { ScSelectComponent } from './serving/serving.ser/components/sc-select/sc-select.component';
 import { SelectCustomerComponent } from 'app/serving/serving.ser/components/select-customer/select-customer.component';
@@ -109,7 +110,8 @@ AppModule = tslib_1.__decorate([
             FileTransfer,
             Camera,
             ScreenOrientation,
-            { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+            { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+            { provide: ErrorHandler, useClass: GlobalErrorHandler }
         ],
         bootstrap: [AppComponent]
     })

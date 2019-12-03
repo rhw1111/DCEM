@@ -26,6 +26,7 @@ export class DCore_Window {
 })
 export class DCore_Config {
     public serverUrl: string;
+    public userCheckNum: boolean = true;
     constructor(
         private _window: DCore_Window
     ) {
@@ -61,6 +62,7 @@ export class DCore_Http {
                 },
                 (err: any) => {
                     errcallback && errcallback(err);
+                    throw err;
                 });
     }
 
@@ -88,6 +90,7 @@ export class DCore_Http {
                 },
                 (err: any) => {
                     errcallback && errcallback(err);
+                    throw err;
                 });
     }
 
@@ -131,7 +134,7 @@ export class DCore_Http {
         window.localStorage.setItem('auth-token', token);
         window.localStorage.setItem('auth-account', account);
         window.localStorage.setItem('auth-password', password);
-        window.localStorage.setItem('auth-logintime', new Date().getTime().toString());
+        window.localStorage.setItem('auth-logintime', (new Date().getTime()).toString());
     }
 
     //刷新token
@@ -143,8 +146,7 @@ export class DCore_Http {
                 var lastlogintime = window.localStorage.getItem("auth-logintime");
                     if (lastlogintime != null && lastlogintime !== "") {
                         var lastdateTime =parseInt(lastlogintime);
-                        var time = 10 * 60 * 1000;
-                        console.log("time："+time+" last:"+lastdateTime+" now:"+new Date().getTime());
+                        var time = 30 * 60 * 1000;
                         if (new Date().getTime() - lastdateTime >= time) {
                             console.log("登录超时10分钟,重新登录");
                             var account = window.localStorage.getItem('auth-account');
@@ -165,7 +167,7 @@ export class DCore_Http {
                                         window.localStorage.setItem('auth-token', res.access_token);
                                         window.localStorage.setItem('auth-account', account);
                                         window.localStorage.setItem('auth-password', password);
-                                        window.localStorage.setItem('auth-logintime', new Date().toLocaleTimeString());
+                                        window.localStorage.setItem('auth-logintime', (new Date().getTime()).toString());
                                     },
                                     (err: any) => {
                                     }
@@ -173,7 +175,7 @@ export class DCore_Http {
                             }
                         }
                     }
-            }, 3000);
+            }, 5000);
         }
     }
 }
@@ -283,7 +285,7 @@ export class DCore_Page {
             this.loading = this.loadingCtr.create({
                 //message: "请稍后...",
                 translucent: true,
-                duration: 30000
+                duration: 60000
             });
             this.loading.then(a => {
                 a.present();

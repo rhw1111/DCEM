@@ -5,11 +5,13 @@ import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { MessageService } from 'app/base/base.ser/message.service';
 import sd from 'silly-datetime';
 import { IonInfiniteScroll } from '@ionic/angular';
+import { MenuController } from '@ionic/angular';
 let ListPage = class ListPage {
-    constructor(_http, _page, httpService) {
+    constructor(_http, _page, httpService, menuController) {
         this._http = _http;
         this._page = _page;
         this.httpService = httpService;
+        this.menuController = menuController;
         this.tab = "0";
         this.model = {
             name: 'technicalsupportlist',
@@ -34,6 +36,7 @@ let ListPage = class ListPage {
     }
     //每次页面加载
     ionViewWillEnter() {
+        this.menuController.enable(false);
     }
     //搜索方法
     search(event) {
@@ -113,7 +116,6 @@ let ListPage = class ListPage {
             }
             this._page.loadingHide();
         }, (err) => {
-            this._page.alert(MessageService.AlterTitleMessage, MessageService.ErrorRequestException);
             this._page.loadingHide();
         });
     }
@@ -146,7 +148,8 @@ ListPage = tslib_1.__decorate([
     }),
     tslib_1.__metadata("design:paramtypes", [DCore_Http,
         DCore_Page,
-        HttpService])
+        HttpService,
+        MenuController])
 ], ListPage);
 export { ListPage };
 //# sourceMappingURL=list.page.js.map
