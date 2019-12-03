@@ -177,6 +177,36 @@ const routes: Routes = [
             }
         ]
     }
+    ,
+    {
+        path: 'set',
+        loadChildren: () => import('./page/set/set.module').then(m => m.SetPageModule)
+    },
+    {
+        path: 'detail',
+        loadChildren: () => import('./page/servicecenter/vehiclecenter/detail/detail.module').then(m => m.DetailPageModule)
+    },
+    {
+        path: 'list',
+        loadChildren: () => import('./page/servicecenter/boutique/list/list.module').then(m => m.ListPageModule)
+    },
+    {
+        path: 'detail',
+        loadChildren: () => import('./page/servicecenter/boutique/detail/detail.module').then(m => m.DetailPageModule)
+    },
+    {
+        path: 'list',
+        loadChildren: () => import('./page/servicecenter/shoppingcart/list/list.module').then(m => m.ListPageModule)
+    },
+    {
+        path: 'demo',
+        children: [
+            {
+                path: 'dealer',
+                loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
+            }
+        ]
+    }
 ];
 @NgModule({
     imports: [

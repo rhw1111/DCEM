@@ -117,7 +117,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 var fetchXdoc = XDocument.Parse(fetchString);
                 var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {
-                    EntityName = "mcs_vehorder",
+                    EntityName = "mcs_driverecord",
                     FetchXml = fetchXdoc,
                     ProxyUserId = ProxyUserId
                 };

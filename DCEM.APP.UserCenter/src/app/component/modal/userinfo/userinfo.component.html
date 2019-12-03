@@ -43,7 +43,7 @@
         邮箱
       </ion-col>
       <ion-col size="8">
-        <input type="tel" maxlength="11"  (focus)="OnselectText('#useremai')" id="useremai"   style="text-align: right;" placeholder="请输入手机号码"
+        <input type="tel"    (focus)="OnselectText('#useremai')" id="useremai"   style="text-align: right;" placeholder="请输入邮箱  "
           [(ngModel)]="mod.model.mcs_email"/>
       </ion-col>
     </ion-row>
@@ -78,7 +78,7 @@
       出生年月
     </ion-col>
     <ion-col size="8">
-      <ion-datetime displayFormat="YYYY-MM-DD" style="text-align: right;" min="1997" placeholder="请输入出生年月"
+      <ion-datetime displayFormat="YYYY-MM-DD" style="text-align: right;" min="1950" placeholder="请输入出生年月"
         cancelText="取消" doneText="确定" [(ngModel)]="mod.model.mcs_birthday"></ion-datetime>
     </ion-col>
   </ion-row>

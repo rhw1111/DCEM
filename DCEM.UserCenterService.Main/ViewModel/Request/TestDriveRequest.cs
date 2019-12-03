@@ -9,7 +9,10 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
     /// </summary>
     public class TestDriveRequest : PageBaseRequestModel
     {
-       
+        /// <summary>
+        /// 主键id
+        /// </summary>
+        public string mcs_driverecordid { set; get; }
     }
 
 

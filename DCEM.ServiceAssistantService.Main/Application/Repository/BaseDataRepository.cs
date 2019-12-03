@@ -112,6 +112,38 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
         }
 
         /// <summary>
+        /// 获取基本车型
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public string GetCarmodel(VehicleTypeRequest request)
+        {
+            var filter = string.Empty;
+            if (!string.IsNullOrWhiteSpace(request.search))
+            {
+                filter += $"<filter type='or'>";
+                filter += $"<condition attribute='mcs_code' operator='like' value='%{request.search}%' />";
+                filter += $"<condition attribute='mcs_name' operator='like' value='%{request.search}%' />";
+                filter += $"</filter>";
+            }
+            var fetchString = $@"<fetch version='1.0' count='{request.pageSize}' page='{request.page}' output-format='xml-platform' mapping='logical' distinct='false'>
+                  <entity name='mcs_carmodel'>
+                    <attribute name='mcs_name' />
+                    <attribute name='createdon' />                   
+                    <attribute name='mcs_code' />
+                    <attribute name='mcs_carmodelid' />
+                    <order attribute='createdon' descending='true' />
+                    <filter type='and'>
+                      <condition attribute='statecode' operator='eq' value='0' />
+                        {filter}
+                    </filter>                   
+                  </entity>
+                </fetch>";
+
+            return fetchString;
+        }
+
+        /// <summary>
         /// 获取车型颜色
         /// </summary>
         /// <param name="request"></param>
