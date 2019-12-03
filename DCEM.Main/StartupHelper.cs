@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MSLibrary;
+using MSLibrary.Oauth.ADFS;
 using MSLibrary.Configuration;
 using MSLibrary.DI;
 using MSLibrary.Context;
@@ -204,6 +205,9 @@ namespace DCEM.Main
 
             //为HttpClinetHelper的HttpClientFactory赋值
             HttpClinetHelper.HttpClientFactory = DIContainerContainer.Get<IHttpClientFactory>();
+
+            //为AdfsHelper.HttpClientFactory赋值
+            AdfsHelper.HttpClientFactory= DIContainerContainer.Get<IHttpClientFactory>();
 
             //CrmServiceFactoryRepositoryHelper.Repository = DIContainerContainer.Get<ICrmServiceFactoryRepository>();
             //为日志构建器处理的提供方处理工厂赋值

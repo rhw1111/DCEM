@@ -14,12 +14,7 @@ namespace MSLibrary.Workflow.DAL
         /// 创建有关工作流的读写连接字符串
         /// </summary>
         /// <returns></returns>
-        string CreateAllForWorkflow(DBConnectionNames connectionNames);
-        /// <summary>
-        /// 创建有关工作流的只读连接字符串
-        /// </summary>
-        /// <returns></returns>
-        string CreateReadForWorkflow(DBConnectionNames connectionNames);
+        string CreateAllForWorkflow();
         /// <summary>
         /// 创建有关工作流的只读连接字符串
         /// </summary>

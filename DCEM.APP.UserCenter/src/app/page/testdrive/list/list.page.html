@@ -1,9 +1,62 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>list</ion-title>
+    <ion-buttons slot="start" style="margin-top: 3px;">
+      <ion-back-button text="返回" defaultHref="/tabs/servicecenter"></ion-back-button>
+    </ion-buttons>
+    <ion-title>我的试乘试驾</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles"
+      refreshingText="刷新中...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-list lines="full">
+    <div class="goods-list" *ngFor="let item of model.datalist ">
+      <div class="panelheard">
+        <ion-label class="noteleft">{{item.mcs_dealerid}}&nbsp;</ion-label>
+        <ion-label class="noteright">{{item.mcs_drivestatus}}&nbsp;</ion-label>
+      </div>
+      <div class="panelcontent">
+        <div class="img">
+          <img src="./assets/img/goods-list.jpg" />
+        </div>
+        <div class="detail">
+          <p>服务类型:<ion-note>{{item.mcs_businesstype}}&nbsp;</ion-note>
+          </p>
+          <p>预约车型:<ion-note>{{item.mcs_carmodel}}&nbsp;</ion-note>
+          </p>
+          <p>预约时间:<ion-note>{{item.mcs_ordertime}}&nbsp;</ion-note>
+          </p>
+          <p>预约时间段:<ion-note>{{item.mcs_testdrivetime}}&nbsp;</ion-note>
+          </p>
+          <!-- <p>预约时间：<ion-note>{{FormatToDate(item.mcs_ordertime)}}&nbsp;{{item.mcs_appointmentconfigid}}</ion-note></p> -->
+          <p>总价：<ion-note>￥100&nbsp;</ion-note>
+          </p>
+        </div>
+      </div>
+      <div class="panelbutton">
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col size="6">
+              <ion-button Size="small" fill="solid" color="light">修改订单</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+  </ion-list>
 
+  <ion-row *ngIf="model.isending">
+    <ion-col class="nodata" text-center>
+      <label style="color:gray;">没有更多内容啦</label>
+    </ion-col>
+  </ion-row>
+
+  <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doLoading($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

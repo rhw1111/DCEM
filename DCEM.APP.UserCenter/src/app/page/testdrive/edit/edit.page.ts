@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page, DCore_Valid } from 'app/component/typescript/Dcem.core';
+import { ModalController } from '@ionic/angular';
+import { SelectDealerComponent } from "app/component/modal/select-dealer/select-dealer.component";
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.page.html',
@@ -15,21 +17,43 @@ export class EditPage implements OnInit {
       mcs_carmodel:"" , // 预约车型
       mcs_businesstype: "",//业务类型
       mcs_dealerid: "",//试驾地点     
+      mcs_dealername: "",//试驾地点名称   
       mcs_ordertime:"", // 预约时间
       mcs_testdrivetime:"" ,// 预约时段
       isChecked:false
-    },
-   
+    }
+  
+
   }
   constructor(
     private _http: DCore_Http,
     private _page: DCore_Page,
-    private _valid: DCore_Valid
+    private _valid: DCore_Valid,
+    private _modalCtrl: ModalController
   ) { }
 
   ngOnInit() {
   }
 
+//选择试驾地点模式窗口
+async selectDealerModal() {
+
+  const modal = await this._modalCtrl.create({
+    component: SelectDealerComponent
+  });
+  await modal.present();
+  const { data } = await modal.onDidDismiss();
+  if (data != null && typeof data != undefined) {
+    if (data != null && typeof data != undefined) {
+      if (data.id != null) {
+         this.model.postData.mcs_dealername=data.name;
+         this.model.postData.mcs_dealerid=data.id;
+      }
+    }
+  }
+}
+
+  //确定预约
   SureDrive(){
 
     debugger;

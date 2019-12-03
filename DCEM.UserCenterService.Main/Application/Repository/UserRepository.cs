@@ -27,7 +27,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository
         public async Task<XDocument> LoginAccount(UserLoginRequest request)
         {
             return await Task<XDocument>.Run(() =>
-            { 
+            {
                 var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
   <entity name='mcs_user'>
     <attribute name='mcs_name' />
@@ -115,6 +115,43 @@ namespace DCEM.UserCenterService.Main.Application.Repository
         </filter>
       <attribute name='mcs_name' alias='account'/>
     </link-entity> 
+  </entity>
+</fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
+
+
+
+
+
+        public async Task<XDocument> GetUserPwd(UserLoginRequest request)
+        {
+            return await Task<XDocument>.Run(() =>
+            {
+
+               
+
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+  <entity name='mcs_userkeys'>
+    <attribute name='mcs_userkeysid' />
+    <attribute name='mcs_name' />
+    <attribute name='createdon' />
+    <order attribute='mcs_name' descending='false' />
+    <filter type='and'>
+      <condition attribute='mcs_keytype' operator='eq' value='{request.keytype}' />
+      <condition attribute='mcs_status' operator='eq' value='{request.status}' />
+      <condition attribute='mcs_certificationtype' operator='eq' value='{request.certificationtype}' />
+    </filter>
+    <link-entity name='mcs_user' from='mcs_userid' to='mcs_userid' link-type='inner' alias='ac'>
+      <link-entity name='mcs_loginname' from='mcs_userid' to='mcs_userid' link-type='inner' alias='ad'>
+        <filter type='and'>
+          <condition attribute='mcs_name' operator='eq' value='{request.account}' />
+          <condition attribute='mcs_status' operator='eq' value='1' />
+          <condition attribute='mcs_logintype' operator='eq' value='{request.logintype}' />
+        </filter>
+      </link-entity>
+    </link-entity>
   </entity>
 </fetch>";
                 return XDocument.Parse(fetchXml);

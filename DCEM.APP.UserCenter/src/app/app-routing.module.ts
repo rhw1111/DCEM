@@ -93,6 +93,18 @@ const routes: Routes = [
                 children: [
                     { path: 'list', loadChildren: () => import('./page/servicecenter/dealer/list/list.module').then(m => m.ListPageModule) },
                 ]
+            },
+            {
+                path: 'shoppingcart',  //购物车
+                children: [
+                    { path: 'list', loadChildren: () => import('./page/servicecenter/shoppingcart/list/list.module').then(m => m.ListPageModule) },
+                ]
+            },
+            {
+                path: 'reservation',  //维保预约
+                children: [
+                    { path: 'list', loadChildren: () => import('./page/servicecenter/reservation.com/list/list.module').then(m => m.ListPageModule) },
+                ]
             }
         ]
     },
@@ -104,29 +116,33 @@ const routes: Routes = [
         ]
     },
 
-    {
-        path: 'detail',
-        loadChildren: () => import('./page/servicecenter/vehiclecenter/detail/detail.module').then(m => m.DetailPageModule)
-    },
-    {
-        path: 'list',
-        loadChildren: () => import('./page/servicecenter/boutique/list/list.module').then(m => m.ListPageModule)
-    },
-    {
-        path: 'detail',
-        loadChildren: () => import('./page/servicecenter/boutique/detail/detail.module').then(m => m.DetailPageModule)
-    },
-    {
-        path: 'demo',
-        children: [
-            {
-                path: 'dealer',
-                loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
-            }
-        ]
-    }
-]
-    ;
+  {
+    path: 'detail',
+    loadChildren: () => import('./page/servicecenter/vehiclecenter/detail/detail.module').then( m => m.DetailPageModule)
+  },
+  {
+    path: 'list',
+    loadChildren: () => import('./page/servicecenter/boutique/list/list.module').then( m => m.ListPageModule)
+  },
+  {
+    path: 'detail',
+    loadChildren: () => import('./page/servicecenter/boutique/detail/detail.module').then(m => m.DetailPageModule)
+  },
+  {
+    path: 'list',
+    loadChildren: () => import('./page/servicecenter/shoppingcart/list/list.module').then( m => m.ListPageModule)
+  },
+  {
+      path: 'demo',
+      children: [
+          {
+              path: 'dealer',
+              loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
+          }
+      ]
+  }
+];
+;
 @NgModule({
     imports: [
         RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })

@@ -28,9 +28,14 @@ namespace DCEM.UserCenterService.Main.Application.App
 
         Task<ValidateResult> AddUser(UserAddRequest request);
 
+        Task<ValidateResult> UpdateUser(UserAddRequest request);
+
         Task<ValidateResult<List<CrmEntity>>> GetSecurityquestion();
 
-        void LoginLog(UserLoginRequest model, Guid userid, int type);
+        void LoginLog(UserLoginRequest model, Guid userid, int type); 
 
+        Task<ValidateResult> UpdateUserPwd(UserLoginRequest model);
+         
+        Task<CrmEntity> getuserdetail(UserDetailRequest userDetailRequest); 
     }
 }

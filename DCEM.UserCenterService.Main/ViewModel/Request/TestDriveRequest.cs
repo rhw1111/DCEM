@@ -5,9 +5,18 @@ using System.Text;
 namespace DCEM.UserCenterService.Main.ViewModel.Request
 {
     /// <summary>
-    /// 试乘试驾model
+    /// 试乘试驾查询model
     /// </summary>
     public class TestDriveRequest : PageBaseRequestModel
+    {
+       
+    }
+
+
+    /// <summary>
+    /// 试乘试驾数据model
+    /// </summary>
+    public class TestDriveViewModel : BaseRequest
     {
         /// <summary>
         /// 主键id

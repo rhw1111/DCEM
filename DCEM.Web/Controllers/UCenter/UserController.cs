@@ -90,7 +90,6 @@ namespace DCEM.Web.Controllers
                         return res;
                     }
                 }
-
             }
 
             Random rad = new Random();
@@ -134,7 +133,13 @@ namespace DCEM.Web.Controllers
                 }
             }
             else
-            { 
+            {
+                //登陆验证失败，写入登陆日志
+                if (request.type == "2")
+                {
+                    ValidateResult<CrmEntity> crm = await _appUser.GetUser(request);
+                    _appUser.LoginLog(request, crm.Data.Id, (int)UserEnum.LoginlogEnum.失败);
+                }
                 ValidateResult<CrmEntity> ret = new ValidateResult<CrmEntity>();
                 ret.Result = false;
                 ret.Description = res.Description;
@@ -156,6 +161,18 @@ namespace DCEM.Web.Controllers
         }
 
         /// <summary>
+        /// 修改用户信息
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [Route("updateuser")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult>> UpdateUser(UserAddRequest request)
+        {
+            return await _appUser.UpdateUser(request);
+        }
+
+        /// <summary>
         /// 获取用户
         /// </summary>
         /// <param name="req"></param>
@@ -167,6 +184,25 @@ namespace DCEM.Web.Controllers
             return await _appUser.GetUser(req);
         }
 
+
+        [Route("resetpwd")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult>> UpdatePwd(UserLoginRequest request)
+        {
+            UsermessageRequest req = new UsermessageRequest();
+            req.phone = request.account;
+            req.type = int.Parse(request.type);
+            req.valcode = request.valcode;
+            //验证码验证
+            ValidateResult res = await _appUsermessage.ValCode(req);
+            if (res.Result)
+            {
+                return await _appUser.UpdateUserPwd(request);
+            }
+            else
+                return res;
+        }
+
         /// <summary>
         /// 问题列表
         /// </summary>
@@ -176,6 +212,17 @@ namespace DCEM.Web.Controllers
         public async Task<NewtonsoftJsonActionResult<ValidateResult<List<CrmEntity>>>> GetSecurityquestion()
         {
             return await _appUser.GetSecurityquestion();
+        }
+
+        /// <summary>
+        /// 详情接口
+        /// </summary>
+        /// <returns></returns>
+        [Route("getuserdetail")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<CrmEntity>> getuserdetail(UserDetailRequest userDetailRequest )
+        {
+            return await _appUser.getuserdetail(userDetailRequest);
         }
     }
 }

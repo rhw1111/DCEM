@@ -46,7 +46,6 @@ const routes: Routes = [
                 children: [
                     { path: 'list', loadChildren: './serving/my-customer.com/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './serving/my-customer.com/detail/detail.module#DetailPageModule' },
-                    { path: 'select', loadChildren: './serving/my-customer.com/select/select.module#SelectPageModule' },
                     { path: 'edit', loadChildren: './serving/my-customer.com/edit/edit.module#EditPageModule' }
                 ]
             },
@@ -71,15 +70,6 @@ const routes: Routes = [
                     { path: 'subeditworking', loadChildren: './serving/mc-sc.com/subeditworking/subeditworking.module#SubeditworkingPageModule' },
                     { path: 'subeditpart', loadChildren: './serving/mc-sc.com/subeditpart/subeditpart.module#SubeditpartPageModule' },
                     { path: 'success', loadChildren: './serving/mc-sc.com/success/success.module#SuccessPageModule' }
-                ]
-            },
-            {
-                path: 'resume',
-                children: [
-                    { path: 'list', loadChildren: './serving/mc-resume.com/list/list.module#ListPageModule' },
-                    { path: 'detail', loadChildren: './serving/mc-resume.com/detail/detail.module#DetailPageModule' },
-                    { path: 'edit', loadChildren: './serving/mc-resume.com/edit/edit.module#EditPageModule' },
-                    { path: 'success', loadChildren: './serving/mc-resume.com/success/success.module#SuccessPageModule' }
                 ]
             },
             {

@@ -32,11 +32,24 @@ namespace DCEM.Web.Controllers.UCenter
         /// <returns></returns>
         [HttpPost]
         [Route("CreateTestDrive")]
-        public async Task<NewtonsoftJsonActionResult<ValidateResult<CrmEntity>>> CreateTestDrive(TestDriveRequest request)
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<CrmEntity>>> CreateTestDrive(TestDriveViewModel request)
         {
             var result = await app.CreateTestDrive(request);
             return result;
         }
+
+
+        #region 我的试乘试驾查询
+
+        [HttpPost]
+        [Route("GetDriveRecordList")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetDriveRecordList(TestDriveRequest request)
+        {
+            
+            var list = await app.GetDriveRecordList(request);
+            return list;
+        }
+        #endregion
 
     }
 }

@@ -262,15 +262,15 @@ namespace MSLibrary.Workflow
         private ICommonSignConfigurationCompleteServiceSelector _commonSignConfigurationCompleteServiceSelector;
         private ICommonSignConfigurationNodeStore _commonSignConfigurationNodeStore;
         private ICommonSignConfigurationRootActionStore _commonSignConfigurationRootActionStore;
-        private IApplicationLockService _applicationLockService;
+        private ICommonSignConfigurationStore _commonSignConfigurationStore;
 
-        public CommonSignConfigurationIMP(IWorkflowResourceRepository workflowResourceRepository, ICommonSignConfigurationCompleteServiceSelector commonSignConfigurationCompleteServiceSelector, ICommonSignConfigurationNodeStore commonSignConfigurationNodeStore, ICommonSignConfigurationRootActionStore commonSignConfigurationRootActionStore, IApplicationLockService applicationLockService)
+        public CommonSignConfigurationIMP(IWorkflowResourceRepository workflowResourceRepository, ICommonSignConfigurationCompleteServiceSelector commonSignConfigurationCompleteServiceSelector, ICommonSignConfigurationNodeStore commonSignConfigurationNodeStore, ICommonSignConfigurationRootActionStore commonSignConfigurationRootActionStore, ICommonSignConfigurationStore commonSignConfigurationStore)
         {
             _workflowResourceRepository = workflowResourceRepository;
             _commonSignConfigurationCompleteServiceSelector = commonSignConfigurationCompleteServiceSelector;
             _commonSignConfigurationNodeStore = commonSignConfigurationNodeStore;
             _commonSignConfigurationRootActionStore = commonSignConfigurationRootActionStore;
-            _applicationLockService = applicationLockService;
+            _commonSignConfigurationStore = commonSignConfigurationStore;
         }
 
 
@@ -290,7 +290,10 @@ namespace MSLibrary.Workflow
 
                 throw new UtilityException((int)Errors.NotFoundCommonSignConfigurationRootActionByActionName,fragment);
             }
-            await _applicationLockService.Execute(string.Format(ApplicationLockBaseNames.CommonSignConfiguration, configuration.EntityType, entityKey),
+
+
+
+            await _commonSignConfigurationStore.Lock(string.Format(ApplicationLockBaseNames.CommonSignConfiguration, configuration.EntityType, entityKey),
                 async () =>
                 {
                     using (DBTransactionScope scope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 5, 0) }))
@@ -316,7 +319,7 @@ namespace MSLibrary.Workflow
             var service = _commonSignConfigurationCompleteServiceSelector.Choose(configuration.CompleteServiceName);
             int status = configuration.WorkflowResourceDefaultCompleteStatus;
 
-            await _applicationLockService.Execute(string.Format(ApplicationLockBaseNames.CommonSignConfiguration, configuration.EntityType, entityKey),
+            await _commonSignConfigurationStore.Lock(string.Format(ApplicationLockBaseNames.CommonSignConfiguration, configuration.EntityType, entityKey),
                 async () =>
                 {
                     using (DBTransactionScope scope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 5, 0) }))

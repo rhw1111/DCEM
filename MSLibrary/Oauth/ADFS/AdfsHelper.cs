@@ -18,7 +18,7 @@ namespace MSLibrary.Oauth.ADFS
     {
         private static IHttpClientFactory _httpClientFactory;
 
-        private static IHttpClientFactory HttpClientFactory
+        public static IHttpClientFactory HttpClientFactory
         {
             set
             {
@@ -148,7 +148,7 @@ namespace MSLibrary.Oauth.ADFS
             var tokenUrl = BuildTokenUrl(adfsUri);
             var list = BuildTokenPasswordParams(clientId,clientSecret,resource, userName, password);
 
-            using (var httpClient = new HttpClient())
+            using (var httpClient = _httpClientFactory.CreateClient())
             {
                 //第1次请求
                 using (var response = await httpClient.PostAsync(tokenUrl, new FormUrlEncodedContent(list)))

@@ -1,63 +1,74 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-back-button text="返回" defaultHref="/"></ion-back-button>
-        </ion-buttons>
-        <ion-title>个人资料</ion-title> 
-    </ion-toolbar>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>个人资料</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-list lines="full">
-        <ion-card>
-            <ion-card-content>
-                <ion-item-divider color="primary">
-                    <ion-label>基本信息</ion-label>
-                </ion-item-divider>
-                <ion-item>
-                    <ion-text color="danger">*</ion-text>
-                    <ion-label>
-                        <h2>姓名：</h2>
-                    </ion-label>
-                    <ion-input type="text" name="username" [(ngModel)]="model.info.username" placeholder="请输入用户姓名">
-                    </ion-input>
-                </ion-item>
-                <ion-item>
-                    <ion-text color="danger">*</ion-text>
-                    <ion-label>
-                        <h2>手机号：</h2>
-                    </ion-label>
-                    <ion-input type="text" name="mobile" [(ngModel)]="model.info.mobile" placeholder="请输入用户手机号">
-                    </ion-input>
-                </ion-item> 
-                <ion-item>
-                    <ion-label>
-                        <h2>性别：</h2>
-                    </ion-label>
-                    <ion-select name="gender" okText="确认" cancelText="取消" [(ngModel)]="model.info.gender">
-                        <ion-select-option *ngFor="let item of model.genderoption" value="{{item.value}}">{{item.name}}
-                        </ion-select-option>
-                    </ion-select>
-                </ion-item>
-                <ion-item>
-                    <ion-label>
-                        <h2>邮箱：</h2>
-                    </ion-label>
-                    <ion-input type="text" name="mail" [(ngModel)]="model.info.mail" placeholder="请输入用户邮箱"></ion-input>
-                </ion-item> 
-                <ion-item (click)="provinceOnClick()">
-                    <ion-label position="stacked">省：</ion-label>
-                    <p>{{model.info.provincename}}&nbsp;</p>
-                </ion-item>
-                <ion-item (click)="cityOnClick()">
-                    <ion-label position="stacked">市：</ion-label>
-                    <p>{{model.info.cityname}}&nbsp;</p>
-                </ion-item>
-                <ion-item (click)="districtOnClick()">
-                    <ion-label position="stacked">区：</ion-label>
-                    <p>{{model.info.areaname}}&nbsp;</p>
-                </ion-item> 
-            </ion-card-content>
-        </ion-card>  
-    </ion-list>
+  <ion-list lines="full">
+    <ion-item>
+      <ion-text color="danger">*</ion-text>
+      <ion-label>
+        <h2>姓名：</h2>
+      </ion-label>
+      <ion-note slot="end">
+        <p>{{model.info.username}}</p>
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-text color="danger">*</ion-text>
+      <ion-label>
+        <h2>手机号：</h2>
+      </ion-label>
+      <ion-note slot="end">
+        <p>{{model.info.mobile}}</p>
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <h2>性别：</h2>
+      </ion-label>
+      <ion-note slot="end">
+        <p>{{model.info.gender}}</p>
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <h2>邮箱：</h2>
+      </ion-label>
+      <ion-note slot="end">
+        <p>{{model.info.mail}}</p>
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <h2>省</h2>
+      </ion-label>
+      <ion-note slot="end">
+        <p>{{model.info.province}}</p>
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <h2>市</h2>
+      </ion-label>
+      <ion-note slot="end">
+        <p>{{model.info.city}}</p>
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <h2>区</h2>
+      </ion-label>
+      <ion-note slot="end">
+        <p>{{model.info.area}}</p>
+      </ion-note>
+    </ion-item>
+  </ion-list>
+  <ion-list lines="none">
+    <ion-button expand="block"   color="medium" (click)="saveOnClick()">修改</ion-button>
+  </ion-list>
 </ion-content>
