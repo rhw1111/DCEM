@@ -2,6 +2,7 @@
 import { DCore_Http, DCore_Page, DCore_Window } from 'app/base/base.ser/Dcem.core';
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 import { AuthenticationService } from 'app/base/base.ser/authentication.service';
+import { MenuController } from '@ionic/angular';
 
 @Component({
     selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginPage implements OnInit {
         private _page: DCore_Page,
         private _window: DCore_Window,
         private _logininfo: Storage_LoginInfo,
-        private authservice:AuthenticationService
+        private authservice:AuthenticationService,
+        private menuCtrl:MenuController
     ) {
     }
     // 定义模型
@@ -30,7 +32,10 @@ export class LoginPage implements OnInit {
         pwshow:false//是否显示密码
     };
 
-
+    //每次进入页面时，我们将初始化禁用侧滑菜单
+    ionViewDidEnter() {   
+        this.menuCtrl.enable(false);
+    }
     // 初始化
     ngOnInit() {
         // 加入测试参数

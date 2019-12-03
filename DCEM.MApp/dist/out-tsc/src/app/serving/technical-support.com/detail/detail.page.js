@@ -3,11 +3,13 @@ import { Component } from '@angular/core';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute } from '@angular/router';
 import { FullScreenImage } from '@ionic-native/full-screen-image';
+import { MenuController } from '@ionic/angular';
 let DetailPage = class DetailPage {
-    constructor(_http, _page, activeRoute) {
+    constructor(_http, _page, activeRoute, menuController) {
         this._http = _http;
         this._page = _page;
         this.activeRoute = activeRoute;
+        this.menuController = menuController;
         this.tab = "info";
         this.mod = {
             apiUrl: '/Api/tech-support/GetDetail',
@@ -15,6 +17,7 @@ let DetailPage = class DetailPage {
                 TechnicalSupport: {
                     Id: "",
                     mcs_title: "",
+                    mcs_orderstatus: null,
                     mcs_serviceorderid: "",
                     mcs_repairnameid: "",
                     mcs_repairdate: "",
@@ -43,6 +46,10 @@ let DetailPage = class DetailPage {
             }
         };
     }
+    //每次页面加载
+    ionViewWillEnter() {
+        this.menuController.enable(true);
+    }
     ngOnInit() {
         this.activeRoute.queryParams.subscribe((params) => {
             if (params['id'] != null && params['id'] != undefined) {
@@ -67,6 +74,7 @@ let DetailPage = class DetailPage {
             if (res.TechnicalSupport != null) {
                 this.mod.data.TechnicalSupport.mcs_title = res["TechnicalSupport"]["Attributes"]["mcs_title"];
                 this.mod.data.TechnicalSupport.mcs_serviceorderid = res["TechnicalSupport"]["Attributes"]["_mcs_serviceorderid_value@OData.Community.Display.V1.FormattedValue"];
+                this.mod.data.TechnicalSupport.mcs_orderstatus = res["TechnicalSupport"]["Attributes"]["mcs_orderstatus"];
                 this.mod.data.TechnicalSupport.mcs_repairnameid = res["TechnicalSupport"]["Attributes"]["_mcs_repairnameid_value@OData.Community.Display.V1.FormattedValue"];
                 this.mod.data.TechnicalSupport.mcs_repairdate = res["TechnicalSupport"]["Attributes"]["mcs_repairdate@OData.Community.Display.V1.FormattedValue"];
                 this.mod.data.TechnicalSupport.mcs_email = res["TechnicalSupport"]["Attributes"]["mcs_email"];
@@ -122,7 +130,8 @@ DetailPage = tslib_1.__decorate([
     }),
     tslib_1.__metadata("design:paramtypes", [DCore_Http,
         DCore_Page,
-        ActivatedRoute])
+        ActivatedRoute,
+        MenuController])
 ], DetailPage);
 export { DetailPage };
 //# sourceMappingURL=detail.page.js.map

@@ -61,6 +61,7 @@ let AppComponent = class AppComponent {
                     this._page.goto("/serving/home/tabs/index");
                 }
                 else {
+                    this.menu.enable(false);
                     this._page.goto("/base/uc/login");
                 }
             }
