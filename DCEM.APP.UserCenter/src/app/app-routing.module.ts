@@ -9,7 +9,7 @@ const routes: Routes = [
     {
         path: 'home',  //通用目录
         children: [
-            { path: 'tab', loadChildren: () => import('./page/home/tabs/tabs.module').then(m => m.TabsPageModule) },
+            { path: 'tabs', loadChildren: () => import('./page/home/tabs/tabs.module').then(m => m.TabsPageModule) },
         ]
     },
     {
@@ -72,8 +72,8 @@ const routes: Routes = [
         children: [
             { path: 'index', loadChildren: () => import('./page/message/index/index.module').then(m => m.IndexPageModule) },
             { path: 'room', loadChildren: () => import('./page/message/room/room.module').then(m => m.RoomPageModule) },
-            { path: 'sys', loadChildren: () => import('./page/message/sys/sys.module').then(m => m.SysPageModule) },
-            { path: 'detail', loadChildren: () => import('./page/message/detail/detail.module').then(m => m.DetailPageModule) },
+            { path: 'sys', loadChildren: () => import('./page/message/sys/sys.module').then(m => m.SysPageModule) }
+
         ]
     },
     {
@@ -104,6 +104,12 @@ const routes: Routes = [
                 ]
             },
             {
+                path: 'shoppingcart',  //购物车
+                children: [
+                    { path: 'list', loadChildren: () => import('./page/servicecenter/shoppingcart/list/list.module').then(m => m.ListPageModule) },
+                ]
+            },
+            {
                 path: 'reservation',  //维保预约
                 children: [
                     { path: 'list', loadChildren: () => import('./page/servicecenter/reservation.com/list/list.module').then(m => m.ListPageModule) },
@@ -119,30 +125,33 @@ const routes: Routes = [
         ]
     },
 
-    {
-        path: 'detail',
-        loadChildren: () => import('./page/servicecenter/vehiclecenter/detail/detail.module').then(m => m.DetailPageModule)
-    },
-    {
-        path: 'list',
-        loadChildren: () => import('./page/servicecenter/boutique/list/list.module').then(m => m.ListPageModule)
-    },
-    {
-        path: 'detail',
-        loadChildren: () => import('./page/servicecenter/boutique/detail/detail.module').then(m => m.DetailPageModule)
-    },
-    {
-        path: 'demo',
-        children: [
-            {
-                path: 'dealer',
-                loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
-            }
-        ]
-    } 
-
-]
-    ;
+  {
+    path: 'detail',
+    loadChildren: () => import('./page/servicecenter/vehiclecenter/detail/detail.module').then( m => m.DetailPageModule)
+  },
+  {
+    path: 'list',
+    loadChildren: () => import('./page/servicecenter/boutique/list/list.module').then( m => m.ListPageModule)
+  },
+  {
+    path: 'detail',
+    loadChildren: () => import('./page/servicecenter/boutique/detail/detail.module').then(m => m.DetailPageModule)
+  },
+  {
+    path: 'list',
+    loadChildren: () => import('./page/servicecenter/shoppingcart/list/list.module').then( m => m.ListPageModule)
+  },
+  {
+      path: 'demo',
+      children: [
+          {
+              path: 'dealer',
+              loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
+          }
+      ]
+  }
+];
+;
 @NgModule({
     imports: [
         RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })

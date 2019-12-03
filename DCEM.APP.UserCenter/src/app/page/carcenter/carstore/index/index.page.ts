@@ -1,14 +1,13 @@
 ﻿import { Component, ViewChild, OnInit } from '@angular/core';
 import { ModalController, PopoverController, IonSlides, IonSlide } from '@ionic/angular';
 import { AnimationBuilder, Animation } from '@ionic/core';
+import { SpeclistComponent } from 'app/page/carcenter/carstore/component/model/speclist/speclist.component';
 import * as $ from 'jquery';
-import { SpeclistComponent } from 'app/page/carcenter/carstore/component/speclist/speclist.component';
-
 
 @Component({
     selector: 'app-index',
     templateUrl: './index.page.html',
-    styleUrls: ['./index.page.scss'],
+    styleUrls: ['../component/scss/main.scss', './index.page.scss'],
 })
 export class IndexPage implements OnInit {
 

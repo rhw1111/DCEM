@@ -1,9 +1,27 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>sys</ion-title>
+<ion-header >
+  <ion-toolbar style="--border-width:0px;">
+    <ion-buttons slot="start">
+      <ion-back-button color="medium" text="" defaultHref="/"></ion-back-button>
+  </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-
+    <ion-list ng-if="notices" mode="ios">
+        <ion-item-sliding *ngFor="let room of notices;let key=index">
+            <div class="content">
+                <ion-item [routerLink]="['/message/noticelist']">
+                    <ion-avatar item-start>
+                        <img src="{{room.thumbnail}}" />
+                    </ion-avatar>
+                    <ion-label>
+                      <h2>{{room.title}}</h2>
+                      <p>{{room.latest_chat}}</p>
+                    </ion-label>
+                  <ion-note slot="end">
+                    {{room.activeTime}}
+                  </ion-note>
+                </ion-item>
+            </div>
+            </ion-item-sliding>
+      </ion-list>
 </ion-content>

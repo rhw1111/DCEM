@@ -1,5 +1,6 @@
 import * as tslib_1 from "tslib";
 import { Component } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 import { ActivatedRoute } from '@angular/router';
@@ -11,13 +12,14 @@ import { SelectMalFunctionTypeComponent } from 'app/serving/serving.ser/componen
 import { SelectFileEditComponent } from 'app/serving/serving.ser/components/select-file-edit/select-file-edit.component';
 import { MessageService } from 'app/base/base.ser/message.service';
 let EditPage = class EditPage {
-    constructor(_http, _page, _valid, _userInfo, modalCtrl, activeRoute) {
+    constructor(_http, _page, _valid, _userInfo, modalCtrl, activeRoute, menuController) {
         this._http = _http;
         this._page = _page;
         this._valid = _valid;
         this._userInfo = _userInfo;
         this.modalCtrl = modalCtrl;
         this.activeRoute = activeRoute;
+        this.menuController = menuController;
         this.model = {
             postApiUrl: '/api/tech-support/AddOrUpdate',
             detailApiUrl: '/api/tech-support/GetDetail',
@@ -62,6 +64,10 @@ let EditPage = class EditPage {
             fileArray: []
         };
     }
+    //每次页面加载
+    ionViewWillEnter() {
+        this.menuController.enable(true);
+    }
     ngOnInit() {
         this.activeRoute.queryParams.subscribe((params) => {
             if (params['id'] != null && params['id'] != undefined) {
@@ -83,6 +89,14 @@ let EditPage = class EditPage {
             }
         }, (res) => {
             if (res.TechnicalSupport != null) {
+                // //如果已提交或关闭，则无法修改，跳转至详情页面
+                // var mcs_orderstatus= res["TechnicalSupport"]["Attributes"]["mcs_orderstatus"];
+                // debugger;
+                // if(mcs_orderstatus!=null && mcs_orderstatus!=10){
+                //    this._page.alert(MessageService.AlterTitleMessage,MessageService.PageCannotEdit,()=>{
+                //        this._page.goto('app/serving/ts/detail',{"id":id});
+                //    });
+                // }
                 this.model.postData.Id = id;
                 this.model.postData.mcs_title = res["TechnicalSupport"]["Attributes"]["mcs_title"];
                 this.model.postData.mcs_serviceorderid = res["TechnicalSupport"]["Attributes"]["_mcs_serviceorderid_value"];
@@ -344,7 +358,8 @@ EditPage = tslib_1.__decorate([
         DCore_Valid,
         Storage_LoginInfo,
         ModalController,
-        ActivatedRoute])
+        ActivatedRoute,
+        MenuController])
 ], EditPage);
 export { EditPage };
 //# sourceMappingURL=edit.page.js.map
