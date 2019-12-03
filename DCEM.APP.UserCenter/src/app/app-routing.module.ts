@@ -67,7 +67,7 @@ const routes: Routes = [
         path: 'personalcenter',  //用户中心
         children: [
             {
-                path: 'userinfo',  //整车商城
+                path: 'userinfo',
                 children: [
                     {
                         path: 'detail',
@@ -78,6 +78,15 @@ const routes: Routes = [
                         loadChildren: () => import('./page/personalcenter/userinfo/edit/edit.module').then(m => m.EditPageModule)
                     }
 
+                ]
+            },
+            {
+                path: 'scores',
+                children: [
+                    {
+                        path: 'list',
+                        loadChildren: () => import('./page/personalcenter/scores/list/list.module').then(m => m.ListPageModule)
+                    }
                 ]
             },
             { path: 'index', loadChildren: () => import('./page/personalcenter/index/index.module').then(m => m.IndexPageModule) },
