@@ -77,7 +77,13 @@ const routes: Routes = [
                 children: [
                     { path: 'list', loadChildren: () => import('./page/servicecenter/dealer/list/list.module').then(m => m.ListPageModule) },
                 ]
-            }
+            },
+            {
+                path: 'shoppingcart',  //购物车
+                children: [
+                    { path: 'list', loadChildren: () => import('./page/servicecenter/shoppingcart/list/list.module').then(m => m.ListPageModule) },
+                ]
+            },
         ]
     },
     {
@@ -99,6 +105,10 @@ const routes: Routes = [
   {
     path: 'detail',
     loadChildren: () => import('./page/servicecenter/boutique/detail/detail.module').then(m => m.DetailPageModule)
+  },
+  {
+    path: 'list',
+    loadChildren: () => import('./page/servicecenter/shoppingcart/list/list.module').then( m => m.ListPageModule)
   },
 ];
 @NgModule({

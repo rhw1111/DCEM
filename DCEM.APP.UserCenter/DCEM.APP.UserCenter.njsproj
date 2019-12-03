@@ -59,6 +59,8 @@
     <Folder Include="src\app\page\servicecenter\index\" />
     <Folder Include="src\app\page\servicecenter\boutique\" />
     <Folder Include="src\app\page\carcenter\carstore\" />
+    <Folder Include="src\app\page\servicecenter\shoppingcart\" />
+    <Folder Include="src\app\page\servicecenter\shoppingcart\list\" />
     <Folder Include="src\assets\" />
     <Folder Include="src\assets\icon\" />
     <Folder Include="src\assets\img\" />
@@ -113,6 +115,10 @@
     <TypeScriptCompile Include="src\app\page\servicecenter\index\index.module.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\index\index.page.spec.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\index\index.page.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\shoppingcart\list\list-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\shoppingcart\list\list.module.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\shoppingcart\list\list.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\shoppingcart\list\list.page.ts" />
     <TypeScriptCompile Include="src\environments\environment.prod.ts" />
     <TypeScriptCompile Include="src\environments\environment.ts" />
     <TypeScriptCompile Include="src\main.ts" />
@@ -154,6 +160,8 @@
     <Content Include="src\app\page\servicecenter\dealer\list\list.page.scss" />
     <Content Include="src\app\page\servicecenter\index\index.page.html" />
     <Content Include="src\app\page\servicecenter\index\index.page.scss" />
+    <Content Include="src\app\page\servicecenter\shoppingcart\list\list.page.html" />
+    <Content Include="src\app\page\servicecenter\shoppingcart\list\list.page.scss" />
     <Content Include="src\assets\icon\favicon.png" />
     <Content Include="src\assets\img\back.png" />
     <Content Include="src\assets\img\1png.png" />
