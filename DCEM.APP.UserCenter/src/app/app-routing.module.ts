@@ -150,6 +150,11 @@ const routes: Routes = [
           }
       ]
   }
+,
+  {
+    path: 'set',
+    loadChildren: () => import('./page/set/set.module').then( m => m.SetPageModule)
+  }
 ];
 ;
 @NgModule({
