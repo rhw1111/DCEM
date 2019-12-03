@@ -26,7 +26,7 @@ export class SelectDealerComponent implements OnInit {
     modal4: false
   };
   public model: any = {
-    apiUrl: '/api/dealer/getlist',
+    apiUrl: 'api/dealer/getlist',
     //国家默认中国
     countryId: "7E83801C-795B-E911-A824-B53F780FAC1C",
     level: null,//行政区域级别 0:全球、1:国家、2:省、3:市、4:地区 
@@ -222,8 +222,8 @@ export class SelectDealerComponent implements OnInit {
 //保存所选项
 itemClick(item) {
     this.modalCtrl.dismiss({
-        'id': item.Id,
-        'name': item.name
+        'id': item.id,
+        'name': item.mcs_name
     });
 }
 

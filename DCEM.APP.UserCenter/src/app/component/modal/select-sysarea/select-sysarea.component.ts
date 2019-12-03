@@ -38,7 +38,7 @@ export class SelectSysareaComponent implements OnInit {
         private _navParams: NavParams
 
     ) {
-        this.mod.apiUrl = "/Api/basedata/QuerySysarea";
+        this.mod.apiUrl = "Api/basedata/QuerySysarea";
         this.mod.searchData.search = "";
         this.mod.searchData.pageindex = 1;
         this.mod.searchData.pagesize = 20;

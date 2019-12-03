@@ -1,8 +1,14 @@
 ﻿USE [LOE]
 GO
-/****** Object:  StoredProcedure [dbo].[usp_GrantPointForCrmMemberCitySaver]    Script Date: 2019/11/25 10:48:22 ******/
+
+/****** Object:  StoredProcedure [dbo].[usp_GrantPointForCrmMemberCitySaver]    Script Date: 2019/11/29 22:06:13 ******/
+DROP PROCEDURE [dbo].[usp_GrantPointForCrmMemberCitySaver]
+GO
+
+/****** Object:  StoredProcedure [dbo].[usp_GrantPointForCrmMemberCitySaver]    Script Date: 2019/11/29 22:06:24 ******/
 SET ANSI_NULLS ON
 GO
+
 SET QUOTED_IDENTIFIER ON
 GO
 
@@ -15,7 +21,7 @@ GO
 --              for CRM_Member_CitySaver
 -- =============================================
 
-ALTER PROCEDURE [dbo].[usp_GrantPointForCrmMemberCitySaver]
+CREATE PROCEDURE [dbo].[usp_GrantPointForCrmMemberCitySaver]
 (
     -- debug flag
     @IsDebug                       BIT,
@@ -436,7 +442,7 @@ BEGIN
                                 ) OR
                                 @MCS_ReplacedRecycleCount=0
                             ) AND
-                            CONVERT(DATE, TXN_DT)              --previous use SJSC_START_DT
+                            CONVERT(DATE, SJSC_START_DT)              --previous use SJSC_START_DT
                                 BETWEEN
                                     DATEADD(d, (0-@CSBufferDays), @MCS_PurchaseDate) AND
                                     DATEADD(d, @CSBufferDays, @MCS_PurchaseDate) AND
@@ -462,7 +468,7 @@ BEGIN
                                     ) OR
                                     @MCS_ReplacedRecycleCount=0
                                 ) AND
-                                CONVERT(DATE, TXN_DT) --previous use SJSC_START_DT
+                                CONVERT(DATE, SJSC_START_DT) --previous use SJSC_START_DT
                                     BETWEEN
                                         DATEADD(d, (0-@CSBufferDays), @MCS_PurchaseDate) AND
                                         DATEADD(d, @CSBufferDays, @MCS_PurchaseDate) AND
@@ -1558,4 +1564,7 @@ BEGIN
         ;
     END
 END
+
+
+GO
 

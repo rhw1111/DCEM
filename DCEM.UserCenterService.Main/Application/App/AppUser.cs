@@ -17,15 +17,17 @@ namespace DCEM.UserCenterService.Main.Application.App
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
     using MSLibrary;
+    using System.Collections.Generic;
+    using System;
 
     public class AppUser : IAppUser
     {
-        
+
         public IUserService _userService;
-        
+
         public AppUser(IUserService userService)
         {
-            _userService=userService;
+            _userService = userService;
         }
 
         public async Task<ValidateResult<CrmEntity>> LoginAccount(UserLoginRequest request)
@@ -42,6 +44,30 @@ namespace DCEM.UserCenterService.Main.Application.App
         public async Task<ValidateResult> AddUser(UserAddRequest request)
         {
             return await _userService.AddUser(request);
+        }
+        public async Task<ValidateResult> UpdateUser(UserAddRequest request)
+        {
+            return await _userService.UpdateUser(request);
+        }
+        public async Task<ValidateResult<List<CrmEntity>>> GetSecurityquestion()
+        {
+            return await _userService.GetSecurityquestion();
+        }
+
+        public void LoginLog(UserLoginRequest model, Guid userid, int type)
+        {
+            _userService.LoginLog(model, userid, type);
+        }
+
+
+        public async Task<ValidateResult> UpdateUserPwd(UserLoginRequest model)
+        {
+            return await _userService.UpdateUserPwd(model); 
+        }
+
+        public Task<CrmEntity> getuserdetail(UserDetailRequest userDetailRequest)
+        {
+          return  _userService.getuserdetail(userDetailRequest); 
         }
     }
 }

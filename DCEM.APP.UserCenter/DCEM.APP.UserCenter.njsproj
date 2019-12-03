@@ -39,6 +39,7 @@
     <Folder Include="src\app\component\modal\login\" />
     <Folder Include="src\app\component\modal\select-sysarea\" />
     <Folder Include="src\app\component\typescript\" />
+    <Folder Include="src\app\page\carcenter\carstore\speclist\" />
     <Folder Include="src\app\page\carcenter\index\" />
     <Folder Include="src\app\page\charging\index\" />
     <Folder Include="src\app\page\community\index\" />
@@ -58,10 +59,14 @@
     <Folder Include="src\app\page\personalcenter\index\" />
     <Folder Include="src\app\page\servicecenter\boutique\detail\" />
     <Folder Include="src\app\page\servicecenter\boutique\list\" />
+    <Folder Include="src\app\page\carcenter\carstore\index\" />
     <Folder Include="src\app\page\servicecenter\dealer\" />
     <Folder Include="src\app\page\servicecenter\dealer\list\" />
     <Folder Include="src\app\page\servicecenter\index\" />
     <Folder Include="src\app\page\servicecenter\boutique\" />
+    <Folder Include="src\app\page\carcenter\carstore\" />
+    <Folder Include="src\app\page\servicecenter\reservation.com\" />
+    <Folder Include="src\app\page\servicecenter\reservation.com\list\" />
     <Folder Include="src\app\page\servicecenter\vehiclecenter\" />
     <Folder Include="src\app\page\servicecenter\vehiclecenter\detail\" />
     <Folder Include="src\app\page\servicecenter\vehiclecenter\list\" />
@@ -83,6 +88,8 @@
     <TypeScriptCompile Include="src\app\component\modal\select-sysarea\select-sysarea.component.spec.ts" />
     <TypeScriptCompile Include="src\app\component\modal\select-sysarea\select-sysarea.component.ts" />
     <TypeScriptCompile Include="src\app\component\typescript\dcem.core.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\carstore\speclist\speclist.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\carstore\speclist\speclist.component.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\index\index.module.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\index\index.page.spec.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\index\index.page.ts" />
@@ -122,6 +129,10 @@
     <TypeScriptCompile Include="src\app\page\servicecenter\boutique\list\list.module.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\boutique\list\list.page.spec.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\boutique\list\list.page.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\carstore\index\index-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\carstore\index\index.module.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\carstore\index\index.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\carstore\index\index.page.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\dealer\list\list-routing.module.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\dealer\list\list.module.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\dealer\list\list.page.spec.ts" />
@@ -129,6 +140,10 @@
     <TypeScriptCompile Include="src\app\page\servicecenter\index\index.module.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\index\index.page.spec.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\index\index.page.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\reservation.com\list\list-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\reservation.com\list\list.module.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\reservation.com\list\list.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\reservation.com\list\list.page.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\vehiclecenter\detail\detail-routing.module.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\vehiclecenter\detail\detail.module.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\vehiclecenter\detail\detail.page.spec.ts" />
@@ -158,6 +173,8 @@
     <Content Include="src\app\component\modal\login\login.component.scss" />
     <Content Include="src\app\component\modal\select-sysarea\select-sysarea.component.html" />
     <Content Include="src\app\component\modal\select-sysarea\select-sysarea.component.scss" />
+    <Content Include="src\app\page\carcenter\carstore\speclist\speclist.component.html" />
+    <Content Include="src\app\page\carcenter\carstore\speclist\speclist.component.scss" />
     <Content Include="src\app\page\carcenter\index\index.page.html" />
     <Content Include="src\app\page\carcenter\index\index.page.scss" />
     <Content Include="src\app\page\charging\index\index.page.html" />
@@ -180,10 +197,14 @@
     <Content Include="src\app\page\servicecenter\boutique\detail\detail.page.scss" />
     <Content Include="src\app\page\servicecenter\boutique\list\list.page.html" />
     <Content Include="src\app\page\servicecenter\boutique\list\list.page.scss" />
+    <Content Include="src\app\page\carcenter\carstore\index\index.page.html" />
+    <Content Include="src\app\page\carcenter\carstore\index\index.page.scss" />
     <Content Include="src\app\page\servicecenter\dealer\list\list.page.html" />
     <Content Include="src\app\page\servicecenter\dealer\list\list.page.scss" />
     <Content Include="src\app\page\servicecenter\index\index.page.html" />
     <Content Include="src\app\page\servicecenter\index\index.page.scss" />
+    <Content Include="src\app\page\servicecenter\reservation.com\list\list.page.html" />
+    <Content Include="src\app\page\servicecenter\reservation.com\list\list.page.scss" />
     <Content Include="src\app\page\servicecenter\vehiclecenter\detail\detail.page.html" />
     <Content Include="src\app\page\servicecenter\vehiclecenter\detail\detail.page.scss" />
     <Content Include="src\app\page\servicecenter\vehiclecenter\list\list.page.html" />

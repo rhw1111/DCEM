@@ -25,18 +25,8 @@ export class DCore_Window {
     providedIn: 'root'
 })
 export class DCore_Config {
-    public serverUrl: string;
-    constructor(
-        private _window: DCore_Window
-    ) {
-        this.serverUrl = _window.storageGet("apiDomainUrl");
-    }
-
-
-    getDomain() {
-        this.serverUrl = this._window.storageGet("apiDomainUrl");
-        return this.serverUrl;
-    }
+    public  server:string="localhost";//接口环境
+      
     /*
         获取商城的接口地址
         @server：dev|sit|uat
@@ -48,6 +38,8 @@ export class DCore_Config {
             case "dev":url="https://subcrmdevapi.sokon.com/tc/";break;
             case "sit":url="https://subcrmsitapi.sokon.com/tc/";break;
             case "uat":url="https://subcrmuatapi.sokon.com/tc/";break;
+            case "uat":url="https://subcrmuatapi.sokon.com/tc/";break;
+            case "localhost":url="https://localhost:44382/";break;
         }
         return url;
     }
@@ -66,7 +58,7 @@ export class DCore_Http {
     
     //商城接口get请求
     getForShopping(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
-        this._httpClient.get(this._config.getShoppingDomain("uat") + url,
+        this._httpClient.get(this._config.getShoppingDomain(this._config.server) + url,
             {
                 params: params,
                 headers: this.getHeadersForShopping()
@@ -81,7 +73,7 @@ export class DCore_Http {
     //商城接口post请求
     postForShopping(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
         this._httpClient.post(
-            this._config.getShoppingDomain("uat") + url,
+            this._config.getShoppingDomain(this._config.server) + url,
             params,
             {
                 headers: this.getHeadersForShopping()
@@ -96,7 +88,7 @@ export class DCore_Http {
 
     //带请求头get请求
     getForToaken(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
-        this._httpClient.get(this._config.getDomain() + url,
+        this._httpClient.get(this._config.getShoppingDomain(this._config.server)  + url,
             {
                 params: params,
                 headers: this.getHeaders()
@@ -111,7 +103,7 @@ export class DCore_Http {
 
     //get请求
     get(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
-        this._httpClient.get(this._config.getDomain() + url, params).subscribe(
+        this._httpClient.get(this._config.getShoppingDomain(this._config.server)  + url, params).subscribe(
             (res: any) => {
                 rescallback && rescallback(res);
             },
@@ -123,7 +115,7 @@ export class DCore_Http {
     //post请求
     postForToaken(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
         this._httpClient.post(
-            this._config.getDomain() + url,
+            this._config.getShoppingDomain(this._config.server)  + url,
             params,
             {
                 headers: this.getHeaders()
@@ -139,7 +131,7 @@ export class DCore_Http {
     //post请求
     post(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
         this._httpClient.post(
-            this._config.getDomain() + url, params).subscribe(
+            this._config.getShoppingDomain(this._config.server)  + url, params).subscribe(
                 (res: any) => {
                     rescallback && rescallback(res);
                 },

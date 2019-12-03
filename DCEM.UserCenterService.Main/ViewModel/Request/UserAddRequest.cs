@@ -7,9 +7,20 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
     public class UserAddRequest
     {
         /// <summary>
+        /// 用户ID
+        /// </summary>
+        public Guid userid { get; set; }
+        /// <summary>
         /// 账户
         /// </summary>
         public string account { get; set; }
+
+        public string phone { get; set; }
+
+        /// <summary>
+        /// 用户登陆类型
+        /// </summary>
+        public int? logintype { get; set; }
         /// <summary>
         /// 姓名
         /// </summary>

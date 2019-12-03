@@ -19,11 +19,15 @@ namespace DCEM.UserCenterService.Main.Application.Repository
 
     public class UserRepository : IUserRepository
     {
+        /// <summary>
+        /// 账号登陆
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task<XDocument> LoginAccount(UserLoginRequest request)
         {
             return await Task<XDocument>.Run(() =>
             {
-
                 var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
   <entity name='mcs_user'>
     <attribute name='mcs_name' />
@@ -42,18 +46,26 @@ namespace DCEM.UserCenterService.Main.Application.Repository
     <attribute name='mcs_phone' />
     <attribute name='mcs_memberid' />
     <attribute name='mcs_userid' />
+    <attribute name='mcs_description' />
     <order attribute='createdon' descending='true' />
     <filter type='and'>
       <condition attribute='mcs_status' operator='eq' value='1' />
-      <condition attribute='mcs_phone' operator='eq' value='{request.account}' />
     </filter>
-    <link-entity name='mcs_userkeys' from='mcs_userid' to='mcs_userid' link-type='inner' alias='ab'>
+    <link-entity name='mcs_userkeys' from='mcs_userid' to='mcs_userid' link-type='inner' alias='ae'>
       <filter type='and'>
         <condition attribute='mcs_hashvalue' operator='eq' value='{request.pwd}' />
-        <condition attribute='mcs_certificationtype' operator='eq' value='{request.certificationtype}' />
-        <condition attribute='mcs_status' operator='eq' value='{request.status}' />
         <condition attribute='mcs_keytype' operator='eq' value='{request.keytype}' />
+        <condition attribute='mcs_status' operator='eq' value='{request.status}' />
+        <condition attribute='mcs_certificationtype' operator='eq' value='{request.certificationtype}' />
       </filter>
+    </link-entity>
+    <link-entity name='mcs_loginname' from='mcs_userid' to='mcs_userid' link-type='inner' alias='af'>
+      <filter type='and'>
+        <condition attribute='mcs_name' operator='eq' value='{request.account}' />
+        <condition attribute='mcs_logintype' operator='eq' value='{request.logintype}' />
+        <condition attribute='mcs_status' operator='eq' value='1' />
+      </filter>
+      <attribute name='mcs_name' alias='account'/>
     </link-entity>
   </entity>
 </fetch>";
@@ -62,6 +74,11 @@ namespace DCEM.UserCenterService.Main.Application.Repository
         }
 
 
+        /// <summary>
+        /// 用户信息获取
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task<XDocument> GetUser(UserLoginRequest request)
         {
             return await Task<XDocument>.Run(() =>
@@ -85,13 +102,79 @@ namespace DCEM.UserCenterService.Main.Application.Repository
     <attribute name='mcs_phone' />
     <attribute name='mcs_memberid' />
     <attribute name='mcs_userid' />
-    <attribute name='mcs_avatar' />
     <attribute name='mcs_description' />
     <order attribute='createdon' descending='true' />
     <filter type='and'>
-      <condition attribute='statecode' operator='eq' value='0' />
-      <condition attribute='mcs_phone' operator='eq' value='{request.account}' />
+      <condition attribute='statecode' operator='eq' value='0' /> 
     </filter> 
+    <link-entity name='mcs_loginname' from='mcs_userid' to='mcs_userid' link-type='inner' alias='ab'>
+        <filter type='and'> 
+        <condition attribute='mcs_logintype' operator='eq' value='{request.logintype}' /> 
+        <condition attribute='mcs_status' operator='eq' value='1' /> 
+        <condition attribute='mcs_name' operator='eq' value='{request.account}' />
+        </filter>
+      <attribute name='mcs_name' alias='account'/>
+    </link-entity> 
+  </entity>
+</fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
+
+
+
+
+
+        public async Task<XDocument> GetUserPwd(UserLoginRequest request)
+        {
+            return await Task<XDocument>.Run(() =>
+            {
+
+               
+
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+  <entity name='mcs_userkeys'>
+    <attribute name='mcs_userkeysid' />
+    <attribute name='mcs_name' />
+    <attribute name='createdon' />
+    <order attribute='mcs_name' descending='false' />
+    <filter type='and'>
+      <condition attribute='mcs_keytype' operator='eq' value='{request.keytype}' />
+      <condition attribute='mcs_status' operator='eq' value='{request.status}' />
+      <condition attribute='mcs_certificationtype' operator='eq' value='{request.certificationtype}' />
+    </filter>
+    <link-entity name='mcs_user' from='mcs_userid' to='mcs_userid' link-type='inner' alias='ac'>
+      <link-entity name='mcs_loginname' from='mcs_userid' to='mcs_userid' link-type='inner' alias='ad'>
+        <filter type='and'>
+          <condition attribute='mcs_name' operator='eq' value='{request.account}' />
+          <condition attribute='mcs_status' operator='eq' value='1' />
+          <condition attribute='mcs_logintype' operator='eq' value='{request.logintype}' />
+        </filter>
+      </link-entity>
+    </link-entity>
+  </entity>
+</fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
+
+
+
+        /// <summary>
+        /// 安全问题设置列表获取
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<XDocument> GetSecurityquestion()
+        {
+            return await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+  <entity name='mcs_securityquestion'>
+    <attribute name='mcs_securityquestionid' />
+    <attribute name='mcs_code' />
+    <attribute name='mcs_name' /> 
+    <order attribute='mcs_index' descending='true' /> 
   </entity>
 </fetch>";
                 return XDocument.Parse(fetchXml);

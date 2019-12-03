@@ -18,5 +18,6 @@ namespace MSLibrary.Workflow.DAL
         /// <param name="name"></param>
         /// <returns></returns>
         Task<CommonSignConfigurationNode> QueryByConfigurationName(Guid configurationId, string name);
+        Task Lock(string lockName, Func<Task> callBack, int timeout = -1);
     }
 }

@@ -43,6 +43,21 @@ namespace DCEM.ConsoleApp
 
         async static Task  Main(string[] args)
         {
+            object vv = new List<int> { 1};
+            SObj sObj = new SObj()
+            {
+                Value = vv
+            };
+
+            JsonSerializerSettings settings = new JsonSerializerSettings()
+            {
+                 TypeNameHandling= TypeNameHandling.All
+            };
+            var strSObj=JsonConvert.SerializeObject(sObj, settings);
+
+            sObj=JsonConvert.DeserializeObject<SObj>(strSObj, settings);
+
+
             var h = new HttpClientHandler() { Credentials = new NetworkCredential("crm9admin", "@Msc.com@", "Msc.com") };
             
            
@@ -729,12 +744,12 @@ namespace DCEM.ConsoleApp
 
 
 
-            SerializerObj sObj = new SerializerObj()
+            SerializerObj ssObj = new SerializerObj()
             {
                  Name="A"
             };
 
-            HY.Do(sObj);
+            HY.Do(ssObj);
 
             DateTime dt1970 = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             var mill= (DateTime.UtcNow.Ticks - dt1970.Ticks) / 10000;
@@ -830,7 +845,12 @@ namespace DCEM.ConsoleApp
         }
     }
 
-
+    [DataContract]
+    public class SObj
+    {
+        [DataMember]
+        public object Value { get; set; }
+    }
     public class CacheItem
     {
         public int Number { get; set; }

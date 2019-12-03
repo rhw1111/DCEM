@@ -2,6 +2,7 @@
 
 namespace DCEM.UserCenterService.Main.ViewModel.Request
 {
+    using System;
     using System.Collections.Generic;
     using MSLibrary.Xrm;
 
@@ -14,6 +15,13 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
         /// 账户
         /// </summary>
         public string account { get; set; }
+
+        /// <summary>
+        /// 登陆类型 1：手机号，2：邮箱，3：身份证
+        /// </summary>
+        public int logintype { get; set; }
+
+        public string ip { get; set; }
 
         /// <summary>
         /// 验证码
@@ -38,6 +46,6 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
         /// <summary>
         /// 认证类型 1：数字信号认证，2：模拟信号认证
         /// </summary>
-        public int certificationtype { get; set; }
+        public int certificationtype { get; set; } 
     }
 }

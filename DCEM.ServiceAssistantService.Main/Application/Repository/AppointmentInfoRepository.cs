@@ -29,6 +29,10 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
             {
                 filter += $"<condition attribute='mcs_appointmentat' operator='on' value='{filterstr.AppointmentAt}' />";
             }
+            if (!string.IsNullOrWhiteSpace(filterstr.mcs_customerphone))
+            {
+                filter += $"<condition attribute='mcs_customerphone' operator='eq' value='{filterstr.mcs_customerphone}' />";
+            }
             if (!string.IsNullOrWhiteSpace(filterstr.seachkey))
             {
                 filter += $"<filter type='or'>";
@@ -37,6 +41,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
                 filter += $"<condition attribute='mcs_customername' operator='like' value='%{filterstr.seachkey}%' />";
                 filter += $"</filter>";
             }
+            
 
             var fetchString = $@"<fetch version='1.0' count='{filterstr.pageSize}' page='{filterstr.page}' output-format='xml-platform' mapping='logical' distinct='false'>
                   <entity name='mcs_appointmentinfo'>

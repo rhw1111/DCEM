@@ -1,0 +1,165 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>预约试乘试驾</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content> 
+  <ion-col>
+   <ion-list lines="full" style="height: 30%;">   
+    <ion-slides>
+        <ion-slide>
+            <ion-grid>
+                <ion-row style="background-color:#000">
+                    <ion-col>
+                        <br />
+                        <img src="../assets/img/temp/xiaopeng2.jpg" />
+                    </ion-col>
+                </ion-row>             
+            </ion-grid>
+        </ion-slide>
+        <ion-slide>
+            <ion-grid>
+                <ion-row style="background-color:#000">
+                    <ion-col>
+                        <br />
+                        <img src="../assets/img/1png.png"/>
+                    </ion-col>
+                </ion-row>
+               
+            </ion-grid>
+        </ion-slide>
+    </ion-slides>
+  <!--   <WingBlank>
+        <Carousel >
+          <CarouselSlide >
+            <div style="display: inline-block; width: 100%;" [ngStyle]="{ height: state.imgHeight }">
+              <img src="../assets/img/temp/xiaopeng2.jpg" style=" pointer-events: none; width: 100%;"/>
+            </div>
+          </CarouselSlide>
+          <CarouselSlide >
+            <div style="display: inline-block; width: 100%;" [ngStyle]="{ height: state.imgHeight }">
+              <img src="../assets/img/1png.png" style=" pointer-events: none; width: 100%;"/>
+            </div>
+          </CarouselSlide>
+        </Carousel>
+      </WingBlank> -->
+  </ion-list>
+
+  <ion-list lines="full">    
+      <ion-item>
+          <ion-label position="stacked">
+              姓名
+              <ion-text color="danger">*</ion-text>
+          </ion-label>           
+          <ion-input placeholder="请输入姓名" [(ngModel)]="model.postData.mcs_fullname" required></ion-input>         
+      </ion-item>
+      <ion-item>
+          <ion-label position="stacked">
+              手机号
+              <ion-text color="danger">*</ion-text>
+          </ion-label>
+        
+          <ion-input placeholder="请输入手机号" [(ngModel)]="model.postData.mcs_mobilephone" required></ion-input>
+             
+      </ion-item>
+      <ion-item>
+          <ion-label position="stacked">
+              预约车型
+              <ion-text color="danger">*</ion-text>
+          </ion-label>   
+          <ion-select placeholder="请选择预约车型" cancelText="取消" okText="确定" [(ngModel)]="model.postData.mcs_carmodel">
+              <ion-select-option  value="1">
+                  s01
+              </ion-select-option>
+              <ion-select-option  value="2">
+                  s02
+               </ion-select-option>
+               <ion-select-option  value="3">
+                  s03
+               </ion-select-option>
+          </ion-select>
+      </ion-item>
+      <ion-item>
+          <ion-label position="stacked">
+              业务类型
+              <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-select placeholder="请选择预约类型" cancelText="取消" okText="确定" [(ngModel)]="model.postData.mcs_businesstype">
+              <ion-select-option  value="1">
+                  试乘
+              </ion-select-option>
+              <ion-select-option  value="2">
+                  试驾
+               </ion-select-option>
+          </ion-select>
+      </ion-item>
+      <ion-item (click)="selectDealerModal()">
+          <ion-label position="stacked">
+              试乘试驾地点
+              <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input placeholder="请选择地点" [(ngModel)]="model.postData.mcs_dealername" required></ion-input>
+          <ion-icon slot="end" name="search"></ion-icon>
+        </ion-item>
+      <ion-item>
+          <ion-label position="stacked">
+              预约时间
+              <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-datetime placeholder="请选择预约时间"  display-format="YYYY-MM-DD" cancelText="取消" doneText="确定"  [(ngModel)]="model.postData.mcs_ordertime" required></ion-datetime>
+      </ion-item>
+      <ion-item>
+          <ion-label position="stacked">
+              预约时段
+              <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-select placeholder="请选择预约时段" cancelText="取消" okText="确定" [(ngModel)]="model.postData.mcs_testdrivetime">
+              <ion-select-option  value="1">
+                  09:30-10:00
+              </ion-select-option>
+              <ion-select-option  value="2">
+                  10:00-10-30
+               </ion-select-option>
+               <ion-select-option  value="3">
+                  10:30-11:00
+              </ion-select-option>
+              <ion-select-option  value="4">
+                  11:00-11-30
+               </ion-select-option>
+               <ion-select-option  value="5">
+                  13:30-14:00
+              </ion-select-option>
+              <ion-select-option  value="6">
+                  14:00-14-30
+               </ion-select-option>
+               <ion-select-option  value="7">
+                  14:30-15:00
+              </ion-select-option>
+              <ion-select-option  value="8">
+                  15:00-15-30
+               </ion-select-option>
+               <ion-select-option  value="9">
+                  15:30-16:00
+              </ion-select-option>
+              <ion-select-option  value="10">
+                  16:00-16-30
+               </ion-select-option>
+          </ion-select>
+      </ion-item>
+      <br/>
+      <ion-label position="stacked">
+          <ion-checkbox  color="dark" style="border:1px solid black;border-radius: 60px;height:20px;width: 20px;" [(ngModel)]="model.postData.isChecked"></ion-checkbox>           
+           我已阅读并同意《试乘试驾指南和协议》
+      </ion-label>
+     
+   
+    </ion-list>
+    <section style="text-align:center;">
+    <ion-button  expand="block" type="button"  (click)="SureDrive()">确认预约</ion-button>
+    </section>
+    <br />
+    <br />
+</ion-col>
+
+</ion-content>
