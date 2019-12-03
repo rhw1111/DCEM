@@ -38,6 +38,14 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         /// <param name="request"></param>
         /// <returns></returns>
         Task<QueryResult<CrmEntity>> QueryVehicletype(VehicleTypeRequest request);
+
+
+        /// <summary>
+        /// 基本车型
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<QueryResult<CrmEntity>> GetCarmodel(VehicleTypeRequest request);
         /// <summary>
         /// 车型颜色
         /// </summary>

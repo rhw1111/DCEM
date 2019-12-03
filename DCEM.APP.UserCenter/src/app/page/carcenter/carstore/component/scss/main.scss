@@ -9,7 +9,7 @@ $dm-darkblue: RGB(32,48,61); //(深蓝)
 $dm-white: RGB(255,255,255); //(白)
 $dm-gray: RGB(150,153,154); //(灰)
 $dm-gray-line: RGB(238,238,238); //(灰线)
-
+$dm-darkgray: RGB(99,102,105); //(深灰)
 //自定义颜色
 .ion-color-org {
     --ion-color-base: RGB(240,110,35);
@@ -86,6 +86,14 @@ $dm-gray-line: RGB(238,238,238); //(灰线)
     }
 }
 
+//头带logo
+.dm-top-head {
+    background: #000;
+    height: 55px;
+    line-height: 55px;
+}
+
+
 
 //底部
 .dm-footer {
@@ -95,7 +103,11 @@ $dm-gray-line: RGB(238,238,238); //(灰线)
 
     h6 {
         color: $dm-darkblue;
-        font-size: 16px;
+        font-size: 14px;
+
+        strong {
+            font-size: 16px;
+        }
     }
 
 
@@ -137,9 +149,9 @@ $dm-gray-line: RGB(238,238,238); //(灰线)
         }
     }
 }
-
 //底部弹窗
 .dm-footer-model {
+    z-index: 9;
     padding-top: 30px;
     padding-bottom: 30px;
     padding-left: 30px;
@@ -192,4 +204,3 @@ $dm-gray-line: RGB(238,238,238); //(灰线)
         animation: translateYclose ease 0.3s both;
     }
 }
-

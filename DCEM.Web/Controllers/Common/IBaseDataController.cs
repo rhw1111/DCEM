@@ -176,6 +176,29 @@ namespace DCEM.Web.Controllers
         }
 
         /// <summary>
+        ///基本车型
+        /// </summary>
+        /// <param name="seachkey"></param>
+        /// <param name="sort"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetCarmodel")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetCarmodel(string seachkey = "", string sort = "", int pageSize = 10, int page = 1)
+        {
+            var req = new VehicleTypeRequest()
+            {
+                search = seachkey,
+                page = page,
+                pageSize = pageSize,
+                sort = sort
+            };
+            var list = await app.GetCarmodel(req);
+            return list;
+        }
+
+        /// <summary>
         /// 车型颜色
         /// </summary>
         /// <param name="seachkey"></param>

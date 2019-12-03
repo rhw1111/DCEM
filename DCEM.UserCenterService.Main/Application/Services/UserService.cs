@@ -172,7 +172,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     entity.Attributes.Add("mcs_phone", model.account);
                 }
                 if (!string.IsNullOrEmpty(model.birthday))
-                    entity.Attributes.Add("mcs_birthday", model.birthday);
+                    entity.Attributes.Add("mcs_birthday", DateTime.Parse(model.birthday).ToUniversalTime());
                 if (!string.IsNullOrEmpty(model.company))
                     entity.Attributes.Add("company", model.company);
                 if (!string.IsNullOrEmpty(model.description))
@@ -267,19 +267,17 @@ namespace DCEM.UserCenterService.Main.Application.Services
         /// <returns></returns>
         public async Task<ValidateResult> UpdateUser(UserAddRequest model)
         {
-            var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
-            var validateResult = new ValidateResult();
-
-
+             var validateResult = new ValidateResult();
+             
             try
             {
                 var entity = new CrmExecuteEntity(entityName, model.userid);
                 if (!string.IsNullOrEmpty(model.phone))
                     entity.Attributes.Add("mcs_phone", model.phone);
                 if (!string.IsNullOrEmpty(model.birthday))
-                    entity.Attributes.Add("mcs_birthday", model.birthday);
+                    entity.Attributes.Add("mcs_birthday", DateTime.Parse( model.birthday).ToUniversalTime());
                 if (!string.IsNullOrEmpty(model.company))
-                    entity.Attributes.Add("company", model.company);
+                    entity.Attributes.Add("mcs_company", model.company);
                 if (!string.IsNullOrEmpty(model.description))
                     entity.Attributes.Add("mcs_description", model.description);
                 if (model.gender != null)
@@ -298,8 +296,25 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 if (!string.IsNullOrEmpty(model.signature))
                     entity.Attributes.Add("mcs_signature", model.signature);
 
+
+                if (!string.IsNullOrEmpty(model.province))
+                {
+                    var province = new CrmEntityReference("mcs_sysarea", Guid.Parse(model.province));
+                    entity.Attributes.Add("mcs_province", province);
+                }
+                if (!string.IsNullOrEmpty(model.city))
+                {
+                    var city = new CrmEntityReference("mcs_sysarea", Guid.Parse(model.city));
+                    entity.Attributes.Add("mcs_city", city);
+                }
+                if (!string.IsNullOrEmpty(model.area))
+                {
+                    var area = new CrmEntityReference("mcs_sysarea", Guid.Parse(model.area));
+                    entity.Attributes.Add("mcs_area", area);
+                }
+
                 //c端用户实体
-                await _crmService.Update(entity, userInfo?.systemuserid);
+                await _crmService.Update(entity);
 
 
                 #region 组装数据返回 
@@ -369,7 +384,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
         }
 
-
+         
 
 
 
