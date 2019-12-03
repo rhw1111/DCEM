@@ -241,7 +241,7 @@ export class OptionSetService {
                 break;
             case "mcs_vehnetworkstatus"://整车销售-发票信息
                 optionlist = [
-                    { "name": "草稿", "value": 0 }, 
+                    { "name": "草稿", "value": 0 },
                     { "name": "发票信息已上传", "value": 5 }
                 ];
                 break;
@@ -300,8 +300,8 @@ export class OptionSetService {
                     { "name": "试驾", "value": 11 }
                 ];
                 break;
-                //售前-试乘试驾-试驾状态(已提交 10、已预约 11、已排程 12、已取消 13、试驾开始 14、试驾结束  15、已反馈  16，已删除 17)
-                case "mcs_drivestatus": 
+            //售前-试乘试驾-试驾状态(已提交 10、已预约 11、已排程 12、已取消 13、试驾开始 14、试驾结束  15、已反馈  16，已删除 17)
+            case "mcs_drivestatus":
                 optionlist = [
                     { "name": "已提交", "value": 10 },
                     { "name": "已预约", "value": 11 },
@@ -324,7 +324,7 @@ export class OptionSetService {
                     { "name": "天气不好", "value": 60 }
                 ];
                 break;
-                 //维保-维保预约-服务类型(10-汽车美容 20-钣金喷漆 30-常规保养 40-一般维修 50-保修 60-其他)
+            //维保-维保预约-服务类型(10-汽车美容 20-钣金喷漆 30-常规保养 40-一般维修 50-保修 60-其他)
             case "mcs_ordertype":
                 optionlist = [
                     { "name": "汽车美容", "value": 10 },
@@ -335,7 +335,20 @@ export class OptionSetService {
                     { "name": "其他", "value": 60 }
                 ];
                 break;
-
+            //C端用户-性别
+            case "user_mcs_gender":
+                optionlist = [
+                    { "name": "男", "value": 1 },
+                    { "name": "女", "value": 2 }
+                ];
+                break;
+            //C端用户-婚姻状况
+            case "user_mcs_marriagestatus":
+                optionlist = [
+                    { "name": "未婚", "value": 0 },
+                    { "name": "已婚", "value": 1 }
+                ];
+                break;
         }
         return optionlist;
     }
