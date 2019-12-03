@@ -131,7 +131,11 @@ const routes: Routes = [
                 loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
             }
         ]
-    }
+    },
+  {
+    path: 'edit',
+    loadChildren: () => import('./page/servicecenter/reservation.com/edit/edit.module').then( m => m.EditPageModule)
+  }
 ]
     ;
 @NgModule({
