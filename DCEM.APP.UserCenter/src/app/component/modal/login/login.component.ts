@@ -12,7 +12,8 @@ import { Storage_LoginInfo } from '../../typescript/logininfo.storage';
 export class LoginComponent implements OnInit {
   public tab: any = 'account';
   public title: any = '登陆';
-  public valmsg: any = false;//验证消息显示开关
+  public isval: any = false;//验证消息显示开关
+  public valmsg: any = '';//验证消息显示开关
   //界面切换开关 1 登陆输入；2登陆验证码输入；5 注册验证码输入；3 注册电话号码页面；4 注册个人信息输入页面 
   //6 忘记密码手机号码录入界面；//7 密码重置成功页面
   public disstatus: any = 7;
@@ -23,8 +24,8 @@ export class LoginComponent implements OnInit {
     sendmsgurl: 'api/user/sendmsg',//短信发送url 
     questionsurl: 'api/user/getquestions',//用户问题设置列表url 
     getuserurl: 'api/user/getuser',
+    resetpwdurl: 'api/user/resetpwd',//修改用户信息
     questiondata: [],
-    sendmsgtital: '获取验证码',
     val1: '',
     val2: '',
     val3: '',
@@ -109,25 +110,6 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  GetColor() {
-    if (this.mod.sendmsgtital == '180s') {
-      return 'medium';
-    }else{
-      return 'secondary';
-    }
-  }
-  //修改密码获取验证码
-  onSendMsgPwd(status) {
-    var i: any = 180;
-    var interval = setInterval(function () {
-      i--;
-      this.mod.sendmsgtital = String(i) + 's';
-      if (i == 0) {
-        clearInterval(interval);
-      }
-    }, 1000);
-    this.onSendMsg(status);
-  }
   //短信发送
   onSendMsg(status) {
     if (this.mod.model.account == '') {
@@ -150,7 +132,7 @@ export class LoginComponent implements OnInit {
       (res: any) => {
         if (res.Result == true) {
           //验证码获取不是登陆或者注册不需要跳转页面
-          if (status != 2 && status != 5)
+          if (status == 2 || status == 5)
             this.disstatus = status;
           this._page.loadingHide();
         } else {
@@ -198,6 +180,10 @@ export class LoginComponent implements OnInit {
           }
         }
         else {
+          this.mod.val1 = "";
+          this.mod.val2 = "";
+          this.mod.val3 = "";
+          this.mod.val4 = ""; 
           this.i = 0;
           this._page.alert("消息提示", res.Description);
         }
@@ -369,4 +355,74 @@ export class LoginComponent implements OnInit {
   }
   ngOnInit() { }
 
+
+
+  //修改密码获取验证码
+  onSendMsgPwd(status) {
+    var ii = 180;
+    $('#btnsendmsg').text('180s');
+    $("#btnsendmsg").attr("class", "ion-color ion-color-medium  ios button button-block button-small button-solid ion-activatable ion-focusable hydrated");
+    $('#btnsendmsg').attr('disabled', 'true');
+    var interval = setInterval(function () {
+      ii--;
+      var cc = String(ii) + 's';
+      $('#btnsendmsg').text(cc);
+      if (ii == 0) {
+        $('#btnsendmsg').text('重新获取');
+        $("#btnsendmsg").attr("class", "ion-color ion-color-secondary ios button button-block button-small button-solid ion-activatable ion-focusable hydrated");
+        $('#btnsendmsg').attr('disabled', 'false');
+        clearInterval(interval);
+      }
+    }, 1000);
+
+    this.onSendMsg(status);
+  }
+  //修改用户密码
+  onPwdReset(type) {
+    if (this.mod.model.account == '') {
+      this.valmsg = '请填写手机号！';
+      this.isval = true;
+      return false;
+    }
+    if (this.mod.model.msg == '') {
+      this.valmsg = '请填写验证码！';
+      this.isval = true;
+      return false;
+    }
+    if (this.mod.model.pwd != this.mod.model.pwd1) {
+      this.valmsg = '两次密码不匹配！';
+      this.isval = true;
+      return false;
+    }
+
+    this._page.loadingShow();
+    var postData = {
+      account: this.mod.model.account,
+      valcode: this.mod.model.msg,
+      logintype: 1,
+      type: String(type),
+      keytype: 1,
+      status: 2,
+      pwd: this.mod.model.pwd,
+      certificationtype: 1
+    };
+    this._http.post(
+      this.mod.resetpwdurl,
+      postData,
+      (res: any) => {
+        if (res.Result == true) {
+          this._page.loadingHide();
+          this.disstatus = 7;
+        }
+        else {
+          this._page.loadingHide();
+          this._page.alert("消息提示", "注册失败，验证码无效");
+        }
+      },
+      (err: any) => {
+        this._page.loadingHide();
+        this._page.alert("消息提示", "操作失败");
+      }
+    );
+  }
 }

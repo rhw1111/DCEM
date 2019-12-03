@@ -42,8 +42,8 @@ namespace DCEM.Web.Controllers.UCenter
         #region 我的试乘试驾查询
 
         [HttpPost]
-        [Route("GetVehorderList")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetVehorderList(TestDriveRequest request)
+        [Route("GetDriveRecordList")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetDriveRecordList(TestDriveRequest request)
         {
             
             var list = await app.GetDriveRecordList(request);

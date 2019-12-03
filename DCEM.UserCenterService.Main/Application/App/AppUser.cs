@@ -45,7 +45,10 @@ namespace DCEM.UserCenterService.Main.Application.App
         {
             return await _userService.AddUser(request);
         }
-
+        public async Task<ValidateResult> UpdateUser(UserAddRequest request)
+        {
+            return await _userService.UpdateUser(request);
+        }
         public async Task<ValidateResult<List<CrmEntity>>> GetSecurityquestion()
         {
             return await _userService.GetSecurityquestion();
@@ -56,9 +59,15 @@ namespace DCEM.UserCenterService.Main.Application.App
             _userService.LoginLog(model, userid, type);
         }
 
+
+        public async Task<ValidateResult> UpdateUserPwd(UserLoginRequest model)
+        {
+            return await _userService.UpdateUserPwd(model); 
+        }
+
         public Task<CrmEntity> getuserdetail(UserDetailRequest userDetailRequest)
         {
-          return  _userService.getuserdetail(userDetailRequest);
+          return  _userService.getuserdetail(userDetailRequest); 
         }
     }
 }
