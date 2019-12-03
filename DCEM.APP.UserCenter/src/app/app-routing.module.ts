@@ -42,7 +42,7 @@ const routes: Routes = [
         path: 'personalcenter',  //用户中心
         children: [
             {
-                path: 'userinfo',  //整车商城
+                path: 'userinfo',
                 children: [
                     {
                         path: 'detail',
@@ -51,6 +51,15 @@ const routes: Routes = [
                     , {
                         path: 'edit',
                         loadChildren: () => import('./page/personalcenter/userinfo/edit/edit.module').then(m => m.EditPageModule)
+                    }
+                ]
+            },
+            {
+                path: 'scores',
+                children: [
+                    {
+                        path: 'list',
+                        loadChildren: () => import('./page/personalcenter/scores/list/list.module').then(m => m.ListPageModule)
                     }
                 ]
             },
@@ -130,7 +139,8 @@ const routes: Routes = [
                 loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
             }
         ]
-    }
+    } 
+
 ]
     ;
 @NgModule({
