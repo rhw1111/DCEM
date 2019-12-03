@@ -64,7 +64,7 @@ const routes: Routes = [
             { path: 'index', loadChildren: () => import('./page/message/index/index.module').then(m => m.IndexPageModule) },
             { path: 'room', loadChildren: () => import('./page/message/room/room.module').then(m => m.RoomPageModule) },
             { path: 'sys', loadChildren: () => import('./page/message/sys/sys.module').then(m => m.SysPageModule) },
-            { path: 'detail', loadChildren: () => import('./page/message/detail/detail.module').then(m => m.DetailPageModule) },
+            // { path: 'detail', loadChildren: () => import('./page/message/detail/detail.module').then(m => m.DetailPageModule) },
         ]
     },
     {

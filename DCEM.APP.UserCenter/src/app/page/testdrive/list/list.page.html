@@ -13,8 +13,8 @@
       refreshingText="刷新中...">
     </ion-refresher-content>
   </ion-refresher>
-  <ion-list lines="full">
-    <div class="goods-list" *ngFor="let item of model.datalist ">
+  <ion-list lines="full" class="messagelist">
+    <div class="panel" *ngFor="let item of model.datalist ">
       <div class="panelheard">
         <ion-label class="noteleft">{{item.mcs_dealerid}}&nbsp;</ion-label>
         <ion-label class="noteright">{{item.mcs_drivestatus}}&nbsp;</ion-label>
@@ -24,24 +24,20 @@
           <img src="./assets/img/goods-list.jpg" />
         </div>
         <div class="detail">
-          <p>服务类型:<ion-note>{{item.mcs_businesstype}}&nbsp;</ion-note>
-          </p>
-          <p>预约车型:<ion-note>{{item.mcs_carmodel}}&nbsp;</ion-note>
-          </p>
-          <p>预约时间:<ion-note>{{item.mcs_ordertime}}&nbsp;</ion-note>
-          </p>
-          <p>预约时间段:<ion-note>{{item.mcs_testdrivetime}}&nbsp;</ion-note>
-          </p>
-          <!-- <p>预约时间：<ion-note>{{FormatToDate(item.mcs_ordertime)}}&nbsp;{{item.mcs_appointmentconfigid}}</ion-note></p> -->
-          <p>总价：<ion-note>￥100&nbsp;</ion-note>
-          </p>
+          <p>服务类型：<ion-note>{{item.mcs_businesstype}}&nbsp;</ion-note></p>
+          <p>预约车型：<ion-note>{{item.mcs_carmodel}}&nbsp;</ion-note></p>
+          <p>预约时间：<ion-note>{{FormatToDate(item.mcs_ordertime)}}&nbsp;</ion-note></p>
+          <p>预约时间段：<ion-note>{{item.mcs_testdrivetime}}&nbsp;</ion-note></p>
+          <p>申请时间：<ion-note>{{FormatToDate(item.createdon)}}&nbsp;</ion-note></p>             
         </div>
       </div>
       <div class="panelbutton">
         <ion-grid fixed>
           <ion-row>
             <ion-col size="6">
-              <ion-button Size="small" fill="solid" color="light">修改订单</ion-button>
+              <ion-button Size="small" fill="solid" color="light" [routerLink]="['/testdrive/edit']" [queryParams]="{id:item.mcs_driverecordid}" >
+                修改订单
+              </ion-button>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -49,12 +45,12 @@
     </div>
   </ion-list>
 
-  <ion-row *ngIf="model.isending">
-    <ion-col class="nodata" text-center>
-      <label style="color:gray;">没有更多内容啦</label>
-    </ion-col>
-  </ion-row>
-
+  <ion-label *ngIf="model.isending" text-center>    
+      <p>
+         没有更多的记录显示啦
+      </p>      
+    </ion-label>
+   
   <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doLoading($event)">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
     </ion-infinite-scroll-content>
