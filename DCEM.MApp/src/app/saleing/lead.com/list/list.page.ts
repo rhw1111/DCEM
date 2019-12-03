@@ -75,8 +75,10 @@ listOnBind(event) {
               }
               event ? event.target.complete() : ''; 
               if (data.length < this.mod.searchData.pagesize) { 
-                event ? event.target.disabled = true : "";
-                this.mod.isending = true;
+                if(this.mod.searchData.pageindex>1){
+                  event ? event.target.disabled = true : "";
+                  this.mod.isending = true;
+                }
             }
               this._page.loadingHide();
           }

@@ -276,7 +276,6 @@ export class DetailPage implements OnInit {
                 this._page.loadingHide();
             },
             (err: any) => {
-                debugger;
                 this._page.alert("消息提示", "请求异常");
                 this._page.loadingHide();
             }
@@ -287,7 +286,6 @@ export class DetailPage implements OnInit {
      * 加载logcall记录
      */
     LoadLogcall() {
-        debugger;
         this.mod.LogcallModel.params.accountid= this.mod.data.Account.Id;
         this.mod.LogcallModel.params.UserId=this.userInfo.GetSystemUserId();//当前登录用户ID
         this._page.loadingShow();
