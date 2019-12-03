@@ -1,21 +1,16 @@
 ﻿<ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button text="返回" defaultHref="/serving/home/mywork"></ion-back-button>
+            <ion-back-button text="返回" defaultHref="/"></ion-back-button>
         </ion-buttons>
         <ion-title>我的客户</ion-title>
-        <ion-buttons slot="end">
-            <ion-button [routerLink]="['/serving/home/tabs']">
-                <ion-icon slot="icon-only" name="home" [routerLink]="['/serving/home/tabs']"></ion-icon>
-            </ion-button>
-        </ion-buttons>
     </ion-toolbar>
     <ion-toolbar>
         <ion-searchbar animated [(ngModel)]="mod.searchData.search" placeholder="请输入姓名\手机号\车牌号搜索" (keyup)="searchOnKeyup($event)"></ion-searchbar>
     </ion-toolbar>
     <ion-toolbar>
         <ion-segment>
-            <ion-segment-button checked (click)="tagOnClick(1)">
+            <ion-segment-button value="1" checked (click)="tagOnClick(1)">
                 <ion-label>全部({{mod.allTotalCount}})</ion-label>
             </ion-segment-button>
             <ion-segment-button (click)="tagOnClick(2)">

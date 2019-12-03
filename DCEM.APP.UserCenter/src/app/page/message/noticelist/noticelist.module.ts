@@ -1,25 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
+
 import { IonicModule } from '@ionic/angular';
 
-import { ListPage } from './list.page';
+import { NoticelistPageRoutingModule } from './noticelist-routing.module';
 
-const routes: Routes = [
-  {
-    path: '',
-    component: ListPage
-  }
-];
+import { NoticelistPage } from './noticelist.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    NoticelistPageRoutingModule
   ],
-  declarations: [ListPage],
+  declarations: [NoticelistPage]
 })
-export class ListPageModule {}
+export class NoticelistPageModule {}

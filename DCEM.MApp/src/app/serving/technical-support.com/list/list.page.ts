@@ -5,6 +5,7 @@ import { MessageService } from 'app/base/base.ser/message.service';
 import sd from 'silly-datetime';
 import { debug } from 'util';
 import { IonInfiniteScroll } from '@ionic/angular';
+import { MenuController } from '@ionic/angular';
 
 @Component({
     selector: 'app-list',
@@ -34,7 +35,8 @@ export class ListPage implements OnInit {
     constructor(
         private _http: DCore_Http,
         private _page: DCore_Page,
-        private httpService: HttpService) {
+        private httpService: HttpService,
+        private menuController:MenuController) {
     }
 
     ngOnInit() {
@@ -45,7 +47,7 @@ export class ListPage implements OnInit {
 
     //每次页面加载
     ionViewWillEnter() {
-       
+        this.menuController.enable(false);
     }
 
     //搜索方法
@@ -130,7 +132,6 @@ export class ListPage implements OnInit {
                 this._page.loadingHide();
             },
             (err: any) => {
-                this._page.alert(MessageService.AlterTitleMessage,MessageService.ErrorRequestException);
                 this._page.loadingHide();
             }
         );

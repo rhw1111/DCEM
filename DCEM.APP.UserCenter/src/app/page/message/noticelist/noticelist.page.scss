@@ -1,0 +1,19 @@
+ion-content{
+    ion-card{
+        --background:#ffffff;
+        ion-card-content{
+            img{
+                width: 100%;
+                margin-top: 10px;
+                -moz-border-radius: 5px;
+                -webkit-border-radius: 5px;
+            }
+        }
+    }
+    ion-item-divider{
+        p{
+            width: 100%;
+            text-align: center;
+        }
+    }
+}

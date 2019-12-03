@@ -42,7 +42,8 @@ const routes: Routes = [
             { path: 'index', loadChildren: () => import('./page/message/index/index.module').then(m => m.IndexPageModule) },
             { path: 'room',  loadChildren: () => import('./page/message/room/room.module').then( m => m.RoomPageModule)},
             { path: 'sys', loadChildren: () => import('./page/message/sys/sys.module').then( m => m.SysPageModule) },
-            { path: 'detail', loadChildren: () => import('./page/message/detail/detail.module').then( m => m.DetailPageModule)},
+            { path: 'notice', loadChildren: () => import('./page/message/notice/notice.module').then( m => m.NoticePageModule)},
+            { path: 'noticelist', loadChildren: () => import('./page/message/noticelist/noticelist.module').then( m => m.NoticelistPageModule)}
         ]
     },
     {
@@ -82,12 +83,13 @@ const routes: Routes = [
   {
     path: 'detail',
     loadChildren: () => import('./page/servicecenter/boutique/detail/detail.module').then(m => m.DetailPageModule)
-  },
+  }
+,
   {
     path: 'select-dealer-demo',
     loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then( m => m.SelectDealerDemoPageModule)
   }
-];
+,];
 @NgModule({
     imports: [
         RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })

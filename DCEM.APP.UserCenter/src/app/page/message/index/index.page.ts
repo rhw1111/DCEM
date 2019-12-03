@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-index',
@@ -127,9 +128,16 @@ export class IndexPage implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit() {
   }
 
+  toRoomMessage(room){
+    this.router.navigate(['/message/room'], {
+      queryParams: {
+        msg: JSON.stringify(room)
+      }
+    });
+  }
 }
