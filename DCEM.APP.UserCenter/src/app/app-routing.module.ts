@@ -98,6 +98,7 @@ const routes: Routes = [
                 path: 'reservation',  //维保预约
                 children: [
                     { path: 'list', loadChildren: () => import('./page/servicecenter/reservation.com/list/list.module').then(m => m.ListPageModule) },
+                    { path: 'edit', loadChildren: () => import('./page/servicecenter/reservation.com/edit/edit.module').then(m => m.EditPageModule) },
                 ]
             }
         ]
@@ -130,7 +131,8 @@ const routes: Routes = [
                 loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
             }
         ]
-    },
+    }
+,
   {
     path: 'edit',
     loadChildren: () => import('./page/servicecenter/reservation.com/edit/edit.module').then( m => m.EditPageModule)
