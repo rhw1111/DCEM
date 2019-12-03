@@ -244,6 +244,7 @@ export class EditPage implements OnInit {
             }
         }
         this.model.info.describe = tagName;
+        this.model.info.gender=parseInt(this.model.info.gender);
         this._page.loadingShow();
         this._http.postForToaken(
             this.model.apiUrl,
