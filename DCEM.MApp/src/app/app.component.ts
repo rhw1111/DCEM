@@ -65,7 +65,7 @@ export class AppComponent {
             this.statusBar.overlaysWebView(false);
             /** 设置智能竖屏*/
             this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY);
-            
+
             if(location.href.indexOf('base/uc/welcome')==-1){
                 //设置定时器监控token是否过期
                 this._http.reflashToken();

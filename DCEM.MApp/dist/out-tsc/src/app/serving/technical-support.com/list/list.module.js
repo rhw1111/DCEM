@@ -21,7 +21,7 @@ ListPageModule = tslib_1.__decorate([
             IonicModule,
             RouterModule.forChild(routes)
         ],
-        declarations: [ListPage]
+        declarations: [ListPage],
     })
 ], ListPageModule);
 export { ListPageModule };

@@ -16,7 +16,10 @@ export class MessageService {
   public static ErrorRequestException:string='请求异常';
   /**请求超时*/
   public static ErrorRequestTimeout:string='请求超时';
-
+  /**服务器响应失败500 */
+  public static ErrorRequestServer:string="后台服务遇到了问题，目前正在修复中，请稍后访问，给您带来不便,深表歉意。";
+  /**权限不够 */
+  public static ErrorNoAuth:string="权限不够，请重新登录。";
   //------------信息提醒-----------------
   /**操作成功*/
   public static InfoOprationSucceed:string='操作成功';
@@ -44,4 +47,6 @@ export class MessageService {
   public static PageNoData:any='暂时没有数据';
   /**没有更多数据了 */
   public static PageNoMore:any='没有更多数据了';
+  //订单状态不允许修改！
+  public static PageCannotEdit:any='订单状态不允许修改！';
 }

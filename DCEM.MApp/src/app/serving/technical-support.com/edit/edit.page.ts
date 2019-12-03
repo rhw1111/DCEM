@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -66,7 +67,13 @@ export class EditPage implements OnInit {
         private _valid: DCore_Valid,
         private _userInfo: Storage_LoginInfo,
         private modalCtrl: ModalController,
-        private activeRoute: ActivatedRoute) { }
+        private activeRoute: ActivatedRoute,
+        private menuController:MenuController) { }
+
+    //每次页面加载
+    ionViewWillEnter() {
+        this.menuController.enable(true);
+    }
 
     ngOnInit() {
         this.activeRoute.queryParams.subscribe((params: Params) => {
@@ -93,6 +100,14 @@ export class EditPage implements OnInit {
             },
             (res: any) => {
                 if (res.TechnicalSupport != null) {
+                    // //如果已提交或关闭，则无法修改，跳转至详情页面
+                    // var mcs_orderstatus= res["TechnicalSupport"]["Attributes"]["mcs_orderstatus"];
+                    // debugger;
+                    // if(mcs_orderstatus!=null && mcs_orderstatus!=10){
+                    //    this._page.alert(MessageService.AlterTitleMessage,MessageService.PageCannotEdit,()=>{
+                    //        this._page.goto('app/serving/ts/detail',{"id":id});
+                    //    });
+                    // }
                     this.model.postData.Id = id;
                     this.model.postData.mcs_title = res["TechnicalSupport"]["Attributes"]["mcs_title"];
                     this.model.postData.mcs_serviceorderid = res["TechnicalSupport"]["Attributes"]["_mcs_serviceorderid_value"];
