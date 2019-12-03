@@ -19,9 +19,34 @@ const routes: Routes = [
             {
                 path: 'carstore',  //整车商城(new)
                 children: [
-                    { path: 'index', loadChildren: () => import('./page/carcenter/carstore/index/index.module').then(m => m.IndexPageModule) },
-                    { path: 'selectattr', loadChildren: () => import('./page/carcenter/carstore/selectattr/selectattr.module').then(m => m.SelectattrPageModule) },
-                    { path: 'selectitem', loadChildren: () => import('./page/carcenter/carstore/selectitem/selectitem.module').then(m => m.SelectitemPageModule) }
+                    {
+                        //选择车型版本
+                        path: 'index', loadChildren: () => import('./page/carcenter/carstore/index/index.module').then(m => m.IndexPageModule)
+                    },
+                    {
+                        //选择外观内饰
+                        path: 'selectattr', loadChildren: () => import('./page/carcenter/carstore/selectattr/selectattr.module').then(m => m.SelectattrPageModule)
+                    },
+                    {
+                        //选择选装件
+                        path: 'selectitem', loadChildren: () => import('./page/carcenter/carstore/selectitem/selectitem.module').then(m => m.SelectitemPageModule)
+                    },
+                    {
+                        //核对配置单
+                        path: 'check', loadChildren: () => import('./page/carcenter/carstore/check/check.module').then(m => m.CheckPageModule)
+                    },
+                    {
+                        //完善用户信息
+                        path: 'perfect', loadChildren: () => import('./page/carcenter/carstore/perfect/perfect.module').then(m => m.PerfectPageModule)
+                    },
+                    {
+                        //支付
+                        path: 'payment', loadChildren: () => import('./page/carcenter/carstore/payment/payment.module').then(m => m.PaymentPageModule)
+                    },
+                    {
+                        //分期付款
+                        path: 'hirepurchase', loadChildren: () => import('./page/carcenter/carstore/hirepurchase/hirepurchase.module').then(m => m.HirepurchasePageModule)
+                    }
                 ]
             },
         ]
@@ -52,6 +77,7 @@ const routes: Routes = [
                         path: 'edit',
                         loadChildren: () => import('./page/personalcenter/userinfo/edit/edit.module').then(m => m.EditPageModule)
                     }
+
                 ]
             },
             {
@@ -113,6 +139,7 @@ const routes: Routes = [
                 path: 'reservation',  //维保预约
                 children: [
                     { path: 'list', loadChildren: () => import('./page/servicecenter/reservation.com/list/list.module').then(m => m.ListPageModule) },
+                    { path: 'edit', loadChildren: () => import('./page/servicecenter/reservation.com/edit/edit.module').then(m => m.EditPageModule) },
                 ]
             }
         ]
@@ -125,33 +152,32 @@ const routes: Routes = [
         ]
     },
 
-  {
-    path: 'detail',
-    loadChildren: () => import('./page/servicecenter/vehiclecenter/detail/detail.module').then( m => m.DetailPageModule)
-  },
-  {
-    path: 'list',
-    loadChildren: () => import('./page/servicecenter/boutique/list/list.module').then( m => m.ListPageModule)
-  },
-  {
-    path: 'detail',
-    loadChildren: () => import('./page/servicecenter/boutique/detail/detail.module').then(m => m.DetailPageModule)
-  },
-  {
-    path: 'list',
-    loadChildren: () => import('./page/servicecenter/shoppingcart/list/list.module').then( m => m.ListPageModule)
-  },
-  {
-      path: 'demo',
-      children: [
-          {
-              path: 'dealer',
-              loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
-          }
-      ]
-  }
+    {
+        path: 'detail',
+        loadChildren: () => import('./page/servicecenter/vehiclecenter/detail/detail.module').then(m => m.DetailPageModule)
+    },
+    {
+        path: 'list',
+        loadChildren: () => import('./page/servicecenter/boutique/list/list.module').then(m => m.ListPageModule)
+    },
+    {
+        path: 'detail',
+        loadChildren: () => import('./page/servicecenter/boutique/detail/detail.module').then(m => m.DetailPageModule)
+    },
+    {
+        path: 'list',
+        loadChildren: () => import('./page/servicecenter/shoppingcart/list/list.module').then(m => m.ListPageModule)
+    },
+    {
+        path: 'demo',
+        children: [
+            {
+                path: 'dealer',
+                loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
+            }
+        ]
+    }
 ];
-;
 @NgModule({
     imports: [
         RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })

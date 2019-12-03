@@ -86,17 +86,28 @@ $dm-darkgray: RGB(99,102,105); //(深灰)
     }
 }
 
+//头带logo
+.dm-top-head {
+    background: #000;
+    height: 55px;
+    line-height: 55px;
+}
+
+
 
 //底部
 .dm-footer {
-
     height: 90px;
     padding: 20px;
     border-top: 1px solid $dm-gray-line;
 
     h6 {
         color: $dm-darkblue;
-        font-size: 16px;
+        font-size: 14px;
+
+        strong {
+            font-size: 16px;
+        }
     }
 
 
@@ -138,7 +149,6 @@ $dm-darkgray: RGB(99,102,105); //(深灰)
         }
     }
 }
-
 //底部弹窗
 .dm-footer-model {
     z-index: 9;
