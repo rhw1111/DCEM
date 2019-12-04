@@ -411,5 +411,27 @@ namespace DCEM.UserCenterService.Main.Application.Services
             }
             return validateResult;
         }
+        /// <summary>
+        /// 获取用户标签
+        /// </summary>
+        /// <param name="userDetailRequest"></param>
+        /// <returns></returns>
+        public async Task<UserTagListResponse> getusertag(UserDetailRequest userDetailRequest)
+        {
+            try
+            {
+                var response = new UserTagListResponse();
+                var crmRequestHelper = new CrmRequestHelper();
+                XDocument fetchXdoc = null;
+                fetchXdoc = await _repository.getusertags(userDetailRequest);
+                var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_mcs_user_mcs_usertagBase", fetchXdoc); 
+                response.tags = entities.Results; 
+                return response; 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

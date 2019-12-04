@@ -35,7 +35,8 @@ namespace DCEM.UserCenterService.Main.Application.App
         void LoginLog(UserLoginRequest model, Guid userid, int type); 
 
         Task<ValidateResult> UpdateUserPwd(UserLoginRequest model);
-         
+
+        Task<UserTagListResponse> getusertag(UserDetailRequest userDetailRequest);
         Task<CrmEntity> getuserdetail(UserDetailRequest userDetailRequest); 
     }
 }

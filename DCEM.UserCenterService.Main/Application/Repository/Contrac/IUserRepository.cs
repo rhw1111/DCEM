@@ -23,7 +23,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
         Task<XDocument> GetUser(UserLoginRequest request);
 
         Task<XDocument> GetSecurityquestion();
-
+        Task<XDocument> getusertags(UserDetailRequest userDetailRequest);
         Task<XDocument> GetUserPwd(UserLoginRequest request);
 
     }

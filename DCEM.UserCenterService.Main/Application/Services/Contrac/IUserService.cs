@@ -27,6 +27,7 @@ namespace DCEM.UserCenterService.Main.Application.Services.Contrac
         Task<ValidateResult> UpdateUser(UserAddRequest model);
 
         Task<ValidateResult> UpdateUserPwd(UserLoginRequest model); 
-        Task<CrmEntity> getuserdetail(UserDetailRequest userDetailRequest); 
+        Task<CrmEntity> getuserdetail(UserDetailRequest userDetailRequest);
+        Task<UserTagListResponse> getusertag(UserDetailRequest userDetailRequest);
     }
 }
