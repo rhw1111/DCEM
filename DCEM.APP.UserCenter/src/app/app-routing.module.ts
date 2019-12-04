@@ -149,6 +149,7 @@ const routes: Routes = [
         children: [
             { path: 'edit', loadChildren: () => import('./page/testdrive/edit/edit.module').then(m => m.EditPageModule) },
             { path: 'list', loadChildren: () => import('./page/testdrive/list/list.module').then(m => m.ListPageModule) },
+            { path: 'success', loadChildren: () => import('./page/testdrive/success/success.module').then(m => m.SuccessPageModule) },
         ]
     },
 
@@ -206,7 +207,7 @@ const routes: Routes = [
                 loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
             }
         ]
-    } 
+    }
 ];
 @NgModule({
     imports: [

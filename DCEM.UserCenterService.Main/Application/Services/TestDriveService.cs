@@ -51,18 +51,16 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     Entity.Attributes.Add("mcs_mobilephone", request.mcs_mobilephone);
                 }
                 if (!string.IsNullOrEmpty(request.mcs_carmodel))
-                {
-                    Entity.Attributes.Add("mcs_carmodel", request.mcs_carmodel);
+                {            
+                    Entity.Attributes.Add("mcs_carmodel", new CrmEntityReference("mcs_carmodel", Guid.Parse(request.mcs_carmodel)));
                 }
-
-
                 if (!string.IsNullOrEmpty(request.mcs_businesstype))
                 {
                     Entity.Attributes.Add("mcs_businesstype", request.mcs_businesstype);
                 }
                 if (!string.IsNullOrEmpty(request.mcs_dealerid))
                 {
-                    Entity.Attributes.Add("mcs_dealerid", request.mcs_dealerid);
+                    Entity.Attributes.Add("mcs_dealerid", new CrmEntityReference("mcs_dealer", Guid.Parse(request.mcs_dealerid)));
                 }
 
                 if (request.mcs_ordertime.HasValue)
@@ -71,9 +69,8 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 }
                 if (!string.IsNullOrEmpty(request.mcs_testdrivetime))
                 {
-                    Entity.Attributes.Add("mcs_testdrivetime", request.mcs_testdrivetime);
+                    Entity.Attributes.Add("mcs_testdrivetime", new CrmEntityReference("mcs_reservationconfiguration", Guid.Parse(request.mcs_testdrivetime)));
                 }
-
 
                 if (!string.IsNullOrEmpty(request.mcs_driverecordid))
                 {

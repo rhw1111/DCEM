@@ -18,8 +18,6 @@ export class ListPage implements OnInit {
     isending: false,//是否加载完成
     datalist: [],//列表数据
     params:{
-        mcs_rostatus: 0,
-        SearchKey: '',//搜索关键字
         Sort: '',
         PageSize: 10,
         PageIndex: 1,
@@ -53,7 +51,7 @@ doLoading(event) {
 //获取列表数据
 getList(event) {
   this._page.loadingShow();
-  this._http.postForToaken(this.model.apiUrl,
+  this._http.post(this.model.apiUrl,
 
     this.model.params
     ,
