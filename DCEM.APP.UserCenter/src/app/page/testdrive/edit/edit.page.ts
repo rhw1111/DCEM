@@ -14,6 +14,7 @@ export class EditPage implements OnInit {
     postApiUrl:'api/testdrive/CreateTestDrive',
     detailApiUrl:'api/testdrive/GetDriveRecordList',
     CarmodelUrl:'api/basedata/GetCarmodel',
+    TimeIntervalUrl:'api/basedata/QueryReservationconfig',
     postData:{
       mcs_driverecordid:"", //主键Id
       mcs_fullname:"", //姓名
@@ -27,8 +28,8 @@ export class EditPage implements OnInit {
       isChecked:false
     },
 
-    VehicletypeList:[] //车型
-  
+    VehicletypeList:[] ,//车型
+    TestDrivetimeList:[]//预约时段
 
   }
   constructor(
@@ -67,6 +68,12 @@ async selectDealerModal() {
       }
     }
   }
+
+   if(!this._valid.isNullOrEmpty(this.model.postData.mcs_carmodel)&&!this._valid.isNullOrEmpty(this.model.postData.mcs_dealerid)&&!this._valid.isNullOrEmpty(this.model.postData.mcs_ordertime))
+   {
+    this.GetTimeInterval();
+   }
+
 }
 
 
@@ -74,11 +81,11 @@ async selectDealerModal() {
 pageOnBind(id: any) {
   //debugger;
  this._page.loadingShow();
- this._http.postForToaken(
+ this._http.post(
      this.model.detailApiUrl,
      this.model.postData,
      (res: any) => {
-         debugger;
+         //debugger;
          if (res !== null) {
              if (res.Results !== null) {                                   
                      this.model.postData.mcs_fullname = res.Results[0]["Attributes"]["mcs_fullname"];
@@ -88,8 +95,12 @@ pageOnBind(id: any) {
                      this.model.postData.mcs_dealerid = res.Results[0]["Attributes"]["_mcs_dealerid_value"];
                      this.model.postData.mcs_dealername = res.Results[0]["Attributes"]["mcs_dealer3_x002e_mcs_name"];
                      this.model.postData.mcs_ordertime = res.Results[0]["Attributes"]["mcs_ordertime"];
-                     this.model.postData.mcs_testdrivetime = res.Results[0]["Attributes"]["mcs_testdrivetime"];                      
+                     this.model.postData.mcs_testdrivetime = res.Results[0]["Attributes"]["_mcs_testdrivetime_value"];                      
                   
+                     if(!this._valid.isNullOrEmpty(this.model.postData.mcs_carmodel)&&!this._valid.isNullOrEmpty(this.model.postData.mcs_dealerid))
+                     {
+                      this.GetTimeInterval();
+                     }
              }
              else{
                this._page.alert("消息提示", "数据加载异常");
@@ -156,7 +167,7 @@ SureDrive(){
              this._page.loadingHide();
              if (res.Result == true) {              
                  console.log(res);                         
-                //  this._page.goto("/serving/home/systemsetup");
+                this._page.goto("/testdrive/success");
              }
              else {
                  this._page.alert("消息提示", res.Description);
@@ -189,21 +200,71 @@ GetCarmodel() {
                   obj["mcs_carmodelid"] =item["Attributes"].mcs_carmodelid;             
                   obj["mcs_name"] = item["Attributes"].mcs_name;                
                   this.model.VehicletypeList.push(obj);
+              });     
+            
+          }        
+      }
+  );
+}
+
+
+//获取预约时段
+GetTimeInterval() {
+  debugger;
+  this._http.get(this.model.TimeIntervalUrl,
+  {
+  params:{
+    pageSize: 50,
+    page: 1,
+    carmodel:this.model.postData.mcs_carmodel,
+    dealerid:this.model.postData.mcs_dealerid,
+    mcs_ordertime:this.model.postData.mcs_ordertime
+   }
+ } ,
+  (res: any) => {
+          //debugger;
+          if (res.Results !== null) {
+              //绑定数据
+              res.Results.forEach(item => {              
+                  var obj = {}; 
+                  obj["mcs_reservationconfigurationid"] =item["Attributes"].mcs_reservationconfigurationid;             
+                  obj["mcs_name"] = item["Attributes"].mcs_name;                
+                  this.model.TestDrivetimeList.push(obj);
 
               });
             
           }
           else {
-              this._page.alert("消息提示", "数据加载异常");
+              this._page.alert("消息提示", "预约时段加载异常");
           }
         
       },
       (err: any) => {
-          this._page.alert("消息提示", "数据加载异常");
+          this._page.alert("消息提示", "预约时段加载异常");
          
       }
   );
 }
 
+CheckData() {
+    var errMessage = "";
+
+    if (this._valid.isNullOrEmpty(this.model.postData.mcs_carmodel)) {
+      errMessage += "请先选择试驾车型<br>";
+    }
+    if (this._valid.isNullOrEmpty(this.model.postData.mcs_dealerid)) {
+      errMessage += "请先选择试驾地点<br>";
+    }
+
+    if (this._valid.isNullOrEmpty(this.model.postData.mcs_ordertime)) {
+      errMessage += "请先选择预约时间<br>";
+    }
+
+    if (errMessage !== "") {
+      this._page.presentToastError(errMessage);
+      return;
+    }
+
+  }
 
 }

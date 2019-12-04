@@ -15,23 +15,32 @@ export class IndexPage {
     constructor(
         private modalCtrl: ModalController,
         private _logininfo: Storage_LoginInfo,
+        private route: Router,
         private activeRoute: ActivatedRoute) {
         if (this._logininfo.GetNickName() != null) {
             this.name = this._logininfo.GetNickName();
         }
+
+        //跳转参数如果是1表示退出登录操作
+        this.activeRoute.queryParams.subscribe((params: Params) => { 
+            if (params['return'] == "1") { 
+                this.name = "登陆";
+                this._logininfo.SetInfo(null);
+            }
+        });
 
     }
     //选择登陆窗口
     async loginModal() {
         if (this.name != "登陆") {
             const modal = await this.modalCtrl.create({
-                component: UserinfoComponent 
+                component: UserinfoComponent
             });
             await modal.present();
             //监听销毁的事件
             const { data } = await modal.onDidDismiss();
-            if (data != null && data != undefined) { 
-                this.name = this._logininfo.GetNickName(); 
+            if (data != null && data != undefined) {
+                this.name = this._logininfo.GetNickName();
             }
         } else {
             const modal = await this.modalCtrl.create({

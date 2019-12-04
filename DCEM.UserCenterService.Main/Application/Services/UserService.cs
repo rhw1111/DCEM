@@ -16,6 +16,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
     using MSLibrary.Xrm.MessageHandle;
     using System.Collections.Generic;
     using MSLibrary.Xrm.Message.RetrieveMultipleFetch;
+    using MSLibrary.Xrm.Message.RetrieveCollectionAttribute;
 
     public class UserService : IUserService
     {
@@ -202,13 +203,11 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     entity.Attributes.Add("mcs_profession", model.profession);
                 if (!string.IsNullOrEmpty(model.signature))
                     entity.Attributes.Add("mcs_signature", model.signature);
+                entity.Attributes.Add("mcs_memberid", new CrmEntityReference("mcs_member", memberid));
 
-
-
-
+                await _crmService.Create(member, userInfo?.systemuserid);
                 //c端用户实体
                 await _crmService.Create(entity, userInfo?.systemuserid);
-                await _crmService.Create(member, userInfo?.systemuserid);
 
                 ///用户密码
                 Guid userkeyid = Guid.NewGuid();
@@ -267,15 +266,15 @@ namespace DCEM.UserCenterService.Main.Application.Services
         /// <returns></returns>
         public async Task<ValidateResult> UpdateUser(UserAddRequest model)
         {
-             var validateResult = new ValidateResult();
-             
+            var validateResult = new ValidateResult();
+
             try
             {
                 var entity = new CrmExecuteEntity(entityName, model.userid);
                 if (!string.IsNullOrEmpty(model.phone))
                     entity.Attributes.Add("mcs_phone", model.phone);
                 if (!string.IsNullOrEmpty(model.birthday))
-                    entity.Attributes.Add("mcs_birthday", DateTime.Parse( model.birthday).ToUniversalTime());
+                    entity.Attributes.Add("mcs_birthday", DateTime.Parse(model.birthday).ToUniversalTime());
                 if (!string.IsNullOrEmpty(model.company))
                     entity.Attributes.Add("mcs_company", model.company);
                 if (!string.IsNullOrEmpty(model.description))
@@ -384,7 +383,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
         }
 
-         
+
 
 
 
@@ -410,6 +409,62 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 validateResult.Result = false;
             }
             return validateResult;
+        }
+        /// <summary>
+        /// 获取用户标签
+        /// </summary>
+        /// <param name="userDetailRequest"></param>
+        /// <returns></returns>
+        public async Task<UserTagListResponse> getusertag(UserDetailRequest userDetailRequest)
+        {
+            try
+            {
+                var response = new UserTagListResponse();
+                var crmRequestHelper = new CrmRequestHelper();
+                var fetchRequest = new CrmRetrieveCollectionAttributeRequestMessage()
+                {
+                    EntityName = "mcs_user",
+                    EntityId = Guid.Parse(userDetailRequest.id),
+                    AttributeName = "mcs_mcs_user_mcs_usertag",
+                    QueryExpression = "$select=mcs_name"
+                };
+                fetchRequest.Headers.Add("Prefer", dicHead["Prefer"]);
+                var crmResponseMessage = await _crmService.Execute(fetchRequest);
+                var entities = crmResponseMessage as CrmRetrieveCollectionAttributeResponseMessage; 
+                response.tags = entities.Value.Results; 
+                return response; 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<UserScoreListResponse> getuserscore(UserDetailRequest userDetailRequest)
+        {
+            try
+            {
+                var response = new UserScoreListResponse();
+                var validateResult = new ValidateResult<List<CrmEntity>>();
+                var crmRequestHelper = new CrmRequestHelper();
+                XDocument fetchXdoc = null;
+                fetchXdoc = await _repository.getuserscore(userDetailRequest);
+                var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_memberintegraldetail", fetchXdoc);
+                response.scores = entities.Results;
+                response.ALLTotalCount = entities.Count;
+                response.PageSize = userDetailRequest.PageSize;
+                response.CurrentPage = userDetailRequest.PageIndex;
+
+
+                XDocument fetchXdoc2 = await _repository.getuserscorebalance(userDetailRequest);
+                var getbalanceentitys = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_member", fetchXdoc2);
+                response.balance = (Int32)getbalanceentitys.Results[0].Attributes["mcs_bonuspoint"];
+                return response; 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

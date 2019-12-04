@@ -47,14 +47,7 @@ namespace DCEM.Web.Controllers.UCenter
         [HttpPost]
         [Route("GetDriveRecordList")]
         public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetDriveRecordList(TestDriveRequest request)
-        {
-            //var request = new TestDriveRequest()
-            //{
-             
-            //    PageIndex = pageIndex,
-            //    PageSize = pageSize
-              
-            //};
+        {         
             var list = await app.GetDriveRecordList(request);
             return list;
         }

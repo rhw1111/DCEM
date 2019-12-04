@@ -36,5 +36,10 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
         /// 页数
         /// </summary>
         public int page { get; set; }
+
+        /// <summary>
+        /// 预约时间
+        /// </summary>
+        public string mcs_ordertime { get; set; }
     }
 }
