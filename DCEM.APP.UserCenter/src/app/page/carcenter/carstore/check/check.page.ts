@@ -15,7 +15,7 @@ export class CheckPage implements OnInit {
     }
 
     init() {
-        var that: SelectattrPage = this;
+        var that: CheckPage = this;
         $(".dm-footer-svg").click(function () {
             if ($(this).hasClass("open")) {
                 $(this).removeClass("open");

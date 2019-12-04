@@ -1,0 +1,98 @@
+@import "../component/scss/main.scss";
+
+.dm-top-img {
+}
+
+.dm-info-area {
+    border-top: 1px solid $dm-gray-line;
+    border-bottom: 1px solid $dm-gray-line;
+
+    div {
+        height: 55px;
+    }
+}
+
+//无序列表
+.dm-info-listinfo {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    list-style: none;
+
+    li {
+        font-size: 12px;
+        color: #96999a;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 10px;
+        position: relative;
+    }
+
+    li:before {
+        content: "*";
+        color: red;
+        position: absolute;
+        left: 0;
+    }
+}
+//金额
+.dm-info-area-money {
+    margin-top: 10px;
+    border-top: 1px solid $dm-gray-line;
+    border-bottom: 1px solid $dm-gray-line;
+    background-color: rgb(251,252,253);
+    box-shadow: 4px 0 3px 0 #dedede;
+    padding-left: 30px;
+    padding-right: 30px;
+
+    .dm-info-area-money-text {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid $dm-gray-line;
+
+        label {
+            font-size: 16px;
+            color: $dm-darkgray;
+        }
+
+        span {
+            font-size: 20px;
+            font-weight: bold;
+            margin-left: 3px;
+            color: $dm-darkblue;
+        }
+    }
+}
+
+//标题
+.dm-title {
+    padding-left: 30px;
+    padding-right: 30px;
+
+    div {
+        padding-top: 35px;
+        padding-bottom: 15px;
+        color: $dm-darkblue;
+        font-weight: 700;
+        font-size: 20px;
+        border-bottom: 1px solid $dm-gray-line;
+    }
+}
+
+.dm-form-item {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+
+    label {
+        font-size: 16px;
+        color: $dm-darkblue;
+        font-weight: 700;
+    }
+
+    ion-input {
+        input {
+
+        }
+    }
+}

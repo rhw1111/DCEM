@@ -1,9 +1,95 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>perfect</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
+﻿<ion-content fullscreen>
+    <ion-grid>
+        <ion-row>
+            <ion-col class="dm-top-img">
+                <div>
+                    <img src="http://sf-test.mediaman.com.cn/img/hero-mobile.2f1b5428.jpg" alt="">
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col class="dm-info-area">
+                <div>
+                    &nbsp;
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col class="dm-info-area-money">
+                <div class="dm-info-area-money-text">
+                    <label>需付定金:</label>
+                    <span>0.01</span>
+                    <label>元</label>
+                </div>
+                <div>
+                    <ul class="dm-info-listinfo">
+                        <li>定金不可退</li>
+                        <li>权益订购已经支付定金，权益金将转为正</li>
+                    </ul>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col class="dm-title">
+                <div>
+                    填写个人信息
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col class="dm-form-item">
+                <div>
+                    <label>姓名</label>
+                </div>
+                <div>
+                    <ion-input></ion-input>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col class="dm-form-item">
+                <div>
+                    <label>性别</label>
+                </div>
+                <div>
+                    <ion-input></ion-input>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col class="dm-title">
+                <div>
+                    选择支付方式
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col class="dm-form-item">
+                <div>
+                    <label>性别</label>
+                </div>
+                <div>
+                    <ion-input></ion-input>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>
+
+<ion-footer>
+    <ion-toolbar class="dm-footer">
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <h6>合计：<strong>150,000 元</strong></h6>
+                    <span class="dm-footer-svg">
+                        注:订单7日后不可修改
+                    </span>
+                </ion-col>
+                <ion-col>
+                    <ion-button color="org" expand="block" shape="round" [routerLink]="['/carcenter/carstore/perfect']">下一步</ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-toolbar>
+</ion-footer>

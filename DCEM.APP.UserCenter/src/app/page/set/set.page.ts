@@ -12,10 +12,7 @@ export class SetPage implements OnInit {
 
   constructor(private modalCtrl: ModalController, 
     private activeRoute: ActivatedRoute) { }
-    onReturn() { 
-      this.modalCtrl.dismiss({ 
-      });
-    }
+    
   async loginModal() {
     const modal = await this.modalCtrl.create({
       component: LoginComponent,
