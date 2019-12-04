@@ -36,7 +36,7 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
         /// </summary>
         public string mcs_carinfoid { get; set; }
 
-
+        //所属用户
         public string mcs_userid { get; set; }
     }
 }
