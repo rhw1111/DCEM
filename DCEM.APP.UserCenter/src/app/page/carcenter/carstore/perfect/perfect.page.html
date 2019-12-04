@@ -38,11 +38,9 @@
         </ion-row>
         <ion-row>
             <ion-col class="dm-form-item">
-                <div>
-                    <label>姓名</label>
-                </div>
-                <div>
-                    <ion-input></ion-input>
+                <label>姓名</label>
+                <div class="dm-form-item-input">
+                    <ion-input placeholder="请输入您的真实姓名"></ion-input>
                 </div>
             </ion-col>
         </ion-row>
@@ -51,8 +49,11 @@
                 <div>
                     <label>性别</label>
                 </div>
-                <div>
-                    <ion-input></ion-input>
+                <div class="dm-form-item-input">
+                    <ion-select placeholder="性别" cancelText="取消" okText="确定">
+                        <ion-select-option>男</ion-select-option>
+                        <ion-select-option>女</ion-select-option>
+                    </ion-select>
                 </div>
             </ion-col>
         </ion-row>

@@ -1503,14 +1503,16 @@ var AppComponent = /** @class */ (function () {
                     _this._page.goto("/serving/home/tabs/index");
                 }
                 else {
-                    _this._page.goto("/base/uc/login");
+                    if ((location.href.length - location.host.length) <= location.href.lastIndexOf(location.host + '/')) {
+                        _this._page.goto("/base/uc/login");
+                    }
                 }
             }
         });
     };
     AppComponent.prototype.loginout = function () {
         this.menu.close("homeMenu");
-        this.authService.logout();
+        this._http.loginout();
     };
     AppComponent.ctorParameters = function () { return [
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"] },
@@ -1818,9 +1820,10 @@ var DCore_Config = /** @class */ (function () {
 }());
 
 var DCore_Http = /** @class */ (function () {
-    function DCore_Http(_httpClient, _config) {
+    function DCore_Http(_httpClient, _config, _navCtr) {
         this._httpClient = _httpClient;
         this._config = _config;
+        this._navCtr = _navCtr;
         this.ReflashInterval = null;
     }
     //带请求头get请求
@@ -1891,6 +1894,11 @@ var DCore_Http = /** @class */ (function () {
         window.localStorage.setItem('auth-password', password);
         window.localStorage.setItem('auth-logintime', (new Date().getTime()).toString());
     };
+    //登出,清理缓存，跳转并重新登录
+    DCore_Http.prototype.loginout = function () {
+        window.localStorage.clear();
+        this._navCtr.navigateRoot("/base/uc/login", {});
+    };
     //刷新token
     DCore_Http.prototype.reflashToken = function () {
         var _this = this;
@@ -1931,14 +1939,16 @@ var DCore_Http = /** @class */ (function () {
     };
     DCore_Http.ctorParameters = function () { return [
         { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] },
-        { type: DCore_Config }
+        { type: DCore_Config },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"] }
     ]; };
     DCore_Http = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Injectable"])({
             providedIn: 'root'
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
-            DCore_Config])
+            DCore_Config,
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"]])
     ], DCore_Http);
     return DCore_Http;
 }());
