@@ -47,7 +47,8 @@ export class DCore_Http {
     public ReflashInterval:any=null;
     constructor(
         private _httpClient: HttpClient,
-        private _config: DCore_Config
+        private _config: DCore_Config,
+        private _navCtr:NavController
     ) {
     }
     //带请求头get请求
@@ -135,6 +136,11 @@ export class DCore_Http {
         window.localStorage.setItem('auth-account', account);
         window.localStorage.setItem('auth-password', password);
         window.localStorage.setItem('auth-logintime', (new Date().getTime()).toString());
+    }
+    //登出,清理缓存，跳转并重新登录
+    loginout(){
+        window.localStorage.clear();
+        this._navCtr.navigateRoot("/base/uc/login", {});
     }
 
     //刷新token

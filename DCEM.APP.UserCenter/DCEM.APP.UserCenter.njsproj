@@ -42,6 +42,10 @@
     <Folder Include="src\app\page\carcenter\carstore\component\" />
     <Folder Include="src\app\page\carcenter\carstore\component\model\" />
     <Folder Include="src\app\page\carcenter\carstore\component\scss\" />
+    <Folder Include="src\app\page\carcenter\carstore\check\" />
+    <Folder Include="src\app\page\carcenter\carstore\hirepurchase\" />
+    <Folder Include="src\app\page\carcenter\carstore\payment\" />
+    <Folder Include="src\app\page\carcenter\carstore\perfect\" />
     <Folder Include="src\app\page\carcenter\carstore\selectitem\" />
     <Folder Include="src\app\page\carcenter\carstore\selectattr\" />
     <Folder Include="src\app\page\carcenter\carstore\component\model\speclist\" />
@@ -70,6 +74,7 @@
     <Folder Include="src\assets\img\" />
     <Folder Include="src\assets\img\community\" />
     <Folder Include="src\assets\img\community\index\" />
+    <Folder Include="src\assets\img\carstore\" />
     <Folder Include="src\environments\" />
     <Folder Include="src\theme\" />
   </ItemGroup>
@@ -83,8 +88,24 @@
     <TypeScriptCompile Include="src\app\component\modal\select-sysarea\select-sysarea.component.spec.ts" />
     <TypeScriptCompile Include="src\app\component\modal\select-sysarea\select-sysarea.component.ts" />
     <TypeScriptCompile Include="src\app\component\typescript\dcem.core.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\carstore\check\check-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\carstore\check\check.module.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\carstore\check\check.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\carstore\check\check.page.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\component\model\speclist\speclist.component.spec.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\component\model\speclist\speclist.component.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\carstore\hirepurchase\hirepurchase-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\carstore\hirepurchase\hirepurchase.module.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\carstore\hirepurchase\hirepurchase.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\carstore\hirepurchase\hirepurchase.page.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\carstore\payment\payment-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\carstore\payment\payment.module.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\carstore\payment\payment.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\carstore\payment\payment.page.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\carstore\perfect\perfect-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\carstore\perfect\perfect.module.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\carstore\perfect\perfect.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\carstore\perfect\perfect.page.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\selectattr\selectattr-routing.module.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\selectattr\selectattr.module.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\selectattr\selectattr.page.spec.ts" />
@@ -149,11 +170,19 @@
     <Content Include="src\app\component\modal\login\login.component.scss" />
     <Content Include="src\app\component\modal\select-sysarea\select-sysarea.component.html" />
     <Content Include="src\app\component\modal\select-sysarea\select-sysarea.component.scss" />
+    <Content Include="src\app\page\carcenter\carstore\check\check.page.html" />
+    <Content Include="src\app\page\carcenter\carstore\check\check.page.scss" />
     <Content Include="src\app\page\carcenter\carstore\component\scss\main.scss">
       <SubType>Code</SubType>
     </Content>
     <Content Include="src\app\page\carcenter\carstore\component\model\speclist\speclist.component.html" />
     <Content Include="src\app\page\carcenter\carstore\component\model\speclist\speclist.component.scss" />
+    <Content Include="src\app\page\carcenter\carstore\hirepurchase\hirepurchase.page.html" />
+    <Content Include="src\app\page\carcenter\carstore\hirepurchase\hirepurchase.page.scss" />
+    <Content Include="src\app\page\carcenter\carstore\payment\payment.page.html" />
+    <Content Include="src\app\page\carcenter\carstore\payment\payment.page.scss" />
+    <Content Include="src\app\page\carcenter\carstore\perfect\perfect.page.html" />
+    <Content Include="src\app\page\carcenter\carstore\perfect\perfect.page.scss" />
     <Content Include="src\app\page\carcenter\carstore\selectattr\selectattr.page.html" />
     <Content Include="src\app\page\carcenter\carstore\selectattr\selectattr.page.scss" />
     <Content Include="src\app\page\carcenter\carstore\selectitem\selectitem.page.html" />
@@ -182,6 +211,8 @@
     <Content Include="src\assets\img\back.png" />
     <Content Include="src\assets\img\1png.png" />
     <Content Include="src\assets\img\2.jpg" />
+    <Content Include="src\assets\img\carstore\logo.png" />
+    <Content Include="src\assets\img\carstore\back.jpg" />
     <Content Include="src\assets\img\xiaopeng1.jpg" />
     <Content Include="src\assets\img\xiaopeng2.jpg" />
     <Content Include="src\assets\shapes.svg" />

@@ -129,7 +129,7 @@ var EditPage = /** @class */ (function () {
                 score: -1,
                 describe: "",
                 userid: this._userinfo.GetSystemUserId(),
-                dealerid: "3EFBFFF6-EF1A-E911-A821-A4A314186A20",
+                dealerid: this._userinfo.GetDealerid()
             }
         };
         this.CustomerTagModel = {
@@ -368,6 +368,7 @@ var EditPage = /** @class */ (function () {
             }
         }
         this.model.info.describe = tagName;
+        this.model.info.gender = parseInt(this.model.info.gender);
         this._page.loadingShow();
         this._http.postForToaken(this.model.apiUrl, this.model.info, function (res) {
             debugger;

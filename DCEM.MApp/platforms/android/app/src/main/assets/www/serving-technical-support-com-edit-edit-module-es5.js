@@ -86,10 +86,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EditPage", function() { return EditPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
-/* harmony import */ var app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/base/base.ser/logininfo.storage */ "./src/app/base/base.ser/logininfo.storage.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
+/* harmony import */ var app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/base/base.ser/logininfo.storage */ "./src/app/base/base.ser/logininfo.storage.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var app_serving_serving_ser_components_sc_select_sc_select_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! app/serving/serving.ser/components/sc-select/sc-select.component */ "./src/app/serving/serving.ser/components/sc-select/sc-select.component.ts");
 /* harmony import */ var app_serving_serving_ser_components_select_customer_select_customer_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! app/serving/serving.ser/components/select-customer/select-customer.component */ "./src/app/serving/serving.ser/components/select-customer/select-customer.component.ts");
 /* harmony import */ var app_base_base_ser_components_select_systemuser_select_systemuser_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! app/base/base.ser/components/select-systemuser/select-systemuser.component */ "./src/app/base/base.ser/components/select-systemuser/select-systemuser.component.ts");
@@ -108,14 +108,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var EditPage = /** @class */ (function () {
-    function EditPage(_http, _page, _valid, _userInfo, modalCtrl, activeRoute) {
+    function EditPage(_http, _page, _valid, _userInfo, modalCtrl, activeRoute, menuController) {
         this._http = _http;
         this._page = _page;
         this._valid = _valid;
         this._userInfo = _userInfo;
         this.modalCtrl = modalCtrl;
         this.activeRoute = activeRoute;
+        this.menuController = menuController;
         this.model = {
             postApiUrl: '/api/tech-support/AddOrUpdate',
             detailApiUrl: '/api/tech-support/GetDetail',
@@ -160,6 +162,10 @@ var EditPage = /** @class */ (function () {
             fileArray: []
         };
     }
+    //每次页面加载
+    EditPage.prototype.ionViewWillEnter = function () {
+        this.menuController.enable(true);
+    };
     EditPage.prototype.ngOnInit = function () {
         var _this = this;
         this.activeRoute.queryParams.subscribe(function (params) {
@@ -183,6 +189,14 @@ var EditPage = /** @class */ (function () {
             }
         }, function (res) {
             if (res.TechnicalSupport != null) {
+                // //如果已提交或关闭，则无法修改，跳转至详情页面
+                // var mcs_orderstatus= res["TechnicalSupport"]["Attributes"]["mcs_orderstatus"];
+                // debugger;
+                // if(mcs_orderstatus!=null && mcs_orderstatus!=10){
+                //    this._page.alert(MessageService.AlterTitleMessage,MessageService.PageCannotEdit,()=>{
+                //        this._page.goto('app/serving/ts/detail',{"id":id});
+                //    });
+                // }
                 _this.model.postData.Id = id;
                 _this.model.postData.mcs_title = res["TechnicalSupport"]["Attributes"]["mcs_title"];
                 _this.model.postData.mcs_serviceorderid = res["TechnicalSupport"]["Attributes"]["_mcs_serviceorderid_value"];
@@ -494,12 +508,13 @@ var EditPage = /** @class */ (function () {
         }
     };
     EditPage.ctorParameters = function () { return [
-        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Http"] },
-        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Page"] },
-        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Valid"] },
-        { type: app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_3__["Storage_LoginInfo"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ModalController"] },
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"] }
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Valid"] },
+        { type: app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_4__["Storage_LoginInfo"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] },
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["ActivatedRoute"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"] }
     ]; };
     EditPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -507,12 +522,13 @@ var EditPage = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./edit.page.html */ "./node_modules/raw-loader/index.js!./src/app/serving/technical-support.com/edit/edit.page.html"),
             styles: [__webpack_require__(/*! ./edit.page.scss */ "./src/app/serving/technical-support.com/edit/edit.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Http"],
-            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Page"],
-            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Valid"],
-            app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_3__["Storage_LoginInfo"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ModalController"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Valid"],
+            app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_4__["Storage_LoginInfo"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_5__["ActivatedRoute"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"]])
     ], EditPage);
     return EditPage;
 }());
