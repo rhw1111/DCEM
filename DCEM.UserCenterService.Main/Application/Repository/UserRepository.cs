@@ -182,24 +182,65 @@ namespace DCEM.UserCenterService.Main.Application.Repository
         }
 
         /// <summary>
-        /// 获取用户标签xml
+        /// 获取用户积分记录
         /// </summary>
         /// <param name="userDetailRequest"></param>
         /// <returns></returns>
-        public async Task<XDocument> getusertags(UserDetailRequest userDetailRequest)
+        public async Task<XDocument> getuserscore(UserDetailRequest userDetailRequest)
         {
             return await Task<XDocument>.Run(() =>
             {
-                var fetchXml = $@"<fetch mapping='logical' version='1.0' >
-    <entity name='mcs_mcs_user_mcs_usertag' >
-        <attribute name='mcs_userid' />
-        <filter>
-            <condition attribute='mcs_userid' operator='eq' value='{userDetailRequest.id}' />
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true' count='{userDetailRequest.PageSize}' page='{userDetailRequest.PageIndex}'>
+  <entity name='mcs_memberintegraldetail'>
+    <attribute name='mcs_memberintegraldetailid' />
+    <attribute name='mcs_name' />
+    <attribute name='createdon' />
+    <attribute name='mcs_integraltype' />
+    <attribute name='mcs_num' />
+    <attribute name='overriddencreatedon' />
+    <order attribute='mcs_name' descending='false' />
+    <link-entity name='mcs_member' from='mcs_memberid' to='mcs_memberid' link-type='inner' alias='am'>
+      <link-entity name='mcs_user' from='mcs_memberid' to='mcs_memberid' link-type='inner' alias='an'>
+        <filter type='and'>
+          <condition attribute='mcs_userid' operator='eq'   uitype='mcs_user' value='{userDetailRequest.id}' />
         </filter>
-        <link-entity name='mcs_usertag' from='mcs_usertagid' to='mcs_usertagid' alias='b' link-type='outer' >
-            <all-attributes/>
-        </link-entity>
-    </entity>
+      </link-entity>
+    </link-entity>
+  </entity>
+</fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
+
+        /// <summary>
+        /// 获取用户积分记录
+        /// </summary>
+        /// <param name="userDetailRequest"></param>
+        /// <returns></returns>
+        public async Task<XDocument> getuserscorebalance(UserDetailRequest userDetailRequest)
+        {
+            return await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+  <entity name='mcs_member'>
+    <attribute name='mcs_memberid' />
+    <attribute name='mcs_name' />
+    <attribute name='createdon' />
+    <attribute name='mcs_code' />
+    <attribute name='mcs_mobile' />
+    <attribute name='mcs_memberlevelid' />
+    <attribute name='mcs_bonuspoint' />
+    <attribute name='mcs_accumulatepoint' />
+    <attribute name='mcs_provinceid' />
+    <attribute name='mcs_districtid' />
+    <attribute name='mcs_cityid' />
+    <order attribute='mcs_code' descending='true' />
+    <link-entity name='mcs_user' from='mcs_memberid' to='mcs_memberid' link-type='inner' alias='ab'>
+      <filter type='and'>
+        <condition attribute='mcs_userid' operator='eq' uitype='mcs_user' value='{userDetailRequest.id}' />
+      </filter>
+    </link-entity>
+  </entity>
 </fetch>";
                 return XDocument.Parse(fetchXml);
             });
