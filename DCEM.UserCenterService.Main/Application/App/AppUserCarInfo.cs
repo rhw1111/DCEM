@@ -17,26 +17,25 @@ namespace DCEM.UserCenterService.Main.Application.App
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
     using MSLibrary;
-    using System.Collections.Generic;
-    using System;
 
-    public interface IAppUser
+    public class AppUserCarInfo : IAppUserCarInfo
     {
-        Task<ValidateResult<CrmEntity>> LoginAccount(UserLoginRequest request);
+        
+        public IUserCarInfoService _usercarinfoService;
+        
+        public AppUserCarInfo(IUserCarInfoService usercarinfoService)
+        {
+            _usercarinfoService=usercarinfoService;
+        }
 
-        Task<ValidateResult<CrmEntity>> GetUser(UserLoginRequest request);
-
-        Task<ValidateResult> AddUser(UserAddRequest request);
-
-        Task<ValidateResult> UpdateUser(UserAddRequest request);
-
-        Task<ValidateResult<List<CrmEntity>>> GetSecurityquestion();
-
-        void LoginLog(UserLoginRequest model, Guid userid, int type); 
-
-        Task<ValidateResult> UpdateUserPwd(UserLoginRequest model);
-
-        Task<UserTagListResponse> getusertag(UserDetailRequest userDetailRequest);
-        Task<CrmEntity> getuserdetail(UserDetailRequest userDetailRequest); 
+        /// <summary>
+        /// 用户车辆列表查询
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> QueryList(UserCarInfoListRequest request)
+        {
+            return await _usercarinfoService.QueryList(request);
+        }
     }
 }

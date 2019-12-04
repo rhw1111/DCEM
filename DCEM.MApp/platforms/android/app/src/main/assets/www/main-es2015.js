@@ -1493,14 +1493,16 @@ let AppComponent = class AppComponent {
                     this._page.goto("/serving/home/tabs/index");
                 }
                 else {
-                    this._page.goto("/base/uc/login");
+                    if ((location.href.length - location.host.length) <= location.href.lastIndexOf(location.host + '/')) {
+                        this._page.goto("/base/uc/login");
+                    }
                 }
             }
         });
     }
     loginout() {
         this.menu.close("homeMenu");
-        this.authService.logout();
+        this._http.loginout();
     }
 };
 AppComponent.ctorParameters = () => [
@@ -1800,9 +1802,10 @@ DCore_Config = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 ], DCore_Config);
 
 let DCore_Http = class DCore_Http {
-    constructor(_httpClient, _config) {
+    constructor(_httpClient, _config, _navCtr) {
         this._httpClient = _httpClient;
         this._config = _config;
+        this._navCtr = _navCtr;
         this.ReflashInterval = null;
     }
     //带请求头get请求
@@ -1871,6 +1874,11 @@ let DCore_Http = class DCore_Http {
         window.localStorage.setItem('auth-password', password);
         window.localStorage.setItem('auth-logintime', (new Date().getTime()).toString());
     }
+    //登出,清理缓存，跳转并重新登录
+    loginout() {
+        window.localStorage.clear();
+        this._navCtr.navigateRoot("/base/uc/login", {});
+    }
     //刷新token
     reflashToken() {
         //设置定时器监控token是否过期
@@ -1911,14 +1919,16 @@ let DCore_Http = class DCore_Http {
 };
 DCore_Http.ctorParameters = () => [
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] },
-    { type: DCore_Config }
+    { type: DCore_Config },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"] }
 ];
 DCore_Http = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Injectable"])({
         providedIn: 'root'
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
-        DCore_Config])
+        DCore_Config,
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"]])
 ], DCore_Http);
 
 let DCore_Page = class DCore_Page {

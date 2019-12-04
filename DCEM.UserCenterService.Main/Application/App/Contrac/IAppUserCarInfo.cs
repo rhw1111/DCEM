@@ -8,23 +8,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
+namespace DCEM.UserCenterService.Main.Application.App.Contrac
 {
-    using DCEM.UserCenterService.Main.Application.Repository.Contrac;
+    using DCEM.UserCenterService.Main.Application.App.Contrac;
+    using DCEM.UserCenterService.Main.Application.Services.Contrac;
     using DCEM.UserCenterService.Main.ViewModel.Request;
     using DCEM.UserCenterService.Main.ViewModel.Response;
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
-    using System.Xml.Linq;
+    using MSLibrary;
 
-    public interface IUserRepository
+    public interface IAppUserCarInfo
     {
-        Task<XDocument> LoginAccount(UserLoginRequest request);
-        Task<XDocument> GetUser(UserLoginRequest request);
-
-        Task<XDocument> GetSecurityquestion();
-        Task<XDocument> getusertags(UserDetailRequest userDetailRequest);
-        Task<XDocument> GetUserPwd(UserLoginRequest request);
-
+        /// <summary>
+        /// 用户车辆列表查询
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<QueryResult<CrmEntity>> QueryList(UserCarInfoListRequest request);
     }
 }

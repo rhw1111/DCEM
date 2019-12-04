@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
 import { DCore_Http, DCore_Page } from '../../../../../app/component/typescript/dcem.core';
-// import { SelectAppointmentconfigComponent } from 'app/serving/serving.ser/components/select-appointmentconfig/select-appointmentconfig.component';
+import { SelectDealerComponent } from "app/component/modal/select-dealer/select-dealer.component";
+import { SelectUsercarinfoComponent } from "app/component/modal/select-usercarinfo/select-usercarinfo.component";
 import sd from 'silly-datetime';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 // import { OptionSetService } from '../../../base/base.ser/optionset.service';
@@ -55,27 +56,43 @@ objectKeys = Object.keys;
 
    //筛选车辆
    public userCarOnClick() {
-    // this.presentModal();
+    this.UserCarPresentModal();
 }
 
-//  //调用选择客户组件
-//  async presentModal() {
-//   const modal = await this._modalCtrl.create({
-//       component: SelectCustomerComponent
-//   });
-//   await modal.present();
-//   const { data } = await modal.onDidDismiss();
-//   if (data != null && typeof data != "undefined") {
-//       if (data.vehowne != null && typeof data.vehowne != "undefined") {
-//           console.log(data.vehowne);
-//           this.shareData.appointmentinfo["mcs_customerid"] = data.vehowne.vehownerid;
-//           this.shareData.appointmentinfo["mcs_customername"] = data.vehowne.fullname;
-//           this.shareData.appointmentinfo["mcs_carplate"] = data.vehowne.vehplate;
-//           this.shareData.appointmentinfo["mcs_customerphone"] = data.vehowne.mobilephone;
-//           this.shareData.appointmentinfo["mcs_cartype"] = data.vehowne.model["_mcs_vehtype_value"];
-//           //this.shareData.appointmentinfo["mcs_tag"] = "";
-//       }
-//   }
-// }
+public saveOnClick(){
 
+}
+
+ //调用选择客户组件
+ async UserCarPresentModal() {
+  const modal = await this._modalCtrl.create({
+      component: SelectUsercarinfoComponent
+  });
+  await modal.present();
+  const { data } = await modal.onDidDismiss();
+  if (data != null && typeof data != "undefined") {
+      if (data.vehowne != null && typeof data.vehowne != "undefined") {
+          console.log(data.vehowne);
+          this.shareData.appointmentinfo["mcs_customerid"] = data.vehowne.vehownerid;
+          this.shareData.appointmentinfo["mcs_customername"] = data.vehowne.fullname;
+          this.shareData.appointmentinfo["mcs_carplate"] = data.vehowne.vehplate;
+          this.shareData.appointmentinfo["mcs_customerphone"] = data.vehowne.mobilephone;
+          this.shareData.appointmentinfo["mcs_cartype"] = data.vehowne.model["_mcs_vehtype_value"];
+          //this.shareData.appointmentinfo["mcs_tag"] = "";
+      }
+  }
+}
+
+public appointmentConfigChange(){
+
+
+}
+
+public orderTypeChange(){
+
+}
+
+public appointmentAtChange(){
+
+}
 }
