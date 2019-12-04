@@ -201,6 +201,11 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
             if (!string.IsNullOrWhiteSpace(request.dealerid))
                 filter += $"<condition attribute='mcs_dealerid' operator='eq' value='{request.dealerid}' />";
 
+            if (!string.IsNullOrEmpty(request.mcs_ordertime))
+            {
+                filter += $"<condition attribute='mcs_reservationdate' operator='on' value='{Convert.ToDateTime(request.mcs_ordertime).ToString("yyyy-MM-dd")}' />";
+            }
+
             var fetchString = $@"<fetch version='1.0' count='{request.pageSize}' page='{request.page}' output-format='xml-platform' mapping='logical' distinct='false'>
                   <entity name='mcs_reservationconfiguration'> 
                     <attribute name='mcs_name' />  
@@ -209,6 +214,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
                     <attribute name='mcs_reservationdate' />  
                     <attribute name='mcs_begintime' />  
                     <attribute name='mcs_endtime' />  
+                    <attribute name='mcs_reservationconfigurationid' />  
                     <order attribute='mcs_reservationdate' descending='true' />
                     <order attribute='mcs_begintime' descending='false' />
                     <filter type='and'>
