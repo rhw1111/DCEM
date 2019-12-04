@@ -35,7 +35,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             {
                 var response = new OriginalclueListResponse() { };
                 var fetchXdoc = await _originalclueRepository.GetGetQueryListFetchXml(originalclueListRequest);
-                var crmRequestHelper = new CrmRequestHelper(); 
+                var crmRequestHelper = new CrmRequestHelper();
                 var entities = await crmRequestHelper.ExecuteAsync(_crmService, entityName, fetchXdoc);
                 response.originalclues = entities.Results;
                 response.ALLTotalCount = entities.Count;
@@ -74,14 +74,14 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 var createEntity = new CrmExecuteEntity(entityName, Guid.NewGuid());
                 createEntity.Attributes.Add("lastname", originalclueCreateRequest.username);
                 createEntity.Attributes.Add("mobilephone", originalclueCreateRequest.mobile);
-                createEntity.Attributes.Add("emailaddress1", originalclueCreateRequest.mail);
+                if (!string.IsNullOrEmpty(originalclueCreateRequest.mail))
+                {
+                    createEntity.Attributes.Add("emailaddress1", originalclueCreateRequest.mail);
+                }
                 createEntity.Attributes.Add("mcs_leadorigin", Int32.Parse(originalclueCreateRequest.clues));
                 createEntity.Attributes.Add("mcs_accountpoints", Int32.Parse(originalclueCreateRequest.score));
                 createEntity.Attributes.Add("description", originalclueCreateRequest.describe);
-                if (!string.IsNullOrWhiteSpace(originalclueCreateRequest.gender))
-                {
-                    createEntity.Attributes.Add("mcs_gender", Int32.Parse(originalclueCreateRequest.gender));
-                }
+                createEntity.Attributes.Add("mcs_gender", originalclueCreateRequest.gender);
                 if (!string.IsNullOrWhiteSpace(originalclueCreateRequest.province))
                 {
                     var salesarea = new CrmEntityReference("mcs_salesarea", Guid.Parse(originalclueCreateRequest.province));

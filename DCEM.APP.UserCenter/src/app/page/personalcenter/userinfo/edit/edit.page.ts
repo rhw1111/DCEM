@@ -47,7 +47,10 @@ export class EditPage implements OnInit {
       userid: "804BD218-C35B-4300-AEC8-985DE405CBC6",//this._logininfo.GetSystemUserId(),
       gender: 1,
       mcs_email: "",
-      name: ""
+      name: "",
+      province:"",
+      city:"",
+      area:"" 
     }
   };
 
@@ -84,6 +87,9 @@ export class EditPage implements OnInit {
     this.model.params.gender = parseInt(this.model.info.gender);
     this.model.params.mcs_email = this.model.info.mail;
     this.model.params.name = this.model.info.username;
+    this.model.params.province=this.model.info.province;
+    this.model.params.city=this.model.info.city;
+    this.model.params.area=this.model.info.area;
     this._page.loadingShow();
     this._http.postForToaken(
       this.model.apiUrl,

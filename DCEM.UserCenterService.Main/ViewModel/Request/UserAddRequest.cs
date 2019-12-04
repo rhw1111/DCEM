@@ -66,7 +66,18 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
         /// 个人说明
         /// </summary>
         public string description { get; set; }
-
+        /// <summary>
+        /// 省
+        /// </summary>
+        public string province { get; set; }
+        /// <summary>
+        /// 市
+        /// </summary>
+        public string city { get; set; }
+        /// <summary>
+        /// 区
+        /// </summary>
+        public string area { get; set; }
         public UserkeysRequest userkey { get; set; }
 
         public List<UsersecurityquestionRequest>  quests { get; set; }

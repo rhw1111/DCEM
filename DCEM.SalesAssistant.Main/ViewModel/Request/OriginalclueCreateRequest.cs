@@ -10,7 +10,7 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         public string mobile { get; set; }
         public string mail { get; set; }
         public string clues { get; set; }
-        public string gender { get; set; }
+        public int gender { get; set; }
         public string province { get; set; }
         public string city { get; set; }
         public string area { get; set;}

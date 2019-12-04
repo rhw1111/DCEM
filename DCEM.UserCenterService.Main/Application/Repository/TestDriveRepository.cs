@@ -25,6 +25,10 @@ namespace DCEM.UserCenterService.Main.Application.Repository
             //    filter += $"<condition attribute='mcs_code' operator='like' value='%{vehorderRequest.SearchKey}%' />";
             //    filter += $"</filter>";
             //}
+            if (!string.IsNullOrWhiteSpace(Request.mcs_driverecordid))
+            {
+                filter += $"<condition attribute='mcs_driverecordid' operator='eq' value='{Request.mcs_driverecordid}' />";
+            }
          
             var fetchString = $@"<fetch version='1.0' count='{Request.PageSize}' page='{Request.PageIndex}' output-format='xml-platform' mapping='logical' distinct='false'>
                 <entity name='mcs_driverecord'>
@@ -43,6 +47,15 @@ namespace DCEM.UserCenterService.Main.Application.Repository
                   <condition attribute='ownerid' operator='eq-userid' />
                     {filter}
                 </filter>
+                <link-entity name='mcs_reservationconfiguration' from='mcs_reservationconfigurationid' to='mcs_testdrivetime' visible='false' link-type='outer' >
+                  <attribute name='mcs_name' />
+                </link-entity>
+                <link-entity name='mcs_carmodel' from='mcs_carmodelid' to='mcs_carmodel' visible='false' link-type='outer' >
+                  <attribute name='mcs_name' />
+                </link-entity>
+               <link-entity name='mcs_dealer' from='mcs_dealerid' to='mcs_dealerid' visible='false' link-type='outer' >
+                <attribute name='mcs_name' />
+               </link-entity>
               </entity>
             </fetch>";
 

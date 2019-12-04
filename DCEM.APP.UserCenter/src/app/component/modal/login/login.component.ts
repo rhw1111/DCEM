@@ -12,11 +12,11 @@ import { Storage_LoginInfo } from '../../typescript/logininfo.storage';
 export class LoginComponent implements OnInit {
   public tab: any = 'account';
   public title: any = '登陆';
-  public isval: any = false;//验证消息显示开关
+  public isval: any = false;//验证消息显示开关 
   public valmsg: any = '';//验证消息显示开关
   //界面切换开关 1 登陆输入；2登陆验证码输入；5 注册验证码输入；3 注册电话号码页面；4 注册个人信息输入页面 
   //6 忘记密码手机号码录入界面；//7 密码重置成功页面
-  public disstatus: any = 7;
+  public disstatus: any = 1;
   public mod: any = {
     loginurl: 'api/user/loginaccount',//账号登陆url
     loginphoneurl: 'api/user/loginphone',//手机号码登陆url
@@ -68,6 +68,10 @@ export class LoginComponent implements OnInit {
     private _valid: DCore_Valid,
     private _navParams: NavParams) {
     this.disstatus = _navParams.get('status')
+    if(_navParams.get('status')==6){
+      $("#inputphone").attr('readonly','readonly');
+      this.mod.model.account=this._logininfo.GetAccount();
+    }
     this.OnQuests();
   }
 
@@ -75,17 +79,55 @@ export class LoginComponent implements OnInit {
   OnLogin() {
     this.disstatus = 1;
   }
-
+  OnselectText(id) {
+    $(id).select();
+  }
   OnPwdReset() {
     this.title = '重置密码';
     this.disstatus = 6;
   }
   //关闭
   onReturn(islogin) {
-    clearInterval(this.applicationInterval);
+    if (this.loginInterval != null)
+      clearInterval(this.loginInterval);
+    if (this.applicationInterval != null)
+      clearInterval(this.applicationInterval);
     this.modalCtrl.dismiss({
       'login': islogin
     });
+  }
+
+  loginInterval: any;
+  //登陆注册获取验证码
+  onloginSendMsg(status) {
+    if (status == null) {
+      status = this.disstatus;
+    }
+    if (this.mod.model.account == '') {
+      this._page.alert("消息提示", "请填写手机号码！");
+      return false;
+    }
+    if (String(this.mod.model.account).length != 11) {
+      this._page.alert("消息提示", "手机号码错误！");
+      return false;
+    }
+    var ii = 90;
+    $("#divmsgshow").show();
+    $("#divbtnshow").hide();
+    $('#lbsendmsg').text('90秒重新获取验证码');
+    var intt;
+    this.loginInterval = intt = setInterval(function () {
+      ii--;
+      var cc = String(ii) + '秒重新获取验证码';
+      $('#lbsendmsg').text(cc);
+      if (ii <= 0) {
+        $("#divmsgshow").hide();
+        $("#divbtnshow").show();
+        clearInterval(intt);
+      }
+    }, 1000);
+
+    this.onSendMsg(status);
   }
 
   //安全问题设置列表获取
@@ -136,6 +178,7 @@ export class LoginComponent implements OnInit {
           if (status == 2 || status == 5)
             this.disstatus = status;
           this._page.loadingHide();
+          $("#inputcode1").focus();
         } else {
           this._page.loadingHide();
           this._page.alert("消息提示", res.Description);
@@ -184,7 +227,7 @@ export class LoginComponent implements OnInit {
           this.mod.val1 = "";
           this.mod.val2 = "";
           this.mod.val3 = "";
-          this.mod.val4 = ""; 
+          this.mod.val4 = "";
           this.i = 0;
           this._page.alert("消息提示", res.Description);
         }
@@ -355,10 +398,10 @@ export class LoginComponent implements OnInit {
     );
   }
   ngOnInit() { }
- 
-  applicationInterval:any; 
+
+  applicationInterval: any;
   //修改密码获取验证码
-  onSendMsgPwd(status) {  
+  onSendMsgPwd(status) {
     if (this.mod.model.account == '') {
       this._page.alert("消息提示", "请填写手机号码！");
       return false;
@@ -371,7 +414,8 @@ export class LoginComponent implements OnInit {
     $('#btnsendmsg').text('90s');
     $("#btnsendmsg").attr("class", "ion-color ion-color-medium  ios button button-block button-small button-solid ion-activatable ion-focusable hydrated");
     $('#btnsendmsg').attr('disabled', 'true');
-    this.applicationInterval = setInterval(function () {
+    var interval;
+    this.applicationInterval = interval = setInterval(function () {
       ii--;
       var cc = String(ii) + 's';
       $('#btnsendmsg').text(cc);
@@ -379,17 +423,17 @@ export class LoginComponent implements OnInit {
         $('#btnsendmsg').text('重新获取');
         $("#btnsendmsg").attr("class", "ion-color ion-color-secondary ios button button-block button-small button-solid ion-activatable ion-focusable hydrated");
         $('#btnsendmsg').attr('disabled', 'false');
-        clearInterval(this.applicationInterval);
+        clearInterval(interval);
       }
     }, 1000);
 
     this.onSendMsg(status);
   }
 
-   
+
   //修改用户密码
   onPwdReset(type) {
-    
+
     if (this.mod.model.account == '') {
       this.valmsg = '请填写手机号！';
       this.isval = true;

@@ -84,7 +84,7 @@ export class ListPage implements OnInit {
                                 "Id": value.accountid,
                                 "name": value.name,
                                 "accountnumber": value.accountnumber,
-                                "mcs_mobilephone": value.mcs_mobilephone==""?"--":value.mcs_mobilephon,
+                                "mcs_mobilephone": value.mcs_mobilephone==""?"--":value.mcs_mobilephone,
                                 "mcs_customerstatus":this.optionset.GetOptionSetNameByValue("mcs_customerstatus",value.mcs_customerstatus),
                                 "createdon": value.createdon
                             });

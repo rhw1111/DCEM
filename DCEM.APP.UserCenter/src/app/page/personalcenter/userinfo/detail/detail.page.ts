@@ -43,6 +43,9 @@ pageOnBind() {
              this.model.info.mobile=attr["mcs_phone"];
              this.model.info.mail=attr["mcs_email"];
              this.model.info.username=attr["mcs_nickname"];
+             this.model.info.province=attr["_mcs_province_value@OData.Community.Display.V1.FormattedValue"];
+             this.model.info.city=attr["_mcs_city_value@OData.Community.Display.V1.FormattedValue"];
+            this.model.info.area=attr["_mcs_area_value@OData.Community.Display.V1.FormattedValue"];
           }
           else {
               this._page.alert("消息提示", "原始线索编辑信息加载异常");
