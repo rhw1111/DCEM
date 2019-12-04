@@ -202,13 +202,11 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     entity.Attributes.Add("mcs_profession", model.profession);
                 if (!string.IsNullOrEmpty(model.signature))
                     entity.Attributes.Add("mcs_signature", model.signature);
+                entity.Attributes.Add("mcs_memberid", new CrmEntityReference("mcs_member", memberid));
 
-
-
-
+                await _crmService.Create(member, userInfo?.systemuserid);
                 //c端用户实体
                 await _crmService.Create(entity, userInfo?.systemuserid);
-                await _crmService.Create(member, userInfo?.systemuserid);
 
                 ///用户密码
                 Guid userkeyid = Guid.NewGuid();
@@ -267,15 +265,15 @@ namespace DCEM.UserCenterService.Main.Application.Services
         /// <returns></returns>
         public async Task<ValidateResult> UpdateUser(UserAddRequest model)
         {
-             var validateResult = new ValidateResult();
-             
+            var validateResult = new ValidateResult();
+
             try
             {
                 var entity = new CrmExecuteEntity(entityName, model.userid);
                 if (!string.IsNullOrEmpty(model.phone))
                     entity.Attributes.Add("mcs_phone", model.phone);
                 if (!string.IsNullOrEmpty(model.birthday))
-                    entity.Attributes.Add("mcs_birthday", DateTime.Parse( model.birthday).ToUniversalTime());
+                    entity.Attributes.Add("mcs_birthday", DateTime.Parse(model.birthday).ToUniversalTime());
                 if (!string.IsNullOrEmpty(model.company))
                     entity.Attributes.Add("mcs_company", model.company);
                 if (!string.IsNullOrEmpty(model.description))
@@ -384,7 +382,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
         }
 
-         
+
 
 
 
@@ -424,9 +422,9 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 var crmRequestHelper = new CrmRequestHelper();
                 XDocument fetchXdoc = null;
                 fetchXdoc = await _repository.getusertags(userDetailRequest);
-                var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_mcs_user_mcs_usertag", fetchXdoc); 
-                response.tags = entities.Results; 
-                return response; 
+                var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_mcs_user_mcs_usertag", fetchXdoc);
+                response.tags = entities.Results;
+                return response;
             }
             catch (Exception ex)
             {
