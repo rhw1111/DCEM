@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+     <ion-buttons slot="start" style="margin-top: 3px;">
+        <ion-back-button text="返回" defaultHref="/carcenter/index"></ion-back-button>
+    </ion-buttons>
     <ion-title>预约试乘试驾</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,37 +12,30 @@
    <ion-list lines="full" style="height: 30%;">   
     <ion-slides>
         <ion-slide>
-            <ion-grid>
-                <ion-row style="background-color:#000">
-                    <ion-col>
-                        <br />
-                        <img src="../assets/img/temp/xiaopeng2.jpg" />
-                    </ion-col>
-                </ion-row>             
-            </ion-grid>
+            <ion-row style="display: inline-block; width: 100%;">
+                <ion-col>
+                    <img src="../assets/img/temp/xiaopeng2.jpg" />
+                </ion-col>
+            </ion-row>
         </ion-slide>
         <ion-slide>
-            <ion-grid>
-                <ion-row style="background-color:#000">
-                    <ion-col>
-                        <br />
-                        <img src="../assets/img/1png.png"/>
-                    </ion-col>
-                </ion-row>
-               
-            </ion-grid>
+            <ion-row style="display: inline-block; width: 100%;">
+                <ion-col>
+                    <img src="../assets/img/1png.png" />
+                </ion-col>
+            </ion-row>
         </ion-slide>
     </ion-slides>
   <!--   <WingBlank>
         <Carousel >
           <CarouselSlide >
-            <div style="display: inline-block; width: 100%;" [ngStyle]="{ height: state.imgHeight }">
-              <img src="../assets/img/temp/xiaopeng2.jpg" style=" pointer-events: none; width: 100%;"/>
+            <div style="display: inline-block; width: 100%;" >
+              <img src="../assets/img/temp/xiaopeng2.jpg" style="width: 100%;max-height:100%"/>
             </div>
           </CarouselSlide>
           <CarouselSlide >
-            <div style="display: inline-block; width: 100%;" [ngStyle]="{ height: state.imgHeight }">
-              <img src="../assets/img/1png.png" style=" pointer-events: none; width: 100%;"/>
+            <div style="display: inline-block; width: 100%;" >
+              <img src="../assets/img/1png.png" style=" width: 100%;max-height:100%"/>
             </div>
           </CarouselSlide>
         </Carousel>
@@ -68,16 +64,10 @@
               预约车型
               <ion-text color="danger">*</ion-text>
           </ion-label>   
-          <ion-select placeholder="请选择预约车型" cancelText="取消" okText="确定" [(ngModel)]="model.postData.mcs_carmodel">
-              <ion-select-option  value="1">
-                  s01
-              </ion-select-option>
-              <ion-select-option  value="2">
-                  s02
-               </ion-select-option>
-               <ion-select-option  value="3">
-                  s03
-               </ion-select-option>
+          <ion-select placeholder="请选择预约车型" cancelText="取消" okText="确定" [(ngModel)]="model.postData.mcs_carmodel" >
+              <ion-select-option *ngFor="let item of model.VehicletypeList"  value="{{item.mcs_carmodelid}}">
+                  {{item.mcs_name}}
+              </ion-select-option>           
           </ion-select>
       </ion-item>
       <ion-item>
@@ -86,22 +76,14 @@
               <ion-text color="danger">*</ion-text>
           </ion-label>
           <ion-select placeholder="请选择预约类型" cancelText="取消" okText="确定" [(ngModel)]="model.postData.mcs_businesstype">
-              <ion-select-option  value="1">
+              <ion-select-option  value="10">
                   试乘
               </ion-select-option>
-              <ion-select-option  value="2">
+              <ion-select-option  value="11">
                   试驾
                </ion-select-option>
           </ion-select>
-      </ion-item>
-      <ion-item (click)="selectDealerModal()">
-          <ion-label position="stacked">
-              试乘试驾地点
-              <ion-text color="danger">*</ion-text>
-          </ion-label>
-          <ion-input placeholder="请选择地点" [(ngModel)]="model.postData.mcs_dealername" required></ion-input>
-          <ion-icon slot="end" name="search"></ion-icon>
-        </ion-item>
+      </ion-item>   
       <ion-item>
           <ion-label position="stacked">
               预约时间
@@ -109,42 +91,23 @@
           </ion-label>
           <ion-datetime placeholder="请选择预约时间"  display-format="YYYY-MM-DD" cancelText="取消" doneText="确定"  [(ngModel)]="model.postData.mcs_ordertime" required></ion-datetime>
       </ion-item>
+      <ion-item (click)="selectDealerModal()">
+        <ion-label position="stacked">
+            试乘试驾地点
+            <ion-text color="danger">*</ion-text>
+        </ion-label>
+        <ion-input placeholder="请选择地点" [(ngModel)]="model.postData.mcs_dealername" required></ion-input>
+        <ion-icon slot="end" name="search"></ion-icon>
+      </ion-item>
       <ion-item>
           <ion-label position="stacked">
               预约时段
               <ion-text color="danger">*</ion-text>
           </ion-label>
-          <ion-select placeholder="请选择预约时段" cancelText="取消" okText="确定" [(ngModel)]="model.postData.mcs_testdrivetime">
-              <ion-select-option  value="1">
-                  09:30-10:00
-              </ion-select-option>
-              <ion-select-option  value="2">
-                  10:00-10-30
-               </ion-select-option>
-               <ion-select-option  value="3">
-                  10:30-11:00
-              </ion-select-option>
-              <ion-select-option  value="4">
-                  11:00-11-30
-               </ion-select-option>
-               <ion-select-option  value="5">
-                  13:30-14:00
-              </ion-select-option>
-              <ion-select-option  value="6">
-                  14:00-14-30
-               </ion-select-option>
-               <ion-select-option  value="7">
-                  14:30-15:00
-              </ion-select-option>
-              <ion-select-option  value="8">
-                  15:00-15-30
-               </ion-select-option>
-               <ion-select-option  value="9">
-                  15:30-16:00
-              </ion-select-option>
-              <ion-select-option  value="10">
-                  16:00-16-30
-               </ion-select-option>
+          <ion-select (click)="CheckData()" placeholder="请选择预约时段" cancelText="取消" okText="确定" [(ngModel)]="model.postData.mcs_testdrivetime">
+              <ion-select-option  *ngFor="let item of model.TestDrivetimeList"  value="{{item.mcs_reservationconfigurationid}}">
+                {{item.mcs_name}}
+              </ion-select-option>            
           </ion-select>
       </ion-item>
       <br/>

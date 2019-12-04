@@ -27,5 +27,15 @@ namespace DCEM.UserCenterService.Main.Common
             成功=1,
             失败=2
         }
+
+        public enum ContentType
+        {
+            //前端内容
+            Front = 0,
+            //活动内容
+            Activity = 1,
+            //新闻资讯
+            News = 2
+        }
     }
 }

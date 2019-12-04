@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page } from 'app/component/typescript/Dcem.core';
 import { IonInfiniteScroll } from '@ionic/angular';
-
+import { OptionSetService } from 'app/component/typescript/optionset.service';
+import sd from 'silly-datetime';
 
 @Component({
   selector: 'app-list',
@@ -12,13 +13,11 @@ export class ListPage implements OnInit {
 
   public model = {
     name: 'DriveRecordList',//模块实体名称
-    apiUrl: '/api/testdrive/GetDriveRecordList',//请求地址
+    apiUrl: 'api/testdrive/GetDriveRecordList',//请求地址
    
     isending: false,//是否加载完成
     datalist: [],//列表数据
     params:{
-        mcs_rostatus: 0,
-        SearchKey: '',//搜索关键字
         Sort: '',
         PageSize: 10,
         PageIndex: 1,
@@ -28,6 +27,7 @@ export class ListPage implements OnInit {
   constructor(
     private _http: DCore_Http,
     private _page: DCore_Page,
+    private optionset:OptionSetService
   ) { }
 
   ngOnInit() {
@@ -50,10 +50,13 @@ doLoading(event) {
 
 //获取列表数据
 getList(event) {
-  this._http.postForToaken(this.model.apiUrl,
-      this.model.params,
+  this._page.loadingShow();
+  this._http.post(this.model.apiUrl,
+
+    this.model.params
+    ,
       (res: any) => {
-         //debugger;
+        // debugger;
           if (res.Results !== null) {
               //绑定数据
               res.Results.forEach(item => {              
@@ -61,13 +64,13 @@ getList(event) {
                   obj["mcs_driverecordid"] = item["Attributes"].mcs_driverecordid;             
                   obj["mcs_fullname"] = item["Attributes"].mcs_fullname;
                   obj["mcs_mobilephone"] = item["Attributes"].mcs_mobilephone;
-                  obj["mcs_carmodel"] = item["mcs_carmodel"].mcs_code;                  
-                  obj["mcs_businesstype"] = item["Attributes"].mcs_businesstype;
-                  obj["mcs_dealerid"] = item["mcs_dealerid"].mcs_code;    
+                  obj["mcs_carmodel"] = item["Attributes"].mcs_carmodel2_x002e_mcs_name;                  
+                  obj["mcs_businesstype"] =this.optionset.GetOptionSetNameByValue( "mcs_businesstype",item["Attributes"].mcs_businesstype);
+                  obj["mcs_dealerid"] = item["Attributes"].mcs_dealer3_x002e_mcs_name;    
                   obj["mcs_ordertime"] = item["Attributes"].mcs_ordertime;
-                  obj["mcs_testdrivetime"] = item["Attributes"].mcs_testdrivetime;      
-                  obj["mcs_drivestatus"] = item["Attributes"].mcs_drivestatus;    
-                  // obj["mcs_rostatus"] =this.optionset.GetOptionSetNameByValue("mcs_rostatus",item["Attributes"].mcs_rostatus);              
+                  obj["mcs_testdrivetime"] = item["Attributes"].mcs_reservationconfiguration1_x002e_mcs_name;      
+                  obj["mcs_drivestatus"] = this.optionset.GetOptionSetNameByValue( "mcs_drivestatus",item["Attributes"].mcs_drivestatus);
+                  obj["createdon"] = item["Attributes"].createdon;
                   this.model.datalist.push(obj);
 
               });
@@ -94,6 +97,15 @@ getList(event) {
   );
 }
 
+//日期格式
+FormatToDate(date) {
+  if (date != null && date != undefined) {
+      return sd.format(date, 'YYYY-MM-DD');
+  }
+  else {
+      return '';
+  }
+}
 
 
 }

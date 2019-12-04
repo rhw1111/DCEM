@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DCore_Http,DCore_Page } from '../../../../component/typescript/dcem.core';
+import { DCore_Http, DCore_Page } from '../../../../component/typescript/dcem.core';
 import { Storage_LoginInfo } from "../../../../component/typescript/logininfo.storage";
 @Component({
   selector: 'app-detail',
@@ -8,57 +8,90 @@ import { Storage_LoginInfo } from "../../../../component/typescript/logininfo.st
 })
 export class DetailPage implements OnInit {
 
-  constructor( private _http: DCore_Http,
+  constructor(private _http: DCore_Http,
     private _page: DCore_Page,
-    private _logininfo: Storage_LoginInfo){ }
+    private _logininfo: Storage_LoginInfo) { }
 
   ngOnInit() {
     this.pageOnBind();
+    this.pageUserTags();
   }
-  public model = { 
-    apiUrlDetail: 'api/user/getuserdetail', 
-    id:"",
-    info: { 
-        username:"",
-        mobile: "",
-        clues: "", 
-        gender:"",
-        mail:"",
-        province: "",
-        city: "",
-        area:"", 
-        describe:""
+  public model = {
+    apiUrltags: "api/user/getusertag",
+    apiUrlDetail: 'api/user/getuserdetail',
+    id: "0010D704-7723-4B75-B334-4A9620769F68",
+    info: {
+      username: "",
+      mobile: "",
+      clues: "",
+      gender: "",
+      mail: "",
+      province: "",
+      city: "",
+      area: "",
+      describe: ""
     }
-};
-
-pageOnBind() { 
-  this._page.loadingShow();
-  this._http.postForToaken(
-    this.model.apiUrlDetail,
-    {'id':"804BD218-C35B-4300-AEC8-985DE405CBC6"},//this._logininfo.GetSystemUserId()}, 
-      (res: any) => { 
-          if (res !== null) {
-            var attr=res["Attributes"];
-             this.model.info.gender=attr["mcs_gender@OData.Community.Display.V1.FormattedValue"];
-             this.model.info.mobile=attr["mcs_phone"];
-             this.model.info.mail=attr["mcs_email"];
-             this.model.info.username=attr["mcs_nickname"];
-          }
-          else {
-              this._page.alert("消息提示", "原始线索编辑信息加载异常");
-          }
-          this._page.loadingHide(); 
+  };
+  public colors=["primary","secondary","tertiary","success","warning","danger"];
+  public tags = [];
+  pageOnBind() {
+    this._page.loadingShow();
+    this._http.postForToaken(
+      this.model.apiUrlDetail,
+      { 'id':this.model.id},//this._logininfo.GetSystemUserId()}, 
+      (res: any) => {
+        if (res !== null) {
+          var attr = res["Attributes"];
+          this.model.info.gender = attr["mcs_gender@OData.Community.Display.V1.FormattedValue"];
+          this.model.info.mobile = attr["mcs_phone"];
+          this.model.info.mail = attr["mcs_email"];
+          this.model.info.username = attr["mcs_nickname"];
+          this.model.info.province = attr["_mcs_province_value@OData.Community.Display.V1.FormattedValue"];
+          this.model.info.city = attr["_mcs_city_value@OData.Community.Display.V1.FormattedValue"];
+          this.model.info.area = attr["_mcs_area_value@OData.Community.Display.V1.FormattedValue"]; 
+        }
+        else {
+          this._page.alert("消息提示", "原始线索编辑信息加载异常");
+        }
+        this._page.loadingHide();
       },
       (err: any) => {
-          this._page.alert("消息提示", "原始线索编辑信息加载异常");
-          this._page.loadingHide();
+        this._page.alert("消息提示", "原始线索编辑信息加载异常");
+        this._page.loadingHide();
       }
-  );
+    );
 
-}
+  }
 
-saveOnClick()
-{
-  this._page.goto("/personalcenter/userinfo/edit");
-}
+  pageUserTags() {
+    this._http.postForToaken(
+      this.model.apiUrltags,
+      { 'id': this.model.id},//this._logininfo.GetSystemUserId()}, 
+      (res: any) => {
+        if (res !== null) {
+          var data = res.tags;
+          var index=0;
+          for (let i = 0; i < data.length; i++) { 
+            var attr = data[i]["Attributes"];
+            var obj = {};
+            obj["name"] = attr["mcs_name"];
+             index=i>6?1:i;
+            obj["color"] = this.colors[index];
+            this.tags.push(obj);
+          }
+        }
+        else {
+          this._page.alert("消息提示", "用户标签信息加载异常");
+        }
+       
+      },
+      (err: any) => {
+        this._page.alert("消息提示", "用户标签信息加载异常"); 
+      }
+    );
+
+  }
+  saveOnClick() {
+    this._page.goto("/personalcenter/userinfo/edit");
+  }
 }

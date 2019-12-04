@@ -9,7 +9,7 @@ let IndexPage = class IndexPage {
     }
     ngOnInit() {
         //是否重叠
-        this.statusBar.overlaysWebView(true);
+        //this.statusBar.overlaysWebView(true);
     }
 };
 IndexPage = tslib_1.__decorate([

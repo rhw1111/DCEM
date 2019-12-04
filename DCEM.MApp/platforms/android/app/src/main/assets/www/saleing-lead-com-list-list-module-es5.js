@@ -156,8 +156,10 @@ var ListPage = /** @class */ (function () {
                 }
                 event ? event.target.complete() : '';
                 if (data.length < _this.mod.searchData.pagesize) {
-                    event ? event.target.disabled = true : "";
-                    _this.mod.isending = true;
+                    if (_this.mod.searchData.pageindex > 1) {
+                        event ? event.target.disabled = true : "";
+                        _this.mod.isending = true;
+                    }
                 }
                 _this._page.loadingHide();
             }

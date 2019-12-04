@@ -19,10 +19,13 @@ namespace DCEM.Web.Controllers.UCenter
     public class TestDriveController : ApiController
     {
 
-        private IAppTestDrive app;
+        private IAppTestDrive app = null;
         public TestDriveController()
         {
-            app = new TestDriveFactory().Create().Result;
+            if (app == null)
+            {
+                app = new TestDriveFactory().Create().Result;
+            }
         }
 
         /// <summary>
@@ -44,8 +47,7 @@ namespace DCEM.Web.Controllers.UCenter
         [HttpPost]
         [Route("GetDriveRecordList")]
         public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetDriveRecordList(TestDriveRequest request)
-        {
-            
+        {         
             var list = await app.GetDriveRecordList(request);
             return list;
         }

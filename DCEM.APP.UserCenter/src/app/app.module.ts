@@ -8,6 +8,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonicStorageModule } from '@ionic/storage';
+import { AppVersion } from '@ionic-native/app-version/ngx';
 //import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -18,11 +19,13 @@ import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile';
 //自定义组件
 import {SelectSysareaComponent} from './component/modal/select-sysarea/select-sysarea.component'
 import { LoginComponent } from './component/modal/login/login.component' 
+import { UserinfoComponent } from './component/modal/userinfo/userinfo.component' 
 import { SelectDealerComponent } from './component/modal/select-dealer/select-dealer.component';
+import { SelectUsercarinfoComponent } from './component/modal/select-usercarinfo/select-usercarinfo.component';
 
 @NgModule({
-  declarations: [AppComponent,SelectSysareaComponent,LoginComponent,SelectDealerComponent],
-  entryComponents: [SelectSysareaComponent,LoginComponent,SelectDealerComponent],
+  declarations: [AppComponent,SelectSysareaComponent,LoginComponent,SelectDealerComponent,UserinfoComponent,SelectUsercarinfoComponent],
+  entryComponents: [SelectSysareaComponent,LoginComponent,SelectDealerComponent,UserinfoComponent,SelectUsercarinfoComponent],
   imports: [
       BrowserModule, 
       IonicModule.forRoot({ mode: 'ios' }),
@@ -34,6 +37,7 @@ import { SelectDealerComponent } from './component/modal/select-dealer/select-de
       NgZorroAntdMobileModule],
   providers: [
       StatusBar,
+      AppVersion,
       SplashScreen,
       ScreenOrientation,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

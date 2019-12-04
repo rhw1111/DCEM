@@ -22,6 +22,15 @@ const routes: Routes = [
                     { path: 'room', loadChildren: './base/message.com/room/room.module#RoomPageModule' },
                     { path: 'activities', loadChildren: './base/message.com/activities/activities.module#ActivitiesPageModule' },
                 ]
+            },
+            {
+                path:'sys',//系统设置
+                children:[
+                    { path: 'systemsetup', loadChildren: './base/sys.com/systemsetup/systemsetup.module#SystemsetupPageModule' },
+                    { path: 'about', loadChildren: './base/sys.com/about/about.module#AboutPageModule' },
+                    { path: 'change-password', loadChildren: './base/sys.com/change-password/change-password.module#ChangePasswordPageModule' },
+                    { path: 'message-settings', loadChildren: './base/sys.com/message-settings/message-settings.module#MessageSettingsPageModule' },
+                ]
             }
         ]
     },
@@ -35,10 +44,6 @@ const routes: Routes = [
                     { path: 'tabs', loadChildren: './serving/home.com/tabs/tabs.module#TabsPageModule' },
                     { path: 'mywork', loadChildren: './serving/home.com/mywork/mywork.module#MyworkPageModule' },
                     { path: 'message', loadChildren: './serving/home.com/message/message.module#MessagePageModule' },
-                    { path: 'systemsetup', loadChildren: './serving/home.com/systemsetup/systemsetup.module#SystemsetupPageModule' },
-                    { path: 'about', loadChildren: './serving/home.com/about/about.module#AboutPageModule' },
-                    { path: 'change-password', loadChildren: './serving/home.com/change-password/change-password.module#ChangePasswordPageModule' },
-                    { path: 'message-settings', loadChildren: './serving/home.com/message-settings/message-settings.module#MessageSettingsPageModule' }
                 ]
             },
             {
@@ -253,10 +258,7 @@ const routes: Routes = [
   { path: 'list', loadChildren: './saleing/mcs_installationorder/list/list.module#ListPageModule' },
   { path: 'detail', loadChildren: './saleing/mcs_installationorder/detail/detail.module#DetailPageModule' },
   { path: 'success', loadChildren: './saleing/mcs-contactrecord/success/success.module#SuccessPageModule' },
-  { path: 'systemsetup', loadChildren: './serving/home.com/systemsetup/systemsetup.module#SystemsetupPageModule' },
-  { path: 'about', loadChildren: './serving/home.com/about/about.module#AboutPageModule' },
-  { path: 'change-password', loadChildren: './serving/home.com/change-password/change-password.module#ChangePasswordPageModule' },
-  { path: 'message-settings', loadChildren: './serving/home.com/message-settings/message-settings.module#MessageSettingsPageModule' },
+  
 
 
 

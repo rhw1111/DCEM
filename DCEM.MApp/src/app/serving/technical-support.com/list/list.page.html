@@ -37,6 +37,7 @@
     <ion-list lines="full">
         <ion-item *ngFor="let item of model.data" [routerLink]="['/serving/ts/detail']" [queryParams]="{id:item.Id}">
             <!-- <ion-icon slot="start" name="hammer" size="large"></ion-icon> -->
+            <ion-avatar class="header-ion-avatar" *ngIf="item.mcs_orderstatus==0" item-start>技</ion-avatar>
             <ion-avatar class="header-ion-avatar" *ngIf="item.mcs_orderstatus==10" item-start>技</ion-avatar>
             <ion-avatar *ngIf="item.mcs_orderstatus==40" class="header-ion-avatar bggray" item-start>技</ion-avatar>
             <ion-avatar *ngIf="item.mcs_orderstatus==30" class="header-ion-avatar bgorage" item-start>技</ion-avatar>

@@ -61,7 +61,6 @@ let AppComponent = class AppComponent {
                     this._page.goto("/serving/home/tabs/index");
                 }
                 else {
-                    this.menu.enable(false);
                     this._page.goto("/base/uc/login");
                 }
             }
@@ -69,7 +68,7 @@ let AppComponent = class AppComponent {
     }
     loginout() {
         this.menu.close("homeMenu");
-        this.authService.logout();
+        this._http.loginout();
     }
 };
 AppComponent = tslib_1.__decorate([

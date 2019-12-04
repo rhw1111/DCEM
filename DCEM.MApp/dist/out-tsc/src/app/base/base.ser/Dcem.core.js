@@ -37,9 +37,10 @@ DCore_Config = tslib_1.__decorate([
 ], DCore_Config);
 export { DCore_Config };
 let DCore_Http = class DCore_Http {
-    constructor(_httpClient, _config) {
+    constructor(_httpClient, _config, _navCtr) {
         this._httpClient = _httpClient;
         this._config = _config;
+        this._navCtr = _navCtr;
         this.ReflashInterval = null;
     }
     //带请求头get请求
@@ -108,6 +109,11 @@ let DCore_Http = class DCore_Http {
         window.localStorage.setItem('auth-password', password);
         window.localStorage.setItem('auth-logintime', (new Date().getTime()).toString());
     }
+    //登出,清理缓存，跳转并重新登录
+    loginout() {
+        window.localStorage.clear();
+        this._navCtr.navigateRoot("/base/uc/login", {});
+    }
     //刷新token
     reflashToken() {
         //设置定时器监控token是否过期
@@ -115,34 +121,34 @@ let DCore_Http = class DCore_Http {
             this.ReflashInterval = setInterval(() => {
                 console.log("定时刷新" + new Date().getTime());
                 var lastlogintime = window.localStorage.getItem("auth-logintime");
-                if (lastlogintime != null && lastlogintime !== "") {
-                    var lastdateTime = parseInt(lastlogintime);
-                    var time = 50 * 60 * 1000;
-                    if (new Date().getTime() - lastdateTime >= time) {
-                        console.log("登录超时10分钟,重新登录");
-                        var account = window.localStorage.getItem('auth-account');
-                        var password = window.localStorage.getItem('auth-password');
-                        if (account != "" && password != "") {
-                            console.log("域url：" + this._config.getDomain());
-                            this.get('/api/User/GetAuthToken', {
-                                params: {
-                                    username: encodeURIComponent(account),
-                                    password: encodeURIComponent(password)
-                                }
-                            }, (res) => {
-                                if (res.access_token == "") {
-                                    return false;
-                                }
-                                window.localStorage.setItem('auth-token', res.access_token);
-                                window.localStorage.setItem('auth-account', account);
-                                window.localStorage.setItem('auth-password', password);
-                                window.localStorage.setItem('auth-logintime', (new Date().getTime()).toString());
-                            }, (err) => {
-                            });
+                var token = window.localStorage.getItem("auth-token");
+                if (token != undefined && token != "") {
+                    if (lastlogintime != null && lastlogintime !== "") {
+                        var lastdateTime = parseInt(lastlogintime);
+                        var time = 30 * 60 * 1000;
+                        if (new Date().getTime() - lastdateTime >= time) {
+                            console.log("登录超时10分钟,重新登录");
+                            var account = window.localStorage.getItem('auth-account');
+                            var password = window.localStorage.getItem('auth-password');
+                            if (account != "" && password != "") {
+                                console.log("域url：" + this._config.getDomain());
+                                this.get('/api/User/GetAuthToken', {
+                                    params: {
+                                        username: encodeURIComponent(account),
+                                        password: encodeURIComponent(password)
+                                    }
+                                }, (res) => {
+                                    window.localStorage.setItem('auth-token', res.access_token);
+                                    window.localStorage.setItem('auth-account', account);
+                                    window.localStorage.setItem('auth-password', password);
+                                    window.localStorage.setItem('auth-logintime', (new Date().getTime()).toString());
+                                }, (err) => {
+                                });
+                            }
                         }
                     }
                 }
-            }, 5000);
+            }, 30000);
         }
     }
 };
@@ -151,7 +157,8 @@ DCore_Http = tslib_1.__decorate([
         providedIn: 'root'
     }),
     tslib_1.__metadata("design:paramtypes", [HttpClient,
-        DCore_Config])
+        DCore_Config,
+        NavController])
 ], DCore_Http);
 export { DCore_Http };
 let DCore_Page = class DCore_Page {

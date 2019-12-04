@@ -236,7 +236,7 @@ var ListPage = /** @class */ (function () {
             if (res.Result == true) {
                 var that = _this;
                 _this._page.alert("消息提示", "操作成功", function () {
-                    _this.getList(null);
+                    _this.doRefresh(null);
                 });
             }
             else {

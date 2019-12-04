@@ -1,4 +1,4 @@
-<ion-item *ngIf="disstatus!=7" lines="none" style="border-bottom: 1px solid #484848;">
+<ion-item *ngIf="disstatus!=7" lines="none" style="border-bottom: 1px solid #d6d2d2;">
   <ion-label style="margin-top: 12px">
     <img src="../assets/img/close.png" style="width: 20px;" (click)="onReturn(false)">
     <ion-label style="text-align:center;margin-top:-23px">
@@ -47,10 +47,10 @@
         <ion-item>
           <ion-input type="tel" maxlength="11" placeholder="输入您的电话号码" [(ngModel)]="mod.model.account"></ion-input>
         </ion-item>
-        
+
       </ion-card-content>
       <div class="ion-padding">
-        <ion-button expand="block" type="button" (click)="onSendMsg(2)"
+        <ion-button expand="block" type="button" (click)="onloginSendMsg(2)"
           class="ion-no-margin ios button button-block button-solid ion-activatable ion-focusable hydrated">
           获取验证码
         </ion-button>
@@ -81,7 +81,7 @@
       <ion-item>
         <ion-input type="tel" maxlength="11" placeholder="输入您的电话号码" [(ngModel)]="mod.model.account"></ion-input>
       </ion-item>
-   
+
     </ion-card-content>
 
     <div class="ion-padding loginx">
@@ -93,7 +93,7 @@
       </ion-label>
     </div>
     <div class="ion-padding">
-      <ion-button expand="block" type="button" (click)="onSendMsg(5)"
+      <ion-button expand="block" type="button" (click)="onloginSendMsg(5)"
         class="ion-no-margin ios button button-block button-solid ion-activatable ion-focusable hydrated">
         获取验证码
       </ion-button>
@@ -119,26 +119,38 @@
     <ion-item lines="none">
       <ion-row>
         <ion-col>
-          <input type="number" class="loginvalinput" maxlength="1" [(ngModel)]="mod.val1" id="inputcode1"
-            (focus)="mod.val1=''" (ngModelChange)="OnNextFocus(2)" />
+          <input type="number" class="loginvalinput" (focus)="OnselectText('#inputcode1')" maxlength="1"
+            [(ngModel)]="mod.val1" id="inputcode1" (ngModelChange)="OnNextFocus(2)" />
         </ion-col>
         <ion-col>
           <input type="number" class="loginvalinput" maxlength="1" [(ngModel)]="mod.val2" id="inputcode2"
-            (focus)="mod.val2=''" (ngModelChange)="OnNextFocus(3)" />
+            (focus)="mod.val2=''" (ngModelChange)="OnNextFocus(3)" (focus)="OnselectText('#inputcode2')" />
         </ion-col>
         <ion-col>
           <input type="number" class="loginvalinput" maxlength="1" [(ngModel)]="mod.val3" id="inputcode3"
-            (focus)="mod.val3=''" (ngModelChange)="OnNextFocus(4)" />
+            (focus)="mod.val3=''" (ngModelChange)="OnNextFocus(4)" (focus)="OnselectText('#inputcode3')" />
         </ion-col>
         <ion-col>
           <input type="number" class="loginvalinput" maxlength="1" [(ngModel)]="mod.val4" id="inputcode4"
-            (ngModelChange)="OnVlaCodeChange()" />
+            (ngModelChange)="OnVlaCodeChange()" (focus)="OnselectText('#inputcode4')" />
         </ion-col>
       </ion-row>
     </ion-item>
+
+    <div style="text-align: center"  id="divmsgshow" >
+        <label id="lbsendmsg" style="line-height: 70px;font-size:0.8rem;color:#9a9898">90秒重新获取验证码</label>
+    </div>
+     
+ 
+    <div class="ion-padding" style="display:none"   id="divbtnshow">
+      <ion-button expand="block" type="button" (click)="onloginSendMsg()"
+        class="ion-no-margin ios button button-block button-solid ion-activatable ion-focusable hydrated">
+        重新获取
+      </ion-button>
+    </div>
   </ion-card-content>
 </ion-content>
-<ion-footer class="loginfooter" *ngIf="disstatus!=4 && disstatus!=6  && disstatus!=7">
+<ion-footer class="loginfooter" *ngIf="disstatus!=4 && disstatus!=6  && disstatus!=7 && disstatus!=8">
   <ion-item lines="none" style="text-align:center;    color: #a0a0a0;">
     <ion-label>其它登陆方式</ion-label>
   </ion-item>
@@ -228,9 +240,9 @@
 
 
 <!-- 忘记密码输入界面 -->
-<ion-content *ngIf="disstatus==6">
+<ion-content *ngIf="disstatus==6 || disstatus==8">
   <ion-card-header style="margin-bottom: 10%">
-    <ion-card-title style="height: 50px;"> 重置密码，</ion-card-title>
+    <ion-card-title style="height: 50px;"> {{title}}，</ion-card-title>
     <ion-card-subtitle class="loginsubtitle"> 验证码发送到您的手机，请输入验证码并创建新密码</ion-card-subtitle>
   </ion-card-header>
   <ion-card-content style="padding-left: 0px;">
@@ -240,7 +252,7 @@
           <img src="../../../../assets/img/phone.png" class="pwdlogo">
         </ion-col>
         <ion-col size="10">
-          <ion-input type="tel" maxlength="11" placeholder="手机号码" [(ngModel)]="mod.model.account"></ion-input>
+          <ion-input type="tel" id="inputphone" disabled={{inputphonedisabled}} maxlength="11" placeholder="手机号码" [(ngModel)]="mod.model.account"></ion-input>
         </ion-col>
       </ion-row>
     </ion-item>
@@ -253,10 +265,10 @@
           <ion-input type="text" placeholder="短信验证码" [(ngModel)]="mod.model.msg"></ion-input>
         </ion-col>
         <ion-col size="4">
-          <ion-button expand="block"  style="height: 40px;font-size: 1rem;"  
-           color="secondary" type="button" (click)="onSendMsgPwd(3)"   id=btnsendmsg>
-           获取验证码
-          </ion-button> 
+          <ion-button expand="block" style="height: 40px;font-size: 1rem;" color="secondary" type="button"
+            (click)="onSendMsgPwd()" id=btnsendmsg>
+            获取验证码
+          </ion-button>
         </ion-col>
       </ion-row>
     </ion-item>
@@ -299,16 +311,16 @@
 
 
 <!-- 密码重置成功页面 -->
-<ion-content *ngIf="disstatus==7"> 
-    <img src="../../../../assets/img/bg_suc.jpg" style="position: absolute;left:0px;top:0px;" >
-    <img src="../../../../assets/img/bg_suc_img.png"  style="position: absolute;left:0px;top:0px;"> 
+<ion-content *ngIf="disstatus==7">
+  <img src="../../../../assets/img/bg_suc.jpg" style="position: absolute;left:0px;top:0px;">
+  <img src="../../../../assets/img/bg_suc_img.png" style="position: absolute;left:0px;top:0px;">
   <ion-card-content style="top: 50%;">
     <ion-card-header style="text-align: center;background-color: #ff000000;">
       <ion-card-title style="height: 50px;color:white"> 成功</ion-card-title>
       <ion-card-subtitle class="loginsubtitle" style="color:white"> 您已成功更改密码。登陆时请使用新密码</ion-card-subtitle>
-    </ion-card-header> 
+    </ion-card-header>
     <div class="ion-padding">
-      <ion-button  color="light" style="width: 100%;" strong  type="button" (click)="OnLogin()">
+      <ion-button   style="width: 100%;" strong type="button" (click)="OnLogin()">
         马上登陆
       </ion-button>
     </div>
