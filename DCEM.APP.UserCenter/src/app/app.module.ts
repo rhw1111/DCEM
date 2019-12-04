@@ -20,10 +20,11 @@ import {SelectSysareaComponent} from './component/modal/select-sysarea/select
 import { LoginComponent } from './component/modal/login/login.component' 
 import { UserinfoComponent } from './component/modal/userinfo/userinfo.component' 
 import { SelectDealerComponent } from './component/modal/select-dealer/select-dealer.component';
+import { SelectUsercarinfoComponent } from './component/modal/select-usercarinfo/select-usercarinfo.component';
 
 @NgModule({
-  declarations: [AppComponent,SelectSysareaComponent,LoginComponent,SelectDealerComponent,UserinfoComponent],
-  entryComponents: [SelectSysareaComponent,LoginComponent,SelectDealerComponent,UserinfoComponent],
+  declarations: [AppComponent,SelectSysareaComponent,LoginComponent,SelectDealerComponent,UserinfoComponent,SelectUsercarinfoComponent],
+  entryComponents: [SelectSysareaComponent,LoginComponent,SelectDealerComponent,UserinfoComponent,SelectUsercarinfoComponent],
   imports: [
       BrowserModule, 
       IonicModule.forRoot({ mode: 'ios' }),

@@ -181,5 +181,28 @@ namespace DCEM.UserCenterService.Main.Application.Repository
             });
         }
 
+        /// <summary>
+        /// 获取用户标签xml
+        /// </summary>
+        /// <param name="userDetailRequest"></param>
+        /// <returns></returns>
+        public async Task<XDocument> getusertags(UserDetailRequest userDetailRequest)
+        {
+            return await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"<fetch mapping='logical' version='1.0' >
+    <entity name='mcs_mcs_user_mcs_usertag' >
+        <attribute name='mcs_userid' />
+        <filter>
+            <condition attribute='mcs_userid' operator='eq' value='{userDetailRequest.id}' />
+        </filter>
+        <link-entity name='mcs_usertag' from='mcs_usertagid' to='mcs_usertagid' alias='b' link-type='outer' >
+            <all-attributes/>
+        </link-entity>
+    </entity>
+</fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
     }
 }

@@ -15,16 +15,15 @@ namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
     using DCEM.UserCenterService.Main.ViewModel.Response;
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
-    using System.Xml.Linq;
 
-    public interface IUserRepository
+
+    public interface IUserCarInfoRepository
     {
-        Task<XDocument> LoginAccount(UserLoginRequest request);
-        Task<XDocument> GetUser(UserLoginRequest request);
-
-        Task<XDocument> GetSecurityquestion();
-        Task<XDocument> getusertags(UserDetailRequest userDetailRequest);
-        Task<XDocument> GetUserPwd(UserLoginRequest request);
-
+        /// <summary>
+        /// 用户车辆列表查询
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        string QueryList(UserCarInfoListRequest request);
     }
 }
