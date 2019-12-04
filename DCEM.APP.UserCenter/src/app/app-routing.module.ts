@@ -11,7 +11,7 @@ const routes: Routes = [
         children: [
             { path: 'tabs', loadChildren: () => import('./page/home/tabs/tabs.module').then(m => m.TabsPageModule) },
         ]
-    },
+    }, 
     {
         path: 'carcenter',  //汽车中心(爱车)
         children: [
@@ -180,7 +180,7 @@ const routes: Routes = [
     ,
     {
         path: 'set',
-        loadChildren: () => import('./page/set/set.module').then(m => m.SetPageModule)
+        loadChildren: () => import('./page/home/set/set.module').then(m => m.SetPageModule)
     },
     {
         path: 'detail',
@@ -206,7 +206,7 @@ const routes: Routes = [
                 loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
             }
         ]
-    }
+    } 
 ];
 @NgModule({
     imports: [

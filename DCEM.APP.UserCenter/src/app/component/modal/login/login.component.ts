@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page, DCore_Valid } from '../../typescript/dcem.core';
+import { Router } from '@angular/router';
 import { ModalController, IonContent, NavParams } from '@ionic/angular';
 import * as $ from 'jquery';
 import { Storage_LoginInfo } from '../../typescript/logininfo.storage';
@@ -14,8 +15,9 @@ export class LoginComponent implements OnInit {
   public title: any = '登陆';
   public isval: any = false;//验证消息显示开关 
   public valmsg: any = '';//验证消息显示开关
+  public inputphonedisabled: boolean = false;//修改密码手机号只读开关
   //界面切换开关 1 登陆输入；2登陆验证码输入；5 注册验证码输入；3 注册电话号码页面；4 注册个人信息输入页面 
-  //6 忘记密码手机号码录入界面；//7 密码重置成功页面
+  //6 忘记密码手机号码录入界面；//7 密码重置成功页面 ;8 修改密码
   public disstatus: any = 1;
   public mod: any = {
     loginurl: 'api/user/loginaccount',//账号登陆url
@@ -65,18 +67,21 @@ export class LoginComponent implements OnInit {
     private _http: DCore_Http,
     private _logininfo: Storage_LoginInfo,
     private _page: DCore_Page,
+    private route: Router,
     private _valid: DCore_Valid,
     private _navParams: NavParams) {
     this.disstatus = _navParams.get('status')
-    if(_navParams.get('status')==6){
-      $("#inputphone").attr('readonly','readonly');
-      this.mod.model.account=this._logininfo.GetAccount();
+    if (_navParams.get('status') == 8) {
+      this.title = '修改密码';
+      this.inputphonedisabled = true;
+      this.mod.model.account = this._logininfo.GetAccount();
     }
     this.OnQuests();
   }
 
   //切换到登陆界面
   OnLogin() {
+    this.title = '登陆';
     this.disstatus = 1;
   }
   OnselectText(id) {
@@ -166,7 +171,7 @@ export class LoginComponent implements OnInit {
     this._page.loadingShow();
     var postData = {
       phone: this.mod.model.account,
-      type: (status == "2" ? 2 : (status == "5" ? 1 : (status == "3" ? 3 : 4))),
+      type: (status == "2" ? 2 : (status == "5" ? 1 : status)),
       valcode: ""
     };
     this._http.post(
@@ -401,7 +406,7 @@ export class LoginComponent implements OnInit {
 
   applicationInterval: any;
   //修改密码获取验证码
-  onSendMsgPwd(status) {
+  onSendMsgPwd() {
     if (this.mod.model.account == '') {
       this._page.alert("消息提示", "请填写手机号码！");
       return false;
@@ -426,7 +431,7 @@ export class LoginComponent implements OnInit {
         clearInterval(interval);
       }
     }, 1000);
-
+    var status = this.disstatus == 6 ? 3 : 4;
     this.onSendMsg(status);
   }
 
@@ -467,7 +472,18 @@ export class LoginComponent implements OnInit {
       (res: any) => {
         if (res.Result == true) {
           this._page.loadingHide();
-          this.disstatus = 7;
+          if (this.disstatus == 6) {
+            this.disstatus = 7;
+          }else{
+            this._page.alert("消息提示", "更改成功!");
+            this.route.navigate(['/tabs/personalcenter'], {
+              queryParams: {
+                return: "2"
+              }
+            });
+          this.onReturn(true);
+          }
+         
         }
         else {
           this._page.loadingHide();
