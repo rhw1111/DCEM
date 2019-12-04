@@ -69,7 +69,7 @@ async selectDealerModal() {
     }
   }
 
-   if(!this._valid.isNullOrEmpty(this.model.postData.mcs_carmodel)&&!this._valid.isNullOrEmpty(this.model.postData.mcs_dealerid))
+   if(!this._valid.isNullOrEmpty(this.model.postData.mcs_carmodel)&&!this._valid.isNullOrEmpty(this.model.postData.mcs_dealerid)&&!this._valid.isNullOrEmpty(this.model.postData.mcs_ordertime))
    {
     this.GetTimeInterval();
    }
@@ -210,6 +210,7 @@ GetCarmodel() {
 
 //获取预约时段
 GetTimeInterval() {
+  debugger;
   this._http.get(this.model.TimeIntervalUrl,
   {
   params:{

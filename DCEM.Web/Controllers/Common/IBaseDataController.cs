@@ -235,7 +235,7 @@ namespace DCEM.Web.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("QueryReservationconfig")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> QueryReservationconfig(string mcs_ordertime, string carmodel, string dealerid, string seachkey = "", string sort = "", int pageSize = 10, int page = 1)
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> QueryReservationconfig(string mcs_ordertime , string carmodel, string dealerid, string seachkey = "", string sort = "", int pageSize = 10, int page = 1)
         {
             var req = new ReservationconfigRequest()
             {
