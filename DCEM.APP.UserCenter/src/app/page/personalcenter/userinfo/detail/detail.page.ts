@@ -14,8 +14,10 @@ export class DetailPage implements OnInit {
 
   ngOnInit() {
     this.pageOnBind();
+    this.pageUserTags();
   }
   public model = { 
+    apiUrltags:"api/user/getusertag",
     apiUrlDetail: 'api/user/getuserdetail', 
     id:"",
     info: { 
@@ -30,7 +32,24 @@ export class DetailPage implements OnInit {
         describe:""
     }
 };
-
+  public tags=[
+    {
+      name:"热爱篮球",
+      color:"primary"
+    },
+    {
+      name:"看书学习",
+      color:"secondary"
+    },
+    {
+      name:"上网购物",
+      color:"tertiary"
+    },
+    {
+      name:"出国旅游",
+      color:"success"
+    }
+  ]
 pageOnBind() { 
   this._page.loadingShow();
   this._http.postForToaken(
@@ -60,6 +79,29 @@ pageOnBind() {
 
 }
 
+pageUserTags()
+{
+  this._page.loadingShow();
+  this._http.postForToaken(
+    this.model.apiUrltags,
+    {'id':"804BD218-C35B-4300-AEC8-985DE405CBC6"},//this._logininfo.GetSystemUserId()}, 
+      (res: any) => {  
+          if (res !== null) {
+            var attr=res["Attributes"];
+   
+          }
+          else {
+              this._page.alert("消息提示", "用户标签信息加载异常");
+          }
+          this._page.loadingHide(); 
+      },
+      (err: any) => {
+          this._page.alert("消息提示", "用户标签信息加载异常");
+          this._page.loadingHide();
+      }
+  );
+
+}
 saveOnClick()
 {
   this._page.goto("/personalcenter/userinfo/edit");
