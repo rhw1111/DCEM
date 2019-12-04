@@ -424,7 +424,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 var crmRequestHelper = new CrmRequestHelper();
                 XDocument fetchXdoc = null;
                 fetchXdoc = await _repository.getusertags(userDetailRequest);
-                var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_mcs_user_mcs_usertagBase", fetchXdoc); 
+                var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_mcs_user_mcs_usertag", fetchXdoc); 
                 response.tags = entities.Results; 
                 return response; 
             }
