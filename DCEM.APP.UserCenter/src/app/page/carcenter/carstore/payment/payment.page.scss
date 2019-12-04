@@ -1,0 +1,89 @@
+﻿@import "../component/scss/main.scss";
+
+.dm-pay-info {
+    padding-left: 30px;
+    padding-bottom: 10px;
+    padding-top: 30px;
+    color: $dm-darkblue;
+}
+
+
+.dm-pay-list {
+    padding-left: 30px;
+    padding-right: 30px;
+
+    .dm-pay-list-title {
+        padding-top: 35px;
+        padding-bottom: 25px;
+        text-align: center;
+
+        h5 {
+            font-size: 16px;
+            color: $dm-darkblue;
+            font-weight: bold;
+        }
+
+        ion-col::after {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            width: 25%;
+            height: 1px;
+            background-color: $dm-gray-line;
+        }
+
+        ion-col::before {
+            content: '';
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            width: 25%;
+            height: 1px;
+            background-color: $dm-gray-line;
+        }
+    }
+}
+
+.dm-pay-list-grid {
+    .dm-pay-list-grid-item {
+        padding-top: 10px;
+        padding-bottom: 10px;
+
+
+        label {
+            margin-left: 15px;
+            font-size: 16px;
+            color: $dm-darkblue;
+            font-weight: bold;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .dm-pay-list-grid-item-toole {
+            float: right;
+
+            svg {
+                right: 20px;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            &.select {
+                svg {
+                    path {
+                        fill: $dm-orange;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.dm-pay-sub {
+    padding-top: 50px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
