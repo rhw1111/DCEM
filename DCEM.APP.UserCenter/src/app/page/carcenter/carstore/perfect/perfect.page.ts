@@ -11,7 +11,8 @@ export class PerfectPage implements OnInit {
     constructor() { }
 
     ngOnInit() {
-        $('::shadow').remove();
+
     }
+
 
 }

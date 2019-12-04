@@ -8,6 +8,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonicStorageModule } from '@ionic/storage';
+import { AppVersion } from '@ionic-native/app-version/ngx';
 //import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -36,6 +37,7 @@ import { SelectUsercarinfoComponent } from './component/modal/select-usercarinfo
       NgZorroAntdMobileModule],
   providers: [
       StatusBar,
+      AppVersion,
       SplashScreen,
       ScreenOrientation,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

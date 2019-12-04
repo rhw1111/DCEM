@@ -11,7 +11,7 @@ const routes: Routes = [
         children: [
             { path: 'tabs', loadChildren: () => import('./page/home/tabs/tabs.module').then(m => m.TabsPageModule) },
         ]
-    },
+    }, 
     {
         path: 'carcenter',  //汽车中心(爱车)
         children: [
@@ -149,6 +149,7 @@ const routes: Routes = [
         children: [
             { path: 'edit', loadChildren: () => import('./page/testdrive/edit/edit.module').then(m => m.EditPageModule) },
             { path: 'list', loadChildren: () => import('./page/testdrive/list/list.module').then(m => m.ListPageModule) },
+            { path: 'success', loadChildren: () => import('./page/testdrive/success/success.module').then(m => m.SuccessPageModule) },
         ]
     },
 
@@ -180,7 +181,7 @@ const routes: Routes = [
     ,
     {
         path: 'set',
-        loadChildren: () => import('./page/set/set.module').then(m => m.SetPageModule)
+        loadChildren: () => import('./page/home/set/set.module').then(m => m.SetPageModule)
     },
     {
         path: 'detail',
