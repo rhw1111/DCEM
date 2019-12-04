@@ -24,12 +24,12 @@
     </ion-card-header>
     <ion-card-content>
       <ion-item (click)="userCarOnClick()">
-        <ion-label position="fixed">车主姓名<ion-text color="danger">*</ion-text>:</ion-label>
-        <ion-note>张三&nbsp;</ion-note>
+        <ion-label position="fixed">车主信息<ion-text color="danger">*</ion-text>:</ion-label>
+        <ion-note>{{shareData.appointmentinfo["mcs_customername"]}}&nbsp;{{shareData.appointmentinfo["mcs_customerphone"]}}</ion-note>
       </ion-item>
       <ion-item>
-       <ion-label position="fixed">车辆型号:</ion-label>
-        <ion-note>金康汽车SF5</ion-note>
+       <ion-label position="fixed">车牌号:</ion-label>
+        <ion-note>{{shareData.appointmentinfo["mcs_carplate"]}}&nbsp;</ion-note>
       </ion-item>
     </ion-card-content>
   </ion-card>
@@ -37,12 +37,12 @@
     <ion-card-header>
       <ion-card-subtitle>经销商信息</ion-card-subtitle>
     </ion-card-header>
-    <ion-item>
+    <ion-item  (click)="dealerOnClick()">
       <ion-label position="fixed"> 经销商<ion-text color="danger">*</ion-text>:</ion-label>
       <ion-note>
-        <p style="font-weight: bold;color: black;">重庆茶园新区旗舰店</p> 
-        <p>地址：aaaaaa</p>
-        <p>电话：020-12568954</p>
+        <p style="font-weight: bold;color: black;">{{shareData.appointmentinfo["mcs_dealername"]}}</p> 
+        <p>{{shareData.appointmentinfo["mcs_shopaddress"]}}</p>
+        <p>{{shareData.appointmentinfo["mcs_dealerphone"]}}</p>
     </ion-note>
     </ion-item>
   </ion-card>
@@ -73,8 +73,7 @@
     </ion-item>
     <ion-item>
         <ion-label position="fixed">可预约数量:</ion-label>
-        <!-- <ion-note slot="end">{{shareData.appointmentinfo["mcs_surplusnum"]}}</ion-note> -->
-        <ion-note>1000</ion-note>
+        <ion-note slot="end">{{shareData.appointmentinfo["mcs_surplusnum"]}}</ion-note>
     </ion-item>
     <ion-item>
       <ion-label position="fixed">客户要求:</ion-label>

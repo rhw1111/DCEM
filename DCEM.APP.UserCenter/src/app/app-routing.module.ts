@@ -138,8 +138,10 @@ const routes: Routes = [
             {
                 path: 'reservation',  //维保预约
                 children: [
-                    { path: 'list', loadChildren: () => import('./page/servicecenter/reservation.com/list/list.module').then(m => m.ListPageModule) },
-                    { path: 'edit', loadChildren: () => import('./page/servicecenter/reservation.com/edit/edit.module').then(m => m.EditPageModule) },
+                    { path: 'list', loadChildren: () => import('./page/servicecenter/reservation/list/list.module').then(m => m.ListPageModule) },
+                    { path: 'edit', loadChildren: () => import('./page/servicecenter/reservation/edit/edit.module').then(m => m.EditPageModule) },
+                    {path: 'detail',loadChildren: () => import('./page/servicecenter/reservation/detail/detail.module').then( m => m.DetailPageModule)},
+                    {path: 'success', loadChildren: () => import('./page/servicecenter/reservation/success/success.module').then( m => m.SuccessPageModule)}
                 ]
             }
         ]
@@ -206,8 +208,9 @@ const routes: Routes = [
                 loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
             }
         ]
-    }
-];
+    },
+]  
+;
 @NgModule({
     imports: [
         RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })

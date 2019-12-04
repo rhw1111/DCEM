@@ -148,9 +148,10 @@ export class SelectDealerComponent implements OnInit {
   }
   //搜索体验店
   searchData() {
+    // debugger;
     this.model.data = [];
     this._page.loadingShow();
-    this._http.postForToaken(
+    this._http.post(
       this.model.apiUrl,
       this.model.paramets,
       (res: any) => {
@@ -162,6 +163,8 @@ export class SelectDealerComponent implements OnInit {
             obj["id"] = data[i]["Id"];
             obj["mcs_name"] = attr["mcs_name"];
             obj["mcs_address"] = attr["mcs_address"];
+            obj["mcs_shopaddress"] = attr["mcs_shopaddress"];
+            obj["mcs_phone"] = attr["mcs_phone"];
             obj["mcsx"] = attr["mcs_x"];
             obj["mcsy"] = attr["mcs_y"];
             this.model.data.push(obj);
@@ -221,7 +224,9 @@ export class SelectDealerComponent implements OnInit {
 itemClick(item) {
     this.modalCtrl.dismiss({
         'id': item.id,
-        'name': item.mcs_name
+        'name': item.mcs_name,
+        'shopaddress':item.mcs_shopaddress,
+        'phone':item.mcs_phone
     });
 }
 
