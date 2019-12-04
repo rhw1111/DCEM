@@ -68,7 +68,7 @@ let AppComponent = class AppComponent {
     }
     loginout() {
         this.menu.close("homeMenu");
-        this.authService.logout();
+        this._http.loginout();
     }
 };
 AppComponent = tslib_1.__decorate([

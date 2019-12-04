@@ -74,5 +74,10 @@ namespace DCEM.UserCenterService.Main.Application.App
         {
             return _userService.getusertag(userDetailRequest);
         }
+
+        public Task<UserScoreListResponse> getuserscore(UserDetailRequest userDetailRequest)
+        {
+            return _userService.getuserscore(userDetailRequest);
+        }
     }
 }

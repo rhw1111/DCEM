@@ -25,7 +25,7 @@ export class EditPage implements OnInit {
   public model = {
     apiUrlDetail: 'api/user/getuserdetail',
     apiUrl: "api/user/updateuser",
-    id: "",
+    id: "0010D704-7723-4B75-B334-4A9620769F68",//写死的userid //this._logininfo.GetSystemUserId(),
     countryId: "DD0D2AE0-E414-EA11-B394-86D989685D12",//UAT:"7E83801C-795B-E911-A824-B53F780FAC1C",
     level: 2,//行政区域级别 0:全球、1:国家、2:省、3:市、4:地区
     genderoption: [],
@@ -44,7 +44,7 @@ export class EditPage implements OnInit {
       describe: ""
     },
     params: {
-      userid: "804BD218-C35B-4300-AEC8-985DE405CBC6",//this._logininfo.GetSystemUserId(),
+      userid: "0010D704-7723-4B75-B334-4A9620769F68",//this._logininfo.GetSystemUserId(),
       gender: 1,
       mcs_email: "",
       name: "",
@@ -58,11 +58,14 @@ export class EditPage implements OnInit {
     this._page.loadingShow();
     this._http.postForToaken(
       this.model.apiUrlDetail,
-      { 'id': "804BD218-C35B-4300-AEC8-985DE405CBC6" },//this._logininfo.GetSystemUserId()}, 
+      { 'id': this.model.id },
       (res: any) => {
         if (res !== null) {
           var attr = res["Attributes"];
+          if(attr["mcs_gender"]!=null)
+          { 
           this.model.info.gender = (attr["mcs_gender"]).toString();
+          }
           this.model.info.mobile = attr["mcs_phone"];
           this.model.info.mail = attr["mcs_email"];
           this.model.info.username = attr["mcs_nickname"];

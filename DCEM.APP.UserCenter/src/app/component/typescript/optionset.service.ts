@@ -349,6 +349,14 @@ export class OptionSetService {
                     { "name": "已婚", "value": 1 }
                 ];
                 break;
+                  //C端用户-积分类型
+            case "mcs_integraltype":
+                optionlist = [
+                    { "name": "赚取积分", "value": "+" },
+                    { "name": "扣减积分", "value": "-" },
+                    { "name": "积分返还", "value": "+" }
+                ];
+                break;
         }
         return optionlist;
     }
