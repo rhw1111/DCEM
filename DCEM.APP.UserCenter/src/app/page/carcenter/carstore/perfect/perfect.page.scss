@@ -79,8 +79,7 @@
 }
 
 .dm-form-item {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 15px;
     padding-left: 30px;
     padding-right: 30px;
 
@@ -90,9 +89,25 @@
         font-weight: 700;
     }
 
-    ion-input {
-        input {
+    .dm-form-item-input {
+        padding-top: 10px;
+    }
 
-        }
+    ion-input {
+        border: 1px solid $dm-input-line;
+        height: 40px;
+        border-radius: 100px;
+        --padding-start: 20px;
+        font-size: 14px;
+    }
+
+
+    ion-select {
+        border: 1px solid $dm-input-line;
+        height: 40px;
+        border-radius: 100px;
+        font-size: 14px;
+        --padding-top: 20px;
+        --padding-start: 20px;
     }
 }
