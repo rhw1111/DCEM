@@ -32,10 +32,14 @@
     <ion-list lines="full">
         <div class="goods-list" *ngFor="let item of model.datalist ">
             <div class="panel">
-                <ion-tab-button class="panellist" [routerLink]="['/servicecenter/boutique/detail']">
-                    <div class="img">
-                        <img src="./assets/img/goods-list.jpg" />
-                    </div>
+                <ion-tab-button class="panellist" [routerLink]="['/servicecenter/boutique/detail']" [queryParams]="{id:item.ProductId}">
+                    <div *ngIf="item.ImageData.length > 0; then truthyTemplate else falsyTemplate"></div>
+                    <ng-template #truthyTemplate>
+                        <div class="img"><img src="https://ceo-oss.oss-cn-hangzhou.aliyuncs.com/{{item.ImageData[0].Name}}" /></div>
+                    </ng-template>
+                    <ng-template #falsyTemplate>
+                        <div class="img"><img src="./assets/img/goods-list.jpg" /></div>
+                    </ng-template>
                     <div class="name">
                         {{item.Name}}
                     </div>

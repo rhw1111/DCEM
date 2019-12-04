@@ -56,14 +56,20 @@ initListLoading(){
       PageIndex: this.model.search.page
      },
      (res: any) => {
-       console.log(res);
-        //debugger;
          if (res!=null && res.Datas !== null) {
              //绑定数据
-             res.Datas.forEach(item => {                          
+             res.Datas.forEach(item => {        
+                 var imagedata = [];
+                 if (item.ImageData != null || item.ImageData.length > 0) {
+                     item.ImageData.forEach(temp => {
+                         if (temp.Category == 2) {
+                             imagedata.push(temp);
+                         }
+                     });
+                 }
+                 item.ImageData = imagedata;
                  this.model.datalist.push(item);
              });
-
              event ? event.target.complete() : '';
              //判断是否有新数据
              if (res.Datas.length < this.model.search.pageSize) {
