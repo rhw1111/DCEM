@@ -49,6 +49,14 @@ namespace DCEM.ServiceAssistantService.Main.Application
             await _baseDataService.QueryVehicletype(request);
 
         /// <summary>
+        /// 基本车型
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> GetCarmodel(VehicleTypeRequest request) =>
+            await _baseDataService.GetCarmodel(request);
+
+        /// <summary>
         /// 车型颜色
         /// </summary>
         /// <param name="request"></param>

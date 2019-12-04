@@ -48,6 +48,13 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
         string QuerySysarea(SysareaRequest request);
 
         /// <summary>
+        /// 基本车型
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        string GetCarmodel(VehicleTypeRequest request);
+
+        /// <summary>
         /// 维修类型基础数据
         /// </summary>
         /// <param name="repairItemTypeDetailRequest"></param>

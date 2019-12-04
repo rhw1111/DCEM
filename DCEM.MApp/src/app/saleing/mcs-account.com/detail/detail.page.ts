@@ -7,6 +7,8 @@ import { Storage_LoginInfo } from '../../../base/base.ser/logininfo.storage';
 import { IonContent, IonInfiniteScroll } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { SelectSystemuserComponent } from 'app/base/base.ser/components/select-systemuser/select-systemuser.component';
+import { throwError } from 'rxjs';
+import sd from 'silly-datetime';
 
 @Component({
     selector: 'app-detail',
@@ -35,7 +37,8 @@ export class DetailPage implements OnInit {
         },
         ActivityModel: {//培育任务
             apiUrl: '/api/only-lead/GetActivityList',
-            list: [],         
+            list: [],  
+            isending: false,       
             params: {
                 accountid: "",
                 Sort: '',
@@ -206,12 +209,12 @@ export class DetailPage implements OnInit {
         this.mod.LogcallModel.params.PageIndex = 1;
         //this.ionInfiniteScroll.disabled=false;
         this.ionContent.scrollToTop(0);
-        this.LoadLogcall();
+        this.pageOnLogCalllist();
     }
     //下拉事件
     DownLoadLogcall() {
         this.mod.LogcallModel.params.PageIndex += 1;
-        this.LoadLogcall();
+        this.pageOnLogCalllist();
     }
 
     //战败
@@ -276,83 +279,40 @@ export class DetailPage implements OnInit {
                 this._page.loadingHide();
             },
             (err: any) => {
-                debugger;
                 this._page.alert("消息提示", "请求异常");
                 this._page.loadingHide();
             }
         );
     }
 
-    /**
-     * 加载logcall记录
-     */
-    LoadLogcall() {
-        debugger;
-        this.mod.LogcallModel.params.accountid= this.mod.data.Account.Id;
-        this.mod.LogcallModel.params.UserId=this.userInfo.GetSystemUserId();//当前登录用户ID
-        this._page.loadingShow();
-        this._http.postForToaken(
-            this.mod.LogcallModel.apiUrl,
-            this.mod.LogcallModel.params,           
-            (res: any) => {
-                if (res != null) {
-                    if (res.Results.length > 0) {
-                        res.Results.forEach(item => {
-                            var value = item["Attributes"];
-                            this.mod.LogcallModel.list.push({
-                                "Id": value.mcs_logcallid,
-                                "mcs_name": value.mcs_name,
-                                "mcs_visittime": this.dateformat.FormatToDateTime(value.mcs_visittime),//回访时间
-                                "mcs_content": value.mcs_content,//内容
-                                "mcs_results": value.mcs_results//结果备注
-                            });
-                        });
-                    }
-                    // this.ionInfiniteScroll.complete();
-                    // //判断是否有新数据
-                    // if (res.Results.length < this.mod.LogcallModel.pageSize) {
-                    //   this.ionInfiniteScroll.disabled = true;
-                    // }
-                }
-                this._page.loadingHide();
-            },
-            (err: any) => {
-                this._page.alert("消息提示", "数据加载异常");
-                this._page.loadingHide();
-            }
-        );
-    }
+    //加载联络记录(logcall)列表
+pageOnLogCalllist() {
 
-    //加载培育任务列表
-    LoadActivitylist() {
-     debugger;
-     
-     this.mod.ActivityModel.params.accountid= this.mod.data.Account.Id;
-     this.mod.ActivityModel.params.UserId=this.userInfo.GetSystemUserId();//当前登录用户ID
-
-    this.mod.ActivityModel.list= [];
+    this.mod.LogcallModel.params.accountid= this.mod.data.Account.Id 
+    this.mod.LogcallModel.params.UserId=this.userInfo.GetSystemUserId();//当前登录用户ID
+   
+    this.mod.LogcallModel.list= [];
     this._page.loadingShow();
     this._http.postForToaken(
-        this.mod.ActivityModel.apiUrl,
-        this.mod.ActivityModel.params,
+        this.mod.LogcallModel.apiUrl,
+        this.mod.LogcallModel.params,
         (res: any) => {
-            debugger;
             if (res !== null) {
                 if (res.Results !== null) {
                     for (var key in res.Results) {
                         var obj = {};
-                        obj["mcs_thisfollowupcontent"] = res.Results[key]["Attributes"]["mcs_thisfollowupcontent"];
-                        obj["createdon"] = this.dateformat.FormatToDateTime(res.Results[key]["Attributes"]["createdon"]);              
-                        obj["mcs_activitystatus"] =this.optionset.GetOptionSetNameByValue("mcs_activitystatus",res.Results[key]["Attributes"]["mcs_activitystatus"]);
-                        obj["mcs_importantlevel"] =this.optionset.GetOptionSetNameByValue("mcs_importantlevel",res.Results[key]["Attributes"]["mcs_importantlevel"]);
-                        obj["mcs_activityid"] = res.Results[key]["Attributes"]["mcs_activityid"];    
-                        this.mod.ActivityModel.list.push(obj);
+                        obj["mcs_fullname"] = res.Results[key]["Attributes"]["mcs_fullname"];
+                        obj["mcs_visittime"] = res.Results[key]["Attributes"]["mcs_visittime"];
+                        obj["mcs_content"] = res.Results[key]["Attributes"]["mcs_content"];   
+                        obj["mcs_results"] = res.Results[key]["Attributes"]["mcs_results"];    
+                        obj["mcs_logcallid"] = res.Results[key]["Attributes"]["mcs_logcallid"];                        
+                        this.mod.LogcallModel.list.push(obj);
                     }
                     //console.log(res);
                 }  //判断是否有新数据
-                // if (res.Results.length == 0) {
-                //     this.mod.isending2 = true;
-                // }
+                if (res.Results.length < this.mod.LogcallModel.params.PageIndex) {
+                    this.mod.LogcallModel.isending = true;
+                }
             }
             else {
                 this._page.alert("消息提示", "联络记录加载异常");
@@ -366,5 +326,136 @@ export class DetailPage implements OnInit {
     );
 
 }
+
+//加载培育任务列表
+pageOnActivitylist() {
+    this.mod.ActivityModel.params.accountid= this.mod.data.Account.Id;
+    this.mod.ActivityModel.params.UserId=this.userInfo.GetSystemUserId();//当前登录用户ID
+    this.mod.ActivityModel.list= [];
+
+    this._page.loadingShow();
+    this._http.postForToaken(
+        this.mod.ActivityModel.apiUrl,
+        this.mod.ActivityModel.params,
+        (res: any) => {
+            if (res !== null) {
+                if (res.Results !== null) {
+                    for (var key in res.Results) {
+                        var obj = {};
+                        obj["mcs_thisfollowupcontent"] = res.Results[key]["Attributes"]["mcs_thisfollowupcontent"];
+                        obj["createdon"] = res.Results[key]["Attributes"]["createdon"];              
+                        obj["mcs_activitystatus"] =this.optionset.GetOptionSetNameByValue("mcs_activitystatus",res.Results[key]["Attributes"]["mcs_activitystatus"]);
+                        obj["mcs_importantlevel"] =this.optionset.GetOptionSetNameByValue("mcs_importantlevel",res.Results[key]["Attributes"]["mcs_importantlevel"]);
+                        obj["mcs_activityid"] = res.Results[key]["Attributes"]["mcs_activityid"];    
+                        this.mod.ActivityModel.list.push(obj);
+                    }
+                }  
+                //判断是否有新数据
+                if (res.Results.length < this.mod.LogcallModel.params.PageIndex) {
+                    this.mod.ActivityModel.isending = true;
+                }
+            }
+            else {
+                this._page.alert("消息提示", "联络记录加载异常");
+            }
+            this._page.loadingHide();
+        },
+        (err: any) => {
+            this._page.loadingHide();
+            throw err;
+        }
+    );
+}
+
+FormatToDateTime(date) {
+    if (date != null && date != undefined) {
+        return sd.format(date, 'YYYY-MM-DD');
+    }
+    else {
+        return '';
+    }
+}
+//     /**
+//      * 加载logcall记录
+//      */
+//     LoadLogcall() {
+//         this.mod.LogcallModel.params.accountid= this.mod.data.Account.Id;
+//         this.mod.LogcallModel.params.UserId=this.userInfo.GetSystemUserId();//当前登录用户ID
+//         this._page.loadingShow();
+//         this._http.postForToaken(
+//             this.mod.LogcallModel.apiUrl,
+//             this.mod.LogcallModel.params,           
+//             (res: any) => {
+//                 if (res != null) {
+//                     if (res.Results.length > 0) {
+//                         res.Results.forEach(item => {
+//                             var value = item["Attributes"];
+//                             this.mod.LogcallModel.list.push({
+//                                 "Id": value.mcs_logcallid,
+//                                 "mcs_name": value.mcs_name,
+//                                 "mcs_visittime": this.dateformat.FormatToDateTime(value.mcs_visittime),//回访时间
+//                                 "mcs_content": value.mcs_content,//内容
+//                                 "mcs_results": value.mcs_results//结果备注
+//                             });
+//                         });
+//                     }
+//                     // this.ionInfiniteScroll.complete();
+//                     // //判断是否有新数据
+//                     // if (res.Results.length < this.mod.LogcallModel.pageSize) {
+//                     //   this.ionInfiniteScroll.disabled = true;
+//                     // }
+//                 }
+//                 this._page.loadingHide();
+//             },
+//             (err: any) => {
+//                 this._page.alert("消息提示", "数据加载异常");
+//                 this._page.loadingHide();
+//             }
+//         );
+//     }
+
+//     //加载培育任务列表
+//     LoadActivitylist() {
+//      debugger;
+     
+//      this.mod.ActivityModel.params.accountid= this.mod.data.Account.Id;
+//      this.mod.ActivityModel.params.UserId=this.userInfo.GetSystemUserId();//当前登录用户ID
+
+//     this.mod.ActivityModel.list= [];
+//     this._page.loadingShow();
+//     this._http.postForToaken(
+//         this.mod.ActivityModel.apiUrl,
+//         this.mod.ActivityModel.params,
+//         (res: any) => {
+//             debugger;
+//             if (res !== null) {
+//                 if (res.Results !== null) {
+//                     for (var key in res.Results) {
+//                         var obj = {};
+//                         obj["mcs_thisfollowupcontent"] = res.Results[key]["Attributes"]["mcs_thisfollowupcontent"];
+//                         obj["createdon"] = this.dateformat.FormatToDateTime(res.Results[key]["Attributes"]["createdon"]);              
+//                         obj["mcs_activitystatus"] =this.optionset.GetOptionSetNameByValue("mcs_activitystatus",res.Results[key]["Attributes"]["mcs_activitystatus"]);
+//                         obj["mcs_importantlevel"] =this.optionset.GetOptionSetNameByValue("mcs_importantlevel",res.Results[key]["Attributes"]["mcs_importantlevel"]);
+//                         obj["mcs_activityid"] = res.Results[key]["Attributes"]["mcs_activityid"];    
+//                         this.mod.ActivityModel.list.push(obj);
+//                     }
+//                     //console.log(res);
+//                 }  //判断是否有新数据
+//                 // if (res.Results.length == 0) {
+//                 //     this.mod.isending2 = true;
+//                 // }
+//             }
+//             else {
+//                 this._page.alert("消息提示", "联络记录加载异常");
+//             }
+//             this._page.loadingHide();
+//         },
+//         (err: any) => {
+//             this._page.alert("消息提示", "数据加载异常");
+//             this._page.loadingHide();
+//         }
+//     );
+
+// }
 
 }

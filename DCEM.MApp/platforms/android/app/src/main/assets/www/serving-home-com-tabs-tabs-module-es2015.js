@@ -76,20 +76,48 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TabsPage", function() { return TabsPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
+
+
 
 
 let TabsPage = class TabsPage {
-    constructor() { }
+    constructor(events, loadingCtrl, _config, _page, _http, menuController) {
+        this.events = events;
+        this.loadingCtrl = loadingCtrl;
+        this._config = _config;
+        this._page = _page;
+        this._http = _http;
+        this.menuController = menuController;
+    }
     ngOnInit() {
     }
+    //每次进入页面时，我们将初始化禁用侧滑菜单
+    ionViewDidEnter() {
+        this.menuController.enable(false);
+    }
 };
+TabsPage.ctorParameters = () => [
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Events"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"] },
+    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Config"] },
+    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"] },
+    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"] }
+];
 TabsPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-tabs',
         template: __webpack_require__(/*! raw-loader!./tabs.page.html */ "./node_modules/raw-loader/index.js!./src/app/serving/home.com/tabs/tabs.page.html"),
         styles: [__webpack_require__(/*! ./tabs.page.scss */ "./src/app/serving/home.com/tabs/tabs.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Events"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["LoadingController"],
+        app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Config"],
+        app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"],
+        app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["MenuController"]])
 ], TabsPage);
 
 

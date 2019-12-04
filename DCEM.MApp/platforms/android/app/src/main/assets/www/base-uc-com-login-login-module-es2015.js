@@ -88,6 +88,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
 /* harmony import */ var app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/base/base.ser/logininfo.storage */ "./src/app/base/base.ser/logininfo.storage.ts");
 /* harmony import */ var app_base_base_ser_authentication_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/base/base.ser/authentication.service */ "./src/app/base/base.ser/authentication.service.ts");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+
 
 
 
@@ -95,12 +97,13 @@ __webpack_require__.r(__webpack_exports__);
 
 let LoginPage = class LoginPage {
     // 定义控制器
-    constructor(_http, _page, _window, _logininfo, authservice) {
+    constructor(_http, _page, _window, _logininfo, authservice, menuCtrl) {
         this._http = _http;
         this._page = _page;
         this._window = _window;
         this._logininfo = _logininfo;
         this.authservice = authservice;
+        this.menuCtrl = menuCtrl;
         // 定义模型
         this.mod = {
             username: '',
@@ -110,6 +113,10 @@ let LoginPage = class LoginPage {
             domain: '',
             pwshow: false //是否显示密码
         };
+    }
+    //每次进入页面时，我们将初始化禁用侧滑菜单
+    ionViewDidEnter() {
+        this.menuCtrl.enable(false);
     }
     // 初始化
     ngOnInit() {
@@ -188,7 +195,8 @@ LoginPage.ctorParameters = () => [
     { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Page"] },
     { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Window"] },
     { type: app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_3__["Storage_LoginInfo"] },
-    { type: app_base_base_ser_authentication_service__WEBPACK_IMPORTED_MODULE_4__["AuthenticationService"] }
+    { type: app_base_base_ser_authentication_service__WEBPACK_IMPORTED_MODULE_4__["AuthenticationService"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"] }
 ];
 LoginPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -200,7 +208,8 @@ LoginPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Page"],
         app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Window"],
         app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_3__["Storage_LoginInfo"],
-        app_base_base_ser_authentication_service__WEBPACK_IMPORTED_MODULE_4__["AuthenticationService"]])
+        app_base_base_ser_authentication_service__WEBPACK_IMPORTED_MODULE_4__["AuthenticationService"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"]])
 ], LoginPage);
 
 

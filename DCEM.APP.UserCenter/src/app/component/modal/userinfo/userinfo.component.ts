@@ -201,23 +201,5 @@ export class UserinfoComponent implements OnInit {
     this.mod.loginaccount.memberid = data["Attributes"]["_mcs_memberid_value"];
     this._logininfo.SetInfo(JSON.stringify(this.mod.loginaccount));
   }
-  // LoginModel(data: any) {
-  //   this.mod.loginaccount.account = data.account;
-  //   this.mod.loginaccount.systemuserid = data.mcs_userid;
-  //   this.mod.loginaccount.code = data.mcs_code;
-  //   this.mod.loginaccount.name = data.mcs_name;
-  //   this.mod.loginaccount.nickname = data.mcs_nickname;
-  //   this.mod.loginaccount.gender = data.mcs_gender;
-  //   this.mod.loginaccount.phone = data.mcs_phone;
-  //   this.mod.loginaccount.cardid = data.mcs_cardid;
-  //   this.mod.loginaccount.email = data.mcs_email;
-  //   this.mod.loginaccount.birthday = data.mcs_birthday;
-  //   this.mod.loginaccount.marriagestatus = data.mcs_marriagestatus;
-  //   this.mod.loginaccount.profession = data.mcs_profession;
-  //   this.mod.loginaccount.company = data.mcs_company;
-  //   this.mod.loginaccount.signature = data.mcs_signature;
-  //   this.mod.loginaccount.description = data.mcs_description;
-  //   this.mod.loginaccount.memberid = data._mcs_memberid_value;
-  //   this._logininfo.SetInfo(JSON.stringify(this.mod.loginaccount));
-  // }
+   
 }

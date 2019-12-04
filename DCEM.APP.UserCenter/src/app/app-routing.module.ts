@@ -139,6 +139,7 @@ const routes: Routes = [
                 path: 'reservation',  //维保预约
                 children: [
                     { path: 'list', loadChildren: () => import('./page/servicecenter/reservation.com/list/list.module').then(m => m.ListPageModule) },
+                    { path: 'edit', loadChildren: () => import('./page/servicecenter/reservation.com/edit/edit.module').then(m => m.EditPageModule) },
                 ]
             }
         ]
@@ -151,6 +152,36 @@ const routes: Routes = [
         ]
     },
 
+    {
+        path: 'detail',
+        loadChildren: () => import('./page/servicecenter/vehiclecenter/detail/detail.module').then(m => m.DetailPageModule)
+    },
+    {
+        path: 'list',
+        loadChildren: () => import('./page/servicecenter/boutique/list/list.module').then(m => m.ListPageModule)
+    },
+    {
+        path: 'detail',
+        loadChildren: () => import('./page/servicecenter/boutique/detail/detail.module').then(m => m.DetailPageModule)
+    },
+    {
+        path: 'list',
+        loadChildren: () => import('./page/servicecenter/shoppingcart/list/list.module').then(m => m.ListPageModule)
+    },
+    {
+        path: 'demo',
+        children: [
+            {
+                path: 'dealer',
+                loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
+            }
+        ]
+    }
+    ,
+    {
+        path: 'set',
+        loadChildren: () => import('./page/set/set.module').then(m => m.SetPageModule)
+    },
     {
         path: 'detail',
         loadChildren: () => import('./page/servicecenter/vehiclecenter/detail/detail.module').then(m => m.DetailPageModule)

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
+
 @Component({
   selector: 'app-systemsetup',
   templateUrl: './systemsetup.page.html',
@@ -10,8 +11,14 @@ export class SystemsetupPage implements OnInit {
   state = {
     modal1: false
   };
+
+  public mod:any={
+    CacheSize:13.5,//缓存大小
+  };
+
   constructor(
-    private _page: DCore_Page
+    private _page: DCore_Page,
+    private _http:DCore_Http
   ) { }
 
   ngOnInit() {
@@ -26,9 +33,11 @@ export class SystemsetupPage implements OnInit {
   }
 
   public logout() {
+    this._http.loginout();
+  }
 
-    this._page.goto("/base/uc/login");
-    
+  clearCache(){
+    this.mod.CacheSize=0;
   }
 
   renderHeader(){
