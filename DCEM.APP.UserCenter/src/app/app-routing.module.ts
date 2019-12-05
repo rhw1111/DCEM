@@ -236,7 +236,11 @@ const routes: Routes = [
                 loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
             }
         ]
-    }
+    },
+  {
+    path: 'shippingaddress',
+    loadChildren: () => import('./page/home/shippingaddress/shippingaddress.module').then( m => m.ShippingaddressPageModule)
+  }
 ];
 @NgModule({
     imports: [

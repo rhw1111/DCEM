@@ -60,6 +60,7 @@
 </ion-header>
 
 <ion-content fullscreen scroll-y="false">
+
     <ion-slides class="dm-main-slides" #mainSlide (ionSlideWillChange)="slideChange($event)">
         <ion-slide>
             <!--推荐-->
@@ -456,8 +457,13 @@
         <ion-slide>
             <!--活动-->
             <div class="dm-main-slide">
+                <!-- <ion-refresher slot="fixed" (ionRefresh)="DoRefresh($event)">
+                    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles"
+                        refreshingText="刷新中...">
+                    </ion-refresher-content>
+                </ion-refresher> -->
                 <ion-grid>
-                    <ion-row>
+                    <!-- <ion-row>
                         <ion-col class="dm-main-activity">
                             <ion-grid>
                                 <ion-row>
@@ -481,8 +487,8 @@
                                 </ion-row>
                             </ion-grid>
                         </ion-col>
-                    </ion-row>
-                    <ion-row *ngFor="let item of model.activityList">
+                    </ion-row> -->
+                    <ion-row *ngFor="let item of model.dataList">
                         <ion-col class="dm-main-activity">
                             <ion-grid>
                                 <ion-row>
@@ -495,8 +501,8 @@
                                 <ion-row>
                                     <ion-col text-left class="dm-main-activity-title">
                                         <h1>{{item.Title}}</h1>
-                                        <p>时间：{{item.Time}}</p>
-                                        <p>地点：{{item.Address}}</p>
+                                        <p>时间：{{FormatToDateTime(item.Time)}}</p>
+                                        <p>地点：{{ShowEmptyValue(item.Address)}}</p>
                                     </ion-col>
                                 </ion-row>
                                 <ion-row>
@@ -508,13 +514,20 @@
                         </ion-col>
                     </ion-row>
                 </ion-grid>
+                <ion-label *ngIf="model.isAllData" text-center>
+                    <p>
+                        没有更多的活动显示啦
+                    </p>
+                </ion-label>
             </div>
+
         </ion-slide>
         <ion-slide>
             <!--资讯-->
             <div class="dm-main-slide">
-                <ion-grid>
-                    <ion-row>
+                <ion-content>
+                    <ion-grid>
+                        <!-- <ion-row>
                         <ion-col class="dm-main-activity">
                             <ion-grid>
                                 <ion-row>
@@ -538,34 +551,55 @@
                                 </ion-row>
                             </ion-grid>
                         </ion-col>
-                    </ion-row>
-                    <ion-row *ngFor="let item of model.newsList">
-                        <ion-col class="dm-main-activity">
-                            <ion-grid>
-                                <ion-row>
-                                    <ion-col class="dm-main-activity-img">
-                                        <img
-                                            src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3682338120,1128590170&fm=26&gp=0.jpg" />
-                                        <!-- <span class="dm-main-activity-img-status">已完结</span> -->
-                                    </ion-col>
-                                </ion-row>
-                                <ion-row>
-                                    <ion-col text-left class="dm-main-activity-title">
-                                        <h1>{{item.Title}}</h1>
-                                        <!-- <p>时间：10-24 24:00-05-01 23:59</p> -->
-                                        <p>{{item.Summury}}</p>
-                                    </ion-col>
-                                </ion-row>
-                                <ion-row>
-                                    <ion-col text-center class="dm-main-activity-bottom">
-                                        查看详情
-                                    </ion-col>
-                                </ion-row>
-                            </ion-grid>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
+                    </ion-row> -->
+
+                        <ion-refresher slot="fixed" (ionRefresh)="DoRefresh($event)">
+                            <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新"
+                                refreshingSpinner="circles" refreshingText="刷新中...">
+                            </ion-refresher-content>
+                        </ion-refresher>
+                        <ion-row *ngFor="let item of model.dataList">
+                            <ion-col class="dm-main-activity">
+                                <ion-grid>
+                                    <ion-row>
+                                        <ion-col class="dm-main-activity-img">
+                                            <img
+                                                src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3682338120,1128590170&fm=26&gp=0.jpg" />
+                                            <!-- <span class="dm-main-activity-img-status">已完结</span> -->
+                                        </ion-col>
+                                    </ion-row>
+                                    <ion-row>
+                                        <ion-col text-left class="dm-main-activity-title">
+                                            <h1>{{item.Title}}</h1>
+                                            <!-- <p>时间：10-24 24:00-05-01 23:59</p> -->
+                                            <p>{{item.Summury}}</p>
+                                        </ion-col>
+                                    </ion-row>
+                                    <ion-row>
+                                        <ion-col text-center class="dm-main-activity-bottom">
+                                            查看详情
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-grid>
+                            </ion-col>
+                        </ion-row>
+                        <ion-infinite-scroll threshold="100px" (ionInfinite)="DoLoading($event)">
+                            <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
+                            </ion-infinite-scroll-content>
+                        </ion-infinite-scroll>
+                    </ion-grid>
+                    <ion-label *ngIf="model.isAllData" text-center>
+                        <p>
+                            没有更多的新闻显示啦
+                        </p>
+                    </ion-label>
+
+                </ion-content>
             </div>
         </ion-slide>
     </ion-slides>
+    <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="DoLoading($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll> -->
 </ion-content>
