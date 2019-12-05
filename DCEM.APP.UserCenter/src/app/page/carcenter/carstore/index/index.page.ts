@@ -3,7 +3,7 @@ import { ModalController, PopoverController, IonSlides, IonSlide } from '@ionic/
 import { AnimationBuilder, Animation } from '@ionic/core';
 import { SpeclistComponent } from 'app/page/carcenter/carstore/component/model/speclist/speclist.component';
 import * as $ from 'jquery';
-import { DCore_Http, DCore_Page, DCore_Valid } from 'app/component/typescript/dcem.core';
+import { DCore_Http, DCore_Page, DCore_Valid, DCore_ShareData } from 'app/component/typescript/dcem.core';
 
 
 @Component({
@@ -37,7 +37,8 @@ export class IndexPage implements OnInit {
         private _modalCtrl: ModalController,
         private _http: DCore_Http,
         private _page: DCore_Page,
-        private _valid: DCore_Valid
+        private _valid: DCore_Valid,
+        private _shareData: DCore_ShareData
     ) {
     }
 
@@ -87,7 +88,9 @@ export class IndexPage implements OnInit {
 
                         }
                     }
-                    console.log(this.shareData);
+
+                    this._shareData.set("aa", this.shareData);
+                    console.log(this._shareData.get("aa"));
                 }
                 else {
 
