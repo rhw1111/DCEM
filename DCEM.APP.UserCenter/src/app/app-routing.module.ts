@@ -152,6 +152,15 @@ const routes: Routes = [
             { path: 'success', loadChildren: () => import('./page/testdrive/success/success.module').then(m => m.SuccessPageModule) },
         ]
     },
+    {
+        path: 'testdriveFeedback',  //试乘试驾反馈报告
+        children: [
+            //{ path: 'edit', loadChildren: () => import('./page/testdrivefeedback/edit/edit.module').then(m => m.EditPageModule) },
+            { path: 'list', loadChildren: () => import('./page/testdrivefeedback/list/list.module').then(m => m.ListPageModule) },
+        
+        ]
+    },
+
 
     {
         path: 'detail',
@@ -208,6 +217,11 @@ const routes: Routes = [
             }
         ]
     }
+,
+  {
+    path: 'list',
+    loadChildren: () => import('./page/testdrivefeedback/list/list.module').then( m => m.ListPageModule)
+  }
 ];
 @NgModule({
     imports: [
