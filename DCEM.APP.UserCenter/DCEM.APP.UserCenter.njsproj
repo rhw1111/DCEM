@@ -53,6 +53,7 @@
     <Folder Include="src\app\page\charging\index\" />
     <Folder Include="src\app\page\community\index\" />
     <Folder Include="src\app\page\home\" />
+    <Folder Include="src\app\page\home\set\" />
     <Folder Include="src\app\page\home\tabs\" />
     <Folder Include="src\app\page\community\" />
     <Folder Include="src\app\page\charging\" />
@@ -123,6 +124,10 @@
     <TypeScriptCompile Include="src\app\page\community\index\index.module.ts" />
     <TypeScriptCompile Include="src\app\page\community\index\index.page.spec.ts" />
     <TypeScriptCompile Include="src\app\page\community\index\index.page.ts" />
+    <TypeScriptCompile Include="src\app\page\home\set\set-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\home\set\set.module.ts" />
+    <TypeScriptCompile Include="src\app\page\home\set\set.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\home\set\set.page.ts" />
     <TypeScriptCompile Include="src\app\page\home\tabs\tabs-routing.module.ts" />
     <TypeScriptCompile Include="src\app\page\home\tabs\tabs.module.ts" />
     <TypeScriptCompile Include="src\app\page\home\tabs\tabs.page.spec.ts" />
@@ -193,6 +198,8 @@
     <Content Include="src\app\page\charging\index\index.page.scss" />
     <Content Include="src\app\page\community\index\index.page.html" />
     <Content Include="src\app\page\community\index\index.page.scss" />
+    <Content Include="src\app\page\home\set\set.page.html" />
+    <Content Include="src\app\page\home\set\set.page.scss" />
     <Content Include="src\app\page\home\tabs\tabs.page.html" />
     <Content Include="src\app\page\home\tabs\tabs.page.scss" />
     <Content Include="src\app\page\personalcenter\index\index.page.html" />
