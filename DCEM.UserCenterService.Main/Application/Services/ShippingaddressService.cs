@@ -66,15 +66,15 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 if (!string.IsNullOrEmpty(model.mcs_address))
                     entity.Attributes.Add("mcs_address", model.mcs_address);
                 if (model.mcs_isdefault != null)
-                    entity.Attributes.Add("mcs_isdefault", model.mcs_isdefault.Value);
+                    entity.Attributes.Add("mcs_isdefault", model.mcs_isdefault.Value == 0 ? true : false);
                 if (!string.IsNullOrEmpty(model.mcs_phone))
-                    entity.Attributes.Add("mcs_phone", model.mcs_phone); 
+                    entity.Attributes.Add("mcs_phone", model.mcs_phone);
                 if (!string.IsNullOrEmpty(model.mcs_name))
                     entity.Attributes.Add("mcs_name", model.mcs_name);
 
                 if (string.IsNullOrEmpty(model.mcs_shippingaddressid))
                 {
-                    _crmService.Create(entity);
+                    _crmService.Create(entity, userInfo?.systemuserid);
                 }
                 else
                 {
