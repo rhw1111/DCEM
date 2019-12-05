@@ -139,8 +139,15 @@ namespace DCEM.UserCenterService.Main.Application.Services
         {
             try
             {
-                var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
-                var ProxyUserId = userInfo != null ? userInfo.systemuserid : null;
+                Guid? UserId;
+                if (string.IsNullOrEmpty(Request.UserId))
+                {
+                    UserId = null;
+                }
+                else
+                {
+                    UserId = Guid.Parse(Request.UserId);
+                }
 
                 var fetchString = _Repository.GetDriveFeedbackList(Request);
                 var fetchXdoc = XDocument.Parse(fetchString);
@@ -148,7 +155,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 {
                     EntityName = "mcs_testdrivefeedbackmaster",
                     FetchXml = fetchXdoc,
-                    ProxyUserId = ProxyUserId
+                    ProxyUserId = UserId
                 };
                 var fetchResponse = await _crmService.Execute(fetchRequest);
                 var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
