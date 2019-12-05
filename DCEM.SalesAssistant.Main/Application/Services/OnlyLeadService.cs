@@ -231,7 +231,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 }
                 if (!string.IsNullOrEmpty(request.accountid))
                 {
-                    Entity.Attributes.Add("mcs_accountid", new CrmEntityReference("mcs_accountid", Guid.Parse(request.accountid)));
+                    Entity.Attributes.Add("mcs_accountid", new CrmEntityReference("account", Guid.Parse(request.accountid)));
                 }
                 if (!string.IsNullOrEmpty(request.mcs_content))
                 {

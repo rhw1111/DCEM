@@ -20,7 +20,7 @@
 
     li {
         font-size: 12px;
-        color: #96999a;
+        color: $dm-darkblue;
         padding-top: 5px;
         padding-bottom: 5px;
         padding-left: 10px;
@@ -62,6 +62,13 @@
         }
     }
 }
+//底部
+.dm-info-area {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
 
 //标题
 .dm-title {
@@ -79,8 +86,7 @@
 }
 
 .dm-form-item {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 15px;
     padding-left: 30px;
     padding-right: 30px;
 
@@ -90,9 +96,103 @@
         font-weight: 700;
     }
 
-    ion-input {
-        input {
+    .dm-form-item-input {
+        padding-top: 10px;
 
+        ion-input {
+            border: 1px solid $dm-input-line;
+            height: 40px;
+            border-radius: 100px;
+            --padding-start: 20px;
+            font-size: 14px;
+        }
+
+        ion-select {
+            padding-top: 10px;
+            padding-left: 20px;
+            padding-right: 20px;
+            border: 1px solid $dm-input-line;
+            height: 40px;
+            border-radius: 100px;
+            font-size: 14px;
+        }
+
+        &.err {
+            ion-input {
+                border: 1px solid #ff0000;
+            }
+
+            ion-input::before {
+                content: "";
+                width: 16px;
+                height: 16px;
+                background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4T6VTu04CQRQ9F1gqEEiUhNBgAbETCqn5ET5AGrDwK2yWRj/AH6F2G7YjbiENIRETH1CxwjV34mx2h42RzHT3cc59zD0E47032o1vxxky0COitoSZeUrAJBeG48p8Oo9DKG68Na9cJhqapAmb2T0LvBvtiwheW12pcvkn+DcoHVUDryOmIvhXZYOZmMengTciNXM+/xK1VCyATorYL5YJSKZeA3+twetN5M9tt+dkVpfE8uMDPge32M0ClZy9aKJ0f4eP/nWCWLqgtNk1QEjkCThOqFtQv7NqdTltcZpEYmngaGRrAqsRAN9+idbfaH1IeptHnTLgV5+flNCOFpM+4QMxaYfsZOc4oz1RT4uLAT/DPMmGoWvK+Qcr9bcw53hezAAAAABJRU5ErkJggg==) no-repeat 50%/cover;
+                right: 12px;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            ion-select {
+                border: 1px solid #ff0000;
+            }
+
+            ion-select::before {
+                z-index: 10;
+                content: "";
+                width: 16px;
+                height: 16px;
+                background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4T6VTu04CQRQ9F1gqEEiUhNBgAbETCqn5ET5AGrDwK2yWRj/AH6F2G7YjbiENIRETH1CxwjV34mx2h42RzHT3cc59zD0E47032o1vxxky0COitoSZeUrAJBeG48p8Oo9DKG68Na9cJhqapAmb2T0LvBvtiwheW12pcvkn+DcoHVUDryOmIvhXZYOZmMengTciNXM+/xK1VCyATorYL5YJSKZeA3+twetN5M9tt+dkVpfE8uMDPge32M0ClZy9aKJ0f4eP/nWCWLqgtNk1QEjkCThOqFtQv7NqdTltcZpEYmngaGRrAqsRAN9+idbfaH1IeptHnTLgV5+flNCOFpM+4QMxaYfsZOc4oz1RT4uLAT/DPMmGoWvK+Qcr9bcw53hezAAAAABJRU5ErkJggg==) no-repeat 50%/cover;
+                right: 12px;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+    }
+}
+
+//支付方式
+.dm-paytype {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+
+    .dm-paytype-tiem {
+        border: 1px solid transparent;
+        box-shadow: 0 1px 6px 1px rgba(10,10,10,.1);
+        border-radius: 5px;
+        position: relative;
+        margin-top: 15px;
+        height: 46px;
+
+        label {
+            left: 15px;
+            font-size: 12px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        svg {
+            right: 15px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        &.select {
+            border: 1px solid $dm-orange;
+
+            label {
+                color: $dm-orange;
+            }
+
+            svg {
+                path {
+                    fill: $dm-orange;
+                }
+            }
         }
     }
 }

@@ -89,6 +89,34 @@ const routes: Routes = [
                     }
                 ]
             },
+            {
+                path: 'myorder',
+                children: [
+                    {
+                        path: 'index',
+                        loadChildren: () => import('./page/personalcenter/myorder/index/index.module').then(m => m.IndexPageModule)
+                    },
+                    {
+                        path: 'fineorder',
+                        children: [
+                            {
+                                path: 'list',
+                                loadChildren: () => import('./page/personalcenter/myorder/fineorder/list/list.module').then(m => m.ListPageModule)
+                            },
+                        ]
+                    },
+                    {
+                        path: 'carorder',
+                        children: [
+                            {
+                                path: 'list',
+                                loadChildren: () => import('./page/personalcenter/myorder/carorder/list/list.module').then(m => m.ListPageModule)
+                            }
+                        ]
+                    }
+
+                ]
+            },
             { path: 'index', loadChildren: () => import('./page/personalcenter/index/index.module').then(m => m.IndexPageModule) },
 
         ]
@@ -98,8 +126,7 @@ const routes: Routes = [
         children: [
             { path: 'index', loadChildren: () => import('./page/message/index/index.module').then(m => m.IndexPageModule) },
             { path: 'room', loadChildren: () => import('./page/message/room/room.module').then(m => m.RoomPageModule) },
-            { path: 'sys', loadChildren: () => import('./page/message/sys/sys.module').then(m => m.SysPageModule) }
-
+            { path: 'sys', loadChildren: () => import('./page/message/sys/sys.module').then(m => m.SysPageModule) },
         ]
     },
     {
@@ -138,8 +165,10 @@ const routes: Routes = [
             {
                 path: 'reservation',  //维保预约
                 children: [
-                    { path: 'list', loadChildren: () => import('./page/servicecenter/reservation.com/list/list.module').then(m => m.ListPageModule) },
-                    { path: 'edit', loadChildren: () => import('./page/servicecenter/reservation.com/edit/edit.module').then(m => m.EditPageModule) },
+                    { path: 'list', loadChildren: () => import('./page/servicecenter/reservation/list/list.module').then(m => m.ListPageModule) },
+                    { path: 'edit', loadChildren: () => import('./page/servicecenter/reservation/edit/edit.module').then(m => m.EditPageModule) },
+                    { path: 'detail', loadChildren: () => import('./page/servicecenter/reservation/detail/detail.module').then(m => m.DetailPageModule) },
+                    { path: 'success', loadChildren: () => import('./page/servicecenter/reservation/success/success.module').then(m => m.SuccessPageModule) }
                 ]
             }
         ]
@@ -149,6 +178,7 @@ const routes: Routes = [
         children: [
             { path: 'edit', loadChildren: () => import('./page/testdrive/edit/edit.module').then(m => m.EditPageModule) },
             { path: 'list', loadChildren: () => import('./page/testdrive/list/list.module').then(m => m.ListPageModule) },
+            { path: 'success', loadChildren: () => import('./page/testdrive/success/success.module').then(m => m.SuccessPageModule) },
         ]
     },
 
@@ -180,7 +210,7 @@ const routes: Routes = [
     ,
     {
         path: 'set',
-        loadChildren: () => import('./page/set/set.module').then(m => m.SetPageModule)
+        loadChildren: () => import('./page/home/set/set.module').then(m => m.SetPageModule)
     },
     {
         path: 'detail',

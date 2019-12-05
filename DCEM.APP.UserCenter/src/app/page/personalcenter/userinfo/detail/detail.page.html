@@ -66,6 +66,20 @@
       </ion-note>
     </ion-item>
   </ion-list>
+  <ion-card>
+    <ion-card-content>
+      <ion-list style="text-align: center;">
+        <ng-container *ngFor="let item of tags;index as i">
+          <p *ngIf="i>1&&(i % 3)==0">
+          </p>
+          <ion-chip outline [color]="item.color">
+            <ion-label>{{item.name}}</ion-label>
+          </ion-chip>
+        </ng-container>
+      </ion-list>
+
+    </ion-card-content>
+  </ion-card>
   <ion-list lines="none">
     <ion-button expand="block" color="medium" (click)="saveOnClick()">修改</ion-button>
   </ion-list>
