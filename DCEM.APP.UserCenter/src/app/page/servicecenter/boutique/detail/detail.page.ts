@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page } from '../../../../../app/component/typescript/dcem.core';
 import { ActivatedRoute } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { ToastController  } from '@ionic/angular';
 import * as $ from 'jquery';
 
 @Component({
@@ -20,14 +20,16 @@ export class DetailPage implements OnInit {
         datadetail: {}
     };
     //IsShowTwoBtnDialog: boolean = false;
-
+    IsShowForCart: boolean = false;
     IsShowCover: boolean = false;
+    Isbadge: boolean = false;
+    BadgeCount: any = 0;
     tempdata_sku: any = [];
     constructor(
         private _http: DCore_Http,
         private _page: DCore_Page,
         private routerinfo: ActivatedRoute,
-        public navCtrl: NavController,
+        public toastCtrl: ToastController,
     ) { }
     private id
     ngOnInit() {
@@ -40,6 +42,7 @@ export class DetailPage implements OnInit {
     initListLoading(id) {
         this._page.loadingShow();
         this.getDetail(null, id);
+        this.getCartList();
     }
     ionViewWillEnter() {
     }
@@ -76,7 +79,6 @@ export class DetailPage implements OnInit {
                             }
                         }
                     }
-                    console.log(res);
                     //绑定数据
                     this.model.datadetail = res;
                     event ? event.target.complete() : '';
@@ -92,8 +94,29 @@ export class DetailPage implements OnInit {
             }
         );
     }
-    ShowTwoBtn() {
+    //获取购物车数据
+    getCartList() {
+        var storage = window.localStorage;
+        var cardata = storage.getItem("singlecar");
+        if (cardata != null) {
+            var cartList = JSON.parse(cardata);
+            if (cartList != null && cartList.datas.length > 0) {
+                this.BadgeCount = cartList.datas.length;
+                this.Isbadge = true;
+            } else {
+                this.Isbadge = false;
+            }
+        } else {
+            this.Isbadge = false;
+        }
+    }
+    ShowTwoBtn(flag) {
         //this.IsShowTwoBtnDialog = true;
+        if (flag == 0) {
+            this.IsShowForCart = true;
+        } else {
+            this.IsShowForCart = false;
+        }
         this.IsShowCover = true;
         $(".TwoBtnDialog").slideDown();
     }
@@ -182,5 +205,79 @@ export class DetailPage implements OnInit {
             }
         });
         $(".lab-selected").html(standard);
+        if (this.IsShowForCart) {
+            this.addInCart();
+        }
+    }
+    //加入购物车
+    addInCart() {
+        var flag = true;
+        var skucode = $("#proSkuID").val();
+        var productname = $(".lab-proname p:eq(0)").text();
+        var price = $(".span-price").text();
+        var img = $(".div-skuimg>img").attr("src");
+        var skuname = $(".lab-selected").text();
+        var num = parseInt($(".spinners").val().toString() || "0", 10);
+        var index = skuname.lastIndexOf("\:");
+        skuname = skuname.substring(index + 1, skuname.length);
+        var cardata = {
+            "checkAll": false,
+            "editcheckall": false,
+            "totalprice": parseFloat("0").toFixed(2),
+            "datas": [{
+                "productcode": this.id,
+                "skucode": skucode,
+                "productname": productname,
+                "skuname": skuname,
+                "price": price,
+                "img": img,
+                "num": num,
+                "checked": false,
+                "editchecked": false
+            }]
+        };
+        //var cardata = [{
+        //    "productcode": this.id,
+        //    "skucode": skucode,
+        //    "productname": productname,
+        //    "skuname": skuname,
+        //    "price": price,
+        //    "img": img,
+        //    "num": num
+        //}];
+        var storage = window.localStorage;
+        var beforecardataJson;
+        var beforecardata = storage.getItem("singlecar");
+        if (beforecardata == null) {
+            storage.setItem("singlecar", JSON.stringify(cardata));
+        } else {
+            beforecardataJson = JSON.parse(beforecardata);
+            for (var i = 0; i < beforecardataJson.datas.length; i++) {
+                if (beforecardataJson.datas[i].skucode == cardata.datas[0].skucode) {
+                    beforecardataJson.datas[i].num += 1;
+                    flag = false;
+                }
+            }
+            if (flag) {
+                beforecardataJson.datas.push(cardata.datas[0]);
+            }
+            storage.setItem("singlecar", JSON.stringify(beforecardataJson));
+        }
+        this.showToast();
+        this.getCartList();
+    }
+    //提示框
+    async showToast() {
+        const toast = await this.toastCtrl.create({
+            message: '已加入购物车',
+            position: 'middle',
+            cssClass: 'showtoast',
+            duration: 2000
+        });
+        toast.present();
+    }
+    RemoveStorage() {
+        var storage = window.localStorage;
+        storage.removeItem("singlecar");
     }
 }

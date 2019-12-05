@@ -151,33 +151,6 @@ const routes: Routes = [
             { path: 'success', loadChildren: () => import('./page/testdrive/success/success.module').then(m => m.SuccessPageModule) },
         ]
     },
-
-    {
-        path: 'detail',
-        loadChildren: () => import('./page/servicecenter/vehiclecenter/detail/detail.module').then(m => m.DetailPageModule)
-    },
-    {
-        path: 'list',
-        loadChildren: () => import('./page/servicecenter/boutique/list/list.module').then(m => m.ListPageModule)
-    },
-    {
-        path: 'detail',
-        loadChildren: () => import('./page/servicecenter/boutique/detail/detail.module').then(m => m.DetailPageModule)
-    },
-    {
-        path: 'list',
-        loadChildren: () => import('./page/servicecenter/shoppingcart/list/list.module').then(m => m.ListPageModule)
-    },
-    {
-        path: 'demo',
-        children: [
-            {
-                path: 'dealer',
-                loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
-            }
-        ]
-    }
-    ,
     {
         path: 'set',
         loadChildren: () => import('./page/home/set/set.module').then(m => m.SetPageModule)
