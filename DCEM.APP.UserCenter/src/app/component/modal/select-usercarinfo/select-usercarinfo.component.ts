@@ -23,14 +23,16 @@ export class SelectUsercarinfoComponent implements OnInit {
     private _http: DCore_Http,
     private _page: DCore_Page,
     private _modalCtrl: ModalController,
-  ) { }
+    private _navParams: NavParams
+  ) { this.mod.mcs_userid= _navParams.get('mcs_userid');
+  }
 
   ngOnInit() {
     this.listOnBind();
   }
 
   itemClick(item: any) {
-    console.log(item);
+    // console.log(item);
     this._modalCtrl.dismiss({
       usercarinfo: item
     });
@@ -62,6 +64,7 @@ listOnBind() {
                     obj["mcs_plate"] = res.Results[key]["Attributes"]["mcs_plate"];
                     obj["mcs_phone"] = res.Results[key]["Attributes"]["mcs_phone"];
                     obj["mcs_username"] = res.Results[key]["Attributes"]["mcs_username"];
+                    obj["mcs_carinfoid"] = res.Results[key]["Attributes"]["_mcs_carinfoid_value"];
                     obj["model"] = res.Results[key]["Attributes"];
                     this.mod.data.push(obj);
                 }

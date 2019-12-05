@@ -25,21 +25,21 @@ export class DCore_Window {
     providedIn: 'root'
 })
 export class DCore_Config {
-    public  server:string="localhost";//接口环境
-      
+    public server: string = "uat";//接口环境
+
     /*
         获取商城的接口地址
         @server：dev|sit|uat
     
     */
-    getShoppingDomain(server){
-        var url="";
-        switch(server){
-            case "dev":url="https://subcrmdevapi.sokon.com/tc/";break;
-            case "sit":url="https://subcrmsitapi.sokon.com/tc/";break;
-            case "uat":url="https://subcrmuatapi.sokon.com/tc/";break;
-            case "uat":url="https://subcrmuatapi.sokon.com/tc/";break;
-            case "localhost":url="https://localhost:44382/";break;
+    getShoppingDomain(server) {
+        var url = "uat";
+        switch (server) {
+            case "dev": url = "https://subcrmdevapi.sokon.com/tc/"; break;
+            case "sit": url = "https://subcrmsitapi.sokon.com/tc/"; break;
+            case "uat": url = "https://subcrmuatapi.sokon.com/tc/"; break;
+            case "localhost": url = "https://localhost:44382/"; break;
+            case "9.0": url = "http://106.14.121.65:8082/tc/"; break;
         }
         return url;
     }
@@ -55,7 +55,7 @@ export class DCore_Http {
     ) {
     }
 
-    
+
     //商城接口get请求
     getForShopping(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
         this._httpClient.get(this._config.getShoppingDomain(this._config.server) + url,
@@ -88,7 +88,7 @@ export class DCore_Http {
 
     //带请求头get请求
     getForToaken(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
-        this._httpClient.get(this._config.getShoppingDomain(this._config.server)  + url,
+        this._httpClient.get(this._config.getShoppingDomain(this._config.server) + url,
             {
                 params: params,
                 headers: this.getHeaders()
@@ -103,7 +103,7 @@ export class DCore_Http {
 
     //get请求
     get(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
-        this._httpClient.get(this._config.getShoppingDomain(this._config.server)  + url, params).subscribe(
+        this._httpClient.get(this._config.getShoppingDomain(this._config.server) + url, params).subscribe(
             (res: any) => {
                 rescallback && rescallback(res);
             },
@@ -115,7 +115,7 @@ export class DCore_Http {
     //post请求
     postForToaken(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
         this._httpClient.post(
-            this._config.getShoppingDomain(this._config.server)  + url,
+            this._config.getShoppingDomain(this._config.server) + url,
             params,
             {
                 headers: this.getHeaders()
@@ -131,7 +131,7 @@ export class DCore_Http {
     //post请求
     post(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
         this._httpClient.post(
-            this._config.getShoppingDomain(this._config.server)  + url, params).subscribe(
+            this._config.getShoppingDomain(this._config.server) + url, params).subscribe(
                 (res: any) => {
                     rescallback && rescallback(res);
                 },
@@ -157,12 +157,12 @@ export class DCore_Http {
         商城接口请求头
 
     */
-    private getHeadersForShopping(){
+    private getHeadersForShopping() {
         return new HttpHeaders({
-            "Content-Type":"application/json;charset=UTF-8",
-            "appid":"1001",
-            "md5sum":"1fdcab853713fbc2b8f4d58bac32f420",
-            "true-client-ip":"10.1.1.1"
+            "Content-Type": "application/json;charset=UTF-8",
+            "appid": "1001",
+            "md5sum": "1fdcab853713fbc2b8f4d58bac32f420",
+            "true-client-ip": "10.1.1.1"
         });
     }
 
@@ -404,7 +404,13 @@ export class DCore_Valid {
         return false;
     }
 
+
+    isArray = function (o) {
+        return Object.prototype.toString.call(o) == '[object Array]';
+    }
 }
+
+
 
 
 

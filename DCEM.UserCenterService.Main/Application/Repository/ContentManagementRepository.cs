@@ -23,7 +23,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository
         {
             return await Task<XDocument>.Run(() =>
             {
-                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+                var fetchXml = $@"<fetch version='1.0' count='{contentListRequest.PageSize}' page='{contentListRequest.PageIndex}'  output-format='xml-platform' mapping='logical' distinct='false'>
                   <entity name='mcs_activitycontents'>
                     <attribute name='mcs_activitycontentsid' />
                     <attribute name='mcs_name' />
@@ -42,7 +42,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository
         {
             return await Task<XDocument>.Run(() =>
             {
-                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+                var fetchXml = $@"<fetch version='1.0' count='{contentListRequest.PageSize}' page='{contentListRequest.PageIndex}'  output-format='xml-platform' mapping='logical' distinct='false'>
                   <entity name='mcs_frontcontent'>
                     <attribute name='mcs_frontcontentid' />
                     <attribute name='mcs_name' />
@@ -60,7 +60,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository
         {
             return await Task<XDocument>.Run(() =>
             {
-                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+                var fetchXml = $@"<fetch version='1.0' count='{contentListRequest.PageSize}' page='{contentListRequest.PageIndex}' output-format='xml-platform' mapping='logical' distinct='false'>
                   <entity name='mcs_newscontents'>
                     <attribute name='mcs_newscontentsid' />
                     <attribute name='mcs_name' />
