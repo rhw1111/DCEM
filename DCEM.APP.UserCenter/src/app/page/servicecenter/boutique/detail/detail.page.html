@@ -7,30 +7,23 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content overflow-scroll="true" style="overflow: hidden">
     <ion-grid class="padding0">
         <!--轮播图-->
         <ion-row>
             <ion-col class="padding0">
                 <ion-slides pager="true">
-                    <ion-slide style="width:100%;">
-                        <ion-grid class="padding0">
-                            <ion-row>
-                                <ion-col class="padding0">
-                                    <img src="../assets/img/temp/xiaopeng1.jpg" />
-                                </ion-col>
-                            </ion-row>
-                        </ion-grid>
-                    </ion-slide>
-                    <ion-slide style="width:100%;">
-                        <ion-grid class="padding0">
-                            <ion-row>
-                                <ion-col class="padding0">
-                                    <img src="../assets/img/temp/xiaopeng2.jpg" />
-                                </ion-col>
-                            </ion-row>
-                        </ion-grid>
-                    </ion-slide>
+                    <ng-container *ngFor="let item of model.datadetail.ImageData">
+                        <ion-slide style="width:100%;" *ngIf="item.Category == 2">
+                            <ion-grid class="padding0">
+                                <ion-row>
+                                    <ion-col class="padding0">
+                                        <img src="https://ceo-oss.oss-cn-hangzhou.aliyuncs.com/{{item.Name}}" width="495" height="495" />
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
+                        </ion-slide>
+                    </ng-container>
                 </ion-slides>
             </ion-col>
         </ion-row>
@@ -39,10 +32,10 @@
             <ion-col style="padding-left:20px;margin-top:5px">
                 <ion-label style="margin-top:30px">
                     <p style="font-size:24px; font-weight:500; color:#000;">
-                        无极变色全景天幕
+                        {{model.datadetail.Name}}
                     </p>
                     <p style="margin-top:10px; font-size:16px;">
-                        无极变色全景天幕
+                        {{model.datadetail.Introduction}}
                     </p>
                 </ion-label>
             </ion-col>
@@ -53,9 +46,13 @@
                 <ion-label style="font-size:18px;">
                     ￥
                 </ion-label>
-                <ion-label style="font-size:24px;">
-                    100.00
-                </ion-label>
+                <div *ngIf="model.datadetail.SkuData != null; then truthyTemplate else falsyTemplate"></div>
+                <ng-template #truthyTemplate>
+                    <ion-label class="lab-price" style="font-size:24px;">{{model.datadetail.SkuData[0].Price}}</ion-label>
+                </ng-template>
+                <ng-template #falsyTemplate>
+                    <ion-label style="font-size:24px;">0.00</ion-label>
+                </ng-template>
             </ion-col>
             <ion-col style="padding-right:15px;text-align:right; font-size:16px;">
                 <ion-label>
@@ -67,16 +64,31 @@
         </ion-row>
         <!--规格-->
         <ion-row style="background-color:#F6F6F6;">
-            <ion-row style="padding:15px 10px; background-color:#fff; width:100%;margin:20px 0;">
+            <ion-row (click)="ShowTwoBtn()" style="padding:15px 10px; background-color:#fff; width:100%;margin:20px 0;">
                 <ion-col style="padding-left:15px;font-size:16px;">
                     <ion-label style="color:#000;">
                         选择:
                     </ion-label>
-                    <ion-label style="color:#a5a2a2;">
-                        无极变色全景天幕
+                    <ion-label class="lab-selected" style="color:#a5a2a2;">
+                        <div *ngIf="model.datadetail.SkuData != null; then trueTemplate else falseTemplate"></div>
+                        <ng-template #trueTemplate>
+                            <ng-container *ngFor="let item of model.datadetail.SkuData[0].Arrts">
+                                <div *ngIf="item.Values != null; then tTemplate else fTemplate"></div>
+                                <ng-template #tTemplate>
+                                    {{item.Values[0].Value}}
+                                </ng-template>
+                                <ng-template #fTemplate>
+                                    <!--不做操作-->
+                                </ng-template>
+                            </ng-container>
+                        </ng-template>
+                        <ng-template #falseTemplate>
+                            <!--不做操作-->
+                        </ng-template>
                     </ion-label>
+
                 </ion-col>
-                <ion-col style="padding-right:15px;text-align:right;">
+                <ion-col style="padding-right:15px;text-align:right;max-width:20px;">
                     <ion-label style="font-size:22px;line-height:0px;color:#a5a2a2;">
                         >
                     </ion-label>
@@ -108,28 +120,68 @@
             </div>
         </div>
     </ion-grid>
+    <!--规格选择-->
+    <div class="TwoBtnDialog" style="display:none;">
+        <div class="div-content">
+            <div>
+                <img src="../assets/img/temp/xiaopengdetail1.jpg" width="100" height="100" style="border-radius:10px;" />
+            </div>
+            <div style="margin-left:30px;">
+                <div style="font-size:24px;margin-bottom:35px;">{{model.datadetail.Name}}</div>
+                <div style="font-size:16px; color:#38B3EE">
+                    ￥
+                    <div *ngIf="model.datadetail.SkuData != null; then truthysTemplate else falsysTemplate"></div>
+                    <ng-template #truthysTemplate>
+                        <span class="span-price" style="font-size:24px;">{{model.datadetail.SkuData[0].Price}}</span>
+                    </ng-template>
+                    <ng-template #falsysTemplate>
+                        <span class="span-price" style="font-size:24px;">0.00</span>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+        <div style="padding: 0 30px 20px 30px;">
+            <div style="margin-bottom:10px;font-size:20px;">数量</div>
+            <div>
+                <button (click)="changeValue(-1)" class="decrease icon-reduce" type="button">-</button>
+                <input type="number" class="spinners" value="1" readonly="readonly" maxlength="2">
+                <button (click)="changeValue(1)" class="increase icon-add" type="button">+</button>
+            </div>
+        </div>
+        <div class='standard' style="padding: 0 30px 20px 30px;">
+            <ng-container *ngFor="let item of model.datadetail.AttrData">
+                <p>{{item.AttrName}}</p>
+                <div class="div-attr">
+                    <ng-container *ngFor="let v of item.Values">
+                        <input value="{{v.Value}}" type="radio" name="standard{{item.AttrId}}" style="display:none;" title="{{v.checked}}" />
+                        <a class="{{v.active}}" (click)="OptionBtnCheck($event)">{{v.Value}}</a>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </div>
+        <div class="div-btn">
+            <ion-button text="确定" (click)="TwoBtnSure()" style="width:100%;">确定</ion-button>
+        </div>
+    </div>
+
+    <!--遮罩层-->
+    <div class="shade" *ngIf="IsShowCover" (click)="CloseDialog()"></div>
+
+    <input type="hidden" id="standardcount" value="" />
+    <input type="hidden" id="proSkuID" value="" />
 </ion-content>
 
-<!--<ion-footer align-title="left" class="bar-assertive">
-    <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-back-button text="返回" defaultHref="/servicecenter/boutique/list"></ion-back-button>
-        </ion-buttons>
-        <ion-title>{{model.title}}</ion-title>
-    </ion-toolbar>
-</ion-footer>-->
+<ion-tab-bar slot="bottom">
+    <ion-tab-button [routerLink]="['/servicecenter/shoppingcart/list']" style="max-width:110px;">
+        <ion-icon name="aperture"></ion-icon>
+    </ion-tab-button>
 
-    <ion-tab-bar slot="bottom">
-        <ion-tab-button [routerLink]="['/servicecenter/shoppingcart/list']" style="max-width:110px;">
-            <ion-icon name="aperture"></ion-icon>
-        </ion-tab-button>
+    <ion-tab-button tab="servicecenter" (click)="presentPopover()">
+        <ion-label style="font-size:20px; color:#000;">加入购物车</ion-label>
+    </ion-tab-button>
 
-        <ion-tab-button tab="servicecenter">
-            <ion-label style="font-size:20px; color:#000;">加入购物车</ion-label>
-        </ion-tab-button>
-
-        <ion-tab-button tab="personalcenter" style="background-color:#38B3EE;">
-            <ion-label style="font-size:20px; color:#fff;">立即购买</ion-label>
-        </ion-tab-button>
-    </ion-tab-bar>
+    <ion-tab-button tab="personalcenter" style="background-color:#38B3EE;">
+        <ion-label style="font-size:20px; color:#fff;">立即购买</ion-label>
+    </ion-tab-button>
+</ion-tab-bar>
 
