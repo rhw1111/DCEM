@@ -1,0 +1,57 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start" style="margin-top: 3px;">
+        <ion-back-button text="返回" defaultHref="/tabs/servicecenter"></ion-back-button>
+      </ion-buttons>
+      <ion-title>我的试乘试驾反馈</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles"
+        refreshingText="刷新中...">
+      </ion-refresher-content>
+    </ion-refresher>
+    <ion-list lines="full" class="messagelist">
+      <div class="panel" *ngFor="let item of model.datalist ">
+        <div class="panelheard">
+          <ion-label class="noteleft">{{item.mcs_name}}&nbsp;</ion-label>     
+        </div>
+        <div class="panelcontent">
+          <div class="img">
+            <img src="./assets/img/goods-list.jpg" />
+          </div>
+          <div class="detail">
+            <p>试驾记录<ion-note>{{item.mcs_driverecordid}}&nbsp;</ion-note></p>
+            <p>反馈时间<ion-note>{{item.mcs_surveytime}}&nbsp;</ion-note></p>
+            <p>综合评分<ion-note>{{item.mcs_score}}&nbsp;</ion-note></p>
+            <p>平均分<ion-note>{{item.mcs_averagescore}}&nbsp;</ion-note></p>               
+          </div>
+        </div>
+        <div class="panelbutton">
+          <ion-grid fixed>
+            <ion-row>
+              <ion-col size="6">
+                <ion-button Size="small" fill="solid" color="light" [routerLink]="['//edit']" [queryParams]="{id:item.mcs_testdrivefeedbackmasterid}" >
+                  查看详细
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </div>
+    </ion-list>
+  
+    <ion-label *ngIf="model.isending" text-center>    
+        <p>
+           没有更多的记录显示啦
+        </p>      
+      </ion-label>
+     
+    <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doLoading($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-content>
+  

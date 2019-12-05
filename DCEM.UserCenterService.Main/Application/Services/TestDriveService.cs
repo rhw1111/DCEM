@@ -134,5 +134,38 @@ namespace DCEM.UserCenterService.Main.Application.Services
         }
         #endregion
 
+        #region 我的试乘试驾反馈报告
+        public async Task<QueryResult<CrmEntity>> GetDriveFeedbackList(TestDriveFeedbackRequest Request)
+        {
+            try
+            {
+                var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+                var ProxyUserId = userInfo != null ? userInfo.systemuserid : null;
+
+                var fetchString = _Repository.GetDriveFeedbackList(Request);
+                var fetchXdoc = XDocument.Parse(fetchString);
+                var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "mcs_testdrivefeedbackmaster",
+                    FetchXml = fetchXdoc,
+                    ProxyUserId = ProxyUserId
+                };
+                var fetchResponse = await _crmService.Execute(fetchRequest);
+                var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+
+                var queryResult = new QueryResult<CrmEntity>();
+                queryResult.Results = fetchResponseResult.Value.Results;
+                queryResult.CurrentPage = Request.PageIndex;
+                queryResult.TotalCount = 0;
+                return queryResult;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        #endregion
+
     }
 }
