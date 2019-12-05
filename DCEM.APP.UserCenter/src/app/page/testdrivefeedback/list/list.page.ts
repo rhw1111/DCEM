@@ -13,8 +13,8 @@ import { Storage_LoginInfo } from 'app/component/typescript/logininfo.storage';
 export class ListPage implements OnInit {
 
   public model = {
-    name: 'DriveRecordList',//模块实体名称
-    apiUrl: 'api/testdrive/GetDriveRecordList',//请求地址
+    name: 'DriveFeedbackList',//模块实体名称
+    apiUrl: 'api/testdrive/GetDriveFeedbackList',//请求地址
    
     isending: false,//是否加载完成
     datalist: [],//列表数据
