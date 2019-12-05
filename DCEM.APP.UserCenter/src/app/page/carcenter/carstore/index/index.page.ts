@@ -3,6 +3,8 @@ import { ModalController, PopoverController, IonSlides, IonSlide } from '@ionic/
 import { AnimationBuilder, Animation } from '@ionic/core';
 import { SpeclistComponent } from 'app/page/carcenter/carstore/component/model/speclist/speclist.component';
 import * as $ from 'jquery';
+import { DCore_Http, DCore_Page, DCore_Valid } from 'app/component/typescript/dcem.core';
+
 
 @Component({
     selector: 'app-index',
@@ -13,12 +15,91 @@ export class IndexPage implements OnInit {
 
     @ViewChild('mainSlide', null) mainSlide: IonSlides;
 
+    public mod: any = {
+        apiUrl: 'api/product/All',
+        data: {},
+        searchData: {
+            type: 2,
+            pageindex: 1,
+            search: ""
+        },
+    };
+
+    public objectKeys = Object.keys;
+
+    //共享数据对象
+    shareData = {
+        productClassMap: {},     //储存商品的对象(按类别分组)  
+        productTopPic: {},       //储存商品顶部图片的对象
+    }
+
     constructor(
-        private _modalCtrl: ModalController
+        private _modalCtrl: ModalController,
+        private _http: DCore_Http,
+        private _page: DCore_Page,
+        private _valid: DCore_Valid
     ) {
     }
 
     ngOnInit() {
+        this.setProductShareData();
+    }
+
+    public setProductShareData() {
+        this._page.loadingShow();
+        this._http.postForShopping(
+            this.mod.apiUrl,
+            this.mod.searchData,
+            (res: any) => {
+
+                if (!this._valid.isNull(res) && !this._valid.isNull(res["Datas"])) {
+                    var imgHost = "https://ceo-oss.oss-cn-hangzhou.aliyuncs.com/";
+
+                    for (var key in res.Datas) {
+                        //组装整车的列表地图
+                        if (res.Datas[key]["ProductType"] === 1) {
+                            //组装按产品分类的商品地图
+                            var product = res.Datas[key];
+                            var productKey = product["Code"];
+                            var frontCategorys = { ProductCategoryCode: -100, Name: "其它" }
+                            var productClassKey = frontCategorys.ProductCategoryCode;
+                            if (this._valid.isArray(product.FrontCategorys) && product.FrontCategorys.length > 0) {
+                                productClassKey = product.FrontCategorys[0].ProductCategoryCode;
+                                frontCategorys = product.FrontCategorys[0];
+                            }
+
+                            if (this._valid.isNull(this.shareData.productClassMap[productClassKey])) {
+                                this.shareData.productClassMap[productClassKey] = {};
+                                this.shareData.productClassMap[productClassKey]["productMap"] = {};
+                                this.shareData.productClassMap[productClassKey]["frontCategorys"] = frontCategorys;
+                            }
+                            this.shareData.productClassMap[productClassKey]["productMap"][productKey] = product;
+
+                            //组装顶部图片地图
+                            if (this._valid.isArray(product.ImageData) && product.ImageData.length > 0) {
+                                for (var pickey in product.ImageData) {
+                                    if (this.objectKeys(this.shareData.productTopPic).length > 5)
+                                        break;
+                                    if (product.ImageData[pickey]["Category"] === 2)
+                                        this.shareData.productTopPic[pickey] = { url: imgHost + product.ImageData[pickey]["Name"] };
+                                }
+                            }
+
+                        }
+                    }
+                    console.log(this.shareData);
+                }
+                else {
+
+                    this._page.alert("消息提示", "数据加载异常");
+                }
+                this._page.loadingHide();
+            },
+            (err: any) => {
+                this._page.loadingHide();
+                this._page.alert("消息提示", "数据加载异常");
+            }
+        );
     }
 
 
