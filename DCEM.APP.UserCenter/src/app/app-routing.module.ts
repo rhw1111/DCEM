@@ -11,7 +11,7 @@ const routes: Routes = [
         children: [
             { path: 'tabs', loadChildren: () => import('./page/home/tabs/tabs.module').then(m => m.TabsPageModule) },
         ]
-    }, 
+    },
     {
         path: 'carcenter',  //汽车中心(爱车)
         children: [
@@ -89,6 +89,34 @@ const routes: Routes = [
                     }
                 ]
             },
+            {
+                path: 'myorder',
+                children: [
+                    {
+                        path: 'index',
+                        loadChildren: () => import('./page/personalcenter/myorder/index/index.module').then(m => m.IndexPageModule)
+                    },
+                    {
+                        path: 'fineorder',
+                        children: [
+                            {
+                                path: 'list',
+                                loadChildren: () => import('./page/personalcenter/myorder/fineorder/list/list.module').then(m => m.ListPageModule)
+                            },
+                        ]
+                    },
+                    {
+                        path: 'carorder',
+                        children: [
+                            {
+                                path: 'list',
+                                loadChildren: () => import('./page/personalcenter/myorder/carorder/list/list.module').then(m => m.ListPageModule)
+                            }
+                        ]
+                    }
+
+                ]
+            },
             { path: 'index', loadChildren: () => import('./page/personalcenter/index/index.module').then(m => m.IndexPageModule) },
 
         ]
@@ -137,8 +165,10 @@ const routes: Routes = [
             {
                 path: 'reservation',  //维保预约
                 children: [
-                    { path: 'list', loadChildren: () => import('./page/servicecenter/reservation.com/list/list.module').then(m => m.ListPageModule) },
-                    { path: 'edit', loadChildren: () => import('./page/servicecenter/reservation.com/edit/edit.module').then(m => m.EditPageModule) },
+                    { path: 'list', loadChildren: () => import('./page/servicecenter/reservation/list/list.module').then(m => m.ListPageModule) },
+                    { path: 'edit', loadChildren: () => import('./page/servicecenter/reservation/edit/edit.module').then(m => m.EditPageModule) },
+                    { path: 'detail', loadChildren: () => import('./page/servicecenter/reservation/detail/detail.module').then(m => m.DetailPageModule) },
+                    { path: 'success', loadChildren: () => import('./page/servicecenter/reservation/success/success.module').then(m => m.SuccessPageModule) }
                 ]
             }
         ]
@@ -152,9 +182,15 @@ const routes: Routes = [
         ]
     },
     {
-        path: 'set',
-        loadChildren: () => import('./page/home/set/set.module').then(m => m.SetPageModule)
+        path: 'testdriveFeedback',  //试乘试驾反馈报告
+        children: [
+            //{ path: 'edit', loadChildren: () => import('./page/testdrivefeedback/edit/edit.module').then(m => m.EditPageModule) },
+            { path: 'list', loadChildren: () => import('./page/testdrivefeedback/list/list.module').then(m => m.ListPageModule) },
+        
+        ]
     },
+
+
     {
         path: 'detail',
         loadChildren: () => import('./page/servicecenter/vehiclecenter/detail/detail.module').then(m => m.DetailPageModule)
@@ -179,7 +215,11 @@ const routes: Routes = [
                 loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
             }
         ]
-    }
+    },
+    {
+        path: 'set',
+        loadChildren: () => import('./page/home/set/set.module').then(m => m.SetPageModule)
+    },
 ];
 @NgModule({
     imports: [

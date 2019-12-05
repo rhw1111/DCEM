@@ -60,6 +60,7 @@
 </ion-header>
 
 <ion-content fullscreen scroll-y="false">
+
     <ion-slides class="dm-main-slides" #mainSlide (ionSlideWillChange)="slideChange($event)">
         <ion-slide>
             <!--推荐-->
@@ -456,8 +457,8 @@
         <ion-slide>
             <!--活动-->
             <div class="dm-main-slide">
-                <ion-grid>
-                    <ion-row>
+                <ion-content>
+                    <!-- <ion-row>
                         <ion-col class="dm-main-activity">
                             <ion-grid>
                                 <ion-row>
@@ -481,8 +482,8 @@
                                 </ion-row>
                             </ion-grid>
                         </ion-col>
-                    </ion-row>
-                    <ion-row *ngFor="let item of model.activityList">
+                    </ion-row> -->
+                    <ion-row *ngFor="let item of model.activitiesList">
                         <ion-col class="dm-main-activity">
                             <ion-grid>
                                 <ion-row>
@@ -495,8 +496,8 @@
                                 <ion-row>
                                     <ion-col text-left class="dm-main-activity-title">
                                         <h1>{{item.Title}}</h1>
-                                        <p>时间：{{item.Time}}</p>
-                                        <p>地点：{{item.Address}}</p>
+                                        <p>时间：{{FormatToDateTime(item.Time)}}</p>
+                                        <p>地点：{{ShowEmptyValue(item.Address)}}</p>
                                     </ion-col>
                                 </ion-row>
                                 <ion-row>
@@ -507,14 +508,24 @@
                             </ion-grid>
                         </ion-col>
                     </ion-row>
-                </ion-grid>
+                    <ion-label *ngIf="model.isAllActivities" text-center>
+                        <p>
+                            没有更多的活动显示啦
+                        </p>
+                    </ion-label>
+                    <ion-infinite-scroll threshold="100px" (ionInfinite)="DoLoading($event)">
+                        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
+                        </ion-infinite-scroll-content>
+                    </ion-infinite-scroll>
+                </ion-content>
             </div>
         </ion-slide>
         <ion-slide>
             <!--资讯-->
             <div class="dm-main-slide">
-                <ion-grid>
-                    <ion-row>
+
+                <ion-content>
+                    <!-- <ion-row>
                         <ion-col class="dm-main-activity">
                             <ion-grid>
                                 <ion-row>
@@ -538,7 +549,8 @@
                                 </ion-row>
                             </ion-grid>
                         </ion-col>
-                    </ion-row>
+                    </ion-row> -->
+
                     <ion-row *ngFor="let item of model.newsList">
                         <ion-col class="dm-main-activity">
                             <ion-grid>
@@ -564,7 +576,16 @@
                             </ion-grid>
                         </ion-col>
                     </ion-row>
-                </ion-grid>
+                    <ion-label *ngIf="model.isAllNews" text-center>
+                        <p>
+                            没有更多的新闻显示啦
+                        </p>
+                    </ion-label>
+                    <ion-infinite-scroll threshold="100px" (ionInfinite)="DoLoading($event)">
+                        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
+                        </ion-infinite-scroll-content>
+                    </ion-infinite-scroll>
+                </ion-content>
             </div>
         </ion-slide>
     </ion-slides>
