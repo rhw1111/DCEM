@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using MSLibrary;
-using DCEM.UserCenterService.Main.Application.App.Contrac;
-using DCEM.UserCenterService.Main.Application.App;
+using DCEM.UserCenterService.Main.Application.Services;
+using DCEM.UserCenterService.Main.Application.Services.Contrac;
 using MSLibrary.Xrm;
 using DCEM.UserCenterService.Main;
 namespace DCEM.ServiceAssistantService.Main.DAL

@@ -1,4 +1,4 @@
-namespace DCEM.UserCenterService.Main.Application.App.Contrac
+namespace DCEM.UserCenterService.Main.Application.Services.Contrac
 {
     using DCEM.UserCenterService.Main.Application.App.Contrac;
     using DCEM.UserCenterService.Main.Application.Services.Contrac;
