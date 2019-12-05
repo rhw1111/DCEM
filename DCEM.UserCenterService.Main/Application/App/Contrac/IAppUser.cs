@@ -37,6 +37,8 @@ namespace DCEM.UserCenterService.Main.Application.App
         Task<ValidateResult> UpdateUserPwd(UserLoginRequest model);
 
         Task<UserTagListResponse> getusertag(UserDetailRequest userDetailRequest);
+        Task<UserScoreListResponse> getuserscore(UserDetailRequest userDetailRequest);
+        
         Task<CrmEntity> getuserdetail(UserDetailRequest userDetailRequest); 
     }
 }

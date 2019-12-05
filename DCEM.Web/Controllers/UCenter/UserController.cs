@@ -235,6 +235,17 @@ namespace DCEM.Web.Controllers
         {
             return await _appUser.getusertag(userDetailRequest);
         }
+
+        /// <summary>
+        /// 用户积分记录
+        /// </summary>
+        /// <returns></returns>
+        [Route("getuserscore")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<UserScoreListResponse>> getuserscore(UserDetailRequest userDetailRequest)
+        {
+            return await _appUser.getuserscore(userDetailRequest);
+        }
     }
 }
 

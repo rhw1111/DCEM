@@ -4,7 +4,8 @@ import { DCore_Http, DCore_Page, DCore_Valid } from '../../../component/typescri
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Storage_LoginInfo } from '../../../component/typescript/logininfo.storage';
 import { ModalController } from '@ionic/angular';
-
+import { AppVersion } from '@ionic-native/app-version/ngx';
+import * as $ from 'cordova';
 @Component({
   selector: 'app-set',
   templateUrl: './set.page.html',
@@ -12,12 +13,17 @@ import { ModalController } from '@ionic/angular';
 })
 export class SetPage implements OnInit {
 
+  public version: any = '1.2.2.1';//版本信息
   public islogin: boolean = false;
   constructor(private modalCtrl: ModalController,
     private _logininfo: Storage_LoginInfo,
     private route: Router,
     private _page: DCore_Page,
+    private appVersion: AppVersion,
     private activeRoute: ActivatedRoute) {
+
+
+    this.version = this.appVersion.getVersionNumber();
     if (this._logininfo.GetAccount() != null)
       this.islogin = true;
   }
@@ -31,7 +37,7 @@ export class SetPage implements OnInit {
     });
     await modal.present();
     //监听销毁的事件
-    const { data } = await modal.onDidDismiss(); 
+    const { data } = await modal.onDidDismiss();
   }
   onRetrun() {
     this.route.navigate(['/tabs/personalcenter'], {
@@ -43,7 +49,7 @@ export class SetPage implements OnInit {
   ngOnInit() {
   }
 
-  OnVersion(){ 
+  OnVersion() {
     this._page.alert("消息提示", "已是版本");
   }
 }

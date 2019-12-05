@@ -203,7 +203,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Repository
 
             if (!string.IsNullOrEmpty(request.mcs_ordertime))
             {
-                filter += $"<condition attribute='mcs_reservationdate' operator='on' value='{Convert.ToDateTime(request.mcs_ordertime).ToString("yyyy-MM-dd")}' />";
+                filter += $"<condition attribute='mcs_reservationdate' operator='on' value='{request.mcs_ordertime.Split('T')[0]}' />";
             }
 
             var fetchString = $@"<fetch version='1.0' count='{request.pageSize}' page='{request.page}' output-format='xml-platform' mapping='logical' distinct='false'>
