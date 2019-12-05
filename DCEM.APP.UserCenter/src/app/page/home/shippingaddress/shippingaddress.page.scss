@@ -1,0 +1,40 @@
+.divdef{
+    margin-right: 10px;
+    border-radius: 4px;
+    display: inline;
+    background-color:#1bbbb4;
+    color:white
+}
+.divaddress{
+    height: 42px;
+    color: #afafaf;
+    font-size: 0.8rem
+}
+
+.btn{
+    height: 100%;
+         width: 100%;
+         border: 0px;
+         background-color: #ff000000;
+         color: #4380fe;
+}
+
+
+.row{
+    width: 92%;
+    margin-left: 4%;
+    margin-top: 3%;
+    border: 1px solid #6963632e;
+    border-radius: 3px; 
+}
+.lable{
+    left: 4%;
+    line-height: 40px;
+    color: #a4a4a4;
+}
+input{
+    text-align: right;
+    margin-top: 7px;
+    border: 0px;
+    width: 95%;
+}

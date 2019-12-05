@@ -15,13 +15,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 //第三方组件
-import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile';
+import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile'; 
 //自定义组件
 import {SelectSysareaComponent} from './component/modal/select-sysarea/select-sysarea.component'
 import { LoginComponent } from './component/modal/login/login.component' 
 import { UserinfoComponent } from './component/modal/userinfo/userinfo.component' 
 import { SelectDealerComponent } from './component/modal/select-dealer/select-dealer.component';
 import { SelectUsercarinfoComponent } from './component/modal/select-usercarinfo/select-usercarinfo.component';
+
 
 @NgModule({
   declarations: [AppComponent,SelectSysareaComponent,LoginComponent,SelectDealerComponent,UserinfoComponent,SelectUsercarinfoComponent],
@@ -34,7 +35,7 @@ import { SelectUsercarinfoComponent } from './component/modal/select-usercarinfo
       HttpClientModule,
       FormsModule,
       ReactiveFormsModule,
-      NgZorroAntdMobileModule],
+      NgZorroAntdMobileModule  ],
   providers: [
       StatusBar,
       AppVersion,

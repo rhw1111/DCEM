@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ModalController, IonContent, NavParams } from '@ionic/angular';
 import * as $ from 'jquery';
 import { Storage_LoginInfo } from '../../typescript/logininfo.storage';
+import { promise } from 'protractor';
 
 @Component({
   selector: 'app-login',
@@ -119,7 +120,7 @@ export class LoginComponent implements OnInit {
     var ii = 90;
     $("#divmsgshow").show();
     $("#divbtnshow").hide();
-    $('#lbsendmsg').text('90秒重新获取验证码');
+    $('#lbsendmsg').text('90秒重新获取验证码'); 
     var intt;
     this.loginInterval = intt = setInterval(function () {
       ii--;

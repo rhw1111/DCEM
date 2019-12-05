@@ -1,9 +1,84 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>shippingaddress</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-item lines="none" style="border-bottom: 1px solid #d6d2d2;">
+  <ion-label style="margin-top: 12px">
+    <img src="../assets/img/back.png" style="width: 20px;" (click)="onReturn(false)">
+    <ion-label style="text-align:center;margin-top:-23px">
+      收货地址
+    </ion-label>
+  </ion-label>
+</ion-item>
 
-<ion-content>
-
+<ion-content  *ngIf="pagetype==1">
+  <ion-item style="font-size: 1rem;top: 10px;">
+    <ion-row style="width: 100%;">
+      <ion-col size="10">
+        <ion-row style="width: 100%;">
+          <ion-col size="3">
+            熊涛
+          </ion-col>
+          <ion-col size="9" style="    text-align: right;">
+            13635425950
+          </ion-col>
+        </ion-row>
+        <ion-row style="width: 100%;">
+          <ion-col size="12">
+            <div class="divaddress">
+              <div class="divdef">
+                &nbsp;&nbsp;默认&nbsp;&nbsp;</div> 
+              <div style="display: inline;line-height: 25px;">北京市 西城区  重庆市巴南区接龙正里加盐</div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col size="2">
+        <button class="btn">编辑</button>
+      </ion-col>
+    </ion-row> 
+  </ion-item> 
 </ion-content>
+
+<ion-content  *ngIf="pagetype==2"> 
+      <ion-row class="row">
+        <ion-col size="4" class="lable">
+          姓名
+        </ion-col>
+        <ion-col size="8">
+          <input placeholder="请输入姓名"   (focus)="OnselectText('#username')" id="username"    style="text-align: right;" [(ngModel)]="mod.model.mcs_name"/>
+        </ion-col>
+      </ion-row> 
+      <ion-row class="row">
+        <ion-col size="4" class="lable">
+          手机号码
+        </ion-col>
+        <ion-col size="8">
+          <input type="tel" maxlength="11"  (focus)="OnselectText('#userphone')" id="userphone"   style="text-align: right;" placeholder="请输入手机号码"
+            [(ngModel)]="mod.model.mcs_phone"/>
+        </ion-col>
+      </ion-row>
+      <ion-row class="row">
+          <ion-col size="4" class="lable">
+            所在地区
+          </ion-col>
+          <ion-col size="8">
+             
+            
+          </ion-col>
+        </ion-row>
+     
+      
+      <ion-row class="row">
+        <ion-col size="4" class="lable">
+          详情地址
+        </ion-col>
+        <ion-col size="8">
+          <ion-textarea style="height: 80px;" [(ngModel)]="mod.model.mcs_signature">
+          </ion-textarea>
+        </ion-col>
+      </ion-row>
+       
+      <div class="ion-padding">
+        <ion-button expand="block" type="button" (click)="onPost()"
+          class="ion-no-margin ios button button-block button-solid ion-activatable ion-focusable hydrated">
+          提交
+        </ion-button>
+      </div>
+  </ion-content>
