@@ -96,7 +96,6 @@ namespace DCEM.UserCenterService.Main.Application.Services
         }
         #endregion
 
-
         #region 我的试乘试驾查询
         /// <summary>
         /// 我的试乘试驾查询
@@ -174,5 +173,48 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
         #endregion
 
+        #region 根据主键id获取 试乘试驾反馈详情
+
+        public async Task<TestDriveFeedbackDetailModel> GetDriveFeedbackDetail(string testdrivefeedbackmasterid)
+        {
+            try
+            {
+                TestDriveFeedbackDetailModel model = new TestDriveFeedbackDetailModel();
+            
+
+                #region 试驾反馈报告基本信息
+                var dicHead = new Dictionary<string, IEnumerable<string>>();
+                dicHead.Add("Prefer", new List<string>() { "odata.include-annotations=\"*\"" });
+                var VehorderData = await _crmService.Retrieve("mcs_testdrivefeedbackmaster", Guid.Parse(testdrivefeedbackmasterid), string.Empty, null, dicHead);
+                #endregion
+
+                #region 用户反馈问题项
+
+                var fetchString_One = _Repository.GetDriveFeedbackItemList(testdrivefeedbackmasterid);
+
+                var fetchXdoc_One = XDocument.Parse(fetchString_One);
+                var fetchRequest_One = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "mcs_testdrivefeedback",
+                    FetchXml = fetchXdoc_One,                 
+                };
+                var fetchResponse = await _crmService.Execute(fetchRequest_One);
+                var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                #endregion
+             
+                model.TestDriveFeedbackInfo = VehorderData;
+                model.DrivefeedbackList = fetchResponseResult.Value.Results;
+      
+                return model;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
+        #endregion
     }
 }

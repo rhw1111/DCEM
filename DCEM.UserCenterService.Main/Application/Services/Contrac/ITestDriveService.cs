@@ -34,5 +34,13 @@ namespace DCEM.UserCenterService.Main.Application.Services.Contrac
         /// <param name="request"></param>
         /// <returns></returns>
         Task<QueryResult<CrmEntity>> GetDriveFeedbackList(TestDriveFeedbackRequest request);
+
+
+        /// <summary>
+        /// 试乘试驾反馈报告详情
+        /// </summary>
+        /// <param name="testdrivefeedbackmasterid"></param>
+        /// <returns></returns>
+        Task<TestDriveFeedbackDetailModel> GetDriveFeedbackDetail(string testdrivefeedbackmasterid);
     }
 }

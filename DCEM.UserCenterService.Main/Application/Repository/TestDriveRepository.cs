@@ -99,5 +99,42 @@ namespace DCEM.UserCenterService.Main.Application.Repository
 
         #endregion
 
+
+        #region 我的试乘试驾反馈问题项xml
+        /// <summary>
+        ///  我的试乘试驾反馈问题项xml
+        /// </summary>
+        /// <param name="Request"></param>
+        /// <returns></returns>
+        public string GetDriveFeedbackItemList(string testdrivefeedbackmasterid)
+        {
+            var filter = string.Empty;
+            if (!string.IsNullOrEmpty(testdrivefeedbackmasterid))
+            {
+                filter += $"<condition attribute='mcs_testdrivefeedbackmasterid' operator='eq' value='{testdrivefeedbackmasterid}' />";
+            }
+
+            var fetchString = $@"<fetch version='1.0'  output-format='xml-platform' mapping='logical' distinct='false'>
+                <entity name='mcs_testdrivefeedback'>
+                <attribute name='mcs_testdrivefeedbackid' />
+                <attribute name='mcs_name' />
+                <attribute name='mcs_surveyquestion' />
+                <attribute name='mcs_suveryanswer' />           
+                <attribute name='mcs_testdrivefeedbackmasterid' />   
+                <attribute name='createdon' />        
+                <order attribute='createdon' descending='true' />
+                <filter type='and'>
+                  <condition attribute='statecode' operator='eq' value='0' />
+                  {filter}   
+                </filter>                              
+              </entity>
+            </fetch>";
+
+            return fetchString;
+        }
+
+        #endregion
+
+
     }
 }
