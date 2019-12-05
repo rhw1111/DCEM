@@ -181,6 +181,15 @@ const routes: Routes = [
             { path: 'success', loadChildren: () => import('./page/testdrive/success/success.module').then(m => m.SuccessPageModule) },
         ]
     },
+    {
+        path: 'testdriveFeedback',  //试乘试驾反馈报告
+        children: [
+            //{ path: 'edit', loadChildren: () => import('./page/testdrivefeedback/edit/edit.module').then(m => m.EditPageModule) },
+            { path: 'list', loadChildren: () => import('./page/testdrivefeedback/list/list.module').then(m => m.ListPageModule) },
+        
+        ]
+    },
+
 
     {
         path: 'detail',
@@ -236,11 +245,7 @@ const routes: Routes = [
                 loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
             }
         ]
-    },
-  {
-    path: 'shippingaddress',
-    loadChildren: () => import('./page/home/shippingaddress/shippingaddress.module').then( m => m.ShippingaddressPageModule)
-  }
+    }
 ];
 @NgModule({
     imports: [

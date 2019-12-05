@@ -53,5 +53,18 @@ namespace DCEM.Web.Controllers.UCenter
         }
         #endregion
 
+
+
+        #region 我的试乘试驾反馈报告查询
+
+        [HttpPost]
+        [Route("GetDriveFeedbackList")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetDriveFeedbackList(TestDriveFeedbackRequest request)
+        {
+            var list = await app.GetDriveFeedbackList(request);
+            return list;
+        }
+        #endregion
+
     }
 }

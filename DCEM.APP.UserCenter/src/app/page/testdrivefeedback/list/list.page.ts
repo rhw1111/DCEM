@@ -3,6 +3,7 @@ import { DCore_Http, DCore_Page } from 'app/component/typescript/Dcem.core';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { OptionSetService } from 'app/component/typescript/optionset.service';
 import sd from 'silly-datetime';
+import { Storage_LoginInfo } from 'app/component/typescript/logininfo.storage';
 
 @Component({
   selector: 'app-list',
@@ -12,8 +13,8 @@ import sd from 'silly-datetime';
 export class ListPage implements OnInit {
 
   public model = {
-    name: 'DriveRecordList',//模块实体名称
-    apiUrl: 'api/testdrive/GetDriveRecordList',//请求地址
+    name: 'DriveFeedbackList',//模块实体名称
+    apiUrl: 'api/testdrive/GetDriveFeedbackList',//请求地址
    
     isending: false,//是否加载完成
     datalist: [],//列表数据
@@ -21,13 +22,15 @@ export class ListPage implements OnInit {
         Sort: '',
         PageSize: 10,
         PageIndex: 1,
+        UserId:""
     }
 };
 
   constructor(
     private _http: DCore_Http,
     private _page: DCore_Page,
-    private optionset:OptionSetService
+    private optionset:OptionSetService,
+    private _logininfo: Storage_LoginInfo
   ) { }
 
   ngOnInit() {
@@ -51,26 +54,20 @@ doLoading(event) {
 //获取列表数据
 getList(event) {
   this._page.loadingShow();
-  this._http.post(this.model.apiUrl,
-
-    this.model.params
-    ,
+  this.model.params.UserId=this._logininfo.GetSystemUserId()
+  this._http.post(this.model.apiUrl, this.model.params,
       (res: any) => {
-        // debugger;
+         //debugger;
           if (res.Results !== null) {
               //绑定数据
               res.Results.forEach(item => {              
                   var obj = {}; 
-                  obj["mcs_driverecordid"] = item["Attributes"].mcs_driverecordid;   
+                  obj["mcs_testdrivefeedbackmasterid"] = item["Attributes"].mcs_testdrivefeedbackmasterid;   
                   obj["mcs_name"] = item["Attributes"].mcs_name;          
-                  obj["mcs_fullname"] = item["Attributes"].mcs_fullname;
-                  obj["mcs_mobilephone"] = item["Attributes"].mcs_mobilephone;
-                  obj["mcs_carmodel"] = item["Attributes"].mcs_carmodel2_x002e_mcs_name;                  
-                  obj["mcs_businesstype"] =this.optionset.GetOptionSetNameByValue( "mcs_businesstype",item["Attributes"].mcs_businesstype);
-                  obj["mcs_dealerid"] = item["Attributes"].mcs_dealer3_x002e_mcs_name;    
-                  obj["mcs_ordertime"] = item["Attributes"].mcs_ordertime;
-                  obj["mcs_testdrivetime"] = item["Attributes"].mcs_reservationconfiguration1_x002e_mcs_name;      
-                  obj["mcs_drivestatus"] = this.optionset.GetOptionSetNameByValue( "mcs_drivestatus",item["Attributes"].mcs_drivestatus);
+                  obj["mcs_surveytime"] =this.FormatToDate(item["Attributes"].mcs_surveytime);
+                  obj["mcs_score"] = item["Attributes"].mcs_score;
+                  obj["mcs_averagescore"] = item["Attributes"].mcs_averagescore;                  
+                  obj["mcs_driverecord"] = item["Attributes"].mcs_driverecord1_x002e_mcs_name;    
                   obj["createdon"] = item["Attributes"].createdon;
                   this.model.datalist.push(obj);
 

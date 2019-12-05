@@ -12,7 +12,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository
         /// <summary>
         /// 我的试乘试驾预约xml
         /// </summary>
-        /// <param name="vehorderRequest"></param>
+        /// <param name="Request"></param>
         /// <returns></returns>
         public string GetDriveRecordList(TestDriveRequest Request)
         {
@@ -33,6 +33,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository
             var fetchString = $@"<fetch version='1.0' count='{Request.PageSize}' page='{Request.PageIndex}' output-format='xml-platform' mapping='logical' distinct='false'>
                 <entity name='mcs_driverecord'>
                 <attribute name='mcs_driverecordid' />
+                <attribute name='mcs_name' />
                 <attribute name='mcs_fullname' />
                 <attribute name='mcs_mobilephone' />
                 <attribute name='mcs_carmodel' />
@@ -62,5 +63,41 @@ namespace DCEM.UserCenterService.Main.Application.Repository
             return fetchString;
         }
         #endregion
+
+        #region 我的试乘试驾反馈xml
+        /// <summary>
+        ///  我的试乘试驾反馈xml
+        /// </summary>
+        /// <param name="Request"></param>
+        /// <returns></returns>
+        public string GetDriveFeedbackList(TestDriveFeedbackRequest Request)
+        {
+            var filter = string.Empty;          
+          
+            var fetchString = $@"<fetch version='1.0' count='{Request.PageSize}' page='{Request.PageIndex}' output-format='xml-platform' mapping='logical' distinct='false'>
+                <entity name='mcs_testdrivefeedbackmaster'>
+                <attribute name='mcs_testdrivefeedbackmasterid' />
+                <attribute name='mcs_name' />
+                <attribute name='mcs_surveytime' />
+                <attribute name='mcs_score' />
+                <attribute name='mcs_averagescore' />
+                <attribute name='mcs_driverecordid' />   
+                <attribute name='createdon' />        
+                <order attribute='createdon' descending='true' />
+                <filter type='and'>
+                  <condition attribute='statecode' operator='eq' value='0' />
+                  <condition attribute='ownerid' operator='eq-userid' />             
+                </filter>
+                   <link-entity name='mcs_driverecord' from='mcs_driverecordid' to='mcs_driverecordid' visible='false' link-type='outer' >
+                     <attribute name='mcs_name' />
+                   </link-entity>                   
+              </entity>
+            </fetch>";
+
+            return fetchString;
+        }
+
+        #endregion
+
     }
 }
