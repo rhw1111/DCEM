@@ -48,11 +48,11 @@ export class DCore_Config {
 
         this.dcem_host_map = function () {
             var map = new Map<string, any>();
-            map.set("dev", "https://subcrmdevapi.sokon.com/tc/");
-            map.set("sit", "https://subcrmsitapi.sokon.com/tc/");
-            map.set("uat", "https://subcrmuatapi.sokon.com/tc/");
-            map.set("localhost", "https://localhost:44382/");
-            map.set("9_0", "http://106.14.121.65:8082/tc/");
+            map.set("dev", "https://subcrmdevapi.sokon.com/dcem");
+            map.set("sit", "https://subcrmdevapi.sokon.com/dcem");
+            map.set("uat", "https://subcrmuatapi.sokon.com/dcem");
+            map.set("localhost", "https://localhost:44382");
+            map.set("9_0", "http://106.14.121.65:8082/dcem/");
             return map;
         }();
 
