@@ -11,10 +11,8 @@
       <ion-item-sliding *ngFor="let item of mod.data;let key=index">
           <ion-item (click)="itemClick(item)">
               <ion-label>
-                  <h2>车牌号:{{item.mcs_plate}}</h2>
-                  <p>车主姓名{{item.mcs_username}}</p>
-                  <p>车主手机号:{{item.mcs_phone}}</p>
-                  <p>Vin码:{{item.mcs_name}}</p>
+                  <h2>{{item.mcs_username}}</h2>
+                  <p>车牌号:{{item.mcs_plate}}</p>
               </ion-label>
           </ion-item>
       </ion-item-sliding>

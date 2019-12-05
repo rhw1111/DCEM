@@ -458,7 +458,14 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
                 XDocument fetchXdoc2 = await _repository.getuserscorebalance(userDetailRequest);
                 var getbalanceentitys = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_member", fetchXdoc2);
-                response.balance = (Int32)getbalanceentitys.Results[0].Attributes["mcs_bonuspoint"];
+                if (getbalanceentitys.Results != null && getbalanceentitys.Results.Count > 0)
+                {
+                    response.balance = (Int32)getbalanceentitys.Results[0].Attributes
+    ["mcs_bonuspoint"];
+                }
+                else {
+                    response.balance = 0;
+                }
                 return response; 
             }
             catch (Exception ex)
