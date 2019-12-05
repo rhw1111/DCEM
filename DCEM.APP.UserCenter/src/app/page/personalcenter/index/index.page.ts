@@ -4,6 +4,7 @@ import { UserinfoComponent } from '../../../component/modal/userinfo/userinfo.co
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { Storage_LoginInfo } from '../../../component/typescript/logininfo.storage';
+import { DCore_Page } from '../../../component/typescript/dcem.core';
 @Component({
     selector: 'app-index',
     templateUrl: './index.page.html',
@@ -16,6 +17,7 @@ export class IndexPage {
         private modalCtrl: ModalController,
         private _logininfo: Storage_LoginInfo,
         private route: Router,
+        private _page: DCore_Page,
         private activeRoute: ActivatedRoute) {
         if (this._logininfo.GetNickName() != null) {
             this.name = this._logininfo.GetNickName();
@@ -33,6 +35,7 @@ export class IndexPage {
     //选择登陆窗口
     async loginModal() {
         if (this.name != "登陆") {
+            /*
             const modal = await this.modalCtrl.create({
                 component: UserinfoComponent
             });
@@ -42,6 +45,8 @@ export class IndexPage {
             if (data != null && data != undefined) {
                 this.name = this._logininfo.GetNickName();
             }
+            */
+           this._page.goto("/personalcenter/userinfo/detail");
         } else {
             const modal = await this.modalCtrl.create({
                 component: LoginComponent,
