@@ -11,30 +11,22 @@ import { DCore_Page } from '../../../component/typescript/dcem.core';
     styleUrls: ['./index.page.scss'],
 })
 export class IndexPage {
-
-    public name: any = "登陆";
+ 
     constructor(
         private modalCtrl: ModalController,
         private _logininfo: Storage_LoginInfo,
         private route: Router,
         private _page: DCore_Page,
-        private activeRoute: ActivatedRoute) {
-        if (this._logininfo.GetNickName() != null) {
-            this.name = this._logininfo.GetNickName();
-        }
-
-        //跳转参数如果是1表示退出登录操作
+        private activeRoute: ActivatedRoute) { 
+        //跳转参数  
         this.activeRoute.queryParams.subscribe((params: Params) => { 
-            if (params['return'] == "1") { 
-                this.name = "登陆";
-                this._logininfo.SetInfo(null);
-            }
-        });
-
+        }); 
+    }
+    ngOnInit() { 
     }
     //选择登陆窗口
     async loginModal() {
-        if (this.name != "登陆") {
+        if (this._logininfo.GetNickName()!=null) {
             /*
             const modal = await this.modalCtrl.create({
                 component: UserinfoComponent
@@ -46,7 +38,7 @@ export class IndexPage {
                 this.name = this._logininfo.GetNickName();
             }
             */
-           this._page.goto("/personalcenter/userinfo/detail");
+            this._page.goto("/personalcenter/userinfo/detail");
         } else {
             const modal = await this.modalCtrl.create({
                 component: LoginComponent,
@@ -57,13 +49,7 @@ export class IndexPage {
             await modal.present();
             //监听销毁的事件
             const { data } = await modal.onDidDismiss();
-            if (data != null && data != undefined) {
-                if (data.login) {
-                    this.name = this._logininfo.GetNickName();
-                } else {
-                    this.name = "登陆";
-                }
-            }
+            
         }
 
     }
