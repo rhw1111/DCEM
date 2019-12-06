@@ -184,7 +184,7 @@ const routes: Routes = [
     {
         path: 'testdriveFeedback',  //试乘试驾反馈报告
         children: [
-            //{ path: 'edit', loadChildren: () => import('./page/testdrivefeedback/edit/edit.module').then(m => m.EditPageModule) },
+            { path: 'detail', loadChildren: () => import('./page/testdrivefeedback/detail/detail.module').then(m => m.DetailPageModule) },
             { path: 'list', loadChildren: () => import('./page/testdrivefeedback/list/list.module').then(m => m.ListPageModule) },
 
         ]
