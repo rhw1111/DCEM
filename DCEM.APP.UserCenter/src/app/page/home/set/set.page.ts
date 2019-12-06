@@ -39,12 +39,9 @@ export class SetPage implements OnInit {
     //监听销毁的事件
     const { data } = await modal.onDidDismiss();
   }
-  onRetrun() {
-    this.route.navigate(['/tabs/personalcenter'], {
-      queryParams: {
-        return: "1"
-      }
-    });
+  onRetrun() { 
+    this._logininfo.SetInfo(null);
+    this._page.goto("/tabs/personalcenter");
   }
   ngOnInit() {
   }

@@ -186,7 +186,7 @@ const routes: Routes = [
         children: [
             //{ path: 'edit', loadChildren: () => import('./page/testdrivefeedback/edit/edit.module').then(m => m.EditPageModule) },
             { path: 'list', loadChildren: () => import('./page/testdrivefeedback/list/list.module').then(m => m.ListPageModule) },
-        
+
         ]
     },
 
@@ -220,6 +220,10 @@ const routes: Routes = [
         path: 'set',
         loadChildren: () => import('./page/home/set/set.module').then(m => m.SetPageModule)
     },
+    {
+        path: 'shippingaddress',
+        loadChildren: () => import('./page/home/shippingaddress/shippingaddress.module').then(m => m.ShippingaddressPageModule)
+    }
 ];
 @NgModule({
     imports: [

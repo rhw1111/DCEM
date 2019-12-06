@@ -120,7 +120,7 @@ export class LoginComponent implements OnInit {
     var ii = 90;
     $("#divmsgshow").show();
     $("#divbtnshow").hide();
-    $('#lbsendmsg').text('90秒重新获取验证码'); 
+    $('#lbsendmsg').text('90秒重新获取验证码');
     var intt;
     this.loginInterval = intt = setInterval(function () {
       ii--;
@@ -439,7 +439,6 @@ export class LoginComponent implements OnInit {
 
   //修改用户密码
   onPwdReset(type) {
-
     if (this.mod.model.account == '') {
       this.valmsg = '请填写手机号！';
       this.isval = true;
@@ -475,16 +474,12 @@ export class LoginComponent implements OnInit {
           this._page.loadingHide();
           if (this.disstatus == 6) {
             this.disstatus = 7;
-          }else{
+          } else {
             this._page.alert("消息提示", "更改成功!");
-            this.route.navigate(['/tabs/personalcenter'], {
-              queryParams: {
-                return: "2"
-              }
-            });
-          this.onReturn(true);
+            this._page.goto("/tabs/personalcenter");
+            this.onReturn(true);
           }
-         
+
         }
         else {
           this._page.loadingHide();
