@@ -70,6 +70,10 @@
     <Folder Include="src\app\page\servicecenter\index\" />
     <Folder Include="src\app\page\servicecenter\boutique\" />
     <Folder Include="src\app\page\carcenter\carstore\" />
+    <Folder Include="src\app\page\servicecenter\payment\" />
+    <Folder Include="src\app\page\servicecenter\payment\payment\" />
+    <Folder Include="src\app\page\servicecenter\preorder\" />
+    <Folder Include="src\app\page\servicecenter\preorder\preorder\" />
     <Folder Include="src\app\page\servicecenter\reservation.com\" />
     <Folder Include="src\app\page\servicecenter\reservation.com\edit\" />
     <Folder Include="src\app\page\servicecenter\reservation.com\list\" />
@@ -157,6 +161,14 @@
     <TypeScriptCompile Include="src\app\page\servicecenter\index\index.module.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\index\index.page.spec.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\index\index.page.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\payment\payment\payment-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\payment\payment\payment.module.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\payment\payment\payment.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\payment\payment\payment.page.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\preorder\preorder\preorder-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\preorder\preorder\preorder.module.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\preorder\preorder\preorder.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\preorder\preorder\preorder.page.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\reservation.com\edit\edit-routing.module.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\reservation.com\edit\edit.module.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\reservation.com\edit\edit.page.spec.ts" />
@@ -225,6 +237,10 @@
     <Content Include="src\app\page\servicecenter\dealer\list\list.page.scss" />
     <Content Include="src\app\page\servicecenter\index\index.page.html" />
     <Content Include="src\app\page\servicecenter\index\index.page.scss" />
+    <Content Include="src\app\page\servicecenter\payment\payment\payment.page.html" />
+    <Content Include="src\app\page\servicecenter\payment\payment\payment.page.scss" />
+    <Content Include="src\app\page\servicecenter\preorder\preorder\preorder.page.html" />
+    <Content Include="src\app\page\servicecenter\preorder\preorder\preorder.page.scss" />
     <Content Include="src\app\page\servicecenter\reservation.com\edit\edit.page.html" />
     <Content Include="src\app\page\servicecenter\reservation.com\edit\edit.page.scss" />
     <Content Include="src\app\page\servicecenter\reservation.com\list\list.page.html" />

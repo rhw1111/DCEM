@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page } from '../../../../../app/component/typescript/dcem.core';
 import { ActivatedRoute } from '@angular/router';
-import { ToastController  } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 import * as $ from 'jquery';
 
 @Component({
@@ -20,7 +20,8 @@ export class DetailPage implements OnInit {
         datadetail: {}
     };
     //IsShowTwoBtnDialog: boolean = false;
-    IsShowForCart: boolean = false;
+    ShowType: any;
+    //IsShowForCart: boolean = false;
     IsShowCover: boolean = false;
     Isbadge: boolean = false;
     BadgeCount: any = 0;
@@ -112,11 +113,12 @@ export class DetailPage implements OnInit {
     }
     ShowTwoBtn(flag) {
         //this.IsShowTwoBtnDialog = true;
-        if (flag == 0) {
-            this.IsShowForCart = true;
-        } else {
-            this.IsShowForCart = false;
-        }
+        this.ShowType = flag;
+        //if (flag == 0) {
+        //    this.IsShowForCart = true;
+        //} else {
+        //    this.IsShowForCart = false;
+        //}
         this.IsShowCover = true;
         $(".TwoBtnDialog").slideDown();
     }
@@ -205,8 +207,10 @@ export class DetailPage implements OnInit {
             }
         });
         $(".lab-selected").html(standard);
-        if (this.IsShowForCart) {
+        if (this.ShowType == 1) {
             this.addInCart();
+        } else if (this.ShowType == 2) {
+            this.BuyPro();
         }
     }
     //加入购物车
@@ -222,7 +226,6 @@ export class DetailPage implements OnInit {
         skuname = skuname.substring(index + 1, skuname.length);
         var cardata = {
             "checkAll": false,
-            "editcheckall": false,
             "totalprice": parseFloat("0").toFixed(2),
             "datas": [{
                 "productcode": this.id,
@@ -232,19 +235,9 @@ export class DetailPage implements OnInit {
                 "price": price,
                 "img": img,
                 "num": num,
-                "checked": false,
-                "editchecked": false
+                "checked": false
             }]
         };
-        //var cardata = [{
-        //    "productcode": this.id,
-        //    "skucode": skucode,
-        //    "productname": productname,
-        //    "skuname": skuname,
-        //    "price": price,
-        //    "img": img,
-        //    "num": num
-        //}];
         var storage = window.localStorage;
         var beforecardataJson;
         var beforecardata = storage.getItem("singlecar");
@@ -276,8 +269,28 @@ export class DetailPage implements OnInit {
         });
         toast.present();
     }
-    RemoveStorage() {
-        var storage = window.localStorage;
-        storage.removeItem("singlecar");
+    //购买
+    BuyPro() {
+        var skucode = $("#proSkuID").val();
+        var productname = $(".lab-proname p:eq(0)").text();
+        var price = $(".span-price").text();
+        var img = $(".div-skuimg>img").attr("src");
+        var skuname = $(".lab-selected").text();
+        var num = parseInt($(".spinners").val().toString() || "0", 10);
+        var index = skuname.lastIndexOf("\:");
+        skuname = skuname.substring(index + 1, skuname.length);
+        var orderata = {
+            "source": "detial",
+            "datas": [{
+                "productcode": this.id,
+                "skucode": skucode,
+                "productname": productname,
+                "skuname": skuname,
+                "price": price,
+                "img": img,
+                "num": num
+            }]
+        };
+        this._page.navigateRoot("/servicecenter/preorder/preorder", orderata);
     }
 }

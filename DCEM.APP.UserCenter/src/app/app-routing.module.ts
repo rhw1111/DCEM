@@ -170,7 +170,19 @@ const routes: Routes = [
                     { path: 'detail', loadChildren: () => import('./page/servicecenter/reservation/detail/detail.module').then(m => m.DetailPageModule) },
                     { path: 'success', loadChildren: () => import('./page/servicecenter/reservation/success/success.module').then(m => m.SuccessPageModule) }
                 ]
-            }
+            },
+            {
+                path: 'preorder',  //提交订单
+                children: [
+                    { path: 'preorder', loadChildren: () => import('./page/servicecenter/preorder/preorder/preorder.module').then(m => m.PreorderPageModule) }
+                ]
+            },
+            {
+                path: 'payment',  //支付
+                children: [
+                    { path: 'payment', loadChildren: () => import('./page/servicecenter/payment/payment/payment.module').then(m => m.PaymentPageModule) }
+                ]
+            },
         ]
     },
     {
@@ -186,7 +198,7 @@ const routes: Routes = [
         children: [
             //{ path: 'edit', loadChildren: () => import('./page/testdrivefeedback/edit/edit.module').then(m => m.EditPageModule) },
             { path: 'list', loadChildren: () => import('./page/testdrivefeedback/list/list.module').then(m => m.ListPageModule) },
-        
+
         ]
     },
 
@@ -220,7 +232,16 @@ const routes: Routes = [
         path: 'set',
         loadChildren: () => import('./page/home/set/set.module').then(m => m.SetPageModule)
     },
-];
+    {
+        path: 'preorder',
+        loadChildren: () => import('./page/servicecenter/preorder/preorder/preorder.module').then(m => m.PreorderPageModule)
+    },
+    {
+        path: 'payment',
+        loadChildren: () => import('./page/servicecenter/payment/payment/payment.module').then(m => m.PaymentPageModule)
+    },
+]
+    ;
 @NgModule({
     imports: [
         RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })

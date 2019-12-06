@@ -44,7 +44,6 @@ export class ListPage implements OnInit {
 
     //增减数量
     changeValue(e, delta) {
-        debugger;
         console.log($(e.target).hasClass("decrease"));
         var num = this.getValue(e) + delta;
         var totalprice = 0;
@@ -76,6 +75,15 @@ export class ListPage implements OnInit {
     //是否编辑
     doEdit(flag) {
         this.IsEdit = flag == 0;
+        if (this.IsEdit) {
+            $(".tab-hide").addClass("tab-background-5a5").show().attr("disabled", "disabled");
+            $(".tab-cac").removeClass("tab-background-5a5 tab-background-38b").hide();
+            $(".span-total").hide();
+        } else {
+            $(".tab-hide").removeClass("tab-background-5a5 tab-background-38b").hide();
+            $(".tab-cac").addClass("tab-background-5a5").show().attr("disabled", "disabled");
+            $(".span-total").show();
+        }
         this.model.cartList.checkAll = false;
         this.model.cartList.datas.forEach(res => {
             res.checked = false;
@@ -94,7 +102,9 @@ export class ListPage implements OnInit {
             });
             this.model.cartList.totalprice = parseFloat(totalprice.toString()).toFixed(2);
             if (this.IsEdit) {
-                $("#removeoption").addClass("tab-background-38b").removeAttr('disabled');
+                $(".tab-hide").addClass("tab-background-38b").removeClass("tab-background-5a5").removeAttr('disabled');
+            } else {
+                $(".tab-cac").addClass("tab-background-38b").removeClass("tab-background-5a5").removeAttr('disabled');
             }
         } else {
             this.model.cartList.datas.forEach(res => {
@@ -102,14 +112,15 @@ export class ListPage implements OnInit {
             });
             this.model.cartList.totalprice = parseFloat("0").toFixed(2);
             if (this.IsEdit) {
-                $("#removeoption").addClass("tab-background-ccc").attr("disabled", "disabled");
+                $(".tab-hide").addClass("tab-background-5a5").removeClass("tab-background-38b").attr("disabled", "disabled");
+            } else {
+                $(".tab-cac").addClass("tab-background-5a5").removeClass("tab-background-38b").attr("disabled", "disabled");
             }
         }
 
     }
     //单选
     change(item) {
-        console.log(this.model.cartList)
         const arr = [];
         var totalprice = 0;
         this.model.cartList.datas.forEach(res => {
@@ -126,9 +137,15 @@ export class ListPage implements OnInit {
         }
         if (this.IsEdit) {
             if (!arr.includes(true)) {
-                $("#removeoption").addClass("tab-background-ccc").attr("disabled", "disabled");
+                $(".tab-hide").addClass("tab-background-5a5").removeClass("tab-background-38b").attr("disabled", "disabled");
             } else {
-                $("#removeoption").addClass("tab-background-38b").removeAttr('disabled');
+                $(".tab-hide").addClass("tab-background-38b").removeClass("tab-background-5a5").removeAttr('disabled');
+            }
+        } else {
+            if (!arr.includes(true)) {
+                $(".tab-cac").addClass("tab-background-5a5").removeClass("tab-background-38b").attr("disabled", "disabled");
+            } else {
+                $(".tab-cac").addClass("tab-background-38b").removeClass("tab-background-5a5").removeAttr('disabled');
             }
         }
         
@@ -144,5 +161,26 @@ export class ListPage implements OnInit {
         this.model.cartList.datas = datas;
         var storage = window.localStorage;
         storage.setItem("singlecar", this.model.cartList);
+    }
+    //结算
+    BuyPro() {
+        var orderata = {
+            "source": "cart",
+            "datas": []
+        };
+        this.model.cartList.datas.forEach(res => {
+            if (res.checked) {
+                orderata.datas.push({
+                    "productcode": res.productcode,
+                    "skucode": res.skucode,
+                    "productname": res.productname,
+                    "skuname": res.skuname,
+                    "price": res.price,
+                    "img": res.img,
+                    "num": res.num
+                })
+            }
+        });
+        this._page.navigateRoot("/servicecenter/preorder/preorder", orderata)
     }
 }

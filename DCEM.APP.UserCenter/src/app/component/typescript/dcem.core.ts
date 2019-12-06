@@ -25,7 +25,7 @@ export class DCore_Window {
     providedIn: 'root'
 })
 export class DCore_Config {
-    public server: string = "localhost";//接口环境
+    public server: string = "uat";//接口环境
 
     /*
         获取商城的接口地址
