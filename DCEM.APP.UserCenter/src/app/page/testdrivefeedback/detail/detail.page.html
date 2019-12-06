@@ -1,9 +1,89 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>detail</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text="返回"   ></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <ion-label>用户反馈</ion-label>
+    </ion-title>
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content>
+      <ion-list lines="full">
+        <ion-item-divider style="background-color:lightgray;">
+          <ion-label>
+            基本信息
+          </ion-label>
+        </ion-item-divider>
+        <ion-item>
+          <ion-label>
+            <h2>
+              姓名
+            </h2>
+            <p>{{model.data.mcs_username}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              手机号码
+            </h2>
+            <p>{{model.data.mcs_userphone}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              反馈时间
+            </h2>
+            <p>{{model.data.mcs_surveytime}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              综合评分
+            </h2>
+            <p>{{model.data.mcs_score}}&nbsp;</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>
+              平均评分
+            </h2>
+            <p>{{model.data.mcs_averagescore}}&nbsp;</p>
+          </ion-label>
+        </ion-item>     
+      </ion-list>
+      <ion-list class="ios list-ios hydrated"[ngStyle]="{'width': '94%','margin-left': '3%'}"> 
+        <ion-item-divider style="background-color:lightgray;">
+          <ion-label>
+            反馈问题项
+          </ion-label>
+        </ion-item-divider>
+        <ion-item-group    role="group"  *ngFor="let item of model.DrivefeedbackList">
+          <ion-item >
+            <ion-label >
+              <h3>{{item.mcs_surveyquestion}}</h3>
+            </ion-label>
+          </ion-item>
+
+          <ion-item style="border:lightgray 1px solid ; height: 150px;">
+            <ion-label style="height: 200px;">
+              <h4>{{item.mcs_suveryanswer}}</h4>
+            </ion-label>
+          </ion-item> 
+        </ion-item-group>
+      </ion-list>
+      <ion-label *ngIf="model.DrivefeedbackList.length==0" text-center>    
+        <p>
+           无数据显示啦
+        </p>      
+      </ion-label>
+  <br />
+  <br />
 
 </ion-content>

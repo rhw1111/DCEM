@@ -66,7 +66,7 @@ namespace DCEM.Web.Controllers.UCenter
         #endregion
 
         #region 我的试乘试驾反馈报告详情
-        [HttpPost]
+        [HttpGet]
         [Route("GetDriveFeedbackDetail")]
         public async Task<NewtonsoftJsonActionResult<TestDriveFeedbackDetailModel>> GetDriveFeedbackDetail(string testdrivefeedbackmasterid)
         {
