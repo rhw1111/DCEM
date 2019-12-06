@@ -3,16 +3,17 @@
     <ion-buttons slot="start">
       <ion-back-button text="返回" defaultHref="/"></ion-back-button>
     </ion-buttons>
-    <ion-title>收货地址</ion-title> 
-    <button class="btn" style="width: 55px;font-size: 1rem;margin-left: 80%;"  *ngIf="pagetype==1" (click)="onEdit()">新增</button>
+    <ion-title>收货地址</ion-title>
+    <button class="btn" style="width: 55px;font-size: 1rem;margin-left: 80%;" *ngIf="pagetype==1"
+      (click)="onEdit()">新增</button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content *ngIf="pagetype==1">
   <ion-list lines="full">
-    <ion-item style="font-size: 1rem;margin-top: 10px;" *ngFor="let item of mod.datalist ">
+    <ion-item style="font-size: 1rem;border-top: 15px solid #f3f3f3 " *ngFor="let item of mod.datalist ">
       <ion-row style="width: 100%;">
-        <ion-col size="10" >
+        <ion-col size="10">
           <ion-row style="width: 100%;">
             <ion-col size="3">
               {{item.mcs_name}}
@@ -21,7 +22,7 @@
               {{item.mcs_phone}}
             </ion-col>
           </ion-row>
-          <ion-row style="width: 100%;">
+          <ion-row style="width: 100%;  ">
             <ion-col size="12" style="padding-top:0px">
               <div class="divaddress">
                 <div class="divdef" *ngIf="item.mcs_isdefault">&nbsp;&nbsp;默认&nbsp;&nbsp;</div>
@@ -31,11 +32,22 @@
               </div>
             </ion-col>
           </ion-row>
+          <ion-row style="width: 100%; margin-top: 5px;">
+              <ion-col size="6" >
+                <button class="btn" style="color: #5bbbb4;"  (click)="onIsDef(item.id,item.mcs_userid)">设为默认地址</button>
+              </ion-col>
+              <ion-col size="6" >
+                  <button class="btn" style="color: #ec740d;;" (click)="onDele(item.id)">删除</button>
+              </ion-col>
+            </ion-row>
         </ion-col>
-        <ion-col size="2" >
+        <ion-col size="2" style="  border-left: 1px solid #e8e8e8;">
           <button class="btn" (click)="onEdit(item.id)">编辑</button>
         </ion-col>
       </ion-row>
+
+
+    
     </ion-item>
   </ion-list>
 

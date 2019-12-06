@@ -56,7 +56,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 Guid id = Guid.NewGuid();
                 var entity = new CrmExecuteEntity(entityName, id);
                 if (model.userid.HasValue)
-                    entity.Attributes.Add("mcs_userid", new CrmEntityReference("mcs_user", model.userid.Value));
+                    entity.Attributes.Add("mcs_userid", new CrmEntityReference("mcs_user", model.userid.Value)); 
                 if (model.mcs_area.HasValue)
                     entity.Attributes.Add("mcs_area", new CrmEntityReference("mcs_sysarea", model.mcs_area.Value));
                 if (model.mcs_city.HasValue)
@@ -110,6 +110,30 @@ namespace DCEM.UserCenterService.Main.Application.Services
             return validateResult;
         }
 
+
+        /// <summary>
+        /// 删除地址
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public ValidateResult Delete(ShippingaddressAddRequest model)
+        {
+            var validateResult = new ValidateResult();
+            try
+            { 
+                _crmService.Delete(entityName, Guid.Parse(model.mcs_shippingaddressid));  
+                #region 组装数据返回 
+                validateResult.Result = true;
+                validateResult.Description = "操作成功";
+                #endregion
+            }
+            catch (Exception e)
+            {
+                validateResult.Result = false;
+                validateResult.Description = e.Message;
+            }
+            return validateResult;
+        }
 
 
         /// <summary>

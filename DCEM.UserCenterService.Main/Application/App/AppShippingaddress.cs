@@ -45,5 +45,8 @@ namespace DCEM.UserCenterService.Main.Application.App
         {
             return _shippingaddressService.GetDetail(id);
         }
+
+        public ValidateResult Delete(ShippingaddressAddRequest model)
+            => _shippingaddressService.Delete(model);
     }
 }
