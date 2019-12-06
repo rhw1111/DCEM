@@ -71,6 +71,21 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     entity.Attributes.Add("mcs_phone", model.mcs_phone);
                 if (!string.IsNullOrEmpty(model.mcs_name))
                     entity.Attributes.Add("mcs_name", model.mcs_name);
+                //如果当前收货地址设置为默认，当前用户其它地址初始化为不默认
+                if (model.mcs_isdefault.Value == 0)
+                {
+                    ShippingaddressListRequest req = new ShippingaddressListRequest();
+                    req.PageIndex = 1;
+                    req.PageSize = 100;
+                    req.mcs_userid = model.userid.Value;
+                    Task<ValidateResult<List<CrmEntity>>> list = GetList(req);
+                    foreach (var item in list.Result.Data)
+                    {
+                        var entaddress = new CrmExecuteEntity(entityName, item.Id);
+                        entaddress.Attributes.Add("mcs_isdefault", false);
+                        _crmService.Update(entaddress);
+                    }
+                }
 
                 if (string.IsNullOrEmpty(model.mcs_shippingaddressid))
                 {

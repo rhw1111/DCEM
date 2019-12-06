@@ -4,8 +4,8 @@ import { DCore_Http, DCore_Page, DCore_Valid } from '../../../component/typescri
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Storage_LoginInfo } from '../../../component/typescript/logininfo.storage';
 import { ModalController } from '@ionic/angular';
-//import { MultiPickerModule } from 'ion-multi-picker';
-import { of } from "rxjs";
+import { SelectSysareaComponent } from '../../../component/modal/select-sysarea/select-sysarea.component';
+import * as $ from 'jquery';
 @Component({
   selector: 'app-shippingaddress',
   templateUrl: './shippingaddress.page.html',
@@ -19,7 +19,9 @@ export class ShippingaddressPage implements OnInit {
     getdetailurl: 'api/shippingaddress/getdetail',
     addorupateurl: 'api/shippingaddress/addorupate',
     datalist: [],//数据集合
-    isending: false,//是否加载完成
+    isending: false,//是否加载完成  
+    countryId: "DD0D2AE0-E414-EA11-B394-86D989685D12",//UAT:"7E83801C-795B-E911-A824-B53F780FAC1C",
+    level: 2,//行政区域级别 0:全球、1:国家、2:省、3:市、4:地区
     search: {
       getlisturl: "api/shippingaddress/getlist",
       pageSize: 10,//页数
@@ -48,6 +50,7 @@ export class ShippingaddressPage implements OnInit {
     private route: Router,
     private _page: DCore_Page,
     private _http: DCore_Http,
+    private _modalCtrl: ModalController,
     private activeRoute: ActivatedRoute) { }
 
 
@@ -72,7 +75,7 @@ export class ShippingaddressPage implements OnInit {
 
   //获取列表数据
   getList(event) {
-    this._http.postForShopping(this.mod.search.getlisturl,
+    this._http.post(this.mod.search.getlisturl,
       {
         PageSize: this.mod.search.pageSize,
         PageIndex: this.mod.search.page,
@@ -124,7 +127,7 @@ export class ShippingaddressPage implements OnInit {
   ngOnInit() {
     this.initListLoading();
   }
-  onRetrun() { 
+  onRetrun() {
     if (this.pagetype == 2)
       this.pagetype = 1;
     else
@@ -139,7 +142,7 @@ export class ShippingaddressPage implements OnInit {
   onEdit(id: any) {
     this.mod.datalist.forEach(item => {
       if (item.id == id) {
-        this.mod.model.id = item.Id;
+        this.mod.model.id = item.id;
         this.mod.model.mcs_userid = item.mcs_userid;
         this.mod.model.mcs_name = item.mcs_name;
         this.mod.model.mcs_province = item.mcs_province;
@@ -150,10 +153,171 @@ export class ShippingaddressPage implements OnInit {
         this.mod.model.mcs_provincename = item.mcs_provincename;
         this.mod.model.mcs_cityname = item.mcs_cityname;
         this.mod.model.mcs_areaname = item.mcs_areaname;
-        this.mod.model.mcs_isdefault = item.mcs_isdefault;
+        this.mod.model.mcs_isdefault = item.mcs_isdefault ? 0 : 1;
       }
     });
+    if (id == null) {
+      this.mod.model.mcs_isdefault = 1;
+      this.mod.model.mcs_userid = this._logininfo.GetSystemUserId();
+    }
     this.pagetype = 2;
+  }
 
+
+  onPost() {
+    if(this.mod.model.mcs_city==null){
+      this._page.alert("消息提示", "请选择城市");
+      return false;
+    }
+    if(this.mod.model.mcs_area==null){
+      this._page.alert("消息提示", "请选择地区");
+      return false;
+    }
+    if(this.mod.model.mcs_province==null){
+      this._page.alert("消息提示", "请选择省份");
+      return false;
+    }
+    if(this.mod.model.mcs_address==null){
+      this._page.alert("消息提示", "请输入详细地址");
+      return false;
+    }
+    if(this.mod.model.mcs_phone==null){
+      this._page.alert("消息提示", "请输入电话");
+      return false;
+    }
+    if(this.mod.model.mcs_name==null){
+      this._page.alert("消息提示", "请输入姓名");
+      return false;
+    }
+    this._http.post(this.mod.addorupateurl,
+      {
+        mcs_shippingaddressid: this.mod.model.id,
+        userid: this.mod.model.mcs_userid,
+        mcs_area: this.mod.model.mcs_area,
+        mcs_city: this.mod.model.mcs_city,
+        mcs_province: this.mod.model.mcs_province,
+        mcs_isdefault: this.mod.model.mcs_isdefault,
+        mcs_address: this.mod.model.mcs_address,
+        mcs_phone: this.mod.model.mcs_phone,
+        mcs_name: this.mod.model.mcs_name
+      },
+      (res: any) => {
+        if (res.Result) {
+          this.mod.datalist = [];
+          this.getList(null);
+          this.pagetype = 1;
+          this._page.alert("消息提示", "保存成功！");
+        }
+        else {
+          this._page.alert("消息提示", "数据加载异常");
+        }
+        this._page.loadingHide();
+      },
+      (err: any) => {
+        this._page.alert("消息提示", "数据加载异常");
+        this._page.loadingHide();
+      }
+    );
+  }
+
+
+
+  //获取省组件
+  async provinceModal() {
+    this.mod.level = 2;
+    const modal = await this._modalCtrl.create({
+      component: SelectSysareaComponent,
+      componentProps: {
+        'pid': this.mod.countryId,
+        'level': this.mod.level,
+      }
+    });
+    await modal.present();
+    const { data } = await modal.onDidDismiss();
+    if (data != null && typeof data != "undefined") {
+      if (data != null && typeof data != "undefined") {
+        //重置省市区
+        if (this.mod.model.mcs_province != data.id) {
+          //城市名称
+          this.mod.model.mcs_cityname = "--";
+          //城市ID
+          this.mod.model.mcs_city = "";
+          //区名称
+          this.mod.model.mcs_areaname = "--";
+          //区ID
+          this.mod.model.mcs_area = "";
+          this.mod.model.mcs_province = data.id;
+          this.mod.model.mcs_provincename = data.name;
+        }
+      }
+    }
+  }
+
+  //获取市组件
+  async cityModal() {
+    this.mod.level = 3;
+    const modal = await this._modalCtrl.create({
+      component: SelectSysareaComponent,
+      componentProps: {
+        'pid': this.mod.model.mcs_province,
+        'level': this.mod.level,
+      }
+    });
+    await modal.present();
+    const { data } = await modal.onDidDismiss();
+    if (data != null && typeof data != "undefined") {
+      if (data != null && typeof data != "undefined") {
+        //重置省市区
+        if (this.mod.model.mcs_city != data.id) {
+          //区名称
+          this.mod.model.mcs_areaname = "--";
+          //区ID
+          this.mod.model.mcs_area = "";
+          this.mod.model.mcs_city = data.id;
+          this.mod.model.mcs_cityname = data.name;
+        }
+      }
+    }
+  }
+
+  //获取区组件
+  async districtModal() {
+    this.mod.level = 4;
+    const modal = await this._modalCtrl.create({
+      component: SelectSysareaComponent,
+      componentProps: {
+        'pid': this.mod.model.mcs_city,
+        'level': this.mod.level,
+      }
+    });
+    await modal.present();
+    const { data } = await modal.onDidDismiss();
+    if (data != null && typeof data != "undefined") {
+      if (data != null && typeof data != "undefined") {
+        if (data.id != "undefined") {
+          this.mod.model.mcs_area = data.id;
+          this.mod.model.mcs_areaname = data.name;
+        }
+      }
+    }
+  }
+
+  //触发省事件
+  provinceOnClick() {
+    this.provinceModal()
+  }
+
+  //触发市事件
+  cityOnClick() {
+    if (this.mod.model.mcs_province != "") {
+      this.cityModal()
+    }
+  }
+
+  //触发区事件
+  districtOnClick() {
+    if (this.mod.model.mcs_city != "") {
+      this.districtModal()
+    }
   }
 }
