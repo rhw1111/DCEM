@@ -67,6 +67,15 @@ const routes: Routes = [
         path: 'personalcenter',  //用户中心
         children: [
             {
+                path: 'config',
+                children: [
+                    {
+                        path: 'about',
+                        loadChildren: () => import('./page/personalcenter/config/about/about.module').then(m => m.AboutPageModule)
+                    }
+                ]
+            },
+            {
                 path: 'userinfo',
                 children: [
                     {
