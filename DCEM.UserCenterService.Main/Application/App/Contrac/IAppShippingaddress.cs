@@ -28,6 +28,8 @@ namespace DCEM.UserCenterService.Main.Application.App.Contrac
 
         Task<ValidateResult<CrmEntity>> GetDetail(Guid id);
 
+        ValidateResult Delete(ShippingaddressAddRequest model);
+
 
     }
 }

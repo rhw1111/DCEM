@@ -1,0 +1,10 @@
+ion-item{
+    padding:10px 0;
+}
+.ion-item-addr::after {
+    content: "";
+    display: inline-block;
+    width: 92%;
+    margin: 0 4%;
+    border-bottom: 2px solid #F7F7F7;
+}

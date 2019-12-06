@@ -18,6 +18,7 @@ export class ShippingaddressPage implements OnInit {
   public mod: any = {
     getdetailurl: 'api/shippingaddress/getdetail',
     addorupateurl: 'api/shippingaddress/addorupate',
+    deleteurl: 'api/shippingaddress/delete',
     datalist: [],//数据集合
     isending: false,//是否加载完成  
     countryId: "DD0D2AE0-E414-EA11-B394-86D989685D12",//UAT:"7E83801C-795B-E911-A824-B53F780FAC1C",
@@ -218,6 +219,66 @@ export class ShippingaddressPage implements OnInit {
         this._page.loadingHide();
       }
     );
+  }
+
+//设置默认
+  onIsDef(id,mcs_userid) {
+    
+    this._http.post(this.mod.addorupateurl,
+      {
+        mcs_shippingaddressid: id,
+        userid: mcs_userid,
+        mcs_area: null,
+        mcs_city: null,
+        mcs_province: null,
+        mcs_isdefault: 0,
+        mcs_address: null,
+        mcs_phone:null,
+        mcs_name: null
+      },
+      (res: any) => {
+        if (res.Result) {
+          this.mod.datalist = [];
+          this.getList(null); 
+        }
+        else {
+          this._page.alert("消息提示", "数据加载异常");
+        }
+        this._page.loadingHide();
+      },
+      (err: any) => {
+        this._page.alert("消息提示", "数据加载异常");
+        this._page.loadingHide();
+      }
+    );
+  }
+
+
+  onDele(id) {
+    this._page.confirm("确认提示", "是否删除？",()=>{
+        
+      this._http.post(this.mod.deleteurl,
+        {
+          mcs_shippingaddressid: id 
+        },
+        (res: any) => {
+          if (res.Result) {
+            this.mod.datalist = [];
+            this.getList(null); 
+          }
+          else {
+            this._page.alert("消息提示", "数据加载异常");
+          }
+          this._page.loadingHide();
+        },
+        (err: any) => {
+          this._page.alert("消息提示", "数据加载异常");
+          this._page.loadingHide();
+        }
+      );
+    
+    });
+   
   }
 
 

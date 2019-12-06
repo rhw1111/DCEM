@@ -74,8 +74,15 @@ namespace DCEM.Web.Controllers
         public NewtonsoftJsonActionResult<ValidateResult> AddOrUpdate(ShippingaddressAddRequest model)
         {
             return _app.AddOrUpdate(model);
-
         }
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [Route("delete")]
+        [HttpPost]
+        public NewtonsoftJsonActionResult<ValidateResult> Delete(ShippingaddressAddRequest model)=> _app.Delete(model);
     }
 }
 

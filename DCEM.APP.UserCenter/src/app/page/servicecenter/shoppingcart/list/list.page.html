@@ -18,13 +18,7 @@
 
 <ion-content>
     <ion-list>
-        <!--<span (click)="changeAll(item, $event)"><ion-checkbox [(checked)]="item.checkAll"></ion-checkbox>{{item.name}}</span>-->
-        <!--<ion-item *ngFor="let v of item.list" style="padding:20px 10px;">-->
         <ion-item style="padding:20px 10px;" lines="none" *ngFor="let item of model.cartList.datas">
-            <!--<ion-checkbox [(ngModel)]="v.checked" (ionChange)='change(item)'></ion-checkbox>{{v.name}}-->
-            <!--<div style="width:12%;">
-        <ion-checkbox [(ngModel)]="v.checked" (ionChange)='change(item)'></ion-checkbox>
-    </div>-->
             <div style="width:12%;">
                 <ion-checkbox [(ngModel)]="item.checked" (ionChange)="change(item)"></ion-checkbox>
             </div>
@@ -73,22 +67,13 @@
             <span style="padding-left:5px;">全选</span>
         </span>
     </ion-tab-button>
-    <div *ngIf="IsEdit; then trueTemplate else falseTemplate"></div>
-    <ng-template #trueTemplate>
-        <ion-tab-button tab="servicecenter">
-            <!--<span style="font-size:20px;">合计:<span style="color:#38B3EE;">￥0.00</span></span>-->
-        </ion-tab-button>
-        <ion-tab-button tab="personalcenter" (click)="removeCart()" id="removeoption" style="">
-            <ion-label style="font-size:18px; color:#fff;">删除所选</ion-label>
-        </ion-tab-button>
-    </ng-template>
-    <ng-template #falseTemplate>
-        <ion-tab-button tab="servicecenter">
-            <span style="font-size:20px;">合计:<span style="color:#38B3EE;">￥{{model.cartList.totalprice}}</span></span>
-        </ion-tab-button>
-        <ion-tab-button tab="personalcenter" style="background-color:#38B3EE;">
-            <ion-label style="font-size:18px; color:#fff;">去结算</ion-label>
-        </ion-tab-button>
-    </ng-template>
-    
+    <ion-tab-button tab="servicecenter">
+        <span class="span-total" style="font-size:20px;">合计:<span style="color:#38B3EE;">￥{{model.cartList.totalprice}}</span></span>
+    </ion-tab-button>
+    <ion-tab-button tab="personalcenter" (click)="BuyPro()" class="tab-cac tab-background-5a5" disabled>
+        <ion-label style="font-size:18px; color:#fff;">去结算</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="personalcenter" (click)="removeCart()" class="tab-hide tab-background-5a5" disabled>
+        <ion-label style="font-size:18px; color:#fff;">删除所选</ion-label>
+    </ion-tab-button>
 </ion-tab-bar>

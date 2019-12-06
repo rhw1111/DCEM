@@ -1,0 +1,36 @@
+﻿<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/servicecenter/boutique/detail"></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{model.title}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid style="padding: 0;">
+        <ion-card style="width: 100%;padding: 0;margin: 10px 0;padding:100px 0;background: #fff;">
+            <ion-card-header>
+                <ion-card-title style="text-align:center;">需要支付</ion-card-title>
+            </ion-card-header>
+
+            <ion-card-content style="text-align:center;">
+                <span>￥</span><span style="font-size:40px;font-weight:bold;">1.00</span>
+            </ion-card-content>
+        </ion-card>
+        <ion-card style="width: 100%;padding: 0;margin: 10px 0;background: #fff;">
+            <ion-item lines="none" href="#">
+                <ion-icon name="wine" slot="start"></ion-icon>
+                <ion-label>支付宝支付</ion-label>
+            </ion-item>
+        </ion-card>
+        <ion-card style="width: 100%;padding: 0;margin: 10px 0;background: #fff;">
+            <ion-item lines="none" href="#">
+                <ion-icon name="wine" slot="start"></ion-icon>
+                <ion-label>微信支付</ion-label>
+            </ion-item>
+        </ion-card>
+    </ion-grid>
+
+    <div class="shade"></div>
+</ion-content>

@@ -64,7 +64,7 @@
         </ion-row>
         <!--规格-->
         <ion-row style="background-color:#F6F6F6;">
-            <ion-row (click)="ShowTwoBtn(1)" style="padding:15px 10px; background-color:#fff; width:100%;margin:20px 0;">
+            <ion-row (click)="ShowTwoBtn(0)" style="padding:15px 10px; background-color:#fff; width:100%;margin:20px 0;">
                 <ion-col style="padding-left:15px;font-size:16px;">
                     <ion-label style="color:#000;">
                         选择:
@@ -177,11 +177,11 @@
         <ion-badge *ngIf="Isbadge" color="danger">{{BadgeCount}}</ion-badge>
     </ion-tab-button>
 
-    <ion-tab-button tab="servicecenter" (click)="ShowTwoBtn(0)">
+    <ion-tab-button tab="servicecenter" (click)="ShowTwoBtn(1)">
         <ion-label style="font-size:20px; color:#000;">加入购物车</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="personalcenter" (click)="RemoveStorage()" style="background-color:#38B3EE;">
+    <ion-tab-button tab="personalcenter" (click)="ShowTwoBtn(2)" style="background-color:#38B3EE;">
         <ion-label style="font-size:20px; color:#fff;">立即购买</ion-label>
     </ion-tab-button>
 </ion-tab-bar>
