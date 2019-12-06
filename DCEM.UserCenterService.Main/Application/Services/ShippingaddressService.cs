@@ -56,7 +56,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 Guid id = Guid.NewGuid();
                 var entity = new CrmExecuteEntity(entityName, id);
                 if (model.userid.HasValue)
-                    entity.Attributes.Add("mcs_userid", new CrmEntityReference("mcs_user", model.userid.Value));
+                    entity.Attributes.Add("mcs_userid", new CrmEntityReference("mcs_user", model.userid.Value)); 
                 if (model.mcs_area.HasValue)
                     entity.Attributes.Add("mcs_area", new CrmEntityReference("mcs_sysarea", model.mcs_area.Value));
                 if (model.mcs_city.HasValue)
@@ -71,6 +71,21 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     entity.Attributes.Add("mcs_phone", model.mcs_phone);
                 if (!string.IsNullOrEmpty(model.mcs_name))
                     entity.Attributes.Add("mcs_name", model.mcs_name);
+                //如果当前收货地址设置为默认，当前用户其它地址初始化为不默认
+                if (model.mcs_isdefault.Value == 0)
+                {
+                    ShippingaddressListRequest req = new ShippingaddressListRequest();
+                    req.PageIndex = 1;
+                    req.PageSize = 100;
+                    req.mcs_userid = model.userid.Value;
+                    Task<ValidateResult<List<CrmEntity>>> list = GetList(req);
+                    foreach (var item in list.Result.Data)
+                    {
+                        var entaddress = new CrmExecuteEntity(entityName, item.Id);
+                        entaddress.Attributes.Add("mcs_isdefault", false);
+                        _crmService.Update(entaddress);
+                    }
+                }
 
                 if (string.IsNullOrEmpty(model.mcs_shippingaddressid))
                 {
@@ -95,6 +110,30 @@ namespace DCEM.UserCenterService.Main.Application.Services
             return validateResult;
         }
 
+
+        /// <summary>
+        /// 删除地址
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public ValidateResult Delete(ShippingaddressAddRequest model)
+        {
+            var validateResult = new ValidateResult();
+            try
+            { 
+                _crmService.Delete(entityName, Guid.Parse(model.mcs_shippingaddressid));  
+                #region 组装数据返回 
+                validateResult.Result = true;
+                validateResult.Description = "操作成功";
+                #endregion
+            }
+            catch (Exception e)
+            {
+                validateResult.Result = false;
+                validateResult.Description = e.Message;
+            }
+            return validateResult;
+        }
 
 
         /// <summary>

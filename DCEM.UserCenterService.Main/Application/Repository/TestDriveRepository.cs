@@ -86,7 +86,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository
                 <order attribute='createdon' descending='true' />
                 <filter type='and'>
                   <condition attribute='statecode' operator='eq' value='0' />
-                  <condition attribute='ownerid' operator='eq-userid' />             
+                      
                 </filter>
                    <link-entity name='mcs_driverecord' from='mcs_driverecordid' to='mcs_driverecordid' visible='false' link-type='outer' >
                      <attribute name='mcs_name' />

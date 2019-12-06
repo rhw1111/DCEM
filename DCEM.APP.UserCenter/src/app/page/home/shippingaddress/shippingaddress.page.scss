@@ -38,3 +38,59 @@ input{
     border: 0px;
     width: 95%;
 }
+
+.radiolabel{
+    line-height: 20px;
+    display: inline-block;
+    margin-left: 5px;
+    margin-right:15px;
+    color: #777;
+}
+.address{
+    text-align: right;
+    line-height: 35px;
+}
+ 
+.radio_type{
+    width: 20px;
+    height: 20px;
+    appearance: none;
+    position: relative;
+}
+.radio_type:before{
+    content: '';
+    width: 20px;
+    height: 20px;
+    border: 1px solid #7d7d7d;
+    display: inline-block;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+.radio_type:checked:before{
+    content: '';
+    width: 20px;
+    height: 20px;
+    border: 1px solid #4380fe;
+    background:#4380fe;
+    display: inline-block;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+.radio_type:checked:after{
+    content: '';
+    width: 10px;
+    height:5px;
+    border: 2px solid white;
+    border-top: transparent;
+    border-right: transparent;
+    text-align: center;
+    display: block;
+    position: absolute;
+    top: 6px;
+    left:5px;
+    vertical-align: middle;
+    transform: rotate(-45deg);
+}
+.radio_type:checked+label{
+    color: #4380fe;
+}

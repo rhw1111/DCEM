@@ -67,6 +67,15 @@ const routes: Routes = [
         path: 'personalcenter',  //用户中心
         children: [
             {
+                path: 'config',
+                children: [
+                    {
+                        path: 'about',
+                        loadChildren: () => import('./page/personalcenter/config/about/about.module').then(m => m.AboutPageModule)
+                    }
+                ]
+            },
+            {
                 path: 'userinfo',
                 children: [
                     {
@@ -196,7 +205,7 @@ const routes: Routes = [
     {
         path: 'testdriveFeedback',  //试乘试驾反馈报告
         children: [
-            //{ path: 'edit', loadChildren: () => import('./page/testdrivefeedback/edit/edit.module').then(m => m.EditPageModule) },
+            { path: 'detail', loadChildren: () => import('./page/testdrivefeedback/detail/detail.module').then(m => m.DetailPageModule) },
             { path: 'list', loadChildren: () => import('./page/testdrivefeedback/list/list.module').then(m => m.ListPageModule) },
 
         ]
@@ -240,8 +249,11 @@ const routes: Routes = [
         path: 'payment',
         loadChildren: () => import('./page/servicecenter/payment/payment/payment.module').then(m => m.PaymentPageModule)
     },
-]
-    ;
+    {
+        path: 'shippingaddress',
+        loadChildren: () => import('./page/home/shippingaddress/shippingaddress.module').then(m => m.ShippingaddressPageModule)
+    }
+];
 @NgModule({
     imports: [
         RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
