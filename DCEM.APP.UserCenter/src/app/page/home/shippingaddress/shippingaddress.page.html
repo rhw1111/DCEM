@@ -1,9 +1,138 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>shippingaddress</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>收货地址</ion-title>
+    <button class="btn" style="width: 55px;font-size: 1rem;margin-left: 80%;" *ngIf="pagetype==1"
+      (click)="onEdit()">新增</button>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="pagetype==1">
+  <ion-list lines="full">
+    <ion-item style="font-size: 1rem;border-top: 15px solid #f3f3f3 " *ngFor="let item of mod.datalist ">
+      <ion-row style="width: 100%;">
+        <ion-col size="10">
+          <ion-row style="width: 100%;">
+            <ion-col size="3">
+              {{item.mcs_name}}
+            </ion-col>
+            <ion-col size="9" style="text-align: right;">
+              {{item.mcs_phone}}
+            </ion-col>
+          </ion-row>
+          <ion-row style="width: 100%;  ">
+            <ion-col size="12" style="padding-top:0px">
+              <div class="divaddress">
+                <div class="divdef" *ngIf="item.mcs_isdefault">&nbsp;&nbsp;默认&nbsp;&nbsp;</div>
+                <div style="display: inline;line-height: 25px;">
+                  {{item.mcs_provincename}}&nbsp;{{item.mcs_cityname}}&nbsp;{{item.mcs_areaname}}&nbsp;{{item.mcs_address}}
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="width: 100%; margin-top: 5px;">
+              <ion-col size="6" >
+                <button class="btn" style="color: #5bbbb4;"  (click)="onIsDef(item.id,item.mcs_userid)">设为默认地址</button>
+              </ion-col>
+              <ion-col size="6" >
+                  <button class="btn" style="color: #ec740d;;" (click)="onDele(item.id)">删除</button>
+              </ion-col>
+            </ion-row>
+        </ion-col>
+        <ion-col size="2" style="  border-left: 1px solid #e8e8e8;">
+          <button class="btn" (click)="onEdit(item.id)">编辑</button>
+        </ion-col>
+      </ion-row>
 
+
+    
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doLoading($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+
+<ion-content *ngIf="pagetype==2">
+  <ion-row class="row">
+    <ion-col size="4" class="lable">
+      姓名
+    </ion-col>
+    <ion-col size="8">
+      <input placeholder="请输入姓名" (focus)="OnselectText('#username')" id="username" style="text-align: right;"
+        [(ngModel)]="mod.model.mcs_name" />
+    </ion-col>
+  </ion-row>
+  <ion-row class="row">
+    <ion-col size="4" class="lable">
+      手机号码
+    </ion-col>
+    <ion-col size="8">
+      <input type="tel" maxlength="11" (focus)="OnselectText('#userphone')" id="userphone" style="text-align: right;"
+        placeholder="请输入手机号码" [(ngModel)]="mod.model.mcs_phone" />
+    </ion-col>
+  </ion-row>
+  <ion-row class="row" (click)="provinceOnClick()">
+    <ion-col size="4" class="lable">
+      所在省份
+    </ion-col>
+    <ion-col size="8" class="address">
+      {{mod.model.mcs_provincename}}
+    </ion-col>
+  </ion-row>
+  <ion-row class="row" (click)="cityOnClick()">
+    <ion-col size="4" class="lable">
+      所在城市
+    </ion-col>
+    <ion-col size="8" class="address">
+      {{mod.model.mcs_cityname}}
+    </ion-col>
+  </ion-row>
+  <ion-row class="row" (click)="districtOnClick()">
+    <ion-col size="4" class="lable">
+      所在地区
+    </ion-col>
+    <ion-col size="8" class="address">
+      {{mod.model.mcs_areaname}}
+    </ion-col>
+  </ion-row>
+  <ion-row class="row">
+    <ion-col size="4" class="lable">
+      详情地址
+    </ion-col>
+    <ion-col size="8">
+      <ion-textarea style="height: 80px;" [(ngModel)]="mod.model.mcs_address">
+      </ion-textarea>
+    </ion-col>
+  </ion-row>
+  <ion-row class="row">
+    <ion-col size="4" class="lable">
+      是否默认
+    </ion-col>
+    <ion-col size="8" style="text-align: right;">
+      <!-- <input class="radio_type" type="radio" name="mcs_isdefault"   value="0"  checked="{{this.mod.model.mcs_isdefault==0}}"     />
+      <label class="radiolabel" for="radio1">是</label>
+      <input class="radio_type" type="radio" name="mcs_isdefault"    value="1"  checked="{{this.mod.model.mcs_isdefault==1}}"    />
+      <label class="radiolabel" for="radio2">否</label> -->
+      <ion-select interface="popover" placeholder="是否默认" style="text-align: right;" cancelText="取消" okText="确定"
+        [(ngModel)]="mod.model.mcs_isdefault">
+        <ion-select-option [value]="0">
+          是
+        </ion-select-option>
+        <ion-select-option [value]="1">
+          否
+        </ion-select-option>
+      </ion-select>
+    </ion-col>
+  </ion-row>
+  <div class="ion-padding">
+    <ion-button expand="block" type="button" (click)="onPost()"
+      class="ion-no-margin ios button button-block button-solid ion-activatable ion-focusable hydrated">
+      提交
+    </ion-button>
+  </div>
 </ion-content>

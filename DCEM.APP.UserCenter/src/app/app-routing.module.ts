@@ -67,6 +67,19 @@ const routes: Routes = [
         path: 'personalcenter',  //用户中心
         children: [
             {
+                path: 'config',
+                children: [
+                    {
+                        path: 'about',
+                        loadChildren: () => import('./page/personalcenter/config/about/about.module').then(m => m.AboutPageModule)
+                    },
+                    {
+                        path: 'privacypolicy',
+                        loadChildren: () => import('./page/personalcenter/config/privacypolicy/privacypolicy.module').then(m => m.PrivacypolicyPageModule)
+                    }
+                ]
+            },
+            {
                 path: 'userinfo',
                 children: [
                     {
@@ -170,7 +183,19 @@ const routes: Routes = [
                     { path: 'detail', loadChildren: () => import('./page/servicecenter/reservation/detail/detail.module').then(m => m.DetailPageModule) },
                     { path: 'success', loadChildren: () => import('./page/servicecenter/reservation/success/success.module').then(m => m.SuccessPageModule) }
                 ]
-            }
+            },
+            {
+                path: 'preorder',  //提交订单
+                children: [
+                    { path: 'preorder', loadChildren: () => import('./page/servicecenter/preorder/preorder/preorder.module').then(m => m.PreorderPageModule) }
+                ]
+            },
+            {
+                path: 'payment',  //支付
+                children: [
+                    { path: 'payment', loadChildren: () => import('./page/servicecenter/payment/payment/payment.module').then(m => m.PaymentPageModule) }
+                ]
+            },
         ]
     },
     {
@@ -181,6 +206,15 @@ const routes: Routes = [
             { path: 'success', loadChildren: () => import('./page/testdrive/success/success.module').then(m => m.SuccessPageModule) },
         ]
     },
+    {
+        path: 'testdriveFeedback',  //试乘试驾反馈报告
+        children: [
+            { path: 'detail', loadChildren: () => import('./page/testdrivefeedback/detail/detail.module').then(m => m.DetailPageModule) },
+            { path: 'list', loadChildren: () => import('./page/testdrivefeedback/list/list.module').then(m => m.ListPageModule) },
+
+        ]
+    },
+
 
     {
         path: 'detail',
@@ -206,41 +240,24 @@ const routes: Routes = [
                 loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
             }
         ]
-    }
-    ,
+    },
     {
         path: 'set',
         loadChildren: () => import('./page/home/set/set.module').then(m => m.SetPageModule)
     },
     {
-        path: 'detail',
-        loadChildren: () => import('./page/servicecenter/vehiclecenter/detail/detail.module').then(m => m.DetailPageModule)
+        path: 'preorder',
+        loadChildren: () => import('./page/servicecenter/preorder/preorder/preorder.module').then(m => m.PreorderPageModule)
     },
     {
-        path: 'list',
-        loadChildren: () => import('./page/servicecenter/boutique/list/list.module').then(m => m.ListPageModule)
+        path: 'payment',
+        loadChildren: () => import('./page/servicecenter/payment/payment/payment.module').then(m => m.PaymentPageModule)
     },
     {
-        path: 'detail',
-        loadChildren: () => import('./page/servicecenter/boutique/detail/detail.module').then(m => m.DetailPageModule)
-    },
-    {
-        path: 'list',
-        loadChildren: () => import('./page/servicecenter/shoppingcart/list/list.module').then(m => m.ListPageModule)
-    },
-    {
-        path: 'demo',
-        children: [
-            {
-                path: 'dealer',
-                loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
-            }
-        ]
-    },
-  {
-    path: 'shippingaddress',
-    loadChildren: () => import('./page/home/shippingaddress/shippingaddress.module').then( m => m.ShippingaddressPageModule)
-  }
+        path: 'shippingaddress',
+        loadChildren: () => import('./page/home/shippingaddress/shippingaddress.module').then(m => m.ShippingaddressPageModule)
+    }
+
 ];
 @NgModule({
     imports: [

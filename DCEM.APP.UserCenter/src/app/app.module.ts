@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -15,39 +15,38 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 //第三方组件
-import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile';
-
+import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile'; 
 //自定义组件
-import { SelectSysareaComponent } from './component/modal/select-sysarea/select-sysarea.component'
-import { LoginComponent } from './component/modal/login/login.component'
-import { UserinfoComponent } from './component/modal/userinfo/userinfo.component'
+import {SelectSysareaComponent} from './component/modal/select-sysarea/select-sysarea.component'
+import { LoginComponent } from './component/modal/login/login.component' 
+import { UserinfoComponent } from './component/modal/userinfo/userinfo.component' 
 import { SelectDealerComponent } from './component/modal/select-dealer/select-dealer.component';
 import { SelectUsercarinfoComponent } from './component/modal/select-usercarinfo/select-usercarinfo.component';
 
 
 @NgModule({
-    declarations: [AppComponent, SelectSysareaComponent, LoginComponent, SelectDealerComponent, UserinfoComponent, SelectUsercarinfoComponent],
-    entryComponents: [SelectSysareaComponent, LoginComponent, SelectDealerComponent, UserinfoComponent, SelectUsercarinfoComponent],
-    imports: [
-        BrowserModule,
-        IonicModule.forRoot({ mode: 'ios' }),
-        AppRoutingModule,
-        IonicStorageModule.forRoot(),
-        HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule,
-        NgZorroAntdMobileModule],
-    providers: [
-        StatusBar,
-        AppVersion,
-        SplashScreen,
-        ScreenOrientation,
-        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
-    ],
+  declarations: [AppComponent,SelectSysareaComponent,LoginComponent,SelectDealerComponent,UserinfoComponent,SelectUsercarinfoComponent],
+  entryComponents: [SelectSysareaComponent,LoginComponent,SelectDealerComponent,UserinfoComponent,SelectUsercarinfoComponent],
+  imports: [
+      BrowserModule, 
+      IonicModule.forRoot({ mode: 'ios' }),
+      AppRoutingModule,      
+      IonicStorageModule.forRoot(),
+      HttpClientModule,
+      FormsModule,
+      ReactiveFormsModule,
+      NgZorroAntdMobileModule  ],
+  providers: [
+      StatusBar,
+      AppVersion,
+      SplashScreen,
+      ScreenOrientation,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+  ],
     bootstrap: [AppComponent],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
-export class AppModule { }
+export class AppModule {}
 
 
 // import { NgModule } from '@angular/core';
