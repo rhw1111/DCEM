@@ -20,47 +20,21 @@
         <ion-row>
             <ion-col>
                 <ion-grid>
-                    <ion-row>
-                        <ion-col class="dm-main-item">
+                    <ion-row *ngFor="let proRelatedKey of objectKeys(shareData.productRelatedMap)">
+                        <ion-col class="dm-main-item" [ngClass]="{'select':shareData.productRelatedMap[proRelatedKey]['ext_select']}" >
                             <div>
                                 <ion-grid>
-                                    <ion-row class="dm-main-item-top">
+                                    <ion-row class="dm-main-item-top" (click)="itemOnClick(proRelatedKey)">
                                         <ion-col>
-                                            <img src="http://sf-test.mediaman.com.cn/img/order-package-1.6dab6118.jpg" />
+                                            <img src="{{shareData.productRelatedMap[proRelatedKey]['a.mcs_mainimage']}}" />
                                         </ion-col>
                                     </ion-row>
-                                    <ion-row class="dm-main-item-middle">
+                                    <ion-row class="dm-main-item-middle" (click)="itemOnClick(proRelatedKey)">
                                         <ion-col>
-                                            <h5>歌剧魅影套帐</h5>
+                                            <h5>{{shareData.productRelatedMap[proRelatedKey]['a.mcs_product@OData.Community.Display.V1.FormattedValue']}}({{shareData.productRelatedMap[proRelatedKey]['a.mcs_name']}})</h5>
                                         </ion-col>
                                         <ion-col>
-                                            <p>+3000元</p>
-                                        </ion-col>
-                                    </ion-row>
-                                    <ion-row class="dm-main-item-bottom">
-                                        <ion-col>
-                                            <h5>了解更多 ></h5>
-                                        </ion-col>
-                                    </ion-row>
-                                </ion-grid>
-                            </div>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row>
-                        <ion-col class="dm-main-item select">
-                            <div>
-                                <ion-grid>
-                                    <ion-row class="dm-main-item-top">
-                                        <ion-col>
-                                            <img src="http://sf-test.mediaman.com.cn/img/order-package-1.6dab6118.jpg" />
-                                        </ion-col>
-                                    </ion-row>
-                                    <ion-row class="dm-main-item-middle">
-                                        <ion-col>
-                                            <h5>歌剧魅影套帐</h5>
-                                        </ion-col>
-                                        <ion-col>
-                                            <p>+3000元</p>
+                                            <p>{{shareData.productRelatedMap[proRelatedKey]["ext_moneyFormat"]}}</p>
                                         </ion-col>
                                     </ion-row>
                                     <ion-row class="dm-main-item-bottom">
@@ -83,7 +57,7 @@
         <ion-grid>
             <ion-row>
                 <ion-col>
-                    <h6>合计：<strong>150,000 元</strong></h6>
+                    <h6>合计：<strong>{{shareData.packageMoney}} 元</strong></h6>
                     <span class="dm-footer-svg">
                         查看明细
                         <span>
@@ -103,21 +77,9 @@
 <div class="dm-footer-model">
     <div>
         <ul>
-            <li>
-                <label>SF5两驱智尊型</label>:
-                <span>150,000元</span>
-            </li>
-            <li>
-                <label>珍珠白</label>:
-                <span>价格已包含</span>
-            </li>
-            <li>
-                <label>深黑内饰</label>:
-                <span>价格已包含</span>
-            </li>
-            <li>
-                <label>20英寸时尚型铝合金轮毂</label>:
-                <span>价格已包含</span>
+            <li *ngFor="let key of objectKeys(shareData.packageMap)">
+                <label>{{shareData.packageMap[key]["text"]}}</label>:
+                <span>{{shareData.packageMap[key]["val"]}}</span>
             </li>
         </ul>
     </div>

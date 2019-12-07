@@ -2,9 +2,10 @@
 import { AlertController, LoadingController, NavController, ToastController } from '@ionic/angular';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { NgModule, Pipe, PipeTransform } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { isFunction, isNumber } from 'util';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Injectable({
     providedIn: 'root'
@@ -33,26 +34,28 @@ export class DCore_Config {
 
     constructor(
     ) {
-        this.serverName = "uat";
+        this.serverName = "iis";
 
         this.tc_host_map = function () {
             var map = new Map<string, any>();
             map.set("dev", "https://subcrmdevapi.sokon.com/tc/");
             map.set("sit", "https://subcrmsitapi.sokon.com/tc/");
             map.set("uat", "https://subcrmuatapi.sokon.com/tc/");
-            map.set("localhost", "https://localhost:44382/");
+            map.set("local", "https://localhost:44382/");
             map.set("9_0", "http://106.14.121.65:8082/tc/");
+            map.set("iis", "http://localhost:9099/");
             return map;
         }();
 
 
         this.dcem_host_map = function () {
             var map = new Map<string, any>();
-            map.set("dev", "https://subcrmdevapi.sokon.com/dcem");
-            map.set("sit", "https://subcrmdevapi.sokon.com/dcem");
-            map.set("uat", "https://subcrmuatapi.sokon.com/dcem");
-            map.set("localhost", "https://localhost:44382");
+            map.set("dev", "https://subcrmdevapi.sokon.com/dcem/");
+            map.set("sit", "https://subcrmdevapi.sokon.com/dcem/");
+            map.set("uat", "https://subcrmuatapi.sokon.com/dcem/");
+            map.set("local", "https://localhost:44382/");
             map.set("9_0", "http://106.14.121.65:8082/dcem/");
+            map.set("iis", "http://localhost:9099/");
             return map;
         }();
 
@@ -331,7 +334,6 @@ export class DCore_ShareData {
 @Injectable({
     providedIn: 'root'
 })
-
 export class DCore_Valid {
     constructor(
     ) {
@@ -365,6 +367,19 @@ export class DCore_Valid {
 
     isArray = function (o) {
         return Object.prototype.toString.call(o) == '[object Array]';
+    }
+}
+
+//去掉Angular的垃圾安全过滤器
+@Injectable({
+    providedIn: 'root'
+})
+@Pipe({ name: 'safeHtml' }) //自定义管道
+export class SafeHtmlPipe implements PipeTransform {
+    constructor(private sanitized: DomSanitizer) { }
+
+    transform(value) {
+        return this.sanitized.bypassSecurityTrustHtml(value);
     }
 }
 

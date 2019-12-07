@@ -16,21 +16,26 @@ export class IndexPage implements OnInit {
     @ViewChild('mainSlide', null) mainSlide: IonSlides;
 
     public mod: any = {
-        apiUrl: 'api/product/All',
-        data: {},
+        apiUrl: 'api/Store/GetProductList',
         searchData: {
-            type: 2,
-            pageindex: 1,
-            search: ""
         },
+        shareDataKey: "carstore",
+        nextButtonColor:"dis",
     };
 
     public objectKeys = Object.keys;
 
+
     //共享数据对象
-    shareData = {
-        productClassMap: {},     //储存商品的对象(按类别分组)  
-        productTopPic: {},       //储存商品顶部图片的对象
+    public shareData = {
+        productMap: {},                      //产品视图
+        productClassViewMap: {},             //产品地图按照类别分组
+        productImageViewMap: {},             //产品图片地图
+        productSpecificationViewClassMap: {},     //产品规格地图  按照规格类别分组
+        selectProductKey: "",           //选择的产品
+        selectProduct: {},                          //选择的产品  
+        packageMoney: 0,                            //选择的所有对象金额
+        packageMap: {},                             //选择的所有对象
     }
 
     constructor(
@@ -43,60 +48,132 @@ export class IndexPage implements OnInit {
     }
 
     ngOnInit() {
-        this.setProductShareData();
+        this.init();
     }
 
-    public setProductShareData() {
+    ionViewWillEnter() {
+        //this.initJQueryEvent();
+    }
+
+
+    public init() {
+        var that: IndexPage = this;
+        if (this._shareData.has(this.mod.shareDataKey)) {
+            this.shareData = this._shareData.get(this.mod.shareDataKey)
+            if (!this._valid.isNullOrEmpty(this.shareData.selectProductKey)) {
+                $(document).ready(function () {
+                    //$("#carcenter_carstore_index_main").find(".dm-main-car[proKey='" + that.shareData.selectProductKey + "']").addClass("select");
+                    $("#but_next").attr("color", "org");
+                })
+            }
+        } else {
+            this.initShareData();
+        }
+
+    }
+
+    //JQuery事件初始化
+    //public initJQueryEvent() {
+    //    var that: IndexPage = this;
+    //    $("#carcenter_carstore_index_main").on("click", ".dm-main-car-top,.dm-main-car-middle", function () {
+    //        $(".dm-main-car").removeClass("select");
+    //        $(this).parents(".dm-main-car").addClass("select");
+    //        $("#but_next").attr("color", "org");
+    //        var productKey = $(this).parents(".dm-main-car").attr("proKey");
+    //        that.shareData.selectProductKey = productKey;
+    //        that.shareData.packageMoney = that.shareData.productMap[productKey]["Procudt"]["mcs_baseprice"];
+
+    //        that.shareData.packageMap["product"] = {};
+    //        that.shareData.packageMap["product"]["text"] = that.shareData.productMap[productKey]["Procudt"]["mcs_name"];
+    //        that.shareData.packageMap["product"]["val"] = that.shareData.productMap[productKey]["Procudt"]["mcs_baseprice"] + "元";
+    //        that.shareData.packageMap["product"]["money"] = that.shareData.productMap[productKey]["Procudt"]["mcs_baseprice"];
+
+    //        that._shareData.set(that.mod.shareDataKey, that.shareData);
+
+    //    })
+    //}
+
+    //共享数据初始化
+    public initShareData() {
         this._page.loadingShow();
-        this._http.postForShopping(
+        this._http.get(
             this.mod.apiUrl,
             this.mod.searchData,
             (res: any) => {
+                if (!this._valid.isNull(res) && !this._valid.isNull(res["ProductList"])) {
+                    for (var productInfo of res["ProductList"]) {
 
-                if (!this._valid.isNull(res) && !this._valid.isNull(res["Datas"])) {
-                    var imgHost = "https://ceo-oss.oss-cn-hangzhou.aliyuncs.com/";
+                        //解析接收对象
+                        var product = productInfo["Procudt"];
+                        var productImageArray = productInfo["ProductImageArray"];
+                        var productSpecificationArray = productInfo["ProductSpecificationArray"];
 
-                    for (var key in res.Datas) {
-                        //组装整车的列表地图
-                        if (res.Datas[key]["ProductType"] === 1) {
-                            //组装按产品分类的商品地图
-                            var product = res.Datas[key];
-                            var productKey = product["Code"];
-                            var frontCategorys = { ProductCategoryCode: -100, Name: "其它" }
-                            var productClassKey = frontCategorys.ProductCategoryCode;
-                            if (this._valid.isArray(product.FrontCategorys) && product.FrontCategorys.length > 0) {
-                                productClassKey = product.FrontCategorys[0].ProductCategoryCode;
-                                frontCategorys = product.FrontCategorys[0];
-                            }
+                        //组装数据类型
+                        if (product["mcs_type"] === 1) {
 
-                            if (this._valid.isNull(this.shareData.productClassMap[productClassKey])) {
-                                this.shareData.productClassMap[productClassKey] = {};
-                                this.shareData.productClassMap[productClassKey]["productMap"] = {};
-                                this.shareData.productClassMap[productClassKey]["frontCategorys"] = frontCategorys;
-                            }
-                            this.shareData.productClassMap[productClassKey]["productMap"][productKey] = product;
-
-                            //组装顶部图片地图
-                            if (this._valid.isArray(product.ImageData) && product.ImageData.length > 0) {
-                                for (var pickey in product.ImageData) {
-                                    if (this.objectKeys(this.shareData.productTopPic).length > 5)
-                                        break;
-                                    if (product.ImageData[pickey]["Category"] === 2)
-                                        this.shareData.productTopPic[pickey] = { url: imgHost + product.ImageData[pickey]["Name"] };
+                            var productKey = product["mcs_tc_productid"];
+                            let that: IndexPage = this;
+                            //组装产品地图
+                            let asseProductMap = function () {
+                                that.shareData.productMap[productKey] = productInfo;
+                            }();
+                            //组装产品类别和规格地图
+                            let asseProductClassViewMap = function () {
+                                var productClassKey = product["_mcs_salescategory_value"];
+                                if (that._valid.isNull(that.shareData.productClassViewMap[productClassKey])) {
+                                    var productClassName = product["_mcs_salescategory_value@OData.Community.Display.V1.FormattedValue"];
+                                    that.shareData.productClassViewMap[productClassKey] = {};
+                                    that.shareData.productClassViewMap[productClassKey]["productClassName"] = productClassName;
+                                    that.shareData.productClassViewMap[productClassKey]["productMap"] = {};
                                 }
-                            }
+                                that.shareData.productClassViewMap[productClassKey]["productMap"][productKey] = {};
+                                for (var productSpecification of productSpecificationArray) {
+                                    if (productSpecification["mcs_attributename"] === "驱动形式")
+                                        that.shareData.productClassViewMap[productClassKey]["productMap"][productKey]["ext_qdxs_val"] = productSpecification["mcs_attributevalue"];
+                                    if (productSpecification["mcs_attributename"] === "电池容量")
+                                        that.shareData.productClassViewMap[productClassKey]["productMap"][productKey]["ext_dcrl_val"] = productSpecification["mcs_attributevalue"];
+                                    if (productSpecification["mcs_attributename"] === "百公里加速")
+                                        that.shareData.productClassViewMap[productClassKey]["productMap"][productKey]["ext_bgljs_val"] = productSpecification["mcs_attributevalue"];
 
+                                    //组装产品规格 按类别进行分组
+                                    let asseProductSpecificationViewClassMap = function () {
+                                        var productSpecificationClassKey = productSpecification["mcs_attributegroupindex"];
+                                        var productSpecificationClassName = productSpecification["mcs_attributegroupname"];
+                                        if (that._valid.isNull(that.shareData.productSpecificationViewClassMap[productKey])) {
+                                            that.shareData.productSpecificationViewClassMap[productKey] = {};
+                                        }
+                                        if (that._valid.isNull(that.shareData.productSpecificationViewClassMap[productKey][productSpecificationClassKey])) {
+                                            that.shareData.productSpecificationViewClassMap[productKey][productSpecificationClassKey] = {};
+                                            that.shareData.productSpecificationViewClassMap[productKey][productSpecificationClassKey]["productSpecificationClassName"] = productSpecificationClassName;
+                                            that.shareData.productSpecificationViewClassMap[productKey][productSpecificationClassKey]["productSpecificationArray"] = [];
+                                        }
+                                        that.shareData.productSpecificationViewClassMap[productKey][productSpecificationClassKey]["productSpecificationArray"].push(productSpecification);
+                                    }();
+                                }
+                            }();
+                            //组装产品图片
+                            let asseProductClassImage = function () {
+                                for (var productImage of productImageArray) {
+                                    //if (that.objectKeys(that.shareData.productImageViewMap).length > 4)
+                                    //    break;
+                                    if (productImage["mcs_imagetype"] === 2) {
+                                        var productImageKey = productImage["mcs_tc_productimageid"];
+                                        that.shareData.productImageViewMap[productImageKey] = productImage;
+                                    }
+                                }
+                            }();
                         }
                     }
 
-                    this._shareData.set("aa", this.shareData);
-                    console.log(this._shareData.get("aa"));
+                    console.log(this.shareData);
+                    this._shareData.set(this.mod.shareDataKey, this.shareData);
                 }
                 else {
 
                     this._page.alert("消息提示", "数据加载异常");
                 }
                 this._page.loadingHide();
+
             },
             (err: any) => {
                 this._page.loadingHide();
@@ -106,9 +183,29 @@ export class IndexPage implements OnInit {
     }
 
 
-    //弹出规格型号
-    async presentSpeclistModal() {
+    //选择的事件
+    public itemOnClick(proKey) {
+        this.shareData.selectProductKey = proKey;
+        this.shareData.packageMoney = this.shareData.productMap[proKey]["Procudt"]["mcs_baseprice"];
+        this.shareData.packageMap["product"] = {};
+        this.shareData.packageMap["product"]["text"] = this.shareData.productMap[proKey]["Procudt"]["mcs_name"];
+        this.shareData.packageMap["product"]["val"] = this.shareData.productMap[proKey]["Procudt"]["mcs_baseprice"] + "元";
+        this.shareData.packageMap["product"]["money"] = this.shareData.productMap[proKey]["Procudt"]["mcs_baseprice"];
 
+        this.shareData.selectProduct = this.shareData.productMap[proKey];
+        $("#but_next").attr("color", "org");
+    }
+
+    //下一步
+    public onNext() {
+        if (this._valid.isNullOrEmpty(this.shareData.selectProductKey)) {
+            this._page.presentToastError("请先选择购买车型");
+            return;
+        }
+        this._page.navigateRoot("/carcenter/carstore/selectattr", null, null);
+    }
+    //弹出规格型号
+    public async presentSpeclistModal(productKey) {
         let animatStart: AnimationBuilder = (AnimationClass: Animation, baseEl: ShadowRoot, position: string): Promise<Animation> => {
             const hostEl = (baseEl.host || baseEl) as HTMLElement;
             const baseAnimation: Animation = new AnimationClass();
@@ -162,8 +259,11 @@ export class IndexPage implements OnInit {
             component: SpeclistComponent,
             //cssClass: "dm-model",
             enterAnimation: animatStart, //进入动画
-            leaveAnimation: animatEnd   //离开动画
-
+            leaveAnimation: animatEnd,   //离开动画
+            componentProps: {
+                selectProductMap: this.shareData.productMap[productKey],
+                selectProductSpecificationViewClassMap: this.shareData.productSpecificationViewClassMap[productKey]
+            }
         });
 
         await modal.present();

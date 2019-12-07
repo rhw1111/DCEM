@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { SelectattrPageRoutingModule } from './selectattr-routing.module';
 
 import { SelectattrPage } from './selectattr.page';
+import { SafeHtmlPipe } from 'app/component/typescript/dcem.core';
+
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    SelectattrPageRoutingModule
-  ],
-  declarations: [SelectattrPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        SelectattrPageRoutingModule
+    ],
+    declarations: [SelectattrPage, SafeHtmlPipe]
 })
-export class SelectattrPageModule {}
+export class SelectattrPageModule { }

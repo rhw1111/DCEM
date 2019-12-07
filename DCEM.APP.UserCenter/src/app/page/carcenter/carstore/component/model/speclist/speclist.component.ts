@@ -8,11 +8,24 @@ import { ModalController, IonContent, NavParams, IonInfiniteScroll } from '@ioni
 })
 export class SpeclistComponent implements OnInit {
 
-    constructor(
-        private _modalCtrl: ModalController
-    ) { }
+    public mod: any = {
+        selectProductMap: {},
+        selectProductSpecificationViewClassMap: {}
+    };
 
-    ngOnInit() { }
+    public objectKeys = Object.keys;
+    constructor(
+        private _modalCtrl: ModalController,
+        private _navParams: NavParams
+
+    ) {
+        this.mod.selectProductMap = this._navParams.get('selectProductMap');
+        this.mod.selectProductSpecificationViewClassMap = this._navParams.get('selectProductSpecificationViewClassMap');
+    }
+
+    ngOnInit() {
+
+    }
 
     closeModal() {
         this._modalCtrl.dismiss({

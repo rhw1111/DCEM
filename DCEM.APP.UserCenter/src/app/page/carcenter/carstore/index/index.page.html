@@ -12,17 +12,21 @@
         </ion-title>
     </ion-toolbar>
 </ion-header>
+<!--<ion-header class="dm-top-head">
+
+</ion-header>-->
+
 
 <ion-content fullscreen>
     <ion-grid>
         <ion-row>
             <ion-col class="dm-slides">
                 <ion-slides pager>
-                    <ion-slide *ngFor="let key of objectKeys(this.shareData.productTopPic)">
+                    <ion-slide *ngFor="let key of objectKeys(this.shareData.productImageViewMap)">
                         <ion-grid>
                             <ion-row>
                                 <ion-col>
-                                    <img src="{{this.shareData.productTopPic[key].url}}" />
+                                    <img src="{{this.shareData.productImageViewMap[key]['ext_fullurl']}}" />
                                 </ion-col>
                             </ion-row>
                         </ion-grid>
@@ -30,58 +34,60 @@
                 </ion-slides>
             </ion-col>
         </ion-row>
-
-        <div *ngFor="let key of objectKeys(this.shareData.productClassMap)">
-            <ion-row class="dm-title">
-                <ion-col>
-                    {{this.shareData.productClassMap[key]["frontCategorys"]["Name"]}}
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    <ion-grid>
-                        <ion-row *ngFor="let priductKey of objectKeys(this.shareData.productClassMap[key]['productMap'])">
-                            <ion-col class="dm-main-car">
-                                <ion-grid>
-                                    <ion-row class="dm-main-car-top">
-                                        <ion-col>
-                                            <h5>{{this.shareData.productClassMap[key]["productMap"][priductKey]["Name"]}}</h5>
-                                        </ion-col>
-                                        <ion-col>
-                                            <h5>¥{{this.shareData.productClassMap[key]["productMap"][priductKey]["Price"]}}<small>元起</small></h5>
-                                        </ion-col>
-                                    </ion-row>
-                                    <ion-row class="dm-main-car-middle">
-                                        <ion-col>
-                                            <h5>前后双电机后驱</h5>
-                                            <p>驱动形式</p>
-                                        </ion-col>
-                                        <ion-col>
-                                            <h5>35kWh</h5>
-                                            <p>电池容量</p>
-                                        </ion-col>
-                                        <ion-col>
-                                            <h5>6.4s</h5>
-                                            <p>百公里加速</p>
-                                        </ion-col>
-                                    </ion-row>
-                                    <ion-row class="dm-main-car-bottom">
-                                        <ion-col>
-                                            <p (click)="presentSpeclistModal()">查看更多配置</p>
-                                        </ion-col>
-                                    </ion-row>
-                                </ion-grid>
-                            </ion-col>
-                        </ion-row>
-                    </ion-grid>
-                </ion-col>
-            </ion-row>
+        <div id="carcenter_carstore_index_main">
+            <div *ngFor="let key of objectKeys(this.shareData.productClassViewMap)">
+                <ion-row class="dm-title">
+                    <ion-col>
+                        {{this.shareData.productClassViewMap[key]["productClassName"]}}
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-grid>
+                            <ion-row *ngFor="let proKey of objectKeys(this.shareData.productClassViewMap[key]['productMap'])">
+                                <ion-col class="dm-main-car" attr.proKey="{{proKey}}" [ngClass]="{'select':proKey===this.shareData.selectProductKey}">
+                                    <ion-grid>
+                                        <ion-row class="dm-main-car-top" (click)="itemOnClick(proKey)">
+                                            <ion-col>
+                                                <h5>{{this.shareData.productMap[proKey]["Procudt"]["mcs_name"]}}</h5>
+                                            </ion-col>
+                                            <ion-col>
+                                                <h5>{{this.shareData.productMap[proKey]["Procudt"]["mcs_baseprice"]}}<small>元起</small></h5>
+                                            </ion-col>
+                                        </ion-row>
+                                        <ion-row class="dm-main-car-middle" (click)="itemOnClick(proKey)">
+                                            <ion-col>
+                                                <h5>{{this.shareData.productClassViewMap[key]["productMap"][proKey]["ext_qdxs_val"]}}&nbsp;</h5>
+                                                <p>驱动形式</p>
+                                            </ion-col>
+                                            <ion-col>
+                                                <h5>{{this.shareData.productClassViewMap[key]["productMap"][proKey]["ext_dcrl_val"]}}&nbsp;</h5>
+                                                <p>电池容量</p>
+                                            </ion-col>
+                                            <ion-col>
+                                                <h5>{{this.shareData.productClassViewMap[key]["productMap"][proKey]["ext_bgljs_val"]}}&nbsp;</h5>
+                                                <p>百公里加速</p>
+                                            </ion-col>
+                                        </ion-row>
+                                        <ion-row class="dm-main-car-bottom">
+                                            <ion-col>
+                                                <p (click)="presentSpeclistModal(proKey)">查看更多配置</p>
+                                            </ion-col>
+                                        </ion-row>
+                                    </ion-grid>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-col>
+                </ion-row>
+            </div>
         </div>
+
     </ion-grid>
 </ion-content>
 
 <ion-footer>
     <ion-toolbar class="dm-footer">
-        <ion-button color="org" expand="block" shape="round" [routerLink]="['/carcenter/carstore/selectattr']">下一步</ion-button>
+        <ion-button id="but_next" color="dis" (click)="onNext()" expand="block" shape="round">下一步</ion-button>
     </ion-toolbar>
 </ion-footer>
