@@ -115,3 +115,27 @@ ion-row {
     z-index: 10;
     display: block;
 }
+
+.tab-red-point:after, .red-point:after {
+    position: absolute;
+    content: ' ';
+    height: 20px;
+    width: 20px;
+    border-radius: 15px;
+    background-color: red;
+}
+
+.tab-red-point:after {
+    top: 2px;
+    left: 12%;
+}
+
+.red-point:after {
+    top: 10px;
+    right: 35%;
+}
+.showtoast div {
+    width: 100px;
+    background-color: #000;
+    opacity: 0.5;
+}

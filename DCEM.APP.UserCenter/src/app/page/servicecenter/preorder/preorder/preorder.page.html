@@ -1,0 +1,87 @@
+﻿<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/servicecenter/boutique/detail"></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{model.title}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid style="background: #F7F7F7;padding: 0;">
+        <ion-card style="width: 100%;padding: 0;margin: 10px 0;background: #fff;">
+            <ion-item lines="none" class="ion-item-addr">
+                <ion-label>收货信息</ion-label>
+            </ion-item>
+            <ion-item lines="none" href="#" [routerLink]="['/home/shippingaddress']">
+                <ion-label style="color:#a4a4a4;">新增收货地址</ion-label>
+            </ion-item>
+        </ion-card>
+
+        <ion-card style="width: 100%;padding: 0;margin: 10px 0;background: #fff;">
+            <ion-item lines="none" class="ion-item-addr">
+                <ion-label>商品信息</ion-label>
+            </ion-item>
+            <ion-item lines="none" style="padding-bottom:30px;" *ngFor="let item of model.datas.datas">
+                <div style="width:28%;z-index:1;">
+                    <img src="{{item.img}}" style="border-radius:15px;width:100px;height:100px;" />
+                </div>
+                <div style="width:70%;z-index:1;">
+                    <div style="font-size:20px;">{{item.productname}}</div>
+                    <div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:16px;margin:10px 0;color:#a5a2a2;">{{item.skuname}}</div>
+                    <div style="display:flex;justify-content:space-between;">
+                        <div style="color:#38B3EE;font-size:18px;line-height:35px;">
+                            ￥
+                            <span>{{item.price}} </span>
+                            <span style="color:#000;">x{{item.num}}</span>
+                        </div>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-card>
+
+        <ion-card style="width: 100%;padding: 0;margin: 10px 0;background: #fff;">
+            <ion-item lines="none" href="#">
+                <ion-label>发票信息</ion-label>
+                <ion-label style="color:#a4a4a4;text-align:right;">请选择</ion-label>
+            </ion-item>
+        </ion-card>
+
+        <ion-card style="width: 100%;padding: 0;margin: 10px 0;background: #fff;">
+            <ion-item lines="none" class="ion-item-addr">
+                <ion-label>商品金额</ion-label>
+            </ion-item>
+            <ion-item lines="none">
+                <ion-label style="color:#a4a4a4;">商品总价</ion-label>
+                <ion-label style="color:#a4a4a4;text-align:right;">￥{{model.totalprice}}</ion-label>
+            </ion-item>
+            <ion-item lines="none">
+                <ion-label style="color:#a4a4a4;">运费</ion-label>
+                <ion-label style="color:#a4a4a4;text-align:right;">+￥0.00</ion-label>
+            </ion-item>
+            <ion-item lines="none">
+                <ion-label style="color:#a4a4a4;">折扣</ion-label>
+                <ion-label style="color:#a4a4a4;text-align:right;">-￥0.00</ion-label>
+            </ion-item>
+        </ion-card>
+
+        <ion-card style="width: 100%;padding: 0;margin: 10px 0;background: #fff;">
+            <ion-item lines="none">
+                <ion-label>合计</ion-label>
+                <ion-label style="color:#38B3EE;text-align:right;">￥{{model.totalprice}}</ion-label>
+            </ion-item>
+        </ion-card>
+    </ion-grid>
+</ion-content>
+
+<!--底部栏-->
+<ion-tab-bar slot="bottom">
+    <ion-tab-button tab="servicecenter">
+        <span class="span-total" style="font-size:20px;color:#38B3EE;position:absolute;left:15px;">￥{{model.totalprice}}</span>
+    </ion-tab-button>
+    <ion-tab-button tab="servicecenter" style="opacity:0;">
+    </ion-tab-button>
+    <ion-tab-button tab="personalcenter" (click)="submitOrder()" class="tab-cac" style="background-color:#38B3EE;">
+        <ion-label style="font-size:18px; color:#fff;">提交订单</ion-label>
+    </ion-tab-button>
+</ion-tab-bar>
