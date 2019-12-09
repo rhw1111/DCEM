@@ -1,7 +1,7 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonBackButton, IonBackButtonDelegate } from '@ionic/angular';
 import { DCore_Http, DCore_Page, DCore_Valid, DCore_ShareData } from 'app/component/typescript/dcem.core';
 import * as $ from 'jquery';
-
 
 @Component({
     selector: 'app-selectattr',
@@ -10,8 +10,12 @@ import * as $ from 'jquery';
 })
 export class SelectattrPage implements OnInit {
 
+    @ViewChild(IonBackButton, null) ionBackButton: IonBackButton;
+    @ViewChild(IonBackButtonDelegate, null) ionBackButtonDelegate: IonBackButtonDelegate;
+
     public mod: any = {
-        shareDataKey: "carstore"
+        shareDataKey: "carstore",
+        //showfooterModel: 0,
     };
 
 
@@ -35,23 +39,13 @@ export class SelectattrPage implements OnInit {
         private _valid: DCore_Valid,
         private _shareData: DCore_ShareData
     ) {
-    }
-
-    ngOnInit() {
-        this.init();
-    }
-    ionViewWillEnter() {
-        this.initJQueryEvent();
-    }
-
-    public init() {
-        
+       
+        this.mod.showfooterModel = 0;
         this.shareData.productOrderingattributeClassMap["外观颜色"] = {};
         this.shareData.productOrderingattributeClassMap["外观颜色"]["selectKey"] = "";
         this.shareData.productOrderingattributeClassMap["外观颜色"]["money"] = 0;
         this.shareData.productOrderingattributeClassMap["外观颜色"]["moneyFormat"] = "";
         this.shareData.productOrderingattributeClassMap["外观颜色"]["productOrderingattributeMap"] = {};
-
 
         this.shareData.productOrderingattributeClassMap["轮毂"] = {};
         this.shareData.productOrderingattributeClassMap["轮毂"]["selectKey"] = "";
@@ -65,15 +59,32 @@ export class SelectattrPage implements OnInit {
         this.shareData.productOrderingattributeClassMap["内饰主题"]["moneyFormat"] = "";
         this.shareData.productOrderingattributeClassMap["内饰主题"]["productOrderingattributeMap"] = {};
 
-        this.shareData.productOrderingattributeMap = {};           
-        this.shareData.productOrderingattributeClassMap = {};         
+    }
 
+    ngOnInit() {
+
+        const that = this;
+        this.ionBackButtonDelegate.onClick = function (event) {
+            $("#carcenter_carstore_selectattr_footer").find(".dm-footer-svg").removeClass("open");
+            $("#carcenter_carstore_selectattr_footer_model").removeClass("open");
+            that._page.navigateRoot("/carcenter/carstore/index", null, "back");
+        }
+    }
+    ionViewWillEnter() {
+
+        this.init();
+
+        // this.mod.showfooterModel = 0;
+        // this.initJQueryEvent();
+    }
+
+
+
+    public init() {
         if (this._shareData.has(this.mod.shareDataKey)) {
-            if (this.objectKeys(this.shareData.productOrderingattributeMap).length === 0) {
+            this.shareData = this._shareData.get(this.mod.shareDataKey);
+            if (this._valid.isNull(this.shareData.productOrderingattributeMap)) {
                 this.initShareData();
-            }
-            else {
-                this.shareData = this._shareData.get(this.mod.shareDataKey);
             }
         } else {
             this._page.navigateRoot("/carcenter/carstore/index", null, "back");
@@ -126,6 +137,8 @@ export class SelectattrPage implements OnInit {
                 this.shareData.packageMap[productOrderingattributeClassKey]["text"] = productOrderingattribute["mcs_attributevalue"];
                 this.shareData.packageMap[productOrderingattributeClassKey]["val"] = "价格已包含";
                 this.shareData.packageMap[productOrderingattributeClassKey]["money"] = 0;
+                this.shareData.packageMap[productOrderingattributeClassKey]["type"] = "productOrderingattribute";
+                this.shareData.packageMap[productOrderingattributeClassKey]["id"] = productOrderingattributeKey;
 
                 if (!this._valid.isNullOrEmpty(productOrderingattribute["mcs_attributeextprice"])) {
                     if (productOrderingattribute["mcs_attributeextprice"] > 0) {
@@ -152,20 +165,20 @@ export class SelectattrPage implements OnInit {
 
         $(document).ready(function () {
             //底部的事件
-            $(".dm-footer-svg").click(function () {
-                if ($(this).hasClass("open")) {
-                    $(this).removeClass("open");
-                    $(this).addClass("close");
-                    $(".dm-footer-model").removeClass("open");
-                    $(".dm-footer-model").addClass("close");
-                }
-                else {
-                    $(this).removeClass("close");
-                    $(this).addClass("open");
-                    $(".dm-footer-model").removeClass("close");
-                    $(".dm-footer-model").addClass("open");
-                }
-            });
+            //$("#carcenter_carstore_selectattr_footer").on("click", ".dm-footer-svg", function () {
+            //    if ($(this).hasClass("open")) {
+            //        $(this).removeClass("open");
+            //        $(this).addClass("close");
+            //        $("#carcenter_carstore_selectattr_footer_model").removeClass("open");
+            //        $("#carcenter_carstore_selectattr_footer_model").addClass("close");
+            //    }
+            //    else {
+            //        $(this).removeClass("close");
+            //        $(this).addClass("open");
+            //        $("#carcenter_carstore_selectattr_footer_model").removeClass("close");
+            //        $("#carcenter_carstore_selectattr_footer_model").addClass("open");
+            //    }
+            //});
 
             //选择订购属性
             //$("#carcenter_carstore_selectattr_main").on("click", ".dm-imglist-item", function () {
@@ -195,6 +208,9 @@ export class SelectattrPage implements OnInit {
         this.shareData.packageMap[productOrderingattributeClassKey]["text"] = productOrderingattribute["mcs_attributevalue"];
         this.shareData.packageMap[productOrderingattributeClassKey]["val"] = "价格已包含";
         this.shareData.packageMap[productOrderingattributeClassKey]["money"] = 0;
+        this.shareData.packageMap[productOrderingattributeClassKey]["type"] = "productOrderingattribute";
+        this.shareData.packageMap[productOrderingattributeClassKey]["id"] = proOrderAttrKey;
+
 
         if (!this._valid.isNullOrEmpty(productOrderingattribute["mcs_attributeextprice"])) {
             if (productOrderingattribute["mcs_attributeextprice"] > 0) {
@@ -275,4 +291,31 @@ export class SelectattrPage implements OnInit {
         }
 
     }
+
+    public showfooterModelClick() {
+        if ($("#carcenter_carstore_selectattr_footer").find(".dm-footer-svg").hasClass("open")) {
+            $("#carcenter_carstore_selectattr_footer").find(".dm-footer-svg").removeClass("open");
+            $("#carcenter_carstore_selectattr_footer").find(".dm-footer-svg").addClass("close");
+            $("#carcenter_carstore_selectattr_footer_model").removeClass("open");
+            $("#carcenter_carstore_selectattr_footer_model").addClass("close");
+        }
+        else {
+            $("#carcenter_carstore_selectattr_footer").find(".dm-footer-svg").removeClass("close");
+            $("#carcenter_carstore_selectattr_footer").find(".dm-footer-svg").addClass("open");
+            $("#carcenter_carstore_selectattr_footer_model").removeClass("close");
+            $("#carcenter_carstore_selectattr_footer_model").addClass("open");
+        }
+    }
+
+    //底部状态
+    //public showfooterModelClick() {
+    //    console.log(this.mod.showfooterModel);
+    //    if (this.mod.showfooterModel !== 1) {
+    //        this.mod.showfooterModel = 1;
+    //    }
+    //    else {
+    //        this.mod.showfooterModel = 2;
+    //    }
+    //    console.log(this.mod.showfooterModel);
+    //}
 }

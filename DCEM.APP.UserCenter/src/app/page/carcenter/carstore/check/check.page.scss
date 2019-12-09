@@ -98,21 +98,24 @@
 
             ion-col:first-child {
                 .dm-list-itme-img {
-                    margin: 0 auto;
-                    position: relative;
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 20px;
-                    box-shadow: 0 4px 5px 0 rgba(0,0,0,.05);
-                    float: left;
-                    position: relative;
-                    top: 50%;
-                    transform: translateY(-50%);
+                    div {
+                        margin: 0 auto;
+                        position: relative;
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 20px;
+                        box-shadow: 0 4px 5px 0 rgba(0,0,0,.05);
+                        float: left;
+                        position: relative;
+                        top: 50%;
+                        transform: translateY(-50%);
 
-                    &.square {
-                        border-radius: 0px;
+                        &.square {
+                            border-radius: 0px;
+                        }
                     }
                 }
+
 
                 div:last-child {
                     float: left;
@@ -122,8 +125,12 @@
                     margin-left: 15px;
 
                     label {
+                        position: absolute;
+                        width: 150px;
                         font-size: 14px;
                         color: $dm-darkblue;
+                        top: 50%;
+                        transform: translateY(-50%);
                     }
 
                     p {

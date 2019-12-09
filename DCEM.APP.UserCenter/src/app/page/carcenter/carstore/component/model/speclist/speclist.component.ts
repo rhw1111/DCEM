@@ -21,6 +21,7 @@ export class SpeclistComponent implements OnInit {
     ) {
         this.mod.selectProductMap = this._navParams.get('selectProductMap');
         this.mod.selectProductSpecificationViewClassMap = this._navParams.get('selectProductSpecificationViewClassMap');
+        console.log(this.mod.selectProductMap);
     }
 
     ngOnInit() {

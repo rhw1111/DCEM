@@ -25,8 +25,8 @@ export class PreorderPage implements OnInit {
 
     ngOnInit() {
         //获取参数
-        this.model.datas = this.routerinfo.snapshot.queryParams;
-        console.log(this.model.datas);
+        var datastr = this.routerinfo.snapshot.queryParams["params"];
+        this.model.datas = JSON.parse(datastr);
         this.initListLoading();
     }
     //初始化页面数据加载
@@ -83,17 +83,17 @@ export class PreorderPage implements OnInit {
                 "Media": 0,
                 "ChannelSource": "1001",
                 "OrderTime": new Date(),
-                "CarBuyerName": $("#carbuyer").val(),
+                "CarBuyerName": "张三",
                 "CarBuyerPhone": "13648490987",
-                "CarBuyerIdType": $("[name='cardtype']").val(),
-                "CarBuyerId": $("#cardno").val(),
+                "CarBuyerIdType": 1,
+                "CarBuyerId": "500224198709091267",
                 "ShippingFlag": true,
                 "PaymentFlag": true,
                 "PaymentStatus": 1,
-                "CashTotal": $(".prices").text().substring(1),
-                "TotalDepositAmount": $(".prices").text().substring(1),
-                "ReceivedDepositAmount": $(".prices").text().substring(1),
-                "ReceivableAmount": $(".prices").text().substring(1),
+                "CashTotal": this.model.totalprice,
+                "TotalDepositAmount": this.model.totalprice,
+                "ReceivedDepositAmount": this.model.totalprice,
+                "ReceivableAmount": this.model.totalprice,
                 "DeductionAmount": 0,
                 "FinalPayment": 0,
                 "IntegralTotal": 0,
@@ -106,10 +106,10 @@ export class PreorderPage implements OnInit {
                 "RecommendUserName": "",
                 "RecommendUserPhone": "",
                 "Comment": "",
-                "ReceiverName": $(".address ul li:first span").text(),
-                "ReceiverPhone": $(".address ul li:eq(1) span").text(),
-                "DealerCode": $("[name='dealer']").val(),
-                "DeliveryAdderss": $(".address ul li:eq(2) span").text(),
+                "ReceiverName": "李四",
+                "ReceiverPhone": "13333333333",
+                "DealerCode": "",
+                "DeliveryAdderss": "",
                 "SmallOrderCodeList": [
 
                 ],
