@@ -1,5 +1,5 @@
 ﻿import { Component, ViewChild, OnInit } from '@angular/core';
-import { ModalController, PopoverController, IonSlides, IonSlide } from '@ionic/angular';
+import { ModalController, PopoverController, IonSlides, IonSlide, IonButton } from '@ionic/angular';
 import { AnimationBuilder, Animation } from '@ionic/core';
 import { SpeclistComponent } from 'app/page/carcenter/carstore/component/model/speclist/speclist.component';
 import * as $ from 'jquery';
@@ -14,13 +14,14 @@ import { DCore_Http, DCore_Page, DCore_Valid, DCore_ShareData } from 'app/compon
 export class IndexPage implements OnInit {
 
     @ViewChild('mainSlide', null) mainSlide: IonSlides;
+    @ViewChild('ionbuttonNext', null) nextButton: IonButton;
 
     public mod: any = {
         apiUrl: 'api/Store/GetProductList',
         searchData: {
         },
         shareDataKey: "carstore",
-        nextButtonColor:"dis",
+        nextButtonColor: "dis",
     };
 
     public objectKeys = Object.keys;
@@ -45,14 +46,17 @@ export class IndexPage implements OnInit {
         private _valid: DCore_Valid,
         private _shareData: DCore_ShareData
     ) {
+        this.mod.nextButtonColor = "dis";
     }
 
     ngOnInit() {
-        this.init();
+
     }
 
     ionViewWillEnter() {
         //this.initJQueryEvent();
+
+        this.init();
     }
 
 
@@ -61,10 +65,13 @@ export class IndexPage implements OnInit {
         if (this._shareData.has(this.mod.shareDataKey)) {
             this.shareData = this._shareData.get(this.mod.shareDataKey)
             if (!this._valid.isNullOrEmpty(this.shareData.selectProductKey)) {
-                $(document).ready(function () {
-                    //$("#carcenter_carstore_index_main").find(".dm-main-car[proKey='" + that.shareData.selectProductKey + "']").addClass("select");
-                    $("#but_next").attr("color", "org");
-                })
+
+                this.nextButton.color = "org";
+
+                //$(document).ready(function () {
+                //    //$("#carcenter_carstore_index_main").find(".dm-main-car[proKey='" + that.shareData.selectProductKey + "']").addClass("select");
+                //    $("#but_next").attr("color", "org");
+                //})
             }
         } else {
             this.initShareData();
@@ -81,12 +88,12 @@ export class IndexPage implements OnInit {
     //        $("#but_next").attr("color", "org");
     //        var productKey = $(this).parents(".dm-main-car").attr("proKey");
     //        that.shareData.selectProductKey = productKey;
-    //        that.shareData.packageMoney = that.shareData.productMap[productKey]["Procudt"]["mcs_baseprice"];
+    //        that.shareData.packageMoney = that.shareData.productMap[productKey]["ProductInfo"]["mcs_baseprice"];
 
     //        that.shareData.packageMap["product"] = {};
-    //        that.shareData.packageMap["product"]["text"] = that.shareData.productMap[productKey]["Procudt"]["mcs_name"];
-    //        that.shareData.packageMap["product"]["val"] = that.shareData.productMap[productKey]["Procudt"]["mcs_baseprice"] + "元";
-    //        that.shareData.packageMap["product"]["money"] = that.shareData.productMap[productKey]["Procudt"]["mcs_baseprice"];
+    //        that.shareData.packageMap["product"]["text"] = that.shareData.productMap[productKey]["ProductInfo"]["mcs_name"];
+    //        that.shareData.packageMap["product"]["val"] = that.shareData.productMap[productKey]["ProductInfo"]["mcs_baseprice"] + "元";
+    //        that.shareData.packageMap["product"]["money"] = that.shareData.productMap[productKey]["ProductInfo"]["mcs_baseprice"];
 
     //        that._shareData.set(that.mod.shareDataKey, that.shareData);
 
@@ -100,28 +107,30 @@ export class IndexPage implements OnInit {
             this.mod.apiUrl,
             this.mod.searchData,
             (res: any) => {
+                console.log(res);
                 if (!this._valid.isNull(res) && !this._valid.isNull(res["ProductList"])) {
-                    for (var productInfo of res["ProductList"]) {
+                    for (var product of res["ProductList"]) {
 
+   
                         //解析接收对象
-                        var product = productInfo["Procudt"];
-                        var productImageArray = productInfo["ProductImageArray"];
-                        var productSpecificationArray = productInfo["ProductSpecificationArray"];
+                        var productInfo = product["ProductInfo"];
+                        var productImageArray = product["ProductImageArray"];
+                        var productSpecificationArray = product["ProductSpecificationArray"];
 
                         //组装数据类型
-                        if (product["mcs_type"] === 1) {
+                        if (productInfo["mcs_type"] === 1) {
 
-                            var productKey = product["mcs_tc_productid"];
+                            var productKey = productInfo["mcs_tc_productid"];
                             let that: IndexPage = this;
                             //组装产品地图
                             let asseProductMap = function () {
-                                that.shareData.productMap[productKey] = productInfo;
+                                that.shareData.productMap[productKey] = product;
                             }();
                             //组装产品类别和规格地图
                             let asseProductClassViewMap = function () {
-                                var productClassKey = product["_mcs_salescategory_value"];
+                                var productClassKey = productInfo["_mcs_salescategory_value"];
                                 if (that._valid.isNull(that.shareData.productClassViewMap[productClassKey])) {
-                                    var productClassName = product["_mcs_salescategory_value@OData.Community.Display.V1.FormattedValue"];
+                                    var productClassName = productInfo["_mcs_salescategory_value@OData.Community.Display.V1.FormattedValue"];
                                     that.shareData.productClassViewMap[productClassKey] = {};
                                     that.shareData.productClassViewMap[productClassKey]["productClassName"] = productClassName;
                                     that.shareData.productClassViewMap[productClassKey]["productMap"] = {};
@@ -185,16 +194,30 @@ export class IndexPage implements OnInit {
 
     //选择的事件
     public itemOnClick(proKey) {
-        this.shareData.selectProductKey = proKey;
-        this.shareData.packageMoney = this.shareData.productMap[proKey]["Procudt"]["mcs_baseprice"];
-        this.shareData.packageMap["product"] = {};
-        this.shareData.packageMap["product"]["text"] = this.shareData.productMap[proKey]["Procudt"]["mcs_name"];
-        this.shareData.packageMap["product"]["val"] = this.shareData.productMap[proKey]["Procudt"]["mcs_baseprice"] + "元";
-        this.shareData.packageMap["product"]["money"] = this.shareData.productMap[proKey]["Procudt"]["mcs_baseprice"];
 
+        delete this.shareData["productOrderingattributeMap"];
+        delete this.shareData["productRelatedMap"];
+
+
+
+        this.shareData.selectProductKey = proKey;
         this.shareData.selectProduct = this.shareData.productMap[proKey];
-        $("#but_next").attr("color", "org");
+
+        this.shareData.packageMoney = this.shareData.productMap[proKey]["ProductInfo"]["mcs_baseprice"];
+        this.shareData.packageMap = {};
+        this.shareData.packageMap["product"] = {};
+        this.shareData.packageMap["product"]["text"] = this.shareData.productMap[proKey]["ProductInfo"]["mcs_name"];
+        this.shareData.packageMap["product"]["val"] = this.shareData.productMap[proKey]["ProductInfo"]["mcs_baseprice"] + "元";
+        this.shareData.packageMap["product"]["money"] = this.shareData.productMap[proKey]["ProductInfo"]["mcs_baseprice"];
+        this.shareData.packageMap["product"]["type"] = "product";
+        this.shareData.packageMap["product"]["id"] = proKey;
+
+        // this.mod.nextButtonColor = "org";
+        this.nextButton.color = "org";
+        //$("#but_next").attr("color", "org");
+
     }
+
 
     //下一步
     public onNext() {

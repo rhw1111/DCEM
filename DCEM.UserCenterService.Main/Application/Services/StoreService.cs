@@ -167,7 +167,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
             foreach (var entity in procudtResponse.Value.Results)
             {
                 var product = new Product();
-                product.Procudt = entity.Attributes;
+                product.ProductInfo = entity.Attributes;
                 dicProduct.Add(entity.Id, product);
             }
             #endregion
@@ -198,6 +198,14 @@ namespace DCEM.UserCenterService.Main.Application.Services
             }
             #endregion
 
+            #region 组装商品订购属性的规格型号
+            foreach (var entity in productSpecificationResponse.Value.Results)
+            {
+                var productGuid = Guid.Parse(entity.Attributes.Value<string>("_mcs_product_value"));
+                dicProduct[productGuid].ProductOrderingattributeArray.Add(entity.Attributes);
+            }
+            #endregion
+
             #region 组装商品的关联关系
             foreach (var entity in productrElatedArrayResponse.Value.Results)
             {
@@ -217,6 +225,8 @@ namespace DCEM.UserCenterService.Main.Application.Services
         }
         #endregion
 
+        #region 获取商品的 规格型号
+        #endregion
 
         #endregion
     }

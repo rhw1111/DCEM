@@ -20,17 +20,17 @@ namespace DCEM.UserCenterService.Main.ViewModel.Response
     {
         public Product()
         {
-            Procudt = new JObject();
+            ProductInfo = new JObject();
             ProductImageArray = new JArray();
             ProductSpecificationArray = new JArray();
             ProductOrderingattributeArray = new JArray();
             ProductRelatedArray = new JArray();
         }
-
+        
         /// <summary>
         /// 商品实体
         /// </summary>
-        public JObject Procudt { get; set; }
+        public JObject ProductInfo { get; set; }
 
         /// <summary>
         /// 商品图片
@@ -50,6 +50,5 @@ namespace DCEM.UserCenterService.Main.ViewModel.Response
         /// 关联关系
         /// </summary>
         public JArray ProductRelatedArray { get; set; }
-
     }
 }

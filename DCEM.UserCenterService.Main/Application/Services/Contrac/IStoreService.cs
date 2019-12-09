@@ -7,5 +7,6 @@ namespace DCEM.UserCenterService.Main.Application.Services.Contrac
     public interface IStoreService
     {
         Task<ProducListResponse> QueryProductList(ProducListRequest request);
+
     }
 }

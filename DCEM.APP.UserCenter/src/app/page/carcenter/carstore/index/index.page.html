@@ -1,7 +1,7 @@
 ﻿<ion-header class="dm-top-nav">
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button text="返回" color="darkblue" defaultHref="/carcenter/index"></ion-back-button>
+            <ion-back-button text="返回" color="darkblue" defaultHref="/tabs/carcenter"></ion-back-button>
         </ion-buttons>
         <ion-title class="dm-top-nav-tag">
             <ul>
@@ -49,10 +49,10 @@
                                     <ion-grid>
                                         <ion-row class="dm-main-car-top" (click)="itemOnClick(proKey)">
                                             <ion-col>
-                                                <h5>{{this.shareData.productMap[proKey]["Procudt"]["mcs_name"]}}</h5>
+                                                <h5>{{this.shareData.productMap[proKey]["ProductInfo"]["mcs_name"]}}</h5>
                                             </ion-col>
                                             <ion-col>
-                                                <h5>{{this.shareData.productMap[proKey]["Procudt"]["mcs_baseprice"]}}<small>元起</small></h5>
+                                                <h5>{{this.shareData.productMap[proKey]["ProductInfo"]["mcs_baseprice"]}}<small>元起</small></h5>
                                             </ion-col>
                                         </ion-row>
                                         <ion-row class="dm-main-car-middle" (click)="itemOnClick(proKey)">
@@ -88,6 +88,6 @@
 
 <ion-footer>
     <ion-toolbar class="dm-footer">
-        <ion-button id="but_next" color="dis" (click)="onNext()" expand="block" shape="round">下一步</ion-button>
+        <ion-button id="but_next" #ionbuttonNext  color="{{mod.nextButtonColor}}" (click)="onNext()" expand="block" shape="round">下一步</ion-button>
     </ion-toolbar>
 </ion-footer>
