@@ -1,0 +1,13 @@
+diff a/MSCRM.WebSite/MSCRM.WebSite.TC/DCEM.Main.Entities/Response/QueryProductResponse.cs b/MSCRM.WebSite/MSCRM.WebSite.TC/DCEM.Main.Entities/Response/QueryProductResponse.cs	(rejected hunks)
+@@ -157,10 +157,7 @@
+         ///</summary> 
+         public Decimal TaxRate { get; set; }
+ 
+-        ///<summary>
+-        ///	税率
+-        ///</summary> 
+-        public string TaxCode { get; set; }
++
+         ///<summary>
+         ///	Sku集合
+         ///</summary> 

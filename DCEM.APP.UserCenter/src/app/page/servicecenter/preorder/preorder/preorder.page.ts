@@ -25,8 +25,8 @@ export class PreorderPage implements OnInit {
 
     ngOnInit() {
         //获取参数
-        this.model.datas = this.routerinfo.snapshot.queryParams;
-        console.log(this.model.datas);
+        var datastr = this.routerinfo.snapshot.queryParams["params"];
+        this.model.datas = JSON.parse(datastr);
         this.initListLoading();
     }
     //初始化页面数据加载
@@ -41,34 +41,34 @@ export class PreorderPage implements OnInit {
     }
     //提交订单
     submitOrder() {
-        //var returndata = {
-        //    "OrderCode": "1111111",
-        //    "TotalPrice": this.model.totalprice
-        //};
-        //this._page.navigateRoot("/servicecenter/payment/payment", returndata);
-        this._page.loadingShow();
-        var data = this.readyForDatas();
-        this._http.postForShopping(this.model.search.apiUrl,data,
-            (res: any) => {
-                if (res != null) {
-                    if (res.IsSuccess) {
-                        var returndata = {
-                            "OrderCode": res.OrderCode,
-                            "TotalPrice": this.model.totalprice
-                        };
-                        this._page.navigateRoot("/servicecenter/payment/payment", returndata);
-                    }
-                }
-                else {
-                    this._page.alert("消息提示", "订单提交失败");
-                }
-                this._page.loadingHide();
-            },
-            (err: any) => {
-                this._page.alert("消息提示", "订单提交失败");
-                this._page.loadingHide();
-            }
-        );
+        var returndata = {
+            "OrderCode": "1111111",
+            "TotalPrice": this.model.totalprice
+        };
+        this._page.navigateRoot("/servicecenter/payment/payment", returndata);
+        //this._page.loadingShow();
+        //var data = this.readyForDatas();
+        //this._http.postForShopping(this.model.search.apiUrl,data,
+        //    (res: any) => {
+        //        if (res != null) {
+        //            if (res.IsSuccess) {
+        //                var returndata = {
+        //                    "OrderCode": res.OrderCode,
+        //                    "TotalPrice": this.model.totalprice
+        //                };
+        //                this._page.navigateRoot("/servicecenter/payment/payment", returndata);
+        //            }
+        //        }
+        //        else {
+        //            this._page.alert("消息提示", "订单提交失败");
+        //        }
+        //        this._page.loadingHide();
+        //    },
+        //    (err: any) => {
+        //        this._page.alert("消息提示", "订单提交失败");
+        //        this._page.loadingHide();
+        //    }
+        //);
     }
     //准备订单数据
     readyForDatas() {

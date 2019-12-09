@@ -25,6 +25,7 @@ namespace DCEM.UserCenterService.Main.ViewModel.Response
             ProductSpecificationArray = new JArray();
             ProductOrderingattributeArray = new JArray();
             ProductRelatedArray = new JArray();
+            ProductPriceArray = new JArray();
         }
         
         /// <summary>
@@ -50,5 +51,10 @@ namespace DCEM.UserCenterService.Main.ViewModel.Response
         /// 关联关系
         /// </summary>
         public JArray ProductRelatedArray { get; set; }
+
+        /// <summary>
+        /// 商品SKU
+        /// </summary>
+        public JArray ProductPriceArray { get; set; }
     }
 }

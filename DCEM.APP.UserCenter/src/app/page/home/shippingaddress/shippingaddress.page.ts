@@ -84,42 +84,41 @@ export class ShippingaddressPage implements OnInit {
       },
       (res: any) => {
         if (res != null && res.Data !== null) {
-          //绑定数据
-          res.Data.forEach(item => {
-            var dat = {
-              id: item.Id,
-              mcs_userid: item.Attributes["_mcs_userid_value"],
-              mcs_name: item.Attributes["mcs_name"],
-              mcs_province: item.Attributes["_mcs_province_value"],
-              mcs_city: item.Attributes["_mcs_city_value"],
-              mcs_area: item.Attributes["_mcs_area_value"],
-              mcs_address: item.Attributes["mcs_address"],
-              mcs_phone: item.Attributes["mcs_phone"],
-              mcs_provincename: item.Attributes["_mcs_province_value@OData.Community.Display.V1.FormattedValue"],
-              mcs_cityname: item.Attributes["_mcs_city_value@OData.Community.Display.V1.FormattedValue"],
-              mcs_areaname: item.Attributes["_mcs_area_value@OData.Community.Display.V1.FormattedValue"],
-              mcs_isdefault: item.Attributes["mcs_isdefault"]
-            }
-            this.mod.datalist.push(dat);
-          });
-
-          event ? event.target.complete() : '';
-          //判断是否有新数据
-          if (res.Data.length < this.mod.search.pageSize) {
-            event ? event.target.disabled = true : "";
-            this.mod.isending = true;
-          }
+          this.OnLoadData(res.Data, event);
+          this._page.loadingHide();
         }
-        else {
-          this._page.alert("消息提示", "数据加载异常");
-        }
-        this._page.loadingHide();
       },
       (err: any) => {
         this._page.alert("消息提示", "数据加载异常");
         this._page.loadingHide();
       }
     );
+  }
+
+  OnLoadData(data: any, event: any) { 
+    data.forEach(item => {
+      var dat = {
+        id: item.Id,
+        mcs_userid: item.Attributes["_mcs_userid_value"],
+        mcs_name: item.Attributes["mcs_name"],
+        mcs_province: item.Attributes["_mcs_province_value"],
+        mcs_city: item.Attributes["_mcs_city_value"],
+        mcs_area: item.Attributes["_mcs_area_value"],
+        mcs_address: item.Attributes["mcs_address"],
+        mcs_phone: item.Attributes["mcs_phone"],
+        mcs_provincename: item.Attributes["_mcs_province_value@OData.Community.Display.V1.FormattedValue"],
+        mcs_cityname: item.Attributes["_mcs_city_value@OData.Community.Display.V1.FormattedValue"],
+        mcs_areaname: item.Attributes["_mcs_area_value@OData.Community.Display.V1.FormattedValue"],
+        mcs_isdefault: item.Attributes["mcs_isdefault"]
+      }
+      this.mod.datalist.push(dat);
+    });
+    event ? event.target.complete() : '';
+    //判断是否有新数据
+    if (data.length < this.mod.search.pageSize) {
+      event ? event.target.disabled = true : "";
+      this.mod.isending = true;
+    }
   }
 
   OnselectText(id) {
@@ -166,27 +165,27 @@ export class ShippingaddressPage implements OnInit {
 
 
   onPost() {
-    if(this.mod.model.mcs_city==null){
+    if (this.mod.model.mcs_city == null) {
       this._page.alert("消息提示", "请选择城市");
       return false;
     }
-    if(this.mod.model.mcs_area==null){
+    if (this.mod.model.mcs_area == null) {
       this._page.alert("消息提示", "请选择地区");
       return false;
     }
-    if(this.mod.model.mcs_province==null){
+    if (this.mod.model.mcs_province == null) {
       this._page.alert("消息提示", "请选择省份");
       return false;
     }
-    if(this.mod.model.mcs_address==null){
+    if (this.mod.model.mcs_address == null) {
       this._page.alert("消息提示", "请输入详细地址");
       return false;
     }
-    if(this.mod.model.mcs_phone==null){
+    if (this.mod.model.mcs_phone == null) {
       this._page.alert("消息提示", "请输入电话");
       return false;
     }
-    if(this.mod.model.mcs_name==null){
+    if (this.mod.model.mcs_name == null) {
       this._page.alert("消息提示", "请输入姓名");
       return false;
     }
@@ -202,10 +201,10 @@ export class ShippingaddressPage implements OnInit {
         mcs_phone: this.mod.model.mcs_phone,
         mcs_name: this.mod.model.mcs_name
       },
-      (res: any) => {
+      (res: any) => { 
         if (res.Result) {
           this.mod.datalist = [];
-          this.getList(null);
+          this.OnLoadData(res.Data, null);
           this.pagetype = 1;
           this._page.alert("消息提示", "保存成功！");
         }
@@ -221,9 +220,9 @@ export class ShippingaddressPage implements OnInit {
     );
   }
 
-//设置默认
-  onIsDef(id,mcs_userid) {
-    
+  //设置默认
+  onIsDef(id, mcs_userid) {
+
     this._http.post(this.mod.addorupateurl,
       {
         mcs_shippingaddressid: id,
@@ -233,16 +232,16 @@ export class ShippingaddressPage implements OnInit {
         mcs_province: null,
         mcs_isdefault: 0,
         mcs_address: null,
-        mcs_phone:null,
+        mcs_phone: null,
         mcs_name: null
       },
-      (res: any) => {
+      (res: any) => { 
         if (res.Result) {
           this.mod.datalist = [];
-          this.getList(null); 
+          this.OnLoadData(res.Data, null);
         }
         else {
-          this._page.alert("消息提示", "数据加载异常");
+          this._page.alert("消息提示", "默认设置失败！");
         }
         this._page.loadingHide();
       },
@@ -255,16 +254,16 @@ export class ShippingaddressPage implements OnInit {
 
 
   onDele(id) {
-    this._page.confirm("确认提示", "是否删除？",()=>{
-        
+    this._page.confirm("确认提示", "是否删除？", () => {
+
       this._http.post(this.mod.deleteurl,
         {
-          mcs_shippingaddressid: id 
+          mcs_shippingaddressid: id
         },
         (res: any) => {
           if (res.Result) {
             this.mod.datalist = [];
-            this.getList(null); 
+            this.getList(null);
           }
           else {
             this._page.alert("消息提示", "数据加载异常");
@@ -276,9 +275,9 @@ export class ShippingaddressPage implements OnInit {
           this._page.loadingHide();
         }
       );
-    
+
     });
-   
+
   }
 
 

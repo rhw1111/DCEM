@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page } from '../../../../../app/component/typescript/dcem.core';
+import { ActivatedRoute } from '@angular/router';
 import * as $ from 'jquery';
 
 @Component({
@@ -17,6 +18,7 @@ export class ListPage implements OnInit {
     constructor(
         private _http: DCore_Http,
         private _page: DCore_Page,
+        private routerinfo: ActivatedRoute,
     ) { }
 
     ngOnInit() {
@@ -181,6 +183,6 @@ export class ListPage implements OnInit {
                 })
             }
         });
-        this._page.navigateRoot("/servicecenter/preorder/preorder", orderata)
+        this._page.goto("/servicecenter/preorder/preorder", { params: JSON.stringify(orderata) });
     }
 }
