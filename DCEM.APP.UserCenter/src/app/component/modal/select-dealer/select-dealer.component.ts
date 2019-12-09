@@ -28,8 +28,8 @@ export class SelectDealerComponent implements OnInit {
   public model: any = {
     apiUrl: 'api/dealer/getlist',
     //国家默认中国
-    // countryId:"DD0D2AE0-E414-EA11-B394-86D989685D12",//UAT:"7af9ab98-7ef8-e811-a820-844a39d18a7a";
-    countryId:"7af9ab98-7ef8-e811-a820-844a39d18a7a",
+    countryId:"DD0D2AE0-E414-EA11-B394-86D989685D12",//UAT:"7af9ab98-7ef8-e811-a820-844a39d18a7a";
+    //countryId:"7af9ab98-7ef8-e811-a820-844a39d18a7a",
     level: null,//行政区域级别 0:全球、1:国家、2:省、3:市、4:地区 
     info: {
       provincename: "省",

@@ -4,10 +4,12 @@
 .dm-main-item {
     padding: 20px;
 
+
     ion-grid {
         border-radius: 5px 5px 5px 5px;
-        //border: 1px solid $dm-gray-line;
+        border: 1px solid $dm-gray-line;
         box-shadow: 0 3px 5px 1px #999;
+
     }
 
     .dm-main-item-top {

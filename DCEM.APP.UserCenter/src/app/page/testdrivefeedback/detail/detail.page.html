@@ -12,7 +12,7 @@
 
 <ion-content>
       <ion-list lines="full">
-        <ion-item-divider style="background-color:lightgray;">
+        <ion-item-divider color="primary">
           <ion-label>
             基本信息
           </ion-label>
@@ -58,8 +58,9 @@
           </ion-label>
         </ion-item>     
       </ion-list>
-      <ion-list class="ios list-ios hydrated"[ngStyle]="{'width': '94%','margin-left': '3%'}"> 
-        <ion-item-divider style="background-color:lightgray;">
+      <ion-list class="ios list-ios hydrated"> 
+        <ion-item-divider color="primary">
+          <!-- style="background-color:lightgray;" -->
           <ion-label>
             反馈问题项
           </ion-label>
@@ -67,7 +68,7 @@
         <ion-item-group    role="group"  *ngFor="let item of model.DrivefeedbackList">
           <ion-item >
             <ion-label >
-              <h3>{{item.mcs_surveyquestion}}</h3>
+              <h3>{{item.i}}、{{item.mcs_surveyquestion}}</h3>
             </ion-label>
           </ion-item>
 

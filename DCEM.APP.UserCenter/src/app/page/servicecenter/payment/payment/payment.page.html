@@ -15,22 +15,26 @@
             </ion-card-header>
 
             <ion-card-content style="text-align:center;">
-                <span>￥</span><span style="font-size:40px;font-weight:bold;">1.00</span>
+                <span>￥</span><span style="font-size:40px;font-weight:bold;">{{model.datas.TotalPrice}}</span>
             </ion-card-content>
         </ion-card>
         <ion-card style="width: 100%;padding: 0;margin: 10px 0;background: #fff;">
-            <ion-item lines="none" href="#">
+            <ion-item lines="none" href="#" (click)="payAmount()">
                 <ion-icon name="wine" slot="start"></ion-icon>
                 <ion-label>支付宝支付</ion-label>
             </ion-item>
         </ion-card>
         <ion-card style="width: 100%;padding: 0;margin: 10px 0;background: #fff;">
-            <ion-item lines="none" href="#">
+            <ion-item lines="none" href="#" (click)="payAmount()">
                 <ion-icon name="wine" slot="start"></ion-icon>
                 <ion-label>微信支付</ion-label>
             </ion-item>
         </ion-card>
     </ion-grid>
 
-    <div class="shade"></div>
+    <div class="shade">
+        <span>剩余时间</span>
+        <span id="minute">00</span>分
+        <span id="second">00</span>秒
+    </div>
 </ion-content>

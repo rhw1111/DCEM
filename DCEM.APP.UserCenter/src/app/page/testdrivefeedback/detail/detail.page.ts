@@ -68,12 +68,14 @@ export class DetailPage implements OnInit {
         
         //问题项
         if (res.DrivefeedbackList != null) {
+          var i=1;
           for (var key in res.DrivefeedbackList) {
             var obj = {};
             obj["mcs_surveyquestion"] = res.DrivefeedbackList[key]["Attributes"]["mcs_surveyquestion"];        
             obj["mcs_suveryanswer"] =res.DrivefeedbackList[key]["Attributes"]["mcs_suveryanswer"];  
+            obj["i"] =i;
             this.model.DrivefeedbackList.push(obj);
-
+            i++;
           }
         }
         this._page.loadingHide();

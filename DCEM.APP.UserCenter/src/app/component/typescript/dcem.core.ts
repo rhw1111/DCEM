@@ -2,10 +2,10 @@
 import { AlertController, LoadingController, NavController, ToastController } from '@ionic/angular';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { NgModule, Pipe, PipeTransform } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { isFunction, isNumber } from 'util';
-
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Injectable({
     providedIn: 'root'
@@ -19,29 +19,59 @@ export class DCore_Window {
     }
 }
 
-
-
 @Injectable({
     providedIn: 'root'
 })
 export class DCore_Config {
-    public server: string = "uat";//接口环境
 
-    /*
-        获取商城的接口地址
-        @server：dev|sit|uat
-    
-    */
-    getShoppingDomain(server) {
-        var url = "uat";
-        switch (server) {
-            case "dev": url = "https://subcrmdevapi.sokon.com/tc/"; break;
-            case "sit": url = "https://subcrmsitapi.sokon.com/tc/"; break;
-            case "uat": url = "https://subcrmuatapi.sokon.com/tc/"; break;
-            case "localhost": url = "https://localhost:44382/"; break;
-            case "9.0": url = "http://106.14.121.65:8082/tc/"; break;
-        }
-        return url;
+    private serverName: string;
+    private tc_host_map: Map<string, string>
+    private dcem_host_map: Map<string, string>
+
+    public tc_host_headers: HttpHeaders;
+    public tc_host: string;
+    public dcem_host: string;
+
+    constructor(
+    ) {
+        // this.serverName = "iis";
+        this.serverName = "local";
+
+        this.tc_host_map = function () {
+            var map = new Map<string, any>();
+            map.set("dev", "https://subcrmdevapi.sokon.com/tc/");
+            map.set("sit", "https://subcrmsitapi.sokon.com/tc/");
+            map.set("uat", "https://subcrmuatapi.sokon.com/tc/");
+            map.set("local", "https://localhost:44382/");
+            map.set("9_0", "http://106.14.121.65:8082/tc/");
+            map.set("iis", "http://localhost:9099/");
+            return map;
+        }();
+
+
+        this.dcem_host_map = function () {
+            var map = new Map<string, any>();
+            map.set("dev", "https://subcrmdevapi.sokon.com/dcem/");
+            map.set("sit", "https://subcrmdevapi.sokon.com/dcem/");
+            map.set("uat", "https://subcrmuatapi.sokon.com/dcem/");
+            map.set("local", "https://localhost:44382/");
+            map.set("9_0", "http://106.14.121.65:8082/dcem/");
+            map.set("iis", "http://localhost:9099/");
+            return map;
+        }();
+
+
+        this.tc_host_headers = new HttpHeaders({
+            "Content-Type": "application/json;charset=UTF-8",
+            "appid": "1001",
+            "md5sum": "1fdcab853713fbc2b8f4d58bac32f420",
+            "true-client-ip": "10.1.1.1"
+        });
+
+
+        this.tc_host = this.tc_host_map.get(this.serverName);
+        this.dcem_host = this.dcem_host_map.get(this.serverName);
+
     }
 }
 
@@ -54,14 +84,12 @@ export class DCore_Http {
         private _config: DCore_Config
     ) {
     }
-
-
     //商城接口get请求
     getForShopping(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
-        this._httpClient.get(this._config.getShoppingDomain(this._config.server) + url,
+        this._httpClient.get(this._config.tc_host + url,
             {
                 params: params,
-                headers: this.getHeadersForShopping()
+                headers: this._config.tc_host_headers
             }).subscribe(
                 (res: any) => {
                     rescallback && rescallback(res);
@@ -73,10 +101,10 @@ export class DCore_Http {
     //商城接口post请求
     postForShopping(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
         this._httpClient.post(
-            this._config.getShoppingDomain(this._config.server) + url,
+            this._config.tc_host + url,
             params,
             {
-                headers: this.getHeadersForShopping()
+                headers: this._config.tc_host_headers
             }).subscribe(
                 (res: any) => {
                     rescallback && rescallback(res);
@@ -86,24 +114,17 @@ export class DCore_Http {
                 });
     }
 
-    //带请求头get请求
     getForToaken(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
-        this._httpClient.get(this._config.getShoppingDomain(this._config.server) + url,
-            {
-                params: params,
-                headers: this.getHeaders()
-            }).subscribe(
-                (res: any) => {
-                    rescallback && rescallback(res);
-                },
-                (err: any) => {
-                    errcallback && errcallback(err);
-                });
+        this.get(url, params, rescallback, errcallback);
+    }
+
+    postForToaken(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
+        this.post(url, params, rescallback, errcallback);
     }
 
     //get请求
     get(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
-        this._httpClient.get(this._config.getShoppingDomain(this._config.server) + url, params).subscribe(
+        this._httpClient.get(this._config.dcem_host + url, params).subscribe(
             (res: any) => {
                 rescallback && rescallback(res);
             },
@@ -113,77 +134,18 @@ export class DCore_Http {
     }
 
     //post请求
-    postForToaken(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
-        this._httpClient.post(
-            this._config.getShoppingDomain(this._config.server) + url,
-            params,
-            {
-                headers: this.getHeaders()
-            }).subscribe(
-                (res: any) => {
-                    rescallback && rescallback(res);
-                },
-                (err: any) => {
-                    errcallback && errcallback(err);
-                });
-    }
-
-    //post请求
     post(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
-        this._httpClient.post(
-            this._config.getShoppingDomain(this._config.server) + url, params).subscribe(
-                (res: any) => {
-                    rescallback && rescallback(res);
-                },
-                (err: any) => {
-                    errcallback && errcallback(err);
-                });
-    }
-
-    /**
-    * 头部信息获取，主要用于处理token
-    **/
-    private getHeaders() {
-        const token = this.getToken();
-        console.log(token);
-        return token ? new HttpHeaders({
-            token: token,
-            // 'Content-Type': 'application/json;charset=UTF-8',
-            // 'Accept': 'application/json'
-        }) : null;
-    }
-
-    /*
-        商城接口请求头
-
-    */
-    private getHeadersForShopping() {
-        return new HttpHeaders({
-            "Content-Type": "application/json;charset=UTF-8",
-            "appid": "1001",
-            "md5sum": "1fdcab853713fbc2b8f4d58bac32f420",
-            "true-client-ip": "10.1.1.1"
-        });
+        this._httpClient.post(this._config.dcem_host + url, params).subscribe(
+            (res: any) => {
+                rescallback && rescallback(res);
+            },
+            (err: any) => {
+                errcallback && errcallback(err);
+            });
     }
 
 
-    /*
-     * 使用本地缓存的方式来获取token信息
-     */
-    getToken() {
-        return window.localStorage.getItem('auth-token');
-    }
 
-    /**
-     * 将token信息保存到本地缓存中 用缓存的形式实现token验证
-     * @param token
-     */
-    setToken(token) {
-        // 目前只解析token字段，缓存先只存该字段
-        // JSON.stringify(token)
-        window.localStorage.setItem('auth-token', token);
-        window.localStorage.setItem('auth-logintime', new Date().toLocaleTimeString());
-    }
 }
 
 @Injectable({
@@ -373,7 +335,6 @@ export class DCore_ShareData {
 @Injectable({
     providedIn: 'root'
 })
-
 export class DCore_Valid {
     constructor(
     ) {
@@ -407,6 +368,19 @@ export class DCore_Valid {
 
     isArray = function (o) {
         return Object.prototype.toString.call(o) == '[object Array]';
+    }
+}
+
+//去掉Angular的垃圾安全过滤器
+@Injectable({
+    providedIn: 'root'
+})
+@Pipe({ name: 'safeHtml' }) //自定义管道
+export class SafeHtmlPipe implements PipeTransform {
+    constructor(private sanitized: DomSanitizer) { }
+
+    transform(value) {
+        return this.sanitized.bypassSecurityTrustHtml(value);
     }
 }
 
