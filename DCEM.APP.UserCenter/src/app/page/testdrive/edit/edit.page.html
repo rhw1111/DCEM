@@ -64,7 +64,7 @@
               预约车型
               <ion-text color="danger">*</ion-text>
           </ion-label>   
-          <ion-select placeholder="请选择预约车型" cancelText="取消" okText="确定" [(ngModel)]="model.postData.mcs_carmodel" >
+          <ion-select placeholder="请选择预约车型" (ionChange)="GetTimeInterval('')" cancelText="取消" okText="确定" [(ngModel)]="model.postData.mcs_carmodel" >
               <ion-select-option *ngFor="let item of model.VehicletypeList"  value="{{item.mcs_carmodelid}}">
                   {{item.mcs_name}}
               </ion-select-option>           
@@ -89,7 +89,7 @@
               预约时间
               <ion-text color="danger">*</ion-text>
           </ion-label>
-          <ion-datetime placeholder="请选择预约时间"  display-format="YYYY-MM-DD" cancelText="取消" doneText="确定"  [(ngModel)]="model.postData.mcs_ordertime" required></ion-datetime>
+          <ion-datetime placeholder="请选择预约时间"  display-format="YYYY-MM-DD" (ionChange)="GetTimeInterval('')" cancelText="取消" doneText="确定"  [(ngModel)]="model.postData.mcs_ordertime" required></ion-datetime>
       </ion-item>
       <ion-item (click)="selectDealerModal()">
         <ion-label position="stacked">
@@ -118,7 +118,7 @@
      
    
     </ion-list>
-    <section style="text-align:center;" *ngIf="model.postData.mcs_drivestatus=='已提交'|| model.postData.mcs_drivestatus== '已预约'">
+    <section style="text-align:center;" *ngIf="model.postData.mcs_drivestatus=='10'|| model.postData.mcs_drivestatus== '11'|| model.postData.mcs_drivestatus==''">
     <ion-button  expand="block" type="button"  (click)="SureDrive()">确认预约</ion-button>
     </section>
     <br />
