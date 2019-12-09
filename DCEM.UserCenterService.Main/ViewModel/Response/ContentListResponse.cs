@@ -20,4 +20,11 @@ namespace DCEM.UserCenterService.Main.ViewModel.Response
 
         public string ErrorMessage { get; set; }
     }
+
+    public class ContentDetailResponse
+    {
+        public CrmEntity Content { get; set; }
+
+        public string ErrorMessage { get; set; }
+    }
 }
