@@ -96,12 +96,14 @@ pageOnBind(id: any) {
                      this.model.postData.mcs_dealerid = res.Results[0]["Attributes"]["_mcs_dealerid_value"];
                      this.model.postData.mcs_dealername = res.Results[0]["Attributes"]["mcs_dealer3_x002e_mcs_name"];
                      this.model.postData.mcs_ordertime = res.Results[0]["Attributes"]["mcs_ordertime"];
-                     this.model.postData.mcs_testdrivetime = res.Results[0]["Attributes"]["_mcs_testdrivetime_value"];    
+                    //  this.model.postData.mcs_testdrivetime = res.Results[0]["Attributes"]["_mcs_testdrivetime_value"];    
                      this.model.postData.mcs_drivestatus = res.Results[0]["Attributes"]["mcs_drivestatus"];                                        
                   
                      if(!this._valid.isNullOrEmpty(this.model.postData.mcs_carmodel)&&!this._valid.isNullOrEmpty(this.model.postData.mcs_dealerid))
                      {
-                      this.GetTimeInterval();
+                       var testdrivetime=res.Results[0]["Attributes"]["_mcs_testdrivetime_value"];
+                       this.GetTimeInterval(testdrivetime);  
+                    
                      }
              }
              else{
@@ -211,7 +213,7 @@ GetCarmodel() {
 
 
 //获取预约时段
-GetTimeInterval() {
+private GetTimeInterval(testdrivetime) {
   //debugger;
   this._http.get(this.model.TimeIntervalUrl,
   {
@@ -234,6 +236,9 @@ GetTimeInterval() {
                   this.model.TestDrivetimeList.push(obj);
 
               });
+              if(testdrivetime!=null){
+                this.model.postData.mcs_testdrivetime = testdrivetime;                      
+              } 
             
           }
           else {
