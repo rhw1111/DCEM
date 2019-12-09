@@ -25,6 +25,9 @@ export class DCore_Window {
 export class DCore_Config {
 
     private serverName: string;
+    private dcem_serverName: string;
+    private tc_serverName: string;
+
     private tc_host_map: Map<string, string>
     private dcem_host_map: Map<string, string>
 
@@ -68,8 +71,8 @@ export class DCore_Config {
         });
 
 
-        this.tc_host = this.tc_host_map.get(this.serverName);
-        this.dcem_host = this.dcem_host_map.get(this.serverName);
+        this.tc_host = this.tc_host_map.get(this.tc_serverName);
+        this.dcem_host = this.dcem_host_map.get(this.dcem_serverName);
 
     }
 }
