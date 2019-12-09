@@ -260,20 +260,11 @@ const routes: Routes = [
     {
         path: 'shippingaddress',
         loadChildren: () => import('./page/home/shippingaddress/shippingaddress.module').then(m => m.ShippingaddressPageModule)
-    }
-
-];
-        path: 'demo',
-        children: [
-            {
-                path: 'dealer',
-                loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
-            }
-        ]
     },
+   
+];
+      
   
-]  
-;
 @NgModule({
     imports: [
         RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
