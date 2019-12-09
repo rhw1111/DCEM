@@ -65,6 +65,11 @@ const routes: Routes = [
         path: 'community',  //社区
         children: [
             { path: 'index', loadChildren: () => import('./page/community/index/index.module').then(m => m.IndexPageModule) },
+
+            {
+                path: 'activitydetail',
+                loadChildren: () => import('./page/community/activitydetail/activitydetail.module').then(m => m.ActivitydetailPageModule)
+            }
         ]
     },
     {
@@ -260,9 +265,11 @@ const routes: Routes = [
     {
         path: 'shippingaddress',
         loadChildren: () => import('./page/home/shippingaddress/shippingaddress.module').then(m => m.ShippingaddressPageModule)
-    }
-
+    },
+   
 ];
+      
+  
 @NgModule({
     imports: [
         RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })

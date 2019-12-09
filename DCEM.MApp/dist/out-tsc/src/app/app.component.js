@@ -61,7 +61,9 @@ let AppComponent = class AppComponent {
                     this._page.goto("/serving/home/tabs/index");
                 }
                 else {
-                    this._page.goto("/base/uc/login");
+                    if ((location.href.length - location.host.length) <= location.href.lastIndexOf(location.host + '/')) {
+                        this._page.goto("/base/uc/login");
+                    }
                 }
             }
         });
