@@ -84,6 +84,7 @@ export class PaymentPage implements OnInit {
 
 
     public getPostData() {
+
         var data = {
             "OrderData": {
                 "OrderCode": "Test001",
