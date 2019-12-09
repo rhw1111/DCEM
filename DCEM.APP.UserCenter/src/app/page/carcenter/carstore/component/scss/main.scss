@@ -11,6 +11,7 @@ $dm-gray: RGB(150,153,154); //(灰)
 $dm-gray-line: RGB(238,238,238); //(灰线)
 $dm-darkgray: RGB(99,102,105); //(深灰)
 $dm-input-line: RGB(219,219,219); //(输入框的线)
+$dm-black: RGB(0,0,0); //黑
 //自定义颜色
 .ion-color-org {
     --ion-color-base: RGB(240,110,35);
@@ -165,6 +166,14 @@ $dm-input-line: RGB(219,219,219); //(输入框的线)
     display: none;
 
     ul {
+        label {
+            position: absolute;
+            width: 60%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
         span {
             float: right;
             padding-right: 30px;

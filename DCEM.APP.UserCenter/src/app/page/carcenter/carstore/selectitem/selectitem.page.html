@@ -1,7 +1,7 @@
 ﻿<ion-header class="dm-top-nav">
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button text="返回" color="darkblue" defaultHref="/carcenter/index"></ion-back-button>
+            <ion-back-button text="返回" color="darkblue" defaultHref="/carcenter/carstore/selectattr"></ion-back-button>
         </ion-buttons>
         <ion-title class="dm-top-nav-tag">
             <ul>
@@ -20,52 +20,29 @@
         <ion-row>
             <ion-col>
                 <ion-grid>
-                    <ion-row>
-                        <ion-col class="dm-main-item">
+                    <ion-row *ngFor="let proRelatedKey of objectKeys(shareData.productRelatedMap)">
+                        <ion-col class="dm-main-item" [ngClass]="{'select':shareData.productRelatedMap[proRelatedKey]['ext_select']}" >
                             <div>
                                 <ion-grid>
-                                    <ion-row class="dm-main-item-top">
+                                    <ion-row class="dm-main-item-top" (click)="itemOnClick(proRelatedKey)">
                                         <ion-col>
-                                            <img src="http://sf-test.mediaman.com.cn/img/order-package-1.6dab6118.jpg" />
+                                            <img src="{{shareData.productRelatedMap[proRelatedKey]['a.mcs_mainimage']}}" />
                                         </ion-col>
                                     </ion-row>
-                                    <ion-row class="dm-main-item-middle">
+                                    <ion-row class="dm-main-item-middle" (click)="itemOnClick(proRelatedKey)">
                                         <ion-col>
-                                            <h5>歌剧魅影套帐</h5>
+                                            <h5>{{shareData.productRelatedMap[proRelatedKey]['a.mcs_product@OData.Community.Display.V1.FormattedValue']}}({{shareData.productRelatedMap[proRelatedKey]['a.mcs_name']}})</h5>
                                         </ion-col>
                                         <ion-col>
-                                            <p>+3000元</p>
+                                            <p>{{shareData.productRelatedMap[proRelatedKey]["ext_moneyFormat"]}}</p>
                                         </ion-col>
                                     </ion-row>
                                     <ion-row class="dm-main-item-bottom">
                                         <ion-col>
                                             <h5>了解更多 ></h5>
                                         </ion-col>
-                                    </ion-row>
-                                </ion-grid>
-                            </div>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row>
-                        <ion-col class="dm-main-item select">
-                            <div>
-                                <ion-grid>
-                                    <ion-row class="dm-main-item-top">
-                                        <ion-col>
-                                            <img src="http://sf-test.mediaman.com.cn/img/order-package-1.6dab6118.jpg" />
-                                        </ion-col>
-                                    </ion-row>
-                                    <ion-row class="dm-main-item-middle">
-                                        <ion-col>
-                                            <h5>歌剧魅影套帐</h5>
-                                        </ion-col>
-                                        <ion-col>
-                                            <p>+3000元</p>
-                                        </ion-col>
-                                    </ion-row>
-                                    <ion-row class="dm-main-item-bottom">
-                                        <ion-col>
-                                            <h5>了解更多 ></h5>
+                                        <ion-col (click)="itemOnClick(proRelatedKey)">
+                                            <h5>&nbsp;</h5>
                                         </ion-col>
                                     </ion-row>
                                 </ion-grid>
@@ -78,13 +55,13 @@
     </ion-grid>
 </ion-content>
 
-<ion-footer>
+<ion-footer id="carcenter_carstore_selectitem_footer">
     <ion-toolbar class="dm-footer">
         <ion-grid>
             <ion-row>
                 <ion-col>
-                    <h6>合计：<strong>150,000 元</strong></h6>
-                    <span class="dm-footer-svg">
+                    <h6>合计：<strong>{{shareData.packageMoney}} 元</strong></h6>
+                    <span class="dm-footer-svg" (click)="showfooterModelClick()">
                         查看明细
                         <span>
                             <svg t="1575275973323" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2605" width="14" height="14"><path d="M507.58399999 736.064a32.896 32.896 0 0 1-23.35999999-9.664L110.912 353.088a33.024 33.024 0 0 1 46.72-46.656l373.312 373.248a33.024 33.024 0 0 1-23.36000001 56.384" fill="#d81e06" p-id="2606"></path><path d="M507.58399999 736.064a32.896 32.896 0 0 1-23.35999999-56.32l382.144-382.08a33.024 33.024 0 0 1 46.656 46.656l-382.016 382.08a33.152 33.152 0 0 1-23.42400001 9.664" fill="RGB(240,110,35)" p-id="2607"></path></svg>
@@ -100,24 +77,12 @@
     </ion-toolbar>
 </ion-footer>
 
-<div class="dm-footer-model">
+<div id="carcenter_carstore_selectitem_footer_model" class="dm-footer-model">
     <div>
         <ul>
-            <li>
-                <label>SF5两驱智尊型</label>:
-                <span>150,000元</span>
-            </li>
-            <li>
-                <label>珍珠白</label>:
-                <span>价格已包含</span>
-            </li>
-            <li>
-                <label>深黑内饰</label>:
-                <span>价格已包含</span>
-            </li>
-            <li>
-                <label>20英寸时尚型铝合金轮毂</label>:
-                <span>价格已包含</span>
+            <li *ngFor="let key of objectKeys(shareData.packageMap)">
+                <label>{{shareData.packageMap[key]["text"]}}</label>:
+                <span>{{shareData.packageMap[key]["val"]}}</span>
             </li>
         </ul>
     </div>
