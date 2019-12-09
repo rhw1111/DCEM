@@ -110,15 +110,14 @@ export class IndexPage implements OnInit {
                 console.log(res);
                 if (!this._valid.isNull(res) && !this._valid.isNull(res["ProductList"])) {
                     for (var product of res["ProductList"]) {
-                        console.log(product);
-   
                         //解析接收对象
                         var productInfo = product["ProductInfo"];
                         var productImageArray = product["ProductImageArray"];
                         var productSpecificationArray = product["ProductSpecificationArray"];
+                        var productPriceArray = product["ProductPriceArray"];
 
                         //组装数据类型
-                        if (productInfo["mcs_type"] === 1) {
+                        if (productInfo["mcs_type"] === 1 && productPriceArray.length > 0) {
 
                             var productKey = productInfo["mcs_tc_productid"];
                             let that: IndexPage = this;
@@ -198,8 +197,6 @@ export class IndexPage implements OnInit {
         delete this.shareData["productOrderingattributeMap"];
         delete this.shareData["productRelatedMap"];
 
-
-
         this.shareData.selectProductKey = proKey;
         this.shareData.selectProduct = this.shareData.productMap[proKey];
 
@@ -215,6 +212,8 @@ export class IndexPage implements OnInit {
         // this.mod.nextButtonColor = "org";
         this.nextButton.color = "org";
         //$("#but_next").attr("color", "org");
+
+        console.log(this.shareData.selectProduct);
 
     }
 
