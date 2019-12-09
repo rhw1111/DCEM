@@ -18,7 +18,7 @@
             <ion-col class="dm-info-area-money">
                 <div class="dm-info-area-money-text">
                     <label>需付定金:</label>
-                    <span>0.01</span>
+                    <span>{{shareData.selectProduct["ProductInfo"]["mcs_depositamount@OData.Community.Display.V1.FormattedValue"]}}</span>
                     <label>元</label>
                 </div>
                 <div>
@@ -40,7 +40,7 @@
             <ion-col class="dm-form-item">
                 <label>姓名</label>
                 <div class="dm-form-item-input">
-                    <ion-input placeholder="请输入您的真实姓名"></ion-input>
+                    <ion-input placeholder="请输入您的真实姓名" [(ngModel)]="shareData.userInfo['name']"></ion-input>
                 </div>
             </ion-col>
         </ion-row>
@@ -50,7 +50,7 @@
                     <label>性别</label>
                 </div>
                 <div class="dm-form-item-input">
-                    <ion-select placeholder="性别" cancelText="取消" okText="确定">
+                    <ion-select placeholder="性别" cancelText="取消" okText="确定" [(ngModel)]="shareData.userInfo['sex']">
                         <ion-select-option>男</ion-select-option>
                         <ion-select-option>女</ion-select-option>
                     </ion-select>
@@ -61,7 +61,7 @@
             <ion-col class="dm-form-item">
                 <label>电话</label>
                 <div class="dm-form-item-input err">
-                    <ion-input placeholder="请输入您的电话"></ion-input>
+                    <ion-input placeholder="请输入您的电话" [(ngModel)]="shareData.userInfo['phone']"></ion-input>
                 </div>
             </ion-col>
         </ion-row>
@@ -69,7 +69,7 @@
             <ion-col class="dm-form-item">
                 <label>证件号码</label>
                 <div class="dm-form-item-input err">
-                    <ion-select placeholder="证件号码" cancelText="取消" okText="确定">
+                    <ion-select placeholder="证件号码" cancelText="取消" okText="确定" [(ngModel)]="shareData.userInfo['certType']">
                         <ion-select-option>身份证</ion-select-option>
                         <ion-select-option>港澳来往内地通行证</ion-select-option>
                         <ion-select-option>台湾来往通行证</ion-select-option>
@@ -79,7 +79,7 @@
                 </div>
                 <div class="dm-form-item-input">
                     <div class="dm-form-item-input">
-                        <ion-input placeholder="请输入您的证件号码"></ion-input>
+                        <ion-input placeholder="请输入您的证件号码" [(ngModel)]="shareData.userInfo['certNumber']"></ion-input>
                     </div>
                 </div>
             </ion-col>

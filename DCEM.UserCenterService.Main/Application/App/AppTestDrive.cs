@@ -40,5 +40,28 @@ namespace DCEM.UserCenterService.Main.Application.App
         {
             return await _testDriveService.GetDriveRecordList(request);
         }
+
+
+
+        /// <summary>
+        /// 我的试乘试驾反馈报告
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> GetDriveFeedbackList(TestDriveFeedbackRequest request)
+        {
+            return await _testDriveService.GetDriveFeedbackList(request);
+        }
+
+        /// <summary>
+        /// 试乘试驾反馈报告详情
+        /// </summary>
+        /// <param name="testdrivefeedbackmasterid"></param>
+        /// <returns></returns>
+        public async Task<TestDriveFeedbackDetailModel> GetDriveFeedbackDetail(string testdrivefeedbackmasterid)
+        {
+            return await _testDriveService.GetDriveFeedbackDetail(testdrivefeedbackmasterid);
+        }
+
     }
 }

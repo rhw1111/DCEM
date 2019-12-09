@@ -61,7 +61,8 @@ getList(event) {
               //绑定数据
               res.Results.forEach(item => {              
                   var obj = {}; 
-                  obj["mcs_driverecordid"] = item["Attributes"].mcs_driverecordid;             
+                  obj["mcs_driverecordid"] = item["Attributes"].mcs_driverecordid;   
+                  obj["mcs_name"] = item["Attributes"].mcs_name;          
                   obj["mcs_fullname"] = item["Attributes"].mcs_fullname;
                   obj["mcs_mobilephone"] = item["Attributes"].mcs_mobilephone;
                   obj["mcs_carmodel"] = item["Attributes"].mcs_carmodel2_x002e_mcs_name;                  

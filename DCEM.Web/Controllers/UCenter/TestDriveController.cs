@@ -28,6 +28,7 @@ namespace DCEM.Web.Controllers.UCenter
             }
         }
 
+        #region 创建试乘试驾 预约单
         /// <summary>
         /// 创建试乘试驾 预约单
         /// </summary>
@@ -40,7 +41,7 @@ namespace DCEM.Web.Controllers.UCenter
             var result = await app.CreateTestDrive(request);
             return result;
         }
-
+        #endregion
 
         #region 我的试乘试驾查询
 
@@ -52,6 +53,28 @@ namespace DCEM.Web.Controllers.UCenter
             return list;
         }
         #endregion
+
+        #region 我的试乘试驾反馈报告查询
+
+        [HttpPost]
+        [Route("GetDriveFeedbackList")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetDriveFeedbackList(TestDriveFeedbackRequest request)
+        {
+            var list = await app.GetDriveFeedbackList(request);
+            return list;
+        }
+        #endregion
+
+        #region 我的试乘试驾反馈报告详情
+        [HttpGet]
+        [Route("GetDriveFeedbackDetail")]
+        public async Task<NewtonsoftJsonActionResult<TestDriveFeedbackDetailModel>> GetDriveFeedbackDetail(string testdrivefeedbackmasterid)
+        {
+            var list = await app.GetDriveFeedbackDetail(testdrivefeedbackmasterid);
+            return list;
+        }
+        #endregion
+
 
     }
 }

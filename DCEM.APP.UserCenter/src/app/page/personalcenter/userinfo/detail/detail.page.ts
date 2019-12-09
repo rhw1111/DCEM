@@ -32,13 +32,13 @@ export class DetailPage implements OnInit {
       describe: ""
     }
   };
-  public colors=["primary","secondary","tertiary","success","warning","danger"];
+  public colors = ["primary", "secondary", "tertiary", "success", "warning", "danger"];
   public tags = [];
   pageOnBind() {
     this._page.loadingShow();
     this._http.postForToaken(
       this.model.apiUrlDetail,
-      { 'id':this.model.id},//this._logininfo.GetSystemUserId()}, 
+      { 'id': this.model.id },
       (res: any) => {
         if (res !== null) {
           var attr = res["Attributes"];
@@ -48,15 +48,15 @@ export class DetailPage implements OnInit {
           this.model.info.username = attr["mcs_nickname"];
           this.model.info.province = attr["_mcs_province_value@OData.Community.Display.V1.FormattedValue"];
           this.model.info.city = attr["_mcs_city_value@OData.Community.Display.V1.FormattedValue"];
-          this.model.info.area = attr["_mcs_area_value@OData.Community.Display.V1.FormattedValue"]; 
+          this.model.info.area = attr["_mcs_area_value@OData.Community.Display.V1.FormattedValue"];
         }
         else {
-          this._page.alert("消息提示", "原始线索编辑信息加载异常");
+          this._page.alert("消息提示", "用户信息加载异常");
         }
         this._page.loadingHide();
       },
       (err: any) => {
-        this._page.alert("消息提示", "原始线索编辑信息加载异常");
+        this._page.alert("消息提示", "用户信息加载异常");
         this._page.loadingHide();
       }
     );
@@ -66,30 +66,22 @@ export class DetailPage implements OnInit {
   pageUserTags() {
     this._http.postForToaken(
       this.model.apiUrltags,
-      { 'id': this.model.id},//this._logininfo.GetSystemUserId()}, 
+      { 'id': this.model.id },
       (res: any) => {
         if (res !== null) {
           var data = res.tags;
-          var index=0;
-          for (let i = 0; i < data.length; i++) { 
+          var index = 0;
+          for (let i = 0; i < data.length; i++) {
             var attr = data[i]["Attributes"];
             var obj = {};
             obj["name"] = attr["mcs_name"];
-             index=i>6?1:i;
+            index = i > 6 ? 1 : i;
             obj["color"] = this.colors[index];
             this.tags.push(obj);
           }
         }
-        else {
-          this._page.alert("消息提示", "用户标签信息加载异常");
-        }
-       
-      },
-      (err: any) => {
-        this._page.alert("消息提示", "用户标签信息加载异常"); 
       }
-    );
-
+    )
   }
   saveOnClick() {
     this._page.goto("/personalcenter/userinfo/edit");
