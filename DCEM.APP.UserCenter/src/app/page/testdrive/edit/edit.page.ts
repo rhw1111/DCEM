@@ -133,11 +133,15 @@ SureDrive(){
      if (this._valid.isNullOrEmpty(this.model.postData.mcs_mobilephone)) {
          errMessage += "请输入手机号<br>";
      }
+      //校验手机格式
+      if (!this._valid.isPhone(this.model.postData.mcs_mobilephone)) {
+         errMessage += "手机号格式错误<br>";
+    }
      if (this._valid.isNullOrEmpty(this.model.postData.mcs_carmodel)) {
          errMessage += "请选择预约车型<br>";
      }
      if (this._valid.isNullOrEmpty(this.model.postData.mcs_businesstype)) {
-      errMessage += "请选择业务类型<br>";
+         errMessage += "请选择业务类型<br>";
       }
       if (this._valid.isNullOrEmpty(this.model.postData.mcs_dealerid)) {
           errMessage += "请选择试乘试驾地点<br>";
