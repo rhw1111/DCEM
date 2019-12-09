@@ -485,7 +485,8 @@
                     </ion-row> -->
                     <ion-row *ngFor="let item of model.activitiesList">
                         <ion-col class="dm-main-activity">
-                            <ion-grid>
+                            <ion-grid [routerLink]="['/community/activitydetail']"
+                                 [queryParams]="{id:item.StatusLabel}">
                                 <ion-row>
                                     <ion-col class="dm-main-activity-img">
                                         <img
@@ -502,7 +503,7 @@
                                 </ion-row>
                                 <ion-row>
                                     <ion-col text-center class="dm-main-activity-bottom">
-                                        了解更多
+                                        {{item.describeLabel}}
                                     </ion-col>
                                 </ion-row>
                             </ion-grid>
