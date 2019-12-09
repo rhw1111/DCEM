@@ -114,11 +114,6 @@ export class DetailPage implements OnInit {
     ShowTwoBtn(flag) {
         //this.IsShowTwoBtnDialog = true;
         this.ShowType = flag;
-        //if (flag == 0) {
-        //    this.IsShowForCart = true;
-        //} else {
-        //    this.IsShowForCart = false;
-        //}
         this.IsShowCover = true;
         $(".TwoBtnDialog").slideDown();
     }
@@ -291,6 +286,6 @@ export class DetailPage implements OnInit {
                 "num": num
             }]
         };
-        this._page.navigateRoot("/servicecenter/preorder/preorder", orderata);
+        this._page.goto("/servicecenter/preorder/preorder", { params:JSON.stringify(orderata) });
     }
 }
