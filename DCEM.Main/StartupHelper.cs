@@ -169,6 +169,7 @@ namespace DCEM.Main
             ContextContainer.Current.Register<Guid>(ContextExtensionTypes.PreCommonLogLevelID, new ContextCommonLogPreLevelID());
             ContextContainer.Current.Register<Guid>(ContextExtensionTypes.CurrentCommonLogLevelID, new ContextCommonLogCurrentLevelID());
             ContextContainer.Current.Register<UserInfo>(ContextExtensionTypes.CurrentUserInfo, new ContextCurrentUserInfo());
+
         }
 
 
@@ -234,6 +235,8 @@ namespace DCEM.Main
             JwtValidateParameterBuildMainService.JwtValidateParameterBuildServiceFactories[JwtValidateParameterBuildServiceTypes.Audience] = DIContainerContainer.Get<JwtValidateParameterBuildServiceForAudienceFactory>();
             JwtValidateParameterBuildMainService.JwtValidateParameterBuildServiceFactories[JwtValidateParameterBuildServiceTypes.Issuer] = DIContainerContainer.Get<JwtValidateParameterBuildServiceForIssuerFactory>();
             JwtValidateParameterBuildMainService.JwtValidateParameterBuildServiceFactories[JwtValidateParameterBuildServiceTypes.Lifetime] = DIContainerContainer.Get<JwtValidateParameterBuildServiceForLifetimeFactory>();
+
+            InitThirdInterfaceSetting();
 
         }
 
@@ -397,6 +400,21 @@ namespace DCEM.Main
             }
 
             return crmService;
+        }
+        /// <summary>
+        /// 初始化第三方接口配置信息
+        /// </summary>
+        public static void InitThirdInterfaceSetting() { 
+
+        }
+        /// <summary>
+        /// 初始化商品交易中心服务
+        /// </summary>
+        /// <returns></returns>
+        public static CrmService InitialTCenterService()
+        {
+
+            return null;
         }
     }
 }

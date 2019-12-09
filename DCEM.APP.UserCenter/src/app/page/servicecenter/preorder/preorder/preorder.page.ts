@@ -41,34 +41,34 @@ export class PreorderPage implements OnInit {
     }
     //提交订单
     submitOrder() {
-        var returndata = {
-            "OrderCode": "1111111",
-            "TotalPrice": this.model.totalprice
-        };
-        this._page.navigateRoot("/servicecenter/payment/payment", returndata);
-        //this._page.loadingShow();
-        //var data = this.readyForDatas();
-        //this._http.postForShopping(this.model.search.apiUrl,data,
-        //    (res: any) => {
-        //        if (res != null) {
-        //            if (res.IsSuccess) {
-        //                var returndata = {
-        //                    "OrderCode": res.OrderCode,
-        //                    "TotalPrice": this.model.totalprice
-        //                };
-        //                this._page.navigateRoot("/servicecenter/payment/payment", returndata);
-        //            }
-        //        }
-        //        else {
-        //            this._page.alert("消息提示", "订单提交失败");
-        //        }
-        //        this._page.loadingHide();
-        //    },
-        //    (err: any) => {
-        //        this._page.alert("消息提示", "订单提交失败");
-        //        this._page.loadingHide();
-        //    }
-        //);
+        //var returndata = {
+        //    "OrderCode": "1111111",
+        //    "TotalPrice": this.model.totalprice
+        //};
+        //this._page.navigateRoot("/servicecenter/payment/payment", returndata);
+        this._page.loadingShow();
+        var data = this.readyForDatas();
+        this._http.postForShopping(this.model.search.apiUrl,data,
+            (res: any) => {
+                if (res != null) {
+                    if (res.IsSuccess) {
+                        var returndata = {
+                            "OrderCode": res.OrderCode,
+                            "TotalPrice": this.model.totalprice
+                        };
+                        this._page.navigateRoot("/servicecenter/payment/payment", returndata);
+                    }
+                }
+                else {
+                    this._page.alert("消息提示", "订单提交失败");
+                }
+                this._page.loadingHide();
+            },
+            (err: any) => {
+                this._page.alert("消息提示", "订单提交失败");
+                this._page.loadingHide();
+            }
+        );
     }
     //准备订单数据
     readyForDatas() {
@@ -83,17 +83,17 @@ export class PreorderPage implements OnInit {
                 "Media": 0,
                 "ChannelSource": "1001",
                 "OrderTime": new Date(),
-                "CarBuyerName": $("#carbuyer").val(),
+                "CarBuyerName": "张三",
                 "CarBuyerPhone": "13648490987",
-                "CarBuyerIdType": $("[name='cardtype']").val(),
-                "CarBuyerId": $("#cardno").val(),
+                "CarBuyerIdType": 1,
+                "CarBuyerId": "500224198709091267",
                 "ShippingFlag": true,
                 "PaymentFlag": true,
                 "PaymentStatus": 1,
-                "CashTotal": $(".prices").text().substring(1),
-                "TotalDepositAmount": $(".prices").text().substring(1),
-                "ReceivedDepositAmount": $(".prices").text().substring(1),
-                "ReceivableAmount": $(".prices").text().substring(1),
+                "CashTotal": this.model.totalprice,
+                "TotalDepositAmount": this.model.totalprice,
+                "ReceivedDepositAmount": this.model.totalprice,
+                "ReceivableAmount": this.model.totalprice,
                 "DeductionAmount": 0,
                 "FinalPayment": 0,
                 "IntegralTotal": 0,
@@ -106,10 +106,10 @@ export class PreorderPage implements OnInit {
                 "RecommendUserName": "",
                 "RecommendUserPhone": "",
                 "Comment": "",
-                "ReceiverName": $(".address ul li:first span").text(),
-                "ReceiverPhone": $(".address ul li:eq(1) span").text(),
-                "DealerCode": $("[name='dealer']").val(),
-                "DeliveryAdderss": $(".address ul li:eq(2) span").text(),
+                "ReceiverName": "李四",
+                "ReceiverPhone": "13333333333",
+                "DealerCode": "",
+                "DeliveryAdderss": "",
                 "SmallOrderCodeList": [
 
                 ],

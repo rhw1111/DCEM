@@ -25,6 +25,7 @@ export class EditPage implements OnInit {
       mcs_dealername: "",//试驾地点名称   
       mcs_ordertime:"", // 预约时间
       mcs_testdrivetime:"" ,// 预约时段
+      mcs_drivestatus:"", //状态
       isChecked:false
     },
 
@@ -69,10 +70,9 @@ async selectDealerModal() {
     }
   }
 
-   if(!this._valid.isNullOrEmpty(this.model.postData.mcs_carmodel)&&!this._valid.isNullOrEmpty(this.model.postData.mcs_dealerid)&&!this._valid.isNullOrEmpty(this.model.postData.mcs_ordertime))
-   {
-    this.GetTimeInterval();
-   }
+  //加载预约时段
+  this.GetTimeInterval("");
+   
 
 }
 
@@ -95,12 +95,13 @@ pageOnBind(id: any) {
                      this.model.postData.mcs_dealerid = res.Results[0]["Attributes"]["_mcs_dealerid_value"];
                      this.model.postData.mcs_dealername = res.Results[0]["Attributes"]["mcs_dealer3_x002e_mcs_name"];
                      this.model.postData.mcs_ordertime = res.Results[0]["Attributes"]["mcs_ordertime"];
-                     this.model.postData.mcs_testdrivetime = res.Results[0]["Attributes"]["_mcs_testdrivetime_value"];                      
-                  
-                     if(!this._valid.isNullOrEmpty(this.model.postData.mcs_carmodel)&&!this._valid.isNullOrEmpty(this.model.postData.mcs_dealerid))
-                     {
-                      this.GetTimeInterval();
-                     }
+                    //  this.model.postData.mcs_testdrivetime = res.Results[0]["Attributes"]["_mcs_testdrivetime_value"];    
+                     this.model.postData.mcs_drivestatus = res.Results[0]["Attributes"]["mcs_drivestatus"];                                        
+                     
+                     //加载预约时段
+                     this.GetTimeInterval(res.Results[0]["Attributes"]["_mcs_testdrivetime_value"]);  
+                    
+                     
              }
              else{
                this._page.alert("消息提示", "数据加载异常");
@@ -124,7 +125,7 @@ pageOnBind(id: any) {
   //确定预约
 SureDrive(){
 
-    debugger;
+    //debugger;
     var errMessage = "";
      if (this._valid.isNullOrEmpty(this.model.postData.mcs_fullname)) {
      errMessage += "请输入姓名<br>";
@@ -132,11 +133,15 @@ SureDrive(){
      if (this._valid.isNullOrEmpty(this.model.postData.mcs_mobilephone)) {
          errMessage += "请输入手机号<br>";
      }
+      //校验手机格式
+      if (!this._valid.isPhone(this.model.postData.mcs_mobilephone)) {
+         errMessage += "手机号格式错误<br>";
+    }
      if (this._valid.isNullOrEmpty(this.model.postData.mcs_carmodel)) {
          errMessage += "请选择预约车型<br>";
      }
      if (this._valid.isNullOrEmpty(this.model.postData.mcs_businesstype)) {
-      errMessage += "请选择业务类型<br>";
+         errMessage += "请选择业务类型<br>";
       }
       if (this._valid.isNullOrEmpty(this.model.postData.mcs_dealerid)) {
           errMessage += "请选择试乘试驾地点<br>";
@@ -163,7 +168,7 @@ SureDrive(){
          this.model.postApiUrl, 
          this.model.postData,
          (res: any) => {
-             debugger;
+            // debugger;
              this._page.loadingHide();
              if (res.Result == true) {              
                  console.log(res);                         
@@ -208,43 +213,48 @@ GetCarmodel() {
 }
 
 
-//获取预约时段
-GetTimeInterval() {
-  debugger;
-  this._http.get(this.model.TimeIntervalUrl,
-  {
-  params:{
-    pageSize: 50,
-    page: 1,
-    carmodel:this.model.postData.mcs_carmodel,
-    dealerid:this.model.postData.mcs_dealerid,
-    mcs_ordertime:this.model.postData.mcs_ordertime
-   }
- } ,
-  (res: any) => {
+  //获取预约时段
+  private GetTimeInterval(testdrivetime) {
+    //debugger;
+    if (!this._valid.isNullOrEmpty(this.model.postData.mcs_carmodel) && !this._valid.isNullOrEmpty(this.model.postData.mcs_dealerid) && !this._valid.isNullOrEmpty(this.model.postData.mcs_ordertime)) {
+      this._http.get(this.model.TimeIntervalUrl,
+        {
+          params: {
+            pageSize: 50,
+            page: 1,
+            carmodel: this.model.postData.mcs_carmodel,
+            dealerid: this.model.postData.mcs_dealerid,
+            mcs_ordertime: this.model.postData.mcs_ordertime
+          }
+        },
+        (res: any) => {
           //debugger;
           if (res.Results !== null) {
-              //绑定数据
-              res.Results.forEach(item => {              
-                  var obj = {}; 
-                  obj["mcs_reservationconfigurationid"] =item["Attributes"].mcs_reservationconfigurationid;             
-                  obj["mcs_name"] = item["Attributes"].mcs_name;                
-                  this.model.TestDrivetimeList.push(obj);
+            //绑定数据
+            res.Results.forEach(item => {
+              var obj = {};
+              obj["mcs_reservationconfigurationid"] = item["Attributes"].mcs_reservationconfigurationid;
+              obj["mcs_name"] = item["Attributes"].mcs_name;
+              this.model.TestDrivetimeList.push(obj);
 
-              });
-            
+            });
+            if (!this._valid.isNullOrEmpty(testdrivetime)) {
+              this.model.postData.mcs_testdrivetime = testdrivetime;
+            }
+
           }
           else {
-              this._page.alert("消息提示", "预约时段加载异常");
+            this._page.alert("消息提示", "预约时段加载异常");
           }
-        
-      },
-      (err: any) => {
+
+        },
+        (err: any) => {
           this._page.alert("消息提示", "预约时段加载异常");
-         
-      }
-  );
-}
+
+        }
+      );
+    }
+  }
 
 CheckData() {
     var errMessage = "";

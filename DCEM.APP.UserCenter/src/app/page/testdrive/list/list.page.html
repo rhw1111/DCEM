@@ -35,7 +35,7 @@
       <div class="panelbutton">
         <ion-grid fixed>
           <ion-row>
-            <ion-col size="6">
+            <ion-col size="6" *ngIf="item.mcs_drivestatus=='已提交'|| item.mcs_drivestatus== '已预约'">
               <ion-button Size="small" fill="solid" color="light" [routerLink]="['/testdrive/edit']" [queryParams]="{id:item.mcs_driverecordid}" >
                 修改订单
               </ion-button>
