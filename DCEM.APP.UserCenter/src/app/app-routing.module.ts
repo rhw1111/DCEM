@@ -76,6 +76,10 @@ const routes: Routes = [
                     {
                         path: 'about',
                         loadChildren: () => import('./page/personalcenter/config/about/about.module').then(m => m.AboutPageModule)
+                    },
+                    {
+                        path: 'privacypolicy',
+                        loadChildren: () => import('./page/personalcenter/config/privacypolicy/privacypolicy.module').then(m => m.PrivacypolicyPageModule)
                     }
                 ]
             },
@@ -253,6 +257,10 @@ const routes: Routes = [
         path: 'payment',
         loadChildren: () => import('./page/servicecenter/payment/payment/payment.module').then(m => m.PaymentPageModule)
     },
+    {
+        path: 'shippingaddress',
+        loadChildren: () => import('./page/home/shippingaddress/shippingaddress.module').then(m => m.ShippingaddressPageModule)
+    }
 
 ];
 @NgModule({

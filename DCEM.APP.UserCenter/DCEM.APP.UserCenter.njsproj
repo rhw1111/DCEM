@@ -38,11 +38,13 @@
     <Folder Include="src\app\component\modal\" />
     <Folder Include="src\app\component\modal\login\" />
     <Folder Include="src\app\component\modal\select-sysarea\" />
+    <Folder Include="src\app\component\module\" />
     <Folder Include="src\app\component\typescript\" />
     <Folder Include="src\app\page\carcenter\carstore\component\" />
     <Folder Include="src\app\page\carcenter\carstore\component\model\" />
     <Folder Include="src\app\page\carcenter\carstore\component\scss\" />
     <Folder Include="src\app\page\carcenter\carstore\check\" />
+    <Folder Include="src\app\page\carcenter\carstore\component\typescript\" />
     <Folder Include="src\app\page\carcenter\carstore\hirepurchase\" />
     <Folder Include="src\app\page\carcenter\carstore\payment\" />
     <Folder Include="src\app\page\carcenter\carstore\perfect\" />
@@ -95,6 +97,7 @@
     <TypeScriptCompile Include="src\app\component\modal\login\login.component.ts" />
     <TypeScriptCompile Include="src\app\component\modal\select-sysarea\select-sysarea.component.spec.ts" />
     <TypeScriptCompile Include="src\app\component\modal\select-sysarea\select-sysarea.component.ts" />
+    <TypeScriptCompile Include="src\app\component\module\share.module.ts" />
     <TypeScriptCompile Include="src\app\component\typescript\dcem.core.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\check\check-routing.module.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\check\check.module.ts" />
@@ -102,6 +105,7 @@
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\check\check.page.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\component\model\speclist\speclist.component.spec.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\component\model\speclist\speclist.component.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\carstore\component\typescript\storeShareDataThr.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\hirepurchase\hirepurchase-routing.module.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\hirepurchase\hirepurchase.module.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\hirepurchase\hirepurchase.page.spec.ts" />

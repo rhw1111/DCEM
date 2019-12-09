@@ -1,34 +1,58 @@
-﻿* {
-    margin: 0px;
-    padding: 0px;
-}
-
-//颜色
-$dm-orange: RGB(240,110,35); //(橘色)
-$dm-darkblue: RGB(32,48,61); //(深蓝)
-$dm-white: RGB(255,255,255); //(白)
-$dm-gray: RGB(150,153,154); //(灰)
-$dm-gray-line: RGB(238,238,238); //(灰线)
+﻿@import "../../scss/main";
 
 .dm-button-close {
     color: $dm-darkblue;
 }
-.dm-speclist {
-    ion-row {
-        ion-col:first-child {
-            padding-left: 10px;
-            padding-top: 10px;
-            font-size: 14px;
-            color: $dm-darkblue;
-            font-weight: bold;
-        }
 
-        ion-col:last-child {
-            padding-right: 10px;
-            padding-top: 10px;
-            font-size: 14px;
-            color: $dm-darkblue;
-            text-align: right;
+.dm-speclist-title {
+    padding-left: 20px;
+    padding-right: 20px;
+
+    ion-col {
+        font-size: 16px;
+        text-align: left;
+        color: $dm-darkblue;
+        padding-left: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}
+
+.dm-speclist {
+    padding-left: 20px;
+    padding-right: 20px;
+
+
+
+    table {
+        border: 1px solid $dm-gray-line;
+        width: 100%;
+
+        tr {
+
+
+            td {
+                padding-top: 10px;
+                padding-bottom: 10px;
+                background-color: #fff;
+            }
+
+            td:first-child {
+                text-align: left;
+                padding-left: 20px;
+                font-size: 12px;
+                color: $dm-black;
+                width:50%;
+                font-weight: bold;
+            }
+
+            td:last-child {
+                text-align: right;
+                padding-right: 20px;
+                font-size: 12px;
+                color: $dm-gray;
+                text-align: right;
+            }
         }
     }
 }
