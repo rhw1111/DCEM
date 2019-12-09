@@ -25,6 +25,7 @@ export class EditPage implements OnInit {
       mcs_dealername: "",//试驾地点名称   
       mcs_ordertime:"", // 预约时间
       mcs_testdrivetime:"" ,// 预约时段
+      mcs_drivestatus:"", //状态
       isChecked:false
     },
 
@@ -95,7 +96,8 @@ pageOnBind(id: any) {
                      this.model.postData.mcs_dealerid = res.Results[0]["Attributes"]["_mcs_dealerid_value"];
                      this.model.postData.mcs_dealername = res.Results[0]["Attributes"]["mcs_dealer3_x002e_mcs_name"];
                      this.model.postData.mcs_ordertime = res.Results[0]["Attributes"]["mcs_ordertime"];
-                     this.model.postData.mcs_testdrivetime = res.Results[0]["Attributes"]["_mcs_testdrivetime_value"];                      
+                     this.model.postData.mcs_testdrivetime = res.Results[0]["Attributes"]["_mcs_testdrivetime_value"];    
+                     this.model.postData.mcs_drivestatus = res.Results[0]["Attributes"]["mcs_drivestatus"];                                        
                   
                      if(!this._valid.isNullOrEmpty(this.model.postData.mcs_carmodel)&&!this._valid.isNullOrEmpty(this.model.postData.mcs_dealerid))
                      {
@@ -210,7 +212,7 @@ GetCarmodel() {
 
 //获取预约时段
 GetTimeInterval() {
-  debugger;
+  //debugger;
   this._http.get(this.model.TimeIntervalUrl,
   {
   params:{

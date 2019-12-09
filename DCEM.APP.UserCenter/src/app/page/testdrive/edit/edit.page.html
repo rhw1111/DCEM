@@ -118,7 +118,7 @@
      
    
     </ion-list>
-    <section style="text-align:center;">
+    <section style="text-align:center;" *ngIf="model.postData.mcs_drivestatus=='已提交'|| model.postData.mcs_drivestatus== '已预约'">
     <ion-button  expand="block" type="button"  (click)="SureDrive()">确认预约</ion-button>
     </section>
     <br />
