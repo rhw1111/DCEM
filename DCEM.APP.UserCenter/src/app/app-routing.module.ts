@@ -10,6 +10,10 @@ const routes: Routes = [
         path: 'home',  //通用目录
         children: [
             { path: 'tabs', loadChildren: () => import('./page/home/tabs/tabs.module').then(m => m.TabsPageModule) },
+            {
+                path: 'shippingaddress',
+                loadChildren: () => import('./page/home/shippingaddress/shippingaddress.module').then(m => m.ShippingaddressPageModule)
+            }
         ]
     },
     {
@@ -249,10 +253,7 @@ const routes: Routes = [
         path: 'payment',
         loadChildren: () => import('./page/servicecenter/payment/payment/payment.module').then(m => m.PaymentPageModule)
     },
-    {
-        path: 'shippingaddress',
-        loadChildren: () => import('./page/home/shippingaddress/shippingaddress.module').then(m => m.ShippingaddressPageModule)
-    }
+
 ];
 @NgModule({
     imports: [
