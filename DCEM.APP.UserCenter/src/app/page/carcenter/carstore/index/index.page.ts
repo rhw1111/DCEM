@@ -110,7 +110,7 @@ export class IndexPage implements OnInit {
                 console.log(res);
                 if (!this._valid.isNull(res) && !this._valid.isNull(res["ProductList"])) {
                     for (var product of res["ProductList"]) {
-
+                        console.log(product);
    
                         //解析接收对象
                         var productInfo = product["ProductInfo"];
