@@ -36,7 +36,7 @@ namespace DCEM.UserCenterService.Main.Application.App
         {
             return _shippingaddressService.AddOrUpdate(model);
         }
-        public Task<ValidateResult<List<CrmEntity>>> GetList(ShippingaddressListRequest request)
+        public  ValidateResult<List<CrmEntity>>  GetList(ShippingaddressListRequest request)
         {
             return _shippingaddressService.GetList(request);
         }
