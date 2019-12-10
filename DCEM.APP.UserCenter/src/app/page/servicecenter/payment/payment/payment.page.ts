@@ -37,7 +37,6 @@ export class PaymentPage implements OnInit {
     }
     //倒计时
     TimeDown() {
-        debugger;
         var minute = 29;
         var minutestr = "29";
         var second = 59;
