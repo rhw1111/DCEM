@@ -25,6 +25,9 @@ export class DCore_Window {
 export class DCore_Config {
 
     private serverName: string;
+    private dcem_serverName: string;
+    private tc_serverName: string;
+
     private tc_host_map: Map<string, string>
     private dcem_host_map: Map<string, string>
 
@@ -34,7 +37,8 @@ export class DCore_Config {
 
     constructor(
     ) {
-        this.serverName = "iis";
+        this.dcem_serverName = "local";
+        this.tc_serverName = "9_0";
 
         this.tc_host_map = function () {
             var map = new Map<string, any>();
@@ -55,7 +59,7 @@ export class DCore_Config {
             map.set("uat", "https://subcrmuatapi.sokon.com/dcem/");
             map.set("local", "https://localhost:44382/");
             map.set("9_0", "http://106.14.121.65:8082/dcem/");
-            map.set("iis", "https://localhost:44382/");
+            map.set("iis", "https://localhost:9099/");
             return map;
         }();
 
@@ -68,8 +72,8 @@ export class DCore_Config {
         });
 
 
-        this.tc_host = this.tc_host_map.get(this.serverName);
-        this.dcem_host = this.dcem_host_map.get(this.serverName);
+        this.tc_host = this.tc_host_map.get(this.tc_serverName);
+        this.dcem_host = this.dcem_host_map.get(this.dcem_serverName);
 
     }
 }
@@ -369,6 +373,48 @@ export class DCore_Valid {
         return Object.prototype.toString.call(o) == '[object Array]';
     }
 }
+
+
+//验证对象
+@Injectable({
+    providedIn: 'root'
+})
+export class DCore_String {
+    constructor(
+    ) {
+    }
+    GetRandom(len: number = 24) {
+        var $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var maxPos = $chars.length;
+        var pwd = '';
+        for (var i = 0; i < len; i++) {
+            pwd += $chars.charAt(Math.floor(Math.random() * (maxPos + 1)));
+        }
+        return pwd;
+    }
+
+    GetDateFormat(date: Date, format: string) {
+        date["M+"] = date.getMonth() + 1;
+        date["d+"] = date.getDate();
+        date["h+"] = date.getHours();
+        date["m+"] = date.getMinutes();
+        date["s+"] = date.getSeconds();
+        date["q+"] = Math.floor((date.getMonth() + 3) / 3);
+        date["S+"] = date.getMilliseconds();
+        if (/(y+)/i.test(format)) {
+            format = format.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+        }
+        for (var k in date) {
+            if (new RegExp("(" + k + ")").test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+            }
+        }
+        return format;
+    }
+}
+
+
+
 
 //去掉Angular的垃圾安全过滤器
 @Injectable({

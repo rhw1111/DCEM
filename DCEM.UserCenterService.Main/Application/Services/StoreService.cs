@@ -161,6 +161,28 @@ namespace DCEM.UserCenterService.Main.Application.Services
             var productPriceResponse = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
             #endregion
 
+            #region 查询商品SKU的订购关系
+            xdoc = await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"
+                <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+                    <entity name='mcs_tc_skuattr'>
+                        <order attribute='createdon' descending='true' />
+                    </entity>
+                </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+
+
+            fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_tc_skuattr",
+                FetchXml = xdoc
+            };
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+            fetchResponse = await _crmService.Execute(fetchRequest);
+            var skuattrResponse = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            #endregion
 
             #region 查询商品的关联关系
             xdoc = await Task<XDocument>.Run(() =>
@@ -239,10 +261,33 @@ namespace DCEM.UserCenterService.Main.Application.Services
             }
             #endregion
 
+            #region 组装商品SKU订购关系Map
+            var skuattrMap = new Dictionary<string, JObject>();
+            foreach (var entity in skuattrResponse.Value.Results)
+            {
+                var key = entity.Attributes.Value<string>("_mcs_sku_value");
+                if (!skuattrMap.ContainsKey(key))
+                {
+                    skuattrMap.Add(key, new JObject());
+                }
+                skuattrMap[key].Add(entity.Attributes.Value<string>("_mcs_attr_value"), new JObject());
+            }
+            #endregion
+
             #region 组装商品的SKU
             foreach (var entity in productPriceResponse.Value.Results)
             {
                 var productGuid = Guid.Parse(entity.Attributes.Value<string>("_mcs_product_value"));
+                var key = entity.Id.ToString();
+               
+                if (skuattrMap.ContainsKey(key))
+                {
+                    entity.Attributes.Add("skuattr", skuattrMap[key]);
+                }
+                else
+                {
+                    entity.Attributes.Add("skuattr", new JObject());
+                }
                 dicProduct[productGuid].ProductPriceArray.Add(entity.Attributes);
             }
             #endregion
@@ -255,34 +300,6 @@ namespace DCEM.UserCenterService.Main.Application.Services
             #endregion
 
             return producListResponse;
-        }
-        #endregion
-
-        #region 创建订单接口
-        public async Task<ValidateResult<CrmEntity>> CreateOrder(JObject jo)
-        {
-            var validateResult = new ValidateResult<CrmEntity>();
-            //var productOrderJo = jo.Value<JObject>("ProductOrder");
-            //var productorderitemJArray = jo.Value<JArray>("ProductorderitemArray");
-
-            //var productOrderGuid = Guid.NewGuid();
-            //var productOrderEntity = new CrmExecuteEntity("mcs_tc_order", productOrderGuid);
-
-            //if (productOrderJo.ContainsKey("mcs_purchasername"))  //购买方名称
-            //    productOrderEntity.Attributes.Add("mcs_purchasername", productOrderJo.Value<string>("mcs_purchasername"));
-            //if (productOrderJo.ContainsKey("mcs_purchaserphone"))  //购买方联系方式
-            //    productOrderEntity.Attributes.Add("mcs_purchaserphone", productOrderJo.Value<string>("mcs_purchaserphone"));
-            //if (productOrderJo.ContainsKey("mcs_purchasercertificatetype"))  //购买方证件类型
-            //    productOrderEntity.Attributes.Add("mcs_purchasercertificatetype", productOrderJo.Value<string>("mcs_purchasercertificatetype"));
-            //if (productOrderJo.ContainsKey("mcs_purchasercertificatecode"))  //购买方证件号码
-            //    productOrderEntity.Attributes.Add("mcs_purchasercertificatecode", productOrderJo.Value<string>("mcs_purchasercertificatecode"));
-
-            #region 组装数据返回
-            validateResult.Result = true;
-            validateResult.Description = "操作成功";
-            #endregion
-            return validateResult;
-
         }
         #endregion
 

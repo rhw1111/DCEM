@@ -10,24 +10,18 @@
 <ion-content color="light">
 
   <ion-card>
-    <ion-item [routerLink]="['/message/notice']">
-      <!-- <ion-icon name="pin" slot="start"></ion-icon> -->
-      <ion-label>ion-item in a card, icon left, button right</ion-label>
-      <!-- <ion-button fill="outline" slot="end">View</ion-button> -->
+    <ion-item [routerLink]="['/questionsetting']"
+      [queryParams]="{id:'6418EC30-680F-EA11-B394-86D989685D12',channer:'AE87DE6A-6D1A-EA11-B394-86D989685D12'}">
+      <ion-label>问卷调查</ion-label>
     </ion-item>
-
     <ion-card-content>
-      This is content, without any paragraph or header tags,
-      within an ion-card-content element.
-      <img src="assets/img/2.jpg" />
+      邀请您参加得好礼
+      <img src="assets/img/questionsetting.png" />
     </ion-card-content>
   </ion-card>
   <ion-item-divider color="light">
     <p>
       2019-11-29
-    </p>
-    <!-- <ion-label>
-      基础信息
-    </ion-label> -->
+    </p> 
   </ion-item-divider>
 </ion-content>

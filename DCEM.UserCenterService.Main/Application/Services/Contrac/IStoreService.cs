@@ -17,11 +17,7 @@ namespace DCEM.UserCenterService.Main.Application.Services.Contrac
         Task<ProducListResponse> QueryProductList(ProducListRequest request);
 
 
-        /// <summary>
-        /// 订单创建接口
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        Task<ValidateResult<CrmEntity>> CreateOrder(JObject jo);
+
+
     }
 }

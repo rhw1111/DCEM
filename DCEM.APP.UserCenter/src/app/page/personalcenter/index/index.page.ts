@@ -24,7 +24,7 @@ export class IndexPage {
     }
     ngOnInit() { 
     }
-    //选择登陆窗口
+    //选择登录窗口
     async loginModal() {
         if (this._logininfo.GetNickName()!=null) {
             /*
@@ -43,7 +43,7 @@ export class IndexPage {
             const modal = await this.modalCtrl.create({
                 component: LoginComponent,
                 componentProps: {
-                    'status': 1//登陆页面状态 
+                    'status': 1//登录页面状态 
                 }
             });
             await modal.present();
