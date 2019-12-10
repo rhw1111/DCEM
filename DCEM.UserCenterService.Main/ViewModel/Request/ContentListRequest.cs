@@ -10,6 +10,7 @@
 
 namespace DCEM.UserCenterService.Main.ViewModel.Request
 {
+    using System;
     using System.Collections.Generic;
     using MSLibrary.Xrm;
     using static DCEM.UserCenterService.Main.Common.UserEnum;
@@ -17,5 +18,11 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
     public class ContentListRequest : PageBaseRequestModel
     {
         public ContentType Type { get; set; }
+    }
+
+    public class ContentDetailRequest
+    {
+        public ContentType Type { get; set; }
+        public Guid Id { get; set; }
     }
 }

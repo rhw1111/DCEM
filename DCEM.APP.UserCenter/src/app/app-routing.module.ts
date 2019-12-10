@@ -64,7 +64,19 @@ const routes: Routes = [
     {
         path: 'community',  //社区
         children: [
-            { path: 'index', loadChildren: () => import('./page/community/index/index.module').then(m => m.IndexPageModule) },
+            {
+                path: 'index',
+                loadChildren: () => import('./page/community/index/index.module').then(m => m.IndexPageModule)
+            },
+            {
+                path: 'activitydetail',
+                loadChildren: () => import('./page/community/activitydetail/activitydetail.module').then(m => m.ActivitydetailPageModule)
+            },
+            {
+                path: 'newsdetail',
+                loadChildren: () => import('./page/community/newsdetail/newsdetail.module').then(m => m.NewsdetailPageModule)
+            },
+
         ]
     },
     {
@@ -144,6 +156,8 @@ const routes: Routes = [
             { path: 'index', loadChildren: () => import('./page/message/index/index.module').then(m => m.IndexPageModule) },
             { path: 'room', loadChildren: () => import('./page/message/room/room.module').then(m => m.RoomPageModule) },
             { path: 'sys', loadChildren: () => import('./page/message/sys/sys.module').then(m => m.SysPageModule) },
+            { path: 'noticelist', loadChildren: () => import('./page/message/noticelist/noticelist.module').then(m => m.NoticelistPageModule) },
+            { path: 'notice', loadChildren: () => import('./page/message/notice/notice.module').then(m => m.NoticePageModule) },
         ]
     },
     {
@@ -260,9 +274,11 @@ const routes: Routes = [
     {
         path: 'shippingaddress',
         loadChildren: () => import('./page/home/shippingaddress/shippingaddress.module').then(m => m.ShippingaddressPageModule)
-    }
+    },
 
 ];
+
+
 @NgModule({
     imports: [
         RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })

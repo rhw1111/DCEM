@@ -136,12 +136,15 @@ export class IndexPage {
                         switch (item["mcs_contentstatus"]) {
                             case 1:
                                 obj["StatusLabel"] = "进行中";
+                                obj["describeLabel"] = "了解更多";
                                 break;
                             case 2:
                                 obj["StatusLabel"] = "已结束";
+                                obj["describeLabel"] = "精彩回顾";
                                 break;
                             default:
                                 obj["StatusLabel"] = "未开始";
+                                obj["describeLabel"] = "敬请期待";
                                 break;
                         }
                         obj["Title"] = item["mcs_name"];

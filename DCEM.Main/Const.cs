@@ -189,6 +189,10 @@ namespace DCEM.Main
         /// 新增通用日志
         /// </summary>
         public const string AddCommonLog = "AddCommonLog";
+        /// <summary>
+        /// 商品交易中心服务
+        /// </summary>
+        public const string RemoteServiceTCenter = "RemoteServiceTCenter";
     }
 
     /// <summary>

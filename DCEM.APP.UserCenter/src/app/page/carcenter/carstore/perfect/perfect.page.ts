@@ -10,8 +10,8 @@ import * as $ from 'jquery';
 })
 export class PerfectPage implements OnInit {
 
-    public mod: any = {
-        shareDataKey: "carstore"
+    public mod = {
+        shareDataKey: "carstore",
     };
 
     public objectKeys = Object.keys;
@@ -32,6 +32,7 @@ export class PerfectPage implements OnInit {
         packageMap: {},                             //选择的所有对象
         userInfo: {   //用户信息
         },
+        buyingMode: 1,//购车方式
     }
     constructor(
         private _http: DCore_Http,
@@ -53,14 +54,29 @@ export class PerfectPage implements OnInit {
     public init() {
         if (this._shareData.has(this.mod.shareDataKey)) {
             this.shareData = this._shareData.get(this.mod.shareDataKey);
-            //}
+            if (this._valid.isNull(this.shareData.userInfo)) {
+                this.initShareData();
+            }
         } else {
             this._page.navigateRoot("/carcenter/carstore/index", null, "back");
         }
     }
 
+    public initShareData() {
+        this.shareData.userInfo = {};
+        this.shareData.buyingMode = 1;
+    }
 
 
+    //下一步
+    public onNext() {
+        this._shareData.set(this.mod.shareDataKey, this.shareData);
+        this._page.navigateRoot("/carcenter/carstore/payment", null, null);
+    }
 
+    //购买方式
+    public onBuyingModeClikc(buyingMode: number) {
+        this.shareData.buyingMode = buyingMode;
+    }
 
 }

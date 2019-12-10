@@ -11,6 +11,8 @@ namespace DCEM.UserCenterService.Main.Application.Services
     using System.Threading.Tasks;
     using System.Xml.Linq;
     using System;
+    using Newtonsoft.Json.Linq;
+    using MSLibrary;
 
     public class StoreService : IStoreService
     {
@@ -27,10 +29,9 @@ namespace DCEM.UserCenterService.Main.Application.Services
             dicHead.Add(dicHeadKey, new List<string>() { "odata.include-annotations=\"*\"" });
             pageCount = 50;
         }
+        #endregion
 
         #region 获取 商品列表
-
-
         public async Task<ProducListResponse> QueryProductList(ProducListRequest request)
         {
             var producListResponse = new ProducListResponse();
@@ -137,6 +138,30 @@ namespace DCEM.UserCenterService.Main.Application.Services
             var productOrderingattributeResponse = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
             #endregion
 
+            #region 查询商品的SKU
+            xdoc = await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"
+                <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+                    <entity name='mcs_tc_productprice'>
+                        <order attribute='createdon' descending='true' />
+                    </entity>
+                </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+
+
+            fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_tc_productprice",
+                FetchXml = xdoc
+            };
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+            fetchResponse = await _crmService.Execute(fetchRequest);
+            var productPriceResponse = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            #endregion
+
+
             #region 查询商品的关联关系
             xdoc = await Task<XDocument>.Run(() =>
             {
@@ -214,6 +239,14 @@ namespace DCEM.UserCenterService.Main.Application.Services
             }
             #endregion
 
+            #region 组装商品的SKU
+            foreach (var entity in productPriceResponse.Value.Results)
+            {
+                var productGuid = Guid.Parse(entity.Attributes.Value<string>("_mcs_product_value"));
+                dicProduct[productGuid].ProductPriceArray.Add(entity.Attributes);
+            }
+            #endregion
+
             #region 返回对象组装
             foreach (var kv in dicProduct)
             {
@@ -225,9 +258,33 @@ namespace DCEM.UserCenterService.Main.Application.Services
         }
         #endregion
 
-        #region 获取商品的 规格型号
+        #region 创建订单接口
+        public async Task<ValidateResult<CrmEntity>> CreateOrder(JObject jo)
+        {
+            var validateResult = new ValidateResult<CrmEntity>();
+            //var productOrderJo = jo.Value<JObject>("ProductOrder");
+            //var productorderitemJArray = jo.Value<JArray>("ProductorderitemArray");
+
+            //var productOrderGuid = Guid.NewGuid();
+            //var productOrderEntity = new CrmExecuteEntity("mcs_tc_order", productOrderGuid);
+
+            //if (productOrderJo.ContainsKey("mcs_purchasername"))  //购买方名称
+            //    productOrderEntity.Attributes.Add("mcs_purchasername", productOrderJo.Value<string>("mcs_purchasername"));
+            //if (productOrderJo.ContainsKey("mcs_purchaserphone"))  //购买方联系方式
+            //    productOrderEntity.Attributes.Add("mcs_purchaserphone", productOrderJo.Value<string>("mcs_purchaserphone"));
+            //if (productOrderJo.ContainsKey("mcs_purchasercertificatetype"))  //购买方证件类型
+            //    productOrderEntity.Attributes.Add("mcs_purchasercertificatetype", productOrderJo.Value<string>("mcs_purchasercertificatetype"));
+            //if (productOrderJo.ContainsKey("mcs_purchasercertificatecode"))  //购买方证件号码
+            //    productOrderEntity.Attributes.Add("mcs_purchasercertificatecode", productOrderJo.Value<string>("mcs_purchasercertificatecode"));
+
+            #region 组装数据返回
+            validateResult.Result = true;
+            validateResult.Description = "操作成功";
+            #endregion
+            return validateResult;
+
+        }
         #endregion
 
-        #endregion
     }
 }

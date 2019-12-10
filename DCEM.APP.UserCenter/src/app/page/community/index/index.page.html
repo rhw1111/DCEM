@@ -80,7 +80,8 @@
                             <ion-button fill="outline" color="primary">专业车评</ion-button>
                         </ion-col>
                         <ion-col>
-                            <ion-button fill="outline" color="danger" [routerLink]="['/testdrive/edit']">预约试驾</ion-button>
+                            <ion-button fill="outline" color="danger" [routerLink]="['/testdrive/edit']">预约试驾
+                            </ion-button>
                         </ion-col>
                     </ion-row>
                     <ion-row>
@@ -485,7 +486,8 @@
                     </ion-row> -->
                     <ion-row *ngFor="let item of model.activitiesList">
                         <ion-col class="dm-main-activity">
-                            <ion-grid>
+                            <ion-grid [routerLink]="['/community/activitydetail']"
+                                 [queryParams]="{id:item.StatusLabel}">
                                 <ion-row>
                                     <ion-col class="dm-main-activity-img">
                                         <img
@@ -496,13 +498,13 @@
                                 <ion-row>
                                     <ion-col text-left class="dm-main-activity-title">
                                         <h1>{{item.Title}}</h1>
-                                        <p>时间：{{FormatToDateTime(item.Time)}}</p>
+                                        <p>时间：{{item.Time}}</p>
                                         <p>地点：{{ShowEmptyValue(item.Address)}}</p>
                                     </ion-col>
                                 </ion-row>
                                 <ion-row>
                                     <ion-col text-center class="dm-main-activity-bottom">
-                                        了解更多
+                                        {{item.describeLabel}}
                                     </ion-col>
                                 </ion-row>
                             </ion-grid>

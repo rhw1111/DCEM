@@ -24,7 +24,7 @@ namespace DCEM.UserCenterService.Main.Application.App.Contrac
     {
         ValidateResult AddOrUpdate(ShippingaddressAddRequest model);
 
-        Task<ValidateResult<List<CrmEntity>>> GetList(ShippingaddressListRequest request);
+        ValidateResult<List<CrmEntity>>  GetList(ShippingaddressListRequest request);
 
         Task<ValidateResult<CrmEntity>> GetDetail(Guid id);
 
