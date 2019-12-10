@@ -7,14 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { SelectitemPageRoutingModule } from './selectitem-routing.module';
 
 import { SelectitemPage } from './selectitem.page';
-
+import { TopheadModule } from 'app/page/carcenter/carstore/component/assembly/tophead/tophead.module';
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    SelectitemPageRoutingModule
-  ],
-  declarations: [SelectitemPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        SelectitemPageRoutingModule,
+        TopheadModule,
+    ],
+    declarations: [SelectitemPage]
 })
-export class SelectitemPageModule {}
+export class SelectitemPageModule { }

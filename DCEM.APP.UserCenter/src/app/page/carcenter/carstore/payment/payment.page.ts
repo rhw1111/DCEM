@@ -2,7 +2,6 @@
 import { IonBackButton, IonBackButtonDelegate } from '@ionic/angular';
 import { DCore_Http, DCore_Page, DCore_Valid, DCore_ShareData, DCore_String } from 'app/component/typescript/dcem.core';
 import * as $ from 'jquery';
-import { print } from 'util';
 
 @Component({
     selector: 'app-payment',

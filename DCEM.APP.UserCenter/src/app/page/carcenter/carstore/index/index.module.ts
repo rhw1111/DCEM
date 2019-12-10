@@ -9,6 +9,7 @@ import { IndexPageRoutingModule } from './index-routing.module';
 import { IndexPage } from './index.page';
 import { SpeclistComponent } from 'app/page/carcenter/carstore/component/model/speclist/speclist.component';
 
+import { TopheadModule } from 'app/page/carcenter/carstore/component/assembly/tophead/tophead.module';
 
 @NgModule({
     entryComponents: [SpeclistComponent],
@@ -16,7 +17,8 @@ import { SpeclistComponent } from 'app/page/carcenter/carstore/component/model/s
         CommonModule,
         FormsModule,
         IonicModule,
-        IndexPageRoutingModule
+        IndexPageRoutingModule,
+        TopheadModule
     ],
     declarations: [IndexPage, SpeclistComponent]
 })

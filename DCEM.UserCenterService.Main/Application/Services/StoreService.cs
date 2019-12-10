@@ -161,27 +161,27 @@ namespace DCEM.UserCenterService.Main.Application.Services
             var productPriceResponse = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
             #endregion
 
-            #region 查询商品SKU的订购关系
-            xdoc = await Task<XDocument>.Run(() =>
-            {
-                var fetchXml = $@"
-                <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
-                    <entity name='mcs_tc_skuattr'>
-                        <order attribute='createdon' descending='true' />
-                    </entity>
-                </fetch>";
-                return XDocument.Parse(fetchXml);
-            });
+            #region 查询商品SKU的订购关系(弃用)
+            //xdoc = await Task<XDocument>.Run(() =>
+            //{
+            //    var fetchXml = $@"
+            //    <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+            //        <entity name='mcs_tc_skuattr'>
+            //            <order attribute='createdon' descending='true' />
+            //        </entity>
+            //    </fetch>";
+            //    return XDocument.Parse(fetchXml);
+            //});
 
 
-            fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
-            {
-                EntityName = "mcs_tc_skuattr",
-                FetchXml = xdoc
-            };
-            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
-            fetchResponse = await _crmService.Execute(fetchRequest);
-            var skuattrResponse = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            //fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            //{
+            //    EntityName = "mcs_tc_skuattr",
+            //    FetchXml = xdoc
+            //};
+            //fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+            //fetchResponse = await _crmService.Execute(fetchRequest);
+            //var skuattrResponse = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
             #endregion
 
             #region 查询商品的关联关系
@@ -261,33 +261,33 @@ namespace DCEM.UserCenterService.Main.Application.Services
             }
             #endregion
 
-            #region 组装商品SKU订购关系Map
-            var skuattrMap = new Dictionary<string, JObject>();
-            foreach (var entity in skuattrResponse.Value.Results)
-            {
-                var key = entity.Attributes.Value<string>("_mcs_sku_value");
-                if (!skuattrMap.ContainsKey(key))
-                {
-                    skuattrMap.Add(key, new JObject());
-                }
-                skuattrMap[key].Add(entity.Attributes.Value<string>("_mcs_attr_value"), new JObject());
-            }
+            #region 组装商品SKU订购关系Map (弃用)
+            //var skuattrMap = new Dictionary<string, JObject>();
+            //foreach (var entity in skuattrResponse.Value.Results)
+            //{
+            //    var key = entity.Attributes.Value<string>("_mcs_sku_value");
+            //    if (!skuattrMap.ContainsKey(key))
+            //    {
+            //        skuattrMap.Add(key, new JObject());
+            //    }
+            //    skuattrMap[key].Add(entity.Attributes.Value<string>("_mcs_attr_value"), new JObject());
+            //}
             #endregion
 
             #region 组装商品的SKU
             foreach (var entity in productPriceResponse.Value.Results)
             {
                 var productGuid = Guid.Parse(entity.Attributes.Value<string>("_mcs_product_value"));
-                var key = entity.Id.ToString();
+                //var key = entity.Id.ToString();
                
-                if (skuattrMap.ContainsKey(key))
-                {
-                    entity.Attributes.Add("skuattr", skuattrMap[key]);
-                }
-                else
-                {
-                    entity.Attributes.Add("skuattr", new JObject());
-                }
+                //if (skuattrMap.ContainsKey(key))
+                //{
+                //    entity.Attributes.Add("skuattr", skuattrMap[key]);
+                //}
+                //else
+                //{
+                //    entity.Attributes.Add("skuattr", new JObject());
+                //}
                 dicProduct[productGuid].ProductPriceArray.Add(entity.Attributes);
             }
             #endregion

@@ -45,12 +45,12 @@ export class SelectitemPage implements OnInit {
         this.shareData.productRelatedMap = {};
         //this.initJQueryEvent();
 
-        const that = this;
-        this.ionBackButtonDelegate.onClick = function (event) {
-            $("#carcenter_carstore_selectitem_footer").find(".dm-footer-svg").removeClass("open");
-            $("#carcenter_carstore_selectitem_footer_model").removeClass("open");
-            that._page.navigateRoot("/carcenter/carstore/selectattr", null, "back");
-        }
+        //const that = this;
+        //this.ionBackButtonDelegate.onClick = function (event) {
+        //    $("#carcenter_carstore_selectitem_footer").find(".dm-footer-svg").removeClass("open");
+        //    $("#carcenter_carstore_selectitem_footer_model").removeClass("open");
+        //    that._page.navigateRoot("/carcenter/carstore/selectattr", null, "back");
+        //}
     }
 
     ionViewWillEnter() {

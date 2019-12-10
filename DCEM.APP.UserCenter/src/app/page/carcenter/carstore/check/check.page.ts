@@ -54,7 +54,7 @@ export class CheckPage implements OnInit {
 
         if (this._shareData.has(this.mod.shareDataKey)) {
             this.shareData = this._shareData.get(this.mod.shareDataKey);
-            //if (this._valid.isNull(this.shareData.selectproductRelatedMap)) {
+            // if (this._valid.isNull(this.shareData.selectproductRelatedMap)) {
             this.initShareData();
             //}
         } else {
@@ -108,7 +108,7 @@ export class CheckPage implements OnInit {
     public productRelatedUpdate() {
         this._page.navigateRoot("/carcenter/carstore/selectitem", null, "back");
     }
-    
+
 
     //样式智能识别
     public getTempHtml(groupName, attrVal: string, imgUrl) {
