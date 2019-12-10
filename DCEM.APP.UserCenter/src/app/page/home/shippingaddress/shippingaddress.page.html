@@ -14,24 +14,27 @@
     <ion-item style="font-size: 1rem;border-top: 15px solid #f3f3f3 " *ngFor="let item of mod.datalist ">
       <ion-row style="width: 100%;">
         <ion-col size="10">
-          <ion-row style="width: 100%;">
-            <ion-col size="3">
-              {{item.mcs_name}}
-            </ion-col>
-            <ion-col size="9" style="text-align: right;">
-              {{item.mcs_phone}}
-            </ion-col>
-          </ion-row>
-          <ion-row style="width: 100%;  ">
-            <ion-col size="12" style="padding-top:0px">
-              <div class="divaddress">
-                <div class="divdef" *ngIf="item.mcs_isdefault">&nbsp;&nbsp;默认&nbsp;&nbsp;</div>
-                <div style="display: inline;line-height: 25px;">
-                  {{item.mcs_provincename}}&nbsp;{{item.mcs_cityname}}&nbsp;{{item.mcs_areaname}}&nbsp;{{item.mcs_address}}
-                </div>
-              </div>
-            </ion-col>
-          </ion-row>
+            <ion-row (click)="chooseAddr(item.id)">
+                <ion-row style="width: 100%;">
+                    <ion-col size="3">
+                        {{item.mcs_name}}
+                    </ion-col>
+                    <ion-col size="9" style="text-align: right;">
+                        {{item.mcs_phone}}
+                    </ion-col>
+                </ion-row>
+                <ion-row style="width: 100%;  ">
+                    <ion-col size="12" style="padding-top:0px">
+                        <div class="divaddress">
+                            <div class="divdef" *ngIf="item.mcs_isdefault">&nbsp;&nbsp;默认&nbsp;&nbsp;</div>
+                            <div style="display: inline;line-height: 25px;">
+                                {{item.mcs_provincename}}&nbsp;{{item.mcs_cityname}}&nbsp;{{item.mcs_areaname}}&nbsp;{{item.mcs_address}}
+                            </div>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-row>
+          
           <ion-row style="width: 100%; margin-top: 5px;">
               <ion-col size="6" >
                 <button class="btn" style="color: #5bbbb4;"  (click)="onIsDef(item.id,item.mcs_userid)">设为默认地址</button>

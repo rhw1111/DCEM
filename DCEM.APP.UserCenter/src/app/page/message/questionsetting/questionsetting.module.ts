@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ActivitydetailPageRoutingModule } from './activitydetail-routing.module';
+import { QuestionsettingPageRoutingModule } from './questionsetting-routing.module';
 
-import { ActivitydetailPage } from './activitydetail.page';
+import { QuestionsettingPage } from './questionsetting.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ActivitydetailPageRoutingModule,
+    QuestionsettingPageRoutingModule
   ],
-  declarations: [ActivitydetailPage]
+  declarations: [QuestionsettingPage]
 })
-export class ActivitydetailPageModule { }
+export class QuestionsettingPageModule {}

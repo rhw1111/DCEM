@@ -54,7 +54,8 @@ namespace DCEM.UserCenterService.Main.Application.Repository
             var fetchXml = $@"<fetch version='1.0'   output-format='xml-platform' mapping='logical' distinct='false'>
                     <entity name='mcs_questions'>
                     <all-attributes />
-                    <order attribute='createdon' descending='false' />
+                    <order attribute='mcs_type' descending='false' />
+                    <order attribute='mcs_questioncode' descending='false' />
                     <filter type='and'>
                       <condition attribute='statecode' operator='eq' value='0' />  
                     </filter>

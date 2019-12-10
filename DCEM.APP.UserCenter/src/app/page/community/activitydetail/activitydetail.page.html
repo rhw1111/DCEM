@@ -1,13 +1,13 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button text="返回" defaultHref="/community/index"></ion-back-button>
+      <ion-back-button text="" defaultHref="/community/index" (click)="removeIFrameEvent()"></ion-back-button>
     </ion-buttons>
-    <ion-title>活动详情</ion-title>
+    <ion-title>{{model.activityEntity.Title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <iframe data-tap-disabled="true" style="height:100%;width:100%;"
-    src="http://106.14.121.65:8081/OnlineApply.html"></iframe>
+  <iframe data-tap-disabled="false" style="height:100%;width:100%;border: none;"
+    [src]="model.activityEntity.PageUrl"></iframe>
 </ion-content>

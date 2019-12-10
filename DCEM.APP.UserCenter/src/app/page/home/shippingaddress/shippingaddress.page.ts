@@ -380,4 +380,14 @@ export class ShippingaddressPage implements OnInit {
       this.districtModal()
     }
   }
+    //选择地址
+    chooseAddr(id) {
+        var addr = null;
+        this.mod.datalist.forEach(item => {
+            if (item.id == id) {
+                addr = item;
+            }
+        });
+        this._page.goto("/servicecenter/preorder/preorder", { addr: JSON.stringify(addr) });
+    }
 }

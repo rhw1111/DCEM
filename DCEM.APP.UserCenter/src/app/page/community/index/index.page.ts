@@ -15,7 +15,7 @@ export class IndexPage {
 
     //数据对象
     model = {
-        contentManagementApiUrl: 'api/ContentManagement/GetActivityList',
+        contentManagementApiUrl: 'api/ContentManagement/GetContentList',
 
         index: 0,
         isAllActivities: false,
@@ -179,7 +179,7 @@ export class IndexPage {
     //显示资讯列表页面
     ShowNews(event) {
         this._page.loadingShow();
-        this._http.postForToaken(
+        this._http.post(
             this.model.contentManagementApiUrl,
             this.model.newsParams,
             (res: any) => {
