@@ -110,9 +110,9 @@ export class ShippingaddressPage implements OnInit {
             this.mod.isending = true;
           }
         }
-        else {
-          this._page.alert("消息提示", "数据加载异常");
-        }
+        //else {
+        //  this._page.alert("消息提示", "数据加载异常");
+        //}
         this._page.loadingHide();
       },
       (err: any) => {
@@ -263,7 +263,12 @@ export class ShippingaddressPage implements OnInit {
         },
         (res: any) => {
           if (res.Result) {
-            this.mod.datalist = [];
+              this.mod.datalist = [];
+              //var storage = window.localStorage;
+              //var addrdata = storage.getItem("chooseaddr");
+              //if (addrdata != null && addrdata.indexOf(id) >= 0) {
+              //    storage.removeItem("chooseaddr");
+              //} 
             this.getList(null); 
           }
           else {
@@ -381,4 +386,16 @@ export class ShippingaddressPage implements OnInit {
       this.districtModal()
     }
   }
+    //选择地址
+    chooseAddr(id) {
+        var addr = null;
+        this.mod.datalist.forEach(item => {
+            if (item.id == id) {
+                addr = item;
+            }
+        });
+        //var storage = window.localStorage;
+        //storage.setItem("chooseaddr", JSON.stringify(addr));
+        this._page.goto("/servicecenter/preorder/preorder", { addr: JSON.stringify(addr) });
+    }
 }

@@ -43,16 +43,10 @@
         <!--价格-->
         <ion-row style="padding-top:20px; padding-bottom:15px">
             <ion-col style="padding-left:20px;font-weight:bold; color:#2FACE5; ">
-                <ion-label style="font-size:18px;">
+                <span style="font-size:18px;">
                     ￥
-                </ion-label>
-                <div *ngIf="model.datadetail.SkuData != null; then truthyTemplate else falsyTemplate"></div>
-                <ng-template #truthyTemplate>
-                    <ion-label class="lab-price" style="font-size:24px;">{{model.datadetail.SkuData[0].Price}}</ion-label>
-                </ng-template>
-                <ng-template #falsyTemplate>
-                    <ion-label style="font-size:24px;">0.00</ion-label>
-                </ng-template>
+                </span>
+                <span style="font-size:24px;">{{model.datadetail.SkuData?.length > 0 ? model.datadetail.SkuData[0].Price : "0.00"}}</span>
             </ion-col>
             <ion-col style="padding-right:15px;text-align:right; font-size:16px;">
                 <ion-label>
@@ -70,10 +64,10 @@
                         选择:
                     </ion-label>
                     <ion-label class="lab-selected" style="color:#a5a2a2;">
-                        <div *ngIf="model.datadetail.SkuData != null; then trueTemplate else falseTemplate"></div>
+                        <div *ngIf="model.datadetail.SkuData?.length > 0; then trueTemplate else falseTemplate"></div>
                         <ng-template #trueTemplate>
                             <ng-container *ngFor="let item of model.datadetail.SkuData[0].Arrts">
-                                <div *ngIf="item.Values != null; then tTemplate else fTemplate"></div>
+                                <div *ngIf="item.Values?.length > 0; then tTemplate else fTemplate"></div>
                                 <ng-template #tTemplate>
                                     {{item.Values[0].Value}}
                                 </ng-template>
@@ -130,7 +124,7 @@
                 <div style="font-size:24px;margin-bottom:35px;">{{model.datadetail.Name}}</div>
                 <div style="font-size:16px; color:#38B3EE">
                     ￥
-                    <div *ngIf="model.datadetail.SkuData != null; then truthysTemplate else falsysTemplate"></div>
+                    <div *ngIf="model.datadetail.SkuData?.length > 0; then truthysTemplate else falsysTemplate"></div>
                     <ng-template #truthysTemplate>
                         <span class="span-price" style="font-size:24px;">{{model.datadetail.SkuData[0].Price}}</span>
                     </ng-template>
