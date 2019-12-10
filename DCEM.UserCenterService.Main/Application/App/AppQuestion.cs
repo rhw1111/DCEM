@@ -17,36 +17,27 @@ namespace DCEM.UserCenterService.Main.Application.App
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
     using MSLibrary;
-    using System.Collections.Generic;
     using System;
 
-    public class AppShippingaddress : IAppShippingaddress
+    public class AppQuestion : IAppQuestion
     {
         
-        public IShippingaddressService _shippingaddressService;
+        public IQuestionService _questionService;
         
-        public AppShippingaddress(IShippingaddressService shippingaddressService)
+        public AppQuestion(IQuestionService questionService)
         {
-            _shippingaddressService=shippingaddressService;
+            _questionService=questionService;
         }
 
-
-
-       public  ValidateResult AddOrUpdate(ShippingaddressAddRequest model)
+      public   Task<ValidateResult<QuestionSettingResponse>> QueryQiestion(Guid id)
         {
-            return _shippingaddressService.AddOrUpdate(model);
-        }
-        public  ValidateResult<List<CrmEntity>>  GetList(ShippingaddressListRequest request)
-        {
-            return _shippingaddressService.GetList(request);
+            return _questionService.QueryQiestion(id);
         }
 
-        public Task<ValidateResult<CrmEntity>> GetDetail(Guid id)
+        public Task<ValidateResult> AddAnswercontent(QuestionAddRequest model)
         {
-            return _shippingaddressService.GetDetail(id);
-        }
 
-        public ValidateResult Delete(ShippingaddressAddRequest model)
-            => _shippingaddressService.Delete(model);
+            return _questionService.AddAnswercontent(model);
+        }
     }
 }

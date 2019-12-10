@@ -75,5 +75,39 @@ namespace DCEM.UserCenterService.Main.Application.Services
             }
             return await crmRequestHelper.ExecuteAsync(_crmService, entityName, fetchXdoc);
         }
+
+        public async Task<ContentDetailResponse> GetDetail(ContentDetailRequest contentDetailRequest)
+        {
+            try
+            {
+                var response = new ContentDetailResponse() { };
+                response.Content = await GetEntity(contentDetailRequest);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                return new ContentDetailResponse() { ErrorMessage = ex.Message + ";" + ex.InnerException?.Message };
+            }
+        }
+
+        private async Task<CrmEntity> GetEntity(ContentDetailRequest contentDetailRequest)
+        {
+            var crmRequestHelper = new CrmRequestHelper();
+            string entityName = string.Empty;
+
+            switch (contentDetailRequest.Type)
+            {
+                case ContentType.Activity:
+                    entityName = "mcs_activitycontents";
+                    break;
+                case ContentType.Front:
+                    entityName = "mcs_frontcontent";
+                    break;
+                case ContentType.News:
+                    entityName = "mcs_newscontents";
+                    break;
+            }
+            return await crmRequestHelper.Retrieve(_crmService, entityName, contentDetailRequest.Id);
+        }
     }
 }

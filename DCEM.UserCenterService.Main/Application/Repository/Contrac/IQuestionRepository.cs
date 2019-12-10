@@ -8,28 +8,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DCEM.UserCenterService.Main.Application.App.Contrac
+namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
 {
-    using DCEM.UserCenterService.Main.Application.App.Contrac;
-    using DCEM.UserCenterService.Main.Application.Services.Contrac;
+    using DCEM.UserCenterService.Main.Application.Repository.Contrac;
     using DCEM.UserCenterService.Main.ViewModel.Request;
     using DCEM.UserCenterService.Main.ViewModel.Response;
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
-    using MSLibrary;
-    using System.Collections.Generic;
+    using System.Xml.Linq;
     using System;
 
-    public interface IAppShippingaddress
+    public interface IQuestionRepository
     {
-        ValidateResult AddOrUpdate(ShippingaddressAddRequest model);
+        public XDocument QueryQiestion(Guid id);
 
-        ValidateResult<List<CrmEntity>>  GetList(ShippingaddressListRequest request);
-
-        Task<ValidateResult<CrmEntity>> GetDetail(Guid id);
-
-        ValidateResult Delete(ShippingaddressAddRequest model);
+        public XDocument QueryDetailList(Guid id);
 
 
+        public XDocument QueryAnswersList(Guid id);
     }
 }
