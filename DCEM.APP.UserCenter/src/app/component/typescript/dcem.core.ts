@@ -37,7 +37,7 @@ export class DCore_Config {
 
     constructor(
     ) {
-        this.dcem_serverName = "9_0";
+        this.dcem_serverName = "iis";
         this.tc_serverName = "9_0";
 
         this.tc_host_map = function () {
@@ -373,6 +373,48 @@ export class DCore_Valid {
         return Object.prototype.toString.call(o) == '[object Array]';
     }
 }
+
+
+//验证对象
+@Injectable({
+    providedIn: 'root'
+})
+export class DCore_String {
+    constructor(
+    ) {
+    }
+    GetRandom(len: number = 24) {
+        var $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var maxPos = $chars.length;
+        var pwd = '';
+        for (var i = 0; i < len; i++) {
+            pwd += $chars.charAt(Math.floor(Math.random() * (maxPos + 1)));
+        }
+        return pwd;
+    }
+
+    GetDateFormat(date: Date, format: string) {
+        date["M+"] = date.getMonth() + 1;
+        date["d+"] = date.getDate();
+        date["h+"] = date.getHours();
+        date["m+"] = date.getMinutes();
+        date["s+"] = date.getSeconds();
+        date["q+"] = Math.floor((date.getMonth() + 3) / 3);
+        date["S+"] = date.getMilliseconds();
+        if (/(y+)/i.test(format)) {
+            format = format.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+        }
+        for (var k in date) {
+            if (new RegExp("(" + k + ")").test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+            }
+        }
+        return format;
+    }
+}
+
+
+
 
 //去掉Angular的垃圾安全过滤器
 @Injectable({

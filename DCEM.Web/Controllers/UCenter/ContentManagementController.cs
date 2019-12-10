@@ -26,14 +26,25 @@ namespace DCEM.Web.Controllers.Content
         }
 
         /// <summary>
-        /// 获取活动内容列表
+        /// 获取内容列表
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Route("GetActivityList")]
-        public async Task<NewtonsoftJsonActionResult<ContentListResponse>> GetActivityList(ContentListRequest contentListRequest)
+        [Route("GetContentList")]
+        public async Task<NewtonsoftJsonActionResult<ContentListResponse>> GetContentList(ContentListRequest contentListRequest)
         {
             return await _appContentManagement.GetList(contentListRequest);
+        }
+
+        /// <summary>
+        /// 获取内容详情
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("GetContentDetail")]
+        public async Task<NewtonsoftJsonActionResult<ContentDetailResponse>> GetContentDetail(ContentDetailRequest contentDetailRequest)
+        {
+            return await _appContentManagement.GetDetail(contentDetailRequest);
         }
     }
 }

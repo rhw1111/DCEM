@@ -28,7 +28,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository
             var fetchXml = $@"<fetch version='1.0' count='{request.PageSize}' page='{request.PageIndex}' output-format='xml-platform' mapping='logical' distinct='false'>
                     <entity name='mcs_shippingaddress'>
                     <all-attributes />
-                    <order attribute='createdon' descending='false' />
+                    <order attribute='mcs_isdefault' descending='true' />
                     <filter type='and'>
                       <condition attribute='statecode' operator='eq' value='0' /> 
                       <condition attribute='mcs_userid' operator='eq' value='{request.mcs_userid}' />

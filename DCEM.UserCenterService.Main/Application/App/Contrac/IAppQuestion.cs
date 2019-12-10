@@ -17,19 +17,12 @@ namespace DCEM.UserCenterService.Main.Application.App.Contrac
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
     using MSLibrary;
-    using System.Collections.Generic;
     using System;
 
-    public interface IAppShippingaddress
+    public interface IAppQuestion
     {
-        ValidateResult AddOrUpdate(ShippingaddressAddRequest model);
+        Task<ValidateResult<QuestionSettingResponse>> QueryQiestion(Guid id);
 
-        ValidateResult<List<CrmEntity>>  GetList(ShippingaddressListRequest request);
-
-        Task<ValidateResult<CrmEntity>> GetDetail(Guid id);
-
-        ValidateResult Delete(ShippingaddressAddRequest model);
-
-
+        Task<ValidateResult> AddAnswercontent(QuestionAddRequest model);
     }
 }

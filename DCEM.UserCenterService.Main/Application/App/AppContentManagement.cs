@@ -28,6 +28,11 @@ namespace DCEM.UserCenterService.Main.Application.App
             _contentmanagementService=contentmanagementService;
         }
 
+        public async Task<ContentDetailResponse> GetDetail(ContentDetailRequest contentDetailRequest)
+        {
+            return await _contentmanagementService.GetDetail(contentDetailRequest);
+        }
+
         public async Task<ContentListResponse> GetList(ContentListRequest contentListRequest)
         {
             return await _contentmanagementService.GetList(contentListRequest);
