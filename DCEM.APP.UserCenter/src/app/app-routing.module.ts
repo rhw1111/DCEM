@@ -268,6 +268,10 @@ const routes: Routes = [
         path: 'shippingaddress',
         loadChildren: () => import('./page/home/shippingaddress/shippingaddress.module').then(m => m.ShippingaddressPageModule)
     },
+  {
+    path: 'questionsetting',
+    loadChildren: () => import('./page/message/questionsetting/questionsetting.module').then( m => m.QuestionsettingPageModule)
+  },
    
 ];
       

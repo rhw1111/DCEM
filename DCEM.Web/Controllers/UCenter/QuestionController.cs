@@ -46,11 +46,11 @@ namespace DCEM.Web.Controllers
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        [Route("getQuestion")]
-        [HttpGet]
-        public async Task<NewtonsoftJsonActionResult<ValidateResult<QuestionSettingResponse>>> GetQuestion(Guid id)
+        [Route("getquestion")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<QuestionSettingResponse>>> GetQuestion(QuestionDetailRequest req)
         {
-            return await _appQuestion.QueryQiestion(id);
+            return await _appQuestion.QueryQiestion(req.id);
         }
 
         [Route("add")]

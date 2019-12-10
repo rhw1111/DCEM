@@ -13,16 +13,16 @@ import { promise } from 'protractor';
 })
 export class LoginComponent implements OnInit {
   public tab: any = 'account';
-  public title: any = '登陆';
+  public title: any = '登录';
   public isval: any = false;//验证消息显示开关 
   public valmsg: any = '';//验证消息显示开关
   public inputphonedisabled: boolean = false;//修改密码手机号只读开关
-  //界面切换开关 1 登陆输入；2登陆验证码输入；5 注册验证码输入；3 注册电话号码页面；4 注册个人信息输入页面 
+  //界面切换开关 1 登录输入；2登录验证码输入；5 注册验证码输入；3 注册电话号码页面；4 注册个人信息输入页面 
   //6 忘记密码手机号码录入界面；//7 密码重置成功页面 ;8 修改密码
   public disstatus: any = 1;
   public mod: any = {
-    loginurl: 'api/user/loginaccount',//账号登陆url
-    loginphoneurl: 'api/user/loginphone',//手机号码登陆url
+    loginurl: 'api/user/loginaccount',//账号登录url
+    loginphoneurl: 'api/user/loginphone',//手机号码登录url
     regurl: 'api/user/adduser',//注册url 
     sendmsgurl: 'api/user/sendmsg',//短信发送url 
     questionsurl: 'api/user/getquestions',//用户问题设置列表url 
@@ -80,9 +80,9 @@ export class LoginComponent implements OnInit {
     this.OnQuests();
   }
 
-  //切换到登陆界面
+  //切换到登录界面
   OnLogin() {
-    this.title = '登陆';
+    this.title = '登录';
     this.disstatus = 1;
   }
   OnselectText(id) {
@@ -104,7 +104,7 @@ export class LoginComponent implements OnInit {
   }
 
   loginInterval: any;
-  //登陆注册获取验证码
+  //登录注册获取验证码
   onloginSendMsg(status) {
     if (status == null) {
       status = this.disstatus;
@@ -180,7 +180,7 @@ export class LoginComponent implements OnInit {
       postData,
       (res: any) => {
         if (res.Result == true) {
-          //验证码获取不是登陆或者注册不需要跳转页面
+          //验证码获取不是登录或者注册不需要跳转页面
           if (status == 2 || status == 5)
             this.disstatus = status;
           this._page.loadingHide();
@@ -221,7 +221,7 @@ export class LoginComponent implements OnInit {
       (res: any) => {
         this._page.loadingHide();
         if (res.Result == true) {
-          //验证码输入结束提交验证，如果当前账户已存在，直接登陆，如果不存在，弹出个人信息输入界面
+          //验证码输入结束提交验证，如果当前账户已存在，直接登录，如果不存在，弹出个人信息输入界面
           if (this.disstatus == 5)
             this.disstatus = 4;
           else {
@@ -253,7 +253,7 @@ export class LoginComponent implements OnInit {
     var inputval = '#inputcode' + code;
     $(inputval).focus();
   }
-  //登陆
+  //登录
   onLogin() {
     this._page.loadingShow();
     var postData = {
@@ -275,7 +275,7 @@ export class LoginComponent implements OnInit {
           this.onReturn(true);
         }
         else {
-          this._page.alert("消息提示", "登陆失败,账户密码错误！");
+          this._page.alert("消息提示", "登录失败,账户密码错误！");
         }
         this._page.loadingHide();
       },
