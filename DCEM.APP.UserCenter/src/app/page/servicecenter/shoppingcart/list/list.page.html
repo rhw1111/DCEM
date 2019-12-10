@@ -19,25 +19,25 @@
 <ion-content>
     <ion-list>
         <ion-item style="padding:20px 10px;" lines="none" *ngFor="let item of model.cartList.datas">
-            <div style="width:12%;">
-                <ion-checkbox [(ngModel)]="item.checked" (ionChange)="change(item)"></ion-checkbox>
+            <div style="width:10%;">
+                <ion-checkbox [(ngModel)]="item.checked" (ionChange)="change(item)" style="width:55%;height:55%;"></ion-checkbox>
             </div>
             <div style="width:28%;z-index:1;">
                 <div *ngIf="item.img != null; then truthysTemplate else falsysTemplate"></div>
                 <ng-template #truthysTemplate>
-                    <img src="{{item.img}}" width="100" height="100" style="border-radius:15px;" />
+                    <img src="{{item.img}}" style="width:80%;height:80%;border-radius:15px;" />
                 </ng-template>
                 <ng-template #falsysTemplate>
-                    <img src="../assets/img/temp/xiaopeng1.jpg" width="100" height="100" style="border-radius:15px;" />
+                    <img src="../assets/img/temp/xiaopeng1.jpg" style="width:80%;height:80%;border-radius:15px;" />
                 </ng-template>
 
             </div>
-            <div style="width:60%;z-index:1;">
+            <div style="width:62%;z-index:1;">
                 <div>{{item.productname}}</div>
                 <div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:14px;margin:10px 0;color:#a5a2a2;">{{item.skuname}}</div>
                 <div style="display:flex;justify-content:space-between;">
-                    <div style="color:#38B3EE;font-size:18px;line-height:35px;">￥ {{item.price}}</div>
-                    <div>
+                    <div style="width:60%;color:#38B3EE;font-size:18px;line-height:35px;">￥ {{item.price}}</div>
+                    <div style="width:40%;">
                         <button (click)="changeValue($event,-1)" class="decrease icon-reduce" type="button" value="{{item.skucode}}">-</button>
                         <input type="number" class="spinners" value="{{item.num}}" readonly="readonly" maxlength="2">
                         <button (click)="changeValue($event,1)" class="increase icon-add" type="button" value="{{item.skucode}}">+</button>

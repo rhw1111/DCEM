@@ -64,12 +64,19 @@ const routes: Routes = [
     {
         path: 'community',  //社区
         children: [
-            { path: 'index', loadChildren: () => import('./page/community/index/index.module').then(m => m.IndexPageModule) },
-
+            {
+                path: 'index',
+                loadChildren: () => import('./page/community/index/index.module').then(m => m.IndexPageModule)
+            },
             {
                 path: 'activitydetail',
                 loadChildren: () => import('./page/community/activitydetail/activitydetail.module').then(m => m.ActivitydetailPageModule)
-            }
+            },
+            {
+                path: 'newsdetail',
+                loadChildren: () => import('./page/community/newsdetail/newsdetail.module').then(m => m.NewsdetailPageModule)
+            },
+
         ]
     },
     {
@@ -268,14 +275,14 @@ const routes: Routes = [
         path: 'shippingaddress',
         loadChildren: () => import('./page/home/shippingaddress/shippingaddress.module').then(m => m.ShippingaddressPageModule)
     },
-  {
-    path: 'questionsetting',
-    loadChildren: () => import('./page/message/questionsetting/questionsetting.module').then( m => m.QuestionsettingPageModule)
-  },
-   
+    {
+        path: 'questionsetting',
+        loadChildren: () => import('./page/message/questionsetting/questionsetting.module').then(m => m.QuestionsettingPageModule)
+    },
+
 ];
-      
-  
+
+
 @NgModule({
     imports: [
         RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+ï»¿import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonBackButton, IonBackButtonDelegate } from '@ionic/angular';
 import { DCore_Http, DCore_Page, DCore_Valid, DCore_ShareData } from 'app/component/typescript/dcem.core';
 import * as $ from 'jquery';
@@ -16,23 +16,23 @@ export class PerfectPage implements OnInit {
 
     public objectKeys = Object.keys;
 
-    //¹²ÏíÊı¾İ¶ÔÏó
+    //å…±äº«æ•°æ®å¯¹è±¡
     public shareData = {
-        productMap: {},                            //²úÆ·ÊÓÍ¼
-        productRelatedMap: {},                     //ÉÌÆ·¹ØÁªÊÓÍ¼
-        productOrderingattributeMap: {},           //²úÆ·µÄ¶©¹ºÊôĞÔ
-        selectProductKey: "",                       //Ñ¡ÔñµÄ²úÆ·Key
+        productMap: {},                            //äº§å“è§†å›¾
+        productRelatedMap: {},                     //å•†å“å…³è”è§†å›¾
+        productOrderingattributeMap: {},           //äº§å“çš„è®¢è´­å±æ€§
+        selectProductKey: "",                       //é€‰æ‹©çš„äº§å“Key
         selectProduct: {
             ProductInfo: {
             }
-        },                          //Ñ¡ÔñµÄ²úÆ·   
+        },                          //é€‰æ‹©çš„äº§å“   
         selectproductRelatedMap: {},
         selectproductOrderingattributeMap: {},
-        packageMoney: 0,                            //Ñ¡ÔñµÄËùÓĞ¶ÔÏó½ğ¶î
-        packageMap: {},                             //Ñ¡ÔñµÄËùÓĞ¶ÔÏó
-        userInfo: {   //ÓÃ»§ĞÅÏ¢
+        packageMoney: 0,                            //é€‰æ‹©çš„æ‰€æœ‰å¯¹è±¡é‡‘é¢
+        packageMap: {},                             //é€‰æ‹©çš„æ‰€æœ‰å¯¹è±¡
+        userInfo: {   //ç”¨æˆ·ä¿¡æ¯
         },
-        buyingMode: 1,//¹º³µ·½Ê½
+        buyingMode: 1,//è´­è½¦æ–¹å¼
     }
     constructor(
         private _http: DCore_Http,
@@ -65,16 +65,23 @@ export class PerfectPage implements OnInit {
     public initShareData() {
         this.shareData.userInfo = {};
         this.shareData.buyingMode = 1;
+
+        //åŠ å…¥æµ‹è¯•æ•°æ®
+        this.shareData.userInfo["name"] = "å¼ ä¸‰";
+        this.shareData.userInfo["sex"] = "ç”·";
+        this.shareData.userInfo["phone"] = "15023228888";
+        this.shareData.userInfo["certType"] = "0";
+        this.shareData.userInfo["certNumber"] = "510215199909990099";
     }
 
 
-    //ÏÂÒ»²½
+    //ä¸‹ä¸€æ­¥
     public onNext() {
         this._shareData.set(this.mod.shareDataKey, this.shareData);
         this._page.navigateRoot("/carcenter/carstore/payment", null, null);
     }
 
-    //¹ºÂò·½Ê½
+    //è´­ä¹°æ–¹å¼
     public onBuyingModeClikc(buyingMode: number) {
         this.shareData.buyingMode = buyingMode;
     }

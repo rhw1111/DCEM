@@ -21,5 +21,6 @@ namespace DCEM.UserCenterService.Main.Application.Services.Contrac
     public interface IContentManagementService
     {
         Task<ContentListResponse> GetList(ContentListRequest contentListRequest);
+        Task<ContentDetailResponse> GetDetail(ContentDetailRequest contentDetailRequest);
     }
 }

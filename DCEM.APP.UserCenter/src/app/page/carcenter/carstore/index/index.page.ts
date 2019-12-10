@@ -108,6 +108,7 @@ export class IndexPage implements OnInit {
             this.mod.searchData,
             (res: any) => {
                 console.log(res);
+                let that: IndexPage = this;
                 if (!this._valid.isNull(res) && !this._valid.isNull(res["ProductList"])) {
                     for (var product of res["ProductList"]) {
                         //解析接收对象
@@ -117,16 +118,17 @@ export class IndexPage implements OnInit {
                         var productPriceArray = product["ProductPriceArray"];
 
                         //组装数据类型
-                        if (productInfo["mcs_type"] === 1 && productPriceArray.length > 0) {
+                        //if (productInfo["mcs_type"] === 1 && productPriceArray.length > 0) {
 
-                            var productKey = productInfo["mcs_tc_productid"];
-                            let that: IndexPage = this;
-                            //组装产品地图
-                            let asseProductMap = function () {
-                                that.shareData.productMap[productKey] = product;
-                            }();
-                            //组装产品类别和规格地图
-                            let asseProductClassViewMap = function () {
+                        var productKey = productInfo["mcs_tc_productid"];
+
+                        //组装产品地图
+                        let asseProductMap = function () {
+                            that.shareData.productMap[productKey] = product;
+                        }();
+                        //组装产品类别和规格地图
+                        let asseProductClassViewMap = function () {
+                            if (productInfo["mcs_type"] === 1 && productPriceArray.length > 0) {
                                 var productClassKey = productInfo["_mcs_salescategory_value"];
                                 if (that._valid.isNull(that.shareData.productClassViewMap[productClassKey])) {
                                     var productClassName = productInfo["_mcs_salescategory_value@OData.Community.Display.V1.FormattedValue"];
@@ -158,19 +160,20 @@ export class IndexPage implements OnInit {
                                         that.shareData.productSpecificationViewClassMap[productKey][productSpecificationClassKey]["productSpecificationArray"].push(productSpecification);
                                     }();
                                 }
-                            }();
-                            //组装产品图片
-                            let asseProductClassImage = function () {
-                                for (var productImage of productImageArray) {
-                                    //if (that.objectKeys(that.shareData.productImageViewMap).length > 4)
-                                    //    break;
-                                    if (productImage["mcs_imagetype"] === 2) {
-                                        var productImageKey = productImage["mcs_tc_productimageid"];
-                                        that.shareData.productImageViewMap[productImageKey] = productImage;
-                                    }
+                            }
+                        }();
+                        //组装产品图片
+                        let asseProductClassImage = function () {
+                            for (var productImage of productImageArray) {
+                                //if (that.objectKeys(that.shareData.productImageViewMap).length > 4)
+                                //    break;
+                                if (productImage["mcs_imagetype"] === 2) {
+                                    var productImageKey = productImage["mcs_tc_productimageid"];
+                                    that.shareData.productImageViewMap[productImageKey] = productImage;
                                 }
-                            }();
-                        }
+                            }
+                        }();
+                        //}
                     }
 
                     console.log(this.shareData);
