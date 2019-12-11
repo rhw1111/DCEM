@@ -6,7 +6,12 @@
 
 <ion-content>
   <ion-item (click)="provinceModal()">
-    <ion-label position="stacked">请选择门店：</ion-label>
+    <ion-label position="stacked">请选择门店（地图方式）：</ion-label>
+    <p>{{model.dealer.name}}&nbsp;</p>
+  </ion-item>
+
+  <ion-item (click)="provinceListModal()">
+    <ion-label position="stacked">请选择门店（列表方式）：</ion-label>
     <p>{{model.dealer.name}}&nbsp;</p>
   </ion-item>
 </ion-content>
