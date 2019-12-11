@@ -205,6 +205,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     entity.Attributes.Add("mcs_signature", model.signature);
                 entity.Attributes.Add("mcs_memberid", new CrmEntityReference("mcs_member", memberid));
 
+                member.Attributes.Add("mcs_userid", id.ToString());
                 await _crmService.Create(member, userInfo?.systemuserid);
                 //c端用户实体
                 await _crmService.Create(entity, userInfo?.systemuserid);
