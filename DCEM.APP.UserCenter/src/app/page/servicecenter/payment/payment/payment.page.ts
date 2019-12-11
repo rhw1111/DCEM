@@ -76,7 +76,7 @@ export class PaymentPage implements OnInit {
                 if (res != null) {
                     if (res.IsSuccess) {
                         this._page.alert("消息提示", "订单支付成功");
-                        //this._page.navigateRoot("/servicecenter/payment/payment", this.model.datas.OrderCode);
+                        this._page.navigateRoot("/personalcenter/myorder/fineorder/detail", { code:this.model.datas.OrderCode });
                     }
                 }
                 else {

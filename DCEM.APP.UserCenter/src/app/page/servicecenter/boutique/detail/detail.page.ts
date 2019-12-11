@@ -35,7 +35,9 @@ export class DetailPage implements OnInit {
     private id
     ngOnInit() {
         //id为参数名字
+        console.log()
         this.id = this.routerinfo.snapshot.queryParams["id"];
+        console.log(this.id);
         this.initListLoading(this.id);
 
     }
