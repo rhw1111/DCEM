@@ -10,7 +10,7 @@
 <ion-content>
   <ion-list lines="none">
     <ion-card *ngFor="let item of model.datalist" style="margin: 10px;">
-      <ion-card-content>
+      <ion-card-content [routerLink]="['/personalcenter/myorder/fineorder/detail']" [queryParams]="{code:item.OrderData.OrderCode}">
         <ion-item lines="full">
           <ion-label>
               <p>{{item.OrderData.OrderTime}}</p>
@@ -41,7 +41,7 @@
           <ion-label><h2>合计:￥{{item.OrderData.TotalDeposiAmount}}</h2></ion-label>
             <div *ngIf="item.OrderData.PaymentStatus == 1; then tTemplate else fTemplate"></div>
             <ng-template #tTemplate>
-                <ion-note slot="end" (click)="goPay(item.OrderCode,item.TotalDeposiAmount)">
+                <ion-note slot="end" (click)="goPay(item.OrderData.OrderCode,item.OrderData.TotalDeposiAmount);$event.stopPropagation();" style="z-index:99;">
                     <ion-chip color="primary">
                         <ion-label style="margin-left: 30px;margin-right: 30px;">去支付</ion-label>
                     </ion-chip>
