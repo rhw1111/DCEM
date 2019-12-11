@@ -38,10 +38,18 @@ namespace DCEM.Web.Filters
             if (!string.IsNullOrEmpty(token))
             {
                 var helper = DIContainerContainer.Get<AdfsEndpointRepositoryHelper>();
-                var endpoint = await helper.QueryByName("Main");
+                string userName = "";
+                if (token.Contains("ADAUTH:"))
+                {
+                    userName = token.Split(':')[1];
+                }
+                else
+                {
+                    var endpoint = await helper.QueryByName("Main");
+                    var claims = await endpoint.ValidateJWT(token, new string[] { _baseUrl });
+                    userName = claims.FindFirst(System.Security.Claims.ClaimTypes.Name).Value;
+                }
 
-                var claims = await endpoint.ValidateJWT(token, new string[] { _baseUrl });
-                var userName = claims.FindFirst(System.Security.Claims.ClaimTypes.Name).Value;
                 if (!string.IsNullOrEmpty(userName))
                 {
                     #region 缓存用户登录信息

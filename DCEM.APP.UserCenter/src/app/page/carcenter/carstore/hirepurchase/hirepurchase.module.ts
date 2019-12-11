@@ -7,14 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { HirepurchasePageRoutingModule } from './hirepurchase-routing.module';
 
 import { HirepurchasePage } from './hirepurchase.page';
-
+import { TopheadModule } from 'app/page/carcenter/carstore/component/assembly/tophead/tophead.module';
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    HirepurchasePageRoutingModule
-  ],
-  declarations: [HirepurchasePage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        HirepurchasePageRoutingModule,
+        TopheadModule
+    ],
+    declarations: [HirepurchasePage]
 })
-export class HirepurchasePageModule {}
+export class HirepurchasePageModule { }

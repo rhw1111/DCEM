@@ -160,7 +160,10 @@ export class PaymentPage implements OnInit {
                 orderGuid = this.shareData.selectproductOrderingattributeMap[orderKey]["id"];
             else
                 orderGuid += "+" + this.shareData.selectproductOrderingattributeMap[orderKey]["id"];
+            console.log(orderKey);
         }
+
+        console.log(orderGuid);
 
         //组装产品
         if (!this._valid.isNull(this.shareData.productPriceMap[orderGuid])) {

@@ -26,4 +26,8 @@ export class TopheadComponent implements OnInit {
     public backOnBack() {
         this._page.navigateRoot(this.topHeadBackUrl, null, "back");
     }
+
+    public backOnHome() {
+        this._page.navigateRoot("/home/tabs", null, "back");
+    }
 }
