@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
+import { DCore_Http, DCore_Page,DCore_Log,LogModel } from 'app/base/base.ser/Dcem.core';
+import { MessageService } from 'app/base/base.ser/message.service';
+import { Dateformat } from 'app/base/base.ser/dateformat';
 
 @Component({
   selector: 'app-systemsetup',
@@ -18,7 +20,9 @@ export class SystemsetupPage implements OnInit {
 
   constructor(
     private _page: DCore_Page,
-    private _http:DCore_Http
+    private _http:DCore_Http,
+    private _log:DCore_Log,
+    private _dateformat:Dateformat
   ) { }
 
   ngOnInit() {
@@ -33,6 +37,7 @@ export class SystemsetupPage implements OnInit {
   }
 
   public logout() {
+    this._log.WriteInfoLog(MessageService.InfoLoginOut);
     this._http.loginout();
   }
 
@@ -41,7 +46,7 @@ export class SystemsetupPage implements OnInit {
   }
 
   renderHeader(){
-    return '退出后不会删除任何历史数据'
+    return MessageService.InfoLoginOutAlter;
   }
 
 }

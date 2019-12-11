@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Xml.Linq;
 using DCEM.Main;
 using DCEM.ServiceAssistantService.Main.Application.Repository;
@@ -33,43 +35,71 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
             {
                 if (dyCRMSetting != null)
                 {
-                    dyCRMSetting.AdfsUrl = $"{dyCRMSetting.AdfsUrl}adfs/oauth2/token";
-                    dyCRMSetting.CrmUrl = $"{dyCRMSetting.CrmUrl}/api/data/v8.2";
-                    var data = GetToken(dyCRMSetting.ClientId, dyCRMSetting.ClientSecret, username, password, dyCRMSetting.CrmUrl, dyCRMSetting.AdfsUrl);
-
-                    try
+                    JObject datauser=null;
+                    if (dyCRMSetting.TokenServiceType.ToLower() == CrmServiceTokenGenerateServiceNames.AD.ToLower())
                     {
-                        string geturl = dyCRMSetting.CrmUrl + GetUserFetchXml(@"sfmotors\" + username);
-                        
-                        if (data["access_token"]!=null)
+                        try
                         {
-                            result.access_token = data["access_token"].ToString();
-                            var datauser = QueryCrmData(geturl, data["access_token"].ToString());
-                            if (datauser != null)
+                            string geturl = $"{dyCRMSetting.CrmUrl}/api/data/v{dyCRMSetting.CrmApiVersion}{GetUserFetchXml(@"MCS\" + username)}";
+                            var httpClient = new HttpClient(new HttpClientHandler() { Credentials = new NetworkCredential(username,HttpUtility.UrlDecode(password), dyCRMSetting.Domain) });
+                            using (httpClient)
                             {
-                                if (datauser["value"][0]["systemuserid"] != null)
-                                    result.systemuserid = datauser["value"][0]["systemuserid"].ToString();
-                                if (datauser["value"][0]["domainname"] != null)
-                                    result.domainname = datauser["value"][0]["domainname"].ToString();
-                                if (datauser["value"][0]["lastname"] != null)
-                                    result.lastname = datauser["value"][0]["lastname"].ToString();
-                                if (datauser["value"][0]["firstname"] != null)
-                                    result.firstname = datauser["value"][0]["firstname"].ToString();
-                                if (datauser["value"][0]["mcs_staffid"] != null)
-                                    result.mcs_staffid = datauser["value"][0]["mcs_staffid"].ToString();
-                                if (datauser["value"][0]["_mcs_dealer_value"] != null)
-                                    result.mcs_dealerid = datauser["value"][0]["_mcs_dealer_value"].ToString();
-                                if (datauser["value"][0]["dealer_x002e_mcs_name"] != null)
-                                    result.mcs_dealername = datauser["value"][0]["dealer_x002e_mcs_name"].ToString();
-                                result.access_token = data["access_token"].ToString();
+                                datauser = QueryCrmDataADValidate(geturl, httpClient);
+                                if (datauser != null)
+                                {
+                                    result.access_token = $"ADAUTH:MCS\\{username}";
+                                }
                             }
                         }
-                        return result;
+                        catch (Exception ex)
+                        {
+                            return result;
+                        }
                     }
-                    catch (Exception ex)
+                    else {
+                        dyCRMSetting.AdfsUrl = $"{dyCRMSetting.AdfsUrl}adfs/oauth2/token";
+                        dyCRMSetting.CrmUrl = $"{dyCRMSetting.CrmUrl}/api/data/v9.0";
+                        var data = GetToken(dyCRMSetting.ClientId, dyCRMSetting.ClientSecret, username, password, dyCRMSetting.CrmUrl, dyCRMSetting.AdfsUrl);
+
+                        try
+                        {
+                            string geturl = dyCRMSetting.CrmUrl + GetUserFetchXml(@"sfmotors\" + username);
+
+                            if (data["access_token"] != null)
+                            {
+                                result.access_token = data["access_token"].ToString();
+                                datauser = QueryCrmData(geturl, data["access_token"].ToString());
+                                if (datauser!=null)
+                                {
+                                    result.access_token = data["access_token"].ToString();
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            return result;
+                        }
+                    }
+
+                    if (datauser != null)
                     {
-                        return result;
+                        if (datauser["value"][0]["systemuserid"] != null)
+                            result.systemuserid = datauser["value"][0]["systemuserid"].ToString();
+                        if (datauser["value"][0]["domainname"] != null)
+                            result.domainname = datauser["value"][0]["domainname"].ToString();
+                        if (datauser["value"][0]["lastname"] != null)
+                            result.lastname = datauser["value"][0]["lastname"].ToString();
+                        if (datauser["value"][0]["firstname"] != null)
+                            result.firstname = datauser["value"][0]["firstname"].ToString();
+                        if (datauser["value"][0]["mcs_staffid"] != null)
+                            result.mcs_staffid = datauser["value"][0]["mcs_staffid"].ToString();
+                        if (datauser["value"][0]["_mcs_dealer_value"] != null)
+                            result.mcs_dealerid = datauser["value"][0]["_mcs_dealer_value"].ToString();
+                        if (datauser["value"][0]["dealer_x002e_mcs_name"] != null)
+                            result.mcs_dealername = datauser["value"][0]["dealer_x002e_mcs_name"].ToString();
                     }
+
+                    return result;
                 }
                 else
                 {
@@ -115,6 +145,31 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
             httpClient.DefaultRequestHeaders.Add("OData-MaxVersion", "4.0");
             httpClient.DefaultRequestHeaders.Add("OData-Version", "4.0");
             httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+            HttpResponseMessage response = httpClient.GetAsync(crmurl).Result;
+            try
+            {
+                response.EnsureSuccessStatusCode();
+                var ret = response.Content.ReadAsStringAsync().Result;
+                var res = JsonSerializerHelper.Deserialize<JObject>(ret);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+        }
+
+        public JObject QueryCrmDataADValidate(string crmurl, HttpClient httpClient)
+        {
+            //验证合法
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+            httpClient.DefaultRequestHeaders.Add("OData-MaxVersion", "4.0");
+            httpClient.DefaultRequestHeaders.Add("OData-Version", "4.0");
+            //httpClient.DefaultRequestHeaders.Add("Content-Type-ChartSet", "utf-8");
+            ////httpClient.DefaultRequestHeaders.Add("Content-Type", "application/json");
+            httpClient.DefaultRequestHeaders.Add("Prefer", "odata.include-annotations=\"*\"");
             HttpResponseMessage response = httpClient.GetAsync(crmurl).Result;
             try
             {
