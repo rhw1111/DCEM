@@ -229,6 +229,8 @@ export class IndexPage implements OnInit {
         }
         this._page.navigateRoot("/carcenter/carstore/selectattr", null, null);
     }
+
+
     //弹出规格型号
     public async presentSpeclistModal(productKey) {
         let animatStart: AnimationBuilder = (AnimationClass: Animation, baseEl: ShadowRoot, position: string): Promise<Animation> => {
