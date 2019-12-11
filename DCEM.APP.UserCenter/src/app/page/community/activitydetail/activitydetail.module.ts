@@ -13,8 +13,8 @@ import { ActivitydetailPage } from './activitydetail.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ActivitydetailPageRoutingModule
+    ActivitydetailPageRoutingModule,
   ],
   declarations: [ActivitydetailPage]
 })
-export class ActivitydetailPageModule {}
+export class ActivitydetailPageModule { }

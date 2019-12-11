@@ -63,12 +63,12 @@ export class SelectattrPage implements OnInit {
 
     ngOnInit() {
 
-        const that = this;
-        this.ionBackButtonDelegate.onClick = function (event) {
-            $("#carcenter_carstore_selectattr_footer").find(".dm-footer-svg").removeClass("open");
-            $("#carcenter_carstore_selectattr_footer_model").removeClass("open");
-            that._page.navigateRoot("/carcenter/carstore/index", null, "back");
-        }
+        //const that = this;
+        //this.ionBackButtonDelegate.onClick = function (event) {
+        //    $("#carcenter_carstore_selectattr_footer").find(".dm-footer-svg").removeClass("open");
+        //    $("#carcenter_carstore_selectattr_footer_model").removeClass("open");
+        //    that._page.navigateRoot("/carcenter/carstore/index", null, "back");
+        //}
     }
     ionViewWillEnter() {
 

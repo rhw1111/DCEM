@@ -1,4 +1,8 @@
-﻿<ion-content fullscreen>
+﻿<ion-header class="dm-top-head">
+    <app-tophead topHeadTitle="完善预订信息" topHeadBackUrl="/carcenter/carstore/check"></app-tophead>
+</ion-header>
+
+<ion-content fullscreen>
     <ion-grid>
         <ion-row>
             <ion-col class="dm-top-img">
@@ -39,8 +43,8 @@
         <ion-row>
             <ion-col class="dm-form-item">
                 <label>姓名</label>
-                <div class="dm-form-item-input">
-                    <ion-input placeholder="请输入您的真实姓名" [(ngModel)]="shareData.userInfo['name']"></ion-input>
+                <div class="dm-form-item-input" [ngClass]="{'err':!mod.fromValidStatus.name}">
+                    <ion-input placeholder="请输入您的真实姓名" [(ngModel)]="shareData.userInfo['name']" (keyup)="inputKeyUp()"></ion-input>
                 </div>
             </ion-col>
         </ion-row>
@@ -60,15 +64,15 @@
         <ion-row>
             <ion-col class="dm-form-item">
                 <label>电话</label>
-                <div class="dm-form-item-input err">
-                    <ion-input placeholder="请输入您的电话" [(ngModel)]="shareData.userInfo['phone']"></ion-input>
+                <div class="dm-form-item-input" [ngClass]="{'err':!mod.fromValidStatus.phone}">
+                    <ion-input placeholder="请输入您的电话" [(ngModel)]="shareData.userInfo['phone']" (keyup)="inputKeyUp()"></ion-input>
                 </div>
             </ion-col>
         </ion-row>
         <ion-row>
             <ion-col class="dm-form-item">
                 <label>证件号码</label>
-                <div class="dm-form-item-input err">
+                <div class="dm-form-item-input">
                     <ion-select placeholder="证件号码" cancelText="取消" okText="确定" [(ngModel)]="shareData.userInfo['certType']">
                         <ion-select-option value="1">身份证</ion-select-option>
                         <ion-select-option value="2">港澳来往内地通行证</ion-select-option>
@@ -79,8 +83,8 @@
                     </ion-select>
                 </div>
                 <div class="dm-form-item-input">
-                    <div class="dm-form-item-input">
-                        <ion-input placeholder="请输入您的证件号码" [(ngModel)]="shareData.userInfo['certNumber']"></ion-input>
+                    <div class="dm-form-item-input" [ngClass]="{'err':!mod.fromValidStatus.certNumber}">
+                        <ion-input placeholder="请输入您的证件号码" [(ngModel)]="shareData.userInfo['certNumber']" (keyup)="inputKeyUp()"></ion-input>
                     </div>
                 </div>
             </ion-col>

@@ -1,8 +1,9 @@
 ﻿import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonBackButton, IonBackButtonDelegate } from '@ionic/angular';
+import { ModalController, IonBackButton, IonBackButtonDelegate } from '@ionic/angular';
 import { DCore_Http, DCore_Page, DCore_Valid, DCore_ShareData } from 'app/component/typescript/dcem.core';
 import * as $ from 'jquery';
-
+import { SpeclistComponent } from 'app/page/carcenter/carstore/component/model/speclist/speclist.component';
+import { AnimationBuilder, Animation } from '@ionic/core';
 
 @Component({
     selector: 'app-selectitem',
@@ -25,7 +26,7 @@ export class SelectitemPage implements OnInit {
     public shareData = {
         productMap: {},                            //产品视图
         productRelatedMap: {},                     //商品关联视图
-
+        productSpecificationViewClassMap: {},
         selectProductKey: "",                       //选择的产品Key
         selectProduct: {},                          //选择的产品      
         packageMoney: 0,                            //选择的所有对象金额
@@ -33,6 +34,7 @@ export class SelectitemPage implements OnInit {
     }
 
     constructor(
+        private _modalCtrl: ModalController,
         private _http: DCore_Http,
         private _page: DCore_Page,
         private _valid: DCore_Valid,
@@ -45,12 +47,12 @@ export class SelectitemPage implements OnInit {
         this.shareData.productRelatedMap = {};
         //this.initJQueryEvent();
 
-        const that = this;
-        this.ionBackButtonDelegate.onClick = function (event) {
-            $("#carcenter_carstore_selectitem_footer").find(".dm-footer-svg").removeClass("open");
-            $("#carcenter_carstore_selectitem_footer_model").removeClass("open");
-            that._page.navigateRoot("/carcenter/carstore/selectattr", null, "back");
-        }
+        //const that = this;
+        //this.ionBackButtonDelegate.onClick = function (event) {
+        //    $("#carcenter_carstore_selectitem_footer").find(".dm-footer-svg").removeClass("open");
+        //    $("#carcenter_carstore_selectitem_footer_model").removeClass("open");
+        //    that._page.navigateRoot("/carcenter/carstore/selectattr", null, "back");
+        //}
     }
 
     ionViewWillEnter() {
@@ -154,6 +156,75 @@ export class SelectitemPage implements OnInit {
             $("#carcenter_carstore_selectitem_footer").find(".dm-footer-svg").addClass("open");
             $("#carcenter_carstore_selectitem_footer_model").removeClass("close");
             $("#carcenter_carstore_selectitem_footer_model").addClass("open");
+        }
+    }
+
+
+    //弹出规格型号
+    public async presentSpeclistModal(productKey) {
+        let animatStart: AnimationBuilder = (AnimationClass: Animation, baseEl: ShadowRoot, position: string): Promise<Animation> => {
+            const hostEl = (baseEl.host || baseEl) as HTMLElement;
+            const baseAnimation: Animation = new AnimationClass();
+            hostEl.style.height = "100%";
+
+            const wrapperEl = baseEl.querySelector('.modal-wrapper') as HTMLElement;  //主区域
+            const wrapperAnimation: Animation = new AnimationClass();
+            wrapperEl.style.height = "80%";
+            wrapperAnimation.fromTo('transform', 'translateY(100%)', 'translateY(20%)');
+            wrapperAnimation.addElement(wrapperEl);
+
+            var backdropEl = baseEl.querySelector('ion-backdrop') as HTMLElement;  //背景
+            const backdropAnimation: Animation = new AnimationClass();
+            backdropAnimation.fromTo('opacity', 0.01, 0.5);
+            backdropAnimation.addElement(backdropEl);
+
+            //baseAnimation.fromTo('transform', 'translateY(0%)', 'translateY(0%)');  //主层
+            baseAnimation.duration(400);
+            baseAnimation.addElement(hostEl);
+            baseAnimation.add(wrapperAnimation);
+            baseAnimation.add(backdropAnimation);
+
+            return Promise.resolve(baseAnimation);
+        }
+
+        let animatEnd: AnimationBuilder = (AnimationClass: Animation, baseEl: ShadowRoot, position: string): Promise<Animation> => {
+
+            const hostEl = (baseEl.host || baseEl) as HTMLElement;
+            const baseAnimation: Animation = new AnimationClass();
+
+            const wrapperEl = baseEl.querySelector('.modal-wrapper') as HTMLElement;  //主区域
+            const wrapperAnimation: Animation = new AnimationClass();
+            wrapperAnimation.fromTo('transform', 'translateY(20%)', 'translateY(100%)');
+            wrapperAnimation.addElement(wrapperEl);
+
+            var backdropEl = baseEl.querySelector('ion-backdrop') as HTMLElement;  //背景
+            const backdropAnimation: Animation = new AnimationClass();
+            backdropAnimation.fromTo('opacity', 0.5, 0);
+            backdropAnimation.addElement(backdropEl);
+
+            baseAnimation.fromTo('transform', 'translateY(0%)', 'translateY(100%)');  //主层
+            baseAnimation.duration(400);
+            baseAnimation.addElement(hostEl);
+            baseAnimation.add(wrapperAnimation);
+            baseAnimation.add(backdropAnimation);
+
+            return Promise.resolve(baseAnimation);
+        }
+
+        const modal = await this._modalCtrl.create({
+            component: SpeclistComponent,
+            //cssClass: "dm-model",
+            enterAnimation: animatStart, //进入动画
+            leaveAnimation: animatEnd,   //离开动画
+            componentProps: {
+                selectProductMap: this.shareData.productMap[productKey],
+                selectProductSpecificationViewClassMap: this.shareData.productSpecificationViewClassMap[productKey]
+            }
+        });
+
+        await modal.present();
+        const { data } = await modal.onDidDismiss();
+        if (data != null && typeof data != "undefined") {
         }
     }
 }

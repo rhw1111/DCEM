@@ -3,6 +3,7 @@ import { ModalController, NavController } from '@ionic/angular';
 import { DCore_Http, DCore_Page, DCore_Valid, DCore_ShareData } from '../../../../component/typescript/dcem.core';
 import sd from 'silly-datetime';
 import { OptionSetService } from '../../../../component/typescript/optionset.service';
+import { Key } from 'protractor';
 
 @Component({
   selector: 'app-confirmedit',
@@ -13,7 +14,9 @@ export class ConfirmeditPage implements OnInit {
 
   model = {
     shareDataKey: "reservationEditData",
+    postApiUrl: 'Api/uc-appointment-info/AddOrEdit',
     bindData: {},//页面绑定数据
+    postData:{},//请求数据
   }
   objectKeys = Object.keys;
   //定义共享数据
@@ -56,6 +59,72 @@ export class ConfirmeditPage implements OnInit {
   }
 
 
+  
+  public saveOnClick() {
+    //表单校验
+    if (this._valid.isNullOrEmpty(this.shareData.appointmentinfo["mcs_customerid"])) {
+      this._page.presentToastError("请先选择车辆");
+      return;
+    }
+    if (this._valid.isNullOrEmpty(this.shareData.appointmentinfo["mcs_ordertype"])) {
+      this._page.presentToastError("请先选择预约类型");
+      return;
+    }
+    if (this._valid.isNullOrEmpty(this.shareData.appointmentinfo["mcs_appointmentat"])) {
+      this._page.presentToastError("请先选择预约日期");
+      return;
+    }
+    if (this._valid.isNullOrEmpty(this.shareData.appointmentinfo["mcs_appointmentconfigid"])) {
+      this._page.presentToastError("请先选择预约时段");
+      return;
+    }
+
+    var date = new Date();
+    if (this.FormatToDate(date) > this.FormatToDate(this.shareData.appointmentinfo["mcs_appointmentat"])) {
+      this._page.presentToastError("预约日期必须大于当天日期");
+      return;
+    }
+
+    this.model.postData["appointmentinfo"] = this.shareData.appointmentinfo;
+
+    //组装预约单
+    // this.model.postData["appointmentinfo"] = {};
+    this.model.postData["appointmentinfo"]["mcs_appointmentinfoid"] =""// this.model.appointmentinfoId
+    this.model.postData["appointmentinfo"]["mcs_ordertype"] = Number(this.shareData.appointmentinfo["mcs_ordertype"]);//预约服务类型
+    this.model.postData["appointmentinfo"]["mcs_surplusnum"] = Number(this.shareData.appointmentinfo["mcs_surplusnum"]);//可预约数量
+    // this.model.postData["appointmentinfo"]["mcs_customerid"] = this.shareData.appointmentinfo["mcs_customerid"]; // VIN码关联实体ID
+    // this.model.postData["appointmentinfo"]["mcs_customername"] = this.shareData.appointmentinfo["mcs_username"];// 车主
+    // this.model.postData["appointmentinfo"]["mcs_carplate"] = this.shareData.appointmentinfo["mcs_plate"];// 车牌
+    // this.model.postData["appointmentinfo"]["mcs_cartype"] = this.shareData.appointmentinfo["mcs_cartype"];// 车型
+    // this.model.postData["appointmentinfo"]["mcs_customerphone"] = this.shareData.appointmentinfo["mcs_phone"];//手机号
+    // this.model.postData["appointmentinfo"]["mcs_tag"] = this.shareData.appointmentinfo["mcs_tag"];//客户标签
+    // this.model.postData["appointmentinfo"]["mcs_appointmentat"] = this.shareData.appointmentinfo["mcs_appointmentat"];//预约日期
+    // this.model.postData["appointmentinfo"]["mcs_appointmentconfigid"] = this.shareData.appointmentinfo["mcs_appointmentconfigid"];//预约时段
+    // this.model.postData["appointmentinfo"]["mcs_customercomment"] = this.shareData.appointmentinfo["mcs_customercomment"];//客户要求
+    // this.model.postData["appointmentinfo"]["mcs_appointmendescript"] = this.shareData.appointmentinfo["mcs_appointmendescript"];//问题描述
+
+    this._page.loadingShow();
+    console.log(this.model.postData);
+    this._http.post(
+      this.model.postApiUrl, this.model.postData,
+      (res: any) => {
+        this._page.loadingHide();
+        if (res.Result == true) {
+          var guid = res["Data"]["Id"];
+          this._page.goto("/servicecenter/reservation/success", { guid: guid });
+        }
+        else {
+          this._page.alert("消息提示", "操作失败");
+          this._page.loadingHide();
+        }
+      },
+      (err: any) => {
+        this._page.loadingHide();
+        this._page.alert("消息提示", "操作失败");
+      }
+    );
+  }
+
   /**
    * 页面绑定数据
    */
@@ -94,13 +163,19 @@ export class ConfirmeditPage implements OnInit {
     data["mcs_customercomment"] = appointmentinfo["mcs_customercomment"];
     //问题描述
     data["mcs_appointmendescript"] = appointmentinfo["mcs_appointmendescript"];
-    //里程
+    //里程id
     data["mcs_mileageid"] = appointmentinfo["mcs_mileageid"];
+    //里程名称
     data["mcs_mileagename"] = this.GetMileageOption(mileageOption, data["mcs_mileageid"]);
+    //服务包名称
     data["mcs_packname"] =this.GetPackName(choicePackOptionMap,choicepackOtherOptionMap);
+    //备注
+    data["mcs_remark"] = appointmentinfo["mcs_remark"];
 
     this.model.bindData = data;
   }
+
+
 
   //日期格式
   FormatToDate(date) {
@@ -129,7 +204,25 @@ export class ConfirmeditPage implements OnInit {
    * 获取服务包
    */
   public GetPackName(choicePackOptionMap,choicepackOtherOptionMap) {
-    
+    var packname:string="";
+
+    for (const key in choicePackOptionMap) {
+      if (choicePackOptionMap.hasOwnProperty(key)) {
+        packname+=choicePackOptionMap[key]["name"]+"、"
+      }
+    }
+
+    for (const key in choicepackOtherOptionMap) {
+      if (choicepackOtherOptionMap.hasOwnProperty(key)) {
+        packname+=choicepackOtherOptionMap[key]["name"]+"、"
+      }
+    }
+
+    if(packname.length>0)
+    {
+      packname=packname.substr(0,(packname.length)-1);
+    }
+    return packname;
   }
 
 }

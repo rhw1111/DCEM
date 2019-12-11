@@ -7,14 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { PaymentPageRoutingModule } from './payment-routing.module';
 
 import { PaymentPage } from './payment.page';
-
+import { TopheadModule } from 'app/page/carcenter/carstore/component/assembly/tophead/tophead.module';
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    PaymentPageRoutingModule
-  ],
-  declarations: [PaymentPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        PaymentPageRoutingModule,
+        TopheadModule
+    ],
+    declarations: [PaymentPage]
 })
-export class PaymentPageModule {}
+export class PaymentPageModule { }

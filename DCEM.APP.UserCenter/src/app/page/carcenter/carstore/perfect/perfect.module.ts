@@ -7,14 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { PerfectPageRoutingModule } from './perfect-routing.module';
 
 import { PerfectPage } from './perfect.page';
-
+import { TopheadModule } from 'app/page/carcenter/carstore/component/assembly/tophead/tophead.module';
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    PerfectPageRoutingModule
-  ],
-  declarations: [PerfectPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        PerfectPageRoutingModule,
+        TopheadModule
+    ],
+    declarations: [PerfectPage]
 })
-export class PerfectPageModule {}
+export class PerfectPageModule { }

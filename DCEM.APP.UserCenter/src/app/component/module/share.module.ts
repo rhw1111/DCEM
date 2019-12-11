@@ -1,18 +1,21 @@
 ﻿import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SafeHtmlPipe } from 'app/component/typescript/dcem.core';
+import { DCore_SafeHtml } from 'app/component/typescript/dcem.core';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
+
+
 @NgModule({
+    entryComponents: [],
     declarations: [
-        SafeHtmlPipe
+        DCore_SafeHtml,
     ],
     imports: [
         CommonModule,
     ],
     exports: [
-        SafeHtmlPipe
+        DCore_SafeHtml
     ]
 })
 export class ShareModule { }

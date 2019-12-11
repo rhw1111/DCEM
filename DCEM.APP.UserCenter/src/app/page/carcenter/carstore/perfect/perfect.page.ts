@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonBackButton, IonBackButtonDelegate } from '@ionic/angular';
+import { IonBackButton, IonBackButtonDelegate, IonButton } from '@ionic/angular';
 import { DCore_Http, DCore_Page, DCore_Valid, DCore_ShareData } from 'app/component/typescript/dcem.core';
 import * as $ from 'jquery';
 
@@ -10,8 +10,16 @@ import * as $ from 'jquery';
 })
 export class PerfectPage implements OnInit {
 
+
     public mod = {
         shareDataKey: "carstore",
+        isValid: false,  //是否启用验证
+        fromValidStatus: {
+            name: true,
+            phone: true,
+            certNumber: true
+        },
+        errMessage: ""
     };
 
     public objectKeys = Object.keys;
@@ -66,20 +74,68 @@ export class PerfectPage implements OnInit {
         this.shareData.userInfo = {};
         this.shareData.buyingMode = 1;
 
-        //加入测试数据
-        this.shareData.userInfo["name"] = "张三";
+        //加入初始数据
+        this.shareData.userInfo["name"] = "";
         this.shareData.userInfo["sex"] = "男";
-        this.shareData.userInfo["phone"] = "15023228888";
-        this.shareData.userInfo["certType"] = "0";
-        this.shareData.userInfo["certNumber"] = "510215199909990099";
+        this.shareData.userInfo["phone"] = "";
+        this.shareData.userInfo["certType"] = "1";
+        this.shareData.userInfo["certNumber"] = "";
+    }
+
+    public inputKeyUp() {
+        this.FromValid();
+    }
+
+
+    //表单验证器
+    public FromValid() {
+
+        var validStatus = true;
+        this.mod.fromValidStatus.name = true;
+        this.mod.fromValidStatus.phone = true;
+        this.mod.fromValidStatus.certNumber = true;
+
+
+
+        this.mod.errMessage = "";
+        if (this.mod.isValid) {
+            if (this._valid.isNullOrEmpty(this.shareData.userInfo["name"])) {  //姓名验证
+                this.mod.fromValidStatus.name = false;
+                validStatus = false;
+                this.mod.errMessage += "请输入姓名<br>";
+            }
+            if (this._valid.isNullOrEmpty(this.shareData.userInfo["phone"])) {  //手机号验证
+                this.mod.fromValidStatus.phone = false;
+                validStatus = false;
+                this.mod.errMessage += "请输入手机号码<br>";
+            }
+            else if (!this._valid.isPhone(this.shareData.userInfo["phone"])) {  //手机号验证
+                this.mod.fromValidStatus.phone = false;
+                validStatus = false;
+                this.mod.errMessage += "手机号码格式输入错误<br>";
+            }
+            if (this._valid.isNullOrEmpty(this.shareData.userInfo["certNumber"])) {  //证件号码验证
+                this.mod.fromValidStatus.certNumber = false;
+                validStatus = false;
+                this.mod.errMessage += "请输入证件号码<br>";
+            }
+        }
+        return validStatus;
     }
 
 
     //下一步
     public onNext() {
-        this._shareData.set(this.mod.shareDataKey, this.shareData);
-        this._page.navigateRoot("/carcenter/carstore/payment", null, null);
+        this.mod.isValid = true;
+        if (this.FromValid()) {
+            this._shareData.set(this.mod.shareDataKey, this.shareData);
+            this._page.navigateRoot("/carcenter/carstore/payment", null, null);
+        }
+        else {
+            this._page.presentToastError(this.mod.errMessage);
+        }
     }
+
 
     //购买方式
     public onBuyingModeClikc(buyingMode: number) {

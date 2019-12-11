@@ -486,8 +486,7 @@
                     </ion-row> -->
                     <ion-row *ngFor="let item of model.activitiesList">
                         <ion-col class="dm-main-activity">
-                            <ion-grid [routerLink]="['/community/activitydetail']"
-                                 [queryParams]="{id:item.StatusLabel}">
+                            <ion-grid [routerLink]="['/community/activitydetail']"  [queryParams]="{id:item.Id}">
                                 <ion-row>
                                     <ion-col class="dm-main-activity-img">
                                         <img
@@ -555,7 +554,7 @@
 
                     <ion-row *ngFor="let item of model.newsList">
                         <ion-col class="dm-main-activity">
-                            <ion-grid>
+                            <ion-grid [routerLink]="['/community/newsdetail']"  [queryParams]="{id:item.Id}">
                                 <ion-row>
                                     <ion-col class="dm-main-activity-img">
                                         <img
