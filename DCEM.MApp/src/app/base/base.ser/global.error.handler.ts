@@ -23,8 +23,9 @@
 import { ErrorHandler, Injectable, Injector } from '@angular/core';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import {Events,AlertController } from "@ionic/angular";
-import { DCore_Page } from 'app/base/base.ser/Dcem.core';
+import { DCore_Page,DCore_Log } from 'app/base/base.ser/Dcem.core';
 import { MessageService } from 'app/base/base.ser/message.service';
+// import { stat } from 'fs';
 // import { NGXLogger } from 'ngx-logger';
 // import * as StackTrace from 'stacktrace-js';
 
@@ -35,7 +36,8 @@ import { MessageService } from 'app/base/base.ser/message.service';
 export class GlobalErrorHandler implements ErrorHandler {
   constructor(private injector: Injector,
     private events: Events,
-    public _page: DCore_Page) { }
+    public _page: DCore_Page,
+    private _log:DCore_Log) { }
 
   handleError(error) {
     this.events.publish('userCheck');
@@ -44,12 +46,14 @@ export class GlobalErrorHandler implements ErrorHandler {
     if (status === 0 
       && error.name === 'HttpErrorResponse' 
       && error.statusText === 'Unknown Error') {
-      this._page.alert(MessageService.ErrorRequestException,MessageService.ErrorRequestServer);
+      this._log.WriteErrorLog(MessageService.ErrorRequestException+"-"+MessageService.ErrorRequestServer+"【status:"+status+" message:"+message+"】");
     }
     else if (status === 401) {
       this.events.publish('userCheck');
-      this._page.alert(MessageService.ErrorRequestException,MessageService.ErrorNoAuth);
+      this._log.WriteErrorLog(MessageService.ErrorRequestException+"-"+MessageService.ErrorNoAuth+"【status:"+status+" message:"+message+"】");
     }
-    //this._page.alert(MessageService.ErrorRequestException,message);
+    else{
+      this._log.WriteErrorLog("status:"+status+" message:"+message);
+    }
   }
 }

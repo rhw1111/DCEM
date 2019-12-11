@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonBackButton, IonBackButtonDelegate, IonButton } from '@ionic/angular';
 import { DCore_Http, DCore_Page, DCore_Valid, DCore_ShareData } from 'app/component/typescript/dcem.core';
+import { Storage_LoginInfo } from 'app/component/typescript/logininfo.storage';
 import * as $ from 'jquery';
 
 @Component({
@@ -46,7 +47,8 @@ export class PerfectPage implements OnInit {
         private _http: DCore_Http,
         private _page: DCore_Page,
         private _valid: DCore_Valid,
-        private _shareData: DCore_ShareData
+        private _shareData: DCore_ShareData,
+        private _storage_LoginInfo: Storage_LoginInfo
     ) {
 
     }
@@ -75,11 +77,18 @@ export class PerfectPage implements OnInit {
         this.shareData.buyingMode = 1;
 
         //加入初始数据
-        this.shareData.userInfo["name"] = "";
-        this.shareData.userInfo["sex"] = "男";
-        this.shareData.userInfo["phone"] = "";
+        this.shareData.userInfo["name"] = this._storage_LoginInfo.GetName();
+        this.shareData.userInfo["sex"] = this._storage_LoginInfo.GetGender();
+        this.shareData.userInfo["phone"] = this._storage_LoginInfo.GetPhone();
         this.shareData.userInfo["certType"] = "1";
-        this.shareData.userInfo["certNumber"] = "";
+        this.shareData.userInfo["certNumber"] = this._storage_LoginInfo.GetCardid();
+
+        //测试用数据
+        //this.shareData.userInfo["name"] = "李四";
+        //this.shareData.userInfo["sex"] = "男";
+        //this.shareData.userInfo["phone"] = "15023224233";
+        //this.shareData.userInfo["certType"] = "1";
+        //this.shareData.userInfo["certNumber"] = "8888";
     }
 
     public inputKeyUp() {
@@ -129,7 +138,12 @@ export class PerfectPage implements OnInit {
         this.mod.isValid = true;
         if (this.FromValid()) {
             this._shareData.set(this.mod.shareDataKey, this.shareData);
-            this._page.navigateRoot("/carcenter/carstore/payment", null, null);
+            if (this.shareData.buyingMode === 1) { //全款
+                this._page.navigateRoot("/carcenter/carstore/payment", null, null);
+            }
+            else {  //分期
+                this._page.navigateRoot("/carcenter/carstore/hirepurchase", null, null);
+            }
         }
         else {
             this._page.presentToastError(this.mod.errMessage);

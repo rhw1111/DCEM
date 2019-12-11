@@ -27,7 +27,13 @@ export class MessageService {
   public static InfoOprationFailed:string='操作失败';
   /**保存失败！*/
   public static InfoSaveFailed:string='保存失败！';
-
+  /**登录成功*/
+  public static InfoLoginSuccess:string='登录成功';
+  /**登录失败*/
+  public static InfoLoginFailed:string='登录失败';
+  /**退出系统成功*/
+  public static InfoLoginOut:string='退出系统成功';
+  public static InfoLoginOutAlter:string="退出后不会删除任何历史数据";
   //------------验证信息---------------------
   /**手机号不能为空*/
   public static ValidPhoneIsNull:string='手机号不能为空';
