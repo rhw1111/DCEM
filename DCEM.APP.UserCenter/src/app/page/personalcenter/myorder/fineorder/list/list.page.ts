@@ -51,7 +51,7 @@ export class ListPage implements OnInit {
         console.log(this._logininfo.GetSystemUserId());
         this._http.postForShopping(this.model.search.apiUrl,
             {
-                UserId: "1000004",
+                UserId: this._logininfo.GetSystemUserId(),
                 PageSize: this.model.search.pageSize,
                 PageIndex: this.model.search.page
             },
@@ -59,7 +59,6 @@ export class ListPage implements OnInit {
                 if (res != null && res.Data !== null) {
                     //绑定数据
                     for (var i = 0; i < res.Data.length; i++) {
-                        res.Data[i].OrderData.PaymentStatus = 1;
                         res.Data[i].OrderData.PayStatusStr = this.getPayStatus(res.Data[i].OrderData.PaymentStatus)
                         res.Data[i].OrderData.OrderTime = this.Format(res.Data[i].OrderData.OrderTime,"yyyy-MM-dd HH:mm:ss")
                     }

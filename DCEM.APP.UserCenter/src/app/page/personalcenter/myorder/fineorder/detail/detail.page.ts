@@ -42,7 +42,6 @@ export class DetailPage implements OnInit {
             (res: any) => {
                 if (res != null) {
                     //绑定数据
-                    res.OrderData.PaymentStatus = 1;
                     res.OrderData.PayStatusStr = this.getPayStatus(res.OrderData.PaymentStatus)
                     res.OrderData.OrderTime = this.Format(res.OrderData.OrderTime, "yyyy-MM-dd HH:mm:ss")
                     this.model.datadetail = res.OrderData;
