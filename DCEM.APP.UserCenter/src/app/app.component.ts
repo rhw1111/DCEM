@@ -23,13 +23,13 @@ export class AppComponent {
     initializeApp() {
         this.platform.ready().then(() => {
 
-            //ÑùÊ½ÉèÖÃ
+            //æ ·å¼è®¾ç½®
             this.statusBar.styleDefault();
-            //Òş²ØÆô¶¯Ò³,·ÀÖ¹°×ÆÁ
+            //éšè—å¯åŠ¨é¡µ,é˜²æ­¢ç™½å±
             this.splashScreen.hide();
-            //ÊÇ·ñÖØµş
+            //æ˜¯å¦é‡å 
             this.statusBar.overlaysWebView(false);
-            /** ÉèÖÃÖÇÄÜÊúÆÁ*/
+            /** è®¾ç½®æ™ºèƒ½ç«–å±*/
             this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY);
 
             //this.statusBar.styleDefault();
