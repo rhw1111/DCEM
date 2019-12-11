@@ -146,7 +146,7 @@ export class PreorderPage implements OnInit {
             "OrderData": {
                 "OrderCode": this.Gen(9),
                 "OrderStatus": 0,
-                "UserId": "1000004",
+                "UserId": this._logininfo.GetSystemUserId(),
                 "UserName": this._logininfo.GetName(),
                 "OrderType": 0,
                 "UserMobile": this._logininfo.GetPhone(),

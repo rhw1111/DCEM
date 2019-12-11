@@ -1,8 +1,9 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { DCore_Http, DCore_Page, DCore_Window } from 'app/base/base.ser/Dcem.core';
+import { DCore_Http, DCore_Page, DCore_Window,DCore_Log, LogModel } from 'app/base/base.ser/Dcem.core';
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 import { AuthenticationService } from 'app/base/base.ser/authentication.service';
 import { MenuController } from '@ionic/angular';
+
 
 @Component({
     selector: 'app-login',
@@ -17,9 +18,10 @@ export class LoginPage implements OnInit {
         private _http: DCore_Http,
         private _page: DCore_Page,
         private _window: DCore_Window,
+        private _log:DCore_Log,
         private _logininfo: Storage_LoginInfo,
         private authservice:AuthenticationService,
-        private menuCtrl:MenuController
+        private menuCtrl:MenuController,
     ) {
     }
     // 定义模型
@@ -68,8 +70,8 @@ export class LoginPage implements OnInit {
             case 'Dev':
                 this.mod.domain = "https://subcrmdevapi.sokon.com/dcem";
                 break;
-            case 'Sit':
-                this.mod.domain = "https://subcrmdevapi.sokon.com/dcem";
+            case 'CRM9.0':
+                this.mod.domain = "http://106.14.121.65:8082/APP";
                 break;
             case 'Uat':
                 this.mod.domain = "https://subcrmuatapi.sokon.com/dcem";
@@ -87,8 +89,9 @@ export class LoginPage implements OnInit {
 
         this._window.storageSet("apiDomainUrl", this.mod.domain);
 
-
         this._page.loadingShow();
+        
+        this._log.WriteInfoLog("开始登录!");
         this._http.get(
             this.mod.apiurl,
             {
@@ -103,6 +106,9 @@ export class LoginPage implements OnInit {
                    this._page.loadingHide();
                    return false;
                 }
+
+                this._log.WriteInfoLog("登录成功！");
+
                 this._http.setToken(res.access_token,this.mod.username,this.mod.password);
                 //登录实现
                 //this.authservice.login(res.access_token);
@@ -113,10 +119,9 @@ export class LoginPage implements OnInit {
                 //this.navCtr.navigateRoot('serving/home/tabs');
             },
             (err: any) => {
+                this._log.WriteErrorLog("登录失败："+err);
                 this._page.loadingHide();
-                //this._page.goto("serving/home/tabs");
                 this._page.alert('消息提示', '登录认证失败');
-
             }
         );
     }

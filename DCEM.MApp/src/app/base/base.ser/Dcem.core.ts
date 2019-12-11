@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { isFunction, isNumber } from 'util';
-
+import { Dateformat } from 'app/base/base.ser/dateformat';
 
 @Injectable({
     providedIn: 'root'
@@ -406,6 +406,59 @@ export class DCore_Valid {
 
 }
 
+export class LogModel {
+    public Id:any;
+    public Type:any;
+    public Message:any;
+    public CreateTime:any;
+}
+
+//系统日志跟踪
+@Injectable({
+    providedIn: 'root'
+})
+
+export class DCore_Log {
+    public logList:any=[];
+    constructor(
+        private _dateformat:Dateformat
+    ) {
+        
+    }
+
+    //写入提示日志
+    WriteInfoLog(message:string) {
+        this.WriteLog(message,1);
+    }
+
+    //写入错误日志
+    WriteErrorLog(message:string) {
+        this.WriteLog(message,2);
+    }
+
+    WriteLog(message:string,type:any){
+        var list = this.GetList();
+        if (list != null) {
+            this.logList = list;
+        }
+        var logModel = new LogModel();
+        logModel.Id = new Date().getTime();
+        logModel.CreateTime = this._dateformat.FormatToDateTime(new Date());;
+        logModel.Message = message;
+        logModel.Type = type;
+        this.logList.unshift(logModel);//插入顶部
+        window.localStorage.setItem('Sys-Log', JSON.stringify(this.logList));
+    }
+
+    //获取日志
+    GetList() {
+       return JSON.parse(window.localStorage.getItem('Sys-Log'));
+    }
+    //清除日志
+    Clear() {
+        window.localStorage.removeItem('Sys-Log');
+    }
+}
 
 
 
