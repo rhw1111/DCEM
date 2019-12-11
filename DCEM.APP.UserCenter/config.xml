@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>用户中心</name>
-    <description>用户中心</description>
-    <author email="hi@ionicframework.com" href="http://ionicframework.com/">Ionic Framework Team</author>
+<widget id="mcs.dcem.ucenter" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>爱车APP</name>
+    <description>爱车APP</description>
+    <author email="190563430@qq.com" href="">微软Dynamics CRM 开发团队</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
