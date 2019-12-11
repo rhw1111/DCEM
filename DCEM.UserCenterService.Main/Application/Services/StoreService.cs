@@ -121,11 +121,15 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 var fetchXml = $@"
                 <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
                     <entity name='mcs_tc_productorderingattribute'>
-                        <order attribute='createdon' descending='true' />
+                        <filter type='and'>
+                          <condition attribute='statecode' operator='eq' value='0' />
+                        </filter>
                     </entity>
                 </fetch>";
                 return XDocument.Parse(fetchXml);
             });
+
+
 
 
             fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
@@ -239,14 +243,6 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
             #region 组装商品的订购属性
             foreach (var entity in productOrderingattributeResponse.Value.Results)
-            {
-                var productGuid = Guid.Parse(entity.Attributes.Value<string>("_mcs_product_value"));
-                dicProduct[productGuid].ProductOrderingattributeArray.Add(entity.Attributes);
-            }
-            #endregion
-
-            #region 组装商品订购属性的规格型号
-            foreach (var entity in productSpecificationResponse.Value.Results)
             {
                 var productGuid = Guid.Parse(entity.Attributes.Value<string>("_mcs_product_value"));
                 dicProduct[productGuid].ProductOrderingattributeArray.Add(entity.Attributes);

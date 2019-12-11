@@ -41,7 +41,7 @@
                                     </ion-row>
                                     <ion-row class="dm-main-item-bottom">
                                         <ion-col>
-                                            <h5>了解更多 ></h5>
+                                            <h5 (click)="presentSpeclistModal(shareData.productRelatedMap[proRelatedKey]['a.mcs_product'])">了解更多 ></h5>
                                         </ion-col>
                                         <ion-col (click)="itemOnClick(proRelatedKey)">
                                             <h5>&nbsp;</h5>

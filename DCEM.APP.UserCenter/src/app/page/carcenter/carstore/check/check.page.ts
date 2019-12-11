@@ -67,12 +67,12 @@ export class CheckPage implements OnInit {
 
         this.shareData.selectproductOrderingattributeMap = {};
         this.shareData.selectproductRelatedMap = {};
-
+        console.log(this.shareData.packageMap);
         for (var packageKey in this.shareData.packageMap) {
 
             var packageId = this.shareData.packageMap[packageKey]["id"];
             if (this.shareData.packageMap[packageKey]["type"] === "productOrderingattribute") {
-
+                console.log(packageKey);
                 this.shareData.selectproductOrderingattributeMap[packageKey] = this.shareData.packageMap[packageKey];
                 //获取html模板
                 this.shareData.selectproductOrderingattributeMap[packageKey]["ext_TempHtml"] = this.getTempHtml(this.shareData.productOrderingattributeMap[packageId]["mcs_attributegroupname"], this.shareData.productOrderingattributeMap[packageId]["mcs_attributevalue"], this.shareData.productOrderingattributeMap[packageId]["mcs_iconimage"]);
