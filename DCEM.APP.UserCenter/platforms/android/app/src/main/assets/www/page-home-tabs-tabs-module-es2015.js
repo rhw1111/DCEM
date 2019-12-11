@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-tabs>\r\n\r\n    <ion-tab-bar slot=\"bottom\">\r\n        <ion-tab-button tab=\"community\">\r\n            <ion-icon name=\"aperture\"></ion-icon>\r\n            <ion-label>发现</ion-label>\r\n        </ion-tab-button>\r\n\r\n        <ion-tab-button tab=\"charging\">\r\n            <ion-icon name=\"flash\"></ion-icon>\r\n            <ion-label>消息</ion-label>\r\n        </ion-tab-button>\r\n\r\n        <ion-tab-button tab=\"carcenter\">\r\n            <ion-icon name=\"car\"></ion-icon>\r\n            <ion-label>爱车</ion-label>\r\n        </ion-tab-button>\r\n\r\n        <ion-tab-button tab=\"servicecenter\">\r\n            <ion-icon name=\"desktop\"></ion-icon>\r\n            <ion-label>服务</ion-label>\r\n        </ion-tab-button>\r\n\r\n        <ion-tab-button tab=\"personalcenter\">\r\n            <ion-icon name=\"person\"></ion-icon>\r\n            <ion-label>我的</ion-label>\r\n        </ion-tab-button>\r\n    </ion-tab-bar>\r\n\r\n</ion-tabs>\r\n"
+module.exports = "<ion-tabs>\r\n\r\n    <ion-tab-bar slot=\"bottom\">\r\n        <ion-tab-button tab=\"community\">\r\n            <ion-icon name=\"aperture\"></ion-icon>\r\n            <ion-label>发现</ion-label>\r\n        </ion-tab-button>\r\n\r\n        <ion-tab-button tab=\"message\">\r\n            <ion-icon name=\"chatboxes\"></ion-icon>\r\n            <ion-label>消息</ion-label>\r\n        </ion-tab-button>\r\n\r\n        <ion-tab-button tab=\"carcenter\">\r\n            <ion-icon name=\"car\"></ion-icon>\r\n            <ion-label>爱车</ion-label>\r\n        </ion-tab-button>\r\n\r\n        <ion-tab-button tab=\"servicecenter\">\r\n            <ion-icon name=\"desktop\"></ion-icon>\r\n            <ion-label>服务</ion-label>\r\n        </ion-tab-button>\r\n\r\n        <ion-tab-button tab=\"personalcenter\">\r\n            <ion-icon name=\"person\"></ion-icon>\r\n            <ion-label>我的</ion-label>\r\n        </ion-tab-button>\r\n    </ion-tab-bar>\r\n\r\n</ion-tabs>\r\n"
 
 /***/ }),
 
@@ -39,7 +39,16 @@ const routes = [
                 children: [
                     {
                         path: '',
-                        loadChildren: () => __webpack_require__.e(/*! import() | community-index-index-module */ "community-index-index-module").then(__webpack_require__.bind(null, /*! ../../community/index/index.module */ "./src/app/page/community/index/index.module.ts")).then(m => m.IndexPageModule)
+                        loadChildren: () => Promise.all(/*! import() | community-index-index-module */[__webpack_require__.e("default~community-index-index-module~page-community-activitydetail-activitydetail-module~page-commun~a5765bde"), __webpack_require__.e("common"), __webpack_require__.e("community-index-index-module")]).then(__webpack_require__.bind(null, /*! ../../community/index/index.module */ "./src/app/page/community/index/index.module.ts")).then(m => m.IndexPageModule)
+                    }
+                ]
+            },
+            {
+                path: 'message',
+                children: [
+                    {
+                        path: '',
+                        loadChildren: () => __webpack_require__.e(/*! import() | message-index-index-module */ "message-index-index-module").then(__webpack_require__.bind(null, /*! ../../message/index/index.module */ "./src/app/page/message/index/index.module.ts")).then(m => m.IndexPageModule)
                     }
                 ]
             },

@@ -64,7 +64,7 @@ namespace DCEM.Web.Controllers
         public async Task<NewtonsoftJsonActionResult<ValidateResult>> SendMsg(UsermessageRequest model)
         {
             //注册短信或者忘记密码发送验证当前账号是否已存在
-            if (model.type == (int)UserEnum.UserMessEnum.注册 || model.type == (int)UserEnum.UserMessEnum.忘记密码)
+            if (model.type == (int)UserEnum.UserMessEnum.注册 || model.type == (int)UserEnum.UserMessEnum.登陆 || model.type == (int)UserEnum.UserMessEnum.忘记密码)
             {
                 UserLoginRequest request = new UserLoginRequest();
                 request.account = model.phone;
@@ -80,7 +80,7 @@ namespace DCEM.Web.Controllers
                         return res;
                     }
                 }
-                else if (model.type == (int)UserEnum.UserMessEnum.忘记密码)
+                else if (model.type == (int)UserEnum.UserMessEnum.忘记密码 || model.type == (int)UserEnum.UserMessEnum.登陆)
                 {
                     if (ret.Data == null)
                     {

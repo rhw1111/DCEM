@@ -26,7 +26,6 @@ export class PaymentPage implements OnInit {
     ngOnInit() {
         //获取参数
         this.model.datas = this.routerinfo.snapshot.queryParams;
-        console.log(this.model.datas);
         this.initListLoading();
     }
     //初始化页面数据加载
@@ -64,7 +63,6 @@ export class PaymentPage implements OnInit {
             if (second < 10) {
                 secondstr = "0" + second;
             }
-            console.log($("#minute").text());
             $("#minute").text(minutestr);
             $("#second").text(secondstr);
 
