@@ -1,75 +1,56 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page } from '../../../../../component/typescript/dcem.core';
-import { Storage_LoginInfo } from '../../../../../component/typescript/logininfo.storage';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-list',
-  templateUrl: './list.page.html',
-  styleUrls: ['./list.page.scss'],
+  selector: 'app-detail',
+  templateUrl: './detail.page.html',
+  styleUrls: ['./detail.page.scss'],
 })
-export class ListPage implements OnInit {
+export class DetailPage implements OnInit {
     public model: any = {
         search: {
-            apiUrl: "api/order/MyAllOrders",
-            pageSize: 10,//页数
-            page: 1,//分页
+            apiUrl: "api/order/OrderDetail",
         },
-        title: "精品订单",
-        datalist: [],
-        isending: false,//是否加载完成
+        title: "订单详情",
+        datadetail: {},
+        datalist:[]
     };
-
+    private code
     constructor(
-        private _logininfo: Storage_LoginInfo,
         private _http: DCore_Http,
         private _page: DCore_Page,
+        private routerinfo: ActivatedRoute,
     ) { }
 
     ngOnInit() {
-        this.initListLoading();
-    }
-    //下拉刷新
-    doRefresh(event) {
-        this.model.datalist = [];
-        this.model.search.page = 1;
-        this.model.isending = false;
-        this.getList(event);
-    }
-    //加载下一页
-    doLoading(event) {
-        this.model.search.page++;
-        this.getList(event);
-    }
-
+        //code为参数名字
+        this.code = this.routerinfo.snapshot.queryParams["code"];
+        this.initListLoading(this.code);
+  }
     //初始化页面数据加载
-    initListLoading() {
+    initListLoading(code) {
         this._page.loadingShow();
-        this.getList(null);
+        this.getDetail(null, code);
     }
-    //获取列表数据
-    getList(event) {
-        console.log(this._logininfo.GetSystemUserId());
+    //获取详情数据
+    getDetail(event, code) {
         this._http.postForShopping(this.model.search.apiUrl,
             {
-                UserId: "1000004",
-                PageSize: this.model.search.pageSize,
-                PageIndex: this.model.search.page
+                OrderCode: code
             },
             (res: any) => {
-                if (res != null && res.Data !== null) {
+                if (res != null) {
                     //绑定数据
-                    for (var i = 0; i < res.Data.length; i++) {
-                        res.Data[i].OrderData.PaymentStatus = 1;
-                        res.Data[i].OrderData.PayStatusStr = this.getPayStatus(res.Data[i].OrderData.PaymentStatus)
-                        res.Data[i].OrderData.OrderTime = this.Format(res.Data[i].OrderData.OrderTime,"yyyy-MM-dd HH:mm:ss")
-                    }
-                    this.model.datalist = res.Data;
+                    res.OrderData.PaymentStatus = 1;
+                    res.OrderData.PayStatusStr = this.getPayStatus(res.OrderData.PaymentStatus)
+                    res.OrderData.OrderTime = this.Format(res.OrderData.OrderTime, "yyyy-MM-dd HH:mm:ss")
+                    this.model.datadetail = res.OrderData;
+                    this.model.datalist = res.Products;
                     event ? event.target.complete() : '';
-                    //判断是否有新数据
-                    if (res.Data.length < this.model.search.pageSize) {
-                        event ? event.target.disabled = true : "";
-                        this.model.isending = true;
-                    }
+                }
+                else {
+                    this._page.alert("消息提示", "数据加载异常");
                 }
                 this._page.loadingHide();
             },
@@ -79,11 +60,10 @@ export class ListPage implements OnInit {
             }
         );
     }
-    //去支付
-    goPay(orderno,price) {
+    goPay() {
         var returndata = {
-            "OrderCode": orderno,
-            "TotalPrice": price
+            "OrderCode": this.code,
+            "TotalPrice": this.model.datadetail.TotalDeposiAmount
         };
         this._page.goto("/servicecenter/payment/payment", returndata);
     }
@@ -128,4 +108,5 @@ export class ListPage implements OnInit {
         }
         return fmt;
     }
+
 }

@@ -132,6 +132,10 @@ const routes: Routes = [
                                 path: 'list',
                                 loadChildren: () => import('./page/personalcenter/myorder/fineorder/list/list.module').then(m => m.ListPageModule)
                             },
+                            {
+                                path: 'detail',
+                                loadChildren: () => import('./page/personalcenter/myorder/fineorder/detail/detail.module').then(m => m.DetailPageModule)
+                            },
                         ]
                     },
                     {
@@ -280,6 +284,7 @@ const routes: Routes = [
         path: 'questionsetting',
         loadChildren: () => import('./page/message/questionsetting/questionsetting.module').then(m => m.QuestionsettingPageModule)
     },
+  
 
 ];
 
