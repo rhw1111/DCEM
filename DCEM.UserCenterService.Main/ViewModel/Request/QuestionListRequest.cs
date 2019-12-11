@@ -34,15 +34,7 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
         /// <summary>
         /// 问卷编号
         /// </summary
-        public Guid mcs_questionnairesetting { get; set; }
-        /// <summary>
-        /// 是否有奖励
-        /// </summary
-        public int? mcs_isaward { get; set; }
-        /// <summary>
-        /// 奖励信息
-        /// </summary
-        public string mcs_awardcount { get; set; }
+        public Guid mcs_questionnairesetting { get; set; } 
         /// <summary>
         /// 回答人姓名
         /// </summary
@@ -71,5 +63,15 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
         /// </summary
         public Guid mcs_questions { get; set; }
     }
+
+
+
+
+
+
+
+
+
+
 
 }

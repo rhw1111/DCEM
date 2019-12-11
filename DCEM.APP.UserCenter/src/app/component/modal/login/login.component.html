@@ -6,7 +6,7 @@
     </ion-label>
   </ion-label>
 </ion-item>
-<!-- 用户登陆页面 -->
+<!-- 用户登录页面 -->
 <ion-content *ngIf="disstatus==1">
   <ion-card-header style="margin-bottom: 20px;">
     <ion-card-title style="height: 50px;"> 您好，</ion-card-title>
@@ -16,10 +16,10 @@
   <ion-toolbar>
     <ion-segment [(ngModel)]="tab" color="primary" model="md">
       <ion-segment-button value="account">
-        <ion-label>账号登陆</ion-label>
+        <ion-label>账号登录</ion-label>
       </ion-segment-button>
       <ion-segment-button value="phone">
-        <ion-label>电话号码登陆</ion-label>
+        <ion-label>电话号码登录</ion-label>
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
@@ -38,7 +38,7 @@
       <div class="ion-padding">
         <ion-button expand="block" type="button" (click)="onLogin()"
           class="ion-no-margin ios button button-block button-solid ion-activatable ion-focusable hydrated">
-          登陆
+          登录
         </ion-button>
       </div>
     </div>
@@ -152,7 +152,7 @@
 </ion-content>
 <ion-footer class="loginfooter" *ngIf="disstatus!=4 && disstatus!=6  && disstatus!=7 && disstatus!=8">
   <ion-item lines="none" style="text-align:center;    color: #a0a0a0;">
-    <ion-label>其它登陆方式</ion-label>
+    <ion-label>其它登录方式</ion-label>
   </ion-item>
   <ion-toolbar>
     <ion-title>
@@ -317,11 +317,11 @@
   <ion-card-content style="top: 50%;">
     <ion-card-header style="text-align: center;background-color: #ff000000;">
       <ion-card-title style="height: 50px;color:white"> 成功</ion-card-title>
-      <ion-card-subtitle class="loginsubtitle" style="color:white"> 您已成功更改密码。登陆时请使用新密码</ion-card-subtitle>
+      <ion-card-subtitle class="loginsubtitle" style="color:white"> 您已成功更改密码。登录时请使用新密码</ion-card-subtitle>
     </ion-card-header>
     <div class="ion-padding">
       <ion-button   style="width: 100%;" strong type="button" (click)="OnLogin()">
-        马上登陆
+        马上登录
       </ion-button>
     </div>
   </ion-card-content>

@@ -61,4 +61,16 @@ ion-card{
     .cost{
         padding-left: 10px;
     }
+
+    .panel{
+        padding: 0px !important;
+        background-color: #EDEDED;
+        height: auto;
+        width: 100%;
+
+        ion-label{
+            padding-bottom: 5px;
+            padding-top: 8px; 
+        }
+    }
 }

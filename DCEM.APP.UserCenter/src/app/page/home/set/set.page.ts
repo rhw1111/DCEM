@@ -32,7 +32,7 @@ export class SetPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: LoginComponent,
       componentProps: {
-        'status': 8//登陆页面状态 
+        'status': 8//登录页面状态 
       }
     });
     await modal.present();

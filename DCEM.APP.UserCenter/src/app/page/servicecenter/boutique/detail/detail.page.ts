@@ -49,7 +49,6 @@ export class DetailPage implements OnInit {
     }
     //获取详情数据
     getDetail(event, id) {
-
         this._http.getForShopping(this.model.search.apiUrl,
             {
                 productCode: id

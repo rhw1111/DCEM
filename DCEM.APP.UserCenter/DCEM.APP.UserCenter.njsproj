@@ -105,6 +105,7 @@
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\check\check.page.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\component\model\speclist\speclist.component.spec.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\component\model\speclist\speclist.component.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\carstore\component\model\speclist\speclist.module.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\component\typescript\storeShareDataThr.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\hirepurchase\hirepurchase-routing.module.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\hirepurchase\hirepurchase.module.ts" />
@@ -250,11 +251,13 @@
     <Content Include="src\app\page\servicecenter\reservation.com\list\list.page.html" />
     <Content Include="src\app\page\servicecenter\reservation.com\list\list.page.scss" />
     <Content Include="src\assets\icon\favicon.png" />
+    <Content Include="src\assets\img\alipay.png" />
     <Content Include="src\assets\img\back.png" />
     <Content Include="src\assets\img\1png.png" />
     <Content Include="src\assets\img\2.jpg" />
     <Content Include="src\assets\img\carstore\logo.png" />
     <Content Include="src\assets\img\carstore\back.jpg" />
+    <Content Include="src\assets\img\wechatpay.png" />
     <Content Include="src\assets\img\xiaopeng1.jpg" />
     <Content Include="src\assets\img\xiaopeng2.jpg" />
     <Content Include="src\assets\shapes.svg" />

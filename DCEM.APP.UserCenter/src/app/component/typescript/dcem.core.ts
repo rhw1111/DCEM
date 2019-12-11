@@ -37,7 +37,7 @@ export class DCore_Config {
 
     constructor(
     ) {
-        this.dcem_serverName = "iis";
+        this.dcem_serverName = "local";
         this.tc_serverName = "9_0";
 
         this.tc_host_map = function () {
@@ -421,7 +421,7 @@ export class DCore_String {
     providedIn: 'root'
 })
 @Pipe({ name: 'safeHtml' }) //自定义管道
-export class SafeHtmlPipe implements PipeTransform {
+export class DCore_SafeHtml implements PipeTransform {
     constructor(private sanitized: DomSanitizer) { }
 
     transform(value) {

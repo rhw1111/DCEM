@@ -2,7 +2,6 @@
 import { IonBackButton, IonBackButtonDelegate } from '@ionic/angular';
 import { DCore_Http, DCore_Page, DCore_Valid, DCore_ShareData, DCore_String } from 'app/component/typescript/dcem.core';
 import * as $ from 'jquery';
-import { print } from 'util';
 
 @Component({
     selector: 'app-payment',
@@ -161,7 +160,10 @@ export class PaymentPage implements OnInit {
                 orderGuid = this.shareData.selectproductOrderingattributeMap[orderKey]["id"];
             else
                 orderGuid += "+" + this.shareData.selectproductOrderingattributeMap[orderKey]["id"];
+            console.log(orderKey);
         }
+
+        console.log(orderGuid);
 
         //组装产品
         if (!this._valid.isNull(this.shareData.productPriceMap[orderGuid])) {

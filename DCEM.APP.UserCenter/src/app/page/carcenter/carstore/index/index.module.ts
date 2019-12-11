@@ -7,17 +7,19 @@ import { IonicModule } from '@ionic/angular';
 import { IndexPageRoutingModule } from './index-routing.module';
 
 import { IndexPage } from './index.page';
-import { SpeclistComponent } from 'app/page/carcenter/carstore/component/model/speclist/speclist.component';
-
+import { TopheadModule } from 'app/page/carcenter/carstore/component/assembly/tophead/tophead.module';
+import { SpeclistModule } from 'app/page/carcenter/carstore/component/model/speclist/speclist.module';
 
 @NgModule({
-    entryComponents: [SpeclistComponent],
+    entryComponents: [],
     imports: [
         CommonModule,
         FormsModule,
         IonicModule,
-        IndexPageRoutingModule
+        IndexPageRoutingModule,
+        TopheadModule,
+        SpeclistModule
     ],
-    declarations: [IndexPage, SpeclistComponent]
+    declarations: [IndexPage]
 })
 export class IndexPageModule { }

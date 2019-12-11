@@ -54,7 +54,7 @@ export class CheckPage implements OnInit {
 
         if (this._shareData.has(this.mod.shareDataKey)) {
             this.shareData = this._shareData.get(this.mod.shareDataKey);
-            //if (this._valid.isNull(this.shareData.selectproductRelatedMap)) {
+            // if (this._valid.isNull(this.shareData.selectproductRelatedMap)) {
             this.initShareData();
             //}
         } else {
@@ -67,12 +67,12 @@ export class CheckPage implements OnInit {
 
         this.shareData.selectproductOrderingattributeMap = {};
         this.shareData.selectproductRelatedMap = {};
-
+        console.log(this.shareData.packageMap);
         for (var packageKey in this.shareData.packageMap) {
 
             var packageId = this.shareData.packageMap[packageKey]["id"];
             if (this.shareData.packageMap[packageKey]["type"] === "productOrderingattribute") {
-
+                console.log(packageKey);
                 this.shareData.selectproductOrderingattributeMap[packageKey] = this.shareData.packageMap[packageKey];
                 //获取html模板
                 this.shareData.selectproductOrderingattributeMap[packageKey]["ext_TempHtml"] = this.getTempHtml(this.shareData.productOrderingattributeMap[packageId]["mcs_attributegroupname"], this.shareData.productOrderingattributeMap[packageId]["mcs_attributevalue"], this.shareData.productOrderingattributeMap[packageId]["mcs_iconimage"]);
@@ -108,7 +108,7 @@ export class CheckPage implements OnInit {
     public productRelatedUpdate() {
         this._page.navigateRoot("/carcenter/carstore/selectitem", null, "back");
     }
-    
+
 
     //样式智能识别
     public getTempHtml(groupName, attrVal: string, imgUrl) {

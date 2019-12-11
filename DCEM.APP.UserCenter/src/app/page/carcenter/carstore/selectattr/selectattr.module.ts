@@ -9,8 +9,7 @@ import { SelectattrPageRoutingModule } from './selectattr-routing.module';
 
 import { SelectattrPage } from './selectattr.page';
 import { ShareModule } from 'app/component/module/share.module';
-
-
+import { TopheadModule } from 'app/page/carcenter/carstore/component/assembly/tophead/tophead.module';
 @NgModule({
     imports: [
         CommonModule,
@@ -18,6 +17,7 @@ import { ShareModule } from 'app/component/module/share.module';
         IonicModule,
         SelectattrPageRoutingModule,
         ShareModule,
+        TopheadModule,
     ],
     declarations: [SelectattrPage]
 })
