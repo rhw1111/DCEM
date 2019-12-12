@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { DCore_Http, DCore_Page } from '../../../../../app/component/typescript/dcem.core';
 import sd from 'silly-datetime';
+import { Storage_LoginInfo } from '../../../../component/typescript/logininfo.storage';
 
 @Component({
   selector: 'app-list',
@@ -36,10 +37,11 @@ export class ListPage implements OnInit {
     public router: Router,
     private _http: DCore_Http,
     private _page: DCore_Page,
+    private _logininfo: Storage_LoginInfo,
   ) { }
 
   ngOnInit() {
-    this.model.mobilephone="18938027907";
+    this.model.mobilephone=this._logininfo.GetPhone();
   }
 
   ionViewWillEnter() {

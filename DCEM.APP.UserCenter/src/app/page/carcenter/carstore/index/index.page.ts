@@ -187,6 +187,7 @@ export class IndexPage implements OnInit {
 
             },
             (err: any) => {
+                console.log(err);
                 this._page.loadingHide();
                 this._page.alert("消息提示", "数据加载异常");
             }

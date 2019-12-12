@@ -22,7 +22,7 @@ export class IndexPage {
         activitiesList: [],
         activityParams: {
             Type: 1,
-            PageSize: 2,
+            PageSize: 5,
             PageIndex: 1,
             //MaxPageIndex: 0
         },
@@ -31,7 +31,7 @@ export class IndexPage {
         newsList: [],
         newsParams: {
             Type: 2,
-            PageSize: 2,
+            PageSize: 5,
             PageIndex: 1,
             //MaxPageIndex: 0
         }
