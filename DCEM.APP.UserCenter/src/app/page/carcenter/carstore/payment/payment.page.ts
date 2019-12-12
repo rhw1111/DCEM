@@ -1,8 +1,10 @@
 ﻿import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonBackButton, IonBackButtonDelegate } from '@ionic/angular';
+import { ModalController, IonBackButton, IonBackButtonDelegate } from '@ionic/angular';
 import { DCore_Http, DCore_Page, DCore_Valid, DCore_ShareData, DCore_String } from 'app/component/typescript/dcem.core';
 import * as $ from 'jquery';
-
+import { Storage_LoginInfo } from 'app/component/typescript/logininfo.storage';
+import { LoginComponent } from 'app/component/modal/login/login.component'
+    ;
 @Component({
     selector: 'app-payment',
     templateUrl: './payment.page.html',
@@ -41,7 +43,9 @@ export class PaymentPage implements OnInit {
         private _page: DCore_Page,
         private _valid: DCore_Valid,
         private _shareData: DCore_ShareData,
-        private _string: DCore_String
+        private _string: DCore_String,
+        private _storage_LoginInfo: Storage_LoginInfo,
+        private _modalCtrl: ModalController
     ) {
 
     }
@@ -68,21 +72,47 @@ export class PaymentPage implements OnInit {
 
     //支付
     public onPayClick() {
+        var that = this;
+        if (this._valid.isNullOrEmpty(this._storage_LoginInfo.GetSystemUserId())) {
+            this._page.alert("消息提示", "您尚未登录,请先登录后在进行操作", function () {
+                that.presentLoginModal();
+            });
+            return;
+        }
+
+
         var postData = this.getPostData();
-        console.log(postData);
         this._http.postForShopping(
             this.mod.postUrl,
             postData,
             (res: any) => {
-                console.log("ok");
-                console.log(res);
-                this._page.alert("消息提示", res["Message"]);
+                if (res["Code"] === "000") {
+                    this._page.alert("消息提示", "您的订单已经下单成功", function () {
+                        that._page.navigateRoot("/personalcenter/myorder/fineorder/detail", { code: postData["OrderData"]["OrderCode"] }, "");
+                    });
+
+                }
+                else {
+                    this._page.alert("消息提示", res.Message);
+                }
             },
             (err: any) => {
-                console.log("err");
+                this._page.alert("消息提示", "下单异常")
                 console.log(err);
             }
         );
+    }
+
+    //用户登录
+    public async presentLoginModal() {
+        const modal = await this._modalCtrl.create({
+            component: LoginComponent,
+            componentProps: {
+                'status': 1
+            }
+        });
+        await modal.present();
+        const { data } = await modal.onDidDismiss();
     }
 
 
@@ -91,13 +121,12 @@ export class PaymentPage implements OnInit {
         this.shareData.payMode = payMode;
     }
 
-
     public getPostData() {
 
         var data = {
             "OrderData": {
                 "OrderCode": "DCEM_" + this._string.GetDateFormat(new Date(), "yyyyMMddhhmmss") + "_" + this._string.GetRandom(3).toLocaleUpperCase(),
-                "UserId": "text",
+                "UserId": this._storage_LoginInfo.GetSystemUserId(),
                 "UserName": this.shareData.userInfo["name"],
                 "OrderType": 0,
                 "UserMobile": this.shareData.userInfo["phone"],
@@ -163,7 +192,6 @@ export class PaymentPage implements OnInit {
             console.log(orderKey);
         }
 
-        console.log(orderGuid);
 
         //组装产品
         if (!this._valid.isNull(this.shareData.productPriceMap[orderGuid])) {
@@ -182,9 +210,6 @@ export class PaymentPage implements OnInit {
             }
             data["Products"].push(product);
         }
-
-
-        console.log(this.shareData);
         //组装选装地图
         for (var relatedKey in this.shareData.selectproductRelatedMap) {
             var product = {
