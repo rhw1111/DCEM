@@ -41,8 +41,11 @@ export class LoginPage implements OnInit {
     // 初始化
     ngOnInit() {
         // 加入测试参数
-        this.mod.username = 'subdevcrmadmin';
-        this.mod.password = 'password01#';
+        // this.mod.username = 'subdevcrmadmin';
+        // this.mod.password = 'password01#';
+        
+        this.mod.username = 'crm9admin';
+        this.mod.password = '@Msc.com@';
 
         //this.mod.username = 'subuatcrmadmin';
         //this.mod.password = 'P@ssw0rd';
@@ -71,7 +74,7 @@ export class LoginPage implements OnInit {
                 this.mod.domain = "https://subcrmdevapi.sokon.com/dcem";
                 break;
             case 'CRM9.0':
-                this.mod.domain = "http://106.14.121.65:8082/APP";
+                this.mod.domain = "http://106.14.121.65:8082/dcem";
                 break;
             case 'Uat':
                 this.mod.domain = "https://subcrmuatapi.sokon.com/dcem";
