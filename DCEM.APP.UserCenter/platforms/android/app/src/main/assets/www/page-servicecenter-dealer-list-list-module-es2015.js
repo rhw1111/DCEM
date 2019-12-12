@@ -138,10 +138,9 @@ let ListPage = class ListPage {
             modal4: false
         };
         this.model = {
-            apiUrl: '/api/dealer/getlist',
-            //国家默认中国
-            countryId: "7E83801C-795B-E911-A824-B53F780FAC1C",
-            level: null,
+            apiUrl: 'api/dealer/getlist',
+            countryId: "DD0D2AE0-E414-EA11-B394-86D989685D12",
+            level: 2,
             info: {
                 provincename: "省",
                 cityname: "市",
@@ -180,8 +179,6 @@ let ListPage = class ListPage {
     //获取省组件
     provinceModal() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            this.model.countryId = "7af9ab98-7ef8-e811-a820-844a39d18a7a";
-            //"7E83801C-795B-E911-A824-B53F780FAC1C"
             this.model.level = 2;
             const modal = yield this._modalCtrl.create({
                 component: _component_modal_select_sysarea_select_sysarea_component__WEBPACK_IMPORTED_MODULE_4__["SelectSysareaComponent"],

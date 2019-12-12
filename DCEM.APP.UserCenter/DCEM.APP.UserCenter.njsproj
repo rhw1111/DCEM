@@ -105,6 +105,7 @@
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\check\check.page.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\component\model\speclist\speclist.component.spec.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\component\model\speclist\speclist.component.ts" />
+    <TypeScriptCompile Include="src\app\page\carcenter\carstore\component\model\speclist\speclist.module.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\component\typescript\storeShareDataThr.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\hirepurchase\hirepurchase-routing.module.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\hirepurchase\hirepurchase.module.ts" />

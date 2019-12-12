@@ -58,7 +58,7 @@ export class DCore_Config {
             map.set("uat", "https://subcrmuatapi.sokon.com/dcem/");
             map.set("local", "https://localhost:44382/");
             map.set("9_0", "http://106.14.121.65:8082/dcem/");
-            map.set("iis", "https://localhost:9099/");
+            map.set("iis", "http://localhost:9099/");
             return map;
         }();
 
@@ -417,7 +417,7 @@ export class DCore_String {
     providedIn: 'root'
 })
 @Pipe({ name: 'safeHtml' }) //自定义管道
-export class SafeHtmlPipe implements PipeTransform {
+export class DCore_SafeHtml implements PipeTransform {
     constructor(private sanitized: DomSanitizer) { }
 
     transform(value) {

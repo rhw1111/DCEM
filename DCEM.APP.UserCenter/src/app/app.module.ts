@@ -9,7 +9,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { AppVersion } from '@ionic-native/app-version/ngx';
-//import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,12 +21,13 @@ import {SelectSysareaComponent} from './component/modal/select-sysarea/select
 import { LoginComponent } from './component/modal/login/login.component' 
 import { UserinfoComponent } from './component/modal/userinfo/userinfo.component' 
 import { SelectDealerComponent } from './component/modal/select-dealer/select-dealer.component';
+import {SelectDealerListComponent} from './component/modal/select-dealer-list/select-dealer-list.component'
 import { SelectUsercarinfoComponent } from './component/modal/select-usercarinfo/select-usercarinfo.component';
 
 
 @NgModule({
-  declarations: [AppComponent,SelectSysareaComponent,LoginComponent,SelectDealerComponent,UserinfoComponent,SelectUsercarinfoComponent],
-  entryComponents: [SelectSysareaComponent,LoginComponent,SelectDealerComponent,UserinfoComponent,SelectUsercarinfoComponent],
+  declarations: [AppComponent,SelectSysareaComponent,LoginComponent,SelectDealerComponent,UserinfoComponent,SelectUsercarinfoComponent,SelectDealerListComponent],
+  entryComponents: [SelectSysareaComponent,LoginComponent,SelectDealerComponent,UserinfoComponent,SelectUsercarinfoComponent,SelectDealerListComponent],
   imports: [
       BrowserModule, 
       IonicModule.forRoot({ mode: 'ios' }),

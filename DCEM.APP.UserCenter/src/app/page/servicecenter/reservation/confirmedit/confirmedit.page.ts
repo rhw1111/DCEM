@@ -51,15 +51,17 @@ export class ConfirmeditPage implements OnInit {
       this.shareData = this._shareData.get(this.model.shareDataKey);
 
       this.BindData(this.shareData);
-      // console.log(this.shareData);
-      // console.log(this.shareData.appointmentConfigOptionMap[this.shareData.appointmentinfo["mcs_appointmentconfigid"]]);
-      // console.log(this.shareData.appointmentConfigOptionMap[this.shareData.appointmentinfo["mcs_appointmentconfigid"]]["name"]);
-      // this.model.test=this.shareData.appointmentConfigOptionMap[this.shareData.appointmentinfo["mcs_appointmentconfigid"]]["name"];
+    }
+
+    if (this.shareData.appointmentinfo["totalcost"] == undefined) {
+      this.shareData.appointmentinfo["totalcost"] = 0;
+    }
+    if (this.shareData.appointmentinfo["totaltime"] == undefined) {
+      this.shareData.appointmentinfo["totaltime"] = 0;
     }
   }
 
-
-  
+  //提交订单
   public saveOnClick() {
     //表单校验
     if (this._valid.isNullOrEmpty(this.shareData.appointmentinfo["mcs_customerid"])) {
@@ -89,7 +91,7 @@ export class ConfirmeditPage implements OnInit {
 
     //组装预约单
     // this.model.postData["appointmentinfo"] = {};
-    this.model.postData["appointmentinfo"]["mcs_appointmentinfoid"] =""// this.model.appointmentinfoId
+    this.model.postData["appointmentinfo"]["mcs_appointmentinfoid"] =this.shareData.appointmentinfo["mcs_appointmentinfoid"];
     this.model.postData["appointmentinfo"]["mcs_ordertype"] = Number(this.shareData.appointmentinfo["mcs_ordertype"]);//预约服务类型
     this.model.postData["appointmentinfo"]["mcs_surplusnum"] = Number(this.shareData.appointmentinfo["mcs_surplusnum"]);//可预约数量
     // this.model.postData["appointmentinfo"]["mcs_customerid"] = this.shareData.appointmentinfo["mcs_customerid"]; // VIN码关联实体ID
@@ -174,7 +176,6 @@ export class ConfirmeditPage implements OnInit {
 
     this.model.bindData = data;
   }
-
 
 
   //日期格式

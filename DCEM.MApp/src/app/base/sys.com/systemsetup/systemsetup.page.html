@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content color="light">
-  <ion-list lines="full">           
+  <ion-list lines="none">           
   </ion-list>
   <ion-list lines="full">
       <ion-item [routerLink]="['/base/sys/message-settings']">
@@ -36,7 +36,7 @@
                 </ion-note>
         </ion-item>
   </ion-list>
-  <ion-list >
+  <ion-list lines="full">
         <ion-item [routerLink]="['/base/sys/about']">
             <ion-icon  color="primary"  slot="start" name="logo-octocat" size="large"></ion-icon>
             <ion-label>
@@ -45,6 +45,14 @@
             <ion-note slot="end" >                     
                     <p>版本 0.0.1</p>   
             </ion-note>
+        </ion-item>
+  </ion-list>
+  <ion-list lines="full">
+        <ion-item [routerLink]="['/base/sys/log']">
+            <ion-icon  color="primary"  slot="start" name="bug" size="large"></ion-icon>
+            <ion-label>
+                <h3>错误日志</h3>
+            </ion-label>
         </ion-item>
   </ion-list>
   <section style="text-align:center;">

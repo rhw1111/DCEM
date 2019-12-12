@@ -187,6 +187,7 @@ export class IndexPage implements OnInit {
 
             },
             (err: any) => {
+                console.log(err);
                 this._page.loadingHide();
                 this._page.alert("消息提示", "数据加载异常");
             }
@@ -229,6 +230,8 @@ export class IndexPage implements OnInit {
         }
         this._page.navigateRoot("/carcenter/carstore/selectattr", null, null);
     }
+
+
     //弹出规格型号
     public async presentSpeclistModal(productKey) {
         let animatStart: AnimationBuilder = (AnimationClass: Animation, baseEl: ShadowRoot, position: string): Promise<Animation> => {

@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar style=\"height:45px;\">\r\n        <ion-buttons slot=\"start\" style=\"margin-top: 3px;\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/tabs/servicecenter\"></ion-back-button>\r\n        </ion-buttons>\r\n        <ion-searchbar placeholder=\"搜索你感兴趣的车型\" style=\" font-size:13px;margin-top: 3px;width:250px;\"></ion-searchbar>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <div style=\"width: 33%;float:left;\">\r\n            <ion-select name=\"clues\" cancelText=\"取消\" okText=\"确认\" style=\"width: 70px;\" [(ngModel)]=\"model.search.mode\">\r\n                <ion-select-option value=\"-1\">车型</ion-select-option>\r\n            </ion-select>\r\n        </div>\r\n        <div style=\"width: 33%;float:left;\">\r\n            <ion-select name=\"clues\" cancelText=\"取消\" okText=\"确认\" style=\"width: 70px;\" [(ngModel)]=\"model.search.price\">\r\n                <ion-select-option value=\"-1\">价格</ion-select-option>\r\n            </ion-select>\r\n        </div>\r\n        <div style=\"width: 33%;float:left;\">\r\n            <ion-select name=\"clues\" cancelText=\"取消\" okText=\"确认\" style=\"width: 70px;\" [(ngModel)]=\"model.search.opack\">\r\n                <ion-select-option value=\"-1\">结构</ion-select-option>\r\n            </ion-select>\r\n        </div>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n        <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\" refreshingText=\"刷新中...\">\r\n        </ion-refresher-content>\r\n    </ion-refresher>\r\n    <ion-list lines=\"full\">\r\n        <div class=\"goods-list\" *ngFor=\"let item of model.datalist \">\r\n            <div class=\"panel\">\r\n                <ion-tab-button class=\"panellist\" [routerLink]=\"['/servicecenter/boutique/detail']\">\r\n                    <div class=\"img\">\r\n                        <img src=\"./assets/img/goods-list.jpg\" />\r\n                    </div>\r\n                    <div class=\"name\">\r\n                        {{item.Name}}\r\n                    </div>\r\n                    <div class=\"price\">\r\n                        ¥{{item.BasePrice}}元\r\n                    </div>\r\n                </ion-tab-button>\r\n            </div>\r\n        </div>\r\n    </ion-list>\r\n\r\n    <ion-row *ngIf=\"model.isending\">\r\n        <ion-col class=\"nodata\" text-center>\r\n            <label style=\"color:gray;\">没有更多内容啦</label>\r\n        </ion-col>\r\n    </ion-row>\r\n\r\n    <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doLoading($event)\">\r\n        <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\">\r\n        </ion-infinite-scroll-content>\r\n    </ion-infinite-scroll>\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\r\n    <ion-toolbar style=\"height:45px;\">\r\n        <ion-buttons slot=\"start\" style=\"margin-top: 3px;\">\r\n            <ion-back-button text=\"返回\" defaultHref=\"/tabs/servicecenter\"></ion-back-button>\r\n        </ion-buttons>\r\n        <!--<ion-searchbar placeholder=\"搜索你感兴趣的车型\" style=\" font-size:13px;margin-top: 3px;width:250px;\"></ion-searchbar>-->\r\n    </ion-toolbar>\r\n    <!--<ion-toolbar>\r\n        <div style=\"width: 33%;float:left;\">\r\n            <ion-select name=\"clues\" cancelText=\"取消\" okText=\"确认\" style=\"width: 70px;\" [(ngModel)]=\"model.search.mode\">\r\n                <ion-select-option value=\"-1\">车型</ion-select-option>\r\n            </ion-select>\r\n        </div>\r\n        <div style=\"width: 33%;float:left;\">\r\n            <ion-select name=\"clues\" cancelText=\"取消\" okText=\"确认\" style=\"width: 70px;\" [(ngModel)]=\"model.search.price\">\r\n                <ion-select-option value=\"-1\">价格</ion-select-option>\r\n            </ion-select>\r\n        </div>\r\n        <div style=\"width: 33%;float:left;\">\r\n            <ion-select name=\"clues\" cancelText=\"取消\" okText=\"确认\" style=\"width: 70px;\" [(ngModel)]=\"model.search.opack\">\r\n                <ion-select-option value=\"-1\">结构</ion-select-option>\r\n            </ion-select>\r\n        </div>\r\n    </ion-toolbar>-->\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-refresher slot=\"fixed\" (ionRefresh)=\"doRefresh($event)\">\r\n        <ion-refresher-content pullingIcon=\"arrow-dropdown\" pullingText=\"下拉刷新\" refreshingSpinner=\"circles\" refreshingText=\"刷新中...\">\r\n        </ion-refresher-content>\r\n    </ion-refresher>\r\n    <ion-list lines=\"full\">\r\n        <div class=\"goods-list\" *ngFor=\"let item of model.datalist \">\r\n            <div class=\"panel\">\r\n                <ion-tab-button class=\"panellist\" [routerLink]=\"['/servicecenter/boutique/detail']\" [queryParams]=\"{id:item.ProductId}\">\r\n                    <div *ngIf=\"item.ImageData.length > 0; then truthyTemplate else falsyTemplate\"></div>\r\n                    <ng-template #truthyTemplate>\r\n                        <div class=\"img\"><img src=\"https://ceo-oss.oss-cn-hangzhou.aliyuncs.com/{{item.ImageData[0].Name}}\" /></div>\r\n                    </ng-template>\r\n                    <ng-template #falsyTemplate>\r\n                        <div class=\"img\"><img src=\"./assets/img/goods-list.jpg\" /></div>\r\n                    </ng-template>\r\n                    <div class=\"name\">\r\n                        {{item.Name}}\r\n                    </div>\r\n                    <div class=\"price\">\r\n                        ¥{{item.BasePrice}}元\r\n                    </div>\r\n                </ion-tab-button>\r\n            </div>\r\n        </div>\r\n    </ion-list>\r\n\r\n    <ion-row *ngIf=\"model.isending\">\r\n        <ion-col class=\"nodata\" text-center>\r\n            <label style=\"color:gray;\">没有更多内容啦</label>\r\n        </ion-col>\r\n    </ion-row>\r\n\r\n    <ion-infinite-scroll #myInfiniteScroll threshold=\"100px\" (ionInfinite)=\"doLoading($event)\">\r\n        <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"加载更多...\">\r\n        </ion-infinite-scroll-content>\r\n    </ion-infinite-scroll>\r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -143,24 +143,24 @@ var ListPage = /** @class */ (function () {
     ListPage.prototype.ngOnInit = function () {
         this.initListLoading();
     };
-    //????
+    //下拉刷新
     ListPage.prototype.doRefresh = function (event) {
         this.model.datalist = [];
         this.model.search.page = 1;
         this.model.isending = false;
         this.getList(event);
     };
-    //?????
+    //加载下一页
     ListPage.prototype.doLoading = function (event) {
         this.model.search.page++;
         this.getList(event);
     };
-    //?????????
+    //初始化页面数据加载
     ListPage.prototype.initListLoading = function () {
         this._page.loadingShow();
         this.getList(null);
     };
-    //??????
+    //获取列表数据
     ListPage.prototype.getList = function (event) {
         var _this = this;
         this._http.postForShopping(this.model.search.apiUrl, {
@@ -169,26 +169,33 @@ var ListPage = /** @class */ (function () {
             PageSize: this.model.search.pageSize,
             PageIndex: this.model.search.page
         }, function (res) {
-            console.log(res);
-            //debugger;
             if (res != null && res.Datas !== null) {
-                //????
+                //绑定数据
                 res.Datas.forEach(function (item) {
+                    var imagedata = [];
+                    if (item.ImageData != null || item.ImageData.length > 0) {
+                        item.ImageData.forEach(function (temp) {
+                            if (temp.Category == 2) {
+                                imagedata.push(temp);
+                            }
+                        });
+                    }
+                    item.ImageData = imagedata;
                     _this.model.datalist.push(item);
                 });
                 event ? event.target.complete() : '';
-                //????????
+                //判断是否有新数据
                 if (res.Datas.length < _this.model.search.pageSize) {
                     event ? event.target.disabled = true : "";
                     _this.model.isending = true;
                 }
             }
             else {
-                _this._page.alert("????", "??????");
+                _this._page.alert("消息提示", "数据加载异常");
             }
             _this._page.loadingHide();
         }, function (err) {
-            _this._page.alert("????", "??????");
+            _this._page.alert("消息提示", "数据加载异常");
             _this._page.loadingHide();
         });
     };
