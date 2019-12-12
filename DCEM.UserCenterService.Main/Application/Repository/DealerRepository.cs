@@ -38,6 +38,18 @@ namespace DCEM.UserCenterService.Main.Application.Repository
                     }
                     filterStr += $@"</condition>";
                 }
+                if (!string.IsNullOrWhiteSpace(dealerListRequest.name))
+                {
+                    filterStr += $@" <condition attribute='mcs_name' operator= 'like' value = '%{dealerListRequest.name}%' />"; 
+                }
+                if (!string.IsNullOrWhiteSpace(dealerListRequest.provinceid))
+                {
+                    filterStr += $@" <condition attribute='mcs_provinceid' operator='eq' value='{dealerListRequest.provinceid}'/>";
+                }
+                if (!string.IsNullOrWhiteSpace(dealerListRequest.cityid))
+                {
+                    filterStr += $@" <condition attribute='mcs_cityid' operator='eq' value='{dealerListRequest.cityid}'/>";
+                }
                 var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
   <entity name='mcs_dealer'>
     <attribute name='mcs_name' />
@@ -52,8 +64,6 @@ namespace DCEM.UserCenterService.Main.Application.Repository
     <filter type='and'>
       <condition attribute='mcs_isparentcompany' operator='eq' value='0' />
       <condition attribute='statecode' operator='eq' value='0' />
-      <condition attribute='mcs_provinceid' operator='eq' value='{dealerListRequest.provinceid}'/>
-      <condition attribute='mcs_cityid' operator='eq' value='{dealerListRequest.cityid}'/>
 {filterStr}
     </filter>
   </entity>
