@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController, NavController, NavParams } from '@ionic/angular';
+import { Component, OnInit,ViewChild } from '@angular/core';
+import { ModalController, NavController, IonBackButton, IonBackButtonDelegate } from '@ionic/angular';
 import { DCore_Http, DCore_Page, DCore_Valid, DCore_ShareData } from '../../../../component/typescript/dcem.core';
 import { SelectDealerComponent } from "app/component/modal/select-dealer/select-dealer.component";
 import { SelectUsercarinfoComponent } from "app/component/modal/select-usercarinfo/select-usercarinfo.component";
@@ -15,6 +15,8 @@ import { Storage_LoginInfo } from '../../../../component/typescript/logininfo.st
 })
 export class EditPage implements OnInit {
 
+  @ViewChild(IonBackButton, null) ionBackButton: IonBackButton;
+  @ViewChild(IonBackButtonDelegate, null) ionBackButtonDelegate: IonBackButtonDelegate;
   model = {
     apiUrl: 'api/uc-appointment-info/GetDetail',
     postApiUrl: 'Api/uc-appointment-info/AddOrEdit',
@@ -103,7 +105,6 @@ export class EditPage implements OnInit {
 
   //确认订单
   public confirmOnClick() {
-    // debugger;
     //表单校验
     if (this._valid.isNullOrEmpty(this.shareData.appointmentinfo["mcs_customerid"])) {
       this._page.presentToastError("请先选择车辆");
@@ -297,7 +298,7 @@ export class EditPage implements OnInit {
     var ordertype = this.shareData.appointmentinfo["mcs_ordertype"];//服务类型
     var appointmentat = this.FormatToDate(this.shareData.appointmentinfo["mcs_appointmentat"]);//预约日期
     var dealerid = this.shareData.appointmentinfo["mcs_dealerid"];
-    if (ordertype != "" && appointmentat != "" && dealerid != "") {
+    if (ordertype != undefined && appointmentat != undefined && dealerid != undefined) {
       //处理预约时段
       this.AppointmentConfigOption(ordertype, appointmentat, dealerid, null);
     }
@@ -312,13 +313,12 @@ export class EditPage implements OnInit {
       var ordertype = this.shareData.appointmentinfo["mcs_ordertype"];//服务类型
       var appointmentat = this.FormatToDate(this.shareData.appointmentinfo["mcs_appointmentat"]);//预约日期
       var dealerid = this.shareData.appointmentinfo["mcs_dealerid"];
-      if (ordertype != "" && appointmentat != "" && dealerid != "") {
+      if (ordertype != undefined && appointmentat != undefined && dealerid != undefined) {
         //处理预约时段
         this.AppointmentConfigOption(ordertype, appointmentat, dealerid, null);
       }
     }
     this.model.isOrderTypeChange = true;
-
   }
 
   //预约日期改变
@@ -335,7 +335,7 @@ export class EditPage implements OnInit {
       var ordertype = this.shareData.appointmentinfo["mcs_ordertype"];
       var appointmentat = this.FormatToDate(this.shareData.appointmentinfo["mcs_appointmentat"]);
       var dealerid = this.shareData.appointmentinfo["mcs_dealerid"];
-      if (ordertype != "" && appointmentat != "") {
+      if (ordertype != undefined && appointmentat != undefined) {
         //处理预约时段
         this.AppointmentConfigOption(ordertype, appointmentat, dealerid, null);
       }
