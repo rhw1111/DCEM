@@ -87,9 +87,9 @@
     <div class="ion-padding loginx">
       <ion-label>
         获取验证码视为您已阅读
-        <input type="button" class="logina" value=" 《用户协议》" />
+        <input type="button" (click)="onRegAgreement('reg001')" class="logina" value=" 《用户协议》" />
         与
-        <input type="button" class="logina" value="《隐私协议》" />
+        <input type="button" (click)="onRegAgreement('reg002')"  class="logina" value="《隐私协议》" />
       </ion-label>
     </div>
     <div class="ion-padding">

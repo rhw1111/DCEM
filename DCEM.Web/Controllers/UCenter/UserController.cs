@@ -246,6 +246,18 @@ namespace DCEM.Web.Controllers
         {
             return await _appUser.getuserscore(userDetailRequest);
         }
+
+        /// <summary>
+        /// 获取注册用户协议
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Route("getagreement")]
+        [HttpPost]
+        public async Task<ValidateResult<CrmEntity>> GetAgreement(Guid id)
+        {
+            return await _appUser.GetAgreement(id);
+        }
     }
 }
 

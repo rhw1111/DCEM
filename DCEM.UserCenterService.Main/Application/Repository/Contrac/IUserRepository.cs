@@ -16,9 +16,11 @@ namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
     using System.Xml.Linq;
+    using System;
 
     public interface IUserRepository
     {
+        Task<XDocument> GetAgreement(Guid id);
         Task<XDocument> LoginAccount(UserLoginRequest request);
         Task<XDocument> GetUser(UserLoginRequest request);
 

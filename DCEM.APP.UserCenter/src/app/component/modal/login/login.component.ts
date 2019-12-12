@@ -3,9 +3,8 @@ import { DCore_Http, DCore_Page, DCore_Valid } from '../../typescript/dcem.core'
 import { Router } from '@angular/router';
 import { ModalController, IonContent, NavParams } from '@ionic/angular';
 import * as $ from 'jquery';
-import { Storage_LoginInfo } from '../../typescript/logininfo.storage';
-import { promise } from 'protractor';
-
+import { RegAgreementComponent } from '../../../component/modal/reg-agreement/reg-agreement.component'
+import { Storage_LoginInfo } from '../../typescript/logininfo.storage'; 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -78,6 +77,19 @@ export class LoginComponent implements OnInit {
       this.mod.model.account = this._logininfo.GetAccount();
     }
     this.OnQuests();
+  }
+
+
+  async onRegAgreement(code) { 
+    const modal = await this.modalCtrl.create({
+      component: RegAgreementComponent,
+      componentProps: {
+          'defcode': code//reg001注册协议;reg002隐私协议; 
+      }
+    });
+    await modal.present();
+    //监听销毁的事件
+    const { data } = await modal.onDidDismiss(); 
   }
 
   //切换到登录界面
