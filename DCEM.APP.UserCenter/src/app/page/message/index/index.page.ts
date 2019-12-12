@@ -50,7 +50,7 @@ export class IndexPage implements OnInit {
         {
           userId: 3,
           user: {
-            face: "assets/img/userhead/user01.jpg",
+            face: "assets/img/logo.png",
             friendType: "Messenger",//Messenger,facebook
           },
           chatText: "你好，最近怎么样？",
@@ -58,7 +58,7 @@ export class IndexPage implements OnInit {
         {
           userId: 1,
           user: {
-            face: "assets/img/head_default.jpg",
+            face: "assets/img/logo.png",
             friendType: "facebook",//Messenger,facebook
           },
           chatText: "还好",
@@ -95,7 +95,7 @@ export class IndexPage implements OnInit {
         {
           userId: 1,
           user: {
-            face: "assets/img/userhead/user03.jpg",
+            face: "assets/img/logo.png",
             friendType: "Messenger",//Messenger,facebook
           },
           chatText: "推荐购买S01车型",
@@ -103,7 +103,7 @@ export class IndexPage implements OnInit {
         {
           userId: 1,
           user: {
-            face: "assets/img/userhead/user03.jpg",
+            face: "assets/img/logo.png",
             friendType: "Messenger",//Messenger,facebook
           },
           chatText: "推荐购买S01车型",
@@ -111,7 +111,7 @@ export class IndexPage implements OnInit {
         {
           userId: 1,
           user: {
-            face: "assets/img/userhead/user03.jpg",
+            face: "assets/img/logo.png",
             friendType: "Messenger",//Messenger,facebook
           },
           chatText: "推荐购买S01车型",
@@ -119,7 +119,7 @@ export class IndexPage implements OnInit {
         {
           userId: 1,
           user: {
-            face: "assets/img/userhead/user03.jpg",
+            face: "assets/img/logo.png",
             friendType: "Messenger",//Messenger,facebook
           },
           chatText: "推荐购买S01车型",

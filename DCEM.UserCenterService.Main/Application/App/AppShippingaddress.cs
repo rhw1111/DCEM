@@ -32,7 +32,7 @@ namespace DCEM.UserCenterService.Main.Application.App
 
 
 
-       public  ValidateResult AddOrUpdate(ShippingaddressAddRequest model)
+       public Task<ValidateResult> AddOrUpdate(ShippingaddressAddRequest model)
         {
             return _shippingaddressService.AddOrUpdate(model);
         }
@@ -46,7 +46,7 @@ namespace DCEM.UserCenterService.Main.Application.App
             return _shippingaddressService.GetDetail(id);
         }
 
-        public ValidateResult Delete(ShippingaddressAddRequest model)
+        public Task<ValidateResult> Delete(ShippingaddressAddRequest model)
             => _shippingaddressService.Delete(model);
     }
 }

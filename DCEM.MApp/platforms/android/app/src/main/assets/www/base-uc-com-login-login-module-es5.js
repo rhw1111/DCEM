@@ -100,10 +100,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var LoginPage = /** @class */ (function () {
     // 定义控制器
-    function LoginPage(_http, _page, _window, _logininfo, authservice, menuCtrl) {
+    function LoginPage(_http, _page, _window, _log, _logininfo, authservice, menuCtrl) {
         this._http = _http;
         this._page = _page;
         this._window = _window;
+        this._log = _log;
         this._logininfo = _logininfo;
         this.authservice = authservice;
         this.menuCtrl = menuCtrl;
@@ -124,8 +125,10 @@ var LoginPage = /** @class */ (function () {
     // 初始化
     LoginPage.prototype.ngOnInit = function () {
         // 加入测试参数
-        this.mod.username = 'subdevcrmadmin';
-        this.mod.password = 'password01#';
+        // this.mod.username = 'subdevcrmadmin';
+        // this.mod.password = 'password01#';
+        this.mod.username = 'crm9admin';
+        this.mod.password = '@Msc.com@';
         //this.mod.username = 'subuatcrmadmin';
         //this.mod.password = 'P@ssw0rd';
         this.mod.apiurl = '/api/User/GetAuthToken';
@@ -151,7 +154,7 @@ var LoginPage = /** @class */ (function () {
                 this.mod.domain = "https://subcrmdevapi.sokon.com/dcem";
                 break;
             case 'CRM9.0':
-                this.mod.domain = "http://106.14.121.65:8082/APP";
+                this.mod.domain = "http://106.14.121.65:8082/dcem";
                 break;
             case 'Uat':
                 this.mod.domain = "https://subcrmuatapi.sokon.com/dcem";
@@ -168,6 +171,7 @@ var LoginPage = /** @class */ (function () {
         }
         this._window.storageSet("apiDomainUrl", this.mod.domain);
         this._page.loadingShow();
+        this._log.WriteInfoLog("开始登录!");
         this._http.get(this.mod.apiurl, {
             params: {
                 username: encodeURIComponent(this.mod.username),
@@ -179,6 +183,7 @@ var LoginPage = /** @class */ (function () {
                 _this._page.loadingHide();
                 return false;
             }
+            _this._log.WriteInfoLog("登录成功！");
             _this._http.setToken(res.access_token, _this.mod.username, _this.mod.password);
             //登录实现
             //this.authservice.login(res.access_token);
@@ -188,8 +193,8 @@ var LoginPage = /** @class */ (function () {
             _this._page.goto("serving/home/tabs");
             //this.navCtr.navigateRoot('serving/home/tabs');
         }, function (err) {
+            _this._log.WriteErrorLog("登录失败：" + err);
             _this._page.loadingHide();
-            //this._page.goto("serving/home/tabs");
             _this._page.alert('消息提示', '登录认证失败');
         });
     };
@@ -197,6 +202,7 @@ var LoginPage = /** @class */ (function () {
         { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Http"] },
         { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Page"] },
         { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Window"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Log"] },
         { type: app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_3__["Storage_LoginInfo"] },
         { type: app_base_base_ser_authentication_service__WEBPACK_IMPORTED_MODULE_4__["AuthenticationService"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"] }
@@ -210,6 +216,7 @@ var LoginPage = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Http"],
             app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Page"],
             app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Window"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_2__["DCore_Log"],
             app_base_base_ser_logininfo_storage__WEBPACK_IMPORTED_MODULE_3__["Storage_LoginInfo"],
             app_base_base_ser_authentication_service__WEBPACK_IMPORTED_MODULE_4__["AuthenticationService"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"]])

@@ -254,9 +254,9 @@ namespace DCEM.Web.Controllers
         /// <returns></returns>
         [Route("getagreement")]
         [HttpPost]
-        public async Task<ValidateResult<CrmEntity>> GetAgreement(Guid id)
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<CrmEntity>>> GetAgreement(UserDetailRequest model)
         {
-            return await _appUser.GetAgreement(id);
+            return await _appUser.GetAgreement(model.id);
         }
     }
 }

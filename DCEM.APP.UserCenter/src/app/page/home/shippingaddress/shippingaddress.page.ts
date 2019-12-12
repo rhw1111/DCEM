@@ -69,24 +69,24 @@ export class ShippingaddressPage implements OnInit {
     this.getList(event);
   }
   //初始化页面数据加载
-  initListLoading() {
-    this._page.loadingShow();
+  initListLoading() { 
     this.getList(null);
   }
 
   //获取列表数据
   getList(event) {
+    this._page.loadingShow();
     this._http.post(this.mod.search.getlisturl,
       {
         PageSize: this.mod.search.pageSize,
         PageIndex: this.mod.search.page,
         mcs_userid: this._logininfo.GetSystemUserId()
       },
-      (res: any) => {
+      (res: any) => { 
         if (res != null && res.Data !== null) {
           this.OnLoadData(res.Data, event);
-          this._page.loadingHide();
         }
+          this._page.loadingHide();
       },
       (err: any) => {
         this._page.alert("消息提示", "数据加载异常");
@@ -118,7 +118,7 @@ export class ShippingaddressPage implements OnInit {
     if (data.length < this.mod.search.pageSize) {
       event ? event.target.disabled = true : "";
       this.mod.isending = true;
-    }
+    } 
   }
 
   OnselectText(id) {
@@ -165,6 +165,7 @@ export class ShippingaddressPage implements OnInit {
 
 
   onPost() {
+    this._page.loadingShow();
     if (this.mod.model.mcs_city == null) {
       this._page.alert("消息提示", "请选择城市");
       return false;
@@ -223,6 +224,7 @@ export class ShippingaddressPage implements OnInit {
   //设置默认
   onIsDef(id, mcs_userid) {
 
+    this._page.loadingShow();
     this._http.post(this.mod.addorupateurl,
       {
         mcs_shippingaddressid: id,
@@ -253,17 +255,19 @@ export class ShippingaddressPage implements OnInit {
   }
 
 
-  onDele(id) {
+  onDele(id,mcs_userid) {
     this._page.confirm("确认提示", "是否删除？", () => {
 
+      this._page.loadingShow();
       this._http.post(this.mod.deleteurl,
         {
+          userid: mcs_userid,
           mcs_shippingaddressid: id
         },
         (res: any) => {
           if (res.Result) {
             this.mod.datalist = [];
-            this.getList(null);
+            this.OnLoadData(res.Data, null);
           }
           else {
             this._page.alert("消息提示", "数据加载异常");

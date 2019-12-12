@@ -40,7 +40,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<ValidateResult<CrmEntity>> GetAgreement(Guid id)
+        public async Task<ValidateResult<CrmEntity>> GetAgreement(string id)
         {
             try
             {

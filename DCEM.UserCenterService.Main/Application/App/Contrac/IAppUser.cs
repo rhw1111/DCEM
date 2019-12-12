@@ -22,7 +22,7 @@ namespace DCEM.UserCenterService.Main.Application.App
 
     public interface IAppUser
     {
-        Task<ValidateResult<CrmEntity>> GetAgreement(Guid id);
+        Task<ValidateResult<CrmEntity>> GetAgreement(string id);
         Task<ValidateResult<CrmEntity>> LoginAccount(UserLoginRequest request);
 
         Task<ValidateResult<CrmEntity>> GetUser(UserLoginRequest request);
