@@ -1,5 +1,5 @@
-﻿{
-  "name": "MyApp",
+{
+  "name": "myapp",
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "https://ionicframework.com/",
@@ -27,7 +27,7 @@
     "@ionic/angular": "^4.7.1",
     "@ionic/storage": "^2.2.0",
     "@types/jquery": "^3.3.31",
-    "cordova-android": "8.1.0",
+    "cordova-android": "^8.1.0",
     "cordova-ios": "^5.1.0",
     "cordova-plugin-app-version": "^0.1.9",
     "cordova-plugin-screen-orientation": "^3.0.2",

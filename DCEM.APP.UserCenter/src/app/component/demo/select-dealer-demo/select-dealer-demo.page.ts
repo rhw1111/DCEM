@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, NavController } from '@ionic/angular';
-import { DCore_Page, DCore_Http, DCore_Valid } from "../../typescript/dcem.core";
+import { ModalController } from '@ionic/angular';
 import { SelectDealerComponent } from "../../modal/select-dealer/select-dealer.component";
 import {SelectDealerListComponent} from "../../modal/select-dealer-list/select-dealer-list.component"
 @Component({

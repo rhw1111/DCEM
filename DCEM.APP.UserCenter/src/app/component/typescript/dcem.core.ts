@@ -51,7 +51,6 @@ export class DCore_Config {
             return map;
         }();
 
-
         this.dcem_host_map = function () {
             var map = new Map<string, any>();
             map.set("dev", "https://subcrmdevapi.sokon.com/dcem/");
@@ -63,7 +62,6 @@ export class DCore_Config {
             return map;
         }();
 
-
         this.tc_host_headers = new HttpHeaders({
             "Content-Type": "application/json;charset=UTF-8",
             "appid": "1001",
@@ -71,10 +69,8 @@ export class DCore_Config {
             "true-client-ip": "10.1.1.1"
         });
 
-
         this.tc_host = this.tc_host_map.get(this.tc_serverName);
         this.dcem_host = this.dcem_host_map.get(this.dcem_serverName);
-
     }
 }
 
