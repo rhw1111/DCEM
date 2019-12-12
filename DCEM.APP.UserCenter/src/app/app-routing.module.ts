@@ -13,6 +13,15 @@ const routes: Routes = [
             {
                 path: 'shippingaddress',
                 loadChildren: () => import('./page/home/shippingaddress/shippingaddress.module').then(m => m.ShippingaddressPageModule)
+            },
+            {
+                path: 'demo',
+                children: [
+                    {
+                        path: 'dealer',
+                        loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
+                    }
+                ]
             }
         ]
     },
@@ -255,15 +264,7 @@ const routes: Routes = [
         path: 'list',
         loadChildren: () => import('./page/servicecenter/shoppingcart/list/list.module').then(m => m.ListPageModule)
     },
-    {
-        path: 'demo',
-        children: [
-            {
-                path: 'dealer',
-                loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
-            }
-        ]
-    },
+    
     {
         path: 'set',
         loadChildren: () => import('./page/home/set/set.module').then(m => m.SetPageModule)

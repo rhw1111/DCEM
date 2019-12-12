@@ -27,10 +27,11 @@ export class SelectDealerListComponent implements OnInit {
     },
     paramets:
     {
+      name: "",
       provinceid: "",
       cityid: "",
     },
-    apiUrl: "/api/delivery/getlist",
+    apiUrl: 'api/dealer/getlist',
     deliverystatusOptions: [],
     search: {
       pageindex: 1,
@@ -38,10 +39,12 @@ export class SelectDealerListComponent implements OnInit {
       searchkey: "",
       deliverystatus: "-1",
     },
-    deliverys: [],
+    dealers: [],
     isending: false
   }
-  ngOnInit() { }
+  ngOnInit() { 
+    this.searchData(null);
+  }
   dismissModal() {
     this.modalCtrl.dismiss({
       'dismissed': true
@@ -90,7 +93,7 @@ export class SelectDealerListComponent implements OnInit {
         if (data.id != null) {
           this.model.paramets.cityid = data.id;
           this.model.info.cityname = data.name;
-          this.searchData();
+          this.searchData(null);
         }
       }
     }
@@ -105,10 +108,18 @@ export class SelectDealerListComponent implements OnInit {
       this.cityModal()
     }
   }
+  //搜索
+  searchOnKeyup(event) {
+    var keyCode = event ? event.keyCode : "";
+    if (keyCode == 13) {
+      this.model.dealers = [];
+      this.searchData(null);
+    }
+  }
+
   //搜索体验店
-  searchData() {
-    // debugger;
-    this.model.data = [];
+  searchData(event) {
+    this.model.dealers = [];
     this._page.loadingShow();
     this._http.post(
       this.model.apiUrl,
@@ -120,13 +131,11 @@ export class SelectDealerListComponent implements OnInit {
             var attr = data[i]["Attributes"];
             var obj = {};
             obj["id"] = data[i]["Id"];
-            obj["mcs_name"] = attr["mcs_name"];
+            obj["name"] = attr["mcs_name"];
             obj["mcs_address"] = attr["mcs_address"];
             obj["mcs_shopaddress"] = attr["mcs_shopaddress"];
             obj["mcs_phone"] = attr["mcs_phone"];
-            obj["mcsx"] = attr["mcs_x"];
-            obj["mcsy"] = attr["mcs_y"];
-            this.model.data.push(obj);
+            this.model.dealers.push(obj);
           }
         }
         else {
@@ -150,10 +159,9 @@ export class SelectDealerListComponent implements OnInit {
     const { data } = await modal.onDidDismiss();
     if (data != null && typeof data != undefined) {
       if (data != null && typeof data != undefined) {
-        if (data.id != null) {
-          this._modalCtrl.dismiss({ 
-            'id': data.id,
-            'name': data.name
+        if (data.id != null) { 
+          this.modalCtrl.getTop().then(() => {
+            this.itemClick(data);
           });
         }
       }
@@ -166,9 +174,10 @@ export class SelectDealerListComponent implements OnInit {
 
   //保存所选项
   itemClick(item) {
+    debugger;
     this._modalCtrl.dismiss({
       'id': item.id,
-      'name': item.mcs_name
+      'name': item.name
     });
   }
 }
