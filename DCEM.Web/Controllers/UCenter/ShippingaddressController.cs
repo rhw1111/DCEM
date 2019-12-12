@@ -71,10 +71,10 @@ namespace DCEM.Web.Controllers
         /// <returns></returns>
         [Route("addorupate")]
         [HttpPost]
-        public NewtonsoftJsonActionResult<ValidateResult<List<CrmEntity>>> AddOrUpdate(ShippingaddressAddRequest model)
+        public async Task< NewtonsoftJsonActionResult<ValidateResult<List<CrmEntity>>>> AddOrUpdate(ShippingaddressAddRequest model)
         {
             ValidateResult<List<CrmEntity>> res = new ValidateResult<List<CrmEntity>>();
-            ValidateResult valres = _app.AddOrUpdate(model);
+            ValidateResult valres = await _app.AddOrUpdate(model);
             if (valres.Result)
             {
                 ShippingaddressListRequest req = new ShippingaddressListRequest();
@@ -93,7 +93,20 @@ namespace DCEM.Web.Controllers
         /// <returns></returns>
         [Route("delete")]
         [HttpPost]
-        public NewtonsoftJsonActionResult<ValidateResult> Delete(ShippingaddressAddRequest model) => _app.Delete(model);
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<List<CrmEntity>>>> Delete(ShippingaddressAddRequest model) {
+            ValidateResult<List<CrmEntity>> res = new ValidateResult<List<CrmEntity>>();
+            ValidateResult valres =await _app.Delete(model);
+            if (valres.Result)
+            {
+                ShippingaddressListRequest req = new ShippingaddressListRequest();
+                req.mcs_userid = model.userid.Value;
+                ValidateResult<List<CrmEntity>> crmres = _app.GetList(req);
+                return crmres;
+            }
+            res.Result = false;
+            res.Description = valres.Description;
+            return res;
+        } 
     }
 }
 

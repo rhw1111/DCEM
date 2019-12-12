@@ -16,6 +16,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
     using System.Xml.Linq;
+    using System;
 
     public class UserRepository : IUserRepository
     {
@@ -130,7 +131,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository
             return await Task<XDocument>.Run(() =>
             {
 
-               
+
 
                 var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
   <entity name='mcs_userkeys'>
@@ -245,5 +246,34 @@ namespace DCEM.UserCenterService.Main.Application.Repository
                 return XDocument.Parse(fetchXml);
             });
         }
+
+
+
+        /// <summary>
+        /// 用户注册协议获取
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<XDocument> GetAgreement(string defcode)
+        {
+            return await Task<XDocument>.Run(() =>
+            {
+
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+                                  <entity name='mcs_frontcontent'>
+                                    <attribute name='mcs_name' />
+                                    <attribute name='mcs_contenttext' />
+                                    <attribute name='mcs_description' />
+                                    <attribute name='mcs_thumbnail' />  
+                                    <filter type='and'>
+                                      <condition attribute='mcs_contentstatus' operator='eq' value='1' /> 
+                                      <condition attribute='mcs_defcode' operator='eq' value='{defcode}' /> 
+                                    </filter>  
+                                  </entity>
+                                </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
+
     }
 }

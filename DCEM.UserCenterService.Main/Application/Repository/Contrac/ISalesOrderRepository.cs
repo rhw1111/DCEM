@@ -16,18 +16,10 @@ namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
     using System.Xml.Linq;
-    using System;
 
-    public interface IUserRepository
+    public interface ISalesOrderRepository
     {
-        Task<XDocument> GetAgreement(string id);
-        Task<XDocument> LoginAccount(UserLoginRequest request);
-        Task<XDocument> GetUser(UserLoginRequest request);
 
-        Task<XDocument> GetSecurityquestion();
-        Task<XDocument> getuserscore(UserDetailRequest userDetailRequest);
-        Task<XDocument> GetUserPwd(UserLoginRequest request);
-        Task<XDocument> getuserscorebalance(UserDetailRequest userDetailRequest);
+        Task<XDocument> GetListFetchXml(SalesOrderListRequest salesOrderListRequest);
     }
-         
 }

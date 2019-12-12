@@ -8,25 +8,29 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DCEM.UserCenterService.Main.Application.Services.Contrac
+namespace DCEM.UserCenterService.Main.Application.App
 {
-    using DCEM.UserCenterService.Main.Application.Repository.Contrac;
+    using DCEM.UserCenterService.Main.Application.App.Contrac;
     using DCEM.UserCenterService.Main.Application.Services.Contrac;
     using DCEM.UserCenterService.Main.ViewModel.Request;
     using DCEM.UserCenterService.Main.ViewModel.Response;
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
-    using MSLibrary;
-    using System.Collections.Generic;
-    using System;
-
-    public interface IShippingaddressService
+    
+    
+    public class AppSalesOrder : IAppSalesOrder
     {
+        
+        public ISalesOrderService _salesorderService;
+        
+        public AppSalesOrder(ISalesOrderService salesorderService)
+        {
+            _salesorderService=salesorderService;
+        }
 
-          Task<ValidateResult> AddOrUpdate(ShippingaddressAddRequest model);
-         ValidateResult<List<CrmEntity>>  GetList(ShippingaddressListRequest request);
-
-          Task<ValidateResult> Delete(ShippingaddressAddRequest model);
-        Task<ValidateResult<CrmEntity>> GetDetail(Guid id);
+        public async Task<SalesOrderListResponse> getlist(SalesOrderListRequest salesOrderListRequest)
+        {
+            return await _salesorderService.getlist(salesOrderListRequest);
+        }
     }
 }
