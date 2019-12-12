@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page } from '../../../../../app/component/typescript/dcem.core';
 import { ActivatedRoute } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import * as $ from 'jquery';
 
 @Component({
@@ -21,6 +22,7 @@ export class PaymentPage implements OnInit {
         private _http: DCore_Http,
         private _page: DCore_Page,
         private routerinfo: ActivatedRoute,
+        private alertController: AlertController,
     ) { }
 
     ngOnInit() {
@@ -71,12 +73,12 @@ export class PaymentPage implements OnInit {
     //支付
     payAmount() {
         this._page.loadingShow();
+        
         this._http.postForShopping(this.model.search.apiUrl, { OrderCode: this.model.datas.OrderCode},
             (res: any) => {
                 if (res != null) {
                     if (res.IsSuccess) {
-                        this._page.alert("消息提示", "订单支付成功");
-                        this._page.navigateRoot("/personalcenter/myorder/fineorder/detail", { code:this.model.datas.OrderCode });
+                        this.presentAlertConfirm();
                     }
                 }
                 else {
@@ -89,5 +91,21 @@ export class PaymentPage implements OnInit {
                 this._page.loadingHide();
             }
         );
+    }
+    //支付成功跳转
+    async presentAlertConfirm() {
+        const alert = await this.alertController.create({
+            header: '支付成功',
+            message: '订单已支付成功',
+            buttons: [
+                {
+                    text: '确定',
+                    handler: () => {
+                        this._page.navigateRoot("/personalcenter/myorder/fineorder/detail", { code: this.model.datas.OrderCode });
+                    }
+                }
+            ]
+        });
+        await alert.present();
     }
 }

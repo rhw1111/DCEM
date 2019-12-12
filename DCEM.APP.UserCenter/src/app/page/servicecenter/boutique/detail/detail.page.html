@@ -31,10 +31,10 @@
         <ion-row>
             <ion-col style="padding-left:20px;margin-top:5px">
                 <ion-label class="lab-proname" style="margin-top:30px">
-                    <p style="font-size:24px; font-weight:500; color:#000;">
+                    <p style="font-size:16px; font-weight:500; color:#000;">
                         {{model.datadetail.Name}}
                     </p>
-                    <p style="margin-top:10px; font-size:16px;">
+                    <p style="margin-top:10px;">
                         {{model.datadetail.Introduction}}
                     </p>
                 </ion-label>
@@ -43,12 +43,12 @@
         <!--价格-->
         <ion-row style="padding-top:20px; padding-bottom:15px">
             <ion-col style="padding-left:20px;font-weight:bold; color:#2FACE5; ">
-                <span style="font-size:18px;">
+                <span>
                     ￥
                 </span>
-                <span style="font-size:24px;">{{model.datadetail.SkuData?.length > 0 ? model.datadetail.SkuData[0].Price : "0.00"}}</span>
+                <span style="font-size:18px;">{{model.datadetail.SkuData?.length > 0 ? model.datadetail.SkuData[0].Price : "0.00"}}</span>
             </ion-col>
-            <ion-col style="padding-right:15px;text-align:right; font-size:16px;">
+            <ion-col style="padding-right:15px;text-align:right;">
                 <ion-label>
                     <p>
                         快递: 包邮
@@ -59,7 +59,7 @@
         <!--规格-->
         <ion-row style="background-color:#F6F6F6;">
             <ion-row (click)="ShowTwoBtn(0)" style="padding:15px 10px; background-color:#fff; width:100%;margin:20px 0;">
-                <ion-col style="padding-left:15px;font-size:16px;">
+                <ion-col style="padding-left:15px;">
                     <ion-label style="color:#000;">
                         选择:
                     </ion-label>
@@ -100,12 +100,15 @@
         </ion-segment>
         <div [ngSwitch]="tab">
             <div *ngSwitchCase="'probably'" style="line-height:0;">
-                <img src="../assets/img/temp/xiaopengdetail1.jpg" />
-                <img src="../assets/img/temp/xiaopengdetail2.jpg" />
-                <img src="../assets/img/temp/xiaopengdetail3.jpg" />
-                <img src="../assets/img/temp/xiaopengdetail4.jpg" />
-                <img src="../assets/img/temp/xiaopengdetail5.jpg" />
-                <img src="../assets/img/temp/xiaopengdetail6.jpg" />
+                <ng-container *ngFor="let item of model.datadetail.ImageData">
+                    <div *ngIf="item.Category == 3; then truesTemplate else falsesTemplate"></div>
+                    <ng-template #truesTemplate>
+                        <img src="https://ceo-oss.oss-cn-hangzhou.aliyuncs.com/{{item.Name}}" />
+                    </ng-template>
+                    <ng-template #falsesTemplate>
+                        <!--不做操作-->
+                    </ng-template>
+                </ng-container>
             </div>
             <div *ngSwitchCase="'aftersale'">
                 <div>
@@ -118,24 +121,24 @@
     <div class="TwoBtnDialog" style="display:none;">
         <div class="div-content">
             <div class="div-skuimg">
-                <img src="../assets/img/temp/xiaopengdetail1.jpg" width="100" height="100" style="border-radius:10px;" />
+                <img src="{{model.defaultimg}}" width="100" height="100" style="border-radius:10px;" />
             </div>
             <div style="margin-left:30px;">
-                <div style="font-size:24px;margin-bottom:35px;">{{model.datadetail.Name}}</div>
-                <div style="font-size:16px; color:#38B3EE">
+                <div style="font-size:16px;margin-bottom:35px;">{{model.datadetail.Name}}</div>
+                <div style="color:#38B3EE">
                     ￥
                     <div *ngIf="model.datadetail.SkuData?.length > 0; then truthysTemplate else falsysTemplate"></div>
                     <ng-template #truthysTemplate>
-                        <span class="span-price" style="font-size:24px;">{{model.datadetail.SkuData[0].Price}}</span>
+                        <span class="span-price" style="font-size:18px;">{{model.datadetail.SkuData[0].Price}}</span>
                     </ng-template>
                     <ng-template #falsysTemplate>
-                        <span class="span-price" style="font-size:24px;">0.00</span>
+                        <span class="span-price" style="font-size:18px;">0.00</span>
                     </ng-template>
                 </div>
             </div>
         </div>
         <div style="padding: 0 30px 20px 30px;">
-            <div style="margin-bottom:10px;font-size:20px;">数量</div>
+            <div style="margin-bottom:10px;font-size:16px;">数量</div>
             <div>
                 <button (click)="changeValue(-1)" class="decrease icon-reduce" type="button">-</button>
                 <input type="number" class="spinners" value="1" readonly="readonly" maxlength="2">
@@ -148,7 +151,7 @@
                 <div class="div-attr">
                     <ng-container *ngFor="let v of item.Values">
                         <input value="{{v.Value}}" type="radio" name="standard{{item.AttrId}}" style="display:none;" title="{{v.checked}}" />
-                        <a class="{{v.active}}" (click)="OptionBtnCheck($event)">{{v.Value}}</a>
+                        <a class="{{v.active}}" (click)="OptionBtnCheck($event,v.MainImage)">{{v.Value}}</a>
                     </ng-container>
                 </div>
             </ng-container>
@@ -167,16 +170,17 @@
 
 <ion-tab-bar slot="bottom">
     <ion-tab-button [routerLink]="['/servicecenter/shoppingcart/list']" style="max-width:110px;">
-        <ion-icon name="aperture"></ion-icon>
+        <!--<ion-icon name="aperture"></ion-icon>-->
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="32" height="32" t="1576145933524" p-id="1544" version="1.1"><path d="M 520.195 741.379 c -98.8201 0 -177.097 -0.404793 -186.812 -1.65712 c -32.5732 -4.18708 -47.4999 -32.6238 -51.181 -48.7649 l -0.101198 -0.468042 L 150.024 48.0692 l 0.366844 -2.8715 A 12.1311 12.1311 0 0 0 148.886 44.2742 H 45.6633 a 22.1371 22.1371 0 0 1 0 -44.2742 h 110.23 l 2.80825 0.746337 a 57.2529 57.2529 0 0 1 18.1777 8.98135 c 11.9414 8.93075 18.3042 21.8715 17.8615 36.0013 l 130.622 635.31 c 0.505991 1.80892 4.16178 13.5479 13.6871 14.7749 c 21.7829 2.28961 388.348 1.15113 629.428 -0.177097 h 0.126498 a 22.1371 22.1371 0 0 1 0.113848 44.2742 c -39.6065 0.215046 -275.462 1.46738 -448.523 1.46738 Z M 150.492 44.2742 Z" p-id="1545" /><path d="M 286.427 600.865 a 22.1371 22.1371 0 0 1 -3.30159 -44.0212 l 585.685 -89.1936 l 80.44 -293.475 H 198.726 a 22.1371 22.1371 0 1 1 0 -44.2742 h 779.606 a 22.1371 22.1371 0 0 1 21.3528 27.994 L 907.746 493.228 a 22.1371 22.1371 0 0 1 -18.0133 16.0273 l -599.941 91.3694 a 22.3522 22.3522 0 0 1 -3.36484 0.240346 Z M 442.942 1024 a 118.048 118.048 0 1 1 118.048 -118.048 a 118.174 118.174 0 0 1 -118.048 118.048 Z m 0 -191.809 a 73.7735 73.7735 0 1 0 73.7735 73.7735 a 73.8494 73.8494 0 0 0 -73.7735 -73.7735 Z M 842.473 1024 a 118.048 118.048 0 1 1 118.048 -118.048 a 118.174 118.174 0 0 1 -118.048 118.048 Z m 0 -191.809 a 73.7735 73.7735 0 1 0 73.7735 73.7735 a 73.8494 73.8494 0 0 0 -73.7735 -73.7735 Z" p-id="1546" /></svg>
         <ion-badge *ngIf="Isbadge" color="danger">{{BadgeCount}}</ion-badge>
     </ion-tab-button>
 
     <ion-tab-button tab="servicecenter" (click)="ShowTwoBtn(1)">
-        <ion-label style="font-size:20px; color:#000;">加入购物车</ion-label>
+        <ion-label style="font-size:16px; color:#000;">加入购物车</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="personalcenter" (click)="ShowTwoBtn(2)" style="background-color:#38B3EE;">
-        <ion-label style="font-size:20px; color:#fff;">立即购买</ion-label>
+        <ion-label style="font-size:16px; color:#fff;">立即购买</ion-label>
     </ion-tab-button>
 </ion-tab-bar>
 

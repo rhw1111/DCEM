@@ -17,5 +17,10 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         public string score { get; set; }
         public string describe { get; set; }
         public string dealerid { get; set; }
+        /// <summary>
+        /// 用户行为
+        /// </summary>
+        public string behaviorid { get; set; }
+        
     }
 }
