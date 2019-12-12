@@ -9,15 +9,26 @@
     <ion-searchbar animated [(ngModel)]="model.search.searchkey" placeholder="搜索经销商或者地址"
       (keyup)="searchOnKeyup($event)"></ion-searchbar>
     <ion-note slot="end">
-      <ion-chip>
-        <ion-label>北京</ion-label>
+      <ion-chip (click)="provinceOnClick()">
+        <ion-label>{{model.info.provincename}}</ion-label>
       </ion-chip>
     </ion-note>
     <ion-note slot="end">
-      <ion-chip>
-        <ion-label>地图</ion-label>
+      <ion-chip (click)="cityOnClick()">
+        <ion-label>{{model.info.cityname}}</ion-label>
       </ion-chip>
     </ion-note>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-item-group>
+      <ion-item-divider primary>
+        <ion-note slot="end">
+          <ion-chip color="primary" (click)="mapModalClick()"> 
+            <ion-label style="margin: 10px;">地 图</ion-label>
+          </ion-chip>
+        </ion-note>
+      </ion-item-divider>
+    </ion-item-group>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -30,7 +41,7 @@
       </ion-label>
       <ion-note slot="end">
         <ion-chip>
-          <ion-label>确认选择</ion-label>
+          <ion-label (click)="itemClick()">确认选择</ion-label>
         </ion-chip>
       </ion-note>
     </ion-item>
