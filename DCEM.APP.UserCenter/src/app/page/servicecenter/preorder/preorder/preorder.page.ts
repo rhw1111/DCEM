@@ -16,7 +16,8 @@ export class PreorderPage implements OnInit {
         },
         title: "订单信息",
         datas: {},
-        totalprice: 0
+        totalprice: 0,
+        carList: {},
     };
     public mod: any = {
         isending: false,//是否加载完成  
@@ -122,6 +123,9 @@ export class PreorderPage implements OnInit {
             (res: any) => {
                 if (res != null) {
                     if (res.IsSuccess) {
+                        if (this.model.datas.source == "cart") {
+                            this.removeCart();
+                        }
                         var returndata = {
                             "OrderCode": res.OrderCode,
                             "TotalPrice": this.model.totalprice
@@ -232,6 +236,34 @@ export class PreorderPage implements OnInit {
             data.Products.push(product);
         });
         return data;
+    }
+
+    //删除已提交的购物车
+    removeCart() {
+        var storage = window.localStorage;
+        var cardata = storage.getItem("singlecar");
+        if (cardata != null) {
+            var carlist = JSON.parse(cardata);
+            var datas;
+            carlist.datas.forEach(res => {
+                var flag = true;
+                this.model.datas.datas.forEach(r => {
+                    if (res.skucode == r.skucode) {
+                        flag = false;
+                        return false;
+                    }
+                })
+                if (flag) {
+                    datas.push(res);
+                }
+            });
+            if (datas) {
+                this.model.carList.datas = datas;
+                storage.setItem("singlecar", this.model.carList);
+            } else {
+                storage.removeItem("singlecar");
+            }
+        }
     }
 
     Gen(len) {

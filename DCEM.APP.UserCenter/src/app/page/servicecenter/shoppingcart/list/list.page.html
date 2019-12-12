@@ -36,8 +36,8 @@
                 <div>{{item.productname}}</div>
                 <div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:14px;margin:10px 0;color:#a5a2a2;">{{item.skuname}}</div>
                 <div style="display:flex;justify-content:space-between;">
-                    <div style="width:60%;color:#38B3EE;font-size:18px;line-height:35px;">￥ {{item.price}}</div>
-                    <div style="width:40%;">
+                    <div style="width:60%;color:#38B3EE;line-height:35px;">￥ {{item.price}}</div>
+                    <div style="width:40%;line-height:35px;">
                         <button (click)="changeValue($event,-1)" class="decrease icon-reduce" type="button" value="{{item.skucode}}">-</button>
                         <input type="number" class="spinners" value="{{item.num}}" readonly="readonly" maxlength="2">
                         <button (click)="changeValue($event,1)" class="increase icon-add" type="button" value="{{item.skucode}}">+</button>
@@ -62,18 +62,18 @@
 <!--底部栏-->
 <ion-tab-bar slot="bottom">
     <ion-tab-button (click)="changeAll($event)" style="max-width:110px;">
-        <span style="display:inline-flex;font-size:18px;color:#000;">
+        <span style="display:inline-flex;font-size:16px;color:#000;">
             <ion-checkbox [(checked)]="model.cartList.checkAll"></ion-checkbox>
             <span style="padding-left:5px;">全选</span>
         </span>
     </ion-tab-button>
     <ion-tab-button tab="servicecenter">
-        <span class="span-total" style="font-size:20px;">合计:<span style="color:#38B3EE;">￥{{model.cartList.totalprice}}</span></span>
+        <span class="span-total" style="font-size:16px;">合计:<span style="color:#38B3EE;">￥{{model.cartList.totalprice}}</span></span>
     </ion-tab-button>
     <ion-tab-button tab="personalcenter" (click)="BuyPro()" class="tab-cac tab-background-5a5" disabled>
-        <ion-label style="font-size:18px; color:#fff;">去结算</ion-label>
+        <ion-label style="font-size:16px; color:#fff;">去结算</ion-label>
     </ion-tab-button>
     <ion-tab-button tab="personalcenter" (click)="removeCart()" class="tab-hide tab-background-5a5" disabled>
-        <ion-label style="font-size:18px; color:#fff;">删除所选</ion-label>
+        <ion-label style="font-size:16px; color:#fff;">删除所选</ion-label>
     </ion-tab-button>
 </ion-tab-bar>

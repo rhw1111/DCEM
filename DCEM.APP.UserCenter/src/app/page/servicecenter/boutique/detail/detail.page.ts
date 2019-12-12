@@ -17,7 +17,8 @@ export class DetailPage implements OnInit {
             productCode: "",
         },
         title: "商品详情",
-        datadetail: {}
+        datadetail: {},
+        defaultimg:""
     };
     //IsShowTwoBtnDialog: boolean = false;
     ShowType: any;
@@ -64,6 +65,7 @@ export class DetailPage implements OnInit {
                             for (var k = 0; k < res.SkuData[i].Arrts[j].Values.length; k++) {
                                 tempValue += res.SkuData[i].Arrts[j].Values[k].Value;
                                 tempValue += " ";
+                                this.model.defaultimg = res.SkuData[0].Arrts[0].Values[0].MainImage
                             }
                         }
                         tempValue = tempValue.length > 0 ? (tempValue.substring(0, tempValue.length - 1)) : "";
@@ -83,6 +85,7 @@ export class DetailPage implements OnInit {
                     }
                     //绑定数据
                     this.model.datadetail = res;
+                    console.log(this.model.datadetail);
                     event ? event.target.complete() : '';
                 }
                 else {
@@ -157,7 +160,7 @@ export class DetailPage implements OnInit {
     }
 
     //选择规格
-    OptionBtnCheck(event) {
+    OptionBtnCheck(event, mainimage) {
         var _that = event.target;
         $(_that).addClass("active");
         $(_that).prev("input[type=radio]").attr("title", "checked");
@@ -181,6 +184,7 @@ export class DetailPage implements OnInit {
                 }
             }
         });
+        $(".div-skuimg img").attr("src", mainimage);
     }
 
     //确认选择规格
