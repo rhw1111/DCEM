@@ -160,19 +160,22 @@ export class IndexPage implements OnInit {
                                         that.shareData.productSpecificationViewClassMap[productKey][productSpecificationClassKey]["productSpecificationArray"].push(productSpecification);
                                     }();
                                 }
+
+
+                                //组装产品图片
+                                let asseProductClassImage = function () {
+                                    for (var productImage of productImageArray) {
+                                        //if (that.objectKeys(that.shareData.productImageViewMap).length > 4)
+                                        //    break;
+                                        if (productImage["mcs_imagetype"] === 2) {
+                                            var productImageKey = productImage["mcs_tc_productimageid"];
+                                            that.shareData.productImageViewMap[productImageKey] = productImage;
+                                        }
+                                    }
+                                }();
                             }
                         }();
-                        //组装产品图片
-                        let asseProductClassImage = function () {
-                            for (var productImage of productImageArray) {
-                                //if (that.objectKeys(that.shareData.productImageViewMap).length > 4)
-                                //    break;
-                                if (productImage["mcs_imagetype"] === 2) {
-                                    var productImageKey = productImage["mcs_tc_productimageid"];
-                                    that.shareData.productImageViewMap[productImageKey] = productImage;
-                                }
-                            }
-                        }();
+                   
                         //}
                     }
 
