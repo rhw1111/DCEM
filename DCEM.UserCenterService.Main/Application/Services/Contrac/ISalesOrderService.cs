@@ -8,26 +8,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
+namespace DCEM.UserCenterService.Main.Application.Services.Contrac
 {
     using DCEM.UserCenterService.Main.Application.Repository.Contrac;
+    using DCEM.UserCenterService.Main.Application.Services.Contrac;
     using DCEM.UserCenterService.Main.ViewModel.Request;
     using DCEM.UserCenterService.Main.ViewModel.Response;
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
-    using System.Xml.Linq;
-    using System;
-
-    public interface IUserRepository
+    
+    
+    public interface ISalesOrderService
     {
-        Task<XDocument> GetAgreement(Guid id);
-        Task<XDocument> LoginAccount(UserLoginRequest request);
-        Task<XDocument> GetUser(UserLoginRequest request);
 
-        Task<XDocument> GetSecurityquestion();
-        Task<XDocument> getuserscore(UserDetailRequest userDetailRequest);
-        Task<XDocument> GetUserPwd(UserLoginRequest request);
-        Task<XDocument> getuserscorebalance(UserDetailRequest userDetailRequest);
+        Task<SalesOrderListResponse> getlist(SalesOrderListRequest salesOrderListRequest);
     }
-         
 }
