@@ -17,7 +17,8 @@ export class RegAgreementComponent implements OnInit {
     model: {
       mcs_contenttext: "",
       mcs_description: "",
-      mcs_thumbnail: ""
+      mcs_thumbnail: "",
+      mcs_name:""
     }
   }
   constructor(private modalCtrl: ModalController,
@@ -30,14 +31,22 @@ export class RegAgreementComponent implements OnInit {
 
     this.getagreement(_navParams.get('defcode'));
   }
-
+  onReturn(islogin) {
+    this.modalCtrl.dismiss({
+      'login': islogin
+    });
+  }
   getagreement(code) {
-    debugger;
+    var postData = {
+      id: code
+    };
     this._http.post(
       this.mod.url,
-        code  ,
-      (res: any) => {
+      postData
+       ,
+      (res: any) => { 
         if (res.Result == true) {
+          this.mod.model.mcs_name = res.Data["Attributes"]["mcs_name"];
           this.mod.model.mcs_contenttext = res.Data["Attributes"]["mcs_contenttext"];
           this.mod.model.mcs_description = res.Data["Attributes"]["mcs_description"];
           this.mod.model.mcs_thumbnail = res.Data["Attributes"]["mcs_thumbnail"];

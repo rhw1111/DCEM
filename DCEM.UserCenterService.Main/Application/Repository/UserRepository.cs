@@ -254,19 +254,20 @@ namespace DCEM.UserCenterService.Main.Application.Repository
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<XDocument> GetAgreement(Guid id)
+        public async Task<XDocument> GetAgreement(string defcode)
         {
             return await Task<XDocument>.Run(() =>
             {
 
                 var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
                                   <entity name='mcs_frontcontent'>
+                                    <attribute name='mcs_name' />
                                     <attribute name='mcs_contenttext' />
                                     <attribute name='mcs_description' />
                                     <attribute name='mcs_thumbnail' />  
                                     <filter type='and'>
                                       <condition attribute='mcs_contentstatus' operator='eq' value='1' /> 
-                                      <condition attribute='mcs_defcode' operator='eq' value='{id}' /> 
+                                      <condition attribute='mcs_defcode' operator='eq' value='{defcode}' /> 
                                     </filter>  
                                   </entity>
                                 </fetch>";

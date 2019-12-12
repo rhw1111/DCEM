@@ -73,7 +73,7 @@
                              <h3>试驾反馈</h3>
                          </ion-label>
                      </ion-item>
-                     <ion-item [routerLink]="['/shippingaddress']">
+                     <ion-item [routerLink]="['/shippingaddress']" *ngIf="this._logininfo.GetAccount() != null">
                         <svg t="1575530143982" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2163" width="30" height="30"><path d="M560 304a48 48 0 1 0-48 48 48 48 0 0 0 48-48z m64 0a112 112 0 1 1-112-112 112 112 0 0 1 112 112z" p-id="2164" fill="#bfbfbf"></path><path d="M256 314.24A253.44 253.44 0 0 1 512 64a253.44 253.44 0 0 1 256 250.24 248.96 248.96 0 0 1-128 216l-101.12 97.92a42.24 42.24 0 0 1-58.88 0l-105.6-102.4A248 248 0 0 1 256 314.24z m239.68 267.84z m32 0zM512 567.36L602.88 480l3.84-1.92a185.6 185.6 0 0 0 96-162.24A189.12 189.12 0 0 0 512 128a189.12 189.12 0 0 0-192 186.24 184.96 184.96 0 0 0 91.52 160l3.2 1.92 2.88 2.56z" p-id="2165" fill="#bfbfbf"></path><path d="M787.52 608H704a32 32 0 0 1 0-64h106.56a32 32 0 0 1 32 21.76l85.44 256A32 32 0 0 1 896 864H128a32 32 0 0 1-32-42.24l85.44-256a32 32 0 0 1 32-21.76H320a32 32 0 0 1 0 64h-83.52l-64 192h679.04z" p-id="2166" fill="#bfbfbf"></path><path d="M416 736a32 32 0 0 1 0-64h192a32 32 0 0 1 0 64z" p-id="2167" fill="#bfbfbf"></path></svg>
                         <ion-label style="margin-left:20px;">
                             <h3>收货地址</h3>

@@ -22,13 +22,13 @@ namespace DCEM.UserCenterService.Main.Application.App.Contrac
 
     public interface IAppShippingaddress
     {
-        ValidateResult AddOrUpdate(ShippingaddressAddRequest model);
+        Task<ValidateResult> AddOrUpdate(ShippingaddressAddRequest model);
 
         ValidateResult<List<CrmEntity>>  GetList(ShippingaddressListRequest request);
 
         Task<ValidateResult<CrmEntity>> GetDetail(Guid id);
 
-        ValidateResult Delete(ShippingaddressAddRequest model);
+        Task<ValidateResult> Delete(ShippingaddressAddRequest model);
 
 
     }

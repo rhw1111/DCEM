@@ -238,7 +238,7 @@ export class LoginComponent implements OnInit {
             this.disstatus = 4;
           else {
             this.LoginModel(res.Data);
-            this.onReturn(true);
+            this.onReturn(true); 
           }
         }
         else {
