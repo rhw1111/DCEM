@@ -153,7 +153,9 @@ var DetailPage = /** @class */ (function () {
     }
     DetailPage.prototype.ngOnInit = function () {
         //id为参数名字
+        console.log();
         this.id = this.routerinfo.snapshot.queryParams["id"];
+        console.log(this.id);
         this.initListLoading(this.id);
     };
     //初始化页面数据加载
