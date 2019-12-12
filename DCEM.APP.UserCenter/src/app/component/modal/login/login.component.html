@@ -19,7 +19,7 @@
         <ion-label>账号登录</ion-label>
       </ion-segment-button>
       <ion-segment-button value="phone">
-        <ion-label>电话号码登录</ion-label>
+        <ion-label>手机号码登录</ion-label>
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
@@ -45,7 +45,7 @@
     <div *ngSwitchCase="'phone'">
       <ion-card-content>
         <ion-item>
-          <ion-input type="tel" maxlength="11" placeholder="输入您的电话号码" [(ngModel)]="mod.model.account"></ion-input>
+          <ion-input type="tel" maxlength="11" placeholder="输入您的手机号码" [(ngModel)]="mod.model.account"></ion-input>
         </ion-item>
 
       </ion-card-content>
@@ -69,7 +69,7 @@
 </ion-content>
 
 
-<!-- 注册电话号码页面 -->
+<!-- 注册手机号码页面 -->
 <ion-content *ngIf="disstatus==3">
   <ion-card-header style="margin-bottom: 50px;">
     <ion-card-title style="height: 50px;"> 您好，</ion-card-title>
@@ -79,7 +79,7 @@
   <ion-card-content>
     <ion-card-content>
       <ion-item>
-        <ion-input type="tel" maxlength="11" placeholder="输入您的电话号码" [(ngModel)]="mod.model.account"></ion-input>
+        <ion-input type="tel" maxlength="11" placeholder="输入您的手机号码" [(ngModel)]="mod.model.account"></ion-input>
       </ion-item>
 
     </ion-card-content>
@@ -187,6 +187,16 @@
         </ion-col>
       </ion-row>
     </ion-item>
+    <ion-item style="font-size: 1rem;">
+      <ion-row style="width: 100%;">
+        <ion-col size="2">
+          <ion-label style="line-height: 40px;">确认密码</ion-label>
+        </ion-col>
+        <ion-col size="10">
+          <ion-input type="password" placeholder="确认密码" [(ngModel)]="mod.model.pwd1"></ion-input>
+        </ion-col>
+      </ion-row>
+    </ion-item>
   </ion-card-content>
   <ion-card-header>
     <ion-card-title>安全问题</ion-card-title>
@@ -194,8 +204,7 @@
   <ion-card-content>
     <ion-item style="font-size: 1rem;">
       <ion-select [(ngModel)]="mod.model.quest1" style="width: 100%;max-width: 100%;" okText="确认" cancelText="取消">
-        <ion-select-option value="">安全问题选择</ion-select-option>
-        <ion-select-option *ngFor="let item of  mod.questiondata;let key=index"
+         <ion-select-option *ngFor="let item of  mod.questiondata;let key=index"
           [value]="item['mcs_securityquestionid']">
           {{item['mcs_name']}}
         </ion-select-option>
@@ -206,7 +215,6 @@
     </ion-item>
     <ion-item style="font-size: 1rem;">
       <ion-select [(ngModel)]="mod.model.quest2" style="width: 100%;max-width: 100%;" okText="确认" cancelText="取消">
-        <ion-select-option value="">安全问题选择</ion-select-option>
         <ion-select-option *ngFor="let item of  mod.questiondata;let key=index"
           [value]="item['mcs_securityquestionid']">
           {{item['mcs_name']}}
@@ -218,8 +226,7 @@
     </ion-item>
     <ion-item style="font-size: 1rem;">
       <ion-select [(ngModel)]="mod.model.quest3" style="width: 100%;max-width: 100%;" okText="确认" cancelText="取消">
-        <ion-select-option value="">安全问题选择</ion-select-option>
-        <ion-select-option *ngFor="let item of  mod.questiondata;let key=index"
+         <ion-select-option *ngFor="let item of  mod.questiondata;let key=index"
           [value]="item['mcs_securityquestionid']">
           {{item['mcs_name']}}
         </ion-select-option>
@@ -310,19 +317,4 @@
 </ion-content>
 
 
-<!-- 密码重置成功页面 -->
-<ion-content *ngIf="disstatus==7">
-  <img src="../../../../assets/img/bg_suc.jpg" style="position: absolute;left:0px;top:0px;">
-  <img src="../../../../assets/img/bg_suc_img.png" style="position: absolute;left:0px;top:0px;">
-  <ion-card-content style="top: 50%;">
-    <ion-card-header style="text-align: center;background-color: #ff000000;">
-      <ion-card-title style="height: 50px;color:white"> 成功</ion-card-title>
-      <ion-card-subtitle class="loginsubtitle" style="color:white"> 您已成功更改密码。登录时请使用新密码</ion-card-subtitle>
-    </ion-card-header>
-    <div class="ion-padding">
-      <ion-button   style="width: 100%;" strong type="button" (click)="OnLogin()">
-        马上登录
-      </ion-button>
-    </div>
-  </ion-card-content>
-</ion-content>
+ 

@@ -21,8 +21,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
     public class UserService : IUserService
     {
 
-        private ICrmService _crmService;
-
+        private ICrmService _crmService; 
         public IUserRepository _repository;
         private const string entityName = "mcs_user";
         private string dicHeadKey;

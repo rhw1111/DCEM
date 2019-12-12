@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   public valmsg: any = '';//验证消息显示开关
   public inputphonedisabled: boolean = false;//修改密码手机号只读开关
   //界面切换开关 1 登录输入；2登录验证码输入；5 注册验证码输入；3 注册电话号码页面；4 注册个人信息输入页面 
-  //6 忘记密码手机号码录入界面；//7 密码重置成功页面 ;8 修改密码
+  //6 忘记密码手机号码录入界面； 8 修改密码
   public disstatus: any = 1;
   public mod: any = {
     loginurl: 'api/user/loginaccount',//账号登录url
@@ -321,6 +321,11 @@ export class LoginComponent implements OnInit {
       return false;
     }
 
+    if (this.mod.model.pwd != this.mod.model.pwd1) {
+      this._page.alert("消息提示", "密码不匹配！");
+      return false;
+    }
+
     this._page.loadingShow();
     var postData = {
       account: this.mod.model.account,
@@ -473,7 +478,8 @@ export class LoginComponent implements OnInit {
         if (res.Result == true) {
           this._page.loadingHide();
           if (this.disstatus == 6) {
-            this.disstatus = 7;
+            this._page.alert("消息提示", "更改成功!");
+            this.disstatus = 1;
           } else {
             this._page.alert("消息提示", "更改成功!");
             this._page.goto("/tabs/personalcenter");
