@@ -77,7 +77,7 @@ export class EditPage implements OnInit {
     //其他服务包
     this.PackOtherOption();
     this._activeRoute.queryParams.subscribe((params: Params) => {
-      debugger;
+      // debugger;
       if (this._shareData.has(this.model.shareDataKey)) {
         this.shareData = this._shareData.get(this.model.shareDataKey);
       }
@@ -103,7 +103,7 @@ export class EditPage implements OnInit {
 
   //确认订单
   public confirmOnClick() {
-    debugger;
+    // debugger;
     //表单校验
     if (this._valid.isNullOrEmpty(this.shareData.appointmentinfo["mcs_customerid"])) {
       this._page.presentToastError("请先选择车辆");
@@ -460,7 +460,7 @@ export class EditPage implements OnInit {
 
   //获取里程对应的推荐服务包
   public MileageChange() {
-    debugger;
+    // debugger;
     var mileageid = this.shareData.appointmentinfo['mcs_mileageid']
     if (mileageid != undefined) {
       this.shareData.packOptionMap = {};

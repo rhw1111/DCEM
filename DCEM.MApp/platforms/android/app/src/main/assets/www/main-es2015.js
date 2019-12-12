@@ -36,6 +36,14 @@ var map = {
 		"./src/app/base/sys.com/change-password/change-password.module.ts",
 		"base-sys-com-change-password-change-password-module"
 	],
+	"./base/sys.com/log/log.module": [
+		"./src/app/base/sys.com/log/log.module.ts",
+		"base-sys-com-log-log-module"
+	],
+	"./base/sys.com/loginfo/loginfo.module": [
+		"./src/app/base/sys.com/loginfo/loginfo.module.ts",
+		"base-sys-com-loginfo-loginfo-module"
+	],
 	"./base/sys.com/message-settings/message-settings.module": [
 		"./src/app/base/sys.com/message-settings/message-settings.module.ts",
 		"base-sys-com-message-settings-message-settings-module"
@@ -106,7 +114,6 @@ var map = {
 	"./saleing/mc-vehorder.com/detail/detail.module": [
 		"./src/app/saleing/mc-vehorder.com/detail/detail.module.ts",
 		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
-		"common",
 		"saleing-mc-vehorder-com-detail-detail-module"
 	],
 	"./saleing/mc-vehorder.com/list/list.module": [
@@ -117,7 +124,6 @@ var map = {
 	"./saleing/mcs-account.com/detail/detail.module": [
 		"./src/app/saleing/mcs-account.com/detail/detail.module.ts",
 		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
-		"common",
 		"saleing-mcs-account-com-detail-detail-module"
 	],
 	"./saleing/mcs-account.com/edit/edit.module": [
@@ -149,7 +155,6 @@ var map = {
 	"./saleing/mcs-cultivatetask.com/detail/detail.module": [
 		"./src/app/saleing/mcs-cultivatetask.com/detail/detail.module.ts",
 		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
-		"common",
 		"saleing-mcs-cultivatetask-com-detail-detail-module"
 	],
 	"./saleing/mcs-cultivatetask.com/edit/edit.module": [
@@ -177,7 +182,6 @@ var map = {
 	"./saleing/mcs-onlylead.com/detail/detail.module": [
 		"./src/app/saleing/mcs-onlylead.com/detail/detail.module.ts",
 		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
-		"common",
 		"saleing-mcs-onlylead-com-detail-detail-module"
 	],
 	"./saleing/mcs-onlylead.com/edit/edit.module": [
@@ -195,7 +199,6 @@ var map = {
 	],
 	"./saleing/mcs_driverecord.com/calendar/calendar.module": [
 		"./src/app/saleing/mcs_driverecord.com/calendar/calendar.module.ts",
-		"common",
 		"saleing-mcs_driverecord-com-calendar-calendar-module"
 	],
 	"./saleing/mcs_driverecord.com/detail/detail.module": [
@@ -206,7 +209,6 @@ var map = {
 	"./saleing/mcs_driverecord.com/edit/edit.module": [
 		"./src/app/saleing/mcs_driverecord.com/edit/edit.module.ts",
 		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
-		"common",
 		"saleing-mcs_driverecord-com-edit-edit-module"
 	],
 	"./saleing/mcs_driverecord.com/feedback/feedback.module": [
@@ -226,7 +228,6 @@ var map = {
 	"./saleing/mcs_installationorder/detail/detail.module": [
 		"./src/app/saleing/mcs_installationorder/detail/detail.module.ts",
 		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
-		"common",
 		"saleing-mcs_installationorder-detail-detail-module"
 	],
 	"./saleing/mcs_installationorder/list/list.module": [
@@ -237,7 +238,6 @@ var map = {
 	"./saleing/mcs_surveyorder/detail/detail.module": [
 		"./src/app/saleing/mcs_surveyorder/detail/detail.module.ts",
 		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
-		"common",
 		"saleing-mcs_surveyorder-detail-detail-module"
 	],
 	"./saleing/mcs_surveyorder/list/list.module": [
@@ -300,7 +300,6 @@ var map = {
 	],
 	"./serving/maintenance/calendar/calendar.module": [
 		"./src/app/serving/maintenance/calendar/calendar.module.ts",
-		"common",
 		"serving-maintenance-calendar-calendar-module"
 	],
 	"./serving/mc-reservation.com/calendar/calendar.module": [
@@ -314,18 +313,15 @@ var map = {
 	],
 	"./serving/mc-reservation.com/detail/detail.module": [
 		"./src/app/serving/mc-reservation.com/detail/detail.module.ts",
-		"common",
 		"serving-mc-reservation-com-detail-detail-module"
 	],
 	"./serving/mc-reservation.com/edit/edit.module": [
 		"./src/app/serving/mc-reservation.com/edit/edit.module.ts",
 		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
-		"common",
 		"serving-mc-reservation-com-edit-edit-module"
 	],
 	"./serving/mc-reservation.com/list/list.module": [
 		"./src/app/serving/mc-reservation.com/list/list.module.ts",
-		"common",
 		"serving-mc-reservation-com-list-list-module"
 	],
 	"./serving/mc-reservation.com/success/success.module": [
@@ -433,7 +429,6 @@ var map = {
 	],
 	"./serving/technical-support.com/list/list.module": [
 		"./src/app/serving/technical-support.com/list/list.module.ts",
-		"common",
 		"serving-technical-support-com-list-list-module"
 	],
 	"./serving/technical-support.com/success/success.module": [
@@ -1161,6 +1156,8 @@ const routes = [
                     { path: 'about', loadChildren: './base/sys.com/about/about.module#AboutPageModule' },
                     { path: 'change-password', loadChildren: './base/sys.com/change-password/change-password.module#ChangePasswordPageModule' },
                     { path: 'message-settings', loadChildren: './base/sys.com/message-settings/message-settings.module#MessageSettingsPageModule' },
+                    { path: 'log', loadChildren: './base/sys.com/log/log.module#LogPageModule' },
+                    { path: 'loginfo', loadChildren: './base/sys.com/loginfo/loginfo.module#LoginfoPageModule' },
                 ]
             }
         ]
@@ -1742,7 +1739,7 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*!********************************************!*\
   !*** ./src/app/base/base.ser/Dcem.core.ts ***!
   \********************************************/
-/*! exports provided: DCore_Window, DCore_Config, DCore_Http, DCore_Page, DCore_ShareData, DCore_Valid */
+/*! exports provided: DCore_Window, DCore_Config, DCore_Http, DCore_Page, DCore_ShareData, DCore_Valid, LogModel, DCore_Log */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1753,6 +1750,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DCore_Page", function() { return DCore_Page; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DCore_ShareData", function() { return DCore_ShareData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DCore_Valid", function() { return DCore_Valid; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LogModel", function() { return LogModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DCore_Log", function() { return DCore_Log; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
@@ -1760,6 +1759,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! util */ "./node_modules/util/util.js");
 /* harmony import */ var util__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(util__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var app_base_base_ser_dateformat__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! app/base/base.ser/dateformat */ "./src/app/base/base.ser/dateformat.ts");
+
 
 
 
@@ -2138,6 +2139,55 @@ DCore_Valid = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
 ], DCore_Valid);
 
+class LogModel {
+}
+//系统日志跟踪
+let DCore_Log = class DCore_Log {
+    constructor(_dateformat) {
+        this._dateformat = _dateformat;
+        this.logList = [];
+    }
+    //写入提示日志
+    WriteInfoLog(message) {
+        this.WriteLog(message, 1);
+    }
+    //写入错误日志
+    WriteErrorLog(message) {
+        this.WriteLog(message, 2);
+    }
+    WriteLog(message, type) {
+        var list = this.GetList();
+        if (list != null) {
+            this.logList = list;
+        }
+        var logModel = new LogModel();
+        logModel.Id = new Date().getTime();
+        logModel.CreateTime = this._dateformat.FormatToDateTime(new Date());
+        ;
+        logModel.Message = message;
+        logModel.Type = type;
+        this.logList.unshift(logModel); //插入顶部
+        window.localStorage.setItem('Sys-Log', JSON.stringify(this.logList));
+    }
+    //获取日志
+    GetList() {
+        return JSON.parse(window.localStorage.getItem('Sys-Log'));
+    }
+    //清除日志
+    Clear() {
+        window.localStorage.removeItem('Sys-Log');
+    }
+};
+DCore_Log.ctorParameters = () => [
+    { type: app_base_base_ser_dateformat__WEBPACK_IMPORTED_MODULE_6__["Dateformat"] }
+];
+DCore_Log = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Injectable"])({
+        providedIn: 'root'
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_base_base_ser_dateformat__WEBPACK_IMPORTED_MODULE_6__["Dateformat"]])
+], DCore_Log);
+
 
 
 /***/ }),
@@ -2421,6 +2471,58 @@ SelectSystemuserComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 /***/ }),
 
+/***/ "./src/app/base/base.ser/dateformat.ts":
+/*!*********************************************!*\
+  !*** ./src/app/base/base.ser/dateformat.ts ***!
+  \*********************************************/
+/*! exports provided: Dateformat */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Dateformat", function() { return Dateformat; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var silly_datetime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! silly-datetime */ "./node_modules/silly-datetime/dest/index.js");
+/* harmony import */ var silly_datetime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(silly_datetime__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+let Dateformat = 
+/*
+日期时间格式化处理
+*/
+class Dateformat {
+    FormatToDate(date) {
+        if (date != null && date != undefined) {
+            return silly_datetime__WEBPACK_IMPORTED_MODULE_2___default.a.format(date, 'YYYY-MM-DD');
+        }
+        else {
+            return '--';
+        }
+    }
+    FormatToDateTime(date) {
+        if (date != null && date != undefined) {
+            return silly_datetime__WEBPACK_IMPORTED_MODULE_2___default.a.format(date, 'YYYY-MM-DD hh:mm:ss');
+        }
+        else {
+            return '--';
+        }
+    }
+};
+Dateformat = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    })
+    /*
+    日期时间格式化处理
+    */
+], Dateformat);
+
+
+
+/***/ }),
+
 /***/ "./src/app/base/base.ser/global.error.handler.ts":
 /*!*******************************************************!*\
   !*** ./src/app/base/base.ser/global.error.handler.ts ***!
@@ -2458,16 +2560,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// import { stat } from 'fs';
 // import { NGXLogger } from 'ngx-logger';
 // import * as StackTrace from 'stacktrace-js';
 /**
  * 全局异常处理
  */
 let GlobalErrorHandler = class GlobalErrorHandler {
-    constructor(injector, events, _page) {
+    constructor(injector, events, _page, _log) {
         this.injector = injector;
         this.events = events;
         this._page = _page;
+        this._log = _log;
     }
     handleError(error) {
         this.events.publish('userCheck');
@@ -2476,25 +2580,29 @@ let GlobalErrorHandler = class GlobalErrorHandler {
         if (status === 0
             && error.name === 'HttpErrorResponse'
             && error.statusText === 'Unknown Error') {
-            this._page.alert(app_base_base_ser_message_service__WEBPACK_IMPORTED_MODULE_4__["MessageService"].ErrorRequestException, app_base_base_ser_message_service__WEBPACK_IMPORTED_MODULE_4__["MessageService"].ErrorRequestServer);
+            this._log.WriteErrorLog(app_base_base_ser_message_service__WEBPACK_IMPORTED_MODULE_4__["MessageService"].ErrorRequestException + "-" + app_base_base_ser_message_service__WEBPACK_IMPORTED_MODULE_4__["MessageService"].ErrorRequestServer + "【status:" + status + " message:" + message + "】");
         }
         else if (status === 401) {
             this.events.publish('userCheck');
-            this._page.alert(app_base_base_ser_message_service__WEBPACK_IMPORTED_MODULE_4__["MessageService"].ErrorRequestException, app_base_base_ser_message_service__WEBPACK_IMPORTED_MODULE_4__["MessageService"].ErrorNoAuth);
+            this._log.WriteErrorLog(app_base_base_ser_message_service__WEBPACK_IMPORTED_MODULE_4__["MessageService"].ErrorRequestException + "-" + app_base_base_ser_message_service__WEBPACK_IMPORTED_MODULE_4__["MessageService"].ErrorNoAuth + "【status:" + status + " message:" + message + "】");
         }
-        //this._page.alert(MessageService.ErrorRequestException,message);
+        else {
+            this._log.WriteErrorLog("status:" + status + " message:" + message);
+        }
     }
 };
 GlobalErrorHandler.ctorParameters = () => [
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Events"] },
-    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"] }
+    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"] },
+    { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Log"] }
 ];
 GlobalErrorHandler = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Events"],
-        app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"]])
+        app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"],
+        app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Log"]])
 ], GlobalErrorHandler);
 
 
@@ -2964,6 +3072,13 @@ MessageService.InfoOprationSucceed = '操作成功';
 MessageService.InfoOprationFailed = '操作失败';
 /**保存失败！*/
 MessageService.InfoSaveFailed = '保存失败！';
+/**登录成功*/
+MessageService.InfoLoginSuccess = '登录成功';
+/**登录失败*/
+MessageService.InfoLoginFailed = '登录失败';
+/**退出系统成功*/
+MessageService.InfoLoginOut = '退出系统成功';
+MessageService.InfoLoginOutAlter = "退出后不会删除任何历史数据";
 //------------验证信息---------------------
 /**手机号不能为空*/
 MessageService.ValidPhoneIsNull = '手机号不能为空';
