@@ -30,6 +30,8 @@ const routes = [
                     { path: 'about', loadChildren: './base/sys.com/about/about.module#AboutPageModule' },
                     { path: 'change-password', loadChildren: './base/sys.com/change-password/change-password.module#ChangePasswordPageModule' },
                     { path: 'message-settings', loadChildren: './base/sys.com/message-settings/message-settings.module#MessageSettingsPageModule' },
+                    { path: 'log', loadChildren: './base/sys.com/log/log.module#LogPageModule' },
+                    { path: 'loginfo', loadChildren: './base/sys.com/loginfo/loginfo.module#LoginfoPageModule' },
                 ]
             }
         ]

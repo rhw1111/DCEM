@@ -4,6 +4,7 @@ import { AlertController, LoadingController, NavController, ToastController } fr
 import { ActivatedRoute, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { isFunction, isNumber } from 'util';
+import { Dateformat } from 'app/base/base.ser/dateformat';
 let DCore_Window = class DCore_Window {
     storageSet(key, val) {
         window.localStorage.setItem(key, val);
@@ -360,4 +361,50 @@ DCore_Valid = tslib_1.__decorate([
     tslib_1.__metadata("design:paramtypes", [])
 ], DCore_Valid);
 export { DCore_Valid };
+export class LogModel {
+}
+//系统日志跟踪
+let DCore_Log = class DCore_Log {
+    constructor(_dateformat) {
+        this._dateformat = _dateformat;
+        this.logList = [];
+    }
+    //写入提示日志
+    WriteInfoLog(message) {
+        this.WriteLog(message, 1);
+    }
+    //写入错误日志
+    WriteErrorLog(message) {
+        this.WriteLog(message, 2);
+    }
+    WriteLog(message, type) {
+        var list = this.GetList();
+        if (list != null) {
+            this.logList = list;
+        }
+        var logModel = new LogModel();
+        logModel.Id = new Date().getTime();
+        logModel.CreateTime = this._dateformat.FormatToDateTime(new Date());
+        ;
+        logModel.Message = message;
+        logModel.Type = type;
+        this.logList.unshift(logModel); //插入顶部
+        window.localStorage.setItem('Sys-Log', JSON.stringify(this.logList));
+    }
+    //获取日志
+    GetList() {
+        return JSON.parse(window.localStorage.getItem('Sys-Log'));
+    }
+    //清除日志
+    Clear() {
+        window.localStorage.removeItem('Sys-Log');
+    }
+};
+DCore_Log = tslib_1.__decorate([
+    Injectable({
+        providedIn: 'root'
+    }),
+    tslib_1.__metadata("design:paramtypes", [Dateformat])
+], DCore_Log);
+export { DCore_Log };
 //# sourceMappingURL=Dcem.core.js.map
