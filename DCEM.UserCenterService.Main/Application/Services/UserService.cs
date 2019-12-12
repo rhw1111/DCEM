@@ -21,8 +21,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
     public class UserService : IUserService
     {
 
-        private ICrmService _crmService;
-
+        private ICrmService _crmService; 
         public IUserRepository _repository;
         private const string entityName = "mcs_user";
         private string dicHeadKey;
@@ -34,6 +33,38 @@ namespace DCEM.UserCenterService.Main.Application.Services
             dicHeadKey = "Prefer";
             dicHead = new Dictionary<string, IEnumerable<string>>();
             dicHead.Add(dicHeadKey, new List<string>() { "odata.include-annotations=\"*\"" });
+        }
+
+        /// <summary>
+        /// 获取注册协议
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<ValidateResult<CrmEntity>> GetAgreement(Guid id)
+        {
+            try
+            {
+                var validateResult = new ValidateResult<CrmEntity>();
+                var crmRequestHelper = new CrmRequestHelper();
+                XDocument fetchXdoc = null;
+                fetchXdoc = await _repository.GetAgreement(id);
+                var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_frontcontent", fetchXdoc);
+                if (entities.Results.Count > 0)
+                {
+                    validateResult.Result = true;
+                    validateResult.Data = entities.Results[0];
+                }
+                else
+                {
+                    validateResult.Result = false;
+                }
+                return validateResult;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>

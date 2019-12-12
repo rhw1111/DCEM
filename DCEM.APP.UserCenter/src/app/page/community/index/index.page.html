@@ -489,8 +489,7 @@
                             <ion-grid [routerLink]="['/community/activitydetail']"  [queryParams]="{id:item.Id}">
                                 <ion-row>
                                     <ion-col class="dm-main-activity-img">
-                                        <img
-                                            src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3682338120,1128590170&fm=26&gp=0.jpg" />
+                                        <img [src]="item.PicPath" />
                                         <span class="dm-main-activity-img-status">{{item.StatusLabel}}</span>
                                     </ion-col>
                                 </ion-row>
