@@ -46,19 +46,13 @@ export class ConfirmeditPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    debugger;
+    // debugger;
     if (this._shareData.has(this.model.shareDataKey)) {
       this.shareData = this._shareData.get(this.model.shareDataKey);
 
       this.BindData(this.shareData);
     }
 
-    if (this.shareData.appointmentinfo["totalcost"] == undefined) {
-      this.shareData.appointmentinfo["totalcost"] = 0;
-    }
-    if (this.shareData.appointmentinfo["totaltime"] == undefined) {
-      this.shareData.appointmentinfo["totaltime"] = 0;
-    }
   }
 
   //提交订单
@@ -113,7 +107,7 @@ export class ConfirmeditPage implements OnInit {
         this._page.loadingHide();
         if (res.Result == true) {
           var guid = res["Data"]["Id"];
-          this._page.goto("/servicecenter/reservation/success", { guid: guid });
+          this._page.goto("/servicecenter/reservation/detail", { id: guid });
         }
         else {
           this._page.alert("消息提示", "操作失败");
@@ -171,8 +165,10 @@ export class ConfirmeditPage implements OnInit {
     data["mcs_mileagename"] = this.GetMileageOption(mileageOption, data["mcs_mileageid"]);
     //服务包名称
     data["mcs_packname"] =this.GetPackName(choicePackOptionMap,choicepackOtherOptionMap);
-    //备注
-    data["mcs_remark"] = appointmentinfo["mcs_remark"];
+    //总金额
+    data["totalcost"] = appointmentinfo["totalcost"];
+     //总耗时
+     data["totaltime"] = appointmentinfo["totaltime"];
 
     this.model.bindData = data;
   }

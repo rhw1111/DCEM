@@ -84,19 +84,11 @@
 </ion-card>
 <ion-card>
   <ion-card-content>
-    <ion-item>
-      <ion-label position="fixed">备注:</ion-label>
-      <p>{{model.bindData["mcs_remark" ]}}</p>
-  </ion-item>
-  </ion-card-content>
-</ion-card>
-<ion-card>
-  <ion-card-content>
     <ion-row class="cost">
       <ion-col width-50>
       <ion-label>
-        <p>￥{{shareData.appointmentinfo['totalcost']}}</p> 
-        <p>预计工时:{{shareData.appointmentinfo['totaltime']}}分钟</p>
+        <p>￥{{model.bindData['totalcost']}}</p> 
+        <p>预计工时:{{model.bindData['totaltime']}}分钟</p>
       </ion-label>
    </ion-col>
     <ion-col> 
