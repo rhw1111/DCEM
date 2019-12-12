@@ -56,7 +56,7 @@ getList(event) {
     this.model.params
     ,
       (res: any) => {
-        // debugger;
+          //debugger;
           if (res.Results !== null) {
               //绑定数据
               res.Results.forEach(item => {              
@@ -65,11 +65,11 @@ getList(event) {
                   obj["mcs_name"] = item["Attributes"].mcs_name;          
                   obj["mcs_fullname"] = item["Attributes"].mcs_fullname;
                   obj["mcs_mobilephone"] = item["Attributes"].mcs_mobilephone;
-                  obj["mcs_carmodel"] = item["Attributes"].mcs_carmodel2_x002e_mcs_name;                  
+                  obj["mcs_carmodel"] = item["Attributes"]["mcs_carmodel2.mcs_name"];                  
                   obj["mcs_businesstype"] =this.optionset.GetOptionSetNameByValue( "mcs_businesstype",item["Attributes"].mcs_businesstype);
-                  obj["mcs_dealerid"] = item["Attributes"].mcs_dealer3_x002e_mcs_name;    
+                  obj["mcs_dealerid"] = item["Attributes"]["mcs_dealer3.mcs_name"];    
                   obj["mcs_ordertime"] = item["Attributes"].mcs_ordertime;
-                  obj["mcs_testdrivetime"] = item["Attributes"].mcs_reservationconfiguration1_x002e_mcs_name;      
+                  obj["mcs_testdrivetime"] = item["Attributes"]["mcs_reservationconfiguration1.mcs_name"];      
                   obj["mcs_drivestatus"] = this.optionset.GetOptionSetNameByValue( "mcs_drivestatus",item["Attributes"].mcs_drivestatus);
                   obj["createdon"] = item["Attributes"].createdon;
                   this.model.datalist.push(obj);

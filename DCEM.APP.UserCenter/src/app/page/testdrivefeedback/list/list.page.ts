@@ -68,7 +68,7 @@ getList(event) {
                   obj["mcs_surveytime"] =this.FormatToDate(item["Attributes"].mcs_surveytime);
                   obj["mcs_score"] = item["Attributes"].mcs_score;
                   obj["mcs_averagescore"] = item["Attributes"].mcs_averagescore;                  
-                  obj["mcs_driverecord"] = item["Attributes"].mcs_driverecord1_x002e_mcs_name;    
+                  obj["mcs_driverecord"] = item["Attributes"]["mcs_driverecord1.mcs_name"];    
                   obj["createdon"] = item["Attributes"].createdon;               
                   this.model.datalist.push(obj);
                 

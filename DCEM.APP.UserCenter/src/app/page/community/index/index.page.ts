@@ -150,6 +150,8 @@ export class IndexPage {
                         obj["Title"] = item["mcs_name"];
                         obj["Time"] = item["mcs_activitytime"];
                         obj["Address"] = item["mcs_activityaddress"];
+                        // obj["PicPath"] = "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3682338120,1128590170&fm=26&gp=0.jpg";
+                        obj["PicPath"] = item["mcs_thumbnail"];
                         this.model.activitiesList.push(obj);
                     });
                     event ? event.target.complete() : '';
@@ -240,6 +242,8 @@ export class IndexPage {
     ShowEmptyValue(data) {
         if (data == "" || data == null || data == undefined) {
             return "--";
+        } else {
+            return data;
         }
     }
 

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page, DCore_Valid } from 'app/component/typescript/Dcem.core';
 import { ModalController } from '@ionic/angular';
-import { SelectDealerComponent } from "app/component/modal/select-dealer/select-dealer.component";
+// import { SelectDealerComponent } from "app/component/modal/select-dealer/select-dealer.component";
 import { ActivatedRoute, Params } from '@angular/router';
+import {SelectDealerListComponent} from "app/component/modal/select-dealer-list/select-dealer-list.component"
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.page.html',
@@ -57,7 +58,7 @@ export class EditPage implements OnInit {
 async selectDealerModal() {
 
   const modal = await this._modalCtrl.create({
-    component: SelectDealerComponent
+    component: SelectDealerListComponent
   });
   await modal.present();
   const { data } = await modal.onDidDismiss();
@@ -93,7 +94,7 @@ pageOnBind(id: any) {
                      this.model.postData.mcs_carmodel = res.Results[0]["Attributes"]["_mcs_carmodel_value"];    
                      this.model.postData.mcs_businesstype =String(res.Results[0]["Attributes"]["mcs_businesstype"]);                      
                      this.model.postData.mcs_dealerid = res.Results[0]["Attributes"]["_mcs_dealerid_value"];
-                     this.model.postData.mcs_dealername = res.Results[0]["Attributes"]["mcs_dealer3_x002e_mcs_name"];
+                     this.model.postData.mcs_dealername = res.Results[0]["Attributes"]["mcs_dealer3.mcs_name"];
                      this.model.postData.mcs_ordertime = res.Results[0]["Attributes"]["mcs_ordertime"];
                     //  this.model.postData.mcs_testdrivetime = res.Results[0]["Attributes"]["_mcs_testdrivetime_value"];    
                      this.model.postData.mcs_drivestatus = res.Results[0]["Attributes"]["mcs_drivestatus"];                                        
