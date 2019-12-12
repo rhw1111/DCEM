@@ -1,0 +1,23 @@
+<ion-header>
+    <ion-buttons slot="start">
+        <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+      </ion-buttons>
+      <ion-title>日志跟踪</ion-title>
+</ion-header>
+
+<ion-content>
+  <ion-list ng-if="loglist">
+      <ion-item *ngFor="let log of loglist;let key=index" [routerLink]="" (click)="toLogInfo(log)">
+          <ion-label>
+            <h2>{{log["CreateTime"]}}</h2>
+            <p>{{log["Message"]}}</p>
+          </ion-label>
+          <ion-icon name="alert" color="success" slot="end" *ngIf="log['Type']==1"></ion-icon>
+          <ion-icon name="warning" color="warning" slot="end" *ngIf="log['Type']==2"></ion-icon>
+          <ion-icon name="bug" color="danger" slot="end" *ngIf="log['Type']==3"></ion-icon>
+        </ion-item>
+  </ion-list>
+  <section style="text-align:center;">
+      <ion-button style="width:40%" color="danger" (click)="clear()"><ion-icon name="trash"></ion-icon>删除</ion-button>
+  </section>
+</ion-content>
