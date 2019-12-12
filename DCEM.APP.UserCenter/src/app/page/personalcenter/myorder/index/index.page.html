@@ -24,16 +24,16 @@
         <p></p>
       </ion-note>
     </ion-item>
-    <ion-item>
+    <ion-item *ngFor="let item of model.orders" [routerLink]="['/personalcenter/myorder/carorder/list']">
       <ion-card style="width: 100%;height: 300px;margin: 10px;">
         <ion-card-content style="padding: 10px;">
-          <ion-list  lines="none">
-              <ion-item>
-                  <ion-icon name="arrow-dropright" color="primary"></ion-icon>
-                  <ion-label>
-                    待支付意向金
-                  </ion-label>
-                </ion-item>
+          <ion-list lines="none">
+            <ion-item>
+              <ion-icon name="arrow-dropright" color="primary"></ion-icon>
+              <ion-label>
+                {{item.paystatus}}
+              </ion-label>
+            </ion-item>
             <ion-item>
               <ion-label style="margin: 0px;">
                 <img src="../../../../../assets/img/goods-list.jpg" style="height: 150px" />
@@ -41,14 +41,11 @@
             </ion-item>
             <ion-item>
               <ion-label>
-                配置：白云|20英寸|七福炫黑|科技内饰
+                <h2>订单号:{{item.orderno}}</h2>
+                <h2> {{item.name}}</h2>
+                <h2>车价：{{item.mcs_unitprice}}</h2>
               </ion-label>
             </ion-item>
-            <ion-item>
-              <ion-label>
-                车价：150000
-              </ion-label>
-            </ion-item> 
           </ion-list>
         </ion-card-content>
       </ion-card>

@@ -22,7 +22,7 @@ export class IndexPage {
         activitiesList: [],
         activityParams: {
             Type: 1,
-            PageSize: 2,
+            PageSize: 5,
             PageIndex: 1,
             //MaxPageIndex: 0
         },
@@ -31,7 +31,7 @@ export class IndexPage {
         newsList: [],
         newsParams: {
             Type: 2,
-            PageSize: 2,
+            PageSize: 5,
             PageIndex: 1,
             //MaxPageIndex: 0
         }
@@ -124,40 +124,46 @@ export class IndexPage {
     //显示活动列表页面
     ShowAcitivities(event) {
         this._page.loadingShow();
-        this._http.postForToaken(
+        this._http.post(
             this.model.contentManagementApiUrl,
             this.model.activityParams,
             (res: any) => {
                 if (res !== null && res.ErrorMessage == null) {
-                    res.ContentList.forEach(content => {
-                        var item = content["Attributes"];
-                        var obj = {};
-                        obj["Id"] = item["mcs_activitycontentsid"];
-                        switch (item["mcs_contentstatus"]) {
-                            case 1:
-                                obj["StatusLabel"] = "进行中";
-                                obj["describeLabel"] = "了解更多";
-                                break;
-                            case 2:
-                                obj["StatusLabel"] = "已结束";
-                                obj["describeLabel"] = "精彩回顾";
-                                break;
-                            default:
-                                obj["StatusLabel"] = "未开始";
-                                obj["describeLabel"] = "敬请期待";
-                                break;
+                    if (res.ContentList != null) {
+                        res.ContentList.forEach(content => {
+                            var item = content["Attributes"];
+                            var obj = {};
+                            obj["Id"] = item["mcs_activitycontentsid"];
+                            switch (item["mcs_contentstatus"]) {
+                                case 1:
+                                    obj["StatusLabel"] = "进行中";
+                                    obj["describeLabel"] = "了解更多";
+                                    break;
+                                case 2:
+                                    obj["StatusLabel"] = "已结束";
+                                    obj["describeLabel"] = "精彩回顾";
+                                    break;
+                                default:
+                                    obj["StatusLabel"] = "未开始";
+                                    obj["describeLabel"] = "敬请期待";
+                                    break;
+                            }
+                            obj["Title"] = item["mcs_name"];
+                            obj["Time"] = item["mcs_activitytime"];
+                            obj["Address"] = item["mcs_activityaddress"];
+                            // obj["PicPath"] = "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3682338120,1128590170&fm=26&gp=0.jpg";
+                            obj["PicPath"] = item["mcs_thumbnail"];
+                            this.model.activitiesList.push(obj);
+                        });
+                        event ? event.target.complete() : '';
+                        //判断是否有新数据
+                        if (res.ContentList.length < this.model.activityParams.PageSize) {
+                            //为了保证点击tab能重刷数据，故采用以下改动
+                            //event ? event.target.disabled = true : "";
+                            //this.model.activityParams.MaxPageIndex = this.model.activityParams.PageIndex + 1;
+                            this.model.isAllActivities = true;
                         }
-                        obj["Title"] = item["mcs_name"];
-                        obj["Time"] = item["mcs_activitytime"];
-                        obj["Address"] = item["mcs_activityaddress"];
-                        this.model.activitiesList.push(obj);
-                    });
-                    event ? event.target.complete() : '';
-                    //判断是否有新数据
-                    if (res.ContentList.length < this.model.activityParams.PageSize) {
-                        //为了保证点击tab能重刷数据，故采用以下改动
-                        //event ? event.target.disabled = true : "";
-                        //this.model.activityParams.MaxPageIndex = this.model.activityParams.PageIndex + 1;
+                    } else {
                         this.model.isAllActivities = true;
                     }
                 }
@@ -184,20 +190,25 @@ export class IndexPage {
             this.model.newsParams,
             (res: any) => {
                 if (res !== null && res.ErrorMessage == null) {
-                    res.ContentList.forEach(content => {
-                        var item = content["Attributes"];
-                        var obj = {};
-                        obj["Id"] = item["mcs_newscontentsid"];
-                        obj["Title"] = item["mcs_name"];
-                        obj["Summury"] = item["mcs_description"];
-                        this.model.newsList.push(obj);
-                    });
-                    event ? event.target.complete() : '';
-                    //判断是否有新数据
-                    if (res.ContentList.length < this.model.newsParams.PageSize) {
-                        //为了保证点击tab能重刷数据，故采用以下改动
-                        //event ? event.target.disabled = true : "";
-                        //this.model.newsParams.MaxPageIndex = this.model.newsParams.PageIndex + 1;
+                    if (res.ContentList != null) {
+                        res.ContentList.forEach(content => {
+                            var item = content["Attributes"];
+                            var obj = {};
+                            obj["Id"] = item["mcs_newscontentsid"];
+                            obj["Title"] = item["mcs_name"];
+                            obj["Summury"] = item["mcs_description"];
+                            obj["PicPath"] = item["mcs_thumbnail"];
+                            this.model.newsList.push(obj);
+                        });
+                        event ? event.target.complete() : '';
+                        //判断是否有新数据
+                        if (res.ContentList.length < this.model.newsParams.PageSize) {
+                            //为了保证点击tab能重刷数据，故采用以下改动
+                            //event ? event.target.disabled = true : "";
+                            //this.model.newsParams.MaxPageIndex = this.model.newsParams.PageIndex + 1;
+                            this.model.isAllNews = true;
+                        }
+                    } else {
                         this.model.isAllNews = true;
                     }
                 }
@@ -240,6 +251,8 @@ export class IndexPage {
     ShowEmptyValue(data) {
         if (data == "" || data == null || data == undefined) {
             return "--";
+        } else {
+            return data;
         }
     }
 

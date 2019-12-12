@@ -20,14 +20,15 @@ import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile';
 import {SelectSysareaComponent} from './component/modal/select-sysarea/select-sysarea.component'
 import { LoginComponent } from './component/modal/login/login.component' 
 import { UserinfoComponent } from './component/modal/userinfo/userinfo.component' 
+import { RegAgreementComponent } from './component/modal/reg-agreement/reg-agreement.component' 
 import { SelectDealerComponent } from './component/modal/select-dealer/select-dealer.component';
 import {SelectDealerListComponent} from './component/modal/select-dealer-list/select-dealer-list.component'
 import { SelectUsercarinfoComponent } from './component/modal/select-usercarinfo/select-usercarinfo.component';
 
 
 @NgModule({
-  declarations: [AppComponent,SelectSysareaComponent,LoginComponent,SelectDealerComponent,UserinfoComponent,SelectUsercarinfoComponent,SelectDealerListComponent],
-  entryComponents: [SelectSysareaComponent,LoginComponent,SelectDealerComponent,UserinfoComponent,SelectUsercarinfoComponent,SelectDealerListComponent],
+  declarations: [RegAgreementComponent,AppComponent,SelectSysareaComponent,LoginComponent,SelectDealerComponent,UserinfoComponent,SelectUsercarinfoComponent,SelectDealerListComponent],
+  entryComponents: [RegAgreementComponent,SelectSysareaComponent,LoginComponent,SelectDealerComponent,UserinfoComponent,SelectUsercarinfoComponent,SelectDealerListComponent],
   imports: [
       BrowserModule, 
       IonicModule.forRoot({ mode: 'ios' }),

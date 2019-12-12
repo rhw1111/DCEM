@@ -16,8 +16,10 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
 
     public class DealerListRequest : PageBaseRequestModel
     {
+        public string name { get; set; }
         public string provinceid { get; set; }
         public string cityid { get; set; }
-        public string dealertype { get; set; }
+        //0：全部 
+        public string dealertype { get; set; } = "0";
     }
 }

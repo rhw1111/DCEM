@@ -47,7 +47,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
         /// 新增修改
         /// </summary>
         /// <param name="model"></param>
-        public ValidateResult AddOrUpdate(ShippingaddressAddRequest model)
+        public async Task<ValidateResult> AddOrUpdate(ShippingaddressAddRequest model)
         {
             var validateResult = new ValidateResult();
             try
@@ -78,24 +78,26 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     req.PageIndex = 1;
                     req.PageSize = 100;
                     req.mcs_userid = model.userid.Value;
-                    ValidateResult<List<CrmEntity>>  list = GetList(req);
+                    ValidateResult<List<CrmEntity>> list = GetList(req);
                     if (list.Data != null)
                         foreach (var item in list.Data)
                         {
                             var entaddress = new CrmExecuteEntity(entityName, item.Id);
                             entaddress.Attributes.Add("mcs_isdefault", false);
-                            _crmService.Update(entaddress);
+                            await _crmService.Update(entaddress);
                         }
                 }
 
                 if (string.IsNullOrEmpty(model.mcs_shippingaddressid))
                 {
-                    _crmService.Create(entity, userInfo?.systemuserid);
+                    await _crmService.Create(entity, userInfo?.systemuserid);
+                   
                 }
                 else
                 {
                     entity.Id = Guid.Parse(model.mcs_shippingaddressid);
-                    _crmService.Update(entity);
+                    await _crmService.Update(entity);
+                  
                 }
 
                 #region 组装数据返回 
@@ -117,12 +119,13 @@ namespace DCEM.UserCenterService.Main.Application.Services
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public ValidateResult Delete(ShippingaddressAddRequest model)
+        public async Task<ValidateResult> Delete(ShippingaddressAddRequest model)
         {
             var validateResult = new ValidateResult();
             try
             {
-                _crmService.Delete(entityName, Guid.Parse(model.mcs_shippingaddressid));
+                await _crmService.Delete(entityName, Guid.Parse(model.mcs_shippingaddressid));
+             
                 #region 组装数据返回 
                 validateResult.Result = true;
                 validateResult.Description = "操作成功";
@@ -142,7 +145,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public  ValidateResult<List<CrmEntity>>  GetList(ShippingaddressListRequest request)
+        public ValidateResult<List<CrmEntity>> GetList(ShippingaddressListRequest request)
         {
             try
             {
@@ -150,7 +153,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 var crmRequestHelper = new CrmRequestHelper();
                 XDocument fetchXdoc = null;
                 fetchXdoc = _shippingaddressRepository.QueryList(request);
-                var entities =   crmRequestHelper.ExecuteAsync(_crmService, entityName, fetchXdoc);
+                var entities = crmRequestHelper.ExecuteAsync(_crmService, entityName, fetchXdoc);
                 if (entities.Result.Results.Count > 0)
                 {
                     validateResult.Result = true;
