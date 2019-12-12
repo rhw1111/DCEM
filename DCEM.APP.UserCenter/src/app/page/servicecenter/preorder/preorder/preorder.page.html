@@ -41,10 +41,10 @@
             </ion-item>
             <ion-item lines="none" style="padding-bottom:30px;" *ngFor="let item of model.datas.datas">
                 <div style="width:28%;z-index:1;">
-                    <img src="{{item.img}}" style="border-radius:15px;width:100px;height:100px;" />
+                    <img src="{{item.img}}" style="border-radius:15px;width:90%;height:90%;" />
                 </div>
                 <div style="width:70%;z-index:1;">
-                    <div style="font-size:20px;">{{item.productname}}</div>
+                    <div>{{item.productname}}</div>
                     <div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:16px;margin:10px 0;color:#a5a2a2;">{{item.skuname}}</div>
                     <div style="display:flex;justify-content:space-between;">
                         <div style="color:#38B3EE;font-size:18px;line-height:35px;">
@@ -94,11 +94,11 @@
 <!--底部栏-->
 <ion-tab-bar slot="bottom">
     <ion-tab-button tab="servicecenter">
-        <span class="span-total" style="font-size:20px;color:#38B3EE;position:absolute;left:15px;">￥{{model.totalprice}}</span>
+        <span class="span-total" style="font-size:18px;color:#38B3EE;position:absolute;left:15px;">￥{{model.totalprice}}</span>
     </ion-tab-button>
     <ion-tab-button tab="servicecenter" style="opacity:0;">
     </ion-tab-button>
     <ion-tab-button tab="personalcenter" (click)="submitOrder()" class="tab-cac" style="background-color:#38B3EE;">
-        <ion-label style="font-size:18px; color:#fff;">提交订单</ion-label>
+        <ion-label style="font-size:16px; color:#fff;">提交订单</ion-label>
     </ion-tab-button>
 </ion-tab-bar>
