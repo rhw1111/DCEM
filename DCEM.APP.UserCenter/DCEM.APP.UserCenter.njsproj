@@ -161,6 +161,7 @@
     <TypeScriptCompile Include="src\app\component\modal\userinfo\userinfo.component.spec.ts" />
     <TypeScriptCompile Include="src\app\component\modal\userinfo\userinfo.component.ts" />
     <TypeScriptCompile Include="src\app\component\module\share.module.ts" />
+    <TypeScriptCompile Include="src\app\component\typescript\pipe.core.ts" />
     <TypeScriptCompile Include="src\app\component\typescript\dcem.core.ts" />
     <TypeScriptCompile Include="src\app\component\typescript\logininfo.storage.ts" />
     <TypeScriptCompile Include="src\app\component\typescript\optionset.service.ts" />
