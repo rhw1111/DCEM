@@ -40,7 +40,6 @@ export class ListPage implements OnInit {
         } else {
             this.IsEmpty = true;
         }
-        console.log(this.model.cartList);
         this._page.loadingHide();
     }
 
