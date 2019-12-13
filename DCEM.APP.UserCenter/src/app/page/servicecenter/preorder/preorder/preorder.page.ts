@@ -50,13 +50,6 @@ export class PreorderPage implements OnInit {
         } else {
             this.getList(null);
         }
-        //var storage = window.localStorage;
-        //var addrdata = storage.getItem("chooseaddr");
-        //if (addrdata != null) {
-        //    this.mod.model = JSON.parse(addrdata);
-        //} else {
-        //    this.getList(null);
-        //}
     }
     //初始化页面数据加载
     initListLoading() {

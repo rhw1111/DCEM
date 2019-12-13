@@ -25,7 +25,7 @@
             <div style="width:28%;z-index:1;">
                 <div *ngIf="item.img != null; then truthysTemplate else falsysTemplate"></div>
                 <ng-template #truthysTemplate>
-                    <img src="{{item.img}}" style="width:80%;height:80%;border-radius:15px;" />
+                    <img src="{{item.img}}" style="width:90%;height:90%;border-radius:15px;" />
                 </ng-template>
                 <ng-template #falsysTemplate>
                     <img src="../assets/img/temp/xiaopeng1.jpg" style="width:80%;height:80%;border-radius:15px;" />
