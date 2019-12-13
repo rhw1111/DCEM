@@ -92,9 +92,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
         private async Task<CrmEntity> GetEntity(ContentDetailRequest contentDetailRequest)
         {
-            var crmRequestHelper = new CrmRequestHelper();
             string entityName = string.Empty;
-
             switch (contentDetailRequest.Type)
             {
                 case ContentType.Activity:
@@ -107,7 +105,24 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     entityName = "mcs_newscontents";
                     break;
             }
-            return await crmRequestHelper.Retrieve(_crmService, entityName, contentDetailRequest.Id);
+            var crmRequestHelper = new CrmRequestHelper();
+            //判断是传id还是唯一码
+            if (contentDetailRequest.Id.HasValue)
+            {
+                return await crmRequestHelper.Retrieve(_crmService, entityName, contentDetailRequest.Id.Value);
+            }
+            if (!string.IsNullOrWhiteSpace(contentDetailRequest.DefCode))
+            {
+                XDocument fetchXdoc = null;
+                //目前暂时只有前端内容有唯一码
+                fetchXdoc = await _contentmanagementRepository.GetFrontContentFetchXml(contentDetailRequest.DefCode);
+                var entities = await crmRequestHelper.ExecuteAsync(_crmService, entityName, fetchXdoc);
+                if (entities.Results.Count > 0)
+                {
+                    return entities.Results[0];
+                }
+            }
+            return null;
         }
     }
 }

@@ -23,6 +23,7 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
     public class ContentDetailRequest
     {
         public ContentType Type { get; set; }
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
+        public string DefCode { get; set; }
     }
 }
