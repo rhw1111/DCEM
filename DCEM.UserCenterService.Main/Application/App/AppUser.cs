@@ -29,7 +29,10 @@ namespace DCEM.UserCenterService.Main.Application.App
         {
             _userService = userService;
         }
-
+        public async Task<ValidateResult> ValUserSecurityquestion(UserLoginRequest req)
+        {
+            return await _userService.ValUserSecurityquestion(req);
+        }
         public async Task<ValidateResult<CrmEntity>> GetAgreement(string id)
         {
             return await _userService.GetAgreement(id);

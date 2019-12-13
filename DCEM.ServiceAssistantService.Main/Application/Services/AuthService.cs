@@ -58,7 +58,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
                     }
                     else {
                         dyCRMSetting.AdfsUrl = $"{dyCRMSetting.AdfsUrl}adfs/oauth2/token";
-                        dyCRMSetting.CrmUrl = $"{dyCRMSetting.CrmUrl}/api/data/v9.0";
+                        dyCRMSetting.CrmUrl = $"{dyCRMSetting.CrmUrl}/api/data/v{dyCRMSetting.CrmApiVersion}";
                         var data = GetToken(dyCRMSetting.ClientId, dyCRMSetting.ClientSecret, username, password, dyCRMSetting.CrmUrl, dyCRMSetting.AdfsUrl);
 
                         try

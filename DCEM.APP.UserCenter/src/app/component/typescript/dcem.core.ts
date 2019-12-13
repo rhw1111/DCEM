@@ -412,21 +412,6 @@ export class DCore_String {
 
 
 
-//去掉Angular的垃圾安全过滤器
-@Injectable({
-    providedIn: 'root'
-})
-@Pipe({ name: 'safeHtml' }) //自定义管道
-export class DCore_SafeHtml implements PipeTransform {
-    constructor(private sanitized: DomSanitizer) { }
-
-    transform(value) {
-        return this.sanitized.bypassSecurityTrustHtml(value);
-    }
-}
-
-
-
 
 
 

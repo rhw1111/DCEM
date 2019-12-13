@@ -1,5 +1,5 @@
 ﻿import { Component, ViewChild } from '@angular/core';
-import { DCore_Http, DCore_Page } from 'app/component/typescript/Dcem.core';
+import { DCore_Http, DCore_Page } from 'app/component/typescript/dcem.core';
 import { IonSlides, IonSlide } from '@ionic/angular';
 import * as $ from 'jquery';
 import sd from 'silly-datetime';

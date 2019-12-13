@@ -14,7 +14,7 @@ export class IndexPage {
  
     constructor(
         private modalCtrl: ModalController,
-        private _logininfo: Storage_LoginInfo,
+        public _logininfo: Storage_LoginInfo,
         private route: Router,
         private _page: DCore_Page,
         private activeRoute: ActivatedRoute) { 
@@ -52,5 +52,22 @@ export class IndexPage {
             
         }
 
+    } 
+    //检查是否登陆 然后跳转
+    async checkLoginAndTurn(url)
+    {
+        if (this._logininfo.GetNickName()!=null) { 
+            this._page.goto(url);
+        } else {
+            const modal = await this.modalCtrl.create({
+                component: LoginComponent,
+                componentProps: {
+                    'status': 1//登录页面状态 
+                }
+            });
+            await modal.present();
+            //监听销毁的事件
+            const { data } = await modal.onDidDismiss(); 
+        } 
     }
 }
