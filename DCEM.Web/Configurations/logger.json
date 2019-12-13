@@ -5,6 +5,7 @@
     "HttpRequest": "4",
     "SystemAuthentication": "4"
   },
+  "RemainAllProvider": false,
   "GlobalLogDefaultMinLevel": "4",
   "Providers": {
     "Console": {

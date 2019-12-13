@@ -86,6 +86,7 @@
     <Folder Include="src\app\page\personalcenter\myorder\carorder\" />
     <Folder Include="src\app\page\personalcenter\myorder\carorder\list\" />
     <Folder Include="src\app\page\personalcenter\myorder\fineorder\" />
+    <Folder Include="src\app\page\personalcenter\myorder\fineorder\detail\" />
     <Folder Include="src\app\page\personalcenter\myorder\fineorder\list\" />
     <Folder Include="src\app\page\personalcenter\myorder\index\" />
     <Folder Include="src\app\page\personalcenter\scores\" />
@@ -160,6 +161,7 @@
     <TypeScriptCompile Include="src\app\component\modal\userinfo\userinfo.component.spec.ts" />
     <TypeScriptCompile Include="src\app\component\modal\userinfo\userinfo.component.ts" />
     <TypeScriptCompile Include="src\app\component\module\share.module.ts" />
+    <TypeScriptCompile Include="src\app\component\typescript\pipe.core.ts" />
     <TypeScriptCompile Include="src\app\component\typescript\dcem.core.ts" />
     <TypeScriptCompile Include="src\app\component\typescript\logininfo.storage.ts" />
     <TypeScriptCompile Include="src\app\component\typescript\optionset.service.ts" />
@@ -259,6 +261,10 @@
     <TypeScriptCompile Include="src\app\page\personalcenter\myorder\carorder\list\list.module.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\myorder\carorder\list\list.page.spec.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\myorder\carorder\list\list.page.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\myorder\fineorder\detail\detail-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\myorder\fineorder\detail\detail.module.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\myorder\fineorder\detail\detail.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\myorder\fineorder\detail\detail.page.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\myorder\fineorder\list\list-routing.module.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\myorder\fineorder\list\list.module.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\myorder\fineorder\list\list.page.spec.ts" />
@@ -452,6 +458,8 @@
     <Content Include="src\app\page\personalcenter\index\index.page.scss" />
     <Content Include="src\app\page\personalcenter\myorder\carorder\list\list.page.html" />
     <Content Include="src\app\page\personalcenter\myorder\carorder\list\list.page.scss" />
+    <Content Include="src\app\page\personalcenter\myorder\fineorder\detail\detail.page.html" />
+    <Content Include="src\app\page\personalcenter\myorder\fineorder\detail\detail.page.scss" />
     <Content Include="src\app\page\personalcenter\myorder\fineorder\list\list.page.html" />
     <Content Include="src\app\page\personalcenter\myorder\fineorder\list\list.page.scss" />
     <Content Include="src\app\page\personalcenter\myorder\index\index.page.html" />

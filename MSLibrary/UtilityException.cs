@@ -38,4 +38,9 @@ namespace MSLibrary
             }
         }
     }
+
+    public static class UtilityExceptionTypes
+    {
+        public const string Unauthorized = "Unauthorized";
+    }
 }

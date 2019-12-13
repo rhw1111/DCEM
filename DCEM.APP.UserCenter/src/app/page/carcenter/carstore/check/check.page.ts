@@ -22,7 +22,7 @@ export class CheckPage implements OnInit {
         productMap: {},                            //产品视图
         productRelatedMap: {},                     //商品关联视图
         productOrderingattributeMap: {},           //产品的订购属性
-
+        carColorPic: "",
         selectProductKey: "",                       //选择的产品Key
         selectProduct: {},                          //选择的产品   
         selectproductRelatedMap: {},                //选择的所有对象金额

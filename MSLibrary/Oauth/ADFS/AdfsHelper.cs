@@ -143,6 +143,41 @@ namespace MSLibrary.Oauth.ADFS
             }
         }
 
+
+        public static async Task<AdfsAuth> RefreshToken(string adfsUri, string clientid, string clientSecret, string refresh_token)
+        {
+            var tokenUrl = BuildTokenUrl(adfsUri);
+            using (var httpClient = _httpClientFactory.CreateClient())
+            {
+                //请求Token
+                var tokenParams = BuildRefreshTokenParams(refresh_token, clientid, clientSecret);
+                using (var response = await httpClient.PostAsync(tokenUrl, new FormUrlEncodedContent(tokenParams)))
+                {
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        var strContent = await response.Content.ReadAsStringAsync();
+                        var postData = await (new FormUrlEncodedContent(tokenParams)).ReadAsStringAsync();
+
+                        var fragment = new TextFragment()
+                        {
+                            Code = TextCodes.AdfsOauthResponseError,
+                            DefaultFormatting = "在Adfs的Oauth认证的响应出错，adfs的请求url为{0}，请求内容为{1},错误内容为{2}",
+                            ReplaceParameters = new List<object>() { tokenUrl, postData, strContent }
+                        };
+
+                        throw new UtilityException((int)Errors.AdfsOauthResponseError, fragment);
+                    }
+
+                    var json = await response.Content.ReadAsStringAsync();
+                    var auth = JsonSerializerHelper.Deserialize<AdfsAuth>(json);
+
+                    return auth;
+                }
+            }
+
+
+        }
+
         public static async Task<AdfsAuth> GetAdfsAuthDirect(string adfsUri, string resource, string clientId, string clientSecret, string userName, string password)
         {
             var tokenUrl = BuildTokenUrl(adfsUri);
@@ -194,6 +229,19 @@ namespace MSLibrary.Oauth.ADFS
              };
             return list;
         }
+
+        private static List<KeyValuePair<string, string>> BuildRefreshTokenParams(string clientId,string clientSecret, string refresh_token)
+        {
+            var list = new List<KeyValuePair<string, string>>
+             {
+                 new KeyValuePair<string, string>("grant_type", "refresh_token"),
+                 new KeyValuePair<string, string>("refresh_token", refresh_token),
+                 new KeyValuePair<string, string>("client_id", clientId),
+                 new KeyValuePair<string, string>("client_secret", clientSecret),
+             };
+            return list;
+        }
+
 
         private static string BuildTokenUrl(string adfsUri)
         {

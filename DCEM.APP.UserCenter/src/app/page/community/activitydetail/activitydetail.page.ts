@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DCore_Http, DCore_Page, DCore_Valid } from 'app/component/typescript/Dcem.core';
+import { DCore_Http, DCore_Page, DCore_Valid } from 'app/component/typescript/dcem.core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 

@@ -91,11 +91,12 @@
         <p>预计工时:{{model.bindData['totaltime']}}分钟</p>
       </ion-label>
    </ion-col>
+   <ion-row>
     <ion-col> 
-      <ion-button Size="small" fill="solid" color="light" (click)="saveOnClick()">提交订单</ion-button>&nbsp;
-      <ion-button Size="small" fill="solid" color="light" [routerLink]="['/servicecenter/reservation/edit']">返回编辑</ion-button>
+      <ion-button  fill="solid" color="light" (click)="saveOnClick()">提交订单</ion-button>&nbsp;
+      <ion-button fill="solid" color="light" [routerLink]="['/servicecenter/reservation/edit']">返回编辑</ion-button>
     </ion-col>
-
+   </ion-row>
   </ion-row>
   </ion-card-content>
 </ion-card>

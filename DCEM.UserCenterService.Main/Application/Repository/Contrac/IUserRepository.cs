@@ -20,6 +20,8 @@ namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
 
     public interface IUserRepository
     {
+        Task<XDocument> GetBehavior(string code);
+        Task<XDocument> GetUserSecurityquestion(UserLoginRequest req);
         Task<XDocument> GetAgreement(string id);
         Task<XDocument> LoginAccount(UserLoginRequest request);
         Task<XDocument> GetUser(UserLoginRequest request);

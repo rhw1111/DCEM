@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
     questionsurl: 'api/user/getquestions',//用户问题设置列表url 
     getuserurl: 'api/user/getuser',
     resetpwdurl: 'api/user/resetpwd',//修改用户信息
+    resetpwdtoquestionurl: 'api/user/resetpwdtoquestion',//修改用户信息
     questiondata: [],
     val1: '',
     val2: '',
@@ -338,6 +339,16 @@ export class LoginComponent implements OnInit {
       return false;
     }
 
+
+    if (this.mod.model.quest1 == null || this.mod.model.quest2 == null || this.mod.model.quest3 == null) {
+      this._page.alert("消息提示", "请填写安全问题");
+      return false;
+    }
+    if (this.mod.model.quest1value == null || this.mod.model.quest2value == null || this.mod.model.quest3value == null) {
+      this._page.alert("消息提示", "请填写安全问题");
+      return false;
+    }
+
     this._page.loadingShow();
     var postData = {
       account: this.mod.model.account,
@@ -454,7 +465,7 @@ export class LoginComponent implements OnInit {
   }
 
 
-  //修改用户密码
+  //修改用户密码（手机号码验证）
   onPwdReset(type) {
     if (this.mod.model.account == '') {
       this.valmsg = '请填写手机号！';
@@ -502,6 +513,82 @@ export class LoginComponent implements OnInit {
         else {
           this._page.loadingHide();
           this._page.alert("消息提示", "注册失败，验证码无效");
+        }
+      },
+      (err: any) => {
+        this._page.loadingHide();
+        this._page.alert("消息提示", "操作失败");
+      }
+    );
+  }
+
+
+   //修改用户密码（安全问题验证）
+   onPwdResetToQuestion(type) {
+    if (this.mod.model.account == '') {
+      this.valmsg = '请填写手机号！';
+      this.isval = true;
+      return false;
+    }
+    if (this.mod.model.msg == '') {
+      this.valmsg = '请填写验证码！';
+      this.isval = true;
+      return false;
+    }
+    if (this.mod.model.pwd != this.mod.model.pwd1) {
+      this.valmsg = '两次密码不匹配！';
+      this.isval = true;
+      return false;
+    }
+    if (this.mod.model.quest1 == null || this.mod.model.quest2 == null || this.mod.model.quest3 == null) {
+      this.valmsg = '请填写安全问题';
+      this.isval = true;
+    }
+    if (this.mod.model.quest1value == null || this.mod.model.quest2value == null || this.mod.model.quest3value == null) {
+      this.valmsg = '请填写安全问题';
+      this.isval = true;
+    }
+    this._page.loadingShow();
+    var postData = {
+      account: this.mod.model.account,
+      valcode: this.mod.model.msg,
+      logintype: 1,
+      type: String(type),
+      keytype: 1,
+      status: 2,
+      pwd: this.mod.model.pwd,
+      certificationtype: 1, 
+      quests: [
+        {
+          securityquestion: this.mod.model.quest1,
+          answer: this.mod.model.quest1value,
+        }, {
+          securityquestion: this.mod.model.quest2,
+          answer: this.mod.model.quest2value,
+        }, {
+          securityquestion: this.mod.model.quest3,
+          answer: this.mod.model.quest3value,
+        }
+      ]
+    };
+    this._http.post(
+      this.mod.resetpwdtoquestionurl,
+      postData,
+      (res: any) => {
+        if (res.Result == true) {
+          this._page.loadingHide();
+          if (this.disstatus == 6) {
+            this._page.alert("消息提示", "更改成功!");
+            this.disstatus = 1;
+          } else {
+            this._page.alert("消息提示", "更改成功!");
+            this._page.goto("/tabs/personalcenter");
+            this.onReturn(true);
+          } 
+        }
+        else {
+          this._page.loadingHide();
+          this._page.alert("消息提示", res.Description);
         }
       },
       (err: any) => {

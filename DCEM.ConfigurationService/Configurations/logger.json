@@ -5,6 +5,7 @@
     "DIWrapper": "2",
     "SystemAuthentication": "4"
   },
+  "RemainAllProvider": false,
   "GlobalLogDefaultMinLevel": "4",
   "Providers": {
     "CommonLog": {

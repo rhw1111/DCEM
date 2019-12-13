@@ -107,7 +107,8 @@ export class ConfirmeditPage implements OnInit {
         this._page.loadingHide();
         if (res.Result == true) {
           var guid = res["Data"]["Id"];
-          this._page.goto("/servicecenter/reservation/detail", { id: guid });
+          this._shareData.delete(this.model.shareDataKey);
+          this._page.navigateRoot("/servicecenter/reservation/detail", { id: guid },"");
         }
         else {
           this._page.alert("消息提示", "操作失败");

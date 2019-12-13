@@ -47,7 +47,7 @@ export class ShippingaddressPage implements OnInit {
 
 
   constructor(private modalCtrl: ModalController,
-    private _logininfo: Storage_LoginInfo,
+    public _logininfo: Storage_LoginInfo,
     private route: Router,
     private _page: DCore_Page,
     private _http: DCore_Http,

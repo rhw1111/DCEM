@@ -72,6 +72,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             try
             {
                 var createEntity = new CrmExecuteEntity(entityName, Guid.NewGuid());
+               
                 createEntity.Attributes.Add("lastname", originalclueCreateRequest.username);
                 createEntity.Attributes.Add("mobilephone", originalclueCreateRequest.mobile);
                 if (!string.IsNullOrEmpty(originalclueCreateRequest.mail))
@@ -99,6 +100,9 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 }
                 var dealer = new CrmEntityReference("mcs_dealer", Guid.Parse(originalclueCreateRequest.dealerid));
                 createEntity.Attributes.Add("mcs_dealerid", dealer);
+                
+                var mcs_behaviorEntityRefence = new CrmEntityReference("mcs_behavior", Guid.Parse(originalclueCreateRequest.behaviorid));
+                createEntity.Attributes.Add("mcs_behaviorid", mcs_behaviorEntityRefence);
                 var entityId = await _crmService.Create(createEntity, Guid.Parse(originalclueCreateRequest.UserId));
                 return new OriginalclueCreateResponse() { Id = entityId.ToString() };
             }
