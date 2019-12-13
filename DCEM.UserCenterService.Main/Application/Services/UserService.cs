@@ -21,7 +21,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
     public class UserService : IUserService
     {
 
-        private ICrmService _crmService; 
+        private ICrmService _crmService;
         public IUserRepository _repository;
         private const string entityName = "mcs_user";
         private string dicHeadKey;
@@ -416,8 +416,49 @@ namespace DCEM.UserCenterService.Main.Application.Services
         }
 
 
+        /// <summary>
+        /// 用户安全问题验证
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        public async Task<ValidateResult> ValUserSecurityquestion(UserLoginRequest req)
+        {
+            var validateResult = new ValidateResult();
+            var crmRequestHelper = new CrmRequestHelper();
+            XDocument fetchXdoc = null;
+            fetchXdoc = await _repository.GetUserSecurityquestion(req);
+            var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_usersecurityquestion", fetchXdoc);
+            if (entities.Results.Count > 0)
+            {
 
+                bool isval = true;
+                foreach (var item in entities.Results)
+                {
+                    if (req.quests.FindAll(p => p.securityquestion == item.Attributes["_mcs_securityquestionid_value"].ToString() && p.answer == item.Attributes["mcs_answer"].ToString()).Count == 0)
+                    {
 
+                        isval = false;
+                        break;
+                    }
+                }
+                if (isval)
+                {
+                    validateResult.Result = true;
+                    validateResult.Description = "操作成功";
+                }
+                else
+                {
+                    validateResult.Result = false;
+                    validateResult.Description = "安全问题验证失败！";
+                }
+            }
+            else
+            {
+                validateResult.Result = false;
+                validateResult.Description = "当前账号不存在";
+            }
+            return validateResult;
+        }
 
         /// <summary>
         /// 安全问题设置列表获取
@@ -462,9 +503,9 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 };
                 fetchRequest.Headers.Add("Prefer", dicHead["Prefer"]);
                 var crmResponseMessage = await _crmService.Execute(fetchRequest);
-                var entities = crmResponseMessage as CrmRetrieveCollectionAttributeResponseMessage; 
-                response.tags = entities.Value.Results; 
-                return response; 
+                var entities = crmResponseMessage as CrmRetrieveCollectionAttributeResponseMessage;
+                response.tags = entities.Value.Results;
+                return response;
             }
             catch (Exception ex)
             {
@@ -495,10 +536,11 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     response.balance = (Int32)getbalanceentitys.Results[0].Attributes
     ["mcs_bonuspoint"];
                 }
-                else {
+                else
+                {
                     response.balance = 0;
                 }
-                return response; 
+                return response;
             }
             catch (Exception ex)
             {

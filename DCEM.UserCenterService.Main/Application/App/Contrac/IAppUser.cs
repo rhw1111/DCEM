@@ -22,6 +22,7 @@ namespace DCEM.UserCenterService.Main.Application.App
 
     public interface IAppUser
     {
+        Task<ValidateResult> ValUserSecurityquestion(UserLoginRequest req);
         Task<ValidateResult<CrmEntity>> GetAgreement(string id);
         Task<ValidateResult<CrmEntity>> LoginAccount(UserLoginRequest request);
 

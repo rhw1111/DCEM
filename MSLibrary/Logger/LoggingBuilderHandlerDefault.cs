@@ -27,10 +27,13 @@ namespace MSLibrary.Logger
 
         public async Task Execute(ILoggingBuilder builder, LoggerConfiguration configuration)
         {
-            builder.ClearProviders();
+            if (!configuration.RemainAllProvider)
+            {
+                builder.ClearProviders();
+            }
 
             //处理全局日志级别
-            foreach(var levelItem in configuration.GlobalLogLevels)
+            foreach (var levelItem in configuration.GlobalLogLevels)
             {
                 builder.AddFilter(levelItem.Key, levelItem.Value);
             }

@@ -21,7 +21,7 @@ export class ListPage implements OnInit {
     data:[],
     balance:0,
     search:{
-      id: "0010D704-7723-4B75-B334-4A9620769F68",//this._logininfo.GetSystemUserId()}, 
+      id: this._logininfo.GetSystemUserId(), 
       pageindex: 1,
       pagesize:10,
     }

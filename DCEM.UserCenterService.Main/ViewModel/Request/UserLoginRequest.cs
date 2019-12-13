@@ -46,6 +46,17 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
         /// <summary>
         /// 认证类型 1：数字信号认证，2：模拟信号认证
         /// </summary>
-        public int certificationtype { get; set; } 
+        public int certificationtype { get; set; }
+
+         
+        /// <summary>
+        /// 安全问题
+        /// </summary>
+        public List<UsersecurityquestionRequest> quests { get; set; }
     }
+
+
+
+
+     
 }
