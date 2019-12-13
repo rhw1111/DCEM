@@ -306,7 +306,7 @@ namespace MSLibrary.Xrm.Token
                 adfsAuthWrapper = await wrapperContainer.ContextPool.GetAsync();
                 if ((DateTime.UtcNow - adfsAuthWrapper.TokenCreateTime).TotalSeconds > adfsAuthWrapper.AdfsAuth.Expires - 20)
                 {
-                    adfsAuth = await AdfsHelper.RefreshToken(adfsAuthWrapper.AdfsParameter.AdfsUrl, adfsAuthWrapper.AdfsAuth.RefreshToken);
+                    adfsAuth = await AdfsHelper.RefreshToken(adfsAuthWrapper.AdfsParameter.AdfsUrl,clientId,clientSecret, adfsAuthWrapper.AdfsAuth.RefreshToken);
                     adfsAuthWrapper.AdfsAuth = adfsAuth;
                     adfsAuthWrapper.TokenCreateTime = DateTime.UtcNow;
 

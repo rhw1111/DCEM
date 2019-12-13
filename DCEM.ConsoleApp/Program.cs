@@ -32,6 +32,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System.Diagnostics.Contracts;
+using MSLibrary.Oauth.ADFS;
 
 namespace DCEM.ConsoleApp
 {
@@ -43,6 +45,37 @@ namespace DCEM.ConsoleApp
 
         async static Task  Main(string[] args)
         {
+            ServiceCollection serviceCollection = new ServiceCollection();
+            serviceCollection.AddHttpClient();
+
+            var serviceProvider=serviceCollection.BuildServiceProvider();
+            var httpClientFactory=serviceProvider.GetService<IHttpClientFactory>();
+            
+            AdfsHelper.HttpClientFactory = httpClientFactory;
+
+
+
+            var refreshResult=await AdfsHelper.RefreshToken("https://subcrmadfs.sokon.com/", "rFa7zTr1mmK7Sma5hzCaJozA0UaTNsZZ1ZlMXkMh1lsAAQAAu380Q1vL2XHVnkwnQsyBeHhOWDX0spMppw565EoQo4s8Wldp_BwAy_fbj7dOaFfZ-RJEKVAqstrAQ8-qIz1glKepxX-binlSt0HVuu4XwV7FamHWXIYpBNuH1xIgqGGqzBjX9x0ZZmWsvYwLAmUpbVYJN6BIG7SC_8lrTWhDe26XgR8Sj6nrOR6FQ1CwFmn481SS8Znll2xQZ9IXhes7-eD8idgYvdc6MYyoH1byS_c1QqCf2do1dTel9g5cw8o4Vyi8g3oZ7Iw1ZalcrPqiIqKbPW6I5GHZZ9w9AYtbSYqZSB8h0XpsSYdc3V1xFmePCehP-9Pteta8zE9naRa5qnAFAADU1WF73Qv7IBwzr2iJWXoWUWYOZCo1n1q4jv_QFUQaYHqMP9dkzSzVsBWhrqAG-RPKdCEIAxO3pvviWbvJDisqMPQ9QtYbaBWE9O7BA6hWcbprTAq9nnlxNcznzET-Jx29UNfcCOJcyuqTemhGz-LQGCFnp5OtezI3JmyHBc5EfXaZJC1NUjQhtUq1NuhO6MUw3Yg7eu4XCQQcO73207Ioxg2MgzmGOxxXEn9QXco6yIocX8fgclhBRjRpmW97SEPrGQ6l3wr3oP-4ZX4501gQenKmtq0j_FwOshjAQZ0-KVmvhWJHZel96OQ5TUEYb0xVG7y7D_qgMhKbitocsmemFLhacTIF14ApEOJXvxbwm3PAszOFczKX2oqBsJ-vasYReTtWTzkLXt8FmBAMU7VJghhPssDLXjQJfUInoDzNiW7INegCP4eUVzxfVnoCBxxB_UtqDlO-df-Y7xbdsOX29aiXt4ewIMYCKk7fHJFSr4MQMNXYe4LKjbMhIKj3oCcbpvep5jomdiFZiNLWWhYfn4Es-VHR5TnkZjAs2ugwLY5dSaaHRomB_cusnYo988RrvDY0mfOo2YyiY1oM0p0anKYaKzZ6QT96XkxCn4qAYccbXyrP0R4E9Tl9P2K6KE4sSArIZwlAeU-GjqIJbIapciRARKdLeo0tkvTm8RSpHycMMSj7kiVnRpRhsBEK04ej_bl7FfG2R7eATDHFuvics7zjmECwy3_JzsVEjFJBKkzoo9ANt_muVQIjCCR42IcxV2pc_XGrWdwctCb4jZgKiD5PBxZky8MVKhf3HCKyt0fBUtpdx1JdJxDHI-jApt5ONTTg3Rlhg5yY3a5F87iEY23zITlvWMLz8Zq_KxuPE8F84h9unwhPsTrEBrKkNRYNQOVPZqqtP79up6OdyMEAmvsb0WI6Onl3txRvPX37F_e-Cjnco12Qd0rPOillKt4oQvUc4C2goS8DAixTCIbHRZjK_Uonej-NcO9cQdu4X6lI5mYeVRXpaylS76wrcHYubVSwN0qeidt6XuApiO8HR7YCzugcYm9Q6cSZVFYOc68bEwJgP4xowevPeKXahOYulixXEc4GJyOlfapjYGOtuqlXLRqBVhdG5e7kq1ELjZ_FySstl5LA3743kIAtbgbh9iEv7H8uDB1iC2g-O4-sBfG5NR7c5MFUo9lKTOWo8gk6nM_GxJIGN3is38uzGjsmjtO_i-vQVujnVJa7kuSVxzjfmxOcG2vy1LZKkb3D_ocgJEKRZ3JNzTWVr6K_BnyC7RYoKKj9i3MAnzIZgDpAATOqrTGLE_jrapm8-hlzuWb8os3pwaMd89f4UPDjJT-Gg-B65k7ewY_Dk3_2Jcf2Qm6AL0ywdtnxuUGGlYadU20X3sVqAd_5QtaLvlHon6NFSeX0cLk6nzMANoR33hpV3XSvpo20yMiAiJ3zdmv-tXI-buGH_M-ZJcgLbyyfEH9MT_Yv_v8CqVZ4EqrZhGRqM5rYUP_sWN1ryRElYSXYBp51brKOdii-YlQaP041NTKENLS9YTDn6_8JYZ2avItmM8BjkuoS8YDf325rVWlZb3QIz5DudAhVAFMNb6LH346tc1EmX-sJJVt4taF9n5iD_ldcVm-XhceSReJAsSf");
+
+
+
+            JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings()
+            {
+                TypeNameHandling = TypeNameHandling.All,
+                TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Full,
+                
+            };
+
+            Dictionary<string, object> objDict = new Dictionary<string, object>()
+            {
+                { "aa",new User(){ ID=Guid.NewGuid(), Age=11, Comment="11", Name="L" } }
+            };
+
+            var strObjDict = JsonSerializerHelper.Serializer(objDict);
+
+            var dictA=JsonSerializerHelper.Deserialize<Dictionary<string, object>>(@"{""$type"":""System.Collections.Generic.Dictionary`2[[System.String, System.Private.CoreLib],[System.Object, System.Private.CoreLib]], System.Private.CoreLib"",""ID"":""875e175c-2136-4a26-98ae-c2408ddac525"",""Type"":""Test"",""Body"":""xxx"",""Status"":0,""CreateTime"":""2019-12-07T10:44:33.2796697Z"",""ModifyTime"":""2019-12-07T10:44:33.2797729Z"",""UniqueInfo"":""20191207104433279669-875e175c21364a2698aec2408ddac525""}");
+
+
             object vv = new List<int> { 1};
             SObj sObj = new SObj()
             {
@@ -1053,19 +1086,25 @@ namespace DCEM.ConsoleApp
         }
     }
 
-
+    [DataContract]
     public class User
     {
+        [DataMember]
         public Guid ID
         {
             get;set;
         }
-
+        [DataMember]
+        public int Age
+        {
+            get;set;
+        }
+        [DataMember]
         public string Name
         {
             get;set;
         }
-
+        [DataMember]
         public string Comment
         {
             get;set;
