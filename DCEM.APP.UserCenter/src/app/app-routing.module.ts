@@ -22,7 +22,11 @@ const routes: Routes = [
                         loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
                     }
                 ]
-            }
+            },
+            {
+                path: 'frontcontent',
+                loadChildren: () => import('./page/home/frontcontent/frontcontent.module').then(m => m.FrontcontentPageModule)
+            },
         ]
     },
     {
@@ -97,10 +101,6 @@ const routes: Routes = [
                     {
                         path: 'about',
                         loadChildren: () => import('./page/personalcenter/config/about/about.module').then(m => m.AboutPageModule)
-                    },
-                    {
-                        path: 'privacypolicy',
-                        loadChildren: () => import('./page/personalcenter/config/privacypolicy/privacypolicy.module').then(m => m.PrivacypolicyPageModule)
                     }
                 ]
             },
@@ -264,7 +264,7 @@ const routes: Routes = [
         path: 'list',
         loadChildren: () => import('./page/servicecenter/shoppingcart/list/list.module').then(m => m.ListPageModule)
     },
-    
+
     {
         path: 'set',
         loadChildren: () => import('./page/home/set/set.module').then(m => m.SetPageModule)
@@ -285,7 +285,8 @@ const routes: Routes = [
         path: 'questionsetting',
         loadChildren: () => import('./page/message/questionsetting/questionsetting.module').then(m => m.QuestionsettingPageModule)
     },
-  
+
+
 
 ];
 

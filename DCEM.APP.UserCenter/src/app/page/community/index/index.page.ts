@@ -130,6 +130,7 @@ export class IndexPage {
             (res: any) => {
                 if (res !== null && res.ErrorMessage == null) {
                     if (res.ContentList != null) {
+                        var prePath = res.PicPathPre;
                         res.ContentList.forEach(content => {
                             var item = content["Attributes"];
                             var obj = {};
@@ -152,7 +153,7 @@ export class IndexPage {
                             obj["Time"] = item["mcs_activitytime"];
                             obj["Address"] = item["mcs_activityaddress"];
                             // obj["PicPath"] = "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3682338120,1128590170&fm=26&gp=0.jpg";
-                            obj["PicPath"] = item["mcs_thumbnail"];
+                            obj["PicPath"] = prePath + item["mcs_thumbnail"];
                             this.model.activitiesList.push(obj);
                         });
                         event ? event.target.complete() : '';
@@ -191,13 +192,14 @@ export class IndexPage {
             (res: any) => {
                 if (res !== null && res.ErrorMessage == null) {
                     if (res.ContentList != null) {
+                        var prePath = res.PicPathPre;
                         res.ContentList.forEach(content => {
                             var item = content["Attributes"];
                             var obj = {};
                             obj["Id"] = item["mcs_newscontentsid"];
                             obj["Title"] = item["mcs_name"];
                             obj["Summury"] = item["mcs_description"];
-                            obj["PicPath"] = item["mcs_thumbnail"];
+                            obj["PicPath"] = prePath + item["mcs_thumbnail"];
                             this.model.newsList.push(obj);
                         });
                         event ? event.target.complete() : '';

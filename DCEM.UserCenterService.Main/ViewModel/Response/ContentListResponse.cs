@@ -18,12 +18,18 @@ namespace DCEM.UserCenterService.Main.ViewModel.Response
     {
         public List<CrmEntity> ContentList { get; set; }
 
+        //缩略图的前置绝对路径
+        public string PicPathPre { get; set; }
+
         public string ErrorMessage { get; set; }
     }
 
     public class ContentDetailResponse
     {
         public CrmEntity Content { get; set; }
+
+        //缩略图的前置绝对路径
+        public string PicPathPre { get; set; }
 
         public string ErrorMessage { get; set; }
     }
