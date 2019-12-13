@@ -2576,7 +2576,7 @@ let GlobalErrorHandler = class GlobalErrorHandler {
     handleError(error) {
         this.events.publish('userCheck');
         const message = error.message ? error.message : error.toString();
-        const status = error.status ? error.status : error.toString();
+        const status = error.status ? JSON.stringify(error.status) : error.toString();
         if (status === 0
             && error.name === 'HttpErrorResponse'
             && error.statusText === 'Unknown Error') {
