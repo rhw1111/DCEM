@@ -22,5 +22,6 @@ namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
         Task<XDocument> GetNewsListFetchXml(ContentListRequest contentListRequest);
         Task<XDocument> GetActivityListFetchXml(ContentListRequest contentListRequest);
         Task<XDocument> GetFrontListFetchXml(ContentListRequest contentListRequest);
+        Task<XDocument> GetFrontContentFetchXml(string defCode);
     }
 }

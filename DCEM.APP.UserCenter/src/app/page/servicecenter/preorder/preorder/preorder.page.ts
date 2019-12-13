@@ -50,13 +50,6 @@ export class PreorderPage implements OnInit {
         } else {
             this.getList(null);
         }
-        //var storage = window.localStorage;
-        //var addrdata = storage.getItem("chooseaddr");
-        //if (addrdata != null) {
-        //    this.mod.model = JSON.parse(addrdata);
-        //} else {
-        //    this.getList(null);
-        //}
     }
     //初始化页面数据加载
     initListLoading() {
@@ -222,7 +215,7 @@ export class PreorderPage implements OnInit {
                 "Totalintegral": 0,
                 "UnitPrice": res.price,
                 "ListPrice": parseFloat((res.price * res.num).toString()).toFixed(2),
-                "ImageUrl": "",
+                "ImageUrl": res.img,
                 "TotalPrice": parseFloat((res.price * res.num).toString()).toFixed(2),
                 "DeliveryType": 0,
                 "ProviderInstanceCode": "",

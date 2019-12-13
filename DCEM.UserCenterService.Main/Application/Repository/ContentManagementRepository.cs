@@ -38,6 +38,27 @@ namespace DCEM.UserCenterService.Main.Application.Repository
             });
         }
 
+        public async Task<XDocument> GetFrontContentFetchXml(string defCode)
+        {
+            return await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+                                  <entity name='mcs_frontcontent'>
+                                    <attribute name='mcs_name' />
+                                    <attribute name='mcs_contenttext' />
+                                    <attribute name='mcs_description' />
+                                    <attribute name='mcs_thumbnail' />  
+                                    <attribute name='mcs_url' />  
+                                    <filter type='and'>
+                                      <condition attribute='mcs_contentstatus' operator='eq' value='1' /> 
+                                      <condition attribute='mcs_defcode' operator='eq' value='{defCode}' /> 
+                                    </filter>  
+                                  </entity>
+                                </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
+
         public async Task<XDocument> GetFrontListFetchXml(ContentListRequest contentListRequest)
         {
             return await Task<XDocument>.Run(() =>
