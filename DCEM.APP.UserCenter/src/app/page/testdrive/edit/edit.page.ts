@@ -215,7 +215,7 @@ GetCarmodel() {
 
 
   //获取预约时段
-  private GetTimeInterval(testdrivetime) {
+  GetTimeInterval(testdrivetime) {
     //debugger;
     if (!this._valid.isNullOrEmpty(this.model.postData.mcs_carmodel) && !this._valid.isNullOrEmpty(this.model.postData.mcs_dealerid) && !this._valid.isNullOrEmpty(this.model.postData.mcs_ordertime)) {
       this._http.get(this.model.TimeIntervalUrl,
