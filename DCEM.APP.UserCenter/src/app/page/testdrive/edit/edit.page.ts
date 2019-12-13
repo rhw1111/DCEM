@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DCore_Http, DCore_Page, DCore_Valid } from 'app/component/typescript/Dcem.core';
+import { DCore_Http, DCore_Page, DCore_Valid } from 'app/component/typescript/dcem.core';
 import { ModalController } from '@ionic/angular';
 // import { SelectDealerComponent } from "app/component/modal/select-dealer/select-dealer.component";
 import { ActivatedRoute, Params } from '@angular/router';

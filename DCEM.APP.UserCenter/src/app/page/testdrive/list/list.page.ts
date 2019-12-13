@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DCore_Http, DCore_Page } from 'app/component/typescript/Dcem.core';
+import { DCore_Http, DCore_Page } from 'app/component/typescript/dcem.core';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { OptionSetService } from 'app/component/typescript/optionset.service';
 import sd from 'silly-datetime';
