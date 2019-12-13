@@ -61,7 +61,15 @@ namespace MSLibrary.Configuration
 
         public SystemConfiguration QueryByName(string name)
         {
-            return _systemConfigurationRepository.QueryByName(name);
+            CacheTimeContainer<SystemConfiguration> configurationItem = _configurationsByName.GetValue(name);
+            if (configurationItem == null || configurationItem.Expire())
+            {
+                var configuration = _systemConfigurationRepository.QueryByName(name);
+                configurationItem = new CacheTimeContainer<SystemConfiguration>(configuration, CacheTimeout);
+                _configurationsByName.SetValue(name, configurationItem);
+            }
+
+            return configurationItem.Value;
         }
 
     }
