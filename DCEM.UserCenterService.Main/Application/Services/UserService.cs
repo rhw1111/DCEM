@@ -21,6 +21,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
     public class UserService : IUserService
     {
 
+        private string _behavior = "channel_user_registration";//唯一线索添加 获取注册用户对应用户行为编码
         private ICrmService _crmService;
         public IUserRepository _repository;
         private const string entityName = "mcs_user";
@@ -259,6 +260,19 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 entity.Attributes.Add("mcs_logintype", model.logintype);
                 entity.Attributes.Add("mcs_name", model.account);
                 entity.Attributes.Add("mcs_status", 1);
+                await _crmService.Create(entity, userInfo?.systemuserid);
+
+                ///唯一线索
+                Guid leadid = Guid.NewGuid();
+                entity = new CrmExecuteEntity("lead", leadid);
+                entity.Attributes.Add("lastname", model.nickname);
+                entity.Attributes.Add("mobilephone", model.phone);
+                var crmRequestHelper = new CrmRequestHelper();
+                XDocument fetchXdoc = null;
+                fetchXdoc = await _repository.GetBehavior(_behavior);
+                var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_behavior", fetchXdoc);
+                if (entities.Results.Count > 0)
+                    entity.Attributes.Add("mcs_behaviorid", new CrmEntityReference("mcs_behavior",   entities.Results[0].Id));
                 await _crmService.Create(entity, userInfo?.systemuserid);
 
                 ///问题选择
