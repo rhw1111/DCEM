@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DCore_Http, DCore_Page } from 'app/component/typescript/dcem.core';
+import { OptionSetService } from 'app/component/typescript/optionset.service';
 
 @Component({
   selector: 'app-index',
@@ -128,7 +130,10 @@ export class IndexPage implements OnInit {
     }
   ];
 
-  constructor(private router:Router) { }
+  constructor(private router:Router,
+    private _http: DCore_Http,
+    private _page: DCore_Page,
+    private optionset:OptionSetService) { }
 
   ngOnInit() {
   }

@@ -41,6 +41,12 @@ namespace DCEM.UserCenterService.Main.Application.App
         Task<UserTagListResponse> getusertag(UserDetailRequest userDetailRequest);
         Task<UserScoreListResponse> getuserscore(UserDetailRequest userDetailRequest);
         
-        Task<CrmEntity> getuserdetail(UserDetailRequest userDetailRequest); 
+        Task<CrmEntity> getuserdetail(UserDetailRequest userDetailRequest);
+        /// <summary>
+        /// 获取用户通知信息
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<QueryResult<CrmEntity>> QueryUserNotices(UserNoticeRequest request);
     }
 }
