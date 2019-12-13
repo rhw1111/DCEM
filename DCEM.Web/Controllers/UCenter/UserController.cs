@@ -203,6 +203,22 @@ namespace DCEM.Web.Controllers
                 return res;
         }
 
+
+        [Route("resetpwdtoquestion")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult>> UpdatePwdToQuestion(UserLoginRequest req)
+        {
+            
+            //验证码验证
+            ValidateResult res = await _appUser.ValUserSecurityquestion(req);
+            if (res.Result)
+            { 
+                return await _appUser.UpdateUserPwd(req);
+            }
+            else
+                return res;
+        }
+
         /// <summary>
         /// 问题列表
         /// </summary>
