@@ -22,6 +22,10 @@ ion-card{
     ion-card-content{
         padding-top: 0px;
         padding-left: 0px;
+        
+        ion-item{
+            width: 100%;
+        }
     }
 
     ion-label{
