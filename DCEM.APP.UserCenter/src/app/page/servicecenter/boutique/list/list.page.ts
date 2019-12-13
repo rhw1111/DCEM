@@ -15,7 +15,7 @@ export class ListPage implements OnInit {
             opack: "-1",
             pageSize: 10,//页数
             page: 1,//分页
-            mcstype: 10
+            mcstype: 10//精品
         },
         datalist: [],//数据集合
         isending: false,//是否加载完成
