@@ -26,7 +26,7 @@ export class SelectattrPage implements OnInit {
         productMap: {},                            //产品视图
         productOrderingattributeMap: {},           //产品的订购属性
         productOrderingattributeClassMap: {},           //按照类别分组
-        topCarImage: "http://sf-test.mediaman.com.cn//img/sf-5-orange-tire1.7b037424.png",
+        carColorPic: "http://sf-test.mediaman.com.cn//img/sf-5-orange-tire1.7b037424.png",
         selectProductKey: "",                       //选择的产品Key
         selectProduct: {},                          //选择的产品      
         packageMoney: 0,                            //选择的所有对象金额
@@ -96,7 +96,7 @@ export class SelectattrPage implements OnInit {
         //初始化
         this.shareData = this._shareData.get(this.mod.shareDataKey);
 
-        this.shareData.topCarImage = "http://sf-test.mediaman.com.cn//img/sf-5-orange-tire1.7b037424.png";
+        this.shareData.carColorPic = "http://sf-test.mediaman.com.cn//img/sf-5-orange-tire1.7b037424.png";
         //基础地图
         this.shareData.productOrderingattributeMap = {};
         //类别分组地图
@@ -133,11 +133,11 @@ export class SelectattrPage implements OnInit {
                 this.shareData.productOrderingattributeClassMap[productOrderingattributeClassKey]["moneyFormat"] = "价格已包含";
 
 
-                //if (productOrderingattributeClassKey === "外观颜色") {
-                //    if (!this._valid.isNullOrEmpty(productOrderingattribute["mcs_attributevalue"])) {
-                //        this.shareData.topCarImage = productOrderingattribute["mcs_attributevalue"];
-                //    }
-                //}
+                if (productOrderingattributeClassKey === "外观颜色") {
+                    if (!this._valid.isNullOrEmpty(productOrderingattribute["mcs_mainimage"])) {
+                        this.shareData.carColorPic = productOrderingattribute["mcs_mainimage"];
+                    }
+                }
 
                 this.shareData.packageMap[productOrderingattributeClassKey] = {};
                 this.shareData.packageMap[productOrderingattributeClassKey]["text"] = productOrderingattribute["mcs_attributevalue"];
@@ -232,6 +232,16 @@ export class SelectattrPage implements OnInit {
         for (var key in this.shareData.packageMap) {
             this.shareData.packageMoney += this.shareData.packageMap[key]["money"];
         }
+
+
+        //改变图片
+        if (productOrderingattributeClassKey === "外观颜色") {
+            if (!this._valid.isNullOrEmpty(this.shareData.productOrderingattributeMap[proOrderAttrKey]["mcs_mainimage"])) {
+                this.shareData.carColorPic = this.shareData.productOrderingattributeMap[proOrderAttrKey]["mcs_mainimage"];
+            }
+        }
+
+
         this._shareData.set(this.mod.shareDataKey, this.shareData);
 
     }
