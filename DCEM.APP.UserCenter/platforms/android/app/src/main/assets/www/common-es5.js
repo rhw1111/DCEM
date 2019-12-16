@@ -572,7 +572,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var app_component_typescript_dcem_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/component/typescript/dcem.core */ "./src/app/component/typescript/dcem.core.ts");
+/* harmony import */ var app_component_typescript_pipe_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/component/typescript/pipe.core */ "./src/app/component/typescript/pipe.core.ts");
 
 
 
@@ -582,19 +582,58 @@ var ShareModule = /** @class */ (function () {
     }
     ShareModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            entryComponents: [],
             declarations: [
-                app_component_typescript_dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_SafeHtml"],
+                app_component_typescript_pipe_core__WEBPACK_IMPORTED_MODULE_3__["DCore_SafeHtml"],
             ],
+            entryComponents: [],
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
             ],
             exports: [
-                app_component_typescript_dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_SafeHtml"]
+                app_component_typescript_pipe_core__WEBPACK_IMPORTED_MODULE_3__["DCore_SafeHtml"]
             ]
         })
     ], ShareModule);
     return ShareModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/component/typescript/pipe.core.ts":
+/*!***************************************************!*\
+  !*** ./src/app/component/typescript/pipe.core.ts ***!
+  \***************************************************/
+/*! exports provided: DCore_SafeHtml */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DCore_SafeHtml", function() { return DCore_SafeHtml; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
+
+
+
+//去掉Angular安全过滤器
+var DCore_SafeHtml = /** @class */ (function () {
+    function DCore_SafeHtml(sanitized) {
+        this.sanitized = sanitized;
+    }
+    DCore_SafeHtml.prototype.transform = function (value) {
+        return this.sanitized.bypassSecurityTrustHtml(value);
+    };
+    DCore_SafeHtml.ctorParameters = function () { return [
+        { type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["DomSanitizer"] }
+    ]; };
+    DCore_SafeHtml = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Pipe"])({ name: 'safeHtml' }) //自定义管道
+        ,
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["DomSanitizer"]])
+    ], DCore_SafeHtml);
+    return DCore_SafeHtml;
 }());
 
 
