@@ -70,6 +70,12 @@ export class EditPage implements OnInit {
 
   ionViewWillEnter() {
 
+    //校验登录
+    var logininfo=this._logininfo.GetUserInfo();
+    if(logininfo==null||logininfo==undefined){
+      this._page.goto("/servicecenter/reservation/confirmedit");
+    }
+
     //服务类型
     this.shareData.orderTypeOption = this._optionset.Get("mcs_ordertype");
 

@@ -29,7 +29,7 @@
         <ion-label position="fixed">订单状态<ion-text color="danger">*</ion-text>:</ion-label>
         <ion-note style="font-weight: bold;color: black;">{{model.bindData["mcs_statusvale"]}}&nbsp;</ion-note>
       </ion-item>
-      <ion-row  *ngIf="model.bindData.mcs_status=='10'||model.bindData.mcs_status=='20'">
+      <ion-row  *ngIf="model.ifCanEdit">
         <ion-col style="align-self:center">
           <ion-button  fill="solid" color="danger"[routerLink]="['/servicecenter/reservation/cancel']" [queryParams]="{id:model.appointmentinfoId}">取消订单</ion-button>
           &nbsp;&nbsp;&nbsp;&nbsp; 
