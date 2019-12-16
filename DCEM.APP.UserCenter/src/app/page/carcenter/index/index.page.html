@@ -105,7 +105,7 @@
         <ion-row>
             <ion-col class="dm-ico-list">
                 <ul>
-                    <li *ngFor="let item of shareData.page.middle_equity.menulist">
+                    <li *ngFor="let item of shareData.page.middle_equity.menulist" [routerLink]="[item['link']]">
                         <img src="{{item['svg']}}" />
                         <p>{{item['title']}}</p>
                     </li>
@@ -142,7 +142,7 @@
         <ion-row>
             <ion-col class="dm-ico-list">
                 <ul>
-                    <li *ngFor="let item of shareData.page.middle_charging.menulist">
+                    <li *ngFor="let item of shareData.page.middle_charging.menulist" [routerLink]="[item['link']]">
                         <img src="{{item['svg']}}" />
                         <p>{{item['title']}}</p>
                     </li>

@@ -1,4 +1,7 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, ViewChild, OnInit } from '@angular/core';
+import * as $ from 'jquery';
+import { DCore_Http, DCore_Page, DCore_Valid, DCore_ShareData } from 'app/component/typescript/dcem.core';
+
 
 @Component({
     selector: 'app-index',
@@ -85,18 +88,18 @@ export class IndexPage {
                 imgscr: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3682338120,1128590170&fm=26&gp=0.jpg",
                 menulist: [
                     {
-                        title: "远程诊断",
-                        svg: "../assets/svg/carcenter/index/yczd.svg",
+                        title: "充电与安全",
+                        svg: "../assets/svg/carcenter/index/ccyaq.svg",
                         link: "#",
                     },
                     {
-                        title: "流量畅享",
-                        svg: "../assets/svg/carcenter/index/llcx.svg",
+                        title: "解密超充站",
+                        svg: "../assets/svg/carcenter/index/jmccz.svg",
                         link: "#",
                     },
                     {
-                        title: "移动服务",
-                        svg: "../assets/svg/carcenter/index/ydfw.svg",
+                        title: "家用充电桩",
+                        svg: "../assets/svg/carcenter/index/jycdz.svg",
                         link: "#",
                     }
                 ],
@@ -144,13 +147,49 @@ export class IndexPage {
                     },
                 ],
             },
-
             bottom: {
                 imgscr: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3682338120,1128590170&fm=26&gp=0.jpg",
                 link: "#",
             }
         }
     }
-    constructor() { }
+    constructor(
+        private _http: DCore_Http,
+        private _page: DCore_Page,
+        private _valid: DCore_Valid,
+        private _shareData: DCore_ShareData
+    ) { }
 
+
+    ngOnInit() {
+
+    }
+
+    ionViewWillEnter() {
+        this.initPage();
+    }
+
+
+    public initPage() {
+        console.log(JSON.stringify(this.shareData.page));
+        this._http.get(
+            "api/SysConfig/GetCepConfig",
+            {
+                params: {
+                    key: "DCEM_CarCenter_Index",
+                }
+
+            },
+            (res: any) => {
+                if (!this._valid.isNullOrEmpty(res["mcs_val"])) {
+                    this.shareData.page = $.parseJSON(res["mcs_val"]);
+                }
+                console.log(this.shareData.page);
+            },
+            (err: any) => {
+
+                console.log(err);
+            }
+        );
+    }
 }

@@ -2,6 +2,7 @@
     margin: 0px;
     padding: 0px;
 }
+
 .goods-list * {
     --padding-start: 0px !important;
     --padding-end: 0px !important;
@@ -48,7 +49,7 @@
 .goods-list .panel .img img {
     width: 100%;
     height: 100%;
-    border-radius:5px;
+    border-radius: 5px;
 }
 
 .goods-list .panel .name {
@@ -77,3 +78,32 @@
 }
 
 
+
+.dm-ico-list {
+
+    ul {
+        position: relative;
+        list-style-type: none;
+
+        li {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            float: left;
+            width: 20% !important;
+            position: relative;
+            margin-bottom: 10px;
+
+            img {
+                position: relative;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            p {
+                font-size: 14px;
+                position: relative;
+                text-align: center;
+            }
+        }
+    }
+}
