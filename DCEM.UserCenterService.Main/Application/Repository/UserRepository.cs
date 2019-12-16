@@ -122,7 +122,28 @@ namespace DCEM.UserCenterService.Main.Application.Repository
             });
         }
 
+        /// <summary>
+        /// 用户行为获取
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public async Task<XDocument> GetBehavior(string  code)
+        {
+            return await Task<XDocument>.Run(() =>
+            {
 
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+  <entity name='mcs_behavior'>
+    <attribute name='mcs_name' /> 
+    <attribute name='mcs_behaviorid' /> 
+    <filter type='and'>
+      <condition attribute='mcs_code' operator='eq' value='{code}' /> 
+    </filter>  
+  </entity>
+</fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
 
 
 

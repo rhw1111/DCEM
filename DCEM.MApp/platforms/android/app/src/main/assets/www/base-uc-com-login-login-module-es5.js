@@ -127,10 +127,10 @@ var LoginPage = /** @class */ (function () {
         // 加入测试参数
         // this.mod.username = 'subdevcrmadmin';
         // this.mod.password = 'password01#';
-        this.mod.username = 'crm9admin';
-        this.mod.password = '@Msc.com@';
-        //this.mod.username = 'subuatcrmadmin';
-        //this.mod.password = 'P@ssw0rd';
+        // this.mod.username = 'crm9admin';
+        // this.mod.password = '@Msc.com@';
+        this.mod.username = 'subuatcrmadmin';
+        this.mod.password = 'P@ssw0rd';
         this.mod.apiurl = '/api/User/GetAuthToken';
         this.mod.domainType = 'local';
         //var welcomeisloading= this._window.storageGet("welcomeisloading");

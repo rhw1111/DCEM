@@ -23,15 +23,18 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
     public class ContentManagementService : IContentManagementService
     {
-        
+
         private ICrmService _crmService;
-        
+
         public IContentManagementRepository _contentmanagementRepository;
-        
-        public ContentManagementService(ICrmService crmService, IContentManagementRepository contentmanagementRepository)
+
+        public IConfigRepository _configRepository;
+
+        public ContentManagementService(ICrmService crmService, IContentManagementRepository contentmanagementRepository, IConfigRepository configRepository)
         {
-             _crmService = crmService;
-                     _contentmanagementRepository=contentmanagementRepository;
+            _crmService = crmService;
+            _contentmanagementRepository = contentmanagementRepository;
+            _configRepository = configRepository;
         }
 
         public async Task<ContentListResponse> GetList(ContentListRequest contentListRequest)
@@ -44,6 +47,8 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 response.ALLTotalCount = entities.Count;
                 response.PageSize = contentListRequest.PageSize;
                 response.CurrentPage = contentListRequest.PageIndex;
+
+                response.PicPathPre = await GetConfig();
                 return response;
             }
             catch (Exception ex)
@@ -82,6 +87,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
             {
                 var response = new ContentDetailResponse() { };
                 response.Content = await GetEntity(contentDetailRequest);
+                response.PicPathPre = await GetConfig();
                 return response;
             }
             catch (Exception ex)
@@ -92,9 +98,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
         private async Task<CrmEntity> GetEntity(ContentDetailRequest contentDetailRequest)
         {
-            var crmRequestHelper = new CrmRequestHelper();
             string entityName = string.Empty;
-
             switch (contentDetailRequest.Type)
             {
                 case ContentType.Activity:
@@ -107,7 +111,37 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     entityName = "mcs_newscontents";
                     break;
             }
-            return await crmRequestHelper.Retrieve(_crmService, entityName, contentDetailRequest.Id);
+            var crmRequestHelper = new CrmRequestHelper();
+            //判断是传id还是唯一码
+            if (contentDetailRequest.Id.HasValue)
+            {
+                return await crmRequestHelper.Retrieve(_crmService, entityName, contentDetailRequest.Id.Value);
+            }
+            if (!string.IsNullOrWhiteSpace(contentDetailRequest.DefCode))
+            {
+                XDocument fetchXdoc = null;
+                //目前暂时只有前端内容有唯一码
+                fetchXdoc = await _contentmanagementRepository.GetFrontContentFetchXml(contentDetailRequest.DefCode);
+                var entities = await crmRequestHelper.ExecuteAsync(_crmService, entityName, fetchXdoc);
+                if (entities != null && entities.Results != null && entities.Results.Count > 0)
+                {
+                    return entities.Results[0];
+                }
+            }
+            return null;
+        }
+
+        private async Task<string> GetConfig()
+        {
+            var crmRequestHelper = new CrmRequestHelper();
+            XDocument fetchXdoc = null;
+            fetchXdoc = await _configRepository.GetConfigFetchXml("Key_ContentPicUpload_Url");
+            var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_cepconfig", fetchXdoc);
+            if (entities != null && entities.Results != null && entities.Results.Count > 0)
+            {
+                return entities.Results[0].Attributes["mcs_val"]?.ToString();
+            }
+            return null;
         }
     }
 }

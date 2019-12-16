@@ -28,10 +28,12 @@ namespace DCEM.UserCenterService.Main.Factory
         public virtual Task<IAppUser> Create()
         {
             var crmService = StartupHelper.CreateCrmService();
-                IUserRepository userrepository = new UserRepository();
-                IUserService userservice = new UserService(crmService, userrepository);
-                IAppUser app = new AppUser(userservice); 
-                return Task.FromResult(app);;
+            IUserRepository userrepository = new UserRepository();
+            IUserService userservice = new UserService(crmService, userrepository);
+            IUserNoticeRepository userNoticerepository = new UserNoticeRepository();
+            IUserNoticeService userNoticeservice = new UserNoticeService(crmService, userNoticerepository);
+            IAppUser app = new AppUser(userservice, userNoticeservice);
+            return Task.FromResult(app); ;
         }
     }
 }

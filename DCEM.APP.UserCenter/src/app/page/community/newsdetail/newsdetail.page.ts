@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DCore_Http, DCore_Page, DCore_Valid } from 'app/component/typescript/Dcem.core';
+import { DCore_Http, DCore_Page, DCore_Valid } from 'app/component/typescript/dcem.core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -66,7 +66,7 @@ export class NewsdetailPage implements OnInit {
             this.model.newsEntity.Views = res.Content["Attributes"]["mcs_views"];
             this.model.newsEntity.Likes = res.Content["Attributes"]["mcs_likes"];
             this.model.newsEntity.Collections = res.Content["Attributes"]["mcs_collections"];
-            this.model.newsEntity.PicPath = res.Content["Attributes"]["mcs_thumbnail"];
+            this.model.newsEntity.PicPath = res.PicPathPre + res.Content["Attributes"]["mcs_thumbnail"];
           }
           else {
             this._page.alert("消息提示", "数据加载异常");

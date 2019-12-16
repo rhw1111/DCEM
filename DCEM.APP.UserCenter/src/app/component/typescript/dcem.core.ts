@@ -37,7 +37,7 @@ export class DCore_Config {
 
     constructor(
     ) {
-        this.dcem_serverName = "local";
+        this.dcem_serverName = "9_0";
         this.tc_serverName = "9_0";
 
         this.tc_host_map = function () {
@@ -45,7 +45,7 @@ export class DCore_Config {
             map.set("dev", "https://subcrmdevapi.sokon.com/tc/");
             map.set("sit", "https://subcrmsitapi.sokon.com/tc/");
             map.set("uat", "https://subcrmuatapi.sokon.com/tc/");
-            map.set("local", "https://localhost:44382/");
+            map.set("local", "http://localhost:5000/");
             map.set("9_0", "http://106.14.121.65:8082/tc/");
             map.set("iis", "http://localhost:9099/");
             return map;
@@ -56,7 +56,7 @@ export class DCore_Config {
             map.set("dev", "https://subcrmdevapi.sokon.com/dcem/");
             map.set("sit", "https://subcrmdevapi.sokon.com/dcem/");
             map.set("uat", "https://subcrmuatapi.sokon.com/dcem/");
-            map.set("local", "https://localhost:44382/");
+            map.set("local", "http://localhost:5000/");
             map.set("9_0", "http://106.14.121.65:8082/dcem/");
             map.set("iis", "http://localhost:9099/");
             return map;
@@ -409,21 +409,6 @@ export class DCore_String {
     }
 }
 
-
-
-
-//去掉Angular的垃圾安全过滤器
-@Injectable({
-    providedIn: 'root'
-})
-@Pipe({ name: 'safeHtml' }) //自定义管道
-export class DCore_SafeHtml implements PipeTransform {
-    constructor(private sanitized: DomSanitizer) { }
-
-    transform(value) {
-        return this.sanitized.bypassSecurityTrustHtml(value);
-    }
-}
 
 
 

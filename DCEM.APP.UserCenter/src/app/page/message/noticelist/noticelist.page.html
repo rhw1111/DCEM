@@ -8,20 +8,26 @@
 </ion-header>
 
 <ion-content color="light">
-
-  <ion-card>
-    <ion-item [routerLink]="['/questionsetting']"
-      [queryParams]="{id:'6418EC30-680F-EA11-B394-86D989685D12',channer:'AE87DE6A-6D1A-EA11-B394-86D989685D12'}">
-      <ion-label>问卷调查</ion-label>
-    </ion-item>
-    <ion-card-content>
-      邀请您参加得好礼
-      <img src="assets/img/questionsetting.png" />
-    </ion-card-content>
-  </ion-card>
-  <ion-item-divider color="light">
-    <p>
-      2019-11-29
-    </p> 
-  </ion-item-divider>
+  <ion-grid>
+    <ion-row *ngFor="let notice of model.datalist">
+        <ion-card>
+            <ion-item [routerLink]="['/message/notice']"  [queryParams]="{url:notice.mcs_url}" >
+              <ion-label>{{notice.mcs_name}}</ion-label>
+            </ion-item>
+            <ion-card-content>
+                {{notice.mcs_content}}
+              <img [src]="notice.mcs_head_imageurl" />
+            </ion-card-content>
+          </ion-card>
+          <ion-item-divider color="light">
+            <p>
+                {{FormatToDate(notice.createdon)}}
+            </p> 
+          </ion-item-divider>
+    </ion-row>
+  </ion-grid>
+  <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doLoading($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
