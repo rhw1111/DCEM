@@ -203,6 +203,22 @@ namespace DCEM.Web.Controllers
                 return res;
         }
 
+
+        [Route("resetpwdtoquestion")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult>> UpdatePwdToQuestion(UserLoginRequest req)
+        {
+            
+            //验证码验证
+            ValidateResult res = await _appUser.ValUserSecurityquestion(req);
+            if (res.Result)
+            { 
+                return await _appUser.UpdateUserPwd(req);
+            }
+            else
+                return res;
+        }
+
         /// <summary>
         /// 问题列表
         /// </summary>
@@ -257,6 +273,18 @@ namespace DCEM.Web.Controllers
         public async Task<NewtonsoftJsonActionResult<ValidateResult<CrmEntity>>> GetAgreement(UserDetailRequest model)
         {
             return await _appUser.GetAgreement(model.id);
+        }
+
+        /// <summary>
+        /// 获取用户通知信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Route("notices")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetUserNotices(UserNoticeRequest request)
+        {
+            return await _appUser.QueryUserNotices(request);
         }
     }
 }

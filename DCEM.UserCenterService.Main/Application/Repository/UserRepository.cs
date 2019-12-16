@@ -122,7 +122,28 @@ namespace DCEM.UserCenterService.Main.Application.Repository
             });
         }
 
+        /// <summary>
+        /// 用户行为获取
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public async Task<XDocument> GetBehavior(string  code)
+        {
+            return await Task<XDocument>.Run(() =>
+            {
 
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+  <entity name='mcs_behavior'>
+    <attribute name='mcs_name' /> 
+    <attribute name='mcs_behaviorid' /> 
+    <filter type='and'>
+      <condition attribute='mcs_code' operator='eq' value='{code}' /> 
+    </filter>  
+  </entity>
+</fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
 
 
 
@@ -176,6 +197,35 @@ namespace DCEM.UserCenterService.Main.Application.Repository
     <attribute name='mcs_code' />
     <attribute name='mcs_name' /> 
     <order attribute='mcs_index' descending='true' /> 
+  </entity>
+</fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
+
+
+        /// <summary>
+        /// 用户安全密码获取
+        /// </summary>
+        /// <returns></returns>
+        public async Task<XDocument> GetUserSecurityquestion(UserLoginRequest request)
+        {
+            return await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+  <entity name='mcs_usersecurityquestion'>
+    <attribute name='mcs_securityquestionid' />
+    <attribute name='mcs_answer' />
+    <attribute name='mcs_name' />  
+        <link-entity name='mcs_user' from='mcs_userid' to='mcs_userid' link-type='inner' alias='ac'>
+          <link-entity name='mcs_loginname' from='mcs_userid' to='mcs_userid' link-type='inner' alias='ad'>
+            <filter type='and'>
+              <condition attribute='mcs_name' operator='eq' value='{request.account}' />
+              <condition attribute='mcs_status' operator='eq' value='1' />
+              <condition attribute='mcs_logintype' operator='eq' value='{request.logintype}' />
+            </filter>
+          </link-entity>
+        </link-entity>
   </entity>
 </fetch>";
                 return XDocument.Parse(fetchXml);

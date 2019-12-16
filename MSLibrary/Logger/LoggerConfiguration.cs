@@ -22,6 +22,16 @@ namespace MSLibrary.Logger
         {
             get;set;
         }
+
+        /// <summary>
+        /// 是否需保留所有Provider
+        /// </summary>
+        [DataMember]
+        public bool RemainAllProvider
+        {
+            get; set;
+        }
+
         /// <summary>
         /// 全局日志级别设置(未指定的其他目录)
         /// </summary>
@@ -58,6 +68,7 @@ namespace MSLibrary.Logger
         /// </summary>
         [DataMember]
         public JObject Configuration { get; set; }
+
         /// <summary>
         /// 日志级别设置（指定目录）
         /// </summary>

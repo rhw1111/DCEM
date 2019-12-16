@@ -2645,7 +2645,7 @@ var GlobalErrorHandler = /** @class */ (function () {
     GlobalErrorHandler.prototype.handleError = function (error) {
         this.events.publish('userCheck');
         var message = error.message ? error.message : error.toString();
-        var status = error.status ? error.status : error.toString();
+        var status = error.status ? JSON.stringify(error.status) : error.toString();
         if (status === 0
             && error.name === 'HttpErrorResponse'
             && error.statusText === 'Unknown Error') {

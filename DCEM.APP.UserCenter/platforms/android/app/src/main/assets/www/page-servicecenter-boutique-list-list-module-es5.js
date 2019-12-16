@@ -135,6 +135,7 @@ var ListPage = /** @class */ (function () {
                 opack: "-1",
                 pageSize: 10,
                 page: 1,
+                mcstype: 10
             },
             datalist: [],
             isending: false,
@@ -167,7 +168,8 @@ var ListPage = /** @class */ (function () {
             StartDateTime: "2019-01-01 00:00:00",
             EndDateTime: "2019-12-31 23:59:59",
             PageSize: this.model.search.pageSize,
-            PageIndex: this.model.search.page
+            PageIndex: this.model.search.page,
+            McsType: this.model.search.mcstype
         }, function (res) {
             if (res != null && res.Datas !== null) {
                 //绑定数据

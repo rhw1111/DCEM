@@ -85,7 +85,7 @@ namespace DCEM.LoggerService
             })
             .ConfigureKestrel(opts=>
             {
-                
+
             })
             
             .UseConfiguration(ConfigurationContainer.GetConfiguration(ConfigurationNames.Host))
