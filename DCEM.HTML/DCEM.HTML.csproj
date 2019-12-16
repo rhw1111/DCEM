@@ -135,8 +135,49 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="HtmlResources\Templates\Content\about.css" />
+    <Content Include="HtmlResources\Templates\Content\bootstrap.css" />
+    <Content Include="HtmlResources\Templates\Content\bootstrap.min.css" />
+    <Content Include="HtmlResources\Templates\Content\clientlib.min.1532359576587.min.css" />
+    <Content Include="HtmlResources\Templates\Content\common.css" />
+    <Content Include="HtmlResources\Templates\Content\ltr+requests.min.20170829110157.min.css" />
+    <Content Include="HtmlResources\Templates\Content\Site.css" />
+    <Content Include="HtmlResources\Templates\DealerArrived.html" />
+    <Content Include="HtmlResources\Templates\Images\about_bg_wap.jpg" />
+    <Content Include="HtmlResources\Templates\Images\about_us.jpg" />
+    <Content Include="HtmlResources\Templates\Images\beijing.jpg" />
+    <Content Include="HtmlResources\Templates\Images\car.png" />
+    <Content Include="HtmlResources\Templates\Images\car1.webp.jpg" />
+    <Content Include="HtmlResources\Templates\Images\car2.gif" />
+    <Content Include="HtmlResources\Templates\Images\car3.gif" />
+    <Content Include="HtmlResources\Templates\Images\guangzhou.jpg" />
+    <Content Include="HtmlResources\Templates\Images\map-WAP.jpg" />
+    <Content Include="HtmlResources\Templates\Images\shanghai.jpg" />
+    <Content Include="HtmlResources\Templates\Images\silicon.jpg" />
+    <Content Include="HtmlResources\Templates\Images\success.jpg" />
+    <Content Include="HtmlResources\Templates\OfflineVisit.html" />
+    <Content Include="HtmlResources\Templates\OnlineApply.html" />
+    <Content Include="HtmlResources\Templates\Scripts\ai.0.22.9-build00167.js" />
+    <Content Include="HtmlResources\Templates\Scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="HtmlResources\Templates\Scripts\bootstrap.js" />
+    <Content Include="HtmlResources\Templates\Scripts\bootstrap.min.js" />
+    <None Include="HtmlResources\Templates\Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="HtmlResources\Templates\Scripts\jquery-1.10.2.js" />
+    <Content Include="HtmlResources\Templates\Scripts\jquery-1.10.2.min.js" />
+    <Content Include="HtmlResources\Templates\Scripts\jquery-3.3.1.min.js" />
+    <None Include="HtmlResources\Templates\Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="HtmlResources\Templates\Scripts\jquery.validate.js" />
+    <Content Include="HtmlResources\Templates\Scripts\jquery.validate.min.js" />
+    <Content Include="HtmlResources\Templates\Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="HtmlResources\Templates\Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="HtmlResources\Templates\Scripts\modernizr-2.6.2.js" />
+    <Content Include="HtmlResources\Templates\Scripts\respond.js" />
+    <Content Include="HtmlResources\Templates\Scripts\respond.min.js" />
+    <None Include="HtmlResources\Templates\Scripts\_references.js" />
+    <Content Include="HtmlResources\Templates\SuccessPage.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="HtmlResources\Templates\Scripts\jquery-1.10.2.min.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -162,7 +203,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="html\" />
+    <Folder Include="HtmlResources\Activities\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
