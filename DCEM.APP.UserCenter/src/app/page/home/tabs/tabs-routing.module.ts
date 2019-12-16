@@ -76,14 +76,14 @@ const routes: Routes = [
             },
             {
                 path: '',
-                redirectTo: '/tabs/carcenter',
+                redirectTo: '/tabs/community',
                 pathMatch: 'full'
             }
         ]
     },
     {
         path: '',
-        redirectTo: '/tabs/carcenter',
+        redirectTo: '/tabs/community',
         pathMatch: 'full'
     }
 ];
