@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button text="返回" defaultHref="/servicecenter/reservation/list"></ion-back-button>
+      </ion-buttons>
+      <ion-title>预约取消</ion-title>
+      <ion-buttons slot="end">
+          <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+      <ion-item-group>
+          <ion-item>
+              <ion-label position="fixed">取消原因<ion-text color="danger">*</ion-text></ion-label>
+              <ion-select [(ngModel)]="shareData.appointmentinfo['mcs_cancelreasonnew']" placeholder="请选择取消原因" okText="确认" cancelText="取消">
+                  <ion-select-option *ngFor="let item of model.cancelReasonOption" value="{{item.value}}">
+                      {{item.name}}
+                  </ion-select-option>
+              </ion-select>
+          </ion-item>
+          <ion-item>
+              <ion-label position="fixed">取消描述<ion-text color="danger">*</ion-text></ion-label>
+              <ion-textarea [(ngModel)]="shareData.appointmentinfo['mcs_canceldes']"></ion-textarea>
+          </ion-item>
+      </ion-item-group>
+  </ion-list>
+  <ion-button expand="block" type="button" (click)="saveOnClick()">确定</ion-button>
+</ion-content>

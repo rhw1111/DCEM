@@ -17,16 +17,24 @@
 <ion-content>
   <ion-card>
     <ion-card-header>
-      <ion-card-title style="font-size: 25px;">订单状态:&nbsp;{{model.bindData['mcs_statusvale']}}</ion-card-title>
+      <ion-card-subtitle>订单信息</ion-card-subtitle>
+      <!-- <ion-card-title style="font-size: 20px;">订单状态:&nbsp;{{model.bindData['mcs_statusvale']}}</ion-card-title> -->
     </ion-card-header>
-    <ion-card-content>
-      <ion-row>
-        <ion-col>
+    <ion-card-content >
+      <ion-item>
+        <ion-label position="fixed">订单号<ion-text color="danger">*</ion-text>:</ion-label>
+        <ion-note style="font-weight: bold;color: black;">{{model.bindData["mcs_name"]}}&nbsp;</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label position="fixed">订单状态<ion-text color="danger">*</ion-text>:</ion-label>
+        <ion-note style="font-weight: bold;color: black;">{{model.bindData["mcs_statusvale"]}}&nbsp;</ion-note>
+      </ion-item>
+      <ion-row  *ngIf="model.bindData.mcs_status=='10'||model.bindData.mcs_status=='20'">
+        <ion-col style="align-self:center">
+          <ion-button  fill="solid" color="danger"[routerLink]="['/servicecenter/reservation/cancel']" [queryParams]="{id:model.appointmentinfoId}">取消订单</ion-button>
+          &nbsp;&nbsp;&nbsp;&nbsp; 
           <ion-button fill="solid" color="light" [routerLink]="['/servicecenter/reservation/edit']" [queryParams]="{id:model.appointmentinfoId}">编辑订单</ion-button>
-          &nbsp;&nbsp;&nbsp;&nbsp; <ion-button  fill="solid" color="danger" (click)="cancelOnClick()">取消订单</ion-button>
         </ion-col>
-        <!-- <ion-col>
-        </ion-col> -->
       </ion-row>
     </ion-card-content>
   </ion-card>
@@ -73,13 +81,13 @@
           {{model.bindData["mcs_appointmentconfigname"]}}</ion-note>
       </ion-item>
       <ion-item>
-        <ion-label position="fixed">客户要求:</ion-label>
+        <ion-label position="fixed">备注:</ion-label>
         <p>{{model.bindData["mcs_customercomment"]}}</p>
       </ion-item>
-      <ion-item>
+      <!-- <ion-item>
         <ion-label position="fixed">问题描述:</ion-label>
         <p>{{model.bindData["mcs_appointmendescript" ]}}</p>
-      </ion-item>
+      </ion-item> -->
     </ion-card-content>
   </ion-card>
   <ion-card>

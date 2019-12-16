@@ -55,7 +55,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCEM.UserCenterService.Main
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCEM.TCenterService.Main", "DCEM.TCenterService.Main\DCEM.TCenterService.Main.csproj", "{F3E51F06-E951-404B-8B92-63382F470DB1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCEM.HT", "DCEM.HT\DCEM.HT.csproj", "{326B11B2-2A9C-42F0-8DF3-D3257248E01A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCEM.HT", "DCEM.HT\DCEM.HT.csproj", "{326B11B2-2A9C-42F0-8DF3-D3257248E01A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
