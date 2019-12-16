@@ -25,7 +25,7 @@ export class EditPage implements OnInit {
   public model = {
     apiUrlDetail: 'api/user/getuserdetail',
     apiUrl: "api/user/updateuser",
-    id: "0010D704-7723-4B75-B334-4A9620769F68",//写死的userid //this._logininfo.GetSystemUserId(),
+    id: this._logininfo.GetSystemUserId(),
     countryId: "DD0D2AE0-E414-EA11-B394-86D989685D12",//UAT:"7E83801C-795B-E911-A824-B53F780FAC1C",
     level: 2,//行政区域级别 0:全球、1:国家、2:省、3:市、4:地区
     genderoption: [],
@@ -44,7 +44,7 @@ export class EditPage implements OnInit {
       describe: ""
     },
     params: {
-      userid: "0010D704-7723-4B75-B334-4A9620769F68",//this._logininfo.GetSystemUserId(),
+      userid: this._logininfo.GetSystemUserId(),
       gender: 1,
       mcs_email: "",
       name: "",
