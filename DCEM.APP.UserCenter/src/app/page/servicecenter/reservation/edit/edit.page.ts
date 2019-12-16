@@ -1,7 +1,7 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { ModalController, NavController, IonBackButton, IonBackButtonDelegate } from '@ionic/angular';
 import { DCore_Http, DCore_Page, DCore_Valid, DCore_ShareData } from '../../../../component/typescript/dcem.core';
-import { SelectDealerComponent } from "app/component/modal/select-dealer/select-dealer.component";
+import { SelectDealerListComponent } from "app/component/modal/select-dealer-list/select-dealer-list.component"
 import { SelectUsercarinfoComponent } from "app/component/modal/select-usercarinfo/select-usercarinfo.component";
 import sd from 'silly-datetime';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -69,6 +69,12 @@ export class EditPage implements OnInit {
   }
 
   ionViewWillEnter() {
+
+    //校验登录
+    var logininfo=this._logininfo.GetUserInfo();
+    if(logininfo==null||logininfo==undefined){
+      this._page.goto("/servicecenter/reservation/confirmedit");
+    }
 
     //服务类型
     this.shareData.orderTypeOption = this._optionset.Get("mcs_ordertype");
@@ -270,7 +276,7 @@ export class EditPage implements OnInit {
   async DealerPresentModal() {
     // debugger;
     const modal = await this._modalCtrl.create({
-      component: SelectDealerComponent
+      component: SelectDealerListComponent
     });
     await modal.present();
     const { data } = await modal.onDidDismiss();

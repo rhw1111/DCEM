@@ -39,12 +39,12 @@ namespace DCEM.Main.RemoteService
             ////获取认证信息
             //var authInfos = await description.GenerateAuthInfo();
             //调用服务
-            return await HttpClinetHelper.PostAsync<QueryStockQuantityRequest, List<SkuStockModel>>(model,BaseUrl);
+            return await HttpClinetHelper.GetAsync<List<SkuStockModel>>( $"{BaseUrl}/api/product/QueryStockQuantity?ProductCode={model.ProductCode}&ProductSkuCode={model.ProductSkuCode}");
         }
 
-        public Task<Product> QueryNewProductByCode(string productCode)
+        public async Task<Product> QueryNewProductByCode(string productCode)
         {
-            throw new NotImplementedException();
+            return await HttpClinetHelper.PostAsync<string, Product>(productCode, $"{BaseUrl}/api/product/");
         }
 
         public async Task<QueryProductAllResponse> QueryProductAll(QueryProductAllRequest request)
@@ -53,24 +53,28 @@ namespace DCEM.Main.RemoteService
             return await HttpClinetHelper.PostAsync<QueryProductAllRequest, QueryProductAllResponse>(request, $"{BaseUrl}/api/product/All");
         }
 
-        public Task<List<QueryProductAllUpdateResponse>> QueryProductAllUpDate(QueryProductAllRequest request)
+        public async Task<List<QueryProductAllUpdateResponse>> QueryProductAllUpDate(QueryProductAllRequest request)
         {
-            throw new NotImplementedException();
+            //调用服务
+            return await HttpClinetHelper.PostAsync<QueryProductAllRequest, List<QueryProductAllUpdateResponse>>(request, $"{BaseUrl}/api/product/AllUpdate");
         }
 
-        public Task<QueryProductAllResponse> QueryProductAllUpDate2(QueryProductAllRequest request)
+        public async Task<QueryProductAllResponse> QueryProductAllUpDate2(QueryProductAllRequest request)
         {
-            throw new NotImplementedException();
+            //调用服务
+            return await HttpClinetHelper.PostAsync<QueryProductAllRequest, QueryProductAllResponse>(request, $"{BaseUrl}/api/product/All2");
         }
 
-        public Task<QueryProductAllResponse> QueryProductByCategory(string code)
+        public async Task<QueryProductAllResponse> QueryProductByCategory(string code)
         {
-            throw new NotImplementedException();
+            //调用服务
+            return await HttpClinetHelper.GetAsync<QueryProductAllResponse>($"{BaseUrl}/api/product/QueryProductByCategory?code={code}");
         }
 
-        public Task<QueryProductByCodeResponse> QueryProductByCode(string productCode)
+        public async Task<QueryProductByCodeResponse> QueryProductByCode(string productCode)
         {
-            throw new NotImplementedException();
+            //调用服务
+            return await HttpClinetHelper.GetAsync<QueryProductByCodeResponse>($"{BaseUrl}/api/product/Detail?productCode={productCode}");
         }
     }
 }

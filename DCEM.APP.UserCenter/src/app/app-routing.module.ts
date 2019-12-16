@@ -213,7 +213,8 @@ const routes: Routes = [
                     { path: 'edit', loadChildren: () => import('./page/servicecenter/reservation/edit/edit.module').then(m => m.EditPageModule) },
                     { path: 'detail', loadChildren: () => import('./page/servicecenter/reservation/detail/detail.module').then(m => m.DetailPageModule) },
                     { path: 'success', loadChildren: () => import('./page/servicecenter/reservation/success/success.module').then(m => m.SuccessPageModule) },
-                    { path: 'confirmedit', loadChildren: () => import('./page/servicecenter/reservation/confirmedit/confirmedit.module').then(m => m.ConfirmeditPageModule) }
+                    { path: 'confirmedit', loadChildren: () => import('./page/servicecenter/reservation/confirmedit/confirmedit.module').then(m => m.ConfirmeditPageModule) },
+                    { path: 'cancel',loadChildren: () => import('./page/servicecenter/reservation/cancel/cancel.module').then( m => m.CancelPageModule)},
                 ]
             },
             {
@@ -284,7 +285,7 @@ const routes: Routes = [
     {
         path: 'questionsetting',
         loadChildren: () => import('./page/message/questionsetting/questionsetting.module').then(m => m.QuestionsettingPageModule)
-    },
+    }
 
 
 
