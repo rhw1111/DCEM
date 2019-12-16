@@ -16,7 +16,7 @@
     </ion-item>
   </ion-list>
   <ion-list>
-    <ion-item lines="none" style="height: 50px;" [routerLink]="['/personalcenter/myorder/carorder/list']">
+    <ion-item lines="none" style="height: 50px;">
       <ion-label>
         <h2>我的整车订单</h2>
       </ion-label>
@@ -24,9 +24,9 @@
         <p></p>
       </ion-note>
     </ion-item>
-    <ion-item *ngFor="let item of model.orders" [routerLink]="['/personalcenter/myorder/carorder/list']">
-      <ion-card style="width: 100%;height: 300px;margin: 10px;">
-        <ion-card-content style="padding: 10px;">
+    <ion-item *ngFor="let item of model.orders" >
+      <ion-card style="width: 100%;height: 300px;margin: 5px;">
+        <ion-card-content style="padding: 5px;">
           <ion-list lines="none">
             <ion-item>
               <ion-icon name="arrow-dropright" color="primary"></ion-icon>
