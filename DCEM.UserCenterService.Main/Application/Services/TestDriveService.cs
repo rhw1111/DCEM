@@ -154,7 +154,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 {
                     EntityName = "mcs_testdrivefeedbackmaster",
                     FetchXml = fetchXdoc,
-                    ProxyUserId = UserId
+                    ProxyUserId = null
                 };
                 var fetchResponse = await _crmService.Execute(fetchRequest);
                 var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;

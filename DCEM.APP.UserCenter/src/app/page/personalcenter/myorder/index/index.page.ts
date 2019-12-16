@@ -47,12 +47,12 @@ export class IndexPage implements OnInit {
           }
         }
         else {
-          this._page.alert("消息提示", "门店信息加载异常");
+          this._page.alert("消息提示", "我的订单信息加载异常");
         }
         this._page.loadingHide();
       },
       (err: any) => {
-        this._page.alert("消息提示", "门店信息加载异常");
+        this._page.alert("消息提示", "我的订单信息加载异常");
         this._page.loadingHide();
       }
     );

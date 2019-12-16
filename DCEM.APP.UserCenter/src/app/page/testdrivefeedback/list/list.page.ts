@@ -53,6 +53,7 @@ doLoading(event) {
 
 //获取列表数据
 getList(event) {
+  //debugger;
   this._page.loadingShow();
   this.model.params.UserId=this._logininfo.GetSystemUserId()
   this._http.post(this.model.apiUrl, this.model.params,
