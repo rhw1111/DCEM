@@ -51,7 +51,7 @@ export class DetailPage implements OnInit {
 
 
   ionViewWillEnter() {
-
+    // debugger;
     //里程数据
     this.MileageOption();
 
@@ -81,8 +81,10 @@ export class DetailPage implements OnInit {
 
           this.model.bindData["mcs_appointmentinfoid"] = res.Id;
           this.model.bindData["mcs_customername"] = res["Attributes"]["mcs_customername"];
+          this.model.bindData["mcs_name"] = res["Attributes"]["mcs_name"];
           this.model.bindData["mcs_carplate"] = res["Attributes"]["mcs_carplate"];
           this.model.bindData["mcs_customerphone"] = res["Attributes"]["mcs_customerphone"];
+          this.model.bindData["mcs_status"] = res["Attributes"]["mcs_status"];
           this.model.bindData["mcs_statusvale"] = res["Attributes"]["mcs_status@OData.Community.Display.V1.FormattedValue"];
           this.model.bindData["mcs_ordertype"] = String(res["Attributes"]["mcs_ordertype"]);
           this.model.bindData["mcs_ordertypename"] = res["Attributes"]["mcs_ordertype@OData.Community.Display.V1.FormattedValue"];
@@ -308,7 +310,6 @@ export class DetailPage implements OnInit {
     }
   }
 
-
    /**
    * 获取里程
    */
@@ -347,9 +348,4 @@ export class DetailPage implements OnInit {
     }
     return this.model.totalTime;
   }
-
-  public cancelOnClick(){
-    
-  }
-
 }

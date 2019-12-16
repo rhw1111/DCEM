@@ -10,21 +10,27 @@
 <ion-content color="light">
   <ion-grid>
     <ion-row *ngFor="let notice of model.datalist">
-        <ion-card>
-            <ion-item [routerLink]="['/message/notice']"  [queryParams]="{url:notice.mcs_url}" >
-              <ion-label>{{notice.mcs_name}}</ion-label>
-            </ion-item>
-            <!-- <a [href]="notice.mcs_url">{{notice.mcs_name}}</a> -->
-            <ion-card-content>
-                {{notice.mcs_content}}
-              <img [src]="notice.mcs_head_imageurl" />
-            </ion-card-content>
-          </ion-card>
-          <ion-item-divider color="light">
-            <p>
-                {{FormatToDate(notice.createdon)}}
-            </p> 
-          </ion-item-divider>
+      <ion-card>
+        <ion-item *ngIf="notice.mcs_type==2 && notice.mcs_name=='试驾反馈'" [routerLink]="['/questionsetting']"
+          [queryParams]="{id:'B10464DD-FE1B-EA11-B396-8C6696330818',channer:'AE87DE6A-6D1A-EA11-B394-86D989685D12'}">
+          <ion-label>{{notice.mcs_name}}</ion-label>
+        </ion-item>
+        <ion-item *ngIf="notice.mcs_type==2 && notice.mcs_name!='试驾反馈'" [routerLink]="['/message/notice']"  [queryParams]="{url:notice.mcs_url}">
+          <ion-label>{{notice.mcs_name}}</ion-label>
+        </ion-item>
+        <ion-item *ngIf="notice.mcs_type==1">
+          <ion-label>{{notice.mcs_name}}</ion-label>
+        </ion-item>
+        <ion-card-content>
+          {{notice.mcs_content}}
+          <img *ngIf="notice.mcs_head_imageurl!=null && notice.mcs_head_imageurl!=''" [src]="notice.mcs_head_imageurl" />
+        </ion-card-content>
+      </ion-card>
+      <ion-item-divider color="light">
+        <p>
+          {{FormatToDate(notice.createdon)}}
+        </p>
+      </ion-item-divider>
     </ion-row>
   </ion-grid>
   <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doLoading($event)">

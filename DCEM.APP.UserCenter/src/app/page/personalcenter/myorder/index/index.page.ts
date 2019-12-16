@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalController, IonContent, NavParams, IonInfiniteScroll } from '@ionic/angular';
 import { DCore_Page, DCore_Http, DCore_Valid } from '../../../../component/typescript/dcem.core'
+import { Storage_LoginInfo } from "../../../../component/typescript/logininfo.storage";
 @Component({
   selector: 'app-index',
   templateUrl: './index.page.html',
@@ -10,8 +11,8 @@ export class IndexPage implements OnInit {
 
   constructor( private modalCtrl: ModalController,
     private _http: DCore_Http,
-    private _page: DCore_Page
-    ) { }
+    private _page: DCore_Page,
+    private _logininfo: Storage_LoginInfo) { }
 
   ngOnInit() {
     this.searchData(null);
@@ -21,7 +22,7 @@ export class IndexPage implements OnInit {
     search: {
       pageindex: 1,
       pagesize: 10,
-      UserId:  "0010D704-7723-4B75-B334-4A9620769F68",//this._logininfo.GetSystemUserId()}, 
+      UserId: this._logininfo.GetSystemUserId()
     },
     orders: []
   }
