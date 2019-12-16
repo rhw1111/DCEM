@@ -59,10 +59,21 @@
 
 .panelbutton{
     clear: both;
-    height: 50px;
+    height: 60px;
+
+    ion-grid{
+        padding: 0px;
+    }
 }
 
 .panelbutton ion-row{
     float: right;
+    padding-right: 10px;
+    ion-button{
+        --border-radius: 0px;
+        height: 40px;
+        font-size: 15px;
+        font-weight: bold;
+    }
 }
 

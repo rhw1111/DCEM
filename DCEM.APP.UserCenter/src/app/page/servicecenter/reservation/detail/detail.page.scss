@@ -47,8 +47,10 @@ ion-card{
 
     ion-row{
         ion-button{
-            float: left;
+            float: right;
             padding-top: 10px;
+            padding-left: 10px;
+            --border-radius: 5px;
             /* padding-right: 15px; */
             /* margin-bottom: 10px; */
         }
