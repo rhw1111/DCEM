@@ -66,7 +66,7 @@ export class NewsdetailPage implements OnInit {
             this.model.newsEntity.Views = res.Content["Attributes"]["mcs_views"];
             this.model.newsEntity.Likes = res.Content["Attributes"]["mcs_likes"];
             this.model.newsEntity.Collections = res.Content["Attributes"]["mcs_collections"];
-            this.model.newsEntity.PicPath = res.Content["Attributes"]["mcs_thumbnail"];
+            this.model.newsEntity.PicPath = res.PicPathPre + res.Content["Attributes"]["mcs_thumbnail"];
           }
           else {
             this._page.alert("消息提示", "数据加载异常");

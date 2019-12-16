@@ -274,6 +274,18 @@ namespace DCEM.Web.Controllers
         {
             return await _appUser.GetAgreement(model.id);
         }
+
+        /// <summary>
+        /// 获取用户通知信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Route("notices")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetUserNotices(UserNoticeRequest request)
+        {
+            return await _appUser.QueryUserNotices(request);
+        }
     }
 }
 

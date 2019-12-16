@@ -4,47 +4,47 @@
 }
 
 //颜色
-$dm-orange: RGB(240,110,35); //(橘色)
-$dm-darkblue: RGB(32,48,61); //(深蓝)
-$dm-white: RGB(255,255,255); //(白)
-$dm-gray: RGB(150,153,154); //(灰)
-$dm-gray-line: RGB(238,238,238); //(灰线)
-$dm-darkgray: RGB(99,102,105); //(深灰)
-$dm-input-line: RGB(219,219,219); //(输入框的线)
-$dm-black: RGB(0,0,0); //黑
+$dm-orange: #F06E23; //(橘色)
+$dm-darkblue: #20303D; //(深蓝)
+$dm-white: #FFFFFF; //(白)
+$dm-gray: #96999A; //(灰)
+$dm-gray-line: #EEEEEE; //(灰线)
+$dm-darkgray: #636669; //(深灰)
+$dm-input-line: #DBDBDB; //(输入框的线)
+$dm-black: #000000; //黑
 //自定义颜色
 .ion-color-org {
-    --ion-color-base: RGB(240,110,35);
-    --ion-color-base-rgb: RGB(240,110,35);
+    --ion-color-base: #F06E23;
+    --ion-color-base-rgb: #F06E23;
     --ion-color-contrast: #ffffff;
-    --ion-color-contrast-rgb: 255,255,255;
-    --ion-color-shade: RGB(240,110,35);
-    --ion-color-tint: RGB(240,110,35);
+    --ion-color-contrast-rgb: #F06E23;
+    --ion-color-shade: #F06E23;
+    --ion-color-tint: #F06E23;
 }
 
 .ion-color-dis {
-    --ion-color-base: RGB(248,248,248);
-    --ion-color-base-rgb: RGB(248,248,248);
-    --ion-color-contrast: RGB(200,200,200);
-    --ion-color-contrast-rgb: 0,0,0;
-    --ion-color-shade: RGB(248,248,248);
-    --ion-color-tint: RGB(248,248,248);
+    --ion-color-base: #F8F8F8;
+    --ion-color-base-rgb: #F8F8F8;
+    --ion-color-contrast: #C8C8C8;
+    --ion-color-contrast-rgb: #000000;
+    --ion-color-shade: #F8F8F8;
+    --ion-color-tint: #F8F8F8
 }
 
 .ion-color-darkblue {
-    --ion-color-base: RGB(32,48,61);
-    --ion-color-base-rgb: RGB(32,48,61);
-    --ion-color-contrast: RGB(32,48,61);
-    --ion-color-contrast-rgb: 0,0,0;
-    --ion-color-shade: RGB(32,48,61);
-    --ion-color-tint: RGB(32,48,61);
+    --ion-color-base: #20303D;
+    --ion-color-base-rgb: #20303D;
+    --ion-color-contrast: #20303D;
+    --ion-color-contrast-rgb: #000000;
+    --ion-color-shade: #20303D;
+    --ion-color-tint: #20303D;
 }
 
 //顶部导航
 .dm-top-nav {
     $height: 40px;
 
-    background-color: rgb(244,241,245);
+    background-color: #F4F1F5;
     height: $height;
 
 

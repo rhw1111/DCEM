@@ -215,7 +215,7 @@ export class PreorderPage implements OnInit {
                 "Totalintegral": 0,
                 "UnitPrice": res.price,
                 "ListPrice": parseFloat((res.price * res.num).toString()).toFixed(2),
-                "ImageUrl": "",
+                "ImageUrl": res.img,
                 "TotalPrice": parseFloat((res.price * res.num).toString()).toFixed(2),
                 "DeliveryType": 0,
                 "ProviderInstanceCode": "",

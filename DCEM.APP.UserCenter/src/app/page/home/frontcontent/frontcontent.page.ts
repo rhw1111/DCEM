@@ -4,14 +4,15 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-privacypolicy',
-  templateUrl: './privacypolicy.page.html',
-  styleUrls: ['./privacypolicy.page.scss'],
+  selector: 'app-frontcontent',
+  templateUrl: './frontcontent.page.html',
+  styleUrls: ['./frontcontent.page.scss'],
 })
-export class PrivacypolicyPage implements OnInit {
+export class FrontcontentPage implements OnInit {
 
   model = {
     contentManagementApiUrl: 'api/ContentManagement/GetContentDetail',
+    title: "",
     contentUrl: null,
     params: {
       Type: 0,
@@ -24,20 +25,14 @@ export class PrivacypolicyPage implements OnInit {
     private _page: DCore_Page,
     private activeRoute: ActivatedRoute,
     public sanitizer: DomSanitizer
-  ) {
+  ) { }
+
+  ngOnInit() {
     this.activeRoute.queryParams.subscribe((params: Params) => {
       if (params['defcode'] != null && params['defcode'] != undefined) {
         this.getContent(params['defcode']);
       }
     });
-  }
-
-  ngOnInit() {
-    // this.activeRoute.queryParams.subscribe((params: Params) => {
-    //   if (params['defcode'] != null && params['defcode'] != undefined) {
-    //     this.getContent(params['defcode']);
-    //   }
-    // });
   }
 
   getContent(defcode: any) {
@@ -50,6 +45,7 @@ export class PrivacypolicyPage implements OnInit {
         //debugger;
         if (res !== null) {
           if (res.Content !== null) {
+            this.model.title = res.Content["Attributes"]["mcs_name"];
             this.model.contentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(res.Content["Attributes"]["mcs_url"]);
           }
           else {
