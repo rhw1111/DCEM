@@ -60,11 +60,18 @@ export class NoticelistPage implements OnInit {
             obj["mcs_user_msgid"] = item["Attributes"].mcs_user_msgid;
             obj["mcs_name"] = item["Attributes"].mcs_name;
             obj["mcs_readstatus"] = this.optionset.GetOptionSetNameByValue("mcs_readstatus", item["Attributes"].mcs_readstatus);
-            obj["mcs_type"] = this.optionset.GetOptionSetNameByValue("mcs_type", item["Attributes"].mcs_type);
+            //obj["mcs_type"] = this.optionset.GetOptionSetNameByValue("mcs_type", item["Attributes"].mcs_type);
+            obj["mcs_type"] = item["Attributes"].mcs_type;
             obj["mcs_user"] = item["Attributes"]["mcs_user.mcs_name"];
             obj["mcs_content"] = item["Attributes"].mcs_content;
             obj["mcs_url"] = item["Attributes"].mcs_url;
-            obj["mcs_head_imageurl"] = item["Attributes"].mcs_head_imageurl;
+            if(item["Attributes"].mcs_head_imageurl==null || item["Attributes"].mcs_head_imageurl==""){
+              //obj["mcs_head_imageurl"]="assets/img/questionsetting.png";
+            }
+            else{
+              obj["mcs_head_imageurl"] = item["Attributes"].mcs_head_imageurl;
+            }
+            
             obj["createdon"] = item["Attributes"].createdon;
             this.model.datalist.push(obj);
           });
