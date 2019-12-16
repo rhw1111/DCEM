@@ -29,7 +29,8 @@ namespace DCEM.UserCenterService.Main.Factory
         {
             var crmService = StartupHelper.CreateCrmService();
                 IContentManagementRepository contentmanagementrepository = new ContentManagementRepository();
-                IContentManagementService contentmanagementservice = new ContentManagementService(crmService, contentmanagementrepository);
+            IConfigRepository configtrepository = new ConfigRepository();
+            IContentManagementService contentmanagementservice = new ContentManagementService(crmService, contentmanagementrepository, configtrepository);
                 IAppContentManagement app = new AppContentManagement(contentmanagementservice); 
                 return Task.FromResult(app);;
         }
