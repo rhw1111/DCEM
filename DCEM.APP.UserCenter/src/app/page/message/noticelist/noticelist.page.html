@@ -14,7 +14,6 @@
             <ion-item [routerLink]="['/message/notice']"  [queryParams]="{url:notice.mcs_url}" >
               <ion-label>{{notice.mcs_name}}</ion-label>
             </ion-item>
-            <!-- <a [href]="notice.mcs_url">{{notice.mcs_name}}</a> -->
             <ion-card-content>
                 {{notice.mcs_content}}
               <img [src]="notice.mcs_head_imageurl" />
