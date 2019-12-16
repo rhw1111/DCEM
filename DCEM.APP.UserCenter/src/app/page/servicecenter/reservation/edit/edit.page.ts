@@ -1,12 +1,13 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalController, NavController, IonBackButton, IonBackButtonDelegate } from '@ionic/angular';
 import { DCore_Http, DCore_Page, DCore_Valid, DCore_ShareData } from '../../../../component/typescript/dcem.core';
-import { SelectDealerComponent } from "app/component/modal/select-dealer/select-dealer.component";
+import { SelectDealerListComponent } from "app/component/modal/select-dealer-list/select-dealer-list.component"
 import { SelectUsercarinfoComponent } from "app/component/modal/select-usercarinfo/select-usercarinfo.component";
 import sd from 'silly-datetime';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { OptionSetService } from '../../../../component/typescript/optionset.service';
 import { Storage_LoginInfo } from '../../../../component/typescript/logininfo.storage';
+import { LoginComponent } from '../../../../component/modal/login/login.component'
 
 @Component({
   selector: 'app-edit',
@@ -70,20 +71,28 @@ export class EditPage implements OnInit {
 
   ionViewWillEnter() {
 
+    // //校验登录
+    // var logininfo = this._logininfo.GetUserInfo();
+    // if (logininfo == null || logininfo == undefined) {
+    //   debugger;
+    //   this.loginModal();
+    // }
+
     //服务类型
     this.shareData.orderTypeOption = this._optionset.Get("mcs_ordertype");
 
     //里程数据
     this.MileageOption();
 
-    //其他服务包
-    this.PackOtherOption();
+    if (!this._shareData.has(this.model.shareDataKey)) {
+      //其他服务包
+      this.PackOtherOption();
+    }
     this._activeRoute.queryParams.subscribe((params: Params) => {
       // debugger;
       if (this._shareData.has(this.model.shareDataKey)) {
         this.shareData = this._shareData.get(this.model.shareDataKey);
       }
-
       //编辑绑定预约单数据
       if (params['id'] != null && params['id'] != undefined) {
         this.model.appointmentinfoId = params['id'];
@@ -216,7 +225,7 @@ export class EditPage implements OnInit {
           obj3["ischecked"] = true;
           this.model.bindOtherPackOptionMap[mapkey3] = obj3;
           this.DoOtherPacks(this.model.bindOtherPackOptionMap);
-          
+
           this.shareData.appointmentinfo['mcs_mileageid'] = "2";
         }
         else {
@@ -270,7 +279,7 @@ export class EditPage implements OnInit {
   async DealerPresentModal() {
     // debugger;
     const modal = await this._modalCtrl.create({
-      component: SelectDealerComponent
+      component: SelectDealerListComponent
     });
     await modal.present();
     const { data } = await modal.onDidDismiss();
@@ -667,6 +676,25 @@ export class EditPage implements OnInit {
         }
       }
 
+    }
+  }
+
+  //选择登录窗口
+  async loginModal() {
+    const modal = await this._modalCtrl.create({
+      component: LoginComponent,
+      componentProps: {
+        'status': 1//登录页面状态 
+      }
+    });
+    await modal.present();
+    //监听销毁的事件
+    const { data } = await modal.onDidDismiss();
+
+    var islogin=data["login"];
+    if(!islogin){
+      //alert("登录失败");
+      this._page.goto("/tabs/servicecenter");
     }
   }
 }

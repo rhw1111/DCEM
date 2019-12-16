@@ -12,6 +12,7 @@
     color: #ffffff; 
     background-color: #009FE8;
     // margin-left: 90px;
+    min-height: 35px;
     float: right;
 }
 .chat-friend .chat-text {
@@ -44,6 +45,9 @@ ion-item {
     item-label{
         border: none;
         margin: 0;
+    }
+    .item-native{
+        clear: both;
     }
 }
 .border-none{

@@ -547,8 +547,9 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 var getbalanceentitys = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_member", fetchXdoc2);
                 if (getbalanceentitys.Results != null && getbalanceentitys.Results.Count > 0)
                 {
-                    response.balance = (Int32)getbalanceentitys.Results[0].Attributes
+                    var bonuspoint= getbalanceentitys.Results[0].Attributes
     ["mcs_bonuspoint"];
+                    response.balance = bonuspoint == null ? 0 : (Int32)bonuspoint;
                 }
                 else
                 {

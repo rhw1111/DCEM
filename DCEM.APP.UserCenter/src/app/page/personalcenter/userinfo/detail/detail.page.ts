@@ -19,7 +19,7 @@ export class DetailPage implements OnInit {
   public model = {
     apiUrltags: "api/user/getusertag",
     apiUrlDetail: 'api/user/getuserdetail',
-    id: "0010D704-7723-4B75-B334-4A9620769F68",
+    id:this._logininfo.GetSystemUserId(),
     info: {
       username: "",
       mobile: "",

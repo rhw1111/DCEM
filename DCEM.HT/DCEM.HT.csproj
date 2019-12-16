@@ -17,9 +17,10 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
   </ItemGroup>
-
+ 
   <ItemGroup>
-    <Folder Include="wwwroot\HtmlResources\Templates\Content\bootstrap-check\" />
+    <Folder Include="wwwroot\HtmlResources\Templates\Content\bootstrap-check\" /> 
+    <ProjectReference Include="..\DCEM.UserCenterService.Main\DCEM.UserCenterService.Main.csproj" /> 
   </ItemGroup>
 
 </Project>
