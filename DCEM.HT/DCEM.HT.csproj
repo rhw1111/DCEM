@@ -6,6 +6,9 @@
 
 
   <ItemGroup>
+    <Folder Include="HtmlResources\Fronts\" />
+    <Folder Include="HtmlResources\Templates\" />
+    <Folder Include="HtmlResources\Activities\" />
   </ItemGroup>
 
 </Project>
