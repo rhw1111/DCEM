@@ -11,6 +11,16 @@ export class DCore_SafeHtml implements PipeTransform {
 }
 
 
+@Pipe({ name: 'safeResourceUrl' }) 
+export class DCore_SafeUrl implements PipeTransform {
+    constructor(private sanitized: DomSanitizer) { }
+
+    transform(value) {
+        return this.sanitized.bypassSecurityTrustResourceUrl(value);
+    }
+}
+
+
 
 
 
