@@ -62,13 +62,7 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
         /// 问题编号
         /// </summary
         public Guid mcs_questions { get; set; }
-    }
-
-
-
-
-
-
+    } 
 
 
 

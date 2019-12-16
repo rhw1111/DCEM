@@ -24,10 +24,12 @@ namespace DCEM.UserCenterService.Main.Application.App
     {
 
         public IUserService _userService;
+        public IUserNoticeService _userNoticeService;
 
-        public AppUser(IUserService userService)
+        public AppUser(IUserService userService, IUserNoticeService userNoticeService)
         {
             _userService = userService;
+            _userNoticeService = userNoticeService;
         }
         public async Task<ValidateResult> ValUserSecurityquestion(UserLoginRequest req)
         {
@@ -85,6 +87,11 @@ namespace DCEM.UserCenterService.Main.Application.App
         public Task<UserScoreListResponse> getuserscore(UserDetailRequest userDetailRequest)
         {
             return _userService.getuserscore(userDetailRequest);
+        }
+
+        public async Task<QueryResult<CrmEntity>> QueryUserNotices(UserNoticeRequest request)
+        {
+            return await _userNoticeService.GetUserNotices(request);
         }
     }
 }

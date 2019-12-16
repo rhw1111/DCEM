@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <Folder Include="HtmlResources\Fronts\" />
+    <Folder Include="HtmlResources\Templates\" />
+    <Folder Include="HtmlResources\Activities\" />
+  </ItemGroup>
+
+</Project>

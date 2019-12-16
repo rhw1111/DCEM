@@ -27,13 +27,13 @@ export class ListPage implements OnInit {
     countryId: "DD0D2AE0-E414-EA11-B394-86D989685D12",//UAT:"7E83801C-795B-E911-A824-B53F780FAC1C",
     level: 2,//行政区域级别 0:全球、1:国家、2:省、3:市、4:地区 
     info: {
-      provincename: "省",
-      cityname: "市",
+      provincename: "广东省",
+      cityname: "广州市",
     },
     paramets:
     {
-      provinceid: "",
-      cityid: "",
+      provinceid: "ebf929e0-e414-ea11-b394-86d989685d12",
+      cityid: "07fa29e0-e414-ea11-b394-86d989685d12",
       dealertype: "0"//1：体验中心，3：服务中心
     },
     data: []
@@ -59,7 +59,9 @@ export class ListPage implements OnInit {
       title: '北京'
     });
     this.markers.push(marker);
-    this.map.add(marker);
+    this.map.add(marker); 
+    this.markLocation(this.map, this.markers, this.model.info.provincename + this.model.info.cityname)
+    this.searchData();
   }
   //获取省组件
   async provinceModal() {
