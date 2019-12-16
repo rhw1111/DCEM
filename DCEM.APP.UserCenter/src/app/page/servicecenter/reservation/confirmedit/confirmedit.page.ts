@@ -46,7 +46,7 @@ export class ConfirmeditPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    // debugger;
+    //  debugger;
     if (this._shareData.has(this.model.shareDataKey)) {
       this.shareData = this._shareData.get(this.model.shareDataKey);
 

@@ -11,10 +11,11 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.IO;
 using System.Linq;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Logging.Console;
 using System.Runtime.Serialization;
 using System.Security;
+using System.IO.Compression;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging.Console;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using MSLibrary;
@@ -34,6 +35,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Diagnostics.Contracts;
 using MSLibrary.Oauth.ADFS;
+using ICSharpCode.SharpZipLib.Zip;
+using ICSharpCode.SharpZipLib.Checksum;
 
 namespace DCEM.ConsoleApp
 {
@@ -45,6 +48,32 @@ namespace DCEM.ConsoleApp
 
         async static Task  Main(string[] args)
         {
+            await GetZipStream(async (stream) =>
+                {
+                    int buffSize = 1000;
+                    FileInfo file = new FileInfo(@"d:\ttt.zip");
+                    using (var fileStream = file.Open(FileMode.Create))
+                    {
+                        byte[] buff = new byte[buffSize];
+
+                        while (true)
+                        {
+                            var resultCount = await stream.ReadAsync(buff, 0, buffSize);
+                            if (resultCount != 0)
+                            {
+                                await fileStream.WriteAsync(buff, 0, resultCount);
+                            }
+
+                            if (resultCount < buffSize)
+                            {
+                                break;
+                            }
+                        }
+                    }
+
+                },
+                new ZipTextItemFileInfo() { FileName = "A.txt", Text = "AAA" }, new ZipTextItemFileInfo() { FileName = "B.txt", Text = "BBB" });
+
             ServiceCollection serviceCollection = new ServiceCollection();
             serviceCollection.AddHttpClient();
 
@@ -876,6 +905,55 @@ namespace DCEM.ConsoleApp
 
             Console.Read();
         }
+
+        private static async Task GetZipStream(Func<Stream, Task> action, params ZipTextItemFileInfo[] items)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (ZipOutputStream outStream = new ZipOutputStream(ms))
+                {
+                    Crc32 crc = new Crc32();
+
+
+                    foreach (var item in items)
+                    {
+                        using (MemoryStream fileStream = new MemoryStream())
+                        {
+                            var fileBytes = UTF8Encoding.UTF8.GetBytes(item.Text);
+                            await fileStream.WriteAsync(fileBytes, 0, fileBytes.Length);
+                            ZipEntry entry = new ZipEntry(item.FileName);
+                            entry.DateTime = DateTime.Now;
+                            entry.Size = fileBytes.Length;
+
+                            crc.Reset();
+                            crc.Update(fileBytes);
+
+                            entry.Crc = crc.Value;
+
+                            outStream.PutNextEntry(entry);
+                            ///将缓存区对象数据写入流中
+                            outStream.Write(fileBytes, 0, fileBytes.Length);
+                            ///注意：一定要关闭当前条目，否则压缩包数据会丢失
+                            outStream.CloseEntry();
+
+                        }
+
+                    }
+
+                    outStream.Finish();
+                    ms.Position = 0;
+                    await action(ms);
+                }
+          
+            }
+        }
+    }
+
+
+    public class ZipTextItemFileInfo
+    {
+        public string FileName { get; set; }
+        public string Text { get; set; } 
     }
 
     [DataContract]

@@ -7,17 +7,22 @@ const routes: Routes = [
         path: 'tabs',
         component: TabsPage,
         children: [
-            {
+            {//社区
                 path: 'community',
                 children: [
                     {
                         path: '',
                         loadChildren: () =>
                             import('../../community/index/index.module').then(m => m.IndexPageModule)
+                    },
+                    {
+                        path: 'index',
+                        loadChildren: () =>
+                            import('../../community/index/index.module').then(m => m.IndexPageModule)
                     }
                 ]
             },
-            {
+            {//消息中心
                 path: 'message',
                 children: [
                     {
@@ -28,17 +33,17 @@ const routes: Routes = [
                 ]
             },
 
-            {
-                path: 'charging',
-                children: [
-                    {
-                        path: '',
-                        loadChildren: () =>
-                            import('../../charging/index/index.module').then(m => m.IndexPageModule)
-                    }
-                ]
-            },
-            {
+            // {//？
+            //     path: 'charging',
+            //     children: [
+            //         {
+            //             path: '',
+            //             loadChildren: () =>
+            //                 import('../../charging/index/index.module').then(m => m.IndexPageModule)
+            //         }
+            //     ]
+            // },
+            {//爱车
                 path: 'carcenter',
                 children: [
                     {
@@ -48,7 +53,7 @@ const routes: Routes = [
                     }
                 ]
             },
-            {
+            {//服务助手
                 path: 'servicecenter',
                 children: [
                     {
@@ -58,14 +63,15 @@ const routes: Routes = [
                     }
                 ]
             },
-            {
+            {//我的
                 path: 'personalcenter',
                 children: [
                     {
                         path: '',
                         loadChildren: () =>
                             import('../../personalcenter/index/index.module').then(m => m.IndexPageModule)
-                    }
+                    },
+                    { path: 'index', loadChildren: () => import('../../personalcenter/index/index.module').then(m => m.IndexPageModule) },
                 ]
             },
             {

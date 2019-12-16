@@ -177,7 +177,9 @@ export class SelectDealerListComponent implements OnInit {
     debugger;
     this._modalCtrl.dismiss({
       'id': item.id,
-      'name': item.name
+      'name': item.name,
+      'shopaddress':item.mcs_shopaddress,
+      'phone':item.mcs_phone
     });
   }
 }
