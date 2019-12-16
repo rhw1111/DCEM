@@ -8,19 +8,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DCEM.UserCenterService.Main.Application.Services.Contrac
+namespace DCEM.UserCenterService.Main.Application.App
 {
-    using DCEM.UserCenterService.Main.Application.Repository.Contrac;
+    using DCEM.UserCenterService.Main.Application.App.Contrac;
     using DCEM.UserCenterService.Main.Application.Services.Contrac;
     using DCEM.UserCenterService.Main.ViewModel.Request;
     using DCEM.UserCenterService.Main.ViewModel.Response;
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
-    using System;
-
-    public interface ISalesOrderService
+    
+    
+    public class AppAMPage : IAppAMPage
     {
-        Task<SalesOrderListResponse> getlist(SalesOrderListRequest salesOrderListRequest);
-        Task<CrmEntity> getdetail(Guid orderid);
+        
+        public IAMPageService _ampageService;
+        
+        public AppAMPage(IAMPageService ampageService)
+        {
+            _ampageService=ampageService;
+        }
     }
 }

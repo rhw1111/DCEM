@@ -11,4 +11,9 @@
     <Folder Include="HtmlResources\Activities\" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <ProjectReference Include="..\DCEM.UserCenterService.Main\DCEM.UserCenterService.Main.csproj" />
+  </ItemGroup>
+
 </Project>

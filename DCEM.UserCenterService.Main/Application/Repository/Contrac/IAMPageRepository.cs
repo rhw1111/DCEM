@@ -8,19 +8,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DCEM.UserCenterService.Main.Application.Services.Contrac
+namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
 {
     using DCEM.UserCenterService.Main.Application.Repository.Contrac;
-    using DCEM.UserCenterService.Main.Application.Services.Contrac;
     using DCEM.UserCenterService.Main.ViewModel.Request;
     using DCEM.UserCenterService.Main.ViewModel.Response;
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
-    using System;
-
-    public interface ISalesOrderService
+    
+    
+    public interface IAMPageRepository
     {
-        Task<SalesOrderListResponse> getlist(SalesOrderListRequest salesOrderListRequest);
-        Task<CrmEntity> getdetail(Guid orderid);
+        
+        
     }
 }

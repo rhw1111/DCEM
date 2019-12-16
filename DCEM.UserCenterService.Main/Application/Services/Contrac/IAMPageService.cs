@@ -16,11 +16,11 @@ namespace DCEM.UserCenterService.Main.Application.Services.Contrac
     using DCEM.UserCenterService.Main.ViewModel.Response;
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
-    using System;
-
-    public interface ISalesOrderService
+    
+    
+    public interface IAMPageService
     {
-        Task<SalesOrderListResponse> getlist(SalesOrderListRequest salesOrderListRequest);
-        Task<CrmEntity> getdetail(Guid orderid);
+        
+        
     }
 }
