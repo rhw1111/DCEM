@@ -22,19 +22,14 @@ namespace DCEM.Main.TCenter
     [Injection(InterfaceType = typeof(ITCenterFactory), Scope = InjectionScope.Singleton)]
     public class TCenterFactory : ITCenterFactory
     {
-        private IFactory<IRemoteServiceInfoManagementService> _remoteServiceFactory;
-        public TCenterFactory() {
-            _remoteServiceFactory =  null;       
+        ITCenterService _tCenterService;
+        public TCenterFactory(ITCenterService tCenterService) {
+            _tCenterService = tCenterService;       
         }
 
         public async Task<ITCenterService> Create()
         {
-            IRemoteServiceDescriptionStore _remoteServiceDescriptionStore=new RemoteServiceDescriptionStore(_remoteServiceFactory);
-            IRemoteServiceDescriptionRepository _remoteServiceDescriptionRepository=new RemoteServiceDescriptionRepository(_remoteServiceDescriptionStore);
-        RemoteServiceDescriptionRepositoryHelper remoteServiceDescriptionRepositoryHelper = new RemoteServiceDescriptionRepositoryHelper(_remoteServiceDescriptionRepository);
-            ITCenterService tCenterService = new TCenterService(remoteServiceDescriptionRepositoryHelper);
-
-            return await Task.FromResult(tCenterService);
+            return await Task.FromResult(_tCenterService);
         }
     }
 }

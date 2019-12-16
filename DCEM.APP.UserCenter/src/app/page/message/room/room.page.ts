@@ -72,7 +72,7 @@ export class RoomPage implements OnInit {
 
   //发送消息  
   sendChat() {
-    this.websocket.send("UserId:123");
+    //this.websocket.send("UserId:123");
 
     this.room.chatList.push({
       userId: 1,

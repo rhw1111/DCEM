@@ -14,8 +14,4 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\MSLibrary\MSLibrary.csproj" />
-  </ItemGroup>
-
 </Project>

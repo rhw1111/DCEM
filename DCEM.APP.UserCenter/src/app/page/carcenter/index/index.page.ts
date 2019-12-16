@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+﻿import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-index',
@@ -7,6 +7,150 @@ import { Component } from '@angular/core';
 })
 export class IndexPage {
 
+    public objectKeys = Object.keys;
+    //共享数据对象
+    public shareData = {
+        page: {
+            top: {
+                slides: [
+                    {
+                        imgscr: "../assets/img/1png.png",
+                    },
+                    {
+                        imgscr: "../assets/img/1png.png",
+                    },
+                ]
+            },
+            middle_finance: {
+                title: "一层首付开回家",
+                imgscr: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3682338120,1128590170&fm=26&gp=0.jpg"
+            },
+            middle_equity: {
+                title: "车主九大权益",
+                menulist: [
+                    {
+                        title: "远程诊断",
+                        svg: "../assets/svg/carcenter/index/yczd.svg",
+                        link: "#",
+                    },
+                    {
+                        title: "流量畅享",
+                        svg: "../assets/svg/carcenter/index/llcx.svg",
+                        link: "#",
+                    },
+                    {
+                        title: "移动服务",
+                        svg: "../assets/svg/carcenter/index/ydfw.svg",
+                        link: "#",
+                    },
+                    {
+                        title: "代步服务",
+                        svg: "../assets/svg/carcenter/index/dbff.svg",
+                        link: "#",
+                    },
+                    {
+                        title: "免费首保",
+                        svg: "../assets/svg/carcenter/index/mfsb.svg",
+                        link: "#",
+                    },
+                    {
+                        title: "无忧救援",
+                        svg: "../assets/svg/carcenter/index/wyjy.svg",
+                        link: "#",
+                    },
+                    {
+                        title: "专属充电桩",
+                        svg: "../assets/svg/carcenter/index/zscdz.svg",
+                        link: "#",
+                    },
+                    {
+                        title: "智能理赔",
+                        svg: "../assets/svg/carcenter/index/znlp.svg",
+                        link: "#",
+                    },
+                    {
+                        title: "违章查询",
+                        svg: "../assets/svg/carcenter/index/wzcx.svg",
+                        link: "#",
+                    }
+                ],
+                button: {
+                    text: "查看权益说明",
+                    link: "#",
+                }
+            },
+            middle_charging: {
+                title: "充电服务",
+                subtitle: "提供多种充电方式，满足城市通勤与远途出行",
+                imgscr: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3682338120,1128590170&fm=26&gp=0.jpg",
+                menulist: [
+                    {
+                        title: "远程诊断",
+                        svg: "../assets/svg/carcenter/index/yczd.svg",
+                        link: "#",
+                    },
+                    {
+                        title: "流量畅享",
+                        svg: "../assets/svg/carcenter/index/llcx.svg",
+                        link: "#",
+                    },
+                    {
+                        title: "移动服务",
+                        svg: "../assets/svg/carcenter/index/ydfw.svg",
+                        link: "#",
+                    }
+                ],
+            },
+            middle_trialrun: {
+                title: "试驾评测",
+                link: "#",
+                list: [
+                    {
+                        title: "20款G3智能进化大盘点",
+                        source: "网易汽车",
+                        imgscr: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3682338120,1128590170&fm=26&gp=0.jpg",
+                        link: "#",
+                    },
+                    {
+                        title: "除了续航提示，20款G3还有啥亮点?!!",
+                        source: "网易汽车",
+                        imgscr: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3682338120,1128590170&fm=26&gp=0.jpg",
+                        link: "#",
+                    },
+                    {
+                        title: "20款G3智能进化大盘点",
+                        source: "网易汽车",
+                        imgscr: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3682338120,1128590170&fm=26&gp=0.jpg",
+                        link: "#",
+                    },
+                    {
+                        title: "20款G3智能进化大盘点",
+                        source: "网易汽车",
+                        imgscr: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3682338120,1128590170&fm=26&gp=0.jpg",
+                        link: "#",
+                    },
+                ],
+            },
+            middle_withinreach: {
+                title: "智能触手可及",
+                slides: [
+                    {
+                        imgscr: "../assets/img/2.jpg",
+                        link: "#",
+                    },
+                    {
+                        imgscr: "../assets/img/2.jpg",
+                        link: "#",
+                    },
+                ],
+            },
+
+            bottom: {
+                imgscr: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3682338120,1128590170&fm=26&gp=0.jpg",
+                link: "#",
+            }
+        }
+    }
     constructor() { }
 
 }

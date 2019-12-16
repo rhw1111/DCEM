@@ -40,7 +40,7 @@ var routes = [
                     {
                         path: '',
                         loadChildren: function () {
-                            return Promise.all(/*! import() | community-index-index-module */[__webpack_require__.e("default~community-index-index-module~page-community-activitydetail-activitydetail-module~page-commun~a5765bde"), __webpack_require__.e("common"), __webpack_require__.e("community-index-index-module")]).then(__webpack_require__.bind(null, /*! ../../community/index/index.module */ "./src/app/page/community/index/index.module.ts")).then(function (m) { return m.IndexPageModule; });
+                            return Promise.all(/*! import() | community-index-index-module */[__webpack_require__.e("common"), __webpack_require__.e("community-index-index-module")]).then(__webpack_require__.bind(null, /*! ../../community/index/index.module */ "./src/app/page/community/index/index.module.ts")).then(function (m) { return m.IndexPageModule; });
                         }
                     }
                 ]

@@ -3,20 +3,33 @@
     padding: 0px;
 }
 
-.dm-title {
-    margin-top: 5px;
-    float: left;
-    font-weight: bold;
-    margin-left: 10px;
-}
 
+.dm-ico-list {
+    background-color: #f1ffff;
 
-.dm-right {
-    float: right;
-}
+    ul {
+        position: relative;
+        list-style-type: none;
 
-.dm-describe-right {
-    font-size: 13px;
+        li {
+            padding-top: 30px;
+            padding-bottom: 20px;
+            float: left;
+            width: 33.3333333% !important;
+            position: relative;
+            margin-bottom: 10px;
 
+            img {
+                position: relative;
+                left: 50%;
+                transform: translateX(-50%);
+            }
 
+            p {
+                font-size: 14px;
+                position: relative;
+                text-align: center;
+            }
+        }
+    }
 }
