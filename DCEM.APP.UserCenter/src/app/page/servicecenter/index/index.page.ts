@@ -1,5 +1,7 @@
-﻿import { Component } from '@angular/core';
-import { DCore_Http, DCore_Page } from '../../../../app/component/typescript/dcem.core';
+﻿import { Component, ViewChild, OnInit } from '@angular/core';
+import * as $ from 'jquery';
+import { DCore_Http, DCore_Page, DCore_Valid, DCore_ShareData } from 'app/component/typescript/dcem.core';
+
 
 @Component({
     selector: 'app-index',
@@ -23,11 +25,104 @@ export class IndexPage {
     constructor(
         private _http: DCore_Http,
         private _page: DCore_Page,
+        private _valid: DCore_Valid,
+        private _shareData: DCore_ShareData
     ) { }
+
+    public shareData = {
+        page: {
+            icolist: [
+                {
+                    title: "购车",
+                    svg: "../assets/svg/servicecenter/index/gc.svg",
+                    link: "/carcenter/carstore/index",
+                },
+                {
+                    title: "体验中心",
+                    svg: "../assets/svg/servicecenter/index/tyzc.svg",
+                    link: "/servicecenter/dealer/list",
+                },
+                {
+                    title: "金融服务",
+                    svg: "../assets/svg/servicecenter/index/jrfw.svg",
+                    link: "#",
+                },
+                {
+                    title: "车险服务",
+                    svg: "../assets/svg/servicecenter/index/cxfw.svg",
+                    link: "#",
+                },
+                {
+                    title: "流量服务",
+                    svg: "../assets/svg/servicecenter/index/llfw.svg",
+                    link: "#",
+                },
+                {
+                    title: "违章代缴",
+                    svg: "../assets/svg/servicecenter/index/wzdj.svg",
+                    link: "#",
+                },
+                {
+                    title: "预约维保",
+                    svg: "../assets/svg/servicecenter/index/yywb.svg",
+                    link: "/servicecenter/reservation/edit",
+                },
+                {
+                    title: "道路救援",
+                    svg: "../assets/svg/servicecenter/index/dljy.svg",
+                    link: "#",
+                },
+                {
+                    title: "停车服务",
+                    svg: "../assets/svg/servicecenter/index/tcff.svg",
+                    link: "#",
+                },
+                {
+                    title: "在线客服",
+                    svg: "../assets/svg/servicecenter/index/zxkf.svg",
+                    link: "#",
+                },
+            ],
+            advertisement: {
+                imgscr: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1574598586463&di=af0381a4c02b55fac4744bd1b758e453&imgtype=0&src=http%3A%2F%2Fpic.0513.org%2Fforum%2F201404%2F11%2F153229a7zhbii1115rtwkn.jpg",
+                link: "#"
+            }
+        }
+    }
 
     ngOnInit() {
         this.initListLoading();
     }
+
+
+
+    ionViewWillEnter() {
+        this.initPage();
+    }
+
+    public initPage() {
+        console.log(JSON.stringify(this.shareData.page));
+        this._http.get(
+            "api/SysConfig/GetCepConfig",
+            {
+                params: {
+                    key: "DCEM_ServiceCenter_Index",
+                }
+
+            },
+            (res: any) => {
+                if (!this._valid.isNullOrEmpty(res["mcs_val"])) {
+                    this.shareData.page = $.parseJSON(res["mcs_val"]);
+                }
+                console.log(this.shareData.page);
+            },
+            (err: any) => {
+
+                console.log(err);
+            }
+        );
+    }
+
 
     //初始化页面数据加载
     initListLoading() {
