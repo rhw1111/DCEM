@@ -23,7 +23,8 @@ export class PdiservicePage implements OnInit {
     servicconsultants: [], 
     data:
     {
-      id: ""
+      id: "",
+      dealerId: this._userinfo.GetDealerid()
     }
   }
   public model = {
