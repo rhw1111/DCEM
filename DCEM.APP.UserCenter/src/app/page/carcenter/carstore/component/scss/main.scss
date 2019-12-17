@@ -53,7 +53,6 @@ $dm-black: #000000; //黑
 
         ul {
             display: block;
-            list-style: none;
             position: relative;
 
             li {
@@ -166,6 +165,8 @@ $dm-black: #000000; //黑
     display: none;
 
     ul {
+        position: relative;
+
         li {
             position: relative;
 
@@ -181,6 +182,8 @@ $dm-black: #000000; //黑
             span {
                 float: right;
                 padding-right: 30px;
+                position: absolute;
+                right: 0px;
             }
         }
     }
