@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DCEM.Web.Controllers
 {
     [EnableCors("any")]
-    //[AuthFilter]
+    [AuthFilter]
     public class ApiController : ControllerBase
     {
         public Guid UserId { set; get; }
