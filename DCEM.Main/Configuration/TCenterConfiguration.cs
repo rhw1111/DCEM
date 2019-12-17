@@ -10,21 +10,7 @@ namespace DCEM.ServiceAssistantService.Main
     /// 商品交易中心配置信息
     /// </summary>
     [DataContract]
-    public class TCenterConfiguration : CoreConfiguration
-    {
-        /// <summary>
-        /// 商品交易中心设置
-        /// </summary>
-        [DataMember]
-        public TCenterSetting TCenterSetting { get; set; }
-
-    }
-
-    /// <summary>
-    /// 商品交易中心设置
-    /// </summary>
-    [DataContract]
-    public class TCenterSetting
+    public class TCenterConfiguration
     {
         /// <summary>
         /// 请求地址
@@ -32,9 +18,10 @@ namespace DCEM.ServiceAssistantService.Main
         [DataMember]
         public string Url { get; set; }
         /// <summary>
-        /// 应用ID
+        /// 鉴权配置
         /// </summary>
         [DataMember]
-        public string AppId { get; set; }
+        public Dictionary<string, string> AuthInfos { get; set; }
+
     }
 }

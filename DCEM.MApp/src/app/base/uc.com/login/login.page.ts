@@ -86,7 +86,7 @@ export class LoginPage implements OnInit {
                 this.mod.domain = "http://localhost:5000";
                 break;
             default:
-                this.mod.domain = "http://localhost:9099";
+                this.mod.domain = "http://localhost:52151";
                 break;
         }
 

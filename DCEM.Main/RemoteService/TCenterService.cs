@@ -7,39 +7,81 @@ using MSLibrary.DI;
 using MSLibrary.RemoteService;
 using MSLibrary.LanguageTranslate;
 using DCEM.Main.Entities;
+using DCEM.Main.Entities.Request;
+using DCEM.Main.Entities.Request.OrderManager;
+using DCEM.Main.Entities.Request.Payment;
+using DCEM.Main.Entities.Response.OrderManager;
+using DCEM.Main.Entities.TCenter.MktCloud;
+using MSLibrary.Configuration;
+using DCEM.ServiceAssistantService.Main;
 
 namespace DCEM.Main.RemoteService
 {
     [Injection(InterfaceType = typeof(ITCenterService), Scope = InjectionScope.Singleton)]
     public class TCenterService : ITCenterService
     {
-        private RemoteServiceDescriptionRepositoryHelper _remoteServiceDescriptionRepositoryHelper;
-        private static string BaseUrl = "http://106.14.121.65:8082/TC/";
+        private ISystemConfigurationRepository _systemConigurationRepository;
 
-        public TCenterService(RemoteServiceDescriptionRepositoryHelper remoteServiceDescriptionRepositoryHelper)
+        private static string BaseUrl = "";
+        private static Dictionary<string, string> AuthInfos = new Dictionary<string, string>();
+
+        public TCenterService(ISystemConfigurationRepository systemConigurationRepository)
         {
-            _remoteServiceDescriptionRepositoryHelper = remoteServiceDescriptionRepositoryHelper;
+            _systemConigurationRepository = systemConigurationRepository;
+
+            //获取服务描述
+            var remoteServiceTCenter = _systemConigurationRepository.QueryByName(RemoteServiceNames.RemoteServiceTCenter);
+            if (remoteServiceTCenter == null)
+            {
+                var fragment = new TextFragment()
+                {
+                    Code = TextCodes.NotFoundRemoteServiceDescriptionByName,
+                    DefaultFormatting = "找不到名称为{0}的远程服务配置",
+                    ReplaceParameters = new List<object>() { RemoteServiceNames.RemoteServiceTCenter }
+                };
+
+                throw new UtilityException((int)Errors.NotFoundRemoteServiceDescriptionByName, fragment);
+            }
+            //获取认证信息
+            var tCenterConfiguration = remoteServiceTCenter.GetConfigurationValue<TCenterConfiguration>();
+            if (tCenterConfiguration != null)
+            {
+                BaseUrl = tCenterConfiguration.Url;
+                AuthInfos = tCenterConfiguration.AuthInfos;
+            }
         }
-       
+
+        #region 1.类目管理
+        public async Task<List<CategoryEntity>> GetAllManagerCategory()
+        {
+            //调用服务
+            return await HttpClinetHelper.GetAsync<List<CategoryEntity>>($"{BaseUrl}/api/category/AllManagerCategory", AuthInfos);
+        }
+
+        public async Task<List<CategoryEntity>> GetAllManagerCategory2()
+        {
+            //调用服务
+            return await HttpClinetHelper.GetAsync<List<CategoryEntity>>($"{BaseUrl}/api/category/AllManagerCategory2");
+        }
+
+        public async Task<List<CategoryEntity>> GetAllFrontCategory()
+        {
+            //调用服务
+            return await HttpClinetHelper.GetAsync<List<CategoryEntity>>($"{BaseUrl}/api/category/AllFrontCategory");
+        }
+
+        public async Task<List<CategoryEntity>> GetAllFrontCategory2()
+        {
+            //调用服务
+            return await HttpClinetHelper.GetAsync<List<CategoryEntity>>($"{BaseUrl}/api/category/AllFrontCategory2");
+        }
+        #endregion
+
+        #region 2.商品管理
         public async Task<List<SkuStockModel>> GetProductListByCode(QueryStockQuantityRequest model)
         {
-            ////获取服务描述       
-            //var description = await _remoteServiceDescriptionRepositoryHelper.QueryByName(RemoteServiceNames.RemoteServiceTCenter);
-            //if (description == null)
-            //{
-            //    var fragment = new TextFragment()
-            //    {
-            //        Code = TextCodes.NotFoundRemoteServiceDescriptionByName,
-            //        DefaultFormatting = "找不到名称为{0}的远程服务描述",
-            //        ReplaceParameters = new List<object>() { RemoteServiceNames.RemoteServiceTCenter }
-            //    };
-
-            //    throw new UtilityException((int)Errors.NotFoundRemoteServiceDescriptionByName, fragment);
-            //}
-            ////获取认证信息
-            //var authInfos = await description.GenerateAuthInfo();
             //调用服务
-            return await HttpClinetHelper.GetAsync<List<SkuStockModel>>( $"{BaseUrl}/api/product/QueryStockQuantity?ProductCode={model.ProductCode}&ProductSkuCode={model.ProductSkuCode}");
+            return await HttpClinetHelper.GetAsync<List<SkuStockModel>>($"{BaseUrl}/api/product/QueryStockQuantity?ProductCode={model.ProductCode}&ProductSkuCode={model.ProductSkuCode}");
         }
 
         public async Task<Product> QueryNewProductByCode(string productCode)
@@ -76,5 +118,10 @@ namespace DCEM.Main.RemoteService
             //调用服务
             return await HttpClinetHelper.GetAsync<QueryProductByCodeResponse>($"{BaseUrl}/api/product/Detail?productCode={productCode}");
         }
+        #endregion
+
+        #region 3.订单管理
+        
+        #endregion
     }
 }

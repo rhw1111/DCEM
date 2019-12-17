@@ -20,11 +20,11 @@
       </ion-item>
       <ion-item lines="none" [routerLink]="">
         <ion-label style="color:#a4a4a4;">配置</ion-label>
-        <ion-label style="color:#a4a4a4;text-align:right;">{{model.orderdetail.sku}}</ion-label>
+        <ion-label style="text-align:right;">{{model.orderdetail.sku}}</ion-label>
       </ion-item>
       <ion-item lines="none">
         <ion-label style="color:#a4a4a4;">车价</ion-label>
-        <ion-label style="color:#a4a4a4;text-align:right;">￥{{model.orderdetail.carprice}}</ion-label>
+        <ion-label style="text-align:right;">￥{{model.orderdetail.carprice}}</ion-label>
       </ion-item>
     </ion-card>
 
@@ -34,7 +34,7 @@
       </ion-item>
       <ion-item lines="none">
         <ion-label style="color:#a4a4a4;">商品总价</ion-label>
-        <ion-label style="color:#a4a4a4;text-align:right;">￥{{model.orderdetail.totalamount}}</ion-label>
+        <ion-label style="text-align:right;">￥{{model.orderdetail.totalamount}}</ion-label>
       </ion-item>
       <!-- <ion-item lines="none">
         <ion-label style="color:#a4a4a4;">应收订金</ion-label>
@@ -46,15 +46,70 @@
       </ion-item> -->
       <ion-item lines="none">
         <ion-label style="color:#a4a4a4;">已收定金</ion-label>
-        <ion-label style="color:#a4a4a4;text-align:right;">-￥{{model.orderdetail.depositreceived}}</ion-label>
+        <ion-label style="text-align:right;">-￥{{model.orderdetail.depositreceived}}</ion-label>
       </ion-item>
       <ion-item lines="none">
         <ion-label style="color:#a4a4a4;">积分抵扣</ion-label>
-        <ion-label style="color:#a4a4a4;text-align:right;">-￥{{model.orderdetail.deductedamount}}</ion-label>
+        <ion-label style="text-align:right;">-￥{{model.orderdetail.deductedamount}}</ion-label>
       </ion-item>
       <ion-item lines="none">
         <ion-label style="color:#a4a4a4;">已收金额</ion-label>
-        <ion-label style="color:#a4a4a4;text-align:right;">-￥{{model.orderdetail.amountreceived}}</ion-label>
+        <ion-label style="text-align:right;">-￥{{model.orderdetail.amountreceived}}</ion-label>
+      </ion-item>
+    </ion-card>
+
+    <ion-card style="width: 100%;padding: 0;margin: 10px 0;background: #fff;">
+      <ion-item lines="none" class="ion-item-addr">
+        <ion-label>车价明细</ion-label>
+      </ion-item>
+      <ion-item lines="none" [routerLink]="">
+        <ion-label style="color:#a4a4a4;">上牌城市</ion-label>
+        <ion-label style="text-align:right;">重庆市</ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label style="color:#a4a4a4;">基础价格</ion-label>
+        <ion-label style="text-align:right;">￥498,000</ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label style="color:#a4a4a4;">选配价格</ion-label>
+        <ion-label style="text-align:right;">￥0</ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label style="color:#a4a4a4;">国家补贴*</ion-label>
+        <ion-label style="text-align:right;">-￥20,000</ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label style="color:#a4a4a4;">购车总价**</ion-label>
+        <ion-label style="text-align:right;">￥478,000</ion-label>
+      </ion-item>
+      <ion-item>
+        <div
+          style="background: #e7e7e7;font-size: xx-small;font-weight: lighter;width: 99%;padding: 10px;margin-bottom: 10px;">
+          <p style="display: inline-table;">*</p>
+          <p style="display: inline-table;margin-left: 10%;min-width: 85%;width: 85%;">以车辆所有人符合上牌时补贴政策要求的最高金额显示，仅供参考</p>
+          <br>
+          <p style="display: inline-table;">**</p>
+          <p style="display: inline-table;margin-left: 8%;min-width: 85%;width: 85%;">实机车价以交付通知中的金额为准</p>
+        </div>
+      </ion-item>
+    </ion-card>
+
+    <ion-card style="width: 100%;padding: 0;margin: 10px 0;background: #fff;">
+      <ion-item lines="none" class="ion-item-addr" [routerLink]="">
+        <ion-label>推荐：3年0息</ion-label>
+        <ion-label style="color:#a4a4a4;text-align:right;">金融计算器</ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label style="color:#a4a4a4;">推荐首付</ion-label>
+        <ion-label style="text-align:right;">￥143,400</ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label style="color:#a4a4a4;">推荐月供</ion-label>
+        <ion-label style="text-align:right;">￥9,294</ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label style="color:#a4a4a4;">推荐期数</ion-label>
+        <ion-label style="text-align:right;">36期</ion-label>
       </ion-item>
     </ion-card>
   </ion-grid>
