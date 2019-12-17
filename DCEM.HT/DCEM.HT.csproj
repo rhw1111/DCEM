@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="HtmlResources\Activities\39d33d40-2b0c-ea11-b393-80a27b3ee2ee\**" />
+    <Content Remove="HtmlResources\Activities\39d33d40-2b0c-ea11-b393-80a27b3ee2ee\**" />
+    <EmbeddedResource Remove="HtmlResources\Activities\39d33d40-2b0c-ea11-b393-80a27b3ee2ee\**" />
+    <None Remove="HtmlResources\Activities\39d33d40-2b0c-ea11-b393-80a27b3ee2ee\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\HtmlResources\Templates\Question.html" />
   </ItemGroup>
 
