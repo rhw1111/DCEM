@@ -125,7 +125,7 @@ export class EditPage implements OnInit {
 
     //获取省组件
     async provinceModal() {
-        this.model.countryId = "7E83801C-795B-E911-A824-B53F780FAC1C";
+        this.model.countryId = "7AF9AB98-7EF8-E811-A820-844A39D18A7A";
         this.model.level = 2;
         const modal = await this._modalCtrl.create({
             component: SelectSysareaComponent,
