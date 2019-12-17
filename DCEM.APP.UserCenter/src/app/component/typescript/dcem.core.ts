@@ -142,9 +142,6 @@ export class DCore_Http {
                 errcallback && errcallback(err);
             });
     }
-
-
-
 }
 
 @Injectable({

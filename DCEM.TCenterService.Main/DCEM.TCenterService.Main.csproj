@@ -9,7 +9,6 @@
     <Folder Include="Application\Services\Contrac\" />
     <Folder Include="Common\" />
     <Folder Include="Configuration\" />
-    <Folder Include="DTOModel\" />
     <Folder Include="Factory\" />
     <Folder Include="ViewModel\Request\" />
   </ItemGroup>
