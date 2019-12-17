@@ -1,12 +1,12 @@
 ﻿<ion-tabs>
 
     <ion-tab-bar slot="bottom">
-        <ion-tab-button tab="community">
+        <ion-tab-button tab="community" >
             <ion-icon name="aperture"></ion-icon>
             <ion-label>发现</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="message">
+        <ion-tab-button [tab]="routername" (click)="validateLogin()">
             <ion-icon name="chatboxes"></ion-icon>
             <ion-label>消息</ion-label>
         </ion-tab-button>

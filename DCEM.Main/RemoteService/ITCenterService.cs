@@ -1,4 +1,9 @@
 ﻿using DCEM.Main.Entities;
+using DCEM.Main.Entities.Request;
+using DCEM.Main.Entities.Request.OrderManager;
+using DCEM.Main.Entities.Request.Payment;
+using DCEM.Main.Entities.Response.OrderManager;
+using DCEM.Main.Entities.TCenter.MktCloud;
 using DCEM.Main.Response;
 using System;
 using System.Collections.Generic;
@@ -9,7 +14,30 @@ namespace DCEM.Main.RemoteService
 {
    public interface ITCenterService
    {
-        #region 商品管理
+        #region 1.类目管理
+        /// <summary>
+        /// 获取管理类目
+        /// </summary>
+        /// <returns></returns>
+        Task<List<CategoryEntity>> GetAllManagerCategory();
+        /// <summary>
+        /// 获取管理类目
+        /// </summary>
+        /// <returns></returns>
+        Task<List<CategoryEntity>> GetAllManagerCategory2();
+        /// <summary>
+        /// 获取前端类目
+        /// </summary>
+        /// <returns></returns>
+        Task<List<CategoryEntity>> GetAllFrontCategory();
+        /// <summary>
+        /// 获取前端类目
+        /// </summary>
+        /// <returns></returns>
+        Task<List<CategoryEntity>> GetAllFrontCategory2();
+        #endregion
+
+        #region 2.商品管理
         /// <summary>
         /// 商品全量查询
         /// </summary>
@@ -49,8 +77,8 @@ namespace DCEM.Main.RemoteService
         Task<List<SkuStockModel>> GetProductListByCode(QueryStockQuantityRequest model);
         #endregion
 
-        #region 订单管理
-
+        #region 3.订单管理
+        
         #endregion
     }
 
