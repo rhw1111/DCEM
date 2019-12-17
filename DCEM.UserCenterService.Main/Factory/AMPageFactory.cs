@@ -31,7 +31,7 @@ namespace DCEM.UserCenterService.Main.Factory
                 IAMPageRepository ampagerepository = new AMPageRepository();
                 IAMPageService ampageservice = new AMPageService(crmService, ampagerepository);
                 IAppAMPage app = new AppAMPage(ampageservice); 
-                return Task.FromResult(app);;
+                return Task.FromResult(app);
         }
     }
 }
