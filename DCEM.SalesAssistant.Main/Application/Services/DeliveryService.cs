@@ -154,8 +154,8 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         {
             try
             {
-                var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
-                deliveryEditRequest.dealerId =Guid.Parse(userInfo?.mcs_dealerid);
+                //var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+                //deliveryEditRequest.dealerId =Guid.Parse(userInfo?.mcs_dealerid);
                 var crmRequestHelper = new CrmRequestHelper();
                 var response = new ServiceConsultantListResponse() { };
                 XDocument fetchXdoc = fetchXdoc = await _deliveryRepository.GetServiceConsultantListFetchXml(deliveryEditRequest);
