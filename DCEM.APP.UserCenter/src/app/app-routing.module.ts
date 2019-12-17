@@ -78,10 +78,6 @@ const routes: Routes = [
         path: 'community',  //社区
         children: [
             {
-                path: 'index',
-                loadChildren: () => import('./page/community/index/index.module').then(m => m.IndexPageModule)
-            },
-            {
                 path: 'activitydetail',
                 loadChildren: () => import('./page/community/activitydetail/activitydetail.module').then(m => m.ActivitydetailPageModule)
             },
@@ -153,14 +149,17 @@ const routes: Routes = [
                             {
                                 path: 'list',
                                 loadChildren: () => import('./page/personalcenter/myorder/carorder/list/list.module').then(m => m.ListPageModule)
-                            }
+                            },
+                            {
+                                path: 'detail',
+                                loadChildren: () => import('./page/personalcenter/myorder/carorder/detail/detail.module').then(m => m.DetailPageModule)
+                            },
                         ]
                     }
 
                 ]
             },
-            { path: 'index', loadChildren: () => import('./page/personalcenter/index/index.module').then(m => m.IndexPageModule) },
-
+            //{ path: 'index', loadChildren: () => import('./page/personalcenter/index/index.module').then(m => m.IndexPageModule) },
         ]
     },
     {
@@ -286,7 +285,6 @@ const routes: Routes = [
         path: 'questionsetting',
         loadChildren: () => import('./page/message/questionsetting/questionsetting.module').then(m => m.QuestionsettingPageModule)
     }
-
 
 
 ];

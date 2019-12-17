@@ -16,9 +16,30 @@ namespace DCEM.UserCenterService.Main.Application.Repository
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
     using System.Xml.Linq;
+    using System;
 
     public class SalesOrderRepository : ISalesOrderRepository
     {
+        public async Task<XDocument> GetDetailFetchXml(Guid orderid)
+        {
+            return await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+  <entity name='mcs_tc_productorderitem'>
+<all-attributes/>
+    <order attribute='mcs_name' descending='false' />
+    <link-entity name='mcs_tc_order' from='mcs_tc_orderid' to='mcs_order' link-type='inner' alias='aa'>
+      <all-attributes/>
+    </link-entity>
+<filter type='and'>
+        <condition attribute='mcs_tc_productorderitemid' operator='eq' value='{orderid}' />
+      </filter>
+  </entity>
+</fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
+
         public async Task<XDocument> GetListFetchXml(SalesOrderListRequest salesOrderListRequest)
         {
             return await Task<XDocument>.Run(() =>
@@ -59,6 +80,12 @@ namespace DCEM.UserCenterService.Main.Application.Repository
       <filter type='and'>
         <condition attribute='mcs_orderclass' operator='eq' value='100' />
         <condition attribute='mcs_userid' operator='eq' value='{salesOrderListRequest.UserId}' />
+      </filter>
+    </link-entity>
+    <link-entity name='mcs_tc_product' from='mcs_tc_productid' to='mcs_product' link-type='inner' alias='bb'>
+      <attribute name='mcs_type' />
+      <filter type='and'>
+        <condition attribute='mcs_type' operator='eq' value='1' />
       </filter>
     </link-entity>
   </entity>

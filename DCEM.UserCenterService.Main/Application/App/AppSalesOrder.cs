@@ -16,8 +16,8 @@ namespace DCEM.UserCenterService.Main.Application.App
     using DCEM.UserCenterService.Main.ViewModel.Response;
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
-    
-    
+    using System;
+
     public class AppSalesOrder : IAppSalesOrder
     {
         
@@ -26,6 +26,11 @@ namespace DCEM.UserCenterService.Main.Application.App
         public AppSalesOrder(ISalesOrderService salesorderService)
         {
             _salesorderService=salesorderService;
+        }
+
+        public async Task<CrmEntity> getdetail(Guid orderid)
+        {
+            return await _salesorderService.getdetail(orderid);
         }
 
         public async Task<SalesOrderListResponse> getlist(SalesOrderListRequest salesOrderListRequest)

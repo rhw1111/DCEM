@@ -18,15 +18,16 @@
   <ion-list>
     <ion-item lines="none" style="height: 50px;">
       <ion-label>
-        <h2>我的整车订单</h2>
+        <h2>整车订单</h2>
       </ion-label>
       <ion-note slot="end">
         <p></p>
       </ion-note>
     </ion-item>
-    <ion-item *ngFor="let item of model.orders" >
-      <ion-card style="width: 100%;height: 300px;margin: 5px;">
-        <ion-card-content style="padding: 5px;">
+    <ion-item *ngFor="let item of model.orders" [routerLink]="['/personalcenter/myorder/carorder/detail']"
+       [queryParams]="{orderid:item.orderid}">
+      <ion-card style="width: 100%;height: 300px;margin: 10px;">
+        <ion-card-content style="padding: 10px;">
           <ion-list lines="none">
             <ion-item>
               <ion-icon name="arrow-dropright" color="primary"></ion-icon>
@@ -35,16 +36,18 @@
               </ion-label>
             </ion-item>
             <ion-item>
+              <!-- <h2> {{item.name}}</h2> -->
               <ion-label style="margin: 0px;">
-                <img src="../../../../../assets/img/goods-list.jpg" style="height: 150px" />
+                <img src="../../../../../assets/img/goods-detail.png" style="height: 150px" />
               </ion-label>
             </ion-item>
-            <ion-item>
-              <ion-label>
-                <h2>订单号:{{item.orderno}}</h2>
-                <h2> {{item.name}}</h2>
-                <h2>车价：{{item.mcs_unitprice}}</h2>
-              </ion-label>
+            <ion-item lines="none">
+              <ion-label style="color:#a4a4a4;">订单号</ion-label>
+              <ion-label style="color:#a4a4a4;text-align:right;">{{item.orderno}}</ion-label>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label style="color:#a4a4a4;">车价</ion-label>
+              <ion-label style="color:#a4a4a4;text-align:right;">{{item.mcs_unitprice}}</ion-label>
             </ion-item>
           </ion-list>
         </ion-card-content>
@@ -52,7 +55,7 @@
     </ion-item>
     <ion-item style="height: 100px;" [routerLink]="['/personalcenter/myorder/fineorder/list']">
       <ion-label>
-        <h2>我的精品订单</h2>
+        <h2>精品订单</h2>
       </ion-label>
       <ion-note slot="end">
         <p></p>
