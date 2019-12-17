@@ -21,6 +21,7 @@ export class DetailPage implements OnInit {
     totalTime:0,//服务包耗时
     bindPackOptionMap: null,//获取订单推荐服务包
     bindOtherPackOptionMap: null,//获取订单推荐服务包
+    ifCanEdit:false//记录预约状态 10-待跟进、20-已跟进
   }
 
   objectKeys = Object.keys;
@@ -98,6 +99,12 @@ export class DetailPage implements OnInit {
           this.model.bindData["mcs_dealername"] = res["Attributes"]["mcs_dealerid"] != null ? res["Attributes"]["mcs_dealerid"]["mcs_name"] : null;
           this.model.bindData["mcs_shopaddress"] = res["Attributes"]["mcs_dealerid"] != null ? res["Attributes"]["mcs_dealerid"]["mcs_shopaddress"] : null;
           this.model.bindData["mcs_dealerphone"] = res["Attributes"]["mcs_dealerid"] != null ? res["Attributes"]["mcs_dealerid"]["mcs_phone"] : null;
+
+          //跟进状态控制按钮
+          if(this.model.bindData["mcs_status"]==10||this.model.bindData["mcs_status"]==20)  
+          {
+            this.model.ifCanEdit=true;
+          }
 
           //处理里程、推荐服务、其他服务(假数据)
           this.model.packsMap = {};

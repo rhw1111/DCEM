@@ -43,6 +43,18 @@ namespace DCEM.Web.Controllers
         {
             return await _appSalesOrder.getlist(salesOrderListRequest);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="orderid"></param>
+        /// <returns></returns>
+        [Route("getdetail")]
+        [HttpGet]
+        public async Task<NewtonsoftJsonActionResult<CrmEntity>> getdetail(Guid orderid)
+        {
+            return await _appSalesOrder.getdetail(orderid);
+        }
     }
 }
 
