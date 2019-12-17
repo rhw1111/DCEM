@@ -166,17 +166,22 @@ $dm-black: #000000; //黑
     display: none;
 
     ul {
-        label {
-            position: absolute;
-            width: 60%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+        li {
+            position: relative;
 
-        span {
-            float: right;
-            padding-right: 30px;
+            label {
+                position: absolute;
+                width: 60%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                box-sizing: border-box;
+            }
+
+            span {
+                float: right;
+                padding-right: 30px;
+            }
         }
     }
 

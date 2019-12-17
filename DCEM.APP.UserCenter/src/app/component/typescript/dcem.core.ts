@@ -37,7 +37,7 @@ export class DCore_Config {
 
     constructor(
     ) {
-        this.dcem_serverName = "local";
+        this.dcem_serverName = "9_0";
         this.tc_serverName = "9_0";
 
         this.tc_host_map = function () {
@@ -371,7 +371,7 @@ export class DCore_Valid {
 }
 
 
-//验证对象
+//字符串处理
 @Injectable({
     providedIn: 'root'
 })
