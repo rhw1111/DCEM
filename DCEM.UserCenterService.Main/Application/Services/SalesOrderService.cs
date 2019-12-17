@@ -54,5 +54,25 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 throw ex;
             }
         }
+
+        public async Task<CrmEntity> getdetail(Guid orderid)
+        {
+            try
+            {
+                var crmRequestHelper = new CrmRequestHelper();
+                XDocument fetchXdoc = null;
+                fetchXdoc = await _salesorderRepository.GetDetailFetchXml(orderid);
+                var entities = await crmRequestHelper.ExecuteAsync(_crmService, entityName, fetchXdoc);
+                if (entities != null && entities.Results != null && entities.Results.Count > 0)
+                {
+                    return entities.Results[0];
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

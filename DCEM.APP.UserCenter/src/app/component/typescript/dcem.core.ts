@@ -371,7 +371,7 @@ export class DCore_Valid {
 }
 
 
-//验证对象
+//字符串处理
 @Injectable({
     providedIn: 'root'
 })

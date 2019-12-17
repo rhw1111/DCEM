@@ -79,6 +79,13 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 else
                 {
                     mcs_driverecordid = await _crmService.Create(Entity, userInfo?.systemuserid);
+
+                    //预约成功后 进行留资
+                    if (mcs_driverecordid !=null)
+                    {
+
+                        CreateLead(request, userInfo?.systemuserid);
+                    }
                 }
 
                 validateResult.Result = true;
@@ -95,6 +102,50 @@ namespace DCEM.UserCenterService.Main.Application.Services
             return validateResult;
         }
         #endregion
+
+        #region 预约成功后 进行留资
+
+        public async void CreateLead(TestDriveViewModel request, Guid? userid)
+        {
+            try
+            {
+                var createEntity = new CrmExecuteEntity("lead", Guid.NewGuid());
+
+                createEntity.Attributes.Add("lastname", request.mcs_fullname);
+                createEntity.Attributes.Add("mobilephone", request.mcs_mobilephone);
+
+                if (!string.IsNullOrEmpty(request.mcs_dealerid))
+                {
+                    createEntity.Attributes.Add("mcs_dealerid", new CrmEntityReference("mcs_dealer", Guid.Parse(request.mcs_dealerid)));
+                }
+
+                #region 用户行为赋值
+                var fetchString = _Repository.GetDriveBehavior("test_drive_appointment");
+                var fetchXdoc = XDocument.Parse(fetchString);
+                var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "mcs_behavior",
+                    FetchXml = fetchXdoc              
+                };
+                var fetchResponse = await _crmService.Execute(fetchRequest);
+                var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                var queryResult = new QueryResult<CrmEntity>();
+                queryResult.Results = fetchResponseResult.Value.Results;
+                var mcs_behaviorid = queryResult.Results[0].Id;             
+                createEntity.Attributes.Add("mcs_behaviorid", new CrmEntityReference("mcs_behavior", mcs_behaviorid));
+                #endregion
+
+                var entityId = await _crmService.Create(createEntity, userid);
+
+            }
+            catch (Exception ex)
+            {
+             
+            }
+        }
+
+        #endregion
+
 
         #region 我的试乘试驾查询
         /// <summary>

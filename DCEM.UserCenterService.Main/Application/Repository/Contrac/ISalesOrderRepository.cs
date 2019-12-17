@@ -16,10 +16,12 @@ namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
     using System.Xml.Linq;
+    using System;
 
     public interface ISalesOrderRepository
     {
 
         Task<XDocument> GetListFetchXml(SalesOrderListRequest salesOrderListRequest);
+        Task<XDocument> GetDetailFetchXml(Guid orderid);
     }
 }

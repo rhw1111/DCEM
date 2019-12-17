@@ -1,0 +1,342 @@
+﻿
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>问卷调查</title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="Content/bootstrap-check/bootstrap.css" rel="stylesheet" />
+    <link href="Content/bootstrap-check/Font-Awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="Content/bootstrap-check/build.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container-fluid" style="display:none">
+        <div style="width:100%;margin-top:15%;text-align:center;margin-bottom:20px;font-weight: 600;" id="devTitle">
+            <h3></h3>
+        </div>
+        <div style="width:90%;margin-left:5%" id="divQuestion">
+
+        </div>
+
+        <div class="form-group" style="margin-top:50px">
+            <div class="col-xs-12" style="text-align:center">
+                <button type="button" style="width:80%" class="btn btn-primary" id="btnpost">提交</button>
+            </div>
+        </div>
+    </div>
+    <div id="divLoad" style="width: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    height: 100%;
+    background-color: #bdbdbd6b;">
+        <div style="font-size: 1.6rem;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    height: 20px;
+    top: 50%;
+    font-weight: 600;" id="divLoadTitle">
+            加载中.......
+        </div>
+    </div>
+</body>
+</html>
+<script src="Scripts/jquery-3.3.1.min.js"></script>
+<script src="../../js/site.js"></script>
+<script src="Scripts/bootstrap.js"></script>
+
+<script>
+
+    function show() {
+        $("#divLoad").show();
+        $(".container-fluid").hide();
+    }
+    function hide() {
+        $("#divLoad").hide();
+        $(".container-fluid").show();
+    }
+    function postshow() {
+        $("#divLoad").show();
+        $("#divLoadTitle").html("保存中.....");
+
+    }
+    var mod = {
+        qualist: {
+            Id: '',
+            name: '',
+            questions: []
+        }, question: {
+            mcs_questioncode: "",
+            mcs_id: "",
+            mcs_type: 0,
+            mcs_typename: 0,//类型 1 单选；2多选；3编辑
+            mcs_content: '',//内容
+            mcs_required: 0,//是否必输 1必填；2非必填
+            value: '',
+            answers: []
+        }, answer: {
+            mcs_id: "",
+            mcs_name: "",
+            mcs_answercode: "",
+            value: ""
+        }
+    };
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+    function onload() {
+        $.ajax({
+            type: "post",
+            url: dcem_url() + "api/question/getquestion",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify({
+                id: GetQueryString("id")
+            }),
+            //beforeSend: function (request) {
+            //    request.setRequestHeader("appid", "1001");
+            //    request.setRequestHeader("key", "123");
+            //    request.setRequestHeader("md5sum", "123");
+            //    request.setRequestHeader("true-client-ip", "123");
+            //},
+            success: function (res) {
+                if (res != null && res.Data !== null) {
+                    onLoadData(res.Data);
+                }
+                hide();
+            },
+            //调用出错执行的函数
+            error: function (data) {
+                var json = eval(data)
+                //请求出错处理
+                alert(JSON.parse(json.responseText)["Message"]);
+                hide();
+            }
+        });
+    }
+
+
+    function onLoadData(data) {
+        var i = 0;
+        this.mod.qualist.name = data.Model.Attributes["mcs_name"];
+        this.mod.qualist.Id = data.Model.Id;
+        data.Questions.forEach(item => {
+            i++;
+            this.mod.question = {
+                mcs_questioncode: "",
+                mcs_id: "",
+                mcs_type: 0,
+                mcs_typename: 0,//类型 1 单选；2多选；3编辑
+                mcs_content: '',//内容
+                mcs_required: 0,//是否必输 1必填；2非必填
+                answers: []
+            }
+            this.mod.question.mcs_id = item.Item.Id;
+            this.mod.question.mcs_type = item.Item.Attributes["mcs_type"];
+            this.mod.question.mcs_questioncode = item.Item.Attributes["mcs_questioncode"];
+            this.mod.question.mcs_typename = item.Item.Attributes["mcs_type@OData.Community.Display.V1.FormattedValue"];
+            this.mod.question.mcs_content = String(i) + "." + item.Item.Attributes["mcs_content"];
+            this.mod.question.mcs_required = item.Item.Attributes["mcs_required"];
+            item.Answers.forEach(answer => {
+                this.mod.answer = {
+                    mcs_id: "",
+                    mcs_name: "",
+                    mcs_answercode: ""
+                };
+                this.mod.answer.mcs_id = answer.Id;
+                this.mod.answer.mcs_name = answer.Attributes["mcs_name"];
+                this.mod.answer.mcs_answercode = answer.Attributes["mcs_answercode"];
+                this.mod.question.answers.push(this.mod.answer);
+            });
+            this.mod.qualist.questions.push(this.mod.question);
+        });
+        console.log(this.mod.qualist);
+        $("#devTitle").html('<h3>' + this.mod.qualist.name + '</h3>');
+        var html = "";
+        this.mod.qualist.questions.forEach(question => {
+            html += '<div class="form-group">' +
+                '<div class="row">' +
+                '<div class="col-xs-12 col-md-4" style="font-size: 1.5rem;">' +
+                question.mcs_content +
+                '</div>' +
+                '</div>';
+            var bool = true;
+            if (question.mcs_type == 1) {
+                //单选
+                question.answers.forEach(answer => {
+                    html += '<div class="row"  ' + (bool ? 'style="background-color: #e4e4e4a3;"' : '') + '>' +
+                        '<div class="col-xs-12 col-md-4">' +
+                        '<div class="radio radio-primary">' +
+                        ' <input type="radio" name="' + question.mcs_id + '" id="' + answer.mcs_id + '" value="' + answer.mcs_id + '" style="width: 100%;">' +
+                        '<label for="' + question.mcs_id + '">' +
+                        answer.mcs_name +
+                        '</label>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>';
+                    bool = bool ? false : true;
+                });
+                html += '</div>';
+            }
+            else if (question.mcs_type == 2) {
+                //多选
+
+
+                question.answers.forEach(answer => {
+                    html += '<div class="row" ' + (bool ? 'style="background-color: #e4e4e4a3;"' : '') + '>' +
+                        '<div class="col-xs-12 col-md-4">' +
+                        '<div class="checkbox checkbox-primary">' +
+                        '<input     id="' + answer.mcs_id + '" value="' + answer.mcs_id + '" class="styled" type="checkbox" style="width: 100%;">' +
+                        '<label for="' + answer.mcs_id + '">' +
+                        answer.mcs_name +
+                        '</label>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>';
+                    bool = bool ? false : true;
+                });
+                html += '</div>';
+
+            }
+            else if (question.mcs_type == 3) {
+                //输入框
+                html += ' <div class="row">' +
+                    '<div class="col-xs-12 col-md-4">' +
+                    '<textarea class="form-control" id="' + question.mcs_id + '" rows="3"></textarea>' +
+                    '</div>' +
+                    '</div>';
+                html += '</div>';
+
+            }
+        });
+        $("#divQuestion").html(html);
+    }
+    $(function () {
+        show();
+        onload();
+
+
+
+        $("#btnpost").click(function (event) {
+            postshow(); 
+            var rep = {
+                mcs_deliverychannel: GetQueryString("channer"),
+                mcs_questionnairesetting: mod.qualist.Id,
+                mcs_answername: GetQueryString("userid"),
+                model: []
+            }
+            var valreq = false;
+            mod.qualist.questions.forEach(item => {
+                if (item.mcs_type == 1) {//单选
+                    var isreq = false;
+                    var anwer = {
+                        mcs_name: item.mcs_content,
+                        mcs_questions: item.mcs_id,
+                        mcs_answercontentcode: "",
+                        mcs_answer: "",
+                    }
+                    var checkid = "input[name='" + item.mcs_id + "']:checked";
+                    var value = $(checkid).val();
+                    item.answers.forEach(answer => {
+                        if (answer.mcs_id == value) {
+                            anwer.mcs_answercontentcode = answer.mcs_answercode;
+                            anwer.mcs_answer = answer.mcs_name;
+                            isreq = true;
+                        }
+                    });
+                    //判断是否必填
+                    if (item.mcs_required == 1) {
+                        if (!isreq) {
+                            valreq = true;
+                            return false;
+                        }
+                    }
+                    rep.model.push(anwer);
+                }
+                else if (item.mcs_type == 2) {//多选
+                    var isreq = false;
+                    item.answers.forEach(answer => {
+                        var checkid = "#" + answer.mcs_id;
+                        if ($(checkid).is(':checked')) {
+                            var anwer = {
+                                mcs_name: item.mcs_content,
+                                mcs_questions: item.mcs_id,
+                                mcs_answercontentcode: answer.mcs_answercode,
+                                mcs_answer: answer.mcs_name,
+                            }
+                            rep.model.push(anwer);
+                            isreq = true;
+                        }
+                    });
+                    //判断是否必填
+                    if (item.mcs_required == 1) {
+                        if (!isreq) {
+                            valreq = true;
+                            return false;
+                        }
+                    }
+                }
+                else if (item.mcs_type == 3) {//编辑
+
+                    var id = "#" + item.mcs_id;
+                    var value = $(id).val();
+                    if (item.mcs_required == 1)
+                        if (value == "") {
+                            valreq = true;
+                            return false;
+                        }
+                    if (value != null) {
+                        var anwers = {
+                            mcs_name: item.mcs_content,
+                            mcs_questions: item.mcs_id,
+                            mcs_answercontentcode: item.mcs_questioncode,
+                            mcs_answer: value
+                        }
+                        rep.model.push(anwers);
+                    }
+
+                }
+            });
+            if (valreq) {
+                alert("提交失败,必填项未填写?");
+                hide();
+                return false;
+            }
+
+            console.log(rep);
+            $.ajax({
+                type: "post",
+                url: dcem_url() + "api/question/add",
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify(rep),
+                //beforeSend: function (request) {
+                //    request.setRequestHeader("appid", "1001");
+                //    request.setRequestHeader("key", "123");
+                //    request.setRequestHeader("md5sum", "123");
+                //    request.setRequestHeader("true-client-ip", "123");
+                //},
+                success: function (res) {
+                    if (res.result == true) {
+                        alert("提交成功，感谢您得参与！");
+                        window.location.reload();
+                    } else {
+                        alert("提交失败" + res.description);
+                    }
+                },
+                //调用出错执行的函数
+                error: function (data) {
+                    var json = eval(data)
+                    //请求出错处理
+                    alert(JSON.parse(json.responseText)["Message"]);
+                    hide();
+                }
+            });
+        });
+    });
+</script>
