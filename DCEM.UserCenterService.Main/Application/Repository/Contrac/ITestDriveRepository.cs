@@ -31,5 +31,13 @@ namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
         /// <returns></returns>
         string GetDriveFeedbackItemList(string testdrivefeedbackmasterid);
 
+
+        /// <summary>
+        /// 根据编码查询用户行为
+        /// </summary>
+        /// <param name="mcs_code"></param>
+        /// <returns></returns>
+        string GetDriveBehavior(string mcs_code);
+
     }
 }

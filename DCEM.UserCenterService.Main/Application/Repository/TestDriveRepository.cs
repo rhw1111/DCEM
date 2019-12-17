@@ -136,5 +136,38 @@ namespace DCEM.UserCenterService.Main.Application.Repository
         #endregion
 
 
+        #region 根据编码查询用户行为xml
+        /// <summary>
+        ///  根据编码查询用户行为xml
+        /// </summary>
+        /// <param name="mcs_code"></param>
+        /// <returns></returns>
+        public string GetDriveBehavior(string mcs_code)
+        {
+            var filter = string.Empty;
+            if (!string.IsNullOrEmpty(mcs_code))
+            {
+                filter += $"<condition attribute='mcs_code' operator='eq' value='{mcs_code}' />";
+            }
+            var fetchString = $@"<fetch version='1.0'  output-format='xml-platform' mapping='logical' distinct='false'>
+                <entity name='mcs_behavior'>
+                <attribute name='mcs_behaviorid'/>
+                <attribute name='mcs_name' />
+                <attribute name='mcs_code' />        
+                <attribute name='createdon' />        
+                <order attribute='createdon' descending='true' />
+                <filter type='and'>
+                  <condition attribute='statecode' operator='eq' value='0' />
+                  {filter}   
+                </filter>                              
+              </entity>
+            </fetch>";
+
+            return fetchString;
+        }
+
+        #endregion
+
+
     }
 }
