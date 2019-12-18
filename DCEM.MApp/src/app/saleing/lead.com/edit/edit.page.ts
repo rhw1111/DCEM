@@ -23,8 +23,6 @@ export class EditPage implements OnInit {
 
     public model: any = {
         apiUrl: '/api/Originalclue/create',
-        //国家默认中国
-        countryId: "7AF9AB98-7EF8-E811-A820-844A39D18A7A",
         level: null,//行政区域级别 0:全球、1:国家、2:省、3:市、4:地区
         scoreoption: [],
         genderoption: [],
@@ -46,7 +44,7 @@ export class EditPage implements OnInit {
             describe: "",
             userid: this._userinfo.GetSystemUserId(),
             dealerid: this._userinfo.GetDealerid(),
-            behaviorid:"0F46DACE-AF06-EA11-B392-8030CED93B24"//用户行为ID
+            behaviorcode:"visiting_the_store"//用户行为编码
 
         }
     }
@@ -105,12 +103,11 @@ export class EditPage implements OnInit {
     }
     //获取省组件
     async provinceModal() {
-        this.model.countryId = "7AF9AB98-7EF8-E811-A820-844A39D18A7A";
         this.model.level = 2;
         const modal = await this._modalCtrl.create({
             component: SelectSysareaComponent,
             componentProps: {
-                'pid': this.model.countryId,
+                'pid': '',
                 'level': this.model.level,
             }
         });
@@ -252,7 +249,6 @@ export class EditPage implements OnInit {
             this.model.apiUrl,
             this.model.info,
             (res: any) => {
-                debugger;
                 if (res !== null) {
                     var guid = res["Id"];
                     this._page.goto("/saleing/lead/success", { guid: guid });
