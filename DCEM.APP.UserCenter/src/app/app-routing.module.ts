@@ -1,4 +1,3 @@
- 
 ﻿import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
@@ -100,15 +99,6 @@ const routes: Routes = [
                         loadChildren: () => import('./page/personalcenter/config/about/about.module').then(m => m.AboutPageModule)
                     }
                 ]
-            }, 
-            {
-                path: 'usercarinfo',
-                children: [
-                    {
-                        path: 'list',
-                        loadChildren: () => import('./page/personalcenter/usercarinfo/list/list.module').then(m => m.ListPageModule)
-                    }  
-                ]
             },
             {
                 path: 'userinfo',
@@ -125,12 +115,20 @@ const routes: Routes = [
                 ]
             },
             {
-                path: 'mycar',
+                path: 'mycar',  //我的汽车
                 children: [
                     {
-                        path: 'index',
+                        path: 'index',  //入口导航
                         loadChildren: () => import('./page/personalcenter/mycar/index/index.module').then(m => m.IndexPageModule)
-                    }
+                    },
+                    { 
+                        path: 'carcondition', //车况
+                        loadChildren: () => import('./page/personalcenter/mycar/carcondition/carcondition.module').then(m => m.CarconditionPageModule)
+                    },
+                    {
+                        path: 'carcontrol',  //汽车控制
+                        loadChildren: () => import('./page/personalcenter/mycar/carcontrol/carcontrol.module').then(m => m.CarcontrolPageModule)
+                    },
                 ]
             },
             {
@@ -247,13 +245,6 @@ const routes: Routes = [
                     { path: 'payment', loadChildren: () => import('./page/servicecenter/payment/payment/payment.module').then(m => m.PaymentPageModule) }
                 ]
             },
-            {
-                path: 'serviceproxy',  //维修履历
-                children: [
-                    { path: 'list', loadChildren: () => import('./page/servicecenter/serviceproxy/list/list.module').then(m => m.ListPageModule) },
-                    { path: 'detail', loadChildren: () => import('./page/servicecenter/serviceproxy/detail/detail.module').then(m => m.DetailPageModule) },
-                ]
-            }
         ]
     },
     {
@@ -310,8 +301,8 @@ const routes: Routes = [
     {
         path: 'questionsetting',
         loadChildren: () => import('./page/message/questionsetting/questionsetting.module').then(m => m.QuestionsettingPageModule)
-    }
-    ,
+    }    ,
+
 
 
 
@@ -324,4 +315,4 @@ const routes: Routes = [
     ],
     exports: [RouterModule]
 })
-export class AppRoutingModule { } 
+export class AppRoutingModule { }
