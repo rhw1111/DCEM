@@ -823,5 +823,176 @@ namespace DCEM.ServiceAssistantService.Main.Application
         }
         #endregion
 
+        #region 查询维修履历列表--用于C端
+        public async Task<QueryResult<CrmEntity>> UcQueryList(string phone, int? status, int pageindex, int pagesize)
+        {
+            #region 获取记录结果集
+            var filter = await UcQueryListFilter(phone, status);
+            var fetchXdoc = await UcQueryListFetchXml(pageindex, pagesize, filter);
+            var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_serviceproxy",
+                FetchXml = fetchXdoc
+            };
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+            var fetchResponse = await _crmService.Execute(fetchRequest);
+            var resultsList = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            #endregion;
+
+            #region 组装返回结果集
+            var queryResult = new QueryResult<CrmEntity>();
+            queryResult.Results = resultsList.Value.Results;
+            queryResult.CurrentPage = pageindex;
+            return queryResult;
+            #endregion
+        }
+
+        private async Task<XDocument> UcQueryListFetchXml(int pageindex, int pagesize, string filter)
+        {
+            return await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = string.Empty;
+                fetchXml = $@"
+            <fetch version='1.0' output-format='xml-platform' mapping='logical' count='{pagesize}' page='{pageindex}' >
+              <entity name='mcs_serviceproxy'>
+                  <order attribute='createdon' descending='true' />
+                  {filter}
+              </entity>
+            </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
+
+        private async Task<string> UcQueryListFilter(string phone, int? status)
+        {
+            return await Task<string>.Run(() =>
+            {
+                var filter = string.Empty;
+                if (!string.IsNullOrWhiteSpace(phone)) 
+                {
+                    filter += @$"
+                    <condition attribute='mcs_customerphone' operator='eq' value='{phone}' />";
+                }
+                if (status!=null)
+                {
+                    filter += @$"
+                    <condition attribute='mcs_status' operator='eq' value='{status}' />";
+                }
+                if (!string.IsNullOrEmpty(filter))
+                {
+                    filter = "<filter type='and'>   <condition attribute='statecode' operator='eq' value='0' />" + filter;
+                    filter = filter + "</filter>";
+                }
+                return filter;
+            });
+        }
+        #endregion
+
+        #region 获取服务委托书 问诊单 详情--用于C端
+        public async Task<ServiceproxyQueryInfoResponse> UcQueryInfo(string guid)
+        {
+            var serviceproxyQueryInfoResponse = new ServiceproxyQueryInfoResponse();
+            var scFetchString = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+                  <entity name='mcs_serviceproxy'>
+                     <all-attributes />
+                    <filter type='and'>
+                      <condition attribute='statecode' operator='eq' value='0' />
+                      <condition attribute='mcs_serviceproxyid' operator='eq' value='{guid}' />
+                    </filter>
+                    <link-entity name='mcs_dealer' from='mcs_dealerid' to='mcs_dealerid' visible='false' link-type='outer' alias='dealer'>
+                      <attribute name='mcs_name' />
+                      <attribute name='mcs_phone' />
+                      <attribute name='mcs_shopaddress' />
+                    </link-entity>
+                  </entity>
+                </fetch>";
+            var serviceproxyGuid = Guid.Parse(guid);
+
+            var scFetchXdoc = XDocument.Parse(scFetchString);
+            var scFetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_serviceproxy",
+                FetchXml = scFetchXdoc
+            };
+            scFetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+            var scFetchResponse = await _crmService.Execute(scFetchRequest);
+            var scFetchResponseResult = scFetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+
+
+            var serviceproxyEntity = scFetchResponseResult.Value.Results[0];//await _crmService.Retrieve("mcs_serviceproxy", serviceproxyGuid, scFetchString, null, dicHead);
+
+            #region 环检项
+            var vehcheckFilter = $@"
+                <link-entity name='mcs_serviceordercheckresult' from='mcs_checkreultid' to='mcs_vehcheckresultid' alias='a'>
+                    <attribute name='mcs_serviceordercheckresultid' />
+                    <attribute name='mcs_checkreult' />
+                    <filter type='and'>
+                      <condition attribute='mcs_serviceorderid' operator='eq' value='{serviceproxyGuid}' />
+                    </filter>
+                </link-entity>";
+            var vehcheckResponse = await QueryVehcheckListByExpression(vehcheckFilter);
+            #endregion
+
+            #region 工时
+            var workFilter = $@"
+                <link-entity name='mcs_serviceorderrepairitem' from='mcs_repairitemid' to='mcs_repairiteminfoid' alias='a'>
+                    <all-attributes/>
+                    <filter type='and'>
+                      <condition attribute='mcs_serviceorderid' operator='eq' value='{serviceproxyGuid}' />
+                    </filter>
+                </link-entity>";
+            var workResponse = await QueryRepairitemListByFilter(1, 5000, workFilter);
+            #endregion
+
+            #region 零件
+            var partsFilter = $@"
+                <link-entity name='mcs_serviceorderpart' from='mcs_partsid' to='mcs_partsid' alias='a'>
+                    <all-attributes/>
+                    <filter>
+                      <condition attribute='mcs_serviceorderid' operator='eq' value='{serviceproxyGuid}' />
+                    </filter>
+                </link-entity>";
+            var partsResponse = await QueryPartsListByFilter(1, 5000, partsFilter);
+            #endregion
+
+            #region 维修履历
+            var xdoc = await Task<XDocument>.Run(() =>
+            {
+                var customerid = serviceproxyEntity.Attributes.Value<string>("_mcs_customerid_value");
+                var fetchXml = string.Empty;
+                fetchXml = $@"
+            <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false' >
+              <entity name='mcs_serviceproxy'>
+                <order attribute='mcs_name' descending='false' />
+                <filter type='and'>
+                    <condition attribute='mcs_customerid' operator='eq' value='{customerid}' />
+                    <condition attribute='mcs_currenttype' operator='eq' value='20' />
+                    <condition attribute='mcs_status' operator='eq' value='180' />
+                </filter>
+              </entity>
+            </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+            var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_serviceproxy",
+                FetchXml = xdoc
+            };
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+            var fetchResponse = await _crmService.Execute(fetchRequest);
+            var serviceproxyResumeResponse = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            #endregion
+
+
+            serviceproxyQueryInfoResponse.Serviceproxy = serviceproxyEntity;
+            serviceproxyQueryInfoResponse.ServiceordercheckresultList = vehcheckResponse.Results;
+            serviceproxyQueryInfoResponse.ServiceorderrepairitemList = workResponse.Results;
+            serviceproxyQueryInfoResponse.ServiceorderpartList = partsResponse.Results;
+            serviceproxyQueryInfoResponse.ServiceproxyResumeList = serviceproxyResumeResponse.Value.Results;
+            return serviceproxyQueryInfoResponse;
+
+        }
+
+        #endregion
     }
 }

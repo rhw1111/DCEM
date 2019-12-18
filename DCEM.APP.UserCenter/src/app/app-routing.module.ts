@@ -228,6 +228,13 @@ const routes: Routes = [
                     { path: 'payment', loadChildren: () => import('./page/servicecenter/payment/payment/payment.module').then(m => m.PaymentPageModule) }
                 ]
             },
+            {
+                path: 'serviceproxy',  //维修履历
+                children: [
+                    { path: 'list', loadChildren: () => import('./page/servicecenter/serviceproxy/list/list.module').then(m => m.ListPageModule) },
+                    { path: 'detail', loadChildren: () => import('./page/servicecenter/serviceproxy/detail/detail.module').then(m => m.DetailPageModule) },
+                ]
+            }
         ]
     },
     {
@@ -285,6 +292,16 @@ const routes: Routes = [
         path: 'questionsetting',
         loadChildren: () => import('./page/message/questionsetting/questionsetting.module').then(m => m.QuestionsettingPageModule)
     }
+,
+  {
+    path: 'list',
+    loadChildren: () => import('./page/servicecenter/serviceproxy/list/list.module').then( m => m.ListPageModule)
+  }
+,
+  {
+    path: 'detail',
+    loadChildren: () => import('./page/servicecenter/serviceproxy/detail/detail.module').then( m => m.DetailPageModule)
+  }
 
 
 ];
