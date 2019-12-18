@@ -388,6 +388,7 @@ namespace DCEM.Main
                     crmService.CrmApiVersion = dyCRMSetting.CrmApiVersion;
                     crmService.CrmUrl = dyCRMSetting.CrmUrl;
                     crmService.TokenServiceType = dyCRMSetting.TokenServiceType;
+                    crmService.TokenServiceParameters.Add("Domain", dyCRMSetting.Domain);
                     crmService.TokenServiceParameters.Add("AdfsUrl", dyCRMSetting.AdfsUrl);
                     crmService.TokenServiceParameters.Add("CrmUrl", dyCRMSetting.CrmUrl);
                     crmService.TokenServiceParameters.Add("ClientId", dyCRMSetting.ClientId);

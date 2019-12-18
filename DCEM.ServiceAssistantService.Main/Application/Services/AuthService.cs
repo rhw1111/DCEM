@@ -40,14 +40,14 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
                     {
                         try
                         {
-                            string geturl = $"{dyCRMSetting.CrmUrl}/api/data/v{dyCRMSetting.CrmApiVersion}{GetUserFetchXml(@"MCS\" + username)}";
-                            var httpClient = new HttpClient(new HttpClientHandler() { Credentials = new NetworkCredential(username,HttpUtility.UrlDecode(password), dyCRMSetting.Domain) });
+                            string geturl = $"{dyCRMSetting.CrmUrl}/api/data/v{dyCRMSetting.CrmApiVersion}{GetUserFetchXml(dyCRMSetting.Domain+@"\"+username)}";
+                            var httpClient = new HttpClient(new HttpClientHandler() { Credentials = new NetworkCredential(username,HttpUtility.UrlDecode(password), dyCRMSetting.Domain+".com") });
                             using (httpClient)
                             {
                                 datauser = QueryCrmDataADValidate(geturl, httpClient);
                                 if (datauser != null)
                                 {
-                                    result.access_token = $"ADAUTH:MCS\\{username}";
+                                    result.access_token = $"ADAUTH:{dyCRMSetting.Domain}\\{username}";
                                 }
                             }
                         }
@@ -59,11 +59,11 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
                     else {
                         dyCRMSetting.AdfsUrl = $"{dyCRMSetting.AdfsUrl}adfs/oauth2/token";
                         dyCRMSetting.CrmUrl = $"{dyCRMSetting.CrmUrl}/api/data/v{dyCRMSetting.CrmApiVersion}";
-                        var data = GetToken(dyCRMSetting.ClientId, dyCRMSetting.ClientSecret, username, password, dyCRMSetting.CrmUrl, dyCRMSetting.AdfsUrl);
+                        var data = GetToken(dyCRMSetting.ClientId, dyCRMSetting.ClientSecret, username, password, dyCRMSetting.CrmUrl, dyCRMSetting.AdfsUrl, dyCRMSetting.Domain);
 
                         try
                         {
-                            string geturl = dyCRMSetting.CrmUrl + GetUserFetchXml(@"sfmotors\" + username);
+                            string geturl = dyCRMSetting.CrmUrl + GetUserFetchXml(@$"{dyCRMSetting.Domain}\" + username);
 
                             if (data["access_token"] != null)
                             {
@@ -112,8 +112,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
             }
         }
 
-
-
+        #region 私有方法
         /// <summary>
         /// 验证token获取
         /// </summary>
@@ -124,11 +123,11 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         /// <param name="crmurl"></param>
         /// <param name="oauturl"></param>
         /// <returns></returns>
-        public JObject GetToken(string clientid, string clientsecret, string username, string password, string crmurl, string oauturl)
+        private JObject GetToken(string clientid, string clientsecret, string username, string password, string crmurl, string oauturl,string domain)
         {
             HttpClient httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Accept.Clear();
-            StringContent content = new StringContent(@$"grant_type=password&client_id={clientid}&client_secret={clientsecret}&username=sfmotors\{username}&password={password}&resource={crmurl}", Encoding.UTF8, "application/json");
+            StringContent content = new StringContent(@$"grant_type=password&client_id={clientid}&client_secret={clientsecret}&username={domain}\{username}&password={password}&resource={crmurl}", Encoding.UTF8, "application/json");
             HttpResponseMessage response = httpClient.PostAsync(oauturl, content).Result;
             response.EnsureSuccessStatusCode();
             var ret = response.Content.ReadAsStringAsync().Result;
@@ -136,7 +135,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         }
 
 
-        public JObject QueryCrmData(string crmurl, string token)
+        private JObject QueryCrmData(string crmurl, string token)
         {
             //验证合法
             HttpClient httpClient = new HttpClient();
@@ -160,7 +159,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
 
         }
 
-        public JObject QueryCrmDataADValidate(string crmurl, HttpClient httpClient)
+        private JObject QueryCrmDataADValidate(string crmurl, HttpClient httpClient)
         {
             //验证合法
             httpClient.DefaultRequestHeaders.Accept.Clear();
@@ -185,7 +184,7 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
 
         }
 
-        public string GetUserFetchXml(string name)
+        private string GetUserFetchXml(string name)
         {
             var strFetch = "/systemusers?fetchXml=<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>" +
             "<entity name='systemuser'>" +
@@ -206,5 +205,6 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
           "</fetch>";
             return strFetch;
         }
+        #endregion
     }
 }

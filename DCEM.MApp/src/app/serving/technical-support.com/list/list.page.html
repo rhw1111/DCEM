@@ -49,6 +49,9 @@
                     <ion-icon name="calendar" size="small" color="primary"></ion-icon> {{FormatToDate(item.mcs_repairdate)}}
                 </p>
             </ion-label>
+            <ion-note slot="end" *ngIf="item.mcs_orderstatus==0">
+                新建
+            </ion-note>
             <ion-note slot="end" *ngIf="item.mcs_orderstatus==10">
                 未处理
             </ion-note>

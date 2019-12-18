@@ -118,6 +118,22 @@ const routes: Routes = [
                 children: [
                     { path: 'calendar', loadChildren: './serving/maintenance/calendar/calendar.module#CalendarPageModule' }
                 ]
+            },
+            {
+                path: 'surveyorder',//勘测单-记录
+                children: [
+
+                    { path: 'list', loadChildren: './serving/mcs_surveyorder/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './serving/mcs_surveyorder/detail/detail.module#DetailPageModule' }
+                ]
+            },
+            {
+                path: 'installationorder',//安装单
+                children: [
+
+                    { path: 'list', loadChildren: './serving/mcs_installationorder/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './serving/mcs_installationorder/detail/detail.module#DetailPageModule' }
+                ]
             }
         ],
     },
@@ -220,22 +236,6 @@ const routes: Routes = [
                     { path: 'success', loadChildren: './saleing/vehlisense/success/success.module#SuccessPageModule' },
                 ]
             },
-            {
-                path: 'surveyorder',//勘测单-记录
-                children: [
-
-                    { path: 'list', loadChildren: './saleing/mcs_surveyorder/list/list.module#ListPageModule' },
-                    { path: 'detail', loadChildren: './saleing/mcs_surveyorder/detail/detail.module#DetailPageModule' }
-                ]
-            },
-            {
-                path: 'installationorder',//安装单
-                children: [
-
-                    { path: 'list', loadChildren: './saleing/mcs_installationorder/list/list.module#ListPageModule' },
-                    { path: 'detail', loadChildren: './saleing/mcs_installationorder/detail/detail.module#DetailPageModule' }
-                ]
-            },
              {
                  path: 'driverecord',//试车试驾
                 children: [
@@ -257,8 +257,6 @@ const routes: Routes = [
     },
     { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' },
     { path: 'fileupload', loadChildren: './serving/serving.ser/components/fileupload/fileupload.module#FileuploadPageModule' },
-  { path: 'list', loadChildren: './saleing/mcs_installationorder/list/list.module#ListPageModule' },
-  { path: 'detail', loadChildren: './saleing/mcs_installationorder/detail/detail.module#DetailPageModule' },
   { path: 'success', loadChildren: './saleing/mcs-contactrecord/success/success.module#SuccessPageModule' },
  
 
