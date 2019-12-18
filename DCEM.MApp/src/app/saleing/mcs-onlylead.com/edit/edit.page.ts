@@ -125,12 +125,11 @@ export class EditPage implements OnInit {
 
     //获取省组件
     async provinceModal() {
-        this.model.countryId = "7AF9AB98-7EF8-E811-A820-844A39D18A7A";
         this.model.level = 2;
         const modal = await this._modalCtrl.create({
             component: SelectSysareaComponent,
             componentProps: {
-                'pid': this.model.countryId,
+                'pid': '',
                 'level': this.model.level,
             }
         });
@@ -229,7 +228,6 @@ export class EditPage implements OnInit {
 
     //触发区事件
     districtOnClick() {
-        debugger;
         if (this.model.cityId != "") {
             this.districtModal()
         }
@@ -287,7 +285,6 @@ export class EditPage implements OnInit {
             this.model.postApiUrl,
             this.model.postData,
             (res: any) => {
-                debugger;
                 if (res !== null) {
                     var guid = res["Data"]["Id"];
                     this._page.goto("/saleing/onlylead/success", { guid: guid });

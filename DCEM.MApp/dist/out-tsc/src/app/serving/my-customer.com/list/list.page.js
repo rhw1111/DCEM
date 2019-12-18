@@ -68,6 +68,7 @@ let ListPage = class ListPage {
         }, (res) => {
             if (!this._valid.isNull(res.Results) !== null && res.Results.length > 0) {
                 for (var key in res.Results) {
+                    console.log(res.Results[key]);
                     var obj = {};
                     obj["Id"] = res.Results[key]["Id"];
                     obj["fullname"] = res.Results[key]["Attributes"]["a_x002e_mcs_fullname"];
