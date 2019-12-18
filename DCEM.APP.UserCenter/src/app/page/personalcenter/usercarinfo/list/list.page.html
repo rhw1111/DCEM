@@ -1,0 +1,126 @@
+<ion-content fullscreen scroll-y="false">
+
+  <ion-slides pager style="height: 100%;">
+    <ion-slide style="height: 100%;" *ngFor="let item of model.datalist ">
+      <div class="divback"  >
+        <ion-buttons slot="start">
+          <div style="    position: absolute;width: 100%;margin-top: 10px;">我的爱车</div>
+          <ion-back-button text="" defaultHref="/" style="margin-top: 5%;color: white;"></ion-back-button>
+        </ion-buttons>
+        <div style="position: absolute;top: 45%;width: 100%;">
+          <div style="    position: absolute;top: 45%;width: 100%;">
+            <svg *ngIf="item.pkid!=1" style="float: left;" t="1576579103089" class="icon" viewBox="0 0 1024 1024" version="1.1"
+              xmlns="http://www.w3.org/2000/svg" p-id="1723" width="40" height="40">
+              <path
+                d="M353.6384 512.4608l351.3856-351.3856a30.72 30.72 0 0 0-43.4688-43.3152L288.4608 490.752a30.72 30.72 0 0 0 0 43.4176l373.0944 373.0944a30.72 30.72 0 0 0 43.4688-43.4176z"
+                fill="#ffffff" p-id="1724"></path>
+            </svg>
+          </div>
+          <div style="position: absolute;top: 45%;width: 100%;">
+            <svg *ngIf="this.model.datanum!= item.pkid"  style="float: right;" t="1576579090824" class="icon" viewBox="0 0 1024 1024" version="1.1"
+              xmlns="http://www.w3.org/2000/svg" p-id="2571" width="40" height="40">
+              <path
+                d="M720.2816 490.752L347.1872 117.76a30.72 30.72 0 1 0-43.4688 43.4688l351.6416 351.232-351.6416 351.3856a30.72 30.72 0 1 0 43.4688 43.4176l373.0944-373.0944a30.72 30.72 0 0 0 0-43.4176z"
+                fill="#e6e6e6" p-id="2572"></path>
+            </svg>
+          </div>
+        </div>
+        <ion-grid style="margin-top: 70%;">
+          <ion-row>
+            <ion-col style="font-size: 2rem;font-weight: 400;margin-bottom: 5%;">
+              {{item.carmodel}}
+            </ion-col>
+          </ion-row>
+
+          <ion-row style="margin-bottom: 15px;">
+            <ion-col size="12" style="padding: 0px;text-align: center;">
+              <div style="text-align: center;">
+                <div>
+                  {{item.mcs_name}}
+                </div>
+                <div style="font-size: 0.8rem;margin-top: 5px;">
+                  VIN
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin-bottom: 15px;">
+            <ion-col size="4" style="padding: 0px;">
+              <div style="text-align: center;">
+                <div>
+                  {{item.mcs_username}}
+                </div>
+                <div style="font-size: 0.8rem;margin-top: 5px;">
+                  车主姓名
+                </div>
+                <div class="divline"></div>
+              </div>
+            </ion-col>
+            <ion-col size="4" style="padding: 0px;text-align: center;">
+              <div style="text-align: center;">
+                <div>
+                  {{item.mcs_salesdate  | date:'yyyy-MM-dd'}}
+                </div>
+                <div style="font-size: 0.8rem;margin-top: 5px;">
+                  销售日期
+                </div>
+                <div class="divline"></div>
+              </div>
+            </ion-col>
+            <ion-col size="4" style="padding: 0px;text-align: center;">
+              <div style="text-align: center;">
+                <div>
+                  {{item.mcs_plate}}
+                </div>
+                <div style="font-size: 0.8rem;margin-top: 5px;">
+                  车牌号码
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+
+
+          <ion-row style="margin-bottom: 15px;">
+            <ion-col size="4" style="text-align: center;padding: 0px;">
+              <div style="text-align: center;">
+                <div>
+                  {{item.mcs_maintainnum}}
+                </div>
+                <div style="font-size: 0.8rem;margin-top: 5px;">
+                  保养次数
+                </div>
+                <div class="divline"></div>
+              </div>
+            </ion-col>
+            <ion-col size="4" style="padding: 0px;text-align: center;">
+              <div style="text-align: center;">
+                <div>
+                  {{item.mcs_nextmaintainat  | date:'yyyy-MM-dd' }}
+                </div>
+                <div style="font-size: 0.8rem;margin-top: 5px;">
+                  下次保养时间
+                </div>
+                <div class="divline"></div>
+              </div>
+            </ion-col>
+            <ion-col size="4" style="font-size: 0.8rem;text-align: center;">
+              <div style="text-align: center;">
+                <div>
+                  {{item.mcs_nextmaintainmileage}}
+                </div>
+                <div style="font-size: 0.8rem;margin-top: 5px;">
+                  下次保养里程
+                </div>
+              </div>
+            </ion-col>
+
+          </ion-row>
+
+        </ion-grid>
+      </div>
+    </ion-slide>
+    
+  </ion-slides>
+
+
+</ion-content>

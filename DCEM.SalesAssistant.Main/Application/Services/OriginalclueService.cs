@@ -101,8 +101,13 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 var dealer = new CrmEntityReference("mcs_dealer", Guid.Parse(originalclueCreateRequest.dealerid));
                 createEntity.Attributes.Add("mcs_dealerid", dealer);
                 
-                var mcs_behaviorEntityRefence = new CrmEntityReference("mcs_behavior", Guid.Parse(originalclueCreateRequest.behaviorid));
-                createEntity.Attributes.Add("mcs_behaviorid", mcs_behaviorEntityRefence);
+                //var mcs_behaviorEntityRefence = new CrmEntityReference("mcs_behavior", Guid.Parse(originalclueCreateRequest.behaviorid));
+
+                var mcs_behaviorEntityRefence=await GetBehaviorEntityByCode(originalclueCreateRequest.behaviorcode);
+                if (mcs_behaviorEntityRefence!=null)
+                {
+                    createEntity.Attributes.Add("mcs_behaviorid", mcs_behaviorEntityRefence);
+                }
                 var entityId = await _crmService.Create(createEntity, Guid.Parse(originalclueCreateRequest.UserId));
                 return new OriginalclueCreateResponse() { Id = entityId.ToString() };
             }
@@ -132,7 +137,38 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             }
         }
         #region 私有方法
-
+        private async Task<CrmEntityReference> GetBehaviorEntityByCode(string code)
+        {
+            CrmEntityReference referenceEntity = null;
+            try
+            {
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+  <entity name='mcs_behavior'>
+    <attribute name='mcs_behaviorid' />
+    <attribute name='mcs_name' />
+    <attribute name='createdon' />
+    <order attribute='mcs_name' descending='false' />
+    <filter type='and'>
+      <condition attribute='statecode' operator='eq' value='0' />
+      <condition attribute='mcs_code' operator='eq' value='{code}' />
+    </filter>
+  </entity>
+</fetch>";
+               var fetchXdoc=  XDocument.Parse(fetchXml);
+                var crmRequestHelper = new CrmRequestHelper();
+                var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_behavior", fetchXdoc);
+                if (entities!=null && entities.Results[0]!=null)
+                {
+                    var  entity = entities.Results[0];
+                    referenceEntity = new CrmEntityReference(entity.EntityName, entity.Id);
+                }
+            }
+            catch (Exception ex)
+            {
+                referenceEntity = null;
+            }
+            return referenceEntity;
+        }
         #endregion
     }
 }

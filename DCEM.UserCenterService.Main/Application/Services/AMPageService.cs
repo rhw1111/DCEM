@@ -47,12 +47,20 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     throw new Exception("未找到对应的落地页模板数据");
                 }
                 //根据落地页数据选择模板
-                var templateName = GetTemplateNameByPageType(entity.Attributes["mcs_type"]?.ToString());
+                var fileName = GetTemplateNameByPageType(entity.Attributes["mcs_type"]?.ToString()) + ".html";
                 //从模板地址读取数据写入新地址
                 var prjRootPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-                var templateHtml = File.ReadAllText(prjRootPath + "\\HtmlResources\\Templates\\" + templateName + ".html");
+                var templateHtml = File.ReadAllText(prjRootPath + @"\HtmlResources\Templates\" + fileName);
                 //todo:替换其中的自定义项
+                var targetHtml = templateHtml;
                 //写入目标地址
+                var targetPath = @"\HtmlResources\Activities\" + entity.Attributes["mcs_am_pageid"].ToString();
+                if (!Directory.Exists(prjRootPath + @"\wwwroot" + targetPath))
+                {
+                    Directory.CreateDirectory(prjRootPath + @"\wwwroot" + targetPath);
+                }
+                File.WriteAllText(prjRootPath + @"\wwwroot" + targetPath + @"\" + fileName, targetHtml);
+                response.Url = targetPath + @"\" + fileName;
             }
             catch (Exception ex)
             {

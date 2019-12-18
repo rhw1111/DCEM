@@ -20,11 +20,15 @@ namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
 
     public interface IQuestionRepository
     {
-        public XDocument QueryQiestion(Guid id);
+        public XDocument QueryQiestion(string  id);
 
         public XDocument QueryDetailList(Guid id);
 
 
         public XDocument QueryAnswersList(Guid id);
+
+        XDocument QueryDeliverychannel(string code);
+
+        XDocument QueryUser(string code);
     }
 }

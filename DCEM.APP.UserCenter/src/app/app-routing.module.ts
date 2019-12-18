@@ -115,12 +115,20 @@ const routes: Routes = [
                 ]
             },
             {
-                path: 'mycar',
+                path: 'mycar',  //我的汽车
                 children: [
                     {
-                        path: 'index',
+                        path: 'index',  //入口导航
                         loadChildren: () => import('./page/personalcenter/mycar/index/index.module').then(m => m.IndexPageModule)
-                    }
+                    },
+                    {
+                        path: 'carcondition', //车况
+                        loadChildren: () => import('./page/personalcenter/mycar/carcondition/carcondition.module').then(m => m.CarconditionPageModule)
+                    },
+                    {
+                        path: 'carcontrol',  //汽车控制
+                        loadChildren: () => import('./page/personalcenter/mycar/carcontrol/carcontrol.module').then(m => m.CarcontrolPageModule)
+                    },
                 ]
             },
             {
@@ -301,9 +309,11 @@ const routes: Routes = [
         loadChildren: () => import('./page/message/questionsetting/questionsetting.module').then(m => m.QuestionsettingPageModule)
     },
     {
-      path: 'list',
-      loadChildren: () => import('./page/servicecenter/category/list/list.module').then( m => m.ListPageModule)
+        path: 'list',
+        loadChildren: () => import('./page/servicecenter/category/list/list.module').then(m => m.ListPageModule)
     },
+
+
 
 ];
 
