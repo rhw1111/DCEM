@@ -22,23 +22,23 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
 
     public class QuestionDetailRequest
     {
-        public Guid id { get; set; }
+        public string id { get; set; }
     }
     public class QuestionAddRequest
     {
         /// <summary>
-        /// 回答渠道
+        /// 回答渠道编码
         /// </summary
-        public Guid mcs_deliverychannel { get; set; }
+        public string  mcs_deliverychannel { get; set; }
 
         /// <summary>
         /// 问卷编号
         /// </summary
-        public Guid mcs_questionnairesetting { get; set; } 
+        public string  mcs_questionnairesetting { get; set; } 
         /// <summary>
-        /// 回答人姓名
+        /// 回答人姓名编码
         /// </summary
-        public Guid mcs_answername { get; set; }
+        public string  mcs_answername { get; set; }
 
         public List<QuestionAdd> model { get; set; }
     }

@@ -21,7 +21,7 @@ namespace DCEM.UserCenterService.Main.Application.App.Contrac
 
     public interface IAppQuestion
     {
-        Task<ValidateResult<QuestionSettingResponse>> QueryQiestion(Guid id);
+        Task<ValidateResult<QuestionSettingResponse>> QueryQiestion(string  id);
 
         Task<ValidateResult> AddAnswercontent(QuestionAddRequest model);
     }

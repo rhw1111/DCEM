@@ -26,19 +26,50 @@ namespace DCEM.UserCenterService.Main.Application.Repository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public XDocument QueryQiestion(Guid id)
+        public XDocument QueryQiestion(string  id)
         {
             var filter = string.Empty;
             var fetchXml = $@"<fetch version='1.0'   output-format='xml-platform' mapping='logical' distinct='false'>
                     <entity name='mcs_questionnairesetting'>
                     <all-attributes />
                     <order attribute='createdon' descending='false' />
-                    <filter type='and'>
-                      <condition attribute='statecode' operator='eq' value='0' /> 
-                      <condition attribute='mcs_questionnairesettingid' operator='eq' value='{id}' />
+                    <filter type='and'> 
+                      <condition attribute='mcs_questionnairecode' operator='eq' value='{id}' />
                     </filter>
                   </entity>
                 </fetch>"; 
+            return XDocument.Parse(fetchXml);
+        }
+
+
+        public XDocument QueryUser(string code)
+        {
+            var filter = string.Empty;
+            var fetchXml = $@"<fetch version='1.0'   output-format='xml-platform' mapping='logical' distinct='false'>
+                    <entity name='mcs_user'>
+                    <all-attributes />
+                    <order attribute='createdon' descending='false' />
+                    <filter type='and'> 
+                      <condition attribute='mcs_code' operator='eq' value='{code}' />
+                    </filter>
+                  </entity>
+                </fetch>";
+            return XDocument.Parse(fetchXml);
+        }
+
+
+        public XDocument QueryDeliverychannel(string code)
+        {
+            var filter = string.Empty;
+            var fetchXml = $@"<fetch version='1.0'   output-format='xml-platform' mapping='logical' distinct='false'>
+                    <entity name='mcs_deliverychannel'>
+                    <all-attributes />
+                    <order attribute='createdon' descending='false' />
+                    <filter type='and'> 
+                      <condition attribute='mcs_code' operator='eq' value='{code}' />
+                    </filter>
+                  </entity>
+                </fetch>";
             return XDocument.Parse(fetchXml);
         }
 
