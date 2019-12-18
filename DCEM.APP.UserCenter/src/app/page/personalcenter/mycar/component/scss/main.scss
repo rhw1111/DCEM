@@ -1,0 +1,41 @@
+﻿* {
+    margin: 0px;
+    padding: 0px;
+}
+
+//颜色
+$dm-orange: #F06E23; //(橘色)
+$dm-darkblue: #20303D; //(深蓝)
+$dm-white: #FFFFFF; //(白)
+$dm-gray: #96999A; //(灰)
+$dm-gray-line: #EEEEEE; //(灰线)
+$dm-darkgray: #636669; //(深灰)
+$dm-input-line: #DBDBDB; //(输入框的线)
+$dm-black: #000000; //黑
+//自定义颜色
+.ion-color-org {
+    --ion-color-base: #F06E23;
+    --ion-color-base-rgb: #F06E23;
+    --ion-color-contrast: #ffffff;
+    --ion-color-contrast-rgb: #F06E23;
+    --ion-color-shade: #F06E23;
+    --ion-color-tint: #F06E23;
+}
+
+.ion-color-dis {
+    --ion-color-base: #F8F8F8;
+    --ion-color-base-rgb: #F8F8F8;
+    --ion-color-contrast: #C8C8C8;
+    --ion-color-contrast-rgb: #000000;
+    --ion-color-shade: #F8F8F8;
+    --ion-color-tint: #F8F8F8
+}
+
+.ion-color-darkblue {
+    --ion-color-base: #20303D;
+    --ion-color-base-rgb: #20303D;
+    --ion-color-contrast: #20303D;
+    --ion-color-contrast-rgb: #000000;
+    --ion-color-shade: #20303D;
+    --ion-color-tint: #20303D;
+}

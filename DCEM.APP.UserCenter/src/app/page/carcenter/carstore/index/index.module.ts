@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { IndexPageRoutingModule } from './index-routing.module';
 
 import { IndexPage } from './index.page';
-import { TopheadModule } from 'app/page/carcenter/carstore/component/assembly/tophead/tophead.module';
+import { TopheadModule } from 'app/component/assembly/tophead/tophead.module';
 import { SpeclistModule } from 'app/page/carcenter/carstore/component/model/speclist/speclist.module';
 
 @NgModule({

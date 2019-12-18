@@ -1,11 +1,10 @@
-﻿@import "../../scss/main";
-
+﻿
 //头带logo
 .dm-top-head {
     .dm-top-stat {
         padding-left: 0px;
         float: left;
-        color: $dm-white;
+        color: #fff;
         width: 50px;
         position: relative;
 
@@ -20,7 +19,7 @@
     .dm-top-end {
         padding-right: 0px;
         float: right;
-        color: $dm-white;
+        color: #fff;
         width: 50px;
         position: relative;
 
@@ -33,8 +32,7 @@
     }
 
     ion-title {
-        color: $dm-white;
-        width: 250px;
+        color: #fff;
         position: absolute;
         top: 50%;
         left: 50%;
