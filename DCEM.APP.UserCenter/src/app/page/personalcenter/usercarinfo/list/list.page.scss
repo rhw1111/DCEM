@@ -1,0 +1,21 @@
+.swiper-pagination{
+    display: none;
+}
+html,body{ margin:0px; height:100%;} 
+
+.divback{
+    color: white;
+    height: 100%;
+    width: 100%;
+    background-image: url(../../../../../assets/img/temp/car.jpg);
+    background-size: 100% 100%;
+}
+
+.divline{
+    float:right;
+    border-left: solid 2px #ccc;
+                height: 40px;
+                vertical-align: middle;
+                display: inline-block;
+                margin-top: -40px;
+}

@@ -60,5 +60,12 @@ namespace DCEM.ServiceAssistantService.Main.Application
         Task<QueryResult<CrmEntity>> QueryRepairitemtypedetailList();
         #endregion
 
+        #region 查询维修履历列表--用于C端
+        Task<QueryResult<CrmEntity>> UcQueryList(string phone, int? status, int pageindex, int pagesize);
+        #endregion
+
+        #region 查询 问诊单 服务委托书 详情--用于C端
+        Task<ServiceproxyQueryInfoResponse> UcQueryInfo(string guid);
+        #endregion
     }
 }
