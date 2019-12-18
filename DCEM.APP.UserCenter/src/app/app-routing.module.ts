@@ -114,6 +114,16 @@ const routes: Routes = [
 
                 ]
             },
+            
+            {
+                path: 'usercarinfo',
+                children: [
+                    {
+                        path: 'list',
+                        loadChildren: () => import('./page/personalcenter/usercarinfo/list/list.module').then(m => m.ListPageModule)
+                    }  
+                ]
+            },
             {
                 path: 'scores',
                 children: [
@@ -284,8 +294,7 @@ const routes: Routes = [
     {
         path: 'questionsetting',
         loadChildren: () => import('./page/message/questionsetting/questionsetting.module').then(m => m.QuestionsettingPageModule)
-    }
-
+    } 
 
 ];
 

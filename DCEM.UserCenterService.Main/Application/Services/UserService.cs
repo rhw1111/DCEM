@@ -267,6 +267,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 entity = new CrmExecuteEntity("lead", leadid);
                 entity.Attributes.Add("lastname", model.nickname);
                 entity.Attributes.Add("mobilephone", model.phone);
+                entity.Attributes.Add("mcs_userid", id.ToString());
                 var crmRequestHelper = new CrmRequestHelper();
                 XDocument fetchXdoc = null;
                 fetchXdoc = await _repository.GetBehavior(_behavior);
