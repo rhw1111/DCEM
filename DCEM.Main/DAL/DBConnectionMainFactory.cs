@@ -21,6 +21,8 @@ using MSLibrary.SystemToken.DAL;
 using MSLibrary.Thread.DAL;
 using MSLibrary.Workflow.DAL;
 using MSLibrary.Xrm.DAL;
+using MSLibrary.Configuration;
+using DCEM.Main.Configuration;
 
 namespace DCEM.Main.DAL
 {
@@ -239,7 +241,15 @@ namespace DCEM.Main.DAL
 
         public string CreateReadForSystemConfiguration()
         {
-            throw new NotImplementedException();
+            var coreConfiguration = ConfigurationContainer.Get<BaseConfiguration>(ConfigurationNames.Application);
+
+            if (coreConfiguration.Connections != null)
+            {
+                return coreConfiguration.Connections[DBConnectionNames.MainDBRead];
+            }
+            else {
+                return "";
+            }
         }
 
         public string CreateReadForSystemToken()

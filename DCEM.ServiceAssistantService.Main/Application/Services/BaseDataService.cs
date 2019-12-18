@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using DCEM.SalesAssistant.Main.Common;
 using DCEM.ServiceAssistantService.Main.Application.Repository;
 using DCEM.ServiceAssistantService.Main.DTOModel;
 using MSLibrary;
@@ -234,6 +235,10 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
         {
             try
             {
+                if (string.IsNullOrEmpty(request.pid))
+                {
+                    request.pid = await GetCountryIdByCode("CN");//默认获取中国编码
+                }
                 var fetchString = _baseDataRepository.QuerySysarea(request);
 
                 var fetchXdoc = XDocument.Parse(fetchString);
@@ -476,5 +481,40 @@ namespace DCEM.ServiceAssistantService.Main.Application.Services
                 throw ex;
             }
         }
+
+        #region 私有方法
+        private async Task<string> GetCountryIdByCode(string code)
+        {
+            string countryid = "";
+            try
+            {
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+  <entity name='mcs_sysarea'>
+    <attribute name='mcs_sysareaid' />
+    <attribute name='mcs_name' />
+    <attribute name='createdon' />
+    <order attribute='mcs_name' descending='false' />
+    <filter type='and'>
+      <condition attribute='statecode' operator='eq' value='0' />
+      <condition attribute='mcs_code' operator='eq' value='{code}' />
+    </filter>
+  </entity>
+</fetch>";
+                var fetchXdoc = XDocument.Parse(fetchXml);
+                var crmRequestHelper = new CrmRequestHelper();
+                var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_sysarea", fetchXdoc);
+                if (entities != null && entities.Results[0] != null)
+                {
+                    var entity = entities.Results[0];
+                    countryid = entity.Id.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                countryid = "";
+            }
+            return countryid;
+        }
+        #endregion
     }
 }

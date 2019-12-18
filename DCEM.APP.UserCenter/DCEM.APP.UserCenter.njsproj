@@ -82,6 +82,7 @@
     <Folder Include="src\app\page\personalcenter\config\" />
     <Folder Include="src\app\page\personalcenter\config\about\" />
     <Folder Include="src\app\page\personalcenter\config\privacypolicy\" />
+    <Folder Include="src\app\page\personalcenter\mycar\index\" />
     <Folder Include="src\app\page\personalcenter\myorder\" />
     <Folder Include="src\app\page\personalcenter\myorder\carorder\" />
     <Folder Include="src\app\page\personalcenter\myorder\carorder\list\" />
@@ -89,6 +90,7 @@
     <Folder Include="src\app\page\personalcenter\myorder\fineorder\detail\" />
     <Folder Include="src\app\page\personalcenter\myorder\fineorder\list\" />
     <Folder Include="src\app\page\personalcenter\myorder\index\" />
+    <Folder Include="src\app\page\personalcenter\mycar\" />
     <Folder Include="src\app\page\personalcenter\scores\" />
     <Folder Include="src\app\page\personalcenter\scores\list\" />
     <Folder Include="src\app\page\personalcenter\userinfo\" />
@@ -262,6 +264,10 @@
     <TypeScriptCompile Include="src\app\page\personalcenter\index\index.module.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\index\index.page.spec.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\index\index.page.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\mycar\index\index-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\mycar\index\index.module.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\mycar\index\index.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\mycar\index\index.page.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\myorder\carorder\list\list-routing.module.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\myorder\carorder\list\list.module.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\myorder\carorder\list\list.page.spec.ts" />
@@ -461,6 +467,8 @@
     <Content Include="src\app\page\personalcenter\config\privacypolicy\privacypolicy.page.scss" />
     <Content Include="src\app\page\personalcenter\index\index.page.html" />
     <Content Include="src\app\page\personalcenter\index\index.page.scss" />
+    <Content Include="src\app\page\personalcenter\mycar\index\index.page.html" />
+    <Content Include="src\app\page\personalcenter\mycar\index\index.page.scss" />
     <Content Include="src\app\page\personalcenter\myorder\carorder\list\list.page.html" />
     <Content Include="src\app\page\personalcenter\myorder\carorder\list\list.page.scss" />
     <Content Include="src\app\page\personalcenter\myorder\fineorder\detail\detail.page.html" />

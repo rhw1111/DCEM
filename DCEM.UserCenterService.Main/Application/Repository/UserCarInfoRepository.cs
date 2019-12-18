@@ -51,6 +51,12 @@ namespace DCEM.UserCenterService.Main.Application.Repository
                     <entity name='mcs_usercarinfo'>
                     <all-attributes />
                     <order attribute='createdon' descending='false' />
+                    <link-entity name='mcs_vehowner' from='mcs_vehownerid' to='mcs_carinfoid' link-type='inner' alias='bb'>
+                      <all-attributes/>
+                    </link-entity>
+                    <link-entity name='mcs_carmodel' from='mcs_carmodelid' to='mcs_model' link-type='inner' alias='cc'>
+                       <attribute name='mcs_name' />
+                    </link-entity>
                     <filter type='and'>
                       <condition attribute='statecode' operator='eq' value='0' />
                       {filter}

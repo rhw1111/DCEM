@@ -115,6 +115,23 @@ const routes: Routes = [
                 ]
             },
             {
+                path: 'mycar',  //我的汽车
+                children: [
+                    {
+                        path: 'index',  //入口导航
+                        loadChildren: () => import('./page/personalcenter/mycar/index/index.module').then(m => m.IndexPageModule)
+                    },
+                    { 
+                        path: 'carcondition', //车况
+                        loadChildren: () => import('./page/personalcenter/mycar/carcondition/carcondition.module').then(m => m.CarconditionPageModule)
+                    },
+                    {
+                        path: 'carcontrol',  //汽车控制
+                        loadChildren: () => import('./page/personalcenter/mycar/carcontrol/carcontrol.module').then(m => m.CarcontrolPageModule)
+                    },
+                ]
+            },
+            {
                 path: 'scores',
                 children: [
                     {
@@ -213,7 +230,7 @@ const routes: Routes = [
                     { path: 'detail', loadChildren: () => import('./page/servicecenter/reservation/detail/detail.module').then(m => m.DetailPageModule) },
                     { path: 'success', loadChildren: () => import('./page/servicecenter/reservation/success/success.module').then(m => m.SuccessPageModule) },
                     { path: 'confirmedit', loadChildren: () => import('./page/servicecenter/reservation/confirmedit/confirmedit.module').then(m => m.ConfirmeditPageModule) },
-                    { path: 'cancel',loadChildren: () => import('./page/servicecenter/reservation/cancel/cancel.module').then( m => m.CancelPageModule)},
+                    { path: 'cancel', loadChildren: () => import('./page/servicecenter/reservation/cancel/cancel.module').then(m => m.CancelPageModule) },
                 ]
             },
             {
@@ -284,7 +301,9 @@ const routes: Routes = [
     {
         path: 'questionsetting',
         loadChildren: () => import('./page/message/questionsetting/questionsetting.module').then(m => m.QuestionsettingPageModule)
-    }
+    }    ,
+
+
 
 
 ];

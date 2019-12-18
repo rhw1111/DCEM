@@ -1,0 +1,109 @@
+﻿@import "../component/scss/main";
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+.dm-menu-item {
+    padding: 10px 20px;
+
+    .dm-menu-item-title {
+        label {
+            color: $dm-darkblue;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        small {
+            margin-left: 10px;
+            color: $dm-gray;
+        }
+
+        a {
+            position: absolute;
+            right: 0px;
+            color: $dm-gray;
+            bottom: 0px;
+        }
+    }
+
+    .dm-menu-item-img {
+        margin-top: 10px;
+        position: relative;
+
+        img {
+            border-radius: 5px;
+            box-shadow: 0 3px 5px 1px #999;
+            height: 125px;
+            width: 100%;
+        }
+
+        .dm-menu-item-img-button {
+            padding-left: 20px;
+            padding-right: 20px;
+            height: 25px;
+            line-height: 25px;
+            position: absolute;
+            right: 0px;
+            margin-right: 10px;
+            bottom: 0px;
+            background-color: rgb(63,64,81);
+            color: #fff;
+            border-radius: 5px;
+            font-size: 14px;
+            transform: translateY(30%);
+        }
+    }
+
+    .dm-menu-item-imglist {
+        margin-top: 10px;
+
+        div {
+            width: 100%;
+            overflow: scroll;
+            white-space: nowrap;
+
+            ul {
+
+                li {
+                    list-style: none;
+                    padding-right: 10px;
+                    display: inline-block;
+                    position: relative;
+
+                    img {
+                        position: relative;
+                        border-radius: 5px;
+                        box-shadow: 0 3px 5px 1px #999;
+                        height: 120px;
+                        width: 120px;
+                    }
+
+
+                    div {
+                        position: absolute;
+                        top: 60px;
+                        transform: translateY(-50%);
+                        color: #fff;
+                        width: 120px;
+
+                        label {
+                            text-align: center;
+                            font-size: 20px;
+                            font-weight: bold;
+                            display: block;
+                        }
+
+                        small {
+                            font-weight: bold;
+                            font-size: 16px;
+                            text-align: center;
+                            display: block;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

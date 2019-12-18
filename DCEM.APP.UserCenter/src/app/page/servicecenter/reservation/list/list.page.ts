@@ -41,11 +41,11 @@ export class ListPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.model.mobilephone=this._logininfo.GetPhone();
   }
 
   ionViewWillEnter() {
     //debugger;
+    this.model.mobilephone=this._logininfo.GetPhone();
     this.model.page = 1;
     this.showlist(null);
   }
