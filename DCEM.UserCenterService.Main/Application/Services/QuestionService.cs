@@ -42,7 +42,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<ValidateResult<QuestionSettingResponse>> QueryQiestion(Guid id)
+        public async Task<ValidateResult<QuestionSettingResponse>> QueryQiestion(string  id)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     model.Model = entities.Results[0];
                     //获取问题
                     List<CrmEntity> detaillist = new List<CrmEntity>();
-                    fetchXdoc = _questionRepository.QueryDetailList(id);
+                    fetchXdoc = _questionRepository.QueryDetailList(model.Model.Id);
                     entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_questions", fetchXdoc);
                     if (entities.Results.Count > 0)
                     {
@@ -66,7 +66,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
                     //获取问题项
                     List<CrmEntity> answerslist = new List<CrmEntity>();
-                    fetchXdoc = _questionRepository.QueryAnswersList(id);
+                    fetchXdoc = _questionRepository.QueryAnswersList(model.Model.Id);
                     entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_answers", fetchXdoc);
                     if (entities.Results.Count > 0)
                     {
@@ -119,49 +119,69 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 fetchXdoc = _questionRepository.QueryQiestion(model.mcs_questionnairesetting);
                 var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_questionnairesetting", fetchXdoc);
                 if (entities.Results.Count > 0)
-                    foreach (var item in model.model)
+                { 
+                    fetchXdoc = _questionRepository.QueryUser(model.mcs_answername);
+                      var userentities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_user", fetchXdoc);
+                    if (userentities.Results.Count > 0)
                     {
-                        Guid id = Guid.NewGuid();
-                        var entity = new CrmExecuteEntity("mcs_answercontent", id);
-                        entity.Attributes.Add("mcs_answername", new CrmEntityReference("mcs_user", model.mcs_answername));
-                        entity.Attributes.Add("mcs_deliverychannel", new CrmEntityReference("mcs_deliverychannel", model.mcs_deliverychannel));
-                        entity.Attributes.Add("mcs_questionnairesetting", new CrmEntityReference("mcs_questionnairesetting", model.mcs_questionnairesetting));
-
-                        string starttime = entities.Results[0].Attributes["mcs_starttime@OData.Community.Display.V1.FormattedValue"].ToString();
-                        string endtime = entities.Results[0].Attributes["mcs_endtime@OData.Community.Display.V1.FormattedValue"].ToString();
-                        if ((!string.IsNullOrEmpty(starttime)) && (!string.IsNullOrEmpty(starttime)))
+                        fetchXdoc = _questionRepository.QueryDeliverychannel(model.mcs_deliverychannel);
+                        var deliverychannelentities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_deliverychannel", fetchXdoc);
+                        if (deliverychannelentities.Results.Count > 0)
                         {
-                            if (DateTime.Parse(starttime) <= DateTime.Now && DateTime.Parse(endtime) >= DateTime.Now)
+                            foreach (var item in model.model)
                             {
-                                string mcs_awardcategory = entities.Results[0].Attributes["mcs_awardcategory@OData.Community.Display.V1.FormattedValue"].ToString();
-                                string mcs_awardamount = entities.Results[0].Attributes["mcs_awardamount@OData.Community.Display.V1.FormattedValue"].ToString();
-                                string mcs_awardcount = string.Format("奖励类别：{0},奖励数量{1}", mcs_awardcategory, mcs_awardamount);
-                                entity.Attributes.Add("mcs_awardcount", mcs_awardcount);
-                                entity.Attributes.Add("mcs_isaward", 1); 
+                                Guid id = Guid.NewGuid();
+                                var entity = new CrmExecuteEntity("mcs_answercontent", id);
+                                entity.Attributes.Add("mcs_answername", new CrmEntityReference("mcs_user", userentities.Results[0].Id));
+                                entity.Attributes.Add("mcs_deliverychannel", new CrmEntityReference("mcs_deliverychannel", deliverychannelentities.Results[0].Id));
+                                entity.Attributes.Add("mcs_questionnairesetting", new CrmEntityReference("mcs_questionnairesetting", entities.Results[0].Id));
+
+                                string starttime = entities.Results[0].Attributes["mcs_starttime@OData.Community.Display.V1.FormattedValue"].ToString();
+                                string endtime = entities.Results[0].Attributes["mcs_endtime@OData.Community.Display.V1.FormattedValue"].ToString();
+                                if ((!string.IsNullOrEmpty(starttime)) && (!string.IsNullOrEmpty(starttime)))
+                                {
+                                    if (DateTime.Parse(starttime) <= DateTime.Now && DateTime.Parse(endtime) >= DateTime.Now)
+                                    {
+                                        string mcs_awardcategory = entities.Results[0].Attributes["mcs_awardcategory@OData.Community.Display.V1.FormattedValue"].ToString();
+                                        string mcs_awardamount = entities.Results[0].Attributes["mcs_awardamount@OData.Community.Display.V1.FormattedValue"].ToString();
+                                        string mcs_awardcount = string.Format("奖励类别：{0},奖励数量{1}", mcs_awardcategory, mcs_awardamount);
+                                        entity.Attributes.Add("mcs_awardcount", mcs_awardcount);
+                                        entity.Attributes.Add("mcs_isaward", 1);
+                                    }
+                                    else
+                                        entity.Attributes.Add("mcs_isaward", 2);
+
+                                }
+                                else
+                                    entity.Attributes.Add("mcs_isaward", 2);
+
+                                if (!string.IsNullOrEmpty(item.mcs_answer))
+                                    entity.Attributes.Add("mcs_answer", item.mcs_answer);
+                                if (!string.IsNullOrEmpty(item.mcs_answercontentcode))
+                                    entity.Attributes.Add("mcs_answercontentcode", item.mcs_answercontentcode);
+                                if (!string.IsNullOrEmpty(item.mcs_name))
+                                    entity.Attributes.Add("mcs_name", item.mcs_name);
+                                entity.Attributes.Add("mcs_questions", new CrmEntityReference("mcs_questions", item.mcs_questions));
+                                await _crmService.Create(entity);
                             }
-                            else
-                                entity.Attributes.Add("mcs_isaward", 2);
 
+
+                            #region 组装数据返回 
+                            validateResult.Result = true;
+                            validateResult.Description = "操作成功"; 
+                            return validateResult;
+                            #endregion
                         }
-                        else 
-                            entity.Attributes.Add("mcs_isaward", 2);
-                         
-                        if (!string.IsNullOrEmpty(item.mcs_answer))
-                            entity.Attributes.Add("mcs_answer", item.mcs_answer);
-                        if (!string.IsNullOrEmpty(item.mcs_answercontentcode))
-                            entity.Attributes.Add("mcs_answercontentcode", item.mcs_answercontentcode);
-                        if (!string.IsNullOrEmpty(item.mcs_name))
-                            entity.Attributes.Add("mcs_name", item.mcs_name);
-                        entity.Attributes.Add("mcs_questions", new CrmEntityReference("mcs_questions", item.mcs_questions));
-                        await _crmService.Create(entity);
+                        
                     }
+                    
+                }
+                validateResult.Result = false;
+                validateResult.Description = "来源数据异常！";
 
 
 
-                #region 组装数据返回 
-                validateResult.Result = true;
-                validateResult.Description = "操作成功";
-                #endregion
+
 
             }
             catch (Exception e)

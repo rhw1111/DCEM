@@ -226,7 +226,7 @@
             postshow(); 
             var rep = {
                 mcs_deliverychannel: GetQueryString("channer"),
-                mcs_questionnairesetting: mod.qualist.Id,
+                mcs_questionnairesetting: GetQueryString("id"),
                 mcs_answername: GetQueryString("userid"),
                 model: []
             }

@@ -1,0 +1,47 @@
+﻿<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{model.title}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid style="height:100%;">
+        <ion-row style="height:100%;">
+            <ion-col size="4" style="background:#f4f5f8;padding:0;">
+                    <ion-list style="background:#f4f5f8;">
+                        <ng-container *ngFor="let item of model.categoryparentlist ">
+                            <ion-item class="menu" (click)="checkMenu(item.ProductCategoryId)" lines="none" color="{{item.color}}" detail="{{item.arrows}}">
+                                <ion-label style="font-size:14px;">
+                                    {{item.Name}}
+                                </ion-label>
+                            </ion-item>
+                        </ng-container>
+                        
+                    </ion-list>
+            </ion-col>
+            <ion-col style="padding-right:0;">
+                <div *ngIf="model.displayflag; then trueTemplate else falseTemplate"></div>
+                <ng-template #trueTemplate>
+                    <ion-list style="height:100%;">
+                        <ng-container *ngFor="let item of model.selectlist">
+                            <div class="items" [routerLink]="['/servicecenter/boutique/list']" [queryParams]="{id:item.ProductCategoryId}">
+                                <div>
+                                    <img src="./assets/img/goods-list.jpg" />
+                                    <ion-label>{{item.Name}}</ion-label>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </ion-list>
+                </ng-template>
+                <ng-template #falseTemplate>
+                    <div style="text-align:center;margin-top:10%;color: #dedcdc;">
+                        暂无内容，请选择其他类型
+                    </div>
+                </ng-template>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
