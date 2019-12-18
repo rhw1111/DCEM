@@ -1,87 +1,76 @@
-﻿//using Microsoft.AspNetCore.Mvc;
-//using Microsoft.AspNetCore.Cors;
-//using DCEM.UserCenterService.Main.Application.App.Contrac;
-//using System.Threading.Tasks;
-//using MSLibrary.Xrm;
-//using DCEM.UserCenterService.Main.Factory;
-//using MSLibrary;
-//using DCEM.UserCenterService.Main.ViewModel.Request;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using DCEM.Main.TCenter;
+using System.Collections.Generic;
+using DCEM.Main.Entities;
 
-//namespace DCEM.Web.Controllers
-//{
-//    [Route("api/category")]
-//    public class CategoryController : ApiController
-//    {
-//        private CategoryLogicFactory _categoryFactory = new CategoryLogicFactory();
-//        private CategoryLogicCRMFactory _categoryCRMFactory = new CategoryLogicCRMFactory();
+namespace DCEM.Web.Controllers
+{
+    [Route("api/category")]
+    public class CategoryController : ApiController
+    {
+        /// <summary>
+        /// IAppProduct 工厂，默认使用 TCenterFactory
+        /// </summary>
+        public static ITCenterFactory _tCenterFactory;
+        /// <summary>
+        /// 提供静态属性用于替换ITCenterFactory工厂
+        /// </summary>
+        public CategoryController(ITCenterFactory tCenterFactory)
+        {
+            _tCenterFactory = tCenterFactory;
+        }
 
-//        /// <summary>
-//        /// 管理类目
-//        /// </summary>
-//        /// <returns></returns>
-//        [HttpGet]
-//        [Route("AllManagerCategory")]
-//        [InterfaceSuccessFilter]
-//        [OtherSystemAuthenticationActionFilter]
-//        public async Task<List<CategoryEntity>> GetAllManagerCategory()
-//        {
-           
-//            var app = _categoryFactory.Create();
-//            return await app.GetAllManagerCategory();
-//        }
+        /// <summary>
+        /// 管理类目
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("AllManagerCategory")]
+        [OtherSystemAuthenticationActionFilter]
+        public async Task<List<CategoryEntity>> GetAllManagerCategory()
+        {
+            var app =await _tCenterFactory.Create();
+            return await app.GetAllManagerCategory();
+        }
 
-//        /// <summary>
-//        /// 管理类目
-//        /// </summary>
-//        /// <returns></returns>
-//        [HttpGet]
-//        [Route("AllManagerCategory2")]
-//        [InterfaceSuccessFilter]
-//        //[OtherSystemAuthenticationActionFilter]
-//        public List<CategoryEntity> GetAllManagerCategory2()
-//        {
-//            var app = _categoryCRMFactory.Create();
-//            return app.GetAllManagerCategory2();
-//        }
-//        /// <summary>
-//        /// 前端类目
-//        /// </summary>
-//        /// <returns></returns>
-//        [HttpGet]
-//        [Route("AllFrontCategory")]
-//        [InterfaceSuccessFilter]
-//        [OtherSystemAuthenticationActionFilter]
-//        public async Task<List<CategoryEntity>> GetAllFrontCategory()
-//        {
+        /// <summary>
+        /// 管理类目
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("AllManagerCategory2")]
+        //[OtherSystemAuthenticationActionFilter]
+        public async Task<List<CategoryEntity>> GetAllManagerCategory2()
+        {
+            var app = await _tCenterFactory.Create();
+            return await app.GetAllManagerCategory2();
+        }
+        /// <summary>
+        /// 前端类目
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("AllFrontCategory")]
+        [OtherSystemAuthenticationActionFilter]
+        public async Task<List<CategoryEntity>> GetAllFrontCategory()
+        {
 
-//            var app = _categoryFactory.Create();
-//            return await app.GetAllFrontCategory();
-//        }
+            var app = await _tCenterFactory.Create();
+            return await app.GetAllFrontCategory();
+        }
 
-//        /// <summary>
-//        /// 前端类目
-//        /// </summary>
-//        /// <returns></returns>
-//        [HttpGet]
-//        [Route("AllFrontCategory2")]
-//        [InterfaceSuccessFilter]
-//        //[OtherSystemAuthenticationActionFilter]
-//        public List<CategoryEntity> GetAllFrontCategory2()
-//        {
-//            var app = _categoryCRMFactory.Create();
-//            return app.GetAllFrontCategory2();
-//        }
-//        /// <summary>
-//        /// 接口测试
-//        /// </summary>
-//        /// <param name="data">输入参数</param>
-//        /// <returns>返回参数</returns>
-//        [HttpGet]
-//        [Route("Test")]
-//        [OtherSystemAuthenticationActionFilter]
-//        public string TestOtherSystem2(dynamic data)
-//        {
-//            return "OK";
-//        }
-//    }
-//}
+        /// <summary>
+        /// 前端类目
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("AllFrontCategory2")]
+        //[OtherSystemAuthenticationActionFilter]
+        public async Task<List<CategoryEntity>> GetAllFrontCategory2()
+        {
+            var app = await _tCenterFactory.Create();
+            return await app.GetAllFrontCategory2();
+        }
+    }
+}

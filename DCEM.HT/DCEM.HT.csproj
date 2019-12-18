@@ -5,22 +5,31 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="HtmlResources\Activities\39d33d40-2b0c-ea11-b393-80a27b3ee2ee\**" />
+    <Content Remove="HtmlResources\Activities\39d33d40-2b0c-ea11-b393-80a27b3ee2ee\**" />
+    <EmbeddedResource Remove="HtmlResources\Activities\39d33d40-2b0c-ea11-b393-80a27b3ee2ee\**" />
+    <None Remove="HtmlResources\Activities\39d33d40-2b0c-ea11-b393-80a27b3ee2ee\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\HtmlResources\Templates\Question.html" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
  
   <ItemGroup>
     <Folder Include="wwwroot\HtmlResources\Templates\Content\bootstrap-check\" /> 
     <ProjectReference Include="..\DCEM.UserCenterService.Main\DCEM.UserCenterService.Main.csproj" /> 
+    <ProjectReference Include="..\MSLibrary\MSLibrary.csproj" /> 
   </ItemGroup>
 
 </Project>

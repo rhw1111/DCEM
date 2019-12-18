@@ -53,7 +53,6 @@ $dm-black: #000000; //黑
 
         ul {
             display: block;
-            list-style: none;
             position: relative;
 
             li {
@@ -166,17 +165,26 @@ $dm-black: #000000; //黑
     display: none;
 
     ul {
-        label {
-            position: absolute;
-            width: 60%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+        position: relative;
 
-        span {
-            float: right;
-            padding-right: 30px;
+        li {
+            position: relative;
+
+            label {
+                position: absolute;
+                width: 60%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                box-sizing: border-box;
+            }
+
+            span {
+                float: right;
+                padding-right: 30px;
+                position: absolute;
+                right: 0px;
+            }
         }
     }
 

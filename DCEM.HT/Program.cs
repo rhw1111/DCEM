@@ -1,26 +1,70 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using DCEM.Main;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MSLibrary.Configuration;
 
 namespace DCEM.HT
 {
+    using MainStartupHelper = DCEM.Main.StartupHelper;
+
     public class Program
     {
+        private static string _baseUrl;
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            //设置应用程序工作基目录
+            _baseUrl = Path.GetDirectoryName(typeof(Program).Assembly.Location);
+            Environment.CurrentDirectory = _baseUrl ?? Environment.CurrentDirectory;
+
+            //获取运行环境名称
+            var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_APPLICATIONNAME");
+            if (environmentName == null)
+            {
+                environmentName = string.Empty;
+            }
+            //初始化配置容器
+            MainStartupHelper.InitConfigurationContainer(environmentName, _baseUrl);
+            //初始化上下文容器
+            MainStartupHelper.InitContext();
+            CreateWebHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                //.ConfigureWebHostDefaults(webBuilder =>
+                //{
+                //    webBuilder.UseStartup<Startup>();
+                //})
+            .ConfigureServices((context, services)=>
+            {
+                //获取核心配置
+                var coreConfiguration = ConfigurationContainer.Get<CoreConfiguration>(ConfigurationNames.Application);
+
+                //初始化DI容器
+                MainStartupHelper.InitDI(services, coreConfiguration.DISetting);
+
+                //初始化静态设置
+                MainStartupHelper.InitStaticInfo();
+            })
+            .ConfigureLogging((builder) =>
+            {
+                //初始化日志配置
+                MainStartupHelper.InitLogger(builder);
+            })
+              .ConfigureAppConfiguration((context, builder) =>
+              {
+                  //context.HostingEnvironment.EnvironmentName
+              })
+              .UseConfiguration(ConfigurationContainer.GetConfiguration(ConfigurationNames.Host))
+
+            .UseStartup<Startup>();
     }
 }
