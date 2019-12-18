@@ -237,6 +237,12 @@ const routes: Routes = [
                     { path: 'payment', loadChildren: () => import('./page/servicecenter/payment/payment/payment.module').then(m => m.PaymentPageModule) }
                 ]
             },
+            {
+                path: 'category',  //精品分类
+                children: [
+                    { path: 'list', loadChildren: () => import('./page/servicecenter/category/list/list.module').then(m => m.ListPageModule) },
+                ]
+            },
         ]
     },
     {
@@ -293,9 +299,11 @@ const routes: Routes = [
     {
         path: 'questionsetting',
         loadChildren: () => import('./page/message/questionsetting/questionsetting.module').then(m => m.QuestionsettingPageModule)
-    }    ,
-
-
+    },
+    {
+      path: 'list',
+      loadChildren: () => import('./page/servicecenter/category/list/list.module').then( m => m.ListPageModule)
+    },
 
 ];
 
