@@ -46,6 +46,7 @@ export class ListPage implements OnInit {
             pageindex: 1,
             search: ""
         };
+        this._page.loadingShow();
         this.listOnBind();
     }
 
@@ -62,6 +63,7 @@ export class ListPage implements OnInit {
         this.mod.searchData.pageindex = 1;
         this.ionInfiniteScroll.disabled = false;
         this.ionContent.scrollToTop(200);
+        this._page.loadingShow();
         this.listOnBind();
     }
 
@@ -77,10 +79,6 @@ export class ListPage implements OnInit {
     }
 
     listOnBind() {
-
-        if (this.mod.searchData.pageindex == 1)
-            this._page.loadingShow();
-
         this._http.get(
             this.mod.apiUrl,
             {
@@ -126,16 +124,16 @@ export class ListPage implements OnInit {
                     this.ionInfiniteScroll.disabled = true;
                 }
 
-                if (this.mod.searchData.pageindex == 1)
-                    this._page.loadingHide();
+                //if (this.mod.searchData.pageindex == 1)
+                this._page.loadingHide();
                 this.ionInfiniteScroll.complete();
 
             },
             (err: any) => {
-                this._page.alert("消息提示", "数据加载异常");
-                if (this.mod.searchData.pageindex == 1)
-                    this._page.loadingHide();
+                //if (this.mod.searchData.pageindex == 1)
+                this._page.loadingHide();
                 this.ionInfiniteScroll.complete();
+                this._page.alert("消息提示", "数据加载异常");
             }
         );
     }

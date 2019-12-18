@@ -101,5 +101,10 @@ namespace DCEM.Main.Configuration
         /// </summary>
         [DataMember]
         public string RedirectUri { get; set; }
+        /// <summary>
+        /// 所属域
+        /// </summary>
+        [DataMember]
+        public string Domain { get; set; }
     }
 }

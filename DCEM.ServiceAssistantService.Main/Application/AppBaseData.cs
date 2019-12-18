@@ -4,6 +4,7 @@
     创建时间：2019年10月29日
     作者：黄贤顺
 */
+using DCEM.Main.Entities;
 using DCEM.ServiceAssistantService.Main.Application.Services;
 using DCEM.ServiceAssistantService.Main.DTOModel;
 using MSLibrary;
@@ -19,16 +20,35 @@ namespace DCEM.ServiceAssistantService.Main.Application
     {
         private IBaseDataService _baseDataService;
         private IAuthService _authService;
+        private IAdfsEndpointRepository _adfsEndpointRepository;
 
-        public AppBaseData(IBaseDataService baseDataService, IAuthService authService)
+        public AppBaseData(IBaseDataService baseDataService, IAuthService authService, IAdfsEndpointRepository adfsEndpointRepository)
         {
             _baseDataService = baseDataService;
             _authService = authService;
+            _adfsEndpointRepository = adfsEndpointRepository;
         }
 
         public async Task<LoginModel> GetAuthToken(string username, string password)
         {
-            return await _authService.GetAuthToken(username,password);
+            LoginModel loginModel = new LoginModel();
+            var token= await _adfsEndpointRepository.GetAuthToken(username, password);
+            if (!string.IsNullOrEmpty(token))
+            {
+                var userInfo =await _adfsEndpointRepository.GetLoginInfo(username, token);
+                if (userInfo!=null)
+                {
+                    loginModel.access_token = token;
+                    loginModel.firstname = userInfo.firstname;
+                    loginModel.lastname = userInfo.lastname;
+                    loginModel.mcs_dealerid = userInfo.mcs_dealerid;
+                    loginModel.mcs_dealername = userInfo.mcs_dealername;
+                    loginModel.domainname = userInfo.domainname;
+                    loginModel.mcs_staffid = userInfo.mcs_staffid;
+                    loginModel.systemuserid = userInfo.systemuserid.GetValueOrDefault().ToString();
+                }
+            }
+            return loginModel;
         }
 
         /// <summary>

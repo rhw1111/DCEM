@@ -68,5 +68,10 @@ namespace DCEM.Main.Entities
             }
             return await Task.FromResult<UserInfo>(result);
         }
+
+        public Task<string> GetUserRole(Guid sysuserid)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

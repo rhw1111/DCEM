@@ -14,7 +14,7 @@ export class MessagePage implements OnInit {
       thumbnail:"assets/img/userhead/thumbnail03.jpg",
       roomType:"group",//group,ms_friend,fb_friend
       title:"系统管理员",
-      activeTime:"最新消息",
+      activeTime:"2019-12-18",
       latest_chat:"本周官方举办活动！",
       unreadcount:1,//未读信息
       chatList:[
@@ -33,7 +33,7 @@ export class MessagePage implements OnInit {
       thumbnail:"assets/img/userhead/thumbnail01.jpg",
       roomType:"ms_friend",//group,ms_friend,fb_friend
       title:"我的朋友A",
-      activeTime:"昨日消息",
+      activeTime:"2019-12-17",
       latest_chat:"你好，最近怎么样？",
       unreadcount:0,//未读信息
       chatList:[]
@@ -43,7 +43,7 @@ export class MessagePage implements OnInit {
       thumbnail:"assets/img/userhead/user01.jpg",
       roomType:"fb_friend",//group,ms_friend,fb_friend
       title:"朋友B",
-      activeTime:"3天前消息",
+      activeTime:"2019-11-11",
       latest_chat:"你好，最近怎么样？",
       unreadcount:0,//未读信息
       chatList:[
@@ -70,7 +70,7 @@ export class MessagePage implements OnInit {
       thumbnail:"assets/img/userhead/user02.jpg",
       roomType:"fb_friend",//group,ms_friend,fb_friend
       title:"张小明",
-      activeTime:"暂无消息",
+      activeTime:"2019-11-11",
       latest_chat:"暂无消息",
       unreadcount:0,//未读信息
       chatList:[]
@@ -80,7 +80,7 @@ export class MessagePage implements OnInit {
       thumbnail:"assets/img/userhead/user03.jpg",
       roomType:"fb_friend",//group,ms_friend,fb_friend
       title:"销售顾问A",
-      activeTime:"消息未读",
+      activeTime:"2019-10-02",
       latest_chat:"可有很强的购车意愿。",
       unreadcount:5,//未读信息
       chatList:[
