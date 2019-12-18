@@ -20,14 +20,14 @@ export class CalendarPage implements OnInit {
     date: null,
     show: false,
     pickTime: false,
-    now: new Date(+now - 7776000000),
+    now: new Date(+now - 77600000),
     type: 'one',
     enterDirection: '',
     rowSize: 'normal',
     showShortcut: false,
     infinite: true,
     defaultValue: undefined,
-    minDate: new Date(+now - 7776000000),
+    minDate: new Date(+now - 697600000),
     maxDate: new Date(+now + 2592000000),
     onSelect: undefined,
     getDateExtra: date => {
@@ -54,6 +54,11 @@ export class CalendarPage implements OnInit {
   }
 
   ngOnInit() {
+    this.state.show = true;
+    this.state.type = 'one';
+    this.state.date = new Date();
+    this.model.params.OrderTime = this._dateformat.FormatToDate(new Date());
+    this.pageOnBind(); 
   }
   
   triggerConfirm(value) {
