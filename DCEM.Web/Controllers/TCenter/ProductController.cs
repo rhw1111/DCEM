@@ -18,12 +18,12 @@ namespace DCEM.Web.Controllers
     public class ProductController : ApiController
     {
         /// <summary>
-        /// IAppProduct 工厂，默认使用 ProductLogicFactory
+        /// IAppProduct 工厂，默认使用 TCenterFactory
         /// </summary>
         public static ITCenterFactory _tCenterFactory;
 
         /// <summary>
-        /// 提供静态属性用于替换IAppProduct工厂
+        /// 提供静态属性用于替换ITCenterFactory工厂
         /// </summary>
         public ProductController(ITCenterFactory tCenterFactory)
         {
@@ -42,58 +42,58 @@ namespace DCEM.Web.Controllers
             var productLogic = await _tCenterFactory.Create();
             return  await productLogic.QueryProductAll(request);
         }
-        ///// <summary>
-        ///// FetchXML商品全量查询
-        ///// </summary>
-        ///// <param name="request"></param>
-        ///// <returns></returns>
-        //[HttpPost]
-        //[Route("All2")]
-        ////[OtherSystemAuthenticationActionFilter]
-        //public async Task<QueryProductAllResponse> QueryProductAll2(QueryProductAllRequest request)
-        //{
-        //    var productLogic = _tCenterFactory.Create();
-        //    return await productLogic.QueryProductAllUpDate2(request);
-        //}
+        /// <summary>
+        /// FetchXML商品全量查询
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("All2")]
+        //[OtherSystemAuthenticationActionFilter]
+        public async Task<QueryProductAllResponse> QueryProductAll2(QueryProductAllRequest request)
+        {
+            var productLogic = await _tCenterFactory.Create();
+            return await productLogic.QueryProductAllUpDate2(request);
+        }
 
-        ///// <summary>
-        ///// FetchXML按类目商品查询
-        ///// </summary>
-        ///// <returns></returns>
-        //[HttpGet]
-        //[Route("QueryProductByCategory")]
-        ////[OtherSystemAuthenticationActionFilter]
-        //public async Task<QueryProductAllResponse> QueryProductByCategory(string code)
-        //{
-        //    var productLogic = _tCenterFactory.Create();
-        //    return await productLogic.QueryProductByCategory(code);
-        //}
-        ///// <summary>
-        ///// 商品全量查询--效率优化方法
-        ///// </summary>
-        ///// <param name="request"></param>
-        ///// <returns></returns>
-        //[HttpPost]
-        //[Route("AllUpdate")]
-        ////[OtherSystemAuthenticationActionFilter]
-        //public async Task<List<QueryProductAllUpdateResponse>> QueryProductAllUpdate(QueryProductAllRequest request)
-        //{
-        //    var productLogic = _tCenterFactory.Create();
-        //    return await productLogic.QueryProductAllUpDate(request);
-        //}
+        /// <summary>
+        /// FetchXML按类目商品查询
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("QueryProductByCategory")]
+        //[OtherSystemAuthenticationActionFilter]
+        public async Task<QueryProductAllResponse> QueryProductByCategory(string code)
+        {
+            var productLogic = await _tCenterFactory.Create();
+            return await productLogic.QueryProductByCategory(code);
+        }
+        /// <summary>
+        /// 商品全量查询--效率优化方法
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("AllUpdate")]
+        //[OtherSystemAuthenticationActionFilter]
+        public async Task<List<QueryProductAllUpdateResponse>> QueryProductAllUpdate(QueryProductAllRequest request)
+        {
+            var productLogic = await _tCenterFactory.Create();
+            return await productLogic.QueryProductAllUpDate(request);
+        }
 
-        ///// <summary>
-        ///// 通过商品编号查询商品
-        ///// </summary>
-        ///// <param name="request">商品编号</param>
-        ///// <returns></returns>
-        //[HttpGet]
-        //[Route("Detail")]
-        ////[OtherSystemAuthenticationActionFilter]
-        //public async Task<QueryProductByCodeResponse> QueryProductByCode(string productCode)
-        //{
-        //    var productLogic = _tCenterFactory.Create();
-        //    return await productLogic.QueryProductByCode(productCode);
-        //}
+        /// <summary>
+        /// 通过商品编号查询商品
+        /// </summary>
+        /// <param name="request">商品编号</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("Detail")]
+        //[OtherSystemAuthenticationActionFilter]
+        public async Task<QueryProductByCodeResponse> QueryProductByCode(string productCode)
+        {
+            var productLogic = await _tCenterFactory.Create();
+            return await productLogic.QueryProductByCode(productCode);
+        }
     }
 }

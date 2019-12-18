@@ -82,6 +82,12 @@ namespace DCEM.UserCenterService.Main.Application.Repository
         <condition attribute='mcs_userid' operator='eq' value='{salesOrderListRequest.UserId}' />
       </filter>
     </link-entity>
+    <link-entity name='mcs_tc_product' from='mcs_tc_productid' to='mcs_product' link-type='inner' alias='bb'>
+      <attribute name='mcs_type' />
+      <filter type='and'>
+        <condition attribute='mcs_type' operator='eq' value='1' />
+      </filter>
+    </link-entity>
   </entity>
 </fetch>";
                 return XDocument.Parse(fetchXml);

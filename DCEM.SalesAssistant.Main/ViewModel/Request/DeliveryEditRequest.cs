@@ -7,7 +7,7 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
     public class DeliveryEditRequest:BaseRequest
     {
         //门店id
-        public Guid dealerId { get; set; }
+        public string dealerId { get; set; }
         //交车单id
         public string id { get; set; }
         //客户约定

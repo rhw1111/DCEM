@@ -136,6 +136,11 @@
     <Folder Include="src\assets\img\community\" />
     <Folder Include="src\assets\img\community\index\" />
     <Folder Include="src\assets\img\carstore\" />
+    <Folder Include="src\assets\svg\" />
+    <Folder Include="src\assets\svg\carcenter\" />
+    <Folder Include="src\assets\svg\carcenter\index\" />
+    <Folder Include="src\assets\svg\servicecenter\" />
+    <Folder Include="src\assets\svg\servicecenter\index\" />
     <Folder Include="src\environments\" />
     <Folder Include="src\theme\" />
   </ItemGroup>
@@ -523,6 +528,30 @@
     <Content Include="src\assets\img\carstore\back.jpg" />
     <Content Include="src\assets\img\wechatpay.png" />
     <Content Include="src\assets\shapes.svg" />
+    <Content Include="src\assets\svg\carcenter\index\jycdz.svg" />
+    <Content Include="src\assets\svg\carcenter\index\jmccz.svg" />
+    <Content Include="src\assets\svg\carcenter\index\ccyaq.svg" />
+    <Content Include="src\assets\svg\carcenter\index\wzcx.svg" />
+    <Content Include="src\assets\svg\carcenter\index\znlp.svg" />
+    <Content Include="src\assets\svg\carcenter\index\zscdz.svg" />
+    <Content Include="src\assets\svg\carcenter\index\wyjy.svg" />
+    <Content Include="src\assets\svg\carcenter\index\mfsb.svg" />
+    <Content Include="src\assets\svg\carcenter\index\llcx.svg" />
+    <Content Include="src\assets\svg\carcenter\index\dbff.svg" />
+    <Content Include="src\assets\svg\carcenter\index\ydfw.svg" />
+    <Content Include="src\assets\svg\carcenter\index\yczd.svg">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="src\assets\svg\servicecenter\index\cxfw.svg" />
+    <Content Include="src\assets\svg\servicecenter\index\zxkf.svg" />
+    <Content Include="src\assets\svg\servicecenter\index\dljy.svg" />
+    <Content Include="src\assets\svg\servicecenter\index\tcff.svg" />
+    <Content Include="src\assets\svg\servicecenter\index\yywb.svg" />
+    <Content Include="src\assets\svg\servicecenter\index\wzdj.svg" />
+    <Content Include="src\assets\svg\servicecenter\index\llfw.svg" />
+    <Content Include="src\assets\svg\servicecenter\index\jrfw.svg" />
+    <Content Include="src\assets\svg\servicecenter\index\tyzc.svg" />
+    <Content Include="src\assets\svg\servicecenter\index\gc.svg" />
     <Content Include="src\global.scss" />
     <Content Include="src\index.html" />
     <Content Include="src\theme\variables.scss" />

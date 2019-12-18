@@ -16,11 +16,10 @@ namespace DCEM.UserCenterService.Main.Application.App.Contrac
     using DCEM.UserCenterService.Main.ViewModel.Response;
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
-    
-    
+    using System;
+
     public interface IAppAMPage
     {
-        
-        
+        Task<AMPageResponse> GenerateAMPage(Guid pageId);
     }
 }

@@ -1,0 +1,79 @@
+.cardcontent{
+    margin: unset;
+    padding-top: 15px;
+    padding-left: 15px;
+    ion-label{
+        font-weight: bold;
+    } 
+}
+
+.option{
+    display:flex;
+}
+
+.messagelist {
+    width: 100%;
+    position: relative;
+    margin-top: 18px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.messagelist .panel{
+    padding: 0px !important;
+    background-color: #EDEDED;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.messagelist .panel .panelheard{
+    padding: 7px;
+    height: 45px;
+    border-bottom: 1px solid #dedede !important;
+}
+
+.messagelist .panel .panelheard .noteleft{
+    float: left;
+    padding: 5px;;
+}
+
+.messagelist .panel .panelheard .noteright{
+    float: right;
+    padding: 5px;;
+}
+
+.panelcontent{
+    clear: both;
+}
+
+.panelcontent .img{
+    float: left;
+    width: 24%;
+    padding: 10px;
+}
+
+.panelcontent .detail{
+    float: left;
+    width: 76%;
+}
+
+.panelbutton{
+    clear: both;
+    height: 60px;
+
+    ion-grid{
+        padding: 0px;
+    }
+}
+
+.panelbutton ion-row{
+    float: right;
+    padding-right: 10px;
+    ion-button{
+        --border-radius: 0px;
+        height: 40px;
+        font-size: 15px;
+        font-weight: bold;
+    }
+}
+

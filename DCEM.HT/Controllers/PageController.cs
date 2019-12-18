@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DCEM.UserCenterService.Main.Application.App;
+using DCEM.UserCenterService.Main.Application.App.Contrac;
+using DCEM.UserCenterService.Main.Factory;
+using DCEM.UserCenterService.Main.ViewModel.Response;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,11 +20,17 @@ namespace DCEM.HT.Controllers
     [Route("api/Page")]
     public class PageController : Controller
     {
+        private IAppAMPage _appAMPage;
+        public PageController()
+        {
+            _appAMPage = new AMPageFactory().Create().Result;
+        }
+
         [HttpGet]
         [Route("GenerateAMPage")]
-        public async Task<string> GenerateAMPage(Guid pageId)
+        public async Task<AMPageResponse> GenerateAMPage(Guid pageId)
         {
-            return null;//return await new AppAMPage().GenerateAMPage(pageId);
+            return await _appAMPage.GenerateAMPage(pageId);
         }
     }
 }

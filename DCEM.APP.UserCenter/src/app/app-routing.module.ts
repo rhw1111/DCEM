@@ -1,3 +1,4 @@
+ 
 ﻿import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
@@ -99,6 +100,15 @@ const routes: Routes = [
                         loadChildren: () => import('./page/personalcenter/config/about/about.module').then(m => m.AboutPageModule)
                     }
                 ]
+            }, 
+            {
+                path: 'usercarinfo',
+                children: [
+                    {
+                        path: 'list',
+                        loadChildren: () => import('./page/personalcenter/usercarinfo/list/list.module').then(m => m.ListPageModule)
+                    }  
+                ]
             },
             {
                 path: 'userinfo',
@@ -114,14 +124,13 @@ const routes: Routes = [
 
                 ]
             },
-            
             {
-                path: 'usercarinfo',
+                path: 'mycar',
                 children: [
                     {
-                        path: 'list',
-                        loadChildren: () => import('./page/personalcenter/usercarinfo/list/list.module').then(m => m.ListPageModule)
-                    }  
+                        path: 'index',
+                        loadChildren: () => import('./page/personalcenter/mycar/index/index.module').then(m => m.IndexPageModule)
+                    }
                 ]
             },
             {
@@ -223,7 +232,7 @@ const routes: Routes = [
                     { path: 'detail', loadChildren: () => import('./page/servicecenter/reservation/detail/detail.module').then(m => m.DetailPageModule) },
                     { path: 'success', loadChildren: () => import('./page/servicecenter/reservation/success/success.module').then(m => m.SuccessPageModule) },
                     { path: 'confirmedit', loadChildren: () => import('./page/servicecenter/reservation/confirmedit/confirmedit.module').then(m => m.ConfirmeditPageModule) },
-                    { path: 'cancel',loadChildren: () => import('./page/servicecenter/reservation/cancel/cancel.module').then( m => m.CancelPageModule)},
+                    { path: 'cancel', loadChildren: () => import('./page/servicecenter/reservation/cancel/cancel.module').then(m => m.CancelPageModule) },
                 ]
             },
             {
@@ -238,6 +247,13 @@ const routes: Routes = [
                     { path: 'payment', loadChildren: () => import('./page/servicecenter/payment/payment/payment.module').then(m => m.PaymentPageModule) }
                 ]
             },
+            {
+                path: 'serviceproxy',  //维修履历
+                children: [
+                    { path: 'list', loadChildren: () => import('./page/servicecenter/serviceproxy/list/list.module').then(m => m.ListPageModule) },
+                    { path: 'detail', loadChildren: () => import('./page/servicecenter/serviceproxy/detail/detail.module').then(m => m.DetailPageModule) },
+                ]
+            }
         ]
     },
     {
@@ -294,7 +310,10 @@ const routes: Routes = [
     {
         path: 'questionsetting',
         loadChildren: () => import('./page/message/questionsetting/questionsetting.module').then(m => m.QuestionsettingPageModule)
-    } 
+    }
+    ,
+
+
 
 ];
 
@@ -305,4 +324,4 @@ const routes: Routes = [
     ],
     exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule { } 
