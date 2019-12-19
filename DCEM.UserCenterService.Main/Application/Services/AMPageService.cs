@@ -49,18 +49,19 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 //根据落地页数据选择模板
                 var fileName = GetTemplateNameByPageType(entity.Attributes["mcs_type"]?.ToString()) + ".html";
                 //从模板地址读取数据写入新地址
-                var prjRootPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+                var prjRootPath = Directory.GetCurrentDirectory();
                 var templateHtml = File.ReadAllText(prjRootPath + @"\HtmlResources\Templates\" + fileName);
                 //todo:替换其中的自定义项
                 var targetHtml = templateHtml;
                 //写入目标地址
-                var targetPath = @"\HtmlResources\Activities\" + entity.Attributes["mcs_am_pageid"].ToString();
-                if (!Directory.Exists(prjRootPath + @"\wwwroot" + targetPath))
+                var resultPath = @"HtmlResources\Activities\" + entity.Attributes["mcs_am_pageid"].ToString();
+                var targetPath = prjRootPath + @"\wwwroot\" + resultPath;
+                if (!Directory.Exists(targetPath))
                 {
-                    Directory.CreateDirectory(prjRootPath + @"\wwwroot" + targetPath);
+                    Directory.CreateDirectory(targetPath);
                 }
-                File.WriteAllText(prjRootPath + @"\wwwroot" + targetPath + @"\" + fileName, targetHtml);
-                response.Url = targetPath + @"\" + fileName;
+                File.WriteAllText(targetPath + @"\" + fileName, targetHtml);
+                response.Url = resultPath + @"\" + fileName;
             }
             catch (Exception ex)
             {

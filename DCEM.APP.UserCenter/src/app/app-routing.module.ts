@@ -125,7 +125,8 @@ const routes: Routes = [
                         path: 'carcondition', //车况
                         loadChildren: () => import('./page/personalcenter/mycar/carcondition/carcondition.module').then(m => m.CarconditionPageModule)
                     },
-                    {
+
+                    {
                         path: 'carcontrol',  //汽车控制
                         loadChildren: () => import('./page/personalcenter/mycar/carcontrol/carcontrol.module').then(m => m.CarcontrolPageModule)
                     },
@@ -137,6 +138,15 @@ const routes: Routes = [
                     {
                         path: 'list',
                         loadChildren: () => import('./page/personalcenter/scores/list/list.module').then(m => m.ListPageModule)
+                    }
+                ]
+            },
+            {
+                path: 'usercarinfo',
+                children: [
+                    {
+                        path: 'list',
+                        loadChildren: () => import('./page/personalcenter/usercarinfo/list/list.module').then(m => m.ListPageModule)
                     }
                 ]
             },

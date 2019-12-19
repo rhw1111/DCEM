@@ -5,6 +5,7 @@
     作者：黄贤顺
 */
 
+using DCEM.Main.Entities;
 using DCEM.ServiceAssistantService.Main.Application;
 using DCEM.ServiceAssistantService.Main.Application.Repository;
 using DCEM.ServiceAssistantService.Main.Application.Services;
@@ -24,7 +25,8 @@ namespace DCEM.ServiceAssistantService.Main.DAL
                 IAuthService authService = new AuthService();
                 IBaseDataRepository baseDataRepository = new BaseDataRepository();
                 IBaseDataService baseDataService = new BaseDataService(crmService, baseDataRepository);
-                IAppBaseData app = new AppBaseData(baseDataService, authService);
+                IAdfsEndpointRepository adfsEndpointRepository = new AdfsEndpointRepository();
+                IAppBaseData app = new AppBaseData(baseDataService, authService, adfsEndpointRepository);
 
                 return app;
             }

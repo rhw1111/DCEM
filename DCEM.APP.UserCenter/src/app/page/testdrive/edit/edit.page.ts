@@ -47,10 +47,19 @@ export class EditPage implements OnInit {
         this.GetCarmodel(); //加载车型
 
         this.activeRoute.queryParams.subscribe((params: Params) => {
-            if (params['id'] != null && params['id'] != undefined) {
+
+            //编辑的时候
+            if (params['id'] != null && params['id'] != undefined) { 
                 this.model.postData.mcs_driverecordid = params['id'];
                 this.pageOnBind(params['id']);
             }
+
+            //从体验中心 进入的时候
+            if(params['dealerid'] != null && params['dealerid'] != undefined)
+            {
+                this.model.postData.mcs_dealername = params['dealername'];
+                this.model.postData.mcs_dealerid = params['dealerid'];
+            }      
         });
     }
 

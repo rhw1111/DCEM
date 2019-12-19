@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Xml.Linq;
 using DCEM.Main;
 using DCEM.Main.Configuration;
@@ -34,11 +36,34 @@ namespace DCEM.Main.Services
             {
                 if (dyCRMSetting != null)
                 {
-                    dyCRMSetting.AdfsUrl = $"{dyCRMSetting.AdfsUrl}adfs/oauth2/token";
-                    dyCRMSetting.CrmUrl = $"{dyCRMSetting.CrmUrl}/api/data/v8.2";
-                    var data = GetToken(dyCRMSetting.ClientId, dyCRMSetting.ClientSecret, username, password, dyCRMSetting.CrmUrl, dyCRMSetting.AdfsUrl);
+                    if (dyCRMSetting.TokenServiceType.ToLower() == CrmServiceTokenGenerateServiceNames.AD.ToLower())
+                    {
+                        try
+                        {
+                            string geturl = $"{dyCRMSetting.CrmUrl}/api/data/v{dyCRMSetting.CrmApiVersion}/systemusers?fetchXml={GetUserFetchXml(username, dyCRMSetting.Domain)}";
+                            var httpClient = new HttpClient(new HttpClientHandler() { Credentials = new NetworkCredential(username, HttpUtility.UrlDecode(password), dyCRMSetting.Domain + ".com") });
+                            using (httpClient)
+                            {
+                                var datauser = QueryCrmDataADValidate(geturl, httpClient);
+                                if (datauser != null)
+                                {
+                                    result = $"ADAUTH:{dyCRMSetting.Domain}\\{username}";
+                                }
+                                
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            return result;
+                        }
+                    }
+                    else {
+                        dyCRMSetting.AdfsUrl = $"{dyCRMSetting.AdfsUrl}adfs/oauth2/token";
+                        dyCRMSetting.CrmUrl = $"{dyCRMSetting.CrmUrl}/api/data/v8.2";
+                        var data = GetToken(dyCRMSetting.ClientId, dyCRMSetting.ClientSecret, username, password, dyCRMSetting.CrmUrl, dyCRMSetting.AdfsUrl, dyCRMSetting.Domain);
 
-                    result = data["access_token"].ToString();
+                        result = data["access_token"].ToString();
+                    }
                 }
                 return await Task.FromResult<string>(result);
             }
@@ -57,7 +82,7 @@ namespace DCEM.Main.Services
                 var xdoc = await Task<XDocument>.Run(() =>
                 {
                     var fetchXml = string.Empty;
-                    fetchXml = GetUserFetchXml(username);
+                    fetchXml = GetUserFetchXml(username, dyCRMSetting.Domain);
                     return XDocument.Parse(fetchXml);
                 });
 
@@ -92,7 +117,7 @@ namespace DCEM.Main.Services
                             {
                                 result.lastname = entity.Attributes["lastname"].ToString();
                             }
-                            if (true)
+                            if (entity.Attributes["firstname"] != null)
                             {
                                 result.firstname = entity.Attributes["firstname"].ToString();
                             }
@@ -102,6 +127,19 @@ namespace DCEM.Main.Services
                             if (entity.Attributes["_mcs_dealer_value"]!=null)
                             {
                                 result.mcs_dealerid = entity.Attributes["_mcs_dealer_value"].ToString();
+                            }
+                            if (dyCRMSetting.CrmApiVersion == "9.0")
+                            {
+                                if (entity.Attributes["dealer.mcs_name"] != null)
+                                {
+                                    result.mcs_dealername = entity.Attributes["dealer.mcs_name"].ToString();
+                                }
+                            }
+                            else {
+                                if (entity.Attributes["dealer_x002e_mcs_name"] != null)
+                                {
+                                    result.mcs_dealername = entity.Attributes["dealer_x002e_mcs_name"].ToString();
+                                }
                             }
                         }
                     }
@@ -124,18 +162,18 @@ namespace DCEM.Main.Services
         /// <param name="crmurl"></param>
         /// <param name="oauturl"></param>
         /// <returns></returns>
-        public JObject GetToken(string clientid, string clientsecret, string username, string password, string crmurl, string oauturl)
+        public JObject GetToken(string clientid, string clientsecret, string username, string password, string crmurl, string oauturl,string domain)
         {
             HttpClient httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Accept.Clear();
-            StringContent content = new StringContent(@$"grant_type=password&client_id={clientid}&client_secret={clientsecret}&username=sfmotors\{username}&password={password}&resource={crmurl}", Encoding.UTF8, "application/json");
+            StringContent content = new StringContent(@$"grant_type=password&client_id={clientid}&client_secret={clientsecret}&username={domain}\{username}&password={password}&resource={crmurl}", Encoding.UTF8, "application/json");
             HttpResponseMessage response = httpClient.PostAsync(oauturl, content).Result;
             response.EnsureSuccessStatusCode();
             var ret = response.Content.ReadAsStringAsync().Result;
             return JsonSerializerHelper.Deserialize<JObject>(ret);
         }
 
-        public string GetUserFetchXml(string name)
+        public string GetUserFetchXml(string name, string domain)
         {
             var strFetch = "<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>" +
             "<entity name='systemuser'>" +
@@ -147,8 +185,8 @@ namespace DCEM.Main.Services
               "<attribute name='mcs_dealer' />" +
               "<order attribute='createdon' descending='true' />" +
               "<filter type='or'>" +
-              "<condition attribute='domainname' operator='eq' value='" + name + "' />" +
-              "<condition attribute='domainname' operator='eq' value='" + name.Replace("SFMOTORS\\", "") + "@sub-ad' />" +
+              "<condition attribute='domainname' operator='eq' value='" + (domain + @"\" + name) + "' />" +
+              "<condition attribute='domainname' operator='eq' value='" + name + "@"+ domain + ".com' />" +
               "</filter>" +
               "<link-entity name='mcs_dealer' from='mcs_dealerid' to='mcs_dealer' visible='false' link-type='outer' alias='dealer'>" +
                 "<attribute name='mcs_name' />" +
@@ -175,6 +213,31 @@ namespace DCEM.Main.Services
             });
 
             return await Task.FromResult(datas);
+        }
+
+        private JObject QueryCrmDataADValidate(string crmurl, HttpClient httpClient)
+        {
+            //验证合法
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+            httpClient.DefaultRequestHeaders.Add("OData-MaxVersion", "4.0");
+            httpClient.DefaultRequestHeaders.Add("OData-Version", "4.0");
+            //httpClient.DefaultRequestHeaders.Add("Content-Type-ChartSet", "utf-8");
+            ////httpClient.DefaultRequestHeaders.Add("Content-Type", "application/json");
+            httpClient.DefaultRequestHeaders.Add("Prefer", "odata.include-annotations=\"*\"");
+            HttpResponseMessage response = httpClient.GetAsync(crmurl).Result;
+            try
+            {
+                response.EnsureSuccessStatusCode();
+                var ret = response.Content.ReadAsStringAsync().Result;
+                var res = JsonSerializerHelper.Deserialize<JObject>(ret);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
         }
     }
 }
