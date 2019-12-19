@@ -1,9 +1,55 @@
 ﻿<ion-header>
-  <ion-toolbar>
-    <ion-title>carcondition</ion-title>
-  </ion-toolbar>
+    <app-tophead topHeadTitle="车况" topHeadBackUrl="/personalcenter/mycar/index"></app-tophead>
 </ion-header>
 
 <ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col class="dm-car-plane">
+                <div class="dm-car-plane-content">
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col class="dm-car-plane-content-info1">
+                                <div class="dm-car-plane-content-info1-content">
+                                    <label>237km</label>
+                                    <span>可续航里程</span>
+                                </div>
+                            </ion-col>
+                            <ion-col class="dm-car-plane-content-info2">
+                                <div class="dm-car-plane-content-info2-content">
+                                    <label>电量</label>
+                                    <div class="dm-car-plane-progress">
+                                        <div style="width:47%">&nbsp;</div>
+                                    </div>
+                                    <span>47%</span>
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row class="dm-car-plane-content-info3">
+                            <ion-col>
+                                <label>总里程</label>
+                                <span>47%</span>
+                            </ion-col>
+                            <ion-col>
+                                <label>平均电耗</label>
+                                <span>47%</span>
+                            </ion-col>
+                            <ion-col>
+                                <label>平均速度</label>
+                                <span>47%</span>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col class="dm-car-plane">
+                <div class="dm-car-plane-content">
+                    111
+                </div>
+            </ion-col>
+        </ion-row>
 
+    </ion-grid>
 </ion-content>

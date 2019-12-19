@@ -32,7 +32,8 @@
             <ion-item-divider color="primary">
               <ion-label>预约记录</ion-label>
             </ion-item-divider> 
-            <ion-item *ngFor="let item of model.data"> 
+            <ion-item-sliding *ngFor="let item of model.data"> 
+              <ion-item [routerLink]="['/saleing/driverecord/detail']" [queryParams]="{id:item.id}"> 
                 <ion-icon name="calendar" size="small" color="danger"  style="margin-right: 20px;"></ion-icon> 
                 <ion-label > 
                     <h2>{{item.testdrivetime}}</h2> 
@@ -42,6 +43,7 @@
                     <h2>{{item.mobilephone}}</h2>
                 </ion-note>
             </ion-item>
+          </ion-item-sliding>
           </ion-item-group>
           <ion-label *ngIf="this.model.isending" text-center>
             <h2>

@@ -86,11 +86,18 @@ export class ListPage implements OnInit {
 
                         var obj = {};
                         obj = res.Results[key]["Attributes"];
+
+                        console.log(obj);
                         //设置颜色
                         obj["icoColor"] = "dark";
-                        if (obj["a_x002e_mcs_availableq"] > 0) {
+                        if (obj["a.mcs_availableq"] > 0) {
                             obj["icoColor"] = "primary";
                         }
+                        //初始化成0
+                        if (this._valid.isNull(obj["a.mcs_availableq"])) {
+                            obj["a.mcs_availableq"] = 0;
+                        }
+
                         this.mod.data.spmdspstockArray.push(obj);
 
                     }
