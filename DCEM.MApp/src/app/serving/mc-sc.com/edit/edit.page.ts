@@ -224,19 +224,19 @@ export class EditPage implements OnInit {
                     for (var key in res.ServiceorderrepairitemList) {
                         var obj = {};
                         var mapkey = Math.random();//生成唯一编码
-                        obj["name"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_name"];
-                        obj["code"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemid@OData.Community.Display.V1.FormattedValue"];
-                        obj["repairitemid"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemid"];
+                        obj["name"] = res.ServiceorderrepairitemList[key]["Attributes"]["a.mcs_name"];
+                        obj["code"] = res.ServiceorderrepairitemList[key]["Attributes"]["a.mcs_repairitemid@OData.Community.Display.V1.FormattedValue"];
+                        obj["repairitemid"] = res.ServiceorderrepairitemList[key]["Attributes"]["a.mcs_repairitemid"];
 
-                        obj["repairitemtypeid"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemtypeid"];
-                        obj["repairitemtypedetailid"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemtypedetailid"];
-                        obj["repairitemtypeid_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemtypeid@OData.Community.Display.V1.FormattedValue"];
-                        obj["repairitemtypedetailid_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairitemtypedetailid@OData.Community.Display.V1.FormattedValue"];
+                        obj["repairitemtypeid"] = res.ServiceorderrepairitemList[key]["Attributes"]["a.mcs_repairitemtypeid"];
+                        obj["repairitemtypedetailid"] = res.ServiceorderrepairitemList[key]["Attributes"]["a.mcs_repairitemtypedetailid"];
+                        obj["repairitemtypeid_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a.mcs_repairitemtypeid@OData.Community.Display.V1.FormattedValue"];
+                        obj["repairitemtypedetailid_Formatted"] = res.ServiceorderrepairitemList[key]["Attributes"]["a.mcs_repairitemtypedetailid@OData.Community.Display.V1.FormattedValue"];
 
-                        obj["workinghour"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_workinghour"];
-                        obj["price"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_price"];
-                        obj["discount"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_discount"];
-                        obj["repairamount"] = res.ServiceorderrepairitemList[key]["Attributes"]["a_x002e_mcs_repairamount"];
+                        obj["workinghour"] = res.ServiceorderrepairitemList[key]["Attributes"]["a.mcs_workinghour"];
+                        obj["price"] = res.ServiceorderrepairitemList[key]["Attributes"]["a.mcs_price"];
+                        obj["discount"] = res.ServiceorderrepairitemList[key]["Attributes"]["a.mcs_discount"];
+                        obj["repairamount"] = res.ServiceorderrepairitemList[key]["Attributes"]["a.mcs_repairamount"];
 
                         this.shareData.serviceorderrepairitemMap[mapkey] = obj;
                     }
@@ -246,19 +246,19 @@ export class EditPage implements OnInit {
                     for (var key in res.ServiceorderpartList) {
                         var obj = {};
                         var mapkey = Math.random();//生成唯一编码
-                        obj["name"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_partsname"];
-                        obj["code"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_partsid@OData.Community.Display.V1.FormattedValue"];
-                        obj["partsid"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_partsid"];
+                        obj["name"] = res.ServiceorderpartList[key]["Attributes"]["a.mcs_partsname"];
+                        obj["code"] = res.ServiceorderpartList[key]["Attributes"]["a.mcs_partsid@OData.Community.Display.V1.FormattedValue"];
+                        obj["partsid"] = res.ServiceorderpartList[key]["Attributes"]["a.mcs_partsid"];
 
-                        obj["repairitemtypeid"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_repairitemtypeid"];
-                        obj["repairitemtypedetailid"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_repairitemtypedetailid"];
-                        obj["repairitemtypeid_Formatted"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_repairitemtypeid@OData.Community.Display.V1.FormattedValue"];
-                        obj["repairitemtypedetailid_Formatted"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_repairitemtypedetailid@OData.Community.Display.V1.FormattedValue"];
+                        obj["repairitemtypeid"] = res.ServiceorderpartList[key]["Attributes"]["a.mcs_repairitemtypeid"];
+                        obj["repairitemtypedetailid"] = res.ServiceorderpartList[key]["Attributes"]["a.mcs_repairitemtypedetailid"];
+                        obj["repairitemtypeid_Formatted"] = res.ServiceorderpartList[key]["Attributes"]["a.mcs_repairitemtypeid@OData.Community.Display.V1.FormattedValue"];
+                        obj["repairitemtypedetailid_Formatted"] = res.ServiceorderpartList[key]["Attributes"]["a.mcs_repairitemtypedetailid@OData.Community.Display.V1.FormattedValue"];
 
-                        obj["quantity"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_quantity"];
-                        obj["price"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_price"];
-                        obj["discount"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_discount"];
-                        obj["amount"] = res.ServiceorderpartList[key]["Attributes"]["a_x002e_mcs_amount"];
+                        obj["quantity"] = res.ServiceorderpartList[key]["Attributes"]["a.mcs_quantity"];
+                        obj["price"] = res.ServiceorderpartList[key]["Attributes"]["a.mcs_price"];
+                        obj["discount"] = res.ServiceorderpartList[key]["Attributes"]["a.mcs_discount"];
+                        obj["amount"] = res.ServiceorderpartList[key]["Attributes"]["a.mcs_amount"];
 
                         this.shareData.serviceorderpartMap[mapkey] = obj;
                     }

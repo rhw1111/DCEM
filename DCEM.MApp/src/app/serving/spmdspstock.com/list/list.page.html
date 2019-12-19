@@ -21,11 +21,11 @@
                 <ion-label style="margin-left:10px">
                     <h6>{{item["mcs_partscode"]}}</h6>
                     <p>{{item["mcs_name"]}}</p>
-                    <p>{{item["a_x002e_mcs_spmdspwarehouseid@OData.Community.Display.V1.FormattedValue"]}}</p>
-                    <p>{{item["a_x002e_mcs_spmdsplocationid@OData.Community.Display.V1.FormattedValue"]}}</p>
+                    <p>{{item["a.mcs_spmdspwarehouseid@OData.Community.Display.V1.FormattedValue"]}}</p>
+                    <p>{{item["a.mcs_spmdsplocationid@OData.Community.Display.V1.FormattedValue"]}}</p>
                 </ion-label>
                 <ion-note slot="end">
-                    {{item["a_x002e_mcs_availableq"]}}
+                    {{item["a.mcs_availableq"]}}
                 </ion-note>
             </ion-item>
         </ion-item-sliding>
