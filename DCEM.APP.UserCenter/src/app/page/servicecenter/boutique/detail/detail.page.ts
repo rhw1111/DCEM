@@ -36,9 +36,7 @@ export class DetailPage implements OnInit {
     private id
     ngOnInit() {
         //id为参数名字
-        console.log()
         this.id = this.routerinfo.snapshot.queryParams["id"];
-        console.log(this.id);
         this.initListLoading(this.id);
 
     }
@@ -85,7 +83,6 @@ export class DetailPage implements OnInit {
                     }
                     //绑定数据
                     this.model.datadetail = res;
-                    console.log(this.model.datadetail);
                     event ? event.target.complete() : '';
                 }
                 else {
@@ -180,6 +177,7 @@ export class DetailPage implements OnInit {
                 var temp_sku_sort = temp_sku.split(',').sort().join(',');
                 if (temp_sku_sort == standard) {
                     $(".span-price").text(parseFloat(item.mprice).toFixed(2));
+                    $(".span-integral").text(item.Integral);
                     return false;
                 }
             }
@@ -201,6 +199,7 @@ export class DetailPage implements OnInit {
             if (temp_sku.length > 0) {
                 if (temp_sku == standard) {
                     $(".lab-price").text(parseFloat(item.mprice).toFixed(2));
+                    $(".lab-integral").text(item.Integral);
                     $('#proSkuID').val(item.skuid);
                     return false;
                 }
@@ -219,6 +218,7 @@ export class DetailPage implements OnInit {
         var skucode = $("#proSkuID").val();
         var productname = $(".lab-proname p:eq(0)").text();
         var price = $(".span-price").text();
+        var integral = $(".span-integral").text();
         var img = $(".div-skuimg>img").attr("src");
         var skuname = $(".lab-selected").text();
         var num = parseInt($(".spinners").val().toString() || "0", 10);
@@ -227,12 +227,15 @@ export class DetailPage implements OnInit {
         var cardata = {
             "checkAll": false,
             "totalprice": parseFloat("0").toFixed(2),
+            "totalintegral": 0,
             "datas": [{
                 "productcode": this.id,
                 "skucode": skucode,
                 "productname": productname,
                 "skuname": skuname,
+                "paymenttype": this.model.datadetail.PaymentType,
                 "price": price,
+                "integral": integral,
                 "img": img,
                 "num": num,
                 "checked": false
@@ -274,6 +277,7 @@ export class DetailPage implements OnInit {
         var skucode = $("#proSkuID").val();
         var productname = $(".lab-proname p:eq(0)").text();
         var price = $(".span-price").text();
+        var integral = $(".span-integral").text();
         var img = $(".div-skuimg>img").attr("src");
         var skuname = $(".lab-selected").text();
         var num = parseInt($(".spinners").val().toString() || "0", 10);
@@ -286,7 +290,9 @@ export class DetailPage implements OnInit {
                 "skucode": skucode,
                 "productname": productname,
                 "skuname": skuname,
+                "paymenttype": this.model.datadetail.PaymentType,
                 "price": price,
+                "integral": integral,
                 "img": img,
                 "num": num
             }]

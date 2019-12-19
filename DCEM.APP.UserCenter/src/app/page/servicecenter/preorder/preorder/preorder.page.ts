@@ -17,7 +17,9 @@ export class PreorderPage implements OnInit {
         title: "订单信息",
         datas: {},
         totalprice: 0,
+        totalintegral: 0,
         carList: {},
+        paymenttype: 0,
     };
     public mod: any = {
         isending: false,//是否加载完成  
@@ -55,10 +57,18 @@ export class PreorderPage implements OnInit {
     initListLoading() {
         this._page.loadingShow();
         var totalprice = 0;
+        var totalintegral = 0;
         this.model.datas.datas.forEach(res => {
-            totalprice += (res.price * res.num);
+            this.model.paymenttype = res.paymenttype;
+            if (res.paymenttype == 2) {
+                totalintegral += (res.integral * res.num);
+            } else {
+                totalprice += (res.price * res.num);
+            }
+            
         });
         this.model.totalprice = parseFloat(totalprice.toString()).toFixed(2);
+        this.model.totalintegral = totalintegral;
         this._page.loadingHide();
     }
     //获取收货地址数据
@@ -163,9 +173,9 @@ export class PreorderPage implements OnInit {
                 "ReceivableAmount": this.model.totalprice,
                 "DeductionAmount": 0,
                 "FinalPayment": 0,
-                "IntegralTotal": 0,
-                "IntegralReceivable": 0,
-                "ReceivedIntegral": 0,
+                "IntegralTotal": this.model.totalintegral,
+                "IntegralReceivable": this.model.totalintegral,
+                "ReceivedIntegral": this.model.totalintegral,
                 "DeductionIntegral": 0,
                 "ActiveCode": "",
                 "ActiveName": "",
@@ -190,7 +200,7 @@ export class PreorderPage implements OnInit {
             "Products": [],
             "PayRecordsList": [
                 {
-                    "PaymentType": 0,
+                    "PaymentType": this.model.paymenttype,
                     "PaymentAmount": 0,
                     "CashPayment": 0,
                     "PaymentTotal": 0,
@@ -211,8 +221,8 @@ export class PreorderPage implements OnInit {
                 "ProductCode": res.productcode,
                 "SkuCode": res.skucode,
                 "OrderQty": res.num,
-                "Integral": 0,
-                "Totalintegral": 0,
+                "Integral": res.integral,
+                "Totalintegral": (res.integral * res.num),
                 "UnitPrice": res.price,
                 "ListPrice": parseFloat((res.price * res.num).toString()).toFixed(2),
                 "ImageUrl": res.img,
@@ -237,7 +247,7 @@ export class PreorderPage implements OnInit {
         var cardata = storage.getItem("singlecar");
         if (cardata != null) {
             var carlist = JSON.parse(cardata);
-            var datas;
+            var datas = [];
             carlist.datas.forEach(res => {
                 var flag = true;
                 this.model.datas.datas.forEach(r => {
@@ -258,7 +268,7 @@ export class PreorderPage implements OnInit {
             }
         }
     }
-
+    //生成订单号
     Gen(len) {
         len = len || 10;
         var $chars = '0123456789';
@@ -270,6 +280,7 @@ export class PreorderPage implements OnInit {
         }
         return "TCO" + this.getNowFormatDate() + pwd;
     }
+    //获取当前日期组合
     getNowFormatDate() {
         var datetime = new Date();
         var year = datetime.getFullYear();
