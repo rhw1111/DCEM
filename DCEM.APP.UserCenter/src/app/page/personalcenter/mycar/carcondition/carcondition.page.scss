@@ -1,1 +1,65 @@
-﻿
+﻿@import "../component/scss/main";
+
+.dm-car-plane {
+    padding: 20px 20px;
+
+    .dm-car-plane-content {
+        background-color: rgb(72,71,69);
+        border-radius: 10px;
+
+        .dm-car-plane-content-info1 {
+            height: 200px;
+
+            .dm-car-plane-content-info1-content {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                padding-left: 20px;
+
+                label {
+                    display: block;
+                    color: #fff;
+                    font-size: 30px;
+                }
+
+                span {
+                    display: block;
+                    color: #eeeeee;
+                    font-size: 16px;
+                }
+            }
+        }
+
+        .dm-car-plane-content-info2 {
+            .dm-car-plane-content-info2-content {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                padding-left: 10px;
+                padding-right: 10px;
+                width: 100%;
+
+                label {
+                    color: #fff;
+                    font-size: 14px;
+                    padding-bottom: 15px;
+                    margin-bottom:10px;
+                }
+
+                span {
+                    color: #fff;
+                    font-size: 14px;
+                    padding-bottom: 5px;
+                }
+            }
+        }
+    }
+
+    .dm-car-plane-progress {
+        div {
+            border-radius: 5px;
+            height: 5px;
+            background-color: rgb(212,233,175);
+        }
+    }
+}
