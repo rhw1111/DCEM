@@ -59,7 +59,7 @@ export class ListPage implements OnInit {
             obj["mcs_nextmaintainmileage"] = item["Attributes"]["bb.mcs_nextmaintainmileage"];//下次保养里程
             this.model.datalist.push(obj); 
           }); 
-          this.model.datanum=i;
+          this.model.datanum=i; 
         }
         else {
           this._page.alert("消息提示", "数据加载异常");

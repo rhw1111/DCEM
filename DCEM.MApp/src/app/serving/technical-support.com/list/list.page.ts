@@ -24,7 +24,7 @@ export class ListPage implements OnInit {
         data: [],//列表数据
         pageSize: 10,//页数
         page: 1,//分页
-        sort: 'mcs_supportorderid desc',//排序的参数
+        sort: 'createdon desc',//排序的参数
         isending: false//是否加载完成
     };
     public PageMessage:any={

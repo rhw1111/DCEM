@@ -20,7 +20,7 @@
         </ion-row>
     </ion-grid> -->
     <ion-item-divider>
-            <ion-label>工作台</ion-label>
+            <ion-label>待办项</ion-label>
         </ion-item-divider>
         <ion-grid>
             <ion-row>
@@ -51,9 +51,9 @@
                 </ion-col>
                 <ion-col>
                    <div>
-                        <ion-tab-button [routerLink]="['/serving/ts/edit']">
+                        <ion-tab-button [routerLink]="['/saleing/cultivatetask/list']">
                             <ion-icon color="primary" size="large" name="cog"></ion-icon>
-                            <ion-label>技术支持</ion-label>
+                            <ion-label>我的任务</ion-label>
                         </ion-tab-button>
                    </div>
                 </ion-col>
@@ -225,7 +225,7 @@
                      </ion-col>
                      <ion-col>
                             <div>
-                                  <ion-tab-button [routerLink]="['/saleing/surveyorder/list']">
+                                  <ion-tab-button [routerLink]="['/serving/surveyorder/list']">
                                       <ion-icon name="cube" color="primary" size="large"></ion-icon>
                                       <ion-label>勘测单</ion-label>
                                   </ion-tab-button>
@@ -237,7 +237,7 @@
               
                 <ion-col>
                         <div>
-                               <ion-tab-button [routerLink]="['/saleing/installationorder/list']">
+                               <ion-tab-button [routerLink]="['/serving/installationorder/list']">
                                    <ion-icon name="cube" color="primary" size="large"></ion-icon>
                                    <ion-label>安装单</ion-label>
                                </ion-tab-button>

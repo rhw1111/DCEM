@@ -106,11 +106,13 @@
     <Folder Include="src\app\page\servicecenter\boutique\detail\" />
     <Folder Include="src\app\page\servicecenter\boutique\list\" />
     <Folder Include="src\app\page\carcenter\carstore\index\" />
+    <Folder Include="src\app\page\servicecenter\category\list\" />
     <Folder Include="src\app\page\servicecenter\dealer\" />
     <Folder Include="src\app\page\servicecenter\dealer\list\" />
     <Folder Include="src\app\page\servicecenter\index\" />
     <Folder Include="src\app\page\servicecenter\boutique\" />
     <Folder Include="src\app\page\carcenter\carstore\" />
+    <Folder Include="src\app\page\servicecenter\category\" />
     <Folder Include="src\app\page\servicecenter\payment\" />
     <Folder Include="src\app\page\servicecenter\payment\payment\" />
     <Folder Include="src\app\page\servicecenter\preorder\" />
@@ -323,6 +325,10 @@
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\index\index.module.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\index\index.page.spec.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\index\index.page.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\category\list\list-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\category\list\list.module.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\category\list\list.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\servicecenter\category\list\list.page.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\dealer\list\list-routing.module.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\dealer\list\list.module.ts" />
     <TypeScriptCompile Include="src\app\page\servicecenter\dealer\list\list.page.spec.ts" />
@@ -509,6 +515,8 @@
     <Content Include="src\app\page\servicecenter\boutique\list\list.page.scss" />
     <Content Include="src\app\page\carcenter\carstore\index\index.page.html" />
     <Content Include="src\app\page\carcenter\carstore\index\index.page.scss" />
+    <Content Include="src\app\page\servicecenter\category\list\list.page.html" />
+    <Content Include="src\app\page\servicecenter\category\list\list.page.scss" />
     <Content Include="src\app\page\servicecenter\dealer\list\list.page.html" />
     <Content Include="src\app\page\servicecenter\dealer\list\list.page.scss" />
     <Content Include="src\app\page\servicecenter\index\index.page.html" />

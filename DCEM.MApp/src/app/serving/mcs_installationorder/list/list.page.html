@@ -1,27 +1,27 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button text="返回" defaultHref="/serving/home/index"></ion-back-button>
+      <ion-back-button text="返回" defaultHref="/tabs/index"></ion-back-button>
     </ion-buttons>
-    <ion-title>勘测单</ion-title>
+    <ion-title>安装单</ion-title>
     <ion-buttons slot="end">
       <ion-menu-button></ion-menu-button>
   </ion-buttons>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar [(ngModel)]="this.model.seachkey" placeholder="可根据勘测单编码、姓名、手机号模糊查找" (keyup)="search($event)" ></ion-searchbar>
+    <ion-searchbar [(ngModel)]="this.model.seachkey" placeholder="可根据安装单编码、姓名、手机号模糊查找" (keyup)="search($event)" ></ion-searchbar>
   </ion-toolbar>
   <ion-toolbar>
     <ion-segment>
-      <ion-segment-button checked   (click)="selectTab(0)">
+      <ion-segment-button value="0" checked (click)="selectTab(0)">
           <ion-label>全部</ion-label>
       </ion-segment-button>
     
-      <ion-segment-button  (click)="selectTab(14)">
-          <ion-label>待勘测</ion-label>
+      <ion-segment-button  (click)="selectTab(22)">
+          <ion-label>待安装</ion-label>
       </ion-segment-button>
-      <ion-segment-button  (click)="selectTab(16)">
-          <ion-label>已勘测</ion-label>
+      <ion-segment-button  (click)="selectTab(24)">
+          <ion-label>已安装</ion-label>
       </ion-segment-button>
      
     </ion-segment>
@@ -35,7 +35,7 @@
   </ion-refresher>
 
   <ion-list lines="full">
-    <ion-item *ngFor="let item of model.datalist" [routerLink]="['/saleing/surveyorder/detail']" [queryParams]="{id:item.mcs_surveyorderid}">
+    <ion-item *ngFor="let item of model.datalist" [routerLink]="['/serving/installationorder/detail']" [queryParams]="{id:item.mcs_installationorderid}">
       <ion-icon color="tertiary" name="document"></ion-icon>
       <ion-label style="margin-left:10px">
           <h6>{{item.mcs_name}}</h6>
@@ -43,13 +43,13 @@
           <p>{{item.mcs_userphone}}</p>  
       </ion-label>
       <ion-note slot="end">
-        <p>{{item.mcs_surveystatus}}</p>  
+        <p>{{item.mcs_installationstatus}}</p>  
       </ion-note>
   </ion-item>
 </ion-list>
 <ion-row *ngIf="model.isending">
   <ion-col class="nodata" text-center>
-      <label style="color:gray;">没有更多内容啦</label>
+    <label style="color:gray;">没有更多内容啦</label>
   </ion-col>
 </ion-row>
 

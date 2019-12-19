@@ -27,5 +27,11 @@ namespace DCEM.Main.Entities
         /// <param name="token"></param>
         /// <returns></returns>
         Task<UserInfo> GetLoginInfoByToken();
+        /// <summary>
+        /// 通过id获取用户角色
+        /// </summary>
+        /// <param name="sysuserid"></param>
+        /// <returns></returns>
+        Task<string> GetUserRole(Guid sysuserid);
     }
 }

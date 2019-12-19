@@ -29,7 +29,7 @@ namespace DCEM.UserCenterService.Main.Application.App
             _questionService=questionService;
         }
 
-      public   Task<ValidateResult<QuestionSettingResponse>> QueryQiestion(Guid id)
+      public   Task<ValidateResult<QuestionSettingResponse>> QueryQiestion(string  id)
         {
             return _questionService.QueryQiestion(id);
         }

@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{f26cede4-f02d-4382-a6bd-49c0cb89d2aa}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <StartupFile />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -28,6 +28,8 @@
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
     <Content Include="src\app\app.component.scss" />
+    <Content Include="src\app\base\base.ser\components\map\dragroute\dragroute.component.html" />
+    <Content Include="src\app\base\base.ser\components\map\dragroute\dragroute.component.scss" />
     <Content Include="src\app\base\base.ser\components\select-systemuser\select-systemuser.component.html" />
     <Content Include="src\app\base\base.ser\components\select-systemuser\select-systemuser.component.scss" />
     <Content Include="src\app\base\demo\calendar\calendar.page.html" />
@@ -42,6 +44,18 @@
     <Content Include="src\app\base\message.com\chat-detail\chat-detail.page.scss" />
     <Content Include="src\app\base\message.com\room\room.page.html" />
     <Content Include="src\app\base\message.com\room\room.page.scss" />
+    <Content Include="src\app\base\sys.com\about\about.page.html" />
+    <Content Include="src\app\base\sys.com\about\about.page.scss" />
+    <Content Include="src\app\base\sys.com\change-password\change-password.page.html" />
+    <Content Include="src\app\base\sys.com\change-password\change-password.page.scss" />
+    <Content Include="src\app\base\sys.com\loginfo\loginfo.page.html" />
+    <Content Include="src\app\base\sys.com\loginfo\loginfo.page.scss" />
+    <Content Include="src\app\base\sys.com\log\log.page.html" />
+    <Content Include="src\app\base\sys.com\log\log.page.scss" />
+    <Content Include="src\app\base\sys.com\message-settings\message-settings.page.html" />
+    <Content Include="src\app\base\sys.com\message-settings\message-settings.page.scss" />
+    <Content Include="src\app\base\sys.com\systemsetup\systemsetup.page.html" />
+    <Content Include="src\app\base\sys.com\systemsetup\systemsetup.page.scss" />
     <Content Include="src\app\base\uc.com\detail\detail.page.html" />
     <Content Include="src\app\base\uc.com\detail\detail.page.scss" />
     <Content Include="src\app\base\uc.com\login\login.page.html" />
@@ -198,6 +212,14 @@
     <Content Include="src\app\serving\mc-sc.com\subeditworking\subeditworking.page.scss" />
     <Content Include="src\app\serving\mc-sc.com\success\success.page.html" />
     <Content Include="src\app\serving\mc-sc.com\success\success.page.scss" />
+    <Content Include="src\app\serving\mcs_installationorder\detail\detail.page.html" />
+    <Content Include="src\app\serving\mcs_installationorder\detail\detail.page.scss" />
+    <Content Include="src\app\serving\mcs_installationorder\list\list.page.html" />
+    <Content Include="src\app\serving\mcs_installationorder\list\list.page.scss" />
+    <Content Include="src\app\serving\mcs_surveyorder\detail\detail.page.html" />
+    <Content Include="src\app\serving\mcs_surveyorder\detail\detail.page.scss" />
+    <Content Include="src\app\serving\mcs_surveyorder\list\list.page.html" />
+    <Content Include="src\app\serving\mcs_surveyorder\list\list.page.scss" />
     <Content Include="src\app\serving\my-customer.com\detail\detail.page.html" />
     <Content Include="src\app\serving\my-customer.com\detail\detail.page.scss" />
     <Content Include="src\app\serving\my-customer.com\edit\edit.page.html" />
@@ -639,6 +661,8 @@
     <TypeScriptCompile Include="src\app\app.config.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\authentication.service.spec.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\authentication.service.ts" />
+    <TypeScriptCompile Include="src\app\base\base.ser\components\map\dragroute\dragroute.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\base\base.ser\components\map\dragroute\dragroute.component.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\components\select-systemuser\select-systemuser.component.spec.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\components\select-systemuser\select-systemuser.component.ts" />
     <TypeScriptCompile Include="src\app\base\base.ser\dcem.core.ts">
@@ -667,6 +691,24 @@
     <TypeScriptCompile Include="src\app\base\message.com\room\room.module.ts" />
     <TypeScriptCompile Include="src\app\base\message.com\room\room.page.spec.ts" />
     <TypeScriptCompile Include="src\app\base\message.com\room\room.page.ts" />
+    <TypeScriptCompile Include="src\app\base\sys.com\about\about.module.ts" />
+    <TypeScriptCompile Include="src\app\base\sys.com\about\about.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\base\sys.com\about\about.page.ts" />
+    <TypeScriptCompile Include="src\app\base\sys.com\change-password\change-password.module.ts" />
+    <TypeScriptCompile Include="src\app\base\sys.com\change-password\change-password.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\base\sys.com\change-password\change-password.page.ts" />
+    <TypeScriptCompile Include="src\app\base\sys.com\loginfo\loginfo.module.ts" />
+    <TypeScriptCompile Include="src\app\base\sys.com\loginfo\loginfo.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\base\sys.com\loginfo\loginfo.page.ts" />
+    <TypeScriptCompile Include="src\app\base\sys.com\log\log.module.ts" />
+    <TypeScriptCompile Include="src\app\base\sys.com\log\log.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\base\sys.com\log\log.page.ts" />
+    <TypeScriptCompile Include="src\app\base\sys.com\message-settings\message-settings.module.ts" />
+    <TypeScriptCompile Include="src\app\base\sys.com\message-settings\message-settings.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\base\sys.com\message-settings\message-settings.page.ts" />
+    <TypeScriptCompile Include="src\app\base\sys.com\systemsetup\systemsetup.module.ts" />
+    <TypeScriptCompile Include="src\app\base\sys.com\systemsetup\systemsetup.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\base\sys.com\systemsetup\systemsetup.page.ts" />
     <TypeScriptCompile Include="src\app\base\uc.com\detail\detail.module.ts" />
     <TypeScriptCompile Include="src\app\base\uc.com\detail\detail.page.spec.ts" />
     <TypeScriptCompile Include="src\app\base\uc.com\detail\detail.page.ts" />
@@ -898,6 +940,18 @@
     <TypeScriptCompile Include="src\app\serving\mc-sc.com\success\success.module.ts" />
     <TypeScriptCompile Include="src\app\serving\mc-sc.com\success\success.page.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\mc-sc.com\success\success.page.ts" />
+    <TypeScriptCompile Include="src\app\serving\mcs_installationorder\detail\detail.module.ts" />
+    <TypeScriptCompile Include="src\app\serving\mcs_installationorder\detail\detail.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\serving\mcs_installationorder\detail\detail.page.ts" />
+    <TypeScriptCompile Include="src\app\serving\mcs_installationorder\list\list.module.ts" />
+    <TypeScriptCompile Include="src\app\serving\mcs_installationorder\list\list.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\serving\mcs_installationorder\list\list.page.ts" />
+    <TypeScriptCompile Include="src\app\serving\mcs_surveyorder\detail\detail.module.ts" />
+    <TypeScriptCompile Include="src\app\serving\mcs_surveyorder\detail\detail.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\serving\mcs_surveyorder\detail\detail.page.ts" />
+    <TypeScriptCompile Include="src\app\serving\mcs_surveyorder\list\list.module.ts" />
+    <TypeScriptCompile Include="src\app\serving\mcs_surveyorder\list\list.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\serving\mcs_surveyorder\list\list.page.ts" />
     <TypeScriptCompile Include="src\app\serving\my-customer.com\detail\detail.module.ts" />
     <TypeScriptCompile Include="src\app\serving\my-customer.com\detail\detail.page.spec.ts" />
     <TypeScriptCompile Include="src\app\serving\my-customer.com\detail\detail.page.ts" />
@@ -1106,6 +1160,8 @@
     <Folder Include="src\app\base\" />
     <Folder Include="src\app\base\base.ser\" />
     <Folder Include="src\app\base\base.ser\components\" />
+    <Folder Include="src\app\base\base.ser\components\map\" />
+    <Folder Include="src\app\base\base.ser\components\map\dragroute\" />
     <Folder Include="src\app\base\base.ser\components\select-systemuser\" />
     <Folder Include="src\app\base\demo\" />
     <Folder Include="src\app\base\demo\calendar\" />
@@ -1115,6 +1171,13 @@
     <Folder Include="src\app\base\message.com\charts\" />
     <Folder Include="src\app\base\message.com\chat-detail\" />
     <Folder Include="src\app\base\message.com\room\" />
+    <Folder Include="src\app\base\sys.com\" />
+    <Folder Include="src\app\base\sys.com\about\" />
+    <Folder Include="src\app\base\sys.com\change-password\" />
+    <Folder Include="src\app\base\sys.com\loginfo\" />
+    <Folder Include="src\app\base\sys.com\log\" />
+    <Folder Include="src\app\base\sys.com\message-settings\" />
+    <Folder Include="src\app\base\sys.com\systemsetup\" />
     <Folder Include="src\app\base\uc.com\" />
     <Folder Include="src\app\base\uc.com\detail\" />
     <Folder Include="src\app\base\uc.com\login\" />
@@ -1217,6 +1280,12 @@
     <Folder Include="src\app\serving\mc-sc.com\subeditpart\" />
     <Folder Include="src\app\serving\mc-sc.com\subeditworking\" />
     <Folder Include="src\app\serving\mc-sc.com\success\" />
+    <Folder Include="src\app\serving\mcs_installationorder\" />
+    <Folder Include="src\app\serving\mcs_installationorder\detail\" />
+    <Folder Include="src\app\serving\mcs_installationorder\list\" />
+    <Folder Include="src\app\serving\mcs_surveyorder\" />
+    <Folder Include="src\app\serving\mcs_surveyorder\detail\" />
+    <Folder Include="src\app\serving\mcs_surveyorder\list\" />
     <Folder Include="src\app\serving\my-customer.com\" />
     <Folder Include="src\app\serving\home.com\" />
     <Folder Include="src\app\serving\my-customer.com\detail\" />

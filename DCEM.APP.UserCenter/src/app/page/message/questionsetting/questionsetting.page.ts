@@ -119,8 +119,8 @@ export class QuestionsettingPage implements OnInit {
     this._page.loadingShow();
     var rep = {
       mcs_deliverychannel: this.getQueryVariable("channer"),
-      mcs_questionnairesetting: this.mod.qualist.Id,
-      mcs_answername: this._logininfo.GetSystemUserId(),
+      mcs_questionnairesetting: this.getQueryVariable("id"),
+      mcs_answername: this._logininfo.GetCode(),
       model: []
     }
     var valreq = false;

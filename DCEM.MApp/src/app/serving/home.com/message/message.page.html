@@ -17,6 +17,7 @@
   <ion-list ng-if="activities">
     <ion-item-sliding *ngFor="let room of activities;let key=index">
       <ion-item (click)="toRoomMessage(room)">
+        <ion-badge slot="start" *ngIf="room.unreadcount>0" color="danger">{{room.unreadcount}}</ion-badge>
         <ion-avatar size="large" slot="start">
             <img src="{{room.thumbnail}}">
         </ion-avatar>
@@ -27,7 +28,6 @@
         <ion-note slot="end">
           {{room.activeTime}}
         </ion-note>
-        <ion-badge *ngIf="room.unreadcount>0" slot="end" color="danger">{{room.unreadcount}}</ion-badge>
       </ion-item>
       <ion-item-options side="end">
         <ion-item-option color="danger" expandable ng-click="remove(room)">
