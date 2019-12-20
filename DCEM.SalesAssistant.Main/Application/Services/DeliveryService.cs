@@ -331,6 +331,48 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 throw ex;
             }
         }
+        public async Task<ValidateResult<string>> gettailmoney(string id)
+        {
+            try
+            {
+                var validateResult = new ValidateResult<string>();
+                var crmRequestHelper = new CrmRequestHelper();
+                var entity = await crmRequestHelper.Retrieve(_crmService, entityName, Guid.Parse(id));
+                if (entity != null)
+                {
+                    var deliverystatus = entity.Attributes.Value<int>("mcs_settlestatus");
+                    //结清状态0未结算1已结算
+                    if (deliverystatus != 0)
+                    {
+                        validateResult.Result = false;
+                        validateResult.Description = "交车单结清状态不符合！";
+                        return validateResult;
+                    }
+                    //整车订单id
+                    var vehorderId = entity.Attributes.Value<string>("_mcs_vehorder_value");
+                    //整车订单实体
+                    var vehorderrf = await crmRequestHelper.Retrieve(_crmService, roEntityName, Guid.Parse(vehorderId));
+        
+                    var totalamount = vehorderrf.Attributes.Value<decimal>("mcs_totalamount");
+                    var earnest = vehorderrf.Attributes.Value<decimal>("mcs_earnest");
+                    var tailmoney = totalamount - earnest;
+
+                    validateResult.Result = true;
+                    validateResult.Description = tailmoney.ToString();
+                    return validateResult;
+                }
+                else
+                {
+                    validateResult.Result = false;
+                    validateResult.Description = "交车单不存在！";
+                    return validateResult;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         #region 私有方法
         private async Task<List<CrmEntity>> GetCrmEntities(string entityName, DeliveryListRequest deliveryListRequest, CrmRequestHelper crmRequestHelper)
         {

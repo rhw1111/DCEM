@@ -131,6 +131,16 @@ namespace DCEM.Web.Controllers
         {
             return await _appDelivery.getdeliverorderflow(deliveryDetailRequest);
         }
+
+        /// <summary>
+        /// 获取尾款
+        /// </summary> 
+        [Route("gettailmoney")]
+        [HttpGet]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<string>>> gettailmoney(string id)
+        {
+            return await _appDelivery.gettailmoney(id);
+        }
     }
 }
 

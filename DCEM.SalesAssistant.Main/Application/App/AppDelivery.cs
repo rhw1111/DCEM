@@ -74,5 +74,10 @@ namespace DCEM.SalesAssistant.Main.Application.App
         {
             return await _service.getdeliverorderflow(deliveryDetailRequest);
         }
+
+        public async Task<ValidateResult<string>> gettailmoney(string id)
+        {
+            return await _service.gettailmoney(id);
+        }
     }
 }
