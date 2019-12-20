@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>厅/店来访</title>
+    <title>交互活动模板</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta name="keywords" />
@@ -25,25 +25,11 @@
             position: absolute;
         }
     </style>
-  
-    <script src="../Scripts/jquery-3.3.1.min.js"></script>
-   
+    <script src="../Scripts/jquery-1.10.2.min.js"></script>
     <script type="text/javascript">
         var unSelected = "#999";
         var selected = "#333";
-        var hidConfig = "";
         $(function () {
-            //$.ajax({
-            //    type: "get",
-            //    url: "/UnitTest/GetSetting",
-            //    dataType: "json",
-            //    data: {},
-            //    contentType: "application/json;charset=utf-8",
-            //    success: function (data) {
-            //        console.log(data)
-            //        //hidConfig = data;
-            //    }
-            //});
             $("select").css("color", unSelected);
             $("option").css("color", selected);
             $("select").change(function () {
@@ -54,7 +40,6 @@
                     $(this).css("color", selected);
                 }
             });
-          
         })
         function isEmpty(obj) {
             if (obj === null) return true;
@@ -70,6 +55,8 @@
             }
             return false;
         }
+
+
         function getParam(paramName) {
             paramValue = "", isFound = !1;
             if (this.location.search.indexOf("?") == 0 && this.location.search.indexOf("=") > 1) {
@@ -84,21 +71,9 @@
             var appellation = $("#sltAppellation").val();
             var email = $("#btnEmail").val();
             var address = $("#sltAddress").val();
-            var carType = $("#sltCarType").val();
-            var carColor = $("#sltCarColor").val();
-            var carPlan = $("#sltCarPlan").val();
             var key = 654;
             var sysName = "TestPage";
-            var dealerCode = 123;
-            var userId ="user_"+ moblie ;
-            var openId = "open_" + moblie;
             var campaignCode = "SH00010";
-            if (getParam("userId") != null && getParam("userId") != "") {
-                dealerCode = getParam("userId");
-            }
-            if (getParam("dealerCode") != null && getParam("dealerCode") != "") {
-                dealerCode = getParam("dealerCode");
-            }
             if (getParam("key") != null && getParam("key") != "") {
                 key = getParam("key");
             }
@@ -108,6 +83,7 @@
             if (getParam("campaignCode") != null && getParam("campaignCode") != "") {
                 campaignCode = getParam("campaignCode");
             }
+
             if (isEmpty(name)) {
                 alert("姓名不能为空");
                 return false;
@@ -116,45 +92,31 @@
                 alert("手机号不能为空");
                 return false;
             }
-            if (carType == "-1") {
-                carType = "";
-            }
-            if (carColor == "-1") {
-                carColor = "";
-            }
-            if (carPlan == "-1") {
-                carPlan = null;
-            }
+
+
             if (address == "-1") {
                 address = "";
             }
             if (appellation == "-1") {
                 appellation = null;
             }
-
+            console.log(key + "-" + sysName)
             $.ajax({
                 type: "post",
                 url: "http://106.14.121.65:8082/CC/api/Lead/Do",
                 dataType: "json",
                 contentType: "application/json;charset=utf-8",
-                data: JSON.stringify({ 
-                    AppointmentTime: "2018-07-09",
-                    AppointmentProject: "试乘试驾",
-                    TerminalCode: "mobilephone",//线索终端
-                    MediaCode: "app",//线索媒体
-                    Channel: "3",
-                    //BehaviorCode: "visiting_the_store",//用户行为
-                    BehaviorCode: "activity_online_registration",//用户行为
+                data: JSON.stringify({
+                    Channel: "3",//渠道(0：CC，1：官网，2：商城，3：APP，4：微站/H5，5：小程序，6：线下活动，7：到店，8：其他)
+                    BehaviorCode: "activity_online_registration",//用户行为 必传
+                    CampaignCode: campaignCode,//活动编码 必传
+                    MediaCode: "app",//线索媒体 必传
+                    TerminalCode: "mobilephone", //线索终端 必传
                     MobilePhone: moblie,
                     CityCode: address,
                     FullName: name,
                     Gender: appellation,
-                    EmailAddress1: email,
-                    VehType: carType,
-                    Vehcolor: carColor,
-                    Level: carPlan,
-                    //DealerCode: dealerCode,
-                    CampaignCode: campaignCode
+                    EmailAddress1: email
                 }),
                 beforeSend: function (request) {
                     request.setRequestHeader("appid", "1001");
@@ -164,7 +126,7 @@
                 },
                 success: function (data) {
                     if (data.Code == "0000") {
-                        window.location.href = '../SuccessPage.html';
+                        window.location.href = '/SuccessPage.html';
                     } else {
                         alert("提交失败");
                         console.log(data);
@@ -175,7 +137,7 @@
                     var json = eval(data)
                     //请求出错处理
                     alert(JSON.parse(json.responseText)["Message"]);
-                }   
+                }
             });
         }
 
@@ -202,11 +164,6 @@
                                               {&#34;value&#34;:&#34;3&#34;,&#34;text&#34;:&#34;T01&#34;},
                                               {&#34;value&#34;:&#34;4&#34;,&#34;text&#34;:&#34;T02&#34;}]}" hidden></span>
                                         <img src="../Images/car.png" style="max-width:100%;margin-bottom: 40px;" />
-                                        <h1 class="title" style="font-size: 30px;">厅店来访</h1>
-                                        <h3 class="title upper-case">获取更详尽的车型信息</h3>
-                                        <p style="margin-bottom:40px">
-                                            欢迎您来访厅店，领跑很重视您所提交的一切信息，这将令我们更了解您的需求和喜好，并为您提供更好的驾乘体验。
-                                        </p>
                                         <form name="myForm" novalidate class="form-horizontal" role="form" gcdm-form-container-tda gcdm-brand="BMW">
                                             <div>
                                                 <span id="sysNotAvailable" gcdm-system-not-available-error-message>
@@ -219,7 +176,6 @@
                                                     <label>姓名<a style="color:red;">*</a></label>
                                                     <div class="content">
                                                         <input type="text" id="btnName" name="surname" placeholder="请输入您的名字" ng-model="gcdmFormModel.businessPartner.surname" required />
-                                                   <input type="hidden" id="hidConfig" runat="server" value=""/>
                                                     </div>
                                                 </div>
                                                 <div class="detail" ng-class="{'error':myForm.tel.$dirty && myForm.tel.$invalid || submitted && myForm.tel.$invalid}">
@@ -261,48 +217,9 @@
                                                         </select>
                                                     </div>
                                                 </div>
-
-                                                <div class="detail" ng-class="{'error':myForm.surname.$dirty && myForm.surname.$invalid || submitted && myForm.surname.$invalid}">
-                                                    <label>车型</label>
-                                                    <div class="content">
-                                                        <select style="border: 2px solid #bbb;width:100%;height:40px;" id="sltCarType">
-                                                            <option value="-1">请选择车型</option>
-                                                            <option value="S01">S01</option>
-                                                            <option value="S02">S02</option>
-                                                            <option value="T01">T01</option>
-                                                            <option value="T02">T02</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="detail" ng-class="{'error':myForm.surname.$dirty && myForm.surname.$invalid || submitted && myForm.surname.$invalid}">
-                                                    <label>外饰颜色</label>
-                                                    <div class="content">
-                                                        <select style="border: 2px solid #bbb;width:100%;height:40px;" id="sltCarColor">
-                                                            <option value="-1">请选择外饰颜色</option>
-                                                            <option value="001">红色</option>
-                                                            <option value="002">深灰</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="detail" ng-class="{'error':myForm.surname.$dirty && myForm.surname.$invalid || submitted && myForm.surname.$invalid}">
-                                                    <label>购车计划</label>
-                                                    <div class="content">
-                                                        <select style="border: 2px solid #bbb;width:100%;height:40px;" id="sltButPlan">
-                                                            <option value="-1">请选择购车计划</option>
-                                                            <option value="0">一周内成交</option>
-                                                            <option value="1">半个月内成交</option>
-                                                            <option value="2">3个月内成交</option>
-                                                            <option value="3">3个月以上成交</option>
-                                                            <option value="4">无购车计划</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
                                             </div>
-
-
                                             <div class="law one-line">
-
-                                                <span class="tips"><a style="color:red;">*</a>带星号的选项必须填写</p></span>
+                                                <span class="tips"><a style="color:red;">*</a>带星号的选项必须填写</span>
                                             </div>
                                             <div class="action-bar">
                                                 <div class="action">
@@ -310,8 +227,14 @@
                                                 </div>
                                             </div>
                                         </form>
+                                        <img src="../Images/car2.gif" style="max-width:100%;" />
+                                        <img src="../Images/car3.gif" style="max-width:100%;" />
+                                        <h1 class="title" style="font-size: 30px;">活动线上报名</h1>
+                                        <h3 class="title upper-case">获取更详尽的车型信息</h3>
+                                        <p style="margin-bottom:40px">
+                                            欢迎您报名线上活动，领跑很重视您所提交的一切信息，这将令我们更了解您的需求和喜好，并为您提供更好的驾乘体验。
+                                        </p>
                                     </div>
-
                                     <canvas id="canvas" width="150" height="50" style="display:none;"></canvas>
 
 
