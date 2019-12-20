@@ -61,5 +61,12 @@ namespace DCEM.SalesAssistant.Main.Application.Repository.Contrac
         /// <param name="request"></param>
         /// <returns></returns>
         string QueryDriveRouteList(DriveRouteRequest request);
+
+        /// <summary>
+        /// 查询试乘试驾附件
+        /// </summary>
+        /// <param name="driverecordid"></param>
+        /// <returns></returns>
+        string QueryAttachment(string driverecordid);
     }
 }

@@ -18,7 +18,8 @@ namespace DCEM.HT.Controllers
     /// </summary>
     [EnableCors("any")]
     [Route("api/Page")]
-    public class PageController : Controller
+    [ApiController]
+    public class PageController : ApiController
     {
         private IAppAMPage _appAMPage;
         public PageController()

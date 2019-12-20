@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page } from '../../../../../app/component/typescript/dcem.core';
 import { ActivatedRoute } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import * as $ from 'jquery';
 
 @Component({
@@ -19,6 +20,7 @@ export class ListPage implements OnInit {
         private _http: DCore_Http,
         private _page: DCore_Page,
         private routerinfo: ActivatedRoute,
+        private alertController: AlertController,
     ) { }
 
     ngOnInit() {
@@ -45,18 +47,24 @@ export class ListPage implements OnInit {
 
     //增减数量
     changeValue(e, delta) {
-        console.log($(e.target).hasClass("decrease"));
         var num = this.getValue(e) + delta;
         var totalprice = 0;
+        var totalintegral = 0;
         for (var i = 0; i < this.model.cartList.datas.length; i++) {
             if ($(e.target).val() == this.model.cartList.datas[i].skucode) {
                 this.model.cartList.datas[i].num = num;
                 if (this.model.cartList.datas[i].checked) {
-                    totalprice += (this.model.cartList.datas[i].price * this.model.cartList.datas[i].num);
+                    if (this.model.cartList.datas[i].paymenttype == 2) {
+                        totalintegral += (this.model.cartList.datas[i].integral * this.model.cartList.datas[i].num);
+                    } else {
+                        totalprice += (this.model.cartList.datas[i].price * this.model.cartList.datas[i].num);
+                    }
+                    
                 }
             }
         }
         this.model.cartList.totalprice = parseFloat(totalprice.toString()).toFixed(2);
+        this.model.cartList.totalintegral = totalintegral;
         $(e.target).siblings("input.spinners").val(num);
         if (num <= 0 && $(e.target).hasClass("decrease")) {
             $(e.target).attr('disabled', 'disabled');
@@ -92,16 +100,19 @@ export class ListPage implements OnInit {
     }
     //全选
     changeAll(e) {
-        console.log(this.model.cartList.checkAll)
-        console.log(e.target)
-        console.log(e.target.checked)
         if (e.target.checked) {
             var totalprice = 0;
+            var totalintegral = 0;
             this.model.cartList.datas.forEach(res => {
                 res.checked = true;
-                totalprice += (res.price * res.num);
+                if (res.paymenttype == 2) {
+                    totalintegral += (res.integral * res.num);
+                } else {
+                    totalprice += (res.price * res.num);
+                }
             });
             this.model.cartList.totalprice = parseFloat(totalprice.toString()).toFixed(2);
+            this.model.cartList.totalintegral = totalintegral;
             if (this.IsEdit) {
                 $(".tab-hide").addClass("tab-background-38b").removeClass("tab-background-5a5").removeAttr('disabled');
             } else {
@@ -124,13 +135,20 @@ export class ListPage implements OnInit {
     change(item) {
         const arr = [];
         var totalprice = 0;
+        var totalintegral = 0;
         this.model.cartList.datas.forEach(res => {
             arr.push(res.checked)
             if (res.checked) {
-                totalprice += (res.price * res.num);
+                if (res.paymenttype == 2) {
+                    totalintegral += (res.integral * res.num);
+                } else {
+                    totalprice += (res.price * res.num);
+                }
+                
             }
         })
         this.model.cartList.totalprice = parseFloat(totalprice.toString()).toFixed(2);
+        this.model.cartList.totalintegral = totalintegral;
         if (!arr.includes(false)) {
             this.model.cartList.checkAll = true;
         } else {
@@ -169,6 +187,9 @@ export class ListPage implements OnInit {
             "source": "cart",
             "datas": []
         };
+        var i = 0;
+        var paymenttype = 1;
+        var flag = false;
         this.model.cartList.datas.forEach(res => {
             if (res.checked) {
                 orderata.datas.push({
@@ -176,12 +197,35 @@ export class ListPage implements OnInit {
                     "skucode": res.skucode,
                     "productname": res.productname,
                     "skuname": res.skuname,
+                    "paymenttype": res.paymenttype,
                     "price": res.price,
+                    "integral": res.integral,
                     "img": res.img,
                     "num": res.num
-                })
+                });
+                if (i == 0) {
+                    paymenttype = res.paymenttype;
+                } else {
+                    if (paymenttype != res.paymenttype) {
+                        flag = true;
+                    }
+                }
+                i++;
             }
         });
-        this._page.goto("/servicecenter/preorder/preorder", { params: JSON.stringify(orderata) });
+        if (flag) {
+            this.presentAlertConfirm();
+        } else {
+            this._page.goto("/servicecenter/preorder/preorder", { params: JSON.stringify(orderata) });
+        }
+    }
+    //提示信息
+    async presentAlertConfirm() {
+        const alert = await this.alertController.create({
+            header: '提示信息',
+            message: '积分与现金不能同时支付',
+            buttons: ['确定']
+        });
+        await alert.present();
     }
 }

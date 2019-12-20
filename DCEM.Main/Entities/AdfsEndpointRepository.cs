@@ -69,9 +69,9 @@ namespace DCEM.Main.Entities
             return await Task.FromResult<UserInfo>(result);
         }
 
-        public Task<string> GetUserRole(Guid sysuserid)
+        public async Task<string> GetUserRole(Guid sysuserid)
         {
-            throw new NotImplementedException();
+            return await _authService.GetUserRole(sysuserid);
         }
     }
 }

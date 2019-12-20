@@ -239,5 +239,54 @@ namespace DCEM.Main.Services
             }
 
         }
+
+        public async Task<string> GetUserRole(Guid systemuserid)
+        {
+            string rolenames = "";
+            var strFetch = string.Format(@"<fetch distinct=""false"" mapping=""logical"" output-format=""xml - platform"" version=""1.0"">
+                                <entity name = ""role"">
+                                    <attribute name = ""name"" />   
+                                    <attribute name = ""roleid"" />                                  
+                                    <link-entity name = ""systemuserroles"" intersect = ""true"" visible = ""false"" to = ""roleid"" from = ""roleid"">
+                                        <link-entity name = ""systemuser"" to = ""systemuserid"" from = ""systemuserid"" alias = ""aa"">
+                                            <filter type = ""and"" >                                         
+                                                <condition attribute = ""systemuserid"" value = ""{0}"" operator= ""eq"" uitype = ""systemuser"" />                                                  
+                                            </filter>                                                 
+                                        </link-entity>                                                 
+                                    </link-entity>                                                  
+                                   </entity>                                                  
+                                </fetch> ", systemuserid.ToString());
+
+            var xdoc = await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = string.Empty;
+                fetchXml = strFetch;
+                return XDocument.Parse(fetchXml);
+            });
+
+            var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "role",
+                FetchXml = xdoc
+            };
+            var dicHead = new Dictionary<string, IEnumerable<string>>();
+            dicHead.Add("Prefer", new List<string>() { "odata.include-annotations=\"*\"" });
+            fetchRequest.Headers.Add("Prefer", dicHead["Prefer"]);
+            var fetchResponse = await _crmService.Execute(fetchRequest);
+            if (fetchResponse != null)
+            {
+                var list = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+
+                if (list != null && list.Value.Results != null)
+                {
+                    foreach (var item in list.Value.Results)
+                    {
+                        rolenames += item.Attributes["name"]+",";
+                    }
+                }
+            }
+
+            return rolenames.TrimEnd(',');
+        }
     }
 }

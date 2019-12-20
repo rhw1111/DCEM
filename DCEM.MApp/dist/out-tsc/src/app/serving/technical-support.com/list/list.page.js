@@ -21,7 +21,7 @@ let ListPage = class ListPage {
             data: [],
             pageSize: 10,
             page: 1,
-            sort: 'mcs_supportorderid desc',
+            sort: 'createdon desc',
             isending: false //是否加载完成
         };
         this.PageMessage = {

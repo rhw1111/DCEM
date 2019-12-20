@@ -81,5 +81,13 @@ namespace DCEM.SalesAssistant.Main.Application.App
         {
             return await _driveRecordService.QueryReservationList(request);
         }
+
+
+        /// <summary>
+        /// 查询试乘试驾附件
+        /// </summary>
+        /// <param name="driverecordid"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> QueryAttachment(string driverecordid)=> await _driveRecordService.QueryAttachment(driverecordid);
     }
 }

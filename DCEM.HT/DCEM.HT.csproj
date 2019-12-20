@@ -5,10 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="HtmlResources\Activities\39d33d40-2b0c-ea11-b393-80a27b3ee2ee\**" />
-    <Content Remove="HtmlResources\Activities\39d33d40-2b0c-ea11-b393-80a27b3ee2ee\**" />
-    <EmbeddedResource Remove="HtmlResources\Activities\39d33d40-2b0c-ea11-b393-80a27b3ee2ee\**" />
-    <None Remove="HtmlResources\Activities\39d33d40-2b0c-ea11-b393-80a27b3ee2ee\**" />
+    <Compile Remove="wwwroot\HtmlResources\Activities\39d33d40-2b0c-ea11-b393-80a27b3ee2ee\**" />
+    <Compile Remove="wwwroot\HtmlResources\Activities\bd2d7971-2522-ea11-b397-9333f12e9ac3\**" />
+    <Content Remove="wwwroot\HtmlResources\Activities\39d33d40-2b0c-ea11-b393-80a27b3ee2ee\**" />
+    <Content Remove="wwwroot\HtmlResources\Activities\bd2d7971-2522-ea11-b397-9333f12e9ac3\**" />
+    <EmbeddedResource Remove="wwwroot\HtmlResources\Activities\39d33d40-2b0c-ea11-b393-80a27b3ee2ee\**" />
+    <EmbeddedResource Remove="wwwroot\HtmlResources\Activities\bd2d7971-2522-ea11-b397-9333f12e9ac3\**" />
+    <None Remove="wwwroot\HtmlResources\Activities\39d33d40-2b0c-ea11-b393-80a27b3ee2ee\**" />
+    <None Remove="wwwroot\HtmlResources\Activities\bd2d7971-2522-ea11-b397-9333f12e9ac3\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +34,372 @@
     <Folder Include="wwwroot\HtmlResources\Templates\Content\bootstrap-check\" /> 
     <ProjectReference Include="..\DCEM.UserCenterService.Main\DCEM.UserCenterService.Main.csproj" /> 
     <ProjectReference Include="..\MSLibrary\MSLibrary.csproj" /> 
+  </ItemGroup>
+ 
+  <ItemGroup>
+    <Content Update="wwwroot\HtmlResources\Activities\Content\about.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Activities\Content\bootstrap.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Activities\Content\clientlib.min.1532359576587.min.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Activities\Content\common.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Activities\Content\ltr+requests.min.20170829110157.min.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Activities\Content\Site.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Activities\Images\about_bg_wap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Activities\Images\about_us.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Activities\Images\beijing.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Activities\Images\car.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Activities\Images\car1.webp.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Activities\Images\car2.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Activities\Images\car3.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Activities\Images\guangzhou.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Activities\Images\map-WAP.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Activities\Images\shanghai.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Activities\Images\silicon.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Activities\Images\success.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Activities\Scripts\ai.0.22.9-build00167.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Activities\Scripts\bootstrap.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Activities\Scripts\jquery-1.10.2.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Activities\Scripts\jquery-3.3.1.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Activities\Scripts\jquery.validate.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Activities\Scripts\modernizr-2.6.2.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Activities\Scripts\respond.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Activities\Scripts\_references.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Activities\SuccessPage.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\AboutUs.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\Content\about.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\Content\bootstrap.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\Content\clientlib.min.1532359576587.min.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\Content\common.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\Content\ltr+requests.min.20170829110157.min.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\Content\Site.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\Images\about_bg_wap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\Images\about_us.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\Images\beijing.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\Images\car.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\Images\car1.webp.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\Images\car2.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\Images\car3.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\Images\guangzhou.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\Images\map-WAP.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\Images\shanghai.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\Images\silicon.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\Images\success.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\PrivacyPolicy.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\Scripts\ai.0.22.9-build00167.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\Scripts\bootstrap.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\Scripts\jquery-1.10.2.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\Scripts\jquery-3.3.1.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\Scripts\jquery.validate.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\Scripts\modernizr-2.6.2.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\Scripts\respond.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Fronts\Scripts\_references.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\about.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\bootstrap.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\build.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\build.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\css\font-awesome.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\fonts\fontawesome-webfont.eot">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\fonts\fontawesome-webfont.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\fonts\fontawesome-webfont.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\fonts\fontawesome-webfont.woff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\fonts\fontawesome-webfont.woff2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\fonts\FontAwesome.otf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\less\animated.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\less\bordered-pulled.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\less\core.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\less\fixed-width.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\less\font-awesome.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\less\icons.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\less\larger.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\less\list.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\less\mixins.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\less\path.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\less\rotated-flipped.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\less\stacked.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\less\variables.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\scss\font-awesome.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\scss\_animated.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\scss\_bordered-pulled.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\scss\_core.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\scss\_fixed-width.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\scss\_icons.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\scss\_larger.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\scss\_list.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\scss\_mixins.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\scss\_path.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\scss\_rotated-flipped.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\scss\_stacked.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap-check\Font-Awesome\scss\_variables.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\bootstrap.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\clientlib.min.1532359576587.min.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\common.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\ltr+requests.min.20170829110157.min.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Content\Site.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Images\about_bg_wap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Images\about_us.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Images\beijing.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Images\car.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Images\car1.webp.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Images\car2.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Images\car3.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Images\guangzhou.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Images\map-WAP.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Images\shanghai.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Images\silicon.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Images\success.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Scripts\ai.0.22.9-build00167.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Scripts\bootstrap.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Scripts\jquery-1.10.2.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Scripts\jquery-3.3.1.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Scripts\jquery.validate.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Scripts\modernizr-2.6.2.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Scripts\respond.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Scripts\_references.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Temp\Interact.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Temp\Online.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Question.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Temp\Reserve.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
