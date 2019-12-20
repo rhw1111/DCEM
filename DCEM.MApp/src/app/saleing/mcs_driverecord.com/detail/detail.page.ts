@@ -3,7 +3,9 @@ import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { OptionSetService } from '../../../base/base.ser/optionset.service';
 import { ModalController, NavController } from '@ionic/angular';
-import { DragrouteComponent } from 'app/base/base.ser/components/map/dragroute/dragroute.component'
+import { DragrouteComponent } from 'app/base/base.ser/components/map/dragroute/dragroute.component';
+import sd from 'silly-datetime';
+
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.page.html',
@@ -12,7 +14,7 @@ import { DragrouteComponent } from 'app/base/base.ser/components/map/dragroute/d
 export class DetailPage implements OnInit {
 
   public tab: any = "info";
-  mod: any  = {
+  mod: any = {
     apiUrl: '/api/drive-record/GetDetail',
     editUrl: '/api/drive-record/AddOrEdit',
     data: {
@@ -47,7 +49,7 @@ export class DetailPage implements OnInit {
   //加载地图
   async loadmap() {
     debugger;
-    if (this.mod.data.detail["mcs_startlongitude"] != undefined&&this.mod.data.detail["mcs_startlongitude"]!=undefined&&this.mod.data.detail["mcs_endlongitude"]!=undefined&& this.mod.data.detail["mcs_endlatitude"]!=undefined) {
+    if (this.mod.data.detail["mcs_startlongitude"] != undefined && this.mod.data.detail["mcs_startlongitude"] != undefined && this.mod.data.detail["mcs_endlongitude"] != undefined && this.mod.data.detail["mcs_endlatitude"] != undefined) {
       const modal = await this._modalCtrl.create({
         component: DragrouteComponent,
         componentProps: {
@@ -59,14 +61,13 @@ export class DetailPage implements OnInit {
       });
       await modal.present();
     }
-    else
-    {
+    else {
       this._page.alert("消息提示", "请先填写完善试驾线路信息！");
     }
   }
   pageOnBind(id: any) {
-      this.mod.data.detail["id"] = id;
-      //debugger;
+    this.mod.data.detail["id"] = id;
+    // debugger;
     this._page.loadingShow();
     this._http.get(
       this.mod.apiUrl,
@@ -123,21 +124,26 @@ export class DetailPage implements OnInit {
     this.saveOnClick(id, 2);
   }
   beginOnClick(id: any) {
+    if (this._valid.isNull(this.mod.data.attachment) || this.mod.data.attachment.length == 0) {
+      this._page.alert("消息提示", "开始试乘试驾前请上传试驾协议、驾驶证、身份证附件");
+      return
+    }
+
     this.saveOnClick(id, 1);
   }
 
   public saveOnClick(id: any, type: any) {
-    debugger;
+    // debugger;
 
     this.mod.driveRecord['mcs_driverecordid'] = id;
     //判断是开始试驾还是结束试驾
     if (type == 1) {
       this.mod.driveRecord['mcs_drivestatus'] = 14;
-      this.mod.driveRecord['mcs_starton'] = new Date();
+      this.mod.driveRecord['mcs_starton'] = this.FormatToDate(new Date());
     }
     else {
       this.mod.driveRecord['mcs_drivestatus'] = 15;
-      this.mod.driveRecord['mcs_endon'] = new Date();
+      this.mod.driveRecord['mcs_endon'] = this.FormatToDate(new Date());
     }
     this.mod.postData["driveRecord"] = this.mod.driveRecord;
     this._page.loadingShow();
@@ -159,6 +165,17 @@ export class DetailPage implements OnInit {
         this._page.alert("消息提示", "操作失败");
       }
     );
+  }
+
+  //日期格式
+  public FormatToDate(date) {
+    if (date != null && date != undefined) {
+      // debugger;
+      return sd.format(date, 'YYYY-MM-DDTHH:mm:ssZ');
+    }
+    else {
+      return null;
+    }
   }
 
 }

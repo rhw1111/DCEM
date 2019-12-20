@@ -13,7 +13,9 @@ namespace DCEM.UserCenterService.Main.ViewModel.Response
     using System.Collections.Generic;
     using MSLibrary.Xrm;
     
-    
+    /// <summary>
+    /// 内容列表
+    /// </summary>
     public class ContentListResponse : PageBaseResponseModel
     {
         public List<CrmEntity> ContentList { get; set; }
@@ -24,6 +26,9 @@ namespace DCEM.UserCenterService.Main.ViewModel.Response
         public string ErrorMessage { get; set; }
     }
 
+    /// <summary>
+    /// 内容详情
+    /// </summary>
     public class ContentDetailResponse
     {
         public CrmEntity Content { get; set; }
@@ -32,5 +37,14 @@ namespace DCEM.UserCenterService.Main.ViewModel.Response
         public string PicPathPre { get; set; }
 
         public string ErrorMessage { get; set; }
+    }
+
+    /// <summary>
+    /// 内容生成的html页面
+    /// </summary>
+    public class ContentPageResponse
+    {
+        public bool IsSuccess { get; set; } = true;
+        public string Url { get; set; }
     }
 }

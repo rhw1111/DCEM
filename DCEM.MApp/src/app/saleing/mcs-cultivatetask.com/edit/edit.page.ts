@@ -56,7 +56,7 @@ export class EditPage implements OnInit {
 
 
   ngOnInit() {
-    debugger;
+    // debugger;
     this._activeRoute.queryParams.subscribe((params: Params) => {
       this.shareData.selectexcutestatus = this._optionset.Get("act_mcs_excutestatus");
       this.shareData.selectimportantlevel = this._optionset.Get("mcs_importantlevel");

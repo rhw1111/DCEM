@@ -20,6 +20,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
     using DCEM.UserCenterService.Main.Common;
     using System.Xml.Linq;
     using static DCEM.UserCenterService.Main.Common.UserEnum;
+    using System.IO;
 
     public class ContentManagementService : IContentManagementService
     {
@@ -86,7 +87,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
             try
             {
                 var response = new ContentDetailResponse() { };
-                response.Content = await GetEntity(contentDetailRequest);
+                response.Content = await GetEntity(contentDetailRequest.Type, contentDetailRequest.Id, contentDetailRequest.DefCode);
                 response.PicPathPre = await GetConfig();
                 return response;
             }
@@ -96,10 +97,10 @@ namespace DCEM.UserCenterService.Main.Application.Services
             }
         }
 
-        private async Task<CrmEntity> GetEntity(ContentDetailRequest contentDetailRequest)
+        private async Task<CrmEntity> GetEntity(ContentType type, Guid? id = null, string defCode = "")
         {
             string entityName = string.Empty;
-            switch (contentDetailRequest.Type)
+            switch (type)
             {
                 case ContentType.Activity:
                     entityName = "mcs_activitycontents";
@@ -113,15 +114,15 @@ namespace DCEM.UserCenterService.Main.Application.Services
             }
             var crmRequestHelper = new CrmRequestHelper();
             //判断是传id还是唯一码
-            if (contentDetailRequest.Id.HasValue)
+            if (id.HasValue)
             {
-                return await crmRequestHelper.Retrieve(_crmService, entityName, contentDetailRequest.Id.Value);
+                return await crmRequestHelper.Retrieve(_crmService, entityName, id.Value);
             }
-            if (!string.IsNullOrWhiteSpace(contentDetailRequest.DefCode))
+            if (!string.IsNullOrWhiteSpace(defCode))
             {
                 XDocument fetchXdoc = null;
                 //目前暂时只有前端内容有唯一码
-                fetchXdoc = await _contentmanagementRepository.GetFrontContentFetchXml(contentDetailRequest.DefCode);
+                fetchXdoc = await _contentmanagementRepository.GetFrontContentFetchXml(defCode);
                 var entities = await crmRequestHelper.ExecuteAsync(_crmService, entityName, fetchXdoc);
                 if (entities != null && entities.Results != null && entities.Results.Count > 0)
                 {
@@ -142,6 +143,42 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 return entities.Results[0].Attributes["mcs_val"]?.ToString();
             }
             return null;
+        }
+
+        public async Task<ContentPageResponse> GenerateContentPage(ContentPageRequest contentPageRequest)
+        {
+            var response = new ContentPageResponse();
+            try
+            {
+                //查询实体
+                var entity = await GetEntity(contentPageRequest.Type, contentPageRequest.Id);
+                if (entity == null)
+                {
+                    throw new Exception("未找到对应的内容数据");
+                }
+                //将富文本转为html
+                var targetHtml = entity.Attributes["mcs_contenttext"]?.ToString();
+                if (string.IsNullOrWhiteSpace(targetHtml))
+                {
+                    throw new Exception("该内容页没有正文内容");
+                }
+                //写入目标地址
+                var resultPath = @"HtmlResources\Fronts\" + entity.Attributes["mcs_frontcontentid"].ToString();
+                var targetPath = Directory.GetCurrentDirectory() + @"\wwwroot\" + resultPath;
+                if (!Directory.Exists(targetPath))
+                {
+                    Directory.CreateDirectory(targetPath);
+                }
+                var fileName = @"\" + entity.EntityName.ToString() + ".html";
+                File.WriteAllText(targetPath + fileName, targetHtml);
+                response.Url = resultPath + fileName;
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Url = ex.Message + ";" + ex.InnerException?.Message;
+            }
+            return response;
         }
     }
 }

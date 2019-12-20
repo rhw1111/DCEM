@@ -8,7 +8,7 @@
     "CrmApiMaxRetry": 10,
     "CrmApiVersion": "9.0",
     "TokenServiceType": "AD",
-    "Domain": "mcs.com",
+    "Domain": "MCS",
     "AdfsUrl": "",
     "CrmUrl": "http://106.14.121.65/crm9",
     "ClientId": "",

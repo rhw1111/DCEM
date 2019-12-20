@@ -42,10 +42,16 @@ export class EditPage implements OnInit {
         private _shareData: DCore_ShareData,
         private _valid: DCore_Valid,
         private _activeRoute: ActivatedRoute
-    ) { }
+    ) {
+
+    }
 
 
     ionViewWillEnter() {
+        //数据初始化
+        this.shareData.serviceproxy["arrivalon"] = new Date();
+
+
         this._activeRoute.queryParams.subscribe((params: Params) => {
             if (this._shareData.has(this.mod.shareDataKey)) {
                 this.shareData = this._shareData.get(this.mod.shareDataKey);
@@ -65,6 +71,7 @@ export class EditPage implements OnInit {
                     if (!this._shareData.has(this.mod.shareDataKey)) {
                         this.shareData.viewTitle = "创建服务委托书";
                         this.shareData.serviceproxy["appointmentcode"] = params['id']
+
                         this.pageOnBindFromAppointmentcode(this.shareData.serviceproxy["appointmentcode"]);
                     }
                 }
@@ -89,6 +96,13 @@ export class EditPage implements OnInit {
                 this.shareData.serviceproxy["customerphone"] = data.vehowne.mobilephone;
                 this.shareData.serviceproxy["dealerid"] = data.vehowne["model"]["_mcs_dealer_value"];
                 this.shareData.serviceproxy["dealerid_formatted"] = data.vehowne["model"]["_mcs_dealer_value@OData.Community.Display.V1.FormattedValue"];
+
+                this.shareData.serviceproxy["carmodel"] = data.vehowne["model"]["_mcs_vehtype_value"];
+                this.shareData.serviceproxy["carmodel_formatted"] = data.vehowne["model"]["_mcs_vehtype_value@OData.Community.Display.V1.FormattedValue"];
+
+                this.shareData.serviceproxy["shuttlename"] = data.vehowne["model"]["mcs_shuttlename"];
+                this.shareData.serviceproxy["shuttlephone"] = data.vehowne["model"]["mcs_shuttlephone"];
+
             }
         }
     }
@@ -115,7 +129,11 @@ export class EditPage implements OnInit {
         const { data } = await modal.onDidDismiss();
 
         if (!this._valid.isNull(data) && !this._valid.isNull(data["model"])) {
+
+
             var resAttr = data["model"];
+            console.log(resAttr);
+
             //加入预约单
             this.shareData.serviceproxy["appointmentcode"] = resAttr["mcs_appointmentinfoid"];
             this.shareData.serviceproxy["appointmentcode_formatted"] = resAttr["mcs_name"];
@@ -126,6 +144,13 @@ export class EditPage implements OnInit {
             this.shareData.serviceproxy["customerphone"] = resAttr["mcs_customerphone"];
             this.shareData.serviceproxy["dealerid"] = resAttr["_mcs_dealerid_value"];
             this.shareData.serviceproxy["dealerid_formatted"] = resAttr["_mcs_dealerid_value@OData.Community.Display.V1.FormattedValue"];
+
+            this.shareData.serviceproxy["carmodel"] = resAttr["_mcs_cartype_value"];
+            this.shareData.serviceproxy["carmodel_formatted"] = resAttr["_mcs_cartype_value@OData.Community.Display.V1.FormattedValue"];
+
+            this.shareData.serviceproxy["shuttlename"] = resAttr["model"]["mcs_customername"];
+            this.shareData.serviceproxy["shuttlephone"] = resAttr["model"]["mcs_customerphone"];
+            
         }
     }
 
@@ -151,6 +176,9 @@ export class EditPage implements OnInit {
             (res: any) => {
                 if (!this._valid.isNull(res) && !this._valid.isNull(res["Attributes"])) {
                     var resAttr = res["Attributes"];
+
+
+
                     //加入预约单
                     this.shareData.serviceproxy["appointmentcode"] = resAttr["mcs_appointmentinfoid"];
                     this.shareData.serviceproxy["appointmentcode_formatted"] = resAttr["mcs_name"];
@@ -161,6 +189,11 @@ export class EditPage implements OnInit {
                     this.shareData.serviceproxy["customerphone"] = resAttr["mcs_customerphone"];
                     this.shareData.serviceproxy["dealerid"] = resAttr["_mcs_dealerid_value"];
                     this.shareData.serviceproxy["dealerid_formatted"] = resAttr["_mcs_dealerid_value@OData.Community.Display.V1.FormattedValue"];
+                    this.shareData.serviceproxy["carmodel"] = resAttr["_mcs_cartype_value"];
+                    this.shareData.serviceproxy["carmodel_formatted"] = resAttr["_mcs_cartype_value@OData.Community.Display.V1.FormattedValue"];
+
+                    this.shareData.serviceproxy["shuttlename"] = resAttr["model"]["mcs_customername"];
+                    this.shareData.serviceproxy["shuttlephone"] = resAttr["model"]["mcs_customerphone"];
                 }
                 this._page.loadingHide();
             },
@@ -191,10 +224,6 @@ export class EditPage implements OnInit {
 
                     this.shareData.serviceproxy["serviceproxyid"] = id;
 
-                    console.log(res["Serviceproxy"]["Attributes"]);
-
-
-
                     this.shareData.serviceproxy["customerid"] = res["Serviceproxy"]["Attributes"]["_mcs_customerid_value"];
                     this.shareData.serviceproxy["customername"] = res["Serviceproxy"]["Attributes"]["mcs_customername"];
                     this.shareData.serviceproxy["carplate"] = res["Serviceproxy"]["Attributes"]["mcs_carplate"];
@@ -213,6 +242,10 @@ export class EditPage implements OnInit {
                     this.shareData.serviceproxy["customercomment"] = res["Serviceproxy"]["Attributes"]["mcs_customercomment"];
                     this.shareData.serviceproxy["customercontent"] = res["Serviceproxy"]["Attributes"]["mcs_customercontent"];
                     this.shareData.serviceproxy["testresult"] = res["Serviceproxy"]["Attributes"]["mcs_testresult"];
+
+                    this.shareData.serviceproxy["carmodel"] = res["Serviceproxy"]["Attributes"]["_mcs_carmodel_value"];
+                    this.shareData.serviceproxy["carmodel_formatted"] = res["Serviceproxy"]["Attributes"]["_mcs_carmodel_value@OData.Community.Display.V1.FormattedValue"];
+
 
                     //加入预约单
                     this.shareData.serviceproxy["appointmentcode"] = res["Serviceproxy"]["Attributes"]["_mcs_appointmentcode_value"];
@@ -286,6 +319,7 @@ export class EditPage implements OnInit {
 
     public nextOnClick() {
 
+
         var errMessage = "";
 
         if (this._valid.isNullOrEmpty(this.shareData.serviceproxy["customerid"])) {
@@ -327,9 +361,9 @@ export class EditPage implements OnInit {
         if (this._valid.isNullOrEmpty(this.shareData.serviceproxy["expectfinishat"])) {
             errMessage += "您尚未选择预计交车时间<br>";
         }
-        if (this._valid.isNullOrEmpty(this.shareData.serviceproxy["repairlocationid"])) {
-            errMessage += "您尚未选择工位<br>";
-        }
+        //if (this._valid.isNullOrEmpty(this.shareData.serviceproxy["repairlocationid"])) {
+        //    errMessage += "您尚未选择工位<br>";
+        //}
         if (errMessage !== "") {
 
             this._page.presentToastError(errMessage);

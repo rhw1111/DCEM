@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DCEM.UserCenterService.Main.Application.App;
 using DCEM.UserCenterService.Main.Application.App.Contrac;
 using DCEM.UserCenterService.Main.Factory;
+using DCEM.UserCenterService.Main.ViewModel.Request;
 using DCEM.UserCenterService.Main.ViewModel.Response;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -14,29 +15,29 @@ using Microsoft.AspNetCore.Mvc;
 namespace DCEM.HT.Controllers
 {
     /// <summary>
-    /// 用于落地页读取html模板动态生成html
+    /// 用于内容管理根据富文本内容生成html
     /// </summary>
     [EnableCors("any")]
-    [Route("api/Page")]
+    [Route("api/ContentManagement")]
     [ApiController]
-    public class PageController : ApiController
+    public class ContentManagementController : ApiController
     {
-        private IAppAMPage _appAMPage;
-        public PageController()
+        private IAppContentManagement _appContentManagement;
+        public ContentManagementController()
         {
-            _appAMPage = new AMPageFactory().Create().Result;
+            _appContentManagement = new ContentManagementFactory().Create().Result;
         }
 
         /// <summary>
-        /// 落地页生成
+        /// 内容html生成
         /// </summary>
-        /// <param name="pageId"></param>
+        /// <param name="contentPageRequest"></param>
         /// <returns></returns>
-        [HttpGet]
-        [Route("GenerateAMPage")]
-        public async Task<AMPageResponse> GenerateAMPage(Guid pageId)
+        [HttpPost]
+        [Route("GenerateContentPage")]
+        public async Task<ContentPageResponse> GenerateContentPage(ContentPageRequest contentPageRequest)
         {
-            return await _appAMPage.GenerateAMPage(pageId);
+            return await _appContentManagement.GenerateContentPage(contentPageRequest);
         }
 
     }

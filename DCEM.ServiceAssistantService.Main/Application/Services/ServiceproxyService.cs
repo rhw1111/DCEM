@@ -248,6 +248,8 @@ namespace DCEM.ServiceAssistantService.Main.Application
                     serviceproxyEntity.Attributes.Add("mcs_testresult", request.serviceproxy.testresult);     //检查结果
                 if (request.serviceproxy.appointmentcode != null)
                     serviceproxyEntity.Attributes.Add("mcs_appointmentcode", new CrmEntityReference("mcs_appointmentinfo", Guid.Parse(request.serviceproxy.appointmentcode)));     //检查结果
+                if (request.serviceproxy.carmodel != null)
+                    serviceproxyEntity.Attributes.Add("mcs_carmodel", new CrmEntityReference("mcs_carmodel", Guid.Parse(request.serviceproxy.carmodel)));     //车型
 
                 serviceproxyEntity.Attributes.Add("mcs_currenttype", request.serviceproxy.currenttype);  //单据类型 10问诊单 20服务委托书
                 serviceproxyEntity.Attributes.Add("mcs_ifchange", false);
