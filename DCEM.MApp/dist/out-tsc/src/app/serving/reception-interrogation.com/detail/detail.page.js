@@ -77,7 +77,7 @@ let DetailPage = class DetailPage {
                     var obj = {};
                     obj["checkreultid"] = res.ServiceordercheckresultList[key]["Attributes"]["mcs_name"];
                     obj["name"] = res.ServiceordercheckresultList[key]["Attributes"]["mcs_name"];
-                    obj["checkreult"] = res.ServiceordercheckresultList[key]["Attributes"]["a_x002e_mcs_checkreult"];
+                    obj["checkreult"] = res.ServiceordercheckresultList[key]["Attributes"]["a.mcs_checkreult"];
                     this.mod.data.vehcheckresultMap[groupKey].data.push(obj);
                 }
             }

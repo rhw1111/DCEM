@@ -31,6 +31,7 @@ let ListPage = class ListPage {
             pageindex: 1,
             search: ""
         };
+        this._page.loadingShow();
         this.listOnBind();
     }
     //下拉刷新
@@ -44,6 +45,7 @@ let ListPage = class ListPage {
         this.mod.searchData.pageindex = 1;
         this.ionInfiniteScroll.disabled = false;
         this.ionContent.scrollToTop(200);
+        this._page.loadingShow();
         this.listOnBind();
     }
     searchOnKeyup(event) {
@@ -57,8 +59,6 @@ let ListPage = class ListPage {
         }
     }
     listOnBind() {
-        if (this.mod.searchData.pageindex == 1)
-            this._page.loadingShow();
         this._http.get(this.mod.apiUrl, {
             params: {
                 type: this.mod.searchData.type,
@@ -71,12 +71,12 @@ let ListPage = class ListPage {
                     console.log(res.Results[key]);
                     var obj = {};
                     obj["Id"] = res.Results[key]["Id"];
-                    obj["fullname"] = res.Results[key]["Attributes"]["a_x002e_mcs_fullname"];
-                    obj["genderformat"] = res.Results[key]["Attributes"]["a_x002e_mcs_gender@OData.Community.Display.V1.FormattedValue"];
-                    obj["gender"] = res.Results[key]["Attributes"]["a_x002e_mcs_gender"];
-                    obj["mobilephone"] = res.Results[key]["Attributes"]["a_x002e_mcs_mobilephone"];
-                    obj["vehplate"] = res.Results[key]["Attributes"]["a_x002e_mcs_vehplate"];
-                    obj["vehtype"] = res.Results[key]["Attributes"]["a_x002e_mcs_vehtype@OData.Community.Display.V1.FormattedValue"];
+                    obj["fullname"] = res.Results[key]["Attributes"]["a.mcs_fullname"];
+                    obj["genderformat"] = res.Results[key]["Attributes"]["a.mcs_gender@OData.Community.Display.V1.FormattedValue"];
+                    obj["gender"] = res.Results[key]["Attributes"]["a.mcs_gender"];
+                    obj["mobilephone"] = res.Results[key]["Attributes"]["a.mcs_mobilephone"];
+                    obj["vehplate"] = res.Results[key]["Attributes"]["a.mcs_vehplate"];
+                    obj["vehtype"] = res.Results[key]["Attributes"]["a.mcs_vehtype@OData.Community.Display.V1.FormattedValue"];
                     obj["gendercolor"] = "medium";
                     if (obj["gender"] === 1) {
                         obj["gendercolor"] = "primary";
@@ -96,14 +96,14 @@ let ListPage = class ListPage {
             else {
                 this.ionInfiniteScroll.disabled = true;
             }
-            if (this.mod.searchData.pageindex == 1)
-                this._page.loadingHide();
+            //if (this.mod.searchData.pageindex == 1)
+            this._page.loadingHide();
             this.ionInfiniteScroll.complete();
         }, (err) => {
-            this._page.alert("消息提示", "数据加载异常");
-            if (this.mod.searchData.pageindex == 1)
-                this._page.loadingHide();
+            //if (this.mod.searchData.pageindex == 1)
+            this._page.loadingHide();
             this.ionInfiniteScroll.complete();
+            this._page.alert("消息提示", "数据加载异常");
         });
     }
 };

@@ -118,6 +118,20 @@ const routes = [
                 children: [
                     { path: 'calendar', loadChildren: './serving/maintenance/calendar/calendar.module#CalendarPageModule' }
                 ]
+            },
+            {
+                path: 'surveyorder',
+                children: [
+                    { path: 'list', loadChildren: './serving/mcs_surveyorder/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './serving/mcs_surveyorder/detail/detail.module#DetailPageModule' }
+                ]
+            },
+            {
+                path: 'installationorder',
+                children: [
+                    { path: 'list', loadChildren: './serving/mcs_installationorder/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './serving/mcs_installationorder/detail/detail.module#DetailPageModule' }
+                ]
             }
         ],
     },
@@ -218,20 +232,6 @@ const routes = [
                 ]
             },
             {
-                path: 'surveyorder',
-                children: [
-                    { path: 'list', loadChildren: './saleing/mcs_surveyorder/list/list.module#ListPageModule' },
-                    { path: 'detail', loadChildren: './saleing/mcs_surveyorder/detail/detail.module#DetailPageModule' }
-                ]
-            },
-            {
-                path: 'installationorder',
-                children: [
-                    { path: 'list', loadChildren: './saleing/mcs_installationorder/list/list.module#ListPageModule' },
-                    { path: 'detail', loadChildren: './saleing/mcs_installationorder/detail/detail.module#DetailPageModule' }
-                ]
-            },
-            {
                 path: 'driverecord',
                 children: [
                     { path: 'list', loadChildren: './saleing/mcs_driverecord.com/list/list.module#ListPageModule' },
@@ -252,8 +252,6 @@ const routes = [
     },
     { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' },
     { path: 'fileupload', loadChildren: './serving/serving.ser/components/fileupload/fileupload.module#FileuploadPageModule' },
-    { path: 'list', loadChildren: './saleing/mcs_installationorder/list/list.module#ListPageModule' },
-    { path: 'detail', loadChildren: './saleing/mcs_installationorder/detail/detail.module#DetailPageModule' },
     { path: 'success', loadChildren: './saleing/mcs-contactrecord/success/success.module#SuccessPageModule' },
 ];
 let AppRoutingModule = class AppRoutingModule {
