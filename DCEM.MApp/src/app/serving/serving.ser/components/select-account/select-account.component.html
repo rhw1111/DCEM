@@ -1,0 +1,28 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>选择销售机会</ion-title>
+    <ion-buttons slot="end">
+      <ion-button expand="block" (click)="dismissModal()">关闭</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar [(ngModel)]="model.params.SearchKey" placeholder="支持编码\姓名\手机号查找" (keyup)="searchOnKeyup($event)" ></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+  <ion-list>
+      <ion-item-sliding *ngFor="let item of model.data;let key=index">
+          <ion-item (click)="itemClick(item)">
+              <ion-label>
+                  <p>{{item.carplate}}</p>
+                  <p>{{item.customername}}</p>
+                  <p>{{item.createdon}}</p>
+              </ion-label>
+              <ion-note slot="end">
+                  {{item.name}}
+              </ion-note>
+          </ion-item>
+      </ion-item-sliding>
+  </ion-list>
+  
+</ion-content>
