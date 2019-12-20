@@ -53,6 +53,13 @@ export class Edit2Page implements OnInit {
     ionViewWillEnter() {
         if (this._shareData.has(this.mod.shareDataKey)) {
             this.shareData = this._shareData.get(this.mod.shareDataKey);
+
+            console.log(this.shareData);
+
+            //默认车型
+            this.mod.searchData["carmodel"] = {};
+            this.mod.searchData["carmodel"]["name"] = this.shareData.serviceproxy["carmodel_formatted"];
+            this.mod.searchData["carmodel"]["id"] = this.shareData.serviceproxy["carmodel"];
         }
     }
 
@@ -72,6 +79,10 @@ export class Edit2Page implements OnInit {
             this.mod.searchData["carmodel"] = {};
             this.mod.searchData["carmodel"]["name"] = data["carmodel"]["model"]["mcs_name"];
             this.mod.searchData["carmodel"]["id"] = data["carmodel"]["model"]["mcs_carmodelid"];
+
+            this.shareData.serviceproxy["carmodel"] = data["carmodel"]["model"]["mcs_carmodelid"];
+            this.shareData.serviceproxy["carmodel_formatted"] = data["carmodel"]["model"]["mcs_name"];
+
         }
     }
 
@@ -229,6 +240,7 @@ export class Edit2Page implements OnInit {
         this.mod.postData["serviceproxy"]["customercontent"] = this.shareData.serviceproxy["customercontent"];            //故障信息
         this.mod.postData["serviceproxy"]["testresult"] = this.shareData.serviceproxy["testresult"];            //检查结果
         this.mod.postData["serviceproxy"]["appointmentcode"] = this.shareData.serviceproxy["appointmentcode"];            //预约单编号
+        this.mod.postData["serviceproxy"]["carmodel"] = this.shareData.serviceproxy["carmodel"];            //车型
 
         //组装维修项目
         this.mod.postData["serviceorderrepairitemArray"] = [];
