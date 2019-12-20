@@ -127,6 +127,19 @@ export class EditPage implements OnInit {
         if (this._valid.isNullOrEmpty(this.shareData.vehowner["mcs_mobilephone"])) {
             errMessage += "您尚未输入手机<br>";
         }
+        else if (!this._valid.isPhone(this.shareData.vehowner["mcs_mobilephone"])) {
+            errMessage += "手机号码输入错误<br>";
+        }
+        if (this._valid.isNullOrEmpty(this.shareData.vehowner["mcs_shuttlename"])) {
+            errMessage += "您尚未输入送修人<br>";
+        }
+        if (this._valid.isNullOrEmpty(this.shareData.vehowner["mcs_shuttlephone"])) {
+            errMessage += "您尚未输入送修人手机<br>";
+        }
+        else if (!this._valid.isPhone(this.shareData.vehowner["mcs_shuttlephone"])) {
+            errMessage += "送修人手机号码输入错误<br>";
+        }
+
         if (errMessage !== "") {
             this._page.presentToastError(errMessage);
             return;

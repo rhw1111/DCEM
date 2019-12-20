@@ -51,7 +51,7 @@ export class LoginPage implements OnInit {
         this.mod.password = '@Msc.com@';
 
         this.mod.apiurl = '/api/User/GetAuthToken';
-        this.mod.domainType = 'CRM9.0';
+        this.mod.domainType = 'localhost';
         //var welcomeisloading= this._window.storageGet("welcomeisloading");
         //if(welcomeisloading==null || welcomeisloading==""){
         //    this._window.storageSet("welcomeisloading","true");

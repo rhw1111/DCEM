@@ -79,6 +79,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository
 
         public async Task<XDocument> GetNewsListFetchXml(ContentListRequest contentListRequest)
         {
+            //加入新条件，仅显示已上架的新闻
             return await Task<XDocument>.Run(() =>
             {
                 var fetchXml = $@"<fetch version='1.0' count='{contentListRequest.PageSize}' page='{contentListRequest.PageIndex}' output-format='xml-platform' mapping='logical' distinct='false'>
@@ -89,6 +90,10 @@ namespace DCEM.UserCenterService.Main.Application.Repository
                     <attribute name='mcs_description' />
                     <attribute name='mcs_contentstatus' />
                     <order attribute='mcs_name' descending='false' />
+                    <filter type='and'>
+                         <condition attribute='statecode' operator='eq' value='0' />
+                         <condition attribute='mcs_contentstatus' operator='eq'     value='1' />
+                    </filter>
                   </entity>
                 </fetch>";
                 return XDocument.Parse(fetchXml);

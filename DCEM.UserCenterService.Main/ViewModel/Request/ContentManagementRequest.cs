@@ -24,6 +24,15 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
     {
         public ContentType Type { get; set; }
         public Guid? Id { get; set; }
+        /// <summary>
+        /// 用于前端内容的唯一码
+        /// </summary>
         public string DefCode { get; set; }
+    }
+
+    public class ContentPageRequest
+    {
+        public ContentType Type { get; set; }
+        public Guid? Id { get; set; }
     }
 }
