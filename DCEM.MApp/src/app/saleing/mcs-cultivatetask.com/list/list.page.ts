@@ -36,6 +36,11 @@ export class ListPage implements OnInit {
   ) { }
 
   ngOnInit() {
+   
+  }
+
+  ionViewWillEnter() {
+    // debugger;
     this.model.page = 1;
     this.model.systemUserId = this._logininfo.GetSystemUserId(); 
     this._page.loadingShow();
@@ -114,10 +119,10 @@ export class ListPage implements OnInit {
             this.model.datalist.push(obj);
 
           });
-          //设置数据存储到本地
-          if (this.model.page == 1) {
-            this.httpService.SetDataCache(this.model.name, JSON.stringify(this.model.datalist).toString());
-          }
+          // //设置数据存储到本地
+          // if (this.model.page == 1) {
+          //   this.httpService.SetDataCache(this.model.name, JSON.stringify(this.model.datalist).toString());
+          // }
           event ? event.target.complete() : '';
           //判断是否有新数据
           this.model.searchnodata = res.Results.length==0;

@@ -84,7 +84,7 @@
                             <ion-label position="stacked">试驾车辆 <ion-text color="danger">*</ion-text></ion-label>
                             <ion-select [(ngModel)]="model.driveRecord['mcs_drivecar']" placeholder="请选择试驾车辆" okText="确认" cancelText="取消" required>
                                 <ion-select-option *ngFor="let item of model.driveCarOption" value="{{item.value}}">
-                                    {{item.name}}
+                                    {{item.vehplate}}
                                 </ion-select-option>
                             </ion-select>
                         </ion-item>

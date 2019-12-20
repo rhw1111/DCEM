@@ -144,21 +144,21 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 entity.Attributes.Add("mcs_appointedrouteid", appointedRouteEntityEF);
             }
             //取消原因
-            if (string.IsNullOrWhiteSpace(request.driveRecord.mcs_cancelreason))
+            if (!string.IsNullOrWhiteSpace(request.driveRecord.mcs_cancelreason))
             {
                 entity.Attributes.Add("mcs_cancelreason", request.driveRecord.mcs_cancelreason);
             }
             //试驾开始时间
-            if (request.driveRecord.mcs_starton!=null)
+            if (request.driveRecord.mcs_starton != null)
             {
-                var starton = request.driveRecord.mcs_starton.Value.ToUniversalTime();
+                var starton = request.driveRecord.mcs_starton.Value.ToUniversalTime(); ;
                 entity.Attributes.Add("mcs_starton", starton);
             }
             //试驾结束时间
             if (request.driveRecord.mcs_endon != null)
             {
-                var endon = request.driveRecord.mcs_endon.Value.ToUniversalTime();
-                entity.Attributes.Add("mcs_starton", endon);
+                var endon = request.driveRecord.mcs_endon;
+                entity.Attributes.Add("mcs_endon", endon);
             }
 
             return entity;
@@ -457,6 +457,37 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             var queryResult = new QueryResult<CrmEntity>();
             queryResult.Results = fetchResponseResult.Value.Results;
             queryResult.CurrentPage = request.PageIndex;
+            queryResult.TotalCount = 0;
+            return queryResult;
+            #endregion
+        }
+
+
+        /// <summary>
+        /// 查询试乘试驾附件
+        /// </summary>
+        /// <param name="driverecordid"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> QueryAttachment(string driverecordid)
+        {
+            var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+            #region 查询结果集
+            var fetchString = _driveRecordRepository.QueryAttachment(driverecordid);
+
+            var fetchXdoc = XDocument.Parse(fetchString);
+            var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_attachment",
+                FetchXml = fetchXdoc,
+                ProxyUserId = userInfo?.systemuserid
+            };
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+            var fetchResponse = await _crmService.Execute(fetchRequest);
+            var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+
+            var queryResult = new QueryResult<CrmEntity>();
+            queryResult.Results = fetchResponseResult.Value.Results;
+            queryResult.CurrentPage = 1;
             queryResult.TotalCount = 0;
             return queryResult;
             #endregion

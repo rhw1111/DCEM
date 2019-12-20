@@ -120,5 +120,19 @@ namespace DCEM.Web.Controllers
             var list = await app.QueryDriveRouteList(request);
             return list;
         }
+
+        /// <summary>
+        /// 查询试乘试驾附件
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("QueryAttachment")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> QueryAttachment(string driverecordid)
+        {
+            var list = await app.QueryAttachment(driverecordid);
+            return list;
+        }
+
     }
 }
