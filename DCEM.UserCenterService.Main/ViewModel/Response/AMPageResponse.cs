@@ -6,10 +6,8 @@ namespace DCEM.UserCenterService.Main.ViewModel.Response
     
     public class AMPageResponse
     {
-        //缩略图的前置绝对路径
         public bool IsSuccess { get; set; } = true;
 
         public string Url { get; set; }
     }
-
 }
