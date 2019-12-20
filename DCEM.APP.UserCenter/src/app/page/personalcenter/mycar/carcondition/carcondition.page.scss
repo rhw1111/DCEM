@@ -1,1 +1,124 @@
-﻿
+﻿@import "../component/scss/main";
+
+.dm-car-plane {
+    padding: 20px 20px;
+
+    .dm-car-plane-content {
+        padding: 20px 20px;
+        background-color: rgb(72,71,69);
+        border-radius: 10px;
+        box-shadow: 0 3px 5px 1px #999;
+
+        .dm-car-plane-content-info1 {
+            height: 150px;
+
+            .dm-car-plane-content-info1-content {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+
+                label {
+                    display: block;
+                    color: #fff;
+                    font-size: 30px;
+                }
+
+                span {
+                    display: block;
+                    color: #eeeeee;
+                    font-size: 16px;
+                }
+            }
+        }
+
+        .dm-car-plane-content-info2 {
+            .dm-car-plane-content-info2-content {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                padding-left: 10px;
+                padding-right: 10px;
+                width: 100%;
+
+                label {
+                    color: #fff;
+                    font-size: 14px;
+                    margin-bottom: 10px;
+                    display: block;
+                }
+                /*span {
+                    color: #fff;
+                    font-size: 14px;
+                    padding-bottom: 5px;
+                    display: block;
+                }*/
+            }
+        }
+
+        .dm-car-plane-content-info3 {
+            ion-col {
+                padding-top: 20px;
+                padding-bottom: 20px;
+                text-align: center;
+
+                label {
+                    display: block;
+                    color: #fff;
+                }
+
+                span {
+                    display: block;
+                    color: #fff;
+                }
+            }
+        }
+
+        .dm-car-plane-info4 {
+            height: 300px;
+            position: relative;
+            width: 100%;
+
+            .dm-car-plane-tyimg {
+                width: 100%;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translateX(-50%) translateY(-50%);
+            }
+
+            label {
+                color: #fff;
+                position: absolute;
+                font-size: 18px;
+            }
+
+            .label_1 {
+                top: 50px;
+                left: 50px;
+            }
+
+            .label_2 {
+                top: 50px;
+                right: 50px;
+            }
+
+            .label_3 {
+                bottom: 50px;
+                left: 50px;
+            }
+
+            .label_4 {
+                bottom: 50px;
+                right: 50px;
+            }
+        }
+    }
+
+    .dm-car-plane-progress {
+        div {
+            border-radius: 5px;
+            height: 5px;
+            background-color: rgb(212,233,175);
+        }
+    }
+}

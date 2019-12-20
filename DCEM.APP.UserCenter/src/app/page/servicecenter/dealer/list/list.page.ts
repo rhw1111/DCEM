@@ -210,7 +210,8 @@ export class ListPage implements OnInit {
       }
     });
   }
-  saveOnClick(item) {
-    this._page.goto("/testdrive/edit?dealerid="+item["id"]+"&dealername="+item["mcs_name"]);
+  saveOnClick() {
+    debugger;
+    // this._page.goto("/testdrive/edit?dealerid="+item["id"]+"&dealername="+item["mcs_name"]);
   }
 }

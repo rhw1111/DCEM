@@ -47,8 +47,8 @@
     <Folder Include="src\app\component\module\" />
     <Folder Include="src\app\component\typescript\" />
     <Folder Include="src\app\page\carcenter\carstore\component\" />
-    <Folder Include="src\app\page\carcenter\carstore\component\assembly\" />
-    <Folder Include="src\app\page\carcenter\carstore\component\assembly\tophead\" />
+    <Folder Include="src\app\component\assembly\" />
+    <Folder Include="src\app\component\assembly\tophead\" />
     <Folder Include="src\app\page\carcenter\carstore\component\model\" />
     <Folder Include="src\app\page\carcenter\carstore\component\scss\" />
     <Folder Include="src\app\page\carcenter\carstore\check\" />
@@ -82,7 +82,11 @@
     <Folder Include="src\app\page\personalcenter\config\" />
     <Folder Include="src\app\page\personalcenter\config\about\" />
     <Folder Include="src\app\page\personalcenter\config\privacypolicy\" />
+    <Folder Include="src\app\page\personalcenter\mycar\component\" />
+    <Folder Include="src\app\page\personalcenter\mycar\component\scss\" />
     <Folder Include="src\app\page\personalcenter\mycar\index\" />
+    <Folder Include="src\app\page\personalcenter\mycar\carcontrol\" />
+    <Folder Include="src\app\page\personalcenter\mycar\carcondition\" />
     <Folder Include="src\app\page\personalcenter\myorder\" />
     <Folder Include="src\app\page\personalcenter\myorder\carorder\" />
     <Folder Include="src\app\page\personalcenter\myorder\carorder\list\" />
@@ -140,6 +144,9 @@
     <Folder Include="src\assets\img\community\" />
     <Folder Include="src\assets\img\community\index\" />
     <Folder Include="src\assets\img\carstore\" />
+    <Folder Include="src\assets\img\personalcenter\" />
+    <Folder Include="src\assets\img\personalcenter\mycar\" />
+    <Folder Include="src\assets\img\personalcenter\mycar\index\" />
     <Folder Include="src\assets\svg\" />
     <Folder Include="src\assets\svg\carcenter\" />
     <Folder Include="src\assets\svg\carcenter\index\" />
@@ -178,9 +185,9 @@
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\check\check.module.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\check\check.page.spec.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\check\check.page.ts" />
-    <TypeScriptCompile Include="src\app\page\carcenter\carstore\component\assembly\tophead\tophead.component.spec.ts" />
-    <TypeScriptCompile Include="src\app\page\carcenter\carstore\component\assembly\tophead\tophead.component.ts" />
-    <TypeScriptCompile Include="src\app\page\carcenter\carstore\component\assembly\tophead\tophead.module.ts" />
+    <TypeScriptCompile Include="src\app\component\assembly\tophead\tophead.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\component\assembly\tophead\tophead.component.ts" />
+    <TypeScriptCompile Include="src\app\component\assembly\tophead\tophead.module.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\component\model\speclist\speclist.component.spec.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\component\model\speclist\speclist.component.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\carstore\component\model\speclist\speclist.module.ts" />
@@ -266,6 +273,14 @@
     <TypeScriptCompile Include="src\app\page\personalcenter\index\index.module.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\index\index.page.spec.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\index\index.page.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\mycar\carcondition\carcondition-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\mycar\carcondition\carcondition.module.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\mycar\carcondition\carcondition.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\mycar\carcondition\carcondition.page.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\mycar\carcontrol\carcontrol-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\mycar\carcontrol\carcontrol.module.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\mycar\carcontrol\carcontrol.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\mycar\carcontrol\carcontrol.page.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\mycar\index\index-routing.module.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\mycar\index\index.module.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\mycar\index\index.page.spec.ts" />
@@ -422,8 +437,8 @@
     <Content Include="src\app\component\modal\userinfo\userinfo.component.scss" />
     <Content Include="src\app\page\carcenter\carstore\check\check.page.html" />
     <Content Include="src\app\page\carcenter\carstore\check\check.page.scss" />
-    <Content Include="src\app\page\carcenter\carstore\component\assembly\tophead\tophead.component.html" />
-    <Content Include="src\app\page\carcenter\carstore\component\assembly\tophead\tophead.component.scss" />
+    <Content Include="src\app\component\assembly\tophead\tophead.component.html" />
+    <Content Include="src\app\component\assembly\tophead\tophead.component.scss" />
     <Content Include="src\app\page\carcenter\carstore\component\scss\main.scss">
       <SubType>Code</SubType>
     </Content>
@@ -473,6 +488,11 @@
     <Content Include="src\app\page\personalcenter\config\privacypolicy\privacypolicy.page.scss" />
     <Content Include="src\app\page\personalcenter\index\index.page.html" />
     <Content Include="src\app\page\personalcenter\index\index.page.scss" />
+    <Content Include="src\app\page\personalcenter\mycar\carcondition\carcondition.page.html" />
+    <Content Include="src\app\page\personalcenter\mycar\carcondition\carcondition.page.scss" />
+    <Content Include="src\app\page\personalcenter\mycar\carcontrol\carcontrol.page.html" />
+    <Content Include="src\app\page\personalcenter\mycar\carcontrol\carcontrol.page.scss" />
+    <Content Include="src\app\page\personalcenter\mycar\component\scss\main.scss" />
     <Content Include="src\app\page\personalcenter\mycar\index\index.page.html" />
     <Content Include="src\app\page\personalcenter\mycar\index\index.page.scss" />
     <Content Include="src\app\page\personalcenter\myorder\carorder\list\list.page.html" />
@@ -542,6 +562,18 @@
     <Content Include="src\assets\img\2.jpg" />
     <Content Include="src\assets\img\carstore\logo.png" />
     <Content Include="src\assets\img\carstore\back.jpg" />
+    <Content Include="src\assets\img\personalcenter\mycar\index\car.png" />
+    <Content Include="src\assets\img\personalcenter\mycar\index\cdz.png" />
+    <Content Include="src\assets\img\personalcenter\mycar\index\ck1.png" />
+    <Content Include="src\assets\img\personalcenter\mycar\index\ck2.png" />
+    <Content Include="src\assets\img\personalcenter\mycar\index\cq.png" />
+    <Content Include="src\assets\img\personalcenter\mycar\index\jd.png" />
+    <Content Include="src\assets\img\personalcenter\mycar\index\jyz.png" />
+    <Content Include="src\assets\img\personalcenter\mycar\index\ly.png" />
+    <Content Include="src\assets\img\personalcenter\mycar\index\rc.png" />
+    <Content Include="src\assets\img\personalcenter\mycar\index\start.png" />
+    <Content Include="src\assets\img\personalcenter\mycar\index\tcc.png" />
+    <Content Include="src\assets\img\personalcenter\mycar\index\xc.png" />
     <Content Include="src\assets\img\wechatpay.png" />
     <Content Include="src\assets\shapes.svg" />
     <Content Include="src\assets\svg\carcenter\index\jycdz.svg" />

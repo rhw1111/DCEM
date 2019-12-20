@@ -94,12 +94,12 @@ export class ListPage implements OnInit {
                         console.log(res.Results[key]);
                         var obj = {};
                         obj["Id"] = res.Results[key]["Id"];
-                        obj["fullname"] = res.Results[key]["Attributes"]["a_x002e_mcs_fullname"];
-                        obj["genderformat"] = res.Results[key]["Attributes"]["a_x002e_mcs_gender@OData.Community.Display.V1.FormattedValue"];
-                        obj["gender"] = res.Results[key]["Attributes"]["a_x002e_mcs_gender"];
-                        obj["mobilephone"] = res.Results[key]["Attributes"]["a_x002e_mcs_mobilephone"];
-                        obj["vehplate"] = res.Results[key]["Attributes"]["a_x002e_mcs_vehplate"];
-                        obj["vehtype"] = res.Results[key]["Attributes"]["a_x002e_mcs_vehtype@OData.Community.Display.V1.FormattedValue"];
+                        obj["fullname"] = res.Results[key]["Attributes"]["a.mcs_fullname"];
+                        obj["genderformat"] = res.Results[key]["Attributes"]["a.mcs_gender@OData.Community.Display.V1.FormattedValue"];
+                        obj["gender"] = res.Results[key]["Attributes"]["a.mcs_gender"];
+                        obj["mobilephone"] = res.Results[key]["Attributes"]["a.mcs_mobilephone"];
+                        obj["vehplate"] = res.Results[key]["Attributes"]["a.mcs_vehplate"];
+                        obj["vehtype"] = res.Results[key]["Attributes"]["a.mcs_vehtype@OData.Community.Display.V1.FormattedValue"];
 
                         obj["gendercolor"] = "medium";
                         if (obj["gender"] === 1) {

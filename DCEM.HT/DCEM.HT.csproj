@@ -6,9 +6,17 @@
 
   <ItemGroup>
     <Compile Remove="HtmlResources\Activities\39d33d40-2b0c-ea11-b393-80a27b3ee2ee\**" />
+    <Compile Remove="wwwroot\HtmlResources\Activities\39d33d40-2b0c-ea11-b393-80a27b3ee2ee\**" />
+    <Compile Remove="wwwroot\HtmlResources\Activities\bd2d7971-2522-ea11-b397-9333f12e9ac3\**" />
     <Content Remove="HtmlResources\Activities\39d33d40-2b0c-ea11-b393-80a27b3ee2ee\**" />
+    <Content Remove="wwwroot\HtmlResources\Activities\39d33d40-2b0c-ea11-b393-80a27b3ee2ee\**" />
+    <Content Remove="wwwroot\HtmlResources\Activities\bd2d7971-2522-ea11-b397-9333f12e9ac3\**" />
     <EmbeddedResource Remove="HtmlResources\Activities\39d33d40-2b0c-ea11-b393-80a27b3ee2ee\**" />
+    <EmbeddedResource Remove="wwwroot\HtmlResources\Activities\39d33d40-2b0c-ea11-b393-80a27b3ee2ee\**" />
+    <EmbeddedResource Remove="wwwroot\HtmlResources\Activities\bd2d7971-2522-ea11-b397-9333f12e9ac3\**" />
     <None Remove="HtmlResources\Activities\39d33d40-2b0c-ea11-b393-80a27b3ee2ee\**" />
+    <None Remove="wwwroot\HtmlResources\Activities\39d33d40-2b0c-ea11-b393-80a27b3ee2ee\**" />
+    <None Remove="wwwroot\HtmlResources\Activities\bd2d7971-2522-ea11-b397-9333f12e9ac3\**" />
   </ItemGroup>
 
   <ItemGroup>

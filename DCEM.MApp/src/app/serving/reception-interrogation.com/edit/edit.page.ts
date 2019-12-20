@@ -176,7 +176,7 @@ export class EditPage implements OnInit {
             },
             (res: any) => {
                 if (!this._valid.isNull(res.Serviceproxy)) {
-                    console.log(res.Serviceproxy);
+
                     this.shareData.serviceproxy["serviceproxyid"] = id;
                     this.shareData.serviceproxy["customerid"] = res["Serviceproxy"]["Attributes"]["_mcs_customerid_value"];
                     this.shareData.serviceproxy["customername"] = res["Serviceproxy"]["Attributes"]["mcs_customername"];
@@ -204,11 +204,11 @@ export class EditPage implements OnInit {
                             this.shareData.vehcheckresultMap[groupKey]["text"] = res.ServiceordercheckresultList[key]["Attributes"]["mcs_checktype@OData.Community.Display.V1.FormattedValue"];
                             this.shareData.vehcheckresultMap[groupKey].data = [];
                         }
-
+      
                         var obj = {};
                         obj["Id"] = res.ServiceordercheckresultList[key]["Id"];
                         obj["name"] = res.ServiceordercheckresultList[key]["Attributes"]["mcs_name"];
-                        obj["checkreult"] = res.ServiceordercheckresultList[key]["Attributes"]["a_x002e_mcs_checkreult"];
+                        obj["checkreult"] = res.ServiceordercheckresultList[key]["Attributes"]["a.mcs_checkreult"];
                         obj["checked"] = true;
                         if (obj["checkreult"] === "异常")
                             obj["checked"] = false;

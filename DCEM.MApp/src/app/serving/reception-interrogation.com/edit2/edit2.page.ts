@@ -100,7 +100,6 @@ export class Edit2Page implements OnInit {
     public saveOnClick() {
 
         this.mod.postData["actioncode"] = this.shareData["actioncode"];            //操作编码
-        debugger;
         //组装服务委托书
         this.mod.postData["serviceproxy"] = {};
         if (this.shareData["actioncode"] === 2)

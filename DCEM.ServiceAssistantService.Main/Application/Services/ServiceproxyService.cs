@@ -264,6 +264,11 @@ namespace DCEM.ServiceAssistantService.Main.Application
             var reusetCrmEntity = new CrmEntity("mcs_serviceproxy", new Guid());
             var serviceproxyGuid = new Guid();
 
+            decimal hoursamount = 0; //维修总金额
+            decimal partsamount = 0; //零件总金额
+            decimal discountamount = 0;//优惠总金额
+            decimal amounttotal = 0;//费用合计
+
             if (request.actioncode == 1 || request.actioncode == 3)
             {
                 #region 加入服务委托书
@@ -311,7 +316,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 var checkGuid = Guid.Parse(serviceordercheckresult.checkreultid);
                 if (vehcheckMap.ContainsKey(checkGuid))
                 {
-                    var crmExecuteEntity = new CrmExecuteEntity("mcs_serviceordercheckresult", Guid.Parse(vehcheckMap[checkGuid].Attributes.Value<string>("a_x002e_mcs_serviceordercheckresultid")));
+                    var crmExecuteEntity = new CrmExecuteEntity("mcs_serviceordercheckresult", Guid.Parse(vehcheckMap[checkGuid].Attributes.Value<string>("a.mcs_serviceordercheckresultid")));
                     crmExecuteEntity.Attributes.Add("mcs_checkreult", serviceordercheckresult.checkreult);
                     await _crmService.Update(crmExecuteEntity);
                 }
@@ -340,6 +345,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
             #endregion
 
             #region 更新维修项目
+
             foreach (var serviceorderrepairitem in request.serviceorderrepairitemArray)
             {
                 var serviceorderrepairitemGuid = Guid.NewGuid();
@@ -356,6 +362,12 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 //总价
                 serviceorderrepairitemEntity.Attributes.Add("mcs_repairamount", serviceorderrepairitem.price * serviceorderrepairitem.discount * serviceorderrepairitem.workinghour);
                 serviceorderrepairitemEntity.Attributes.Add("mcs_serviceorderid", new CrmEntityReference("mcs_serviceproxy", serviceproxyGuid));
+
+                //计算工时总额
+                hoursamount += serviceorderrepairitem.price * serviceorderrepairitem.discount * serviceorderrepairitem.workinghour;
+                //计算折扣
+                discountamount += serviceorderrepairitem.price * serviceorderrepairitem.workinghour - serviceorderrepairitem.price * serviceorderrepairitem.discount * serviceorderrepairitem.workinghour;
+
                 await _crmService.Create(serviceorderrepairitemEntity);
             }
             #endregion
@@ -382,8 +394,25 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 serviceorderpartEntity.Attributes.Add("mcs_repairitemtypedetailid", new CrmEntityReference("mcs_repairitemtypedetail", Guid.Parse(serviceorderpart.repairitemtypedetailid)));
                 serviceorderpartEntity.Attributes.Add("mcs_amount", serviceorderpart.price * serviceorderpart.discount * serviceorderpart.quantity);        //总价
                 serviceorderpartEntity.Attributes.Add("mcs_serviceorderid", new CrmEntityReference("mcs_serviceproxy", serviceproxyGuid));
+
+                //计算零件总额
+                partsamount += serviceorderpart.price * serviceorderpart.discount * serviceorderpart.quantity;
+                //计算折扣
+                discountamount += serviceorderpart.price * serviceorderpart.quantity - serviceorderpart.price * serviceorderpart.discount * serviceorderpart.quantity;
                 await _crmService.Create(serviceorderpartEntity);
             }
+            #endregion
+
+
+            #region 计算总金额(更新表)
+            amounttotal = hoursamount + partsamount;
+
+            var serviceproxyUpdateEntity = new CrmExecuteEntity("mcs_serviceproxy", serviceproxyGuid);
+            serviceproxyUpdateEntity.Attributes.Add("mcs_hoursamount", hoursamount);           
+            serviceproxyUpdateEntity.Attributes.Add("mcs_partsamount", partsamount);         
+            serviceproxyUpdateEntity.Attributes.Add("mcs_discountamount", discountamount);         
+            serviceproxyUpdateEntity.Attributes.Add("mcs_amounttotal", amounttotal);          
+            await _crmService.Update(serviceproxyUpdateEntity);
             #endregion
 
             #region 组装数据返回
@@ -394,6 +423,8 @@ namespace DCEM.ServiceAssistantService.Main.Application
             validateResult.Result = true;
             validateResult.Description = "操作成功";
             #endregion
+
+      
 
             return validateResult;
         }
@@ -868,12 +899,12 @@ namespace DCEM.ServiceAssistantService.Main.Application
             return await Task<string>.Run(() =>
             {
                 var filter = string.Empty;
-                if (!string.IsNullOrWhiteSpace(phone)) 
+                if (!string.IsNullOrWhiteSpace(phone))
                 {
                     filter += @$"
                     <condition attribute='mcs_customerphone' operator='eq' value='{phone}' />";
                 }
-                if (status!=null)
+                if (status != null)
                 {
                     filter += @$"
                     <condition attribute='mcs_status' operator='eq' value='{status}' />";
