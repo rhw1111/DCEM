@@ -27,7 +27,7 @@ export class ListPage implements OnInit {
       pageindex: 1,
       pagesize: 10,
       searchkey: "",
-      deliverystatus: "-1",
+      deliverystatus: "2",
       userId: this._userinfo.GetSystemUserId(),
       dealerid: this._userinfo.GetDealerid()
     },
