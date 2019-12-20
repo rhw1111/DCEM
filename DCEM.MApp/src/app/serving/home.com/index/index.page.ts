@@ -10,15 +10,15 @@ import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 })
 export class IndexPage implements OnInit {
 
-    public IsSalingManager:any=false;
-    public IsSerlingManager:any=false;
+    public IsSalingManager:any=true;
+    public IsSerlingManager:any=true;
     constructor(private menuController: MenuController,private statusBar: StatusBar,private _loginInfo:Storage_LoginInfo) { }
 
     ngOnInit() {
          //是否重叠
          //this.statusBar.overlaysWebView(true);
-         this.IsSalingManager=this._loginInfo.IsSalingManager();
-         this.IsSerlingManager=this._loginInfo.IsServingManager();
+         //this.IsSalingManager=this._loginInfo.IsSalingManager();
+         //this.IsSerlingManager=this._loginInfo.IsServingManager();
     }
 
     
