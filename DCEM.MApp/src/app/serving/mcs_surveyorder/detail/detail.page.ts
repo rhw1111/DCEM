@@ -3,13 +3,14 @@ import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import dateformat from 'silly-datetime';
 import { OptionSetService } from '../../../base/base.ser/optionset.service';
+import { MenuController } from '@ionic/angular';
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.page.html',
   styleUrls: ['./detail.page.scss'],
 })
 export class DetailPage implements OnInit {
- public tab: any = "baseinfo";
+  public tab: any = "baseinfo";
   model = {
     apiUrlInfo: '/api/Installation/GetSurveyorderDetail',
     data: {},//数据集合
@@ -19,32 +20,37 @@ export class DetailPage implements OnInit {
     private _http: DCore_Http,
     private _page: DCore_Page,
     private activeRoute: ActivatedRoute,
-    private optionset:OptionSetService
+    private menuController: MenuController,
+    private optionset: OptionSetService
   ) { }
 
   ngOnInit() {
     this.activeRoute.queryParams.subscribe((params: Params) => {
       if (params['id'] != null && params['id'] != undefined) {
-          this.pageOnBind(params['id']);
+        this.pageOnBind(params['id']);
       }
-   });
+    });
   }
 
+  //每次页面加载
+  ionViewWillEnter() {
+    this.menuController.enable(true);
+  }
 
   //加载勘测单详情
-  pageOnBind(id:any) {
+  pageOnBind(id: any) {
     //debugger;
     this._page.loadingShow();
     this._http.postForToaken(
       this.model.apiUrlInfo,
       {
-        Guid:id
+        Guid: id
       },
       (res: any) => {
-          console.log("id:"+id);
-          console.log(res);
-          if(res!=null && res.Attributes!=null)
-            this.model.data=res.Attributes;
+        console.log("id:" + id);
+        console.log(res);
+        if (res != null && res.Attributes != null)
+          this.model.data = res.Attributes;
         this._page.loadingHide();
       },
       (err: any) => {
@@ -57,25 +63,25 @@ export class DetailPage implements OnInit {
 
   FormatToDateTime(date) {
     if (date != null && date != undefined) {
-        return dateformat.format(date, 'YYYY-MM-DD hh:mm:ss');
+      return dateformat.format(date, 'YYYY-MM-DD hh:mm:ss');
     }
     else {
-        return '';
-     }
+      return '';
+    }
   }
   FormatToDate(date) {
     if (date != null && date != undefined) {
-        return dateformat.format(date, 'YYYY-MM-DD');
+      return dateformat.format(date, 'YYYY-MM-DD');
     }
     else {
-        return '';
-     }
+      return '';
+    }
   }
-  getLookupName(name){
+  getLookupName(name) {
 
-    return "_"+name+"_value@OData.Community.Display.V1.FormattedValue";
+    return "_" + name + "_value@OData.Community.Display.V1.FormattedValue";
   }
-  getOptionName(name){
-    return name+"@OData.Community.Display.V1.FormattedValue";
+  getOptionName(name) {
+    return name + "@OData.Community.Display.V1.FormattedValue";
   }
 }

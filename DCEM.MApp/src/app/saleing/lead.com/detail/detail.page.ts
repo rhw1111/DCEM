@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DCore_Page, DCore_Http } from 'app/base/base.ser/Dcem.core';
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
+
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.page.html',
@@ -13,6 +15,7 @@ export class DetailPage implements OnInit {
     private _http: DCore_Http,
     private _page: DCore_Page,
     private activeRoute: ActivatedRoute,
+    private menuController:MenuController,
     private _userinfo:Storage_LoginInfo) { 
   }
   public model = { 
@@ -39,6 +42,13 @@ export class DetailPage implements OnInit {
       } 
   });
   }
+
+      //每次页面加载
+      ionViewWillEnter() {
+        this.menuController.enable(true);
+    }
+
+
   pageOnBind(id: any) { 
     this._page.loadingShow();
     this._http.postForToaken(
