@@ -16,5 +16,7 @@ namespace DCEM.Main.Services
 
         Task<Dictionary<string, AdfsEndpoint>> getData();
 
+        Task<string> GetUserRole(Guid systemuserid);
+
     }
 }
