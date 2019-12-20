@@ -573,6 +573,7 @@
     <Content Include="src\assets\img\personalcenter\mycar\index\rc.png" />
     <Content Include="src\assets\img\personalcenter\mycar\index\start.png" />
     <Content Include="src\assets\img\personalcenter\mycar\index\tcc.png" />
+    <Content Include="src\assets\img\personalcenter\mycar\index\ty.png" />
     <Content Include="src\assets\img\personalcenter\mycar\index\xc.png" />
     <Content Include="src\assets\img\wechatpay.png" />
     <Content Include="src\assets\shapes.svg" />
