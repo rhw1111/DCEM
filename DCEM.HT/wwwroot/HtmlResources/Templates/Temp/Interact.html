@@ -1,8 +1,8 @@
-
+﻿
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>活动线上报名</title>
+    <title>交互活动模板</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta name="keywords" />
@@ -25,7 +25,7 @@
             position: absolute;
         }
     </style>
-    <script src="../../Scripts/jquery-1.10.2.min.js"></script>
+    <script src="../Scripts/jquery-1.10.2.min.js"></script>
     <script type="text/javascript">
         var unSelected = "#999";
         var selected = "#333";
@@ -152,7 +152,7 @@
             <div class="ds2-main-wrapper ds2-page--row-expanded">
                 <div class="ds2-page--top-spacing">
                     <div class="tdaForm">
-                        <link rel="stylesheet" href="../../Content/clientlib.min.1532359576587.min.css" type="text/css">
+                        <link rel="stylesheet" href="../Content/clientlib.min.1532359576587.min.css" type="text/css">
                         <div id="ng-app" ng-app="app">
                             <div ng-controller="AppController">
                                 <div class="container-fluid" gcdm-app gcdm-api-key="3aa570a9-98ef-4cd5-9614-1f95a1062b89" gcdm-business-context="bmwdigital/CN-zh" gcdm-api-endpoint="https://customer.bmwgroup.cn/" gcdm-default-frame-endpoint="/formcomponents/apiFrames" gcdm-portal-frame-endpoint="/formcomponents/portalFrames" gcdm-api-secret="02dfbb00-e1df-4a3e-b8b5-081468e633c6">
@@ -163,14 +163,7 @@
                                               {&#34;value&#34;:&#34;2&#34;,&#34;text&#34;:&#34;S02&#34;},
                                               {&#34;value&#34;:&#34;3&#34;,&#34;text&#34;:&#34;T01&#34;},
                                               {&#34;value&#34;:&#34;4&#34;,&#34;text&#34;:&#34;T02&#34;}]}" hidden></span>
-                                        <img src="../../Images/car1.webp.jpg" style="max-width:100%;" />
-                                        <img src="../../Images/car2.gif" style="max-width:100%;" />
-                                        <img src="../../Images/car3.gif" style="max-width:100%;" />
-                                        <h1 class="title" style="font-size: 30px;">活动线上报名</h1>
-                                        <h3 class="title upper-case">获取更详尽的车型信息</h3>
-                                        <p style="margin-bottom:40px">
-                                            欢迎您报名线上活动，领跑很重视您所提交的一切信息，这将令我们更了解您的需求和喜好，并为您提供更好的驾乘体验。
-                                        </p>
+                                        <img src="../Images/car.png" style="max-width:100%;margin-bottom: 40px;" />
                                         <form name="myForm" novalidate class="form-horizontal" role="form" gcdm-form-container-tda gcdm-brand="BMW">
                                             <div>
                                                 <span id="sysNotAvailable" gcdm-system-not-available-error-message>
@@ -224,24 +217,24 @@
                                                         </select>
                                                     </div>
                                                 </div>
-
-
                                             </div>
-
-
                                             <div class="law one-line">
-
-                                                <span class="tips"><a style="color:red;">*</a>带星号的选项必须填写</p></span>
+                                                <span class="tips"><a style="color:red;">*</a>带星号的选项必须填写</span>
                                             </div>
                                             <div class="action-bar">
                                                 <div class="action">
                                                     <span class="button button-blue" onclick="SubmitClick()" gcdm-form-submit>提交</span>
                                                 </div>
                                             </div>
-
                                         </form>
+                                        <img src="../Images/car2.gif" style="max-width:100%;" />
+                                        <img src="../Images/car3.gif" style="max-width:100%;" />
+                                        <h1 class="title" style="font-size: 30px;">活动线上报名</h1>
+                                        <h3 class="title upper-case">获取更详尽的车型信息</h3>
+                                        <p style="margin-bottom:40px">
+                                            欢迎您报名线上活动，领跑很重视您所提交的一切信息，这将令我们更了解您的需求和喜好，并为您提供更好的驾乘体验。
+                                        </p>
                                     </div>
-
                                     <canvas id="canvas" width="150" height="50" style="display:none;"></canvas>
 
 

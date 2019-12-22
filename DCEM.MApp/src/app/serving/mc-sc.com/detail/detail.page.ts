@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page, DCore_ShareData, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 
 @Component({
     selector: 'app-detail',
@@ -50,13 +51,14 @@ export class DetailPage implements OnInit {
         private _page: DCore_Page,
         private _shareData: DCore_ShareData,
         private _valid: DCore_Valid,
+        private menuController:MenuController,
         private activeRoute: ActivatedRoute
     ) {
 
     }
 
     ionViewWillEnter() {
-
+        this.menuController.enable(true);
     }
 
     ngOnInit() {
@@ -101,7 +103,6 @@ export class DetailPage implements OnInit {
                     this.mod.data.serviceproxy["partsamount"] = res["Serviceproxy"]["Attributes"]["mcs_partsamount"];
                     this.mod.data.serviceproxy["discountamount"] = res["Serviceproxy"]["Attributes"]["mcs_discountamount"];
                     this.mod.data.serviceproxy["amounttotal"] = res["Serviceproxy"]["Attributes"]["mcs_amounttotal"];
-                    this.mod.data.serviceproxy.status = res["Serviceproxy"]["Attributes"]["mcs_status"];
                     this.mod.data.serviceproxy["dealerid"] = res["Serviceproxy"]["Attributes"]["_mcs_dealerid_value@OData.Community.Display.V1.FormattedValue"];
 
                 }

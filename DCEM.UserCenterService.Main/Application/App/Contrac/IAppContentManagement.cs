@@ -22,5 +22,6 @@ namespace DCEM.UserCenterService.Main.Application.App.Contrac
     {
         Task<ContentListResponse> GetList(ContentListRequest contentListRequest);
         Task<ContentDetailResponse> GetDetail(ContentDetailRequest contentDetailRequest);
+        Task<ContentPageResponse> GenerateContentPage(ContentPageRequest contentPageRequest);
     }
 }

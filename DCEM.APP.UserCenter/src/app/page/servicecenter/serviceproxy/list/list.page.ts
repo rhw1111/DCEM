@@ -36,7 +36,7 @@ export class ListPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    // debugger;
+    //  debugger;
     this.model.mobilephone = this._logininfo.GetPhone();
     this.model.page = 1;
     this.showlist(null);

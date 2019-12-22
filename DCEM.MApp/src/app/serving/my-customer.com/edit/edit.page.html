@@ -57,6 +57,20 @@
         </ion-item>
         <ion-item>
             <ion-label position="stacked">
+                <ion-icon name="search"></ion-icon>
+                送修人
+            </ion-label>
+            <ion-input placeholder="请输入送修人姓名" [(ngModel)]="shareData.vehowner['mcs_shuttlename']" required></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
+                <ion-icon name="search"></ion-icon>
+                送修人手机
+            </ion-label>
+            <ion-input placeholder="请输入11位手机号" type="phone" [(ngModel)]="shareData.vehowner['mcs_shuttlephone']" required></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
                 生产日期
             </ion-label>
             <ion-datetime cancelText="取消" doneText="确定" placeholder="请选择生产日期" display-format="YYYY-MM-DD" [(ngModel)]="shareData.vehowner['mcs_prodtime']"></ion-datetime>

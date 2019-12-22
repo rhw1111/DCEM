@@ -302,7 +302,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
                 filter += $"<condition attribute='mcs_reservationdate' operator='on' value='{request.ReservationDate}' />";
             }
            
-            var fetchString = $@"<fetch version='1.0' count='{request.PageSize}' page='{request.PageIndex}' output-format='xml-platform' mapping='logical' distinct='false'>
+            var fetchString = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
                   <entity name='mcs_reservationconfiguration'>
                     <all-attributes />
                     <order attribute='mcs_reservationdate' descending='true' />
@@ -314,6 +314,33 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
                   </entity>
                 </fetch>";
 
+            return fetchString;
+        }
+
+
+        /// <summary>
+        /// 查询试乘试驾附件
+        /// </summary>
+        /// <param name="driverecordid"></param>
+        /// <returns></returns>
+        public string QueryAttachment(string driverecordid)
+        {
+            string fetchString = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+              <entity name='mcs_attachment'>
+                <attribute name='mcs_filename' />
+                <attribute name='mcs_code' />
+                <attribute name='mcs_filesize' />
+                <attribute name='mcs_filetype' />
+                <attribute name='mcs_fileurl' />
+                <attribute name='createdon' />
+                <attribute name='mcs_attachmentid' />
+                <order attribute='mcs_filename' descending='false' />
+                <filter type='and'>
+                  <condition attribute='statecode' operator='eq' value='0' />
+                  <condition attribute='mcs_driverecordid' operator='eq'  value='{driverecordid}' />
+                </filter>
+              </entity>
+            </fetch>";
             return fetchString;
         }
     }

@@ -34,7 +34,7 @@ namespace DCEM.HT.Filters
                 _baseUrl = $"{dyCRMSetting.CrmUrl}/api/data/v{dyCRMSetting.CrmApiVersion}";
             }
             IHttpContextAccessor _accessor = new HttpContextAccessor();
-            var token = _accessor.HttpContext.Request.Headers["token"].ToString();
+            var token = _accessor.HttpContext?.Request.Headers["token"].ToString();
             if (!string.IsNullOrEmpty(token))
             {
                 var helper = DIContainerContainer.Get<AdfsEndpointRepositoryHelper>();

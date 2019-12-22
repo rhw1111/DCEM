@@ -2,6 +2,7 @@
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import sd from 'silly-datetime';
+import { MenuController } from '@ionic/angular';
 
 @Component({
     selector: 'app-detail',
@@ -16,28 +17,28 @@ export class DetailPage implements OnInit {
         apiUrlDetail: '/api/appointment-info/GetDetail',
         apiUrlLog: '/api/appointment-info/GetLog',
         infolist: {
-            mcs_appointmentinfoid:"",
+            mcs_appointmentinfoid: "",
             mcs_customername: "",
             mcs_customerphone: "",
             mcs_tag: "",
             mcs_vin: "",
-            mcs_enginennumber:"",
+            mcs_enginennumber: "",
             mcs_cartype: "",
-            mcs_carplate:"",
+            mcs_carplate: "",
             mcs_nextmaintainat: "",
             mcs_nextmaintainmileage: "",
             mcs_name: "",
             mcs_ordertype: "",
             mcs_appointmentat: "",
-            mcs_appointmentconfigid:"",
+            mcs_appointmentconfigid: "",
             mcs_status: "",
-            mcs_customercomment:"",
+            mcs_customercomment: "",
             mcs_appointmendescript: "",
             mcs_cancelreasonnew: "",
             mcs_canceldes: "",
             mcs_cancelreasonnewvalue: "",
             mcs_ordertypevalue: "",
-            mcs_statusvalue:""
+            mcs_statusvalue: ""
 
         },//列表数据
         datalist: [],
@@ -50,8 +51,9 @@ export class DetailPage implements OnInit {
     constructor(
         private _http: DCore_Http,
         private _page: DCore_Page,
+        private menuController: MenuController,
         private activeRoute: ActivatedRoute
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.activeRoute.queryParams.subscribe((data: Params) => {
@@ -63,12 +65,19 @@ export class DetailPage implements OnInit {
         });
     }
 
+
+    //每次页面加载
+    ionViewWillEnter() {
+        this.menuController.enable(true);
+    }
+
+
     pageOnBind(id: any) {
         this._page.loadingShow();
         this._http.getForToaken(
             this.model.apiUrlDetail,
             {
-               "entityid":id,
+                "entityid": id,
             },
             (res: any) => {
                 if (res !== null) {
@@ -79,7 +88,7 @@ export class DetailPage implements OnInit {
                     this.model.infolist.mcs_carplate = res["Attributes"]["mcs_carplate"];
                     this.model.infolist.mcs_vin = res["Attributes"]["mcs_customerid"] != null ? res["Attributes"]["mcs_customerid"]["mcs_name"] : "--";
                     this.model.infolist.mcs_enginennumber = res["Attributes"]["mcs_enginennumberres"];
-                    this.model.infolist.mcs_cartype = res["Attributes"]["mcs_cartype"] != null ? res["Attributes"]["mcs_cartype"]["mcs_name"]:"--";
+                    this.model.infolist.mcs_cartype = res["Attributes"]["mcs_cartype"] != null ? res["Attributes"]["mcs_cartype"]["mcs_name"] : "--";
                     this.model.infolist.mcs_nextmaintainat = res["Attributes"]["mcs_nextmaintainat"];
                     this.model.infolist.mcs_nextmaintainmileage = res["Attributes"]["mcs_nextmaintainmileage"];
                     this.model.infolist.mcs_name = res["Attributes"]["mcs_name"];
@@ -172,12 +181,12 @@ export class DetailPage implements OnInit {
 
     //返回数据为空，默认“--”
     SetDefaultValue(data) {
-        if (data == null || data == undefined || data=='') {
+        if (data == null || data == undefined || data == '') {
             return '--';;
         }
         else {
             return data;
         }
     }
-   
+
 }

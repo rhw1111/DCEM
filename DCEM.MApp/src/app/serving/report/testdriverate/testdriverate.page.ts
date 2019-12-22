@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as echarts from 'echarts';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-testdriverate',
@@ -8,12 +9,14 @@ import * as echarts from 'echarts';
 })
 export class TestdriveratePage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private menuController:MenuController,
+  ) { }
 
   ngOnInit() {
   }
   ionViewDidEnter() {
-
+    this.menuController.enable(true);
     const ec = echarts as any;
     const container = document.getElementById('chart');
     const chart = ec.init(container);

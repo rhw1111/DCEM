@@ -54,7 +54,7 @@ export class EditPage implements OnInit {
   }
 
     ionViewWillEnter() {
-        debugger;
+        // debugger;
         //预约车型
         this.CarModelOption();
 
@@ -124,7 +124,7 @@ export class EditPage implements OnInit {
         );
     }
 
-    //车架车辆
+    //试驾车辆
     public DriveCarOption() {
         this.model.driveCarOption = [];
         this._http.getForToaken(
@@ -139,6 +139,7 @@ export class EditPage implements OnInit {
                         obj["model"] = res.Results[key]["Attributes"];
                         obj["value"] = res.Results[key]["Attributes"]["mcs_testdrivecarid"];
                         obj["name"] = res.Results[key]["Attributes"]["mcs_name"];
+                        obj["vehplate"] = res.Results[key]["Attributes"]["mcs_vehplate"];
                         this.model.driveCarOption.push(obj);
                     }
                 }
@@ -407,13 +408,14 @@ export class EditPage implements OnInit {
 
     //选择附件模式窗口 
     async presentFileModal(id: any) {
+        debugger;
         var fileInputArray = [];
         const modalWin = await this.modalCtrl.create({
             component: SelectFileEditComponent,
             componentProps: { fileArray: fileInputArray }
         });
 
-        this._page.loadingShow();
+        //this._page.loadingShow();
         await modalWin.present();
         const { data } = await modalWin.onDidDismiss();
         if (data.command === 1) {
