@@ -335,6 +335,32 @@ export class OptionSetService {
                     { "name": "其他", "value": 60 }
                 ];
                 break;
+                //勘测单类型
+             case "mcs_surveyordertype":
+                optionlist = [
+                    { "name": "售后销售", "value": 1 },
+                    { "name": "售前权益", "value": 2 }                 
+                ];
+                break;
+             //住宅类型
+             case "mcs_residentialtype":
+                optionlist = [
+                    { "name": "普通高层", "value": 10 },
+                    { "name": "商住两用", "value": 20 },     
+                    { "name": "别墅/庭院", "value": 30 },
+                    { "name": "其他", "value": 40 }                
+                ];
+                break;
+             //住宅性质
+             case "mcs_residentialnature":
+                optionlist = [
+                    { "name": "自有", "value": 10 },
+                    { "name": "一年以上长期租赁", "value": 20 },     
+                    { "name": "一年以下短期租赁", "value": 30 },
+                    { "name": "亲戚或朋友所有", "value": 40 },   
+                    { "name": "其他", "value": 50 }            
+                ];
+                break;
 
         }
         return optionlist;
