@@ -6,6 +6,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { OptionSetService } from 'app/base/base.ser/optionset.service';
 import { SelectVehicletypeComponent } from 'app/saleing/saleing.ser/components/select-vehicletype/select-vehicletype.component';
 import { SelectVehiclecolorComponent } from  'app/saleing/saleing.ser/components/select-vehiclecolor/select-vehiclecolor.component';
+import { Dateformat } from '../../../base/base.ser/dateformat';
 
 @Component({
     selector: 'app-edit',
@@ -67,7 +68,8 @@ export class EditPage implements OnInit {
         private _shareData: DCore_ShareData,
         private _valid: DCore_Valid,
         private _activeRoute: ActivatedRoute,
-        private _optionSetService: OptionSetService
+        private _optionSetService: OptionSetService,
+        private dateformat: Dateformat,
     ) { }
 
 
@@ -77,7 +79,7 @@ export class EditPage implements OnInit {
         this.mod.initData.levelArray = this._optionSetService.Get('mcs_level');
         this.mod.initData.vehicleusersArray=this._optionSetService.Get('mcs_vehicleusers');
         this.mod.initData.purchasepurposeArray=this._optionSetService.Get('mcs_purchasepurpose');
-        this.mod.initData.carattentionArray=this._optionSetService.Get('mcs_carattention');
+        //this.mod.initData.carattentionArray=this._optionSetService.Get('mcs_carattention');
         this.mod.initData.generationArray=this._optionSetService.Get('mcs_generation');
         this.mod.initData.purchasewayArray=this._optionSetService.Get('mcs_purchaseway');
         this.mod.initData.carereasonArray=this._optionSetService.Get('mcs_carereason');
@@ -187,17 +189,43 @@ export class EditPage implements OnInit {
                 console.log(res);
                 this.mod.displayData.accountnumber = res["Attributes"]["accountnumber"];
                 this.shareData.account["name"] = res["Attributes"]["name"];
-                this.shareData.account["mcs_mobilephone"] = res["Attributes"]["mcs_mobilephone"];
-                this.shareData.account["mcs_gender"] = String(res["Attributes"]["mcs_gender"]);
-                this.shareData.account["mcs_introducecarowner"] = res["Attributes"]["mcs_introducecarowner"];
+                this.shareData.account["Id"] = String(res["Attributes"]["accountid"]);
+                //this.shareData.account["mcs_mobilephone"] = res["Attributes"]["mcs_mobilephone"];
+                //this.shareData.account["mcs_gender"] = String(res["Attributes"]["mcs_gender"]);
+                //this.shareData.account["mcs_introducecarowner"] = res["Attributes"]["mcs_introducecarowner"];
 
                 this.mod.displayData.order_Formatted = res["Attributes"]["_mcs_tc_order_value@OData.Community.Display.V1.FormattedValue"];
                 this.mod.displayData.smallorderid_FormattedValue= res["Attributes"]["_mcs_smallorderid_value@OData.Community.Display.V1.FormattedValue"];
+                //----------
+                //this.shareData.account["accountnumber"] = res["Attributes"]["accountnumber"];
+                this.shareData.account["mcs_onlyleadid"] = res["Attributes"]["_mcs_onlyleadid_value"];//唯一线索
+                this.shareData.account["mcs_singleperson"] = res["Attributes"]["_mcs_singleperson_value@OData.Community.Display.V1.FormattedValue"];//成单人
+                //this.shareData.account["mcs_smallorderid"] = res["Attributes"]["_mcs_smallorderid_value@OData.Community.Display.V1.FormattedValue"];//小订记录
+                this.shareData.account["mcs_storemanagerid"] = res["Attributes"]["_mcs_storemanagerid_value@OData.Community.Display.V1.FormattedValue"];//店长
+                //this.shareData.account["mcs_tc_order"] = res["Attributes"]["_mcs_tc_order_value@OData.Community.Display.V1.FormattedValue"];//商品综合订单
+                this.mod.displayData.mcs_vehcolorid = res["Attributes"]["_mcs_vehcolorid_value@OData.Community.Display.V1.FormattedValue"];//意向颜色
+                this.shareData.account["mcs_vehorderid"] = res["Attributes"]["_mcs_vehorderid_value@OData.Community.Display.V1.FormattedValue"];//整车订单
+                this.mod.displayData.mcs_vehtypeid = res["Attributes"]["_mcs_vehtypeid_value@OData.Community.Display.V1.FormattedValue"];//意向车型
+                this.shareData.account["mcs_carattention"] = res["Attributes"]["mcs_carattention"];//购车关注
+                this.shareData.account["mcs_competingtype"] = res["Attributes"]["mcs_competingtype"];//竞品车型
+                this.shareData.account["mcs_introducecarowner"] = res["Attributes"]["mcs_introducecarowner"];//引荐车主
+                this.shareData.account["mcs_mobilephone"] = res["Attributes"]["mcs_mobilephone"];//手机号码
+                this.shareData.account["mcs_estimatedtransactiondate"] = this.dateformat.FormatToDate(res["Attributes"]["mcs_estimatedtransactiondate"]);//预测成交日期
+                this.shareData.account["mcs_carereason"]  = String(res["Attributes"]["mcs_carereason"]);//关注原因
+                this.shareData.account["mcs_customerstatus"] = res["Attributes"]["mcs_customerstatus"];//销售机会状态
+                this.shareData.account["mcs_customerstatusname"]  = String(res["Attributes"]["mcs_customerstatus"]);//销售机会状态名称
+                this.shareData.account["mcs_depositpaymentstatus"] = res["Attributes"]["mcs_depositpaymentstatus"];//定金支付状态
+                this.shareData.account["mcs_gender"]  = String(res["Attributes"]["mcs_gender"]);//称呼
+                this.shareData.account["mcs_generation"]  = String(res["Attributes"]["mcs_generation"]);//年龄段
+                this.shareData.account["mcs_idtype"] = res["Attributes"]["mcs_idtype"];//证件类型
+                this.shareData.account["mcs_level"]  = String(res["Attributes"]["mcs_level"]);//意向等级
+                this.shareData.account["mcs_purchasepurpose"]  = String(res["Attributes"]["mcs_purchasepurpose"]);//购买用途
+                this.shareData.account["mcs_purchaseway"]  = String(res["Attributes"]["mcs_purchaseway"]);//购买方式
+                this.shareData.account["mcs_vehicleusers"]  = String(res["Attributes"]["mcs_vehicleusers"]);//车辆使用人
+                this.shareData.account["mcs_familymembernum"] = res["Attributes"]["mcs_familymembernum"];//家庭成员数量    
+                this.shareData.account["description"] = res["Attributes"]["description"];//特殊备注           
+                //----------
 
-                this.shareData.account["mcs_level"] = String(res["Attributes"]["mcs_level"]);
-
-                //this.shareData.account["level"] = String(res["Attributes"]["mcs_level"]);
-                
                 this._page.loadingHide();
 
                 console.log(this.shareData.account);
@@ -237,9 +265,9 @@ export class EditPage implements OnInit {
             this.mod.postData["mcs_level"]=Number(this.mod.postData["mcs_level"]);
             this.mod.postData["mcs_purchasepurpose"]=Number(this.mod.postData["mcs_purchasepurpose"]);
             this.mod.postData["mcs_vehicleusers"]=Number(this.mod.postData["mcs_vehicleusers"]);
-            this.mod.postData["mcs_carattention"]=Number(this.mod.postData["mcs_carattention"]);
             this.mod.postData["mcs_generation"]=Number(this.mod.postData["mcs_generation"]);
             this.mod.postData["mcs_purchaseway"]=Number(this.mod.postData["mcs_purchaseway"]);
+            this.mod.postData["mcs_carereason"]=Number(this.mod.postData["mcs_carereason"]);
 
             this._http.postForToaken(
                 this.mod.postApiUrl, this.mod.postData,

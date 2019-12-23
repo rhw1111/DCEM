@@ -140,7 +140,6 @@ export class EditPage implements OnInit {
             (res: any) => {
                 if (!this._valid.isNull(res) && !this._valid.isNull(res["Attributes"])) {
                     var resAttr = res["Attributes"];
-                    debugger;
                     //加入预约单
                     this.shareData.serviceproxy["appointmentcode"] = resAttr["mcs_appointmentinfoid"];
                     this.shareData.serviceproxy["appointmentcode_formatted"] = resAttr["mcs_name"];
