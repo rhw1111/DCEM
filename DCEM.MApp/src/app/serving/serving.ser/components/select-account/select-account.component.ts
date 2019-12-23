@@ -74,7 +74,9 @@ export class SelectAccountComponent implements OnInit {
   itemClick(item){
     this.modalCtrl.dismiss({
       'accountid': item.accountid,
-      'accountnumber': item.accountnumber
+      'accountnumber': item.accountnumber,
+      'username': item.name,
+      'mcs_mobilephone': item.mcs_mobilephone
     });
   }
 

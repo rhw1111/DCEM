@@ -1,0 +1,200 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" style="margin-top: 3px;">
+      <ion-back-button text="返回" defaultHref="/carcenter/index"></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="model.postData.mcs_surveyorderid!=''">编辑勘测单</ion-title>
+    <ion-title *ngIf="model.postData.mcs_surveyorderid==''">创建勘测单</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-col>
+
+    <ion-list lines="full">
+      <ion-item-divider color="primary">
+        <ion-label>
+          客户信息
+        </ion-label>
+      </ion-item-divider>
+      <ion-item>
+        <ion-label position="stacked">
+          勘测单类型
+          <ion-text color="danger">*</ion-text>
+        </ion-label>
+        <ion-select placeholder="请选择勘测单类型" cancelText="取消" okText="确定" [(ngModel)]="model.postData.mcs_surveyordertype">
+          <ion-select-option *ngFor="let item of model.mcs_surveyordertypeOption" value="{{item.value}}">
+            {{item.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item (click)="selectAccountModal()">
+        <ion-label position="stacked">
+          销售机会
+          <ion-text color="danger">*</ion-text>
+        </ion-label>
+        <ion-input placeholder="请选择销售机会" [(ngModel)]="model.postData.mcs_accountname" required></ion-input>
+        <ion-icon slot="end" name="search"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+          姓名
+          <ion-text color="danger">*</ion-text>
+        </ion-label>
+        <ion-input placeholder="请输入姓名" [(ngModel)]="model.postData.mcs_username" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+          手机号
+          <ion-text color="danger">*</ion-text>
+        </ion-label>
+
+        <ion-input placeholder="请输入手机号" [(ngModel)]="model.postData.mcs_userphone" required></ion-input>
+
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+          身份证号
+        </ion-label>
+        <ion-input placeholder="请输入身份证号" [(ngModel)]="model.postData.mcs_idcard"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+          邮箱
+        </ion-label>
+        <ion-input placeholder="请输入邮箱" [(ngModel)]="model.postData.mcs_email"></ion-input>
+      </ion-item>
+      <ion-item (click)="selectCarModal()">
+        <ion-label position="stacked">
+            购买车型
+            <ion-text color="danger">*</ion-text>
+        </ion-label>
+        <ion-input placeholder="请选择车型" [(ngModel)]="model.postData.mcs_carmodelname" required></ion-input>
+        <ion-icon slot="end" name="search"></ion-icon>
+      </ion-item> 
+      <ion-item>
+        <ion-label position="stacked">
+          门店
+        </ion-label>
+        <ion-input  [(ngModel)]="model.postData.mcs_dealername"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+          销售顾问
+        </ion-label>
+        <ion-input  [(ngModel)]="model.postData.mcs_salesconsultant"></ion-input>
+      </ion-item>
+
+      <ion-item-divider color="primary">
+        <ion-label>
+          建桩信息
+        </ion-label>
+      </ion-item-divider>
+      <ion-item>
+        <ion-label position="stacked">
+          联系人姓名    
+        </ion-label>
+        <ion-input placeholder="请输入姓名" [(ngModel)]="model.postData.mcs_username" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+          联系人电话
+        </ion-label>
+        <ion-input placeholder="请输入手机号" [(ngModel)]="model.postData.mcs_userphone" required></ion-input>
+      </ion-item>  
+      <ion-item>
+        <ion-label position="stacked">
+          联系邮箱
+        </ion-label>
+        <ion-input placeholder="请输入邮箱" [(ngModel)]="model.postData.mcs_email"></ion-input>
+      </ion-item>
+      <ion-item (click)="provinceModal()">
+        <ion-label position="stacked">省<ion-text color="danger">*</ion-text></ion-label>
+        <p>{{model.postData.mcs_provincename}}&nbsp;</p>
+    </ion-item>
+    <ion-item (click)="cityModal()">
+        <ion-label position="stacked">市<ion-text color="danger">*</ion-text></ion-label>
+        <p>{{model.postData.mcs_cityname}}&nbsp;</p>
+    </ion-item>
+    <ion-item (click)="districtModal()">
+        <ion-label position="stacked">区<ion-text color="danger">*</ion-text></ion-label>
+        <p>{{model.postData.mcs_areaname}}&nbsp;</p>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">
+        安装地址 
+        <ion-text color="danger">*</ion-text>   
+      </ion-label>
+      <ion-input placeholder="请输入安装地址" [(ngModel)]="model.postData.mcs_installationaddress" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">
+        详细地址      
+      </ion-label>
+      <ion-input placeholder="请输入详细地址" [(ngModel)]="model.postData.mcs_detailaddress" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">
+        充电桩型号 
+        <ion-text color="danger">*</ion-text>   
+      </ion-label>
+      <ion-input placeholder="请选择充电桩型号" [(ngModel)]="model.postData.mcs_chargingpilemodel" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">
+        小区名称      
+      </ion-label>
+      <ion-input placeholder="请输入小区名称" [(ngModel)]="model.postData.mcs_communityname" ></ion-input>
+    </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+          住宅性质        
+        </ion-label>
+        <ion-select placeholder="请选择住宅性质" cancelText="取消" okText="确定" [(ngModel)]="model.postData.mcs_residentialnature">
+          <ion-select-option *ngFor="let item of model.mcs_residentialnatureOption" value="{{item.value}}">
+            {{item.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+            车位情况
+        </ion-label>
+        <ion-select placeholder="请选择车位情况" cancelText="取消" okText="确定" [(ngModel)]="model.postData.mcs_parkingspace">
+            <ion-select-option  value="10">
+              自有
+            </ion-select-option>
+            <ion-select-option  value="20">
+              长租
+             </ion-select-option>
+             <ion-select-option  value="30">
+              无
+             </ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">
+        住宅类型   
+      </ion-label>
+      <ion-select placeholder="请选择住宅性质" cancelText="取消" okText="确定" [(ngModel)]="model.postData.mcs_residentialtype">
+        <ion-select-option *ngFor="let item of model.mcs_residentialtypeOption" value="{{item.value}}">
+          {{item.name}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">
+        备注      
+      </ion-label>
+      <ion-input placeholder="请输入备注" [(ngModel)]="model.postData.mcs_remark" ></ion-input>
+    </ion-item>
+      <br />
+    </ion-list>
+    <section style="text-align:center;">
+      <ion-button expand="block" type="button" (click)="SureClick()">保存</ion-button>
+    </section>
+    <br />
+    <br />
+  </ion-col>
+
+</ion-content>
