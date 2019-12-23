@@ -45,7 +45,7 @@
           <p>{{item.mcs_surveystatus}}</p>
         </ion-note>
       </ion-item>
-      <ion-item-options side="end" *ngIf="item.mcs_surveystatus==10">
+      <ion-item-options side="end" *ngIf="item.mcs_surveystatusValue==10">
         <ion-item-option color="tertiary" expandable [routerLink]="['/serving/surveyorder/edit']"
           [queryParams]="{id:item.mcs_surveyorderid}">
           编辑

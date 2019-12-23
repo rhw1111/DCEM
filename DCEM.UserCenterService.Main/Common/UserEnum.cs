@@ -28,6 +28,9 @@ namespace DCEM.UserCenterService.Main.Common
             失败=2
         }
 
+        /// <summary>
+        /// 内容类型
+        /// </summary>
         public enum ContentType
         {
             //前端内容

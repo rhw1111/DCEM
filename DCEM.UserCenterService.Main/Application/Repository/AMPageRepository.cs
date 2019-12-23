@@ -15,9 +15,47 @@ namespace DCEM.UserCenterService.Main.Application.Repository
     using DCEM.UserCenterService.Main.ViewModel.Response;
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
-    
-    
+    using System;
+    using System.Xml.Linq;
+
     public class AMPageRepository : IAMPageRepository
     {
+        public async Task<XDocument> GetElementConfigsXml()
+        {
+            return await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+                   <entity name='mcs_am_elementconfig'>
+                     <attribute name='mcs_am_elementconfigid' />
+                     <attribute name='mcs_elementcategory' />
+                     <attribute name='mcs_defaultvalue' />
+                     <attribute name='mcs_code' />
+                     <order attribute='mcs_code' descending='false' />
+                   </entity>
+                 </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
+
+        public async Task<XDocument> GetPageDetailsXml(Guid pageId)
+        {
+            return await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+                   <entity name='mcs_am_pagedetail'>
+                     <attribute name='mcs_am_pagedetailid' />
+                     <attribute name='mcs_page' />
+                     <attribute name='mcs_element' />
+                     <attribute name='mcs_displayname' />
+                     <attribute name='mcs_content' />
+                     <order attribute='mcs_displayname' descending='false' />
+                     <filter type='and'>
+                       <condition attribute='mcs_page' operator='eq' value='{pageId}' />
+                     </filter>
+                   </entity>
+                 </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
     }
 }

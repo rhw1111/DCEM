@@ -32,6 +32,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
 
             var fetchString = $@"<fetch version='1.0' count='{accountRequest.PageSize}' page='{accountRequest.PageIndex}' output-format='xml-platform' mapping='logical' distinct='false'>
                 <entity name='account'>
+                <attribute name='accountid' />
                 <attribute name='name' />
                 <attribute name='accountnumber' />
                 <attribute name='mcs_mobilephone' />

@@ -15,11 +15,12 @@ namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
     using DCEM.UserCenterService.Main.ViewModel.Response;
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
-    
-    
+    using System;
+    using System.Xml.Linq;
+
     public interface IAMPageRepository
     {
-        
-        
+        Task<XDocument> GetPageDetailsXml(Guid pageId);
+        Task<XDocument> GetElementConfigsXml();
     }
 }

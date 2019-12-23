@@ -43,9 +43,10 @@ export class SelectAccountComponent implements OnInit {
       (res: any) => {
         console.log(res);
         if (res.Results !== null) {
+          debugger;
           for (var key in res.Results) {
             var obj = {};
-            obj["accountid"] = res.Results[key]["accountid"];
+            obj["accountid"] = res.Results[key]["Attributes"]["accountid"];
             obj["accountnumber"] = res.Results[key]["Attributes"]["accountnumber"];
             obj["name"] = res.Results[key]["Attributes"]["name"]; 
             obj["mcs_mobilephone"] = res.Results[key]["Attributes"]["mcs_mobilephone"];                
@@ -72,6 +73,7 @@ export class SelectAccountComponent implements OnInit {
   }
   //保存所选项
   itemClick(item){
+    //debugger;
     this.modalCtrl.dismiss({
       'accountid': item.accountid,
       'accountnumber': item.accountnumber,
