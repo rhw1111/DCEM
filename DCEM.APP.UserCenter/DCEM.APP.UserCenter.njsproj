@@ -562,6 +562,7 @@
     <Content Include="src\assets\img\2.jpg" />
     <Content Include="src\assets\img\carstore\logo.png" />
     <Content Include="src\assets\img\carstore\back.jpg" />
+    <Content Include="src\assets\img\personalcenter\mycar\back.png" />
     <Content Include="src\assets\img\personalcenter\mycar\index\car.png" />
     <Content Include="src\assets\img\personalcenter\mycar\index\cdz.png" />
     <Content Include="src\assets\img\personalcenter\mycar\index\ck1.png" />
