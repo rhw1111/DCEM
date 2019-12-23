@@ -4,6 +4,7 @@ import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { OptionSetService } from '../../../base/base.ser/optionset.service';
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
+import { MenuController } from '@ionic/angular';
 @Component({
   selector: 'app-list',
   templateUrl: './list.page.html',
@@ -32,6 +33,7 @@ export class ListPage implements OnInit {
     private _page: DCore_Page,
     private httpService: HttpService,
     private optionset: OptionSetService,
+    private menuController:MenuController,
     private _logininfo: Storage_LoginInfo
   ) { }
 
@@ -41,6 +43,7 @@ export class ListPage implements OnInit {
 
   ionViewWillEnter() {
     // debugger;
+    this.menuController.enable(false);
     this.model.page = 1;
     this.model.systemUserId = this._logininfo.GetSystemUserId(); 
     this._page.loadingShow();

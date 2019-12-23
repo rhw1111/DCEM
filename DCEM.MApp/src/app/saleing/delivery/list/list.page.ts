@@ -4,6 +4,7 @@ import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 import { ModalController, NavController } from '@ionic/angular';
 import { SelectSysareaComponent } from 'app/saleing/saleing.ser/components/select-sysarea/select-sysarea.component';
 import { OptionSetService } from '../../../base/base.ser/optionset.service';
+import { MenuController } from '@ionic/angular';
 @Component({
   selector: 'app-list',
   templateUrl: './list.page.html',
@@ -17,6 +18,7 @@ export class ListPage implements OnInit {
     private _page: DCore_Page,
     private _valid: DCore_Valid,
     private _userinfo: Storage_LoginInfo,
+    private menuController: MenuController,
     private _optionset: OptionSetService
   ) { }
 
@@ -35,18 +37,19 @@ export class ListPage implements OnInit {
     isending: false
   }
   ngOnInit() {
-    this.model.deliverystatusOptions = this._optionset.Get("mcs_deliverystatus"); 
+    this.model.deliverystatusOptions = this._optionset.Get("mcs_deliverystatus");
   }
 
   //每次页面加载
-  ionViewWillEnter() { 
-    this.model.deliverys=[];
-    this.model.search.pageindex = 1; 
+  ionViewWillEnter() {
+    this.menuController.enable(false);
+    this.model.deliverys = [];
+    this.model.search.pageindex = 1;
     this.listOnBind(null);
   }
   //加载下一页
   doLoading(event) {
-    
+
     this.model.search.pageindex++;
     this.model.isending = false;
     this.listOnBind(event);
@@ -86,9 +89,8 @@ export class ListPage implements OnInit {
           event ? event.target.complete() : '';
           if (data.length < this.model.search.pagesize) {
             event ? event.target.disabled = true : "";
-            if(this.model.search.pageindex!=1)
-            { 
-            this.model.isending = true;
+            if (this.model.search.pageindex != 1) {
+              this.model.isending = true;
             }
           }
           this._page.loadingHide();

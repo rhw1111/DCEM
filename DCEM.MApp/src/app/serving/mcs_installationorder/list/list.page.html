@@ -4,9 +4,6 @@
       <ion-back-button text="返回" defaultHref="/tabs/index"></ion-back-button>
     </ion-buttons>
     <ion-title>安装单</ion-title>
-    <ion-buttons slot="end">
-      <ion-menu-button></ion-menu-button>
-  </ion-buttons>
   </ion-toolbar>
   <ion-toolbar>
     <ion-searchbar [(ngModel)]="this.model.seachkey" placeholder="可根据安装单编码、姓名、手机号模糊查找" (keyup)="search($event)" ></ion-searchbar>

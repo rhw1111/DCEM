@@ -9,6 +9,7 @@ import { ModalController } from '@ionic/angular';
 import { SelectSystemuserComponent } from 'app/base/base.ser/components/select-systemuser/select-systemuser.component';
 import { throwError } from 'rxjs';
 import sd from 'silly-datetime';
+import { MenuController } from '@ionic/angular';
 
 @Component({
     selector: 'app-detail',
@@ -26,26 +27,26 @@ export class DetailPage implements OnInit {
         LogcallModel: {//联络记录
             apiUrl: '/api/only-lead/GetLogCallList',
             list: [],
-            isending: false,         
+            isending: false,
             params: {
                 accountid: "",
                 Sort: '',
-                PageSize:10,
+                PageSize: 10,
                 PageIndex: 1,
                 UserId: ""//当前登录用户ID
-             }
+            }
         },
         ActivityModel: {//培育任务
             apiUrl: '/api/only-lead/GetActivityList',
-            list: [],  
-            isending: false,       
+            list: [],
+            isending: false,
             params: {
                 accountid: "",
                 Sort: '',
-                PageSize:10,
+                PageSize: 10,
                 PageIndex: 1,
                 UserId: ""//当前登录用户ID
-             }
+            }
         },
         data: {
             Account: {
@@ -140,6 +141,7 @@ export class DetailPage implements OnInit {
         private optionset: OptionSetService,
         private dateformat: Dateformat,
         private userInfo: Storage_LoginInfo,
+        private menuController: MenuController,
         private modalCtrl: ModalController) {
         this.activeRoute.queryParams.subscribe((params: Params) => {
             if (params['id'] != null && params['id'] != undefined) {
@@ -153,6 +155,12 @@ export class DetailPage implements OnInit {
         this.mod.LogcallModel.params.PageIndex = 1;
         this.BindInfo(this.mod.data.Account.Id);
     }
+
+    //每次页面加载
+    ionViewWillEnter() {
+        this.menuController.enable(true);
+    }
+
     //绑定数据
     BindInfo(id) {
         //this.ionInfiniteScroll.disabled=true;
@@ -286,176 +294,176 @@ export class DetailPage implements OnInit {
     }
 
     //加载联络记录(logcall)列表
-pageOnLogCalllist() {
+    pageOnLogCalllist() {
 
-    this.mod.LogcallModel.params.accountid= this.mod.data.Account.Id 
-    this.mod.LogcallModel.params.UserId=this.userInfo.GetSystemUserId();//当前登录用户ID
-   
-    this.mod.LogcallModel.list= [];
-    this._page.loadingShow();
-    this._http.postForToaken(
-        this.mod.LogcallModel.apiUrl,
-        this.mod.LogcallModel.params,
-        (res: any) => {
-            if (res !== null) {
-                if (res.Results !== null) {
-                    for (var key in res.Results) {
-                        var obj = {};
-                        obj["mcs_fullname"] = res.Results[key]["Attributes"]["mcs_fullname"];
-                        obj["mcs_visittime"] = res.Results[key]["Attributes"]["mcs_visittime"];
-                        obj["mcs_content"] = res.Results[key]["Attributes"]["mcs_content"];   
-                        obj["mcs_results"] = res.Results[key]["Attributes"]["mcs_results"];    
-                        obj["mcs_logcallid"] = res.Results[key]["Attributes"]["mcs_logcallid"];                        
-                        this.mod.LogcallModel.list.push(obj);
+        this.mod.LogcallModel.params.accountid = this.mod.data.Account.Id
+        this.mod.LogcallModel.params.UserId = this.userInfo.GetSystemUserId();//当前登录用户ID
+
+        this.mod.LogcallModel.list = [];
+        this._page.loadingShow();
+        this._http.postForToaken(
+            this.mod.LogcallModel.apiUrl,
+            this.mod.LogcallModel.params,
+            (res: any) => {
+                if (res !== null) {
+                    if (res.Results !== null) {
+                        for (var key in res.Results) {
+                            var obj = {};
+                            obj["mcs_fullname"] = res.Results[key]["Attributes"]["mcs_fullname"];
+                            obj["mcs_visittime"] = res.Results[key]["Attributes"]["mcs_visittime"];
+                            obj["mcs_content"] = res.Results[key]["Attributes"]["mcs_content"];
+                            obj["mcs_results"] = res.Results[key]["Attributes"]["mcs_results"];
+                            obj["mcs_logcallid"] = res.Results[key]["Attributes"]["mcs_logcallid"];
+                            this.mod.LogcallModel.list.push(obj);
+                        }
+                        //console.log(res);
+                    }  //判断是否有新数据
+                    if (res.Results.length < this.mod.LogcallModel.params.PageIndex) {
+                        this.mod.LogcallModel.isending = true;
                     }
-                    //console.log(res);
-                }  //判断是否有新数据
-                if (res.Results.length < this.mod.LogcallModel.params.PageIndex) {
-                    this.mod.LogcallModel.isending = true;
                 }
+                else {
+                    this._page.alert("消息提示", "联络记录加载异常");
+                }
+                this._page.loadingHide();
+            },
+            (err: any) => {
+                this._page.alert("消息提示", "数据加载异常");
+                this._page.loadingHide();
             }
-            else {
-                this._page.alert("消息提示", "联络记录加载异常");
-            }
-            this._page.loadingHide();
-        },
-        (err: any) => {
-            this._page.alert("消息提示", "数据加载异常");
-            this._page.loadingHide();
-        }
-    );
+        );
 
-}
+    }
 
-//加载培育任务列表
-pageOnActivitylist() {
-    this.mod.ActivityModel.params.accountid= this.mod.data.Account.Id;
-    this.mod.ActivityModel.params.UserId=this.userInfo.GetSystemUserId();//当前登录用户ID
-    this.mod.ActivityModel.list= [];
+    //加载培育任务列表
+    pageOnActivitylist() {
+        this.mod.ActivityModel.params.accountid = this.mod.data.Account.Id;
+        this.mod.ActivityModel.params.UserId = this.userInfo.GetSystemUserId();//当前登录用户ID
+        this.mod.ActivityModel.list = [];
 
-    this._page.loadingShow();
-    this._http.postForToaken(
-        this.mod.ActivityModel.apiUrl,
-        this.mod.ActivityModel.params,
-        (res: any) => {
-            if (res !== null) {
-                if (res.Results !== null) {
-                    for (var key in res.Results) {
-                        var obj = {};
-                        obj["mcs_thisfollowupcontent"] = res.Results[key]["Attributes"]["mcs_thisfollowupcontent"];
-                        obj["createdon"] = res.Results[key]["Attributes"]["createdon"];              
-                        obj["mcs_activitystatus"] =this.optionset.GetOptionSetNameByValue("mcs_activitystatus",res.Results[key]["Attributes"]["mcs_activitystatus"]);
-                        obj["mcs_importantlevel"] =this.optionset.GetOptionSetNameByValue("mcs_importantlevel",res.Results[key]["Attributes"]["mcs_importantlevel"]);
-                        obj["mcs_activityid"] = res.Results[key]["Attributes"]["mcs_activityid"];    
-                        this.mod.ActivityModel.list.push(obj);
+        this._page.loadingShow();
+        this._http.postForToaken(
+            this.mod.ActivityModel.apiUrl,
+            this.mod.ActivityModel.params,
+            (res: any) => {
+                if (res !== null) {
+                    if (res.Results !== null) {
+                        for (var key in res.Results) {
+                            var obj = {};
+                            obj["mcs_thisfollowupcontent"] = res.Results[key]["Attributes"]["mcs_thisfollowupcontent"];
+                            obj["createdon"] = res.Results[key]["Attributes"]["createdon"];
+                            obj["mcs_activitystatus"] = this.optionset.GetOptionSetNameByValue("mcs_activitystatus", res.Results[key]["Attributes"]["mcs_activitystatus"]);
+                            obj["mcs_importantlevel"] = this.optionset.GetOptionSetNameByValue("mcs_importantlevel", res.Results[key]["Attributes"]["mcs_importantlevel"]);
+                            obj["mcs_activityid"] = res.Results[key]["Attributes"]["mcs_activityid"];
+                            this.mod.ActivityModel.list.push(obj);
+                        }
                     }
-                }  
-                //判断是否有新数据
-                if (res.Results.length < this.mod.LogcallModel.params.PageIndex) {
-                    this.mod.ActivityModel.isending = true;
+                    //判断是否有新数据
+                    if (res.Results.length < this.mod.LogcallModel.params.PageIndex) {
+                        this.mod.ActivityModel.isending = true;
+                    }
                 }
+                else {
+                    this._page.alert("消息提示", "联络记录加载异常");
+                }
+                this._page.loadingHide();
+            },
+            (err: any) => {
+                this._page.loadingHide();
+                throw err;
             }
-            else {
-                this._page.alert("消息提示", "联络记录加载异常");
-            }
-            this._page.loadingHide();
-        },
-        (err: any) => {
-            this._page.loadingHide();
-            throw err;
+        );
+    }
+
+    FormatToDateTime(date) {
+        if (date != null && date != undefined) {
+            return sd.format(date, 'YYYY-MM-DD');
         }
-    );
-}
-
-FormatToDateTime(date) {
-    if (date != null && date != undefined) {
-        return sd.format(date, 'YYYY-MM-DD');
+        else {
+            return '';
+        }
     }
-    else {
-        return '';
-    }
-}
-//     /**
-//      * 加载logcall记录
-//      */
-//     LoadLogcall() {
-//         this.mod.LogcallModel.params.accountid= this.mod.data.Account.Id;
-//         this.mod.LogcallModel.params.UserId=this.userInfo.GetSystemUserId();//当前登录用户ID
-//         this._page.loadingShow();
-//         this._http.postForToaken(
-//             this.mod.LogcallModel.apiUrl,
-//             this.mod.LogcallModel.params,           
-//             (res: any) => {
-//                 if (res != null) {
-//                     if (res.Results.length > 0) {
-//                         res.Results.forEach(item => {
-//                             var value = item["Attributes"];
-//                             this.mod.LogcallModel.list.push({
-//                                 "Id": value.mcs_logcallid,
-//                                 "mcs_name": value.mcs_name,
-//                                 "mcs_visittime": this.dateformat.FormatToDateTime(value.mcs_visittime),//回访时间
-//                                 "mcs_content": value.mcs_content,//内容
-//                                 "mcs_results": value.mcs_results//结果备注
-//                             });
-//                         });
-//                     }
-//                     // this.ionInfiniteScroll.complete();
-//                     // //判断是否有新数据
-//                     // if (res.Results.length < this.mod.LogcallModel.pageSize) {
-//                     //   this.ionInfiniteScroll.disabled = true;
-//                     // }
-//                 }
-//                 this._page.loadingHide();
-//             },
-//             (err: any) => {
-//                 this._page.alert("消息提示", "数据加载异常");
-//                 this._page.loadingHide();
-//             }
-//         );
-//     }
+    //     /**
+    //      * 加载logcall记录
+    //      */
+    //     LoadLogcall() {
+    //         this.mod.LogcallModel.params.accountid= this.mod.data.Account.Id;
+    //         this.mod.LogcallModel.params.UserId=this.userInfo.GetSystemUserId();//当前登录用户ID
+    //         this._page.loadingShow();
+    //         this._http.postForToaken(
+    //             this.mod.LogcallModel.apiUrl,
+    //             this.mod.LogcallModel.params,           
+    //             (res: any) => {
+    //                 if (res != null) {
+    //                     if (res.Results.length > 0) {
+    //                         res.Results.forEach(item => {
+    //                             var value = item["Attributes"];
+    //                             this.mod.LogcallModel.list.push({
+    //                                 "Id": value.mcs_logcallid,
+    //                                 "mcs_name": value.mcs_name,
+    //                                 "mcs_visittime": this.dateformat.FormatToDateTime(value.mcs_visittime),//回访时间
+    //                                 "mcs_content": value.mcs_content,//内容
+    //                                 "mcs_results": value.mcs_results//结果备注
+    //                             });
+    //                         });
+    //                     }
+    //                     // this.ionInfiniteScroll.complete();
+    //                     // //判断是否有新数据
+    //                     // if (res.Results.length < this.mod.LogcallModel.pageSize) {
+    //                     //   this.ionInfiniteScroll.disabled = true;
+    //                     // }
+    //                 }
+    //                 this._page.loadingHide();
+    //             },
+    //             (err: any) => {
+    //                 this._page.alert("消息提示", "数据加载异常");
+    //                 this._page.loadingHide();
+    //             }
+    //         );
+    //     }
 
-//     //加载培育任务列表
-//     LoadActivitylist() {
-//      debugger;
-     
-//      this.mod.ActivityModel.params.accountid= this.mod.data.Account.Id;
-//      this.mod.ActivityModel.params.UserId=this.userInfo.GetSystemUserId();//当前登录用户ID
+    //     //加载培育任务列表
+    //     LoadActivitylist() {
+    //      debugger;
 
-//     this.mod.ActivityModel.list= [];
-//     this._page.loadingShow();
-//     this._http.postForToaken(
-//         this.mod.ActivityModel.apiUrl,
-//         this.mod.ActivityModel.params,
-//         (res: any) => {
-//             debugger;
-//             if (res !== null) {
-//                 if (res.Results !== null) {
-//                     for (var key in res.Results) {
-//                         var obj = {};
-//                         obj["mcs_thisfollowupcontent"] = res.Results[key]["Attributes"]["mcs_thisfollowupcontent"];
-//                         obj["createdon"] = this.dateformat.FormatToDateTime(res.Results[key]["Attributes"]["createdon"]);              
-//                         obj["mcs_activitystatus"] =this.optionset.GetOptionSetNameByValue("mcs_activitystatus",res.Results[key]["Attributes"]["mcs_activitystatus"]);
-//                         obj["mcs_importantlevel"] =this.optionset.GetOptionSetNameByValue("mcs_importantlevel",res.Results[key]["Attributes"]["mcs_importantlevel"]);
-//                         obj["mcs_activityid"] = res.Results[key]["Attributes"]["mcs_activityid"];    
-//                         this.mod.ActivityModel.list.push(obj);
-//                     }
-//                     //console.log(res);
-//                 }  //判断是否有新数据
-//                 // if (res.Results.length == 0) {
-//                 //     this.mod.isending2 = true;
-//                 // }
-//             }
-//             else {
-//                 this._page.alert("消息提示", "联络记录加载异常");
-//             }
-//             this._page.loadingHide();
-//         },
-//         (err: any) => {
-//             this._page.alert("消息提示", "数据加载异常");
-//             this._page.loadingHide();
-//         }
-//     );
+    //      this.mod.ActivityModel.params.accountid= this.mod.data.Account.Id;
+    //      this.mod.ActivityModel.params.UserId=this.userInfo.GetSystemUserId();//当前登录用户ID
 
-// }
+    //     this.mod.ActivityModel.list= [];
+    //     this._page.loadingShow();
+    //     this._http.postForToaken(
+    //         this.mod.ActivityModel.apiUrl,
+    //         this.mod.ActivityModel.params,
+    //         (res: any) => {
+    //             debugger;
+    //             if (res !== null) {
+    //                 if (res.Results !== null) {
+    //                     for (var key in res.Results) {
+    //                         var obj = {};
+    //                         obj["mcs_thisfollowupcontent"] = res.Results[key]["Attributes"]["mcs_thisfollowupcontent"];
+    //                         obj["createdon"] = this.dateformat.FormatToDateTime(res.Results[key]["Attributes"]["createdon"]);              
+    //                         obj["mcs_activitystatus"] =this.optionset.GetOptionSetNameByValue("mcs_activitystatus",res.Results[key]["Attributes"]["mcs_activitystatus"]);
+    //                         obj["mcs_importantlevel"] =this.optionset.GetOptionSetNameByValue("mcs_importantlevel",res.Results[key]["Attributes"]["mcs_importantlevel"]);
+    //                         obj["mcs_activityid"] = res.Results[key]["Attributes"]["mcs_activityid"];    
+    //                         this.mod.ActivityModel.list.push(obj);
+    //                     }
+    //                     //console.log(res);
+    //                 }  //判断是否有新数据
+    //                 // if (res.Results.length == 0) {
+    //                 //     this.mod.isending2 = true;
+    //                 // }
+    //             }
+    //             else {
+    //                 this._page.alert("消息提示", "联络记录加载异常");
+    //             }
+    //             this._page.loadingHide();
+    //         },
+    //         (err: any) => {
+    //             this._page.alert("消息提示", "数据加载异常");
+    //             this._page.loadingHide();
+    //         }
+    //     );
+
+    // }
 
 }

@@ -5,6 +5,8 @@ import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 import { debug } from 'util';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { OptionSetService } from '../../../base/base.ser/optionset.service';
+import { MenuController } from '@ionic/angular';
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.page.html',
@@ -28,11 +30,16 @@ export class ListPage implements OnInit {
     private _http: DCore_Http,
     private _page: DCore_Page,
     private _userinfo:Storage_LoginInfo,
+    private menuController:MenuController,
     private _optionset: OptionSetService,) { 
   }
 
   ngOnInit() { 
     this.listOnBind(null);
+  }
+    //每次页面加载
+    ionViewWillEnter() {
+      this.menuController.enable(false);
   }
   //下拉刷新
   doRefresh(event) { 

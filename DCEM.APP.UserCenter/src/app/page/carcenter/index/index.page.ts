@@ -85,7 +85,7 @@ export class IndexPage {
             middle_charging: {
                 title: "充电服务",
                 subtitle: "提供多种充电方式，满足城市通勤与远途出行",
-                imgscr: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3682338120,1128590170&fm=26&gp=0.jpg",
+                imgscr: "/assets/img/tyzx.jpg",
                 menulist: [
                     {
                         title: "充电与安全",
@@ -111,25 +111,25 @@ export class IndexPage {
                     {
                         title: "20款G3智能进化大盘点",
                         source: "网易汽车",
-                        imgscr: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3682338120,1128590170&fm=26&gp=0.jpg",
+                        imgscr: "/assets/img/tyzx.jpg",
                         link: "#",
                     },
                     {
                         title: "除了续航提示，20款G3还有啥亮点?!!",
                         source: "网易汽车",
-                        imgscr: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3682338120,1128590170&fm=26&gp=0.jpg",
+                        imgscr: "/assets/img/tyzx.jpg",
                         link: "#",
                     },
                     {
                         title: "20款G3智能进化大盘点",
                         source: "网易汽车",
-                        imgscr: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3682338120,1128590170&fm=26&gp=0.jpg",
+                        imgscr: "/assets/img/tyzx.jpg",
                         link: "#",
                     },
                     {
                         title: "20款G3智能进化大盘点",
                         source: "网易汽车",
-                        imgscr: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3682338120,1128590170&fm=26&gp=0.jpg",
+                        imgscr: "/assets/img/tyzx.jpg",
                         link: "#",
                     },
                 ],
@@ -148,7 +148,7 @@ export class IndexPage {
                 ],
             },
             bottom: {
-                imgscr: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3682338120,1128590170&fm=26&gp=0.jpg",
+                imgscr: "/assets/img/tyzx.jpg",
                 link: "#",
             }
         }

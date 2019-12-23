@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonContent, IonInfiniteScroll } from '@ionic/angular';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { OptionSetService } from '../../../base/base.ser/optionset.service';
+import { MenuController } from '@ionic/angular';
 
 @Component({
     selector: 'app-list',
@@ -28,6 +29,7 @@ export class ListPage implements OnInit {
     };
     constructor(private _http: DCore_Http,
         private _page: DCore_Page,
+        private menuController:MenuController,
         private optionset:OptionSetService) { }
 
     ngOnInit() {
@@ -36,6 +38,7 @@ export class ListPage implements OnInit {
     
     //每次页面加载
     ionViewWillEnter() {
+        this.menuController.enable(false);
         this.ionInfiniteScroll.disabled = false;
         this.model.params.PageIndex = 1;
         this._page.loadingShow();

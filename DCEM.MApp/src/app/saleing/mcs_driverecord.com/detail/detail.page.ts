@@ -5,6 +5,7 @@ import { OptionSetService } from '../../../base/base.ser/optionset.service';
 import { ModalController, NavController } from '@ionic/angular';
 import { DragrouteComponent } from 'app/base/base.ser/components/map/dragroute/dragroute.component';
 import sd from 'silly-datetime';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-detail',
@@ -33,6 +34,7 @@ export class DetailPage implements OnInit {
     private _page: DCore_Page,
     private _valid: DCore_Valid,
     private _activeRoute: ActivatedRoute,
+    private menuController: MenuController,
     private _optionset: OptionSetService
   ) { }
 
@@ -46,6 +48,12 @@ export class DetailPage implements OnInit {
       }
     });
   }
+
+  //每次页面加载
+  ionViewWillEnter() {
+    this.menuController.enable(true);
+  }
+
   //加载地图
   async loadmap() {
     debugger;

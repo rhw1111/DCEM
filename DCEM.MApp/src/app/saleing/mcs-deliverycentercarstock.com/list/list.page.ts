@@ -2,6 +2,7 @@
 import { NavController, IonContent, IonInfiniteScroll } from '@ionic/angular';
 import { DatePipe } from '@angular/common';
 import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
+import { MenuController } from '@ionic/angular';
 
 @Component({
     selector: 'app-list',
@@ -28,6 +29,7 @@ export class ListPage implements OnInit {
         private _http: DCore_Http,
         private _page: DCore_Page,
         private _valid: DCore_Valid,
+        private menuController: MenuController,
         private _datePipe: DatePipe
     ) {
 
@@ -36,6 +38,12 @@ export class ListPage implements OnInit {
     ngOnInit() {
         this.listOnBind();
     }
+
+    //每次页面加载
+    ionViewWillEnter() {
+        this.menuController.enable(false);
+    }
+
 
     //每次页面加载
     //ionViewWillEnter() {
