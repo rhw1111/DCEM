@@ -51,7 +51,7 @@ export class LoginPage implements OnInit {
         this.mod.password = '@Msc.com@';
 
         this.mod.apiurl = '/api/User/GetAuthToken';
-        this.mod.domainType = 'CRM9.0';
+        this.mod.domainType = 'localhost';
         //var welcomeisloading= this._window.storageGet("welcomeisloading");
         //if(welcomeisloading==null || welcomeisloading==""){
         //    this._window.storageSet("welcomeisloading","true");
@@ -83,7 +83,7 @@ export class LoginPage implements OnInit {
                 this.mod.domain = "https://mscrm.sokon.com/dcem";
                 break;
             case 'localhost':
-                this.mod.domain = "https://localhost:44382";
+                this.mod.domain = "http://localhost:5000";
                 break;
             default:
                 this.mod.domain = "http://localhost:52151";

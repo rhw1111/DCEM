@@ -162,6 +162,8 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 {
                     throw new Exception("该内容页没有正文内容");
                 }
+                //防乱码
+                targetHtml = "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />" + targetHtml;
                 //写入目标地址
                 var resultPath = @"HtmlResources\Fronts\" + entity.Attributes["mcs_frontcontentid"].ToString();
                 var targetPath = Directory.GetCurrentDirectory() + @"\wwwroot\" + resultPath;

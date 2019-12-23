@@ -4,6 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { OptionSetService } from '../../../base/base.ser/optionset.service';
 import { SelectFileEditComponent } from 'app/serving/serving.ser/components/select-file-edit/select-file-edit.component';
 import { ModalController } from '@ionic/angular';
+import { MenuController } from '@ionic/angular';
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.page.html',
@@ -30,6 +31,7 @@ export class DetailPage implements OnInit {
     private _valid: DCore_Valid,
     private modalCtrl: ModalController,
     private _activeRoute: ActivatedRoute,
+    private menuController: MenuController,
     private _optionset: OptionSetService
   ) {
 
@@ -46,6 +48,11 @@ export class DetailPage implements OnInit {
     });
   }
 
+  //每次页面加载
+  ionViewWillEnter() {
+    this.menuController.enable(true);
+  }
+
   //选择附件模式窗口 
   async presentFileModal(id: any) {
     var fileInputArray = [];
@@ -53,7 +60,7 @@ export class DetailPage implements OnInit {
       component: SelectFileEditComponent,
       componentProps: { fileArray: fileInputArray }
     });
- 
+
     await modalWin.present();
     const { data } = await modalWin.onDidDismiss();
     if (data.command === 1) {
@@ -77,7 +84,7 @@ export class DetailPage implements OnInit {
         postData.mcs_filecategory = 2; //上牌附件
         postData.mcs_partnertype = 2;  //上牌记录
         postData.attrname = "mcs_vehlisense";
-        postData.entitylookup = "mcs_vehlisense"; 
+        postData.entitylookup = "mcs_vehlisense";
         uploaddata.push(postData);
       });
 
@@ -86,7 +93,7 @@ export class DetailPage implements OnInit {
         this.mod.uploadUrl,
         uploaddata,
         (res: any) => {
-          this._page.loadingHide(); 
+          this._page.loadingHide();
           if (res.result == true) {
             const that = this;
             this._page.alert("消息提示", "操作成功", function () {

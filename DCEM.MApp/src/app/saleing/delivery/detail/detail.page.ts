@@ -4,6 +4,8 @@ import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { NgModel } from '@angular/forms';
+import { MenuController } from '@ionic/angular';
+
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.page.html',
@@ -16,6 +18,7 @@ export class DetailPage implements OnInit {
     private _page: DCore_Page,
     private activeRoute: ActivatedRoute,
     private _userinfo: Storage_LoginInfo,
+    private menuController:MenuController,
     public alertController: AlertController) {
   }
   public tab: any = "infolist";
@@ -100,6 +103,11 @@ export class DetailPage implements OnInit {
         this.pageOnBind();
       }
     });
+  }
+
+     //每次页面加载
+     ionViewWillEnter() {
+      this.menuController.enable(true);
   }
 
   //获取交车单基础信息
