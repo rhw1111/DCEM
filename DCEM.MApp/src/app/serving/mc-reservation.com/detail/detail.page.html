@@ -194,26 +194,25 @@
             </ion-row>
         </div>
     </div>
-    <div *ngIf="model.infolist.mcs_status=='10'||model.infolist.mcs_status=='20'">
-        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-            <ion-fab-button>
-                <ion-icon name="arrow-dropup"></ion-icon>
-            </ion-fab-button>
-            <ion-fab-list side="top">
-                <ion-fab-button color="warning" [routerLink]="['/serving/reservation/edit']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid}">
-                    <ion-icon name="create"></ion-icon>
-                </ion-fab-button><!--编辑-->
-                <ion-fab-button color="danger" [routerLink]="['/serving/reservation/cancel']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid}">
-                    <ion-icon name="close"></ion-icon>
-                </ion-fab-button><!--取消-->
-                <ion-fab-button color="tertiary" [routerLink]="['/serving/ri/edit']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid,actionCode:3}">
-                    <ion-icon name="medkit"></ion-icon>
-                </ion-fab-button><!--问诊-->
-                <ion-fab-button color="success" [routerLink]="['/serving/sc/edit']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid,actionCode:3}">
-                    <ion-icon name="hammer"></ion-icon>
-                </ion-fab-button><!--服务委托书-->
-            </ion-fab-list>
-        </ion-fab>
-    </div>
+
+    <ion-fab *ngIf="model.infolist.mcs_status=='10'||model.infolist.mcs_status=='20'" vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+            <ion-icon name="arrow-dropup"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="top">
+            <ion-fab-button color="warning" [routerLink]="['/serving/reservation/edit']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid}">
+                <ion-icon name="create"></ion-icon>
+            </ion-fab-button><!--编辑-->
+            <ion-fab-button color="danger" [routerLink]="['/serving/reservation/cancel']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid}">
+                <ion-icon name="close"></ion-icon>
+            </ion-fab-button><!--取消-->
+            <ion-fab-button color="tertiary" [routerLink]="['/serving/ri/edit']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid,actionCode:3}">
+                <ion-icon name="medkit"></ion-icon>
+            </ion-fab-button><!--问诊-->
+            <ion-fab-button color="success" [routerLink]="['/serving/sc/edit']" [queryParams]="{id:model.infolist.mcs_appointmentinfoid,actionCode:3}">
+                <ion-icon name="hammer"></ion-icon>
+            </ion-fab-button><!--服务委托书-->
+        </ion-fab-list>
+    </ion-fab>
     
 </ion-content>
