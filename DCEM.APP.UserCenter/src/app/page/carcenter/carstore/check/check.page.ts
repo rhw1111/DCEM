@@ -164,15 +164,18 @@ export class CheckPage implements OnInit {
             }
             if (groupName === "轮毂") {
                 if (attrVal.indexOf("20英寸时尚型铝合金轮毂") != -1) {
-                    return '<div ' + ngContentName + '><img ' + ngContentName + ' style="width:100%;height:100%" src="http://sf-test.mediaman.com.cn/img/tire-1.d21d83df.png" /></div>';
+                    return '<div ' + ngContentName + '><img ' + ngContentName + ' style="width:100%;height:100%" src="/assets/img/carcenter/carstore/lt.png" /></div>';
                 }
                 if (attrVal.indexOf("21英寸性能型铝合金轮毂") != -1) {
-                    return '<div ' + ngContentName + '><img ' + ngContentName + ' style="width:100%;height:100%" src="http://sf-test.mediaman.com.cn/img/tire-1.d21d83df.png" /></div>';
+                    return '<div ' + ngContentName + '><img ' + ngContentName + ' style="width:100%;height:100%" src="/assets/img/carcenter/carstore/lt.png" /></div>';
                 }
             }
             if (groupName === "内饰主题") {
-                if (attrVal.indexOf("深黑内饰") != -1) {
+                if (attrVal.indexOf("运动黑") != -1) {
                     return '<div ' + ngContentName + ' style="background-image: linear-gradient(rgb(74, 72, 72) 50%, rgb(56, 55, 55) 50%, rgb(38, 38, 38) 100%);">&nbsp;</div>';
+                }
+                if (attrVal.indexOf("经典黑") != -1) {
+                    return '<div ' + ngContentName + ' style="background-image: linear-gradient(rgb(52, 52, 52) 50%, rgb(0, 0, 0) 50%, rgb(38, 38, 38) 100%);">&nbsp;</div>';
                 }
                 if (attrVal.indexOf("象牙白内饰") != -1) {
                     return '<div ' + ngContentName + ' style="background-image: linear-gradient(rgb(240, 240, 250) 0%, rgb(231, 239, 244) 50%, rgb(223, 232, 237) 50%, rgb(215, 225, 230) 100%);">&nbsp;</div>';
