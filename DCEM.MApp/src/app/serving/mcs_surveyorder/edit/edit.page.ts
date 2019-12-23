@@ -112,9 +112,9 @@ export class EditPage implements OnInit {
     const { data } = await modal.onDidDismiss();
     if (data != null && typeof data != undefined) {
         if (data != null && typeof data != undefined) {
-            if (data.accountid != null) {
-                this.model.postData.mcs_carmodelid = data.carmodel.mcs_carmodelid;
-                this.model.postData.mcs_carmodelname = data.carmodel.mcs_name;              
+            if (data.carmodel != null) {
+                this.model.postData.mcs_carmodelid = data.carmodel.model.mcs_carmodelid;
+                this.model.postData.mcs_carmodelname = data.carmodel.model.mcs_name;              
             }
         }
     }
