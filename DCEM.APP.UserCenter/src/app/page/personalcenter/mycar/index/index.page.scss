@@ -5,25 +5,26 @@
     padding: 0px;
 }
 
+
 .dm-menu-item {
     padding: 10px 20px;
 
     .dm-menu-item-title {
         label {
-            color: $dm-darkblue;
+            color: #fff;
             font-size: 20px;
             font-weight: bold;
         }
 
         small {
             margin-left: 10px;
-            color: $dm-gray;
+            color: #fff;
         }
 
         a {
             position: absolute;
             right: 0px;
-            color: $dm-gray;
+            color: #fff;
             bottom: 0px;
         }
     }

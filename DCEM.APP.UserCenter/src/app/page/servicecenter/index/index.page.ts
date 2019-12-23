@@ -84,7 +84,7 @@ export class IndexPage {
                 },
             ],
             advertisement: {
-                imgscr: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1574598586463&di=af0381a4c02b55fac4744bd1b758e453&imgtype=0&src=http%3A%2F%2Fpic.0513.org%2Fforum%2F201404%2F11%2F153229a7zhbii1115rtwkn.jpg",
+                imgscr: "./assets/img/jf.jpg",
                 link: "#"
             }
         }
