@@ -124,7 +124,6 @@ export class DetailPage implements OnInit {
 
 
   UpdateState() {
-    debugger;
     var postData = {};
     postData["id"] = this.model.activityData.mcs_activityid;
     postData["mcs_activitystatus"] = 1; //已完成
