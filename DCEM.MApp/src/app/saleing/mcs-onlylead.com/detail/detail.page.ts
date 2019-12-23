@@ -200,7 +200,7 @@ export class DetailPage implements OnInit {
             this.mod.apiUrlList2,
             this.mod.params2,
             (res: any) => {
-                debugger;
+                // debugger;
                 if (res !== null) {
                     if (res.Results !== null) {
                         for (var key in res.Results) {

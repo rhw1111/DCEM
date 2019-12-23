@@ -155,7 +155,7 @@ export class EditPage implements OnInit {
 
     //编辑绑定数据
     public pageOnBind(id: any) {
-
+        debugger;
         this._page.loadingShow();
         this._http.getForToaken(
             this.model.getApiUrl,
@@ -195,9 +195,6 @@ export class EditPage implements OnInit {
                             this.model.attachment.push(obj);
                         }
                     }
-
-
-                    console.log(res);
                 }
                 else {
                     this._page.alert("消息提示", "预约单加载异常");
@@ -220,7 +217,6 @@ export class EditPage implements OnInit {
             },
             (res: any) => {
                 if (res.Results !== null) {
-
                     for (var key in res.Results) {
                         var obj = {};
                         obj["model"] = res.Results[key]["Attributes"];
@@ -387,11 +383,8 @@ export class EditPage implements OnInit {
         this._http.postForToaken(
             this.model.postApiUrl, this.model.postData,
             (res: any) => {
-              
                 this._page.loadingHide();
                 if (res.Result == true) {
-                    console.log("res");
-                    console.log(res);
                     var guid = res["Data"]["Id"];
                     this._page.goto("/saleing/driverecord/success", { guid: guid });
                 }
