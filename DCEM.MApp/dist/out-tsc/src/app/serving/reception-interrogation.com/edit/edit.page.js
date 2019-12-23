@@ -36,7 +36,7 @@ let EditPage = class EditPage {
             that._page.navigateRoot("/serving/ri/list", null, "back");
         };
     }
-    ionViewWillEnter() {
+    ionViewDidEnter() {
         this._activeRoute.queryParams.subscribe((params) => {
             if (this._shareData.has(this.mod.shareDataKey)) {
                 this.shareData = this._shareData.get(this.mod.shareDataKey);

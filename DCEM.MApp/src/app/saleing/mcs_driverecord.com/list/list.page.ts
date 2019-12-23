@@ -51,7 +51,7 @@ export class ListPage implements OnInit {
   ngOnInit() {
   }
 
-  ionViewWillEnter() {
+  ionViewDidEnter() {
     this.menuController.enable(false);
     this.model.page = 1;
     this.model.systemUserId = this._logininfo.GetSystemUserId();

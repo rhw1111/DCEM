@@ -59,7 +59,7 @@ export class DetailPage implements OnInit {
   }
 
   //每次页面加载
-  ionViewWillEnter() {
+  ionViewDidEnter() {
     this.menuController.enable(true);
   }
 

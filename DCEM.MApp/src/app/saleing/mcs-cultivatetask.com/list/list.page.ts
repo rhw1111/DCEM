@@ -41,7 +41,7 @@ export class ListPage implements OnInit {
    
   }
 
-  ionViewWillEnter() {
+  ionViewDidEnter() {
     // debugger;
     this.menuController.enable(false);
     this.model.page = 1;

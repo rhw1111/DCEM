@@ -71,7 +71,7 @@ export class EditPage implements OnInit {
         private menuController:MenuController) { }
 
     //每次页面加载
-    ionViewWillEnter() {
+    ionViewDidEnter() {
         this.menuController.enable(true);
     }
 
