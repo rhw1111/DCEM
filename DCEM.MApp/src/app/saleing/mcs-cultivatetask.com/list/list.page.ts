@@ -44,6 +44,7 @@ export class ListPage implements OnInit {
   ionViewDidEnter() {
     // debugger;
     this.menuController.enable(false);
+    this.model.datalist=[];
     this.model.page = 1;
     this.model.systemUserId = this._logininfo.GetSystemUserId(); 
     this._page.loadingShow();

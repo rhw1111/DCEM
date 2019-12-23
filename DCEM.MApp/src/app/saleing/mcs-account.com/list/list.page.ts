@@ -33,7 +33,7 @@ export class ListPage implements OnInit {
         private optionset:OptionSetService) { }
 
     ngOnInit() {
-       
+        
     }
     
     //每次页面加载

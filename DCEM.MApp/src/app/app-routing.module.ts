@@ -44,7 +44,7 @@ const routes: Routes = [
                 children: [
                     { path: 'index', loadChildren: './serving/home.com/index/index.module#IndexPageModule' },
                     { path: 'tabs', loadChildren: './serving/home.com/tabs/tabs.module#TabsPageModule' },
-                    { path: 'mywork', loadChildren: './serving/home.com/mywork/mywork.module#MyworkPageModule' },
+                    //{ path: 'mywork', loadChildren: './serving/home.com/mywork/mywork.module#MyworkPageModule' },
                     { path: 'message', loadChildren: './serving/home.com/message/message.module#MessagePageModule' },
                 ]
             },

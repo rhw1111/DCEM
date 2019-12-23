@@ -15,7 +15,7 @@ export class Dateformat {
             return sd.format(date, 'YYYY-MM-DD');
         }
         else {
-            return '--';
+            return '';
         }
     }
 
