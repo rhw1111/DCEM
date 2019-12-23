@@ -331,11 +331,11 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 throw ex;
             }
         }
-        public async Task<ValidateResult<string>> gettailmoney(string id)
+        public async Task<ValidateResult<decimal>> gettailmoney(string id)
         {
             try
             {
-                var validateResult = new ValidateResult<string>();
+                var validateResult = new ValidateResult<decimal>();
                 var crmRequestHelper = new CrmRequestHelper();
                 var entity = await crmRequestHelper.Retrieve(_crmService, entityName, Guid.Parse(id));
                 if (entity != null)
@@ -358,7 +358,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                     var tailmoney = totalamount - earnest;
 
                     validateResult.Result = true;
-                    validateResult.Description = tailmoney.ToString();
+                    validateResult.Data = tailmoney;
                     return validateResult;
                 }
                 else

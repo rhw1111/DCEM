@@ -257,7 +257,8 @@ const routes: Routes = [
     },
     { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' },
     { path: 'fileupload', loadChildren: './serving/serving.ser/components/fileupload/fileupload.module#FileuploadPageModule' },
-  { path: 'success', loadChildren: './saleing/mcs-contactrecord/success/success.module#SuccessPageModule' },
+  { path: 'success', loadChildren: './saleing/mcs-contactrecord/success/success.module#SuccessPageModule' },  { path: 'edit', loadChildren: './saleing/vehlisense/edit/edit.module#EditPageModule' },
+
  
 
   

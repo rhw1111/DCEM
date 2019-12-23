@@ -31,6 +31,6 @@ namespace DCEM.SalesAssistant.Main.Application.Services.Contrac
 
         Task<CrmEntity> getdeliverorderflow(DeliveryDetailRequest deliveryDetailRequest);
          
-        Task<ValidateResult<string>> gettailmoney(string id);
+        Task<ValidateResult<decimal>> gettailmoney(string id);
     }
 }

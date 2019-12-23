@@ -137,7 +137,7 @@ namespace DCEM.Web.Controllers
         /// </summary> 
         [Route("gettailmoney")]
         [HttpGet]
-        public async Task<NewtonsoftJsonActionResult<ValidateResult<string>>> gettailmoney(string id)
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<decimal>>> gettailmoney(string id)
         {
             return await _appDelivery.gettailmoney(id);
         }
