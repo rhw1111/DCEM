@@ -83,7 +83,7 @@ export class LoginPage implements OnInit {
                 this.mod.domain = "https://mscrm.sokon.com/dcem";
                 break;
             case 'localhost':
-                this.mod.domain = "http://localhost:5000";
+                this.mod.domain = "http://localhost:44382";
                 break;
             default:
                 this.mod.domain = "http://localhost:52151";
@@ -105,7 +105,7 @@ export class LoginPage implements OnInit {
             },
             (res: any) => {
                 if (res.access_token == "") {
-                   this._page.alert('消息提示', '登录认证失败');
+                   this._page.alert('消息提示', '登录失败,账号或密码错误！');
                    this._page.loadingHide();
                    return false;
                 }

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ModalController, IonContent, NavParams } from '@ionic/angular';
 import * as $ from 'jquery';
 import { RegAgreementComponent } from '../../../component/modal/reg-agreement/reg-agreement.component'
-import { Storage_LoginInfo } from '../../typescript/logininfo.storage'; 
+import { Storage_LoginInfo } from '../../typescript/logininfo.storage';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -18,6 +18,8 @@ export class LoginComponent implements OnInit {
   public inputphonedisabled: boolean = false;//修改密码手机号只读开关
   //界面切换开关 1 登录输入；2登录验证码输入；5 注册验证码输入；3 注册电话号码页面；4 注册个人信息输入页面 
   //6 忘记密码手机号码录入界面； 8 修改密码
+
+  //模拟登陆页面   10微信；11QQ 12 微博
   public disstatus: any = 1;
   public mod: any = {
     loginurl: 'api/user/loginaccount',//账号登录url
@@ -81,17 +83,36 @@ export class LoginComponent implements OnInit {
   }
 
 
-  async onRegAgreement(code) { 
+  async onRegAgreement(code) {
     const modal = await this.modalCtrl.create({
       component: RegAgreementComponent,
       componentProps: {
-          'defcode': code//reg001注册协议;reg002隐私协议; 
+        'defcode': code//reg001注册协议;reg002隐私协议; 
       }
     });
     await modal.present();
     //监听销毁的事件
-    const { data } = await modal.onDidDismiss(); 
+    const { data } = await modal.onDidDismiss();
   }
+
+
+  //------------------------------模拟登陆-------------------------------------------------------
+
+  OnOtherStatus(status) {
+    this.disstatus = status;
+  }
+
+
+  OnOtherLogin() {
+    this.mod.model.account = "13635425956";
+    this.mod.model.pwd = "123q123";
+    this.onLogin();
+  }
+
+
+
+
+  //--------------------------------------------------------------------------------------
 
   //切换到登录界面
   OnLogin() {
@@ -239,7 +260,7 @@ export class LoginComponent implements OnInit {
             this.disstatus = 4;
           else {
             this.LoginModel(res.Data);
-            this.onReturn(true); 
+            this.onReturn(true);
           }
         }
         else {
@@ -523,8 +544,8 @@ export class LoginComponent implements OnInit {
   }
 
 
-   //修改用户密码（安全问题验证）
-   onPwdResetToQuestion(type) {
+  //修改用户密码（安全问题验证）
+  onPwdResetToQuestion(type) {
     if (this.mod.model.account == '') {
       this.valmsg = '请填写手机号！';
       this.isval = true;
@@ -557,7 +578,7 @@ export class LoginComponent implements OnInit {
       keytype: 1,
       status: 2,
       pwd: this.mod.model.pwd,
-      certificationtype: 1, 
+      certificationtype: 1,
       quests: [
         {
           securityquestion: this.mod.model.quest1,
@@ -584,7 +605,7 @@ export class LoginComponent implements OnInit {
             this._page.alert("消息提示", "更改成功!");
             this._page.goto("/tabs/personalcenter");
             this.onReturn(true);
-          } 
+          }
         }
         else {
           this._page.loadingHide();

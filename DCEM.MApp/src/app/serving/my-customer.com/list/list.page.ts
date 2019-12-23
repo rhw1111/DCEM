@@ -39,7 +39,7 @@ export class ListPage implements OnInit {
     }
 
     //每次页面加载
-    ionViewWillEnter() {
+    ionViewDidEnter() {
         this.mod.data = [];
         this.mod.searchData = {
             type: 1,

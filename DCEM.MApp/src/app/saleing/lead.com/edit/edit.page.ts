@@ -55,6 +55,9 @@ export class EditPage implements OnInit {
 
     }
     ngOnInit() {
+    }
+
+    ionViewDidEnter() {
         this.model.scoreoption = this._optionset.Get("lead_mcs_accountpoints");
         this.model.genderoption = this._optionset.Get("lead_mcs_gender");
         this.model.leadoriginoption = this._optionset.Get("lead_mcs_leadorigin");
@@ -230,7 +233,7 @@ export class EditPage implements OnInit {
             this._page.alert("消息提示", "请选择评分");
             return;
         }
-        var tagName = this.model.info.describe + "，客户标签：";
+        var tagName = this.model.info.describe==""?this.model.info.describe + "客户标签：":this.model.info.describe + ", 客户标签：";
         for (var i in this.model.ChoiceTag) {
             var tagid = this.model.ChoiceTag[i];
             for (var x in this.CustomerTagModel.CustomerTags) {
