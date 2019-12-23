@@ -59,10 +59,10 @@
                 </ion-col>
             </ion-row>
         </ion-grid>
-    <ion-item-divider>
+        <ion-item-divider *ngIf="IsSalingManager">
             <ion-label>销售</ion-label>
         </ion-item-divider>
-        <ion-grid>
+        <ion-grid *ngIf="IsSalingManager">
             <ion-row align-items-center>
                 <ion-col align-self-center>
                     <div>
@@ -160,10 +160,10 @@
                 </ion-col>
             </ion-row>
         </ion-grid>
-    <ion-item-divider>
+    <ion-item-divider *ngIf="IsSerlingManager">
         <ion-label>服务</ion-label>
     </ion-item-divider>
-    <ion-grid>
+    <ion-grid *ngIf="IsSerlingManager">
         <ion-row>
                 <ion-col>
                         <div>

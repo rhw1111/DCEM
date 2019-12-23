@@ -7,14 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { CarcontrolPageRoutingModule } from './carcontrol-routing.module';
 
 import { CarcontrolPage } from './carcontrol.page';
-
+import { TopheadModule } from 'app/component/assembly/tophead/tophead.module';
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    CarcontrolPageRoutingModule
-  ],
-  declarations: [CarcontrolPage]
+    imports: [
+        TopheadModule,
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        CarcontrolPageRoutingModule
+    ],
+    declarations: [CarcontrolPage]
 })
-export class CarcontrolPageModule {}
+export class CarcontrolPageModule { }

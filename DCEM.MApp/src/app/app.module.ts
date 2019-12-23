@@ -35,8 +35,9 @@ import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile';
 import { SelectRepairitemtypeComponent } from 'app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component';
 import { SelectRepairitemtypedetailComponent } from 'app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component';
 import { SelectAppointmentinfoComponent } from 'app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component';
-
 import { SelectFileEditComponent } from 'app/serving/serving.ser/components/select-file-edit/select-file-edit.component';
+import { SelectAccountComponent } from 'app/serving/serving.ser/components/select-account/select-account.component'
+
 
 import { DragrouteComponent } from 'app/base/base.ser/components/map/dragroute/dragroute.component';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
@@ -69,7 +70,8 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
         SelectRepairitemtypedetailComponent,
         SelectAppointmentinfoComponent,//选择预约单
         SelectFileEditComponent,
-        DragrouteComponent
+        DragrouteComponent,
+        SelectAccountComponent
     ],
 
     entryComponents: [
@@ -94,7 +96,8 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
         SelectRepairitemtypedetailComponent,
         SelectAppointmentinfoComponent,//选择预约单
         SelectFileEditComponent,
-        DragrouteComponent
+        DragrouteComponent,
+        SelectAccountComponent
     ],
 
     imports: [BrowserModule,

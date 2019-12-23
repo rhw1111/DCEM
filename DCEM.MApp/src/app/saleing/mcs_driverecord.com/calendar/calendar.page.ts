@@ -96,6 +96,7 @@ export class CalendarPage implements OnInit {
             for (var i in res.Results) {
               var attr = res.Results[i]["Attributes"];
               var obj = {}; 
+              obj["id"]=res.Results[i]["Id"];
               obj["fullname"]=attr["mcs_fullname"];
               obj["mobilephone"]=attr["mcs_mobilephone"];
               obj["testdrivetime"]=attr["_mcs_testdrivetime_value@OData.Community.Display.V1.FormattedValue"];

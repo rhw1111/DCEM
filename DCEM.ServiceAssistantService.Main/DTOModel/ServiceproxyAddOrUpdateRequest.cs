@@ -107,6 +107,10 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
         /// 预约单
         /// </summary>
         public string appointmentcode { get; set; }
+        /// <summary>
+        /// 车型
+        /// </summary>
+        public string carmodel { get; set; }
 
     }
     #endregion

@@ -5,6 +5,8 @@ import { DCore_Page, DCore_Http } from 'app/base/base.ser/Dcem.core';
 import sd from 'silly-datetime';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
+import { MenuController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-list',
@@ -34,6 +36,7 @@ export class ListPage implements OnInit {
         private _http: DCore_Http,
         private _page: DCore_Page,
         private httpService: HttpService,
+        private menuController:MenuController,
         private _logininfo: Storage_LoginInfo
     ) { }
 
@@ -43,6 +46,10 @@ export class ListPage implements OnInit {
         //this.model.dealerId = this._logininfo.GetDealerid();
         this.showlist(null);
   }
+     //每次页面加载
+     ionViewWillEnter() {
+        this.menuController.enable(false);
+    }
     //搜索方法
     search(event) {
         var keyCode = event ? event.keyCode : "";

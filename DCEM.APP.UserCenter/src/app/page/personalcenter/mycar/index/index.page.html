@@ -1,121 +1,125 @@
 ﻿<ion-header>
-    <app-tophead topHeadTitle="我的汽车" topHeadBackUrl="/tabs/personalcenter"></app-tophead>
+    <app-tophead topHeadTitle="我的车辆" topHeadBackUrl="/tabs/personalcenter"></app-tophead>
 </ion-header>
 
 <ion-content>
-    <ion-grid>
-        <ion-row>
-            <ion-col class="dm-menu-item">
-                <ion-grid>
-                    <ion-row>
-                        <ion-col class="dm-menu-item-title">
-                            <label>日程</label>
-                            <small>09月20日，星期一</small>
-                            <a>全部</a>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row>
-                        <ion-col class="dm-menu-item-img">
-                            <img src="../../../../../assets/img/personalcenter/mycar/index/rc.png" />
-                            <button class="dm-menu-item-img-button">添加+</button>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col class="dm-menu-item">
-                <ion-grid>
-                    <ion-row>
-                        <ion-col class="dm-menu-item-title">
-                            <label>车控</label>
-                            <small>渝A9877G</small>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row>
-                        <ion-col class="dm-menu-item-img">
-                            <img src="../../../../assets/img/personalcenter/mycar/index/ck1.png" />
-                            <button class="dm-menu-item-img-button" style="margin-right: 100px;">蓝牙></button>
-                            <button class="dm-menu-item-img-button">远程></button>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col class="dm-menu-item">
-                <ion-grid>
-                    <ion-row>
-                        <ion-col class="dm-menu-item-title">
-                            <label>车控</label>
-                            <small>渝A9877Y</small>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row>
-                        <ion-col class="dm-menu-item-img">
-                            <img src="../../../../assets/img/personalcenter/mycar/index/ck2.png" />
-                            <button class="dm-menu-item-img-button" style="margin-right: 100px;">蓝牙></button>
-                            <button class="dm-menu-item-img-button">远程></button>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col class="dm-menu-item">
-                <ion-grid>
-                    <ion-row>
-                        <ion-col class="dm-menu-item-title">
-                            <label>周边</label>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row>
-                        <ion-col class="dm-menu-item-imglist">
-                            <div>
-                                <ul>
-                                    <li>
+    <div class="dm-car-back">
+        <ion-grid>
+            <ion-row>
+                <ion-col class="dm-menu-item">
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col class="dm-menu-item-title">
+                                <label>日程</label>
+                                <small>09月20日，星期一</small>
+                                <a>全部</a>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col class="dm-menu-item-img">
+                                <img src="../../../../../assets/img/personalcenter/mycar/index/rc.png" />
+                                <button class="dm-menu-item-img-button">添加+</button>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col class="dm-menu-item">
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col class="dm-menu-item-title">
+                                <label>车控</label>
+                                <small>渝A9877G</small>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col class="dm-menu-item-img">
+                                <img src="../../../../assets/img/personalcenter/mycar/index/ck1.png" />
+                                <button class="dm-menu-item-img-button" style="margin-right: 190px;" [routerLink]="['/personalcenter/mycar/carcondition']">车况></button>
+                                <button class="dm-menu-item-img-button" style="margin-right: 100px;" [routerLink]="['/personalcenter/mycar/carcontrol']">蓝牙></button>
+                                <button class="dm-menu-item-img-button" [routerLink]="['/personalcenter/mycar/carcontrol']">远程></button>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col class="dm-menu-item">
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col class="dm-menu-item-title">
+                                <label>车控</label>
+                                <small>渝A9877Y</small>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col class="dm-menu-item-img">
+                                <img src="../../../../assets/img/personalcenter/mycar/index/ck2.png" />
+                                <button class="dm-menu-item-img-button" style="margin-right: 190px;" [routerLink]="['/personalcenter/mycar/carcondition']">车况></button>
+                                <button class="dm-menu-item-img-button" style="margin-right: 100px;" [routerLink]="['/personalcenter/mycar/carcontrol']">蓝牙></button>
+                                <button class="dm-menu-item-img-button" [routerLink]="['/personalcenter/mycar/carcontrol']">远程></button>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col class="dm-menu-item">
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col class="dm-menu-item-title">
+                                <label>周边</label>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col class="dm-menu-item-imglist">
+                                <div>
+                                    <ul>
+                                        <li>
 
-                                        <img src="../../../../../assets/img/personalcenter/mycar/index/tcc.png" />
+                                            <img src="../../../../../assets/img/personalcenter/mycar/index/tcc.png" />
 
-                                        <div>
-                                            <label>停车场</label>
-                                            <small>Parking</small>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <img src="../../../../../assets/img/personalcenter/mycar/index/jyz.png" />
-                                        <div>
-                                            <label>加油站</label>
-                                            <small>Petrol station</small>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <img src="../../../../../assets/img/personalcenter/mycar/index/xc.png" />
-                                        <div>
-                                            <label>洗车</label>
-                                            <small>Car Wash</small>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <img src="../../../../../assets/img/personalcenter/mycar/index/jd.png" />
-                                        <div>
-                                            <label>酒店</label>
-                                            <small>Hotel</small>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <img src="../../../../../assets/img/personalcenter/mycar/index/ly.png" />
-                                        <div>
-                                            <label>景点</label>
-                                            <small>Scenic spots</small>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
+                                            <div>
+                                                <label>停车场</label>
+                                                <small>Parking</small>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <img src="../../../../../assets/img/personalcenter/mycar/index/jyz.png" />
+                                            <div>
+                                                <label>加油站</label>
+                                                <small>Petrol station</small>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <img src="../../../../../assets/img/personalcenter/mycar/index/xc.png" />
+                                            <div>
+                                                <label>洗车</label>
+                                                <small>Car Wash</small>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <img src="../../../../../assets/img/personalcenter/mycar/index/jd.png" />
+                                            <div>
+                                                <label>酒店</label>
+                                                <small>Hotel</small>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <img src="../../../../../assets/img/personalcenter/mycar/index/ly.png" />
+                                            <div>
+                                                <label>景点</label>
+                                                <small>Scenic spots</small>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
 </ion-content>

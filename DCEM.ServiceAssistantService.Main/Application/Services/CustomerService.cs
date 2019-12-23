@@ -313,6 +313,11 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 vehownerEntity.Attributes.Add("mcs_salesdate", vehownerJo.Value<DateTime?>("mcs_salesdate"));
             if (vehownerJo.ContainsKey("_mcs_vehtype_value"))
                 vehownerEntity.Attributes.Add("mcs_vehtype", new CrmEntityReference("mcs_carmodel", Guid.Parse(vehownerJo.Value<string>("_mcs_vehtype_value"))));
+            if (vehownerJo.ContainsKey("mcs_shuttlename"))
+                vehownerEntity.Attributes.Add("mcs_shuttlename", vehownerJo.Value<string>("mcs_shuttlename"));
+            if (vehownerJo.ContainsKey("mcs_shuttlephone"))
+                vehownerEntity.Attributes.Add("mcs_shuttlephone", vehownerJo.Value<string>("mcs_shuttlephone"));
+
 
             if (actionCode == 1)
             {

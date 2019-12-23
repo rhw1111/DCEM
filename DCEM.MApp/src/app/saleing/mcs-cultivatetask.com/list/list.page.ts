@@ -4,6 +4,7 @@ import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { OptionSetService } from '../../../base/base.ser/optionset.service';
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
+import { MenuController } from '@ionic/angular';
 @Component({
   selector: 'app-list',
   templateUrl: './list.page.html',
@@ -32,10 +33,17 @@ export class ListPage implements OnInit {
     private _page: DCore_Page,
     private httpService: HttpService,
     private optionset: OptionSetService,
+    private menuController:MenuController,
     private _logininfo: Storage_LoginInfo
   ) { }
 
   ngOnInit() {
+   
+  }
+
+  ionViewWillEnter() {
+    // debugger;
+    this.menuController.enable(false);
     this.model.page = 1;
     this.model.systemUserId = this._logininfo.GetSystemUserId(); 
     this._page.loadingShow();
@@ -114,10 +122,10 @@ export class ListPage implements OnInit {
             this.model.datalist.push(obj);
 
           });
-          //设置数据存储到本地
-          if (this.model.page == 1) {
-            this.httpService.SetDataCache(this.model.name, JSON.stringify(this.model.datalist).toString());
-          }
+          // //设置数据存储到本地
+          // if (this.model.page == 1) {
+          //   this.httpService.SetDataCache(this.model.name, JSON.stringify(this.model.datalist).toString());
+          // }
           event ? event.target.complete() : '';
           //判断是否有新数据
           this.model.searchnodata = res.Results.length==0;

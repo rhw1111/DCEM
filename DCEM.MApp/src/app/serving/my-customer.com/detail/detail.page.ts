@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 
 @Component({
     selector: 'app-detail',
@@ -39,6 +40,7 @@ export class DetailPage implements OnInit {
         private _http: DCore_Http,
         private _page: DCore_Page,
         private _valid: DCore_Valid,
+        private menuController: MenuController,
         private activeRoute: ActivatedRoute
     ) {
 
@@ -53,6 +55,10 @@ export class DetailPage implements OnInit {
         });
     }
 
+    //每次页面加载
+    ionViewWillEnter() {
+        this.menuController.enable(true);
+    }
 
     pageOnBind(id: any) {
         this._page.loadingShow();

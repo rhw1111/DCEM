@@ -47,11 +47,11 @@ export class LoginPage implements OnInit {
         // this.mod.username = 'crm9admin';
         // this.mod.password = '@Msc.com@';
 
-        this.mod.username = 'subuatcrmadmin';
-        this.mod.password = 'P@ssw0rd';
+        this.mod.username = 'crm9admin';
+        this.mod.password = '@Msc.com@';
 
         this.mod.apiurl = '/api/User/GetAuthToken';
-        this.mod.domainType = 'local';
+        this.mod.domainType = 'localhost';
         //var welcomeisloading= this._window.storageGet("welcomeisloading");
         //if(welcomeisloading==null || welcomeisloading==""){
         //    this._window.storageSet("welcomeisloading","true");

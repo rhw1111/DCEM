@@ -720,10 +720,16 @@ namespace MSLibrary.Xrm
                 retryNumber++;
                 if (!response.IsSuccessStatusCode)
                 {
-                    var requestBody = await response.RequestMessage.Content.ReadAsStringAsync();
+                    //先判断content为空
+                    var requestBody = string.Empty;
+                    if (response.RequestMessage.Content != null)
+                    {
+                        requestBody = await response.RequestMessage.Content.ReadAsStringAsync();
+                    }
                     var strContent = await response.Content.ReadAsStringAsync();
 
-                    var error = JsonSerializerHelper.Deserialize<CrmWebApiError>(strContent);
+                    //这个后面没用到，还容易报错，暂时注释
+                    //var error = JsonSerializerHelper.Deserialize<CrmWebApiError>(strContent);
                     UtilityException ex = null;
                     bool canContinue = false;
                     TextFragment fragment;

@@ -54,5 +54,12 @@ namespace DCEM.SalesAssistant.Main.Application.App.Contrac
         /// <param name="request"></param>
         /// <returns></returns>
         Task<QueryResult<CrmEntity>> QueryDriveRouteList(DriveRouteRequest request);
+
+        /// <summary>
+        /// 查询试乘试驾附件
+        /// </summary>
+        /// <param name="driverecordid"></param>
+        /// <returns></returns>
+        Task<QueryResult<CrmEntity>> QueryAttachment(string driverecordid);
     }
 }

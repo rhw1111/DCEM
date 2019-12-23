@@ -4,6 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { OptionSetService } from '../../../base/base.ser/optionset.service';
 import { SelectFileEditComponent } from 'app/serving/serving.ser/components/select-file-edit/select-file-edit.component';
 import { ModalController } from '@ionic/angular';
+import { MenuController } from '@ionic/angular';
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.page.html',
@@ -32,6 +33,7 @@ export class DetailPage implements OnInit {
     private _valid: DCore_Valid,
     private modalCtrl: ModalController,
     private _activeRoute: ActivatedRoute,
+    private menuController: MenuController,
     private _optionset: OptionSetService
   ) {
 
@@ -48,6 +50,11 @@ export class DetailPage implements OnInit {
     });
   }
 
+  //每次页面加载
+  ionViewWillEnter() {
+    this.menuController.enable(true);
+  }
+
 
   //选择附件模式窗口  1身份证，2开票附件
   async presentFileModal(id: any, type: any) {
@@ -56,22 +63,22 @@ export class DetailPage implements OnInit {
       component: SelectFileEditComponent,
       componentProps: { fileArray: fileInputArray }
     });
- 
+
     await modalWin.present();
     const { data } = await modalWin.onDidDismiss();
-     if (data.command === 1) { 
-    var uploaddata=[];
+    if (data.command === 1) {
+      var uploaddata = [];
       data.fileArray.forEach(element => {
-        var postData ={
-          filename:"",
-          filesize:0,
-          url:"",
-          id:"",
-          mcs_filecategory:0,
-          mcs_partnertype:0,
-          lookup:"",
-          attrname:"",
-          entitylookup:""
+        var postData = {
+          filename: "",
+          filesize: 0,
+          url: "",
+          id: "",
+          mcs_filecategory: 0,
+          mcs_partnertype: 0,
+          lookup: "",
+          attrname: "",
+          entitylookup: ""
         };
         postData.filename = element["fileName"];
         postData.filesize = parseInt(element["fileSize"]);
@@ -79,25 +86,25 @@ export class DetailPage implements OnInit {
         postData.id = id;
         if (type == 1) {
           postData.mcs_filecategory = 3; //身份证附件
-          postData.mcs_partnertype= 3;  //开通车联网记录
+          postData.mcs_partnertype = 3;  //开通车联网记录
           postData.attrname = "mcs_vehnetwork";
           postData.entitylookup = "mcs_vehnetwork";
         } else {
           postData.mcs_filecategory = 4; //开票附件
-          postData.mcs_partnertype= 3;  //开通车联网记录
-          postData.attrname= "mcs_vehnetwork";
+          postData.mcs_partnertype = 3;  //开通车联网记录
+          postData.attrname = "mcs_vehnetwork";
           postData.entitylookup = "mcs_vehnetwork";
         }
         uploaddata.push(postData);
       });
-     
-     
+
+
       this._http.post(
         this.mod.uploadUrl,
         uploaddata,
         (res: any) => {
           this._page.loadingHide();
-        debugger;
+          debugger;
           if (res.result == true) {
             const that = this;
             this._page.alert("消息提示", "操作成功", function () {
@@ -127,7 +134,7 @@ export class DetailPage implements OnInit {
               id: this.mod.data.detail["id"]
             }
           },
-          (res: any) => { 
+          (res: any) => {
             this._page.loadingHide();
             if (res.Result == true) {
               const that = this;
@@ -150,7 +157,7 @@ export class DetailPage implements OnInit {
   }
 
   pageOnBind(id: any) {
-    this.mod.data.detail["id"] = id;  
+    this.mod.data.detail["id"] = id;
     this._page.loadingShow();
     this._http.get(
       this.mod.apiUrl,
@@ -180,7 +187,7 @@ export class DetailPage implements OnInit {
           this.mod.data.detail["ontactphone"] = res["Detail"]["Attributes"]["contactphone"];
           this.mod.data.detail["contactname"] = res["Detail"]["Attributes"]["contactname"];
           this.mod.data.detail["idcard"] = res["Detail"]["Attributes"]["idcard"];
-          this.mod.data.detail["orderon"] = res["Detail"]["Attributes"]["orderon"]; 
+          this.mod.data.detail["orderon"] = res["Detail"]["Attributes"]["orderon"];
           this.mod.data.detail["vehordercode"] = res["Detail"]["Attributes"]["vehordercode"];
           this.mod.data.detail["vehordercode"] = res["Detail"]["Attributes"]["vehordercode"];
           this.mod.data.detail["vinname"] = res["Detail"]["Attributes"]["vinname"];
@@ -203,7 +210,7 @@ export class DetailPage implements OnInit {
           }
         }
         if (!this._valid.isNull(res.InvoiceDetail)) {
-          for (var key in res.InvoiceDetail) { 
+          for (var key in res.InvoiceDetail) {
             var obj = {};
             obj["mcs_filename"] = res.InvoiceDetail[key]["Attributes"]["mcs_filename"];
             obj["mcs_filetype"] = res.InvoiceDetail[key]["Attributes"]["mcs_filetype"];
@@ -212,7 +219,7 @@ export class DetailPage implements OnInit {
             obj["mcs_filesize"] = res.InvoiceDetail[key]["Attributes"]["mcs_filesize"];
             this.mod.data.invoicedetail.push(obj);
           }
-        } 
+        }
         this._page.loadingHide();
       },
       (err: any) => {

@@ -18,7 +18,8 @@ namespace DCEM.HT.Controllers
     /// </summary>
     [EnableCors("any")]
     [Route("api/Page")]
-    public class PageController : Controller
+    [ApiController]
+    public class PageController : ApiController
     {
         private IAppAMPage _appAMPage;
         public PageController()
@@ -26,11 +27,17 @@ namespace DCEM.HT.Controllers
             _appAMPage = new AMPageFactory().Create().Result;
         }
 
+        /// <summary>
+        /// 落地页生成
+        /// </summary>
+        /// <param name="pageId"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("GenerateAMPage")]
         public async Task<AMPageResponse> GenerateAMPage(Guid pageId)
         {
             return await _appAMPage.GenerateAMPage(pageId);
         }
+
     }
 }

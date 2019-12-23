@@ -46,6 +46,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
                     loginModel.domainname = userInfo.domainname;
                     loginModel.mcs_staffid = userInfo.mcs_staffid;
                     loginModel.systemuserid = userInfo.systemuserid.GetValueOrDefault().ToString();
+                    loginModel.rolenames = await _adfsEndpointRepository.GetUserRole(userInfo.systemuserid.GetValueOrDefault());
                 }
             }
             return loginModel;
