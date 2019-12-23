@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController, IonContent, IonInfiniteScroll } from '@ionic/angular';
 import { DatePipe } from '@angular/common';
-import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
+import { DCore_Http, DCore_Page, DCore_Valid,DCore_Window } from 'app/base/base.ser/Dcem.core';
 
 
 @Component({
@@ -31,6 +31,7 @@ export class ListPage implements OnInit {
         private _http: DCore_Http,
         private _page: DCore_Page,
         private _valid: DCore_Valid,
+        private _window: DCore_Window,
     ) {
     }
 
@@ -93,14 +94,19 @@ export class ListPage implements OnInit {
                     for (var key in res.Results) {
                         console.log(res.Results[key]);
                         var obj = {};
+                        var domain=this._window.storageGet("apiDomainUrl")
+                        var flex="a_x002e_";
+                        if(domain.indexOf('106.14.121.65')!=-1){
+                            flex="a.";
+                        }
                         obj["Id"] = res.Results[key]["Id"];
-                        obj["fullname"] = res.Results[key]["Attributes"]["a.mcs_fullname"];
-                        obj["genderformat"] = res.Results[key]["Attributes"]["a.mcs_gender@OData.Community.Display.V1.FormattedValue"];
-                        obj["gender"] = res.Results[key]["Attributes"]["a.mcs_gender"];
-                        obj["mobilephone"] = res.Results[key]["Attributes"]["a.mcs_mobilephone"];
-                        obj["vehplate"] = res.Results[key]["Attributes"]["a.mcs_vehplate"];
-                        obj["vehtype"] = res.Results[key]["Attributes"]["a.mcs_vehtype@OData.Community.Display.V1.FormattedValue"];
-
+                        obj["fullname"] = res.Results[key]["Attributes"][flex+"mcs_fullname"];
+                        obj["genderformat"] = res.Results[key]["Attributes"][flex+"mcs_gender@OData.Community.Display.V1.FormattedValue"];
+                        obj["gender"] = res.Results[key]["Attributes"][flex+"mcs_gender"];
+                        obj["mobilephone"] = res.Results[key]["Attributes"][flex+"mcs_mobilephone"];
+                        obj["vehplate"] = res.Results[key]["Attributes"][flex+"mcs_vehplate"];
+                        obj["vehtype"] = res.Results[key]["Attributes"][flex+"mcs_vehtype@OData.Community.Display.V1.FormattedValue"];
+                        
                         obj["gendercolor"] = "medium";
                         if (obj["gender"] === 1) {
                             obj["gendercolor"] = "primary";
