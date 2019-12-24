@@ -220,6 +220,6 @@ export class ListPage implements OnInit {
   }
   saveOnClick() {
     debugger;
-    // this._page.goto("/testdrive/edit?dealerid="+item["id"]+"&dealername="+item["mcs_name"]);
+    // this._page.goto("/personalcenter/testdrive/edit?dealerid="+item["id"]+"&dealername="+item["mcs_name"]);
   }
 }

@@ -46,7 +46,7 @@ const routes: Routes = [
         ]
     },
     {
-        path: 'carcenter',  //汽车中心(爱车)
+        path: 'carcenter',  //汽车中心(购车)
         children: [
             { path: 'index', loadChildren: () => import('./page/carcenter/index/index.module').then(m => m.IndexPageModule) },
             {
@@ -196,7 +196,22 @@ const routes: Routes = [
 
                 ]
             },
-            //{ path: 'index', loadChildren: () => import('./page/personalcenter/index/index.module').then(m => m.IndexPageModule) },
+            {
+                path: 'testdrive',  //试乘试驾
+                children: [
+                    { path: 'edit', loadChildren: () => import('./page/personalcenter/testdrive/edit/edit.module').then(m => m.EditPageModule) },
+                    { path: 'list', loadChildren: () => import('./page/personalcenter/testdrive/list/list.module').then(m => m.ListPageModule) },
+                    { path: 'success', loadChildren: () => import('./page/personalcenter/testdrive/success/success.module').then(m => m.SuccessPageModule) },
+                ]
+            },
+            {
+                path: 'testdriveFeedback',  //试乘试驾反馈报告
+                children: [
+                    { path: 'detail', loadChildren: () => import('./page/personalcenter/testdrivefeedback/detail/detail.module').then(m => m.DetailPageModule) },
+                    { path: 'list', loadChildren: () => import('./page/personalcenter/testdrivefeedback/list/list.module').then(m => m.ListPageModule) },
+
+                ]
+            },
         ]
     },
     {
@@ -277,27 +292,6 @@ const routes: Routes = [
             },
         ]
     },
-    {
-        path: 'testdrive',  //试乘试驾
-        children: [
-            { path: 'edit', loadChildren: () => import('./page/testdrive/edit/edit.module').then(m => m.EditPageModule) },
-            { path: 'list', loadChildren: () => import('./page/testdrive/list/list.module').then(m => m.ListPageModule) },
-            { path: 'success', loadChildren: () => import('./page/testdrive/success/success.module').then(m => m.SuccessPageModule) },
-        ]
-    },
-    {
-        path: 'testdriveFeedback',  //试乘试驾反馈报告
-        children: [
-            { path: 'detail', loadChildren: () => import('./page/testdrivefeedback/detail/detail.module').then(m => m.DetailPageModule) },
-            { path: 'list', loadChildren: () => import('./page/testdrivefeedback/list/list.module').then(m => m.ListPageModule) },
-
-        ]
-    },
-
-
-
-
-
 ];
 
 
