@@ -33,11 +33,11 @@ export class ListPage implements OnInit {
         private optionset:OptionSetService) { }
 
     ngOnInit() {
-       
+        
     }
     
     //每次页面加载
-    ionViewWillEnter() {
+    ionViewDidEnter() {
         this.menuController.enable(false);
         this.ionInfiniteScroll.disabled = false;
         this.model.params.PageIndex = 1;

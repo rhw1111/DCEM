@@ -45,7 +45,7 @@ let DetailPage = class DetailPage {
             }
         };
     }
-    ionViewWillEnter() {
+    ionViewDidEnter() {
     }
     ngOnInit() {
         this.activeRoute.queryParams.subscribe((params) => {

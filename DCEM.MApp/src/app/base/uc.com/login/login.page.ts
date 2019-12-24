@@ -105,7 +105,7 @@ export class LoginPage implements OnInit {
             },
             (res: any) => {
                 if (res.access_token == "") {
-                   this._page.alert('消息提示', '登录认证失败');
+                   this._page.alert('消息提示', '登录失败,账号或密码错误！');
                    this._page.loadingHide();
                    return false;
                 }
