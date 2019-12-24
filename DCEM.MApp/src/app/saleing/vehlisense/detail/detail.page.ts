@@ -3,6 +3,7 @@ import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { OptionSetService } from '../../../base/base.ser/optionset.service';
 import { SelectFileEditComponent } from 'app/serving/serving.ser/components/select-file-edit/select-file-edit.component';
+import dateformat from 'silly-datetime';
 import { ModalController } from '@ionic/angular';
 import { MenuController } from '@ionic/angular';
 @Component({
@@ -18,6 +19,7 @@ export class DetailPage implements OnInit {
     uploadUrl: '/api/attachment/add',
     apiUrl: '/api/vehlisense/getdetail',
     data: {
+      id:"",
       detail: [],//开票明细
       attachment: [],//附件列表 
     }
@@ -113,6 +115,7 @@ export class DetailPage implements OnInit {
   }
 
   pageOnBind(id: any) {
+    this.mod.data.id = id;
     this.mod.data.detail["id"] = id;
 
     this._page.loadingShow();
@@ -130,7 +133,7 @@ export class DetailPage implements OnInit {
           this.mod.data.detail["mcs_idcard"] = res["Detail"]["Attributes"]["mcs_idcard"];
           this.mod.data.detail["mcs_name"] = res["Detail"]["Attributes"]["mcs_name"];
           this.mod.data.detail["mcs_vehlicense"] = res["Detail"]["Attributes"]["mcs_vehlicense"];
-          this.mod.data.detail["mcs_lisensedate"] = res["Detail"]["Attributes"]["mcs_lisensedate"] == null ? "" : res["Detail"]["Attributes"]["mcs_lisensedate"].split('T')[0];
+          this.mod.data.detail["mcs_lisensedate"] = res["Detail"]["Attributes"]["mcs_lisensedate"] == null ? "" : this.FormatToDateTime(res["Detail"]["Attributes"]["mcs_lisensedate"]);
           this.mod.data.detail["mcs_address"] = res["Detail"]["Attributes"]["mcs_address"];
           this.mod.data.detail["mcs_fee"] = res["Detail"]["Attributes"]["mcs_fee"];
 
@@ -165,6 +168,14 @@ export class DetailPage implements OnInit {
         this._page.loadingHide();
       }
     );
+  }
+  FormatToDateTime(date) {
+    if (date != null && date != undefined) {
+      return dateformat.format(date, 'YYYY-MM-DD');
+    }
+    else {
+      return '';
+    }
   }
 
 }
