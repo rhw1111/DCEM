@@ -1,0 +1,267 @@
+﻿
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>$title$</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="keywords" />
+    <meta name="description" />
+    <meta name="author" content="Lorem ipsum dolor" />
+    <style>
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide:not(.ng-hide-animate) {
+            display: none !important;
+        }
+
+        ng\:form {
+            display: block;
+        }
+
+        .ng-animate-shim {
+            visibility: hidden;
+        }
+
+        .ng-anchor {
+            position: absolute;
+        }
+    </style>
+    <script src="../Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript">
+        var unSelected = "#999";
+        var selected = "#333";
+        $(function () {
+            $("select").css("color", unSelected);
+            $("option").css("color", selected);
+            $("select").change(function () {
+                var selItem = $(this).val();
+                if (selItem == $(this).find('option:first').val()) {
+                    $(this).css("color", unSelected);
+                } else {
+                    $(this).css("color", selected);
+                }
+            });
+        })
+        function isEmpty(obj) {
+            if (obj === null) return true;
+            if (typeof obj === 'undefined') {
+                return true;
+            }
+            if (typeof obj === 'string') {
+                if (obj === "") {
+                    return true;
+                }
+                var reg = new RegExp("^([ ]+)|([　]+)$");
+                return reg.test(obj);
+            }
+            return false;
+        }
+
+
+        function getParam(paramName) {
+            paramValue = "", isFound = !1;
+            if (this.location.search.indexOf("?") == 0 && this.location.search.indexOf("=") > 1) {
+                arrSource = unescape(this.location.search).substring(1, this.location.search.length).split("&"), i = 0;
+                while (i < arrSource.length && !isFound) arrSource[i].indexOf("=") > 0 && arrSource[i].split("=")[0].toLowerCase() == paramName.toLowerCase() && (paramValue = arrSource[i].split("=")[1], isFound = !0), i++
+            }
+            return paramValue == "" && (paramValue = null), paramValue
+        }
+        function SubmitClick() {
+            var name = $("#btnName").val();
+            var moblie = $("#btnMobile").val();
+            var appellation = $("#sltAppellation").val();
+            var email = $("#btnEmail").val();
+            var address = $("#sltAddress").val();
+            var key = 654;
+            var sysName = "TestPage";
+            var campaignCode = "SH00010";
+            if (getParam("key") != null && getParam("key") != "") {
+                key = getParam("key");
+            }
+            if (getParam("sysName") != null && getParam("sysName") != "") {
+                sysName = getParam("sysName");
+            }
+            if (getParam("campaignCode") != null && getParam("campaignCode") != "") {
+                campaignCode = getParam("campaignCode");
+            }
+
+            if (isEmpty(name)) {
+                alert("姓名不能为空");
+                return false;
+            }
+            else if (isEmpty(moblie)) {
+                alert("手机号不能为空");
+                return false;
+            }
+
+
+            if (address == "-1") {
+                address = "";
+            }
+            if (appellation == "-1") {
+                appellation = null;
+            }
+            console.log(key + "-" + sysName)
+            $.ajax({
+                type: "post",
+                url: $url$+"api/Lead/Do",
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify({
+                    Channel: "3",//渠道(0：CC，1：官网，2：商城，3：APP，4：微站/H5，5：小程序，6：线下活动，7：到店，8：其他)
+                    BehaviorCode: "activity_online_registration",//用户行为 必传
+                    CampaignCode: campaignCode,//活动编码 必传
+                    MediaCode: "app",//线索媒体 必传
+                    TerminalCode: "mobilephone", //线索终端 必传
+                    MobilePhone: moblie,
+                    CityCode: address,
+                    FullName: name,
+                    Gender: appellation,
+                    EmailAddress1: email
+                }),
+                beforeSend: function (request) {
+                    request.setRequestHeader("appid", "1001");
+                    request.setRequestHeader("key", "123");
+                    request.setRequestHeader("md5sum", "123");
+                    request.setRequestHeader("true-client-ip", "123");
+                },
+                success: function (data) {
+                    if (data.Code == "0000") {
+                        window.location.href = '../SuccessPage.html';
+                    } else {
+                        alert("提交失败");
+                        console.log(data);
+                    }
+                },
+                //调用出错执行的函数
+                error: function (data) {
+                    var json = eval(data)
+                    //请求出错处理
+                    alert(JSON.parse(json.responseText)["Message"]);
+                }
+            });
+        }
+
+    </script>
+</head>
+<body>
+    <div class="ds2-mobilepreview ds2-page--wrapper">
+        <!--googleon: all-->
+        <main class="main " role="main">
+            <div class="ds2-main-wrapper ds2-page--row-expanded">
+                <div class="ds2-page--top-spacing">
+                    <div class="tdaForm">
+                        <link rel="stylesheet" href="../Content/clientlib.min.1532359576587.min.css" type="text/css">
+                        <div id="ng-app" ng-app="app">
+                            <div ng-controller="AppController">
+                                <div class="container-fluid" gcdm-app gcdm-api-key="3aa570a9-98ef-4cd5-9614-1f95a1062b89" gcdm-business-context="bmwdigital/CN-zh" gcdm-api-endpoint="https://customer.bmwgroup.cn/" gcdm-default-frame-endpoint="/formcomponents/apiFrames" gcdm-portal-frame-endpoint="/formcomponents/portalFrames" gcdm-api-secret="02dfbb00-e1df-4a3e-b8b5-081468e633c6">
+
+                                    <div class="ecrFrom-main" ng-controller="testDriveController">
+                                        <span ng-model="vtree" ng-init="vtree={&#34;series&#34;:
+                                              [{&#34;value&#34;:&#34;1&#34;,&#34;text&#34;:&#34;S01&#34;},
+                                              {&#34;value&#34;:&#34;2&#34;,&#34;text&#34;:&#34;S02&#34;},
+                                              {&#34;value&#34;:&#34;3&#34;,&#34;text&#34;:&#34;T01&#34;},
+                                              {&#34;value&#34;:&#34;4&#34;,&#34;text&#34;:&#34;T02&#34;}]}" hidden></span>
+                                        <img src="$banner$" style="max-width:100%;margin-bottom: 40px;" />
+                                        <form name="myForm" novalidate class="form-horizontal" role="form" gcdm-form-container-tda gcdm-brand="BMW">
+                                            <div>
+                                                <span id="sysNotAvailable" gcdm-system-not-available-error-message>
+                                                </span>
+                                            </div>
+                                            <div class="person-info clearfix" style="padding-bottom: 10px;">
+                                                <h3 class="title">请填写您的信息</h3>
+
+                                                <div class="detail" ng-class="{'error':myForm.surname.$dirty && myForm.surname.$invalid || submitted && myForm.surname.$invalid}">
+                                                    <label>姓名<a style="color:red;">*</a></label>
+                                                    <div class="content">
+                                                        <input type="text" id="btnName" name="surname" placeholder="请输入您的名字" ng-model="gcdmFormModel.businessPartner.surname" required />
+                                                    </div>
+                                                </div>
+                                                <div class="detail" ng-class="{'error':myForm.tel.$dirty && myForm.tel.$invalid || submitted && myForm.tel.$invalid}">
+                                                    <label>手机号<a style="color:red;">*</a></label>
+                                                    <div class="content">
+                                                        <input type="text" id="btnMobile" name="Mobile" placeholder="请输入您的手机号" ng-model="gcdmFormModel.businessPartner.givenName" required />
+
+                                                    </div>
+                                                </div>
+                                                <div class="detail" ng-class="{'error':myForm.surname.$dirty && myForm.surname.$invalid || submitted && myForm.surname.$invalid}">
+                                                    <label>称呼</label>
+                                                    <div class="content">
+                                                        <select style="border: 2px solid #bbb;width:100%;height:40px;" id="sltAppellation">
+                                                            <option value="-1">请选择称呼</option>
+                                                            <option value="1">先生</option>
+                                                            <option value="2">女士</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="detail" ng-class="{'error':myForm.name.$dirty && myForm.name.$invalid || submitted && myForm.name.$invalid}">
+                                                    <label>邮箱</label>
+                                                    <div class="content">
+                                                        <input type="text" id="btnEmail" name="Email" placeholder="请输入您的邮箱" ng-model="gcdmFormModel.businessPartner.givenName" required />
+                                                    </div>
+                                                </div>
+                                                <div class="detail" ng-class="{'error':myForm.surname.$dirty && myForm.surname.$invalid || submitted && myForm.surname.$invalid}">
+                                                    <label>地区</label>
+                                                    <div class="content">
+                                                        <select style="border: 2px solid #bbb;width:100%;height:40px;" id="sltAddress">
+                                                            <option value="-1">请选择所在地区</option>
+                                                            <option value="330100">杭州</option>
+                                                            <option value="110100">北京</option>
+                                                            <option value="310100">上海</option>
+                                                            <option value="440300">深圳</option>
+                                                            <option value="440100">广州</option>
+                                                            <option value="320100">南京</option>
+                                                            <option value="220403">西安</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="law one-line">
+                                                <span class="tips"><a style="color:red;">*</a>带星号的选项必须填写</span>
+                                            </div>
+                                            <div class="action-bar">
+                                                <div class="action">
+                                                    <span class="button button-blue" onclick="SubmitClick()" gcdm-form-submit>提交</span>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <img src="../Images/car2.gif" style="max-width:100%;" />
+                                        <img src="../Images/car3.gif" style="max-width:100%;" />
+                                        <h1 class="title" style="font-size: 30px;">$title$</h1>
+                                        <!--<h3 class="title upper-case">获取更详尽的车型信息</h3>-->
+                                        <p style="margin-bottom:40px">
+                                            $content$
+                                        </p>
+                                    </div>
+                                    <canvas id="canvas" width="150" height="50" style="display:none;"></canvas>
+
+
+                                    <input type="hidden" id="shortenBase" value="/content/bmw/marketCN/bmw_com_cn" />
+                                    <input type="hidden" id="shortenMapper" value="/content/bmw/marketCN/bmw_com_cn/zh_CN:/zh" />
+
+
+                                    <span ng-model="successUrl" ng-init="successUrl='/content/bmw/marketCN/bmw_com_cn/zh_CN/ssl/requests/success'" hidden></span>
+                                    <span id="failUrl" hidden>/content/bmw/marketCN/bmw_com_cn/zh_CN/ssl/requests/fail</span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ds2-row-padding row">
+
+                            <div class="ds2-row-padding row">
+                                <div class="acs-commons-resp-colctrl-col gridComponent small-12 medium-12 large-12 columns ds2-component-bottom">
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+
+</body>
+</html>

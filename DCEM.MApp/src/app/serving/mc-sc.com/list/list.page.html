@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button text="返回" defaultHref="/serving/home/mywork"></ion-back-button>
+            <ion-back-button text="返回" defaultHref="/serving/home/tabs/index"></ion-back-button>
         </ion-buttons>
         <ion-title>服务委托书</ion-title>
     </ion-toolbar>
@@ -39,12 +39,18 @@
             </ion-item-sliding>
         </div>
         <ion-item *ngIf="ionInfiniteScroll.disabled">
-            <ion-label>
+            <ion-label text-center>
                 <p>
                     没有更多的记录显示啦
                 </p>
             </ion-label>
         </ion-item>
+
+        <!-- <ion-row *ngIf="model.isending">
+            <ion-col class="nodata" text-center>
+                <label>{{PageMessage.PageNoMore}}</label>
+            </ion-col>
+        </ion-row> -->
     </ion-list>
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>

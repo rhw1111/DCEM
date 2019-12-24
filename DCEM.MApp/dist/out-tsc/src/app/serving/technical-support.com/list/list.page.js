@@ -35,7 +35,7 @@ let ListPage = class ListPage {
         this.getList(null);
     }
     //每次页面加载
-    ionViewWillEnter() {
+    ionViewDidEnter() {
         this.menuController.enable(false);
     }
     //搜索方法

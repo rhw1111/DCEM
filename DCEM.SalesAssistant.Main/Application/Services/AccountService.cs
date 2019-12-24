@@ -95,11 +95,11 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 }
                 if (!string.IsNullOrEmpty(request.mcs_vehcolorid))
                 {
-                    createorUpdateEntity.Attributes.Add("mcs_vehcolorid", new CrmEntityReference("mcs_vehcolor", Guid.Parse(request.mcs_vehcolorid)));
+                    createorUpdateEntity.Attributes.Add("mcs_vehcolorid", new CrmEntityReference("mcs_vehiclecolor", Guid.Parse(request.mcs_vehcolorid)));
                 }
                 if (!string.IsNullOrEmpty(request.mcs_vehtypeid))
                 {
-                    createorUpdateEntity.Attributes.Add("mcs_vehtypeid", new CrmEntityReference("mcs_vehtype", Guid.Parse(request.mcs_vehtypeid)));
+                    createorUpdateEntity.Attributes.Add("mcs_vehtypeid", new CrmEntityReference("mcs_vehicletype", Guid.Parse(request.mcs_vehtypeid)));
                 }
 
                 
@@ -163,11 +163,6 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 {
                     createorUpdateEntity.Attributes.Add("description", request.description); 
                 }
-                if (request.mcs_customerstatus.HasValue)
-                {
-                    createorUpdateEntity.Attributes.Add("mcs_customerstatus", request.mcs_customerstatus.Value);
-                }
-
                 if (request.mcs_customerstatus.HasValue)
                 {
                     createorUpdateEntity.Attributes.Add("mcs_customerstatus", request.mcs_customerstatus.Value);
