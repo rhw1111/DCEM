@@ -30,6 +30,7 @@
         var unSelected = "#999";
         var selected = "#333";
         $(function () {
+            window.parent.postMessage(document.body.scrollHeight, '*');
             $("select").css("color", unSelected);
             $("option").css("color", selected);
             $("select").change(function () {

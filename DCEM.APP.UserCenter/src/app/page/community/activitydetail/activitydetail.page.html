@@ -1,13 +1,13 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button text="" defaultHref="/tabs/community/index"></ion-back-button>
+      <ion-back-button text="" defaultHref="/tabs/community/index" (click)="removeIFrameEvent()"></ion-back-button>
     </ion-buttons>
     <ion-title>{{model.activityEntity.Title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <iframe data-tap-disabled="false" style="height:100%;width:100%;border: none;"
-    [src]="model.activityEntity.PageUrl"></iframe>
+  <iframe data-tap-disabled="false" style="width:100%;border: none;" [src]="model.activityEntity.PageUrl"
+    height="{{model.iframeHeight}}" id="ifm_content" scrolling="no"></iframe>
 </ion-content>
