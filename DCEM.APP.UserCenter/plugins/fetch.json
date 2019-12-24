@@ -58,7 +58,7 @@
   "cordova-plugin-screen-orientation": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-screen-orientation"
+      "id": "cordova-plugin-screen-orientation@^3.0.2"
     },
     "is_top_level": true,
     "variables": {}
@@ -70,5 +70,15 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-gaodelocation-chenyu": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-gaodelocation-chenyu@^2.0.3"
+    },
+    "is_top_level": true,
+    "variables": {
+      "ANDROID_API_KEY": "mcs.dcem.ucenter"
+    }
   }
 }

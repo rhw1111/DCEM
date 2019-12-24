@@ -9,6 +9,21 @@
       <ion-searchbar animated [(ngModel)]="model.search.searchkey" placeholder="请输入车牌\用户\身份证搜索"
           (keyup)="searchOnKeyup($event)"></ion-searchbar>
   </ion-toolbar> 
+  <ion-toolbar>
+    <ion-segment>
+        <ion-segment-button checked (click)="selectTab(-1)" value="0">
+            <ion-label>全部</ion-label>
+        </ion-segment-button>
+
+        <ion-segment-button (click)="selectTab(0)">
+            <ion-label>已上牌</ion-label>
+        </ion-segment-button>
+        <ion-segment-button (click)="selectTab(1)">
+            <ion-label>未上牌</ion-label>
+        </ion-segment-button>
+
+    </ion-segment>
+</ion-toolbar>
 </ion-header>
 
 <ion-content>
@@ -37,5 +52,5 @@
       <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
       </ion-infinite-scroll-content>
   </ion-infinite-scroll>
- 
+
 </ion-content>

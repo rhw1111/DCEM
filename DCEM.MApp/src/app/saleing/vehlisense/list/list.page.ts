@@ -28,8 +28,10 @@ export class ListPage implements OnInit {
       pagesize: 10,
       searchkey: "",
       status: "",
-      userId: this._userinfo.GetSystemUserId(),
-      dealerid: "D2B7AE95-72F4-E911-A821-F2106C4094A1",//this._userinfo.GetDealerid()
+      userId: "16394506-5701-EA11-B391-8EA532941D0B",//this._userinfo.GetSystemUserId(),
+      dealerid: "F9BAC0C9-AE06-EA11-B392-8030CED93B24"//this._userinfo.GetDealerid()
+      // userId: this._userinfo.GetSystemUserId(),
+      // dealerid: this._userinfo.GetDealerid()//"D2B7AE95-72F4-E911-A821-F2106C4094A1"
     },
     vehlisense: [],
     isending: false

@@ -11,7 +11,7 @@
   <ion-grid>
     <ion-row *ngFor="let notice of model.datalist">
       <ion-card>
-        <ion-item *ngIf="notice.mcs_type==2 && notice.mcs_name=='试驾反馈'" [routerLink]="['/questionsetting']"
+        <ion-item *ngIf="notice.mcs_type==2 && notice.mcs_name=='试驾反馈'" [routerLink]="['/message/questionsetting']"
           [queryParams]="{id:'B10464DD-FE1B-EA11-B396-8C6696330818',channer:'AE87DE6A-6D1A-EA11-B394-86D989685D12'}">
           <ion-label>{{notice.mcs_name}}</ion-label>
         </ion-item>

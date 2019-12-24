@@ -1,8 +1,10 @@
+import { GaoDeLocation,PositionOptions } from '@ionic-native/gao-de-location/ngx';
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
 import { DCore_Page, DCore_Http, DCore_Valid } from '../../../../component/typescript/dcem.core'
 import { SelectSysareaComponent } from '../../../../component/modal/select-sysarea/select-sysarea.component'
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController } from '@ionic/angular'; 
+
 declare var AMap;
 
 @Component({
@@ -15,7 +17,8 @@ export class ListPage implements OnInit {
   constructor(private _http: DCore_Http,
     private _page: DCore_Page,
     private _modalCtrl: ModalController,
-    private actionSheetController: ActionSheetController) { }
+    private gaoDeLocation:GaoDeLocation,
+    private actionSheetController: ActionSheetController) {}
   public state = {
     modal1: false,
     modal2: false,
@@ -49,19 +52,24 @@ export class ListPage implements OnInit {
   public map: any = {};
   public markers: any = [];
   ngOnInit() {
-    this.map = new AMap.Map("container", {
-      resizeEnable: true,
-      center: [116.397428, 39.90923],
-      zoom: 8
-    });
-    var marker = new AMap.Marker({
-      position: new AMap.LngLat(116.39, 39.9),
-      title: '北京'
-    });
-    this.markers.push(marker);
-    this.map.add(marker); 
-    this.markLocation(this.map, this.markers, this.model.info.provincename + this.model.info.cityname)
-    this.searchData();
+    this.gaoDeLocation.getCurrentPosition()
+    .then((res: PositionOptions) => { 
+      this.map = new AMap.Map("container", {
+        resizeEnable: true,
+        center: [res,res.latitude],
+        zoom: 15
+      });
+      var marker = new AMap.Marker({
+        position: new AMap.LngLat(res.longitude,res.latitude)
+      });
+      this.markers.push(marker);
+      this.map.add(marker);  
+    })
+    .catch((error) => console.error(error));
+    
+    //this.markLocation(this.map, this.markers, this.model.info.provincename + this.model.info.cityname)
+    //this.searchData();
+   
   }
   //获取省组件
   async provinceModal() {
@@ -212,6 +220,6 @@ export class ListPage implements OnInit {
   }
   saveOnClick() {
     debugger;
-    // this._page.goto("/testdrive/edit?dealerid="+item["id"]+"&dealername="+item["mcs_name"]);
+    // this._page.goto("/personalcenter/testdrive/edit?dealerid="+item["id"]+"&dealername="+item["mcs_name"]);
   }
 }

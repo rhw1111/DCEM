@@ -36,11 +36,7 @@ export class ListPage implements OnInit {
 
   ngOnInit() { 
   }
-    //每次页面加载
-    ionViewDidEnter() {
-     
-  }
-
+   
   ionViewDidEnter(){
     // alert("先执行");
     this.listOnBind(null);
