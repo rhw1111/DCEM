@@ -29,6 +29,14 @@ namespace DCEM.SalesAssistant.Main.Application.Services.Contrac
         /// <returns></returns>
         Task<CrmEntity> GetSurveyorderDetail(string guid);
 
+
+        /// <summary>
+        /// 勘测单新增或编辑
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ValidateResult<CrmEntity>> AddOrEditSurveyorder(SurveyorderMetadataModel request);
+
         /// <summary>
         /// 安装单列表查询
         /// </summary>

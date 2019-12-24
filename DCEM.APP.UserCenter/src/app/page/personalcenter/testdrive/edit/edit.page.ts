@@ -182,7 +182,7 @@ export class EditPage implements OnInit {
                 this._page.loadingHide();
                 if (res.Result == true) {
                     console.log(res);
-                    this._page.goto("/testdrive/success");
+                    this._page.goto("/personalcenter/testdrive/success");
                 }
                 else {
                     this._page.alert("消息提示", res.Description);

@@ -16,7 +16,7 @@
     <ion-list lines="full" class="messagelist">
       <div class="panel" *ngFor="let item of model.datalist ">
         <div class="panelheard">
-          <ion-label style="color: blue;"  class="noteleft" [routerLink]="['/testdriveFeedback/detail']" [queryParams]="{id:item.mcs_testdrivefeedbackmasterid}" >{{item.mcs_name}}&nbsp;</ion-label>     
+          <ion-label style="color: blue;"  class="noteleft" [routerLink]="['/personalcenter/testdriveFeedback/detail']" [queryParams]="{id:item.mcs_testdrivefeedbackmasterid}" >{{item.mcs_name}}&nbsp;</ion-label>     
         </div>
         <div class="panelcontent">
           <div class="img">
@@ -30,15 +30,15 @@
           </div>
         </div>    
         <div class="panelbutton">
-         <!--  <ion-grid fixed>
-            <ion-row>
-              <ion-col size="6">
-                <ion-button Size="small" fill="solid" color="light" [routerLink]="['/testdriveFeedback/']" [queryParams]="{id:item.mcs_driverecordid}" >
-                  修改反馈
-                </ion-button>
-              </ion-col>
-            </ion-row>
-          </ion-grid> -->
+            <!--  <ion-grid fixed>
+       <ion-row>
+         <ion-col size="6">
+           <ion-button Size="small" fill="solid" color="light" [routerLink]="['/personalcenter/testdriveFeedback/']" [queryParams]="{id:item.mcs_driverecordid}" >
+             修改反馈
+           </ion-button>
+         </ion-col>
+       </ion-row>
+     </ion-grid> -->
         </div>
       </div>
     </ion-list>

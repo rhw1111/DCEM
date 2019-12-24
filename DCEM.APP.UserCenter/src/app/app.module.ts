@@ -14,6 +14,9 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+//高德定位组件
+import { GaoDeLocation , PositionOptions } from '@ionic-native/gao-de-location/ngx';
+
 //第三方组件
 import { NgZorroAntdMobileModule } from 'ng-zorro-antd-mobile'; 
 //自定义组件
@@ -42,6 +45,7 @@ import { SelectUsercarinfoComponent } from './component/modal/select-usercarinfo
       StatusBar,
       AppVersion,
       SplashScreen,
+      GaoDeLocation,
       ScreenOrientation,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

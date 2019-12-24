@@ -288,6 +288,7 @@ export class DetailPage implements OnInit {
                   if (res.Result) {
                     this._page.alert("消息提示", "交车单收款完成！", () => {
                       //跳转到开票记录 
+                      this._page.goto("/saleing/vehnetwork/list");
                     });
                   } else {
                     this._page.alert("消息提示", res.Description);
