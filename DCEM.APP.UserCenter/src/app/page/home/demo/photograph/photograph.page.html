@@ -1,0 +1,28 @@
+﻿<ion-header class="dm-top-head">
+    <app-tophead topHeadTitle="拍照" topHeadBackUrl="/home/demo/index"></app-tophead>
+</ion-header>
+
+
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-button (click)="initCamera()">
+                    重拍
+                </ion-button>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col style="padding:10px;">
+                <img style="width:100%;" src="{{this.img.scr}}" />
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col>
+                <div>{{this.img.scr}}</div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
