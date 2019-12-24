@@ -83,7 +83,7 @@ export class LoginPage implements OnInit {
                 this.mod.domain = "https://mscrm.sokon.com/dcem";
                 break;
             case 'localhost':
-                this.mod.domain = "http://localhost:5000";
+                this.mod.domain = "https://localhost:44382/";
                 break;
             default:
                 this.mod.domain = "http://localhost:52151";

@@ -55,6 +55,22 @@ namespace DCEM.Web.Controllers
             var detail = await app.GetSurveyorderDetail(_request.Guid);
             return detail;
         }
+
+        /// <summary>
+        /// 新增或编辑勘测单
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("AddOrEditSurveyorder")]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<CrmEntity>>> AddOrEditSurveyorder(SurveyorderMetadataModel request)
+        {
+            var result = await app.AddOrEditSurveyorder(request);
+            return result;
+        }
+
+
+
         /// <summary>
         /// 获取安装单列表接口 
         /// </summary>
