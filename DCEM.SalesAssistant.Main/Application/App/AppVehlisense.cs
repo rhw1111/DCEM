@@ -6,6 +6,7 @@ using DCEM.SalesAssistant.Main.ViewModel.Request;
 using DCEM.SalesAssistant.Main.ViewModel.Response;
 using MSLibrary;
 using MSLibrary.Xrm;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Threading.Tasks;
 
@@ -27,6 +28,10 @@ namespace DCEM.SalesAssistant.Main.Application.App
         {
             return await _service.getdetail(id);
         }
-
+        public async Task<ValidateResult<CrmEntity>> AddOrUpdate(JObject jo)
+        {
+            return await _service.AddOrUpdate(jo);
+        }
+       
     }
 }

@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using DCEM.SalesAssistant.Main.Application.App;
 using DCEM.SalesAssistant.Main.Factory;
 using DCEM.SalesAssistant.Main.Application.App.Contrac;
+using Newtonsoft.Json.Linq;
 
 namespace DCEM.Web.Controllers
 {
@@ -43,8 +44,14 @@ namespace DCEM.Web.Controllers
         {
             return await _appVehlisense.getdetail(id);
         }
+        [HttpPost]
+        [Route("AddOrUpdate")]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<CrmEntity>>> AddOrUpdate([FromBody]Object body)
+        {
+            JObject jo = JObject.Parse(body.ToString());
+            return await _appVehlisense.AddOrUpdate(jo);
+        }
 
-        
     }
 }
 
