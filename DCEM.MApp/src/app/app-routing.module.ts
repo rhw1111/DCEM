@@ -235,7 +235,7 @@ const routes: Routes = [
                     { path: 'list', loadChildren: './saleing/vehlisense/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './saleing/vehlisense/detail/detail.module#DetailPageModule' },
                     { path: 'success', loadChildren: './saleing/vehlisense/success/success.module#SuccessPageModule' },
-                    { path: 'edit', loadChildren: './saleing/vehlisense/edit/edit.module#editPageModule' },
+                    { path: 'edit', loadChildren: './saleing/vehlisense/edit/edit.module#EditPageModule' },
                 ]
             },
              {

@@ -16,10 +16,10 @@
         </ion-segment-button>
 
         <ion-segment-button (click)="selectTab(0)">
-            <ion-label>打开</ion-label>
+            <ion-label>已上牌</ion-label>
         </ion-segment-button>
         <ion-segment-button (click)="selectTab(1)">
-            <ion-label>关闭</ion-label>
+            <ion-label>未上牌</ion-label>
         </ion-segment-button>
 
     </ion-segment>
@@ -53,12 +53,4 @@
       </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
-        <ion-icon name="arrow-dropup"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-list side="top">
-        <ion-fab-button color="success" [routerLink]="['/saleing/vehlisense/edit']" [queryParams]=""><ion-icon name="add"></ion-icon></ion-fab-button>
-    </ion-fab-list>
-  </ion-fab>
 </ion-content>

@@ -17,9 +17,10 @@ export class EditPage implements OnInit {
     @ViewChild(IonBackButtonDelegate, null) ionBackButtonDelegate: IonBackButtonDelegate;
 
     mod = {
-        queryUrl: '/Api/Customer/GetCustomerInfo',
-        postUrl: '/Api/Customer/AddOrUpdate',
+        queryUrl: '/api/vehlisense/getdetail',
+        postUrl: '/api/vehlisense/AddOrUpdate',
         data: {
+            detail: [],//开票明细
         }
     };
 
@@ -50,7 +51,7 @@ export class EditPage implements OnInit {
     ngOnInit() {
         const that = this;
         this.ionBackButtonDelegate.onClick = function (event) {
-            that._page.navigateRoot("/serving/mycustomer/list", null, "back");
+            that._page.navigateRoot("/saleing/vehlisense/list", null, "back");
         }
     }
 
@@ -74,11 +75,11 @@ export class EditPage implements OnInit {
                 this.shareData.id = params['id']
             }
             if (this.shareData.actioncode === 2) {
-                this.shareData.viewTitle = "编辑客户";
+                this.shareData.viewTitle = "编辑上牌信息";
                 this.pageOnBind(this.shareData.id);
             }
             else {
-                this.shareData.viewTitle = "创建客户";
+                this.shareData.viewTitle = "创建上牌信息";
             }
         });
     }
@@ -90,7 +91,7 @@ export class EditPage implements OnInit {
             this.mod.queryUrl,
             {
                 params: {
-                    guid: id,
+                    id: id,
                 }
             },
             (res: any) => {
