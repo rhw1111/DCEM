@@ -15,11 +15,11 @@ import { SelectSysareaComponent } from 'app/saleing/saleing.ser/components/selec
 export class EditPage implements OnInit {
 
   model={
-    postApiUrl:'/Installation/AddOrEdit',
+    postApiUrl:'/Installation/AddOrEditSurveyorder',
     detailApiUrl:'/api/Installation/GetSurveyorderDetail',
     postData:{
       mcs_surveyorderid:"",
-      mcs_surveyordertype:"",
+      mcs_surveyordertype:"", //勘测单类型
       mcs_accountid:"",
       mcs_accountname:"",
       mcs_username:"",
@@ -69,6 +69,7 @@ export class EditPage implements OnInit {
 
     this.activeRoute.queryParams.subscribe((params: Params) => {
       if (params['id'] != null && params['id'] != undefined) {
+        this.model.postData.mcs_surveyorderid=params['id'];
         this.pageOnBind(params['id']);
       }
     });
@@ -266,17 +267,15 @@ pageOnBind(id: any) {
 
 //保存
 SureClick(){
-
   this._page.loadingShow();
   this._http.postForToaken(
       this.model.postApiUrl, this.model.postData,
       (res: any) => {
-          debugger;
+          //debugger;
           this._page.loadingHide();
           if (res.Result == true) {              
-              console.log(res);              
-             
-              //this._page.goto("/saleing/contactrecord/success", {id: this.model.postData.mcs_onlyleadid });
+              console.log(res);                         
+              this._page.goto("/serving/surveyorder/list");
           }
           else {
               this._page.alert("消息提示", res.Description);

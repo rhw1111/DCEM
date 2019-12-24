@@ -41,6 +41,17 @@ namespace DCEM.SalesAssistant.Main.Application.App
         {
             return await _installService.GetSurveyorderDetail(guid);
         }
+
+        /// <summary>
+        /// 勘测单新增或编辑
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ValidateResult<CrmEntity>> AddOrEditSurveyorder(SurveyorderMetadataModel request)
+        {
+            return await _installService.AddOrEditSurveyorder(request);
+        }
+
         /// <summary>
         /// 安装单列表查询接口
         /// </summary>

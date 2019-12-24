@@ -97,6 +97,142 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             }
         }
 
+
+        #region 勘测单新增或编辑
+        /// <summary>
+        /// 勘测单新增或编辑
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ValidateResult<CrmEntity>> AddOrEditSurveyorder(SurveyorderMetadataModel request)
+        {
+            var validateResult = new ValidateResult<CrmEntity>();
+            var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+            try
+            {
+                Guid guid = string.IsNullOrEmpty(request.mcs_surveyorderid) ? Guid.NewGuid() : Guid.Parse(request.mcs_surveyorderid);
+                CrmExecuteEntity Entity = new CrmExecuteEntity("mcs_surveyorder", guid);
+                if (!string.IsNullOrEmpty(request.mcs_surveyordertype.ToString()))
+                {
+                    Entity.Attributes.Add("mcs_surveyordertype", request.mcs_surveyordertype);
+                }
+                if (!string.IsNullOrEmpty(request.mcs_accountid))
+                {
+                    Entity.Attributes.Add("mcs_accountid", new CrmEntityReference("account", Guid.Parse(request.mcs_accountid)));
+                }     
+                if (!string.IsNullOrEmpty(request.mcs_username))
+                {
+                    Entity.Attributes.Add("mcs_username", request.mcs_username);
+                }
+                if (!string.IsNullOrEmpty(request.mcs_userphone))
+                {
+                    Entity.Attributes.Add("mcs_userphone", request.mcs_userphone);
+                }
+                if (!string.IsNullOrEmpty(request.mcs_idcard))
+                {
+                    Entity.Attributes.Add("mcs_idcard", request.mcs_idcard);
+                }
+                if (!string.IsNullOrEmpty(request.mcs_email))
+                {
+                    Entity.Attributes.Add("mcs_email", request.mcs_email);
+                }
+                if (!string.IsNullOrEmpty(request.mcs_carmodelid))
+                {
+                    Entity.Attributes.Add("mcs_carmodelid", new CrmEntityReference("mcs_carmodel", Guid.Parse(request.mcs_carmodelid)));
+                }
+                if (!string.IsNullOrEmpty(request.mcs_dealer))
+                {
+                    Entity.Attributes.Add("mcs_dealer", new CrmEntityReference("mcs_dealer", Guid.Parse(request.mcs_dealer)));
+                }
+                if (!string.IsNullOrEmpty(request.mcs_salesconsultant))
+                {
+                    Entity.Attributes.Add("mcs_salesconsultant", new CrmEntityReference("systemuser", Guid.Parse(request.mcs_salesconsultant)));
+                }
+                if (!string.IsNullOrEmpty(request.mcs_contactname))
+                {
+                    Entity.Attributes.Add("mcs_contactname", request.mcs_contactname);
+                }
+                if (!string.IsNullOrEmpty(request.mcs_contactphone))
+                {
+                    Entity.Attributes.Add("mcs_contactphone", request.mcs_contactphone);
+                }
+                if (!string.IsNullOrEmpty(request.mcs_contactemail))
+                {
+                    Entity.Attributes.Add("mcs_contactemail", request.mcs_contactemail);
+                }
+                if (!string.IsNullOrEmpty(request.mcs_province))
+                {
+                    Entity.Attributes.Add("mcs_province", new CrmEntityReference("mcs_sysarea", Guid.Parse(request.mcs_province)));
+                }
+                if (!string.IsNullOrEmpty(request.mcs_city))
+                {
+                    Entity.Attributes.Add("mcs_city", new CrmEntityReference("mcs_sysarea", Guid.Parse(request.mcs_city)));
+                }
+                if (!string.IsNullOrEmpty(request.mcs_area))
+                {
+                    Entity.Attributes.Add("mcs_area", new CrmEntityReference("mcs_sysarea", Guid.Parse(request.mcs_area)));
+                }
+                if (!string.IsNullOrEmpty(request.mcs_installationaddress))
+                {
+                    Entity.Attributes.Add("mcs_installationaddress", request.mcs_installationaddress);
+                }
+                if (!string.IsNullOrEmpty(request.mcs_detailaddress))
+                {
+                    Entity.Attributes.Add("mcs_detailaddress", request.mcs_detailaddress);
+                }
+                if (!string.IsNullOrEmpty(request.mcs_chargingpilemodel))
+                {
+                    Entity.Attributes.Add("mcs_chargingpilemodel", new CrmEntityReference("mcs_mc_chargingpilemodel", Guid.Parse(request.mcs_chargingpilemodel)));
+                }
+                if (!string.IsNullOrEmpty(request.mcs_communityname))
+                {
+                    Entity.Attributes.Add("mcs_communityname", request.mcs_communityname);
+                }
+                if (!string.IsNullOrEmpty(request.mcs_residentialnature.ToString()))
+                {
+                    Entity.Attributes.Add("mcs_residentialnature", request.mcs_residentialnature);
+                }
+                if (!string.IsNullOrEmpty(request.mcs_price.ToString()))
+                {
+                    Entity.Attributes.Add("mcs_price", request.mcs_price);
+                }
+                if (!string.IsNullOrEmpty(request.mcs_parkingspace.ToString()))
+                {
+                    Entity.Attributes.Add("mcs_parkingspace", request.mcs_parkingspace);
+                }
+                if (!string.IsNullOrEmpty(request.mcs_residentialtype.ToString()))
+                {
+                    Entity.Attributes.Add("mcs_residentialtype", request.mcs_residentialtype);
+                }
+                if (!string.IsNullOrEmpty(request.mcs_remark))
+                {
+                    Entity.Attributes.Add("mcs_remark", request.mcs_remark);
+                }
+
+                if (!string.IsNullOrEmpty(request.mcs_surveyorderid))
+                {
+                    await _crmService.Update(Entity, userInfo?.systemuserid);
+                }
+                else
+                {
+                    guid = await _crmService.Create(Entity, userInfo?.systemuserid);
+                }
+
+                validateResult.Result = true;
+                validateResult.Description = "操作成功";
+            }
+            catch (Exception ex)
+            {
+                validateResult.Result = false;
+                validateResult.Description = "操作失败，原因：" + ex.Message;
+                throw ex;
+            }
+
+
+            return validateResult;
+        }
+        #endregion
+
         /// <summary>
         /// 安装单列表查询
         /// </summary>

@@ -78,7 +78,8 @@
     },
     "is_top_level": true,
     "variables": {
-      "ANDROID_API_KEY": "mcs.dcem.ucenter"
+      "ANDROID_API_KEY": "your",
+      "IOS_API_KEY": "your"
     }
   },
   "cordova-plugin-camera": {
