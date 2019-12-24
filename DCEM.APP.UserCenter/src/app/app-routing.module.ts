@@ -38,6 +38,10 @@ const routes: Routes = [
                     },
 
                     {
+                        path: 'photograph',
+                        loadChildren: () => import('./page/home/demo/photograph/photograph.module').then(m => m.PhotographPageModule)
+                    },
+                    {
                         path: 'orcode',
                         loadChildren: () => import('./page/home/demo/orcode/orcode.module').then(m => m.OrcodePageModule)
                     },
@@ -290,6 +294,14 @@ const routes: Routes = [
                     { path: 'list', loadChildren: () => import('./page/servicecenter/category/list/list.module').then(m => m.ListPageModule) },
                 ]
             },
+            {
+                path: 'serviceproxy',  //维修履历
+                children: [
+                    { path: 'list', loadChildren: () => import('./page/servicecenter/serviceproxy/list/list.module').then(m => m.ListPageModule) },
+                    { path: 'detail', loadChildren: () => import('./page/servicecenter/serviceproxy/detail/detail.module').then(m => m.DetailPageModule) },
+                ]
+            },
+
         ]
     },
 ];

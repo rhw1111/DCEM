@@ -1,9 +1,14 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>index</ion-title>
-  </ion-toolbar>
+﻿
+<ion-header class="dm-top-head">
+    <app-tophead topHeadTitle="Demo" topHeadBackUrl="/tabs/community"></app-tophead>
 </ion-header>
 
 <ion-content>
+    <ion-button [routerLink]="['/home/demo/photograph']">
+        拍照
+    </ion-button>
 
+    <ion-button [routerLink]="['/home/demo/orcode']">
+        扫描二维码
+    </ion-button>
 </ion-content>

@@ -3,6 +3,7 @@ import { ModalController,  IonContent, NavParams, IonInfiniteScroll  } from '@io
 import { DCore_Page, DCore_Http, DCore_Valid } from '../../typescript/dcem.core' 
 import { SelectSysareaComponent } from '../select-sysarea/select-sysarea.component'
 import { ActionSheetController } from '@ionic/angular';
+import { GaoDeLocation,PositionOptions } from '@ionic-native/gao-de-location/ngx';
 declare var AMap;
 
 @Component({
@@ -18,6 +19,7 @@ export class SelectDealerComponent implements OnInit {
     private _http: DCore_Http,
     private _page: DCore_Page,
     private _modalCtrl: ModalController,
+    private gaoDeLocation:GaoDeLocation,
     private actionSheetController: ActionSheetController) { }
   public state = {
     modal1: false,
@@ -53,18 +55,24 @@ export class SelectDealerComponent implements OnInit {
   }
   public map: any = {};
   public markers: any = [];
-  ngOnInit() {
-    this.map = new AMap.Map("container", {
-      resizeEnable: true,
-      center: [116.397428, 39.90923],
-      zoom: 8
-    });
-    var marker = new AMap.Marker({
-      position: new AMap.LngLat(116.39, 39.9),
-      title: '北京'
-    });
-    this.markers.push(marker);
-    this.map.add(marker);
+  ngOnInit() { 
+    this.gaoDeLocation.getCurrentPosition()
+    .then((res: PositionOptions) => {  
+      this.map = new AMap.Map("container", {
+        resizeEnable: true,
+        center: [res.longitude,res.latitude],
+        zoom: 15
+      });
+      var marker = new AMap.Marker({
+        position: new AMap.LngLat(res.longitude,res.latitude)
+      });
+      this.markers.push(marker);
+      this.map.add(marker);  
+
+      this.getareadata(2,res.province,res.city,this.model.countryId); 
+    })
+    .catch((error) => this._page.alert("消息提示", error));
+
   }
   //获取省组件
   async provinceModal() {
@@ -230,5 +238,52 @@ itemClick(item) {
         'phone':item.mcs_phone
     });
 }
-
+getareadata(prelevel,provincename,cityname,prepid) {
+  this._http.get(
+      "Api/basedata/QuerySysarea",
+      {
+          params: {
+              pid:prepid,
+              level:prelevel,
+              page:1,
+              seachkey: provincename,
+              pageSize: 1
+          }
+      },
+      (res: any) => {
+          if (res.Results!= null && res.Results.length > 0) {  
+                this.model.info.provincename=res.Results[0]["Attributes"]["mcs_name"];
+                this.model.paramets.provinceid=res.Results[0]["Id"];
+                this.getcityareadata(3,cityname,this.model.paramets.provinceid);
+          }
+      },
+      (err: any) => {
+          this._page.alert("消息提示", "行政信息加载异常");
+      }
+  );
+}
+getcityareadata(prelevel,prename,prepid) {
+this._http.get(
+    "Api/basedata/QuerySysarea",
+    {
+        params: {
+            pid:prepid,
+            level:prelevel,
+            page:1,
+            seachkey: prename,
+            pageSize: 1
+        }
+    },
+    (res: any) => {
+        if (res.Results!= null && res.Results.length > 0) {  
+              this.model.info.cityname=res.Results[0]["Attributes"]["mcs_name"];
+              this.model.paramets.cityid=res.Results[0]["Id"]; 
+              this.searchData();
+        }
+    },
+    (err: any) => {
+        this._page.alert("消息提示", "行政信息加载异常");
+    }
+);
+}
 }

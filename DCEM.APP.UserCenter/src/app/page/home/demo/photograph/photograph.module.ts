@@ -4,18 +4,22 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { IndexPageRoutingModule } from './index-routing.module';
+import { PhotographPageRoutingModule } from './photograph-routing.module';
 
-import { IndexPage } from './index.page';
+import { PhotographPage } from './photograph.page';
 import { TopheadModule } from 'app/component/assembly/tophead/tophead.module';
+import { Camera } from '@ionic-native/camera/ngx';
+
 @NgModule({
     imports: [
         TopheadModule,
         CommonModule,
         FormsModule,
         IonicModule,
-        IndexPageRoutingModule
+        PhotographPageRoutingModule,
+
     ],
-    declarations: [IndexPage]
+    declarations: [PhotographPage],
+    providers: [Camera]
 })
-export class IndexPageModule { }
+export class PhotographPageModule { }
