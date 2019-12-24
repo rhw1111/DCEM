@@ -290,6 +290,14 @@ const routes: Routes = [
                     { path: 'list', loadChildren: () => import('./page/servicecenter/category/list/list.module').then(m => m.ListPageModule) },
                 ]
             },
+            {
+                path: 'serviceproxy',  //维修履历
+                children: [
+                    { path: 'list', loadChildren: () => import('./page/servicecenter/serviceproxy/list/list.module').then(m => m.ListPageModule) },
+                    { path: 'detail', loadChildren: () => import('./page/servicecenter/serviceproxy/detail/detail.module').then(m => m.DetailPageModule) },
+                ]
+            },
+
         ]
     },
 ];
