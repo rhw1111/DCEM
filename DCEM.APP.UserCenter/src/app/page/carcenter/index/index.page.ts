@@ -148,7 +148,7 @@ export class IndexPage {
                 ],
             },
             bottom: {
-                imgscr: "/assets/img/tyzx.jpg",
+                imgscr: "/assets/img/aboutus.png",
                 link: "#",
             }
         }
@@ -182,9 +182,9 @@ export class IndexPage {
             },
             (res: any) => {
                 if (!this._valid.isNullOrEmpty(res["mcs_val"])) {
-                    console.log(res["mcs_val"]);
+                    //console.log(res["mcs_val"]);
                     this.shareData.page = $.parseJSON(res["mcs_val"]);
-                    console.log("ok");
+                    //console.log("ok");
                 }
 
             },

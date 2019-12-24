@@ -7,6 +7,7 @@ using DCEM.SalesAssistant.Main.ViewModel.Response;
 using MSLibrary;
 using MSLibrary.Xrm;
 using MSLibrary.Xrm.Message.RetrieveMultipleFetch;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -95,7 +96,54 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 throw ex;
             }
         }
+        public async Task<ValidateResult<CrmEntity>> AddOrUpdate(JObject jo)
+        {
+            var actionCode = jo.Value<int>("actionCode");
+            var vehownerJo = jo.Value<JObject>("Vehowner");
+ 
+            var vehownerGuid = Guid.NewGuid();
 
+            var vehownerEntity = new CrmExecuteEntity("mcs_vehlisense", vehownerGuid);
+
+            var validateResult = new ValidateResult<CrmEntity>();
+
+            if (actionCode == 2)
+            {
+                vehownerGuid = Guid.Parse(vehownerJo.Value<string>("mcs_vehlisenseid"));
+                vehownerEntity.Id = vehownerGuid;
+            }
+            if (vehownerJo.ContainsKey("mcs_name"))
+                vehownerEntity.Attributes.Add("mcs_name", vehownerJo.Value<string>("mcs_name"));
+            if (vehownerJo.ContainsKey("mcs_idcard"))
+                vehownerEntity.Attributes.Add("mcs_idcard", vehownerJo.Value<string>("mcs_idcard"));
+            if (vehownerJo.ContainsKey("mcs_lisensedate"))
+                vehownerEntity.Attributes.Add("mcs_lisensedate", vehownerJo.Value<DateTime?>("mcs_lisensedate"));
+ 
+
+            if (vehownerJo.ContainsKey("mcs_address"))
+                vehownerEntity.Attributes.Add("mcs_address", vehownerJo.Value<string>("mcs_address"));
+            if (vehownerJo.ContainsKey("mcs_fee"))
+                vehownerEntity.Attributes.Add("mcs_fee", vehownerJo.Value<decimal>("mcs_fee"));
+
+
+            if (actionCode == 1)
+            {
+                //var dealeridGuid = Guid.Parse(jo.Value<string>("dealerid"));
+                //vehownerEntity.Attributes.Add("mcs_dealer", new CrmEntityReference("mcs_dealer", dealeridGuid));
+                //await _crmService.Create(vehownerEntity, null);
+            }
+            else
+            {
+                await _crmService.Update(vehownerEntity, null);
+            }
+
+            #region 组装数据返回
+            validateResult.Result = true;
+            validateResult.Description = "操作成功";
+            #endregion
+
+            return validateResult;
+        }
 
     }
 }
