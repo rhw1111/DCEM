@@ -9,7 +9,10 @@ const routes: Routes = [
     {
         path: 'home',  //通用目录
         children: [
-            { path: 'tabs', loadChildren: () => import('./page/home/tabs/tabs.module').then(m => m.TabsPageModule) },
+            {
+                path: 'tabs',
+                loadChildren: () => import('./page/home/tabs/tabs.module').then(m => m.TabsPageModule)
+            },
             {
                 path: 'shippingaddress', //收货地址
                 loadChildren: () => import('./page/home/shippingaddress/shippingaddress.module').then(m => m.ShippingaddressPageModule)
@@ -21,6 +24,24 @@ const routes: Routes = [
             {
                 path: 'set', //系统设置
                 loadChildren: () => import('./page/home/set/set.module').then(m => m.SetPageModule)
+            },
+            {
+                path: 'demo',  // demo
+                children: [
+                    {
+                        path: 'index',
+                        loadChildren: () => import('./page/home/demo/index/index.module').then(m => m.IndexPageModule)
+                    },
+                    {
+                        path: 'baidumap',
+                        loadChildren: () => import('./page/home/demo/baidumap/baidumap.module').then(m => m.BaidumapPageModule)
+                    },
+
+                    {
+                        path: 'orcode',
+                        loadChildren: () => import('./page/home/demo/orcode/orcode.module').then(m => m.OrcodePageModule)
+                    },
+                ]
             },
         ]
     },
@@ -273,24 +294,7 @@ const routes: Routes = [
         ]
     },
 
-    {
-        path: 'demo',  // demo
-        children: [
-            {
-                path: 'index',
-                loadChildren: () => import('./page/demo/index/index.module').then(m => m.IndexPageModule)
-            },
-            {
-                path: 'baidumap',
-                loadChildren: () => import('./page/demo/baidumap/baidumap.module').then(m => m.BaidumapPageModule)
-            },
 
-            {
-                path: 'orcode',
-                loadChildren: () => import('./page/demo/orcode/orcode.module').then(m => m.OrcodePageModule)
-            },
-        ]
-    },
 
 
 
