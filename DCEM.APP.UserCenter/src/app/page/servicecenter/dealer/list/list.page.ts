@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
 import { DCore_Page, DCore_Http, DCore_Valid } from '../../../../component/typescript/dcem.core'
 import { SelectSysareaComponent } from '../../../../component/modal/select-sysarea/select-sysarea.component'
-import { ActionSheetController } from '@ionic/angular'; 
+import { ActionSheetController } from '@ionic/angular';
 
 declare var AMap;
 
@@ -30,13 +30,13 @@ export class ListPage implements OnInit {
     countryId: "DD0D2AE0-E414-EA11-B394-86D989685D12",//UAT:"7E83801C-795B-E911-A824-B53F780FAC1C",
     level: 2,//行政区域级别 0:全球、1:国家、2:省、3:市、4:地区 
     info: {
-      provincename: "广东省",
-      cityname: "广州市",
+      provincename: "省",
+      cityname: "市",
     },
     paramets:
     {
-      provinceid: "ebf929e0-e414-ea11-b394-86d989685d12",
-      cityid: "07fa29e0-e414-ea11-b394-86d989685d12",
+      provinceid: "",
+      cityid: "",
       dealertype: "0"//1：体验中心，3：服务中心
     },
     data: []
@@ -53,10 +53,10 @@ export class ListPage implements OnInit {
   public markers: any = [];
   ngOnInit() {
     this.gaoDeLocation.getCurrentPosition()
-    .then((res: PositionOptions) => { 
+    .then((res: PositionOptions) => {
       this.map = new AMap.Map("container", {
         resizeEnable: true,
-        center: [res,res.latitude],
+        center: [res.longitude,res.latitude],
         zoom: 15
       });
       var marker = new AMap.Marker({
@@ -64,12 +64,9 @@ export class ListPage implements OnInit {
       });
       this.markers.push(marker);
       this.map.add(marker);  
+      this.getareadata(2,res.province,res.city,this.model.countryId); 
     })
-    .catch((error) => console.error(error));
-    
-    //this.markLocation(this.map, this.markers, this.model.info.provincename + this.model.info.cityname)
-    //this.searchData();
-   
+    .catch((error) => this._page.alert("消息提示", error));
   }
   //获取省组件
   async provinceModal() {
@@ -222,4 +219,53 @@ export class ListPage implements OnInit {
     debugger;
     // this._page.goto("/testdrive/edit?dealerid="+item["id"]+"&dealername="+item["mcs_name"]);
   }
+
+  getareadata(prelevel,provincename,cityname,prepid) {
+    this._http.get(
+        "Api/basedata/QuerySysarea",
+        {
+            params: {
+                pid:prepid,
+                level:prelevel,
+                page:1,
+                seachkey: provincename,
+                pageSize: 1
+            }
+        },
+        (res: any) => {
+            if (res.Results!= null && res.Results.length > 0) {  
+                  this.model.info.provincename=res.Results[0]["Attributes"]["mcs_name"];
+                  this.model.paramets.provinceid=res.Results[0]["Id"];
+                  this.getcityareadata(3,cityname,this.model.paramets.provinceid);
+            }
+        },
+        (err: any) => {
+            this._page.alert("消息提示", "行政信息加载异常");
+        }
+    );
+}
+getcityareadata(prelevel,prename,prepid) {
+  this._http.get(
+      "Api/basedata/QuerySysarea",
+      {
+          params: {
+              pid:prepid,
+              level:prelevel,
+              page:1,
+              seachkey: prename,
+              pageSize: 1
+          }
+      },
+      (res: any) => {
+          if (res.Results!= null && res.Results.length > 0) {  
+                this.model.info.cityname=res.Results[0]["Attributes"]["mcs_name"];
+                this.model.paramets.cityid=res.Results[0]["Id"]; 
+                this.searchData();
+          }
+      },
+      (err: any) => {
+          this._page.alert("消息提示", "行政信息加载异常");
+      }
+  );
+}
 }
