@@ -64,12 +64,6 @@ const routes: Routes = [
         ]
     },
     {
-        path: 'charging',  //充电桩(弃用)
-        children: [
-            { path: 'index', loadChildren: () => import('./page/charging/index/index.module').then(m => m.IndexPageModule) },
-        ]
-    },
-    {
         path: 'community',  //社区
         children: [
             {
