@@ -23,7 +23,7 @@ export class ListPage implements OnInit {
         pagesize:10,
         search:"",
         userId:this._userinfo.GetSystemUserId(),
-        dealerid:this._userinfo.GetDealerid()
+        //dealerid:this._userinfo.GetDealerid()
     }
 };
   constructor(  
@@ -35,11 +35,12 @@ export class ListPage implements OnInit {
   }
 
   ngOnInit() { 
-    this.listOnBind(null);
   }
-    //每次页面加载
-    ionViewWillEnter() {
-      this.menuController.enable(false);
+   
+  ionViewDidEnter(){
+    // alert("先执行");
+    this.listOnBind(null);
+    this.menuController.enable(false);
   }
   //下拉刷新
   doRefresh(event) { 
@@ -63,12 +64,15 @@ doLoading(event) {
     }
   }
 listOnBind(event) {
+  // debugger;
   this._page.loadingShow();
   this._http.postForToaken(
       this.mod.apiUrl,
       this.mod.searchData,
       (res: any) => { 
           if (res.Results !== null) {
+            console.log(res.Results);
+            this.mod.data=[];
             var data=res.originalclues;
               for (var i in data) { 
                 var attr=data[i]["Attributes"];
@@ -80,6 +84,7 @@ listOnBind(event) {
                   obj["Id"]=data[i]["Id"];
                   this.mod.data.push(obj);
               }
+
               event ? event.target.complete() : ''; 
               if (data.length < this.mod.searchData.pagesize) { 
                 if(this.mod.searchData.pageindex>1){

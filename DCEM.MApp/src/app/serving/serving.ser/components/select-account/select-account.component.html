@@ -14,13 +14,10 @@
       <ion-item-sliding *ngFor="let item of model.data;let key=index">
           <ion-item (click)="itemClick(item)">
               <ion-label>
-                  <p>{{item.carplate}}</p>
-                  <p>{{item.customername}}</p>
-                  <p>{{item.createdon}}</p>
-              </ion-label>
-              <ion-note slot="end">
-                  {{item.name}}
-              </ion-note>
+                  <p>{{item.accountnumber}}</p>
+                  <p>{{item.name}}</p>
+                  <p>{{item.mcs_mobilephone}}</p>
+              </ion-label>         
           </ion-item>
       </ion-item-sliding>
   </ion-list>

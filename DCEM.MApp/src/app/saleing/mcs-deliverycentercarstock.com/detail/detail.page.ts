@@ -31,7 +31,7 @@ export class DetailPage implements OnInit {
 
     }
 
-    ionViewWillEnter() {
+    ionViewDidEnter() {
         this.menuController.enable(true);
     }
 

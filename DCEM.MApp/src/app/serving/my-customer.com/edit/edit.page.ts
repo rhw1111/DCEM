@@ -67,7 +67,7 @@ export class EditPage implements OnInit {
         }
     }
 
-    ionViewWillEnter() {
+    ionViewDidEnter() {
         this._activeRoute.queryParams.subscribe((params: Params) => {
             if (!this._valid.isNull(params['id']) && !this._valid.isNull(params['actionCode'])) {
                 this.shareData.actioncode = Number(params['actionCode']);
