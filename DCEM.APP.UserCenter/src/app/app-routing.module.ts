@@ -11,21 +11,16 @@ const routes: Routes = [
         children: [
             { path: 'tabs', loadChildren: () => import('./page/home/tabs/tabs.module').then(m => m.TabsPageModule) },
             {
-                path: 'shippingaddress',
+                path: 'shippingaddress', //收货地址
                 loadChildren: () => import('./page/home/shippingaddress/shippingaddress.module').then(m => m.ShippingaddressPageModule)
-            },
-            {
-                path: 'demo',
-                children: [
-                    {
-                        path: 'dealer',
-                        loadChildren: () => import('./component/demo/select-dealer-demo/select-dealer-demo.module').then(m => m.SelectDealerDemoPageModule)
-                    }
-                ]
             },
             {
                 path: 'frontcontent',
                 loadChildren: () => import('./page/home/frontcontent/frontcontent.module').then(m => m.FrontcontentPageModule)
+            },
+            {
+                path: 'set', //系统设置
+                loadChildren: () => import('./page/home/set/set.module').then(m => m.SetPageModule)
             },
         ]
     },
@@ -69,7 +64,7 @@ const routes: Routes = [
         ]
     },
     {
-        path: 'charging',  //充电桩
+        path: 'charging',  //充电桩(弃用)
         children: [
             { path: 'index', loadChildren: () => import('./page/charging/index/index.module').then(m => m.IndexPageModule) },
         ]
@@ -197,6 +192,10 @@ const routes: Routes = [
             { path: 'sys', loadChildren: () => import('./page/message/sys/sys.module').then(m => m.SysPageModule) },
             { path: 'noticelist', loadChildren: () => import('./page/message/noticelist/noticelist.module').then(m => m.NoticelistPageModule) },
             { path: 'notice', loadChildren: () => import('./page/message/notice/notice.module').then(m => m.NoticePageModule) },
+            {
+                path: 'questionsetting',
+                loadChildren: () => import('./page/message/questionsetting/questionsetting.module').then(m => m.QuestionsettingPageModule)
+            },
         ]
     },
     {
@@ -280,47 +279,23 @@ const routes: Routes = [
         ]
     },
 
+    {
+        path: 'demo',  // demo
+        children: [
+            {
+                path: 'index',
+                loadChildren: () => import('./page/demo/index/index.module').then(m => m.IndexPageModule)
+            },
+            {
+                path: 'baidumap',
+                loadChildren: () => import('./page/demo/baidumap/baidumap.module').then(m => m.BaidumapPageModule)
+            },
 
-    {
-        path: 'detail',
-        loadChildren: () => import('./page/servicecenter/vehiclecenter/detail/detail.module').then(m => m.DetailPageModule)
-    },
-    {
-        path: 'list',
-        loadChildren: () => import('./page/servicecenter/boutique/list/list.module').then(m => m.ListPageModule)
-    },
-    {
-        path: 'detail',
-        loadChildren: () => import('./page/servicecenter/boutique/detail/detail.module').then(m => m.DetailPageModule)
-    },
-    {
-        path: 'list',
-        loadChildren: () => import('./page/servicecenter/shoppingcart/list/list.module').then(m => m.ListPageModule)
-    },
-
-    {
-        path: 'set',
-        loadChildren: () => import('./page/home/set/set.module').then(m => m.SetPageModule)
-    },
-    {
-        path: 'preorder',
-        loadChildren: () => import('./page/servicecenter/preorder/preorder/preorder.module').then(m => m.PreorderPageModule)
-    },
-    {
-        path: 'payment',
-        loadChildren: () => import('./page/servicecenter/payment/payment/payment.module').then(m => m.PaymentPageModule)
-    },
-    {
-        path: 'shippingaddress',
-        loadChildren: () => import('./page/home/shippingaddress/shippingaddress.module').then(m => m.ShippingaddressPageModule)
-    },
-    {
-        path: 'questionsetting',
-        loadChildren: () => import('./page/message/questionsetting/questionsetting.module').then(m => m.QuestionsettingPageModule)
-    },
-    {
-        path: 'list',
-        loadChildren: () => import('./page/servicecenter/category/list/list.module').then(m => m.ListPageModule)
+            {
+                path: 'orcode',
+                loadChildren: () => import('./page/demo/orcode/orcode.module').then(m => m.OrcodePageModule)
+            },
+        ]
     },
 
 
