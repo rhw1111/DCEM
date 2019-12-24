@@ -21,8 +21,7 @@ export class ActivitydetailPage implements OnInit {
     activityEntity: {
       Title: "",
       PageUrl: null
-    },
-    iframeHeight: ""
+    }
     // ,
     // signUpUrl: 'api/Lead/Do',
     // signUpParams: {
@@ -54,14 +53,14 @@ export class ActivitydetailPage implements OnInit {
     });
 
     //初始化事件
-    var _this = this;
-    this.handler = function (event) {
-      if (event != null) {
-        _this.setIframeValue(event.data);
-      }
-    };
+    // var _this = this;
+    // this.handler = function (event) {
+    //   if (event != null) {
+    //     _this.setIframeValue(event.data);
+    //   }
+    // };
 
-    this.addIFrameEvent();
+    // this.addIFrameEvent();
   }
 
   ionViewWillEnter() {
@@ -97,12 +96,12 @@ export class ActivitydetailPage implements OnInit {
     );
   }
 
-  setIframeValue(data) {
-    if (typeof data.type != 'undefined') {
-      return false;
-    }
-    this.model.iframeHeight = data;
-  }
+  // setIframeValue(data) {
+  //   if (typeof data.type != 'undefined') {
+  //     return false;
+  //   }
+  //   this.model.iframeHeight = data;
+  // }
 
   // setIframeValue(data) {
   //   if (typeof data.type != 'undefined') {
@@ -143,15 +142,15 @@ export class ActivitydetailPage implements OnInit {
   //   );
   // }
 
-  addIFrameEvent() {
-    //注册新的事件
-    window.addEventListener('message', this.handler);
-  }
+  // addIFrameEvent() {
+  //   //注册新的事件
+  //   window.addEventListener('message', this.handler);
+  // }
 
-  removeIFrameEvent() {
-    //移除之前的事件
-    window.removeEventListener('message', this.handler);
-  }
+  // removeIFrameEvent() {
+  //   //移除之前的事件
+  //   window.removeEventListener('message', this.handler);
+  // }
 
   // isEmpty(obj) {
   //   if (obj === null) return true;
