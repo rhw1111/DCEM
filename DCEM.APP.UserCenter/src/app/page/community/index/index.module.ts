@@ -7,6 +7,7 @@ import { IndexPage } from './index.page';
 
 @NgModule({
     imports: [
+
         IonicModule,
         CommonModule,
         FormsModule,

@@ -168,7 +168,7 @@
         <ion-row>
             <ion-col style="padding-left:10px;padding-right:10px;">
                 <ion-list>
-                    <ion-item *ngFor="let item of shareData.page.middle_trialrun.list">
+                    <ion-item *ngFor="let item of shareData.page.middle_trialrun.list" detail="false" [routerLink]="[item['link']]">
                         <ion-label>
                             <h4 style="font-weight:bold;">{{item["title"]}}</h4>
                             <p>{{item["source"]}}</p>
