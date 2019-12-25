@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page, DCore_Valid } from 'app/component/typescript/dcem.core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-activitydetail',
@@ -94,6 +95,13 @@ export class ActivitydetailPage implements OnInit {
       }
     );
   }
+
+  // setIframeValue(data) {
+  //   if (typeof data.type != 'undefined') {
+  //     return false;
+  //   }
+  //   this.model.iframeHeight = data;
+  // }
 
   // setIframeValue(data) {
   //   if (typeof data.type != 'undefined') {
