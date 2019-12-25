@@ -641,6 +641,7 @@
     <Content Include="src\assets\img\logo.png" />
     <Content Include="src\assets\img\mes.png" />
     <Content Include="src\assets\img\personalcenter\back.jpg" />
+    <Content Include="src\assets\img\personalcenter\mycar\back.jpg" />
     <Content Include="src\assets\img\phone.png" />
     <Content Include="src\assets\img\pwd.png" />
     <Content Include="src\assets\img\questionsetting.png" />
