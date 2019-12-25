@@ -43,23 +43,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
                 <attribute name='mcs_userphone' />
                 <attribute name='mcs_dealer' />
                 <attribute name='mcs_surveystatus' />
-                <attribute name='mcs_email' />
-                <attribute name='mcs_carmodelid' />
-                <attribute name='mcs_province' />
-                <attribute name='mcs_city' />
-                <attribute name='mcs_area' />
-                <attribute name='mcs_installationaddress' />
-                <attribute name='mcs_detailaddress' />
-                <attribute name='mcs_chargingpilemodel' />
-                <attribute name='mcs_price' />
-                <attribute name='mcs_communityname' />
-                <attribute name='mcs_salesconsultant' />
-                <attribute name='mcs_surveyprovider' />
-                <attribute name='mcs_contact' />
-                <attribute name='mcs_surveyproviderphone' />
-                <attribute name='mcs_appointmentdate' />
-                <attribute name='mcs_surveyengineer' />
-                <attribute name='mcs_surveyengineerphone' />
+               
                 <order attribute='createdon' descending='true' />
                 <filter type='and'>
                   <condition attribute='statecode' operator='eq' value='0' />

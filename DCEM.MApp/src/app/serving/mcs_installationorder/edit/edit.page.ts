@@ -3,6 +3,7 @@ import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core
 import { ModalController } from '@ionic/angular';
 import { ActivatedRoute, Params } from '@angular/router';
 import { SelectSurveyorderComponent } from "app/serving/serving.ser/components/select-surveyorder/select-surveyorder.component"
+
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.page.html',
@@ -81,7 +82,7 @@ export class EditPage implements OnInit {
 
    //选择勘测单模式窗口
    async selectSurveyorderModal() {
-  debugger;
+   //debugger;
     const modal = await this._modalCtrl.create({
         component: SelectSurveyorderComponent
     });
@@ -92,8 +93,8 @@ export class EditPage implements OnInit {
             if (data.mcs_surveyorderid != null) {
                 this.model.postData.mcs_surveyordername = data.mcs_name;
                 this.model.postData.mcs_surveyorderid = data.mcs_surveyorderid;
-                this.model.postData.mcs_username = data.username;
-                this.model.postData.mcs_userphone = data.mcs_mobilephone;
+                this.model.postData.mcs_username = data.mcs_username;
+                this.model.postData.mcs_userphone = data.mcs_userphone;
                 this.model.postData.mcs_email = data.mcs_email;             
             }
         }

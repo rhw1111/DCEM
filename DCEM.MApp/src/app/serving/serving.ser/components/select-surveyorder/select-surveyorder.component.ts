@@ -16,7 +16,7 @@ export class SelectSurveyorderComponent implements OnInit {
       PageIndex: 1,
       PageSize:10,
       SearchKey: "",
-     // mcs_surveystatus:19
+      mcs_surveystatus:0   //19
     }
   }; 
 
@@ -27,7 +27,6 @@ export class SelectSurveyorderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    debugger;
     this.listOnBind();
   }
 
