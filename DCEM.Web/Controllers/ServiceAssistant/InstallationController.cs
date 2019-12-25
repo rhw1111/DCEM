@@ -122,5 +122,19 @@ namespace DCEM.Web.Controllers
             var list = await app.GetInstallationUser(_request);
             return list;
         }
+
+        /// <summary>
+        /// 新增或编辑安装单
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("AddOrEditInstallationorder")]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<CrmEntity>>> AddOrEditInstallationorder(InstallationorderMetadataModel request)
+        {
+            var result = await app.AddOrEditInstallationorder(request);
+            return result;
+        }
+
     }
 }
