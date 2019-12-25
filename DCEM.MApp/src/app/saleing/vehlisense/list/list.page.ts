@@ -27,7 +27,7 @@ export class ListPage implements OnInit {
     apiUrl: "/api/vehlisense/getlist",
     statusOptions: [],
     search: {
-      type: 1,
+      type: -1,
       pageindex: 1,
       pagesize: 10,
       searchkey: "",

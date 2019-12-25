@@ -181,13 +181,13 @@ namespace DCEM.UserCenterService.Main.Application.Services
                   }
                   </style>" + targetHtml;
                 //写入目标地址
-                var resultPath = @"HtmlResources\Fronts\" + entity.Attributes["mcs_frontcontentid"].ToString();
+                var resultPath = @"HtmlResources/Fronts/" + entity.Attributes["mcs_frontcontentid"].ToString();
                 var targetPath = Directory.GetCurrentDirectory() + @"\wwwroot\" + resultPath;
                 if (!Directory.Exists(targetPath))
                 {
                     Directory.CreateDirectory(targetPath);
                 }
-                var fileName = @"\" + entity.EntityName.ToString() + ".html";
+                var fileName = "/" + entity.EntityName.ToString() + ".html";
                 File.WriteAllText(targetPath + fileName, targetHtml);
                 response.Url = resultPath + fileName;
             }

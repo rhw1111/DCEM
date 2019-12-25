@@ -53,14 +53,14 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     throw new Exception("未找到对应的落地页模板数据");
                 }
                 //根据落地页数据选择模板
-                var fileName = @"\" + GetTemplateNameByPageType(entity.Attributes["mcs_type"]?.ToString()) + "Temp.html";
+                var fileName = "/" + GetTemplateNameByPageType(entity.Attributes["mcs_type"]?.ToString()) + "Temp.html";
                 //从模板地址读取数据写入新地址
                 var prjRootPath = Directory.GetCurrentDirectory();
                 var templateHtml = File.ReadAllText(prjRootPath + @"\wwwroot\HtmlResources\Templates\Temp\" + fileName);
                 //替换其中的自定义项
                 var targetHtml = await TransHtml(pageId, templateHtml, crmRequestHelper);
                 //写入目标地址
-                var resultPath = @"HtmlResources\Activities\" + entity.Attributes["mcs_am_pageid"].ToString();
+                var resultPath = @"HtmlResources/Activities/" + entity.Attributes["mcs_am_pageid"].ToString();
                 var targetPath = prjRootPath + @"\wwwroot\" + resultPath;
                 if (!Directory.Exists(targetPath))
                 {
