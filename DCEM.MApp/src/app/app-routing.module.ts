@@ -248,6 +248,15 @@ const routes: Routes = [
                     { path: 'calendar', loadChildren: './saleing/mcs_driverecord.com/calendar/calendar.module#CalendarPageModule' },
                     { path: 'feedback', loadChildren: './saleing/mcs_driverecord.com/feedback/feedback.module#FeedbackPageModule' }
                 ]
+            },
+            {
+                path: 'carorder',//整车订单
+                children: [
+                    { path: 'list', loadChildren: './saleing/carorder/list/list.module#ListPageModule' },
+                    { path: 'edit', loadChildren: './saleing/carorder/edit/edit.module#EditPageModule' },
+                    { path: 'success', loadChildren: './saleing/carorder/success/success.module#SuccessPageModule' },
+                    { path: 'detail', loadChildren: './saleing/carorder/detail/detail.module#DetailPageModule' },
+                ]
             }
         ]
     },
@@ -259,6 +268,7 @@ const routes: Routes = [
     },
     { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' },
     { path: 'fileupload', loadChildren: './serving/serving.ser/components/fileupload/fileupload.module#FileuploadPageModule' },
+
 
 
  
