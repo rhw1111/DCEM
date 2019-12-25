@@ -38,6 +38,10 @@ const routes: Routes = [
                     },
 
                     {
+                        path: 'photograph',
+                        loadChildren: () => import('./page/home/demo/photograph/photograph.module').then(m => m.PhotographPageModule)
+                    },
+                    {
                         path: 'orcode',
                         loadChildren: () => import('./page/home/demo/orcode/orcode.module').then(m => m.OrcodePageModule)
                     },

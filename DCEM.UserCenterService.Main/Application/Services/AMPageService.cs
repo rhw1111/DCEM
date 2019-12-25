@@ -95,7 +95,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
             var result = new StringBuilder(templateHtml);
             foreach (var item in elementConfigs.Results)
             {
-                var pageDetail = pageDetails.Results.First(p => p.Attributes["mcs_element"].ToString() == item.Attributes["mcs_am_elementconfigid"].ToString());
+                var pageDetail = pageDetails.Results.First(p => p.Attributes["_mcs_element_value"].ToString() == item.Attributes["mcs_am_elementconfigid"].ToString());
                 var tempValue = string.Empty;
                 if (pageDetail == null)
                 {

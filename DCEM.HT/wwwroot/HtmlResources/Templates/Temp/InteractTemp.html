@@ -24,12 +24,30 @@
         .ng-anchor {
             position: absolute;
         }
+
+        /* 设置滚动条的样式 */
+::-webkit-scrollbar{
+    width: 3px;
+}
+/*滚动槽*/
+::-webkit-scrollbar-track{
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.15);
+}
     </style>
-    <script src="../Scripts/jquery-1.10.2.min.js"></script>
+    <script src="../Scripts/jquery-3.3.1.min.js"></script>
     <script type="text/javascript">
         var unSelected = "#999";
         var selected = "#333";
         $(function () {
+            //window.parent.postMessage(document.body.scrollHeight, '*');
+
             $("select").css("color", unSelected);
             $("option").css("color", selected);
             $("select").change(function () {
@@ -103,7 +121,7 @@
             console.log(key + "-" + sysName)
             $.ajax({
                 type: "post",
-                url: $url$+"api/Lead/Do",
+                url: "$url$api/Lead/Do",
                 dataType: "json",
                 contentType: "application/json;charset=utf-8",
                 data: JSON.stringify({
@@ -219,7 +237,7 @@
                                             <div class="law one-line">
                                                 <span class="tips"><a style="color:red;">*</a>带星号的选项必须填写</span>
                                             </div>
-                                            <div class="action-bar">
+                                            <div class="action-bar"  style="position: fixed;bottom: 10px;padding-right: 40px;">
                                                 <div class="action">
                                                     <span class="button button-blue" onclick="SubmitClick()" gcdm-form-submit>提交</span>
                                                 </div>
@@ -228,7 +246,7 @@
                                         <img src="../Images/car2.gif" style="max-width:100%;" />
                                         <img src="../Images/car3.gif" style="max-width:100%;" />
                                         <h1 class="title" style="font-size: 30px;">$title$</h1>
-                                        <!--<h3 class="title upper-case">获取更详尽的车型信息</h3>-->
+                                        <h3 class="title upper-case">$subtitle$</h3>
                                         <p style="margin-bottom:40px">
                                             $content$
                                         </p>

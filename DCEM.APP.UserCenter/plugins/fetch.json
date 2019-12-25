@@ -78,7 +78,32 @@
     },
     "is_top_level": true,
     "variables": {
-      "ANDROID_API_KEY": "mcs.dcem.ucenter"
+      "ANDROID_API_KEY": "your",
+      "IOS_API_KEY": "your"
     }
+  },
+  "cordova-plugin-camera": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-camera@4.1.0"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-qrscanner": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-qrscanner"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-add-swift-support": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-add-swift-support"
+    },
+    "is_top_level": false,
+    "variables": {}
   }
 }

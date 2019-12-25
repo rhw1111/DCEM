@@ -68,6 +68,7 @@
     <Folder Include="src\app\page\home\demo\baidumap\" />
     <Folder Include="src\app\page\home\demo\index\" />
     <Folder Include="src\app\page\home\demo\orcode\" />
+    <Folder Include="src\app\page\home\demo\photograph\" />
     <Folder Include="src\app\page\home\" />
     <Folder Include="src\app\page\home\frontcontent\" />
     <Folder Include="src\app\page\home\set\" />
@@ -251,6 +252,10 @@
     <TypeScriptCompile Include="src\app\page\home\demo\orcode\orcode.module.ts" />
     <TypeScriptCompile Include="src\app\page\home\demo\orcode\orcode.page.spec.ts" />
     <TypeScriptCompile Include="src\app\page\home\demo\orcode\orcode.page.ts" />
+    <TypeScriptCompile Include="src\app\page\home\demo\photograph\photograph-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\home\demo\photograph\photograph.module.ts" />
+    <TypeScriptCompile Include="src\app\page\home\demo\photograph\photograph.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\home\demo\photograph\photograph.page.ts" />
     <TypeScriptCompile Include="src\app\page\home\frontcontent\frontcontent-routing.module.ts" />
     <TypeScriptCompile Include="src\app\page\home\frontcontent\frontcontent.module.ts" />
     <TypeScriptCompile Include="src\app\page\home\frontcontent\frontcontent.page.spec.ts" />
@@ -504,6 +509,8 @@
     <Content Include="src\app\page\home\demo\index\index.page.scss" />
     <Content Include="src\app\page\home\demo\orcode\orcode.page.html" />
     <Content Include="src\app\page\home\demo\orcode\orcode.page.scss" />
+    <Content Include="src\app\page\home\demo\photograph\photograph.page.html" />
+    <Content Include="src\app\page\home\demo\photograph\photograph.page.scss" />
     <Content Include="src\app\page\home\frontcontent\frontcontent.page.html" />
     <Content Include="src\app\page\home\frontcontent\frontcontent.page.scss" />
     <Content Include="src\app\page\home\set\set.page.html" />
@@ -634,6 +641,7 @@
     <Content Include="src\assets\img\logo.png" />
     <Content Include="src\assets\img\mes.png" />
     <Content Include="src\assets\img\personalcenter\back.jpg" />
+    <Content Include="src\assets\img\personalcenter\mycar\back.jpg" />
     <Content Include="src\assets\img\phone.png" />
     <Content Include="src\assets\img\pwd.png" />
     <Content Include="src\assets\img\questionsetting.png" />
@@ -683,6 +691,7 @@
     <Content Include="src\assets\svg\servicecenter\index\jrfw.svg" />
     <Content Include="src\assets\svg\servicecenter\index\tyzc.svg" />
     <Content Include="src\assets\svg\servicecenter\index\gc.svg" />
+    <Content Include="src\assets\img\scanner.jpg" />
     <Content Include="src\global.scss" />
     <Content Include="src\index.html" />
     <Content Include="src\theme\variables.scss" />
