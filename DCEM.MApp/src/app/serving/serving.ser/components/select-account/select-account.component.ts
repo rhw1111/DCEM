@@ -43,7 +43,7 @@ export class SelectAccountComponent implements OnInit {
       (res: any) => {
         console.log(res);
         if (res.Results !== null) {
-          debugger;
+          //debugger;
           for (var key in res.Results) {
             var obj = {};
             obj["accountid"] = res.Results[key]["Attributes"]["accountid"];

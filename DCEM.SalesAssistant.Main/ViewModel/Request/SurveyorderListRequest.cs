@@ -50,7 +50,7 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         /// <summary>
         /// 勘测单类型
         /// </summary>
-        public int? mcs_surveyordertype { set; get; }
+        public string mcs_surveyordertype { set; get; }
 
         /// <summary>
         /// 销售机会
@@ -128,15 +128,15 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         /// <summary>
         /// 住宅性质
         /// </summary>
-        public int? mcs_residentialnature { set; get; }
+        public string mcs_residentialnature { set; get; }
         /// <summary>
         /// 套餐金额
         /// </summary>
-        public decimal? mcs_price { set; get; }
+         public decimal? mcs_price { set; get; }
         /// <summary>
         /// 车位情况
         /// </summary>
-        public int? mcs_parkingspace { set; get; }
+        public string mcs_parkingspace { set; get; }
         /// <summary>
         /// 备注
         /// </summary>
@@ -144,7 +144,7 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         /// <summary>
         /// 住宅类型
         /// </summary>
-        public int? mcs_residentialtype { set; get; }
+        public string mcs_residentialtype { set; get; }
 
 
     }

@@ -114,12 +114,13 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 CrmExecuteEntity Entity = new CrmExecuteEntity("mcs_surveyorder", guid);
                 if (!string.IsNullOrEmpty(request.mcs_surveyordertype.ToString()))
                 {
-                    Entity.Attributes.Add("mcs_surveyordertype", request.mcs_surveyordertype);
+                    int surveyordertype = Convert.ToInt32(request.mcs_surveyordertype);
+                    Entity.Attributes.Add("mcs_surveyordertype", surveyordertype);
                 }
                 if (!string.IsNullOrEmpty(request.mcs_accountid))
                 {
                     Entity.Attributes.Add("mcs_accountid", new CrmEntityReference("account", Guid.Parse(request.mcs_accountid)));
-                }     
+                }
                 if (!string.IsNullOrEmpty(request.mcs_username))
                 {
                     Entity.Attributes.Add("mcs_username", request.mcs_username);
@@ -190,7 +191,8 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 }
                 if (!string.IsNullOrEmpty(request.mcs_residentialnature.ToString()))
                 {
-                    Entity.Attributes.Add("mcs_residentialnature", request.mcs_residentialnature);
+                    int residentialnature = Convert.ToInt32(request.mcs_residentialnature);
+                    Entity.Attributes.Add("mcs_residentialnature", residentialnature);
                 }
                 if (!string.IsNullOrEmpty(request.mcs_price.ToString()))
                 {
@@ -198,11 +200,13 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 }
                 if (!string.IsNullOrEmpty(request.mcs_parkingspace.ToString()))
                 {
-                    Entity.Attributes.Add("mcs_parkingspace", request.mcs_parkingspace);
+                    int parkingspace = Convert.ToInt32(request.mcs_parkingspace);
+                    Entity.Attributes.Add("mcs_parkingspace", parkingspace);
                 }
                 if (!string.IsNullOrEmpty(request.mcs_residentialtype.ToString()))
                 {
-                    Entity.Attributes.Add("mcs_residentialtype", request.mcs_residentialtype);
+                    int residentialtype = Convert.ToInt32(request.mcs_residentialtype);
+                    Entity.Attributes.Add("mcs_residentialtype", Convert.ToInt32(request.mcs_residentialtype));
                 }
                 if (!string.IsNullOrEmpty(request.mcs_remark))
                 {
