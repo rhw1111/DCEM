@@ -37,6 +37,7 @@ import { SelectRepairitemtypedetailComponent } from 'app/serving/serving.ser/com
 import { SelectAppointmentinfoComponent } from 'app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component';
 import { SelectFileEditComponent } from 'app/serving/serving.ser/components/select-file-edit/select-file-edit.component';
 import { SelectAccountComponent } from 'app/serving/serving.ser/components/select-account/select-account.component'
+import { SelectSurveyorderComponent } from "app/serving/serving.ser/components/select-surveyorder/select-surveyorder.component"
 
 
 import { DragrouteComponent } from 'app/base/base.ser/components/map/dragroute/dragroute.component';
@@ -71,7 +72,8 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
         SelectAppointmentinfoComponent,//选择预约单
         SelectFileEditComponent,
         DragrouteComponent,
-        SelectAccountComponent
+        SelectAccountComponent,//选择销售机会
+        SelectSurveyorderComponent //选择勘测单
     ],
 
     entryComponents: [
@@ -97,7 +99,8 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
         SelectAppointmentinfoComponent,//选择预约单
         SelectFileEditComponent,
         DragrouteComponent,
-        SelectAccountComponent
+        SelectAccountComponent,//选择销售机会
+        SelectSurveyorderComponent //选择勘测单
     ],
 
     imports: [BrowserModule,

@@ -64,5 +64,13 @@ namespace DCEM.SalesAssistant.Main.Application.Services.Contrac
         /// <param name="guid"></param>
         /// <returns></returns>
         Task<QueryResult<CrmEntity>> GetInstallationUser(InstallationorderDetailRequest _request);
+
+        /// <summary>
+        /// 安装单新增或编辑
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ValidateResult<CrmEntity>> AddOrEditInstallationorder(InstallationorderMetadataModel request);
+
     }
 }

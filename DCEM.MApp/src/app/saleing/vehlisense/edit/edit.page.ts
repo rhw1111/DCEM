@@ -132,7 +132,7 @@ export class EditPage implements OnInit {
 
         var errMessage = "";
 
-        if (this._valid.isNullOrEmpty(this.shareData.vehowner["mcs_name"])) {
+        if (this._valid.isNullOrEmpty(this.shareData.vehowner["mcs_fullname"])) {
             errMessage += "您尚未输入姓名<br>";
         }
         if (this._valid.isNullOrEmpty(this.shareData.vehowner["mcs_idcard"])) {

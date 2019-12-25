@@ -3,18 +3,20 @@ import { ModalController } from '@ionic/angular';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 
 @Component({
-  selector: 'app-select-account',
-  templateUrl: './select-account.component.html',
-  styleUrls: ['./select-account.component.scss'],
+  selector: 'app-select-surveyorder',
+  templateUrl: './select-surveyorder.component.html',
+  styleUrls: ['./select-surveyorder.component.scss'],
 })
-export class SelectAccountComponent implements OnInit {
+export class SelectSurveyorderComponent implements OnInit {
+
   public model = {
-    apiUrl: '/api/account/GetList',
+    apiUrl: '/api/Installation/GetSurveyorderList',
     data:[],
     params: {
       PageIndex: 1,
       PageSize:10,
-      SearchKey: ""
+      SearchKey: "",
+      mcs_surveystatus:0   //19
     }
   }; 
 
@@ -43,13 +45,13 @@ export class SelectAccountComponent implements OnInit {
       (res: any) => {
         console.log(res);
         if (res.Results !== null) {
-          //debugger;
+          debugger;
           for (var key in res.Results) {
             var obj = {};
-            obj["accountid"] = res.Results[key]["Attributes"]["accountid"];
-            obj["accountnumber"] = res.Results[key]["Attributes"]["accountnumber"];
-            obj["name"] = res.Results[key]["Attributes"]["name"]; 
-            obj["mcs_mobilephone"] = res.Results[key]["Attributes"]["mcs_mobilephone"];                
+            obj["mcs_surveyorderid"] = res.Results[key]["Attributes"]["mcs_surveyorderid"];
+            obj["mcs_name"] = res.Results[key]["Attributes"]["mcs_name"];
+            obj["mcs_username"] = res.Results[key]["Attributes"]["mcs_username"]; 
+            obj["mcs_userphone"] = res.Results[key]["Attributes"]["mcs_userphone"];                
             this.model.data.push(obj);
           }
           this._page.loadingHide();
@@ -73,12 +75,12 @@ export class SelectAccountComponent implements OnInit {
   }
   //保存所选项
   itemClick(item){
-    //debugger;
+    debugger;
     this.modalCtrl.dismiss({
-      'accountid': item.accountid,
-      'accountnumber': item.accountnumber,
-      'username': item.name,
-      'mcs_mobilephone': item.mcs_mobilephone
+      'mcs_surveyorderid': item.mcs_surveyorderid,
+      'mcs_name': item.mcs_name,
+      'mcs_username': item.mcs_username,
+      'mcs_userphone': item.mcs_userphone
     });
   }
 

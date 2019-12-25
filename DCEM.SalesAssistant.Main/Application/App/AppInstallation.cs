@@ -90,5 +90,17 @@ namespace DCEM.SalesAssistant.Main.Application.App
         public async Task<QueryResult<CrmEntity>> GetInstallationUser(InstallationorderDetailRequest _request) {
             return await _installService.GetInstallationUser(_request);
         }
+
+        /// <summary>
+        /// 安装单新增或编辑
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ValidateResult<CrmEntity>> AddOrEditInstallationorder(InstallationorderMetadataModel request)
+        {
+            return await _installService.AddOrEditInstallationorder(request);
+        }
+
+
     }
 }

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 import { DCore_Page, DCore_Http, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
-import { ModalController, NavController } from '@ionic/angular';
+import { ModalController, NavController,IonContent, IonInfiniteScroll } from '@ionic/angular';
 import { OptionSetService } from '../../../base/base.ser/optionset.service';
 @Component({
   selector: 'app-list',
@@ -10,20 +11,23 @@ import { OptionSetService } from '../../../base/base.ser/optionset.service';
 })
 export class ListPage implements OnInit {
 
- 
+  @ViewChild(IonContent, null) ionContent: IonContent;
+  @ViewChild(IonInfiniteScroll, null) ionInfiniteScroll: IonInfiniteScroll;
   constructor(
     public _modalCtrl: ModalController,
     private _http: DCore_Http,
     private _page: DCore_Page,
     private _valid: DCore_Valid,
     private _userinfo: Storage_LoginInfo,
-    private _optionset: OptionSetService
+    private _optionset: OptionSetService,
+    private menuController:MenuController
   ) { }
 
   public model: any = {
     apiUrl: "/api/vehlisense/getlist",
     statusOptions: [],
     search: {
+      type: -1,
       pageindex: 1,
       pagesize: 10,
       searchkey: "",
@@ -38,6 +42,27 @@ export class ListPage implements OnInit {
   }
   ngOnInit() {
     this.model.statusOptions = this._optionset.Get("mcs_vehlisensestatus");
+    this.model.data = [];
+    // this.model.search = {
+    //     type: 1,
+    //     pageindex: 1,
+    //     searchkey: ""
+    // };
+
+    this.listOnBind(null);
+  }
+    //每次页面加载
+  ionViewDidEnter() {
+    this.menuController.enable(false);
+
+  }
+  tagOnClick(type) {
+    this.model.search.type = type;
+    this.model.vehlisense = [];
+    this.model.search.pageindex = 1;
+    this.ionInfiniteScroll.disabled = false;
+    this.ionContent.scrollToTop(200);
+
     this.listOnBind(null);
   }
   //加载下一页
@@ -83,16 +108,20 @@ export class ListPage implements OnInit {
             if (this.model.search.pageindex != 1)
             this.model.isending = true;
           }
-          this._page.loadingHide();
+         
         }
         else {
-          this._page.alert("消息提示", "开票数据加载异常");
+          this.ionInfiniteScroll.disabled = true;
+          //this._page.alert("消息提示", "开票数据加载异常");
         }
         this._page.loadingHide();
+        this.ionInfiniteScroll.complete();
+        
       },
       (err: any) => {
-        this._page.alert("消息提示", "开票数据加载异常");
         this._page.loadingHide();
+        this.ionInfiniteScroll.complete();
+        this._page.alert("消息提示", "开票数据加载异常");
       }
     );
   }

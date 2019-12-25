@@ -43,6 +43,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
                 <attribute name='mcs_userphone' />
                 <attribute name='mcs_dealer' />
                 <attribute name='mcs_surveystatus' />
+               
                 <order attribute='createdon' descending='true' />
                 <filter type='and'>
                   <condition attribute='statecode' operator='eq' value='0' />

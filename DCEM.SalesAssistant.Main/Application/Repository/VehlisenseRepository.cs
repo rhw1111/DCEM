@@ -21,6 +21,14 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
             return await Task<XDocument>.Run(() =>
             {
                 var filterStr = "";
+                if (deliveryListRequest.Type == 0) //已上牌
+                {
+                    filterStr += $@"<condition attribute='mcs_name' operator='not-null' />";//包含数据
+                }
+                if (deliveryListRequest.Type == 1)//未上牌
+                {
+                    filterStr += $@"<condition attribute='mcs_name' operator='null' />";//不包含数据
+                }
                 if (!string.IsNullOrEmpty(deliveryListRequest.SearchKey))
                 {
                     filterStr += $@"  <filter type='or'>

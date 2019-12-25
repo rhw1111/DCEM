@@ -1,0 +1,199 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" style="margin-top: 3px;">
+      <ion-back-button text="返回" defaultHref="/carcenter/index"></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="model.postData.mcs_installationorderid!=''">编辑安装单</ion-title>
+    <ion-title *ngIf="model.postData.mcs_installationorderid==''">创建安装单</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-col>
+
+    <ion-list lines="full">
+      <ion-item-divider color="primary">
+        <ion-label>
+          客户信息
+        </ion-label>
+      </ion-item-divider>
+     
+      <ion-item (click)="selectSurveyorderModal()">
+        <ion-label position="stacked">
+           勘测单
+          <ion-text color="danger">*</ion-text>
+        </ion-label>
+        <ion-input placeholder="请选择勘测单" [(ngModel)]="model.postData.mcs_surveyordername" required></ion-input>
+        <ion-icon slot="end" name="search"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+          姓名
+          <ion-text color="danger">*</ion-text>
+        </ion-label>
+        <ion-input placeholder="请输入姓名" [(ngModel)]="model.postData.mcs_username" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+          手机号
+          <ion-text color="danger">*</ion-text>
+        </ion-label>
+        <ion-input placeholder="请输入手机号" [(ngModel)]="model.postData.mcs_userphone" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+          邮箱
+        </ion-label>
+        <ion-input placeholder="请输入邮箱" [(ngModel)]="model.postData.mcs_email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">省</ion-label>
+        <ion-input placeholder="请选择省" [(ngModel)]="model.postData.mcs_provincename" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">市</ion-label>
+        <ion-input placeholder="请选择市" [(ngModel)]="model.postData.mcs_cityname" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">区</ion-label>
+        <ion-input placeholder="请选择区" [(ngModel)]="model.postData.mcs_areaname" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+          安装地址 
+          <ion-text color="danger">*</ion-text>   
+        </ion-label>
+        <ion-input placeholder="请输入安装地址" [(ngModel)]="model.postData.mcs_installationaddress" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+          详细地址      
+        </ion-label>
+        <ion-input placeholder="请输入详细地址" [(ngModel)]="model.postData.mcs_detailaddress" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+          是否需要立柱      
+        </ion-label>
+        <ion-input  [(ngModel)]="model.postData.mcs_isneedpillar" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+          充电桩型号
+          <ion-text color="danger">*</ion-text>
+        </ion-label>
+        <ion-input  [(ngModel)]="model.postData.mcs_chargingpilemodelname"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+          套餐金额
+        </ion-label>
+        <ion-input  [(ngModel)]="model.postData.mcs_price"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+          门店
+        </ion-label>
+        <ion-input  [(ngModel)]="model.postData.mcs_dealername"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+          销售顾问
+        </ion-label>
+        <ion-input  [(ngModel)]="model.postData.mcs_salesconsultantname"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+          小区名称      
+        </ion-label>
+        <ion-input placeholder="请输入小区名称" [(ngModel)]="model.postData.mcs_communityname" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+          物业态度    
+        </ion-label>
+        <ion-input placeholder="请输入物业态度" [(ngModel)]="model.postData.mcs_propertyattitude" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+          销售单号
+        </ion-label>
+        <ion-input placeholder="请选择销售单号" [(ngModel)]="model.postData.mcs_salesordername" required></ion-input>
+      </ion-item>  
+      <ion-item>
+        <ion-label position="stacked">
+          VIN
+        </ion-label>
+        <ion-input placeholder="请输入VIN码" [(ngModel)]="model.postData.mcs_vin"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+          动力类型
+        </ion-label>
+        <ion-input placeholder="请选择动力类型"  [(ngModel)]="model.postData.mcs_powertypename" ></ion-input>
+      </ion-item>  
+      <ion-item>
+        <ion-label position="stacked">
+          基本车型
+        </ion-label>
+        <ion-input  [(ngModel)]="model.postData.mcs_carmodelname"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+          结算价格
+        </ion-label>
+        <ion-input placeholder="请输入结算价格"  [(ngModel)]="model.postData.mcs_settlementprice"></ion-input>
+      </ion-item>
+
+      <ion-item-divider color="primary">
+        <ion-label>
+          安装服务商
+        </ion-label>
+      </ion-item-divider>
+    <ion-item>
+      <ion-label position="stacked">
+        安装服务商 
+      </ion-label>
+      <ion-input  [(ngModel)]="model.postData.mcs_installationprovidername" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">
+        安装服务商联系人      
+      </ion-label>
+      <ion-input placeholder="请输入安装服务商联系人" [(ngModel)]="model.postData.mcs_contact" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">
+        安装服务电话 
+      </ion-label>
+      <ion-input placeholder="请输入安装服务电话" [(ngModel)]="model.postData.mcs_installationproviderphone" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">
+        安装服务时间      
+      </ion-label>
+      <ion-input [(ngModel)]="model.postData.mcs_appointmenttime" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">
+        安装交付工程师 
+        <ion-text color="danger">*</ion-text>   
+      </ion-label>
+      <ion-input  [(ngModel)]="model.postData.mcs_installationengineername" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">
+        安装交付工程师电话      
+      </ion-label>
+      <ion-input  [(ngModel)]="model.postData.mcs_installationengineerphone" ></ion-input>
+    </ion-item>
+      <br />
+    </ion-list>
+    <section style="text-align:center;">
+      <ion-button expand="block" type="button" (click)="SureClick()">保存</ion-button>
+    </section>
+    <br />
+    <br />
+  </ion-col>
+
+</ion-content>

@@ -126,6 +126,7 @@ const routes: Routes = [
                     { path: 'list', loadChildren: './serving/mcs_surveyorder/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './serving/mcs_surveyorder/detail/detail.module#DetailPageModule' },                     
                     { path: 'edit', loadChildren: './serving/mcs_surveyorder/edit/edit.module#EditPageModule' },
+                    { path: 'success', loadChildren: './serving/mcs_surveyorder/success/success.module#SuccessPageModule' },
                 ]
             },
             {
@@ -133,7 +134,10 @@ const routes: Routes = [
                 children: [
 
                     { path: 'list', loadChildren: './serving/mcs_installationorder/list/list.module#ListPageModule' },
-                    { path: 'detail', loadChildren: './serving/mcs_installationorder/detail/detail.module#DetailPageModule' }
+                    { path: 'detail', loadChildren: './serving/mcs_installationorder/detail/detail.module#DetailPageModule' },
+                    { path: 'edit', loadChildren: './serving/mcs_installationorder/edit/edit.module#EditPageModule' },
+                    { path: 'success', loadChildren: './serving/mcs_installationorder/success/success.module#SuccessPageModule' },
+                    
                 ]
             }
         ],
@@ -268,6 +272,10 @@ const routes: Routes = [
     },
     { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' },
     { path: 'fileupload', loadChildren: './serving/serving.ser/components/fileupload/fileupload.module#FileuploadPageModule' },
+  
+
+  
+
 
 
 
