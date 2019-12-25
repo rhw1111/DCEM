@@ -189,7 +189,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 }
                 var fileName = @"\" + entity.EntityName.ToString() + ".html";
                 File.WriteAllText(targetPath + fileName, targetHtml);
-                response.Url = resultPath + fileName;
+                response.Url = resultPath + fileName.Replace(@"\","/");
             }
             catch (Exception ex)
             {

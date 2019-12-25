@@ -67,7 +67,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     Directory.CreateDirectory(targetPath);
                 }
                 File.WriteAllText(targetPath + fileName, targetHtml);
-                response.Url = resultPath + fileName;
+                response.Url = resultPath + fileName.Replace(@"\", "/");
             }
             catch (Exception ex)
             {
