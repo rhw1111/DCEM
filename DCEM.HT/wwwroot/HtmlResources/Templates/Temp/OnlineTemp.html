@@ -195,59 +195,9 @@
                                             </div>
                                             <div class="person-info clearfix" style="padding-bottom: 10px;">
                                                 <h3 class="title">请填写您的信息</h3>
-
-                                                <div class="detail" ng-class="{'error':myForm.surname.$dirty && myForm.surname.$invalid || submitted && myForm.surname.$invalid}">
-                                                    <label>姓名<a style="color:red;">*</a></label>
-                                                    <div class="content">
-                                                        <input type="text" id="btnName" name="surname" placeholder="请输入您的名字" ng-model="gcdmFormModel.businessPartner.surname" required />
-                                                    </div>
-                                                </div>
-                                                <div class="detail" ng-class="{'error':myForm.tel.$dirty && myForm.tel.$invalid || submitted && myForm.tel.$invalid}">
-                                                    <label>手机号<a style="color:red;">*</a></label>
-                                                    <div class="content">
-                                                        <input type="text" id="btnMobile" name="Mobile" placeholder="请输入您的手机号" ng-model="gcdmFormModel.businessPartner.givenName" required />
-
-                                                    </div>
-                                                </div>
-                                                <div class="detail" ng-class="{'error':myForm.surname.$dirty && myForm.surname.$invalid || submitted && myForm.surname.$invalid}">
-                                                    <label>称呼</label>
-                                                    <div class="content">
-                                                        <select style="border: 2px solid #bbb;width:100%;height:40px;" id="sltAppellation">
-                                                            <option value="-1">请选择称呼</option>
-                                                            <option value="1">先生</option>
-                                                            <option value="2">女士</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="detail" ng-class="{'error':myForm.name.$dirty && myForm.name.$invalid || submitted && myForm.name.$invalid}">
-                                                    <label>邮箱</label>
-                                                    <div class="content">
-                                                        <input type="text" id="btnEmail" name="Email" placeholder="请输入您的邮箱" ng-model="gcdmFormModel.businessPartner.givenName" required />
-                                                    </div>
-                                                </div>
-                                                <div class="detail" ng-class="{'error':myForm.surname.$dirty && myForm.surname.$invalid || submitted && myForm.surname.$invalid}">
-                                                    <label>地区</label>
-                                                    <div class="content">
-                                                        <select style="border: 2px solid #bbb;width:100%;height:40px;" id="sltAddress">
-                                                            <option value="-1">请选择所在地区</option>
-                                                            <option value="330100">杭州</option>
-                                                            <option value="110100">北京</option>
-                                                            <option value="310100">上海</option>
-                                                            <option value="440300">深圳</option>
-                                                            <option value="440100">广州</option>
-                                                            <option value="320100">南京</option>
-                                                            <option value="220403">西安</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-
+                                                $formsettings$
                                             </div>
-
-
                                             <div class="law one-line">
-
                                                 <span class="tips"><a style="color:red;">*</a>带星号的选项必须填写</p></span>
                                             </div>
                                             <div class="action-bar"  style="position: fixed;bottom: 10px;padding-right: 40px;">

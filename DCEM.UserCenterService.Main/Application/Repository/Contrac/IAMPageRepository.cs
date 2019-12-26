@@ -22,5 +22,6 @@ namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
     {
         Task<XDocument> GetPageDetailsXml(Guid pageId);
         Task<XDocument> GetElementConfigsXml();
+        Task<XDocument> GetPageFieldsXml(Guid pageId);
     }
 }
