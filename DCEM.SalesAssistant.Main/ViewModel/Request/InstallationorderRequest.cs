@@ -62,10 +62,7 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         /// 手机号
         /// </summary>
         public string mcs_userphone { set; get; }
-        /// <summary>
-        /// 身份证
-        /// </summary>
-        public string mcs_idcard { set; get; }
+       
         /// <summary>
         /// 邮箱
         /// </summary>
@@ -77,23 +74,12 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         /// <summary>
         /// 厅店
         /// </summary>
-        public string mcs_dealer { set; get; }
+        public string mcs_dealerid { set; get; }
         /// <summary>
         /// 销售顾问
         /// </summary>
         public string mcs_salesconsultant { set; get; }
-        /// <summary>
-        /// 联系人姓名
-        /// </summary>
-        public string mcs_contactname { set; get; }
-        /// <summary>
-        /// 联系电话
-        /// </summary>
-        public string mcs_contactphone { set; get; }
-        /// <summary>
-        /// 联系邮箱
-        /// </summary>
-        public string mcs_contactemail { set; get; }
+
         /// <summary>
         /// 省
         /// </summary>
@@ -123,25 +109,54 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         /// </summary>
         public string mcs_communityname { set; get; }
         /// <summary>
-        /// 住宅性质
-        /// </summary>
-        public string mcs_residentialnature { set; get; }
-        /// <summary>
         /// 套餐金额
         /// </summary>
-        public decimal? mcs_price { set; get; }
-        /// <summary>
-        /// 车位情况
-        /// </summary>
-        public string mcs_parkingspace { set; get; }
-        /// <summary>
-        /// 备注
-        /// </summary>
-        public string mcs_remark { set; get; }
-        /// <summary>
-        /// 住宅类型
-        /// </summary>
-        public string mcs_residentialtype { set; get; }
+        public string mcs_price { set; get; }
+
+        ///// <summary>
+        ///// 物业态度
+        ///// </summary>
+        //public string mcs_propertyattitude { set; get; }
+        ///// <summary>
+        ///// 销售单号
+        ///// </summary>
+        //public string mcs_salesorder { set; get; }
+        ///// <summary>
+        ///// vin
+        ///// </summary>
+        //public string mcs_vin { set; get; }
+        ///// <summary>
+        ///// 动力类型
+        ///// </summary>
+        //public string mcs_powertypeid { set; get; }
+        ///// <summary>
+        ///// 结算价格
+        ///// </summary>
+        //public decimal? mcs_settlementprice { set; get; }
+        ///// <summary>
+        ///// 安装服务商
+        ///// </summary>
+        //public string mcs_installationproviderid { set; get; }
+        ///// <summary>
+        ///// 安装服务商联系人
+        ///// </summary>
+        //public string mcs_contact { set; get; }
+        ///// <summary>
+        ///// 安装服务电话
+        ///// </summary>
+        //public string mcs_installationproviderphone { set; get; }
+        ///// <summary>
+        ///// 安装服务时间
+        ///// </summary>
+        //public DateTime? mcs_appointmenttime { set; get; }
+        ///// <summary>
+        ///// 安装交付工程师
+        ///// </summary>
+        //public string mcs_installationengineerid { set; get; }
+        ///// <summary>
+        ///// 安装交付工程师电话
+        ///// </summary>
+        //public string mcs_installationengineerphone { set; get; }
 
 
     }
