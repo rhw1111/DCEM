@@ -43,6 +43,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
                 <attribute name='mcs_userphone' />
                 <attribute name='mcs_dealer' />
                 <attribute name='mcs_surveystatus' />
+               
                 <order attribute='createdon' descending='true' />
                 <filter type='and'>
                   <condition attribute='statecode' operator='eq' value='0' />
@@ -56,6 +57,42 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
             return fetchString;
 
         }
+
+        /// <summary>
+        /// 获取勘测单列表接口（全字段查询）
+        /// </summary>
+        /// <param name="_request"></param>
+        /// <returns></returns>
+        public string GetSurveyorderListAll(SurveyorderListRequest _request)
+        {
+            var filter = string.Empty;
+            if (_request.mcs_surveystatus != 0)
+            { 
+                filter += $"<condition attribute='mcs_surveystatus' operator='eq' value='{_request.mcs_surveystatus}' />";
+            }
+            if (!string.IsNullOrWhiteSpace(_request.SearchKey))
+            {
+                filter += $"<filter type='or'>";
+                filter += $"<condition attribute='mcs_name' operator='like' value='%{_request.SearchKey}%' />";
+                filter += $"<condition attribute='mcs_username' operator='like' value='%{_request.SearchKey}%' />";
+                filter += $"<condition attribute='mcs_userphone' operator='like' value='%{_request.SearchKey}%' />";      
+                filter += $"</filter>";
+            }
+
+            var fetchString = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+                   <entity name='mcs_surveyorder'>
+                    <all-attributes/>
+                    <order attribute='createdon' descending='true' />
+                   <filter type='and'>
+                    <condition attribute='statecode' operator='eq' value='0' />
+                    {filter}
+                   </filter>
+                   </entity>
+                   </fetch>";
+            return fetchString;
+
+        }
+
 
         /// <summary>
         /// 获取勘测单详情

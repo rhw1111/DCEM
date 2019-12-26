@@ -43,6 +43,21 @@ namespace DCEM.Web.Controllers
             var list = await app.GetSurveyorderList(_request);
             return list;
         }
+
+
+        /// <summary>
+        /// 获取勘测单列表接口（全字段查询）
+        /// </summary>
+        /// <param name="_request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("GetSurveyorderListAll")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetSurveyorderListAll(SurveyorderListRequest _request)
+        {
+            var list = await app.GetSurveyorderListAll(_request);
+            return list;
+        }
+
         /// <summary>
         /// 获取勘测单详情接口
         /// </summary>
@@ -122,5 +137,19 @@ namespace DCEM.Web.Controllers
             var list = await app.GetInstallationUser(_request);
             return list;
         }
+
+        /// <summary>
+        /// 新增或编辑安装单
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("AddOrEditInstallationorder")]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<CrmEntity>>> AddOrEditInstallationorder(InstallationorderMetadataModel request)
+        {
+            var result = await app.AddOrEditInstallationorder(request);
+            return result;
+        }
+
     }
 }
