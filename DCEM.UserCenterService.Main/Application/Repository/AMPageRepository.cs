@@ -83,5 +83,24 @@ namespace DCEM.UserCenterService.Main.Application.Repository
                 return XDocument.Parse(fetchXml);
             });
         }
+
+        public async Task<XDocument> GetUserBehaviorXml(Guid pageId)
+        {
+            return await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+                  <entity name='mcs_am_page'>
+                    <attribute name='mcs_am_pageid' />
+                    <filter type='and'>
+                      <condition attribute='mcs_am_pageid' operator='eq'  value='{pageId}' />
+                    </filter>
+                    <link-entity name='mcs_behavior' from='mcs_behaviorid' to='mcs_behavior' visible='false' link-type='outer'    alias='behavior'>
+                      <attribute name='mcs_code' />
+                    </link-entity>
+                  </entity>
+                </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
     }
 }

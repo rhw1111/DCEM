@@ -24,22 +24,22 @@
         .ng-anchor {
             position: absolute;
         }
-        
+
         /* 设置滚动条的样式 */
-::-webkit-scrollbar{
-    width: 3px;
-}
-/*滚动槽*/
-::-webkit-scrollbar-track{
-    box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
-    border-radius: 10px;
-}
-/* 滚动条滑块 */
-::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: rgba(0, 0, 0, 0.1);
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.15);
-}
+        ::-webkit-scrollbar {
+            width: 3px;
+        }
+        /*滚动槽*/
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+        /* 滚动条滑块 */
+        ::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.1);
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.15);
+        }
     </style>
     <script src="../Scripts/jquery-3.3.1.min.js"></script>
     <script type="text/javascript">
@@ -67,6 +67,9 @@
                 if (obj === "") {
                     return true;
                 }
+                if (obj === "-1") {
+                    return true;
+                }
                 var reg = new RegExp("^([ ]+)|([　]+)$");
                 return reg.test(obj);
             }
@@ -82,58 +85,87 @@
             }
             return paramValue == "" && (paramValue = null), paramValue
         }
-        function SubmitClick() {
+       function SubmitClick() {
+            var formStrArr = new Array("sltAddress", "btnName", "btnMobile", "sltAppellation", "btnEmail", "sltButPlan", "sltCarColor", "sltCarPlan");
+
+            for (index in formStrArr) {
+                var targetItem = $("#" + formStrArr[index]);
+                if (targetItem.length > 0 && targetItem.attr("data-required") == "True" && isEmpty(targetItem.val())) {
+                    alert(targetItem.attr("data-label") + "不能为空");
+                    return false;
+                }
+            }
+
+             var city = $("#sltAddress").val();
             var name = $("#btnName").val();
             var moblie = $("#btnMobile").val();
             var appellation = $("#sltAppellation").val();
             var email = $("#btnEmail").val();
-            var address = $("#sltAddress").val();
-            var key = 654;
-            var sysName = "TestPage";
-            var campaignCode = "SH00010";
-            if (getParam("key") != null && getParam("key") != "") {
-                key = getParam("key");
-            }
-            if (getParam("sysName") != null && getParam("sysName") != "") {
-                sysName = getParam("sysName");
-            }
-            if (getParam("campaignCode") != null && getParam("campaignCode") != "") {
-                campaignCode = getParam("campaignCode");
-            }
+            var level = $("#sltButPlan").val();
+            var color = $("#sltCarColor").val();
+            var type = $("#sltCarPlan").val();
 
-            if (isEmpty(name)) {
-                alert("姓名不能为空");
-                return false;
+              if (city == "-1") {
+                city = "";
             }
-            else if (isEmpty(moblie)) {
-                alert("手机号不能为空");
-                return false;
-            }
-
-
-            if (address == "-1") {
-                address = "";
-            }
-            if (appellation == "-1") {
+              if (appellation == "-1") {
                 appellation = null;
             }
-            console.log(key + "-" + sysName)
+            if (level == "-1") {
+                level = null;
+            }
+                if (color == "-1") {
+                color = "";
+            }
+               if (type == "-1") {
+                type = "";
+            }
+
+            var campaignCode =  getParam("campaignCode");
+            var dealerCode = getParam("dealerCode");
+            //渠道(0：CC，1：官网，2：商城，3：APP，4：微站/H5，5：小程序，6：线下活动，7：到店，8：其他)
+            var channel = "1";//getParam("channel");
+//电子折页订阅	electronic_folding_subscription
+//渠道端用户注册	channel_user_registration
+//微信号绑定	wechat_binding
+//活动线上报名	activity_online_registration
+//线上预约	online_reservation
+//第三方来源接入	third_party_source_access
+//预售	blind_order
+//厅\店来访 visiting_the_store
+//活动线下来访	offline_activity
+//wifi探针接入	wifi_probe_access
+//客户属性修改	customer_info_update
+//试乘	test_ride
+//试驾	test_drive
+            var behaviorCode = "$behavior$";//getParam("behaviorCode");
+//官网	official_site
+//商城	mall
+//小程序	small_program
+//APP	app
+//第三方媒体	third_party_media
+            var mediaCode = "official_site";//getParam("mediaCode");
+
             $.ajax({
                 type: "post",
                 url: "$url$api/Lead/Do",
                 dataType: "json",
                 contentType: "application/json;charset=utf-8",
                 data: JSON.stringify({
-                    Channel: "3",//渠道(0：CC，1：官网，2：商城，3：APP，4：微站/H5，5：小程序，6：线下活动，7：到店，8：其他)
-                    BehaviorCode: "activity_online_registration",//用户行为 必传
+                    Channel: channel,
+                    BehaviorCode: behaviorCode,//用户行为 必传
                     CampaignCode: campaignCode,//活动编码 必传
-                    MediaCode: "app",//线索媒体 必传
+                    MediaCode: mediaCode,//线索媒体 必传
                     TerminalCode: "mobilephone", //线索终端 必传
                     MobilePhone: moblie,
-                    CityCode: address,
+                    CityCode: city,
                     FullName: name,
                     Gender: appellation,
-                    EmailAddress1: email
+                    EmailAddress1: email,
+                    DealerCode: dealerCode,
+                    Level: level,
+                    VehType: type,
+                    Vehcolor: color
                 }),
                 beforeSend: function (request) {
                     request.setRequestHeader("appid", "1001");

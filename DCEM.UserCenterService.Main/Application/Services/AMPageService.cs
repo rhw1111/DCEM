@@ -115,7 +115,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
             var pageConfigs = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_am_pagefield", fetchXdoc);
             //此处逻辑暂时先hardcode，后续可改为配置处理
             var formHtml = new StringBuilder();
-            foreach (var item in pageConfigs.Results.OrderBy(p => p.Attributes["displayorder"]))
+            foreach (var item in pageConfigs.Results.OrderBy(p => p.Attributes["mcs_displayorder"]))
             {
                 var code = item.Attributes["config.mcs_name"].ToString();
                 var label = item.Attributes["mcs_label"].ToString();
@@ -150,7 +150,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     case "$email$":
                         formHtml.Append(@$"</label>
                                                     <div class=""content"">
-                                                        <input type=""text"" id=""btnEmail"" name=""Email"" placeholder=""{placeholder}""  />
+                                                        <input type=""text"" id=""btnEmail"" name=""Email"" placeholder=""{placeholder}""  data-required=""{required}"" data-label=""{label}"" />
                                                         <span>{tip}</span>
                                                     </div>
                                                 </div>");
@@ -158,7 +158,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     case "$gender$":
                         formHtml.Append(@$"</label>
                                                     <div class=""content"">
-                                                        <select style=""border: 2px solid #bbb;width:100%;height:40px;"" id=""sltAppellation"">
+                                                        <select style=""border: 2px solid #bbb;width:100%;height:40px;"" id=""sltAppellation""  data-required=""{required}"" data-label=""{label}"">
                                                             <option value=""-1"">{placeholder}</option>
                                                             <option value=""1"">先生</option>
                                                             <option value=""2"">女士</option>
@@ -170,7 +170,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     case "$level$":
                         formHtml.Append(@$"</label>
                                                     <div class=""content"">
-                                                        <select style=""border: 2px solid #bbb;width:100%;height:40px;"" id=""sltButPlan"">
+                                                        <select style=""border: 2px solid #bbb;width:100%;height:40px;"" id=""sltButPlan""  data-required=""{required}"" data-label=""{label}"">
                                                             <option value=""-1"">{placeholder}</option>
                                                             <option value=""0"">预计90天内成交</option>
                                                             <option value=""1"">预计3~6个月内成交</option>
@@ -185,7 +185,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     case "$name$":
                         formHtml.Append(@$"</label>
                                                     <div class=""content"">
-                                                        <input type=""text"" id=""btnName"" name=""surname"" placeholder=""{placeholder}""  />
+                                                        <input type=""text"" id=""btnName"" name=""surname"" placeholder=""{placeholder}""  data-required=""{required}"" data-label=""{label}"" />
                                                         <span>{tip}</span>
                                                     </div>
                                                 </div>");
@@ -193,7 +193,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     case "$phone$":
                         formHtml.Append(@$"</label>
                                                     <div class=""content"">
-                                                        <input type=""text"" id=""btnMobile"" name=""Mobile"" placeholder=""{placeholder}""  />
+                                                        <input type=""text"" id=""btnMobile"" name=""Mobile"" placeholder=""{placeholder}""   data-required=""{required}"" data-label=""{label}""/>
                                                         <span>{tip}</span>
                                                     </div>
                                                 </div>");
@@ -201,7 +201,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     case "$vehcolor$":
                         formHtml.Append(@$"</label>
                                                     <div class=""content"">
-                                                        <select style=""border: 2px solid #bbb;width:100%;height:40px;"" id=""sltCarColor"">
+                                                        <select style=""border: 2px solid #bbb;width:100%;height:40px;"" id=""sltCarColor""  data-required=""{required}"" data-label=""{label}"">
                                                             <option value=""-1"">{placeholder}</option>
                                                             <option value=""001"">浅蓝</option>
                                                             <option value=""002"">深灰</option>
@@ -213,7 +213,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     case "$vehtype$":
                         formHtml.Append(@$"</label>
                                                     <div class=""content"">
-                                                        <select style=""border: 2px solid #bbb;width:100%;height:40px;"" id=""sltCarPlan"">
+                                                        <select style=""border: 2px solid #bbb;width:100%;height:40px;"" id=""sltCarPlan""  data-required=""{required}"" data-label=""{label}"">
                                                             <option value=""-1"">{placeholder}</option>
                                                             <option value=""S05"">S05</option>
                                                             <option value=""S07"">S07</option>
@@ -225,6 +225,20 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 }
             }
             result.Replace("$formsettings$", formHtml.ToString());
+
+            //最后替换用户行为
+            fetchXdoc = await _ampageRepository.GetUserBehaviorXml(pageId);
+            var userBehaviors = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_am_page", fetchXdoc);
+            if(userBehaviors!=null&&userBehaviors.Results!=null&& userBehaviors.Results.Count > 0)
+            {
+                var behaviorCode = userBehaviors.Results[0].Attributes["behavior.mcs_code"].ToString();
+                result.Replace("$behavior$", behaviorCode);
+            }
+            else
+            {
+                //设置默认值
+                result.Replace("$behavior$", "activity_online_registration");
+            }
             return result.ToString();
         }
 
