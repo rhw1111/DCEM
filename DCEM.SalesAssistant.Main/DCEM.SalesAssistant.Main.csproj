@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DCEM.ConfigurationService.Main\DCEM.ConfigurationService.Main.csproj" />
     <ProjectReference Include="..\DCEM.Main\DCEM.Main.csproj" />
+    <ProjectReference Include="..\DCEM.UserCenterService.Main\DCEM.UserCenterService.Main.csproj" />
     <ProjectReference Include="..\MSLibrary\MSLibrary.csproj" />
   </ItemGroup>
 

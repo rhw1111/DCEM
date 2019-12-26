@@ -44,6 +44,13 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 <fetch version='1.0' output-format='xml-platform' mapping='logical' count='{50}' page='{1}' distinct='true'>
                     <entity name='mcs_tc_product'>
                         <order attribute='createdon' descending='true' />
+                        <filter type='and'>
+                            <condition attribute='mcs_type' operator='in'>
+                                <value>2</value>
+                                <value>1</value>
+                            </condition>
+                            <condition attribute='mcs_state' operator='eq' value='2' />
+                        </filter>
                     </entity>
                 </fetch>";
                 return XDocument.Parse(fetchXml);
@@ -70,6 +77,10 @@ namespace DCEM.UserCenterService.Main.Application.Services
                         <attribute name='mcs_imagename' />
                         <attribute name='mcs_product' />
                         <order attribute='createdon' descending='true' />
+                        <filter type='and'>
+                            <condition attribute='statecode' operator='eq' value='0' />
+                            <condition attribute='mcs_product' operator='not-null' />
+                        </filter>
                     </entity>
                 </fetch>";
                 return XDocument.Parse(fetchXml);
@@ -99,6 +110,10 @@ namespace DCEM.UserCenterService.Main.Application.Services
                         <attribute name='mcs_product' />
                         <attribute name='mcs_attributegroupindex' />
                         <order attribute='createdon' descending='true' />
+                        <filter type='and'>
+                            <condition attribute='statecode' operator='eq' value='0' />
+                            <condition attribute='mcs_product' operator='not-null' />
+                        </filter>
                     </entity>
                 </fetch>";
                 return XDocument.Parse(fetchXml);
@@ -123,6 +138,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     <entity name='mcs_tc_productorderingattribute'>
                         <filter type='and'>
                           <condition attribute='statecode' operator='eq' value='0' />
+                          <condition attribute='mcs_product' operator='not-null' />
                         </filter>
                     </entity>
                 </fetch>";
@@ -149,6 +165,10 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
                     <entity name='mcs_tc_productprice'>
                         <order attribute='createdon' descending='true' />
+                        <filter type='and'>
+                            <condition attribute='statecode' operator='eq' value='0' />
+                            <condition attribute='mcs_product' operator='not-null' />
+                        </filter>
                     </entity>
                 </fetch>";
                 return XDocument.Parse(fetchXml);
@@ -195,6 +215,10 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
                     <entity name='mcs_tc_productrelated'>
                         <order attribute='createdon' descending='true' />
+                        <filter type='and'>
+                            <condition attribute='statecode' operator='eq' value='0' />
+                            <condition attribute='mcs_product' operator='not-null' />
+                        </filter>
                         <link-entity name='mcs_tc_productprice' from='mcs_tc_productpriceid' to='mcs_relatedproductsku' link-type='outer' alias='a' visible='false'>
                             <all-attributes/>
                         </link-entity>
@@ -229,7 +253,8 @@ namespace DCEM.UserCenterService.Main.Application.Services
             {
                 var productGuid = Guid.Parse(entity.Attributes.Value<string>("_mcs_product_value"));
                 entity.Attributes.Add("ext_fullurl", host + entity.Attributes.Value<string>("mcs_imagename"));
-                dicProduct[productGuid].ProductImageArray.Add(entity.Attributes);
+                if (dicProduct.ContainsKey(productGuid))
+                    dicProduct[productGuid].ProductImageArray.Add(entity.Attributes);
             }
             #endregion
 
@@ -237,7 +262,8 @@ namespace DCEM.UserCenterService.Main.Application.Services
             foreach (var entity in productSpecificationResponse.Value.Results)
             {
                 var productGuid = Guid.Parse(entity.Attributes.Value<string>("_mcs_product_value"));
-                dicProduct[productGuid].ProductSpecificationArray.Add(entity.Attributes);
+                if (dicProduct.ContainsKey(productGuid))
+                    dicProduct[productGuid].ProductSpecificationArray.Add(entity.Attributes);
             }
             #endregion
 
@@ -245,7 +271,8 @@ namespace DCEM.UserCenterService.Main.Application.Services
             foreach (var entity in productOrderingattributeResponse.Value.Results)
             {
                 var productGuid = Guid.Parse(entity.Attributes.Value<string>("_mcs_product_value"));
-                dicProduct[productGuid].ProductOrderingattributeArray.Add(entity.Attributes);
+                if (dicProduct.ContainsKey(productGuid))
+                    dicProduct[productGuid].ProductOrderingattributeArray.Add(entity.Attributes);
             }
             #endregion
 
@@ -253,7 +280,8 @@ namespace DCEM.UserCenterService.Main.Application.Services
             foreach (var entity in productrElatedArrayResponse.Value.Results)
             {
                 var productGuid = Guid.Parse(entity.Attributes.Value<string>("_mcs_product_value"));
-                dicProduct[productGuid].ProductRelatedArray.Add(entity.Attributes);
+                if (dicProduct.ContainsKey(productGuid))
+                    dicProduct[productGuid].ProductRelatedArray.Add(entity.Attributes);
             }
             #endregion
 
@@ -275,7 +303,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
             {
                 var productGuid = Guid.Parse(entity.Attributes.Value<string>("_mcs_product_value"));
                 //var key = entity.Id.ToString();
-               
+
                 //if (skuattrMap.ContainsKey(key))
                 //{
                 //    entity.Attributes.Add("skuattr", skuattrMap[key]);
@@ -284,7 +312,8 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 //{
                 //    entity.Attributes.Add("skuattr", new JObject());
                 //}
-                dicProduct[productGuid].ProductPriceArray.Add(entity.Attributes);
+                if (dicProduct.ContainsKey(productGuid))
+                    dicProduct[productGuid].ProductPriceArray.Add(entity.Attributes);
             }
             #endregion
 

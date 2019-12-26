@@ -212,7 +212,8 @@ const routes: Routes = [
                 path: 'vehorder',//门店整车订单
                 children: [
                     { path: 'list', loadChildren: './saleing/mc-vehorder.com/list/list.module#ListPageModule' },
-                    { path: 'detail', loadChildren: './saleing/mc-vehorder.com/detail/detail.module#DetailPageModule' }
+                    { path: 'detail', loadChildren: './saleing/mc-vehorder.com/detail/detail.module#DetailPageModule' },
+                    { path: 'edit', loadChildren: './saleing/mc-vehorder.com/edit/edit.module#EditPageModule' },
 
                 ]
             },
@@ -263,9 +264,11 @@ const routes: Routes = [
     },
     { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' },
     { path: 'fileupload', loadChildren: './serving/serving.ser/components/fileupload/fileupload.module#FileuploadPageModule' },
+
   
 
   
+
 
 
 
