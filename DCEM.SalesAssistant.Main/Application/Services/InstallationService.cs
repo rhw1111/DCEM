@@ -496,7 +496,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
 
                 //if (!string.IsNullOrEmpty(request.mcs_settlementprice.ToString()))
                 //{
-                //    Entity.Attributes.Add("mcs_settlementprice", request.mcs_settlementprice);
+                //    Entity.Attributes.Add("mcs_price",Convert.ToDecimal(request.mcs_settlementprice));
                 //}
                 //if (!string.IsNullOrEmpty(request.mcs_installationproviderid))
                 //{

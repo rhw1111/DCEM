@@ -129,10 +129,10 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         ///// 动力类型
         ///// </summary>
         //public string mcs_powertypeid { set; get; }
-        ///// <summary>
-        ///// 结算价格
-        ///// </summary>
-        //public decimal? mcs_settlementprice { set; get; }
+        /// <summary>
+        /// 结算价格
+        /// </summary>
+        public string mcs_settlementprice { set; get; }
         ///// <summary>
         ///// 安装服务商
         ///// </summary>
