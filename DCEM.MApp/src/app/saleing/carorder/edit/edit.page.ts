@@ -233,14 +233,15 @@ export class EditPage implements OnInit {
             this.shareData.postUrl,
             postData,
             (res: any) => {
-                if (res["Code"] === "000") {
+                console.log(res);
+                if (res["code"] === "000") {
                     this._page.alert("消息提示", "您的订单已经下单成功", function () {
                         //that._page.navigateRoot("/personalcenter/myorder/fineorder/detail", { code: postData["OrderData"]["OrderCode"] }, "");
                     });
 
                 }
                 else {
-                    this._page.alert("消息提示", res.Message);
+                    this._page.alert("消息提示", res.message);
                 }
             },
             (err: any) => {

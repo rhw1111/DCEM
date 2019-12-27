@@ -44,7 +44,7 @@ const routes = [
                 children: [
                     { path: 'index', loadChildren: './serving/home.com/index/index.module#IndexPageModule' },
                     { path: 'tabs', loadChildren: './serving/home.com/tabs/tabs.module#TabsPageModule' },
-                    { path: 'mywork', loadChildren: './serving/home.com/mywork/mywork.module#MyworkPageModule' },
+                    //{ path: 'mywork', loadChildren: './serving/home.com/mywork/mywork.module#MyworkPageModule' },
                     { path: 'message', loadChildren: './serving/home.com/message/message.module#MessagePageModule' },
                 ]
             },
@@ -123,14 +123,18 @@ const routes = [
                 path: 'surveyorder',
                 children: [
                     { path: 'list', loadChildren: './serving/mcs_surveyorder/list/list.module#ListPageModule' },
-                    { path: 'detail', loadChildren: './serving/mcs_surveyorder/detail/detail.module#DetailPageModule' }
+                    { path: 'detail', loadChildren: './serving/mcs_surveyorder/detail/detail.module#DetailPageModule' },
+                    { path: 'edit', loadChildren: './serving/mcs_surveyorder/edit/edit.module#EditPageModule' },
+                    { path: 'success', loadChildren: './serving/mcs_surveyorder/success/success.module#SuccessPageModule' },
                 ]
             },
             {
                 path: 'installationorder',
                 children: [
                     { path: 'list', loadChildren: './serving/mcs_installationorder/list/list.module#ListPageModule' },
-                    { path: 'detail', loadChildren: './serving/mcs_installationorder/detail/detail.module#DetailPageModule' }
+                    { path: 'detail', loadChildren: './serving/mcs_installationorder/detail/detail.module#DetailPageModule' },
+                    { path: 'edit', loadChildren: './serving/mcs_installationorder/edit/edit.module#EditPageModule' },
+                    { path: 'success', loadChildren: './serving/mcs_installationorder/success/success.module#SuccessPageModule' },
                 ]
             }
         ],
@@ -205,7 +209,7 @@ const routes = [
                 path: 'vehorder',
                 children: [
                     { path: 'list', loadChildren: './saleing/mc-vehorder.com/list/list.module#ListPageModule' },
-                    { path: 'detail', loadChildren: './saleing/mc-vehorder.com/detail/detail.module#DetailPageModule' }
+                    { path: 'detail', loadChildren: './saleing/mc-vehorder.com/detail/detail.module#DetailPageModule' },
                 ]
             },
             {
@@ -229,6 +233,7 @@ const routes = [
                     { path: 'list', loadChildren: './saleing/vehlisense/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './saleing/vehlisense/detail/detail.module#DetailPageModule' },
                     { path: 'success', loadChildren: './saleing/vehlisense/success/success.module#SuccessPageModule' },
+                    { path: 'edit', loadChildren: './saleing/vehlisense/edit/edit.module#EditPageModule' },
                 ]
             },
             {
@@ -241,6 +246,14 @@ const routes = [
                     { path: 'calendar', loadChildren: './saleing/mcs_driverecord.com/calendar/calendar.module#CalendarPageModule' },
                     { path: 'feedback', loadChildren: './saleing/mcs_driverecord.com/feedback/feedback.module#FeedbackPageModule' }
                 ]
+            },
+            {
+                path: 'carorder',
+                children: [
+                    { path: 'edit', loadChildren: './saleing/carorder/edit/edit.module#EditPageModule' },
+                    { path: 'list', loadChildren: './saleing/carorder/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './saleing/carorder/detail/detail.module#DetailPageModule' },
+                ]
             }
         ]
     },
@@ -252,7 +265,6 @@ const routes = [
     },
     { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' },
     { path: 'fileupload', loadChildren: './serving/serving.ser/components/fileupload/fileupload.module#FileuploadPageModule' },
-    { path: 'success', loadChildren: './saleing/mcs-contactrecord/success/success.module#SuccessPageModule' },
 ];
 let AppRoutingModule = class AppRoutingModule {
 };

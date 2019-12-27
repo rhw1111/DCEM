@@ -2,11 +2,13 @@ import * as tslib_1 from "tslib";
 import { Component } from '@angular/core';
 import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 let DetailPage = class DetailPage {
-    constructor(_http, _page, _valid, activeRoute) {
+    constructor(_http, _page, _valid, menuController, activeRoute) {
         this._http = _http;
         this._page = _page;
         this._valid = _valid;
+        this.menuController = menuController;
         this.activeRoute = activeRoute;
         this.tab = "info";
         this.mod = {
@@ -40,6 +42,10 @@ let DetailPage = class DetailPage {
                 this.pageOnBind(params['id']);
             }
         });
+    }
+    //每次页面加载
+    ionViewDidEnter() {
+        this.menuController.enable(true);
     }
     pageOnBind(id) {
         this._page.loadingShow();
@@ -96,6 +102,7 @@ DetailPage = tslib_1.__decorate([
     tslib_1.__metadata("design:paramtypes", [DCore_Http,
         DCore_Page,
         DCore_Valid,
+        MenuController,
         ActivatedRoute])
 ], DetailPage);
 export { DetailPage };

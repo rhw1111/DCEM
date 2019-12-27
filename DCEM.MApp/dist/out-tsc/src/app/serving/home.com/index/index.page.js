@@ -8,14 +8,14 @@ let IndexPage = class IndexPage {
         this.menuController = menuController;
         this.statusBar = statusBar;
         this._loginInfo = _loginInfo;
-        this.IsSalingManager = false;
-        this.IsSerlingManager = false;
+        this.IsSalingManager = true;
+        this.IsSerlingManager = true;
     }
     ngOnInit() {
         //是否重叠
         //this.statusBar.overlaysWebView(true);
-        this.IsSalingManager = this._loginInfo.IsSalingManager();
-        this.IsSerlingManager = this._loginInfo.IsServingManager();
+        //this.IsSalingManager=this._loginInfo.IsSalingManager();
+        //this.IsSerlingManager=this._loginInfo.IsServingManager();
     }
 };
 IndexPage = tslib_1.__decorate([

@@ -62,6 +62,10 @@
     <Content Include="src\app\base\uc.com\login\login.page.scss" />
     <Content Include="src\app\base\uc.com\welcome\welcome.page.html" />
     <Content Include="src\app\base\uc.com\welcome\welcome.page.scss" />
+    <Content Include="src\app\saleing\carorder\detail\detail.page.html" />
+    <Content Include="src\app\saleing\carorder\detail\detail.page.scss" />
+    <Content Include="src\app\saleing\carorder\list\list.page.html" />
+    <Content Include="src\app\saleing\carorder\list\list.page.scss" />
     <Content Include="src\app\saleing\delivery\appointment\appointment.page.html" />
     <Content Include="src\app\saleing\delivery\appointment\appointment.page.scss" />
     <Content Include="src\app\saleing\delivery\detail\detail.page.html" />
@@ -726,6 +730,12 @@
     <TypeScriptCompile Include="src\app\base\uc.com\welcome\welcome.module.ts" />
     <TypeScriptCompile Include="src\app\base\uc.com\welcome\welcome.page.spec.ts" />
     <TypeScriptCompile Include="src\app\base\uc.com\welcome\welcome.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\carorder\detail\detail.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\carorder\detail\detail.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\carorder\detail\detail.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\carorder\list\list.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\carorder\list\list.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\carorder\list\list.page.ts" />
     <TypeScriptCompile Include="src\app\saleing\delivery\appointment\appointment.module.ts" />
     <TypeScriptCompile Include="src\app\saleing\delivery\appointment\appointment.page.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\delivery\appointment\appointment.page.ts" />
@@ -1195,6 +1205,7 @@
     <Folder Include="src\app\base\uc.com\login\" />
     <Folder Include="src\app\base\uc.com\welcome\" />
     <Folder Include="src\app\saleing\" />
+    <Folder Include="src\app\saleing\carorder\detail\" />
     <Folder Include="src\app\saleing\carorder\list\" />
     <Folder Include="src\app\saleing\delivery\" />
     <Folder Include="src\app\saleing\delivery\appointment\" />
