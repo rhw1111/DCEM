@@ -42,7 +42,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<ValidateResult<QuestionSettingResponse>> QueryQiestion(string  id)
+        public async Task<ValidateResult<QuestionSettingResponse>> QueryQiestion(string id)
         {
             try
             {
@@ -119,9 +119,9 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 fetchXdoc = _questionRepository.QueryQiestion(model.mcs_questionnairesetting);
                 var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_questionnairesetting", fetchXdoc);
                 if (entities.Results.Count > 0)
-                { 
+                {
                     fetchXdoc = _questionRepository.QueryUser(model.mcs_answername);
-                      var userentities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_user", fetchXdoc);
+                    var userentities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_user", fetchXdoc);
                     if (userentities.Results.Count > 0)
                     {
                         fetchXdoc = _questionRepository.QueryDeliverychannel(model.mcs_deliverychannel);
@@ -168,13 +168,13 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
                             #region 组装数据返回 
                             validateResult.Result = true;
-                            validateResult.Description = "操作成功"; 
+                            validateResult.Description = "操作成功";
                             return validateResult;
                             #endregion
                         }
-                        
+
                     }
-                    
+
                 }
                 validateResult.Result = false;
                 validateResult.Description = "来源数据异常！";
@@ -194,5 +194,28 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
         }
 
+
+
+
+
+        /// <summary>
+        /// 根据编码获取用户
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public async Task<CrmEntity> GetUserToCode(string code)
+        {
+            var validateResult = new ValidateResult();
+
+            var crmRequestHelper = new CrmRequestHelper();
+            XDocument fetchXdoc = null;
+            fetchXdoc = _questionRepository.QueryUser(code);
+            var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_user", fetchXdoc);
+            if (entities.Results.Count > 0)
+            {
+                return entities.Results[0]; 
+            }
+            return null;
+        }
     }
 }
