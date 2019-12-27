@@ -33,13 +33,15 @@ namespace DCEM.Web.Controllers
     public class QuestionController : ApiController
     {
 
-        private IAppQuestion _appQuestion; 
+        private IAppQuestion _appQuestion;
+        private IAppUser _appUser;
         public QuestionController()
         {
-            _appQuestion = new QuestionFactory().Create().Result; 
+            _appUser = new UserFactory().Create().Result;
+            _appQuestion = new QuestionFactory().Create().Result;
         }
 
-      
+
 
         /// <summary>
         /// 获取 
@@ -57,7 +59,9 @@ namespace DCEM.Web.Controllers
         [HttpPost]
         public async Task<ValidateResult> AddAnswercontent(QuestionAddRequest model)
         {
-            return await _appQuestion.AddAnswercontent(model);
+            ValidateResult ts = await _appQuestion.AddAnswercontent(model);
+            _appUser.IntegralCreate("", model.mcs_answername);
+                return ts;
         }
     }
 }
