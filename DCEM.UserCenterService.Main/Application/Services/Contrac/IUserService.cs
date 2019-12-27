@@ -31,5 +31,7 @@ namespace DCEM.UserCenterService.Main.Application.Services.Contrac
         Task<CrmEntity> getuserdetail(UserDetailRequest userDetailRequest);
         Task<UserTagListResponse> getusertag(UserDetailRequest userDetailRequest);
         Task<UserScoreListResponse> getuserscore(UserDetailRequest userDetailRequest);
+
+        Task<ValidateResult> DeDucationIntegral(UserDeDucationIntegralRequest request);
     }
 }

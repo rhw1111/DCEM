@@ -89,6 +89,16 @@ namespace DCEM.UserCenterService.Main.Application.App
             return _userService.getuserscore(userDetailRequest);
         }
 
+        /// <summary>
+        /// 增减用户积分记录
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public Task<ValidateResult> DeDucationIntegral(UserDeDucationIntegralRequest request)
+        {
+            return _userService.DeDucationIntegral(request);
+        }
+
         public async Task<QueryResult<CrmEntity>> QueryUserNotices(UserNoticeRequest request)
         {
             return await _userNoticeService.GetUserNotices(request);

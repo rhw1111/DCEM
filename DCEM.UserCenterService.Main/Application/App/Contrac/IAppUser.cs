@@ -40,7 +40,9 @@ namespace DCEM.UserCenterService.Main.Application.App
 
         Task<UserTagListResponse> getusertag(UserDetailRequest userDetailRequest);
         Task<UserScoreListResponse> getuserscore(UserDetailRequest userDetailRequest);
-        
+        Task<ValidateResult> DeDucationIntegral(UserDeDucationIntegralRequest request);
+
+
         Task<CrmEntity> getuserdetail(UserDetailRequest userDetailRequest);
         /// <summary>
         /// 获取用户通知信息
