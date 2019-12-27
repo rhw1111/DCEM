@@ -44,11 +44,11 @@ export class DCore_Config {
     providedIn: 'root'
 })
 export class DCore_Http {
-    public ReflashInterval:any=null;
+    public ReflashInterval: any = null;
     constructor(
         private _httpClient: HttpClient,
         private _config: DCore_Config,
-        private _navCtr:NavController
+        private _navCtr: NavController
     ) {
     }
     //带请求头get请求
@@ -70,6 +70,17 @@ export class DCore_Http {
     //get请求
     get(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
         this._httpClient.get(this._config.getDomain() + url, params).subscribe(
+            (res: any) => {
+                rescallback && rescallback(res);
+            },
+            (err: any) => {
+                errcallback && errcallback(err);
+            });
+    }
+
+    //get请求
+    getBase(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
+        this._httpClient.get(url, params).subscribe(
             (res: any) => {
                 rescallback && rescallback(res);
             },
@@ -129,7 +140,7 @@ export class DCore_Http {
      * 将token信息保存到本地缓存中 用缓存的形式实现token验证
      * @param token
      */
-    setToken(token,account='',password='') {
+    setToken(token, account = '', password = '') {
         // 目前只解析token字段，缓存先只存该字段
         // JSON.stringify(token)
         window.localStorage.setItem('auth-token', token);
@@ -138,7 +149,7 @@ export class DCore_Http {
         window.localStorage.setItem('auth-logintime', (new Date().getTime()).toString());
     }
     //登出,清理缓存，跳转并重新登录
-    loginout(){
+    loginout() {
         window.localStorage.clear();
         this._navCtr.navigateRoot("/base/uc/login", {});
     }
@@ -146,21 +157,21 @@ export class DCore_Http {
     //刷新token
     reflashToken() {
         //设置定时器监控token是否过期
-        if(this.ReflashInterval==null){
-            this.ReflashInterval=setInterval(() => {
+        if (this.ReflashInterval == null) {
+            this.ReflashInterval = setInterval(() => {
                 console.log("定时刷新" + new Date().getTime());
                 var lastlogintime = window.localStorage.getItem("auth-logintime");
                 var token = window.localStorage.getItem("auth-token");
                 if (token != undefined && token != "") {
                     if (lastlogintime != null && lastlogintime !== "") {
-                        var lastdateTime =parseInt(lastlogintime);
+                        var lastdateTime = parseInt(lastlogintime);
                         var time = 30 * 60 * 1000;
                         if (new Date().getTime() - lastdateTime >= time) {
                             console.log("登录超时10分钟,重新登录");
                             var account = window.localStorage.getItem('auth-account');
                             var password = window.localStorage.getItem('auth-password')
                             if (account != "" && password != "") {
-                                console.log("域url："+this._config.getDomain());
+                                console.log("域url：" + this._config.getDomain());
                                 this.get('/api/User/GetAuthToken',
                                     {
                                         params: {
@@ -407,10 +418,10 @@ export class DCore_Valid {
 }
 
 export class LogModel {
-    public Id:any;
-    public Type:any;
-    public Message:any;
-    public CreateTime:any;
+    public Id: any;
+    public Type: any;
+    public Message: any;
+    public CreateTime: any;
 }
 
 //系统日志跟踪
@@ -419,24 +430,24 @@ export class LogModel {
 })
 
 export class DCore_Log {
-    public logList:any=[];
+    public logList: any = [];
     constructor(
-        private _dateformat:Dateformat
+        private _dateformat: Dateformat
     ) {
-        
+
     }
 
     //写入提示日志
-    WriteInfoLog(message:string) {
-        this.WriteLog(message,1);
+    WriteInfoLog(message: string) {
+        this.WriteLog(message, 1);
     }
 
     //写入错误日志
-    WriteErrorLog(message:string) {
-        this.WriteLog(message,2);
+    WriteErrorLog(message: string) {
+        this.WriteLog(message, 2);
     }
 
-    WriteLog(message:string,type:any){
+    WriteLog(message: string, type: any) {
         var list = this.GetList();
         if (list != null) {
             this.logList = list;
@@ -452,7 +463,7 @@ export class DCore_Log {
 
     //获取日志
     GetList() {
-       return JSON.parse(window.localStorage.getItem('Sys-Log'));
+        return JSON.parse(window.localStorage.getItem('Sys-Log'));
     }
     //清除日志
     Clear() {
@@ -460,5 +471,43 @@ export class DCore_Log {
     }
 }
 
+
+//字符串处理
+@Injectable({
+    providedIn: 'root'
+})
+export class DCore_String {
+    constructor(
+    ) {
+    }
+    GetRandom(len: number = 24) {
+        var $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var maxPos = $chars.length;
+        var pwd = '';
+        for (var i = 0; i < len; i++) {
+            pwd += $chars.charAt(Math.floor(Math.random() * (maxPos + 1)));
+        }
+        return pwd;
+    }
+
+    GetDateFormat(date: Date, format: string) {
+        date["M+"] = date.getMonth() + 1;
+        date["d+"] = date.getDate();
+        date["h+"] = date.getHours();
+        date["m+"] = date.getMinutes();
+        date["s+"] = date.getSeconds();
+        date["q+"] = Math.floor((date.getMonth() + 3) / 3);
+        date["S+"] = date.getMilliseconds();
+        if (/(y+)/i.test(format)) {
+            format = format.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+        }
+        for (var k in date) {
+            if (new RegExp("(" + k + ")").test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+            }
+        }
+        return format;
+    }
+}
 
 

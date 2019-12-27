@@ -213,7 +213,6 @@ const routes: Routes = [
                 children: [
                     { path: 'list', loadChildren: './saleing/mc-vehorder.com/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './saleing/mc-vehorder.com/detail/detail.module#DetailPageModule' },
-                    { path: 'edit', loadChildren: './saleing/mc-vehorder.com/edit/edit.module#EditPageModule' },
 
                 ]
             },
@@ -252,6 +251,12 @@ const routes: Routes = [
                     { path: 'success', loadChildren: './saleing/mcs_driverecord.com/success/success.module#SuccessPageModule'},
                     { path: 'calendar', loadChildren: './saleing/mcs_driverecord.com/calendar/calendar.module#CalendarPageModule' },
                     { path: 'feedback', loadChildren: './saleing/mcs_driverecord.com/feedback/feedback.module#FeedbackPageModule' }
+                ]
+            },
+            {
+                path: 'carorder',//代客下单
+                children: [
+                    { path: 'edit', loadChildren: './saleing/carorder/edit/edit.module#EditPageModule' },
                 ]
             }
         ]

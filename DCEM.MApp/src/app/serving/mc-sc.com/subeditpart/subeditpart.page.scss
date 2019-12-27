@@ -1,58 +1,8 @@
-﻿/*ion-card-header {
-    border-bottom: 0.1em solid rgb(200,199,204);
-
-    ion-card-title {
-        height: 0.3rem;
-
-        ion-label {
-            float: left;
-            font-size: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-    }
-
-    ion-icon {
-        width: 1rem;
-        top: 50%;
-        transform: translateY(-50%);
+﻿ion-item {
+    p {
+        margin-block-start: 0em;
+        margin-block-end: 0em;
+        height: 38px;
+        line-height: 38px
     }
 }
-
-ion-list {
-    ion-item-divider {
-        ion-label {
-            font-size: 0.6rem;
-        }
-    }
-
-    ion-label:first-of-type {
-        font-size: 0.5rem;
-
-        h2 {
-            margin-left: 0rem;
-            font-size: 0.5rem;
-        }
-
-        p {
-            font-size: 0.3rem;
-        }
-    }
-
-    ion-input {
-        font-size: 0.3rem;
-    }
-
-    ion-select {
-        font-size: 0.3rem;
-    }
-
-    ion-datetime {
-        font-size: 0.3rem;
-    }
-
-    ion-textarea {
-        font-size: 0.3rem;
-    }
-
-}*/
