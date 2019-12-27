@@ -1,0 +1,40 @@
+﻿<ion-header>
+    <ion-toolbar>
+        <ion-title>选择用户</ion-title>
+        <ion-buttons slot="end">
+            <ion-button expand="block" (click)="dismissModal()">关闭</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-searchbar animated [(ngModel)]="mod.searchData.search" placeholder="请输入姓名\手机号\证件号码" (keyup)="searchOnKeyup($event)"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list lines="full">
+        <ion-item-sliding *ngFor="let item of mod.data;let key=index">
+            <ion-item (click)="itemClick(item)">
+                <ion-icon slot="start" color="{{item['gendercolor']}}" name="contact" size="large" style="width:60px;height:60px"></ion-icon>
+                <ion-label>
+                    <h2>{{item['mcs_name']}}</h2>
+                    <p>{{item['mcs_nickname']}}</p>
+                    <p>{{item['mcs_profession']}}</p>
+                </ion-label>
+                <ion-icon *ngIf="item['gendercolor']" name="phone-portrait" size="small"></ion-icon>
+                <ion-note slot="end">
+                    {{item['mcs_phone']}}
+                </ion-note>
+            </ion-item>
+        </ion-item-sliding>
+        <ion-item *ngIf="ionInfiniteScroll.disabled">
+            <ion-label>
+                <p>
+                    没有更多的记录显示啦
+                </p>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

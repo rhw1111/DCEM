@@ -110,7 +110,8 @@ selectTab(status) {
                   obj["mcs_username"] = item["Attributes"].mcs_username;
                   obj["mcs_userphone"] = item["Attributes"].mcs_userphone;
                   obj["mcs_name"] = item["Attributes"].mcs_name;                    
-                  obj["mcs_installationstatus"] =this.getStatus(item["Attributes"].mcs_installationstatus);              
+                  obj["mcs_installationstatus"] =this.getStatus(item["Attributes"].mcs_installationstatus);
+                  obj["mcs_installationstatusValue"] =item["Attributes"].mcs_installationstatus;               
                   this.model.datalist.push(obj);
 
               });

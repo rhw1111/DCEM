@@ -53,14 +53,14 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     throw new Exception("未找到对应的落地页模板数据");
                 }
                 //根据落地页数据选择模板
-                var fileName = @"\" + GetTemplateNameByPageType(entity.Attributes["mcs_type"]?.ToString()) + "Temp.html";
+                var fileName = "/" + GetTemplateNameByPageType(entity.Attributes["mcs_type"]?.ToString()) + "Temp.html";
                 //从模板地址读取数据写入新地址
                 var prjRootPath = Directory.GetCurrentDirectory();
                 var templateHtml = File.ReadAllText(prjRootPath + @"\wwwroot\HtmlResources\Templates\Temp\" + fileName);
                 //替换其中的自定义项
                 var targetHtml = await TransHtml(pageId, templateHtml, crmRequestHelper);
                 //写入目标地址
-                var resultPath = @"HtmlResources\Activities\" + entity.Attributes["mcs_am_pageid"].ToString();
+                var resultPath = @"HtmlResources/Activities/" + entity.Attributes["mcs_am_pageid"].ToString();
                 var targetPath = prjRootPath + @"\wwwroot\" + resultPath;
                 if (!Directory.Exists(targetPath))
                 {
@@ -78,14 +78,15 @@ namespace DCEM.UserCenterService.Main.Application.Services
         }
 
         /// <summary>
-        /// 根据模板的配置，自定义模板中的元素
+        /// 根据模板的配置，自定义模板中的页面元素和表单元素
         /// </summary>
         /// <param name="pageId"></param>
         /// <param name="templateHtml"></param>
         /// <returns></returns>
         private async Task<string> TransHtml(Guid pageId, string templateHtml, CrmRequestHelper crmRequestHelper)
         {
-            //获取当前模板页的所有配置项
+            //先替换元素配置
+            //获取当前模板页的所有元素配置项
             XDocument fetchXdoc = await _ampageRepository.GetPageDetailsXml(pageId);
             var pageDetails = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_am_pagedetail", fetchXdoc);
             //读取应有的全部元素配置
@@ -95,7 +96,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
             var result = new StringBuilder(templateHtml);
             foreach (var item in elementConfigs.Results)
             {
-                var pageDetail = pageDetails.Results.First(p => p.Attributes["mcs_element"].ToString() == item.Attributes["mcs_am_elementconfigid"].ToString());
+                var pageDetail = pageDetails.Results.First(p => p.Attributes["_mcs_element_value"].ToString() == item.Attributes["mcs_am_elementconfigid"].ToString());
                 var tempValue = string.Empty;
                 if (pageDetail == null)
                 {
@@ -106,6 +107,137 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     tempValue = pageDetail.Attributes["mcs_content"].ToString();
                 }
                 result.Replace(item.Attributes["mcs_code"].ToString(), tempValue);
+            }
+
+            //再替换表单配置
+            //获取当前模板页的所有表单配置项
+            fetchXdoc = await _ampageRepository.GetPageFieldsXml(pageId);
+            var pageConfigs = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_am_pagefield", fetchXdoc);
+            //此处逻辑暂时先hardcode，后续可改为配置处理
+            var formHtml = new StringBuilder();
+            foreach (var item in pageConfigs.Results.OrderBy(p => p.Attributes["mcs_displayorder"]))
+            {
+                var code = item.Attributes["config.mcs_name"].ToString();
+                var label = item.Attributes["mcs_label"].ToString();
+                var placeholder = item.Attributes["mcs_placeholder"].ToString();
+                var tip = item.Attributes["mcs_tip"].ToString();
+                var required = (bool)item.Attributes["mcs_required"];
+                formHtml.Append(@$"<div class=""detail"">
+                                                    <label>{label}");
+                if (required)
+                {
+                    formHtml.Append(@$"<a style=""color:red;"">*</a>");
+                }
+                switch (code)
+                {
+                    case "$city$":
+                        formHtml.Append(@$"</label>
+                                                    <div class=""content"">
+                                                        <select style=""border: 2px solid #bbb;width:100%;height:40px;"" id=""sltAddress"" data-required=""{required}"" data-label=""{label}"">
+                                                            <option value=""-1"">{placeholder}</option>
+                                                            <option value=""330100"">杭州</option>
+                                                            <option value=""110100"">北京</option>
+                                                            <option value=""310100"">上海</option>
+                                                            <option value=""440300"">深圳</option>
+                                                            <option value=""440100"">广州</option>
+                                                            <option value=""320100"">南京</option>
+                                                            <option value=""220403"">西安</option>
+                                                        </select>
+                                                        <span>{tip}</span>
+                                                    </div>
+                                                </div>");
+                        break;
+                    case "$email$":
+                        formHtml.Append(@$"</label>
+                                                    <div class=""content"">
+                                                        <input type=""text"" id=""btnEmail"" name=""Email"" placeholder=""{placeholder}""  data-required=""{required}"" data-label=""{label}"" />
+                                                        <span>{tip}</span>
+                                                    </div>
+                                                </div>");
+                        break;
+                    case "$gender$":
+                        formHtml.Append(@$"</label>
+                                                    <div class=""content"">
+                                                        <select style=""border: 2px solid #bbb;width:100%;height:40px;"" id=""sltAppellation""  data-required=""{required}"" data-label=""{label}"">
+                                                            <option value=""-1"">{placeholder}</option>
+                                                            <option value=""1"">先生</option>
+                                                            <option value=""2"">女士</option>
+                                                        </select>
+                                                        <span>{tip}</span>
+                                                    </div>
+                                                </div>");
+                        break;
+                    case "$level$":
+                        formHtml.Append(@$"</label>
+                                                    <div class=""content"">
+                                                        <select style=""border: 2px solid #bbb;width:100%;height:40px;"" id=""sltButPlan""  data-required=""{required}"" data-label=""{label}"">
+                                                            <option value=""-1"">{placeholder}</option>
+                                                            <option value=""0"">预计90天内成交</option>
+                                                            <option value=""1"">预计3~6个月内成交</option>
+                                                            <option value=""2"">预计6~12个月内成交</option>
+                                                            <option value=""3"">预计12个月以上成交</option>
+                                                            <option value=""5"">无购车计划</option>
+                                                        </select>
+                                                        <span>{tip}</span>
+                                                    </div>
+                                                </div>");
+                        break;
+                    case "$name$":
+                        formHtml.Append(@$"</label>
+                                                    <div class=""content"">
+                                                        <input type=""text"" id=""btnName"" name=""surname"" placeholder=""{placeholder}""  data-required=""{required}"" data-label=""{label}"" />
+                                                        <span>{tip}</span>
+                                                    </div>
+                                                </div>");
+                        break;
+                    case "$phone$":
+                        formHtml.Append(@$"</label>
+                                                    <div class=""content"">
+                                                        <input type=""text"" id=""btnMobile"" name=""Mobile"" placeholder=""{placeholder}""   data-required=""{required}"" data-label=""{label}""/>
+                                                        <span>{tip}</span>
+                                                    </div>
+                                                </div>");
+                        break;
+                    case "$vehcolor$":
+                        formHtml.Append(@$"</label>
+                                                    <div class=""content"">
+                                                        <select style=""border: 2px solid #bbb;width:100%;height:40px;"" id=""sltCarColor""  data-required=""{required}"" data-label=""{label}"">
+                                                            <option value=""-1"">{placeholder}</option>
+                                                            <option value=""001"">浅蓝</option>
+                                                            <option value=""002"">深灰</option>
+                                                        </select>
+                                                        <span>{tip}</span>
+                                                    </div>
+                                                </div>");
+                        break;
+                    case "$vehtype$":
+                        formHtml.Append(@$"</label>
+                                                    <div class=""content"">
+                                                        <select style=""border: 2px solid #bbb;width:100%;height:40px;"" id=""sltCarPlan""  data-required=""{required}"" data-label=""{label}"">
+                                                            <option value=""-1"">{placeholder}</option>
+                                                            <option value=""S05"">S05</option>
+                                                            <option value=""S07"">S07</option>
+                                                        </select>
+                                                        <span>{tip}</span>
+                                                    </div>
+                                                </div>");
+                        break;
+                }
+            }
+            result.Replace("$formsettings$", formHtml.ToString());
+
+            //最后替换用户行为
+            fetchXdoc = await _ampageRepository.GetUserBehaviorXml(pageId);
+            var userBehaviors = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_am_page", fetchXdoc);
+            if(userBehaviors!=null&&userBehaviors.Results!=null&& userBehaviors.Results.Count > 0)
+            {
+                var behaviorCode = userBehaviors.Results[0].Attributes["behavior.mcs_code"].ToString();
+                result.Replace("$behavior$", behaviorCode);
+            }
+            else
+            {
+                //设置默认值
+                result.Replace("$behavior$", "activity_online_registration");
             }
             return result.ToString();
         }

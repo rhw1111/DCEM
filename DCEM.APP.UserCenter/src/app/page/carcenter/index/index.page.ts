@@ -127,10 +127,10 @@ export class IndexPage {
                         link: "#",
                     },
                     {
-                        title: "20款G3智能进化大盘点",
+                        title: "20款G3智能进化大盘点Demo",
                         source: "网易汽车",
                         imgscr: "/assets/img/tyzx.jpg",
-                        link: "#",
+                        link: "/home/demo/index",
                     },
                 ],
             },
@@ -148,7 +148,7 @@ export class IndexPage {
                 ],
             },
             bottom: {
-                imgscr: "/assets/img/tyzx.jpg",
+                imgscr: "/assets/img/aboutus.png",
                 link: "#",
             }
         }
@@ -171,7 +171,7 @@ export class IndexPage {
 
 
     public initPage() {
-        console.log(JSON.stringify(this.shareData.page));
+
         this._http.get(
             "api/SysConfig/GetCepConfig",
             {
@@ -182,9 +182,11 @@ export class IndexPage {
             },
             (res: any) => {
                 if (!this._valid.isNullOrEmpty(res["mcs_val"])) {
+                    //console.log(res["mcs_val"]);
                     this.shareData.page = $.parseJSON(res["mcs_val"]);
+                    //console.log("ok");
                 }
-                console.log(this.shareData.page);
+
             },
             (err: any) => {
 

@@ -1,0 +1,25 @@
+﻿<ion-header>
+    <ion-toolbar>
+        <ion-title>选择车辆</ion-title>
+        <ion-buttons slot="end">
+            <ion-button expand="block" (click)="dismissModal()">关闭</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+    <ion-list lines="full">
+        <ion-item-sliding *ngFor="let item of mod.data;let key=index">
+            <ion-item (click)="itemClick(item)">
+                <ion-label>
+                    <h2>{{item['ProductInfo']['mcs_name']}}</h2>
+                    <p>{{item['ProductInfo']['mcs_baseprice']}}<small>元起</small></p>
+                </ion-label>
+                <ion-note slot="end">
+                    定金:{{item['ProductInfo']["mcs_depositamount@OData.Community.Display.V1.FormattedValue"]}}
+                </ion-note>
+            </ion-item>
+        </ion-item-sliding>
+    </ion-list>
+</ion-content>

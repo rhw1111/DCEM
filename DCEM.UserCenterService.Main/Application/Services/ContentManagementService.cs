@@ -162,16 +162,32 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 {
                     throw new Exception("该内容页没有正文内容");
                 }
-                //防乱码
-                targetHtml = "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />" + targetHtml;
+                //防乱码，加入滚动条样式，后期改为模板读取
+                targetHtml = "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />" + @"<style>
+                      /* 设置滚动条的样式 */
+                  ::-webkit-scrollbar{
+                      width: 3px;
+                  }
+                  /*滚动槽*/
+                  ::-webkit-scrollbar-track{
+                      box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+                      border-radius: 10px;
+                  }
+                  /* 滚动条滑块 */
+                  ::-webkit-scrollbar-thumb {
+                      border-radius: 10px;
+                      background: rgba(0, 0, 0, 0.1);
+                      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.15);
+                  }
+                  </style>" + targetHtml;
                 //写入目标地址
-                var resultPath = @"HtmlResources\Fronts\" + entity.Attributes["mcs_frontcontentid"].ToString();
+                var resultPath = @"HtmlResources/Fronts/" + entity.Attributes["mcs_frontcontentid"].ToString();
                 var targetPath = Directory.GetCurrentDirectory() + @"\wwwroot\" + resultPath;
                 if (!Directory.Exists(targetPath))
                 {
                     Directory.CreateDirectory(targetPath);
                 }
-                var fileName = @"\" + entity.EntityName.ToString() + ".html";
+                var fileName = "/" + entity.EntityName.ToString() + ".html";
                 File.WriteAllText(targetPath + fileName, targetHtml);
                 response.Url = resultPath + fileName;
             }

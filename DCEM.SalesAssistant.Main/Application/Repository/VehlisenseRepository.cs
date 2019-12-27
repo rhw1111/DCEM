@@ -21,6 +21,14 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
             return await Task<XDocument>.Run(() =>
             {
                 var filterStr = "";
+                if (deliveryListRequest.Type == 0) //已上牌
+                {
+                    filterStr += $@"<condition attribute='mcs_name' operator='not-null' />";//包含数据
+                }
+                if (deliveryListRequest.Type == 1)//未上牌
+                {
+                    filterStr += $@"<condition attribute='mcs_name' operator='null' />";//不包含数据
+                }
                 if (!string.IsNullOrEmpty(deliveryListRequest.SearchKey))
                 {
                     filterStr += $@"  <filter type='or'>
@@ -90,7 +98,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
                                       <condition attribute='statecode' operator='eq' value='0' />
                                       <condition attribute='mcs_vehlisenseid' operator='eq'  uitype='mcs_vehlisense' value='{id}' />
                                     </filter>
-                                  <link-entity name='mcs_vehicle' from='mcs_vehicleid' to='mcs_vin' visible='false' link-type='outer' >
+                                  <link-entity name='mcs_vehowner' from='mcs_vehownerid' to='mcs_contact' visible='false' link-type='outer' >
                                       <attribute name='mcs_name' alias='vinname'/> 
                                     </link-entity> 
                                     <link-entity name='mcs_vehorder' from='mcs_vehorderid' to='mcs_vehorder' visible='false' link-type='outer' alias='a_e1f73281e00fe911a820844a39d18a7a'>

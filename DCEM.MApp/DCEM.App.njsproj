@@ -86,6 +86,8 @@
     <Content Include="src\app\saleing\lead.com\success\success.page.scss" />
     <Content Include="src\app\saleing\mc-vehorder.com\detail\detail.page.html" />
     <Content Include="src\app\saleing\mc-vehorder.com\detail\detail.page.scss" />
+    <Content Include="src\app\saleing\carorder\edit\edit.page.html" />
+    <Content Include="src\app\saleing\carorder\edit\edit.page.scss" />
     <Content Include="src\app\saleing\mc-vehorder.com\list\list.page.html" />
     <Content Include="src\app\saleing\mc-vehorder.com\list\list.page.scss" />
     <Content Include="src\app\saleing\mcs-account.com\detail\detail.page.html" />
@@ -146,6 +148,12 @@
     <Content Include="src\app\saleing\orderpaydetail\detail\detail.page.scss" />
     <Content Include="src\app\saleing\orderpaydetail\edit\edit.page.html" />
     <Content Include="src\app\saleing\orderpaydetail\edit\edit.page.scss" />
+    <Content Include="src\assets\json\user.json" />
+    <Content Include="src\assets\json\carproduct.json">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="src\app\saleing\saleing.ser\components\select-carproduct\select-carproduct.component.html" />
+    <Content Include="src\app\saleing\saleing.ser\components\select-user\select-user.component.html" />
     <Content Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.html" />
     <Content Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.scss" />
     <Content Include="src\app\saleing\saleing.ser\components\select-reservationconfiguration\select-reservationconfiguration.component.html" />
@@ -754,6 +762,9 @@
     <TypeScriptCompile Include="src\app\saleing\mc-vehorder.com\detail\detail.module.ts" />
     <TypeScriptCompile Include="src\app\saleing\mc-vehorder.com\detail\detail.page.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\mc-vehorder.com\detail\detail.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\carorder\edit\edit.module.ts" />
+    <TypeScriptCompile Include="src\app\saleing\carorder\edit\edit.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\saleing\carorder\edit\edit.page.ts" />
     <TypeScriptCompile Include="src\app\saleing\mc-vehorder.com\list\list.module.ts" />
     <TypeScriptCompile Include="src\app\saleing\mc-vehorder.com\list\list.page.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\mc-vehorder.com\list\list.page.ts" />
@@ -844,6 +855,8 @@
     <TypeScriptCompile Include="src\app\saleing\orderpaydetail\edit\edit.module.ts" />
     <TypeScriptCompile Include="src\app\saleing\orderpaydetail\edit\edit.page.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\orderpaydetail\edit\edit.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-carproduct\select-carproduct.component.ts" />
+    <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-user\select-user.component.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-reservationconfiguration\select-reservationconfiguration.component.spec.ts" />
@@ -854,7 +867,6 @@
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-vehiclecolor\select-vehiclecolor.component.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-vehicletype\select-vehicletype.component.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-vehicletype\select-vehicletype.component.ts" />
-    <TypeScriptCompile Include="src\app\saleing\saleing.ser\optionset.service.ts" />
     <TypeScriptCompile Include="src\app\saleing\vehlisense\detail\detail.module.ts" />
     <TypeScriptCompile Include="src\app\saleing\vehlisense\detail\detail.page.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\vehlisense\detail\detail.page.ts" />
@@ -1183,6 +1195,7 @@
     <Folder Include="src\app\base\uc.com\login\" />
     <Folder Include="src\app\base\uc.com\welcome\" />
     <Folder Include="src\app\saleing\" />
+    <Folder Include="src\app\saleing\carorder\list\" />
     <Folder Include="src\app\saleing\delivery\" />
     <Folder Include="src\app\saleing\delivery\appointment\" />
     <Folder Include="src\app\saleing\delivery\detail\" />
@@ -1199,6 +1212,7 @@
     <Folder Include="src\app\saleing\mc-vehorder.com\" />
     <Folder Include="src\app\saleing\mc-vehorder.com\detail\" />
     <Folder Include="src\app\saleing\mc-vehorder.com\list\" />
+    <Folder Include="src\app\saleing\carorder\edit\" />
     <Folder Include="src\app\saleing\mcs-account.com\" />
     <Folder Include="src\app\saleing\mcs-account.com\detail\" />
     <Folder Include="src\app\saleing\mcs-account.com\edit\" />
@@ -1235,11 +1249,14 @@
     <Folder Include="src\app\saleing\mcs_surveyorder\" />
     <Folder Include="src\app\saleing\mcs_surveyorder\detail\" />
     <Folder Include="src\app\saleing\mcs_surveyorder\list\" />
+    <Folder Include="src\app\saleing\carorder\" />
     <Folder Include="src\app\saleing\orderpaydetail\" />
     <Folder Include="src\app\saleing\orderpaydetail\detail\" />
     <Folder Include="src\app\saleing\orderpaydetail\edit\" />
     <Folder Include="src\app\saleing\saleing.ser\" />
     <Folder Include="src\app\saleing\saleing.ser\components\" />
+    <Folder Include="src\app\saleing\saleing.ser\components\select-carproduct\" />
+    <Folder Include="src\app\saleing\saleing.ser\components\select-user\" />
     <Folder Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\" />
     <Folder Include="src\app\saleing\saleing.ser\components\select-reservationconfiguration\" />
     <Folder Include="src\app\saleing\saleing.ser\components\select-sysarea\" />
@@ -1332,6 +1349,7 @@
     <Folder Include="src\assets\css\" />
     <Folder Include="src\assets\icon" />
     <Folder Include="src\assets\img\" />
+    <Folder Include="src\assets\json\" />
     <Folder Include="src\assets\plugins\" />
     <Folder Include="src\environments" />
     <Folder Include="src\theme" />

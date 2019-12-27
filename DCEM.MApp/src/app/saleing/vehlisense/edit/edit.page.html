@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button text="返回" defaultHref="/serving/vehnetwork/list"></ion-back-button>
+      </ion-buttons>
+      <ion-title>{{shareData.viewTitle}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list lines="full">
+      <ion-item-divider color="primary">
+          <ion-label>
+            基本信息
+          </ion-label>
+      </ion-item-divider>
+      <ion-item>
+          <ion-label position="stacked">
+            <ion-icon name="lock"></ion-icon>
+              VIN
+              <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <!-- <ion-input maxlength="12" [(ngModel)]="shareData.vehowner['vinname']" required></ion-input> -->
+          <p>{{shareData.vehowner["vinname"]}}&nbsp;</p>
+      </ion-item>
+      <ion-item>
+          <ion-label position="stacked">
+            <ion-icon name="lock"></ion-icon>
+              交车单
+              <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <!-- <ion-input maxlength="12" [(ngModel)]="shareData.vehowner['vehdeliverycode']" required></ion-input> -->
+          <p>{{shareData.vehowner["vehdeliverycode"]}}&nbsp;</p>
+      </ion-item>
+      <ion-item>
+          <ion-label position="stacked">
+            <ion-icon name="lock"></ion-icon>
+              交车状态
+          </ion-label>
+          <!-- <ion-input  maxlength="12" [(ngModel)]="shareData.vehowner['deliverystatus']" required></ion-input> -->
+          <p>{{shareData.vehowner["deliverystatus"]}}&nbsp;</p>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+            <ion-icon name="lock"></ion-icon>
+            整车订单号
+        </ion-label>
+        <!-- <ion-input  maxlength="12" [(ngModel)]="shareData.vehowner['vehordercode']" required></ion-input> -->
+        <p>{{shareData.vehowner["vehordercode"]}}&nbsp;</p>
+      </ion-item>
+      <!-- <ion-item (click)="presentCarmodelModal()">
+          <ion-label position="stacked">
+              <ion-icon name="search"></ion-icon>
+              车型
+          </ion-label>
+          <p>{{shareData.vehowner["_mcs_vehtype_value@OData.Community.Display.V1.FormattedValue"]}}&nbsp;</p>
+      </ion-item> -->
+      <ion-item>
+          <ion-label position="stacked">
+              姓名
+          </ion-label>
+          <ion-input placeholder="请输入姓名" maxlength="12" [(ngModel)]="shareData.vehowner['mcs_fullname']" required></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label position="stacked">
+            身份证号
+          </ion-label>
+          <ion-input placeholder="请输入身份证号" maxlength="18"  [(ngModel)]="shareData.vehowner['mcs_idcard']" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+            上牌日期
+        </ion-label>
+        <ion-datetime cancelText="取消" doneText="确定" placeholder="请选择上牌日期" display-format="YYYY-MM-DD" [(ngModel)]="shareData.vehowner['mcs_lisensedate']"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+            上牌地址
+        </ion-label>
+      <ion-input placeholder="请输入上牌地址" maxlength="200"  [(ngModel)]="shareData.vehowner['mcs_address']" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+            上牌费用
+        </ion-label>
+      <ion-input placeholder="请输入上牌费用" maxlength="12"  [(ngModel)]="shareData.vehowner['mcs_fee']" required></ion-input>
+      </ion-item>
+      <!-- <ion-item-divider color="primary">
+        <ion-label>
+          整车订单
+        </ion-label>
+      </ion-item-divider> -->
+  </ion-list>
+  <section style="text-align:center;">
+      <ion-button style="width:40%" color="danger" (click)="saveOnClick()">保存</ion-button>
+  </section>
+  <br />
+  <br />
+</ion-content>

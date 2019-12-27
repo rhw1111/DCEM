@@ -29,7 +29,7 @@ export class ListPage implements OnInit {
       searchkey: "",
       status: "",
       userId: this._userinfo.GetSystemUserId(),
-      dealerid: "D2B7AE95-72F4-E911-A821-F2106C4094A1",//this._userinfo.GetDealerid()
+      dealerid: this._userinfo.GetDealerid()//"D2B7AE95-72F4-E911-A821-F2106C4094A1",
     },
     vehnetwork: [],
     isending: false

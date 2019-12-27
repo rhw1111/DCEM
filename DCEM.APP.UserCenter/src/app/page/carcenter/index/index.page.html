@@ -12,7 +12,9 @@
                             </ion-row>
                             <ion-row>
                                 <ion-col style="padding-left:30px;padding-right:30px">
-                                    <ion-button expand="block" color="light" class="button-outline" style="margin-top:10px; border-radius:50px" [routerLink]="['/carcenter/carstore/index']">
+                                    <ion-button expand="block" color="light" class="button-outline"
+                                        style="margin-top:10px; border-radius:50px"
+                                        [routerLink]="['/carcenter/carstore/index']">
                                         立即购买
                                     </ion-button>
                                     <br />
@@ -76,7 +78,8 @@
         </ion-row>
         <ion-row style="padding-top:30px">
             <ion-col style="padding-left:50px;padding-right:50px">
-                <ion-button expand="block" color="primary" class="button-outline" [routerLink]="['/testdrive/edit']">
+                <ion-button expand="block" color="primary" class="button-outline"
+                    [routerLink]="['/personalcenter/testdrive/edit']">
                     预约试驾
                 </ion-button>
             </ion-col>
@@ -168,12 +171,15 @@
         <ion-row>
             <ion-col style="padding-left:10px;padding-right:10px;">
                 <ion-list>
-                    <ion-item *ngFor="let item of shareData.page.middle_trialrun.list">
+                    <ion-item *ngFor="let item of shareData.page.middle_trialrun.list" detail="false"
+                        [routerLink]="[item['link']]">
                         <ion-label>
                             <h4 style="font-weight:bold;">{{item["title"]}}</h4>
                             <p>{{item["source"]}}</p>
                         </ion-label>
-                        <img slot="end" style="width:85px;height:70px; border-radius:5%;margin-bottom:10px;margin-top:10px" src="{{item['imgscr']}}" />
+                        <img slot="end"
+                            style="width:85px;height:70px; border-radius:5%;margin-bottom:10px;margin-top:10px"
+                            src="{{item['imgscr']}}" />
                     </ion-item>
                 </ion-list>
             </ion-col>
@@ -203,7 +209,7 @@
             </ion-col>
         </ion-row>
 
-        <ion-row style="padding-top:30px;">
+        <ion-row style="padding-top:30px;" [routerLink]="['/home/frontcontent']" [queryParams]="{defcode:'au001'}">
             <ion-col>
                 <img src="{{shareData.page.bottom.imgscr}}" />
             </ion-col>

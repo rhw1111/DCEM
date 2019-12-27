@@ -15,8 +15,8 @@ const routes: Routes = [
                 ]
             },
             {
-                path:'message',
-                children:[
+                path: 'message',
+                children: [
                     { path: 'charts', loadChildren: './base/message.com/charts/charts.module#ChartsPageModule' },
                     { path: 'chat-detail', loadChildren: './base/message.com/chat-detail/chat-detail.module#ChatDetailPageModule' },
                     { path: 'room', loadChildren: './base/message.com/room/room.module#RoomPageModule' },
@@ -24,8 +24,8 @@ const routes: Routes = [
                 ]
             },
             {
-                path:'sys',//系统设置
-                children:[
+                path: 'sys',//系统设置
+                children: [
                     { path: 'systemsetup', loadChildren: './base/sys.com/systemsetup/systemsetup.module#SystemsetupPageModule' },
                     { path: 'about', loadChildren: './base/sys.com/about/about.module#AboutPageModule' },
                     { path: 'change-password', loadChildren: './base/sys.com/change-password/change-password.module#ChangePasswordPageModule' },
@@ -124,8 +124,9 @@ const routes: Routes = [
                 children: [
 
                     { path: 'list', loadChildren: './serving/mcs_surveyorder/list/list.module#ListPageModule' },
-                    { path: 'detail', loadChildren: './serving/mcs_surveyorder/detail/detail.module#DetailPageModule' },                     
+                    { path: 'detail', loadChildren: './serving/mcs_surveyorder/detail/detail.module#DetailPageModule' },
                     { path: 'edit', loadChildren: './serving/mcs_surveyorder/edit/edit.module#EditPageModule' },
+                    { path: 'success', loadChildren: './serving/mcs_surveyorder/success/success.module#SuccessPageModule' },
                 ]
             },
             {
@@ -133,7 +134,10 @@ const routes: Routes = [
                 children: [
 
                     { path: 'list', loadChildren: './serving/mcs_installationorder/list/list.module#ListPageModule' },
-                    { path: 'detail', loadChildren: './serving/mcs_installationorder/detail/detail.module#DetailPageModule' }
+                    { path: 'detail', loadChildren: './serving/mcs_installationorder/detail/detail.module#DetailPageModule' },
+                    { path: 'edit', loadChildren: './serving/mcs_installationorder/edit/edit.module#EditPageModule' },
+                    { path: 'success', loadChildren: './serving/mcs_installationorder/success/success.module#SuccessPageModule' },
+
                 ]
             }
         ],
@@ -208,7 +212,7 @@ const routes: Routes = [
                 path: 'vehorder',//门店整车订单
                 children: [
                     { path: 'list', loadChildren: './saleing/mc-vehorder.com/list/list.module#ListPageModule' },
-                    { path: 'detail', loadChildren: './saleing/mc-vehorder.com/detail/detail.module#DetailPageModule' }
+                    { path: 'detail', loadChildren: './saleing/mc-vehorder.com/detail/detail.module#DetailPageModule' },
 
                 ]
             },
@@ -235,17 +239,26 @@ const routes: Routes = [
                     { path: 'list', loadChildren: './saleing/vehlisense/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './saleing/vehlisense/detail/detail.module#DetailPageModule' },
                     { path: 'success', loadChildren: './saleing/vehlisense/success/success.module#SuccessPageModule' },
+                    { path: 'edit', loadChildren: './saleing/vehlisense/edit/edit.module#EditPageModule' },
                 ]
             },
-             {
-                 path: 'driverecord',//试车试驾
+            {
+                path: 'driverecord',//试车试驾
                 children: [
                     { path: 'list', loadChildren: './saleing/mcs_driverecord.com/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './saleing/mcs_driverecord.com/detail/detail.module#DetailPageModule' },
                     { path: 'edit', loadChildren: './saleing/mcs_driverecord.com/edit/edit.module#EditPageModule' },
-                    { path: 'success', loadChildren: './saleing/mcs_driverecord.com/success/success.module#SuccessPageModule'},
+                    { path: 'success', loadChildren: './saleing/mcs_driverecord.com/success/success.module#SuccessPageModule' },
                     { path: 'calendar', loadChildren: './saleing/mcs_driverecord.com/calendar/calendar.module#CalendarPageModule' },
                     { path: 'feedback', loadChildren: './saleing/mcs_driverecord.com/feedback/feedback.module#FeedbackPageModule' }
+                ]
+            },
+            {
+                path: 'carorder',//代客下单
+                children: [
+                    { path: 'edit', loadChildren: './saleing/carorder/edit/edit.module#EditPageModule' },
+                    { path: 'list', loadChildren: './saleing/carorder/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './saleing/carorder/detail/detail.module#DetailPageModule' },
                 ]
             }
         ]
@@ -260,20 +273,27 @@ const routes: Routes = [
     { path: 'fileupload', loadChildren: './serving/serving.ser/components/fileupload/fileupload.module#FileuploadPageModule' },
 
 
- 
-
-  
 
 
 
 
 
 
- 
 
 
- 
- 
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ];

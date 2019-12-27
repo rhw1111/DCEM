@@ -20,6 +20,7 @@ export class EditPage implements OnInit {
   }
   public model = {
     apiUrlDetail: '/api/delivery/addorderpay',
+    apiGetTailMoney:'/api/delivery/gettailmoney',
     id: "",
     paycategoryoption: [],
     info: {
@@ -38,6 +39,7 @@ export class EditPage implements OnInit {
         this.model.id = data['id'];
         this.model.info.delivery = data['id'];
         this.model.paycategoryoption = this._optionset.Get("mcs_paycategory");
+        this.GetCountStr(data['id']);
       }
     });
 
@@ -82,4 +84,24 @@ export class EditPage implements OnInit {
     );
 
   }
+  GetCountStr(id) {
+    //this.ionInfiniteScroll.disabled=true;
+    this._page.loadingShow();
+    this._http.get(this.model.apiGetTailMoney, {
+        params: {
+            id: id,
+            materielId:0
+        }
+    }, (res) => {
+        if (res != null) {
+            //初始化字段值
+            this.model.info.amountstr = res.Data;        
+        }
+        this._page.loadingHide();
+    }, (err) => {
+        this._page.alert("消息提示", "数据加载异常");
+        this._page.loadingHide();
+    });
+
+    }
 }
