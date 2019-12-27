@@ -22,7 +22,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
     {
         Task<XDocument> GetBehavior(string code);
         Task<XDocument> GetUserSecurityquestion(UserLoginRequest req);
-
+        Task<XDocument> GetMemberintegraldetail(Guid userid, string code);
         Task<XDocument> GetMemberintegralpoint(string code);
         Task<XDocument> GetAgreement(string id);
         Task<XDocument> LoginAccount(UserLoginRequest request);

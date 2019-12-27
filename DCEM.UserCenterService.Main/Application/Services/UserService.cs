@@ -24,6 +24,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
         private string IntegralUrl_Key = "IntegralInteUrl_Key";//积分充值地址
         private string IntegralReg_Key = "IntegralReg_Key";//C端用户注册积分埋点编号
+        private string IntegralUserInfo_Key = "IntegralUserInfo_Key";//完善个人资料
         private string _behavior = "channel_user_registration";//唯一线索添加 获取注册用户对应用户行为编码
         private ICrmService _crmService;
         public IUserRepository _repository;
@@ -297,20 +298,8 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 }
 
 
-                //积分充值接口调用
-                string Integralregkey = await GetConfig(IntegralReg_Key);
-                string num = await GetMemberintegralpoint(Integralregkey);
-                IntegralRequest req = new IntegralRequest();
-                req.UserId = id.ToString();
-                req.SourceSystem = 1;
-                req.IntegralPointCode = Integralregkey;
-                req.Num = num;
-                req.TransactionTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                Random rnd = new Random();
-                req.OrderNumber = "IC" + DateTime.Now.ToString("yyyyMMddHHmmss") + rnd.Next(100, 100000).ToString();
-                IntegralCreate(req);
-
-
+                //积分充值接口调用  
+                IntegralCreate(IntegralReg_Key, id.ToString());
 
                 #region 组装数据返回 
                 validateResult.Result = true;
@@ -385,6 +374,22 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 await _crmService.Update(entity);
 
 
+
+
+                #region    积分完善个人资料埋点
+                //判断完善个人资料积分是否发送，如果已发送，不能再次发送
+                string code = await GetConfig(IntegralUserInfo_Key);
+                var crmRequestHelper = new CrmRequestHelper();
+                XDocument fetchXdoc = null;
+                fetchXdoc = await _repository.GetMemberintegraldetail(entity.Id, code);
+                var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_memberintegraldetail", fetchXdoc);
+                if (entities.Results.Count ==0)
+                {
+                    IntegralCreate(IntegralUserInfo_Key, entity.Id.ToString());
+                }
+
+
+                #endregion
                 #region 组装数据返回 
                 validateResult.Result = true;
                 validateResult.Description = "操作成功";
@@ -588,20 +593,43 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
 
 
+        #region 积分
+
 
 
         /// <summary>
-        /// 积分充值
+        /// 积分充值接口
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="userid"></param>
+        public async void IntegralCreate(string key, string userid)
+        {
+            string code = await GetConfig(key);
+            string num = await GetMemberintegralpoint(code);
+            IntegralRequest req = new IntegralRequest();
+            req.UserId = userid;
+            req.SourceSystem = 3;
+            req.IntegralPointCode = code;
+            req.Num = num;
+            req.Description = "";
+            req.TransactionTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            Random rnd = new Random();
+            req.OrderNumber = "IC" + DateTime.Now.ToString("yyyyMMddHHmmss") + rnd.Next(100, 100000).ToString();
+            IntegralPost(req);
+        }
+
+        /// <summary>
+        /// 积分接口
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        public async void IntegralCreate(IntegralRequest req)
-        {
-            string data = JsonConvert.SerializeObject(req);
+        public async void IntegralPost(IntegralRequest req)
+        { 
             string url = await GetConfig(IntegralUrl_Key);
-            await HttpClinetHelper.PostAsync<string>(data, $"{url}/api/member/integralcreate");
+            HttpClinetHelper.Post(req, $"{url}/api/member/integralcreate");
         }
 
+        #endregion
 
         private async Task<string> GetMemberintegralpoint(string key)
         {

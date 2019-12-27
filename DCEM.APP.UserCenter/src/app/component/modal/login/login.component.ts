@@ -195,6 +195,7 @@ export class LoginComponent implements OnInit {
 
   //短信发送
   onSendMsg(status) {
+    debugger;
     if (this.mod.model.account == '') {
       this._page.alert("消息提示", "请填写手机号码！");
       return false;
