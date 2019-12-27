@@ -148,6 +148,37 @@ namespace DCEM.UserCenterService.Main.Application.Repository
                 return XDocument.Parse(fetchXml);
             });
         }
+
+
+        /// <summary>
+        /// 用户积分明细
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public async Task<XDocument> GetMemberintegraldetail(Guid userid,string code)
+        {
+            return await Task<XDocument>.Run(() =>
+            {
+
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+  <entity name='mcs_memberintegraldetail'>
+    <attribute name='mcs_name' />
+    <attribute name='mcs_memberintegraldetailid' />
+    <order attribute='mcs_name' descending='true' />
+    <filter type='and'> 
+      <condition attribute='mcs_integralpointcode' operator='eq' value='{code}' />
+    </filter>
+    <link-entity name='mcs_member' from='mcs_memberid' to='mcs_memberid' link-type='inner' alias='ab'>
+        <filter type='and'> 
+         <condition attribute='mcs_userid' operator='eq' value='{userid}' />
+        </filter> 
+    </link-entity> 
+  </entity>
+</fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
         /// <summary>
         /// 用户行为获取
         /// </summary>
