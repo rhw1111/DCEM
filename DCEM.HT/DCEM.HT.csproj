@@ -109,6 +109,9 @@
     <Content Update="wwwroot\HtmlResources\Activities\Scripts\modernizr-2.6.2.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Update="wwwroot\HtmlResources\Activities\Scripts\qrcode.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Update="wwwroot\HtmlResources\Activities\Scripts\respond.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -380,6 +383,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\HtmlResources\Templates\Scripts\modernizr-2.6.2.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\HtmlResources\Templates\Scripts\qrcode.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\HtmlResources\Templates\Scripts\respond.js">

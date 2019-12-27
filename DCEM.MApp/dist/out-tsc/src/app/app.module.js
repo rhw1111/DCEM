@@ -33,6 +33,10 @@ import { SelectRepairitemtypeComponent } from 'app/serving/serving.ser/component
 import { SelectRepairitemtypedetailComponent } from 'app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component';
 import { SelectAppointmentinfoComponent } from 'app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component';
 import { SelectFileEditComponent } from 'app/serving/serving.ser/components/select-file-edit/select-file-edit.component';
+import { SelectAccountComponent } from 'app/serving/serving.ser/components/select-account/select-account.component';
+import { SelectSurveyorderComponent } from "app/serving/serving.ser/components/select-surveyorder/select-surveyorder.component";
+import { SelectUserComponent } from 'app/saleing/saleing.ser/components/select-user/select-user.component';
+import { SelectCarproductComponent } from 'app/saleing/saleing.ser/components/select-carproduct/select-carproduct.component';
 import { DragrouteComponent } from 'app/base/base.ser/components/map/dragroute/dragroute.component';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
@@ -66,7 +70,11 @@ AppModule = tslib_1.__decorate([
             SelectRepairitemtypedetailComponent,
             SelectAppointmentinfoComponent,
             SelectFileEditComponent,
-            DragrouteComponent
+            DragrouteComponent,
+            SelectAccountComponent,
+            SelectSurveyorderComponent,
+            SelectUserComponent,
+            SelectCarproductComponent,
         ],
         entryComponents: [
             ScSelectComponent,
@@ -90,7 +98,11 @@ AppModule = tslib_1.__decorate([
             SelectRepairitemtypedetailComponent,
             SelectAppointmentinfoComponent,
             SelectFileEditComponent,
-            DragrouteComponent
+            DragrouteComponent,
+            SelectAccountComponent,
+            SelectSurveyorderComponent,
+            SelectUserComponent,
+            SelectCarproductComponent,
         ],
         imports: [BrowserModule,
             IonicModule.forRoot({ mode: 'ios' }),

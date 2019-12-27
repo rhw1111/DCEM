@@ -96,17 +96,17 @@ namespace DCEM.UserCenterService.Main.Application.Services
             var result = new StringBuilder(templateHtml);
             foreach (var item in elementConfigs.Results)
             {
-                var pageDetail = pageDetails.Results.First(p => p.Attributes["_mcs_element_value"].ToString() == item.Attributes["mcs_am_elementconfigid"].ToString());
+                var pageDetail = pageDetails.Results.FirstOrDefault(p => p.Attributes["_mcs_element_value"]?.ToString() == item.Attributes["mcs_am_elementconfigid"]?.ToString());
                 var tempValue = string.Empty;
                 if (pageDetail == null)
                 {
-                    tempValue = item.Attributes["mcs_defaultvalue"].ToString();
+                    tempValue = item.Attributes["mcs_defaultvalue"]?.ToString();
                 }
                 else
                 {
-                    tempValue = pageDetail.Attributes["mcs_content"].ToString();
+                    tempValue = pageDetail.Attributes["mcs_content"]?.ToString();
                 }
-                result.Replace(item.Attributes["mcs_code"].ToString(), tempValue);
+                result.Replace(item.Attributes["mcs_code"]?.ToString(), tempValue);
             }
 
             //再替换表单配置
@@ -117,10 +117,10 @@ namespace DCEM.UserCenterService.Main.Application.Services
             var formHtml = new StringBuilder();
             foreach (var item in pageConfigs.Results.OrderBy(p => p.Attributes["mcs_displayorder"]))
             {
-                var code = item.Attributes["config.mcs_name"].ToString();
-                var label = item.Attributes["mcs_label"].ToString();
-                var placeholder = item.Attributes["mcs_placeholder"].ToString();
-                var tip = item.Attributes["mcs_tip"].ToString();
+                var code = item.Attributes["config.mcs_name"]?.ToString();
+                var label = item.Attributes["mcs_label"]?.ToString();
+                var placeholder = item.Attributes["mcs_placeholder"]?.ToString();
+                var tip = item.Attributes["mcs_tip"]?.ToString();
                 var required = (bool)item.Attributes["mcs_required"];
                 formHtml.Append(@$"<div class=""detail"">
                                                     <label>{label}");
@@ -229,16 +229,20 @@ namespace DCEM.UserCenterService.Main.Application.Services
             //最后替换用户行为
             fetchXdoc = await _ampageRepository.GetUserBehaviorXml(pageId);
             var userBehaviors = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_am_page", fetchXdoc);
+            var shareable = false;
             if(userBehaviors!=null&&userBehaviors.Results!=null&& userBehaviors.Results.Count > 0)
             {
-                var behaviorCode = userBehaviors.Results[0].Attributes["behavior.mcs_code"].ToString();
+                var behaviorCode = userBehaviors.Results[0].Attributes["behavior.mcs_code"]?.ToString();
                 result.Replace("$behavior$", behaviorCode);
+                shareable = (bool)userBehaviors.Results[0].Attributes["mcs_shareable"];
             }
             else
             {
                 //设置默认值
                 result.Replace("$behavior$", "activity_online_registration");
             }
+            //新需求：决定是否可分享
+            result.Replace("$shareable$", shareable ? "block" : "none");
             return result.ToString();
         }
 

@@ -29,7 +29,8 @@ namespace DCEM.UserCenterService.Main.Factory
         {
             var crmService = StartupHelper.CreateCrmService();
             IUserRepository userrepository = new UserRepository();
-            IUserService userservice = new UserService(crmService, userrepository);
+            IConfigRepository configpository = new ConfigRepository();
+            IUserService userservice = new UserService(crmService, userrepository, configpository);
             IUserNoticeRepository userNoticerepository = new UserNoticeRepository();
             IUserNoticeService userNoticeservice = new UserNoticeService(crmService, userNoticerepository);
             IAppUser app = new AppUser(userservice, userNoticeservice);

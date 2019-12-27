@@ -1,0 +1,46 @@
+﻿<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/serving/home/tabs/index"></ion-back-button>
+        </ion-buttons>
+        <ion-title>订单列表</ion-title>
+    </ion-toolbar>
+    <ion-toolbar>
+        <ion-searchbar animated [(ngModel)]="mod.searchData.search" placeholder="请输入单号\姓名\联系方式搜索" (keyup)="searchOnKeyup($event)"></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list lines="full">
+        <ion-item *ngFor="let item of mod.data;let key=index" [routerLink]="['/saleing/carorder/detail']" [queryParams]="{id:item['mcs_tc_orderid']}">
+            <ion-icon slot="start" color="primary" name="document" size="large"></ion-icon>
+            <ion-label>
+                <h2>{{item["mcs_purchasername"]}}</h2>
+                <p>{{item["mcs_totalamount@OData.Community.Display.V1.FormattedValue"]}}</p>
+                <p>{{item["mcs_ordertime@OData.Community.Display.V1.FormattedValue"]}}</p>
+            </ion-label>
+            <ion-note slot="end">
+                {{item["mcs_state@OData.Community.Display.V1.FormattedValue"]}}
+            </ion-note>
+        </ion-item>
+
+        <ion-item *ngIf="ionInfiniteScroll.disabled">
+            <ion-label text-center>
+                <p>
+                    没有更多的记录显示啦
+                </p>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+            <ion-icon name="arrow-dropup"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="top">
+            <ion-fab-button color="danger" [routerLink]="['/saleing/carorder/edit']"><ion-icon name="add"></ion-icon></ion-fab-button>
+        </ion-fab-list>
+    </ion-fab>
+</ion-content>

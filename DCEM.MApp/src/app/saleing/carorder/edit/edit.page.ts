@@ -29,11 +29,13 @@ export class EditPage implements OnInit {
         product: {
             ProductInfo: {},
         },
-
         productOrderingattributeMap: {},           //基础地图
         productOrderingattributeClassMap: {},      //分组地图
         productRelatedMap: {},                     //商品关联视图
         productPriceMap: {},    //sku地图
+        postUrl: "/api/order/CreateOrder",
+        skuMoney: 0,
+        sumMoney: 0
     }
 
     ngOnInit() {
@@ -112,22 +114,69 @@ export class EditPage implements OnInit {
                 var key = productPrice["mcs_orderguid"];
                 this.shareData.productPriceMap[key] = productPrice;
             }
+            //算总价
+            this.calcSum();
+        }
+    }
 
-            console.log(this.shareData);
+    //计算总价
+    public calcSum() {
+        this.shareData.sumMoney = 0;
+        this.shareData.skuMoney = 0;
+        this.shareData.sumMoney = this.shareData.product["ProductInfo"]["mcs_baseprice"];
+        this.shareData.skuMoney = this.shareData.product["ProductInfo"]["mcs_baseprice"];
+        //找产品
+        for (var groupKey in this.shareData.productOrderingattributeClassMap) {
+            var selectKey = this.shareData.productOrderingattributeClassMap[groupKey]["selectKey"];
+            if (this._valid.isNumber(this.shareData.productOrderingattributeMap[selectKey]["mcs_attributeextprice"])) {
+                this.shareData.sumMoney += this.shareData.productOrderingattributeMap[selectKey]["mcs_attributeextprice"];
+                this.shareData.skuMoney += this.shareData.productOrderingattributeMap[selectKey]["mcs_attributeextprice"];
+            }
+        }
+        //组装选装地图
+        for (var relatedKey in this.shareData.productRelatedMap) {
+            if (this.shareData.productRelatedMap[relatedKey]["ext_select"] === "2") {
+                this.shareData.sumMoney += this.shareData.productRelatedMap[relatedKey]["a.mcs_salesprice"];
+            }
         }
     }
 
     //提交数据下单
     saveOnClick() {
+
+        var errMessage = "";
+
+        if (this._valid.isNullOrEmpty(this.shareData.user["mcs_name"])) {
+            errMessage += "您尚未选择用户<br>";
+        }
+        if (this._valid.isNull(this.shareData.user["mcs_phone"])) {
+            errMessage += "您尚未输入联系方式<br>";
+        }
+        if (this._valid.isNull(this.shareData.user["mcs_cardid"])) {
+            errMessage += "您尚未输入证件号码<br>";
+        }
+        if (this._valid.isNull(this.shareData.product["ProductInfo"]["mcs_code"])) {
+            errMessage += "您尚未选择车辆<br>";
+        }
+        if (errMessage !== "") {
+
+            this._page.presentToastError(errMessage);
+            return;
+        }
+
+
+
+        this._page.loadingShow();
+        var sumMoney = 0;
         //组装基础数据
-        var data = {
+        var postData = {
             "OrderData": {
                 "OrderCode": "DCEM_" + this._string.GetDateFormat(new Date(), "yyyyMMddhhmmss") + "_" + this._string.GetRandom(3).toLocaleUpperCase(),
                 "UserId": this.shareData.user["mcs_userid"],
                 "UserName": this.shareData.user["mcs_name"],
                 "OrderType": 0,
                 "UserMobile": this.shareData.user["mcs_phone"],
-                "Media": 3,
+                "Media": 0,
                 "ChannelSource": "1099",
                 "OrderTime": new Date(),
                 "CarBuyerName": this.shareData.user["mcs_name"],
@@ -137,7 +186,7 @@ export class EditPage implements OnInit {
                 "ShippingFlag": false,
                 "PaymentFlag": true,
                 "PaymentStatus": 1,
-                "CashTotal": this.shareData.product["ProductInfo"]["mcs_depositamount"],  //线上应收金额
+                "CashTotal": 0,  //订单尾款(未处理)
                 "TotalDepositAmount": 0,  //线上已收金额
                 "ReceivedDepositAmount": 0,
                 "ReceivableAmount": 0,
@@ -196,37 +245,67 @@ export class EditPage implements OnInit {
                 "OrderQty": 1,   //数量
                 "Integral": 0,
                 "Totalintegral": 0,
-                "UnitPrice": this.shareData.productPriceMap[orderGuid]["mcs_salesprice_base"],  //单价
+                "UnitPrice": Number(this.shareData.skuMoney),  //单价
                 "ImageUrl": "",
-                "TotalPrice": this.shareData.productPriceMap[orderGuid]["mcs_salesprice_base"],    //总价
+                "TotalPrice": Number(this.shareData.skuMoney),    //总价
                 "DeliveryType": 1,  //交货方式
                 "ProviderParams": [
                 ]
             }
-            data["Products"].push(product);
+            postData["Products"].push(product);
+            //sumMoney += this.shareData.productPriceMap[orderGuid]["mcs_salesprice_base"];
         }
+
+
 
         //组装选装地图
         for (var relatedKey in this.shareData.productRelatedMap) {
-            if (this.shareData.productRelatedMap[relatedKey]["ext_select"] === "2")
-
+            if (this.shareData.productRelatedMap[relatedKey]["ext_select"] === "2") {
                 var product = {
-                    "ProductCode": this.shareData.productRelatedMap[relatedKey]["b.mcs_code"],
+                    "ProductCode": this.shareData.productRelatedMap[relatedKey]["Product"]["ProductInfo"]["mcs_code"],
                     "SkuCode": this.shareData.productRelatedMap[relatedKey]["a.mcs_skucode"],
                     "OrderQty": 1,   //数量
                     "Integral": 0,
                     "Totalintegral": 0,
-                    "UnitPrice": this.shareData.productRelatedMap[relatedKey]["a.mcs_salesprice"],  //单价
+                    "UnitPrice": Number(this.shareData.productRelatedMap[relatedKey]["a.mcs_salesprice"]),  //单价
                     "ImageUrl": "",
-                    "TotalPrice": this.shareData.productRelatedMap[relatedKey]["a.mcs_salesprice"],    //总价
+                    "TotalPrice": Number(this.shareData.productRelatedMap[relatedKey]["a.mcs_salesprice"]),    //总价
                     "DeliveryType": 1,  //交货方式
                     "ProviderParams": [
                     ]
                 }
-            data["Products"].push(product);
+                postData["Products"].push(product);
+                //sumMoney += this.shareData.productRelatedMap[relatedKey]["a.mcs_salesprice"];
+            }
         }
 
-        console.log(data);
+
+        //修改总金额
+        postData["OrderData"]["CashTotal"] = this.shareData.sumMoney;  //订单总额
+        postData["OrderData"]["FinalPayment"] = this.shareData.sumMoney;
+        postData["OrderData"]["TotalDepositAmount"] = this.shareData.product["ProductInfo"]["mcs_depositamount"]; //线上应收金额(定金)
+
+
+        var that = this;
+        //请求商品接口
+        this._http.post(
+            this.shareData.postUrl,
+            postData,
+            (res: any) => {
+                console.log(res);
+                if (res["Code"] === "000") {
+                    that._page.navigateRoot("/saleing/carorder/success", { id: res["OrderId"], no: res["OrderCode"] }, "");
+                }
+                else {
+                    this._page.alert("消息提示", res.Message);
+                }
+                this._page.loadingHide();
+            },
+            (err: any) => {
+                this._page.alert("消息提示", "下单异常")
+                this._page.loadingHide();
+            }
+        );
 
     }
 }

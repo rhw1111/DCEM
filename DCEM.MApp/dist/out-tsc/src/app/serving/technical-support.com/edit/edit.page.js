@@ -192,6 +192,8 @@ let EditPage = class EditPage {
                         this.model.postData.mcs_cartypeid = serviceproxymodel.mcs_cartypeid;
                         this.model.viewData.mcs_cartypeidname = serviceproxymodel.mcs_cartypeidname;
                     }
+                    //维修时间
+                    this.model.postData.mcs_repairdate = serviceproxymodel.createdon;
                 }
             }
         });

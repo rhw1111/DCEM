@@ -27,7 +27,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
             dicHeadKey = "Prefer";
             dicHead = new Dictionary<string, IEnumerable<string>>();
             dicHead.Add(dicHeadKey, new List<string>() { "odata.include-annotations=\"*\"" });
-            pageCount = 50;
+            pageCount = 10;
         }
         #endregion
 
@@ -41,7 +41,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
             var xdoc = await Task<XDocument>.Run(() =>
             {
                 var fetchXml = $@"
-                <fetch version='1.0' output-format='xml-platform' mapping='logical' count='{50}' page='{1}' distinct='true'>
+                <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
                     <entity name='mcs_tc_product'>
                         <order attribute='createdon' descending='true' />
                         <filter type='and'>
@@ -326,6 +326,109 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
             return producListResponse;
         }
+        #endregion
+
+        #region 获取 订单列表
+        public async Task<QueryResult<JObject>> QueryOrderList(int pageindex = 1, string search = "")
+        {
+            #region 组装filter
+            var filter = string.Empty;
+            if (!string.IsNullOrEmpty(search))
+            {
+                filter += $"<filter type='or'>";
+                filter += $"<condition attribute='mcs_name' operator='like' value='%{search}%' />";
+                filter += $"<condition attribute='mcs_purchasername' operator='like' value='%{search}%' />";
+                filter += $"<condition attribute='mcs_purchaserphone' operator='like' value='%{search}%' />";
+                filter += $"</filter>";
+            }
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                filter = "<filter type='and'>" + filter;
+                filter = filter + "</filter>";
+            }
+            #endregion
+
+            #region 组装FetchXml
+            var xDoc = await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = string.Empty;
+                fetchXml = $@"
+            <fetch version='1.0' output-format='xml-platform' mapping='logical' count='{pageCount}' page='{pageindex}' >
+              <entity name='mcs_tc_order'>
+                <order attribute='mcs_ordertime' descending='true' />
+                  {filter}
+              </entity>
+            </fetch>";
+                return XDocument.Parse(fetchXml);
+            }); ;
+            #endregion
+
+            #region 获取记录结果集
+            var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_tc_order",
+                FetchXml = xDoc
+            };
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+            var fetchResponse = await _crmService.Execute(fetchRequest);
+            var resultsList = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            #endregion;
+
+            #region 组装数据返回
+            var result = new QueryResult<JObject>();
+            foreach (var entity in resultsList.Value.Results)
+            {
+                result.Results.Add(entity.Attributes);
+            }
+            return result;
+            #endregion
+        }
+
+
+
+
+        #endregion
+
+        #region 获取单条订单信息
+        public async Task<OrderQueryInfoResponse> QueryOrderInfo(string guid)
+        {
+            var orderQueryInfoResponse = new OrderQueryInfoResponse();
+            var orderid = Guid.Parse(guid);
+            var orderEntity = await _crmService.Retrieve("mcs_tc_order", orderid, string.Empty, null, dicHead);
+
+            #region 跟进记录
+            var xdoc = await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = string.Empty;
+                fetchXml = $@"
+            <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false' >
+              <entity name='mcs_tc_productorderitem'>
+                <filter type='and'>
+                <condition attribute='mcs_order' operator='eq' value='{orderid}' />
+                </filter>
+              </entity>
+            </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+            var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_tc_productorderitem",
+                FetchXml = xdoc
+            };
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+            var fetchResponse = await _crmService.Execute(fetchRequest);
+            var productorderitemList = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            #endregion
+
+            orderQueryInfoResponse.OrderInfo = orderEntity.Attributes;
+            foreach (var orderitem in productorderitemList.Value.Results)
+            {
+                orderQueryInfoResponse.OrderItemArray.Add(orderitem.Attributes);
+            }
+            return orderQueryInfoResponse;
+        }
+
         #endregion
 
     }

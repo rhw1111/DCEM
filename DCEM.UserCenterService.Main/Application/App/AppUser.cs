@@ -31,6 +31,11 @@ namespace DCEM.UserCenterService.Main.Application.App
             _userService = userService;
             _userNoticeService = userNoticeService;
         }
+
+        public void IntegralCreate(string key, string userid)
+        {
+            _userService.IntegralCreate(key, userid);
+        }
         public async Task<ValidateResult> ValUserSecurityquestion(UserLoginRequest req)
         {
             return await _userService.ValUserSecurityquestion(req);
@@ -71,12 +76,12 @@ namespace DCEM.UserCenterService.Main.Application.App
 
         public async Task<ValidateResult> UpdateUserPwd(UserLoginRequest model)
         {
-            return await _userService.UpdateUserPwd(model); 
+            return await _userService.UpdateUserPwd(model);
         }
 
         public Task<CrmEntity> getuserdetail(UserDetailRequest userDetailRequest)
         {
-          return  _userService.getuserdetail(userDetailRequest); 
+            return _userService.getuserdetail(userDetailRequest);
         }
 
         public Task<UserTagListResponse> getusertag(UserDetailRequest userDetailRequest)

@@ -121,7 +121,10 @@ namespace DCEM.Main.RemoteService
         #endregion
 
         #region 3.订单管理
-        
+        public async Task<CreateOrderManagerResponse> CreateOrder(CreateOrderManagerRequest request)
+        {
+            return await HttpClinetHelper.PostAsync<CreateOrderManagerRequest, CreateOrderManagerResponse>(request, $"{BaseUrl}/api/order/CreateOrder");
+        }
         #endregion
     }
 }

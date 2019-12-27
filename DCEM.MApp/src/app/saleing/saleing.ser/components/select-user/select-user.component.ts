@@ -13,8 +13,8 @@ export class SelectUserComponent implements OnInit {
     @ViewChild(IonInfiniteScroll, null) ionInfiniteScroll: IonInfiniteScroll;
 
     mod = {
-        //apiUrl: '/Api/CUser/GetUserList',
-        apiUrl: '/assets/json/user.json',
+        apiUrl: '/Api/CUser/GetUserList',
+        //apiUrl: '/assets/json/user.json',
         data: [],
         searchData: {
             pageindex: 1,
@@ -69,7 +69,7 @@ export class SelectUserComponent implements OnInit {
         if (this.mod.searchData.pageindex == 1)
             this._page.loadingShow();
 
-        this._http.getBase(
+        this._http.get(
             this.mod.apiUrl,
             {
                 params: {
