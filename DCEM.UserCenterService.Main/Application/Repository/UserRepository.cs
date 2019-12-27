@@ -122,6 +122,32 @@ namespace DCEM.UserCenterService.Main.Application.Repository
             });
         }
 
+
+
+        /// <summary>
+        /// 积分埋点定义
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public async Task<XDocument> GetMemberintegralpoint(string code)
+        {
+            return await Task<XDocument>.Run(() =>
+            {
+
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+  <entity name='mcs_memberintegralpoint'>
+    <attribute name='mcs_name' /> 
+    <attribute name='mcs_num' /> 
+    <attribute name='mcs_integraltype' /> 
+    <attribute name='mcs_desc' /> 
+    <filter type='and'>
+      <condition attribute='mcs_code' operator='eq' value='{code}' /> 
+    </filter>  
+  </entity>
+</fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
         /// <summary>
         /// 用户行为获取
         /// </summary>
