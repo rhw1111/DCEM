@@ -259,6 +259,7 @@ const routes: Routes = [
                     { path: 'edit', loadChildren: './saleing/carorder/edit/edit.module#EditPageModule' },
                     { path: 'list', loadChildren: './saleing/carorder/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './saleing/carorder/detail/detail.module#DetailPageModule' },
+                    { path: 'success', loadChildren: './saleing/carorder/success/success.module#SuccessPageModule' },
                 ]
             }
         ]

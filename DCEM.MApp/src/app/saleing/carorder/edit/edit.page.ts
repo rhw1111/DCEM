@@ -34,6 +34,7 @@ export class EditPage implements OnInit {
         productRelatedMap: {},                     //商品关联视图
         productPriceMap: {},    //sku地图
         postUrl: "/api/order/CreateOrder",
+        sumMoney: 0
     }
 
     ngOnInit() {
@@ -119,6 +120,29 @@ export class EditPage implements OnInit {
 
     //提交数据下单
     saveOnClick() {
+
+        var errMessage = "";
+
+        if (this._valid.isNullOrEmpty(this.shareData.user["mcs_name"])) {
+            errMessage += "您尚未选择用户<br>";
+        }
+        if (this._valid.isNull(this.shareData.user["mcs_phone"])) {
+            errMessage += "您尚未输入联系方式<br>";
+        }
+        if (this._valid.isNull(this.shareData.user["mcs_cardid"])) {
+            errMessage += "您尚未输入证件号码<br>";
+        }
+        if (this._valid.isNull(this.shareData.product["ProductInfo"]["mcs_code"])) {
+            errMessage += "您尚未选择车辆<br>";
+        }
+        if (errMessage !== "") {
+
+            this._page.presentToastError(errMessage);
+            return;
+        }
+
+
+
         this._page.loadingShow();
         var sumMoney = 0;
         //组装基础数据
@@ -238,6 +262,7 @@ export class EditPage implements OnInit {
         postData["OrderData"]["TotalDepositAmount"] = this.shareData.product["ProductInfo"]["mcs_depositamount"]; //线上应收金额(定金)
 
 
+        var that = this;
         //请求商品接口
         this._http.post(
             this.shareData.postUrl,
@@ -245,12 +270,10 @@ export class EditPage implements OnInit {
             (res: any) => {
                 console.log(res);
                 if (res["Code"] === "000") {
-                    this._page.alert("消息提示", "您的订单已经下单成功", function () {
-                        //that._page.navigateRoot("/personalcenter/myorder/fineorder/detail", { code: postData["OrderData"]["OrderCode"] }, "");
-                    });
+                    that._page.navigateRoot("/saleing/carorder/success", { id: res["OrderId"], no: res["OrderCode"] }, "");
                 }
                 else {
-                    this._page.alert("消息提示", res.message);
+                    this._page.alert("消息提示", res.Message);
                 }
                 this._page.loadingHide();
             },
