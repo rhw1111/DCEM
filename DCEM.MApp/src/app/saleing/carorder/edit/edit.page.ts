@@ -245,9 +245,9 @@ export class EditPage implements OnInit {
                 "OrderQty": 1,   //数量
                 "Integral": 0,
                 "Totalintegral": 0,
-                "UnitPrice": this.shareData.skuMoney,  //单价
+                "UnitPrice": Number(this.shareData.skuMoney),  //单价
                 "ImageUrl": "",
-                "TotalPrice": this.shareData.skuMoney,    //总价
+                "TotalPrice": Number(this.shareData.skuMoney),    //总价
                 "DeliveryType": 1,  //交货方式
                 "ProviderParams": [
                 ]
@@ -267,9 +267,9 @@ export class EditPage implements OnInit {
                     "OrderQty": 1,   //数量
                     "Integral": 0,
                     "Totalintegral": 0,
-                    "UnitPrice": this.shareData.productRelatedMap[relatedKey]["a.mcs_salesprice"],  //单价
+                    "UnitPrice": Number(this.shareData.productRelatedMap[relatedKey]["a.mcs_salesprice"]),  //单价
                     "ImageUrl": "",
-                    "TotalPrice": this.shareData.productRelatedMap[relatedKey]["a.mcs_salesprice"],    //总价
+                    "TotalPrice": Number(this.shareData.productRelatedMap[relatedKey]["a.mcs_salesprice"]),    //总价
                     "DeliveryType": 1,  //交货方式
                     "ProviderParams": [
                     ]
