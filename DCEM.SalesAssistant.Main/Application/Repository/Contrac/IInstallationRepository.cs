@@ -18,6 +18,14 @@ namespace DCEM.SalesAssistant.Main.Application.Repository.Contrac
         /// <param name="_request"></param>
         /// <returns></returns>
         string GetSurveyorderList(SurveyorderListRequest _request);
+
+        /// <summary>
+        ///  获取勘测单列表接口（全字段查询）
+        /// </summary>
+        /// <param name="_request"></param>
+        /// <returns></returns>
+        string GetSurveyorderListAll(SurveyorderListRequest _request);
+
         /// <summary>
         /// 获取勘测单详情
         /// </summary>

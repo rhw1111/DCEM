@@ -11,8 +11,8 @@ import { SelectSurveyorderComponent } from "app/serving/serving.ser/components/s
 })
 export class EditPage implements OnInit {
   model={
-    postApiUrl:'/api/Installation/AddOrEditSurveyorder',
-    detailApiUrl:'/api/Installation/GetSurveyorderDetail',
+    postApiUrl:'/api/Installation/AddOrEditInstallationorder',
+    detailApiUrl:'/api/Installation/GetInstallationorderDetail',
     postData:{
       mcs_installationorderid:"",
       mcs_surveyorderid:"",
@@ -37,7 +37,7 @@ export class EditPage implements OnInit {
       mcs_isneedpillar:"",//是否需要立柱
       mcs_chargingpilemodel:"", //充电桩型号
       mcs_chargingpilemodelname:"", //充电桩型号名称
-      mcs_price:null, //套餐金额
+      mcs_price:"", //套餐金额
       mcs_communityname:"", //小区名称
 
       mcs_propertyattitude:"", //物业态度
@@ -46,12 +46,12 @@ export class EditPage implements OnInit {
       mcs_vin:"", 
       mcs_powertypeid:"", //动力类型
       mcs_powertypename:"", //动力类型名称
-      mcs_settlementprice:"", //结算价格
+      mcs_settlementprice:0, //结算价格
       mcs_installationproviderid:"", //安装服务商
       mcs_installationprovidername:"", //安装服务商名称
       mcs_contact:"",//安装服务商联系人
       mcs_installationproviderphone:"",//安装服务电话
-      mcs_appointmenttime:"",//安装服务时间
+      mcs_appointmenttime:null,//安装服务时间
       mcs_installationengineerid:"",//安装交付工程师
       mcs_installationengineername:"",//安装交付工程师名称
       mcs_installationengineerphone:"" //安装交付工程师电话
@@ -95,7 +95,26 @@ export class EditPage implements OnInit {
                 this.model.postData.mcs_surveyorderid = data.mcs_surveyorderid;
                 this.model.postData.mcs_username = data.mcs_username;
                 this.model.postData.mcs_userphone = data.mcs_userphone;
-                this.model.postData.mcs_email = data.mcs_email;             
+                this.model.postData.mcs_email = data.mcs_email; 
+                this.model.postData.mcs_carmodelid = data.mcs_carmodelid;
+                this.model.postData.mcs_carmodelname = data.mcs_carmodelname;
+                this.model.postData.mcs_dealerid =data.mcs_dealer;
+                this.model.postData.mcs_dealername = data.mcs_dealername;
+                this.model.postData.mcs_salesconsultant =data.mcs_salesconsultant;
+                this.model.postData.mcs_salesconsultantname =data.mcs_salesconsultantname;
+                this.model.postData.mcs_province = data.mcs_province;
+                this.model.postData.mcs_provincename = data.mcs_provincename;
+                this.model.postData.mcs_city = data.mcs_city;
+                this.model.postData.mcs_cityname = data.mcs_cityname;
+                this.model.postData.mcs_area = data.mcs_area;
+                this.model.postData.mcs_areaname = data.mcs_areaname;
+                this.model.postData.mcs_installationaddress = data.mcs_installationaddress;
+                this.model.postData.mcs_detailaddress =data.mcs_detailaddress;
+                this.model.postData.mcs_chargingpilemodel = data.mcs_chargingpilemodel;
+                this.model.postData.mcs_chargingpilemodelname =  data.mcs_chargingpilemodelname;
+                this.model.postData.mcs_price = data.mcs_price;
+                this.model.postData.mcs_communityname = data.mcs_communityname;
+                      
             }
         }
     }
@@ -136,7 +155,9 @@ pageOnBind(id: any) {
       this.model.postData.mcs_detailaddress = res["Attributes"]["mcs_detailaddress"];
       this.model.postData.mcs_chargingpilemodel = res["Attributes"]["_mcs_chargingpilemodel_value"];
       this.model.postData.mcs_chargingpilemodelname =  res["Attributes"]["_mcs_chargingpilemodel_value@OData.Community.Display.V1.FormattedValue"];
+      this.model.postData.mcs_price = res["Attributes"]["mcs_price"];
       this.model.postData.mcs_communityname = res["Attributes"]["mcs_communityname"];
+
       this.model.postData.mcs_powertypeid = res["Attributes"]["_mcs_powertypeid_value"];
       this.model.postData.mcs_powertypename = res["Attributes"]["_mcs_powertypeid_value@OData.Community.Display.V1.FormattedValue"];
       this.model.postData. mcs_settlementprice = res["Attributes"]["mcs_settlementprice"];

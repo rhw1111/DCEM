@@ -57,5 +57,50 @@ namespace DCEM.UserCenterService.Main.Application.Repository
                 return XDocument.Parse(fetchXml);
             });
         }
+
+        public async Task<XDocument> GetPageFieldsXml(Guid pageId)
+        {
+            return await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+                  <entity name='mcs_am_pagefield'>
+                    <attribute name='mcs_am_pagefieldid' />
+                    <attribute name='mcs_name' />
+                    <attribute name='mcs_tip' />
+                    <attribute name='mcs_required' />
+                    <attribute name='mcs_placeholder' />
+                    <attribute name='mcs_label' />
+                    <attribute name='mcs_displayorder' />
+                    <order attribute='mcs_name' descending='false' />
+                    <filter type='and'>
+                      <condition attribute='mcs_am_pageid' operator='eq' value='{pageId}' />
+                    </filter>
+                    <link-entity name='mcs_am_pagefieldconfig' from='mcs_am_pagefieldconfigid' to='mcs_am_pagefieldconfigid'             visible='false' link-type='outer' alias='config'>
+                      <attribute name='mcs_name' />
+                    </link-entity>
+                  </entity>
+                </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
+
+        public async Task<XDocument> GetUserBehaviorXml(Guid pageId)
+        {
+            return await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+                  <entity name='mcs_am_page'>
+                    <attribute name='mcs_am_pageid' />
+                    <filter type='and'>
+                      <condition attribute='mcs_am_pageid' operator='eq'  value='{pageId}' />
+                    </filter>
+                    <link-entity name='mcs_behavior' from='mcs_behaviorid' to='mcs_behavior' visible='false' link-type='outer'    alias='behavior'>
+                      <attribute name='mcs_code' />
+                    </link-entity>
+                  </entity>
+                </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
     }
 }
