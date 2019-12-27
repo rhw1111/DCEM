@@ -270,7 +270,7 @@ namespace DCEM.Web.Controllers
         /// <returns></returns>
         [Route("deducationintegral")]
         [HttpPost]
-        public async Task<NewtonsoftJsonActionResult<ValidateResult>> DeDucationIntegral(UserDeDucationIntegralRequest request)
+        public async Task<NewtonsoftJsonActionResult<ValidateResult>> deducationintegral(UserDeDucationIntegralRequest request)
         {
             return await _appUser.DeDucationIntegral(request);
         }
