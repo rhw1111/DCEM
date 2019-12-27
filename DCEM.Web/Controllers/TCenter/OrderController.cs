@@ -38,7 +38,7 @@ namespace DCEM.Web.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("CreateOrder")]
-        public async Task<CreateOrderManagerResponse> CreateOrder([FromBody]CreateOrderManagerRequest param)
+        public async Task<NewtonsoftJsonActionResult<CreateOrderManagerResponse>> CreateOrder([FromBody]CreateOrderManagerRequest param)
         {
             var logic = await _tCenterFactory.Create();
             return await logic.CreateOrder(param);

@@ -119,6 +119,8 @@ export class EditPage implements OnInit {
 
     //提交数据下单
     saveOnClick() {
+        this._page.loadingShow();
+        var sumMoney = 0;
         //组装基础数据
         var postData = {
             "OrderData": {
@@ -127,7 +129,7 @@ export class EditPage implements OnInit {
                 "UserName": this.shareData.user["mcs_name"],
                 "OrderType": 0,
                 "UserMobile": this.shareData.user["mcs_phone"],
-                "Media": 3,
+                "Media": 0,
                 "ChannelSource": "1099",
                 "OrderTime": new Date(),
                 "CarBuyerName": this.shareData.user["mcs_name"],
@@ -137,7 +139,7 @@ export class EditPage implements OnInit {
                 "ShippingFlag": false,
                 "PaymentFlag": true,
                 "PaymentStatus": 1,
-                "CashTotal": this.shareData.product["ProductInfo"]["mcs_depositamount"],  //线上应收金额
+                "CashTotal": 0,  //订单尾款(未处理)
                 "TotalDepositAmount": 0,  //线上已收金额
                 "ReceivedDepositAmount": 0,
                 "ReceivableAmount": 0,
@@ -204,6 +206,7 @@ export class EditPage implements OnInit {
                 ]
             }
             postData["Products"].push(product);
+            sumMoney += this.shareData.productPriceMap[orderGuid]["mcs_salesprice_base"];
         }
 
 
@@ -225,27 +228,35 @@ export class EditPage implements OnInit {
                     ]
                 }
                 postData["Products"].push(product);
+                sumMoney += this.shareData.productRelatedMap[relatedKey]["a.mcs_salesprice"];
             }
         }
-        debugger;
+
+        //修改总金额
+        postData["OrderData"]["CashTotal"] = sumMoney;  //订单总额
+        postData["OrderData"]["FinalPayment"] = sumMoney;
+        postData["OrderData"]["TotalDepositAmount"] = this.shareData.product["ProductInfo"]["mcs_depositamount"]; //线上应收金额(定金)
+
+
         //请求商品接口
         this._http.post(
             this.shareData.postUrl,
             postData,
             (res: any) => {
+                console.log(res);
                 if (res["Code"] === "000") {
                     this._page.alert("消息提示", "您的订单已经下单成功", function () {
                         //that._page.navigateRoot("/personalcenter/myorder/fineorder/detail", { code: postData["OrderData"]["OrderCode"] }, "");
                     });
-
                 }
                 else {
-                    this._page.alert("消息提示", res.Message);
+                    this._page.alert("消息提示", res.message);
                 }
+                this._page.loadingHide();
             },
             (err: any) => {
                 this._page.alert("消息提示", "下单异常")
-                console.log(err);
+                this._page.loadingHide();
             }
         );
 

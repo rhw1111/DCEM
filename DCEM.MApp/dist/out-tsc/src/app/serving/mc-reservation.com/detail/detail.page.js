@@ -3,10 +3,12 @@ import { Component } from '@angular/core';
 import { DCore_Http, DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute } from '@angular/router';
 import sd from 'silly-datetime';
+import { MenuController } from '@ionic/angular';
 let DetailPage = class DetailPage {
-    constructor(_http, _page, activeRoute) {
+    constructor(_http, _page, menuController, activeRoute) {
         this._http = _http;
         this._page = _page;
+        this.menuController = menuController;
         this.activeRoute = activeRoute;
         this.tab = "infolist";
         this.model = {
@@ -52,6 +54,10 @@ let DetailPage = class DetailPage {
                 this.pageOnBind(this.model.infolist.mcs_appointmentinfoid);
             }
         });
+    }
+    //每次页面加载
+    ionViewDidEnter() {
+        this.menuController.enable(true);
     }
     pageOnBind(id) {
         this._page.loadingShow();
@@ -161,6 +167,7 @@ DetailPage = tslib_1.__decorate([
     }),
     tslib_1.__metadata("design:paramtypes", [DCore_Http,
         DCore_Page,
+        MenuController,
         ActivatedRoute])
 ], DetailPage);
 export { DetailPage };

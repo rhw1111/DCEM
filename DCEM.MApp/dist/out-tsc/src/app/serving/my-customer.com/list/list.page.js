@@ -1,12 +1,13 @@
 import * as tslib_1 from "tslib";
 import { Component, ViewChild } from '@angular/core';
 import { IonContent, IonInfiniteScroll } from '@ionic/angular';
-import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
+import { DCore_Http, DCore_Page, DCore_Valid, DCore_Window } from 'app/base/base.ser/Dcem.core';
 let ListPage = class ListPage {
-    constructor(_http, _page, _valid) {
+    constructor(_http, _page, _valid, _window) {
         this._http = _http;
         this._page = _page;
         this._valid = _valid;
+        this._window = _window;
         this.mod = {
             apiUrl: '/Api/Customer/GetMyCustomerList',
             data: [],
@@ -70,13 +71,18 @@ let ListPage = class ListPage {
                 for (var key in res.Results) {
                     console.log(res.Results[key]);
                     var obj = {};
+                    var domain = this._window.storageGet("apiDomainUrl");
+                    var flex = "a_x002e_";
+                    if (domain.indexOf('106.14.121.65') != -1) {
+                        flex = "a.";
+                    }
                     obj["Id"] = res.Results[key]["Id"];
-                    obj["fullname"] = res.Results[key]["Attributes"]["a.mcs_fullname"];
-                    obj["genderformat"] = res.Results[key]["Attributes"]["a.mcs_gender@OData.Community.Display.V1.FormattedValue"];
-                    obj["gender"] = res.Results[key]["Attributes"]["a.mcs_gender"];
-                    obj["mobilephone"] = res.Results[key]["Attributes"]["a.mcs_mobilephone"];
-                    obj["vehplate"] = res.Results[key]["Attributes"]["a.mcs_vehplate"];
-                    obj["vehtype"] = res.Results[key]["Attributes"]["a.mcs_vehtype@OData.Community.Display.V1.FormattedValue"];
+                    obj["fullname"] = res.Results[key]["Attributes"][flex + "mcs_fullname"];
+                    obj["genderformat"] = res.Results[key]["Attributes"][flex + "mcs_gender@OData.Community.Display.V1.FormattedValue"];
+                    obj["gender"] = res.Results[key]["Attributes"][flex + "mcs_gender"];
+                    obj["mobilephone"] = res.Results[key]["Attributes"][flex + "mcs_mobilephone"];
+                    obj["vehplate"] = res.Results[key]["Attributes"][flex + "mcs_vehplate"];
+                    obj["vehtype"] = res.Results[key]["Attributes"][flex + "mcs_vehtype@OData.Community.Display.V1.FormattedValue"];
                     obj["gendercolor"] = "medium";
                     if (obj["gender"] === 1) {
                         obj["gendercolor"] = "primary";
@@ -123,7 +129,8 @@ ListPage = tslib_1.__decorate([
     }),
     tslib_1.__metadata("design:paramtypes", [DCore_Http,
         DCore_Page,
-        DCore_Valid])
+        DCore_Valid,
+        DCore_Window])
 ], ListPage);
 export { ListPage };
 //# sourceMappingURL=list.page.js.map
