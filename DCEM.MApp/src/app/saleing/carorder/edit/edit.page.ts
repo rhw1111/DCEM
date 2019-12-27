@@ -34,6 +34,7 @@ export class EditPage implements OnInit {
         productRelatedMap: {},                     //商品关联视图
         productPriceMap: {},    //sku地图
         postUrl: "/api/order/CreateOrder",
+        skuMoney: 0,
         sumMoney: 0
     }
 
@@ -113,8 +114,30 @@ export class EditPage implements OnInit {
                 var key = productPrice["mcs_orderguid"];
                 this.shareData.productPriceMap[key] = productPrice;
             }
+            //算总价
+            this.calcSum();
+        }
+    }
 
-            console.log(this.shareData);
+    //计算总价
+    public calcSum() {
+        this.shareData.sumMoney = 0;
+        this.shareData.skuMoney = 0;
+        this.shareData.sumMoney = this.shareData.product["ProductInfo"]["mcs_baseprice"];
+        this.shareData.skuMoney = this.shareData.product["ProductInfo"]["mcs_baseprice"];
+        //找产品
+        for (var groupKey in this.shareData.productOrderingattributeClassMap) {
+            var selectKey = this.shareData.productOrderingattributeClassMap[groupKey]["selectKey"];
+            if (this._valid.isNumber(this.shareData.productOrderingattributeMap[selectKey]["mcs_attributeextprice"])) {
+                this.shareData.sumMoney += this.shareData.productOrderingattributeMap[selectKey]["mcs_attributeextprice"];
+                this.shareData.skuMoney += this.shareData.productOrderingattributeMap[selectKey]["mcs_attributeextprice"];
+            }
+        }
+        //组装选装地图
+        for (var relatedKey in this.shareData.productRelatedMap) {
+            if (this.shareData.productRelatedMap[relatedKey]["ext_select"] === "2") {
+                this.shareData.sumMoney += this.shareData.productRelatedMap[relatedKey]["a.mcs_salesprice"];
+            }
         }
     }
 
@@ -222,15 +245,15 @@ export class EditPage implements OnInit {
                 "OrderQty": 1,   //数量
                 "Integral": 0,
                 "Totalintegral": 0,
-                "UnitPrice": this.shareData.productPriceMap[orderGuid]["mcs_salesprice_base"],  //单价
+                "UnitPrice": Number(this.shareData.skuMoney),  //单价
                 "ImageUrl": "",
-                "TotalPrice": this.shareData.productPriceMap[orderGuid]["mcs_salesprice_base"],    //总价
+                "TotalPrice": Number(this.shareData.skuMoney),    //总价
                 "DeliveryType": 1,  //交货方式
                 "ProviderParams": [
                 ]
             }
             postData["Products"].push(product);
-            sumMoney += this.shareData.productPriceMap[orderGuid]["mcs_salesprice_base"];
+            //sumMoney += this.shareData.productPriceMap[orderGuid]["mcs_salesprice_base"];
         }
 
 
@@ -244,21 +267,22 @@ export class EditPage implements OnInit {
                     "OrderQty": 1,   //数量
                     "Integral": 0,
                     "Totalintegral": 0,
-                    "UnitPrice": this.shareData.productRelatedMap[relatedKey]["a.mcs_salesprice"],  //单价
+                    "UnitPrice": Number(this.shareData.productRelatedMap[relatedKey]["a.mcs_salesprice"]),  //单价
                     "ImageUrl": "",
-                    "TotalPrice": this.shareData.productRelatedMap[relatedKey]["a.mcs_salesprice"],    //总价
+                    "TotalPrice": Number(this.shareData.productRelatedMap[relatedKey]["a.mcs_salesprice"]),    //总价
                     "DeliveryType": 1,  //交货方式
                     "ProviderParams": [
                     ]
                 }
                 postData["Products"].push(product);
-                sumMoney += this.shareData.productRelatedMap[relatedKey]["a.mcs_salesprice"];
+                //sumMoney += this.shareData.productRelatedMap[relatedKey]["a.mcs_salesprice"];
             }
         }
 
+
         //修改总金额
-        postData["OrderData"]["CashTotal"] = sumMoney;  //订单总额
-        postData["OrderData"]["FinalPayment"] = sumMoney;
+        postData["OrderData"]["CashTotal"] = this.shareData.sumMoney;  //订单总额
+        postData["OrderData"]["FinalPayment"] = this.shareData.sumMoney;
         postData["OrderData"]["TotalDepositAmount"] = this.shareData.product["ProductInfo"]["mcs_depositamount"]; //线上应收金额(定金)
 
 
