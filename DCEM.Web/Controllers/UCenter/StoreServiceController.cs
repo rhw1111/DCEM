@@ -51,16 +51,17 @@ namespace DCEM.Web.Controllers.UCenter
 
 
         /// <summary>
-        ///  订单创建接口
+        ///  单条订单查询接口
         /// </summary>
         /// <param name="appointmentInfoRequest"></param>
         /// <returns></returns>
-        //[HttpPost]
-        //[Route("CreateOrder")]
-        //public async Task<NewtonsoftJsonActionResult<CreateOrderResponse>> CreateOrder([FromBody]object body)
-        //{
-        //    JObject jo = JObject.Parse(body.ToString());
-        //    return await _storeService.CreateOrder(jo);
-        //}
+        [HttpGet]
+        [Route("GetOrderInfo")]
+        public async Task<NewtonsoftJsonActionResult<OrderQueryInfoResponse>> GetOrderInfo(string guid = "")
+        {
+            return await _storeService.QueryOrderInfo(guid);
+        }
+
+
     }
 }

@@ -12,7 +12,7 @@
 
 <ion-content>
     <ion-list lines="full">
-        <ion-item *ngFor="let item of mod.data;let key=index" [routerLink]="['/saleing/carorder/detail']">
+        <ion-item *ngFor="let item of mod.data;let key=index" [routerLink]="['/saleing/carorder/detail']" [queryParams]="{id:item['mcs_tc_orderid']}">
             <ion-icon slot="start" color="primary" name="document" size="large"></ion-icon>
             <ion-label>
                 <h2>{{item["mcs_purchasername"]}}</h2>

@@ -356,6 +356,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 fetchXml = $@"
             <fetch version='1.0' output-format='xml-platform' mapping='logical' count='{pageCount}' page='{pageindex}' >
               <entity name='mcs_tc_order'>
+                <order attribute='mcs_ordertime' descending='true' />
                   {filter}
               </entity>
             </fetch>";
@@ -383,6 +384,51 @@ namespace DCEM.UserCenterService.Main.Application.Services
             return result;
             #endregion
         }
+
+
+
+
+        #endregion
+
+        #region 获取单条订单信息
+        public async Task<OrderQueryInfoResponse> QueryOrderInfo(string guid)
+        {
+            var orderQueryInfoResponse = new OrderQueryInfoResponse();
+            var orderid = Guid.Parse(guid);
+            var orderEntity = await _crmService.Retrieve("mcs_tc_order", orderid, string.Empty, null, dicHead);
+
+            #region 跟进记录
+            var xdoc = await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = string.Empty;
+                fetchXml = $@"
+            <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false' >
+              <entity name='mcs_tc_productorderitem'>
+                <filter type='and'>
+                <condition attribute='mcs_order' operator='eq' value='{orderid}' />
+                </filter>
+              </entity>
+            </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+            var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_tc_productorderitem",
+                FetchXml = xdoc
+            };
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+            var fetchResponse = await _crmService.Execute(fetchRequest);
+            var productorderitemList = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            #endregion
+
+            orderQueryInfoResponse.OrderInfo = orderEntity.Attributes;
+            foreach (var orderitem in productorderitemList.Value.Results)
+            {
+                orderQueryInfoResponse.OrderItemArray.Add(orderitem.Attributes);
+            }
+            return orderQueryInfoResponse;
+        }
+
         #endregion
 
     }

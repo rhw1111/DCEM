@@ -10,8 +10,8 @@ import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core
 export class SelectCarproductComponent implements OnInit {
 
     mod = {
-        //apiUrl: '/api/Store/GetProductList',
-        apiUrl: '/assets/json/carproduct.json',
+        apiUrl: '/api/Store/GetProductList',
+        //apiUrl: '/assets/json/carproduct.json',
         data: [],
         searchData: {
             pageindex: 1,
@@ -55,7 +55,7 @@ export class SelectCarproductComponent implements OnInit {
         if (this.mod.searchData.pageindex == 1)
             this._page.loadingShow();
 
-        this._http.getBase(
+        this._http.get(
             this.mod.apiUrl,
             {
             },
