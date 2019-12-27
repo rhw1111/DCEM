@@ -1,0 +1,142 @@
+﻿<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回"></ion-back-button>
+        </ion-buttons>
+        <ion-title>代客下单</ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-list lines="full">
+        <ion-item-divider color="primary">
+            <ion-label>
+                客户信息
+            </ion-label>
+        </ion-item-divider>
+        <ion-item (click)="presentUserModal()">
+            <ion-label position="stacked">
+                <ion-icon name="search"></ion-icon>
+                姓名
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <p>{{shareData.user["mcs_name"]}}&nbsp;</p>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
+                手机号码
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input placeholder="请输入手机号码" maxlength="12" [(ngModel)]="shareData.user['mcs_phone']" required></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
+                证件类型
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-select cancelText="取消" okText="确定" placeholder="请选择证件类型" [(ngModel)]="shareData.user['ext_cardype']">
+                <ion-select-option value="1">身份证</ion-select-option>
+                <ion-select-option value="2">港澳来往内地通行证</ion-select-option>
+                <ion-select-option value="3">台湾来往通行证</ion-select-option>
+                <ion-select-option value="4">护照</ion-select-option>
+                <ion-select-option value="5">企业纳税识别号</ion-select-option>
+                <ion-select-option value="0">其它</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label position="stacked">
+                证件号码
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-input placeholder="请输入证件号码" [(ngModel)]="shareData.user['mcs_cardid']" required></ion-input>
+        </ion-item>
+
+        <ion-item-divider color="primary">
+            <ion-label>
+                购买车型
+            </ion-label>
+        </ion-item-divider>
+        <ion-item (click)="presentCarproductModal()">
+            <ion-label position="stacked">
+                <ion-icon name="search"></ion-icon>
+                车型
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <p>{{shareData.product["ProductInfo"]["mcs_name"]}}&nbsp;</p>
+        </ion-item>
+        <ion-item (click)="presentCarproductModal()">
+            <ion-label position="stacked">
+                <ion-icon name="lock"></ion-icon>
+                基本价格
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <p>{{shareData.product["ProductInfo"]["mcs_baseprice@OData.Community.Display.V1.FormattedValue"]}}&nbsp;</p>
+        </ion-item>
+        <ion-item (click)="presentCarproductModal()">
+            <ion-label position="stacked">
+                <ion-icon name="lock"></ion-icon>
+                定金金额
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <p>{{shareData.product["ProductInfo"]["mcs_depositamount@OData.Community.Display.V1.FormattedValue"]}}&nbsp;</p>
+        </ion-item>
+
+
+        <ion-item-divider color="primary" *ngIf="objectKeys(shareData.productOrderingattributeClassMap).length>0">
+            <ion-label>
+                外观内饰
+            </ion-label>
+        </ion-item-divider>
+        <ion-item *ngFor="let groupKey of objectKeys(shareData.productOrderingattributeClassMap)">
+            <ion-label position="stacked">
+                {{groupKey}}
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <ion-select cancelText="取消" okText="确定" placeholder="请选择{{groupKey}}" [(ngModel)]="shareData.productOrderingattributeClassMap[groupKey]['selectKey']">
+                <ion-select-option *ngFor="let attKey of objectKeys(shareData.productOrderingattributeClassMap[groupKey]['productOrderingattributeMap'])" value="{{shareData['productOrderingattributeMap'][attKey]['mcs_tc_productorderingattributeid']}}">
+                    {{shareData['productOrderingattributeMap'][attKey]['mcs_attributevalue']}}
+                </ion-select-option>
+            </ion-select>
+        </ion-item>
+
+
+        <ion-item-divider color="primary" *ngIf="objectKeys(shareData.productRelatedMap).length>0">
+            <ion-label>
+                选装项
+            </ion-label>
+        </ion-item-divider>
+        <ion-item *ngFor="let relKey of objectKeys(shareData.productRelatedMap)">
+            <ion-label position="stacked">
+                {{shareData.productRelatedMap[relKey]['a.mcs_product@OData.Community.Display.V1.FormattedValue']}}({{shareData.productRelatedMap[relKey]['_mcs_relatedproductsku_value@OData.Community.Display.V1.FormattedValue']}})
+            </ion-label>
+            <ion-select cancelText="取消" okText="确定" placeholder="请选择{{groupKey}}" [(ngModel)]="shareData.productRelatedMap[relKey]['ext_select']">
+                <ion-select-option value="1">不订购</ion-select-option>
+                <ion-select-option value="2">订购</ion-select-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item-divider color="primary">
+            <ion-label>
+                合计金额
+            </ion-label>
+        </ion-item-divider>
+        <ion-item>
+            <ion-label position="stacked">
+                <ion-icon name="lock"></ion-icon>
+                订单总额
+            </ion-label>
+            <p>{{shareData['sumMoney']}}&nbsp;</p>
+        </ion-item>
+    </ion-list>
+
+
+    <section style="text-align:center;">
+        <ion-button style="width:40%" color="danger" (click)="saveOnClick()">保存</ion-button>
+    </section>
+    <br />
+    <br />
+</ion-content>

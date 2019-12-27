@@ -64,6 +64,14 @@ let DCore_Http = class DCore_Http {
             errcallback && errcallback(err);
         });
     }
+    //get请求
+    getBase(url, params, rescallback, errcallback) {
+        this._httpClient.get(url, params).subscribe((res) => {
+            rescallback && rescallback(res);
+        }, (err) => {
+            errcallback && errcallback(err);
+        });
+    }
     //post请求
     postForToaken(url, params, rescallback, errcallback) {
         this._httpClient.post(this._config.getDomain() + url, params, {
@@ -407,4 +415,43 @@ DCore_Log = tslib_1.__decorate([
     tslib_1.__metadata("design:paramtypes", [Dateformat])
 ], DCore_Log);
 export { DCore_Log };
+//字符串处理
+let DCore_String = class DCore_String {
+    constructor() {
+    }
+    GetRandom(len = 24) {
+        var $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var maxPos = $chars.length;
+        var pwd = '';
+        for (var i = 0; i < len; i++) {
+            pwd += $chars.charAt(Math.floor(Math.random() * (maxPos + 1)));
+        }
+        return pwd;
+    }
+    GetDateFormat(date, format) {
+        date["M+"] = date.getMonth() + 1;
+        date["d+"] = date.getDate();
+        date["h+"] = date.getHours();
+        date["m+"] = date.getMinutes();
+        date["s+"] = date.getSeconds();
+        date["q+"] = Math.floor((date.getMonth() + 3) / 3);
+        date["S+"] = date.getMilliseconds();
+        if (/(y+)/i.test(format)) {
+            format = format.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+        }
+        for (var k in date) {
+            if (new RegExp("(" + k + ")").test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+            }
+        }
+        return format;
+    }
+};
+DCore_String = tslib_1.__decorate([
+    Injectable({
+        providedIn: 'root'
+    }),
+    tslib_1.__metadata("design:paramtypes", [])
+], DCore_String);
+export { DCore_String };
 //# sourceMappingURL=Dcem.core.js.map
