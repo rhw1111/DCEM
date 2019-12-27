@@ -28,6 +28,10 @@ export class SelectCarproductComponent implements OnInit {
 
     }
 
+    public shareData = {
+        productMap: {},                            //产品视图
+    }
+
     ngOnInit() {
         this.listOnBind();
     }
@@ -56,16 +60,30 @@ export class SelectCarproductComponent implements OnInit {
             {
             },
             (res: any) => {
+                let that: SelectCarproductComponent = this;
                 if (!this._valid.isNull(res.ProductList) !== null && res.ProductList.length > 0) {
+                    //组装产品地图
+                    for (var key in res.ProductList) {
+                        let asseProductMap = function () {
+                            var productInfo = res.ProductList[key]["ProductInfo"];
+                            var productKey = productInfo["mcs_tc_productid"];
+                            that.shareData.productMap[productKey] = res.ProductList[key];
+                        }();
+                    }
+
                     for (var key in res.ProductList) {
 
-                        console.log(res.ProductList[key]);
-
                         if (res.ProductList[key]["ProductInfo"]["mcs_type"] === 1 && res.ProductList[key]["ProductPriceArray"].length > 0) {
+                            //加入商品关系的产品信息
+                            var productRelatedArray = res.ProductList[key]["ProductRelatedArray"];
+                            for (var relKey in productRelatedArray) {
+                                var productKey = productRelatedArray[relKey]["a.mcs_product"];
+                                if (!this._valid.isNull(this.shareData.productMap[productKey])) {
+                                    productRelatedArray[relKey]["Product"] = this.shareData.productMap[productKey];
+                                }
+                            }
                             this.mod.data.push(res.ProductList[key]);
                         }
-
-
                     }
                 }
                 else {

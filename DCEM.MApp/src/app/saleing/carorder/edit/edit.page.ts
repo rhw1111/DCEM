@@ -29,11 +29,11 @@ export class EditPage implements OnInit {
         product: {
             ProductInfo: {},
         },
-
         productOrderingattributeMap: {},           //基础地图
         productOrderingattributeClassMap: {},      //分组地图
         productRelatedMap: {},                     //商品关联视图
         productPriceMap: {},    //sku地图
+        postUrl: "/api/order/CreateOrder",
     }
 
     ngOnInit() {
@@ -120,7 +120,7 @@ export class EditPage implements OnInit {
     //提交数据下单
     saveOnClick() {
         //组装基础数据
-        var data = {
+        var postData = {
             "OrderData": {
                 "OrderCode": "DCEM_" + this._string.GetDateFormat(new Date(), "yyyyMMddhhmmss") + "_" + this._string.GetRandom(3).toLocaleUpperCase(),
                 "UserId": this.shareData.user["mcs_userid"],
@@ -203,15 +203,16 @@ export class EditPage implements OnInit {
                 "ProviderParams": [
                 ]
             }
-            data["Products"].push(product);
+            postData["Products"].push(product);
         }
+
+
 
         //组装选装地图
         for (var relatedKey in this.shareData.productRelatedMap) {
-            if (this.shareData.productRelatedMap[relatedKey]["ext_select"] === "2")
-
+            if (this.shareData.productRelatedMap[relatedKey]["ext_select"] === "2") {
                 var product = {
-                    "ProductCode": this.shareData.productRelatedMap[relatedKey]["b.mcs_code"],
+                    "ProductCode": this.shareData.productRelatedMap[relatedKey]["Product"]["ProductInfo"]["mcs_code"],
                     "SkuCode": this.shareData.productRelatedMap[relatedKey]["a.mcs_skucode"],
                     "OrderQty": 1,   //数量
                     "Integral": 0,
@@ -223,10 +224,30 @@ export class EditPage implements OnInit {
                     "ProviderParams": [
                     ]
                 }
-            data["Products"].push(product);
+                postData["Products"].push(product);
+            }
         }
+        debugger;
+        //请求商品接口
+        this._http.post(
+            this.shareData.postUrl,
+            postData,
+            (res: any) => {
+                if (res["Code"] === "000") {
+                    this._page.alert("消息提示", "您的订单已经下单成功", function () {
+                        //that._page.navigateRoot("/personalcenter/myorder/fineorder/detail", { code: postData["OrderData"]["OrderCode"] }, "");
+                    });
 
-        console.log(data);
+                }
+                else {
+                    this._page.alert("消息提示", res.Message);
+                }
+            },
+            (err: any) => {
+                this._page.alert("消息提示", "下单异常")
+                console.log(err);
+            }
+        );
 
     }
 }

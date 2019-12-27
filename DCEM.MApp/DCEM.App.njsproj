@@ -1195,6 +1195,7 @@
     <Folder Include="src\app\base\uc.com\login\" />
     <Folder Include="src\app\base\uc.com\welcome\" />
     <Folder Include="src\app\saleing\" />
+    <Folder Include="src\app\saleing\carorder\list\" />
     <Folder Include="src\app\saleing\delivery\" />
     <Folder Include="src\app\saleing\delivery\appointment\" />
     <Folder Include="src\app\saleing\delivery\detail\" />

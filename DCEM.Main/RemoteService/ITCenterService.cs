@@ -78,7 +78,7 @@ namespace DCEM.Main.RemoteService
         #endregion
 
         #region 3.订单管理
-        
+        Task<CreateOrderManagerResponse> CreateOrder(CreateOrderManagerRequest param);
         #endregion
     }
 
