@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System;
 using Newtonsoft.Json.Linq;
+using MSLibrary.Xrm;
+using MSLibrary;
+
 namespace DCEM.Web.Controllers.UCenter
 {
     using DCEM.UserCenterService.Main.Application.Services.Contrac;
@@ -32,6 +35,18 @@ namespace DCEM.Web.Controllers.UCenter
         public async Task<NewtonsoftJsonActionResult<ProducListResponse>> GetProductList([FromQuery]ProducListRequest request)
         {
             return await _storeService.QueryProductList(request);
+        }
+
+        /// <summary>
+        ///  订单查询接口
+        /// </summary>
+        /// <param name="appointmentInfoRequest"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetOrderList")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<JObject>>> GetOrderList(int pageindex = 1, string search = "")
+        {
+            return await _storeService.QueryOrderList(pageindex, search);
         }
 
 

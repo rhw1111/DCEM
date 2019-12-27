@@ -16,8 +16,12 @@ namespace DCEM.UserCenterService.Main.Application.Services.Contrac
         /// <returns></returns>
         Task<ProducListResponse> QueryProductList(ProducListRequest request);
 
-
-
+        /// <summary>
+        /// 订单查询接口
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<QueryResult<JObject>> QueryOrderList(int pageindex = 1, string search = "");
 
     }
 }
