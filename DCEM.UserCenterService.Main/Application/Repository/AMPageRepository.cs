@@ -91,6 +91,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository
                 var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
                   <entity name='mcs_am_page'>
                     <attribute name='mcs_am_pageid' />
+                    <attribute name='mcs_shareable' />
                     <filter type='and'>
                       <condition attribute='mcs_am_pageid' operator='eq'  value='{pageId}' />
                     </filter>
