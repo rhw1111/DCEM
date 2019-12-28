@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8" />
-    <title>$title$</title>
+    <title>活动详情页</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta name="keywords" />
@@ -85,9 +85,9 @@
             overflow: auto;
         }
     </style>
-    <script src="../Scripts/jquery-3.3.1.min.js"></script>
-    <script src="../Scripts/qrcode.min.js"></script>
-    <script src="../Scripts/html2canvas.min.js"></script>
+    <script src="./Scripts/jquery-3.3.1.min.js"></script>
+    <script src="./Scripts/qrcode.min.js"></script>
+    <script src="./Scripts/html2canvas.min.js"></script>
     <script type="text/javascript">
         var unSelected = "#999";
         var selected = "#333";
@@ -110,7 +110,7 @@
         //    image.onload = function () {
         //        $("#img_banner").attr("src", getBase64Image(image));
         //}
-        //})
+        })
         //function getBase64Image(img) {
         //   var canvas = document.createElement("canvas");
         // canvas.width = img.width;
@@ -212,7 +212,7 @@
 
             $.ajax({
                 type: "post",
-                url: "$url$api/Lead/Do",
+                url: "http://106.14.121.65:8082/CC/api/Lead/Do",
                 dataType: "json",
                 contentType: "application/json;charset=utf-8",
                 data: JSON.stringify({
@@ -240,7 +240,7 @@
                 },
                 success: function (data) {
                     if (data.Code == "0000") {
-                        window.location.href = '../SuccessPage.html';
+                        window.location.href = './SuccessPage.html';
                     } else {
                         alert("提交失败");
                         console.log(data);
@@ -288,12 +288,38 @@
                 }
             });
             $("#dv_poster").show();
-        };
+        }
         //关闭弹出层
         function CloseDiv() {
             $("#dv_poster").hide();
             $("#fade").hide();
-        };
+        }
+        //获取验证码
+    var time = 60;
+        function GetCode() {
+            var phone = $("#btnMobile").val();
+            if (phone != null && phone != "") {
+                var button = $("#btn_code");
+                 if(time==60){//如果不加入该判断，则会出现在倒计时期间不断的点击发生不断的加快（其实就是你点了多少次就重复多少次该函数）的问题，用setTimeout（）方法不加此判断也是一样的
+    		   var time1=setInterval(function(){
+        		   if(time==0){
+                       button.attr("value", "重新发送");
+                       button.removeAttr("disabled");
+                       button.addClass("button-blue");
+            		   time=60;
+            		   clearInterval(time1);
+            	   }else{
+                       button.attr("disabled", "disabled");
+                       button.attr("value", "重新发送(" + time + ")");
+                       button.removeClass("button-blue");
+            		   time--;
+            	   }
+        		   }, 1000);
+    	   }
+            } else {
+                alert("请先输入手机号");
+            }
+        }
     </script>
 </head>
 <body>
@@ -303,17 +329,14 @@
             <div class="ds2-main-wrapper ds2-page--row-expanded">
                 <div class="ds2-page--top-spacing">
                     <div class="tdaForm">
-                        <link rel="stylesheet" href="../Content/clientlib.min.1532359576587.min.css" type="text/css">
+                        <link rel="stylesheet" href="./Content/clientlib.min.1532359576587.min.css" type="text/css">
                         <div id="ng-app" ng-app="app">
                             <div ng-controller="AppController">
                                 <div class="container-fluid">
-                                    <div class="ecrFrom-main" ng-controller="testDriveController">
-                                        <img src="$banner$" style="max-width:100%;margin-bottom: 40px;" />
-                                        <form name="myForm" novalidate class="form-horizontal" role="form" gcdm-form-container-tda gcdm-brand="BMW">
-                                            <div>
-                                                <span id="sysNotAvailable" gcdm-system-not-available-error-message>
-                                                </span>
-                                            </div>
+                                    <div class="ecrFrom-main" >
+                                        $layoutcontent$
+                                        <!--<img src="$banner$" style="max-width:100%;margin-bottom: 40px;" />-->
+                                        <!--<form name="myForm" class="form-horizontal" role="form">
                                             <div class="person-info clearfix" style="padding-bottom: 10px;">
                                                 <h3 class="title">请填写您的信息</h3>
                                                 $formsettings$
@@ -326,44 +349,31 @@
                                                     <span class="button button-blue" onclick="SubmitClick()" gcdm-form-submit>提交</span>
                                                 </div>
                                             </div>
-                                        </form>
-                                        <div style="position: fixed;right:0px;bottom:60%;display:$shareable$;" >
+                                        </form>-->
+                                        <!--<img src="./Images/car2.gif" style="max-width:100%;" />
+    <img src="./Images/car3.gif" style="max-width:100%;" />-->
+                                        <!--<h1 class="title" style="font-size: 30px;">$title$</h1>
+    <h3 class="title upper-case">$subtitle$</h3>
+    <p style="margin-bottom:40px">
+        $content$
+    </p>-->
+                                        <div style="position: fixed;right:0px;bottom:60%;display:$shareable$;">
                                             <div>
                                                 <span class="button button-black" onclick="GeneratePoster()" style="background-color: orange;border-radius: 2em 0 0 2em;">生成专属海报</span>
                                             </div>
                                         </div>
-                                        <img src="../Images/car2.gif" style="max-width:100%;" />
-                                        <img src="../Images/car3.gif" style="max-width:100%;" />
-                                        <h1 class="title" style="font-size: 30px;">$title$</h1>
-                                        <h3 class="title upper-case">$subtitle$</h3>
-                                        <p style="margin-bottom:40px">
-                                            $content$
-                                        </p>
                                     </div>
-                                    <canvas id="canvas" width="150" height="50" style="display:none;"></canvas>
-
-                                    <input type="hidden" id="shortenBase" value="/content/bmw/marketCN/bmw_com_cn" />
-                                    <input type="hidden" id="shortenMapper" value="/content/bmw/marketCN/bmw_com_cn/zh_CN:/zh" />
-
-
-                                    <span ng-model="successUrl" ng-init="successUrl='/content/bmw/marketCN/bmw_com_cn/zh_CN/ssl/requests/success'" hidden></span>
-                                    <span id="failUrl" hidden>/content/bmw/marketCN/bmw_com_cn/zh_CN/ssl/requests/fail</span>
-
                                 </div>
                             </div>
                         </div>
-                        <div class="ds2-row-padding row">
-
+                        <!--<div class="ds2-row-padding row">
                             <div class="ds2-row-padding row">
                                 <div class="acs-commons-resp-colctrl-col gridComponent small-12 medium-12 large-12 columns ds2-component-bottom">
-
                                 </div>
                             </div>
-
-                        </div>
+                        </div>-->
                         <div id="fade" class="black_overlay">
                         </div>
-
                         <div id="dv_poster" class="white_content">
                             <div style="text-align: right; cursor: default; height: 40px;">
                                 <span style="font-size: 16px;" onclick="CloseDiv()">X</span>
