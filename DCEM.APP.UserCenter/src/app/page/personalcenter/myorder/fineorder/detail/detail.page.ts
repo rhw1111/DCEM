@@ -62,7 +62,8 @@ export class DetailPage implements OnInit {
     goPay() {
         var returndata = {
             "OrderCode": this.code,
-            "TotalPrice": this.model.datadetail.TotalDeposiAmount
+            "TotalPrice": this.model.datadetail.ReceivedIntegral == 0 ? this.model.datadetail.TotalDeposiAmount : this.model.datadetail.CashPayment,
+            "TotalIntegral": this.model.datadetail.ReceivedIntegral
         };
         this._page.goto("/servicecenter/payment/payment", returndata);
     }

@@ -263,6 +263,17 @@ namespace DCEM.Web.Controllers
         {
             return await _appUser.getuserscore(userDetailRequest);
         }
+        /// <summary>
+        /// 增减用户积分记录
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [Route("deducationintegral")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult>> deducationintegral(UserDeDucationIntegralRequest request)
+        {
+            return await _appUser.DeDucationIntegral(request);
+        }
 
         /// <summary>
         /// 获取注册用户协议

@@ -94,9 +94,11 @@
         <ion-item *ngFor="let groupKey of objectKeys(shareData.productOrderingattributeClassMap)">
             <ion-label position="stacked">
                 {{groupKey}}
+                <span *ngIf="shareData.productOrderingattributeMap[shareData.productOrderingattributeClassMap[groupKey]['selectKey']]['mcs_attributeextprice']>0" style="float:right">+{{shareData.productOrderingattributeMap[shareData.productOrderingattributeClassMap[groupKey]['selectKey']]['mcs_attributeextprice']}}</span>
                 <ion-text color="danger">*</ion-text>
             </ion-label>
-            <ion-select cancelText="取消" okText="确定" placeholder="请选择{{groupKey}}" [(ngModel)]="shareData.productOrderingattributeClassMap[groupKey]['selectKey']">
+            
+            <ion-select (ionChange)="calcSum()" cancelText="取消" okText="确定" placeholder="请选择{{groupKey}}" [(ngModel)]="shareData.productOrderingattributeClassMap[groupKey]['selectKey']">
                 <ion-select-option *ngFor="let attKey of objectKeys(shareData.productOrderingattributeClassMap[groupKey]['productOrderingattributeMap'])" value="{{shareData['productOrderingattributeMap'][attKey]['mcs_tc_productorderingattributeid']}}">
                     {{shareData['productOrderingattributeMap'][attKey]['mcs_attributevalue']}}
                 </ion-select-option>
@@ -112,8 +114,9 @@
         <ion-item *ngFor="let relKey of objectKeys(shareData.productRelatedMap)">
             <ion-label position="stacked">
                 {{shareData.productRelatedMap[relKey]['a.mcs_product@OData.Community.Display.V1.FormattedValue']}}({{shareData.productRelatedMap[relKey]['_mcs_relatedproductsku_value@OData.Community.Display.V1.FormattedValue']}})
+                <span *ngIf="shareData.productRelatedMap[relKey]['ext_select']==='2'" style="float:right">+{{shareData.productRelatedMap[relKey]['a.mcs_salesprice']}}</span>
             </ion-label>
-            <ion-select cancelText="取消" okText="确定" placeholder="请选择{{groupKey}}" [(ngModel)]="shareData.productRelatedMap[relKey]['ext_select']">
+            <ion-select (ionChange)="calcSum()" cancelText="取消" okText="确定" placeholder="请选择{{groupKey}}" [(ngModel)]="shareData.productRelatedMap[relKey]['ext_select']">
                 <ion-select-option value="1">不订购</ion-select-option>
                 <ion-select-option value="2">订购</ion-select-option>
             </ion-select>

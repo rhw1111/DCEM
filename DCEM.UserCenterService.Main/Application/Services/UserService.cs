@@ -590,6 +590,55 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 throw ex;
             }
         }
+        /// <summary>
+        /// 增减用户积分记录
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ValidateResult> DeDucationIntegral(UserDeDucationIntegralRequest request)
+        {
+            var validateResult = new ValidateResult();
+            try
+            {
+                var entity = new CrmExecuteEntity("mcs_memberintegraldetail", Guid.NewGuid());
+                if (!string.IsNullOrEmpty(request.UserId))
+                {
+                    var crmRequestHelper = new CrmRequestHelper();
+                    XDocument fetchXdoc = null;
+                    fetchXdoc = await _repository.getuserscorebalance(new UserDetailRequest { id = request.UserId });
+                    var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_memberintegraldetail", fetchXdoc);
+                    if (entities.Results != null && entities.Results.Count > 0)
+                    {
+                        entity.Attributes.Add("mcs_memberid", new CrmEntityReference("mcs_member", new Guid(entities.Results[0].Attributes["mcs_memberid"].ToString())));
+                        var bonuspoint = entities.Results[0].Attributes["mcs_bonuspoint"];
+                        var balance = bonuspoint == null ? 0 : (Int32)bonuspoint;
+                        entity.Attributes.Add("mcs_bonuspoint", balance);
+                        var updateEntity = new CrmExecuteEntity("mcs_member", new Guid(entities.Results[0].Attributes["mcs_memberid"].ToString()));
+                        if (request.IntegralType != null)
+                        {
+                            entity.Attributes.Add("mcs_integraltype", request.IntegralType);
+                        }
+                        if (request.Integral != 0)
+                        {
+                            entity.Attributes.Add("mcs_num", request.Integral);
+                            updateEntity.Attributes.Add("", balance - request.Integral);
+                        }
+                        await _crmService.Update(updateEntity);
+                        await _crmService.Create(entity);
+                    }
+                }
+                #region 组装数据返回 
+                validateResult.Result = true;
+                validateResult.Description = "操作成功";
+                #endregion
+            }
+            catch (Exception e)
+            {
+                validateResult.Result = false;
+                validateResult.Description = e.Message;
+            }
+            return validateResult;
+        }
 
 
 
