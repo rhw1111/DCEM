@@ -48,10 +48,14 @@ namespace DCEM.UserCenterService.Main.Application.Repository
                      <attribute name='mcs_element' />
                      <attribute name='mcs_displayname' />
                      <attribute name='mcs_content' />
+                    <attribute name='mcs_sort' />
                      <order attribute='mcs_displayname' descending='false' />
                      <filter type='and'>
                        <condition attribute='mcs_page' operator='eq' value='{pageId}' />
                      </filter>
+                    <link-entity name='mcs_am_elementconfig' from='mcs_am_elementconfigid'            to='mcs_element' visible='false' link-type='outer'                 alias='config'>
+                        <attribute name='mcs_code' />
+                      </link-entity>
                    </entity>
                  </fetch>";
                 return XDocument.Parse(fetchXml);
