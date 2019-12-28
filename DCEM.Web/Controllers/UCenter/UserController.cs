@@ -33,6 +33,8 @@ namespace DCEM.Web.Controllers
     public class UserController : ApiController
     {
 
+        //问题积分埋点编号
+        public string Integrallend_Key = "Integrallend_Key";
         private IAppUser _appUser;
         private IAppUsermessage _appUsermessage;
         public UserController()
@@ -50,7 +52,7 @@ namespace DCEM.Web.Controllers
         [HttpPost]
         public async Task<NewtonsoftJsonActionResult<ValidateResult<CrmEntity>>> LoginAccount(UserLoginRequest request)
         {
-           
+
             request.ip = Request.Host.Value;
             return await _appUser.LoginAccount(request);
         }
@@ -203,17 +205,24 @@ namespace DCEM.Web.Controllers
             else
                 return res;
         }
-
+        [Route("integraladd")]
+        [HttpPost]
+        public async void IntegralCreate(UserLoginRequest request)
+        {
+            ValidateResult<CrmEntity> crm = await _appUser.GetUser(request);
+            _appUser.IntegralCreate(Integrallend_Key, crm.Data.Id.ToString());
+            
+        }
 
         [Route("resetpwdtoquestion")]
         [HttpPost]
         public async Task<NewtonsoftJsonActionResult<ValidateResult>> UpdatePwdToQuestion(UserLoginRequest req)
         {
-            
+
             //验证码验证
             ValidateResult res = await _appUser.ValUserSecurityquestion(req);
             if (res.Result)
-            { 
+            {
                 return await _appUser.UpdateUserPwd(req);
             }
             else
@@ -237,7 +246,7 @@ namespace DCEM.Web.Controllers
         /// <returns></returns>
         [Route("getuserdetail")]
         [HttpPost]
-        public async Task<NewtonsoftJsonActionResult<CrmEntity>> getuserdetail(UserDetailRequest userDetailRequest )
+        public async Task<NewtonsoftJsonActionResult<CrmEntity>> getuserdetail(UserDetailRequest userDetailRequest)
         {
             return await _appUser.getuserdetail(userDetailRequest);
         }
