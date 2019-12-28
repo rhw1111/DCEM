@@ -60,19 +60,19 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 queryResult.TotalCount = 0;
 
                 //更新消息为已读
-                if (queryResult.Results!=null && queryResult.Results.Count>0)
-                {
-                    foreach (var item in queryResult.Results)
-                    {
-                        if (int.Parse(item.Attributes["mcs_readstatus"].ToString()) ==0)
-                        {
-                            await UpdateUserNoticeReadStatus(new UserNoticeRequest() { 
-                                Id= item.Id.ToString(),
-                                mcs_readstatus=1
-                            });;
-                        }
-                    }
-                }
+                //if (queryResult.Results!=null && queryResult.Results.Count>0)
+                //{
+                //    foreach (var item in queryResult.Results)
+                //    {
+                //        if (int.Parse(item.Attributes["mcs_readstatus"].ToString()) ==0)
+                //        {
+                //            await UpdateUserNoticeReadStatus(new UserNoticeRequest() { 
+                //                Id= item.Id.ToString(),
+                //                mcs_readstatus=1
+                //            });;
+                //        }
+                //    }
+                //}
                 return queryResult;
             }
             catch (Exception ex)

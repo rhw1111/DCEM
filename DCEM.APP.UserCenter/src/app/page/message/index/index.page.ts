@@ -151,6 +151,9 @@ export class IndexPage implements OnInit {
     }
   }
 
+  ionViewWillEnter(){
+    this.activities[0].noreadcount=this._storage_LoginInfo.GetUserNoReadMessage();
+  }
   //用户登录
   public async presentLoginModal() {
     const modal = await this._modalCtrl.create({

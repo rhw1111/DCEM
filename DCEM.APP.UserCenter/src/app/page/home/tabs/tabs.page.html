@@ -9,6 +9,7 @@
         <ion-tab-button [tab]="routername" (click)="validateLogin()">
             <ion-icon name="chatboxes"></ion-icon>
             <ion-label>消息</ion-label>
+            <!-- <i *ngIf="noReadCount>0" class="tip"></i> -->
             <ion-badge *ngIf="noReadCount>0" color="danger">{{noReadCount}}</ion-badge>
         </ion-tab-button>
 
