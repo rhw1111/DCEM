@@ -98,5 +98,15 @@ namespace DCEM.UserCenterService.Main.Application.App
         {
             return await _userNoticeService.GetUserNotices(request);
         }
+
+        public async Task<bool> UpdateUserNoticeReadStatus(UserNoticeRequest request)
+        {
+            return await _userNoticeService.UpdateUserNoticeReadStatus(request);
+        }
+
+        public async Task<int> GetUserNoticesNoReadCount(string userId)
+        {
+            return await _userNoticeService.GetUserNoticesNoReadCount(userId);
+        }
     }
 }

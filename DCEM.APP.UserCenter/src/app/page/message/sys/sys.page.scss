@@ -53,6 +53,13 @@ ion-list {
         ion-note{
             font-size: 10px;
         }
+        ion-badge{
+            position: absolute;
+            left: 45px;
+            width: 25px;
+            top: 5px;
+            z-index: 1000;
+        }
     }
 }
 

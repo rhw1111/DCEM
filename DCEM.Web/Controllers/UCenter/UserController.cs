@@ -287,6 +287,30 @@ namespace DCEM.Web.Controllers
         {
             return await _appUser.QueryUserNotices(request);
         }
+
+        /// <summary>
+        /// 更新用户通知阅读状态
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Route("toread")]
+        [HttpPost]
+        public async Task<bool> ToRead(UserNoticeRequest request)
+        {
+            return await _appUser.UpdateUserNoticeReadStatus(request);
+        }
+
+        /// <summary>
+        /// 获取用户通知信息未阅读数量
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Route("noreadcount")]
+        [HttpGet]
+        public async Task<int> GetUserNoticesNoReadCount(string userId)
+        {
+            return await _appUser.GetUserNoticesNoReadCount(userId);
+        }
     }
 }
 

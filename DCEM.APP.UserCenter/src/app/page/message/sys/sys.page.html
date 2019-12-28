@@ -10,6 +10,7 @@
         <ion-item-sliding *ngFor="let room of notices;let key=index">
             <div class="content">
                 <ion-item [routerLink]="['/message/noticelist']">
+                  <ion-badge slot="start" *ngIf="room.noreadcount>0" color="danger">{{room.noreadcount}}</ion-badge>
                     <ion-avatar item-start>
                         <img src="{{room.thumbnail}}" />
                     </ion-avatar>

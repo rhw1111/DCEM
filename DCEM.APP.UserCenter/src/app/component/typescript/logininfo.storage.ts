@@ -111,8 +111,20 @@ export class Storage_LoginInfo {
             return data.memberid;
         return null;
     }
+    //设置用户未读消息数量
+    SetUserNoReadMessage(count:any) {
+        window.localStorage.setItem('usernoreadcount', count);
+    }
 
-
+    //获取用户未读消息数量
+    GetUserNoReadMessage() {
+      var resultCount=0;
+      var count= window.localStorage.getItem('usernoreadcount');
+      if(count!=null && count!=""){
+        resultCount=parseInt(count);
+      }
+      return resultCount;
+    }
 }
 
 

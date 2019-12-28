@@ -50,5 +50,17 @@ namespace DCEM.UserCenterService.Main.Application.App
         /// <param name="request"></param>
         /// <returns></returns>
         Task<QueryResult<CrmEntity>> QueryUserNotices(UserNoticeRequest request);
+        /// <summary>
+        /// 更新用户通知阅读状态
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<bool> UpdateUserNoticeReadStatus(UserNoticeRequest request);
+        /// <summary>
+        /// 获取用户通知信息未阅读数量
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<int> GetUserNoticesNoReadCount(string userid);
     }
 }
