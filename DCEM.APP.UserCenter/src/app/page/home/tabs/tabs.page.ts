@@ -28,7 +28,9 @@ export class TabsPage {
     }
 
     ionViewWillEnter(){
-        this.GetNoReadCount();
+        if(!this._valid.isNullOrEmpty(this._storage_LoginInfo.GetSystemUserId())){
+            this.GetNoReadCount();
+        }
     }
 
     validateLogin() {
