@@ -302,7 +302,8 @@ namespace DCEM.UserCenterService.Main.Application.Repository
   <entity name='mcs_memberintegraldetail'>
     <attribute name='mcs_memberintegraldetailid' />
     <attribute name='mcs_name' />
-    <attribute name='createdon' />
+    <attribute name='createdon' /> 
+    <attribute name='mcs_integralpointname' />
     <attribute name='mcs_integraltype' />
     <attribute name='mcs_num' />
     <attribute name='overriddencreatedon' />
