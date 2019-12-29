@@ -115,6 +115,10 @@ export class NoticelistPage implements OnInit {
           if (res == false) {
             this._page.alert("消息提示", "更新阅读状态为已读失败！");
           }
+          else{
+            this._page.alert("消息提示", "阅读状态为已读！");
+            notice.mcs_readstatus=1;
+          }
           this._page.loadingHide();
         },
         (err: any) => {
