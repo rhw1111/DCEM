@@ -65,11 +65,9 @@ export class TabsPage {
             (res: any) => {
                 this.noReadCount = res;
                 this._storage_LoginInfo.SetUserNoReadMessage(res + '');
-                this._page.loadingHide();
             },
             (err: any) => {
                 this._page.alert("消息提示", "请求异常，请检查网络！");
-                this._page.loadingHide();
             }
         );
     }
