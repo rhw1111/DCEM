@@ -62,6 +62,7 @@ export class ListPage implements OnInit {
         this._http.postForShopping(this.model.search.apiUrl,
             {
                 UserId: this._logininfo.GetSystemUserId(),
+                OrderClass: 200,
                 PageSize: this.model.search.pageSize,
                 PageIndex: this.model.search.page
             },
