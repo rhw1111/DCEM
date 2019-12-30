@@ -298,7 +298,7 @@
                 referrerMobilephone = "18938027907";
             }
             //微信会改写链接地址，故分享地址自己拼接
-            var labelValue = "$pageurl$" + campaignCode + "&dealerCode=" + dealerCode + "&ReferrerMobilephone=" + referrerMobilephone;
+            var labelValue = "$pageurl$?campaignCode=" + campaignCode + "&dealerCode=" + dealerCode + "&ReferrerMobilephone=" + referrerMobilephone;
            
             if (labelValue != null && labelValue != "null") {
                  var qrcode = new QRCode(document.getElementById("dv_qrcode"), { width: 330, height: 330, correctLevel: QRCode.CorrectLevel.H });
