@@ -167,7 +167,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     case "$city$":
                         formHtml.Append(@$"</label>
                                                     <div class=""content"">
-                                                        <select style=""border: 2px solid #bbb;width:100%;height:40px;"" id=""sltAddress"" data-required=""{required}"" data-label=""{label}"">
+                                                        <select style=""border: 2px solid #bbb;width:100%;height:40px;"" id=""sltCity"" data-required=""{required}"" data-label=""{label}"">
                                                             <option value=""-1"">{placeholder}</option>
                                                             <option value=""330100"">杭州</option>
                                                             <option value=""110100"">北京</option>
@@ -181,10 +181,18 @@ namespace DCEM.UserCenterService.Main.Application.Services
                                                     </div>
                                                 </div>");
                         break;
+                    case "$address$":
+                        formHtml.Append(@$"</label>
+                                                    <div class=""content"">
+                                                        <input type=""text"" id=""txtAddress"" name=""Address"" placeholder=""{placeholder}""  data-required=""{required}"" data-label=""{label}"" />
+                                                        <span>{tip}</span>
+                                                    </div>
+                                                </div>");
+                        break;
                     case "$email$":
                         formHtml.Append(@$"</label>
                                                     <div class=""content"">
-                                                        <input type=""text"" id=""btnEmail"" name=""Email"" placeholder=""{placeholder}""  data-required=""{required}"" data-label=""{label}"" />
+                                                        <input type=""text"" id=""txtEmail"" name=""Email"" placeholder=""{placeholder}""  data-required=""{required}"" data-label=""{label}"" />
                                                         <span>{tip}</span>
                                                     </div>
                                                 </div>");
@@ -204,7 +212,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     case "$level$":
                         formHtml.Append(@$"</label>
                                                     <div class=""content"">
-                                                        <select style=""border: 2px solid #bbb;width:100%;height:40px;"" id=""sltButPlan""  data-required=""{required}"" data-label=""{label}"">
+                                                        <select style=""border: 2px solid #bbb;width:100%;height:40px;"" id=""sltBuyPlan""  data-required=""{required}"" data-label=""{label}"">
                                                             <option value=""-1"">{placeholder}</option>
                                                             <option value=""0"">预计90天内成交</option>
                                                             <option value=""1"">预计3~6个月内成交</option>
@@ -219,7 +227,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     case "$name$":
                         formHtml.Append(@$"</label>
                                                     <div class=""content"">
-                                                        <input type=""text"" id=""btnName"" name=""surname"" placeholder=""{placeholder}""  data-required=""{required}"" data-label=""{label}"" />
+                                                        <input type=""text"" id=""txtName"" name=""surname"" placeholder=""{placeholder}""  data-required=""{required}"" data-label=""{label}"" />
                                                         <span>{tip}</span>
                                                     </div>
                                                 </div>");
@@ -227,7 +235,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     case "$phone$":
                         formHtml.Append(@$"</label>
                                                     <div class=""content"">
-                                                        <input type=""text"" id=""btnMobile"" name=""Mobile"" placeholder=""{placeholder}""   data-required=""{required}"" data-label=""{label}""/>
+                                                        <input type=""text"" id=""txtMobile"" name=""Mobile"" placeholder=""{placeholder}""   data-required=""{required}"" data-label=""{label}""/>
                                                         <span>{tip}</span>
                                                     </div>
                                                 </div>");
