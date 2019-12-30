@@ -342,11 +342,12 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 filter += $"</filter>";
             }
 
-            if (!string.IsNullOrEmpty(filter))
-            {
-                filter = "<filter type='and'>" + filter;
+            //if (!string.IsNullOrEmpty(filter))
+            //{
+                filter = @"<filter type='and'>
+                           <condition attribute='mcs_orderclass' operator='eq' value='100' />" + filter;
                 filter = filter + "</filter>";
-            }
+            //}
             #endregion
 
             #region 组装FetchXml
