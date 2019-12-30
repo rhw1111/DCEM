@@ -32,9 +32,9 @@ namespace DCEM.UserCenterService.Main.Application.App
             _userNoticeService = userNoticeService;
         }
 
-        public void IntegralCreate(string key, string userid)
+        public Task<ValidateResult> IntegralCreate(string key, string userid)
         {
-            _userService.IntegralCreate(key, userid);
+          return   _userService.IntegralCreate(key, userid);
         }
         public async Task<ValidateResult> ValUserSecurityquestion(UserLoginRequest req)
         {

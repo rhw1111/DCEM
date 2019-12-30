@@ -154,6 +154,7 @@
     <Content Include="src\app\saleing\orderpaydetail\detail\detail.page.scss" />
     <Content Include="src\app\saleing\orderpaydetail\edit\edit.page.html" />
     <Content Include="src\app\saleing\orderpaydetail\edit\edit.page.scss" />
+    <Content Include="src\app\saleing\saleing.ser\components\select-dealer\select-dealer.component.html" />
     <Content Include="src\assets\json\user.json" />
     <Content Include="src\assets\json\carproduct.json">
       <SubType>Code</SubType>
@@ -870,6 +871,7 @@
     <TypeScriptCompile Include="src\app\saleing\orderpaydetail\edit\edit.module.ts" />
     <TypeScriptCompile Include="src\app\saleing\orderpaydetail\edit\edit.page.spec.ts" />
     <TypeScriptCompile Include="src\app\saleing\orderpaydetail\edit\edit.page.ts" />
+    <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-dealer\select-dealer.component.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-carproduct\select-carproduct.component.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-user\select-user.component.ts" />
     <TypeScriptCompile Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\select-receptioncommissioner.component.spec.ts" />
@@ -1272,6 +1274,7 @@
     <Folder Include="src\app\saleing\orderpaydetail\edit\" />
     <Folder Include="src\app\saleing\saleing.ser\" />
     <Folder Include="src\app\saleing\saleing.ser\components\" />
+    <Folder Include="src\app\saleing\saleing.ser\components\select-dealer\" />
     <Folder Include="src\app\saleing\saleing.ser\components\select-carproduct\" />
     <Folder Include="src\app\saleing\saleing.ser\components\select-user\" />
     <Folder Include="src\app\saleing\saleing.ser\components\select-receptioncommissioner\" />

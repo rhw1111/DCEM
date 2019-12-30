@@ -116,6 +116,7 @@ export class LoginPage implements OnInit {
                 //登录实现
                 //this.authservice.login(res.access_token);
                 this._logininfo.SetInfo(JSON.stringify(res));
+                console.log(res);
                 this._page.loadingHide();
                 this._page.alert('消息提示', '登录认证成功');
                 this._page.goto("serving/home/tabs");

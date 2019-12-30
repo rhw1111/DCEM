@@ -63,7 +63,7 @@ namespace DCEM.Web.Controllers
         {
             ValidateResult ts = await _appQuestion.AddAnswercontent(model);
             CrmEntity ent = await _appQuestion.GetUserToCode(model.mcs_answername);
-            _appUser.IntegralCreate(IntegralQuestion_Key, ent.Id.ToString());
+            await _appUser.IntegralCreate(IntegralQuestion_Key, ent.Id.ToString());
             return ts;
         }
     }

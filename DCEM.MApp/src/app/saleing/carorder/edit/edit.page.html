@@ -15,7 +15,7 @@
     <ion-list lines="full">
         <ion-item-divider color="primary">
             <ion-label>
-                客户信息
+                基本信息
             </ion-label>
         </ion-item-divider>
         <ion-item (click)="presentUserModal()">
@@ -25,6 +25,14 @@
                 <ion-text color="danger">*</ion-text>
             </ion-label>
             <p>{{shareData.user["mcs_name"]}}&nbsp;</p>
+        </ion-item>
+        <ion-item (click)="presentDealerModal()">
+            <ion-label position="stacked">
+                <ion-icon name="search"></ion-icon>
+                交车厅店
+                <ion-text color="danger">*</ion-text>
+            </ion-label>
+            <p>{{shareData.dealer["mcs_name"]}}&nbsp;</p>
         </ion-item>
         <ion-item>
             <ion-label position="stacked">
@@ -54,6 +62,7 @@
             </ion-label>
             <ion-input placeholder="请输入证件号码" [(ngModel)]="shareData.user['mcs_cardid']" required></ion-input>
         </ion-item>
+
 
         <ion-item-divider color="primary">
             <ion-label>
@@ -97,7 +106,7 @@
                 <span *ngIf="shareData.productOrderingattributeMap[shareData.productOrderingattributeClassMap[groupKey]['selectKey']]['mcs_attributeextprice']>0" style="float:right">+{{shareData.productOrderingattributeMap[shareData.productOrderingattributeClassMap[groupKey]['selectKey']]['mcs_attributeextprice']}}</span>
                 <ion-text color="danger">*</ion-text>
             </ion-label>
-            
+
             <ion-select (ionChange)="calcSum()" cancelText="取消" okText="确定" placeholder="请选择{{groupKey}}" [(ngModel)]="shareData.productOrderingattributeClassMap[groupKey]['selectKey']">
                 <ion-select-option *ngFor="let attKey of objectKeys(shareData.productOrderingattributeClassMap[groupKey]['productOrderingattributeMap'])" value="{{shareData['productOrderingattributeMap'][attKey]['mcs_tc_productorderingattributeid']}}">
                     {{shareData['productOrderingattributeMap'][attKey]['mcs_attributevalue']}}

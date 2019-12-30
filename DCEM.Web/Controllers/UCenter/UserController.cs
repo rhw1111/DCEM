@@ -33,8 +33,6 @@ namespace DCEM.Web.Controllers
     public class UserController : ApiController
     {
 
-        //问题积分埋点编号
-        public string Integrallend_Key = "Integrallend_Key";
         private IAppUser _appUser;
         private IAppUsermessage _appUsermessage;
         public UserController()
@@ -205,13 +203,22 @@ namespace DCEM.Web.Controllers
             else
                 return res;
         }
-        [Route("integraladd")]
+        [Route("userintegraladd")]
         [HttpPost]
-        public async void IntegralCreate(UserLoginRequest request)
+        public async Task<NewtonsoftJsonActionResult<ValidateResult>> IntegralAdd(UserIntegralRequest request)
         {
-            ValidateResult<CrmEntity> crm = await _appUser.GetUser(request);
-            _appUser.IntegralCreate(Integrallend_Key, crm.Data.Id.ToString());
-            
+            ValidateResult val = new ValidateResult();
+            UserLoginRequest req = new UserLoginRequest();
+            req.account = request.account;
+            req.logintype = request.logintype;
+            ValidateResult<CrmEntity> crm = await _appUser.GetUser(req);
+            if (crm.Data != null)
+            {
+                return await _appUser.IntegralCreate(request.key, crm.Data.Id.ToString());
+            }
+            val.Result = false;
+            val.Description = "账号不存在！";
+            return val;
         }
 
         [Route("resetpwdtoquestion")]

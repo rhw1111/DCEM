@@ -39,6 +39,7 @@ import { SelectFileEditComponent } from 'app/serving/serving.ser/components/sele
 import { SelectAccountComponent } from 'app/serving/serving.ser/components/select-account/select-account.component'
 import { SelectSurveyorderComponent } from "app/serving/serving.ser/components/select-surveyorder/select-surveyorder.component"
 import { SelectUserComponent } from 'app/saleing/saleing.ser/components/select-user/select-user.component';
+import { SelectDealerComponent } from 'app/saleing/saleing.ser/components/select-dealer/select-dealer.component';
 import { SelectCarproductComponent } from 'app/saleing/saleing.ser/components/select-carproduct/select-carproduct.component';
 import { DragrouteComponent } from 'app/base/base.ser/components/map/dragroute/dragroute.component';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
@@ -76,6 +77,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
         SelectSurveyorderComponent, //选择勘测单
         SelectUserComponent,//选择C端用户
         SelectCarproductComponent,//选择商品(整车)
+        SelectDealerComponent
     ],
 
     entryComponents: [
@@ -105,6 +107,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
         SelectSurveyorderComponent, //选择勘测单
         SelectUserComponent,
         SelectCarproductComponent,//选择商品(整车)
+        SelectDealerComponent
     ],
 
     imports: [BrowserModule,

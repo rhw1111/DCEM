@@ -49,7 +49,7 @@ namespace DCEM.Main.Services
                                 {
                                     result = $"ADAUTH:{dyCRMSetting.Domain}\\{username}";
                                 }
-                                
+
                             }
                         }
                         catch (Exception ex)
@@ -57,7 +57,8 @@ namespace DCEM.Main.Services
                             return result;
                         }
                     }
-                    else {
+                    else
+                    {
                         dyCRMSetting.AdfsUrl = $"{dyCRMSetting.AdfsUrl}adfs/oauth2/token";
                         dyCRMSetting.CrmUrl = $"{dyCRMSetting.CrmUrl}/api/data/v8.2";
                         var data = GetToken(dyCRMSetting.ClientId, dyCRMSetting.ClientSecret, username, password, dyCRMSetting.CrmUrl, dyCRMSetting.AdfsUrl, dyCRMSetting.Domain);
@@ -98,22 +99,22 @@ namespace DCEM.Main.Services
 
                 if (fetchResponse != null)
                 {
-                   var list=  fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                    var list = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
 
-                    if (list!=null && list.Value.Results!=null)
+                    if (list != null && list.Value.Results != null)
                     {
                         var entity = list.Value.Results[0];
-                        if (entity!=null)
+                        if (entity != null)
                         {
-                            if (entity.Attributes["systemuserid"]!=null)
+                            if (entity.Attributes["systemuserid"] != null)
                             {
                                 result.systemuserid = Guid.Parse(entity.Attributes["systemuserid"].ToString());
                             }
-                            if (entity.Attributes["domainname"]!=null)
+                            if (entity.Attributes["domainname"] != null)
                             {
                                 result.domainname = entity.Attributes["domainname"].ToString();
                             }
-                            if (entity.Attributes["lastname"]!=null)
+                            if (entity.Attributes["lastname"] != null)
                             {
                                 result.lastname = entity.Attributes["lastname"].ToString();
                             }
@@ -121,32 +122,46 @@ namespace DCEM.Main.Services
                             {
                                 result.firstname = entity.Attributes["firstname"].ToString();
                             }
-                            if (entity.Attributes["mcs_staffid"]!=null) {
+                            if (entity.Attributes["mcs_staffid"] != null)
+                            {
                                 result.mcs_staffid = entity.Attributes["mcs_staffid"].ToString();
                             }
-                            if (entity.Attributes["_mcs_dealer_value"]!=null)
+                            if (entity.Attributes["_mcs_dealer_value"] != null)
                             {
                                 result.mcs_dealerid = entity.Attributes["_mcs_dealer_value"].ToString();
                             }
+
+
                             if (dyCRMSetting.CrmApiVersion == "9.0")
                             {
                                 if (entity.Attributes["dealer.mcs_name"] != null)
                                 {
                                     result.mcs_dealername = entity.Attributes["dealer.mcs_name"].ToString();
                                 }
+                                if (entity.Attributes["dealer.mcs_code"] != null)
+                                {
+                                    result.mcs_dealercode = entity.Attributes["dealer.mcs_code"].ToString();
+                                }
+
                             }
-                            else {
+                            else
+                            {
                                 if (entity.Attributes["dealer_x002e_mcs_name"] != null)
                                 {
                                     result.mcs_dealername = entity.Attributes["dealer_x002e_mcs_name"].ToString();
                                 }
+                                if (entity.Attributes["dealer_x002e_mcs_code"] != null)
+                                {
+                                    result.mcs_dealercode = entity.Attributes["dealer_x002e_mcs_code"].ToString();
+                                }
                             }
                         }
-                    }
 
+                    }
                 }
                 return result;
             }
+
             catch (Exception ex)
             {
                 return result;
@@ -162,7 +177,7 @@ namespace DCEM.Main.Services
         /// <param name="crmurl"></param>
         /// <param name="oauturl"></param>
         /// <returns></returns>
-        public JObject GetToken(string clientid, string clientsecret, string username, string password, string crmurl, string oauturl,string domain)
+        public JObject GetToken(string clientid, string clientsecret, string username, string password, string crmurl, string oauturl, string domain)
         {
             HttpClient httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Accept.Clear();
@@ -186,10 +201,11 @@ namespace DCEM.Main.Services
               "<order attribute='createdon' descending='true' />" +
               "<filter type='or'>" +
               "<condition attribute='domainname' operator='eq' value='" + (domain + @"\" + name) + "' />" +
-              "<condition attribute='domainname' operator='eq' value='" + name + "@"+ domain + ".com' />" +
+              "<condition attribute='domainname' operator='eq' value='" + name + "@" + domain + ".com' />" +
               "</filter>" +
               "<link-entity name='mcs_dealer' from='mcs_dealerid' to='mcs_dealer' visible='false' link-type='outer' alias='dealer'>" +
                 "<attribute name='mcs_name' />" +
+                "<attribute name='mcs_code' />" +
               "</link-entity>" +
             "</entity>" +
           "</fetch>";
@@ -281,7 +297,7 @@ namespace DCEM.Main.Services
                 {
                     foreach (var item in list.Value.Results)
                     {
-                        rolenames += item.Attributes["name"]+",";
+                        rolenames += item.Attributes["name"] + ",";
                     }
                 }
             }
