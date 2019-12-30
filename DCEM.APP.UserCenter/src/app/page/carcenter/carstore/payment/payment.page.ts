@@ -158,6 +158,7 @@ export class PaymentPage implements OnInit {
                 "Comment": "",
                 "ReceiverName": "",
                 "ReceiverPhone": "",
+                "OrderClass": 100,
                 "DealerCode": this.shareData.userInfo["dealerCode"],
                 "DeliveryAdderss": "",
                 "SmallOrderCodeList": [
