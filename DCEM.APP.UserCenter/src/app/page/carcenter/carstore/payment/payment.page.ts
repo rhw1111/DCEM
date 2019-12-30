@@ -88,9 +88,8 @@ export class PaymentPage implements OnInit {
             (res: any) => {
                 if (res["Code"] === "000" && !this._valid.isNullOrEmpty(res["OrderId"])) {
                     this._page.alert("消息提示", "您的订单已经下单成功", function () {
-                        that._page.navigateRoot("/personalcenter/myorder/fineorder/detail", { code: postData["OrderData"]["OrderCode"] }, "");
+                        that._page.navigateRoot("/personalcenter/myorder/carorder/detail", { code: postData["OrderData"]["OrderCode"] }, "");
                     });
-
                 }
                 else {
                     this._page.alert("消息提示", res.Message);
