@@ -26,21 +26,21 @@
         }
 
         /*内容自适应*/
-.qrcode{
-    width: 100%;
-    height: 100%;
-}
+        .qrcode {
+            width: 100%;
+            height: 100%;
+        }
 
-/*生成的二维码里面的img标签宽高自适应*/
-.qrcode img{
-    width: 110px;
-    height: 110px;
-}
-/*一开始生成的canvas也要进行宽高自适应*/
-.qrcode canvas{
-    width: 100%;
-    height: 100%;
-}
+            /*生成的二维码里面的img标签宽高自适应*/
+            .qrcode img {
+                width: 110px;
+                height: 110px;
+            }
+            /*一开始生成的canvas也要进行宽高自适应*/
+            .qrcode canvas {
+                width: 110px;
+                height: 110px;
+            }
         /* 设置滚动条的样式 */
         ::-webkit-scrollbar {
             width: 3px;
@@ -159,7 +159,7 @@
             return paramValue == "" && (paramValue = null), paramValue
         }
         function SubmitClick() {
-             var formStrArr = new Array("txtName", "txtMobile", "sltAppellation", "txtEmail", "sltBuyPlan", "sltCarColor", "sltCarPlan", "sltCity","txtAddress");
+            var formStrArr = new Array("txtName", "txtMobile", "sltAppellation", "txtEmail", "sltBuyPlan", "sltCarColor", "sltCarPlan", "sltCity", "txtAddress");
 
             for (index in formStrArr) {
                 var targetItem = $("#" + formStrArr[index]);
@@ -169,7 +169,7 @@
                 }
             }
 
-              var city = $("#sltCity").val();
+            var city = $("#sltCity").val();
             var address = $("#txtAddress").val();
             var name = $("#txtName").val();
             var moblie = $("#txtMobile").val();
@@ -244,7 +244,7 @@
                     DealerCode: dealerCode,
                     Level: level,
                     VehType: type,
-                     Vehcolor: color,
+                    Vehcolor: color,
                     HomeAddress: address
                 }),
                 beforeSend: function (request) {
@@ -254,8 +254,8 @@
                     request.setRequestHeader("true-client-ip", "123");
                 },
                 success: function (data) {
-                    if (data.Code == "0000") { 
-                        var url = dcem_url()+"api/user/userintegraladd";
+                    if (data.Code == "0000") {
+                        var url = dcem_url() + "api/user/userintegraladd";
                         var postData = {
                             account: referrerMobilephone,
                             logintype: 1,
@@ -268,14 +268,14 @@
                             dataType: "json",
                             contentType: "application/json;charset=utf-8",
                             data: json,
-                            success: function (data) { 
+                            success: function (data) {
                             },
                             //调用出错执行的函数
-                            error: function (data) { 
+                            error: function (data) {
                             }
                         });
 
-                         window.location.href = './SuccessPage.html';
+                        window.location.href = './SuccessPage.html';
                     } else {
                         alert("提交失败");
                         console.log(data);
@@ -291,19 +291,17 @@
         }
         function GeneratePoster() {
             $("#dv_qrcode").empty();
-            var qrcode = new QRCode(document.getElementById("dv_qrcode"), { width: 330, height: 330, correctLevel: QRCode.CorrectLevel.H });
+             var campaignCode = getParam("campaignCode");
+            var dealerCode = getParam("dealerCode");
             var referrerMobilephone = getParam("ReferrerMobilephone");
             if (referrerMobilephone == "" || referrerMobilephone == null) {
                 referrerMobilephone = "18938027907";
             }
-            var location = window.location.href;
-            var labelValue = "";
-            if (location.indexOf("ReferrerMobilephone") >= 0) {
-                labelValue = location.substr(0, location.indexOf("&ReferrerMobilephone")) + "&ReferrerMobilephone=" + referrerMobilephone;
-            } else {
-                labelValue = location + "&ReferrerMobilephone=" + referrerMobilephone;
-            }
+            //微信会改写链接地址，故分享地址自己拼接
+            var labelValue = "$pageurl$" + campaignCode + "&dealerCode=" + dealerCode + "&ReferrerMobilephone=" + referrerMobilephone;
+           
             if (labelValue != null && labelValue != "null") {
+                 var qrcode = new QRCode(document.getElementById("dv_qrcode"), { width: 330, height: 330, correctLevel: QRCode.CorrectLevel.H });
                 qrcode.makeCode(labelValue);
             }
             ShowDiv();
@@ -315,7 +313,7 @@
             $("#fade").height($(document).height());
             $("#dv_postercontent").show();
             $("#fade").show();
-         
+
             html2canvas($("#dv_postercontent"), {
                 onrendered: function (canvas) {
                     $("#dv_postercontent").hide();
@@ -415,8 +413,8 @@
                             <div style="text-align: right;cursor: default;height: 40px;padding-top: 1%;">
                                 <span style="font-size: 16px;font-weight: bold;margin-right: 2%;" onclick="CloseDiv()">X</span>
                             </div>
-                            <div style="padding: 0px 10px;" >
-                                <img id="img_tosave"/>
+                            <div style="padding: 0px 10px;">
+                                <img id="img_tosave" />
                             </div>
                         </div>
                         <div id="dv_postercontent" class="white_content_small">
