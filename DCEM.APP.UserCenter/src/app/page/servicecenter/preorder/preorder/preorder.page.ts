@@ -145,7 +145,6 @@ export class PreorderPage implements OnInit {
     }
     //提交
     submitOrder() {
-        debugger;
         if (this.model.paymenttype == 2) {
             if (this.model.totalintegral > this.model.score.balance) {
                 var deducationintegral = ((this.model.totalprice / this.model.totalintegral) * (this.model.totalintegral - this.model.score.balance)).toFixed(2);
@@ -217,6 +216,7 @@ export class PreorderPage implements OnInit {
                 "CarBuyerIdType": 1,
                 "CarBuyerId": this._logininfo.GetCardid(),
                 "ShippingFlag": true,
+                "OrderClass": 200,
                 "PaymentFlag": true,
                 "PaymentStatus": 1,
                 "CashTotal": this.model.totalprice,  //	订单总金额	
@@ -298,9 +298,9 @@ export class PreorderPage implements OnInit {
         var storage = window.localStorage;
         var cardata = storage.getItem("singlecar");
         if (cardata != null) {
-            var carlist = JSON.parse(cardata);
+            this.model.carList = JSON.parse(cardata);
             var datas = [];
-            carlist.datas.forEach(res => {
+            this.model.carList.datas.forEach(res => {
                 var flag = true;
                 this.model.datas.datas.forEach(r => {
                     if (res.skucode == r.skucode) {
@@ -312,9 +312,9 @@ export class PreorderPage implements OnInit {
                     datas.push(res);
                 }
             });
-            if (datas) {
+            if (datas.length > 0) {
                 this.model.carList.datas = datas;
-                storage.setItem("singlecar", this.model.carList);
+                storage.setItem("singlecar", JSON.stringify(this.model.carList));
             } else {
                 storage.removeItem("singlecar");
             }

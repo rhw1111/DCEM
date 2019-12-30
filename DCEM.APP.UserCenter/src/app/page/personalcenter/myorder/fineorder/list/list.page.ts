@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page } from '../../../../../component/typescript/dcem.core';
 import { Storage_LoginInfo } from '../../../../../component/typescript/logininfo.storage';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -27,15 +28,19 @@ export class ListPage implements OnInit {
             data: [],
             balance: 0,
         },
+        OrderClass:""
     };
 
     constructor(
         private _logininfo: Storage_LoginInfo,
         private _http: DCore_Http,
         private _page: DCore_Page,
+        private routerinfo: ActivatedRoute,
     ) { }
 
     ngOnInit() {
+        this.model.OrderClass = this.routerinfo.snapshot.queryParams["orderclass"];
+        console.log(this.model.OrderClass);
         this.initListLoading();
     }
     //下拉刷新
@@ -58,11 +63,10 @@ export class ListPage implements OnInit {
     }
     //获取列表数据
     getList(event) {
-        console.log(this._logininfo.GetSystemUserId());
         this._http.postForShopping(this.model.search.apiUrl,
             {
                 UserId: this._logininfo.GetSystemUserId(),
-                OrderClass: 200,
+                OrderClass: this.model.OrderClass,
                 PageSize: this.model.search.pageSize,
                 PageIndex: this.model.search.page
             },
