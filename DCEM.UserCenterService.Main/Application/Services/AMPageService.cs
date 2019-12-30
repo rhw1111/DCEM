@@ -34,10 +34,11 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
         public IConfigRepository _configRepository;
 
-        public AMPageService(ICrmService crmService, IAMPageRepository ampageRepository)
+        public AMPageService(ICrmService crmService, IAMPageRepository ampageRepository, IConfigRepository configRepository)
         {
-             _crmService = crmService;
-                     _ampageRepository=ampageRepository;
+            _crmService = crmService;
+            _ampageRepository = ampageRepository;
+            _configRepository = configRepository;
         }
 
         public async Task<AMPageResponse> GenerateAMPage(Guid pageId)
@@ -82,7 +83,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
         /// </summary>
         /// <param name="pageId"></param>
         /// <param name="templateHtml"></param>
-        /// <returns></returns>
+        /// <returMyAllOrdersns></returns>
         private async Task<string> TransHtml(Guid pageId, string templateHtml, CrmRequestHelper crmRequestHelper)
         {
             //原有逻辑废弃，考虑删除
@@ -274,23 +275,40 @@ namespace DCEM.UserCenterService.Main.Application.Services
                                             </div>");
             result.Replace("$formsettings$", formHtml.ToString());
 
-            //最后替换用户行为
+            //替换线索媒体，引流渠道和用户行为
             fetchXdoc = await _ampageRepository.GetUserBehaviorXml(pageId);
-            var userBehaviors = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_am_page", fetchXdoc);
+            var leadConfigs = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_am_page", fetchXdoc);
             var shareable = false;
-            if(userBehaviors!=null&&userBehaviors.Results!=null&& userBehaviors.Results.Count > 0)
+            if (leadConfigs != null && leadConfigs.Results != null && leadConfigs.Results.Count > 0)
             {
-                var behaviorCode = userBehaviors.Results[0].Attributes["behavior.mcs_code"]?.ToString();
+                var channel = leadConfigs.Results[0].Attributes["mcs_channel"]?.ToString();
+                result.Replace("$channel$", channel);
+                var behaviorCode = leadConfigs.Results[0].Attributes["behavior.mcs_code"]?.ToString();
                 result.Replace("$behavior$", behaviorCode);
-                shareable = (bool)userBehaviors.Results[0].Attributes["mcs_shareable"];
+                var media = leadConfigs.Results[0].Attributes["media.mcs_code"]?.ToString();
+                result.Replace("$media$", media);
+             
+                shareable = (bool)leadConfigs.Results[0].Attributes["mcs_shareable"];
             }
             else
             {
                 //设置默认值
+                result.Replace("$channel$", "1");
                 result.Replace("$behavior$", "activity_online_registration");
+                result.Replace("$media$", "official_site");
             }
             //新需求：决定是否可分享
             result.Replace("$shareable$", shareable ? "block" : "none");
+
+            //最后替换配置值（潜客留资url地址等配置值）
+            fetchXdoc = await _configRepository.GetConfigFetchXml("MSCRMInApiUrlConfig");
+            var urlConfig = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_cepconfig", fetchXdoc);
+            if (pageConfigs == null || pageConfigs.Results == null || pageConfigs.Results.Count <= 0)
+            {
+                throw new Exception("请配置潜客中心In接口地址");
+            }
+            result.Replace("$urlconfig$", urlConfig.Results[0].Attributes["mcs_val"].ToString());
+
             return result.ToString();
         }
 

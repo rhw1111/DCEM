@@ -189,7 +189,7 @@
                 referrerMobilephone = "18938027907";
             }
             //渠道(0：CC，1：官网，2：商城，3：APP，4：微站/H5，5：小程序，6：线下活动，7：到店，8：其他)
-            var channel = "1";//getParam("channel");
+            var channel = "$channel$";//getParam("channel");
             //电子折页订阅	electronic_folding_subscription
             //渠道端用户注册	channel_user_registration
             //微信号绑定	wechat_binding
@@ -209,11 +209,11 @@
             //小程序	small_program
             //APP	app
             //第三方媒体	third_party_media
-            var mediaCode = "official_site";//getParam("mediaCode");
+            var mediaCode = "$media$";//getParam("mediaCode");
 
             $.ajax({
                 type: "post",
-                url: "http://106.14.121.65:8082/CC/api/Lead/Do",
+                url: "$urlconfig$api/Lead/Do",
                 dataType: "json",
                 contentType: "application/json;charset=utf-8",
                 data: JSON.stringify({

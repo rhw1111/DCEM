@@ -66,3 +66,14 @@ ion-list {
 ion-toolbar{
     --border-width:0px;
 }
+
+.tip{
+    display:block;
+    background:#f00;
+    border-radius:50%;
+    width:8px;
+    height:8px;
+    top:7px;
+    left:45px;
+    position: absolute;
+  }
