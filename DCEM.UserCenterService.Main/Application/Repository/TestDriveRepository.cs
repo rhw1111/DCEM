@@ -29,7 +29,11 @@ namespace DCEM.UserCenterService.Main.Application.Repository
             {
                 filter += $"<condition attribute='mcs_driverecordid' operator='eq' value='{Request.mcs_driverecordid}' />";
             }
-         
+            if (!string.IsNullOrWhiteSpace(Request.UserId))
+            {
+                filter += $"<condition attribute='mcs_userid' operator='eq' value='{Request.UserId}' />";
+            }
+
             var fetchString = $@"<fetch version='1.0' count='{Request.PageSize}' page='{Request.PageIndex}' output-format='xml-platform' mapping='logical' distinct='false'>
                 <entity name='mcs_driverecord'>
                 <attribute name='mcs_driverecordid' />
@@ -44,8 +48,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository
                 <attribute name='mcs_drivestatus' />
                 <order attribute='createdon' descending='true' />
                 <filter type='and'>
-                  <condition attribute='statecode' operator='eq' value='0' />
-                  <condition attribute='ownerid' operator='eq-userid' />
+                  <condition attribute='statecode' operator='eq' value='0' />              
                     {filter}
                 </filter>
                 <link-entity name='mcs_reservationconfiguration' from='mcs_reservationconfigurationid' to='mcs_testdrivetime' visible='false' link-type='outer' >

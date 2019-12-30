@@ -71,6 +71,10 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 {
                     Entity.Attributes.Add("mcs_testdrivetime", new CrmEntityReference("mcs_reservationconfiguration", Guid.Parse(request.mcs_testdrivetime)));
                 }
+                if (!string.IsNullOrEmpty(request.UserId))
+                {
+                    Entity.Attributes.Add("mcs_userid", request.UserId);
+                }
 
                 if (!string.IsNullOrEmpty(request.mcs_driverecordid))
                 {
@@ -158,8 +162,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
             try
             {
                 var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
-                var ProxyUserId = userInfo != null ? userInfo.systemuserid : null;
-
+                var ProxyUserId = userInfo != null ? userInfo.systemuserid : null;              
                 var fetchString = _Repository.GetDriveRecordList(Request);
                 var fetchXdoc = XDocument.Parse(fetchString);
                 var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()

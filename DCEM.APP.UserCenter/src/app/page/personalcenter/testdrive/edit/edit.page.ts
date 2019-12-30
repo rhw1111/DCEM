@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 // import { SelectDealerComponent } from "app/component/modal/select-dealer/select-dealer.component";
 import { ActivatedRoute, Params } from '@angular/router';
 import { SelectDealerListComponent } from "app/component/modal/select-dealer-list/select-dealer-list.component"
+import { Storage_LoginInfo } from '../../../../component/typescript/logininfo.storage';
 @Component({
     selector: 'app-edit',
     templateUrl: './edit.page.html',
@@ -27,7 +28,8 @@ export class EditPage implements OnInit {
             mcs_ordertime: "", // 预约时间
             mcs_testdrivetime: "",// 预约时段
             mcs_drivestatus: "", //状态
-            isChecked: false
+            isChecked: false,
+            UserId:""
         },
 
         VehicletypeList: [],//车型
@@ -39,7 +41,8 @@ export class EditPage implements OnInit {
         private _page: DCore_Page,
         private _valid: DCore_Valid,
         private _modalCtrl: ModalController,
-        private activeRoute: ActivatedRoute
+        private activeRoute: ActivatedRoute,
+        private _logininfo: Storage_LoginInfo,
     ) { }
 
     ngOnInit() {
@@ -172,7 +175,7 @@ export class EditPage implements OnInit {
             this._page.presentToastError("请阅读并勾选《试乘试驾指南和协议》");
             return;
         }
-
+        this.model.postData.UserId=this._logininfo.GetSystemUserId()
         this._page.loadingShow();
         this._http.post(
             this.model.postApiUrl,

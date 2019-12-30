@@ -97,7 +97,7 @@
               预约时间
               <ion-text color="danger">*</ion-text>
           </ion-label>
-          <ion-datetime placeholder="请选择预约时间"  display-format="YYYY-MM-DD" (ionChange)="GetTimeInterval('')" cancelText="取消" doneText="确定"  [(ngModel)]="model.postData.mcs_ordertime" required></ion-datetime>
+          <ion-datetime placeholder="请选择预约时间"  display-format="YYYY-MM-DD" max="2050-01-01" (ionChange)="GetTimeInterval('')" cancelText="取消" doneText="确定"  [(ngModel)]="model.postData.mcs_ordertime" required></ion-datetime>
       </ion-item>
      
       <ion-item>
