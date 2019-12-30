@@ -43,6 +43,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
                     loginModel.lastname = userInfo.lastname;
                     loginModel.mcs_dealerid = userInfo.mcs_dealerid;
                     loginModel.mcs_dealername = userInfo.mcs_dealername;
+                    loginModel.mcs_dealercode = userInfo.mcs_dealercode;
                     loginModel.domainname = userInfo.domainname;
                     loginModel.mcs_staffid = userInfo.mcs_staffid;
                     loginModel.systemuserid = userInfo.systemuserid.GetValueOrDefault().ToString();

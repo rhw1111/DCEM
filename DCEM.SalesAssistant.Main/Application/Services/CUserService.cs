@@ -29,8 +29,6 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             dicHead.Add(dicHeadKey, new List<string>() { "odata.include-annotations=\"*\"" });
             pageCount = 10;
         }
-
-
         #endregion
 
         #region 获取 用户
@@ -72,6 +70,63 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
             {
                 EntityName = "mcs_user",
+                FetchXml = xDoc
+            };
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+            var fetchResponse = await _crmService.Execute(fetchRequest);
+            var resultsList = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            #endregion;
+
+            #region 组装数据返回
+            var result = new QueryResult<JObject>();
+            foreach (var entity in resultsList.Value.Results)
+            {
+                result.Results.Add(entity.Attributes);
+            }
+            return result;
+            #endregion
+        }
+        #endregion
+
+        #region 获取厅店
+        public async Task<QueryResult<JObject>> QueryDealerList(int pageindex, string search)
+        {
+            #region 组装filter
+            var filter = string.Empty;
+            if (!string.IsNullOrEmpty(search))
+            {
+                filter += $"<filter type='or'>";
+                filter += $"<condition attribute='mcs_name' operator='like' value='%{search}%' />";
+                filter += $"<condition attribute='mcs_phone' operator='like' value='%{search}%' />";
+                filter += $"<condition attribute='mcs_code' operator='like' value='%{search}%' />";
+                filter += $"</filter>";
+            }
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                filter = "<filter type='and'>" + filter;
+                filter = filter + "</filter>";
+            }
+            #endregion
+
+            #region 组装FetchXml
+            var xDoc = await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = string.Empty;
+                fetchXml = $@"
+            <fetch version='1.0' output-format='xml-platform' mapping='logical' count='{pageCount}' page='{pageindex}' >
+              <entity name='mcs_dealer'>
+                  {filter}
+              </entity>
+            </fetch>";
+                return XDocument.Parse(fetchXml);
+            }); ;
+            #endregion
+
+            #region 获取记录结果集
+            var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_dealer",
                 FetchXml = xDoc
             };
             fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);

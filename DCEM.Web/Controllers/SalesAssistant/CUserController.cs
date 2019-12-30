@@ -47,6 +47,22 @@ namespace DCEM.Web.Controllers
         }
         #endregion
 
+        #region 获取厅店列表
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type">1全部 2保修到期 3保险到期</param>
+        /// <param name="pageindex"></param>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetDealerList")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<JObject>>> GetDealerList(int pageindex = 1, string search = "")
+        {
+            return await _cuserService.QueryDealerList(pageindex, search);
+        }
+        #endregion
+
 
 
     }

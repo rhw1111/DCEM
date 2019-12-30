@@ -18,6 +18,7 @@ namespace DCEM.ServiceAssistantService.Main.DTOModel
         public string mcs_staffid { get; set; }
         public string mcs_dealerid { get; set; }
         public string mcs_dealername { get; set; }
+        public string mcs_dealercode { get; set; }
         /// <summary>
         /// 拥有角色名称
         /// </summary>
