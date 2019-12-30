@@ -1,8 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Application\App\AppMember.cs" />
+    <Compile Remove="Application\App\AppMemberManager.cs" />
+    <Compile Remove="Application\Services\MemberManagerService.cs" />
+    <Compile Remove="Application\Services\MemberService.cs" />
+    <Compile Remove="Factory\MemberFactory.cs" />
+    <Compile Remove="Factory\MemberManagerFactory.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DCEM.ConfigurationService.Main\DCEM.ConfigurationService.Main.csproj" />

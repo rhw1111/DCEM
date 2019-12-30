@@ -18,3 +18,14 @@ ion-content{
         }
     }
 }
+
+.tip{
+    display:block;
+    background:#f00;
+    border-radius:50%;
+    width:8px;
+    height:8px;
+    //top:15px;
+    right:25px;
+    position: absolute;
+  }

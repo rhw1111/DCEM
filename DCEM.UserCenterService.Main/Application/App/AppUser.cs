@@ -32,9 +32,9 @@ namespace DCEM.UserCenterService.Main.Application.App
             _userNoticeService = userNoticeService;
         }
 
-        public void IntegralCreate(string key, string userid)
+        public Task<ValidateResult> IntegralCreate(string key, string userid)
         {
-            _userService.IntegralCreate(key, userid);
+          return   _userService.IntegralCreate(key, userid);
         }
         public async Task<ValidateResult> ValUserSecurityquestion(UserLoginRequest req)
         {
@@ -107,6 +107,16 @@ namespace DCEM.UserCenterService.Main.Application.App
         public async Task<QueryResult<CrmEntity>> QueryUserNotices(UserNoticeRequest request)
         {
             return await _userNoticeService.GetUserNotices(request);
+        }
+
+        public async Task<bool> UpdateUserNoticeReadStatus(UserNoticeRequest request)
+        {
+            return await _userNoticeService.UpdateUserNoticeReadStatus(request);
+        }
+
+        public async Task<int> GetUserNoticesNoReadCount(string userId)
+        {
+            return await _userNoticeService.GetUserNoticesNoReadCount(userId);
         }
     }
 }

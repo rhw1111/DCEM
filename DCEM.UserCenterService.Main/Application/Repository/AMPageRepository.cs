@@ -48,10 +48,14 @@ namespace DCEM.UserCenterService.Main.Application.Repository
                      <attribute name='mcs_element' />
                      <attribute name='mcs_displayname' />
                      <attribute name='mcs_content' />
+                    <attribute name='mcs_sort' />
                      <order attribute='mcs_displayname' descending='false' />
                      <filter type='and'>
                        <condition attribute='mcs_page' operator='eq' value='{pageId}' />
                      </filter>
+                    <link-entity name='mcs_am_elementconfig' from='mcs_am_elementconfigid'            to='mcs_element' visible='false' link-type='outer'                 alias='config'>
+                        <attribute name='mcs_code' />
+                      </link-entity>
                    </entity>
                  </fetch>";
                 return XDocument.Parse(fetchXml);
@@ -92,11 +96,15 @@ namespace DCEM.UserCenterService.Main.Application.Repository
                   <entity name='mcs_am_page'>
                     <attribute name='mcs_am_pageid' />
                     <attribute name='mcs_shareable' />
+                    <attribute name='mcs_channel' />
                     <filter type='and'>
                       <condition attribute='mcs_am_pageid' operator='eq'  value='{pageId}' />
                     </filter>
                     <link-entity name='mcs_behavior' from='mcs_behaviorid' to='mcs_behavior' visible='false' link-type='outer'    alias='behavior'>
                       <attribute name='mcs_code' />
+                    </link-entity>
+                    <link-entity name='mcs_media' from='mcs_mediaid' to='mcs_mediaid' visible='false' link-type='outer' alias='media'>
+                          <attribute name='mcs_code' />
                     </link-entity>
                   </entity>
                 </fetch>";

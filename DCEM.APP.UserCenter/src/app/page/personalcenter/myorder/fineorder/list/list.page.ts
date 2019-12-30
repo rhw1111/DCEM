@@ -56,6 +56,7 @@ export class ListPage implements OnInit {
                 PageIndex: this.model.search.page
             },
             (res: any) => {
+                console.log(res);
                 if (res != null && res.Data !== null) {
                     //绑定数据
                     for (var i = 0; i < res.Data.length; i++) {
@@ -79,10 +80,11 @@ export class ListPage implements OnInit {
         );
     }
     //去支付
-    goPay(orderno,price) {
+    goPay(orderno, price, ReceivedIntegral) {
         var returndata = {
             "OrderCode": orderno,
-            "TotalPrice": price
+            "TotalPrice": price,
+            "TotalIntegral": ReceivedIntegral
         };
         this._page.goto("/servicecenter/payment/payment", returndata);
     }

@@ -32,6 +32,14 @@ export class NoticelistPage implements OnInit {
     }
   };
 
+  public updatemodel = {
+    apiUrl: 'api/user/toread',//请求地址
+    params: {
+      Id: "",
+      mcs_readstatus:1,
+    }
+  };
+
   ngOnInit() {
     this._page.loadingShow();
     this.getList(null);
@@ -59,7 +67,8 @@ export class NoticelistPage implements OnInit {
             var obj = {};
             obj["mcs_user_msgid"] = item["Attributes"].mcs_user_msgid;
             obj["mcs_name"] = item["Attributes"].mcs_name;
-            obj["mcs_readstatus"] = this.optionset.GetOptionSetNameByValue("mcs_readstatus", item["Attributes"].mcs_readstatus);
+            //obj["mcs_readstatus"] = this.optionset.GetOptionSetNameByValue("mcs_readstatus", item["Attributes"].mcs_readstatus);
+            obj["mcs_readstatus"] =item["Attributes"].mcs_readstatus;
             //obj["mcs_type"] = this.optionset.GetOptionSetNameByValue("mcs_type", item["Attributes"].mcs_type);
             obj["mcs_type"] = item["Attributes"].mcs_type;
             obj["mcs_user"] = item["Attributes"]["mcs_user.mcs_name"];
@@ -95,6 +104,29 @@ export class NoticelistPage implements OnInit {
         this._page.loadingHide();
       }
     );
+  }
+
+  toread(notice:any){
+    if(notice.mcs_readstatus==0){
+      this.updatemodel.params.Id=notice.mcs_user_msgid;
+      this._http.post(this.updatemodel.apiUrl,
+        this.updatemodel.params,
+        (res: any) => {
+          if (res == false) {
+            this._page.alert("消息提示", "更新阅读状态为已读失败！");
+          }
+          else{
+            this._page.alert("消息提示", "阅读状态为已读！");
+            notice.mcs_readstatus=1;
+          }
+          this._page.loadingHide();
+        },
+        (err: any) => {
+          this._page.alert("消息提示", "请求异常，请检查网络！");
+          this._page.loadingHide();
+        }
+      );
+    }
   }
 
   FormatToDate(date:any) {

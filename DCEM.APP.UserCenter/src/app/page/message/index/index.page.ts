@@ -21,7 +21,7 @@ export class IndexPage implements OnInit {
       title: "系统管理员",
       activeTime: "11-29",
       latest_chat: "本周官方举办活动！",
-      unreadcount: 1,//未读信息
+      noreadcount: this._storage_LoginInfo.GetUserNoReadMessage(),//未读信息
       chatList: [
         {
           userId: 1,
@@ -40,7 +40,7 @@ export class IndexPage implements OnInit {
       title: "我的朋友A",
       activeTime: "11-27",
       latest_chat: "你好，最近怎么样？",
-      unreadcount: 0,//未读信息
+      noreadcount: 0,//未读信息
       chatList: []
     },
     // {
@@ -151,6 +151,9 @@ export class IndexPage implements OnInit {
     }
   }
 
+  ionViewWillEnter(){
+    this.activities[0].noreadcount=this._storage_LoginInfo.GetUserNoReadMessage();
+  }
   //用户登录
   public async presentLoginModal() {
     const modal = await this._modalCtrl.create({

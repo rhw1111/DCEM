@@ -34,10 +34,11 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
         public IConfigRepository _configRepository;
 
-        public AMPageService(ICrmService crmService, IAMPageRepository ampageRepository)
+        public AMPageService(ICrmService crmService, IAMPageRepository ampageRepository, IConfigRepository configRepository)
         {
-             _crmService = crmService;
-                     _ampageRepository=ampageRepository;
+            _crmService = crmService;
+            _ampageRepository = ampageRepository;
+            _configRepository = configRepository;
         }
 
         public async Task<AMPageResponse> GenerateAMPage(Guid pageId)
@@ -53,14 +54,14 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     throw new Exception("未找到对应的落地页模板数据");
                 }
                 //根据落地页数据选择模板
-                var fileName = "/" + GetTemplateNameByPageType(entity.Attributes["mcs_type"]?.ToString()) + "Temp.html";
+                var fileName = "/" + entity.Attributes["mcs_am_pageid"].ToString() + ".html";
                 //从模板地址读取数据写入新地址
                 var prjRootPath = Directory.GetCurrentDirectory();
-                var templateHtml = File.ReadAllText(prjRootPath + @"\wwwroot\HtmlResources\Templates\Temp\" + fileName);
+                var templateHtml = File.ReadAllText(prjRootPath + @"\wwwroot\HtmlResources\Templates\Temp.html");
                 //替换其中的自定义项
                 var targetHtml = await TransHtml(pageId, templateHtml, crmRequestHelper);
                 //写入目标地址
-                var resultPath = @"HtmlResources/Activities/" + entity.Attributes["mcs_am_pageid"].ToString();
+                var resultPath = @"HtmlResources/Activities";
                 var targetPath = prjRootPath + @"\wwwroot\" + resultPath;
                 if (!Directory.Exists(targetPath))
                 {
@@ -82,39 +83,72 @@ namespace DCEM.UserCenterService.Main.Application.Services
         /// </summary>
         /// <param name="pageId"></param>
         /// <param name="templateHtml"></param>
-        /// <returns></returns>
+        /// <returMyAllOrdersns></returns>
         private async Task<string> TransHtml(Guid pageId, string templateHtml, CrmRequestHelper crmRequestHelper)
         {
-            //先替换元素配置
-            //获取当前模板页的所有元素配置项
+            //原有逻辑废弃，考虑删除
+            ////先替换元素配置
+            ////获取当前模板页的所有元素配置项
+            //XDocument fetchXdoc = await _ampageRepository.GetPageDetailsXml(pageId);
+            //var pageDetails = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_am_pagedetail", fetchXdoc);
+            ////读取应有的全部元素配置
+            //fetchXdoc = await _ampageRepository.GetElementConfigsXml();
+            //var elementConfigs = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_am_elementconfig", fetchXdoc);
+            ////用全部的配置去对应模板页的配置，如果模板有则获取模板的，没有则读取配置自己的默认值
+            //var result = new StringBuilder(templateHtml);
+            //foreach (var item in elementConfigs.Results)
+            //{
+            //    var pageDetail = pageDetails.Results.FirstOrDefault(p => p.Attributes["_mcs_element_value"]?.ToString() == item.Attributes["mcs_am_elementconfigid"]?.ToString());
+            //    var tempValue = string.Empty;
+            //    if (pageDetail == null)
+            //    {
+            //        tempValue = item.Attributes["mcs_defaultvalue"]?.ToString();
+            //    }
+            //    else
+            //    {
+            //        tempValue = pageDetail.Attributes["mcs_content"]?.ToString();
+            //    }
+            //    result.Replace(item.Attributes["mcs_code"]?.ToString(), tempValue);
+            //}
+
+            //新逻辑 先决定页面元素数量和顺序
+            var result = new StringBuilder(templateHtml);
             XDocument fetchXdoc = await _ampageRepository.GetPageDetailsXml(pageId);
             var pageDetails = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_am_pagedetail", fetchXdoc);
-            //读取应有的全部元素配置
-            fetchXdoc = await _ampageRepository.GetElementConfigsXml();
-            var elementConfigs = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_am_elementconfig", fetchXdoc);
-            //用全部的配置去对应模板页的配置，如果模板有则获取模板的，没有则读取配置自己的默认值
-            var result = new StringBuilder(templateHtml);
-            foreach (var item in elementConfigs.Results)
+            if (pageDetails == null || pageDetails.Results == null || pageDetails.Results.Count <= 0)
             {
-                var pageDetail = pageDetails.Results.FirstOrDefault(p => p.Attributes["_mcs_element_value"]?.ToString() == item.Attributes["mcs_am_elementconfigid"]?.ToString());
-                var tempValue = string.Empty;
-                if (pageDetail == null)
-                {
-                    tempValue = item.Attributes["mcs_defaultvalue"]?.ToString();
-                }
-                else
-                {
-                    tempValue = pageDetail.Attributes["mcs_content"]?.ToString();
-                }
-                result.Replace(item.Attributes["mcs_code"]?.ToString(), tempValue);
+                throw new Exception("请添加模板配置元素");
             }
+            var layoutHtml = new StringBuilder();
+            foreach (var item in pageDetails.Results.OrderBy(p => p.Attributes["mcs_sort"]))
+            {
+                var code = item.Attributes["config.mcs_code"].ToString();
+                switch (code)
+                {
+                    case "$form$":
+                        layoutHtml.Append("$formsettings$");
+                        break;
+                    case "$image$":
+                        layoutHtml.Append(@$"<img src=""{item.Attributes["mcs_content"].ToString()}"" style=""max-width:100%;margin-bottom: 40px;"" />");
+                        break;
+                }
+            }
+            result.Replace("$layoutcontent$", layoutHtml.ToString());
 
             //再替换表单配置
             //获取当前模板页的所有表单配置项
             fetchXdoc = await _ampageRepository.GetPageFieldsXml(pageId);
             var pageConfigs = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_am_pagefield", fetchXdoc);
+            if (pageConfigs == null || pageConfigs.Results == null || pageConfigs.Results.Count <= 0)
+            {
+                throw new Exception("请添加模板配置字段");
+            }
             //此处逻辑暂时先hardcode，后续可改为配置处理
             var formHtml = new StringBuilder();
+            //加表单头
+            formHtml.Append($@"<form name=""myForm"" class=""form-horizontal"" role=""form"">
+                                            <div class=""person-info clearfix"" style=""padding-bottom: 10px;"">
+                                                <h3 class=""title"">请填写您的信息</h3>");
             foreach (var item in pageConfigs.Results.OrderBy(p => p.Attributes["mcs_displayorder"]))
             {
                 var code = item.Attributes["config.mcs_name"]?.ToString();
@@ -197,6 +231,11 @@ namespace DCEM.UserCenterService.Main.Application.Services
                                                         <span>{tip}</span>
                                                     </div>
                                                 </div>");
+                        formHtml.Append(@$"<div class=""detail"">
+                                                    <label></label>
+                                                    <div class=""content"">
+     <input type=""button"" value=""获取验证码"" style=""width: 49%;margin-top:-4px;"" class=""button button-blue"" onclick=""GetCode()"" id=""btn_code"">                                                   <input type=""text""  name=""Mobile"" placeholder=""请输入验证码""  style=""width: 49%;margin-top: -3px;"">
+</div></div>");
                         break;
                     case "$vehcolor$":
                         formHtml.Append(@$"</label>
@@ -215,8 +254,8 @@ namespace DCEM.UserCenterService.Main.Application.Services
                                                     <div class=""content"">
                                                         <select style=""border: 2px solid #bbb;width:100%;height:40px;"" id=""sltCarPlan""  data-required=""{required}"" data-label=""{label}"">
                                                             <option value=""-1"">{placeholder}</option>
-                                                            <option value=""S05"">S05</option>
-                                                            <option value=""S07"">S07</option>
+                                                            <option value=""SF05"">SF05</option>
+                                                            <option value=""SF07"">SF07</option>
                                                         </select>
                                                         <span>{tip}</span>
                                                     </div>
@@ -224,25 +263,52 @@ namespace DCEM.UserCenterService.Main.Application.Services
                         break;
                 }
             }
+            //加表单尾
+            formHtml.Append(@$"</div>
+                                            <div class=""law one-line"">
+                                                <span class=""tips""><a style=""color:red;"">*</a>带星号的选项必须填写</span>
+                                            </div>
+                                            <div class=""action-bar"" style=""position: fixed;bottom: 10px;padding-right: 40px;"">
+                                                <div class=""action"">
+                                                    <span class=""button button-blue"" onclick=""SubmitClick()"" gcdm-form-submit>提交</span>
+                                                </div>
+                                            </div>");
             result.Replace("$formsettings$", formHtml.ToString());
 
-            //最后替换用户行为
+            //替换线索媒体，引流渠道和用户行为
             fetchXdoc = await _ampageRepository.GetUserBehaviorXml(pageId);
-            var userBehaviors = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_am_page", fetchXdoc);
+            var leadConfigs = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_am_page", fetchXdoc);
             var shareable = false;
-            if(userBehaviors!=null&&userBehaviors.Results!=null&& userBehaviors.Results.Count > 0)
+            if (leadConfigs != null && leadConfigs.Results != null && leadConfigs.Results.Count > 0)
             {
-                var behaviorCode = userBehaviors.Results[0].Attributes["behavior.mcs_code"]?.ToString();
+                var channel = leadConfigs.Results[0].Attributes["mcs_channel"]?.ToString();
+                result.Replace("$channel$", channel);
+                var behaviorCode = leadConfigs.Results[0].Attributes["behavior.mcs_code"]?.ToString();
                 result.Replace("$behavior$", behaviorCode);
-                shareable = (bool)userBehaviors.Results[0].Attributes["mcs_shareable"];
+                var media = leadConfigs.Results[0].Attributes["media.mcs_code"]?.ToString();
+                result.Replace("$media$", media);
+             
+                shareable = (bool)leadConfigs.Results[0].Attributes["mcs_shareable"];
             }
             else
             {
                 //设置默认值
+                result.Replace("$channel$", "1");
                 result.Replace("$behavior$", "activity_online_registration");
+                result.Replace("$media$", "official_site");
             }
             //新需求：决定是否可分享
             result.Replace("$shareable$", shareable ? "block" : "none");
+
+            //最后替换配置值（潜客留资url地址等配置值）
+            fetchXdoc = await _configRepository.GetConfigFetchXml("MSCRMInApiUrlConfig");
+            var urlConfig = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_cepconfig", fetchXdoc);
+            if (pageConfigs == null || pageConfigs.Results == null || pageConfigs.Results.Count <= 0)
+            {
+                throw new Exception("请配置潜客中心In接口地址");
+            }
+            result.Replace("$urlconfig$", urlConfig.Results[0].Attributes["mcs_val"].ToString());
+
             return result.ToString();
         }
 
