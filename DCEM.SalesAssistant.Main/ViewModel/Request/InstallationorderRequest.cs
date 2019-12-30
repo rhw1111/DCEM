@@ -113,50 +113,50 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         /// </summary>
         public string mcs_price { set; get; }
 
-        ///// <summary>
-        ///// 物业态度
-        ///// </summary>
-        //public string mcs_propertyattitude { set; get; }
-        ///// <summary>
-        ///// 销售单号
-        ///// </summary>
-        //public string mcs_salesorder { set; get; }
-        ///// <summary>
-        ///// vin
-        ///// </summary>
-        //public string mcs_vin { set; get; }
-        ///// <summary>
-        ///// 动力类型
-        ///// </summary>
-        //public string mcs_powertypeid { set; get; }
+        /// <summary>
+        /// 物业态度
+        /// </summary>
+        public string mcs_propertyattitude { set; get; }
+        /// <summary>
+        /// 销售单号
+        /// </summary>
+        public string mcs_salesorder { set; get; }
+        /// <summary>
+        /// vin
+        /// </summary>
+        public string mcs_vin { set; get; }
+        /// <summary>
+        /// 动力类型
+        /// </summary>
+        public string mcs_powertypeid { set; get; }
         /// <summary>
         /// 结算价格
         /// </summary>
         public string mcs_settlementprice { set; get; }
-        ///// <summary>
-        ///// 安装服务商
-        ///// </summary>
-        //public string mcs_installationproviderid { set; get; }
-        ///// <summary>
-        ///// 安装服务商联系人
-        ///// </summary>
-        //public string mcs_contact { set; get; }
-        ///// <summary>
-        ///// 安装服务电话
-        ///// </summary>
-        //public string mcs_installationproviderphone { set; get; }
-        ///// <summary>
-        ///// 安装服务时间
-        ///// </summary>
-        //public DateTime? mcs_appointmenttime { set; get; }
-        ///// <summary>
-        ///// 安装交付工程师
-        ///// </summary>
-        //public string mcs_installationengineerid { set; get; }
-        ///// <summary>
-        ///// 安装交付工程师电话
-        ///// </summary>
-        //public string mcs_installationengineerphone { set; get; }
+        /// <summary>
+        /// 安装服务商
+        /// </summary>
+        public string mcs_installationproviderid { set; get; }
+        /// <summary>
+        /// 安装服务商联系人
+        /// </summary>
+        public string mcs_contact { set; get; }
+        /// <summary>
+        /// 安装服务电话
+        /// </summary>
+        public string mcs_installationproviderphone { set; get; }
+        /// <summary>
+        /// 安装服务时间
+        /// </summary>
+        public DateTime? mcs_appointmenttime { set; get; }
+        /// <summary>
+        /// 安装交付工程师
+        /// </summary>
+        public string mcs_installationengineerid { set; get; }
+        /// <summary>
+        /// 安装交付工程师电话
+        /// </summary>
+        public string mcs_installationengineerphone { set; get; }
 
 
     }
