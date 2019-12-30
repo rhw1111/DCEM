@@ -19,6 +19,15 @@ namespace DCEM.SalesAssistant.Main.Application.Services.Contrac
         /// <param name="accountRequest"></param>
         /// <returns></returns>
         Task<QueryResult<JObject>> QueryUserList(int pageindex, string search);
+        /// <summary>
+        /// 查询厅店列表
+        /// </summary>
+        /// <param name="accountRequest"></param>
+        /// <returns></returns>
+        Task<QueryResult<JObject>> QueryDealerList(int pageindex, string search);
+
+
+
 
     }
 }

@@ -81,30 +81,40 @@ export class Storage_LoginInfo {
             return data.rolenames;
         return null;
     }
+    //获取拥有厅店编码
+    GetDealerCode() {
+        var data = this.GetUserInfo();
+        if (data != null)
+            return data.mcs_dealercode;
+        return null;
+    }
+
+
+
     //验证是否是销售顾问
     IsSalingManager() {
-        var result=false;
+        var result = false;
         var data = this.GetUserInfo();
-        if (data != null){
-            if(data.rolenames.indexOf('系统管理员')!=-1){
-                result= true;
+        if (data != null) {
+            if (data.rolenames.indexOf('系统管理员') != -1) {
+                result = true;
             }
-            else if(data.rolenames.indexOf('厅店销售机会跟进人员')!=-1){
-                result= true;
+            else if (data.rolenames.indexOf('厅店销售机会跟进人员') != -1) {
+                result = true;
             }
         }
         return result;
     }
     //验证是否是服务顾问
     IsServingManager() {
-        var result=false;
+        var result = false;
         var data = this.GetUserInfo();
-        if (data != null){
-            if(data.rolenames.indexOf('系统管理员')!=-1){
-                result= true;
+        if (data != null) {
+            if (data.rolenames.indexOf('系统管理员') != -1) {
+                result = true;
             }
-            else if(data.rolenames.indexOf('维保-服务顾问')!=-1){
-                result= true;
+            else if (data.rolenames.indexOf('维保-服务顾问') != -1) {
+                result = true;
             }
         }
         return result;

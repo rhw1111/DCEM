@@ -29,7 +29,8 @@ namespace DCEM.UserCenterService.Main.Factory
         {
             var crmService = StartupHelper.CreateCrmService();
                 IAMPageRepository ampagerepository = new AMPageRepository();
-            IAMPageService ampageservice = new AMPageService(crmService, ampagerepository);
+            IConfigRepository configRepository = new ConfigRepository();
+            IAMPageService ampageservice = new AMPageService(crmService, ampagerepository, configRepository);
                 IAppAMPage app = new AppAMPage(ampageservice); 
                 return Task.FromResult(app);
         }

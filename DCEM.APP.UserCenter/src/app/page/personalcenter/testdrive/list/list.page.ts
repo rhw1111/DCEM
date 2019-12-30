@@ -3,7 +3,7 @@ import { DCore_Http, DCore_Page } from 'app/component/typescript/dcem.core';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { OptionSetService } from 'app/component/typescript/optionset.service';
 import sd from 'silly-datetime';
-
+import { Storage_LoginInfo } from '../../../../component/typescript/logininfo.storage';
 @Component({
   selector: 'app-list',
   templateUrl: './list.page.html',
@@ -21,13 +21,15 @@ export class ListPage implements OnInit {
         Sort: '',
         PageSize: 10,
         PageIndex: 1,
+        UserId:''
     }
 };
 
   constructor(
     private _http: DCore_Http,
     private _page: DCore_Page,
-    private optionset:OptionSetService
+    private optionset:OptionSetService,
+    private _logininfo: Storage_LoginInfo,
   ) { }
 
   ngOnInit() {
@@ -51,6 +53,7 @@ doLoading(event) {
 //获取列表数据
 getList(event) {
   this._page.loadingShow();
+  this.model.params.UserId=this._logininfo.GetSystemUserId()
   this._http.post(this.model.apiUrl,
 
     this.model.params

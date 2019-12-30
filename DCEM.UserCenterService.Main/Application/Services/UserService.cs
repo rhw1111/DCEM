@@ -383,7 +383,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 XDocument fetchXdoc = null;
                 fetchXdoc = await _repository.GetMemberintegraldetail(entity.Id, code);
                 var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_memberintegraldetail", fetchXdoc);
-                if (entities.Results.Count ==0)
+                if (entities.Results.Count == 0)
                 {
                     IntegralCreate(IntegralUserInfo_Key, entity.Id.ToString());
                 }
@@ -659,9 +659,9 @@ namespace DCEM.UserCenterService.Main.Application.Services
         /// </summary>
         /// <param name="key"></param>
         /// <param name="userid"></param>
-        public async void IntegralCreate(string key, string userid)
+        public async Task<ValidateResult> IntegralCreate(string key, string userid)
         {
-            string code = await GetConfig(key);
+             string code = await GetConfig(key);
             string num = await GetMemberintegralpoint(code);
             IntegralRequest req = new IntegralRequest();
             req.UserId = userid;
@@ -672,7 +672,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
             req.TransactionTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             Random rnd = new Random();
             req.OrderNumber = "IC" + DateTime.Now.ToString("yyyyMMddHHmmss") + rnd.Next(100, 100000).ToString();
-            IntegralPost(req);
+           return await IntegralPost(req);
         }
 
         /// <summary>
@@ -680,10 +680,22 @@ namespace DCEM.UserCenterService.Main.Application.Services
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        public async void IntegralPost(IntegralRequest req)
-        { 
-            string url = await GetConfig(IntegralUrl_Key);
-            HttpClinetHelper.Post(req, $"{url}/api/member/integralcreate");
+        public async Task<ValidateResult> IntegralPost(IntegralRequest req)
+        {
+            ValidateResult res = new ValidateResult();
+            try
+            {
+                string url = await GetConfig(IntegralUrl_Key);
+                var ret = HttpClinetHelper.Post<IntegralRequest, string>(req, $"{url}/api/member/integralcreate");
+                if (ret == "1") 
+                    res.Result = true; 
+            }
+            catch (Exception e)
+            {
+                res.Result = false;
+                res.Description = e.Message;
+            }
+            return res;
         }
 
         #endregion
