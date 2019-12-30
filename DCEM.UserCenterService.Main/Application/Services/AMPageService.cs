@@ -62,6 +62,8 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 var targetHtml = await TransHtml(pageId, templateHtml, crmRequestHelper);
                 //写入目标地址
                 var resultPath = @"HtmlResources/Activities";
+                //在此处替换一下链接url，便于分享
+                targetHtml.Replace("$pageurl$", resultPath + fileName);
                 var targetPath = prjRootPath + @"\wwwroot\" + resultPath;
                 if (!Directory.Exists(targetPath))
                 {
