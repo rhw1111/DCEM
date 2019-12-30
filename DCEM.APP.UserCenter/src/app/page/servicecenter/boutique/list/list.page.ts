@@ -38,24 +38,26 @@ export class ListPage implements OnInit {
         this.model.datalist = [];
         this.model.search.page = 1;
         this.model.isending = false;
-        this.getList(event,this.id);
+        this.getList(event, this.id);
     }
     //加载下一页
     doLoading(event) {
         this.model.search.page++;
-        this.getList(event,this.id);
+        this.getList(event, this.id);
     }
     //初始化页面数据加载
     initListLoading() {
         this._page.loadingShow();
-        this.getList(null,this.id);
+        this.getList(null, this.id);
     }
 
     //获取列表数据
-    getList(event,id) {
-        this._http.getForShopping(this.model.search.apiUrl,
+    getList(event, id) {
+        this._http.postForShopping(this.model.search.apiUrl,
             {
-                code: id
+                code: id,
+                PageSize: this.model.search.pageSize,
+                PageIndex: this.model.search.page,
             },
             (res: any) => {
                 if (res != null && res.Datas !== null) {
