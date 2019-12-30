@@ -284,7 +284,7 @@ namespace DCEM.Web.Controllers
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        [Route("deducationintegral")]
+        [Route("addintegral")]
         [HttpPost]
         public async Task<NewtonsoftJsonActionResult<ValidateResult>> deducationintegral(UserDeDucationIntegralRequest request)
         {

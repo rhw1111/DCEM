@@ -230,6 +230,7 @@ export class EditPage implements OnInit {
                 "ReceiverPhone": "",
                 "DealerCode": this.shareData.dealer["mcs_code"],
                 "DeliveryAdderss": "",
+                "OrderClass": 100,
                 "SmallOrderCodeList": [
                 ],
                 //"OrderFinancial": {   //金融方案

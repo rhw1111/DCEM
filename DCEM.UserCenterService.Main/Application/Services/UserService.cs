@@ -606,14 +606,14 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     var crmRequestHelper = new CrmRequestHelper();
                     XDocument fetchXdoc = null;
                     fetchXdoc = await _repository.getuserscorebalance(new UserDetailRequest { id = request.UserId });
-                    var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_memberintegraldetail", fetchXdoc);
+                    var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_member", fetchXdoc);
                     if (entities.Results != null && entities.Results.Count > 0)
                     {
-                        entity.Attributes.Add("mcs_memberid", new CrmEntityReference("mcs_member", new Guid(entities.Results[0].Attributes["mcs_memberid"].ToString())));
+                        entity.Attributes.Add("mcs_memberid", new CrmEntityReference("mcs_member", entities.Results[0].Id));
                         var bonuspoint = entities.Results[0].Attributes["mcs_bonuspoint"];
                         var balance = bonuspoint == null ? 0 : (Int32)bonuspoint;
                         entity.Attributes.Add("mcs_bonuspoint", balance);
-                        var updateEntity = new CrmExecuteEntity("mcs_member", new Guid(entities.Results[0].Attributes["mcs_memberid"].ToString()));
+                        var updateEntity = new CrmExecuteEntity("mcs_member", entities.Results[0].Id);
                         if (request.IntegralType != null)
                         {
                             entity.Attributes.Add("mcs_integraltype", request.IntegralType);
@@ -621,16 +621,24 @@ namespace DCEM.UserCenterService.Main.Application.Services
                         if (request.Integral != 0)
                         {
                             entity.Attributes.Add("mcs_num", request.Integral);
-                            updateEntity.Attributes.Add("", balance - request.Integral);
+                            updateEntity.Attributes.Add("mcs_bonuspoint", balance - request.Integral);
                         }
                         await _crmService.Update(updateEntity);
                         await _crmService.Create(entity);
+                        validateResult.Result = true;
+                        validateResult.Description = "操作成功";
+                    }
+                    else
+                    {
+                        validateResult.Result = false;
+                        validateResult.Description = "用户不存在";
                     }
                 }
-                #region 组装数据返回 
-                validateResult.Result = true;
-                validateResult.Description = "操作成功";
-                #endregion
+                else
+                {
+                    validateResult.Result = false;
+                    validateResult.Description = "用户Id不存在";
+                }
             }
             catch (Exception e)
             {
