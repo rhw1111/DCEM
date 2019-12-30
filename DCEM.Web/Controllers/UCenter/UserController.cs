@@ -33,8 +33,6 @@ namespace DCEM.Web.Controllers
     public class UserController : ApiController
     {
 
-        //问题积分埋点编号
-        public string Integrallend_Key = "Integrallend_Key";
         private IAppUser _appUser;
         private IAppUsermessage _appUsermessage;
         public UserController()
