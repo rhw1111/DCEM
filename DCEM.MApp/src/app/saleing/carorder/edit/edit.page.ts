@@ -1,8 +1,10 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { SelectUserComponent } from 'app/saleing/saleing.ser/components/select-user/select-user.component';
+import { SelectDealerComponent } from 'app/saleing/saleing.ser/components/select-dealer/select-dealer.component';
 import { SelectCarproductComponent } from 'app/saleing/saleing.ser/components/select-carproduct/select-carproduct.component';
 import { ModalController, NavController, ToastController, IonBackButton, IonBackButtonDelegate } from '@ionic/angular';
 import { DCore_Http, DCore_Page, DCore_ShareData, DCore_Valid, DCore_String } from 'app/base/base.ser/Dcem.core';
+import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 
 @Component({
     selector: 'app-edit',
@@ -19,13 +21,15 @@ export class EditPage implements OnInit {
         private _page: DCore_Page,
         private _shareData: DCore_ShareData,
         private _valid: DCore_Valid,
-        private _string: DCore_String
+        private _string: DCore_String,
+        private _storage_LoginInfo: Storage_LoginInfo
     ) { }
 
     public objectKeys = Object.keys;
     //共享数据对象
     public shareData = {
         user: {},   //用户
+        dealer: {},//厅店
         product: {
             ProductInfo: {},
         },
@@ -39,7 +43,8 @@ export class EditPage implements OnInit {
     }
 
     ngOnInit() {
-
+        this.shareData.dealer["mcs_name"] = this._storage_LoginInfo.GetDealername();
+        this.shareData.dealer["mcs_code"] = this._storage_LoginInfo.GetDealerCode();
     }
 
 
@@ -55,6 +60,21 @@ export class EditPage implements OnInit {
             this.shareData.user["ext_cardype"] = "1";
         }
     }
+
+
+    //选择门店
+    async presentDealerModal() {
+        const modal = await this._modalCtrl.create({
+            component: SelectDealerComponent
+        });
+        await modal.present();
+        const { data } = await modal.onDidDismiss();
+        if (!this._valid.isNull(data)) {
+            this.shareData.dealer = data.dealer;
+            console.log(this.shareData.dealer);
+        }
+    }
+
 
     //选择车型
     async presentCarproductModal() {
@@ -149,12 +169,16 @@ export class EditPage implements OnInit {
         if (this._valid.isNullOrEmpty(this.shareData.user["mcs_name"])) {
             errMessage += "您尚未选择用户<br>";
         }
+        if (this._valid.isNull(this.shareData.dealer["mcs_name"]) || this._valid.isNull(this.shareData.dealer["mcs_code"])) {
+            errMessage += "您尚未选择交车厅店<br>";
+        }
         if (this._valid.isNull(this.shareData.user["mcs_phone"])) {
             errMessage += "您尚未输入联系方式<br>";
         }
         if (this._valid.isNull(this.shareData.user["mcs_cardid"])) {
             errMessage += "您尚未输入证件号码<br>";
         }
+
         if (this._valid.isNull(this.shareData.product["ProductInfo"]["mcs_code"])) {
             errMessage += "您尚未选择车辆<br>";
         }
@@ -204,7 +228,7 @@ export class EditPage implements OnInit {
                 "Comment": "",
                 "ReceiverName": "",
                 "ReceiverPhone": "",
-                "DealerCode": "",
+                "DealerCode": this.shareData.dealer["mcs_code"],
                 "DeliveryAdderss": "",
                 "SmallOrderCodeList": [
                 ],
@@ -285,7 +309,7 @@ export class EditPage implements OnInit {
         postData["OrderData"]["FinalPayment"] = this.shareData.sumMoney;
         postData["OrderData"]["TotalDepositAmount"] = this.shareData.product["ProductInfo"]["mcs_depositamount"]; //线上应收金额(定金)
 
-
+        console.log(JSON.stringify(postData));
         var that = this;
         //请求商品接口
         this._http.post(
@@ -293,7 +317,7 @@ export class EditPage implements OnInit {
             postData,
             (res: any) => {
                 console.log(res);
-                if (res["Code"] === "000") {
+                if (res["Code"] === "000" && !this._valid.isNullOrEmpty(res["OrderId"])) {
                     that._page.navigateRoot("/saleing/carorder/success", { id: res["OrderId"], no: res["OrderCode"] }, "");
                 }
                 else {
