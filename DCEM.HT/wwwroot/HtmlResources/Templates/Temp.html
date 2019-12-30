@@ -25,11 +25,22 @@
             position: absolute;
         }
 
-        .qrcode {
-            width: 100px;
-            height: 50px;
-            margin-left: 10px;
-        }
+        /*内容自适应*/
+.qrcode{
+    width: 100%;
+    height: 100%;
+}
+
+/*生成的二维码里面的img标签宽高自适应*/
+.qrcode img{
+    width: 110px;
+    height: 110px;
+}
+/*一开始生成的canvas也要进行宽高自适应*/
+.qrcode canvas{
+    width: 100%;
+    height: 100%;
+}
         /* 设置滚动条的样式 */
         ::-webkit-scrollbar {
             width: 3px;
@@ -79,7 +90,7 @@
             top: 10%;
             left: 10%;
             width: 75%;
-            /*width:100%;*/
+            /*width:300%;*/
             height: auto;
             background-color: white;
             z-index: 1002;
@@ -280,7 +291,7 @@
         }
         function GeneratePoster() {
             $("#dv_qrcode").empty();
-            var qrcode = new QRCode(document.getElementById("dv_qrcode"), { width: 110, height: 110 });
+            var qrcode = new QRCode(document.getElementById("dv_qrcode"), { width: 330, height: 330, correctLevel: QRCode.CorrectLevel.H });
             var referrerMobilephone = getParam("ReferrerMobilephone");
             if (referrerMobilephone == "" || referrerMobilephone == null) {
                 referrerMobilephone = "18938027907";
@@ -304,26 +315,12 @@
             $("#fade").height($(document).height());
             $("#dv_postercontent").show();
             $("#fade").show();
-            $("#dv_showpostercontent").empty();
-            //防止生成的二维码模糊
-            var shareContent = document.getElementById('dv_postercontent');//需要截图的包裹的（原生的）DOM 对象
-        var width = shareContent.offsetWidth; //获取dom 宽度
-        var height = shareContent.offsetHeight; //获取dom 高度
-        //var canvas = document.createElement("canvas"); //创建一个canvas节点
-        //var scale = 2; //定义任意放大倍数 支持小数
-        //canvas.width = width * scale; //定义canvas 宽度 * 缩放
-        //canvas.height = height * scale; //定义canvas高度 *缩放
-        //canvas.getContext("2d").scale(scale,scale); //获取context,设置scale
-      
+         
             html2canvas($("#dv_postercontent"), {
-                 //scale:scale, // 添加的scale 参数
-            //canvas:canvas, //自定义 canvas
-            //width:width*0.5, //缩小
-            //height:height, //缩小
-            //useCORS: true,
                 onrendered: function (canvas) {
                     $("#dv_postercontent").hide();
-                    document.getElementById('dv_showpostercontent').appendChild(canvas);
+                    var dataUrl = canvas.toDataURL("jpeg");
+                    $("#img_tosave").attr("src", dataUrl);
                 }
             });
 
@@ -418,8 +415,8 @@
                             <div style="text-align: right;cursor: default;height: 40px;padding-top: 1%;">
                                 <span style="font-size: 16px;font-weight: bold;margin-right: 2%;" onclick="CloseDiv()">X</span>
                             </div>
-                            <div style="padding: 0px 10px;" id="dv_showpostercontent">
-
+                            <div style="padding: 0px 10px;" >
+                                <img id="img_tosave"/>
                             </div>
                         </div>
                         <div id="dv_postercontent" class="white_content_small">
@@ -429,7 +426,7 @@
                                     <span> 长按保存图片，发给好友或分享朋友圈，每邀请1位好友留资，你将获得50积分</span>
                                 </div>
                                 <div style="width:55%;float:right;">
-                                    <div id="dv_qrcode" style="width:100%;margin-left:15%;"></div>
+                                    <div id="dv_qrcode" class="qrcode" style="width:100%;margin-left:15%;"></div>
                                 </div>
                             </div>
                         </div>
