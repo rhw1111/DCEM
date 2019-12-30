@@ -86,7 +86,7 @@ export class PaymentPage implements OnInit {
             this.mod.postUrl,
             postData,
             (res: any) => {
-                if (res["Code"] === "000") {
+                if (res["Code"] === "000" && !this._valid.isNullOrEmpty(res["OrderId"])) {
                     this._page.alert("消息提示", "您的订单已经下单成功", function () {
                         that._page.navigateRoot("/personalcenter/myorder/fineorder/detail", { code: postData["OrderData"]["OrderCode"] }, "");
                     });
@@ -158,7 +158,7 @@ export class PaymentPage implements OnInit {
                 "Comment": "",
                 "ReceiverName": "",
                 "ReceiverPhone": "",
-                "DealerCode": "",
+                "DealerCode": this.shareData.userInfo["dealerCode"],
                 "DeliveryAdderss": "",
                 "SmallOrderCodeList": [
                 ],
@@ -210,7 +210,7 @@ export class PaymentPage implements OnInit {
             }
             data["Products"].push(product);
         }
- 
+
         return data;
     }
 
