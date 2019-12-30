@@ -130,17 +130,6 @@ export class PreorderPage implements OnInit {
             this.model.score.search,
             (res: any) => {
                 if (res !== null) {
-                    var data = res.scores;
-                    for (var i in data) {
-                        var attr = data[i]["Attributes"];
-                        var obj = {};
-                        obj["id"] = data[i]["Id"];
-                        obj["name"] = attr["mcs_integraltype@OData.Community.Display.V1.FormattedValue"];
-                        var optvalue = this._optionset.GetOptionSetValueByName("mcs_integraltype", obj["name"]);
-                        obj["num"] = optvalue + "" + attr["mcs_num"];
-                        obj["time"] = attr["createdon@OData.Community.Display.V1.FormattedValue"];
-                        this.model.score.data.push(obj);
-                    }
                     this.model.score.balance = res.balance;
                 }
                 else {
@@ -167,19 +156,19 @@ export class PreorderPage implements OnInit {
                     //    "TotalIntegral": this.model.score.balance
                     //};
                     //this._page.navigateRoot("/servicecenter/payment/payment", returndata);
-                    this.createOrder(this.model.score.balance, deducationintegral);
+                    this.createOrder(this.model.score.balance, deducationintegral,true);
                 }, () => {
                     return;
                 });
             } else {
-                this.createOrder(this.model.totalintegral,0);
+                this.createOrder(this.model.totalintegral,0,false);
             }
         } else {
-            this.createOrder(0,0);
+            this.createOrder(0,0,false);
         }
     }
     //调用接口创建订单
-    createOrder(integral, deducationintegral) {
+    createOrder(integral, deducationintegral, isneedcash) {
         this._page.loadingShow();
         var data = this.readyForDatas(integral, deducationintegral);
         this._http.postForShopping(this.model.submit.apiUrl, data,
@@ -192,7 +181,8 @@ export class PreorderPage implements OnInit {
                         var returndata = {
                             "OrderCode": res.OrderCode,
                             "TotalPrice": deducationintegral == 0 ? this.model.totalprice : deducationintegral,
-                            "TotalIntegral": integral
+                            "TotalIntegral": integral,
+                            "IsNeedCash": isneedcash,
                         };
                         this._page.navigateRoot("/servicecenter/payment/payment", returndata);
                     }
@@ -229,7 +219,7 @@ export class PreorderPage implements OnInit {
                 "ShippingFlag": true,
                 "PaymentFlag": true,
                 "PaymentStatus": 1,
-                "CashTotal": !flag ? this.model.totalprice : 0,  //	订单总金额	
+                "CashTotal": this.model.totalprice,  //	订单总金额	
                 "TotalDepositAmount": !flag ? this.model.totalprice : 0, //	线上应收金额
                 "ReceivedDepositAmount": !flag ? this.model.totalprice : 0, //	线上已收金额	
                 "ReceivableAmount": !flag ? this.model.totalprice : 0, //	已收金额（不含积分不够现金支付部分）

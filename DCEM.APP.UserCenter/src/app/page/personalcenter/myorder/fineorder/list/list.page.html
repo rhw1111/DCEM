@@ -75,7 +75,7 @@
             </ng-template>
             <div *ngIf="item.OrderData.PaymentStatus == 1; then tTemplate else fTemplate"></div>
             <ng-template #tTemplate>
-                <ion-note slot="end" (click)="goPay(item.OrderData.OrderCode,item.OrderData.ReceivedIntegral == 0 ? item.OrderData.TotalDeposiAmount : item.OrderData.CashPayment,item.OrderData.ReceivedIntegral);$event.stopPropagation();" style="z-index:99;">
+                <ion-note slot="end" (click)="goPay(item.OrderData.OrderCode,item.OrderData.ReceivedIntegral == 0 ? item.OrderData.TotalDeposiAmount : (-item.OrderData.CashPayment),item.OrderData.ReceivedIntegral,-item.OrderData.CashPayment,item.OrderData.CashTotal,item.OrderData.InstallmentTotal);$event.stopPropagation();" style="z-index:99;">
                     <ion-chip color="primary">
                         <ion-label style="margin-left: 30px;margin-right: 30px;">去支付</ion-label>
                     </ion-chip>
