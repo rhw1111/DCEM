@@ -3,6 +3,7 @@ import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core
 import { ModalController } from '@ionic/angular';
 import { ActivatedRoute, Params } from '@angular/router';
 import { SelectSurveyorderComponent } from "app/serving/serving.ser/components/select-surveyorder/select-surveyorder.component"
+import { SelectVehorderComponent } from "app/serving/serving.ser/components/select-vehorder/select-vehorder.component"
 
 @Component({
   selector: 'app-edit',
@@ -46,7 +47,7 @@ export class EditPage implements OnInit {
       mcs_vin:"", 
       mcs_powertypeid:"", //动力类型
       mcs_powertypename:"", //动力类型名称
-      mcs_settlementprice:0, //结算价格
+      mcs_settlementprice:"", //结算价格
       mcs_installationproviderid:"", //安装服务商
       mcs_installationprovidername:"", //安装服务商名称
       mcs_contact:"",//安装服务商联系人
@@ -80,50 +81,9 @@ export class EditPage implements OnInit {
   }
 
 
-   //选择勘测单模式窗口
-   async selectSurveyorderModal() {
-   //debugger;
-    const modal = await this._modalCtrl.create({
-        component: SelectSurveyorderComponent
-    });
-    await modal.present();
-    const { data } = await modal.onDidDismiss();
-    if (data != null && typeof data != undefined) {
-        if (data != null && typeof data != undefined) {
-            if (data.mcs_surveyorderid != null) {
-                this.model.postData.mcs_surveyordername = data.mcs_name;
-                this.model.postData.mcs_surveyorderid = data.mcs_surveyorderid;
-                this.model.postData.mcs_username = data.mcs_username;
-                this.model.postData.mcs_userphone = data.mcs_userphone;
-                this.model.postData.mcs_email = data.mcs_email; 
-                this.model.postData.mcs_carmodelid = data.mcs_carmodelid;
-                this.model.postData.mcs_carmodelname = data.mcs_carmodelname;
-                this.model.postData.mcs_dealerid =data.mcs_dealer;
-                this.model.postData.mcs_dealername = data.mcs_dealername;
-                this.model.postData.mcs_salesconsultant =data.mcs_salesconsultant;
-                this.model.postData.mcs_salesconsultantname =data.mcs_salesconsultantname;
-                this.model.postData.mcs_province = data.mcs_province;
-                this.model.postData.mcs_provincename = data.mcs_provincename;
-                this.model.postData.mcs_city = data.mcs_city;
-                this.model.postData.mcs_cityname = data.mcs_cityname;
-                this.model.postData.mcs_area = data.mcs_area;
-                this.model.postData.mcs_areaname = data.mcs_areaname;
-                this.model.postData.mcs_installationaddress = data.mcs_installationaddress;
-                this.model.postData.mcs_detailaddress =data.mcs_detailaddress;
-                this.model.postData.mcs_chargingpilemodel = data.mcs_chargingpilemodel;
-                this.model.postData.mcs_chargingpilemodelname =  data.mcs_chargingpilemodelname;
-                this.model.postData.mcs_price = data.mcs_price;
-                this.model.postData.mcs_communityname = data.mcs_communityname;
-                      
-            }
-        }
-    }
-
-}
-
 //加载安装单信息
 pageOnBind(id: any) {
-  debugger;
+  //debugger;
   this._page.loadingShow();
   this._http.postForToaken(
     this.model.detailApiUrl,
@@ -131,7 +91,6 @@ pageOnBind(id: any) {
       Guid: id
     },
     (res: any) => {
-      debugger;
       console.log(res);
       if (res != null && res.Attributes != null)
       this.model.postData.mcs_surveyorderid = res["Attributes"]["_mcs_surveyorderid_value"];
@@ -174,6 +133,8 @@ pageOnBind(id: any) {
       this.model.postData.mcs_salesordername = res["Attributes"]["_mcs_salesorder_value@OData.Community.Display.V1.FormattedValue"];
       this.model.postData.mcs_propertyattitude = res["Attributes"]["mcs_propertyattitude"];
       this.model.postData.mcs_vin = res["Attributes"]["mcs_vin"];
+
+      this.model.postData.mcs_isneedpillar = String(res["Attributes"]["mcs_isneedpillar"]);
       
       this._page.loadingHide();
     },
@@ -187,7 +148,7 @@ pageOnBind(id: any) {
 
 //保存
 SureClick(){
-  debugger;
+  //debugger;
   this._page.loadingShow();
   this._http.postForToaken(
       this.model.postApiUrl, this.model.postData,
@@ -209,4 +170,76 @@ SureClick(){
   );
 
 }
+
+//选择勘测单模式窗口
+async selectSurveyorderModal() {
+  //debugger;
+   const modal = await this._modalCtrl.create({
+       component: SelectSurveyorderComponent
+   });
+   await modal.present();
+   const { data } = await modal.onDidDismiss();
+   if (data != null && typeof data != undefined) {
+       if (data != null && typeof data != undefined) {
+           if (data.mcs_surveyorderid != null) {
+               this.model.postData.mcs_surveyordername = data.mcs_name;
+               this.model.postData.mcs_surveyorderid = data.mcs_surveyorderid;
+               this.model.postData.mcs_username = data.mcs_username;
+               this.model.postData.mcs_userphone = data.mcs_userphone;
+               this.model.postData.mcs_email = data.mcs_email; 
+               this.model.postData.mcs_carmodelid = data.mcs_carmodelid;
+               this.model.postData.mcs_carmodelname = data.mcs_carmodelname;
+               this.model.postData.mcs_dealerid =data.mcs_dealer;
+               this.model.postData.mcs_dealername = data.mcs_dealername;
+               this.model.postData.mcs_salesconsultant =data.mcs_salesconsultant;
+               this.model.postData.mcs_salesconsultantname =data.mcs_salesconsultantname;
+               this.model.postData.mcs_province = data.mcs_province;
+               this.model.postData.mcs_provincename = data.mcs_provincename;
+               this.model.postData.mcs_city = data.mcs_city;
+               this.model.postData.mcs_cityname = data.mcs_cityname;
+               this.model.postData.mcs_area = data.mcs_area;
+               this.model.postData.mcs_areaname = data.mcs_areaname;
+               this.model.postData.mcs_installationaddress = data.mcs_installationaddress;
+               this.model.postData.mcs_detailaddress =data.mcs_detailaddress;
+              /*  this.model.postData.mcs_chargingpilemodel = data.mcs_chargingpilemodel;
+               this.model.postData.mcs_chargingpilemodelname =  data.mcs_chargingpilemodelname; */
+               this.model.postData.mcs_price = data.mcs_price;
+               this.model.postData.mcs_communityname = data.mcs_communityname;
+               this.model.postData.mcs_vin = data.mcs_vin;
+
+               this.model.postData.mcs_installationproviderid= data.mcs_surveyprovider; //安装服务商
+               this.model.postData.mcs_installationprovidername= data.mcs_surveyprovidername;//安装服务商名称
+               this.model.postData.mcs_contact= data.mcs_contact;//安装服务商联系人
+               this.model.postData.mcs_installationproviderphone= data.mcs_surveyproviderphone;//安装服务电话
+               this.model.postData.mcs_appointmenttime= data.mcs_appointmentdate;//安装服务时间
+               this.model.postData.mcs_installationengineerid= data.mcs_surveyengineer;//安装交付工程师
+               this.model.postData.mcs_installationengineername= data.mcs_surveyengineername;//安装交付工程师名称
+               this.model.postData.mcs_installationengineerphone= data.mcs_surveyengineerphone; //安装交付工程师电话
+                     
+           }
+       }
+   }
+
+}
+
+//选择整车销售订单（大订）模式窗口
+async selectVehorderModal() {
+  //debugger;
+   const modal = await this._modalCtrl.create({
+       component: SelectVehorderComponent
+   });
+   await modal.present();
+   const { data } = await modal.onDidDismiss();
+  
+   if (data != null && typeof data != undefined) {
+       if (data != null && typeof data != undefined) {
+           if (data.mcs_vehorderid != null) {
+               this.model.postData.mcs_salesorder = data.mcs_vehorderid;
+               this.model.postData.mcs_salesordername = data.mcs_code;                                   
+           }
+       }
+   }
+
+}
+
 }

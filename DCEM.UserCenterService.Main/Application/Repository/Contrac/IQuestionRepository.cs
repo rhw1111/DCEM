@@ -30,5 +30,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
         XDocument QueryDeliverychannel(string code);
 
         XDocument QueryUser(string code);
+
+        XDocument GetOnlylead(string mcs_userid);
     }
 }

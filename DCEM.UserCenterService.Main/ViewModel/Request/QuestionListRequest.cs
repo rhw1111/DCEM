@@ -39,6 +39,10 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
         /// 回答人姓名编码
         /// </summary
         public string  mcs_answername { get; set; }
+        /// <summary>
+        /// 试驾记录ID
+        /// </summary> 
+        public string driverecordid { get; set; }
 
         public List<QuestionAdd> model { get; set; }
     }
@@ -62,6 +66,10 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
         /// 问题编号
         /// </summary
         public Guid mcs_questions { get; set; }
+        /// <summary>
+        /// 问题类型
+        /// </summary>
+        public string mcs_type { get; set; }
     } 
 
 

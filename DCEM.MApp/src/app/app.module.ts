@@ -47,6 +47,7 @@ import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { SelectVehorderComponent } from "app/serving/serving.ser/components/select-vehorder/select-vehorder.component"
 
 @NgModule({
     declarations: [//申明组件
@@ -77,7 +78,8 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
         SelectSurveyorderComponent, //选择勘测单
         SelectUserComponent,//选择C端用户
         SelectCarproductComponent,//选择商品(整车)
-        SelectDealerComponent
+        SelectDealerComponent,
+        SelectVehorderComponent //选择整车订单（大订）
     ],
 
     entryComponents: [
@@ -107,7 +109,8 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
         SelectSurveyorderComponent, //选择勘测单
         SelectUserComponent,
         SelectCarproductComponent,//选择商品(整车)
-        SelectDealerComponent
+        SelectDealerComponent,
+        SelectVehorderComponent
     ],
 
     imports: [BrowserModule,

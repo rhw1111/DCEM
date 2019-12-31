@@ -132,7 +132,7 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         /// <summary>
         /// 套餐金额
         /// </summary>
-         public decimal? mcs_price { set; get; }
+         public string mcs_price { set; get; }
         /// <summary>
         /// 车位情况
         /// </summary>

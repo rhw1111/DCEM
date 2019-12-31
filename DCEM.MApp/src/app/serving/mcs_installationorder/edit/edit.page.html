@@ -74,16 +74,23 @@
       <ion-item>
         <ion-label position="stacked">
           是否需要立柱      
-        </ion-label>
-        <ion-input  [(ngModel)]="model.postData.mcs_isneedpillar" ></ion-input>
+        </ion-label>      
+        <ion-select placeholder="请选择" cancelText="取消" okText="确定" [(ngModel)]="model.postData.mcs_isneedpillar">
+          <ion-select-option  value="true">
+           是
+          </ion-select-option>
+          <ion-select-option  value="false">
+            否
+           </ion-select-option>
+        </ion-select>
       </ion-item>
-      <ion-item>
+     <!--  <ion-item>
         <ion-label position="stacked">
           充电桩型号
           <ion-text color="danger">*</ion-text>
         </ion-label>
         <ion-input  [(ngModel)]="model.postData.mcs_chargingpilemodelname"></ion-input>
-      </ion-item>
+      </ion-item> -->
       <ion-item>
         <ion-label position="stacked">
           套餐金额
@@ -114,11 +121,13 @@
         </ion-label>
         <ion-input placeholder="请输入物业态度" [(ngModel)]="model.postData.mcs_propertyattitude" ></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item (click)="selectVehorderModal()">
         <ion-label position="stacked">
           销售单号
+          <ion-text color="danger">*</ion-text>
         </ion-label>
         <ion-input placeholder="请选择销售单号" [(ngModel)]="model.postData.mcs_salesordername" required></ion-input>
+        <ion-icon slot="end" name="search"></ion-icon>
       </ion-item>  
       <ion-item>
         <ion-label position="stacked">
@@ -126,18 +135,18 @@
         </ion-label>
         <ion-input placeholder="请输入VIN码" [(ngModel)]="model.postData.mcs_vin"></ion-input>
       </ion-item>
-      <ion-item>
+     <!--  <ion-item>
         <ion-label position="stacked">
           动力类型
         </ion-label>
         <ion-input placeholder="请选择动力类型"  [(ngModel)]="model.postData.mcs_powertypename" ></ion-input>
-      </ion-item>  
-      <ion-item>
+      </ion-item>  --> 
+      <!-- <ion-item>
         <ion-label position="stacked">
           基本车型
         </ion-label>
         <ion-input  [(ngModel)]="model.postData.mcs_carmodelname"></ion-input>
-      </ion-item>
+      </ion-item> -->
       <ion-item>
         <ion-label position="stacked">
           结算价格

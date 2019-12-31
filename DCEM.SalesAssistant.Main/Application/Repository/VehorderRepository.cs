@@ -40,6 +40,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
                 <attribute name='mcs_contactphone' />
                 <attribute name='mcs_rostatus' />
                 <attribute name='mcs_dealer' />
+                <attribute name='createdon' />
                 <order attribute='createdon' descending='true' />
                 <filter type='and'>
                   <condition attribute='statecode' operator='eq' value='0' />
