@@ -613,6 +613,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                         var bonuspoint = entities.Results[0].Attributes["mcs_bonuspoint"];
                         var balance = bonuspoint == null ? 0 : (Int32)bonuspoint;
                         entity.Attributes.Add("mcs_bonuspoint", balance);
+                        entity.Attributes.Add("mcs_integralpointname", "积分支付");
                         var updateEntity = new CrmExecuteEntity("mcs_member", entities.Results[0].Id);
                         if (request.IntegralType != null)
                         {
