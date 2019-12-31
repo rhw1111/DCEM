@@ -31,7 +31,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
         Task<XDocument> GetSecurityquestion();
         Task<XDocument> getuserscore(UserDetailRequest userDetailRequest);
         Task<XDocument> GetUserPwd(UserLoginRequest request);
-        Task<XDocument> getuserscorebalance(UserDetailRequest userDetailRequest);
+        Task<XDocument> getuserscorebalance(UserDetailRequest userDetailRequest); 
     }
          
 }

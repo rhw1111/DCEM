@@ -223,11 +223,12 @@
 
 
         $("#btnpost").click(function (event) {
-            postshow(); 
+            postshow();
             var rep = {
                 mcs_deliverychannel: GetQueryString("channer"),
                 mcs_questionnairesetting: GetQueryString("id"),
                 mcs_answername: GetQueryString("userid"),
+                driverecordid: GetQueryString("driverecordid"),
                 model: []
             }
             var valreq = false;
@@ -239,6 +240,7 @@
                         mcs_questions: item.mcs_id,
                         mcs_answercontentcode: "",
                         mcs_answer: "",
+                        mcs_type: "单选"
                     }
                     var checkid = "input[name='" + item.mcs_id + "']:checked";
                     var value = $(checkid).val();
@@ -268,6 +270,7 @@
                                 mcs_questions: item.mcs_id,
                                 mcs_answercontentcode: answer.mcs_answercode,
                                 mcs_answer: answer.mcs_name,
+                                mcs_type:  "多选"
                             }
                             rep.model.push(anwer);
                             isreq = true;
@@ -295,7 +298,8 @@
                             mcs_name: item.mcs_content,
                             mcs_questions: item.mcs_id,
                             mcs_answercontentcode: item.mcs_questioncode,
-                            mcs_answer: value
+                            mcs_answer: value,
+                            mcs_type: "编辑"
                         }
                         rep.model.push(anwers);
                     }
