@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page } from '../../../../../component/typescript/dcem.core';
+import { Storage_LoginInfo } from '../../../../../component/typescript/logininfo.storage';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -14,10 +15,21 @@ export class DetailPage implements OnInit {
         },
         title: "订单详情",
         datadetail: {},
-        datalist:[]
+        datalist: [],
+        score: {
+            apiUrl: "api/user/getuserscore",
+            search: {
+                id: this._logininfo.GetSystemUserId(),
+                pageindex: 1,
+                pagesize: 10,
+            },
+            data: [],
+            balance: 0,
+        },
     };
     private code
     constructor(
+        private _logininfo: Storage_LoginInfo,
         private _http: DCore_Http,
         private _page: DCore_Page,
         private routerinfo: ActivatedRoute,
@@ -59,13 +71,51 @@ export class DetailPage implements OnInit {
             }
         );
     }
+    //获取当前用户积分
+    getScore(event) {
+        this._http.postForToaken(
+            this.model.score.apiUrl,
+            this.model.score.search,
+            (res: any) => {
+                if (res !== null) {
+                    this.model.score.balance = res.balance;
+                    if (this.model.datadetail.ReceivedIntegral > this.model.score.balance) {
+                        this.model.datadetail.ReceivedIntegral = this.model.score.balance;
+                        this.model.datadetail.CashPayment = ((this.model.datadetail.CashTotal / this.model.datadetail.InstallmentTotal) * (this.model.datadetail.InstallmentTotal - this.model.datadetail.ReceivedIntegral)).toFixed(2);
+                    }
+                    var returndata = {
+                        "OrderCode": this.code,
+                        "TotalPrice": this.model.datadetail.CashPayment,
+                        "TotalIntegral": this.model.datadetail.ReceivedIntegral,
+                        "IsNeedCash": this.model.datadetail.CashPayment != 0
+                    };
+                    this._page.goto("/servicecenter/payment/payment", returndata);
+                }
+                else {
+                    this._page.alert("消息提示", "用户积分信息加载异常");
+                }
+
+            },
+            (err: any) => {
+                this._page.alert("消息提示", "用户积分信息加载异常");
+            }
+        );
+
+    }
     goPay() {
-        var returndata = {
-            "OrderCode": this.code,
-            "TotalPrice": this.model.datadetail.ReceivedIntegral == 0 ? this.model.datadetail.TotalDeposiAmount : this.model.datadetail.CashPayment,
-            "TotalIntegral": this.model.datadetail.ReceivedIntegral
-        };
-        this._page.goto("/servicecenter/payment/payment", returndata);
+        debugger;
+        if (this.model.datadetail.ReceivedIntegral != 0) {
+            this.getScore(null);
+        } else {
+            var returndata = {
+                "OrderCode": this.code,
+                "TotalPrice": this.model.datadetail.ReceivedIntegral == 0 ? this.model.datadetail.TotalDeposiAmount : -this.model.datadetail.CashPayment,
+                "TotalIntegral": this.model.datadetail.ReceivedIntegral,
+                "IsNeedCash": this.model.datadetail.CashPayment != 0
+            };
+            this._page.goto("/servicecenter/payment/payment", returndata);
+        }
+        
     }
 
     getPayStatus(param) {

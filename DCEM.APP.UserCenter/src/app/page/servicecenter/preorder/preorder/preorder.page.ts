@@ -130,17 +130,6 @@ export class PreorderPage implements OnInit {
             this.model.score.search,
             (res: any) => {
                 if (res !== null) {
-                    var data = res.scores;
-                    for (var i in data) {
-                        var attr = data[i]["Attributes"];
-                        var obj = {};
-                        obj["id"] = data[i]["Id"];
-                        obj["name"] = attr["mcs_integraltype@OData.Community.Display.V1.FormattedValue"];
-                        var optvalue = this._optionset.GetOptionSetValueByName("mcs_integraltype", obj["name"]);
-                        obj["num"] = optvalue + "" + attr["mcs_num"];
-                        obj["time"] = attr["createdon@OData.Community.Display.V1.FormattedValue"];
-                        this.model.score.data.push(obj);
-                    }
                     this.model.score.balance = res.balance;
                 }
                 else {
@@ -156,7 +145,6 @@ export class PreorderPage implements OnInit {
     }
     //提交
     submitOrder() {
-        debugger;
         if (this.model.paymenttype == 2) {
             if (this.model.totalintegral > this.model.score.balance) {
                 var deducationintegral = ((this.model.totalprice / this.model.totalintegral) * (this.model.totalintegral - this.model.score.balance)).toFixed(2);
@@ -167,19 +155,19 @@ export class PreorderPage implements OnInit {
                     //    "TotalIntegral": this.model.score.balance
                     //};
                     //this._page.navigateRoot("/servicecenter/payment/payment", returndata);
-                    this.createOrder(this.model.score.balance, deducationintegral);
+                    this.createOrder(this.model.score.balance, deducationintegral,true);
                 }, () => {
                     return;
                 });
             } else {
-                this.createOrder(this.model.totalintegral,0);
+                this.createOrder(this.model.totalintegral,0,false);
             }
         } else {
-            this.createOrder(0,0);
+            this.createOrder(0,0,false);
         }
     }
     //调用接口创建订单
-    createOrder(integral, deducationintegral) {
+    createOrder(integral, deducationintegral, isneedcash) {
         this._page.loadingShow();
         var data = this.readyForDatas(integral, deducationintegral);
         this._http.postForShopping(this.model.submit.apiUrl, data,
@@ -192,7 +180,8 @@ export class PreorderPage implements OnInit {
                         var returndata = {
                             "OrderCode": res.OrderCode,
                             "TotalPrice": deducationintegral == 0 ? this.model.totalprice : deducationintegral,
-                            "TotalIntegral": integral
+                            "TotalIntegral": integral,
+                            "IsNeedCash": isneedcash,
                         };
                         this._page.navigateRoot("/servicecenter/payment/payment", returndata);
                     }
@@ -227,9 +216,10 @@ export class PreorderPage implements OnInit {
                 "CarBuyerIdType": 1,
                 "CarBuyerId": this._logininfo.GetCardid(),
                 "ShippingFlag": true,
+                "OrderClass": 200,
                 "PaymentFlag": true,
                 "PaymentStatus": 1,
-                "CashTotal": !flag ? this.model.totalprice : 0,  //	订单总金额	
+                "CashTotal": this.model.totalprice,  //	订单总金额	
                 "TotalDepositAmount": !flag ? this.model.totalprice : 0, //	线上应收金额
                 "ReceivedDepositAmount": !flag ? this.model.totalprice : 0, //	线上已收金额	
                 "ReceivableAmount": !flag ? this.model.totalprice : 0, //	已收金额（不含积分不够现金支付部分）
@@ -308,9 +298,9 @@ export class PreorderPage implements OnInit {
         var storage = window.localStorage;
         var cardata = storage.getItem("singlecar");
         if (cardata != null) {
-            var carlist = JSON.parse(cardata);
+            this.model.carList = JSON.parse(cardata);
             var datas = [];
-            carlist.datas.forEach(res => {
+            this.model.carList.datas.forEach(res => {
                 var flag = true;
                 this.model.datas.datas.forEach(r => {
                     if (res.skucode == r.skucode) {
@@ -322,9 +312,9 @@ export class PreorderPage implements OnInit {
                     datas.push(res);
                 }
             });
-            if (datas) {
+            if (datas.length > 0) {
                 this.model.carList.datas = datas;
-                storage.setItem("singlecar", this.model.carList);
+                storage.setItem("singlecar", JSON.stringify(this.model.carList));
             } else {
                 storage.removeItem("singlecar");
             }

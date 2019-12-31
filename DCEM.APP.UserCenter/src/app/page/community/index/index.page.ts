@@ -1,8 +1,11 @@
 ﻿import { Component, ViewChild } from '@angular/core';
 import { DCore_Http, DCore_Page } from 'app/component/typescript/dcem.core';
-import { IonSlides, IonSlide } from '@ionic/angular';
+import { IonSlides, IonSlide,ModalController } from '@ionic/angular';
 import * as $ from 'jquery';
 import sd from 'silly-datetime';
+import { Storage_LoginInfo } from '../../../component/typescript/logininfo.storage';
+import { LoginComponent } from '../../../component/modal/login/login.component'
+
 
 @Component({
     selector: 'app-index',
@@ -39,7 +42,9 @@ export class IndexPage {
 
     constructor(
         private _http: DCore_Http,
-        private _page: DCore_Page
+        private _page: DCore_Page,
+        private modalCtrl: ModalController,
+        public _logininfo: Storage_LoginInfo,
     ) { }
 
     ngOnInit() {
@@ -257,5 +262,24 @@ export class IndexPage {
             return data;
         }
     }
+
+    
+     //检查是否登陆 然后跳转
+     async checkLoginAndTurn(url)
+     {
+         if (this._logininfo.GetNickName()!=null) { 
+             this._page.goto(url);
+         } else {
+             const modal = await this.modalCtrl.create({
+                 component: LoginComponent,
+                 componentProps: {
+                     'status': 1//登录页面状态 
+                 }
+             });
+             await modal.present();
+             //监听销毁的事件
+             const { data } = await modal.onDidDismiss(); 
+         } 
+     }
 
 }

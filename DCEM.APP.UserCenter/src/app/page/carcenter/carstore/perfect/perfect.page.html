@@ -90,7 +90,7 @@
             </ion-col>
         </ion-row>
         <ion-row>
-            <ion-col class="dm-form-item">
+            <!--<ion-col class="dm-form-item">
                 <label>上牌城市</label>
                 <div class="dm-form-item-input">
                     <div class="dm-form-item-input">
@@ -98,6 +98,14 @@
                     </div>
                     <div class="dm-form-item-input">
                         <ion-input placeholder="地区"></ion-input>
+                    </div>
+                </div>
+            </ion-col>-->
+            <ion-col class="dm-form-item">
+                <label>交车厅店</label>
+                <div class="dm-form-item-input">
+                    <div class="dm-form-item-input" [ngClass]="{'err':!mod.fromValidStatus.dealer}">
+                        <ion-input placeholder="交车厅店" [(ngModel)]="shareData.userInfo['dealerName']" (click)="openDealer()"></ion-input>
                     </div>
                 </div>
             </ion-col>

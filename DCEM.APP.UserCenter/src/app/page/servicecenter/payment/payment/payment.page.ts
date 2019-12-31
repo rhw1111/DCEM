@@ -19,7 +19,7 @@ export class PaymentPage implements OnInit {
         title: "选择支付方式",
         datas: {},
         score: {
-            apiUrl: "api/user/deducationintegral",
+            apiUrl: "/api/user/addintegral",
             search: {
                 UserId: this._logininfo.GetSystemUserId(),
                 IntegralType: 1,
@@ -87,57 +87,57 @@ export class PaymentPage implements OnInit {
         this._page.loadingShow();
         this.model.score.search.Integral = this.model.datas.TotalIntegral;
         console.log(this.model.score.search);
-            //this._http.postForToaken(
-            //    this.model.score.apiUrl,
-            //    this.model.score.search,
-            //    (res: any) => {
-            //        if (res !== null) {
-            //            if (res.Result) {
-            //                this._http.postForShopping(this.model.search.apiUrl, { OrderCode: this.model.datas.OrderCode },
-            //                    (res: any) => {
-            //                        if (res != null) {
-            //                            if (res.IsSuccess) {
-            //                                this.presentAlertConfirm();
-            //                            }
-            //                        }
-            //                        else {
-            //                            this._page.alert("消息提示", "订单支付失败");
-            //                        }
-            //                        this._page.loadingHide();
-            //                    },
-            //                    (err: any) => {
-            //                        this._page.alert("消息提示", "订单支付失败");
-            //                        this._page.loadingHide();
-            //                    }
-            //                );
-            //            }
-            //        }
-            //        else {
-            //            this._page.alert("消息提示", "订单支付失败");
-            //        }
-
-            //    },
-            //    (err: any) => {
-            //        this._page.alert("消息提示", "订单支付失败");
-            //    }
-            //);
-        this._http.postForShopping(this.model.search.apiUrl, { OrderCode: this.model.datas.OrderCode },
-            (res: any) => {
-                if (res != null) {
-                    if (res.IsSuccess) {
-                        this.presentAlertConfirm();
+            this._http.postForToaken(
+                this.model.score.apiUrl,
+                this.model.score.search,
+                (res: any) => {
+                    if (res !== null) {
+                        if (res.Result) {
+                            this._http.postForShopping(this.model.search.apiUrl, { OrderCode: this.model.datas.OrderCode },
+                                (res: any) => {
+                                    if (res != null) {
+                                        if (res.IsSuccess) {
+                                            this.presentAlertConfirm();
+                                        }
+                                    }
+                                    else {
+                                        this._page.alert("消息提示", "订单支付失败");
+                                    }
+                                    this._page.loadingHide();
+                                },
+                                (err: any) => {
+                                    this._page.alert("消息提示", "订单支付失败");
+                                    this._page.loadingHide();
+                                }
+                            );
+                        }
                     }
-                }
-                else {
+                    else {
+                        this._page.alert("消息提示", "订单支付失败");
+                    }
+
+                },
+                (err: any) => {
                     this._page.alert("消息提示", "订单支付失败");
                 }
-                this._page.loadingHide();
-            },
-            (err: any) => {
-                this._page.alert("消息提示", "订单支付失败");
-                this._page.loadingHide();
-            }
-        );
+            );
+        //this._http.postForShopping(this.model.search.apiUrl, { OrderCode: this.model.datas.OrderCode },
+        //    (res: any) => {
+        //        if (res != null) {
+        //            if (res.IsSuccess) {
+        //                this.presentAlertConfirm();
+        //            }
+        //        }
+        //        else {
+        //            this._page.alert("消息提示", "订单支付失败");
+        //        }
+        //        this._page.loadingHide();
+        //    },
+        //    (err: any) => {
+        //        this._page.alert("消息提示", "订单支付失败");
+        //        this._page.loadingHide();
+        //    }
+        //);
     }
     //支付成功跳转
     async presentAlertConfirm() {

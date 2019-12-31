@@ -80,13 +80,47 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
             }
 
             var fetchString = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
-                   <entity name='mcs_surveyorder'>
-                    <all-attributes/>
+                   <entity name='mcs_surveyorder'>                   
+                    <attribute name='mcs_surveyorderid' />
+                    <attribute name='mcs_name' />
+                    <attribute name='createdon' />
+                    <attribute name='mcs_userphone' />
+                    <attribute name='mcs_username' />
+                    <attribute name='mcs_email' />
+                    <attribute name='mcs_carmodelid' />
+                    <attribute name='mcs_detailaddress' />
+                    <attribute name='mcs_installationaddress' />
+                    <attribute name='mcs_price' />
+                    <attribute name='mcs_communityname' />
+                    <attribute name='mcs_vin' />
+                    <attribute name='mcs_dealer' />
+                    <attribute name='mcs_salesconsultant' />
+                    <attribute name='mcs_province' />
+                    <attribute name='mcs_city' />
+                    <attribute name='mcs_area' />
                     <order attribute='createdon' descending='true' />
                    <filter type='and'>
                     <condition attribute='statecode' operator='eq' value='0' />
                     {filter}
                    </filter>
+                    <link-entity name='mcs_carmodel' from='mcs_carmodelid' to='mcs_carmodelid' visible='false' link-type='outer' alias='a'>
+                      <attribute name='mcs_name' />
+                    </link-entity>
+                    <link-entity name='mcs_dealer' from='mcs_dealerid' to='mcs_dealer' visible='false' link-type='outer' alias='b'>
+                      <attribute name='mcs_name' />
+                    </link-entity>
+                    <link-entity name='systemuser' from='systemuserid' to='mcs_salesconsultant' visible='false' link-type='outer' alias='c'>
+                      <attribute name='fullname' />
+                    </link-entity>
+                    <link-entity name='mcs_sysarea' from='mcs_sysareaid' to='mcs_province' visible='false' link-type='outer' alias='d'>
+                      <attribute name='mcs_name' />
+                    </link-entity>
+                    <link-entity name='mcs_sysarea' from='mcs_sysareaid' to='mcs_city' visible='false' link-type='outer' alias='e'>
+                      <attribute name='mcs_name' />
+                    </link-entity>
+                    <link-entity name='mcs_sysarea' from='mcs_sysareaid' to='mcs_area' visible='false' link-type='outer' alias='f'>
+                      <attribute name='mcs_name' />
+                    </link-entity>
                    </entity>
                    </fetch>";
             return fetchString;

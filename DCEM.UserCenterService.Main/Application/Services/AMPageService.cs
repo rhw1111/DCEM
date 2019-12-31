@@ -53,22 +53,26 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 {
                     throw new Exception("未找到对应的落地页模板数据");
                 }
-                //根据落地页数据选择模板
-                var fileName = "/" + entity.Attributes["mcs_am_pageid"].ToString() + ".html";
                 //从模板地址读取数据写入新地址
                 var prjRootPath = Directory.GetCurrentDirectory();
                 var templateHtml = File.ReadAllText(prjRootPath + @"\wwwroot\HtmlResources\Templates\Temp.html");
                 //替换其中的自定义项
                 var targetHtml = await TransHtml(pageId, templateHtml, crmRequestHelper);
-                //写入目标地址
+                //数据id作为文件名
+                var fileName = "/" + entity.Attributes["mcs_am_pageid"].ToString() + ".html";
+                //写入目标相对地址
                 var resultPath = @"HtmlResources/Activities";
+                //通过配置值获取绝对路径，方便前端处理
+                var absoluteFilePath = await GetAbsoluteFilePath(crmRequestHelper, resultPath + fileName);
+                response.Url = absoluteFilePath;
+                //再替换一下链接部分
+                targetHtml = targetHtml.Replace("$pageurl$", absoluteFilePath);
                 var targetPath = prjRootPath + @"\wwwroot\" + resultPath;
                 if (!Directory.Exists(targetPath))
                 {
                     Directory.CreateDirectory(targetPath);
                 }
                 File.WriteAllText(targetPath + fileName, targetHtml);
-                response.Url = resultPath + fileName;
             }
             catch (Exception ex)
             {
@@ -167,7 +171,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     case "$city$":
                         formHtml.Append(@$"</label>
                                                     <div class=""content"">
-                                                        <select style=""border: 2px solid #bbb;width:100%;height:40px;"" id=""sltAddress"" data-required=""{required}"" data-label=""{label}"">
+                                                        <select style=""border: 2px solid #bbb;width:100%;height:40px;"" id=""sltCity"" data-required=""{required}"" data-label=""{label}"">
                                                             <option value=""-1"">{placeholder}</option>
                                                             <option value=""330100"">杭州</option>
                                                             <option value=""110100"">北京</option>
@@ -181,10 +185,18 @@ namespace DCEM.UserCenterService.Main.Application.Services
                                                     </div>
                                                 </div>");
                         break;
+                    case "$address$":
+                        formHtml.Append(@$"</label>
+                                                    <div class=""content"">
+                                                        <input type=""text"" id=""txtAddress"" name=""Address"" placeholder=""{placeholder}""  data-required=""{required}"" data-label=""{label}"" />
+                                                        <span>{tip}</span>
+                                                    </div>
+                                                </div>");
+                        break;
                     case "$email$":
                         formHtml.Append(@$"</label>
                                                     <div class=""content"">
-                                                        <input type=""text"" id=""btnEmail"" name=""Email"" placeholder=""{placeholder}""  data-required=""{required}"" data-label=""{label}"" />
+                                                        <input type=""text"" id=""txtEmail"" name=""Email"" placeholder=""{placeholder}""  data-required=""{required}"" data-label=""{label}"" />
                                                         <span>{tip}</span>
                                                     </div>
                                                 </div>");
@@ -204,7 +216,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     case "$level$":
                         formHtml.Append(@$"</label>
                                                     <div class=""content"">
-                                                        <select style=""border: 2px solid #bbb;width:100%;height:40px;"" id=""sltButPlan""  data-required=""{required}"" data-label=""{label}"">
+                                                        <select style=""border: 2px solid #bbb;width:100%;height:40px;"" id=""sltBuyPlan""  data-required=""{required}"" data-label=""{label}"">
                                                             <option value=""-1"">{placeholder}</option>
                                                             <option value=""0"">预计90天内成交</option>
                                                             <option value=""1"">预计3~6个月内成交</option>
@@ -219,7 +231,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     case "$name$":
                         formHtml.Append(@$"</label>
                                                     <div class=""content"">
-                                                        <input type=""text"" id=""btnName"" name=""surname"" placeholder=""{placeholder}""  data-required=""{required}"" data-label=""{label}"" />
+                                                        <input type=""text"" id=""txtName"" name=""surname"" placeholder=""{placeholder}""  data-required=""{required}"" data-label=""{label}"" />
                                                         <span>{tip}</span>
                                                     </div>
                                                 </div>");
@@ -227,7 +239,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     case "$phone$":
                         formHtml.Append(@$"</label>
                                                     <div class=""content"">
-                                                        <input type=""text"" id=""btnMobile"" name=""Mobile"" placeholder=""{placeholder}""   data-required=""{required}"" data-label=""{label}""/>
+                                                        <input type=""text"" id=""txtMobile"" name=""Mobile"" placeholder=""{placeholder}""   data-required=""{required}"" data-label=""{label}""/>
                                                         <span>{tip}</span>
                                                     </div>
                                                 </div>");
@@ -303,13 +315,25 @@ namespace DCEM.UserCenterService.Main.Application.Services
             //最后替换配置值（潜客留资url地址等配置值）
             fetchXdoc = await _configRepository.GetConfigFetchXml("MSCRMInApiUrlConfig");
             var urlConfig = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_cepconfig", fetchXdoc);
-            if (pageConfigs == null || pageConfigs.Results == null || pageConfigs.Results.Count <= 0)
+            if (urlConfig == null || urlConfig.Results == null || urlConfig.Results.Count <= 0)
             {
                 throw new Exception("请配置潜客中心In接口地址");
             }
             result.Replace("$urlconfig$", urlConfig.Results[0].Attributes["mcs_val"].ToString());
-
+        
             return result.ToString();
+        }
+
+        private async Task<string> GetAbsoluteFilePath(CrmRequestHelper crmRequestHelper, string relativeFilePath)
+        {
+            //落地页地址配置
+            var fetchXdoc = await _configRepository.GetConfigFetchXml("Key_HtmlTemplateUrlConfig");
+            var urlConfig2 = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_cepconfig", fetchXdoc);
+            if (urlConfig2 == null || urlConfig2.Results == null || urlConfig2.Results.Count <= 0)
+            {
+                throw new Exception("请配置落地页html生成和请求地址");
+            }
+            return urlConfig2.Results[0].Attributes["mcs_val"].ToString() + relativeFilePath;
         }
 
         private string GetTemplateNameByPageType(string pageType)

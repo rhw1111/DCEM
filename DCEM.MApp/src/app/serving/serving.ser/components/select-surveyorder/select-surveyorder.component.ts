@@ -54,24 +54,22 @@ export class SelectSurveyorderComponent implements OnInit {
             obj["mcs_userphone"] = res.Results[key]["Attributes"]["mcs_userphone"];  
             obj["mcs_email"] = res.Results[key]["Attributes"]["mcs_email"];
             obj["mcs_carmodelid"] = res.Results[key]["Attributes"]["_mcs_carmodelid_value"];
-            obj["mcs_carmodelname"] = res.Results[key]["Attributes"]["_mcs_carmodelid_value@OData.Community.Display.V1.FormattedValue"];
+            obj["mcs_carmodelname"] = res.Results[key]["Attributes"]["a.mcs_name"];
             obj["mcs_dealer"] = res.Results[key]["Attributes"][" _mcs_dealer_value"];
-            obj["mcs_dealername"] = res.Results[key]["Attributes"]["_mcs_dealerid_value@OData.Community.Display.V1.FormattedValue"];
+            obj["mcs_dealername"] = res.Results[key]["Attributes"]["b.mcs_name"];
             obj["mcs_salesconsultant"] = res.Results[key]["Attributes"]["_mcs_salesconsultant_value"];
-            obj["mcs_salesconsultantname"] =res.Results[key]["Attributes"]["_mcs_salesconsultant_value@OData.Community.Display.V1.FormattedValue"];
+            obj["mcs_salesconsultantname"] =res.Results[key]["Attributes"]["c.fullname"];
             obj["mcs_province"] = res.Results[key]["Attributes"]["_mcs_province_value"];
-            obj["mcs_provincename"] = res.Results[key]["Attributes"]["_mcs_province_value@OData.Community.Display.V1.FormattedValue"];
+            obj["mcs_provincename"] = res.Results[key]["Attributes"]["d.mcs_name"];
             obj["mcs_city"] = res.Results[key]["Attributes"]["_mcs_city_value"];
-            obj["mcs_cityname"] = res.Results[key]["Attributes"]["_mcs_city_value@OData.Community.Display.V1.FormattedValue"];
+            obj["mcs_cityname"] = res.Results[key]["Attributes"]["e.mcs_name"];
             obj["mcs_area"] = res.Results[key]["Attributes"]["_mcs_area_value"];
-            obj["mcs_areaname"] = res.Results[key]["Attributes"]["_mcs_area_value@OData.Community.Display.V1.FormattedValue"];
+            obj["mcs_areaname"] = res.Results[key]["Attributes"]["f.mcs_name"];
             obj["mcs_installationaddress"] = res.Results[key]["Attributes"]["mcs_installationaddress"];
-            obj["mcs_detailaddress"] = res.Results[key]["Attributes"]["mcs_detailaddress"];
-            obj["mcs_chargingpilemodel"] = res.Results[key]["Attributes"]["_mcs_chargingpilemodel_value"];
-            obj["mcs_chargingpilemodelname"] =  res.Results[key]["Attributes"]["_mcs_chargingpilemodel_value@OData.Community.Display.V1.FormattedValue"];
+            obj["mcs_detailaddress"] = res.Results[key]["Attributes"]["mcs_detailaddress"];     
             obj["mcs_price"] = res.Results[key]["Attributes"]["mcs_price"];
             obj["mcs_communityname"] = res.Results[key]["Attributes"]["mcs_communityname"];
-                    
+            obj["mcs_vin"] = res.Results[key]["Attributes"]["mcs_vin"];        
             this.model.data.push(obj);
           }
           this._page.loadingHide();
@@ -116,10 +114,9 @@ export class SelectSurveyorderComponent implements OnInit {
       'mcs_areaname': item.mcs_areaname,
       'mcs_installationaddress': item.mcs_installationaddress,
       'mcs_detailaddress': item.mcs_detailaddress,
-      'mcs_chargingpilemodel': item.mcs_chargingpilemodel,
-      'mcs_chargingpilemodelname': item.mcs_chargingpilemodelname,
       'mcs_price': item.mcs_price,
-      'mcs_communityname': item.mcs_communityname
+      'mcs_communityname': item.mcs_communityname,
+      'mcs_vin': item.mcs_vin
     });
   }
 

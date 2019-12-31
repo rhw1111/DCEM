@@ -46,7 +46,7 @@ export class EditPage implements OnInit {
       mcs_vin:"", 
       mcs_powertypeid:"", //动力类型
       mcs_powertypename:"", //动力类型名称
-      mcs_settlementprice:0, //结算价格
+      mcs_settlementprice:"", //结算价格
       mcs_installationproviderid:"", //安装服务商
       mcs_installationprovidername:"", //安装服务商名称
       mcs_contact:"",//安装服务商联系人
@@ -110,10 +110,11 @@ export class EditPage implements OnInit {
                 this.model.postData.mcs_areaname = data.mcs_areaname;
                 this.model.postData.mcs_installationaddress = data.mcs_installationaddress;
                 this.model.postData.mcs_detailaddress =data.mcs_detailaddress;
-                this.model.postData.mcs_chargingpilemodel = data.mcs_chargingpilemodel;
-                this.model.postData.mcs_chargingpilemodelname =  data.mcs_chargingpilemodelname;
+               /*  this.model.postData.mcs_chargingpilemodel = data.mcs_chargingpilemodel;
+                this.model.postData.mcs_chargingpilemodelname =  data.mcs_chargingpilemodelname; */
                 this.model.postData.mcs_price = data.mcs_price;
                 this.model.postData.mcs_communityname = data.mcs_communityname;
+                this.model.postData.mcs_vin = data.mcs_vin;
                       
             }
         }
