@@ -47,7 +47,8 @@ listOnBind(event) {
             var obj = {};
             obj["id"] = data[i]["Id"];
             obj["name"] = attr["mcs_integralpointname"];
-            var optvalue = this._optionset.GetOptionSetValueByName("mcs_integraltype",obj["name"]);
+            obj["type"] = attr["mcs_integraltype@OData.Community.Display.V1.FormattedValue"];
+            var optvalue = this._optionset.GetOptionSetValueByName("mcs_integraltype",obj["type"]);
             obj["num"] = optvalue+""+attr["mcs_num"];
             obj["time"] = attr["createdon@OData.Community.Display.V1.FormattedValue"]; 
             this.model.data.push(obj);
