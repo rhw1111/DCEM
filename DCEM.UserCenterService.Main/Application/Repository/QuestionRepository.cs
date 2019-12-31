@@ -26,7 +26,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public XDocument QueryQiestion(string  id)
+        public XDocument QueryQiestion(string id)
         {
             var filter = string.Empty;
             var fetchXml = $@"<fetch version='1.0'   output-format='xml-platform' mapping='logical' distinct='false'>
@@ -37,7 +37,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository
                       <condition attribute='mcs_questionnairecode' operator='eq' value='{id}' />
                     </filter>
                   </entity>
-                </fetch>"; 
+                </fetch>";
             return XDocument.Parse(fetchXml);
         }
 
@@ -132,7 +132,24 @@ namespace DCEM.UserCenterService.Main.Application.Repository
             return XDocument.Parse(fetchXml);
         }
 
-
+        /// <summary>
+        /// 唯一线索获取
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public XDocument GetOnlylead(string mcs_userid)
+        {
+            var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+  <entity name='mcs_onlylead'>
+    <attribute name='mcs_name' />  
+    <attribute name='mcs_onlyleadid' /> 
+    <filter type='and'>
+      <condition attribute='mcs_userid' operator='eq' value='{mcs_userid}' /> 
+    </filter>  
+  </entity>
+</fetch>";
+            return XDocument.Parse(fetchXml);
+        }
 
     }
 }
