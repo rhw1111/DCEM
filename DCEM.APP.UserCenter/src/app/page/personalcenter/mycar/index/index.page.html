@@ -24,38 +24,19 @@
                     </ion-grid>
                 </ion-col>
             </ion-row>
-            <ion-row>
+
+            <ion-row *ngFor="let item of mod.data">
                 <ion-col class="dm-menu-item">
                     <ion-grid>
                         <ion-row>
                             <ion-col class="dm-menu-item-title">
                                 <label>车控</label>
-                                <small>渝A9877G</small>
+                                <small>{{item["mcs_plate"]}}</small>
                             </ion-col>
                         </ion-row>
                         <ion-row>
                             <ion-col class="dm-menu-item-img">
-                                <img src="../../../../assets/img/personalcenter/mycar/index/ck1.png" />
-                                <button class="dm-menu-item-img-button" style="margin-right: 190px;" [routerLink]="['/personalcenter/mycar/carcondition']">车况></button>
-                                <button class="dm-menu-item-img-button" style="margin-right: 100px;" [routerLink]="['/personalcenter/mycar/carcontrol']">蓝牙></button>
-                                <button class="dm-menu-item-img-button" [routerLink]="['/personalcenter/mycar/carcontrol']">远程></button>
-                            </ion-col>
-                        </ion-row>
-                    </ion-grid>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col class="dm-menu-item">
-                    <ion-grid>
-                        <ion-row>
-                            <ion-col class="dm-menu-item-title">
-                                <label>车控</label>
-                                <small>渝A9877Y</small>
-                            </ion-col>
-                        </ion-row>
-                        <ion-row>
-                            <ion-col class="dm-menu-item-img">
-                                <img src="../../../../assets/img/personalcenter/mycar/index/ck2.png" />
+                                <img src="{{item['imgscr']}}" />
                                 <button class="dm-menu-item-img-button" style="margin-right: 190px;" [routerLink]="['/personalcenter/mycar/carcondition']">车况></button>
                                 <button class="dm-menu-item-img-button" style="margin-right: 100px;" [routerLink]="['/personalcenter/mycar/carcontrol']">蓝牙></button>
                                 <button class="dm-menu-item-img-button" [routerLink]="['/personalcenter/mycar/carcontrol']">远程></button>
