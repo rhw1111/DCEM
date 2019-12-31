@@ -158,6 +158,12 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         /// </summary>
         public string mcs_installationengineerphone { set; get; }
 
+        /// <summary>
+        /// 是否需要立柱
+        /// </summary>
+        public string mcs_isneedpillar { set; get; }
+
+
 
     }
 

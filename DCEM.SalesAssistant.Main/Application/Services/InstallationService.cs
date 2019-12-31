@@ -230,9 +230,9 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                     int residentialnature = Convert.ToInt32(request.mcs_residentialnature);
                     Entity.Attributes.Add("mcs_residentialnature", residentialnature);
                 }
-                if (!string.IsNullOrEmpty(request.mcs_price.ToString()))
+                if (!string.IsNullOrEmpty(request.mcs_price))
                 {
-                    Entity.Attributes.Add("mcs_price", request.mcs_price);
+                    Entity.Attributes.Add("mcs_price", Convert.ToDecimal(request.mcs_price));
                 }
                 if (!string.IsNullOrEmpty(request.mcs_parkingspace.ToString()))
                 {
@@ -525,6 +525,16 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                     Entity.Attributes.Add("mcs_installationengineerphone", request.mcs_installationengineerphone);
                 }
 
+                if (!string.IsNullOrEmpty(request.mcs_isneedpillar))
+                {
+                    bool isneedpillar=false;
+                    if (request.mcs_isneedpillar== "true")
+                    {
+                        isneedpillar = true;
+                    }                   
+                    Entity.Attributes.Add("mcs_isneedpillar", isneedpillar);
+                }
+                            
                 if (!string.IsNullOrEmpty(request.mcs_installationorderid))
                 {
                     await _crmService.Update(Entity, userInfo?.systemuserid);

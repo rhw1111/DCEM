@@ -98,6 +98,12 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
                     <attribute name='mcs_province' />
                     <attribute name='mcs_city' />
                     <attribute name='mcs_area' />
+                    <attribute name='mcs_surveyprovider' />
+                    <attribute name='mcs_contact' />
+                    <attribute name='mcs_surveyproviderphone' />
+                    <attribute name='mcs_appointmentdate' />
+                    <attribute name='mcs_surveyengineer' />
+                    <attribute name='mcs_surveyengineerphone' />                  
                     <order attribute='createdon' descending='true' />
                    <filter type='and'>
                     <condition attribute='statecode' operator='eq' value='0' />
@@ -119,6 +125,12 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
                       <attribute name='mcs_name' />
                     </link-entity>
                     <link-entity name='mcs_sysarea' from='mcs_sysareaid' to='mcs_area' visible='false' link-type='outer' alias='f'>
+                      <attribute name='mcs_name' />
+                    </link-entity>
+                      <link-entity name='mcs_installationprovider' from='mcs_installationproviderid' to='mcs_surveyprovider' visible='false' link-type='outer' alias='g'>
+                      <attribute name='mcs_name' />
+                    </link-entity>
+                    <link-entity name='mcs_installationproviderengineer' from='mcs_installationproviderengineerid' to='mcs_surveyengineer' visible='false' link-type='outer' alias='h'>
                       <attribute name='mcs_name' />
                     </link-entity>
                    </entity>

@@ -46,7 +46,7 @@ export class EditPage implements OnInit {
       mcs_chargingpilemodel:"", //充电桩型号
       mcs_communityname:"", //小区名称
       mcs_residentialnature:"", //住宅性质
-      mcs_price:null, //套餐金额
+      mcs_price:"", //套餐金额
       mcs_parkingspace:"", //车位情况
       mcs_remark:"", //备注
       mcs_residentialtype:"" //住宅类型
