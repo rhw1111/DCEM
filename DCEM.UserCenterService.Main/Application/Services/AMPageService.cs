@@ -335,22 +335,5 @@ namespace DCEM.UserCenterService.Main.Application.Services
             }
             return urlConfig2.Results[0].Attributes["mcs_val"].ToString() + relativeFilePath;
         }
-
-        private string GetTemplateNameByPageType(string pageType)
-        {
-            switch (pageType)
-            {
-                //互动招募
-                case "1":
-                    return "Interact";
-                    //线上报名
-                case "2":
-                    return "Online";
-                    //预约
-                case "3":
-                default:
-                    return "Reserve";
-            }
-        }
     }
 }
