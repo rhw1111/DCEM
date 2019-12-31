@@ -4,7 +4,7 @@ import { DCore_Http, DCore_Page, DCore_Valid, DCore_ShareData } from 'app/compon
 import { Storage_LoginInfo } from 'app/component/typescript/logininfo.storage';
 import * as $ from 'jquery';
 import { SelectDealerComponent } from 'app/component/modal/select-dealer/select-dealer.component';
-
+import { SelectDealerListComponent } from "app/component/modal/select-dealer-list/select-dealer-list.component"
 @Component({
     selector: 'app-perfect',
     templateUrl: './perfect.page.html',
@@ -143,15 +143,31 @@ export class PerfectPage implements OnInit {
     }
 
 
+    //async openDealer() {
+
+    //    const modal = await this._modalCtrl.create({
+    //        component: SelectDealerComponent
+    //    });
+    //    await modal.present();
+    //    const { data } = await modal.onDidDismiss();
+    //    if (!this._valid.isNull(data)) {
+    //        this.shareData.userInfo["dealerName"] = data["name"]
+    //        this.shareData.userInfo["dealerCode"] = data["code"]
+    //    }
+    //}
+
     async openDealer() {
+
+        
         const modal = await this._modalCtrl.create({
-            component: SelectDealerComponent
+            component: SelectDealerListComponent
         });
         await modal.present();
         const { data } = await modal.onDidDismiss();
         if (!this._valid.isNull(data)) {
             this.shareData.userInfo["dealerName"] = data["name"]
             this.shareData.userInfo["dealerCode"] = data["code"]
+
         }
     }
 
