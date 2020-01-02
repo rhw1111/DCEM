@@ -132,12 +132,12 @@ export class EditPage implements OnInit {
 
         var errMessage = "";
 
-        if (this._valid.isNullOrEmpty(this.shareData.vehowner["mcs_fullname"])) {
-            errMessage += "您尚未输入姓名<br>";
-        }
-        if (this._valid.isNullOrEmpty(this.shareData.vehowner["mcs_idcard"])) {
-            errMessage += "您尚未输入身份证号<br>";
-        }
+        // if (this._valid.isNullOrEmpty(this.shareData.vehowner["mcs_fullname"])) {
+        //     errMessage += "您尚未输入姓名<br>";
+        // }
+        // if (this._valid.isNullOrEmpty(this.shareData.vehowner["mcs_idcard"])) {
+        //     errMessage += "您尚未输入身份证号<br>";
+        // }
         if (this._valid.isNullOrEmpty(this.shareData.vehowner["mcs_lisensedate"])) {
             errMessage += "您尚未输入上牌日期<br>";
         }
@@ -145,9 +145,9 @@ export class EditPage implements OnInit {
             errMessage += "您尚未输入上牌地址<br>";
         }
 
-        if (this._valid.isNullOrEmpty(this.shareData.vehowner["mcs_fee"])) {
-            errMessage += "您尚未输入上牌费用<br>";
-        }
+        // if (this._valid.isNullOrEmpty(this.shareData.vehowner["mcs_fee"])) {
+        //     errMessage += "您尚未输入上牌费用<br>";
+        // }
 
         if (errMessage !== "") {
             this._page.presentToastError(errMessage);
