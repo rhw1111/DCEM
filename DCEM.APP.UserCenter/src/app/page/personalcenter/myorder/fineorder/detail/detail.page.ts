@@ -103,7 +103,6 @@ export class DetailPage implements OnInit {
 
     }
     goPay() {
-        debugger;
         if (this.model.datadetail.ReceivedIntegral != 0) {
             this.getScore(null);
         } else {

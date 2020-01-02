@@ -122,7 +122,6 @@ export class ListPage implements OnInit {
     //                    event ? event.target.disabled = true : "";
     //                    this.model.isending = true;
     //                }
-    //                console.log(this.model.datalist);
     //            }
     //            else {
     //                this._page.alert("消息提示", "数据加载异常");
