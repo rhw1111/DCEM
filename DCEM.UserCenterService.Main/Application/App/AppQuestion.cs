@@ -33,7 +33,10 @@ namespace DCEM.UserCenterService.Main.Application.App
         {
             return _questionService.QueryQiestion(id);
         }
-
+        public Task<CrmEntity> GetUserToCode(string code)
+        {
+            return _questionService.GetUserToCode(code);
+        }
         public Task<ValidateResult> AddAnswercontent(QuestionAddRequest model)
         {
 

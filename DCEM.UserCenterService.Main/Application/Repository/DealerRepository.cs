@@ -58,6 +58,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository
     <attribute name='mcs_shopaddress' />
     <attribute name='mcs_address' />
    <attribute name='mcs_phone' />
+   <attribute name='mcs_code' />
  <attribute name='mcs_x' />
  <attribute name='mcs_y' />
     <order attribute='mcs_name' descending='false' />

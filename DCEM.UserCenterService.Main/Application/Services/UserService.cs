@@ -17,20 +17,27 @@ namespace DCEM.UserCenterService.Main.Application.Services
     using System.Collections.Generic;
     using MSLibrary.Xrm.Message.RetrieveMultipleFetch;
     using MSLibrary.Xrm.Message.RetrieveCollectionAttribute;
+    using Newtonsoft.Json;
 
     public class UserService : IUserService
     {
 
+        private string IntegralUrl_Key = "IntegralInteUrl_Key";//积分充值地址
+        private string IntegralReg_Key = "IntegralReg_Key";//C端用户注册积分埋点编号
+        private string IntegralUserInfo_Key = "IntegralUserInfo_Key";//完善个人资料
         private string _behavior = "channel_user_registration";//唯一线索添加 获取注册用户对应用户行为编码
         private ICrmService _crmService;
         public IUserRepository _repository;
         private const string entityName = "mcs_user";
         private string dicHeadKey;
         private Dictionary<string, IEnumerable<string>> dicHead;
-        public UserService(ICrmService crmService, IUserRepository repository)
+
+        public IConfigRepository _configRepository;
+        public UserService(ICrmService crmService, IUserRepository repository, IConfigRepository configRepository)
         {
             _crmService = crmService;
             _repository = repository;
+            _configRepository = configRepository;
             dicHeadKey = "Prefer";
             dicHead = new Dictionary<string, IEnumerable<string>>();
             dicHead.Add(dicHeadKey, new List<string>() { "odata.include-annotations=\"*\"" });
@@ -273,7 +280,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 fetchXdoc = await _repository.GetBehavior(_behavior);
                 var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_behavior", fetchXdoc);
                 if (entities.Results.Count > 0)
-                    entity.Attributes.Add("mcs_behaviorid", new CrmEntityReference("mcs_behavior",   entities.Results[0].Id));
+                    entity.Attributes.Add("mcs_behaviorid", new CrmEntityReference("mcs_behavior", entities.Results[0].Id));
                 await _crmService.Create(entity, userInfo?.systemuserid);
 
                 ///问题选择
@@ -288,8 +295,12 @@ namespace DCEM.UserCenterService.Main.Application.Services
                         entity.Attributes.Add("mcs_answer", item.answer);
                         await _crmService.Create(entity, userInfo?.systemuserid);
                     }
-
                 }
+
+
+                //积分充值接口调用  
+                IntegralCreate(IntegralReg_Key, id.ToString());
+
                 #region 组装数据返回 
                 validateResult.Result = true;
                 validateResult.Description = "操作成功";
@@ -363,6 +374,22 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 await _crmService.Update(entity);
 
 
+
+
+                #region    积分完善个人资料埋点
+                //判断完善个人资料积分是否发送，如果已发送，不能再次发送
+                string code = await GetConfig(IntegralUserInfo_Key);
+                var crmRequestHelper = new CrmRequestHelper();
+                XDocument fetchXdoc = null;
+                fetchXdoc = await _repository.GetMemberintegraldetail(entity.Id, code);
+                var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_memberintegraldetail", fetchXdoc);
+                if (entities.Results.Count == 0)
+                {
+                    IntegralCreate(IntegralUserInfo_Key, entity.Id.ToString());
+                }
+
+
+                #endregion
                 #region 组装数据返回 
                 validateResult.Result = true;
                 validateResult.Description = "操作成功";
@@ -548,7 +575,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 var getbalanceentitys = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_member", fetchXdoc2);
                 if (getbalanceentitys.Results != null && getbalanceentitys.Results.Count > 0)
                 {
-                    var bonuspoint= getbalanceentitys.Results[0].Attributes
+                    var bonuspoint = getbalanceentitys.Results[0].Attributes
     ["mcs_bonuspoint"];
                     response.balance = bonuspoint == null ? 0 : (Int32)bonuspoint;
                 }
@@ -563,5 +590,145 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 throw ex;
             }
         }
+        /// <summary>
+        /// 增减用户积分记录
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ValidateResult> DeDucationIntegral(UserDeDucationIntegralRequest request)
+        {
+            var validateResult = new ValidateResult();
+            try
+            {
+                var entity = new CrmExecuteEntity("mcs_memberintegraldetail", Guid.NewGuid());
+                if (!string.IsNullOrEmpty(request.UserId))
+                {
+                    var crmRequestHelper = new CrmRequestHelper();
+                    XDocument fetchXdoc = null;
+                    fetchXdoc = await _repository.getuserscorebalance(new UserDetailRequest { id = request.UserId });
+                    var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_member", fetchXdoc);
+                    if (entities.Results != null && entities.Results.Count > 0)
+                    {
+                        entity.Attributes.Add("mcs_memberid", new CrmEntityReference("mcs_member", entities.Results[0].Id));
+                        var bonuspoint = entities.Results[0].Attributes["mcs_bonuspoint"];
+                        var balance = bonuspoint == null ? 0 : (Int32)bonuspoint;
+                        entity.Attributes.Add("mcs_bonuspoint", balance);
+                        entity.Attributes.Add("mcs_integralpointname", "积分支付");
+                        var updateEntity = new CrmExecuteEntity("mcs_member", entities.Results[0].Id);
+                        if (request.IntegralType != null)
+                        {
+                            entity.Attributes.Add("mcs_integraltype", request.IntegralType);
+                        }
+                        if (request.Integral != 0)
+                        {
+                            entity.Attributes.Add("mcs_num", request.Integral);
+                            updateEntity.Attributes.Add("mcs_bonuspoint", balance - request.Integral);
+                        }
+                        await _crmService.Update(updateEntity);
+                        await _crmService.Create(entity);
+                        validateResult.Result = true;
+                        validateResult.Description = "操作成功";
+                    }
+                    else
+                    {
+                        validateResult.Result = false;
+                        validateResult.Description = "用户不存在";
+                    }
+                }
+                else
+                {
+                    validateResult.Result = false;
+                    validateResult.Description = "用户Id不存在";
+                }
+            }
+            catch (Exception e)
+            {
+                validateResult.Result = false;
+                validateResult.Description = e.Message;
+            }
+            return validateResult;
+        }
+
+
+
+        #region 积分
+
+
+
+        /// <summary>
+        /// 积分充值接口
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="userid"></param>
+        public async Task<ValidateResult> IntegralCreate(string key, string userid)
+        {
+             string code = await GetConfig(key);
+            string num = await GetMemberintegralpoint(code);
+            IntegralRequest req = new IntegralRequest();
+            req.UserId = userid;
+            req.SourceSystem = 3;
+            req.IntegralPointCode = code;
+            req.Num = num;
+            req.Description = "";
+            req.TransactionTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            Random rnd = new Random();
+            req.OrderNumber = "IC" + DateTime.Now.ToString("yyyyMMddHHmmss") + rnd.Next(100, 100000).ToString();
+           return await IntegralPost(req);
+        }
+
+        /// <summary>
+        /// 积分接口
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        public async Task<ValidateResult> IntegralPost(IntegralRequest req)
+        {
+            ValidateResult res = new ValidateResult();
+            try
+            {
+                string url = await GetConfig(IntegralUrl_Key);
+                var ret = HttpClinetHelper.Post<IntegralRequest, string>(req, $"{url}/api/member/integralcreate");
+                if (ret == "1") 
+                    res.Result = true; 
+            }
+            catch (Exception e)
+            {
+                res.Result = false;
+                res.Description = e.Message;
+            }
+            return res;
+        }
+
+        #endregion
+
+        private async Task<string> GetMemberintegralpoint(string key)
+        {
+            var crmRequestHelper = new CrmRequestHelper();
+            XDocument fetchXdoc = null;
+            fetchXdoc = await _repository.GetMemberintegralpoint(key);
+            var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_memberintegralpoint", fetchXdoc);
+            if (entities != null && entities.Results != null && entities.Results.Count > 0)
+            {
+                return entities.Results[0].Attributes["mcs_num"]?.ToString();
+            }
+            return null;
+        }
+
+        private async Task<string> GetConfig(string key)
+        {
+            var crmRequestHelper = new CrmRequestHelper();
+            XDocument fetchXdoc = null;
+            fetchXdoc = await _configRepository.GetConfigFetchXml(key);
+            var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_cepconfig", fetchXdoc);
+            if (entities != null && entities.Results != null && entities.Results.Count > 0)
+            {
+                return entities.Results[0].Attributes["mcs_val"]?.ToString();
+            }
+            return null;
+        }
     }
+
+
+
+
 }

@@ -22,6 +22,8 @@ namespace DCEM.UserCenterService.Main.Application.App
 
     public interface IAppUser
     {
+
+        Task<ValidateResult> IntegralCreate(string key, string userid);
         Task<ValidateResult> ValUserSecurityquestion(UserLoginRequest req);
         Task<ValidateResult<CrmEntity>> GetAgreement(string id);
         Task<ValidateResult<CrmEntity>> LoginAccount(UserLoginRequest request);
@@ -40,7 +42,9 @@ namespace DCEM.UserCenterService.Main.Application.App
 
         Task<UserTagListResponse> getusertag(UserDetailRequest userDetailRequest);
         Task<UserScoreListResponse> getuserscore(UserDetailRequest userDetailRequest);
-        
+        Task<ValidateResult> DeDucationIntegral(UserDeDucationIntegralRequest request);
+
+
         Task<CrmEntity> getuserdetail(UserDetailRequest userDetailRequest);
         /// <summary>
         /// 获取用户通知信息
@@ -48,5 +52,17 @@ namespace DCEM.UserCenterService.Main.Application.App
         /// <param name="request"></param>
         /// <returns></returns>
         Task<QueryResult<CrmEntity>> QueryUserNotices(UserNoticeRequest request);
+        /// <summary>
+        /// 更新用户通知阅读状态
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<bool> UpdateUserNoticeReadStatus(UserNoticeRequest request);
+        /// <summary>
+        /// 获取用户通知信息未阅读数量
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<int> GetUserNoticesNoReadCount(string userid);
     }
 }

@@ -21,6 +21,15 @@ namespace DCEM.SalesAssistant.Main.Application.App.Contrac
         /// <param name="request"></param>
         /// <returns></returns>
         Task<QueryResult<CrmEntity>> GetSurveyorderList(SurveyorderListRequest _request);
+
+
+        /// <summary>
+        /// 获取勘测单列表接口（全字段查询）
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<QueryResult<CrmEntity>> GetSurveyorderListAll(SurveyorderListRequest _request);
+
         /// <summary>
         /// 获取勘测单详情
         /// </summary>
@@ -63,5 +72,11 @@ namespace DCEM.SalesAssistant.Main.Application.App.Contrac
         /// <returns></returns>
         Task<QueryResult<CrmEntity>> GetInstallationUser(InstallationorderDetailRequest _request);
 
+        /// <summary>
+        /// 安装单新增或编辑
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ValidateResult<CrmEntity>> AddOrEditInstallationorder(InstallationorderMetadataModel request);
     }
 }

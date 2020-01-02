@@ -33,13 +33,17 @@ namespace DCEM.Web.Controllers
     public class QuestionController : ApiController
     {
 
-        private IAppQuestion _appQuestion; 
+        //问题积分埋点编号
+        public string IntegralQuestion_Key = "IntegralQuestion_Key";
+        private IAppQuestion _appQuestion;
+        private IAppUser _appUser;
         public QuestionController()
         {
-            _appQuestion = new QuestionFactory().Create().Result; 
+            _appUser = new UserFactory().Create().Result;
+            _appQuestion = new QuestionFactory().Create().Result;
         }
 
-      
+
 
         /// <summary>
         /// 获取 
@@ -57,7 +61,10 @@ namespace DCEM.Web.Controllers
         [HttpPost]
         public async Task<ValidateResult> AddAnswercontent(QuestionAddRequest model)
         {
-            return await _appQuestion.AddAnswercontent(model);
+            ValidateResult ts = await _appQuestion.AddAnswercontent(model);
+            CrmEntity ent = await _appQuestion.GetUserToCode(model.mcs_answername);
+            await _appUser.IntegralCreate(IntegralQuestion_Key, ent.Id.ToString());
+            return ts;
         }
     }
 }

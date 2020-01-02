@@ -43,6 +43,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
                 <attribute name='mcs_userphone' />
                 <attribute name='mcs_dealer' />
                 <attribute name='mcs_surveystatus' />
+               
                 <order attribute='createdon' descending='true' />
                 <filter type='and'>
                   <condition attribute='statecode' operator='eq' value='0' />
@@ -56,6 +57,88 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
             return fetchString;
 
         }
+
+        /// <summary>
+        /// 获取勘测单列表接口（全字段查询）
+        /// </summary>
+        /// <param name="_request"></param>
+        /// <returns></returns>
+        public string GetSurveyorderListAll(SurveyorderListRequest _request)
+        {
+            var filter = string.Empty;
+            if (_request.mcs_surveystatus != 0)
+            { 
+                filter += $"<condition attribute='mcs_surveystatus' operator='eq' value='{_request.mcs_surveystatus}' />";
+            }
+            if (!string.IsNullOrWhiteSpace(_request.SearchKey))
+            {
+                filter += $"<filter type='or'>";
+                filter += $"<condition attribute='mcs_name' operator='like' value='%{_request.SearchKey}%' />";
+                filter += $"<condition attribute='mcs_username' operator='like' value='%{_request.SearchKey}%' />";
+                filter += $"<condition attribute='mcs_userphone' operator='like' value='%{_request.SearchKey}%' />";      
+                filter += $"</filter>";
+            }
+
+            var fetchString = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+                   <entity name='mcs_surveyorder'>                   
+                    <attribute name='mcs_surveyorderid' />
+                    <attribute name='mcs_name' />
+                    <attribute name='createdon' />
+                    <attribute name='mcs_userphone' />
+                    <attribute name='mcs_username' />
+                    <attribute name='mcs_email' />
+                    <attribute name='mcs_carmodelid' />
+                    <attribute name='mcs_detailaddress' />
+                    <attribute name='mcs_installationaddress' />
+                    <attribute name='mcs_price' />
+                    <attribute name='mcs_communityname' />
+                    <attribute name='mcs_vin' />
+                    <attribute name='mcs_dealer' />
+                    <attribute name='mcs_salesconsultant' />
+                    <attribute name='mcs_province' />
+                    <attribute name='mcs_city' />
+                    <attribute name='mcs_area' />
+                    <attribute name='mcs_surveyprovider' />
+                    <attribute name='mcs_contact' />
+                    <attribute name='mcs_surveyproviderphone' />
+                    <attribute name='mcs_appointmentdate' />
+                    <attribute name='mcs_surveyengineer' />
+                    <attribute name='mcs_surveyengineerphone' />                  
+                    <order attribute='createdon' descending='true' />
+                   <filter type='and'>
+                    <condition attribute='statecode' operator='eq' value='0' />
+                    {filter}
+                   </filter>
+                    <link-entity name='mcs_carmodel' from='mcs_carmodelid' to='mcs_carmodelid' visible='false' link-type='outer' alias='a'>
+                      <attribute name='mcs_name' />
+                    </link-entity>
+                    <link-entity name='mcs_dealer' from='mcs_dealerid' to='mcs_dealer' visible='false' link-type='outer' alias='b'>
+                      <attribute name='mcs_name' />
+                    </link-entity>
+                    <link-entity name='systemuser' from='systemuserid' to='mcs_salesconsultant' visible='false' link-type='outer' alias='c'>
+                      <attribute name='fullname' />
+                    </link-entity>
+                    <link-entity name='mcs_sysarea' from='mcs_sysareaid' to='mcs_province' visible='false' link-type='outer' alias='d'>
+                      <attribute name='mcs_name' />
+                    </link-entity>
+                    <link-entity name='mcs_sysarea' from='mcs_sysareaid' to='mcs_city' visible='false' link-type='outer' alias='e'>
+                      <attribute name='mcs_name' />
+                    </link-entity>
+                    <link-entity name='mcs_sysarea' from='mcs_sysareaid' to='mcs_area' visible='false' link-type='outer' alias='f'>
+                      <attribute name='mcs_name' />
+                    </link-entity>
+                      <link-entity name='mcs_installationprovider' from='mcs_installationproviderid' to='mcs_surveyprovider' visible='false' link-type='outer' alias='g'>
+                      <attribute name='mcs_name' />
+                    </link-entity>
+                    <link-entity name='mcs_installationproviderengineer' from='mcs_installationproviderengineerid' to='mcs_surveyengineer' visible='false' link-type='outer' alias='h'>
+                      <attribute name='mcs_name' />
+                    </link-entity>
+                   </entity>
+                   </fetch>";
+            return fetchString;
+
+        }
+
 
         /// <summary>
         /// 获取勘测单详情

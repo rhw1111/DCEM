@@ -57,6 +57,23 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
 
 
 
+    public class UserIntegralRequest
+    {
+        /// <summary>
+        /// 账户
+        /// </summary>
+        public string account { get; set; }
 
-     
+        /// <summary>
+        /// 登陆类型 1：手机号，2：邮箱，3：身份证
+        /// </summary>
+        public int logintype { get; set; }
+
+        /// <summary>
+        /// 积分充值类型
+        /// </summary>
+        public string key { get; set; }
+
+    }
+
 }

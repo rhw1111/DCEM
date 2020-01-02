@@ -20,7 +20,9 @@
 //}
 //Dev-AD»œ÷§CRM9
 {
-  "Connections": null,
+  "Connections": {
+    "MainDBRead": "Password=password01#;Persist Security Info=True;User ID=crm9admin;Initial Catalog=DCEM_mod;Data Source=106.14.121.65"
+  },
   "DISetting": {
     "SearchAssemblyNames": [ "MSLibrary", "DCEM.Main", "DCEM.ServiceAssistantService.Main", "DCEM.Web" ]
   },

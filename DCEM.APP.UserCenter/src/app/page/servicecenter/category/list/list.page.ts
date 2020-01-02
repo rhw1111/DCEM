@@ -42,19 +42,21 @@ export class ListPage implements OnInit {
                     var i = 0;
                     var ProductCategoryId = 0;
                     res.forEach(item => {
-                        if (item.ParentId == 0) {
-                            if (i == 0) {
-                                item.color = "primary";
-                                item.arrows = true;
-                                ProductCategoryId = item.ProductCategoryId;
+                        if (item.CateGroup == 2) {
+                            if (item.ParentId == 0) {
+                                if (i == 0) {
+                                    item.color = "primary";
+                                    item.arrows = true;
+                                    ProductCategoryId = item.ProductCategoryId;
+                                } else {
+                                    item.color = "light";
+                                    item.arrows = false;
+                                }
+                                this.model.categoryparentlist.push(item);
+                                i++;
                             } else {
-                                item.color = "light";
-                                item.arrows = false;
+                                this.model.categorylist.push(item);
                             }
-                            this.model.categoryparentlist.push(item);
-                            i++;
-                        } else {
-                            this.model.categorylist.push(item);
                         }
                     });
                     this.model.categorylist.forEach(item => {

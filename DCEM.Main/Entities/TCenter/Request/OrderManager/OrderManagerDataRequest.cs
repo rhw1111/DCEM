@@ -175,6 +175,11 @@ namespace DCEM.Main.Entities.Request.OrderManager
         ///</summary> 
         public string RecommendUserName { get; set; }
 
+        /// <summary>
+        /// 订单类型
+        /// </summary>
+        public int? OrderClass { get; set; }
+
         ///<summary>
         ///	推荐人手机号码	
         ///</summary> 

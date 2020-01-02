@@ -90,7 +90,6 @@ export class SelectitemPage implements OnInit {
                     this.shareData.productRelatedMap[productRelatedKey]["ext_moneyFormat"] = "+" + productRelated["a.mcs_salesprice"] + "元";
                 }
             }
-
         }
         this._shareData.set(this.mod.shareDataKey, this.shareData);
     }

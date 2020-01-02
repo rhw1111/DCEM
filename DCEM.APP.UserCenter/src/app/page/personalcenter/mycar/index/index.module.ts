@@ -8,6 +8,7 @@ import { IndexPageRoutingModule } from './index-routing.module';
 
 import { IndexPage } from './index.page';
 import { TopheadModule } from 'app/component/assembly/tophead/tophead.module';
+
 @NgModule({
     imports: [
         TopheadModule,

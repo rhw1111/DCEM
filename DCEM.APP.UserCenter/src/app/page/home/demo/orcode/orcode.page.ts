@@ -24,6 +24,7 @@ export class OrcodePage implements OnInit {
     }
 
     ionViewDidEnter() {
+        this._qrScanner.destroy();
         this._qrScannerInit();
     }
 

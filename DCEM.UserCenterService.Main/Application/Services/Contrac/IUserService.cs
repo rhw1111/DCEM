@@ -14,6 +14,7 @@ namespace DCEM.UserCenterService.Main.Application.Services.Contrac
 
     public interface IUserService
     {
+        Task<ValidateResult> IntegralCreate(string key, string userid);
         Task<ValidateResult> ValUserSecurityquestion(UserLoginRequest req);
         Task<ValidateResult<CrmEntity>> GetAgreement(string id);
         Task<ValidateResult<CrmEntity>> LoginAccount(UserLoginRequest request);
@@ -31,5 +32,7 @@ namespace DCEM.UserCenterService.Main.Application.Services.Contrac
         Task<CrmEntity> getuserdetail(UserDetailRequest userDetailRequest);
         Task<UserTagListResponse> getusertag(UserDetailRequest userDetailRequest);
         Task<UserScoreListResponse> getuserscore(UserDetailRequest userDetailRequest);
+
+        Task<ValidateResult> DeDucationIntegral(UserDeDucationIntegralRequest request);
     }
 }

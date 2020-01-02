@@ -22,7 +22,7 @@ namespace DCEM.UserCenterService.Main.Application.Services.Contrac
     public interface IQuestionService
     {
         Task<ValidateResult<QuestionSettingResponse>> QueryQiestion(string id);
-
+        Task<CrmEntity> GetUserToCode(string code);
         Task<ValidateResult> AddAnswercontent(QuestionAddRequest model);
     }
 }

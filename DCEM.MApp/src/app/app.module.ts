@@ -1,4 +1,4 @@
-import { NgModule,ErrorHandler } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import {GlobalErrorHandler} from "app/base/base.ser/global.error.handler";
+import { GlobalErrorHandler } from "app/base/base.ser/global.error.handler";
 
 //自定义组件
 import { ScSelectComponent } from './serving/serving.ser/components/sc-select/sc-select.component';
@@ -37,14 +37,17 @@ import { SelectRepairitemtypedetailComponent } from 'app/serving/serving.ser/com
 import { SelectAppointmentinfoComponent } from 'app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component';
 import { SelectFileEditComponent } from 'app/serving/serving.ser/components/select-file-edit/select-file-edit.component';
 import { SelectAccountComponent } from 'app/serving/serving.ser/components/select-account/select-account.component'
-
-
+import { SelectSurveyorderComponent } from "app/serving/serving.ser/components/select-surveyorder/select-surveyorder.component"
+import { SelectUserComponent } from 'app/saleing/saleing.ser/components/select-user/select-user.component';
+import { SelectDealerComponent } from 'app/saleing/saleing.ser/components/select-dealer/select-dealer.component';
+import { SelectCarproductComponent } from 'app/saleing/saleing.ser/components/select-carproduct/select-carproduct.component';
 import { DragrouteComponent } from 'app/base/base.ser/components/map/dragroute/dragroute.component';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { SelectVehorderComponent } from "app/serving/serving.ser/components/select-vehorder/select-vehorder.component"
 
 @NgModule({
     declarations: [//申明组件
@@ -71,7 +74,12 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
         SelectAppointmentinfoComponent,//选择预约单
         SelectFileEditComponent,
         DragrouteComponent,
-        SelectAccountComponent
+        SelectAccountComponent,//选择销售机会
+        SelectSurveyorderComponent, //选择勘测单
+        SelectUserComponent,//选择C端用户
+        SelectCarproductComponent,//选择商品(整车)
+        SelectDealerComponent,
+        SelectVehorderComponent //选择整车订单（大订）
     ],
 
     entryComponents: [
@@ -97,7 +105,12 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
         SelectAppointmentinfoComponent,//选择预约单
         SelectFileEditComponent,
         DragrouteComponent,
-        SelectAccountComponent
+        SelectAccountComponent,//选择销售机会
+        SelectSurveyorderComponent, //选择勘测单
+        SelectUserComponent,
+        SelectCarproductComponent,//选择商品(整车)
+        SelectDealerComponent,
+        SelectVehorderComponent
     ],
 
     imports: [BrowserModule,
@@ -119,7 +132,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
         Camera,
         ScreenOrientation,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-        { provide: ErrorHandler, useClass: GlobalErrorHandler}
+        { provide: ErrorHandler, useClass: GlobalErrorHandler }
     ],
     bootstrap: [AppComponent]
 })

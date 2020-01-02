@@ -1,9 +1,10 @@
 ﻿import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonBackButton, IonBackButtonDelegate, IonButton } from '@ionic/angular';
+import { IonBackButton, IonBackButtonDelegate, IonButton, ModalController, NavController, ToastController } from '@ionic/angular';
 import { DCore_Http, DCore_Page, DCore_Valid, DCore_ShareData } from 'app/component/typescript/dcem.core';
 import { Storage_LoginInfo } from 'app/component/typescript/logininfo.storage';
 import * as $ from 'jquery';
-
+import { SelectDealerComponent } from 'app/component/modal/select-dealer/select-dealer.component';
+import { SelectDealerListComponent } from "app/component/modal/select-dealer-list/select-dealer-list.component"
 @Component({
     selector: 'app-perfect',
     templateUrl: './perfect.page.html',
@@ -18,7 +19,8 @@ export class PerfectPage implements OnInit {
         fromValidStatus: {
             name: true,
             phone: true,
-            certNumber: true
+            certNumber: true,
+            dealer: true
         },
         errMessage: ""
     };
@@ -48,7 +50,8 @@ export class PerfectPage implements OnInit {
         private _page: DCore_Page,
         private _valid: DCore_Valid,
         private _shareData: DCore_ShareData,
-        private _storage_LoginInfo: Storage_LoginInfo
+        private _storage_LoginInfo: Storage_LoginInfo,
+        private _modalCtrl: ModalController
     ) {
 
     }
@@ -128,8 +131,44 @@ export class PerfectPage implements OnInit {
                 validStatus = false;
                 this.mod.errMessage += "请输入证件号码<br>";
             }
+            if (this._valid.isNullOrEmpty(this.shareData.userInfo["dealerName"]) || this._valid.isNullOrEmpty(this.shareData.userInfo["dealerCode"])) {  //证件号码验证
+                this.mod.fromValidStatus.dealer = false;
+                validStatus = false;
+                this.mod.errMessage += "请选择交车厅店<br>";
+            }
+
+
         }
         return validStatus;
+    }
+
+
+    //async openDealer() {
+
+    //    const modal = await this._modalCtrl.create({
+    //        component: SelectDealerComponent
+    //    });
+    //    await modal.present();
+    //    const { data } = await modal.onDidDismiss();
+    //    if (!this._valid.isNull(data)) {
+    //        this.shareData.userInfo["dealerName"] = data["name"]
+    //        this.shareData.userInfo["dealerCode"] = data["code"]
+    //    }
+    //}
+
+    async openDealer() {
+
+        
+        const modal = await this._modalCtrl.create({
+            component: SelectDealerListComponent
+        });
+        await modal.present();
+        const { data } = await modal.onDidDismiss();
+        if (!this._valid.isNull(data)) {
+            this.shareData.userInfo["dealerName"] = data["name"]
+            this.shareData.userInfo["dealerCode"] = data["code"]
+
+        }
     }
 
 

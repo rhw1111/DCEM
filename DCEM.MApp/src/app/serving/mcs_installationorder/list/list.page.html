@@ -32,7 +32,8 @@
   </ion-refresher>
 
   <ion-list lines="full">
-    <ion-item *ngFor="let item of model.datalist" [routerLink]="['/serving/installationorder/detail']" [queryParams]="{id:item.mcs_installationorderid}">
+    <ion-item-sliding *ngFor="let item of model.datalist">
+    <ion-item  [routerLink]="['/serving/installationorder/detail']" [queryParams]="{id:item.mcs_installationorderid}">
       <ion-icon color="tertiary" name="document"></ion-icon>
       <ion-label style="margin-left:10px">
           <h6>{{item.mcs_name}}</h6>
@@ -43,6 +44,13 @@
         <p>{{item.mcs_installationstatus}}</p>  
       </ion-note>
   </ion-item>
+  <ion-item-options side="end" *ngIf="item.mcs_installationstatusValue==21">
+    <ion-item-option color="tertiary" expandable [routerLink]="['/serving/installationorder/edit']"
+      [queryParams]="{id:item.mcs_installationorderid}">
+      编辑
+    </ion-item-option>
+  </ion-item-options>
+</ion-item-sliding>
 </ion-list>
 <ion-row *ngIf="model.isending">
   <ion-col class="nodata" text-center>
@@ -54,4 +62,11 @@
   <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多..."> 
   </ion-infinite-scroll-content>
 </ion-infinite-scroll>
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button [routerLink]="['/serving/installationorder/edit']">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
 </ion-content>

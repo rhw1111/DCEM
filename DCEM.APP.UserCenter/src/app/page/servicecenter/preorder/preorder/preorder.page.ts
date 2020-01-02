@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page } from '../../../../../app/component/typescript/dcem.core';
 import { Storage_LoginInfo } from '../../../../component/typescript/logininfo.storage';
+import { OptionSetService } from "../../../../component/typescript/optionset.service";
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -20,6 +21,16 @@ export class PreorderPage implements OnInit {
         totalintegral: 0,
         carList: {},
         paymenttype: 0,
+        score: {
+            apiUrl: "api/user/getuserscore",
+            search: {
+                id: this._logininfo.GetSystemUserId(),
+                pageindex: 1,
+                pagesize: 10,
+            },
+            data: [],
+            balance: 0,
+        },
     };
     public mod: any = {
         isending: false,//是否加载完成  
@@ -37,6 +48,7 @@ export class PreorderPage implements OnInit {
         private _http: DCore_Http,
         private _page: DCore_Page,
         private routerinfo: ActivatedRoute,
+        private _optionset: OptionSetService,
     ) { }
 
     ngOnInit() {
@@ -60,15 +72,13 @@ export class PreorderPage implements OnInit {
         var totalintegral = 0;
         this.model.datas.datas.forEach(res => {
             this.model.paymenttype = res.paymenttype;
-            if (res.paymenttype == 2) {
-                totalintegral += (res.integral * res.num);
-            } else {
-                totalprice += (res.price * res.num);
-            }
+            totalintegral += (res.integral * res.num);
+            totalprice += (res.price * res.num);
             
         });
         this.model.totalprice = parseFloat(totalprice.toString()).toFixed(2);
         this.model.totalintegral = totalintegral;
+        this.getScore(null);
         this._page.loadingHide();
     }
     //获取收货地址数据
@@ -113,16 +123,54 @@ export class PreorderPage implements OnInit {
             }
         );
     }
-    //提交订单
+    //获取当前用户积分
+    getScore(event) {
+        this._http.postForToaken(
+            this.model.score.apiUrl,
+            this.model.score.search,
+            (res: any) => {
+                if (res !== null) {
+                    this.model.score.balance = res.balance;
+                }
+                else {
+                    this._page.alert("消息提示", "用户积分信息加载异常");
+                }
+
+            },
+            (err: any) => {
+                this._page.alert("消息提示", "用户积分信息加载异常");
+            }
+        );
+
+    }
+    //提交
     submitOrder() {
-        //var returndata = {
-        //    "OrderCode": "1111111",
-        //    "TotalPrice": this.model.totalprice
-        //};
-        //this._page.navigateRoot("/servicecenter/payment/payment", returndata);
+        if (this.model.paymenttype == 2) {
+            if (this.model.totalintegral > this.model.score.balance) {
+                var deducationintegral = ((this.model.totalprice / this.model.totalintegral) * (this.model.totalintegral - this.model.score.balance)).toFixed(2);
+                this._page.confirm("确认提示", "积分不足,您还需要支付现金" + deducationintegral+"元，是否提交？", () => {
+                    //var returndata = {
+                    //    "OrderCode": "1111111",
+                    //    "TotalPrice": deducationintegral == "0" ? this.model.totalprice : deducationintegral,
+                    //    "TotalIntegral": this.model.score.balance
+                    //};
+                    //this._page.navigateRoot("/servicecenter/payment/payment", returndata);
+                    this.createOrder(this.model.score.balance, deducationintegral,true);
+                }, () => {
+                    return;
+                });
+            } else {
+                this.createOrder(this.model.totalintegral,0,false);
+            }
+        } else {
+            this.createOrder(0,0,false);
+        }
+    }
+    //调用接口创建订单
+    createOrder(integral, deducationintegral, isneedcash) {
         this._page.loadingShow();
-        var data = this.readyForDatas();
-        this._http.postForShopping(this.model.submit.apiUrl,data,
+        var data = this.readyForDatas(integral, deducationintegral);
+        this._http.postForShopping(this.model.submit.apiUrl, data,
             (res: any) => {
                 if (res != null) {
                     if (res.IsSuccess) {
@@ -131,7 +179,9 @@ export class PreorderPage implements OnInit {
                         }
                         var returndata = {
                             "OrderCode": res.OrderCode,
-                            "TotalPrice": this.model.totalprice
+                            "TotalPrice": deducationintegral == 0 ? this.model.totalprice : deducationintegral,
+                            "TotalIntegral": integral,
+                            "IsNeedCash": isneedcash,
                         };
                         this._page.navigateRoot("/servicecenter/payment/payment", returndata);
                     }
@@ -148,7 +198,8 @@ export class PreorderPage implements OnInit {
         );
     }
     //准备订单数据
-    readyForDatas() {
+    readyForDatas(integral, deducationintegral) {
+        var flag = this.model.paymenttype == 2;
         var data = {
             "OrderData": {
                 "OrderCode": this.Gen(9),
@@ -165,18 +216,19 @@ export class PreorderPage implements OnInit {
                 "CarBuyerIdType": 1,
                 "CarBuyerId": this._logininfo.GetCardid(),
                 "ShippingFlag": true,
+                "OrderClass": 200,
                 "PaymentFlag": true,
                 "PaymentStatus": 1,
-                "CashTotal": this.model.totalprice,
-                "TotalDepositAmount": this.model.totalprice,
-                "ReceivedDepositAmount": this.model.totalprice,
-                "ReceivableAmount": this.model.totalprice,
-                "DeductionAmount": 0,
-                "FinalPayment": 0,
-                "IntegralTotal": this.model.totalintegral,
-                "IntegralReceivable": this.model.totalintegral,
-                "ReceivedIntegral": this.model.totalintegral,
-                "DeductionIntegral": 0,
+                "CashTotal": this.model.totalprice,  //	订单总金额	
+                "TotalDepositAmount": !flag ? this.model.totalprice : 0, //	线上应收金额
+                "ReceivedDepositAmount": !flag ? this.model.totalprice : 0, //	线上已收金额	
+                "ReceivableAmount": !flag ? this.model.totalprice : 0, //	已收金额（不含积分不够现金支付部分）
+                "DeductionAmount": 0, //	抵扣金额
+                "FinalPayment": 0, //	订单尾款/待收尾款
+                "IntegralTotal": flag ? this.model.totalintegral : 0, //	订单总积分	
+                "IntegralReceivable": flag ? this.model.totalintegral : 0, // 应收积分(应收积分=订单总积分+积分抵扣（负数）)
+                "ReceivedIntegral": flag ? integral : 0, //	已收积分	
+                "DeductionIntegral": -deducationintegral, // 抵扣积分
                 "ActiveCode": "",
                 "ActiveName": "",
                 "OptimalCode": "",
@@ -200,10 +252,10 @@ export class PreorderPage implements OnInit {
             "Products": [],
             "PayRecordsList": [
                 {
-                    "PaymentType": this.model.paymenttype,
-                    "PaymentAmount": 0,
-                    "CashPayment": 0,
-                    "PaymentTotal": 0,
+                    "PaymentType": this.model.paymenttype, //支付方式1：现金;2：积分;3：权益项抵扣;
+                    "PaymentAmount": flag ? integral : 0, //支付金额或积分
+                    "CashPayment": deducationintegral, //积分不够现金支付数
+                    //"PaymentTotal": 0,
                     "PaymentTime": new Date(),
                     "PaySerialNumber": "00001",
                     "SerialNumber": "000002",
@@ -246,9 +298,9 @@ export class PreorderPage implements OnInit {
         var storage = window.localStorage;
         var cardata = storage.getItem("singlecar");
         if (cardata != null) {
-            var carlist = JSON.parse(cardata);
+            this.model.carList = JSON.parse(cardata);
             var datas = [];
-            carlist.datas.forEach(res => {
+            this.model.carList.datas.forEach(res => {
                 var flag = true;
                 this.model.datas.datas.forEach(r => {
                     if (res.skucode == r.skucode) {
@@ -260,9 +312,9 @@ export class PreorderPage implements OnInit {
                     datas.push(res);
                 }
             });
-            if (datas) {
+            if (datas.length > 0) {
                 this.model.carList.datas = datas;
-                storage.setItem("singlecar", this.model.carList);
+                storage.setItem("singlecar", JSON.stringify(this.model.carList));
             } else {
                 storage.removeItem("singlecar");
             }

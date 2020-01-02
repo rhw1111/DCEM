@@ -32,6 +32,17 @@ namespace DCEM.SalesAssistant.Main.Application.App
         {
             return await _installService.GetSurveyorderList(_request);
         }
+
+        /// <summary>
+        ///  获取勘测单列表接口（全字段查询）
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> GetSurveyorderListAll(SurveyorderListRequest _request)
+        {
+            return await _installService.GetSurveyorderListAll(_request);
+        }
+
         /// <summary>
         /// 勘测单详情接口
         /// </summary>
@@ -90,5 +101,17 @@ namespace DCEM.SalesAssistant.Main.Application.App
         public async Task<QueryResult<CrmEntity>> GetInstallationUser(InstallationorderDetailRequest _request) {
             return await _installService.GetInstallationUser(_request);
         }
+
+        /// <summary>
+        /// 安装单新增或编辑
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ValidateResult<CrmEntity>> AddOrEditInstallationorder(InstallationorderMetadataModel request)
+        {
+            return await _installService.AddOrEditInstallationorder(request);
+        }
+
+
     }
 }

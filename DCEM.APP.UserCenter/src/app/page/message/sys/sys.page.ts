@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Storage_LoginInfo } from 'app/component/typescript/logininfo.storage';
 
 @Component({
   selector: 'app-sys',
@@ -15,7 +16,7 @@ export class SysPage implements OnInit {
       title:"通知",
       activeTime:"11-29",
       latest_chat:"本周官方举办活动！",
-      unreadcount:1,//未读信息
+      noreadcount:this._storage_LoginInfo.GetUserNoReadMessage(),//未读信息
       chatList:[
         {
           userId: 1,
@@ -34,11 +35,11 @@ export class SysPage implements OnInit {
       title:"互动",
       activeTime:"11-27",
       latest_chat:"小小俊，关注了你",
-      unreadcount:0,//未读信息
+      noreadcount:0,//未读信息
       chatList:[]
     },
   ];
-  constructor() { }
+  constructor(private _storage_LoginInfo:Storage_LoginInfo) { }
 
   ngOnInit() {
   }

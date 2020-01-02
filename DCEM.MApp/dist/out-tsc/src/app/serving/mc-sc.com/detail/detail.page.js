@@ -2,12 +2,14 @@ import * as tslib_1 from "tslib";
 import { Component } from '@angular/core';
 import { DCore_Http, DCore_Page, DCore_ShareData, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { ActivatedRoute } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 let DetailPage = class DetailPage {
-    constructor(_http, _page, _shareData, _valid, activeRoute) {
+    constructor(_http, _page, _shareData, _valid, menuController, activeRoute) {
         this._http = _http;
         this._page = _page;
         this._shareData = _shareData;
         this._valid = _valid;
+        this.menuController = menuController;
         this.activeRoute = activeRoute;
         this.tab = "info";
         this.mod = {
@@ -46,6 +48,7 @@ let DetailPage = class DetailPage {
         };
     }
     ionViewDidEnter() {
+        this.menuController.enable(true);
     }
     ngOnInit() {
         this.activeRoute.queryParams.subscribe((params) => {
@@ -80,12 +83,11 @@ let DetailPage = class DetailPage {
                 this.mod.data.serviceproxy["arrivalon"] = res["Serviceproxy"]["Attributes"]["mcs_arrivalon@OData.Community.Display.V1.FormattedValue"];
                 this.mod.data.serviceproxy["finishat"] = res["Serviceproxy"]["Attributes"]["mcs_finishat@OData.Community.Display.V1.FormattedValue"];
                 this.mod.data.serviceproxy["repairlocationid"] = res["Serviceproxy"]["Attributes"]["_mcs_repairlocationid_value@OData.Community.Display.V1.FormattedValue"];
-                this.mod.data.serviceproxy["status"] = res["Serviceproxy"]["Attributes"]["mcs_status@OData.Community.Display.V1.FormattedValue"];
+                this.mod.data.serviceproxy["status"] = res["Serviceproxy"]["Attributes"]["mcs_status"];
                 this.mod.data.serviceproxy["hoursamount"] = res["Serviceproxy"]["Attributes"]["mcs_hoursamount"];
                 this.mod.data.serviceproxy["partsamount"] = res["Serviceproxy"]["Attributes"]["mcs_partsamount"];
                 this.mod.data.serviceproxy["discountamount"] = res["Serviceproxy"]["Attributes"]["mcs_discountamount"];
                 this.mod.data.serviceproxy["amounttotal"] = res["Serviceproxy"]["Attributes"]["mcs_amounttotal"];
-                this.mod.data.serviceproxy.status = res["Serviceproxy"]["Attributes"]["mcs_status"];
                 this.mod.data.serviceproxy["dealerid"] = res["Serviceproxy"]["Attributes"]["_mcs_dealerid_value@OData.Community.Display.V1.FormattedValue"];
             }
             if (!this._valid.isNull(res.ServiceorderrepairitemList)) {
@@ -148,6 +150,7 @@ DetailPage = tslib_1.__decorate([
         DCore_Page,
         DCore_ShareData,
         DCore_Valid,
+        MenuController,
         ActivatedRoute])
 ], DetailPage);
 export { DetailPage };

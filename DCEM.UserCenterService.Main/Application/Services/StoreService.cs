@@ -27,7 +27,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
             dicHeadKey = "Prefer";
             dicHead = new Dictionary<string, IEnumerable<string>>();
             dicHead.Add(dicHeadKey, new List<string>() { "odata.include-annotations=\"*\"" });
-            pageCount = 50;
+            pageCount = 10;
         }
         #endregion
 
@@ -41,9 +41,16 @@ namespace DCEM.UserCenterService.Main.Application.Services
             var xdoc = await Task<XDocument>.Run(() =>
             {
                 var fetchXml = $@"
-                <fetch version='1.0' output-format='xml-platform' mapping='logical' count='{50}' page='{1}' distinct='true'>
+                <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
                     <entity name='mcs_tc_product'>
                         <order attribute='createdon' descending='true' />
+                        <filter type='and'>
+                            <condition attribute='mcs_type' operator='in'>
+                                <value>2</value>
+                                <value>1</value>
+                            </condition>
+                            <condition attribute='mcs_state' operator='eq' value='2' />
+                        </filter>
                     </entity>
                 </fetch>";
                 return XDocument.Parse(fetchXml);
@@ -70,6 +77,10 @@ namespace DCEM.UserCenterService.Main.Application.Services
                         <attribute name='mcs_imagename' />
                         <attribute name='mcs_product' />
                         <order attribute='createdon' descending='true' />
+                        <filter type='and'>
+                            <condition attribute='statecode' operator='eq' value='0' />
+                            <condition attribute='mcs_product' operator='not-null' />
+                        </filter>
                     </entity>
                 </fetch>";
                 return XDocument.Parse(fetchXml);
@@ -99,6 +110,10 @@ namespace DCEM.UserCenterService.Main.Application.Services
                         <attribute name='mcs_product' />
                         <attribute name='mcs_attributegroupindex' />
                         <order attribute='createdon' descending='true' />
+                        <filter type='and'>
+                            <condition attribute='statecode' operator='eq' value='0' />
+                            <condition attribute='mcs_product' operator='not-null' />
+                        </filter>
                     </entity>
                 </fetch>";
                 return XDocument.Parse(fetchXml);
@@ -123,6 +138,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     <entity name='mcs_tc_productorderingattribute'>
                         <filter type='and'>
                           <condition attribute='statecode' operator='eq' value='0' />
+                          <condition attribute='mcs_product' operator='not-null' />
                         </filter>
                     </entity>
                 </fetch>";
@@ -149,6 +165,10 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
                     <entity name='mcs_tc_productprice'>
                         <order attribute='createdon' descending='true' />
+                        <filter type='and'>
+                            <condition attribute='statecode' operator='eq' value='0' />
+                            <condition attribute='mcs_product' operator='not-null' />
+                        </filter>
                     </entity>
                 </fetch>";
                 return XDocument.Parse(fetchXml);
@@ -195,6 +215,10 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
                     <entity name='mcs_tc_productrelated'>
                         <order attribute='createdon' descending='true' />
+                        <filter type='and'>
+                            <condition attribute='statecode' operator='eq' value='0' />
+                            <condition attribute='mcs_product' operator='not-null' />
+                        </filter>
                         <link-entity name='mcs_tc_productprice' from='mcs_tc_productpriceid' to='mcs_relatedproductsku' link-type='outer' alias='a' visible='false'>
                             <all-attributes/>
                         </link-entity>
@@ -229,7 +253,8 @@ namespace DCEM.UserCenterService.Main.Application.Services
             {
                 var productGuid = Guid.Parse(entity.Attributes.Value<string>("_mcs_product_value"));
                 entity.Attributes.Add("ext_fullurl", host + entity.Attributes.Value<string>("mcs_imagename"));
-                dicProduct[productGuid].ProductImageArray.Add(entity.Attributes);
+                if (dicProduct.ContainsKey(productGuid))
+                    dicProduct[productGuid].ProductImageArray.Add(entity.Attributes);
             }
             #endregion
 
@@ -237,7 +262,8 @@ namespace DCEM.UserCenterService.Main.Application.Services
             foreach (var entity in productSpecificationResponse.Value.Results)
             {
                 var productGuid = Guid.Parse(entity.Attributes.Value<string>("_mcs_product_value"));
-                dicProduct[productGuid].ProductSpecificationArray.Add(entity.Attributes);
+                if (dicProduct.ContainsKey(productGuid))
+                    dicProduct[productGuid].ProductSpecificationArray.Add(entity.Attributes);
             }
             #endregion
 
@@ -245,7 +271,8 @@ namespace DCEM.UserCenterService.Main.Application.Services
             foreach (var entity in productOrderingattributeResponse.Value.Results)
             {
                 var productGuid = Guid.Parse(entity.Attributes.Value<string>("_mcs_product_value"));
-                dicProduct[productGuid].ProductOrderingattributeArray.Add(entity.Attributes);
+                if (dicProduct.ContainsKey(productGuid))
+                    dicProduct[productGuid].ProductOrderingattributeArray.Add(entity.Attributes);
             }
             #endregion
 
@@ -253,7 +280,8 @@ namespace DCEM.UserCenterService.Main.Application.Services
             foreach (var entity in productrElatedArrayResponse.Value.Results)
             {
                 var productGuid = Guid.Parse(entity.Attributes.Value<string>("_mcs_product_value"));
-                dicProduct[productGuid].ProductRelatedArray.Add(entity.Attributes);
+                if (dicProduct.ContainsKey(productGuid))
+                    dicProduct[productGuid].ProductRelatedArray.Add(entity.Attributes);
             }
             #endregion
 
@@ -275,7 +303,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
             {
                 var productGuid = Guid.Parse(entity.Attributes.Value<string>("_mcs_product_value"));
                 //var key = entity.Id.ToString();
-               
+
                 //if (skuattrMap.ContainsKey(key))
                 //{
                 //    entity.Attributes.Add("skuattr", skuattrMap[key]);
@@ -284,7 +312,8 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 //{
                 //    entity.Attributes.Add("skuattr", new JObject());
                 //}
-                dicProduct[productGuid].ProductPriceArray.Add(entity.Attributes);
+                if (dicProduct.ContainsKey(productGuid))
+                    dicProduct[productGuid].ProductPriceArray.Add(entity.Attributes);
             }
             #endregion
 
@@ -297,6 +326,110 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
             return producListResponse;
         }
+        #endregion
+
+        #region 获取 订单列表
+        public async Task<QueryResult<JObject>> QueryOrderList(int pageindex = 1, string search = "")
+        {
+            #region 组装filter
+            var filter = string.Empty;
+            if (!string.IsNullOrEmpty(search))
+            {
+                filter += $"<filter type='or'>";
+                filter += $"<condition attribute='mcs_name' operator='like' value='%{search}%' />";
+                filter += $"<condition attribute='mcs_purchasername' operator='like' value='%{search}%' />";
+                filter += $"<condition attribute='mcs_purchaserphone' operator='like' value='%{search}%' />";
+                filter += $"</filter>";
+            }
+
+            //if (!string.IsNullOrEmpty(filter))
+            //{
+                filter = @"<filter type='and'>
+                           <condition attribute='mcs_orderclass' operator='eq' value='100' />" + filter;
+                filter = filter + "</filter>";
+            //}
+            #endregion
+
+            #region 组装FetchXml
+            var xDoc = await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = string.Empty;
+                fetchXml = $@"
+            <fetch version='1.0' output-format='xml-platform' mapping='logical' count='{pageCount}' page='{pageindex}' >
+              <entity name='mcs_tc_order'>
+                <order attribute='mcs_ordertime' descending='true' />
+                  {filter}
+              </entity>
+            </fetch>";
+                return XDocument.Parse(fetchXml);
+            }); ;
+            #endregion
+
+            #region 获取记录结果集
+            var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_tc_order",
+                FetchXml = xDoc
+            };
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+            var fetchResponse = await _crmService.Execute(fetchRequest);
+            var resultsList = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            #endregion;
+
+            #region 组装数据返回
+            var result = new QueryResult<JObject>();
+            foreach (var entity in resultsList.Value.Results)
+            {
+                result.Results.Add(entity.Attributes);
+            }
+            return result;
+            #endregion
+        }
+
+
+
+
+        #endregion
+
+        #region 获取单条订单信息
+        public async Task<OrderQueryInfoResponse> QueryOrderInfo(string guid)
+        {
+            var orderQueryInfoResponse = new OrderQueryInfoResponse();
+            var orderid = Guid.Parse(guid);
+            var orderEntity = await _crmService.Retrieve("mcs_tc_order", orderid, string.Empty, null, dicHead);
+
+            #region 跟进记录
+            var xdoc = await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = string.Empty;
+                fetchXml = $@"
+            <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false' >
+              <entity name='mcs_tc_productorderitem'>
+                <filter type='and'>
+                <condition attribute='mcs_order' operator='eq' value='{orderid}' />
+                </filter>
+              </entity>
+            </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+            var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_tc_productorderitem",
+                FetchXml = xdoc
+            };
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+            var fetchResponse = await _crmService.Execute(fetchRequest);
+            var productorderitemList = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            #endregion
+
+            orderQueryInfoResponse.OrderInfo = orderEntity.Attributes;
+            foreach (var orderitem in productorderitemList.Value.Results)
+            {
+                orderQueryInfoResponse.OrderItemArray.Add(orderitem.Attributes);
+            }
+            return orderQueryInfoResponse;
+        }
+
         #endregion
 
     }

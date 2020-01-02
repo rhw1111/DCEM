@@ -6,7 +6,7 @@ import { SelectAccountComponent } from "app/serving/serving.ser/components/selec
 import { SelectCarmodelComponent } from "app/serving/serving.ser/components/select-carmodel/select-carmodel.component"
 import { OptionSetService } from '../../../base/base.ser/optionset.service';
 import { SelectSysareaComponent } from 'app/saleing/saleing.ser/components/select-sysarea/select-sysarea.component';
-
+import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.page.html',
@@ -31,6 +31,7 @@ export class EditPage implements OnInit {
       mcs_dealer:"",
       mcs_dealername:"",
       mcs_salesconsultant:"",  //销售顾问
+      mcs_salesconsultantname:"",  //销售顾问名称
       mcs_contactname:"",//联系人姓名
       mcs_contactphone:"",//联系电话
       mcs_contactemail:"",// 联系邮箱
@@ -45,7 +46,7 @@ export class EditPage implements OnInit {
       mcs_chargingpilemodel:"", //充电桩型号
       mcs_communityname:"", //小区名称
       mcs_residentialnature:"", //住宅性质
-      mcs_price:null, //套餐金额
+      mcs_price:"", //套餐金额
       mcs_parkingspace:"", //车位情况
       mcs_remark:"", //备注
       mcs_residentialtype:"" //住宅类型
@@ -64,6 +65,7 @@ export class EditPage implements OnInit {
     private _modalCtrl: ModalController,
     private activeRoute: ActivatedRoute,
     private _optionset: OptionSetService,
+    private _userinfo: Storage_LoginInfo,
   ) { }
 
   ngOnInit() {
@@ -76,6 +78,15 @@ export class EditPage implements OnInit {
       if (params['id'] != null && params['id'] != undefined) {
         this.model.postData.mcs_surveyorderid=params['id'];
         this.pageOnBind(params['id']);
+      }
+      else {
+
+        this.model.postData.mcs_dealer= this._userinfo.GetDealerid()
+        this.model.postData.mcs_dealername= this._userinfo.GetDealername()
+
+        this.model.postData.mcs_salesconsultant= this._userinfo.GetSystemUserId()
+        this.model.postData.mcs_salesconsultantname= this._userinfo.GetLastname()+this._userinfo.GetFirstname()
+        
       }
     });
 

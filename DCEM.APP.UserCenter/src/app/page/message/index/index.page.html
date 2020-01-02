@@ -10,7 +10,8 @@
         <ion-item-sliding *ngFor="let room of activities;let key=index">
             <div class="content">
                 <ion-item *ngIf="room.roomType=='group'" [routerLink]="['/message/sys']" lines="none">
-                    <ion-avatar item-start>
+                  <ion-badge slot="start" *ngIf="room.noreadcount>0" color="danger">{{room.noreadcount}}</ion-badge>  
+                  <ion-avatar item-start>
                         <img src="{{room.thumbnail}}">
                     </ion-avatar>
                     <ion-label>
@@ -22,6 +23,7 @@
                   </ion-note>
                 </ion-item>
                 <ion-item *ngIf="room.roomType!='group'" lines="none" (click)="toRoomMessage(room)">
+                  <ion-badge slot="start" *ngIf="room.noreadcount>0" color="danger">{{room.noreadcount}}</ion-badge>  
                   <ion-avatar item-start>
                       <img src="{{room.thumbnail}}">
                   </ion-avatar>

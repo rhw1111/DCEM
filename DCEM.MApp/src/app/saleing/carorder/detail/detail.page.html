@@ -1,0 +1,149 @@
+﻿<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/saleing/carorder/list"></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{mod.data["OrderInfo"]["mcs_name"]}}</ion-title>
+        <ion-buttons slot="end">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list lines="full">
+        <ion-item-divider color="primary">
+            <ion-label>
+                基本信息
+            </ion-label>
+        </ion-item-divider>
+        <ion-item>
+            <ion-label>
+                <h2>
+                    订单编号
+                </h2>
+                <p>{{mod.data["OrderInfo"]["mcs_name"]}}&nbsp;</p>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <h2>
+                    姓名
+                </h2>
+                <p>{{mod.data["OrderInfo"]["mcs_purchasername"]}}&nbsp;</p>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <h2>
+                    证件类型
+                </h2>
+                <p>{{mod.data["OrderInfo"]["mcs_purchasercertificatetype@OData.Community.Display.V1.FormattedValue"]}}&nbsp;</p>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <h2>
+                    证件号码
+                </h2>
+                <p>{{mod.data["OrderInfo"]["mcs_purchasercertificatecode"]}}&nbsp;</p>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <h2>
+                    联系方式
+                </h2>
+                <p>{{mod.data["OrderInfo"]["mcs_purchaserphone"]}}&nbsp;</p>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <h2>
+                    下单时间
+                </h2>
+                <p>{{mod.data["OrderInfo"]["mcs_ordertime@OData.Community.Display.V1.FormattedValue"]}}&nbsp;</p>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <h2>
+                    交车厅店
+                </h2>
+                <p>{{mod.data["OrderInfo"]["_mcs_dealerdelivery_value@OData.Community.Display.V1.FormattedValue"]}}&nbsp;</p>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <h2>
+                    应收定金
+                </h2>
+                <p>{{mod.data["OrderInfo"]["mcs_depositreceivable@OData.Community.Display.V1.FormattedValue"]}}&nbsp;</p>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <h2>
+                    已收定金
+                </h2>
+                <p>{{mod.data["OrderInfo"]["mcs_depositreceived@OData.Community.Display.V1.FormattedValue"]}}&nbsp;</p>
+            </ion-label>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>
+                <h2>
+                    订单总金额
+                </h2>
+                <p>{{mod.data["OrderInfo"]["mcs_totalamount@OData.Community.Display.V1.FormattedValue"]}}&nbsp;</p>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <h2>
+                    订单状态
+                </h2>
+                <p>{{mod.data["OrderInfo"]["mcs_state@OData.Community.Display.V1.FormattedValue"]}}&nbsp;</p>
+            </ion-label>
+        </ion-item>
+
+        <ion-item-divider color="primary">
+            <ion-label>
+                商品清单
+            </ion-label>
+        </ion-item-divider>
+        <ion-item *ngFor="let item of mod.data.OrderItemArray;let key=index">
+            <ion-label>
+                <h2>
+                    商品
+                </h2>
+                <p>
+                    {{item['_mcs_product_value@OData.Community.Display.V1.FormattedValue']}}
+                </p>
+                <h2>
+                    商品SKU
+                </h2>
+                <p>
+                    {{item['_mcs_productsku_value@OData.Community.Display.V1.FormattedValue']}}&nbsp;
+                </p>
+                <h2>
+                    价格
+                </h2>
+                <p text-wrap>
+                    {{item['mcs_totalprice_base@OData.Community.Display.V1.FormattedValue']}}&nbsp;
+                </p>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+
+
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+            <ion-icon name="arrow-dropup"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="top">
+            <ion-fab-button color="success" [routerLink]="['/saleing/carorder/edit']"><ion-icon name="add"></ion-icon></ion-fab-button>
+        </ion-fab-list>
+    </ion-fab>
+</ion-content>

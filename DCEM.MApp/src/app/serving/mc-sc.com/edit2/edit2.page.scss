@@ -1,4 +1,14 @@
-﻿/*ion-card-header {
+﻿ion-item {
+    p {
+        margin-block-start: 0em;
+        margin-block-end: 0em;
+        height: 38px;
+        line-height: 38px
+    }
+}
+
+
+/*ion-card-header {
     border-bottom: 0.1em solid rgb(200,199,204);
 
     ion-card-title {

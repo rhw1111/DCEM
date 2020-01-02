@@ -136,7 +136,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
         {
             var crmRequestHelper = new CrmRequestHelper();
             XDocument fetchXdoc = null;
-            fetchXdoc = await _configRepository.GetConfigFetchXml("Key_ContentPicUpload_Url");
+            fetchXdoc = await _configRepository.GetConfigFetchXml("CEO_Key_FilePreviewUrl");
             var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_cepconfig", fetchXdoc);
             if (entities != null && entities.Results != null && entities.Results.Count > 0)
             {
@@ -181,13 +181,13 @@ namespace DCEM.UserCenterService.Main.Application.Services
                   }
                   </style>" + targetHtml;
                 //写入目标地址
-                var resultPath = @"HtmlResources\Fronts\" + entity.Attributes["mcs_frontcontentid"].ToString();
+                var resultPath = @"HtmlResources/Fronts/" + entity.Attributes["mcs_frontcontentid"].ToString();
                 var targetPath = Directory.GetCurrentDirectory() + @"\wwwroot\" + resultPath;
                 if (!Directory.Exists(targetPath))
                 {
                     Directory.CreateDirectory(targetPath);
                 }
-                var fileName = @"\" + entity.EntityName.ToString() + ".html";
+                var fileName = "/" + entity.EntityName.ToString() + ".html";
                 File.WriteAllText(targetPath + fileName, targetHtml);
                 response.Url = resultPath + fileName;
             }

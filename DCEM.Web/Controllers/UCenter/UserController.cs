@@ -50,6 +50,7 @@ namespace DCEM.Web.Controllers
         [HttpPost]
         public async Task<NewtonsoftJsonActionResult<ValidateResult<CrmEntity>>> LoginAccount(UserLoginRequest request)
         {
+
             request.ip = Request.Host.Value;
             return await _appUser.LoginAccount(request);
         }
@@ -202,17 +203,33 @@ namespace DCEM.Web.Controllers
             else
                 return res;
         }
-
+        [Route("userintegraladd")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult>> IntegralAdd(UserIntegralRequest request)
+        {
+            ValidateResult val = new ValidateResult();
+            UserLoginRequest req = new UserLoginRequest();
+            req.account = request.account;
+            req.logintype = request.logintype;
+            ValidateResult<CrmEntity> crm = await _appUser.GetUser(req);
+            if (crm.Data != null)
+            {
+                return await _appUser.IntegralCreate(request.key, crm.Data.Id.ToString());
+            }
+            val.Result = false;
+            val.Description = "账号不存在！";
+            return val;
+        }
 
         [Route("resetpwdtoquestion")]
         [HttpPost]
         public async Task<NewtonsoftJsonActionResult<ValidateResult>> UpdatePwdToQuestion(UserLoginRequest req)
         {
-            
+
             //验证码验证
             ValidateResult res = await _appUser.ValUserSecurityquestion(req);
             if (res.Result)
-            { 
+            {
                 return await _appUser.UpdateUserPwd(req);
             }
             else
@@ -236,7 +253,7 @@ namespace DCEM.Web.Controllers
         /// <returns></returns>
         [Route("getuserdetail")]
         [HttpPost]
-        public async Task<NewtonsoftJsonActionResult<CrmEntity>> getuserdetail(UserDetailRequest userDetailRequest )
+        public async Task<NewtonsoftJsonActionResult<CrmEntity>> getuserdetail(UserDetailRequest userDetailRequest)
         {
             return await _appUser.getuserdetail(userDetailRequest);
         }
@@ -262,6 +279,17 @@ namespace DCEM.Web.Controllers
         {
             return await _appUser.getuserscore(userDetailRequest);
         }
+        /// <summary>
+        /// 增减用户积分记录
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [Route("addintegral")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult>> deducationintegral(UserDeDucationIntegralRequest request)
+        {
+            return await _appUser.DeDucationIntegral(request);
+        }
 
         /// <summary>
         /// 获取注册用户协议
@@ -285,6 +313,30 @@ namespace DCEM.Web.Controllers
         public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetUserNotices(UserNoticeRequest request)
         {
             return await _appUser.QueryUserNotices(request);
+        }
+
+        /// <summary>
+        /// 更新用户通知阅读状态
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Route("toread")]
+        [HttpPost]
+        public async Task<bool> ToRead(UserNoticeRequest request)
+        {
+            return await _appUser.UpdateUserNoticeReadStatus(request);
+        }
+
+        /// <summary>
+        /// 获取用户通知信息未阅读数量
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Route("noreadcount")]
+        [HttpGet]
+        public async Task<int> GetUserNoticesNoReadCount(string userId)
+        {
+            return await _appUser.GetUserNoticesNoReadCount(userId);
         }
     }
 }
