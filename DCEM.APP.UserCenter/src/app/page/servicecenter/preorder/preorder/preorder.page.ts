@@ -112,7 +112,6 @@ export class PreorderPage implements OnInit {
                         } 
                     });
                     this.mod.model = defaultaddr;
-                    console.log(this.mod.model);
                     event ? event.target.complete() : '';
                 }
                 this._page.loadingHide();
@@ -253,7 +252,7 @@ export class PreorderPage implements OnInit {
             "PayRecordsList": [
                 {
                     "PaymentType": this.model.paymenttype, //支付方式1：现金;2：积分;3：权益项抵扣;
-                    "PaymentAmount": flag ? integral : 0, //支付金额或积分
+                    "PaymentAmount": flag ? integral : this.model.totalprice, //支付金额或积分
                     "CashPayment": deducationintegral, //积分不够现金支付数
                     //"PaymentTotal": 0,
                     "PaymentTime": new Date(),

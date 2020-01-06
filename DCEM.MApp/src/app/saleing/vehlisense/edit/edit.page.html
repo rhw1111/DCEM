@@ -71,12 +71,14 @@
       <ion-item>
         <ion-label position="stacked">
             上牌日期
+            <ion-text color="danger">*</ion-text>
         </ion-label>
         <ion-datetime cancelText="取消" doneText="确定" placeholder="请选择上牌日期" display-format="YYYY-MM-DD" [(ngModel)]="shareData.vehowner['mcs_lisensedate']"></ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">
             上牌地址
+            <ion-text color="danger">*</ion-text>
         </ion-label>
       <ion-input placeholder="请输入上牌地址" maxlength="200"  [(ngModel)]="shareData.vehowner['mcs_address']" required></ion-input>
       </ion-item>

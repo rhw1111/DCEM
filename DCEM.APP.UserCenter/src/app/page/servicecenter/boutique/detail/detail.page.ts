@@ -266,9 +266,11 @@ export class DetailPage implements OnInit {
     async showToast() {
         const toast = await this.toastCtrl.create({
             message: '已加入购物车',
-            position: 'middle',
+            position: 'top',
             cssClass: 'showtoast',
-            duration: 2000
+            color: 'dark',
+            animated: true,
+            duration: 1000
         });
         toast.present();
     }

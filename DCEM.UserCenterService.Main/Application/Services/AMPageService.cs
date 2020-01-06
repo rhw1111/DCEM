@@ -24,6 +24,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
     using static DCEM.UserCenterService.Main.Common.UserEnum;
     using System.Linq;
     using System.Text;
+    using System.Collections.Generic;
 
     public class AMPageService : IAMPageService
     {
@@ -253,10 +254,13 @@ namespace DCEM.UserCenterService.Main.Application.Services
                         formHtml.Append(@$"</label>
                                                     <div class=""content"">
                                                         <select style=""border: 2px solid #bbb;width:100%;height:40px;"" id=""sltCarColor""  data-required=""{required}"" data-label=""{label}"">
-                                                            <option value=""-1"">{placeholder}</option>
-                                                            <option value=""001"">浅蓝</option>
-                                                            <option value=""002"">深灰</option>
-                                                        </select>
+                                                            <option value=""-1"">{placeholder}</option>");
+                        var colors = await GetVehColors(crmRequestHelper);
+                        foreach (var color in colors)
+                        {
+                            formHtml.Append(@$"<option value=""{color.Attributes["mcs_code"].ToString()}"">{color.Attributes["mcs_name"].ToString()}</option>");
+                        }
+                        formHtml.Append(@$"</select>
                                                         <span>{tip}</span>
                                                     </div>
                                                 </div>");
@@ -265,10 +269,13 @@ namespace DCEM.UserCenterService.Main.Application.Services
                         formHtml.Append(@$"</label>
                                                     <div class=""content"">
                                                         <select style=""border: 2px solid #bbb;width:100%;height:40px;"" id=""sltCarPlan""  data-required=""{required}"" data-label=""{label}"">
-                                                            <option value=""-1"">{placeholder}</option>
-                                                            <option value=""SF05"">SF05</option>
-                                                            <option value=""SF07"">SF07</option>
-                                                        </select>
+                                                            <option value=""-1"">{placeholder}</option>");
+                        var types = await GetVehTypes(crmRequestHelper);
+                        foreach (var type in types)
+                        {
+                            formHtml.Append(@$"<option value=""{type.Attributes["mcs_code"].ToString()}"">{type.Attributes["mcs_name"].ToString()}</option>");
+                        }
+                        formHtml.Append(@$"</select>
                                                         <span>{tip}</span>
                                                     </div>
                                                 </div>");
@@ -334,6 +341,28 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 throw new Exception("请配置落地页html生成和请求地址");
             }
             return urlConfig2.Results[0].Attributes["mcs_val"].ToString() + relativeFilePath;
+        }
+
+        private async Task<List<CrmEntity>> GetVehColors(CrmRequestHelper crmRequestHelper)
+        {
+            var fetchXdoc = await _configRepository.GetVehicleColorXml();
+            var results = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_vehiclecolor", fetchXdoc);
+            if (results == null || results.Results == null || results.Results.Count <= 0)
+            {
+                throw new Exception("没有车型颜色数据");
+            }
+            return results.Results;
+        }
+
+        private async Task<List<CrmEntity>> GetVehTypes(CrmRequestHelper crmRequestHelper)
+        {
+            var fetchXdoc = await _configRepository.GetVehicleTypeXml();
+            var results = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_vehicletype", fetchXdoc);
+            if (results == null || results.Results == null || results.Results.Count <= 0)
+            {
+                throw new Exception("没有车型数据");
+            }
+            return results.Results;
         }
     }
 }

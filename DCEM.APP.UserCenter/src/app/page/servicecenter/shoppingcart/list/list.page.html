@@ -65,7 +65,7 @@
             <ion-label>购物车暂无商品</ion-label>
         </div>
         <div style="margin-top:-300px;text-align:center;">
-            <ion-button [routerLink]="['/servicecenter/boutique/list']" style="width:80%;">
+            <ion-button [routerLink]="['/servicecenter/category/list']" style="width:80%;">
                 去逛逛
             </ion-button>
         </div>
@@ -79,9 +79,9 @@
             <span style="padding-left:5px;">全选</span>
         </span>
     </ion-tab-button>
-    <ion-tab-button tab="servicecenter">
-        <ion-row style="font-size:16px;width:100%;height:100%;">
-            <ion-col class="span-total" size="4" style="align-items: center;display: flex;padding:0;">合计:</ion-col>
+    <ion-tab-button>
+        <ion-row  class="span-total" style="font-size:16px;width:100%;height:100%;">
+            <ion-col size="4" style="align-items: center;display: flex;padding:0;">合计:</ion-col>
             <ion-col style="padding:0;">
                 <ion-row style="color:#38B3EE;height:50%;display:flex;align-items:center;">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="16" height="16" t="1576662312009" p-id="5052" version="1.1"><path fill="#38b3ee" d="M 512.06 927 C 279.32 927 97 831.31 97 709.16 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.29 20.75 20.75 c 0 95.59 171.07 176.34 373.56 176.34 c 202.42 0 373.44 -80.75 373.44 -176.34 c 0 -11.46 9.29 -20.75 20.75 -20.75 S 927 697.7 927 709.16 C 927 831.31 744.74 927 512.06 927 Z" p-id="5053" /><path fill="#38b3ee" d="M 512.06 729.91 C 279.32 729.91 97 634.22 97 512.06 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.29 20.75 20.75 c 0 95.59 171.07 176.34 373.56 176.34 c 202.42 0 373.44 -80.75 373.44 -176.34 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.3 20.75 20.75 c 0 122.16 -182.26 217.85 -414.94 217.85 Z" p-id="5054" /><path fill="#38b3ee" d="M 512.06 532.81 C 279.32 532.81 97 437.07 97 314.84 C 97 192.69 279.32 97 512.06 97 C 744.74 97 927 192.69 927 314.84 c 0 122.23 -182.26 217.97 -414.94 217.97 Z m 0 -394.31 c -202.49 0 -373.56 80.75 -373.56 176.34 c 0 95.66 171.07 176.47 373.56 176.47 c 202.42 0 373.44 -80.81 373.44 -176.47 c 0 -95.59 -171.01 -176.34 -373.44 -176.34 Z" p-id="5055" /></svg>
@@ -97,10 +97,10 @@
     <!--<ion-tab-button tab="servicecenter">
         <span class="span-total" style="font-size:16px;">合计:<span style="color:#38B3EE;">￥{{model.cartList.totalprice}}</span></span>
     </ion-tab-button>-->
-    <ion-tab-button tab="personalcenter" (click)="BuyPro()" class="tab-cac tab-background-5a5" disabled>
+    <ion-tab-button (click)="BuyPro()" class="tab-cac tab-background-5a5" disabled>
         <ion-label style="font-size:16px; color:#fff;">去结算</ion-label>
     </ion-tab-button>
-    <ion-tab-button tab="personalcenter" (click)="removeCart()" class="tab-hide tab-background-5a5" disabled>
+    <ion-tab-button (click)="removeCart()" class="tab-hide tab-background-5a5" disabled>
         <ion-label style="font-size:16px; color:#fff;">删除所选</ion-label>
     </ion-tab-button>
 </ion-tab-bar>

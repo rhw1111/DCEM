@@ -40,7 +40,6 @@ export class ListPage implements OnInit {
 
     ngOnInit() {
         this.model.OrderClass = this.routerinfo.snapshot.queryParams["orderclass"];
-        console.log(this.model.OrderClass);
         this.initListLoading();
     }
     //下拉刷新
@@ -71,7 +70,6 @@ export class ListPage implements OnInit {
                 PageIndex: this.model.search.page
             },
             (res: any) => {
-                console.log(res);
                 if (res != null && res.Data !== null) {
                     //绑定数据
                     for (var i = 0; i < res.Data.length; i++) {

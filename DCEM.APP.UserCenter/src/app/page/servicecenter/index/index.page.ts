@@ -101,7 +101,6 @@ export class IndexPage {
     }
 
     public initPage() {
-        console.log(JSON.stringify(this.shareData.page));
         this._http.get(
             "api/SysConfig/GetCepConfig",
             {
