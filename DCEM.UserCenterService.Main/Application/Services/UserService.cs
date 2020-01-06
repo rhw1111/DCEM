@@ -299,7 +299,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
 
                 //积分充值接口调用  
-                IntegralCreate(IntegralReg_Key, id.ToString());
+               await IntegralCreate(IntegralReg_Key, id.ToString());
 
                 #region 组装数据返回 
                 validateResult.Result = true;
@@ -385,7 +385,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_memberintegraldetail", fetchXdoc);
                 if (entities.Results.Count == 0)
                 {
-                    IntegralCreate(IntegralUserInfo_Key, entity.Id.ToString());
+                   await IntegralCreate(IntegralUserInfo_Key, entity.Id.ToString());
                 }
 
 
@@ -663,17 +663,22 @@ namespace DCEM.UserCenterService.Main.Application.Services
         public async Task<ValidateResult> IntegralCreate(string key, string userid)
         {
              string code = await GetConfig(key);
-            string num = await GetMemberintegralpoint(code);
-            IntegralRequest req = new IntegralRequest();
-            req.UserId = userid;
-            req.SourceSystem = 3;
-            req.IntegralPointCode = code;
-            req.Num = num;
-            req.Description = "";
-            req.TransactionTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            Random rnd = new Random();
-            req.OrderNumber = "IC" + DateTime.Now.ToString("yyyyMMddHHmmss") + rnd.Next(100, 100000).ToString();
-           return await IntegralPost(req);
+            if (!string.IsNullOrEmpty(code))
+            {
+                string num = await GetMemberintegralpoint(code);
+                IntegralRequest req = new IntegralRequest();
+                req.UserId = userid;
+                req.SourceSystem = 3;
+                req.IntegralPointCode = code;
+                req.Num = num;
+                req.Description = "";
+                req.TransactionTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                Random rnd = new Random();
+                req.OrderNumber = "IC" + DateTime.Now.ToString("yyyyMMddHHmmss") + rnd.Next(100, 100000).ToString();
+                return await IntegralPost(req);
+            }
+            return null;
+          
         }
 
         /// <summary>

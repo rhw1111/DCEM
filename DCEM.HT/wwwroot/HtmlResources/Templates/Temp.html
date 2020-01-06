@@ -253,9 +253,8 @@
                     request.setRequestHeader("true-client-ip", "123");
                 },
                 success: function (data) {
-                 if (data.Code == "0000") { 
-                      //  var url = dcem_url()+"api/user/userintegraladd";
-                          var url =  "http://106.14.121.65:8082/dcem/api/user/userintegraladd";
+                 if (data.Code == "0000") {  
+                          var url =  "$appurlconfig$api/user/userintegraladd";
                         var postData = {
                             account: referrerMobilephone,
                             logintype: 1,
