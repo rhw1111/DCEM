@@ -327,7 +327,16 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 throw new Exception("请配置潜客中心In接口地址");
             }
             result.Replace("$urlconfig$", urlConfig.Results[0].Attributes["mcs_val"].ToString());
-        
+
+            //积分埋点请求地址配置值替换
+            fetchXdoc = await _configRepository.GetConfigFetchXml("DCEM_APP_URL");
+            var urlConfig2 = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_cepconfig", fetchXdoc);
+            if (urlConfig2 == null || urlConfig2.Results == null || urlConfig2.Results.Count <= 0)
+            {
+                throw new Exception("请配置app接口地址");
+            }
+            result.Replace("$DCEM_APP_URL$", urlConfig2.Results[0].Attributes["mcs_val"].ToString());
+
             return result.ToString();
         }
 
