@@ -8,6 +8,7 @@ using DCEM.UserCenterService.Main.Factory;
 using DCEM.UserCenterService.Main.ViewModel.Response;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using static DCEM.UserCenterService.Main.Common.UserEnum;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -39,5 +40,12 @@ namespace DCEM.HT.Controllers
             return await _appAMPage.GenerateAMPage(pageId);
         }
 
+
+        [HttpGet]
+        [Route("LogAMPageAction")]
+        public async Task<AMPageResponse> LogAMPageAction(Guid pageId, ActionType type, string ip)
+        {
+            return await _appAMPage.LogAMPageAction(pageId, type, ip);
+        }
     }
 }

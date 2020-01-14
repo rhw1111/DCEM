@@ -100,9 +100,13 @@
     <script src="./Scripts/qrcode.min.js"></script>
     <script src="./Scripts/html2canvas.min.js"></script>
     <script src="../../js/site.js"></script>
+    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
     <script type="text/javascript">
         var unSelected = "#999";
         var selected = "#333";
+        //用于追踪
+        var pageId = "$pageId$";
+        var currentIp = "";
         $(function () {
             //window.parent.postMessage(document.body.scrollHeight, '*');
             $("select").css("color", unSelected);
@@ -122,6 +126,17 @@
             //    image.onload = function () {
             //        $("#img_banner").attr("src", getBase64Image(image));
             //}
+            //获取模板页id
+            //var currentUrl = window.location.pathname;
+            //pageId = currentUrl.substring(currentUrl.lastIndexOf('/') + 1, currentUrl.indexOf('.'));
+            //获取当前设备ip
+            //document.write("IP: " + returnCitySN['cip'] + "<br>地区代码: " + returnCitySN['cid'] + "<br>所在地: " + returnCitySN['cname']);
+            currentIp = returnCitySN['cip'];
+            //跟踪
+            LogAction(1);
+            $(window).on("unload", function () {
+                LogAction(0);
+            });
         })
         //function getBase64Image(img) {
         //   var canvas = document.createElement("canvas");
@@ -254,8 +269,7 @@
                 },
                 success: function (data) {
                     if (data.Code == "0000") {
-                        debugger;
-                          var url =  "$DCEM_APP_URL$api/user/userintegraladd";
+                        var url = "$DCEM_APP_URL$api/user/userintegraladd";
                         var postData = {
                             account: referrerMobilephone,
                             logintype: 1,
@@ -268,14 +282,15 @@
                             dataType: "json",
                             contentType: "application/json;charset=utf-8",
                             data: json,
-                            success: function (data) { 
+                            success: function (data) {
                             },
                             //调用出错执行的函数
-                            error: function (data) { 
+                            error: function (data) {
                             }
                         });
-
-                         window.location.href = './SuccessPage.html';
+                        //跟踪
+                        LogAction(2);
+                        window.location.href = './SuccessPage.html';
                     } else {
                         alert("提交失败");
                         console.log(data);
@@ -354,6 +369,33 @@
             } else {
                 alert("请先输入手机号");
             }
+        }
+        //跟踪行为
+        //type 0 离开 1访问 2留资
+        function LogAction(type) {
+            $.ajax({
+                type: "get",
+                url: "$logurl$api/Page/LogAMPageAction",
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                async: false,
+                data: {
+                    pageId: pageId,
+                    type: type,
+                    ip: currentIp
+                },
+                success: function (data) {
+                    if (data.IsSuccess) {
+
+                    } else {
+                        console.log(data);
+                    }
+                },
+                //调用出错执行的函数
+                error: function (data) {
+                    console.log(data);
+                }
+            });
         }
     </script>
 </head>
