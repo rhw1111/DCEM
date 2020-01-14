@@ -253,7 +253,8 @@
                     request.setRequestHeader("true-client-ip", "123");
                 },
                 success: function (data) {
-                 if (data.Code == "0000") {  
+                    if (data.Code == "0000") {
+                        debugger;
                           var url =  "$DCEM_APP_URL$api/user/userintegraladd";
                         var postData = {
                             account: referrerMobilephone,
