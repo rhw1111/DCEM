@@ -117,16 +117,13 @@ export class DetailPage implements OnInit {
         this.ShowType = flag;
         this.IsShowCover = true;
         $(".TwoBtnDialog").slideDown();
-    }
-    TwoBtnCancel() {
-        //this.IsShowTwoBtnDialog = false;
-        $(".TwoBtnDialog").slideUp();
-        this.IsShowCover = false;
+        $(".footer-bottom").fadeOut();
     }
     TwoBtnSure() {
         //this.IsShowTwoBtnDialog = false;
         $(".TwoBtnDialog").slideUp();
         this.IsShowCover = false;
+        $(".footer-bottom").fadeIn();
         this.standard();
     }
     CloseDialog() {
@@ -134,6 +131,7 @@ export class DetailPage implements OnInit {
             //this.IsShowTwoBtnDialog = false;
             $(".TwoBtnDialog").slideUp();
             this.IsShowCover = false;
+            $(".footer-bottom").fadeIn();
         }
     }
     //增减数量

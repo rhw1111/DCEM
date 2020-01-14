@@ -100,9 +100,15 @@
     <script src="./Scripts/qrcode.min.js"></script>
     <script src="./Scripts/html2canvas.min.js"></script>
     <script src="../../js/site.js"></script>
+    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
     <script type="text/javascript">
         var unSelected = "#999";
         var selected = "#333";
+        //用于追踪
+        var pageId = "$pageId$";
+        var currentIp = "";
+        var currentIpInfo = "";
+        var browserInfo = "";
         $(function () {
             //window.parent.postMessage(document.body.scrollHeight, '*');
             $("select").css("color", unSelected);
@@ -122,6 +128,15 @@
             //    image.onload = function () {
             //        $("#img_banner").attr("src", getBase64Image(image));
             //}
+            //获取当前设备ip及相关信息
+            currentIp = returnCitySN['cip'];
+            currentIpInfo = returnCitySN['cname'] + "，" + returnCitySN['cid'];
+            browserInfo=window.navigator.userAgent.toLowerCase();
+            //跟踪
+            LogAction(1);
+            $(window).on("unload", function () {
+                LogAction(0);
+            });
         })
         //function getBase64Image(img) {
         //   var canvas = document.createElement("canvas");
@@ -253,8 +268,7 @@
                     request.setRequestHeader("true-client-ip", "123");
                 },
                 success: function (data) {
-                    if (data.Code == "0000") {
-                        debugger;
+                    if (data.Code == "0000") { 
                         var url = "$DCEM_APP_URL$api/user/userintegraladd";
                         var postData = {
                             account: referrerMobilephone,
@@ -268,15 +282,17 @@
                             dataType: "json",
                             contentType: "application/json;charset=utf-8",
                             data: json,
-                            success: function (data) {
+                            success: function (data) { 
                                 window.location.href = './SuccessPage.html';
                             },
                             //调用出错执行的函数
                             error: function (data) {
                                 debugger;
                             }
-                        });
-
+                        }); 
+                             
+                        //跟踪
+                        LogAction(2); 
                     } else {
                         alert("提交失败");
                         console.log(data);
@@ -355,6 +371,35 @@
             } else {
                 alert("请先输入手机号");
             }
+        }
+        //跟踪行为
+        //type 0 离开 1访问 2留资
+        function LogAction(type) {
+            $.ajax({
+                type: "post",
+                url: "$logurl$api/Page/LogAMPageAction",
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                async: false,
+                data: JSON.stringify({
+                    pageId: pageId,
+                    type: type,
+                    ip: currentIp,
+                    ipInfo: currentIpInfo,
+                    browserInfo: browserInfo
+                }),
+                success: function (data) {
+                    if (data.IsSuccess) {
+
+                    } else {
+                        console.log(data);
+                    }
+                },
+                //调用出错执行的函数
+                error: function (data) {
+                    console.log(data);
+                }
+            });
         }
     </script>
 </head>

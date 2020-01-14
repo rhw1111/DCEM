@@ -54,20 +54,22 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 {
                     throw new Exception("未找到对应的落地页模板数据");
                 }
-                //从模板地址读取数据写入新地址
-                var prjRootPath = Directory.GetCurrentDirectory();
-                var templateHtml = File.ReadAllText(prjRootPath + @"\wwwroot\HtmlResources\Templates\Temp.html");
-                //替换其中的自定义项
-                var targetHtml = await TransHtml(pageId, templateHtml, crmRequestHelper);
                 //数据id作为文件名
                 var fileName = "/" + entity.Attributes["mcs_am_pageid"].ToString() + ".html";
                 //写入目标相对地址
                 var resultPath = @"HtmlResources/Activities";
+                //从模板地址读取数据写入新地址
+                var prjRootPath = Directory.GetCurrentDirectory();
+                var templateHtml = File.ReadAllText(prjRootPath + @"\wwwroot\HtmlResources\Templates\Temp.html");
+                //先替换一下两个链接部分
                 //通过配置值获取绝对路径，方便前端处理
-                var absoluteFilePath = await GetAbsoluteFilePath(crmRequestHelper, resultPath + fileName);
+                var templateUrl = await GetConfigValue(crmRequestHelper, "Key_HtmlTemplateUrlConfig");
+                var absoluteFilePath = templateUrl + resultPath + fileName;
+                templateHtml = templateHtml.Replace("$pageurl$", absoluteFilePath);
+                templateHtml = templateHtml.Replace("$logurl$", templateUrl);
+                //替换其中的自定义项
+                var targetHtml = await TransHtml(pageId, templateHtml, crmRequestHelper);
                 response.Url = absoluteFilePath;
-                //再替换一下链接部分
-                targetHtml = targetHtml.Replace("$pageurl$", absoluteFilePath);
                 var targetPath = prjRootPath + @"\wwwroot\" + resultPath;
                 if (!Directory.Exists(targetPath))
                 {
@@ -320,36 +322,29 @@ namespace DCEM.UserCenterService.Main.Application.Services
             result.Replace("$shareable$", shareable ? "block" : "none");
 
             //最后替换配置值（潜客留资url地址等配置值）
-            fetchXdoc = await _configRepository.GetConfigFetchXml("MSCRMInApiUrlConfig");
-            var urlConfig = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_cepconfig", fetchXdoc);
-            if (urlConfig == null || urlConfig.Results == null || urlConfig.Results.Count <= 0)
-            {
-                throw new Exception("请配置潜客中心In接口地址");
-            }
-            result.Replace("$urlconfig$", urlConfig.Results[0].Attributes["mcs_val"].ToString());
+            var urlconfig = await GetConfigValue(crmRequestHelper, "MSCRMInApiUrlConfig");
+            result.Replace("$urlconfig$", urlconfig);
 
             //积分埋点请求地址配置值替换
-            fetchXdoc = await _configRepository.GetConfigFetchXml("DCEM_APP_URL");
-            var urlConfig2 = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_cepconfig", fetchXdoc);
-            if (urlConfig2 == null || urlConfig2.Results == null || urlConfig2.Results.Count <= 0)
-            {
-                throw new Exception("请配置app接口地址");
-            }
-            result.Replace("$DCEM_APP_URL$", urlConfig2.Results[0].Attributes["mcs_val"].ToString());
+            var DCEM_APP_URL = await GetConfigValue(crmRequestHelper, "DCEM_APP_URL");
+            result.Replace("$DCEM_APP_URL$", DCEM_APP_URL);
+
+            //替换pageId
+            result.Replace("$pageId$", pageId.ToString());
 
             return result.ToString();
         }
 
-        private async Task<string> GetAbsoluteFilePath(CrmRequestHelper crmRequestHelper, string relativeFilePath)
+        private async Task<string> GetConfigValue(CrmRequestHelper crmRequestHelper, string configName)
         {
             //落地页地址配置
-            var fetchXdoc = await _configRepository.GetConfigFetchXml("Key_HtmlTemplateUrlConfig");
-            var urlConfig2 = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_cepconfig", fetchXdoc);
-            if (urlConfig2 == null || urlConfig2.Results == null || urlConfig2.Results.Count <= 0)
+            var fetchXdoc = await _configRepository.GetConfigFetchXml(configName);
+            var urlConfig = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_cepconfig", fetchXdoc);
+            if (urlConfig == null || urlConfig.Results == null || urlConfig.Results.Count <= 0)
             {
-                throw new Exception("请配置落地页html生成和请求地址");
+                throw new Exception("请配置应用参数" + configName);
             }
-            return urlConfig2.Results[0].Attributes["mcs_val"].ToString() + relativeFilePath;
+            return urlConfig.Results[0].Attributes["mcs_val"].ToString();
         }
 
         private async Task<List<CrmEntity>> GetVehColors(CrmRequestHelper crmRequestHelper)
@@ -372,6 +367,27 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 throw new Exception("没有车型数据");
             }
             return results.Results;
+        }
+
+        public async Task<AMPageResponse> LogAMPageAction(AMPageRequest request)
+        {
+            var response = new AMPageResponse();
+            try
+            {
+                var entity = new CrmExecuteEntity("mcs_am_pageaction", Guid.NewGuid());
+                entity.Attributes.Add("mcs_page", new CrmEntityReference("mcs_am_page", request.pageId));
+                entity.Attributes.Add("mcs_type", (int)request.type);
+                entity.Attributes.Add("mcs_ip", request.ip);
+                entity.Attributes.Add("mcs_ipinfo", request.ipInfo);
+                entity.Attributes.Add("mcs_browserinfo", request.browserInfo);
+                await _crmService.Create(entity);
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Url = ex.Message + ";" + ex.InnerException?.Message;
+            }
+            return response;
         }
     }
 }
