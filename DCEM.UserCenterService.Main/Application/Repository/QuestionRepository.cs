@@ -151,5 +151,24 @@ namespace DCEM.UserCenterService.Main.Application.Repository
             return XDocument.Parse(fetchXml);
         }
 
+
+        /// <summary>
+        /// 试驾记录获取
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public XDocument GetDriverecord(string mcs_name)
+        {
+            var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+  <entity name='mcs_driverecord'>
+    <attribute name='mcs_name' />  
+    <attribute name='mcs_driverecordid' /> 
+    <filter type='and'>
+      <condition attribute='mcs_name' operator='eq' value='{mcs_name}' /> 
+    </filter>  
+  </entity>
+</fetch>";
+            return XDocument.Parse(fetchXml);
+        }
     }
 }

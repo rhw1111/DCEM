@@ -331,7 +331,7 @@ namespace DCEM.Web.Controllers
         /// 获取用户通知信息未阅读数量
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns></returns>userintegraladd
         [Route("noreadcount")]
         [HttpGet]
         public async Task<int> GetUserNoticesNoReadCount(string userId)
