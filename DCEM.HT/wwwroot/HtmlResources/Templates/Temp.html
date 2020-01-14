@@ -107,6 +107,8 @@
         //用于追踪
         var pageId = "$pageId$";
         var currentIp = "";
+        var currentIpInfo = "";
+        var browserInfo = "";
         $(function () {
             //window.parent.postMessage(document.body.scrollHeight, '*');
             $("select").css("color", unSelected);
@@ -126,12 +128,10 @@
             //    image.onload = function () {
             //        $("#img_banner").attr("src", getBase64Image(image));
             //}
-            //获取模板页id
-            //var currentUrl = window.location.pathname;
-            //pageId = currentUrl.substring(currentUrl.lastIndexOf('/') + 1, currentUrl.indexOf('.'));
-            //获取当前设备ip
-            //document.write("IP: " + returnCitySN['cip'] + "<br>地区代码: " + returnCitySN['cid'] + "<br>所在地: " + returnCitySN['cname']);
+            //获取当前设备ip及相关信息
             currentIp = returnCitySN['cip'];
+            currentIpInfo = returnCitySN['cname'] + "，" + returnCitySN['cid'];
+            browserInfo=window.navigator.userAgent.toLowerCase();
             //跟踪
             LogAction(1);
             $(window).on("unload", function () {
@@ -382,7 +382,9 @@
                 data: {
                     pageId: pageId,
                     type: type,
-                    ip: currentIp
+                    ip: currentIp,
+                    ipInfo: currentIpInfo,
+                    browserInfo: browserInfo
                 },
                 success: function (data) {
                     if (data.IsSuccess) {

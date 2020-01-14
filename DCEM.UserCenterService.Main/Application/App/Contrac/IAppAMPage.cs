@@ -22,6 +22,6 @@ namespace DCEM.UserCenterService.Main.Application.App.Contrac
     public interface IAppAMPage
     {
         Task<AMPageResponse> GenerateAMPage(Guid pageId);
-        Task<AMPageResponse> LogAMPageAction(Guid pageId, UserEnum.ActionType type, string ip);
+        Task<AMPageResponse> LogAMPageAction(AMPageRequest request);
     }
 }
