@@ -374,18 +374,18 @@
         //type 0 离开 1访问 2留资
         function LogAction(type) {
             $.ajax({
-                type: "get",
+                type: "post",
                 url: "$logurl$api/Page/LogAMPageAction",
                 dataType: "json",
                 contentType: "application/json;charset=utf-8",
                 async: false,
-                data: {
+                data: JSON.stringify({
                     pageId: pageId,
                     type: type,
                     ip: currentIp,
                     ipInfo: currentIpInfo,
                     browserInfo: browserInfo
-                },
+                }),
                 success: function (data) {
                     if (data.IsSuccess) {
 

@@ -42,7 +42,7 @@ namespace DCEM.HT.Controllers
         }
 
 
-        [HttpGet]
+        [HttpPost]
         [Route("LogAMPageAction")]
         public async Task<AMPageResponse> LogAMPageAction(AMPageRequest request)
         {
