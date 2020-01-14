@@ -255,7 +255,7 @@
                 success: function (data) {
                     if (data.Code == "0000") {
                         debugger;
-                          var url =  "$DCEM_APP_URL$api/user/userintegraladd";
+                        var url = "$DCEM_APP_URL$api/user/userintegraladd";
                         var postData = {
                             account: referrerMobilephone,
                             logintype: 1,
@@ -268,14 +268,15 @@
                             dataType: "json",
                             contentType: "application/json;charset=utf-8",
                             data: json,
-                            success: function (data) { 
+                            success: function (data) {
+                                window.location.href = './SuccessPage.html';
                             },
                             //调用出错执行的函数
-                            error: function (data) { 
+                            error: function (data) {
+                                debugger;
                             }
                         });
 
-                         window.location.href = './SuccessPage.html';
                     } else {
                         alert("提交失败");
                         console.log(data);
