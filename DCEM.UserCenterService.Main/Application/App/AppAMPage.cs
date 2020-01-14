@@ -17,6 +17,7 @@ namespace DCEM.UserCenterService.Main.Application.App
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
     using System;
+    using DCEM.UserCenterService.Main.Common;
 
     public class AppAMPage : IAppAMPage
     {
@@ -31,6 +32,11 @@ namespace DCEM.UserCenterService.Main.Application.App
         public async Task<AMPageResponse> GenerateAMPage(Guid pageId)
         {
             return await _ampageService.GenerateAMPage(pageId);
+        }
+
+        public async Task<AMPageResponse> LogAMPageAction(Guid pageId, UserEnum.ActionType type, string ip)
+        {
+            return await _ampageService.LogAMPageAction(pageId, type, ip);
         }
     }
 }
