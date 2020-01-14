@@ -168,35 +168,40 @@ namespace DCEM.UserCenterService.Main.Application.Services
                             //判断是否有试驾记录，如果有写入试驾反馈
                             if (!string.IsNullOrEmpty(model.driverecordid))
                             {
-                                Guid id = Guid.NewGuid();
-                                var entity = new CrmExecuteEntity("mcs_testdrivefeedbackmaster", id);
-                                entity.Attributes.Add("mcs_username", userentities.Results[0].Attributes["mcs_name"].ToString());
-                                entity.Attributes.Add("mcs_userid", userentities.Results[0].Attributes["mcs_code"].ToString());
-                                entity.Attributes.Add("mcs_driverecordid", new CrmEntityReference("mcs_driverecord", Guid.Parse(model.driverecordid)));
-                                entity.Attributes.Add("mcs_surveytime", DateTime.Now);
-                                entity.Attributes.Add("mcs_userphone", userentities.Results[0].Attributes["mcs_phone"].ToString());
+                                fetchXdoc = _questionRepository.GetDriverecord(model.driverecordid);
+                                var driverecord = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_driverecord", fetchXdoc);
+                                if (driverecord.Results.Count > 0)
+                                { 
+                                    Guid id = Guid.NewGuid();
+                                    var entity = new CrmExecuteEntity("mcs_testdrivefeedbackmaster", id);
+                                    entity.Attributes.Add("mcs_username", userentities.Results[0].Attributes["mcs_name"].ToString());
+                                    entity.Attributes.Add("mcs_userid", userentities.Results[0].Attributes["mcs_code"].ToString());
+                                    entity.Attributes.Add("mcs_driverecordid", new CrmEntityReference("mcs_driverecord", driverecord.Results[0].Id));
+                                    entity.Attributes.Add("mcs_surveytime", DateTime.Now);
+                                    entity.Attributes.Add("mcs_userphone", userentities.Results[0].Attributes["mcs_phone"].ToString());
 
-                                fetchXdoc = _questionRepository.GetOnlylead(userentities.Results[0].Id.ToString());
-                                var onlylead = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_onlylead", fetchXdoc);
-                                if (onlylead.Results.Count > 0)
-                                    entity.Attributes.Add("mcs_onlyleadid", new CrmEntityReference("mcs_onlylead", onlylead.Results[0].Id));
-                                await _crmService.Create(entity);
-                                foreach (var item in model.model)
-                                {
-                                    Guid testdriveid = Guid.NewGuid();
-                                    var testdriveentity = new CrmExecuteEntity("mcs_testdrivefeedback", testdriveid);
-                                    testdriveentity.Attributes.Add("mcs_survey", model.mcs_questionnairesetting);
-                                    testdriveentity.Attributes.Add("mcs_username", userentities.Results[0].Attributes["mcs_name"].ToString());
-                                    testdriveentity.Attributes.Add("mcs_userphone", userentities.Results[0].Attributes["mcs_phone"].ToString());
-                                    testdriveentity.Attributes.Add("mcs_userid", userentities.Results[0].Attributes["mcs_code"].ToString());
-                                    testdriveentity.Attributes.Add("mcs_surveyquestion", item.mcs_name);
-                                    testdriveentity.Attributes.Add("mcs_suveryanswer", item.mcs_answer);
-                                    testdriveentity.Attributes.Add("mcs_surveytype", item.mcs_type);
-                                    testdriveentity.Attributes.Add("mcs_driverecordid", new CrmEntityReference("mcs_driverecord", Guid.Parse(model.driverecordid)));
+                                    fetchXdoc = _questionRepository.GetOnlylead(userentities.Results[0].Id.ToString());
+                                    var onlylead = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_onlylead", fetchXdoc);
                                     if (onlylead.Results.Count > 0)
-                                        testdriveentity.Attributes.Add("mcs_onlyleadid", new CrmEntityReference("mcs_onlylead", onlylead.Results[0].Id));
-                                    testdriveentity.Attributes.Add("mcs_testdrivefeedbackmasterid", new CrmEntityReference("mcs_testdrivefeedbackmaster", id));
-                                    await _crmService.Create(testdriveentity);
+                                        entity.Attributes.Add("mcs_onlyleadid", new CrmEntityReference("mcs_onlylead", onlylead.Results[0].Id));
+                                    await _crmService.Create(entity);
+                                    foreach (var item in model.model)
+                                    {
+                                        Guid testdriveid = Guid.NewGuid();
+                                        var testdriveentity = new CrmExecuteEntity("mcs_testdrivefeedback", testdriveid);
+                                        testdriveentity.Attributes.Add("mcs_survey", model.mcs_questionnairesetting);
+                                        testdriveentity.Attributes.Add("mcs_username", userentities.Results[0].Attributes["mcs_name"].ToString());
+                                        testdriveentity.Attributes.Add("mcs_userphone", userentities.Results[0].Attributes["mcs_phone"].ToString());
+                                        testdriveentity.Attributes.Add("mcs_userid", userentities.Results[0].Attributes["mcs_code"].ToString());
+                                        testdriveentity.Attributes.Add("mcs_surveyquestion", item.mcs_name);
+                                        testdriveentity.Attributes.Add("mcs_suveryanswer", item.mcs_answer);
+                                        testdriveentity.Attributes.Add("mcs_surveytype", item.mcs_type);
+                                        testdriveentity.Attributes.Add("mcs_driverecordid", new CrmEntityReference("mcs_driverecord", driverecord.Results[0].Id));
+                                        if (onlylead.Results.Count > 0)
+                                            testdriveentity.Attributes.Add("mcs_onlyleadid", new CrmEntityReference("mcs_onlylead", onlylead.Results[0].Id));
+                                        testdriveentity.Attributes.Add("mcs_testdrivefeedbackmasterid", new CrmEntityReference("mcs_testdrivefeedbackmaster", id));
+                                        await _crmService.Create(testdriveentity);
+                                    }
                                 }
 
                             }
