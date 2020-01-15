@@ -21,6 +21,8 @@ namespace DCEM.UserCenterService.Main.Application.Services
     using System.Xml.Linq;
     using static DCEM.UserCenterService.Main.Common.UserEnum;
     using System.IO;
+    using Newtonsoft.Json.Linq;
+    using System.Collections.Generic;
 
     public class ContentManagementService : IContentManagementService
     {
@@ -197,6 +199,11 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 response.Url = ex.Message + ";" + ex.InnerException?.Message;
             }
             return response;
+        }
+
+        public Task<List<JObject>> GetCategoryList(CategoryListRequest request)
+        {
+            throw new NotImplementedException();
         }
     }
 }
