@@ -34,9 +34,9 @@ namespace DCEM.UserCenterService.Main.Application.App
             return await _ampageService.GenerateAMPage(pageId);
         }
 
-        public async Task<AMPageResponse> LogAMPageAction(Guid pageId, UserEnum.ActionType type, string ip)
+        public async Task<AMPageResponse> LogAMPageAction(AMPageRequest request)
         {
-            return await _ampageService.LogAMPageAction(pageId, type, ip);
+            return await _ampageService.LogAMPageAction(request);
         }
     }
 }

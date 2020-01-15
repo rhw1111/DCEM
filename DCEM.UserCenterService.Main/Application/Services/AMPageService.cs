@@ -369,15 +369,17 @@ namespace DCEM.UserCenterService.Main.Application.Services
             return results.Results;
         }
 
-        public async Task<AMPageResponse> LogAMPageAction(Guid pageId, ActionType type, string ip)
+        public async Task<AMPageResponse> LogAMPageAction(AMPageRequest request)
         {
             var response = new AMPageResponse();
             try
             {
                 var entity = new CrmExecuteEntity("mcs_am_pageaction", Guid.NewGuid());
-                entity.Attributes.Add("mcs_page", new CrmEntityReference("mcs_am_page", pageId));
-                entity.Attributes.Add("mcs_type", (int)type);
-                entity.Attributes.Add("mcs_ip", ip);
+                entity.Attributes.Add("mcs_page", new CrmEntityReference("mcs_am_page", request.pageId));
+                entity.Attributes.Add("mcs_type", (int)request.type);
+                entity.Attributes.Add("mcs_ip", request.ip);
+                entity.Attributes.Add("mcs_ipinfo", request.ipInfo);
+                entity.Attributes.Add("mcs_browserinfo", request.browserInfo);
                 await _crmService.Create(entity);
             }
             catch (Exception ex)

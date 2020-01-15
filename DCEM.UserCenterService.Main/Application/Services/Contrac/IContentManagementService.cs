@@ -16,12 +16,14 @@ namespace DCEM.UserCenterService.Main.Application.Services.Contrac
     using DCEM.UserCenterService.Main.ViewModel.Response;
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
-
+    using System.Collections.Generic;
+    using Newtonsoft.Json.Linq;
 
     public interface IContentManagementService
     {
         Task<ContentListResponse> GetList(ContentListRequest contentListRequest);
         Task<ContentDetailResponse> GetDetail(ContentDetailRequest contentDetailRequest);
         Task<ContentPageResponse> GenerateContentPage(ContentPageRequest contentPageRequest);
+        Task<List<JObject>> GetCategoryList(CategoryListRequest request);
     }
 }

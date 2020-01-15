@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DCEM.UserCenterService.Main.Application.App;
 using DCEM.UserCenterService.Main.Application.App.Contrac;
 using DCEM.UserCenterService.Main.Factory;
+using DCEM.UserCenterService.Main.ViewModel.Request;
 using DCEM.UserCenterService.Main.ViewModel.Response;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -41,11 +42,11 @@ namespace DCEM.HT.Controllers
         }
 
 
-        [HttpGet]
+        [HttpPost]
         [Route("LogAMPageAction")]
-        public async Task<AMPageResponse> LogAMPageAction(Guid pageId, ActionType type, string ip)
+        public async Task<AMPageResponse> LogAMPageAction(AMPageRequest request)
         {
-            return await _appAMPage.LogAMPageAction(pageId, type, ip);
+            return await _appAMPage.LogAMPageAction(request);
         }
     }
 }
