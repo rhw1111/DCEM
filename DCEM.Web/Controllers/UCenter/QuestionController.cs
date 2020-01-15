@@ -58,7 +58,7 @@ namespace DCEM.Web.Controllers
         }
 
         [Route("add")]
-        [HttpPost]
+        [HttpPost] 
         public async Task<ValidateResult> AddAnswercontent(QuestionAddRequest model)
         {
             ValidateResult ts = await _appQuestion.AddAnswercontent(model);

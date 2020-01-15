@@ -30,5 +30,42 @@ namespace DCEM.UserCenterService.Main.Application.Repository
             });
         }
 
+        public async Task<XDocument> GetVehicleColorXml()
+        {
+            return await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+                                                  <entity name='mcs_vehiclecolor'>
+                                                    <attribute name='mcs_vehiclecolorid' />
+                                                    <attribute name='mcs_name' />
+                                                    <attribute name='mcs_code' />
+                                                    <order attribute='mcs_name' descending='false' />
+                                                    <filter type='and'>
+                                                      <condition attribute='statecode' operator='eq' value='0' />
+                                                    </filter>
+                                                  </entity>
+                                                </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
+
+        public async Task<XDocument> GetVehicleTypeXml()
+        {
+            return await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+                                                  <entity name='mcs_vehicletype'>
+                                                    <attribute name='mcs_vehicletypeid' />
+                                                    <attribute name='mcs_name' />
+                                                    <attribute name='mcs_code' />
+                                                    <order attribute='mcs_name' descending='false' />
+                                                    <filter type='and'>
+                                                      <condition attribute='statecode' operator='eq' value='0' />
+                                                    </filter>
+                                                  </entity>
+                                                </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
     }
 }

@@ -65,7 +65,31 @@
             </ion-col>
         </ion-row>
         <!--规格-->
-        <ion-row style="background-color:#F6F6F6;">
+        <ion-card style="width: 100%;padding: 15px 0;margin:0;background: #f6f6f6;border-radius:0;">
+            <ion-item (click)="ShowTwoBtn(0)" lines="none" detail style="padding:10px 6px;width:100%;background:#fff;font-size:16px;">
+                    <span style="color:#000;margin-right:6px;">
+                        选择:
+                    </span>
+                    <span class="lab-selected" style="color:#a5a2a2;">
+                        <span *ngIf="model.datadetail.SkuData?.length > 0; then trueTemplate else falseTemplate"></span>
+                        <ng-template #trueTemplate>
+                            <ng-container *ngFor="let item of model.datadetail.SkuData[0].Arrts">
+                                <span *ngIf="item.Values?.length > 0; then tTemplate else fTemplate"></span>
+                                <ng-template #tTemplate>
+                                    {{item.Values[0].Value}}
+                                </ng-template>
+                                <ng-template #fTemplate>
+                                    <!--不做操作-->
+                                </ng-template>
+                            </ng-container>
+                        </ng-template>
+                        <ng-template #falseTemplate>
+                            <!--不做操作-->
+                        </ng-template>
+                    </span>
+            </ion-item>
+        </ion-card>
+        <!--<ion-row style="background-color:#F6F6F6;">
             <ion-row (click)="ShowTwoBtn(0)" style="padding:15px 10px; background-color:#fff; width:100%;margin:20px 0;">
                 <ion-col style="padding-left:15px;">
                     <ion-label style="color:#000;">
@@ -80,12 +104,10 @@
                                     {{item.Values[0].Value}}
                                 </ng-template>
                                 <ng-template #fTemplate>
-                                    <!--不做操作-->
                                 </ng-template>
                             </ng-container>
                         </ng-template>
                         <ng-template #falseTemplate>
-                            <!--不做操作-->
                         </ng-template>
                     </ion-label>
 
@@ -96,7 +118,7 @@
                     </ion-label>
                 </ion-col>
             </ion-row>
-        </ion-row>
+        </ion-row>-->
         <!--商品概览-->
         <ion-segment [(ngModel)]="tab" color="primary" model="md" class="segment-custom">
             <ion-segment-button value="probably">
@@ -192,7 +214,7 @@
     <input type="hidden" id="proSkuID" value="" />
 </ion-content>
 
-<ion-footer>
+<ion-footer class="footer-bottom">
     <ion-tab-bar slot="bottom">
         <ion-tab-button [routerLink]="['/servicecenter/shoppingcart/list']" style="max-width:110px;">
             <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="32" height="32" t="1576145933524" p-id="1544" version="1.1"><path d="M 520.195 741.379 c -98.8201 0 -177.097 -0.404793 -186.812 -1.65712 c -32.5732 -4.18708 -47.4999 -32.6238 -51.181 -48.7649 l -0.101198 -0.468042 L 150.024 48.0692 l 0.366844 -2.8715 A 12.1311 12.1311 0 0 0 148.886 44.2742 H 45.6633 a 22.1371 22.1371 0 0 1 0 -44.2742 h 110.23 l 2.80825 0.746337 a 57.2529 57.2529 0 0 1 18.1777 8.98135 c 11.9414 8.93075 18.3042 21.8715 17.8615 36.0013 l 130.622 635.31 c 0.505991 1.80892 4.16178 13.5479 13.6871 14.7749 c 21.7829 2.28961 388.348 1.15113 629.428 -0.177097 h 0.126498 a 22.1371 22.1371 0 0 1 0.113848 44.2742 c -39.6065 0.215046 -275.462 1.46738 -448.523 1.46738 Z M 150.492 44.2742 Z" p-id="1545" /><path d="M 286.427 600.865 a 22.1371 22.1371 0 0 1 -3.30159 -44.0212 l 585.685 -89.1936 l 80.44 -293.475 H 198.726 a 22.1371 22.1371 0 1 1 0 -44.2742 h 779.606 a 22.1371 22.1371 0 0 1 21.3528 27.994 L 907.746 493.228 a 22.1371 22.1371 0 0 1 -18.0133 16.0273 l -599.941 91.3694 a 22.3522 22.3522 0 0 1 -3.36484 0.240346 Z M 442.942 1024 a 118.048 118.048 0 1 1 118.048 -118.048 a 118.174 118.174 0 0 1 -118.048 118.048 Z m 0 -191.809 a 73.7735 73.7735 0 1 0 73.7735 73.7735 a 73.8494 73.8494 0 0 0 -73.7735 -73.7735 Z M 842.473 1024 a 118.048 118.048 0 1 1 118.048 -118.048 a 118.174 118.174 0 0 1 -118.048 118.048 Z m 0 -191.809 a 73.7735 73.7735 0 1 0 73.7735 73.7735 a 73.8494 73.8494 0 0 0 -73.7735 -73.7735 Z" p-id="1546" /></svg>

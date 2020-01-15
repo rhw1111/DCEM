@@ -17,9 +17,11 @@ namespace DCEM.UserCenterService.Main.Application.Services.Contrac
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
     using System;
+    using DCEM.UserCenterService.Main.Common;
 
     public interface IAMPageService
     {
         Task<AMPageResponse> GenerateAMPage(Guid pageId);
+        Task<AMPageResponse> LogAMPageAction(AMPageRequest request);
     }
 }

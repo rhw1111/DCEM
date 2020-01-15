@@ -40,5 +40,18 @@ namespace DCEM.UserCenterService.Main.Common
             //新闻资讯
             News = 2
         }
+
+        /// <summary>
+        /// 落地页跟踪类型
+        /// </summary>
+        public enum ActionType
+        {
+            //离开
+            Out = 0,
+            //访问
+            In = 1,
+            //留资
+            Info = 2
+        }
     }
 }

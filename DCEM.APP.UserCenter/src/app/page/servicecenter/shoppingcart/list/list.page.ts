@@ -93,10 +93,14 @@ export class ListPage implements OnInit {
             $(".tab-cac").addClass("tab-background-5a5").show().attr("disabled", "disabled");
             $(".span-total").show();
         }
-        this.model.cartList.checkAll = false;
-        this.model.cartList.datas.forEach(res => {
-            res.checked = false;
-        });
+        if (this.model.cartList.hasOwnProperty('datas')) {
+            this.model.cartList.checkAll = false;
+            this.model.cartList.datas.forEach(res => {
+                res.checked = false;
+            });
+        } else {
+            this.getCartList(null);
+        }
     }
     //全选
     changeAll(e) {
@@ -177,9 +181,14 @@ export class ListPage implements OnInit {
                 datas.push(res);
             }
         });
-        this.model.cartList.datas = datas;
         var storage = window.localStorage;
-        storage.setItem("singlecar", this.model.cartList);
+        if (this.model.cartList.checkAll) {
+            this.model.cartList = {};
+            storage.removeItem("singlecar");
+        } else {
+            this.model.cartList.datas = datas;
+            storage.setItem("singlecar", JSON.stringify(this.model.cartList));
+        }
     }
     //结算
     BuyPro() {

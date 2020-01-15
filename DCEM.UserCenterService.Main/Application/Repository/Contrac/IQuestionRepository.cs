@@ -24,7 +24,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
 
         public XDocument QueryDetailList(Guid id);
 
-
+        XDocument GetDriverecord(string mcs_name);
         public XDocument QueryAnswersList(Guid id);
 
         XDocument QueryDeliverychannel(string code);

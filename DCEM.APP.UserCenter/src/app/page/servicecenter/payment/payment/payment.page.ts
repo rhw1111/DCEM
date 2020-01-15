@@ -86,7 +86,6 @@ export class PaymentPage implements OnInit {
     payAmount() {
         this._page.loadingShow();
         this.model.score.search.Integral = this.model.datas.TotalIntegral;
-        console.log(this.model.score.search);
             this._http.postForToaken(
                 this.model.score.apiUrl,
                 this.model.score.search,

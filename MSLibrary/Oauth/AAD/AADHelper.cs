@@ -11,9 +11,9 @@ namespace MSLibrary.Oauth.AAD
 {
     public static class AADHelper
     {
-        public static async Task<AADAuth> GetPasswordAuth(string tenant, string resource, string clientId, string userName, string password)
+        public static async Task<AADAuth> GetPasswordAuth(string baseUri, string tenant, string resource, string clientId, string userName, string password)
         {
-            var tokenUrl = BuildUrl(tenant);
+            var tokenUrl = BuildUrl(baseUri,tenant);
             var list = BuildTokenPasswordParams(clientId, resource, userName, password);
 
             using (var httpClient = new HttpClient())
@@ -43,9 +43,9 @@ namespace MSLibrary.Oauth.AAD
             }
         }
 
-        public static async Task<AADAuth> GetClientAuth(string tenant, string resource, string clientId, string clientSecret)
+        public static async Task<AADAuth> GetClientAuth(string baseUri,string tenant, string resource, string clientId, string clientSecret)
         {
-            var tokenUrl = BuildUrl(tenant);
+            var tokenUrl = BuildUrl(baseUri,tenant);
             var list = BuildTokenClientParams(clientId, resource, clientSecret);
 
             using (var httpClient = new HttpClient())
@@ -76,9 +76,9 @@ namespace MSLibrary.Oauth.AAD
         }
 
 
-        private static string BuildUrl(string tenant)
+        private static string BuildUrl(string baseUri,string tenant)
         {
-            var url = $"https://login.microsoftonline.com/{tenant}/oauth2/v2.0/authorize";
+            var url = $"https://{baseUri}/{tenant}/oauth2/v2.0/authorize";
             return url;
         }
 

@@ -117,16 +117,13 @@ export class DetailPage implements OnInit {
         this.ShowType = flag;
         this.IsShowCover = true;
         $(".TwoBtnDialog").slideDown();
-    }
-    TwoBtnCancel() {
-        //this.IsShowTwoBtnDialog = false;
-        $(".TwoBtnDialog").slideUp();
-        this.IsShowCover = false;
+        $(".footer-bottom").fadeOut();
     }
     TwoBtnSure() {
         //this.IsShowTwoBtnDialog = false;
         $(".TwoBtnDialog").slideUp();
         this.IsShowCover = false;
+        $(".footer-bottom").fadeIn();
         this.standard();
     }
     CloseDialog() {
@@ -134,6 +131,7 @@ export class DetailPage implements OnInit {
             //this.IsShowTwoBtnDialog = false;
             $(".TwoBtnDialog").slideUp();
             this.IsShowCover = false;
+            $(".footer-bottom").fadeIn();
         }
     }
     //增减数量
@@ -266,9 +264,11 @@ export class DetailPage implements OnInit {
     async showToast() {
         const toast = await this.toastCtrl.create({
             message: '已加入购物车',
-            position: 'middle',
+            position: 'top',
             cssClass: 'showtoast',
-            duration: 2000
+            color: 'dark',
+            animated: true,
+            duration: 1000
         });
         toast.present();
     }

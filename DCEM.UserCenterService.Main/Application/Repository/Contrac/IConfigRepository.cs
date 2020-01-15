@@ -14,5 +14,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
     public interface IConfigRepository
     {
         Task<XDocument> GetConfigFetchXml(string name);
+        Task<XDocument> GetVehicleColorXml();
+        Task<XDocument> GetVehicleTypeXml();
     }
 }
