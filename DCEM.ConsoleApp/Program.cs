@@ -11,6 +11,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.IO;
 using System.Linq;
+using System.Xml.Linq;
 using System.Runtime.Serialization;
 using System.Security;
 using System.IO.Compression;
@@ -48,6 +49,46 @@ namespace DCEM.ConsoleApp
 
         async static Task  Main(string[] args)
         {
+
+
+
+            XNamespace xmlns = XNamespace.Get("http://schemas.microsoft.com/dynamics/2015/01/DataManagement");
+            XNamespace i = XNamespace.Get("http://www.w3.org/2001/XMLSchema-instance");
+            XDocument doc = new XDocument(
+                new XElement(xmlns+"DataManagementPackageManifest",
+                    new XAttribute(XNamespace.Xmlns + "i",i)
+                )          
+                );
+            doc.Root.Name = "AA";
+
+            var newElement = new XElement(xmlns+"DefinitionGroupName");
+          
+            newElement.Value = "Import";
+            doc.Root.Add(newElement);
+           
+
+
+
+            newElement = new XElement("DD");
+            newElement.SetAttributeValue(i + "nil", "true");
+            doc.Root.Add(newElement);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             await GetZipStream(async (stream) =>
                 {
                     int buffSize = 1000;
@@ -946,6 +987,36 @@ namespace DCEM.ConsoleApp
                 }
           
             }
+        }
+
+
+        private static Dictionary<string,string> generateEntityAttributesJsonFromXML(string xmlFile)
+        {
+            Dictionary<string, List<string>> attributesDict = new Dictionary<string, List<string>>();
+
+            XNamespace xmlns = "http://schemas.microsoft.com/dynamics/2015/01/DataManagement";
+
+            var doc = XDocument.Load(xmlFile);
+            var entityElements = doc.Root.Element(xmlns + "PackageEntityList").Elements(xmlns + "DataManagementPackageEntityData");
+            foreach (var item in entityElements)
+            {
+                var atts = new List<string>();
+                attributesDict[item.Element(xmlns + "EntityName").Value] = atts;
+                var maps = item.Element(xmlns + "EntityMapList").Elements(xmlns + "EntityMap");
+                foreach (var mapItem in maps)
+                {
+                    atts.Add(mapItem.Element(xmlns + "EntityField").Value);
+                }
+            }
+
+            Dictionary<string, string> attsResult = new Dictionary<string, string>();
+
+            foreach (var item in attributesDict)
+            {
+                attsResult[item.Key] = JsonSerializerHelper.Serializer(item.Value);
+            }
+
+            return attsResult;
         }
     }
 

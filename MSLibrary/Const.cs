@@ -2469,6 +2469,7 @@ namespace MSLibrary
     /// </summary>
     public static class CrmServiceTokenGenerateServiceParameterNames
     {
+        public const string BaseUri = "BaseUri";
         public const string ApplicationId = "ApplicationId";
         public const string ApplicationKey = "ApplicationKey";
         public const string CrmUrl = "CrmUrl";

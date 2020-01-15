@@ -44,6 +44,7 @@ namespace MSLibrary.Xrm.CrmServiceFactoryServices
     ///     }
     ///     S2S
     ///     {
+    ///         "BaseUri":"string,Azure云的login基地址"
     ///         "ApplicationId":"string,应用的Id",
     ///         "ApplicationKey":"string,应用的密钥",
     ///         "CrmUrl":"string,Crm的地址",

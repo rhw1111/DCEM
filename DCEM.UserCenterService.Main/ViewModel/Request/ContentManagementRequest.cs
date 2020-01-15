@@ -35,4 +35,11 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
         public ContentType Type { get; set; }
         public Guid? Id { get; set; }
     }
+
+
+    public class CategoryListRequest
+    {
+        public string  Type { get; set; }
+
+    }
 }
