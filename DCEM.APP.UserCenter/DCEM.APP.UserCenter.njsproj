@@ -62,11 +62,13 @@
     <Folder Include="src\app\page\carcenter\carstore\selectattr\" />
     <Folder Include="src\app\page\carcenter\carstore\component\model\speclist\" />
     <Folder Include="src\app\page\carcenter\index\" />
+    <Folder Include="src\app\page\carreserve\index\" />
     <Folder Include="src\app\page\community\activitydetail\" />
     <Folder Include="src\app\page\community\index\" />
     <Folder Include="src\app\page\community\newsdetail\" />
     <Folder Include="src\app\page\home\demo\baidumap\" />
     <Folder Include="src\app\page\home\demo\index\" />
+    <Folder Include="src\app\page\home\demo\berecorded\" />
     <Folder Include="src\app\page\home\demo\orcode\" />
     <Folder Include="src\app\page\home\demo\photograph\" />
     <Folder Include="src\app\page\home\" />
@@ -85,6 +87,7 @@
     <Folder Include="src\app\page\message\room\" />
     <Folder Include="src\app\page\message\sys\" />
     <Folder Include="src\app\page\home\demo\" />
+    <Folder Include="src\app\page\carreserve\" />
     <Folder Include="src\app\page\personalcenter\config\" />
     <Folder Include="src\app\page\personalcenter\config\about\" />
     <Folder Include="src\app\page\personalcenter\config\privacypolicy\" />
@@ -229,6 +232,10 @@
     <TypeScriptCompile Include="src\app\page\carcenter\index\index.module.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\index\index.page.spec.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\index\index.page.ts" />
+    <TypeScriptCompile Include="src\app\page\carreserve\index\index-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\carreserve\index\index.module.ts" />
+    <TypeScriptCompile Include="src\app\page\carreserve\index\index.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\carreserve\index\index.page.ts" />
     <TypeScriptCompile Include="src\app\page\community\activitydetail\activitydetail-routing.module.ts" />
     <TypeScriptCompile Include="src\app\page\community\activitydetail\activitydetail.module.ts" />
     <TypeScriptCompile Include="src\app\page\community\activitydetail\activitydetail.page.spec.ts" />
@@ -244,6 +251,10 @@
     <TypeScriptCompile Include="src\app\page\home\demo\baidumap\baidumap.module.ts" />
     <TypeScriptCompile Include="src\app\page\home\demo\baidumap\baidumap.page.spec.ts" />
     <TypeScriptCompile Include="src\app\page\home\demo\baidumap\baidumap.page.ts" />
+    <TypeScriptCompile Include="src\app\page\home\demo\berecorded\berecorded-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\home\demo\berecorded\berecorded.module.ts" />
+    <TypeScriptCompile Include="src\app\page\home\demo\berecorded\berecorded.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\home\demo\berecorded\berecorded.page.ts" />
     <TypeScriptCompile Include="src\app\page\home\demo\index\index-routing.module.ts" />
     <TypeScriptCompile Include="src\app\page\home\demo\index\index.module.ts" />
     <TypeScriptCompile Include="src\app\page\home\demo\index\index.page.spec.ts" />
@@ -497,6 +508,8 @@
     <Content Include="src\app\page\carcenter\carstore\selectitem\selectitem.page.scss" />
     <Content Include="src\app\page\carcenter\index\index.page.html" />
     <Content Include="src\app\page\carcenter\index\index.page.scss" />
+    <Content Include="src\app\page\carreserve\index\index.page.html" />
+    <Content Include="src\app\page\carreserve\index\index.page.scss" />
     <Content Include="src\app\page\community\activitydetail\activitydetail.page.html" />
     <Content Include="src\app\page\community\activitydetail\activitydetail.page.scss" />
     <Content Include="src\app\page\community\index\index.page.html" />
@@ -505,6 +518,8 @@
     <Content Include="src\app\page\community\newsdetail\newsdetail.page.scss" />
     <Content Include="src\app\page\home\demo\baidumap\baidumap.page.html" />
     <Content Include="src\app\page\home\demo\baidumap\baidumap.page.scss" />
+    <Content Include="src\app\page\home\demo\berecorded\berecorded.page.html" />
+    <Content Include="src\app\page\home\demo\berecorded\berecorded.page.scss" />
     <Content Include="src\app\page\home\demo\index\index.page.html" />
     <Content Include="src\app\page\home\demo\index\index.page.scss" />
     <Content Include="src\app\page\home\demo\orcode\orcode.page.html" />

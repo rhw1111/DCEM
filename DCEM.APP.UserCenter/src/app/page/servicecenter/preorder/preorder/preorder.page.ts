@@ -236,7 +236,7 @@ export class PreorderPage implements OnInit {
                 "Comment": "",
                 "ReceiverName": this.mod.model.mcs_name,
                 "ReceiverPhone": this.mod.model.mcs_phone,
-                "DealerCode": "",
+                "DealerCode": "S012021",
                 "DeliveryAdderss": this.mod.model.mcs_provincename + this.mod.model.mcs_cityname + this.mod.model.mcs_areaname + this.mod.model.mcs_address,
                 "SmallOrderCodeList": [
 

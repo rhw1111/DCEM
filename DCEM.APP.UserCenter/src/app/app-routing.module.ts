@@ -1,4 +1,5 @@
-﻿import { NgModule } from '@angular/core';
+﻿
+import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
@@ -32,7 +33,8 @@ const routes: Routes = [
                         path: 'index',
                         loadChildren: () => import('./page/home/demo/index/index.module').then(m => m.IndexPageModule)
                     },
-                    {
+
+                    {
                         path: 'baidumap',
                         loadChildren: () => import('./page/home/demo/baidumap/baidumap.module').then(m => m.BaidumapPageModule)
                     },
@@ -87,8 +89,7 @@ const routes: Routes = [
                 ]
             },
         ]
-    },
-    {
+    }, {
         path: 'community',  //社区
         children: [
             {
@@ -216,6 +217,13 @@ const routes: Routes = [
 
                 ]
             },
+            {
+                path: 'blindorder',  //领预约号
+                children: [
+                     {path: 'success',loadChildren: () => import('./page/personalcenter/blindorder/success/success.module').then( m => m.SuccessPageModule)},
+                     {path: 'edit',loadChildren: () => import('./page/personalcenter/blindorder/edit/edit.module').then( m => m.EditPageModule)}
+                ]
+            }
         ]
     },
     {
@@ -304,7 +312,16 @@ const routes: Routes = [
 
         ]
     },
-];
+{
+        path: 'carreserve',
+        children: [
+            {
+                path: 'index', loadChildren: () => import('./page/carreserve/index/index.module').then(m => m.IndexPageModule)
+            },
+        ]
+    },
+]  
+;
 
 
 @NgModule({

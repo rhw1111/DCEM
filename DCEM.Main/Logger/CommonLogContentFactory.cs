@@ -67,7 +67,7 @@ namespace DCEM.Main.Logger
                 }
             }
 
-            if (context.Response != null && context.Response.Body != null && context.Response.Body.CanRead && context.Response.Body.CanSeek)
+        /*    if (context.Response != null && context.Response.Body != null && context.Response.Body.CanRead && context.Response.Body.CanSeek)
             {
                 using (MemoryStream responseStream = new MemoryStream())
                 {
@@ -90,7 +90,7 @@ namespace DCEM.Main.Logger
                     context.Response.Body.Position = 0;
                 }
             }
-       
+       */
             content.RequestBody = strRequestBody;
             content.ResponseBody = strResponseBody;
             content.RequestUri = context.Request.GetDisplayUrl();

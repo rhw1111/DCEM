@@ -16,8 +16,9 @@ namespace DCEM.UserCenterService.Main.Application.App
     using DCEM.UserCenterService.Main.ViewModel.Response;
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
-    
-    
+    using System.Collections.Generic;
+    using Newtonsoft.Json.Linq;
+
     public class AppContentManagement : IAppContentManagement
     {
         
@@ -41,6 +42,11 @@ namespace DCEM.UserCenterService.Main.Application.App
         public async Task<ContentListResponse> GetList(ContentListRequest contentListRequest)
         {
             return await _contentmanagementService.GetList(contentListRequest);
+        }
+
+        public async Task<List<JObject>> GetCategoryList(CategoryListRequest request)
+        {
+            return await _contentmanagementService.GetCategoryList(request);
         }
     }
 }

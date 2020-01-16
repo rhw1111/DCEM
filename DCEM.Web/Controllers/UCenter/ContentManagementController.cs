@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MSLibrary;
 using MSLibrary.Xrm;
-
+using Newtonsoft.Json.Linq;
 namespace DCEM.Web.Controllers.Content
 {
     [EnableCors("any")]
@@ -45,6 +45,17 @@ namespace DCEM.Web.Controllers.Content
         public async Task<NewtonsoftJsonActionResult<ContentDetailResponse>> GetContentDetail(ContentDetailRequest contentDetailRequest)
         {
             return await _appContentManagement.GetDetail(contentDetailRequest);
+        }
+
+        /// <summary>
+        /// 获取内容详情
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("GetCategoryList")]
+        public async Task<NewtonsoftJsonActionResult<List<JObject>>> GetCategoryList(CategoryListRequest request)
+        {
+            return await _appContentManagement.GetCategoryList(request);
         }
     }
 }
