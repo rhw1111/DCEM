@@ -312,7 +312,6 @@ const routes: Routes = [
 
         ]
     },
-<<<<<<< HEAD
 {
         path: 'carreserve',
         children: [
@@ -321,12 +320,8 @@ const routes: Routes = [
             },
         ]
     },
-]
-    ;
-=======
 ]  
 ;
->>>>>>> b887fd74b900e83e6861ab05ee3b8ff71ceef068
 
 
 @NgModule({
