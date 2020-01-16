@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using DCEM.UserCenterService.Main.Application.App;
 using DCEM.UserCenterService.Main.Application.App.Contrac;
@@ -41,6 +42,31 @@ namespace DCEM.HT.Controllers
             return await _appAMPage.GenerateAMPage(pageId);
         }
 
+        /// <summary>
+        /// 批量落地页生成
+        /// </summary>
+        /// <param name="pageIds"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("BatchGenerateAMPage")]
+        public async Task<AMPageResponse> BatchGenerateAMPage(Guid[] pageIds)
+        {
+            var resultCount = 0;
+            var errorMsgs = new StringBuilder();
+            foreach (var pageId in pageIds)
+            {
+                var result = await _appAMPage.GenerateAMPage(pageId);
+                if (result.IsSuccess)
+                {
+                    resultCount++;
+                }
+                else
+                {
+                    errorMsgs.AppendLine(pageId + ":" + result.Url);
+                }
+            }
+            return new AMPageResponse() { IsSuccess = true, Url = $"成功{resultCount}条，失败{pageIds.Length - resultCount}条，失败日志：{errorMsgs.ToString()}" };
+        }
 
         [HttpPost]
         [Route("LogAMPageAction")]
