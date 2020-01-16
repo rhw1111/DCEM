@@ -32,7 +32,8 @@ const routes: Routes = [
                         path: 'index',
                         loadChildren: () => import('./page/home/demo/index/index.module').then(m => m.IndexPageModule)
                     },
-                    {
+
+                    {
                         path: 'baidumap',
                         loadChildren: () => import('./page/home/demo/baidumap/baidumap.module').then(m => m.BaidumapPageModule)
                     },
@@ -216,6 +217,13 @@ const routes: Routes = [
 
                 ]
             },
+            {
+                path: 'blindorder',  //领预约号
+                children: [
+                     {path: 'success',loadChildren: () => import('./page/personalcenter/blindorder/success/success.module').then( m => m.SuccessPageModule)},
+                     {path: 'edit',loadChildren: () => import('./page/personalcenter/blindorder/edit/edit.module').then( m => m.EditPageModule)}
+                ]
+            }
         ]
     },
     {
@@ -304,7 +312,8 @@ const routes: Routes = [
 
         ]
     },
-];
+]  
+;
 
 
 @NgModule({
