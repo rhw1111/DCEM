@@ -7,6 +7,7 @@ using MSLibrary.Context.ClaimContextGeneratorServices;
 
 namespace DCEM.Main.Context.ClaimContextGeneratorServices
 {
+    [Injection(InterfaceType = typeof(ClaimContextGeneratorServiceForDefaultFactory), Scope = InjectionScope.Singleton)]
     public class ClaimContextGeneratorServiceForDefaultFactory : IFactory<IClaimContextGeneratorService>
     {
         private ClaimContextGeneratorServiceForDefault _claimContextGeneratorServiceForDefault;

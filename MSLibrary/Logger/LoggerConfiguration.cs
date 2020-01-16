@@ -47,8 +47,8 @@ namespace MSLibrary.Logger
         [DataMember]
         public Dictionary<string, LoggerItemConfiguration> Providers
         {
-            get;set;
-        }
+            get; set;
+        } = new Dictionary<string, LoggerItemConfiguration>();
 
     }
 

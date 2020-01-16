@@ -170,7 +170,8 @@
                 arrSource = unescape(this.location.search).substring(1, this.location.search.length).split("&"), i = 0;
                 while (i < arrSource.length && !isFound) arrSource[i].indexOf("=") > 0 && arrSource[i].split("=")[0].toLowerCase() == paramName.toLowerCase() && (paramValue = arrSource[i].split("=")[1], isFound = !0), i++
             }
-            return paramValue == "" && (paramValue = null), paramValue
+            //return paramValue == "" && (paramValue = null), paramValue
+            return paramValue ? paramValue : "";
         }
         function SubmitClick() {
             var formStrArr = new Array("txtName", "txtMobile", "sltAppellation", "txtEmail", "sltBuyPlan", "sltCarColor", "sltCarPlan", "sltCity", "txtAddress");
@@ -182,7 +183,7 @@
                     return false;
                 }
             }
-
+            SetSubmitDisabled(true);
             var city = $("#sltCity").val();
             var address = $("#txtAddress").val();
             var name = $("#txtName").val();
@@ -303,6 +304,11 @@
                     var json = eval(data)
                     //请求出错处理
                     alert(JSON.parse(json.responseText)["Message"]);
+                },
+                complete: function (XMLHttpRequest, textStatus) {
+                    console.log(XMLHttpRequest);
+                    console.log(textStatus);
+                    SetSubmitDisabled(false);
                 }
             });
         }
@@ -400,6 +406,19 @@
                     console.log(data);
                 }
             });
+        }
+        //提交按钮优化，提交时为灰色
+        function SetSubmitDisabled(sure) {
+            var button = $(".action").children("span");
+            if (sure) {
+                button.html("提交中");
+                button.attr("disabled", "disabled");
+                button.removeClass("button-blue");
+            } else {
+                button.html("提交");
+                button.removeAttr("disabled");
+                button.addClass("button-blue");
+            }
         }
     </script>
 </head>

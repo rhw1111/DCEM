@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
 {
@@ -31,6 +33,12 @@ namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
         /// <returns></returns>
         string GetDriveFeedbackItemList(string testdrivefeedbackmasterid);
 
+        /// <summary>
+        /// 通过试乘试驾记录获取对应反馈
+        /// </summary>
+        /// <param name="testdriveid"></param>
+        /// <returns></returns>
+        Task<XDocument> GetDriveFeedbackByRecordId(string testdriveid);
 
         /// <summary>
         /// 根据编码查询用户行为

@@ -859,12 +859,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -913,12 +916,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -979,12 +985,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -1045,12 +1054,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -1123,12 +1135,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -1176,12 +1191,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -1241,12 +1259,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -1307,17 +1328,18 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
-
-
                     }
                 }
                 HttpResponseMessage response = null;
@@ -1736,12 +1758,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -1790,12 +1815,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -1855,12 +1883,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -1921,12 +1952,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -1996,12 +2030,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -2050,12 +2087,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -2114,12 +2154,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -2182,12 +2225,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -2256,12 +2302,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -2316,12 +2365,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -2385,12 +2437,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -2456,12 +2511,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -2537,12 +2595,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -2597,12 +2658,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -2666,12 +2730,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -2737,12 +2804,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -3392,7 +3462,7 @@ namespace MSLibrary
         /// <param name="url">服务地址</param>
         public static async Task<HttpResponseMessage> PutWithResponseAsync<T>(T data, string url)
         {
-            return  await PutWithResponseAsync(data, url, null, new HttpErrorHandlerDefault());
+            return await PutWithResponseAsync(data, url, null, new HttpErrorHandlerDefault());
         }
 
         /// <summary>
@@ -3575,7 +3645,7 @@ namespace MSLibrary
         /// <param name="url">服务地址</param>
         public static HttpResponseMessage PatchWithResponse<T>(T data, string url)
         {
-           return PatchWithResponse(data, url, null, new HttpErrorHandlerDefault());
+            return PatchWithResponse(data, url, null, new HttpErrorHandlerDefault());
         }
 
         /// <summary>
@@ -3997,12 +4067,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -4053,12 +4126,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -4121,12 +4197,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -4152,7 +4231,7 @@ namespace MSLibrary
                 else
                 {
                     var strContent = response.Content.ReadAsStringAsync().Result;
-                    return new HttpResult<V>(JsonSerializerHelper.Deserialize<V>(strContent),response);
+                    return new HttpResult<V>(JsonSerializerHelper.Deserialize<V>(strContent), response);
 
                     //return response.Content.ReadAsAsync<V>().Result;
                 }
@@ -4187,12 +4266,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -4218,7 +4300,7 @@ namespace MSLibrary
                 else
                 {
                     var strContent = await response.Content.ReadAsStringAsync();
-                    return new HttpResult<V>(JsonSerializerHelper.Deserialize<V>(strContent),response);
+                    return new HttpResult<V>(JsonSerializerHelper.Deserialize<V>(strContent), response);
                     //return await response.Content.ReadAsAsync<V>();
                 }
 
@@ -4265,12 +4347,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -4320,12 +4405,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -4387,12 +4475,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -4417,7 +4508,7 @@ namespace MSLibrary
                 else
                 {
                     var strContent = response.Content.ReadAsStringAsync().Result;
-                    return new HttpResult<V>(JsonSerializerHelper.Deserialize<V>(strContent),response);
+                    return new HttpResult<V>(JsonSerializerHelper.Deserialize<V>(strContent), response);
 
                     //return response.Content.ReadAsAsync<V>().Result;
                 }
@@ -4453,18 +4544,21 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
-
-
                     }
+
                 }
                 HttpResponseMessage response = null;
                 try
@@ -4485,7 +4579,7 @@ namespace MSLibrary
                 else
                 {
                     var strContent = await response.Content.ReadAsStringAsync();
-                    return new HttpResult<V>(JsonSerializerHelper.Deserialize<V>(strContent),response);
+                    return new HttpResult<V>(JsonSerializerHelper.Deserialize<V>(strContent), response);
                     //return await response.Content.ReadAsAsync<V>();
                 }
 
@@ -4618,7 +4712,7 @@ namespace MSLibrary
                 else
                 {
                     var strContent = response.Content.ReadAsStringAsync().Result;
-                    return new HttpResult<T>(JsonSerializerHelper.Deserialize<T>(strContent),response);
+                    return new HttpResult<T>(JsonSerializerHelper.Deserialize<T>(strContent), response);
 
                     //return response.Content.ReadAsAsync<T>().Result;
                 }
@@ -4665,7 +4759,7 @@ namespace MSLibrary
                 else
                 {
                     var strContent = await response.Content.ReadAsStringAsync();
-                    return new HttpResult<T>(JsonSerializerHelper.Deserialize<T>(strContent),response);
+                    return new HttpResult<T>(JsonSerializerHelper.Deserialize<T>(strContent), response);
 
                     //return await response.Content.ReadAsAsync<T>();
                 }
@@ -4799,7 +4893,7 @@ namespace MSLibrary
                 else
                 {
                     var strContent = response.Content.ReadAsStringAsync().Result;
-                    return new HttpResult<T>(JsonSerializerHelper.Deserialize<T>(strContent),response);
+                    return new HttpResult<T>(JsonSerializerHelper.Deserialize<T>(strContent), response);
 
                     //return response.Content.ReadAsAsync<T>().Result;
                 }
@@ -4846,7 +4940,7 @@ namespace MSLibrary
                 else
                 {
                     var strContent = await response.Content.ReadAsStringAsync();
-                    return new HttpResult<T>(JsonSerializerHelper.Deserialize<T>(strContent),response);
+                    return new HttpResult<T>(JsonSerializerHelper.Deserialize<T>(strContent), response);
 
                     //return await response.Content.ReadAsAsync<T>();
                 }
@@ -4886,12 +4980,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -4942,12 +5039,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -5009,12 +5109,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -5039,7 +5142,7 @@ namespace MSLibrary
                 else
                 {
                     var strContent = response.Content.ReadAsStringAsync().Result;
-                    return new HttpResult<V>(JsonSerializerHelper.Deserialize<V>(strContent),response);
+                    return new HttpResult<V>(JsonSerializerHelper.Deserialize<V>(strContent), response);
 
                     //return response.Content.ReadAsAsync<V>().Result;
                 }
@@ -5075,12 +5178,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -5105,7 +5211,7 @@ namespace MSLibrary
                 else
                 {
                     var strContent = await response.Content.ReadAsStringAsync();
-                    return new HttpResult<V>(JsonSerializerHelper.Deserialize<V>(strContent),response);
+                    return new HttpResult<V>(JsonSerializerHelper.Deserialize<V>(strContent), response);
                     //return await response.Content.ReadAsAsync<V>();
                 }
 
@@ -5150,12 +5256,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -5206,12 +5315,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -5272,12 +5384,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -5303,7 +5418,7 @@ namespace MSLibrary
                 else
                 {
                     var strContent = response.Content.ReadAsStringAsync().Result;
-                    return new HttpResult<V>(JsonSerializerHelper.Deserialize<V>(strContent),response);
+                    return new HttpResult<V>(JsonSerializerHelper.Deserialize<V>(strContent), response);
 
                     //return response.Content.ReadAsAsync<V>().Result;
                 }
@@ -5340,12 +5455,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -5371,7 +5489,7 @@ namespace MSLibrary
                 else
                 {
                     var strContent = await response.Content.ReadAsStringAsync();
-                    return new HttpResult<V>(JsonSerializerHelper.Deserialize<V>(strContent),response);
+                    return new HttpResult<V>(JsonSerializerHelper.Deserialize<V>(strContent), response);
                     //return await response.Content.ReadAsAsync<V>();
                 }
 
@@ -5414,12 +5532,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -5476,12 +5597,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -5547,12 +5671,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -5582,7 +5709,7 @@ namespace MSLibrary
                 else
                 {
                     var strContent = response.Content.ReadAsStringAsync().Result;
-                    return new HttpResult<V>(JsonSerializerHelper.Deserialize<V>(strContent),response);
+                    return new HttpResult<V>(JsonSerializerHelper.Deserialize<V>(strContent), response);
 
                     //return response.Content.ReadAsAsync<V>().Result;
                 }
@@ -5618,12 +5745,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -5655,7 +5785,7 @@ namespace MSLibrary
                 else
                 {
                     var strContent = await response.Content.ReadAsStringAsync();
-                    return new HttpResult<V>(JsonSerializerHelper.Deserialize<V>(strContent),response);
+                    return new HttpResult<V>(JsonSerializerHelper.Deserialize<V>(strContent), response);
                     //return await response.Content.ReadAsAsync<V>();
                 }
 
@@ -5699,12 +5829,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -5761,12 +5894,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -5831,12 +5967,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -5866,7 +6005,7 @@ namespace MSLibrary
                 else
                 {
                     var strContent = response.Content.ReadAsStringAsync().Result;
-                    return new HttpResult<V>(JsonSerializerHelper.Deserialize<V>(strContent),response);
+                    return new HttpResult<V>(JsonSerializerHelper.Deserialize<V>(strContent), response);
 
                     //return response.Content.ReadAsAsync<V>().Result;
                 }
@@ -5902,12 +6041,15 @@ namespace MSLibrary
                     {
                         foreach (var headerItem in httpHeaders)
                         {
-                            httpContent.Headers.Add(headerItem.Key, headerItem.Value);
+                            if (headerItem.Key.StartsWith("_Content_"))
+                            {
+                                httpContent.Headers.Add(headerItem.Key.Substring(9, headerItem.Key.Length - 8), headerItem.Value);
+                            }
                         }
                     }
-                    else
+                    foreach (var headerItem in httpHeaders)
                     {
-                        foreach (var headerItem in httpHeaders)
+                        if (!headerItem.Key.StartsWith("_Content_"))
                         {
                             client.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
                         }
@@ -5937,7 +6079,7 @@ namespace MSLibrary
                 else
                 {
                     var strContent = await response.Content.ReadAsStringAsync();
-                    return new HttpResult<V>(JsonSerializerHelper.Deserialize<V>(strContent),response);
+                    return new HttpResult<V>(JsonSerializerHelper.Deserialize<V>(strContent), response);
                     //return await response.Content.ReadAsAsync<V>();
                 }
 
@@ -6067,7 +6209,7 @@ namespace MSLibrary
                 else
                 {
                     var strContent = response.Content.ReadAsStringAsync().Result;
-                    return new HttpResult<T>(JsonSerializerHelper.Deserialize<T>(strContent),response);
+                    return new HttpResult<T>(JsonSerializerHelper.Deserialize<T>(strContent), response);
 
                     //return response.Content.ReadAsAsync<T>().Result;
                 }
@@ -6115,7 +6257,7 @@ namespace MSLibrary
                 else
                 {
                     var strContent = await response.Content.ReadAsStringAsync();
-                    return new HttpResult<T>(JsonSerializerHelper.Deserialize<T>(strContent),response);
+                    return new HttpResult<T>(JsonSerializerHelper.Deserialize<T>(strContent), response);
 
                     //return await response.Content.ReadAsAsync<T>();
                 }
@@ -6244,7 +6386,7 @@ namespace MSLibrary
                 else
                 {
                     var strContent = response.Content.ReadAsStringAsync().Result;
-                    return new HttpResult<T>(JsonSerializerHelper.Deserialize<T>(strContent),response);
+                    return new HttpResult<T>(JsonSerializerHelper.Deserialize<T>(strContent), response);
 
                     //return response.Content.ReadAsAsync<T>().Result;
                 }
@@ -6291,7 +6433,7 @@ namespace MSLibrary
                 else
                 {
                     var strContent = await response.Content.ReadAsStringAsync();
-                    return new HttpResult<T>(JsonSerializerHelper.Deserialize<T>(strContent),response);
+                    return new HttpResult<T>(JsonSerializerHelper.Deserialize<T>(strContent), response);
 
                     //return await response.Content.ReadAsAsync<T>();
                 }
@@ -6368,7 +6510,7 @@ namespace MSLibrary
                 {
                     Code = string.Empty,
                     DefaultFormatting = errorResult.Message,
-                    ReplaceParameters = new List<object>() {  }
+                    ReplaceParameters = new List<object>() { }
                 };
 
                 return await Task.FromResult(new UtilityException(errorResult.Code, fragment));
@@ -6380,7 +6522,7 @@ namespace MSLibrary
 
     public class HttpResult<T>
     {
-        public HttpResult(T value,HttpResponseMessage response)
+        public HttpResult(T value, HttpResponseMessage response)
         {
             Value = value;
             Response = response;

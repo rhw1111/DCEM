@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using System.Text;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Autofac.Extensions.DependencyInjection;
 using MSLibrary.Configuration;
 using MSLibrary.Logger;
 using MSLibrary.DI;
@@ -43,45 +45,36 @@ namespace DCEM.ConfigurationService
             MainStartupHelper.InitContext();
             StartupHelper.InitContext();
 
-            CreateWebHostBuilder(args).Build().Run();
+            CreateWebHostBuilder(args).Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-            .ConfigureServices((context, services) =>
-            {
-                //初始化配置容器                  
-                StartupHelper.InitConfigurationContainer(context.HostingEnvironment.EnvironmentName, _baseUrl);
+        public static IHost CreateWebHostBuilder(string[] args) =>
 
-                //获取核心配置
-                var coreConfiguration = ConfigurationContainer.Get<CoreConfiguration>(ConfigurationNames.Application);
-
-                //初始化DI容器
-                MainStartupHelper.InitDI(services, coreConfiguration.DISetting);
-
-
-                //初始化静态设置
-                MainStartupHelper.InitStaticInfo();
-                StartupHelper.InitStaticInfo();
-
-
-                //配置日志工厂
-                var loggerFactory = LoggerFactory.Create((builder) =>
+            Host.CreateDefaultBuilder(args)
+        .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+        .ConfigureWebHostDefaults(webHostBuilder =>
+        {
+            webHostBuilder
+                .ConfigureServices((context, services) =>
                 {
-                    MainStartupHelper.InitLogger(builder);
-                });
-                DIContainerContainer.Inject<ILoggerFactory>(loggerFactory);
 
-            })
-            .ConfigureLogging((builder) =>
-            {
+                    //初始化配置容器                  
+                    StartupHelper.InitConfigurationContainer(context.HostingEnvironment.EnvironmentName, _baseUrl);
 
-            })
-            .ConfigureKestrel((options)=>
-            {
 
-            })
-            .UseConfiguration(ConfigurationContainer.GetConfiguration(ConfigurationNames.Host))
-            .UseStartup<Startup>();
+
+                })
+                .ConfigureLogging((builder) =>
+                {
+
+                })
+                .ConfigureKestrel((options) =>
+                {
+
+                })
+                .UseConfiguration(ConfigurationContainer.GetConfiguration(ConfigurationNames.Host))
+                .UseStartup<Startup>();
+        })
+        .Build();
     }
 }
