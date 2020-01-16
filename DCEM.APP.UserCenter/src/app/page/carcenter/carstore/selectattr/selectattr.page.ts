@@ -92,10 +92,10 @@ export class SelectattrPage implements OnInit {
     }
 
     public initShareData() {
-
+        debugger;
         //初始化
         this.shareData = this._shareData.get(this.mod.shareDataKey);
-
+        console.log(this.shareData);
         this.shareData.carColorPic = "http://sf-test.mediaman.com.cn//img/sf-5-orange-tire1.7b037424.png";
         //基础地图
         this.shareData.productOrderingattributeMap = {};
@@ -164,6 +164,7 @@ export class SelectattrPage implements OnInit {
         }
 
         this._shareData.set(this.mod.shareDataKey, this.shareData);
+        console.log(this.shareData);
     }
 
     public initJQueryEvent() {

@@ -32,7 +32,8 @@ const routes: Routes = [
                         path: 'index',
                         loadChildren: () => import('./page/home/demo/index/index.module').then(m => m.IndexPageModule)
                     },
-                    {
+
+                    {
                         path: 'baidumap',
                         loadChildren: () => import('./page/home/demo/baidumap/baidumap.module').then(m => m.BaidumapPageModule)
                     },
@@ -99,7 +100,10 @@ const routes: Routes = [
                 path: 'newsdetail',
                 loadChildren: () => import('./page/community/newsdetail/newsdetail.module').then(m => m.NewsdetailPageModule)
             },
-
+            {
+                path: 'activityintro',
+                loadChildren: () => import('./page/community/activityintro/activityintro.module').then(m => m.ActivityintroPageModule)
+            }
         ]
     },
     {
@@ -304,7 +308,8 @@ const routes: Routes = [
 
         ]
     },
-];
+]
+    ;
 
 
 @NgModule({
