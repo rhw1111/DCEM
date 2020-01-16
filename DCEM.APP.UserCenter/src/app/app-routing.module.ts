@@ -304,7 +304,16 @@ const routes: Routes = [
 
         ]
     },
-];
+    {
+        path: 'carreserve',
+        children: [
+            {
+                path: 'index', loadChildren: () => import('./page/carreserve/index/index.module').then(m => m.IndexPageModule)
+            },
+        ]
+    },
+]  
+;
 
 
 @NgModule({
