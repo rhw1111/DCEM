@@ -39,8 +39,8 @@ namespace DCEM.UserCenterService.Main.Application.Services.Contrac
         /// <summary>
         /// 试乘试驾反馈报告详情
         /// </summary>
-        /// <param name="testdrivefeedbackmasterid"></param>
+        /// <param name="testdriveid"></param>
         /// <returns></returns>
-        Task<TestDriveFeedbackDetailModel> GetDriveFeedbackDetail(string testdrivefeedbackmasterid);
+        Task<TestDriveFeedbackDetailModel> GetDriveFeedbackDetail(string testdriveid);
     }
 }

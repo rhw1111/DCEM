@@ -56,11 +56,11 @@ namespace DCEM.UserCenterService.Main.Application.App
         /// <summary>
         /// 试乘试驾反馈报告详情
         /// </summary>
-        /// <param name="testdrivefeedbackmasterid"></param>
+        /// <param name="testdriveid"></param>
         /// <returns></returns>
-        public async Task<TestDriveFeedbackDetailModel> GetDriveFeedbackDetail(string testdrivefeedbackmasterid)
+        public async Task<TestDriveFeedbackDetailModel> GetDriveFeedbackDetail(string testdriveid)
         {
-            return await _testDriveService.GetDriveFeedbackDetail(testdrivefeedbackmasterid);
+            return await _testDriveService.GetDriveFeedbackDetail(testdriveid);
         }
 
     }
