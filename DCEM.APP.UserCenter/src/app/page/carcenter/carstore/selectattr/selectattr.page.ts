@@ -92,7 +92,6 @@ export class SelectattrPage implements OnInit {
     }
 
     public initShareData() {
-        debugger;
         //初始化
         this.shareData = this._shareData.get(this.mod.shareDataKey);
         console.log(this.shareData);

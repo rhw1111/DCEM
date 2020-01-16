@@ -3,6 +3,8 @@ using DCEM.UserCenterService.Main.ViewModel.Request;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace DCEM.UserCenterService.Main.Application.Repository
 {
@@ -167,6 +169,29 @@ namespace DCEM.UserCenterService.Main.Application.Repository
             </fetch>";
 
             return fetchString;
+        }
+
+        public async Task<XDocument> GetDriveFeedbackByRecordId(string testdriveid)
+        {
+            var filter = string.Empty;
+            if (!string.IsNullOrEmpty(testdriveid))
+            {
+                filter += $"<condition attribute='mcs_driverecordid' operator='eq'  value='{testdriveid}' />";
+            }
+
+            return await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"<fetch version='1.0'  output-format='xml-platform' mapping='logical' distinct='false'>
+                <entity name='mcs_testdrivefeedbackmaster'>
+                 <all-attributes />
+                <filter type='and'>
+                  <condition attribute='statecode' operator='eq' value='0' />
+                  {filter}   
+                </filter>                              
+              </entity>
+            </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
         }
 
         #endregion
