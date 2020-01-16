@@ -37,14 +37,18 @@ const routes: Routes = [
                         loadChildren: () => import('./page/home/demo/baidumap/baidumap.module').then(m => m.BaidumapPageModule)
                     },
 
-                    {
+                    {  //照相
                         path: 'photograph',
                         loadChildren: () => import('./page/home/demo/photograph/photograph.module').then(m => m.PhotographPageModule)
                     },
-                    {
+                    { //扫描二维码
                         path: 'orcode',
                         loadChildren: () => import('./page/home/demo/orcode/orcode.module').then(m => m.OrcodePageModule)
                     },
+                    {  //录音
+                        path: 'berecorded',
+                        loadChildren: () => import('./page/home/demo/berecorded/berecorded.module').then(m => m.BerecordedPageModule)
+                    }
                 ]
             },
         ]
@@ -304,7 +308,8 @@ const routes: Routes = [
 
         ]
     },
-];
+] 
+;
 
 
 @NgModule({
