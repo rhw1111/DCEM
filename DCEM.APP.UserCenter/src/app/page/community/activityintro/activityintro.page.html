@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="/tabs/community/index"></ion-back-button>
+    </ion-buttons>
+    <ion-title>活动详情</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <div style="text-align: center;">
+      <img [src]="model.activityEntity.PicPath">
+      <h2 style="font-weight: bold;">{{model.activityEntity.Title}}</h2>
+    </div>
+
+    <div style="padding: 20px;margin-top: 30px;" [innerHTML]="RenderHTML(model.activityEntity.Content)">
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer *ngIf="model.activityEntity.status==1">
+  <ion-toolbar class="dm-footer">
+    <ion-button id="btn_signup" [routerLink]="['/community/activitydetail']"
+       [queryParams]="{id:model.activityEntity.Id}" expand="block" shape="round">马上报名</ion-button>
+  </ion-toolbar>
+</ion-footer>

@@ -25,12 +25,8 @@ namespace MSLibrary.DI
             foreach (var itemName in assemblyNames)
             {
 
-#if net
-                
-                var assembly = Assembly.Load(new AssemblyName(itemName));
-#else
+
                 var assembly = AssemblyLoadContext.Default.LoadFromAssemblyName(new AssemblyName(itemName));
-#endif
 
                 //检查每个程序集中的类是否需要注入
                 var types = assembly.GetTypes();
@@ -53,6 +49,7 @@ namespace MSLibrary.DI
 
                         foreach (var itemAttribute in injectionAttributes)
                         {
+
                             //注入依赖容器
                             ExecuteInjection(itemAttribute.InterfaceType, itemType, itemAttribute.Scope);
                         }

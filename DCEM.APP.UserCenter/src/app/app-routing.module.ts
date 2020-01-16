@@ -32,23 +32,20 @@ const routes: Routes = [
                         path: 'index',
                         loadChildren: () => import('./page/home/demo/index/index.module').then(m => m.IndexPageModule)
                     },
-                    {
+
+                    {
                         path: 'baidumap',
                         loadChildren: () => import('./page/home/demo/baidumap/baidumap.module').then(m => m.BaidumapPageModule)
                     },
 
-                    {  //照相
+                    {
                         path: 'photograph',
                         loadChildren: () => import('./page/home/demo/photograph/photograph.module').then(m => m.PhotographPageModule)
                     },
-                    { //扫描二维码
+                    {
                         path: 'orcode',
                         loadChildren: () => import('./page/home/demo/orcode/orcode.module').then(m => m.OrcodePageModule)
                     },
-                    {  //录音
-                        path: 'berecorded',
-                        loadChildren: () => import('./page/home/demo/berecorded/berecorded.module').then(m => m.BerecordedPageModule)
-                    }
                 ]
             },
         ]
@@ -103,7 +100,10 @@ const routes: Routes = [
                 path: 'newsdetail',
                 loadChildren: () => import('./page/community/newsdetail/newsdetail.module').then(m => m.NewsdetailPageModule)
             },
-
+            {
+                path: 'activityintro',
+                loadChildren: () => import('./page/community/activityintro/activityintro.module').then(m => m.ActivityintroPageModule)
+            }
         ]
     },
     {
@@ -308,8 +308,8 @@ const routes: Routes = [
 
         ]
     },
-] 
-;
+]
+    ;
 
 
 @NgModule({
