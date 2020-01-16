@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+     <ion-buttons slot="start" style="margin-top: 3px;">
+        <ion-back-button text="返回" defaultHref="/carcenter/index"></ion-back-button>
+    </ion-buttons>
+    <ion-title>领预约号</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content> 
+  <ion-col>
+   <ion-list lines="full" style="height: 25%;">   
+    <ion-slides>
+        <ion-slide>
+            <ion-row style="display: inline-block; width: 100%;">
+                <ion-col>
+                    <img src="../assets/img/personalcenter/bindorder/preorder.jpg" />
+                </ion-col>
+            </ion-row>
+        </ion-slide>
+        <ion-slide>
+            <ion-row style="display: inline-block; width: 100%;">
+                <ion-col>
+                    <img src="../assets/img/1png.png" />
+                </ion-col>
+            </ion-row>
+        </ion-slide>
+    </ion-slides>
+  </ion-list>
+
+  <ion-list lines="full">    
+      <ion-item>
+          <ion-label position="stacked">
+              姓名
+              <ion-text color="danger">*</ion-text>
+          </ion-label>           
+          <ion-input placeholder="请输入姓名" [(ngModel)]="model.postData.mcs_fullname" required></ion-input>         
+      </ion-item>
+      <ion-item>
+          <ion-label position="stacked">
+              手机号
+              <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input placeholder="请输入手机号" [(ngModel)]="model.postData.mcs_mobilephone" required></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label position="stacked">
+              意向车型
+              <ion-text color="danger">*</ion-text>
+          </ion-label>   
+          <ion-select placeholder="请选择意向车型" cancelText="取消" okText="确定" [(ngModel)]="model.postData.mcs_blindordervehtype" >
+              <ion-select-option *ngFor="let item of model.VehicletypeList"  value="{{item.mcs_name}}">
+                  {{item.mcs_name}}
+              </ion-select-option>           
+          </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">
+            用车城市
+            <ion-text color="danger">*</ion-text>
+        </ion-label>
+        <ion-input placeholder="请输入用车城市" [(ngModel)]="model.postData.mcs_usecarcity" required></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">
+            描述
+        </ion-label>
+        <ion-input [(ngModel)]="model.postData.mcs_orderdescription"></ion-input>
+    </ion-item>
+      <br/>
+      <ion-label position="stacked">
+         &nbsp;&nbsp;&nbsp;<ion-checkbox  color="success" style="border:1px solid black;border-radius: 60px;height:15px;width: 15px;" [(ngModel)]="model.postData.isChecked"></ion-checkbox>           
+           我已阅读并同意《领预约号指南和协议》
+      </ion-label>
+    </ion-list>
+    <section style="text-align:center;" >
+       <ion-button  expand="block" type="button"  (click)="Save()">确认预约</ion-button>
+    </section>
+    <br />
+</ion-col>
+</ion-content>
