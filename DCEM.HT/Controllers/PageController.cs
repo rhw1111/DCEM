@@ -47,7 +47,7 @@ namespace DCEM.HT.Controllers
         /// </summary>
         /// <param name="pageIds"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpPost]
         [Route("BatchGenerateAMPage")]
         public async Task<AMPageResponse> BatchGenerateAMPage(Guid[] pageIds)
         {
