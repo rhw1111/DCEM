@@ -8,7 +8,7 @@
   "RemainAllProvider": false,
   "GlobalLogDefaultMinLevel": "4",
   "Providers": {
-    "CommonLog": {
+    /*"CommonLog": {
       "Configuration": null,
       "LogLevels": {
         "DCEM.ConfigurationService": "4",
@@ -17,6 +17,16 @@
         "SystemAuthentication": "4"
       },
       "DefaultMinLevel": "4"
+    }*/
+    "Console": {
+      "Configuration": null,
+      "LogLevels": {
+        "DCEM.Web": "0",
+        "DIWrapper": "0",
+        "HttpRequest": "0",
+        "SystemAuthentication": "0"
+      },
+      "GlobalLogDefaultMinLevel": "0"
     }
   }
 }

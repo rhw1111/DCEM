@@ -5,37 +5,32 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
+using MSLibrary.AspNet.Middleware.Application;
 using Microsoft.AspNetCore.Http.Extensions;
 using MSLibrary;
 using MSLibrary.DI;
 using MSLibrary.Logger;
 
-namespace DCEM.Main.Logger
+namespace DCEM.Main.AspNet.Middleware.Application
 {
     /// <summary>
-    /// 通用日志内容工厂实现
+    /// Http上下文转换成日志对象
+    /// 本系统中转换为CommonLogLogger
     /// </summary>
-    [Injection(InterfaceType = typeof(ICommonLogContentFactory), Scope = InjectionScope.Singleton)]
-    public class CommonLogContentFactory : ICommonLogContentFactory
+    [Injection(InterfaceType = typeof(IAppHttpContextLogConvert), Scope = InjectionScope.Singleton)]
+    public class AppHttpContextLogConvert : IAppHttpContextLogConvert
     {
-        public async Task<CommonLogContent> Create(string actionName,string message)
-        {
-            CommonLogContent content = new CommonLogContent();
-            content.ParentID = ContextContainer.GetValue<Guid>(ContextExtensionTypes.ParentCommonLogID);
-            content.ParentActionName= ContextContainer.GetValue<string>(ContextExtensionTypes.ParentCommonLogActionName);          
-            content.ActionName = actionName;
-            content.Message = message;
-            content.RequestBody = string.Empty;
-            content.ResponseBody = string.Empty;
-            content.RequestUri = string.Empty;
-            return await Task.FromResult(content);
-        }
+        /// <summary>
+        /// 记录的最大请求内容长度
+        /// 超过长度的，将截取请求内容
+        /// </summary>
+        private const long _maxRequestLength = 102400;
 
-        public async Task<CommonLogContent> CreateFromHttpContext(HttpContext context)
+        public async Task<object> Convert(HttpContext context)
         {
             CommonLogContent content = new CommonLogContent();
             content.ParentID = ContextContainer.GetValue<Guid>(ContextExtensionTypes.ParentCommonLogID);
-            content.ParentActionName = ContextContainer.GetValue<string>(ContextExtensionTypes.ParentCommonLogActionName);        
+            content.ParentActionName = ContextContainer.GetValue<string>(ContextExtensionTypes.ParentCommonLogActionName);
             content.ActionName = context.Request.Path;
             content.Message = string.Empty;
 
@@ -67,7 +62,7 @@ namespace DCEM.Main.Logger
                 }
             }
 
-        /*    if (context.Response != null && context.Response.Body != null && context.Response.Body.CanRead && context.Response.Body.CanSeek)
+            if (context.Response != null && context.Response.Body != null && context.Response.Body.CanRead && context.Response.Body.CanSeek)
             {
                 using (MemoryStream responseStream = new MemoryStream())
                 {
@@ -90,7 +85,7 @@ namespace DCEM.Main.Logger
                     context.Response.Body.Position = 0;
                 }
             }
-       */
+
             content.RequestBody = strRequestBody;
             content.ResponseBody = strResponseBody;
             content.RequestUri = context.Request.GetDisplayUrl();

@@ -66,11 +66,16 @@ namespace DCEM.Web.Controllers.UCenter
         #endregion
 
         #region 我的试乘试驾反馈报告详情
+        /// <summary>
+        /// 16日修改，通过试驾报告查询试驾反馈
+        /// </summary>
+        /// <param name="testdriveid"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetDriveFeedbackDetail")]
-        public async Task<NewtonsoftJsonActionResult<TestDriveFeedbackDetailModel>> GetDriveFeedbackDetail(string testdrivefeedbackmasterid)
+        public async Task<NewtonsoftJsonActionResult<TestDriveFeedbackDetailModel>> GetDriveFeedbackDetail(string testdriveid)
         {
-            var list = await app.GetDriveFeedbackDetail(testdrivefeedbackmasterid);
+            var list = await app.GetDriveFeedbackDetail(testdriveid);
             return list;
         }
         #endregion
