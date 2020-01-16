@@ -11,5 +11,10 @@ namespace DCEM.ConfigurationService.Controllers
     [ApiController]
     public class IServiceInfoController : ControllerBase
     {
+        [HttpGet("Do")]
+        public async Task<string> Do()
+        {
+            return await Task.FromResult("AAA");
+        }
     }
 }

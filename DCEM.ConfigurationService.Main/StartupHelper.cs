@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Text;
 using System.IO;
+using System.Net.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using MSLibrary;
 using MSLibrary.Configuration;
 using MSLibrary.DI;
@@ -21,6 +24,8 @@ namespace DCEM.ConfigurationService.Main
 {
     public static class StartupHelper
     {
+        public static DIContainerForAutofac DIContainerForAutofac { get; set; }
+
         /// <summary>
         /// 初始化配置容器
         /// 首先尝试从后缀名-{环境名}的文件加载配置
@@ -49,5 +54,32 @@ namespace DCEM.ConfigurationService.Main
         {
 
         }
+
+
+
+        /// <summary>
+        /// 初始化DI容器
+        /// 自动装载被标识的对象
+        /// </summary>
+        /// <param name="serviceCollection"></param>
+        /// <param name="dISetting"></param>
+        public static void InitDI(IServiceCollection services, ContainerBuilder containerBuilder, DISetting dISetting)
+        {
+            services.AddHttpClient();
+            var serviceProvider = services.BuildServiceProvider();
+            containerBuilder.RegisterInstance(serviceProvider.GetService<IHttpClientFactory>()).As<IHttpClientFactory>();
+
+            DIContainerForAutofac = new DIContainerForAutofac(containerBuilder);
+            DIContainerContainer.DIContainer = DIContainerForAutofac;
+            DIContainerInit.Init = new DIContainerInitDefault();
+            DIContainerInit.Execute(dISetting.SearchAssemblyNames);
+
+
+            //装载需要手动处理的DI数据
+
+            //Microsoft.AspNetCore.DataProtection.Repositories.IXmlRepository
+            //DIContainerContainer.Inject<IXmlRepository, DataProtectionXmlRepository>(@"Configurations\Dataprotection\key.xml");
+        }
+
     }
 }

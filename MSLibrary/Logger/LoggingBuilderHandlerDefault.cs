@@ -54,7 +54,6 @@ namespace MSLibrary.Logger
             {
                 var providerHandler = getProviderHandler(providerItem.Key);
                 await providerHandler.Execute(builder, providerItem.Value);
-
             }
         }
 
