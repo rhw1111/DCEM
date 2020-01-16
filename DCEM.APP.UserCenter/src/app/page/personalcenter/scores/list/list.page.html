@@ -33,4 +33,13 @@
       </ion-note>
     </ion-item>
   </ion-list>
+  <ion-label *ngIf="model.isending" text-center>    
+    <p>
+       没有更多的记录显示啦
+    </p>      
+  </ion-label>
+  <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doLoading($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

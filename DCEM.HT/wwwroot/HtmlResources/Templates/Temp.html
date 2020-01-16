@@ -131,7 +131,7 @@
             //获取当前设备ip及相关信息
             currentIp = returnCitySN['cip'];
             currentIpInfo = returnCitySN['cname'] + "，" + returnCitySN['cid'];
-            browserInfo=window.navigator.userAgent.toLowerCase();
+            browserInfo = window.navigator.userAgent.toLowerCase();
             //跟踪
             LogAction(1);
             $(window).on("unload", function () {
@@ -268,12 +268,12 @@
                     request.setRequestHeader("true-client-ip", "123");
                 },
                 success: function (data) {
-                    if (data.Code == "0000") { 
+                    if (data.Code == "0000") {
                         var url = "$DCEM_APP_URL$api/user/userintegraladd";
                         var postData = {
-                            account: referrerMobilephone,
+                            account: moblie,
                             logintype: 1,
-                            key: behaviorCode
+                            key: "DCEM_APP_Integral_"+behaviorCode
                         };
                         var json = JSON.stringify(postData);
                         $.ajax({
@@ -282,17 +282,39 @@
                             dataType: "json",
                             contentType: "application/json;charset=utf-8",
                             data: json,
-                            success: function (data) { 
-                                window.location.href = './SuccessPage.html';
+                            success: function (data) {
+
+                                //分享送积分
+                                postData = {
+                                            account: referrerMobilephone,
+                                            logintype: 1,
+                                            key: "DCEM_APP_IntegralSharePhone"
+                                        };
+                                        var json = JSON.stringify(postData);
+                                        $.ajax({
+                                            type: "post",
+                                            url: url,
+                                            dataType: "json",
+                                            contentType: "application/json;charset=utf-8",
+                                            data: json,
+                                            success: function (data) {
+                                                window.location.href = './SuccessPage.html';
+                                            },
+                                            //调用出错执行的函数
+                                            error: function (data) {
+                                                debugger;
+                                            }
+                                        });
+
                             },
                             //调用出错执行的函数
                             error: function (data) {
                                 debugger;
                             }
-                        }); 
-                             
+                        });
+
                         //跟踪
-                        LogAction(2); 
+                        LogAction(2);
                     } else {
                         alert("提交失败");
                         console.log(data);

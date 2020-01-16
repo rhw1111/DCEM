@@ -32,7 +32,7 @@ export class ListPage implements OnInit {
   }
   //加载下一页
 doLoading(event) {  
-  this.model.isending = false; 
+  this.model.search.pageindex++; 
   this.listOnBind(event); 
 }
 listOnBind(event) {
@@ -54,6 +54,17 @@ listOnBind(event) {
             this.model.data.push(obj);
           }
           this.model.balance = res.balance;
+
+           //设置数据存储到本地
+           if (this.model.search.pageindex == 1) {
+            // this.httpService.SetDataCache(this.model.name, JSON.stringify(this.model.datalist).toString());
+        }
+        event ? event.target.complete() : '';
+        //判断是否有新数据
+        if (res.scores.length < this.model.search.pageindex) {
+            event ? event.target.disabled = true : "";
+            this.model.isending = true;
+        }
         }
         else {
           this._page.alert("消息提示", "用户积分信息加载异常");
