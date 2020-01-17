@@ -21,7 +21,7 @@ namespace DCEM.UserCenterService.Main.ViewModel.Response
         public Product()
         {
             ProductInfo = new JObject();
-            ProductImageArray = new JArray();
+            ProductImageArray = new JArray(); 
             ProductSpecificationArray = new JArray();
             ProductOrderingattributeArray = new JArray();
             ProductRelatedArray = new JArray();
@@ -57,4 +57,5 @@ namespace DCEM.UserCenterService.Main.ViewModel.Response
         /// </summary>
         public JArray ProductPriceArray { get; set; }
     }
+
 }

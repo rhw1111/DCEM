@@ -1,9 +1,36 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>berecorded</ion-title>
-  </ion-toolbar>
+﻿<ion-header class="dm-top-head">
+    <app-tophead topHeadTitle="录音" topHeadBackUrl="/home/demo/index"></app-tophead>
 </ion-header>
 
 <ion-content>
-
+    <ion-label>{{mediaStatusInfo}}</ion-label>
+    <br />
+    <ion-button (click)="startReocrd()">
+        开始录音
+    </ion-button>
+    <ion-button (click)="pauseRecord()">
+        暂停录音
+    </ion-button>
+    <ion-button (click)="resumeRecord()">
+        恢复录音
+    </ion-button>
+    <ion-button (click)="stopRecord()">
+        停止录音
+    </ion-button>
+    <ion-button (click)="release()">
+        释放资源
+    </ion-button>
+    <br />
+    <ion-button (click)="play()">
+        播放录音
+    </ion-button>
+    <ion-button (click)="pause()">
+        暂停播放
+    </ion-button>
+    <ion-button (click)="stop()">
+        停止播放
+    </ion-button>
+    <ion-button (click)="refreshStatusInfo()">
+        刷新状态
+    </ion-button>
 </ion-content>
