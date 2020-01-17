@@ -15,6 +15,10 @@ namespace DCEM.SalesAssistant.Main.Application.Repository.Contrac
         /// <param name="request"></param>
         /// <returns></returns>
         string QueryList(DriveRecordRequest request);
+
+        XDocument GetConfigFetchXml(string name);
+
+        XDocument GetUser(string userid);
         /// <summary>
         /// 试乘试驾明细
         /// </summary>

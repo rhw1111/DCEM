@@ -127,6 +127,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
     <attribute name='mcs_mobilephone' />
     <attribute name='mcs_email' />
     <attribute name='mcs_drivingage' />
+    <attribute name='mcs_userid' />
     <attribute name='mcs_carmodel' />
     <attribute name='mcs_ordertime' />
     <attribute name='mcs_testdrivetime' />
@@ -138,6 +139,7 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
     <attribute name='mcs_endon' />
     <attribute name='mcs_cancelreason' /> 
     <attribute name='mcs_consultantid' /> 
+    <attribute name='mcs_name' /> 
     <filter type='and'> 
       <condition attribute='mcs_driverecordid' operator='eq'   uitype='mcs_driverecord' value='{id}' />
     </filter> 
@@ -167,10 +169,58 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
         }
 
 
+        public async Task<XDocument> GetDetail(Guid id)
+        {
+            return await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+  <entity name='mcs_driverecord'>
+     <attribute name='mcs_fullname' />
+    <attribute name='mcs_mobilephone' />
+    <attribute name='mcs_email' />
+    <attribute name='mcs_drivingage' />
+    <attribute name='mcs_carmodel' />
+    <attribute name='mcs_ordertime' />
+    <attribute name='mcs_testdrivetime' />
+    <attribute name='mcs_drivestatus' />
+    <attribute name='mcs_businesstype' />
+    <attribute name='mcs_drivecar' />
+    <attribute name='mcs_appointedrouteid' />
+    <attribute name='mcs_starton' />
+    <attribute name='mcs_endon' />
+    <attribute name='mcs_cancelreason' /> 
+    <attribute name='mcs_consultantid' /> 
+    <filter type='and'> 
+      <condition attribute='mcs_driverecordid' operator='eq'   uitype='mcs_driverecord' value='{id}' />
+    </filter>  
+  </entity>
+</fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
+
+
+
+        public  XDocument  GetUser(string  userid)
+        {
+            var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+  <entity name='mcs_user'>
+    <attribute name='mcs_code' /> 
+   <attribute name='mcs_userid' /> 
+    <filter type='and'> 
+<condition attribute='mcs_userid' operator='eq' value='{userid}' />  
+    </filter> 
+  
+  </entity>
+</fetch>";
+            return XDocument.Parse(fetchXml);
+        }
+
+
         /// <summary>
         /// 附件材料
         /// </summary>
-         /// <returns></returns>
+        /// <returns></returns>
         public async Task<XDocument> GetAttachmentDetaillFetchXml(Guid id)
         {
             return await Task<XDocument>.Run(() =>
@@ -342,6 +392,21 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
               </entity>
             </fetch>";
             return fetchString;
+        }
+
+
+        public  XDocument  GetConfigFetchXml(string name)
+        {
+            var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+                                  <entity name='mcs_cepconfig'>
+                                    <attribute name='mcs_name' />
+                                    <attribute name='mcs_val' />
+                                    <filter type='and'>
+                                      <condition attribute='mcs_name' operator='eq' value='{name}' /> 
+                                    </filter>  
+                                  </entity>
+                                </fetch>";
+            return XDocument.Parse(fetchXml);
         }
     }
 }
