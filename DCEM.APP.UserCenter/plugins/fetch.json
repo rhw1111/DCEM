@@ -78,8 +78,8 @@
     },
     "is_top_level": true,
     "variables": {
-      "ANDROID_API_KEY": "your",
-      "IOS_API_KEY": "your"
+      "ANDROID_API_KEY": "fe4e014408ee8b595489d2c5f885bb84",
+      "IOS_API_KEY": "fe4e014408ee8b595489d2c5f885bb84"
     }
   },
   "cordova-plugin-camera": {
@@ -93,7 +93,7 @@
   "cordova-plugin-qrscanner": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-qrscanner"
+      "id": "cordova-plugin-qrscanner@^3.0.1"
     },
     "is_top_level": true,
     "variables": {}

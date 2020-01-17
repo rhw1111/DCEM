@@ -96,8 +96,8 @@
       "cordova-plugin-screen-orientation": {}
     },
     "platforms": [
-      "android",
-      "browser"
+      "browser",
+      "android"
     ]
   }
 }

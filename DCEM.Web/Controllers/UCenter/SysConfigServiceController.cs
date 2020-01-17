@@ -23,7 +23,7 @@ namespace DCEM.Web.Controllers.UCenter
 
 
         /// <summary>
-        ///  商品查询接口
+        ///  配置信息查询接口
         /// </summary>
         /// <param name="appointmentInfoRequest"></param>
         /// <returns></returns>
