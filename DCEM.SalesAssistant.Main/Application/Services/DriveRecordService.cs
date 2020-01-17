@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Newtonsoft.Json;
 
 namespace DCEM.SalesAssistant.Main.Application.Services
 {
@@ -21,7 +22,8 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         private IDriveRecordRepository _driveRecordRepository;
         private string dicHeadKey;
         private Dictionary<string, IEnumerable<string>> dicHead;
-
+        //试驾结束站内信发送配置json
+        private const string DCEM_APP_DriveOverMsgJson = "DCEM_APP_DriveOverMsgJson";
         public DriveRecordService(CrmService crmService, IDriveRecordRepository driveRecordRepository)
         {
             _crmService = crmService;
@@ -67,6 +69,54 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 if (request.driveRecord.mcs_drivestatus != null)
                 {
                     updateEntity.Attributes.Add("mcs_drivestatus", request.driveRecord.mcs_drivestatus);
+                    #region 判断如果试驾结束，为用户推送试驾反馈站内信
+                    if (request.driveRecord.mcs_drivestatus.Value == 15)
+                    {
+                        //获取试驾结束站内信发送配置json
+                        var fetchString = _driveRecordRepository.GetConfigFetchXml(DCEM_APP_DriveOverMsgJson);
+                        var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                        {
+                            EntityName = "mcs_cepconfig",
+                            FetchXml = fetchString,
+                            ProxyUserId = userInfo?.systemuserid
+                        };
+                        fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                        var fetchResponse = await _crmService.Execute(fetchRequest);
+                        var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                        if (fetchResponseResult.Value.Results.Count > 0)
+                        {
+                            //获取试驾明细
+                            var detail = GetDetail((Guid)request.driveRecord.mcs_driverecordid);
+                            //用户获取
+                            fetchString = _driveRecordRepository.GetUser(detail.Result.Detail.Attributes["mcs_userid"].ToString());
+                            fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                            {
+                                EntityName = "mcs_user",
+                                FetchXml = fetchString,
+                                ProxyUserId = userInfo?.systemuserid
+                            };
+                            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                            fetchResponse = await _crmService.Execute(fetchRequest);
+                            var responseUser = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                            if (responseUser.Value.Results.Count > 0)//判断试驾用户信息是否存在
+                            {
+                                var obj = JsonConvert.DeserializeObject<DriveRecordEndSendMsg>(fetchResponseResult.Value.Results[0].Attributes["mcs_val"].ToString());
+                                var createUsermsgEntity = new CrmExecuteEntity("mcs_user_msg", Guid.NewGuid());
+
+                                createUsermsgEntity.Attributes.Add("mcs_name", obj.mcs_name);
+                                createUsermsgEntity.Attributes.Add("mcs_content", obj.mcs_content);
+                                createUsermsgEntity.Attributes.Add("mcs_type", 2);
+                                createUsermsgEntity.Attributes.Add("mcs_readstatus", 0);
+                                var mcs_url = string.Format(obj.mcs_url, responseUser.Value.Results[0].Attributes["mcs_code"], detail.Result.Detail.Attributes["mcs_name"]);
+                                createUsermsgEntity.Attributes.Add("mcs_url", mcs_url);
+                                var UserEntityEF = new CrmEntityReference("mcs_user", responseUser.Value.Results[0].Id);
+                                createUsermsgEntity.Attributes.Add("mcs_user", UserEntityEF);
+                                await _crmService.Create(createUsermsgEntity, userInfo?.systemuserid);
+
+                            }
+                        }
+                    }
+                    #endregion
                 }
                 BasicAssignment(updateEntity, request);
                 await _crmService.Update(updateEntity, userInfo?.systemuserid);
@@ -273,7 +323,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 queryResult.ALLTotalCount = (int)allTotalCountResults.Value.Results[0].Attributes["count"];
                 queryResult.ScheduledCount = (int)ScheduledCountResults.Value.Results[0].Attributes["count"];
                 queryResult.SubmittedCount = (int)SubmittedCountResults.Value.Results[0].Attributes["count"];
-               
+
                 return queryResult;
             }
             catch (Exception ex)
@@ -405,7 +455,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
         public async Task<QueryResult<CrmEntity>> QueryDriveCarList(TestDriveCarRequest request)
         {
             var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
-            
+
             #region 查询结果集
             var fetchString = _driveRecordRepository.QueryDriveCarList(request);
 
@@ -492,5 +542,15 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             return queryResult;
             #endregion
         }
+    }
+
+
+
+    public class DriveRecordEndSendMsg
+    {
+        public string mcs_name { get; set; }
+        public string mcs_content { get; set; }
+        public string mcs_head_imageurl { get; set; }
+        public string mcs_url { get; set; }
     }
 }

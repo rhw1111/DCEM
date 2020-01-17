@@ -217,13 +217,7 @@ const routes: Routes = [
 
                 ]
             },
-            {
-                path: 'blindorder',  //领预约号
-                children: [
-                     {path: 'success',loadChildren: () => import('./page/personalcenter/blindorder/success/success.module').then( m => m.SuccessPageModule)},
-                     {path: 'edit',loadChildren: () => import('./page/personalcenter/blindorder/edit/edit.module').then( m => m.EditPageModule)}
-                ]
-            }
+         
         ]
     },
     {
@@ -312,7 +306,7 @@ const routes: Routes = [
 
         ]
     },
-{
+    {
         path: 'carreserve',
         children: [
             {
@@ -322,9 +316,17 @@ const routes: Routes = [
                 path: 'fillinfo',
                 loadChildren: () => import('./page/carreserve/fillinfo/fillinfo.module').then(m => m.FillinfoPageModule)
             },
+            {
+                path: 'blindorder',  //领预约号
+                children: [
+                    { path: 'success', loadChildren: () => import('./page/carreserve/blindorder/success/success.module').then(m => m.SuccessPageModule) },
+                    { path: 'edit', loadChildren: () => import('./page/carreserve/blindorder/edit/edit.module').then(m => m.EditPageModule) }
+                ]
+            }
         ]
     },
-]  
+    
+]
 ;
 
 
