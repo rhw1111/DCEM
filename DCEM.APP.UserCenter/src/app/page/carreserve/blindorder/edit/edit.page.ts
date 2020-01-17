@@ -117,7 +117,7 @@ export class EditPage implements OnInit {
                 this._page.loadingHide();
                 if (res.Result == true) {
                     this.DoUserMsg();
-                    this._page.goto("/personalcenter/blindorder/success",{order:this.model.postData.mcs_order,premiumcode:this.model.postData.mcs_premiumcode});
+                    this._page.goto("/carreserve/blindorder/success",{order:this.model.postData.mcs_order,premiumcode:this.model.postData.mcs_premiumcode});
                 }
                 else {
                     this._page.alert("消息提示", res.Description);
