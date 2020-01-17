@@ -318,6 +318,10 @@ const routes: Routes = [
             {
                 path: 'index', loadChildren: () => import('./page/carreserve/index/index.module').then(m => m.IndexPageModule)
             },
+            {
+                path: 'fillinfo',
+                loadChildren: () => import('./page/carreserve/fillinfo/fillinfo.module').then(m => m.FillinfoPageModule)
+            },
         ]
     },
 ]  
