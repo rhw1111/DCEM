@@ -1,4 +1,5 @@
-﻿import { NgModule } from '@angular/core';
+﻿
+import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
@@ -37,18 +38,15 @@ const routes: Routes = [
                         path: 'baidumap',
                         loadChildren: () => import('./page/home/demo/baidumap/baidumap.module').then(m => m.BaidumapPageModule)
                     },
-                    { //拍照
+
+                    {
                         path: 'photograph',
                         loadChildren: () => import('./page/home/demo/photograph/photograph.module').then(m => m.PhotographPageModule)
                     },
-                    { //扫描二维码
+                    {
                         path: 'orcode',
                         loadChildren: () => import('./page/home/demo/orcode/orcode.module').then(m => m.OrcodePageModule)
                     },
-                    {  //录音
-                        path: 'berecorded',
-                        loadChildren: () => import('./page/home/demo/berecorded/berecorded.module').then(m => m.BerecordedPageModule)
-                    }
                 ]
             },
         ]
@@ -91,8 +89,7 @@ const routes: Routes = [
                 ]
             },
         ]
-    },
-    {
+    }, {
         path: 'community',  //社区
         children: [
             {
@@ -223,6 +220,7 @@ const routes: Routes = [
 
                 ]
             },
+
         ]
     },
     {
@@ -311,6 +309,26 @@ const routes: Routes = [
 
         ]
     },
+    {
+        path: 'carreserve',
+        children: [
+            {
+                path: 'index', loadChildren: () => import('./page/carreserve/index/index.module').then(m => m.IndexPageModule)
+            },
+            {
+                path: 'fillinfo',
+                loadChildren: () => import('./page/carreserve/fillinfo/fillinfo.module').then(m => m.FillinfoPageModule)
+            },
+            {
+                path: 'blindorder',  //领预约号
+                children: [
+                    { path: 'success', loadChildren: () => import('./page/carreserve/blindorder/success/success.module').then(m => m.SuccessPageModule) },
+                    { path: 'edit', loadChildren: () => import('./page/carreserve/blindorder/edit/edit.module').then(m => m.EditPageModule) }
+                ]
+            }
+        ]
+    },
+
 ]
     ;
 
