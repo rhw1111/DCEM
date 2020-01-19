@@ -325,6 +325,14 @@ const routes: Routes = [
                 loadChildren: () => import('./page/carreserve/confirm/confirm.module').then(m => m.ConfirmPageModule)
             },
             {
+                path: 'payorder',//支付
+                children: [
+                    { path: "payment", loadChildren: () => import('./page/carreserve/payorder/payment/payment.module').then(m => m.PaymentPageModule) },
+                    { path: 'success', loadChildren: () => import('./page/carreserve/payorder/success/success.module').then(m => m.SuccessPageModule) },
+                ]
+                
+            },
+            {
                 path: 'blindorder',  //领预约号
                 children: [
                     { path: 'success', loadChildren: () => import('./page/carreserve/blindorder/success/success.module').then(m => m.SuccessPageModule) },
@@ -333,7 +341,7 @@ const routes: Routes = [
             }
         ]
     },
-]
+]  
 ;
 
 
