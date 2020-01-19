@@ -103,6 +103,7 @@
     <Folder Include="src\app\page\personalcenter\mycar\carcondition\" />
     <Folder Include="src\app\page\personalcenter\myorder\" />
     <Folder Include="src\app\page\personalcenter\myorder\carorder\" />
+    <Folder Include="src\app\page\personalcenter\myorder\carorder\detail\" />
     <Folder Include="src\app\page\personalcenter\myorder\carorder\list\" />
     <Folder Include="src\app\page\personalcenter\myorder\fineorder\" />
     <Folder Include="src\app\page\personalcenter\myorder\fineorder\detail\" />
@@ -348,6 +349,10 @@
     <TypeScriptCompile Include="src\app\page\personalcenter\mycar\index\index.module.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\mycar\index\index.page.spec.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\mycar\index\index.page.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\myorder\carorder\detail\detail-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\myorder\carorder\detail\detail.module.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\myorder\carorder\detail\detail.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\myorder\carorder\detail\detail.page.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\myorder\carorder\list\list-routing.module.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\myorder\carorder\list\list.module.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\myorder\carorder\list\list.page.spec.ts" />
@@ -588,6 +593,8 @@
     <Content Include="src\app\page\personalcenter\mycar\component\scss\main.scss" />
     <Content Include="src\app\page\personalcenter\mycar\index\index.page.html" />
     <Content Include="src\app\page\personalcenter\mycar\index\index.page.scss" />
+    <Content Include="src\app\page\personalcenter\myorder\carorder\detail\detail.page.html" />
+    <Content Include="src\app\page\personalcenter\myorder\carorder\detail\detail.page.scss" />
     <Content Include="src\app\page\personalcenter\myorder\carorder\list\list.page.html" />
     <Content Include="src\app\page\personalcenter\myorder\carorder\list\list.page.scss" />
     <Content Include="src\app\page\personalcenter\myorder\fineorder\detail\detail.page.html" />
