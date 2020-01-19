@@ -313,11 +313,16 @@ const routes: Routes = [
         path: 'carreserve',
         children: [
             {
-                path: 'index', loadChildren: () => import('./page/carreserve/index/index.module').then(m => m.IndexPageModule)
+                path: 'index',//整车预定
+                loadChildren: () => import('./page/carreserve/index/index.module').then(m => m.IndexPageModule)
             },
             {
-                path: 'fillinfo',
+                path: 'fillinfo',//完善预定信息
                 loadChildren: () => import('./page/carreserve/fillinfo/fillinfo.module').then(m => m.FillinfoPageModule)
+            },
+            {
+                path: 'confirm',//确认订单信息
+                loadChildren: () => import('./page/carreserve/confirm/confirm.module').then(m => m.ConfirmPageModule)
             },
             {
                 path: 'blindorder',  //领预约号
@@ -328,9 +333,8 @@ const routes: Routes = [
             }
         ]
     },
-
 ]
-    ;
+;
 
 
 @NgModule({
