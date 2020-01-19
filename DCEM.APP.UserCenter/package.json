@@ -22,6 +22,8 @@
     "@ionic-native/app-version": "^5.18.0",
     "@ionic-native/camera": "^5.18.0",
     "@ionic-native/core": "^5.18.0",
+    "@ionic-native/file": "^5.19.1",
+    "@ionic-native/file-transfer": "^5.19.1",
     "@ionic-native/gao-de-location": "^5.18.0",
     "@ionic-native/media": "^5.19.1",
     "@ionic-native/qr-scanner": "^5.18.0",
@@ -93,7 +95,8 @@
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-ionic-keyboard": {},
-      "cordova-plugin-screen-orientation": {}
+      "cordova-plugin-screen-orientation": {},
+      "cordova-plugin-file": {}
     },
     "platforms": [
       "browser",
