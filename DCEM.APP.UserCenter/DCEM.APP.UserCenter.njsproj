@@ -62,6 +62,7 @@
     <Folder Include="src\app\page\carcenter\carstore\selectattr\" />
     <Folder Include="src\app\page\carcenter\carstore\component\model\speclist\" />
     <Folder Include="src\app\page\carcenter\index\" />
+    <Folder Include="src\app\page\carreserve\confirm\" />
     <Folder Include="src\app\page\carreserve\fillinfo\" />
     <Folder Include="src\app\page\carreserve\index\" />
     <Folder Include="src\app\page\community\activitydetail\" />
@@ -233,6 +234,10 @@
     <TypeScriptCompile Include="src\app\page\carcenter\index\index.module.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\index\index.page.spec.ts" />
     <TypeScriptCompile Include="src\app\page\carcenter\index\index.page.ts" />
+    <TypeScriptCompile Include="src\app\page\carreserve\confirm\confirm-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\carreserve\confirm\confirm.module.ts" />
+    <TypeScriptCompile Include="src\app\page\carreserve\confirm\confirm.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\carreserve\confirm\confirm.page.ts" />
     <TypeScriptCompile Include="src\app\page\carreserve\fillinfo\fillinfo-routing.module.ts" />
     <TypeScriptCompile Include="src\app\page\carreserve\fillinfo\fillinfo.module.ts" />
     <TypeScriptCompile Include="src\app\page\carreserve\fillinfo\fillinfo.page.spec.ts" />
@@ -513,6 +518,8 @@
     <Content Include="src\app\page\carcenter\carstore\selectitem\selectitem.page.scss" />
     <Content Include="src\app\page\carcenter\index\index.page.html" />
     <Content Include="src\app\page\carcenter\index\index.page.scss" />
+    <Content Include="src\app\page\carreserve\confirm\confirm.page.html" />
+    <Content Include="src\app\page\carreserve\confirm\confirm.page.scss" />
     <Content Include="src\app\page\carreserve\fillinfo\fillinfo.page.html" />
     <Content Include="src\app\page\carreserve\fillinfo\fillinfo.page.scss" />
     <Content Include="src\app\page\carreserve\index\index.page.html" />
