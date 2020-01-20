@@ -142,6 +142,16 @@ export class DCore_Http {
                 errcallback && errcallback(err);
             });
     }
+    //post请求自定义
+    postCustom(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
+        this._httpClient.post(url, params).subscribe(
+            (res: any) => {
+                rescallback && rescallback(res);
+            },
+            (err: any) => {
+                errcallback && errcallback(err);
+            });
+    }
 }
 
 @Injectable({
