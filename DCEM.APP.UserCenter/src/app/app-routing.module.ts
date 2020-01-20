@@ -52,8 +52,8 @@ const routes: Routes = [
                         loadChildren: () => import('./page/home/demo/idcard/idcard.module').then(m => m.IdcardPageModule)
                     },
                     {
-                        path: 'invoice',
-                        loadChildren: () => import('./page/home/demo/invoice/invoice.module').then(m => m.InvoicePageModule)
+                        path: 'voice',
+                        loadChildren: () => import('./page/home/demo/voice/voice.module').then(m => m.VoicePageModule)
                     },
                     {
                         path: 'voice',
@@ -101,7 +101,8 @@ const routes: Routes = [
                 ]
             },
         ]
-    }, {
+    },
+    {
         path: 'community',  //社区
         children: [
             {
@@ -353,7 +354,8 @@ const routes: Routes = [
             }
         ]
     },
-    ] 
+      
+]  
 ;
 
 
