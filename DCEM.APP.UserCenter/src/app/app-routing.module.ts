@@ -341,7 +341,19 @@ const routes: Routes = [
             }
         ]
     },
-]  
+  {
+    path: 'idcard',
+    loadChildren: () => import('./page/home/demo/idcard/idcard.module').then( m => m.IdcardPageModule)
+  },
+]  {
+    path: 'voice',
+    loadChildren: () => import('./page/home/demo/voice/voice.module').then( m => m.VoicePageModule)
+  },
+  {
+    path: 'invoice',
+    loadChildren: () => import('./page/home/demo/invoice/invoice.module').then( m => m.InvoicePageModule)
+  },
+  
 ;
 
 
