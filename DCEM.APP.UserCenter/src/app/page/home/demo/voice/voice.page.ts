@@ -51,7 +51,7 @@ export class VoicePage implements OnInit {
             },
             (err: any) => {
                 console.log(err);
-                this._page.alert("消息提示", "身份证信息识别错误");
+                this._page.alert("消息提示", "语音信息识别错误");
                 //this._page.loadingHide();
             }
         );
