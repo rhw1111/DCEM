@@ -47,6 +47,18 @@ const routes: Routes = [
                         path: 'orcode',
                         loadChildren: () => import('./page/home/demo/orcode/orcode.module').then(m => m.OrcodePageModule)
                     },
+                    {
+                        path: 'idcard',
+                        loadChildren: () => import('./page/home/demo/idcard/idcard.module').then(m => m.IdcardPageModule)
+                    },
+                    {
+                        path: 'voice',
+                        loadChildren: () => import('./page/home/demo/voice/voice.module').then(m => m.VoicePageModule)
+                    },
+                    {
+                        path: 'invoice',
+                        loadChildren: () => import('./page/home/demo/invoice/invoice.module').then(m => m.InvoicePageModule)
+                    },
                 ]
             },
         ]
@@ -89,7 +101,8 @@ const routes: Routes = [
                 ]
             },
         ]
-    }, {
+    },
+    {
         path: 'community',  //社区
         children: [
             {
@@ -341,19 +354,8 @@ const routes: Routes = [
             }
         ]
     },
-  {
-    path: 'idcard',
-    loadChildren: () => import('./page/home/demo/idcard/idcard.module').then( m => m.IdcardPageModule)
-  },
-]  {
-    path: 'voice',
-    loadChildren: () => import('./page/home/demo/voice/voice.module').then( m => m.VoicePageModule)
-  },
-  {
-    path: 'invoice',
-    loadChildren: () => import('./page/home/demo/invoice/invoice.module').then( m => m.InvoicePageModule)
-  },
   
+]  
 ;
 
 
