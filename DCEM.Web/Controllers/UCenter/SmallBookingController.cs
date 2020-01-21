@@ -17,7 +17,7 @@ using DCEM.UserCenterService.Main.ViewModel.Response;
 namespace DCEM.Web.Controllers.UCenter
 {
     /// <summary>
-    /// 预约号
+    /// 小订查询相关接口
     /// </summary>
     [Route("api/smallbooking")]
     [EnableCors("any")]
