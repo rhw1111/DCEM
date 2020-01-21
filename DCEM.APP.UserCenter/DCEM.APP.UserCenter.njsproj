@@ -65,6 +65,9 @@
     <Folder Include="src\app\page\carreserve\confirm\" />
     <Folder Include="src\app\page\carreserve\fillinfo\" />
     <Folder Include="src\app\page\carreserve\index\" />
+    <Folder Include="src\app\page\carreserve\myreserveorder\" />
+    <Folder Include="src\app\page\carreserve\myreserveorder\detail\" />
+    <Folder Include="src\app\page\carreserve\myreserveorder\list\" />
     <Folder Include="src\app\page\carreserve\payorder\" />
     <Folder Include="src\app\page\carreserve\payorder\payment\" />
     <Folder Include="src\app\page\carreserve\payorder\success\" />
@@ -253,6 +256,14 @@
     <TypeScriptCompile Include="src\app\page\carreserve\index\index.module.ts" />
     <TypeScriptCompile Include="src\app\page\carreserve\index\index.page.spec.ts" />
     <TypeScriptCompile Include="src\app\page\carreserve\index\index.page.ts" />
+    <TypeScriptCompile Include="src\app\page\carreserve\myreserveorder\detail\detail-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\carreserve\myreserveorder\detail\detail.module.ts" />
+    <TypeScriptCompile Include="src\app\page\carreserve\myreserveorder\detail\detail.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\carreserve\myreserveorder\detail\detail.page.ts" />
+    <TypeScriptCompile Include="src\app\page\carreserve\myreserveorder\list\list-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\carreserve\myreserveorder\list\list.module.ts" />
+    <TypeScriptCompile Include="src\app\page\carreserve\myreserveorder\list\list.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\carreserve\myreserveorder\list\list.page.ts" />
     <TypeScriptCompile Include="src\app\page\carreserve\payorder\payment\payment-routing.module.ts" />
     <TypeScriptCompile Include="src\app\page\carreserve\payorder\payment\payment.module.ts" />
     <TypeScriptCompile Include="src\app\page\carreserve\payorder\payment\payment.page.spec.ts" />
@@ -555,6 +566,10 @@
     <Content Include="src\app\page\carreserve\fillinfo\fillinfo.page.scss" />
     <Content Include="src\app\page\carreserve\index\index.page.html" />
     <Content Include="src\app\page\carreserve\index\index.page.scss" />
+    <Content Include="src\app\page\carreserve\myreserveorder\detail\detail.page.html" />
+    <Content Include="src\app\page\carreserve\myreserveorder\detail\detail.page.scss" />
+    <Content Include="src\app\page\carreserve\myreserveorder\list\list.page.html" />
+    <Content Include="src\app\page\carreserve\myreserveorder\list\list.page.scss" />
     <Content Include="src\app\page\carreserve\payorder\payment\payment.page.html" />
     <Content Include="src\app\page\carreserve\payorder\payment\payment.page.scss" />
     <Content Include="src\app\page\carreserve\payorder\success\success.page.html" />

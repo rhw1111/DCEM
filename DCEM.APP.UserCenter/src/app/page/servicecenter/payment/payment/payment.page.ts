@@ -83,32 +83,17 @@ export class PaymentPage implements OnInit {
         }, 1000);
     }
     //支付
-    payAmount() {
+    payAmount(i) {
         this._page.loadingShow();
-        this.model.score.search.Integral = this.model.datas.TotalIntegral;
+        if (i == 0) {
+            this.model.score.search.Integral = this.model.datas.TotalIntegral;
             this._http.postForToaken(
                 this.model.score.apiUrl,
                 this.model.score.search,
                 (res: any) => {
                     if (res !== null) {
                         if (res.Result) {
-                            this._http.postForShopping(this.model.search.apiUrl, { OrderCode: this.model.datas.OrderCode },
-                                (res: any) => {
-                                    if (res != null) {
-                                        if (res.IsSuccess) {
-                                            this.presentAlertConfirm();
-                                        }
-                                    }
-                                    else {
-                                        this._page.alert("消息提示", "订单支付失败");
-                                    }
-                                    this._page.loadingHide();
-                                },
-                                (err: any) => {
-                                    this._page.alert("消息提示", "订单支付失败");
-                                    this._page.loadingHide();
-                                }
-                            );
+                            this.postPay();
                         }
                     }
                     else {
@@ -120,23 +105,28 @@ export class PaymentPage implements OnInit {
                     this._page.alert("消息提示", "订单支付失败");
                 }
             );
-        //this._http.postForShopping(this.model.search.apiUrl, { OrderCode: this.model.datas.OrderCode },
-        //    (res: any) => {
-        //        if (res != null) {
-        //            if (res.IsSuccess) {
-        //                this.presentAlertConfirm();
-        //            }
-        //        }
-        //        else {
-        //            this._page.alert("消息提示", "订单支付失败");
-        //        }
-        //        this._page.loadingHide();
-        //    },
-        //    (err: any) => {
-        //        this._page.alert("消息提示", "订单支付失败");
-        //        this._page.loadingHide();
-        //    }
-        //);
+        } else {
+            this.postPay()
+        }
+    }
+    postPay() {
+        this._http.postForShopping(this.model.search.apiUrl, { OrderCode: this.model.datas.OrderCode },
+            (res: any) => {
+                if (res != null) {
+                    if (res.IsSuccess) {
+                        this.presentAlertConfirm();
+                    }
+                }
+                else {
+                    this._page.alert("消息提示", "订单支付失败");
+                }
+                this._page.loadingHide();
+            },
+            (err: any) => {
+                this._page.alert("消息提示", "订单支付失败");
+                this._page.loadingHide();
+            }
+        );
     }
     //支付成功跳转
     async presentAlertConfirm() {

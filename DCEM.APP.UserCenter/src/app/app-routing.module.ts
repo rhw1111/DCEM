@@ -343,7 +343,13 @@ const routes: Routes = [
                     { path: "payment", loadChildren: () => import('./page/carreserve/payorder/payment/payment.module').then(m => m.PaymentPageModule) },
                     { path: 'success', loadChildren: () => import('./page/carreserve/payorder/success/success.module').then(m => m.SuccessPageModule) },
                 ]
-                
+            },
+            {
+                path: 'myreserveorder',//我的预订订单
+                children: [
+                    { path: "list", loadChildren: () => import('./page/carreserve/myreserveorder/list/list.module').then(m => m.ListPageModule) },
+                    { path: 'detail', loadChildren: () => import('./page/carreserve/myreserveorder/detail/detail.module').then(m => m.DetailPageModule) },
+                ]
             },
             {
                 path: 'blindorder',  //领预约号
@@ -354,7 +360,6 @@ const routes: Routes = [
             }
         ]
     },
-      
 ]  
 ;
 
