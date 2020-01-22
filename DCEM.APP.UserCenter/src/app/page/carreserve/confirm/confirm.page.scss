@@ -78,6 +78,9 @@ h5{
         color: #fff;
     }
 }
+.is-inline-block {
+    display: inline-block !important;
+}
 .confirm-package-radio-rights {
     background-color: #fff;
     padding: 10px 15px;
@@ -104,10 +107,6 @@ h5{
         position: absolute;
         left: 0;
         top: 13px;
-    }
-
-    .is-inline-block {
-        display: inline-block !important;
     }
 
     li.is-highlight {

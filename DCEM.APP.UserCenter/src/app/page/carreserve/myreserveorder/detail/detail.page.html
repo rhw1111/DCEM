@@ -1,9 +1,180 @@
 ﻿<ion-header>
-  <ion-toolbar>
-    <ion-title>detail</ion-title>
-  </ion-toolbar>
+    <ion-toolbar style="height:45px;">
+        <ion-buttons slot="start" style="margin-top: 3px;">
+            <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{model.title}}</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+    <ion-grid>
+        <ion-row style="margin-top:-40px;">
+            <div class="order-head">
+                <h3>订单详情</h3>
+            </div>
+        </ion-row>
+        <ion-row>
+            <div class="order-info-section">
+                <div class="car-name-mobile"><span>SERES SF5 EVR 增程</span></div>
+                <div><img src="http://sf-test.mediaman.com.cn/img/my_orders_list_car.28282611.png" /></div>
+                <div class="order-content">
+                    <div class="order-info"><span class="order-label">订单状态:</span><span class="order-value red">待支付</span></div>
+                    <div class="order-info"><span class="order-label">订单金额:</span><span class="order-value"><strong>0.03 元</strong></span></div>
+                    <div class="order-info"><span class="order-label">订单号码:</span><span class="order-value">URO20011910285786931</span></div>
+                    <div class="order-info"><span class="order-label">下单时间:</span><span class="order-value">2020-01-19 10:28:11</span></div>
+                    <div class="order-info"><span class="order-label">您的预约号:</span><span class="order-value">NO.3753</span></div>
+                </div>
+            </div>
+        </ion-row>
+        <ion-row class="confirm-section">
+            <div class="confirm-content">
+                <div class="confirm-block-title is-flex">
+                    <h5>权益一：预订专属豪礼</h5>
+                </div>
+                <div class="confirm-package-radio">
+                    <input type="checkbox" name="preorderPackageOne-readonly" id="preorderPackageOne-readonly-p1-1" disabled="disabled" class="readonly" value="p1-1">
+                    <label for="preorderPackageOne-readonly-p1-1" class="confirm-package-radio-label is-text-bold">
+                        3,000元订金即享<strong>“无忧优享”</strong><strong>权益礼包</strong>
+                    </label>
+                    <ul class="confirm-package-radio-rights">
+                        <li class="">
+                            <div class="is-inline-block">抵扣3,000元车款</div><!----><!----><!----><!---->
+                        </li>
+                        <li class="">
+                            <div class="is-inline-block">赠送充电桩并安装</div><!----><!----><!----><!---->
+                        </li>
+                        <li class="is-highlight">
+                            <div class="is-inline-block">个性签名版+VIP徽章<span>（原价 2,000 元）</span></div><!----><!----><!----><!---->
+                        </li>
+                        <li class="is-highlight">
+                            <div class="is-inline-block">赠送品牌高端车模（前200位）<span>（原价 1,000 元）</span></div><!----><!----><!----><!---->
+                        </li>
+                        <li class="is-highlight">
+                            <div class="is-inline-block">流量终身免费</div><!----><!----><!----><!---->
+                        </li>
+                        <li class="is-highlight">
+                            <div class="is-inline-block">7年或15万公里整车质保</div><!----><!----><!----><!---->
+                        </li>
+                        <li class="is-highlight">
+                            <div class="is-inline-block">动力电芯终身质保</div><!----><!----><!----><!---->
+                        </li>
+                        <li class="is-highlight has-description">
+                            <div class="is-inline-block">终身紧急道路救援 <span>（原价 3,000 元）</span></div><!---->
+                            <input type="checkbox" id="description-toggle-preorderPackageOne-readonly-p1-1-7">
+                            <label for="description-toggle-preorderPackageOne-readonly-p1-1-7"></label>
+                            <ul class="description">
+                                <li>拖车服务（50公里内）</li>
+                                <li>现场快修服务</li>
+                                <li>轮胎更换服务（如有备胎）</li>
+                                <li>困境救援服务</li>
+                            </ul>
+                        </li>
+                        <li class="is-highlight has-description">
+                            <div class="is-inline-block">特惠金融（厂方金融免息5,000元）</div><!---->
+                            <input type="checkbox" id="description-toggle-preorderPackageOne-readonly-p1-1-8">
+                            <label for="description-toggle-preorderPackageOne-readonly-p1-1-8"></label>
+                            <ul class="description">
+                                <li>0利息</li>
+                                <li>0首付</li>
+                                <li>弹性贷，最低首付20%</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </ion-row>
+        <ion-row class="confirm-section">
+            <div class="confirm-content">
+                <div class="confirm-block-title is-flex">
+                    <h5>权益二：限时优享套件</h5>
+                </div>
+                <div data-v-0f23208c="" class="section-box space-bottom-15 has-shadow">
+                    <div data-v-0f23208c="" class="box-left">
+                        <figure data-v-0f23208c="" class="image car-image">
+                            <img data-v-0f23208c="" src="http://sf-test.mediaman.com.cn/img/exterior.73becbac.png" alt="">
+                        </figure>
+                        <div data-v-0f23208c="" class="equity-config">
+                            <h3 data-v-0f23208c="" style="margin:0;">个性魅影套装</h3>
+                            <p data-v-0f23208c="" style="margin:0;">“熔岩橙”品牌车漆</p>
+                            <div data-v-0f23208c="" class="status">待支付</div>
+                        </div>
+                    </div>
+                    <div data-v-0f23208c="" class="equity-price">
+                        <div data-v-0f23208c="" class="inner">
+                            <div data-v-0f23208c="" class="real">
+                                <span data-v-0f23208c="" class="price-label">限时价：</span>
+                                <span data-v-0f23208c="" class="price-value">¥ 2,000</span>
+                            </div>
+                            <div data-v-0f23208c="" class="ori">
+                                <span data-v-0f23208c="" class="price-label">原价：</span>
+                                <span data-v-0f23208c="" class="price-value">¥ 10,000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ion-row>
+        <ion-row class="confirm-section">
+            <div class="confirm-content">
+                <div class="confirm-block-title is-flex">
+                    <h5>预订人信息</h5>
+                </div>
+                <div data-v-0f23208c="" class="section-box has-shadow">
+                    <div data-v-0f23208c="" class="columns is-centered">
+                        <div data-v-0f23208c="" class="column is-4">
+                            <span data-v-0f23208c="">姓名：</span>大幅度发
+                        </div>
+                        <div data-v-0f23208c="" class="column is-4">
+                            <span data-v-0f23208c="">上牌城市：</span>重庆市-市辖区
+                        </div>
+                        <div data-v-0f23208c="" class="column is-4">
+                            <span data-v-0f23208c="">联系方式：</span>13648436081
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ion-row>
+        <div data-v-0f23208c="">
+            <section class="preorder-toolbar is-flex has-shadow is-fullwidth">
+                <div class="preorder-info">
+                    <div class="preorder-info-price">订金合计：<strong>5,000 元</strong></div>
+                    <div class="preorder-info-brief is-inline-block">
+                        <span>权益详情</span>
+                        <span class="iconfont iconarrow-line-down-s is-inline-block"></span>
+                    </div>
+                </div>
+                <button class="preorder-toolbar-button">立即支付  <!----></button>
+            </section>
+            <div class="preorder-conf-items">
+                <div class="preorder-modal">
+                    <div class="is-flex preorder-modal-header">
+                        <div>权益详情<!----></div>
+                        <div class="iconfont iconclose preorder-modal-close"></div><!---->
+                    </div>
+                    <div class="preorder-modal-body">
+                        <div class="is-flex pkgconfig-item">
+                            <div>
+                                权益一：
+                                <div class="is-inline-block">3,000元订金即享<strong>“无忧优享”</strong><strong>权益礼包</strong></div>
+                            </div>
+                            <div class="preorder-conf-items-price"><strong>3,000 元</strong></div>
+                        </div>
+                        <div class="pkgconfig-item">
+                            <div class="pkg-title">权益二：限时优享套件</div>
+                            <div class="is-flex">
+                                <div>
+                                    <div class="is-inline-block">个性魅影套装</div>
+                                </div>
+                                <div class="preorder-conf-items-price">
+                                    <strong>2,000 元</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="preorder-modal-background" style="display: none;"></div>
+            </div>
+        </div>
+    </ion-grid>
 </ion-content>
