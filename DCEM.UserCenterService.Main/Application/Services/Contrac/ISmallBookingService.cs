@@ -16,10 +16,11 @@ namespace DCEM.UserCenterService.Main.Application.Services.Contrac
     using DCEM.UserCenterService.Main.ViewModel.Response;
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
-
+    using MSLibrary;
 
     public interface ISmallBookingService
     {
         Task<SmallBookingListResponse> QuerySmallBooking(SmallBookingListRequest request);
+        Task<ValidateResult<CrmEntity>> AddOrEdit(SmallBookingRequest request);
     }
 }
