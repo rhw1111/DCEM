@@ -48,6 +48,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                         <order attribute='createdon' descending='true' />
                         <filter type='and'>
                             <condition attribute='mcs_type' operator='in'>
+                                <value>7</value>
                                 <value>2</value>
                                 <value>1</value>
                             </condition>
@@ -387,6 +388,25 @@ namespace DCEM.UserCenterService.Main.Application.Services
             //    }
             //    skuattrMap[key].Add(entity.Attributes.Value<string>("_mcs_attr_value"), new JObject());
             //}
+            #endregion
+
+            #region 组装商品的SKU
+            foreach (var entity in productPriceResponse.Value.Results)
+            {
+                var productGuid = Guid.Parse(entity.Attributes.Value<string>("_mcs_product_value"));
+                //var key = entity.Id.ToString();
+
+                //if (skuattrMap.ContainsKey(key))
+                //{
+                //    entity.Attributes.Add("skuattr", skuattrMap[key]);
+                //}
+                //else
+                //{
+                //    entity.Attributes.Add("skuattr", new JObject());
+                //}
+                if (dicProduct.ContainsKey(productGuid))
+                    dicProduct[productGuid].ProductPriceArray.Add(entity.Attributes);
+            }
             #endregion
 
             #region 组装权益包

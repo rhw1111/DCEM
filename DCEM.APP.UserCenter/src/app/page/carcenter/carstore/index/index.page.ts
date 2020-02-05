@@ -102,7 +102,6 @@ export class IndexPage implements OnInit {
 
     //共享数据初始化
     public initShareData() {
-        debugger;
         this._page.loadingShow();
         this._http.get(
             this.mod.apiUrl,
@@ -111,6 +110,7 @@ export class IndexPage implements OnInit {
                 console.log(res);
                 let that: IndexPage = this;
                 if (!this._valid.isNull(res) && !this._valid.isNull(res["ProductList"])) {
+        
                     for (var product of res["ProductList"]) {
                         //解析接收对象
                         var productInfo = product["ProductInfo"];
@@ -129,7 +129,9 @@ export class IndexPage implements OnInit {
                         }();
                         //组装产品类别和规格地图
                         let asseProductClassViewMap = function () {
+            
                             if (productInfo["mcs_type"] === 1 && productPriceArray.length > 0) {
+             
                                 var productClassKey = productInfo["_mcs_salescategory_value"];
                                 if (that._valid.isNull(that.shareData.productClassViewMap[productClassKey])) {
                                     var productClassName = productInfo["_mcs_salescategory_value@OData.Community.Display.V1.FormattedValue"];

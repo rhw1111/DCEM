@@ -8,22 +8,22 @@
 </ion-header>
 <ion-content fullscreen>
     <ion-grid>
-        <div>
+        <div *ngFor="let key of objectKeys(this.mod.selectRightspackageViewClassMap)">
             <ion-row class="dm-speclist-title">
                 <ion-col>
-                    三重好礼免费送
+                    {{this.mod.selectRightspackageViewClassMap[key]["RightspackageInfo"]["mcs_name"]}}
                 </ion-col>
             </ion-row>
 
             <ion-row>
                 <ion-col class="dm-speclist">
                     <table border="1">
-                        <tr>
-                            <td>
-                                3次免3保
+                        <tr *ngFor="let item of this.mod.selectRightspackageViewClassMap[key]['RightsArray']">
+                            <td style="width:30%">
+                                {{item["mcs_name"]}}
                             </td>
                             <td>
-                                用户从即日起购买车辆即可享受三次免费包养111
+                                {{item["mcs_rightsdesc"]}}
                             </td>
                         </tr>
                     </table>

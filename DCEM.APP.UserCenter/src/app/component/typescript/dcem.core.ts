@@ -37,7 +37,7 @@ export class DCore_Config {
 
     constructor(
     ) {
-        this.dcem_serverName = "local";
+        this.dcem_serverName = "9_0";
         this.tc_serverName = "9_0";
 
         this.tc_host_map = function () {
@@ -125,11 +125,9 @@ export class DCore_Http {
     get(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
         this._httpClient.get(this._config.dcem_host + url, params).subscribe(
             (res: any) => {
-                debugger;
                 rescallback && rescallback(res);
             },
             (err: any) => {
-                debugger;
                 errcallback && errcallback(err);
             });
     }
