@@ -102,6 +102,7 @@ export class IndexPage implements OnInit {
 
     //共享数据初始化
     public initShareData() {
+        debugger;
         this._page.loadingShow();
         this._http.get(
             this.mod.apiUrl,

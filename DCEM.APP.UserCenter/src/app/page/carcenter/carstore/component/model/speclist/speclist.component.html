@@ -1,13 +1,38 @@
 ﻿<ion-header>
     <ion-toolbar>
-        <ion-title>{{mod.selectProductMap["ProductInfo"]["mcs_name"]}}基本配置</ion-title>
+        <ion-title>{{mod.selectProductMap["ProductInfo"]["mcs_name"]}}</ion-title>
         <ion-buttons slot="end">
             <ion-button expand="block" (click)="closeModal()" class="dm-button-close">关闭</ion-button>
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
 <ion-content fullscreen>
+    <ion-grid>
+        <div>
+            <ion-row class="dm-speclist-title">
+                <ion-col>
+                    三重好礼免费送
+                </ion-col>
+            </ion-row>
 
+            <ion-row>
+                <ion-col class="dm-speclist">
+                    <table border="1">
+                        <tr>
+                            <td>
+                                3次免3保
+                            </td>
+                            <td>
+                                用户从即日起购买车辆即可享受三次免费包养111
+                            </td>
+                        </tr>
+                    </table>
+
+                </ion-col>
+            </ion-row>
+        </div>
+
+    </ion-grid>
 
     <ion-grid>
         <div *ngFor="let key of objectKeys(this.mod.selectProductSpecificationViewClassMap)">
