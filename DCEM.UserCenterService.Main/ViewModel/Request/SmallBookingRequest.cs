@@ -24,7 +24,7 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
         /// <summary>
         /// 订单状态0-待支付、1-已支付、2-申请退订、3-已退订
         /// </summary>
-        public int OrderStatus { get; set; }
+        public int? OrderStatus { get; set; }
 
         /// <summary>
         /// 称谓（0-男，1-女）
@@ -104,7 +104,7 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
         /// <summary>
         /// 交易时间
         /// </summary>
-        public DateTime? TransactionTime { get; set; }
+        public string TransactionTime { get; set; }
 
         /// <summary>
         /// 交易金额（精确两位小数）
