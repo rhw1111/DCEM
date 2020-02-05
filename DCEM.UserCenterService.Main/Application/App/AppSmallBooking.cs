@@ -16,8 +16,8 @@ namespace DCEM.UserCenterService.Main.Application.App
     using DCEM.UserCenterService.Main.ViewModel.Response;
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
-    
-    
+    using MSLibrary;
+
     public class AppSmallBooking : IAppSmallBooking
     {
         
@@ -26,6 +26,11 @@ namespace DCEM.UserCenterService.Main.Application.App
         public AppSmallBooking(ISmallBookingService smallbookingService)
         {
             _smallbookingService=smallbookingService;
+        }
+
+        public async Task<ValidateResult<CrmEntity>> AddOrEdit(SmallBookingRequest request)
+        {
+            return await _smallbookingService.AddOrEdit(request);
         }
 
         public async Task<SmallBookingListResponse> QuerySmallBooking(SmallBookingListRequest request)
