@@ -30,9 +30,8 @@ namespace DCEM.UserCenterService.Main.ViewModel.Response
         {
             SmallBookingInfo = new JObject();
             BookingImageArray = new JArray();
-            EquityPackageArray = new JArray();//new JArray();
-            OptionalArray = new JArray();
-            EquityArray = new JArray();
+            EquityPackageArray = new List<EquityPackage>();//new JArray();
+            OptionalArray = new List<Optional>();
         }
         /// <summary>
         /// 小订活动实体
@@ -45,34 +44,46 @@ namespace DCEM.UserCenterService.Main.ViewModel.Response
         /// <summary>
         /// 小订权益包
         /// </summary>
-        public JArray EquityPackageArray { get; set; }
+        public List<EquityPackage> EquityPackageArray { get; set; }
         /// <summary>
         /// 小订选配
         /// </summary>
-        public JArray OptionalArray { get; set; }
-        public JArray EquityArray { get; set; }
-
+        public List<Optional> OptionalArray { get; set; }
     }
+
     /// <summary>
     /// 小订权益包
     /// </summary>
-    public class EquityPackageListResponse
+    public class EquityPackage
     {
-        public EquityPackageListResponse()
+        public EquityPackage()
         {
-            EquityPackageList = new List<CrmEntity>();
+            EquityPackageInfo = new JObject();
+            EquityArray = new JArray();
         }
-        public List<CrmEntity> EquityPackageList { get; set; }
+        public JObject EquityPackageInfo { get; set; }
+        /// <summary>
+        /// 小订权益项
+        /// </summary>
+        public JArray EquityArray { get; set; }
     }
+
     /// <summary>
-    /// 小订权益项
+    /// 小订选配
     /// </summary>
-    //public class Equities
-    //{
-    //    //public Equities()
-    //    //{
-    //    //    Equity = new CrmEntity();
-    //    //}
-    //    public CrmEntity Equity { get; set; }
-    //}
+    public class Optional 
+    {
+        public Optional() 
+        {
+            OptionalInfo= new JObject();
+            OptionalImageArray= new JArray();
+        }
+        public JObject OptionalInfo { get; set; }
+        /// <summary>
+        /// 小订选配图片
+        /// </summary>
+        public JArray OptionalImageArray { get; set; }
+    }
+
+
 }

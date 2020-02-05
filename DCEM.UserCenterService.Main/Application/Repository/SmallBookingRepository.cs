@@ -48,9 +48,9 @@ namespace DCEM.UserCenterService.Main.Application.Repository
         /// <summary>
         /// 查询小订活动关联的权益项
         /// </summary>
-        /// <param name="filterequitypackageids"></param>
+        /// <param name="filterequitypackageid"></param>
         /// <returns></returns>
-        public string QueryEquity(Guid filterequitypackageids)
+        public string QueryEquity(Guid filterequitypackageid)
         {
             var strFetch = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
                 <entity name='mcs_equity'>
@@ -65,12 +65,9 @@ namespace DCEM.UserCenterService.Main.Application.Repository
                   <condition attribute='statecode' operator='eq' value='0' />
                 </filter>
                 <link-entity name='mcs_mcs_equity_mcs_equitypackage' from='mcs_equityid' to='mcs_equityid' visible='false' intersect='true'>
-                  <link-entity name='mcs_equitypackage' from='mcs_equitypackageid' to='mcs_equitypackageid' alias='af'>
-                    <attribute name='mcs_equitypackageid' />
+                  <link-entity name='mcs_equitypackage' from='mcs_equitypackageid' to='mcs_equitypackageid' alias='ep'>
                     <filter type='and'>
-                      <condition attribute='mcs_equitypackageid' operator='in'>
-                        {filterequitypackageids}
-                      </condition>
+                      <condition attribute='mcs_equitypackageid' operator='eq'  value='{filterequitypackageid}' />
                     </filter>
                   </link-entity>
                 </link-entity>
@@ -138,6 +135,32 @@ namespace DCEM.UserCenterService.Main.Application.Repository
                     </filter>
                   </link-entity>
                 </link-entity>
+              </entity>
+            </fetch>";
+
+            return strFetch;
+        }
+
+        /// <summary>
+        /// 查询选配图片
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public string QueryOptionalImage(Guid optionalid)
+        {
+            var strFetch = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+              <entity name='mcs_tc_productimage'>
+                <attribute name='mcs_imagetype' />
+                <attribute name='mcs_imagename' />
+                <attribute name='mcs_imageindex' />
+                <attribute name='mcs_tc_productimageid' />
+                <attribute name='mcs_optionalimage' />
+                <order attribute='mcs_imagetype' descending='false' />
+                <order attribute='mcs_imageindex' descending='false' />
+                <filter type='and'>
+                  <condition attribute='statecode' operator='eq' value='0' />
+                  <condition attribute='mcs_optionalimage' operator='eq'  value='{optionalid}' />
+                </filter>
               </entity>
             </fetch>";
 

@@ -49,5 +49,11 @@ namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
         /// <param name="samllbookingid"></param>
         /// <returns></returns>
         string QueryBookingImage(Guid samllbookingid);
+        /// <summary>
+        /// 查询选配图片
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        string QueryOptionalImage(Guid id);
     }
 }
