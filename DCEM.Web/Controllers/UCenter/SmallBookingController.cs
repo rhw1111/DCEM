@@ -40,7 +40,7 @@ namespace DCEM.Web.Controllers.UCenter
         /// <returns></returns>
         [HttpGet]
         [Route("QuerySmallBooking")]
-        public async Task<NewtonsoftJsonActionResult<SmallBookingListResponse>> GetProductList([FromQuery]SmallBookingListRequest request)
+        public async Task<NewtonsoftJsonActionResult<SmallBookingListResponse>> QuerySmallBooking([FromQuery]SmallBookingListRequest request)
         {
             return await app.QuerySmallBooking(request);
         }

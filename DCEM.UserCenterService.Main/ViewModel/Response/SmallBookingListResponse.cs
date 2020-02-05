@@ -29,9 +29,10 @@ namespace DCEM.UserCenterService.Main.ViewModel.Response
         public SmallBooking()
         {
             SmallBookingInfo = new JObject();
-            ProductImageArray = new JArray();
-            EquityPackageArray = new JArray(new List<EquityPackageListResponse>());//new JArray();
+            BookingImageArray = new JArray();
+            EquityPackageArray = new JArray();//new JArray();
             OptionalArray = new JArray();
+            EquityArray = new JArray();
         }
         /// <summary>
         /// 小订活动实体
@@ -40,7 +41,7 @@ namespace DCEM.UserCenterService.Main.ViewModel.Response
         /// <summary>
         /// 小订实体图片
         /// </summary>
-        public JArray ProductImageArray { get; set; }
+        public JArray BookingImageArray { get; set; }
         /// <summary>
         /// 小订权益包
         /// </summary>
@@ -49,6 +50,7 @@ namespace DCEM.UserCenterService.Main.ViewModel.Response
         /// 小订选配
         /// </summary>
         public JArray OptionalArray { get; set; }
+        public JArray EquityArray { get; set; }
 
     }
     /// <summary>
@@ -60,7 +62,6 @@ namespace DCEM.UserCenterService.Main.ViewModel.Response
         {
             EquityPackageList = new List<CrmEntity>();
         }
-
         public List<CrmEntity> EquityPackageList { get; set; }
     }
     /// <summary>

@@ -61,10 +61,20 @@ namespace DCEM.UserCenterService.Main.Application.Services
             //存在小订活动才执行小订流程
             if (smallBookingResponse.Value.Results.Count>0)
             {
+                //只返回一条小订活动
                 var nowsmallBooking = smallBookingResponse.Value.Results[0];
 
-                #region 查询
-
+                #region 查询小订活动图片
+                var fetchBookingImage = _smallbookingRepository.QueryBookingImage(nowsmallBooking.Id);
+                var fetchXdocBookingImage = XDocument.Parse(fetchBookingImage);
+                var fetchBookingImageRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "mcs_tc_productimage",
+                    FetchXml = fetchXdocBookingImage
+                };
+                fetchBookingImageRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                var fetchBookingImageResponse = await _crmService.Execute(fetchBookingImageRequest);
+                var bookingImageResponse = fetchBookingImageResponse as CrmRetrieveMultipleFetchResponseMessage;
                 #endregion
 
                 #region 小订权益包
@@ -82,29 +92,32 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
                 #region 权益包对应的权益项
                 var equityResponse = new CrmRetrieveMultipleFetchResponseMessage();
-                if (equityPackageResponse.Value.Results.Count>0)
+                if (equityPackageResponse.Value.Results.Count > 0)
                 {
-                    //var dicEquity = new Dictionary<Guid, CrmEntity>();
-                    var filterEquityPackageids = "";
                     foreach (var item in equityPackageResponse.Value.Results)
                     {
-                        filterEquityPackageids += $"<value>{item.Id}</value>";
+                        var fetchEquity = _smallbookingRepository.QueryEquity(item.Id);
+                        var fetchXdocEquity = XDocument.Parse(fetchEquity);
+                        var fetchEquityRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                        {
+                            EntityName = "mcs_equity",
+                            FetchXml = fetchXdocEquity
+                        };
+                        fetchEquityRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                        var fetchEquityResponse = await _crmService.Execute(fetchEquityRequest);
+                        equityResponse = fetchEquityResponse as CrmRetrieveMultipleFetchResponseMessage;
+                        
+                        //组装小订权益项
+                        if (equityResponse.Value.Results.Count > 0)
+                        {
+                            //smallBookingListResponse.SmallBookingList[0].EquityArray.Add(bookingimage.Attributes);
+                        }
                     }
-
-                    var fetchEquity = _smallbookingRepository.QueryEquity(filterEquityPackageids);
-                    var fetchXdocEquity = XDocument.Parse(fetchEquity);
-                    var fetchEquityRequest = new CrmRetrieveMultipleFetchRequestMessage()
-                    {
-                        EntityName = "mcs_equity",
-                        FetchXml = fetchXdocEquity
-                    };
-                    fetchEquityRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
-                    var fetchEquityResponse = await _crmService.Execute(fetchEquityRequest);
-                    equityResponse = fetchEquityResponse as CrmRetrieveMultipleFetchResponseMessage;
                 }
                 #endregion
 
                 #region 小订选配
+                var optionalResponse = new CrmRetrieveMultipleFetchResponseMessage();
                 var fetchOptional = _smallbookingRepository.QueryOptional(nowsmallBooking.Id);
                 var fetchXdocOptional = XDocument.Parse(fetchOptional);
                 var fetchOptionalRequest = new CrmRetrieveMultipleFetchRequestMessage()
@@ -114,15 +127,45 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 };
                 fetchOptionalRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
                 var fetchOptionalResponse = await _crmService.Execute(fetchOptionalRequest);
-                var OptionalResponse = fetchOptionalResponse as CrmRetrieveMultipleFetchResponseMessage;
+                optionalResponse = fetchOptionalResponse as CrmRetrieveMultipleFetchResponseMessage;
                 #endregion
+
+                //#region 选配图片
+                //if (optionalResponse.Value.Results.Count > 0)
+                //{
+                //    var filterEquityPackageids = "";
+                //    foreach (var item in equityPackageResponse.Value.Results)
+                //    {
+                //        filterEquityPackageids += $"<value>{item.Id}</value>";
+                //    }
+
+                //    var fetchEquity = _smallbookingRepository.QueryEquity(filterEquityPackageids);
+                //    var fetchXdocEquity = XDocument.Parse(fetchEquity);
+                //    var fetchEquityRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                //    {
+                //        EntityName = "mcs_equity",
+                //        FetchXml = fetchXdocEquity
+                //    };
+                //    fetchEquityRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                //    var fetchEquityResponse = await _crmService.Execute(fetchEquityRequest);
+                //}
+               //#endregion
 
                 //组装小订活动
                 var smallBooking = new SmallBooking();
                 //把符合条件的最新一条小订活动返回出去
                 var entity = smallBookingResponse.Value.Results[0];
                 smallBooking.SmallBookingInfo = entity.Attributes;
-                disSmallBooking.Add(entity.Id, smallBooking);
+
+                #region 组装小订活动图片
+                var host = "https://ceo-oss.oss-cn-hangzhou.aliyuncs.com/";
+                foreach (var bookingimage in bookingImageResponse.Value.Results)
+                {
+                    //var productGuid = Guid.Parse(entity.Attributes.Value<string>("_mcs_product_value"));
+                    bookingimage.Attributes.Add("ext_fullurl", host + entity.Attributes.Value<string>("mcs_imagename"));
+                    smallBookingListResponse.SmallBookingList[0].BookingImageArray.Add(bookingimage.Attributes);
+                }
+                #endregion
 
                 //组装权益包
                 foreach (var package in equityPackageResponse.Value.Results)

@@ -19,9 +19,35 @@ namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
 
     public interface ISmallBookingRepository
     {
+        /// <summary>
+        /// 查询小订活动
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         string QuerySmallBooking(SmallBookingListRequest request);
+        /// <summary>
+        /// 查询小订活动对应的权益包
+        /// </summary>
+        /// <param name="samllbookingid"></param>
+        /// <returns></returns>
         string QueryEquityPackage(Guid samllbookingid);
-        string QueryEquity(string filterequitypackageids);
+        /// <summary>
+        /// 查询权益包对应的权益项
+        /// </summary>
+        /// <param name="filterequitypackageids"></param>
+        /// <returns></returns>
+        string QueryEquity(Guid filterequitypackageids);
+        /// <summary>
+        /// 查询小订活动对应的选配
+        /// </summary>
+        /// <param name="samllbookingid"></param>
+        /// <returns></returns>
         string QueryOptional(Guid samllbookingid);
+        /// <summary>
+        /// 查询小订活动图片
+        /// </summary>
+        /// <param name="samllbookingid"></param>
+        /// <returns></returns>
+        string QueryBookingImage(Guid samllbookingid);
     }
 }

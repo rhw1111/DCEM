@@ -20,13 +20,64 @@ namespace DCEM.UserCenterService.Main.Application.Repository
     public class SmallBookingRepository : ISmallBookingRepository
     {
         /// <summary>
-        /// 查询小订活动关联的选配
+        /// 查询小订活动关联图片
+        /// </summary>
+        /// <param name="samllbookingid"></param>
+        /// <returns></returns>
+        public string QueryBookingImage(Guid samllbookingid)
+        {
+            var strFetch = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+              <entity name='mcs_tc_productimage'>
+                <attribute name='mcs_imagetype' />
+                <attribute name='mcs_imagename' />
+                <attribute name='mcs_imageindex' />
+                <attribute name='mcs_tc_productimageid' />
+                <attribute name='mcs_smallbooking' />
+                <order attribute='mcs_imagetype' descending='false' />
+                <order attribute='mcs_imageindex' descending='false' />
+                <filter type='and'>
+                  <condition attribute='statecode' operator='eq' value='0' />
+                  <condition attribute='mcs_smallbooking' operator='eq'  value='{samllbookingid}' />
+                </filter>
+              </entity>
+            </fetch>";
+
+            return strFetch;
+        }
+
+        /// <summary>
+        /// 查询小订活动关联的权益项
         /// </summary>
         /// <param name="filterequitypackageids"></param>
         /// <returns></returns>
-        public string QueryEquity(string filterequitypackageids)
+        public string QueryEquity(Guid filterequitypackageids)
         {
-            throw new NotImplementedException();
+            var strFetch = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+                <entity name='mcs_equity'>
+                <attribute name='mcs_name' />
+                <attribute name='createdon' />
+                <attribute name='mcs_description' />
+                <attribute name='mcs_code' />
+                <attribute name='mcs_sort' />
+                <attribute name='mcs_equityid' />
+                <order attribute='mcs_sort' descending='true' />
+                <filter type='and'>
+                  <condition attribute='statecode' operator='eq' value='0' />
+                </filter>
+                <link-entity name='mcs_mcs_equity_mcs_equitypackage' from='mcs_equityid' to='mcs_equityid' visible='false' intersect='true'>
+                  <link-entity name='mcs_equitypackage' from='mcs_equitypackageid' to='mcs_equitypackageid' alias='af'>
+                    <attribute name='mcs_equitypackageid' />
+                    <filter type='and'>
+                      <condition attribute='mcs_equitypackageid' operator='in'>
+                        {filterequitypackageids}
+                      </condition>
+                    </filter>
+                  </link-entity>
+                </link-entity>
+              </entity>
+            </fetch>";
+
+            return strFetch;
         }
 
         /// <summary>
@@ -36,12 +87,61 @@ namespace DCEM.UserCenterService.Main.Application.Repository
         /// <returns></returns>
         public string QueryEquityPackage(Guid samllbookingid)
         {
-            throw new NotImplementedException();
+            var strFetch = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+               <entity name='mcs_equitypackage'>
+                <attribute name='mcs_name' />
+                <attribute name='createdon' />
+                <attribute name='mcs_description' />
+                <attribute name='mcs_code' />
+                <attribute name='mcs_equitypackageid' />
+                <order attribute='mcs_code' descending='false' />
+                <filter type='and'>
+                  <condition attribute='statecode' operator='eq' value='0' />
+                </filter>
+                <link-entity name='mcs_mcs_equitypackage_mcs_smallbooking' from='mcs_equitypackageid' to='mcs_equitypackageid' visible='false' intersect='true'>
+                  <link-entity name='mcs_smallbooking' from='mcs_smallbookingid' to='mcs_smallbookingid' alias='af'>
+                    <filter type='and'>
+                      <condition attribute='mcs_smallbookingid' operator='eq' value='{samllbookingid}' />
+                    </filter>
+                  </link-entity>
+                </link-entity>
+              </entity>
+            </fetch>";
+
+            return strFetch;
+
         }
 
+        /// <summary>
+        /// 小订活动选配
+        /// </summary>
+        /// <param name="samllbookingid"></param>
+        /// <returns></returns>
         public string QueryOptional(Guid samllbookingid)
         {
-            throw new NotImplementedException();
+            var strFetch = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+              <entity name='mcs_optional'>
+                <attribute name='mcs_optionalid' />
+                <attribute name='mcs_name' />
+                <attribute name='mcs_limitedtimeprice' />
+                <attribute name='mcs_description' />
+                <attribute name='mcs_code' />
+                <attribute name='mcs_originalprice' />
+                <order attribute='mcs_name' descending='false' />
+                <filter type='and'>
+                  <condition attribute='statecode' operator='eq' value='0' />
+                </filter>
+                <link-entity name='mcs_mcs_optional_mcs_smallbooking' from='mcs_optionalid' to='mcs_optionalid' visible='false' intersect='true'>
+                  <link-entity name='mcs_smallbooking' from='mcs_smallbookingid' to='mcs_smallbookingid' alias='af'>
+                    <filter type='and'>
+                      <condition attribute='mcs_smallbookingid' operator='eq' value='{samllbookingid}' />
+                    </filter>
+                  </link-entity>
+                </link-entity>
+              </entity>
+            </fetch>";
+
+            return strFetch;
         }
 
         /// <summary>
