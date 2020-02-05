@@ -45,7 +45,21 @@ namespace DCEM.Web.Controllers.UCenter
             return await app.QuerySmallBooking(request);
         }
 
+        /// <summary>
+        ///  小订订单创建、支付、退款申请、退订
+        /// </summary>
+        /// <param name="appointmentInfoRequest"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("AddOrEdit")]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<CrmEntity>>> AddOrEdit(SmallBookingRequest request)
+        {
+            return await app.AddOrEdit(request);
+        }
 
 
     }
+
+
+
 }

@@ -55,5 +55,35 @@ namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
         /// <param name="id"></param>
         /// <returns></returns>
         string QueryOptionalImage(Guid id);
+        /// <summary>
+        /// 查询预约号
+        /// </summary>
+        /// <param name="blindOrder"></param>
+        /// <returns></returns>
+        string QueryBlindOrder(string blindOrder);
+        /// <summary>
+        /// 查询唯一线索
+        /// </summary>
+        /// <param name="onlyleadid"></param>
+        /// <returns></returns>
+        string QueryOnlyLead(string onlyleadid);
+        /// <summary>
+        /// 查询推荐人
+        /// </summary>
+        /// <param name="spare4"></param>
+        /// <returns></returns>
+        string QueryOnlyLeadByUserId(string userid);
+        /// <summary>
+        /// 查询厅店
+        /// </summary>
+        /// <param name="dealerid"></param>
+        /// <returns></returns>
+        string GetDealerById(string dealerid);
+        /// <summary>
+        /// 查询小订订单
+        /// </summary>
+        /// <param name="orderCode"></param>
+        /// <returns></returns>
+        string QuerySmallOrder(string orderCode);
     }
 }

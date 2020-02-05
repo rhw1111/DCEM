@@ -16,7 +16,7 @@ namespace DCEM.UserCenterService.Main.Application.App.Contrac
     using DCEM.UserCenterService.Main.ViewModel.Response;
     using System.Threading.Tasks;
     using MSLibrary.Xrm;
-
+    using MSLibrary;
 
     public interface IAppSmallBooking
     {
@@ -26,5 +26,11 @@ namespace DCEM.UserCenterService.Main.Application.App.Contrac
         /// <param name="request"></param>
         /// <returns></returns>
         Task<SmallBookingListResponse> QuerySmallBooking(SmallBookingListRequest request);
+        /// <summary>
+        /// 小订订单创建、支付、退款申请、退订
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ValidateResult<CrmEntity>> AddOrEdit(SmallBookingRequest request);
     }
 }
