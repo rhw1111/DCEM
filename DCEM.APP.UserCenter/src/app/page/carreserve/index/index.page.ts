@@ -20,9 +20,11 @@ export class IndexPage implements OnInit {
         imgurl: "",//图片
         equitypackagelist: [],//权益项
         checkedequitypackagecode: "",//选中权益包编码
+        checkedequitypackageid: "",//选中权益包id
         checkedequitypackagename:"",//选中权益包名称
         optionallist: [],//选装包
         checkedoptionalcode: "",//选中选装包编码
+        checkedoptionalid: "",//选中选装包id
         checkedoptionalname:"",//选中选装包名称
         totalprice: 0,//订单总金额
         radioprice:0,
@@ -82,6 +84,7 @@ export class IndexPage implements OnInit {
         if (!ischecked) {
             $(_that).siblings("input[type=checkbox]").attr("checked", "true");
             this.model.checkedequitypackagecode = $(_that).siblings("input[type=checkbox]").val();
+            this.model.checkedequitypackageid = $(_that).siblings("input[type=checkbox]").attr("id");
             this.model.checkedequitypackagename = $(_that).html();
             this.model.totalprice -= this.model.radioprice;
             this.model.totalprice += price;
@@ -104,10 +107,12 @@ export class IndexPage implements OnInit {
         var ischecked = $(_that).parents("div.index-package-checkbox").find("input[name=preorderPackageTwo]").is(":checked");
         var price = Number($(_that).parents("div.index-package-checkbox").find("input[name=hidPackageTwo]").val());
         var checkedcode = $(_that).parents("div.index-package-checkbox").find("input[name=preorderPackageTwo]").val();
+        var checkedid = $(_that).parents("div.index-package-checkbox").find("input[name=preorderPackageTwo]").attr("id");
         var checkedname = $(_that).parents("div.index-package-checkbox").children().find("div.index-intro-title").html();
         if (!ischecked) {
             this.model.totalprice += price;
             this.model.checkedoptionalcode += (checkedcode + ";");
+            this.model.checkedoptionalid += (checkedid + ";");
             this.model.checkedoptionalname += (checkedname + ";");
         } else {
             this.model.totalprice -= price;
@@ -120,6 +125,16 @@ export class IndexPage implements OnInit {
                     }
                 }
                 this.model.checkedoptionalcode = strcode;
+            }
+            if (this.model.checkedoptionalid.indexOf(checkedid) != -1) {
+                var stridlist = this.model.checkedoptionalid.split(';');
+                var strid = "";
+                for (var i = 0; i < stridlist.length - 1; i++) {
+                    if (stridlist[i] != checkedid) {
+                        strid += (stridlist[i] + ";");
+                    }
+                }
+                this.model.checkedoptionalid = strid;
             }
             if (this.model.checkedoptionalname.indexOf(checkedname) != -1) {
                 var strnamelist = this.model.checkedoptionalname.split(';');
@@ -160,8 +175,10 @@ export class IndexPage implements OnInit {
                 "VehConfigCode": "",// 意向配置编号
                 "VehConfigName": "",// 意向配置名称
                 "EquityCode": this.model.checkedequitypackagecode,//权益编号
+                "EquityPackageId": this.model.checkedequitypackageid,//权益ID
                 "EquityName": this.model.checkedequitypackagename,// 权益名称
                 "OptionalCode": this.model.checkedoptionalcode,// 选配编号
+                "OptionalId": this.model.checkedoptionalid,//选装ID
                 "OptionalName": this.model.checkedoptionalname,// 选配名称
                 "CityOnCard": "",// 上牌城市
                 "ProvinceOnCard": "",// 上牌省份

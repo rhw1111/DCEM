@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ConfirmPage implements OnInit {
     public model: any = {
         search: {
-            apiUrl: "api/product/Detail",
+            apiUrl: "api/smallbooking/AddOrEdit",
         },
         title: "确认订单信息",
         datas: {},

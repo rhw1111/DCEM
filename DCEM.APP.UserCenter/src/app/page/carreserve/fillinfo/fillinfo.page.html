@@ -60,48 +60,15 @@
                                             <div data-v-00de53e1="" class="region-inner">
                                                 <div data-v-00de53e1="" class="control item province is-expanded">
                                                     <span class="select is-fullwidth">
-                                                        <select id="province" data-vv-name="provinceCode">
-                                                            <!---->
-                                                            <option data-v-00de53e1="" value="0">北京市</option>
-                                                            <option data-v-00de53e1="" value="1">天津市</option>
-                                                            <option data-v-00de53e1="" value="2">河北省</option>
-                                                            <option data-v-00de53e1="" value="3">山西省</option>
-                                                            <option data-v-00de53e1="" value="4">内蒙古自治区</option>
-                                                            <option data-v-00de53e1="" value="5">辽宁省</option>
-                                                            <option data-v-00de53e1="" value="6">吉林省</option>
-                                                            <option data-v-00de53e1="" value="7">黑龙江省</option>
-                                                            <option data-v-00de53e1="" value="8">上海市</option>
-                                                            <option data-v-00de53e1="" value="9">江苏省</option>
-                                                            <option data-v-00de53e1="" value="10">浙江省</option>
-                                                            <option data-v-00de53e1="" value="11">安徽省</option>
-                                                            <option data-v-00de53e1="" value="12">福建省</option>
-                                                            <option data-v-00de53e1="" value="13">江西省</option>
-                                                            <option data-v-00de53e1="" value="14">山东省</option>
-                                                            <option data-v-00de53e1="" value="15">河南省</option>
-                                                            <option data-v-00de53e1="" value="16">湖北省</option>
-                                                            <option data-v-00de53e1="" value="17">湖南省</option>
-                                                            <option data-v-00de53e1="" value="18">广东省</option>
-                                                            <option data-v-00de53e1="" value="19">广西壮族自治区</option>
-                                                            <option data-v-00de53e1="" value="20">海南省</option>
-                                                            <option data-v-00de53e1="" value="21">重庆市</option>
-                                                            <option data-v-00de53e1="" value="22">四川省</option>
-                                                            <option data-v-00de53e1="" value="23">贵州省</option>
-                                                            <option data-v-00de53e1="" value="24">云南省</option>
-                                                            <option data-v-00de53e1="" value="25">西藏自治区</option>
-                                                            <option data-v-00de53e1="" value="26">陕西省</option>
-                                                            <option data-v-00de53e1="" value="27">甘肃省</option>
-                                                            <option data-v-00de53e1="" value="28">青海省</option>
-                                                            <option data-v-00de53e1="" value="29">宁夏回族自治区</option>
-                                                            <option data-v-00de53e1="" value="30">新疆维吾尔自治区</option>
+                                                        <select id="province" data-vv-name="provinceCode" (click)="provinceOnClick()">
+                                                            <option style="display:none" selected>{{model.info.provincename}}</option>
                                                         </select>
                                                     </span> <!---->
                                                 </div>
                                                 <div data-v-00de53e1="" class="control is-expanded item city">
                                                     <span class="select is-fullwidth">
-                                                        <select id="city" data-vv-name="cityCode">
-                                                            <!---->
-                                                            <option data-v-00de53e1="" value="0">重庆市-市辖区</option>
-                                                            <option data-v-00de53e1="" value="1">市辖县</option>
+                                                        <select id="city" data-vv-name="cityCode" (click)="cityOnClick()">
+                                                            <option style="display:none" selected>{{model.info.cityname}}</option>
                                                         </select>
                                                     </span> <!---->
                                                 </div>
