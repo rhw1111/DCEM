@@ -78,10 +78,10 @@
                                 <ng-template #tTemplate>
                                     <li class="is-highlight has-description">
                                         <div class="is-inline-block">{{i.mcs_name}}</div>
-                                        <input type="checkbox" id="{{i.mcs_equityid}}">
-                                        <label for="{{i.mcs_equityid}}"></label>
+                                        <input type="checkbox" id="{{i.mcs_equityid}}{{item.EquityPackageInfo.mcs_code}}">
+                                        <label for="{{i.mcs_equityid}}{{item.EquityPackageInfo.mcs_code}}"></label>
                                         <ul class="description">
-                                            <li>{{i.mcs_description}}</li>
+                                            <li [innerHTML] = 'i.mcs_description'></li>
                                         </ul>
                                     </li>
                                 </ng-template>
@@ -303,7 +303,7 @@
                                 <div class="package-image column is-3"><img src="https://ceo-oss.oss-cn-hangzhou.aliyuncs.com/{{item.OptionalImageArray[0].mcs_imagename}}" alt=""></div>
                                 <div class="column is-9 has-text-left" style="padding-left: 15px !important;">
                                     <div class="index-intro-title is-text-bold">{{item.OptionalInfo.mcs_name}}</div>
-                                    <div class="index-intro-subtitle">{{item.OptionalInfo.mcs_description}}</div><!---->
+                                    <div class="index-intro-subtitle" [innerHTML] = 'item.OptionalInfo.mcs_description'></div><!---->
                                 </div>
                             </section>
                             <section class="index-package-price has-text-left">
@@ -369,10 +369,10 @@
             <section class="index-toolbar is-flex has-shadow">
                 <div class="index-info">
                     <div class="index-info-price">订金合计：<strong>{{model.totalprice}} 元</strong></div>
-                    <div class="index-info-brief is-inline-block">
+                    <!--<div class="index-info-brief is-inline-block">
                         <span>权益详情</span>
                         <span class="iconfont iconarrow-line-down-s is-inline-block"></span>
-                    </div>
+                    </div>-->
                 </div>
                 <button class="index-toolbar-button is-disabled" disabled="disabled" (click)="BtnSubmit()">确认预订  <!----></button>
             </section>

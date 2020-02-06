@@ -62,9 +62,14 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
         public string VehConfigName { get; set; }
 
         /// <summary>
-        /// 权益编号
+        /// 权益编号(权益包)
         /// </summary>
         public string EquityCode { get; set; }
+
+        /// <summary>
+        /// 权益Id(权益包)
+        /// </summary>
+        public string EquityPackageId { get; set; }
 
         /// <summary>
         /// 权益名称
@@ -75,6 +80,11 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
         /// 选配编号
         /// </summary>
         public string OptionalCode { get; set; }
+
+        /// <summary>
+        /// 选配Id
+        /// </summary>
+        public string OptionalId { get; set; }
 
         /// <summary>
         /// 选配名称
