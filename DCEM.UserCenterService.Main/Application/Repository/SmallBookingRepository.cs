@@ -39,6 +39,74 @@ namespace DCEM.UserCenterService.Main.Application.Repository
         }
 
         /// <summary>
+        /// 查询门店销售机会
+        /// </summary>
+        /// <param name="onlyleadid"></param>
+        /// <param name="dealerid"></param>
+        /// <returns></returns>
+        public string QueryAccount(string onlyleadid, Guid dealerid)
+        {
+            var strFetch = string.Format(@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+              <entity name='account'>
+                <attribute name='name' />
+                <attribute name='mcs_dealerid' />
+                <attribute name='mcs_customerstatus' />
+                <attribute name='ownerid' />
+                <attribute name='accountid' />
+                <order attribute='accountnumber' descending='true' />
+                <filter type='and'>
+                  <condition attribute='statecode' operator='eq' value='0' />
+                  <condition attribute='mcs_onlyleadid' operator='eq'  value='{0}' />
+                  <condition attribute='mcs_dealerid' operator='eq' value='{1}' />
+                  <condition attribute='mcs_customerstatus' operator='in'>
+                    <value>1</value>
+                    <value>2</value>
+                  </condition>
+                </filter>
+              </entity>
+            </fetch>", onlyleadid, dealerid);
+            return strFetch;
+        }
+
+        /// <summary>
+        /// 查询是否存在销售机会
+        /// </summary>
+        /// <param name="onlyleadid"></param>
+        /// <returns></returns>
+        public string QueryAccountMater(string onlyleadid)
+        {
+            var strFetch = string.Format(@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+              <entity name='account'>
+                <attribute name='name' />
+                <attribute name='mcs_vehtypeid' />
+                <attribute name='mcs_level' />
+                <attribute name='mcs_carereason' />
+                <attribute name='accountnumber' />
+                <attribute name='mcs_dealerid' />
+                <attribute name='mcs_customerstatus' />
+                <attribute name='ownerid' />
+                <attribute name='mcs_gender' />
+                <attribute name='modifiedon' />
+                <attribute name='mcs_firstappoint' />
+                <attribute name='mcs_mobilephone' />
+                <attribute name='mcs_tc_order' />
+                <attribute name='mcs_singleperson' />
+                <attribute name='accountid' />
+                <order attribute='accountnumber' descending='true' />
+                <filter type='and'>
+                  <condition attribute='statecode' operator='eq' value='0' />
+                  <condition attribute='mcs_onlyleadid' operator='eq'  value='{0}' />
+                  <condition attribute='mcs_customerstatus' operator='in'>
+                    <value>1</value>
+                    <value>2</value>
+                  </condition>
+                </filter>
+              </entity>
+            </fetch>", onlyleadid);
+            return strFetch;
+        }
+
+        /// <summary>
         /// 查询预约号
         /// </summary>
         /// <param name="blindOrder"></param>

@@ -22,6 +22,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
     using System.Xml.Linq;
     using System.Linq;
     using MSLibrary;
+    using System.Text.RegularExpressions;
 
     public class SmallBookingService : ISmallBookingService
     {
@@ -219,8 +220,16 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
             //查询唯一线索记录
             var fetchOnlyLead = _smallbookingRepository.QueryOnlyLead(onlyleadid);
-            CrmEntity onlyLead = await _crmService.Retrieve(onlyleadEntityName, Guid.Parse(onlyleadid), fetchOnlyLead, null, dicHead);
-
+            var fetchXdocOnlyLead = XDocument.Parse(fetchOnlyLead);
+            var fetchOnlyLeadRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_onlylead",
+                FetchXml = fetchXdocOnlyLead
+            };
+            fetchOnlyLeadRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+            var fetchOnlyLeadResponse = await _crmService.Execute(fetchOnlyLeadRequest);
+            var onlyLeadResponse = fetchOnlyLeadResponse as CrmRetrieveMultipleFetchResponseMessage;
+            CrmEntity onlyLead = onlyLeadResponse.Value.Results[0];
             #endregion
 
             #region 根据预订推荐人UserId 查询唯一线索
@@ -244,11 +253,10 @@ namespace DCEM.UserCenterService.Main.Application.Services
             }
             #endregion
 
-
             //是否包含厅店
             CrmEntity dealer = null;
             var dealerid = onlyLead.Attributes.Value<string>("_mcs_dealerid_value");
-            if (!string.IsNullOrWhiteSpace("dealerid"))
+            if (!string.IsNullOrWhiteSpace(dealerid))
             {
                 var fetchdealer = _smallbookingRepository.GetDealerById(dealerid);
                 dealer = await _crmService.Retrieve("mcs_dealer", Guid.Parse(dealerid), fetchdealer, null, dicHead);
@@ -256,15 +264,15 @@ namespace DCEM.UserCenterService.Main.Application.Services
             //2.通过小订订单号查询是否有小订编号，没有则创建
             var fetchSmallOrder = _smallbookingRepository.QuerySmallOrder(request.OrderCode);
             var fetchXdocSmallOrder = XDocument.Parse(fetchSmallOrder);
-            var fetchSmallOrderRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            var fetchrequest = new CrmRetrieveMultipleFetchRequestMessage()
             {
                 EntityName = "mcs_smallorder",
                 FetchXml = fetchXdocSmallOrder
             };
-            fetchSmallOrderRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
-            var fetchSmallOrderResponse = await _crmService.Execute(fetchSmallOrderRequest);
+            fetchrequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+            var fetchSmallOrderResponse = await _crmService.Execute(fetchrequest);
             var smallOrderResponse = fetchSmallOrderResponse as CrmRetrieveMultipleFetchResponseMessage;
-            var smallorder = smallOrderResponse.Value.Results[0];
+            var smallorder = smallOrderResponse.Value.Results.Count>0? smallOrderResponse.Value.Results[0]: null;
             //3.根据传进来的小订记录状态，处理不同业务逻辑（0 - 待支付、1 - 已支付、2 - 申请退订、3 - 已关闭、4 - 已支付部分退订）
             if (smallorder == null)
             {
@@ -274,52 +282,94 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 reusetCrmEntity.Id = creEntity.Id;
 
                 //小订关联权益包、选配
-                //查到当前记录
-                //var  smallorder = QuerySmallOrder(request.OrderCode);
+                if (!string.IsNullOrWhiteSpace(request.EquityPackageId))
+                {
+                    //权益包多对多关联小订
+                    AssociateEquityPackage(creEntity, request.EquityPackageId);
+                }
+                //小订关联权益包、选配
+                if (!string.IsNullOrWhiteSpace(request.OptionalId))
+                {
+                    //选配多对多关联小订
+                    AssociateOptional(creEntity, request.OptionalId);
+                }
             }
 
             //3.2 订单状态我已支付时，更新订单记录为已支付，创建销售机会，创建支付记录
-            //if (request.OrderStatus == (int)SmallOrderStatus.Paid)
-            //{
-            //    Entity account = null;
-            //    if (dealer != null)
-            //    {
-            //        account = QueryAccount(onlyleadid, dealer.Id, service);
-            //    }
-            //    if (account == null)
-            //    {
-            //        //查询没有厅店的销售机会
-            //        account = QueryAccountMater(onlyleadid, service);
-            //    }
-            //    if (account == null)
-            //    {
-            //        //创建销售机会
-            //        CreateAccount(blindorder, onlylead, smallorder, request, dealer, request);
-            //    }
-            //    if (account != null)
-            //    {
-            //        var upaccount = new Entity(account.LogicalName, account.Id);
-            //        //关联小订记录
-            //        upaccount.Attributes.Add("mcs_smallorderid", new EntityReference(smallorder.LogicalName, smallorder.Id));
-            //        if (!account.Contains("mcs_dealerid"))
-            //        {
-            //            upaccount.Attributes.Add("mcs_dealerid", new EntityReference(dealer.LogicalName, dealer.Id));
-            //        }
-            //        //更新门店销售机会
-            //        request.Requests.Add(new UpdateRequest() { Target = upaccount });
+            if (request.OrderStatus == 1)
+            {
+                CrmEntity account = null;
+                if (dealer != null)
+                {
+                    var fetchAccount = _smallbookingRepository.QueryAccount(onlyleadid, dealer.Id);
+                    var fetchXdocAccount = XDocument.Parse(fetchAccount);
+                    var fetchAccountRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                    {
+                        EntityName = "mcs_account",
+                        FetchXml = fetchXdocAccount
+                    };
+                    fetchAccountRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                    var fetchAccountResponse = await _crmService.Execute(fetchAccountRequest);
+                    var AccountResponse = fetchAccountResponse as CrmRetrieveMultipleFetchResponseMessage;
+                    account = AccountResponse.Value.Results[0];
 
-            //        //更新预约单关联门店销售机会字段
-            //        var updateBlindOrder = new Entity(blindorder.LogicalName, blindorder.Id);
-            //        updateBlindOrder.Attributes.Add("mcs_accountid", new EntityReference(account.LogicalName, account.Id));
-            //        request.Requests.Add(new UpdateRequest() { Target = updateBlindOrder });
-            //    }
+                }
+                if (account == null)
+                {
+                    //查询没有厅店的销售机会
+                    var fetchAccount = _smallbookingRepository.QueryAccountMater(onlyleadid);
+                    var fetchXdocAccount = XDocument.Parse(fetchAccount);
+                    var fetchAccountRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                    {
+                        EntityName = "mcs_account",
+                        FetchXml = fetchXdocAccount
+                    };
+                    fetchAccountRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                    var fetchAccountResponse = await _crmService.Execute(fetchAccountRequest);
+                    var AccountResponse = fetchAccountResponse as CrmRetrieveMultipleFetchResponseMessage;
+                    account = AccountResponse.Value.Results[0];
+                }
+                if (account == null)
+                {
+                    //创建销售机会
+                    CreateAccount(blindOrder, onlyLead, smallorder, request, dealer);
+                }
+                if (account != null)
+                {
+                    var upaccount = new CrmExecuteEntity(account.EntityName, account.Id);
+                    //关联小订记录
+                    var smallOrderRef = new CrmEntityReference(smallorder.EntityName, smallorder.Id);
+                    upaccount.Attributes.Add("mcs_smallorderid", smallOrderRef);
+                    if (string.IsNullOrWhiteSpace(account.Attributes.Value<string>("mcs_dealerid")))
+                    {
+                        //关联到合作伙伴
+                        if (dealer != null)
+                        {
+                            var dealerRef = new CrmEntityReference(dealer.EntityName, dealer.Id);
+                            upaccount.Attributes.Add("mcs_dealerid", dealerRef);
+                        }
+                    }
+                    //更新门店销售机会
+                    await _crmService.Update(upaccount);
 
-            //    //创建支付记录
-            //    CreatePaymentRecord(smallorder, request, request);
+                    //更新盲定关联门店销售机会字段
+                    var updBlindOrder = new CrmExecuteEntity(blindOrder.EntityName, blindOrder.Id);
+                    var accountRef = new CrmEntityReference(account.EntityName, account.Id);
+                    updBlindOrder.Attributes.Add("mcs_accountid", accountRef);
+                    await _crmService.Update(updBlindOrder);
+                }
 
-            //    //修改小订记录状态
-            //    UpdateSmallOrder(smallorder, (int)SmallOrderStatus.Paid, request);
-            //}
+                //创建支付记录
+                var paymentRecord=CreatePaymentRecord(smallorder, request);
+                await _crmService.Update(paymentRecord);
+
+                //修改小订记录状态
+                var upSmallOrder = new CrmExecuteEntity(smallorder.EntityName, smallorder.Id);
+                //小订状态
+                upSmallOrder.Attributes.Add("mcs_orderstatus", request.OrderStatus);
+                await _crmService.Update(upSmallOrder);
+            }
+
             ////3.3 订单状态为申请退订时，更新订单状态为申请退订，创建小订退订记录
             //if (request.OrderStatus == (int)SmallOrderStatus.ApplyForUnsubscribe)
             //{
@@ -377,6 +427,403 @@ namespace DCEM.UserCenterService.Main.Application.Services
             validateResult.Result = true;
             validateResult.Description = "操作成功";
             return validateResult;
+        }
+
+        /// <summary>
+        /// 创建支付记录
+        /// </summary>
+        /// <param name="smallorder"></param>
+        /// <param name="request"></param>
+        private CrmExecuteEntity CreatePaymentRecord(CrmEntity smallorder, SmallBookingRequest request)
+        {
+            var paymentrecord = new CrmExecuteEntity("mcs_paymentrecord", Guid.NewGuid());
+            //关联小订记录
+            var smallOrderRef = new CrmEntityReference(smallorder.EntityName, smallorder.Id);
+            paymentrecord.Attributes.Add("mcs_smallorderid", smallOrderRef);
+            //支付记录序号
+            if (!string.IsNullOrWhiteSpace(request.PaymentCode))
+            {
+                paymentrecord.Attributes.Add("mcs_name", request.PaymentCode);
+            }
+            //支付状态
+            if (request.OrderStatus == 1)
+            {
+                paymentrecord.Attributes.Add("mcs_paymentstatus", request.OrderStatus);
+            }
+            //支付状态
+            if (request.OrderStatus == 3)
+            {
+                paymentrecord.Attributes.Add("mcs_paymentstatus", request.OrderStatus);
+            }
+            //交易时间
+            if (request.TransactionTime != null)
+            {
+                paymentrecord.Attributes.Add("mcs_transactiontime", DateTime.Parse(request.TransactionTime));
+            }
+            //交易金额
+            if (request.Transactionamount != null)
+            {
+                paymentrecord.Attributes.Add("mcs_transactionamount", (decimal)request.Transactionamount);
+            }
+            //支付渠道
+            if (request.PaymentChannel != null)
+            {
+                paymentrecord.Attributes.Add("mcs_paymentchannel", request.PaymentChannel);
+            }
+            //支付流水号
+            if (!string.IsNullOrWhiteSpace(request.Spare5))
+            {
+                paymentrecord.Attributes.Add("mcs_transactionflownumber", request.Spare5);
+            }
+            //用户支付id
+            if (!string.IsNullOrWhiteSpace(request.Spare6))
+            {
+                paymentrecord.Attributes.Add("mcs_userpaymentid", request.Spare6);
+            }
+            return paymentrecord;
+
+        }
+
+        /// <summary>
+        /// 创建销售机会
+        /// </summary>
+        /// <param name="blindOrder"></param>
+        /// <param name="onlylead"></param>
+        /// <param name="smallorder"></param>
+        /// <param name="request"></param>
+        /// <param name="dealer"></param>
+        private async void CreateAccount(CrmEntity blindOrder, CrmEntity onlylead, CrmEntity smallorder, SmallBookingRequest request, CrmEntity dealer)
+        {
+            var createaccountentity = new CrmExecuteEntity("account", Guid.NewGuid());
+            //将唯一线索的基本数据新增赋值到门店销售机会
+            createaccountentity = InitAttributeAccount(onlylead, createaccountentity, request);
+            //关联到合作伙伴
+            if (dealer != null)
+            {
+                var dealerRef = new CrmEntityReference(dealer.EntityName, dealer.Id);
+                createaccountentity.Attributes.Add("mcs_dealerid", dealerRef);
+            }
+            //如果唯一线索包含留资人员，则为门店销售机会上的初始跟进人员
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("mcs_capitalist")))
+            {
+                createaccountentity.Attributes.Add("mcs_firstappoint", onlylead.Attributes.Value<string>("mcs_capitalist"));
+            }
+            //关联唯一线索
+            var onlyleadRef = new CrmEntityReference(onlylead.EntityName, onlylead.Id);
+            createaccountentity.Attributes.Add("mcs_onlyleadid", onlyleadRef);
+            //ownerid.赋值团队
+            if (dealer != null && !string.IsNullOrWhiteSpace(dealer.Attributes.Value<string>("mcs_teamid")))
+            {
+                var teamRef= new CrmEntityReference("team",Guid.Parse(dealer.Attributes.Value<string>("mcs_teamid")));
+                createaccountentity.Attributes.Add("ownerid", teamRef);
+            }
+            //关联小订记录
+            var smallOrderRef = new CrmEntityReference(smallorder.EntityName, smallorder.Id);
+            createaccountentity.Attributes.Add("mcs_smallorderid", smallOrderRef);
+            //创建门店销售机会
+            var reuset = await _crmService.Create(createaccountentity);
+
+            //更新盲定关联门店销售机会字段
+            var updBlindOrder = new CrmExecuteEntity(blindOrder.EntityName, blindOrder.Id);
+            var accountRef= new CrmEntityReference("account", reuset);
+            updBlindOrder.Attributes.Add("mcs_accountid", accountRef);
+            await _crmService.Update(updBlindOrder);
+        }
+
+        /// <summary>
+        /// 销售机会基础字段赋值
+        /// </summary>
+        /// <param name="onlylead"></param>
+        /// <param name="accountentity"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        private CrmExecuteEntity InitAttributeAccount(CrmEntity onlylead, CrmExecuteEntity accountentity, SmallBookingRequest request)
+        {
+            #region 门店销售机会基础数据赋值
+            //姓名
+            accountentity.Attributes.Add("name", request.FullName);
+            //称呼
+            if (onlylead.Attributes.Value<int?>("mcs_gender")!=null)
+            {
+                accountentity.Attributes.Add("mcs_gender", onlylead.Attributes.Value<int>("mcs_gender"));
+            }
+            //证件类型
+            if (onlylead.Attributes.Value<int?>("mcs_idtype") != null)
+            {
+                accountentity.Attributes.Add("mcs_idtype", onlylead.Attributes.Value<int?>("mcs_idtype"));
+            }
+            //证件号码
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("mcs_identitycard")))
+            {
+                accountentity.Attributes.Add("mcs_identitycard", onlylead.Attributes.Value<string>("mcs_identitycard"));
+            }
+            //生日
+            if (onlylead.Attributes.Value<DateTime?>("birthDate")!=null)
+            {
+                accountentity.Attributes.Add("mcs_birthdate", onlylead.Attributes.Value<DateTime?>("birthDate"));
+            }
+            //渠道
+            if (onlylead.Attributes.Value<int?>("mcs_channel")!= null)
+            {
+                accountentity.Attributes.Add("mcs_channel", onlylead.Attributes.Value<int?>("mcs_channel"));
+            }
+            //渠道用户ID
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("mcs_userid")))
+            {
+                accountentity.Attributes.Add("mcs_userid", onlylead.Attributes.Value<string>("mcs_userid"));
+            }
+            //手机号
+            if (!string.IsNullOrWhiteSpace(request.MobilePhone))
+            {
+                accountentity.Attributes.Add("mcs_mobilephone", request.MobilePhone);
+            }
+            //邮箱
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("emailaddress1")))
+            {
+                accountentity.Attributes.Add("emailaddress1", onlylead.Attributes.Value<string>("emailaddress1"));
+            }
+            //备用邮箱
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("emailAddress2")))
+            {
+                accountentity.Attributes.Add("emailAddress2", onlylead.Attributes.Value<string>("emailAddress2"));
+            }
+            //办公电话区号
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("mcs_areacode")))
+            {
+                accountentity.Attributes.Add("mcs_areacode", onlylead.Attributes.Value<string>("mcs_areacode"));
+            }
+            //办公电话
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("telephone1")))
+            {
+                accountentity.Attributes.Add("telephone1", onlylead.Attributes.Value<string>("telephone1"));
+            }
+            //住宅电话
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("telephone2")))
+            {
+                accountentity.Attributes.Add("telephone2", onlylead.Attributes.Value<string>("telephone2"));
+            }
+            //其他电话
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("telephone3")))
+            {
+                accountentity.Attributes.Add("telephone3", onlylead.Attributes.Value<string>("telephone3"));
+            }
+            //传真区号
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("mcs_faxareacode")))
+            {
+                accountentity.Attributes.Add("mcs_faxareacode", onlylead.Attributes.Value<string>("mcs_faxareacode"));
+            }
+            //传真区号
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("fax")))
+            {
+                accountentity.Attributes.Add("fax", onlylead.Attributes.Value<string>("fax"));
+            }
+            //qq
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("mcs_qq")))
+            {
+                accountentity.Attributes.Add("mcs_qq", onlylead.Attributes.Value<string>("mcs_qq"));
+            }
+            //weibo号
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("mcs_weibo")))
+            {
+                accountentity.Attributes.Add("mcs_weibo", onlylead.Attributes.Value<string>("mcs_weibo"));
+            }
+            //weixin
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("mcs_weixin")))
+            {
+                accountentity.Attributes.Add("mcs_weixin", onlylead.Attributes.Value<string>("mcs_weixin"));
+            }
+            //年龄段
+            if (onlylead.Attributes.Value<int?>("mcs_generation")!=null)
+            {
+                accountentity.Attributes.Add("mcs_generation", onlylead.Attributes.Value<int?>("mcs_generation"));
+            }
+            //车辆使用人
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("mcs_vehicleusers")))
+            {
+                accountentity.Attributes.Add("mcs_vehicleusers", onlylead.Attributes.Value<string>("mcs_vehicleusers"));
+            }
+            //关联到国家
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("mcs_countryid")))
+            {
+                var countryRef = new CrmEntityReference("mcs_sysarea", Guid.Parse(onlylead.Attributes.Value<string>("mcs_countryid")));
+                accountentity.Attributes.Add("mcs_countryid", countryRef);
+            }
+            //关联到省
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("mcs_provinceid")))
+            {
+                var provinceRef = new CrmEntityReference("mcs_sysarea", Guid.Parse(onlylead.Attributes.Value<string>("mcs_provinceid")));
+                accountentity.Attributes.Add("mcs_provinceid", provinceRef);
+            }
+            //关联到城市
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("mcs_cityid")))
+            {
+                var cityRef = new CrmEntityReference("mcs_sysarea", Guid.Parse(onlylead.Attributes.Value<string>("mcs_cityid")));
+                accountentity.Attributes.Add("mcs_cityid", cityRef);
+            }
+            //区
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("mcs_districtid")))
+            {
+                var districtRef = new CrmEntityReference("mcs_sysarea", Guid.Parse(onlylead.Attributes.Value<string>("mcs_districtid")));
+                accountentity.Attributes.Add("mcs_districtid", districtRef);
+            }
+            //身份证所在地
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("mcs_address")))
+            {
+                accountentity.Attributes.Add("mcs_address", onlylead.Attributes.Value<string>("mcs_address"));
+            }
+            //家庭地址
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("mcs_homeaddress")))
+            {
+                accountentity.Attributes.Add("mcs_homeaddress", onlylead.Attributes.Value<string>("mcs_homeaddress"));
+            }
+            //邮编
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("mcs_zipcode")))
+            {
+                accountentity.Attributes.Add("mcs_zipcode", onlylead.Attributes.Value<string>("mcs_zipcode"));
+            }
+            //单位名称
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("company")))
+            {
+                accountentity.Attributes.Add("mcs_company", onlylead.Attributes.Value<string>("company"));
+            }
+            //单位税务号
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("mcs_taxcode")))
+            {
+                accountentity.Attributes.Add("mcs_taxcode", onlylead.Attributes.Value<string>("mcs_taxcode"));
+            }
+            //单位联系人手机
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("business2")))
+            {
+                accountentity.Attributes.Add("mcs_business", onlylead.Attributes.Value<string>("business2"));
+            }
+            //工作地址
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("mcs_workaddress")))
+            {
+                accountentity.Attributes.Add("mcs_workaddress", onlylead.Attributes.Value<string>("mcs_workaddress"));
+            }
+            //首选联系方式
+            if (onlylead.Attributes.Value<int?>("preferredcontactmethodcode")!=null)
+            {
+                accountentity.Attributes.Add("preferredcontactmethodcode", onlylead.Attributes.Value<int?>("preferredcontactmethodcode"));
+            }
+            //婚姻状态
+            if (onlylead.Attributes.Value<int?>("mcs_ismarry") != null)
+            {
+                accountentity.Attributes.Add("mcs_ismarry", onlylead.Attributes.Value<int?>("mcs_ismarry"));
+            }
+            //家庭成员数量
+            if (onlylead.Attributes.Value<int?>("mcs_familymembernum") != null)
+            {
+                accountentity.Attributes.Add("mcs_familymembernum", onlylead.Attributes.Value<int?>("mcs_familymembernum"));
+            }
+            //是否有子女
+            if (onlylead.Attributes.Value<int?>("mcs_ishavechildren") != null)
+            {
+                accountentity.Attributes.Add("mcs_ishavechildren", onlylead.Attributes.Value<int?>("mcs_ishavechildren"));
+            }
+            //兴趣爱好
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("mcs_hobby")))
+            {
+                accountentity.Attributes.Add("mcs_hobby", onlylead.Attributes.Value<string>("mcs_hobby"));
+            }
+            //行业
+            if (onlylead.Attributes.Value<int?>("mcs_industrycode") != null)
+            {
+                accountentity.Attributes.Add("industrycode", onlylead.Attributes.Value<int?>("mcs_industrycode"));
+            }
+            //职务
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("jobtitle")))
+            {
+                accountentity.Attributes.Add("mcs_jobtitle", onlylead.Attributes.Value<string>("jobtitle"));
+            }
+            //宗教信仰
+            if (onlylead.Attributes.Value<int?>("mcs_religion") != null)
+            {
+                accountentity.Attributes.Add("mcs_religion", onlylead.Attributes.Value<int?>("mcs_religion"));
+            }
+            //星座
+            if (onlylead.Attributes.Value<int?>("mcs_constellation") != null)
+            {
+                accountentity.Attributes.Add("mcs_constellation", onlylead.Attributes.Value<int?>("mcs_constellation"));
+            }
+            //购车关注
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("mcs_carattention")))
+            {
+                accountentity.Attributes.Add("mcs_carattention", onlylead.Attributes.Value<string>("mcs_carattention"));
+            }
+            //关注原因
+            if (onlylead.Attributes.Value<int?>("mcs_carereason")!=null)
+            {
+                accountentity.Attributes.Add("mcs_carereason", onlylead.Attributes.Value<int?>("mcs_carereason"));
+            }
+            //购买方式
+            if (onlylead.Attributes.Value<int?>("mcs_purchaseway") != null)
+            {
+                accountentity.Attributes.Add("mcs_purchaseway", onlylead.Attributes.Value<int?>("mcs_purchaseway"));
+            }
+            //购买用途
+            if (onlylead.Attributes.Value<int?>("mcs_purchasepurpose") != null)
+            {
+                accountentity.Attributes.Add("mcs_purchasepurpose", onlylead.Attributes.Value<int?>("mcs_purchasepurpose"));
+            }
+            //竞品车型
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("mcs_competingtype")))
+            {
+                accountentity.Attributes.Add("mcs_competingtype", onlylead.Attributes.Value<string>("mcs_competingtype"));
+            }
+            //意向等级
+            if (onlylead.Attributes.Value<int?>("mcs_level")!=null)
+            {
+                accountentity.Attributes.Add("mcs_level", onlylead.Attributes.Value<int?>("mcs_level"));
+            }
+            //特殊备注
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("description")))
+            {
+                accountentity.Attributes.Add("description", onlylead.Attributes.Value<string>("description"));
+            }
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("mcs_contactid")))//潜客
+            {
+                var contactRef= new CrmEntityReference("contact", Guid.Parse(onlylead.Attributes.Value<string>("mcs_contactid")));
+                accountentity.Attributes.Add("mcs_contactid", contactRef);
+            }
+            //销售类型，1-整车销售，2-充电桩，3-服务类
+            accountentity.Attributes.Add("mcs_salestype",1);
+            //门店销售机会状态默认为待指派
+            accountentity.Attributes.Add("mcs_customerstatus", 1);
+            //销售机会类型 0：自动 1：手动
+            accountentity.Attributes.Add("mcs_salesopportunitytype",0);
+
+            return accountentity;
+            #endregion
+        }
+
+        /// <summary>
+        /// 小订订单关联选配
+        /// </summary>
+        /// <param name="creEntity"></param>
+        /// <param name="equityPackageId"></param>
+        private async void AssociateOptional(CrmExecuteEntity creEntity, string OptionalId)
+        {
+            string[] optionalArray = Regex.Split(OptionalId, ";", RegexOptions.IgnoreCase);
+            foreach (var id in optionalArray)
+            {
+                await _crmService.Associate(creEntity.EntityName, "mcs_optional", "mcs_mcs_optional_mcs_smallorder", creEntity.Id, Guid.Parse(id));
+            }
+        }
+
+        /// <summary>
+        /// 小订订单关联权益包
+        /// </summary>
+        /// <param name="creEntity"></param>
+        /// <param name="equityPackageId"></param>
+        private  async void AssociateEquityPackage(CrmExecuteEntity creEntity, string equityPackageId)
+        {
+            string[] equityPackageArray = Regex.Split(equityPackageId, ";", RegexOptions.IgnoreCase);
+            foreach (var id in equityPackageArray)
+            {
+                //var Packageid = "{" + id + "}";
+                await _crmService.Associate(creEntity.EntityName, "mcs_equitypackage", "mcs_mcs_equitypackage_mcs_smallorder", creEntity.Id, Guid.Parse(id));
+            }
         }
 
         /// <summary>
