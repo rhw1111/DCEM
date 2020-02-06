@@ -178,7 +178,7 @@ input:-ms-input-placeholder {
     pointer-events: none;
     position: absolute;
     top: 0;
-    width: 2.25em;
+    /*width: 2.25em;*/
     z-index: 4;
 }
 .icon {
@@ -197,9 +197,9 @@ input:-ms-input-placeholder {
 .has-text-danger {
     color: #ff3860 !important;
 }
-.field[data-v-00de53e1] .control .has-text-danger:before {
+/*.field[data-v-00de53e1] .control .has-text-danger:before {
     content: "\E737";
-}
+}*/
 address, cite, dfn, em, i, var {
     font-style: normal;
 }
