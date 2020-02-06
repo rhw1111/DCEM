@@ -85,5 +85,18 @@ namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
         /// <param name="orderCode"></param>
         /// <returns></returns>
         string QuerySmallOrder(string orderCode);
+        /// <summary>
+        /// 查询是否存在销售机会
+        /// </summary>
+        /// <param name="onlyleadid"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        string QueryAccount(string onlyleadid, Guid dealerid);
+        /// <summary>
+        /// 查询是否存在销售机会
+        /// </summary>
+        /// <param name="onlyleadid"></param>
+        /// <returns></returns>
+        string QueryAccountMater(string onlyleadid);
     }
 }
