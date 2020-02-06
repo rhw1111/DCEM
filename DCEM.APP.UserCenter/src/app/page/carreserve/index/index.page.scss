@@ -488,6 +488,9 @@ h1, h2, h3, h4, h5, h6, th {
     transition: transform .3s ease;
     transition: transform .3s ease,-webkit-transform .3s ease;
 }
+.index-toolbar .index-info-brief .iconfont.rotate {
+    transform: rotate(180deg);
+}
 .iconfont {
     font-family: iconfont !important;
     font-size: 16px;

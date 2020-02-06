@@ -22,37 +22,45 @@
                                     <!----><div data-v-00de53e1="" class="field">
                                         <!---->
                                         <div data-v-00de53e1="" class="control has-icons-right is-clearfix">
-                                            <input type="text" autocomplete="on" placeholder="请输入您姓名" data-vv-name="fullName" class="input is-danger"> <!----> <!----> <!---->
-                                            <span class="icon is-right has-text-danger"><i class="mdi mdi-alert-circle mdi-24px"></i></span>
+                                            <input type="text" autocomplete="on" (blur)="onchange($event,1)" (focus)="onchange($event,1)" (change)="onchange($event,1)" value="{{model.fullname}}" placeholder="请输入您姓名" id="fullname" data-vv-name="fullName" class="input"> <!----> <!----> <!---->
+                                            <span class="icon is-right has-text-danger">
+                                                <svg style="display:none;" xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="6" height="6" t="1580962184712" p-id="2349" version="1.1"><path fill="#d81e06" d="M 512 102.4 a 409.6 409.6 0 1 0 409.6 409.6 a 409.6 409.6 0 0 0 -409.6 -409.6 Z m 181.248 518.144 a 51.2 51.2 0 0 1 -72.704 72.704 L 512 584.192 l -108.544 109.056 a 51.2 51.2 0 0 1 -72.704 -72.704 L 439.808 512 L 330.752 403.456 a 51.2 51.2 0 0 1 72.704 -72.704 L 512 439.808 l 108.544 -109.056 a 51.2 51.2 0 0 1 72.704 72.704 L 584.192 512 Z" p-id="2350" /></svg>
+                                                <i class="mdi mdi-alert-circle mdi-24px"></i>
+                                            </span>
                                         </div> <!---->
                                     </div>
                                     <div data-v-00de53e1="" class="field">
                                         <!---->
                                         <div data-v-00de53e1="" class="block gender-section">
-                                            <div data-v-00de53e1="" class="label-radio active">
-                                                <input data-v-00de53e1="" type="radio" name="gender" value="1" id="gender-gentleman">
+                                            <div data-v-00de53e1="" class="label-radio active" (click)="chooseGender($event);$event.stopPropagation();">
+                                                <input data-v-00de53e1="" type="radio" name="gender" value="0" id="gender-gentleman">
                                                 <label data-v-00de53e1="" for="gender-gentleman">先生</label>
                                             </div>
-                                            <div data-v-00de53e1="" class="label-radio">
-                                                <input data-v-00de53e1="" type="radio" name="gender" value="2" id="gender-lady">
+                                            <div data-v-00de53e1="" class="label-radio" (click)="chooseGender($event);$event.stopPropagation();">
+                                                <input data-v-00de53e1="" type="radio" name="gender" value="1" id="gender-lady">
                                                 <label data-v-00de53e1="" for="gender-lady">女士</label>
                                             </div>
                                         </div> <!---->
                                     </div>
                                     <div data-v-00de53e1="" class="field">
-                                        <!----> <div data-v-00de53e1="" class="control is-clearfix">
-                                            <input type="text" autocomplete="on" maxlength="30" placeholder="请输入您的手机号" data-vv-name="mobilePhone" class="input"> <!----> <!---->
+                                        <!----> <div data-v-00de53e1="" class="control has-icons-right is-clearfix">
+                                            <input type="text" autocomplete="on" (blur)="onchange($event,2)" (focus)="onchange($event,2)" (change)="onchange($event,2)" value="{{model.mobile}}" maxlength="30" placeholder="请输入您的手机号" id="mobile" data-vv-name="mobilePhone" class="input"> <!----> <!---->
+                                            <span class="icon is-right has-text-danger">
+                                                <svg style="display:none;" xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="6" height="6" t="1580962184712" p-id="2349" version="1.1"><path fill="#d81e06" d="M 512 102.4 a 409.6 409.6 0 1 0 409.6 409.6 a 409.6 409.6 0 0 0 -409.6 -409.6 Z m 181.248 518.144 a 51.2 51.2 0 0 1 -72.704 72.704 L 512 584.192 l -108.544 109.056 a 51.2 51.2 0 0 1 -72.704 -72.704 L 439.808 512 L 330.752 403.456 a 51.2 51.2 0 0 1 72.704 -72.704 L 512 439.808 l 108.544 -109.056 a 51.2 51.2 0 0 1 72.704 72.704 L 584.192 512 Z" p-id="2350" /></svg>
+                                                <i class="mdi mdi-alert-circle mdi-24px"></i>
+                                            </span>
                                             <small class="help counter is-invisible">
                                                 11 / 30
                                             </small>
                                         </div> <!---->
-                                    </div><div data-v-00de53e1="" class="region">
+                                    </div>
+                                    <div data-v-00de53e1="" class="region">
                                         <div data-v-00de53e1="" class="field">
                                             <!---->
                                             <div data-v-00de53e1="" class="region-inner">
                                                 <div data-v-00de53e1="" class="control item province is-expanded">
                                                     <span class="select is-fullwidth">
-                                                        <select data-vv-name="provinceCode">
+                                                        <select id="province" data-vv-name="provinceCode">
                                                             <!---->
                                                             <option data-v-00de53e1="" value="0">北京市</option>
                                                             <option data-v-00de53e1="" value="1">天津市</option>
@@ -90,7 +98,7 @@
                                                 </div>
                                                 <div data-v-00de53e1="" class="control is-expanded item city">
                                                     <span class="select is-fullwidth">
-                                                        <select data-vv-name="cityCode">
+                                                        <select id="city" data-vv-name="cityCode">
                                                             <!---->
                                                             <option data-v-00de53e1="" value="0">重庆市-市辖区</option>
                                                             <option data-v-00de53e1="" value="1">市辖县</option>
@@ -103,10 +111,10 @@
                                     <div data-v-00de53e1="" class="field buttons-section">
                                         <!---->
                                         <div data-v-00de53e1="" class="buttons control">
-                                            <button data-v-00de53e1="" class="button is-block btn-normal">
+                                            <button data-v-00de53e1="" class="button is-block btn-normal" (click)="GoBack()">
                                                 重新预订
                                             </button>
-                                            <button data-v-00de53e1="" class="button is-block btn-normal btn-save" [routerLink]="['/carreserve/confirm']">
+                                            <button data-v-00de53e1="" class="button is-block btn-normal btn-save" (click)="BtnSave()">
                                                 确认订单 <!---->
                                             </button>
                                         </div> <!---->
