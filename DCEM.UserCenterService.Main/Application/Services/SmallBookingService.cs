@@ -21,7 +21,6 @@ namespace DCEM.UserCenterService.Main.Application.Services
     using MSLibrary.Xrm.Message.RetrieveMultipleFetch;
     using System.Xml.Linq;
     using System.Linq;
-    using Newtonsoft.Json.Linq;
     using MSLibrary;
 
     public class SmallBookingService : ISmallBookingService
@@ -248,142 +247,148 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
             //是否包含厅店
             CrmEntity dealer = null;
-                var dealerid = onlyLead.Attributes.Value<string>("_mcs_dealerid_value");
-                if (!string.IsNullOrWhiteSpace("dealerid"))
-                {
-                    var fetchdealer = _smallbookingRepository.GetDealerById(dealerid);
-                    dealer = await _crmService.Retrieve("mcs_dealer", Guid.Parse(dealerid), fetchdealer, null, dicHead);
-                }
-                //2.通过小订订单号查询是否有小订编号，没有则创建
-                var fetchSmallOrder = _smallbookingRepository.QuerySmallOrder(request.OrderCode);
-                var fetchXdocSmallOrder = XDocument.Parse(fetchSmallOrder);
-                var fetchSmallOrderRequest = new CrmRetrieveMultipleFetchRequestMessage()
-                {
-                    EntityName = "mcs_smallorder",
-                    FetchXml = fetchXdocSmallOrder
-                };
-                fetchSmallOrderRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
-                var fetchSmallOrderResponse = await _crmService.Execute(fetchSmallOrderRequest);
-                var smallOrderResponse = fetchSmallOrderResponse as CrmRetrieveMultipleFetchResponseMessage;
-                //3.根据传进来的小订记录状态，处理不同业务逻辑（0 - 待支付、1 - 已支付、2 - 申请退订、3 - 已关闭、4 - 已支付部分退订）
-                if (smallOrderResponse.Value.Results.Count ==0)
-                {
-                    //3.1 默认第一次传进来的是待支付 新建记录
-                    CreateSmallOrder(request, blindOrder, referreronlylead);
-                    //查到当前记录
-                    //var  smallorder = QuerySmallOrder(request.OrderCode);
-                }
+            var dealerid = onlyLead.Attributes.Value<string>("_mcs_dealerid_value");
+            if (!string.IsNullOrWhiteSpace("dealerid"))
+            {
+                var fetchdealer = _smallbookingRepository.GetDealerById(dealerid);
+                dealer = await _crmService.Retrieve("mcs_dealer", Guid.Parse(dealerid), fetchdealer, null, dicHead);
+            }
+            //2.通过小订订单号查询是否有小订编号，没有则创建
+            var fetchSmallOrder = _smallbookingRepository.QuerySmallOrder(request.OrderCode);
+            var fetchXdocSmallOrder = XDocument.Parse(fetchSmallOrder);
+            var fetchSmallOrderRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_smallorder",
+                FetchXml = fetchXdocSmallOrder
+            };
+            fetchSmallOrderRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+            var fetchSmallOrderResponse = await _crmService.Execute(fetchSmallOrderRequest);
+            var smallOrderResponse = fetchSmallOrderResponse as CrmRetrieveMultipleFetchResponseMessage;
+            var smallorder = smallOrderResponse.Value.Results[0];
+            //3.根据传进来的小订记录状态，处理不同业务逻辑（0 - 待支付、1 - 已支付、2 - 申请退订、3 - 已关闭、4 - 已支付部分退订）
+            if (smallorder == null)
+            {
+                //3.1 默认第一次传进来的是待支付 新建记录
+                var creEntity = CreateSmallOrder(request, blindOrder, onlyLead, referreronlylead);
+                var reuset = await _crmService.Create(creEntity);
+                reusetCrmEntity.Id = creEntity.Id;
 
-                ////3.2 订单状态我已支付时，更新订单记录为已支付，创建销售机会，创建支付记录
-                //if (request.OrderStatus == (int)SmallOrderStatus.Paid)
-                //{
-                //    Entity account = null;
-                //    if (dealer != null)
-                //    {
-                //        account = QueryAccount(onlyleadid, dealer.Id, service);
-                //    }
-                //    if (account == null)
-                //    {
-                //        //查询没有厅店的销售机会
-                //        account = QueryAccountMater(onlyleadid, service);
-                //    }
-                //    if (account == null)
-                //    {
-                //        //创建销售机会
-                //        CreateAccount(blindorder, onlylead, smallorder, request, dealer, request);
-                //    }
-                //    if (account != null)
-                //    {
-                //        var upaccount = new Entity(account.LogicalName, account.Id);
-                //        //关联小订记录
-                //        upaccount.Attributes.Add("mcs_smallorderid", new EntityReference(smallorder.LogicalName, smallorder.Id));
-                //        if (!account.Contains("mcs_dealerid"))
-                //        {
-                //            upaccount.Attributes.Add("mcs_dealerid", new EntityReference(dealer.LogicalName, dealer.Id));
-                //        }
-                //        //更新门店销售机会
-                //        request.Requests.Add(new UpdateRequest() { Target = upaccount });
+                //小订关联权益包、选配
+                //查到当前记录
+                //var  smallorder = QuerySmallOrder(request.OrderCode);
+            }
 
-                //        //更新预约单关联门店销售机会字段
-                //        var updateBlindOrder = new Entity(blindorder.LogicalName, blindorder.Id);
-                //        updateBlindOrder.Attributes.Add("mcs_accountid", new EntityReference(account.LogicalName, account.Id));
-                //        request.Requests.Add(new UpdateRequest() { Target = updateBlindOrder });
-                //    }
+            //3.2 订单状态我已支付时，更新订单记录为已支付，创建销售机会，创建支付记录
+            //if (request.OrderStatus == (int)SmallOrderStatus.Paid)
+            //{
+            //    Entity account = null;
+            //    if (dealer != null)
+            //    {
+            //        account = QueryAccount(onlyleadid, dealer.Id, service);
+            //    }
+            //    if (account == null)
+            //    {
+            //        //查询没有厅店的销售机会
+            //        account = QueryAccountMater(onlyleadid, service);
+            //    }
+            //    if (account == null)
+            //    {
+            //        //创建销售机会
+            //        CreateAccount(blindorder, onlylead, smallorder, request, dealer, request);
+            //    }
+            //    if (account != null)
+            //    {
+            //        var upaccount = new Entity(account.LogicalName, account.Id);
+            //        //关联小订记录
+            //        upaccount.Attributes.Add("mcs_smallorderid", new EntityReference(smallorder.LogicalName, smallorder.Id));
+            //        if (!account.Contains("mcs_dealerid"))
+            //        {
+            //            upaccount.Attributes.Add("mcs_dealerid", new EntityReference(dealer.LogicalName, dealer.Id));
+            //        }
+            //        //更新门店销售机会
+            //        request.Requests.Add(new UpdateRequest() { Target = upaccount });
 
-                //    //创建支付记录
-                //    CreatePaymentRecord(smallorder, request, request);
+            //        //更新预约单关联门店销售机会字段
+            //        var updateBlindOrder = new Entity(blindorder.LogicalName, blindorder.Id);
+            //        updateBlindOrder.Attributes.Add("mcs_accountid", new EntityReference(account.LogicalName, account.Id));
+            //        request.Requests.Add(new UpdateRequest() { Target = updateBlindOrder });
+            //    }
 
-                //    //修改小订记录状态
-                //    UpdateSmallOrder(smallorder, (int)SmallOrderStatus.Paid, request);
-                //}
-                ////3.3 订单状态为申请退订时，更新订单状态为申请退订，创建小订退订记录
-                //if (request.OrderStatus == (int)SmallOrderStatus.ApplyForUnsubscribe)
-                //{
-                //    //创建小订退订记录
-                //    CreateSmallRefund(smallorder, request, request);
+            //    //创建支付记录
+            //    CreatePaymentRecord(smallorder, request, request);
 
-                //    //修改小订记录状态
-                //    UpdateSmallOrder(smallorder, (int)SmallOrderStatus.ApplyForUnsubscribe, request);
-                //}
+            //    //修改小订记录状态
+            //    UpdateSmallOrder(smallorder, (int)SmallOrderStatus.Paid, request);
+            //}
+            ////3.3 订单状态为申请退订时，更新订单状态为申请退订，创建小订退订记录
+            //if (request.OrderStatus == (int)SmallOrderStatus.ApplyForUnsubscribe)
+            //{
+            //    //创建小订退订记录
+            //    CreateSmallRefund(smallorder, request, request);
 
-                ////3.4 订单状态为已退订时
-                ////3.4.1 更新小订订单状态与可用订单总额、更新小订状态存在3 - 已关闭和4 - 已支付部分退订情况，如果可用订单总额为0，则说明已全部退完，为已关闭，否则为已支付部分退订
-                ////3.4.2 如果订单状态为已退订了，则通过小订订单查询销售机会，关闭销售机会
-                //if (request.OrderStatus == (int)SmallOrderStatus.Closed)
-                //{
-                //    //订单可用金额
-                //    var oldavailabletotalorder = 0.00M;
-                //    if (smallorder.Contains("mcs_availabletotalorder"))
-                //    {
-                //        oldavailabletotalorder = smallorder.GetAttributeValue<Money>("mcs_availabletotalorder").Value;
-                //    }
-                //    var nowavailabletotalorder = 0.00M;
-                //    if (request.Transactionamount != null)
-                //    {
-                //        nowavailabletotalorder = (decimal)request.Transactionamount;
-                //    }
+            //    //修改小订记录状态
+            //    UpdateSmallOrder(smallorder, (int)SmallOrderStatus.ApplyForUnsubscribe, request);
+            //}
 
-                //    if (smallorder.Contains("mcs_orderstatus") && smallorder.GetAttributeValue<OptionSetValue>("mcs_orderstatus").Value != (int)SmallOrderStatus.Unpaid)
-                //    {
-                //        //创建支付记录
-                //        CreatePaymentRecord(smallorder, request, request);
-                //    }
-                //    if (oldavailabletotalorder - nowavailabletotalorder <= 0.00M)
-                //    {
-                //        var account = QueryAccount(smallorder.Id, service);
-                //        if (account != null)
-                //        {
-                //            //修改销售机会状态
-                //            UpdateAccount(account, request);
-                //        }
-                //        //修改小订记录
-                //        UpdateSmallOrder(smallorder, (int)SmallOrderStatus.Closed, 0.00M, request);
-                //    }
-                //    else
-                //    {
-                //        //修改小订记录
-                //        UpdateSmallOrder(smallorder, (int)SmallOrderStatus.PartiallyCancelled, oldavailabletotalorder - nowavailabletotalorder, request);
-                //    }
-                //}
+            ////3.4 订单状态为已退订时
+            ////3.4.1 更新小订订单状态与可用订单总额、更新小订状态存在3 - 已关闭和4 - 已支付部分退订情况，如果可用订单总额为0，则说明已全部退完，为已关闭，否则为已支付部分退订
+            ////3.4.2 如果订单状态为已退订了，则通过小订订单查询销售机会，关闭销售机会
+            //if (request.OrderStatus == (int)SmallOrderStatus.Closed)
+            //{
+            //    //订单可用金额
+            //    var oldavailabletotalorder = 0.00M;
+            //    if (smallorder.Contains("mcs_availabletotalorder"))
+            //    {
+            //        oldavailabletotalorder = smallorder.GetAttributeValue<Money>("mcs_availabletotalorder").Value;
+            //    }
+            //    var nowavailabletotalorder = 0.00M;
+            //    if (request.Transactionamount != null)
+            //    {
+            //        nowavailabletotalorder = (decimal)request.Transactionamount;
+            //    }
 
-                ////执行处理
-                //service.Execute(request);
+            //    if (smallorder.Contains("mcs_orderstatus") && smallorder.GetAttributeValue<OptionSetValue>("mcs_orderstatus").Value != (int)SmallOrderStatus.Unpaid)
+            //    {
+            //        //创建支付记录
+            //        CreatePaymentRecord(smallorder, request, request);
+            //    }
+            //    if (oldavailabletotalorder - nowavailabletotalorder <= 0.00M)
+            //    {
+            //        var account = QueryAccount(smallorder.Id, service);
+            //        if (account != null)
+            //        {
+            //            //修改销售机会状态
+            //            UpdateAccount(account, request);
+            //        }
+            //        //修改小订记录
+            //        UpdateSmallOrder(smallorder, (int)SmallOrderStatus.Closed, 0.00M, request);
+            //    }
+            //    else
+            //    {
+            //        //修改小订记录
+            //        UpdateSmallOrder(smallorder, (int)SmallOrderStatus.PartiallyCancelled, oldavailabletotalorder - nowavailabletotalorder, request);
+            //    }
+            //}
 
-                validateResult.Data = reusetCrmEntity;
+            ////执行处理
+            //service.Execute(request);
+
+            validateResult.Data = reusetCrmEntity;
             validateResult.Result = true;
             validateResult.Description = "操作成功";
             return validateResult;
         }
 
         /// <summary>
-        /// 创建
+        /// 创建小订记录
         /// </summary>
         /// <param name="request"></param>
         /// <param name="blindOrder"></param>
+        /// <param name="onlylead"></param>
         /// <param name="referreronlylead"></param>
-        private void CreateSmallOrder(SmallBookingRequest request, CrmEntity blindOrder, CrmEntity referreronlylead)
+        private CrmExecuteEntity CreateSmallOrder(SmallBookingRequest request, CrmEntity blindOrder, CrmEntity onlylead, CrmEntity referreronlylead)
         {
-            var createSmallOrder = new CrmEntity("mcs_smallorder", Guid.NewGuid());
+            var createSmallOrder = new CrmExecuteEntity("mcs_smallorder", Guid.NewGuid());
 
             //用车人姓名
             createSmallOrder.Attributes.Add("mcs_fullname", request.FullName);
@@ -447,50 +452,56 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 createSmallOrder.Attributes.Add("mcs_orderstatus", request.OrderStatus);
             }
             //关联预约号
-            //createSmallOrder.Attributes.Add("mcs_blindorderid", new CrmEntityReference(blindOrder.LogicalName, blindorder.Id));
-            ////关联唯一线索
-            //if (blindorder.Contains("mcs_onlyleadid"))
-            //{
-            //    createSmallOrder.Attributes.Add("mcs_onlyleadid", blindorder.GetAttributeValue<EntityReference>("mcs_onlyleadid"));
-            //}
-            ////称谓
-            //if (smallOrderRequest.Gender != null)
-            //{
-            //    createSmallOrder.Attributes.Add("mcs_gender", new OptionSetValue((int)smallOrderRequest.Gender));
-            //}
-            ////原订单总额
-            //if (smallOrderRequest.TotalOrder != null)
-            //{
-            //    createSmallOrder.Attributes.Add("mcs_totalorder", new Money((decimal)smallOrderRequest.TotalOrder));
-            //    //可用订单总额
-            //    createSmallOrder.Attributes.Add("mcs_availabletotalorder", new Money((decimal)smallOrderRequest.TotalOrder));
-            //}
-            ////备用字段1
-            //if (!string.IsNullOrWhiteSpace(smallOrderRequest.Spare1))
-            //{
-            //    createSmallOrder.Attributes.Add("mcs_spare1", smallOrderRequest.Spare1);
-            //}
-            ////备用字段2
-            //if (!string.IsNullOrWhiteSpace(smallOrderRequest.Spare2))
-            //{
-            //    createSmallOrder.Attributes.Add("mcs_spare2", smallOrderRequest.Spare2);
-            //}
-            ////备用字段3
-            //if (!string.IsNullOrWhiteSpace(smallOrderRequest.Spare3))
-            //{
-            //    createSmallOrder.Attributes.Add("mcs_spare3", smallOrderRequest.Spare3);
-            //}
-            ////备用字段4 预订推荐人
-            //if (referreronlylead != null)
-            //{
-            //    createSmallOrder.Attributes.Add("mcs_spare4", new EntityReference(referreronlylead.LogicalName, referreronlylead.Id));
-            //}
-            ////备用字段7
-            //if (!string.IsNullOrWhiteSpace(smallOrderRequest.Spare7))
-            //{
-            //    createSmallOrder.Attributes.Add("mcs_spare7", smallOrderRequest.Spare7);
-            //}
-            //service.Create(createSmallOrder);
+            if (blindOrder!=null)
+            {
+                var blindOrderEF = new CrmEntityReference(blindOrder.EntityName, blindOrder.Id);
+                createSmallOrder.Attributes.Add("mcs_blindorderid", blindOrderEF);
+            }
+            //关联唯一线索
+            if (onlylead!=null)
+            {
+                var onlyLeadEF = new CrmEntityReference(onlylead.EntityName, onlylead.Id);
+                createSmallOrder.Attributes.Add("mcs_onlyleadid", onlyLeadEF);
+            }
+            //称谓
+            if (request.Gender != null)
+            {
+                createSmallOrder.Attributes.Add("mcs_gender", request.Gender);
+            }
+            //原订单总额
+            if (request.TotalOrder != null)
+            {
+                createSmallOrder.Attributes.Add("mcs_totalorder", (decimal)request.TotalOrder);
+                //可用订单总额
+                createSmallOrder.Attributes.Add("mcs_availabletotalorder", request.TotalOrder);
+            }
+            //备用字段1
+            if (!string.IsNullOrWhiteSpace(request.Spare1))
+            {
+                createSmallOrder.Attributes.Add("mcs_spare1", request.Spare1);
+            }
+            //备用字段2
+            if (!string.IsNullOrWhiteSpace(request.Spare2))
+            {
+                createSmallOrder.Attributes.Add("mcs_spare2", request.Spare2);
+            }
+            //备用字段3
+            if (!string.IsNullOrWhiteSpace(request.Spare3))
+            {
+                createSmallOrder.Attributes.Add("mcs_spare3", request.Spare3);
+            }
+            //备用字段4 预订推荐人
+            if (referreronlylead != null)
+            {
+                var referrerOnlyleadEF = new CrmEntityReference(referreronlylead.EntityName, referreronlylead.Id);
+                createSmallOrder.Attributes.Add("mcs_spare4", referrerOnlyleadEF);
+            }
+            //备用字段7
+            if (!string.IsNullOrWhiteSpace(request.Spare7))
+            {
+                createSmallOrder.Attributes.Add("mcs_spare7", request.Spare7);
+            }
+            return createSmallOrder;
         }
     }
 }
