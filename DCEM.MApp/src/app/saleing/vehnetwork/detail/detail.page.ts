@@ -17,7 +17,10 @@ export class DetailPage implements OnInit {
   mod = {
     apiUrl: '/api/vehnetwork/getdetail',
     overUrl: '/api/vehnetwork/updateover',
+    updatecard: '/api/vehnetwork/updatecard',
     uploadUrl: '/api/attachment/add',
+    idcardUrl:"api/ocr/IdCard",//身份证识别地址
+    invoiceUrl:"api/ocr/Invoice",//发票识别地址
     data: {
       detail: [],//开票明细
       cardNodetail: [],//身份附件列表
@@ -99,9 +102,152 @@ export class DetailPage implements OnInit {
       });
 
 
+      
+
+      //获取上传后的文件地址
+      if(uploaddata!=null && uploaddata.length>0){
+
+
+   
+
+
+          var imageUrl=uploaddata[uploaddata.length-1]["url"];
+          var json={};
+          var url="";
+          if(imageUrl!=""){
+            //身份证识别
+            if(type==1){
+              json={
+                //FileUrl:"https://subcrmdevinapi.sokon.com/vi/test/身份证-正面.jpg",
+                FileUrl:imageUrl,
+                Type:1
+              }
+              url=this.mod.idcardUrl;
+            }
+            //发票识别
+            else{
+              json={
+                //FileUrl:"https://subcrmdevinapi.sokon.com/vi/test/电子发票2.jpg"
+                FileUrl:imageUrl
+              }
+              url=this.mod.invoiceUrl;
+            }
+
+            this._page.loadingShow();
+            this._http.postOcr(
+              url,
+              json,
+              (res: any) => {
+                this._page.loadingHide();
+                  console.log(res);
+                  if(res!=null && res.Code=="000"){
+                    var item=res.Data;
+                    var msg="";
+                    var tit="";
+                    var updateJson={
+                      id:this.mod.data.detail["id"],
+                      name:"",
+                      sex:"",
+                      idcard:"",
+                      idaddress:"",
+                      fpname:"",
+                      fpnumber:"",
+                      time:""
+
+                    }
+                    if(type==1){
+                      if(item["姓名"]!=""){
+                        msg+="姓名："+item["姓名"]+"<br/>";
+                        msg+="性别："+item["性别"]+"<br/>";
+                        msg+="身份证号码："+item["公民身份号码"]+"<br/>";
+                        msg+="地址："+item["住址"]+"<br/>";
+
+                        updateJson.name=item["姓名"];
+                        updateJson.sex=item["性别"];
+                        updateJson.idcard=item["公民身份号码"];
+                        updateJson.idaddress=item["住址"];
+                      }
+                      tit="身份证信息";
+
+                    }
+                    else{
+                      if(item["发票号码"]!="" && item["发票名称"]!=""){
+                        msg+="开票名称："+item["购方名称"]+"<br/>";
+                        msg+="发票号码："+item["发票号码"]+"<br/>";
+                        msg+="开票日期："+item["开票日期"]+"<br/>";
+
+                        updateJson.fpname=item["购方名称"];
+                        updateJson.fpnumber=item["发票号码"];
+                        updateJson.time=item["开票日期"];
+
+
+                      }
+                      tit="发票信息";
+                    }
+
+                    var view=this;
+                    if(msg!=""){
+                      this._page.alertCancel(tit,msg+"<b class='titAlter'>点击确定后，将自动更新到基础信息中</b>",function(){
+                        //确定
+                        //修改身份证、发票信息
+                        view.updateCard(updateJson);
+                        //添加附件记录
+                        view.addFile(uploaddata);
+
+                      },function(){
+                        //取消
+
+                      });
+                    }
+                    else{
+                      this._page.alert("消息提示","未能识别到"+tit,function(){
+                        view.addFile(uploaddata);
+                      })
+                      
+                    }
+                    
+
+                  }
+                  else {
+                    this._page.alert("消息提示", res.Message);
+                  }
+              },
+              (err: any) => {
+                  this._page.loadingHide();
+                  console.log(err);
+                  this._page.alert("消息提示", "身份证信息识别错误");
+                  //this._page.loadingHide();
+              }
+          );
+
+
+
+          }
+      }
+
+      return false;
+  
+    }
+  }
+ 
+ updateCard(json){
+  this._http.post(
+    this.mod.updatecard,
+    json,
+    (res: any) => {
+      this._page.loadingHide();
+    },
+    (err: any) => {
+    }
+  );
+
+ }
+
+  addFile(json){
+    console.log(json); 
       this._http.post(
         this.mod.uploadUrl,
-        uploaddata,
+        json,
         (res: any) => {
           this._page.loadingHide();
           debugger;
@@ -120,8 +266,9 @@ export class DetailPage implements OnInit {
           this._page.alert("消息提示", "操作失败");
         }
       );
-    }
+
   }
+ 
   //完成交车
   postover() {
 

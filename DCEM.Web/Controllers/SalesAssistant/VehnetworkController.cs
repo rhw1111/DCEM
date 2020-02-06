@@ -64,6 +64,18 @@ namespace DCEM.Web.Controllers
         {
             return await _appVehnetwork.PostStatus(id);
         }
+
+        /// <summary>
+        /// 修改身份证、发票信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Route("updatecard")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<string>>> updatecard(UpdateCardRequest request)
+        {
+            return await _appVehnetwork.UpdateCard(request);
+        }
     }
 }
 
