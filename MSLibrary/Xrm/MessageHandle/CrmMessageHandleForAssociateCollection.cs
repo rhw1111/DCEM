@@ -87,7 +87,7 @@ namespace MSLibrary.Xrm.MessageHandle
             result.Url = url;
             result.Method = HttpMethod.Post;
             result.Headers = headers;
-            result.Body = $@"{{""@odata.id"":""{realRequest.OrganizationURI}/api/v{realRequest.ApiVersion}/{realRequest.AssociateEntityName.ToPlural()}({realRequest.AssociateEntityId.ToString()})""}}";
+            result.Body = $@"{{""@odata.id"":""{realRequest.OrganizationURI}/api/data/v{realRequest.ApiVersion}/{realRequest.AssociateEntityName.ToPlural()}({realRequest.AssociateEntityId.ToString()})""}}";
 
             return result;
         }

@@ -33,5 +33,11 @@ namespace DCEM.SalesAssistant.Main.Application.App
 
         }
 
+        public async Task<ValidateResult<string>> UpdateCard(UpdateCardRequest request)
+        {
+            return await _service.UpdateCard(request);
+
+        }
+
     }
 }

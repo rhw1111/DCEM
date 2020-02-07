@@ -37,7 +37,7 @@ export class DCore_Config {
 
     constructor(
     ) {
-        this.dcem_serverName = "9_0";
+        this.dcem_serverName = "local2";
         this.tc_serverName = "9_0";
 
         this.tc_host_map = function () {
@@ -57,6 +57,7 @@ export class DCore_Config {
             map.set("sit", "https://subcrmdevapi.sokon.com/dcem/");
             map.set("uat", "https://subcrmuatapi.sokon.com/dcem/");
             map.set("local", "https://localhost:44382/");
+            map.set("local2", "http://localhost:5000/");
             map.set("9_0", "http://106.14.121.65:8082/dcem/");
             map.set("iis", "http://localhost:9099/");
             return map;
