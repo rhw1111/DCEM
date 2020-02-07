@@ -191,242 +191,261 @@ namespace DCEM.UserCenterService.Main.Application.Services
         {
             var validateResult = new ValidateResult<CrmEntity>();
             var reusetCrmEntity = new CrmEntity("mcs_smallorder", new Guid());
-            #region 通过预约号查询是否有预约记录
-            var fetchBlindOrder = _smallbookingRepository.QueryBlindOrder(request.BlindOrder);
-
-            var fetchXdocBlindOrder = XDocument.Parse(fetchBlindOrder);
-            var fetchBlindOrderRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            try
             {
-                EntityName = "mcs_blindorder",
-                FetchXml = fetchXdocBlindOrder
-            };
-            fetchBlindOrderRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
-            var fetchResponse = await _crmService.Execute(fetchBlindOrderRequest);
-            var blindOrderResponse = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
-            if (blindOrderResponse.Value.Results.Count == 0)
+                #region 通过预约号查询是否有预约记录
+                var fetchBlindOrder = _smallbookingRepository.QueryBlindOrder(request.BlindOrder);
+
+                var fetchXdocBlindOrder = XDocument.Parse(fetchBlindOrder);
+                var fetchBlindOrderRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "mcs_blindorder",
+                    FetchXml = fetchXdocBlindOrder
+                };
+                fetchBlindOrderRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                var fetchResponse = await _crmService.Execute(fetchBlindOrderRequest);
+                var blindOrderResponse = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                if (blindOrderResponse.Value.Results.Count == 0)
+                {
+                    validateResult.Data = reusetCrmEntity;
+                    validateResult.Result = false;
+                    validateResult.Description = "预约单号不存在";
+                    return validateResult;
+                }
+                CrmEntity blindOrder = blindOrderResponse.Value.Results[0];
+                #endregion
+
+                #region 查询唯一线索
+                var onlyleadid = blindOrder.Attributes.Value<string>("_mcs_onlyleadid_value");
+                var onlyleadEntityName = blindOrder.Attributes.Value<string>("_mcs_onlyleadid_value@Microsoft.Dynamics.CRM.lookuplogicalname"); //new CrmEntity("mcs_smallorder", new Guid());
+                var onlyleadEF = new CrmEntityReference(onlyleadEntityName, Guid.Parse(onlyleadid));
+
+                //查询唯一线索记录
+                var fetchOnlyLead = _smallbookingRepository.QueryOnlyLead(onlyleadid);
+                var fetchXdocOnlyLead = XDocument.Parse(fetchOnlyLead);
+                var fetchOnlyLeadRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "mcs_onlylead",
+                    FetchXml = fetchXdocOnlyLead
+                };
+                fetchOnlyLeadRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                var fetchOnlyLeadResponse = await _crmService.Execute(fetchOnlyLeadRequest);
+                var onlyLeadResponse = fetchOnlyLeadResponse as CrmRetrieveMultipleFetchResponseMessage;
+                CrmEntity onlyLead = onlyLeadResponse.Value.Results[0];
+                #endregion
+
+                #region 根据预订推荐人UserId 查询唯一线索
+                CrmEntity referreronlylead = null;
+                if (!string.IsNullOrWhiteSpace(request.Spare4))
+                {
+                    var fetchReferrerOnlyLead = _smallbookingRepository.QueryOnlyLeadByUserId(request.Spare4);
+                    var fetchXdocReferrerOnlyLead = XDocument.Parse(fetchReferrerOnlyLead);
+                    var fetchReferrerOnlyLeadRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                    {
+                        EntityName = "mcs_onlylead",
+                        FetchXml = fetchXdocReferrerOnlyLead
+                    };
+                    fetchReferrerOnlyLeadRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                    var fetchReferrerOnlyLeadResponse = await _crmService.Execute(fetchBlindOrderRequest);
+                    var ReferrerOnlyLeadResponse = fetchReferrerOnlyLeadResponse as CrmRetrieveMultipleFetchResponseMessage;
+                    if (ReferrerOnlyLeadResponse.Value.Results.Count > 0)
+                    {
+                        referreronlylead = ReferrerOnlyLeadResponse.Value.Results[0];
+                    }
+                }
+                #endregion
+
+                //是否包含厅店
+                CrmEntity dealer = null;
+                var dealerid = onlyLead.Attributes.Value<string>("_mcs_dealerid_value");
+                if (!string.IsNullOrWhiteSpace(dealerid))
+                {
+                    var fetchDealer = _smallbookingRepository.GetDealerById(dealerid);
+                    var fetchXdocDealer = XDocument.Parse(fetchDealer);
+                    var fetchDealerRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                    {
+                        EntityName = "mcs_dealer",
+                        FetchXml = fetchXdocDealer
+                    };
+                    fetchDealerRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                    var fetchDealerResponse = await _crmService.Execute(fetchDealerRequest);
+                    var DealerResponse = fetchDealerResponse as CrmRetrieveMultipleFetchResponseMessage;
+                    dealer = DealerResponse.Value.Results.Count > 0 ? DealerResponse.Value.Results[0] : null;
+                }
+                //2.通过小订订单号查询是否有小订编号，没有则创建
+                var fetchSmallOrder = _smallbookingRepository.QuerySmallOrder(request.OrderCode);
+                var fetchXdocSmallOrder = XDocument.Parse(fetchSmallOrder);
+                var fetchrequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "mcs_smallorder",
+                    FetchXml = fetchXdocSmallOrder
+                };
+                fetchrequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                var fetchSmallOrderResponse = await _crmService.Execute(fetchrequest);
+                var smallOrderResponse = fetchSmallOrderResponse as CrmRetrieveMultipleFetchResponseMessage;
+                var smallorder = smallOrderResponse.Value.Results.Count > 0 ? smallOrderResponse.Value.Results[0] : null;
+                //3.根据传进来的小订记录状态，处理不同业务逻辑（0 - 待支付、1 - 已支付、2 - 申请退订、3 - 已关闭、4 - 已支付部分退订）
+                if (smallorder == null)
+                {
+                    //3.1 默认第一次传进来的是待支付 新建记录
+                    var creEntity = CreateSmallOrder(request, blindOrder, onlyLead, referreronlylead);
+                    await _crmService.Create(creEntity);
+                    reusetCrmEntity.Id = creEntity.Id;
+                    //小订关联权益包、选配
+                    if (!string.IsNullOrWhiteSpace(request.EquityPackageId))
+                    {
+                        //权益包多对多关联小订
+                        AssociateEquityPackage(creEntity, request.EquityPackageId);
+                    }
+                    //小订关联权益包、选配
+                    if (!string.IsNullOrWhiteSpace(request.OptionalId))
+                    {
+                        //选配多对多关联小订
+                        AssociateOptional(creEntity, request.OptionalId);
+                    }
+                }
+
+                //3.2 订单状态我已支付时，更新订单记录为已支付，创建销售机会，创建支付记录
+                if (request.OrderStatus == 1)
+                {
+                    CrmEntity account = null;
+                    if (dealer != null)
+                    {
+                        var fetchAccount = _smallbookingRepository.QueryAccount(onlyleadid, dealer.Id);
+                        var fetchXdocAccount = XDocument.Parse(fetchAccount);
+                        var fetchAccountRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                        {
+                            EntityName = "account",
+                            FetchXml = fetchXdocAccount
+                        };
+                        fetchAccountRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                        var fetchAccountResponse = await _crmService.Execute(fetchAccountRequest);
+                        var AccountResponse = fetchAccountResponse as CrmRetrieveMultipleFetchResponseMessage;
+                        account = AccountResponse.Value.Results.Count > 0 ? AccountResponse.Value.Results[0] : null;
+
+                    }
+                    if (account == null)
+                    {
+                        //查询没有厅店的销售机会
+                        var fetchAccount = _smallbookingRepository.QueryAccountMater(onlyleadid);
+                        var fetchXdocAccount = XDocument.Parse(fetchAccount);
+                        var fetchAccountRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                        {
+                            EntityName = "account",
+                            FetchXml = fetchXdocAccount
+                        };
+                        fetchAccountRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                        var fetchAccountResponse = await _crmService.Execute(fetchAccountRequest);
+                        var AccountResponse = fetchAccountResponse as CrmRetrieveMultipleFetchResponseMessage;
+                        account = AccountResponse.Value.Results.Count > 0 ? AccountResponse.Value.Results[0] : null;
+                    }
+                    if (account == null)
+                    {
+                        //创建销售机会
+                        CreateAccount(blindOrder, onlyLead, smallorder, request, dealer);
+                    }
+                    if (account != null)
+                    {
+                        var upaccount = new CrmExecuteEntity(account.EntityName, account.Id);
+                        //关联小订记录
+                        var smallOrderRef = new CrmEntityReference(smallorder.EntityName, smallorder.Id);
+                        upaccount.Attributes.Add("mcs_smallorderid", smallOrderRef);
+                        if (string.IsNullOrWhiteSpace(account.Attributes.Value<string>("mcs_dealerid")))
+                        {
+                            //关联到合作伙伴
+                            if (dealer != null)
+                            {
+                                var dealerRef = new CrmEntityReference(dealer.EntityName, dealer.Id);
+                                upaccount.Attributes.Add("mcs_dealerid", dealerRef);
+                            }
+                        }
+                        //更新门店销售机会
+                        await _crmService.Update(upaccount);
+
+                        //更新盲定关联门店销售机会字段
+                        var updBlindOrder = new CrmExecuteEntity(blindOrder.EntityName, blindOrder.Id);
+                        var accountRef = new CrmEntityReference(account.EntityName, account.Id);
+                        updBlindOrder.Attributes.Add("mcs_accountid", accountRef);
+                        await _crmService.Update(updBlindOrder);
+                    }
+
+                    //创建支付记录
+                    var paymentRecord = CreatePaymentRecord(smallorder, request);
+                    await _crmService.Create(paymentRecord);
+
+                    //修改小订记录状态
+                    var upSmallOrder = new CrmExecuteEntity(smallorder.EntityName, smallorder.Id);
+                    //小订状态
+                    upSmallOrder.Attributes.Add("mcs_orderstatus", request.OrderStatus);
+                    await _crmService.Update(upSmallOrder);
+                  
+                }
+
+                ////3.3 订单状态为申请退订时，更新订单状态为申请退订，创建小订退订记录
+                //if (request.OrderStatus == (int)SmallOrderStatus.ApplyForUnsubscribe)
+                //{
+                //    //创建小订退订记录
+                //    CreateSmallRefund(smallorder, request, request);
+
+                //    //修改小订记录状态
+                //    UpdateSmallOrder(smallorder, (int)SmallOrderStatus.ApplyForUnsubscribe, request);
+                //}
+
+                ////3.4 订单状态为已退订时
+                ////3.4.1 更新小订订单状态与可用订单总额、更新小订状态存在3 - 已关闭和4 - 已支付部分退订情况，如果可用订单总额为0，则说明已全部退完，为已关闭，否则为已支付部分退订
+                ////3.4.2 如果订单状态为已退订了，则通过小订订单查询销售机会，关闭销售机会
+                //if (request.OrderStatus == (int)SmallOrderStatus.Closed)
+                //{
+                //    //订单可用金额
+                //    var oldavailabletotalorder = 0.00M;
+                //    if (smallorder.Contains("mcs_availabletotalorder"))
+                //    {
+                //        oldavailabletotalorder = smallorder.GetAttributeValue<Money>("mcs_availabletotalorder").Value;
+                //    }
+                //    var nowavailabletotalorder = 0.00M;
+                //    if (request.Transactionamount != null)
+                //    {
+                //        nowavailabletotalorder = (decimal)request.Transactionamount;
+                //    }
+
+                //    if (smallorder.Contains("mcs_orderstatus") && smallorder.GetAttributeValue<OptionSetValue>("mcs_orderstatus").Value != (int)SmallOrderStatus.Unpaid)
+                //    {
+                //        //创建支付记录
+                //        CreatePaymentRecord(smallorder, request, request);
+                //    }
+                //    if (oldavailabletotalorder - nowavailabletotalorder <= 0.00M)
+                //    {
+                //        var account = QueryAccount(smallorder.Id, service);
+                //        if (account != null)
+                //        {
+                //            //修改销售机会状态
+                //            UpdateAccount(account, request);
+                //        }
+                //        //修改小订记录
+                //        UpdateSmallOrder(smallorder, (int)SmallOrderStatus.Closed, 0.00M, request);
+                //    }
+                //    else
+                //    {
+                //        //修改小订记录
+                //        UpdateSmallOrder(smallorder, (int)SmallOrderStatus.PartiallyCancelled, oldavailabletotalorder - nowavailabletotalorder, request);
+                //    }
+                //}
+
+                ////执行处理
+                //service.Execute(request);
+                reusetCrmEntity.Id = smallorder.Id;
+                validateResult.Data = reusetCrmEntity;
+                validateResult.Result = true;
+                validateResult.Description = "操作成功";
+                return validateResult;
+            }
+            catch (Exception ex)
             {
                 validateResult.Data = reusetCrmEntity;
                 validateResult.Result = false;
-                validateResult.Description = "预约单号不存在";
+                validateResult.Description = "操作失败"+"失败原因:"+ex.Message;
                 return validateResult;
             }
-            CrmEntity blindOrder = blindOrderResponse.Value.Results[0];
-            #endregion
-
-            #region 查询唯一线索
-            var onlyleadid = blindOrder.Attributes.Value<string>("_mcs_onlyleadid_value");
-            var onlyleadEntityName = blindOrder.Attributes.Value<string>("_mcs_onlyleadid_value@Microsoft.Dynamics.CRM.lookuplogicalname"); //new CrmEntity("mcs_smallorder", new Guid());
-            var onlyleadEF = new CrmEntityReference(onlyleadEntityName, Guid.Parse(onlyleadid));
-
-            //查询唯一线索记录
-            var fetchOnlyLead = _smallbookingRepository.QueryOnlyLead(onlyleadid);
-            var fetchXdocOnlyLead = XDocument.Parse(fetchOnlyLead);
-            var fetchOnlyLeadRequest = new CrmRetrieveMultipleFetchRequestMessage()
-            {
-                EntityName = "mcs_onlylead",
-                FetchXml = fetchXdocOnlyLead
-            };
-            fetchOnlyLeadRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
-            var fetchOnlyLeadResponse = await _crmService.Execute(fetchOnlyLeadRequest);
-            var onlyLeadResponse = fetchOnlyLeadResponse as CrmRetrieveMultipleFetchResponseMessage;
-            CrmEntity onlyLead = onlyLeadResponse.Value.Results[0];
-            #endregion
-
-            #region 根据预订推荐人UserId 查询唯一线索
-            CrmEntity referreronlylead = null;
-            if (!string.IsNullOrWhiteSpace(request.Spare4))
-            {
-                var fetchReferrerOnlyLead = _smallbookingRepository.QueryOnlyLeadByUserId(request.Spare4);
-                var fetchXdocReferrerOnlyLead = XDocument.Parse(fetchReferrerOnlyLead);
-                var fetchReferrerOnlyLeadRequest = new CrmRetrieveMultipleFetchRequestMessage()
-                {
-                    EntityName = "mcs_onlylead",
-                    FetchXml = fetchXdocReferrerOnlyLead
-                };
-                fetchReferrerOnlyLeadRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
-                var fetchReferrerOnlyLeadResponse = await _crmService.Execute(fetchBlindOrderRequest);
-                var ReferrerOnlyLeadResponse = fetchReferrerOnlyLeadResponse as CrmRetrieveMultipleFetchResponseMessage;
-                if (ReferrerOnlyLeadResponse.Value.Results.Count > 0)
-                {
-                    referreronlylead = ReferrerOnlyLeadResponse.Value.Results[0];
-                }
-            }
-            #endregion
-
-            //是否包含厅店
-            CrmEntity dealer = null;
-            var dealerid = onlyLead.Attributes.Value<string>("_mcs_dealerid_value");
-            if (!string.IsNullOrWhiteSpace(dealerid))
-            {
-                var fetchdealer = _smallbookingRepository.GetDealerById(dealerid);
-                dealer = await _crmService.Retrieve("mcs_dealer", Guid.Parse(dealerid), fetchdealer, null, dicHead);
-            }
-            //2.通过小订订单号查询是否有小订编号，没有则创建
-            var fetchSmallOrder = _smallbookingRepository.QuerySmallOrder(request.OrderCode);
-            var fetchXdocSmallOrder = XDocument.Parse(fetchSmallOrder);
-            var fetchrequest = new CrmRetrieveMultipleFetchRequestMessage()
-            {
-                EntityName = "mcs_smallorder",
-                FetchXml = fetchXdocSmallOrder
-            };
-            fetchrequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
-            var fetchSmallOrderResponse = await _crmService.Execute(fetchrequest);
-            var smallOrderResponse = fetchSmallOrderResponse as CrmRetrieveMultipleFetchResponseMessage;
-            var smallorder = smallOrderResponse.Value.Results.Count>0? smallOrderResponse.Value.Results[0]: null;
-            //3.根据传进来的小订记录状态，处理不同业务逻辑（0 - 待支付、1 - 已支付、2 - 申请退订、3 - 已关闭、4 - 已支付部分退订）
-            if (smallorder == null)
-            {
-                //3.1 默认第一次传进来的是待支付 新建记录
-                var creEntity = CreateSmallOrder(request, blindOrder, onlyLead, referreronlylead);
-                var reuset = await _crmService.Create(creEntity);
-                reusetCrmEntity.Id = creEntity.Id;
-
-                ////小订关联权益包、选配
-                //if (!string.IsNullOrWhiteSpace(request.EquityPackageId))
-                //{
-                //    //权益包多对多关联小订
-                //    AssociateEquityPackage(creEntity, request.EquityPackageId);
-                //}
-                ////小订关联权益包、选配
-                //if (!string.IsNullOrWhiteSpace(request.OptionalId))
-                //{
-                //    //选配多对多关联小订
-                //    AssociateOptional(creEntity, request.OptionalId);
-                //}
-            }
-
-            //3.2 订单状态我已支付时，更新订单记录为已支付，创建销售机会，创建支付记录
-            if (request.OrderStatus == 1)
-            {
-                CrmEntity account = null;
-                if (dealer != null)
-                {
-                    var fetchAccount = _smallbookingRepository.QueryAccount(onlyleadid, dealer.Id);
-                    var fetchXdocAccount = XDocument.Parse(fetchAccount);
-                    var fetchAccountRequest = new CrmRetrieveMultipleFetchRequestMessage()
-                    {
-                        EntityName = "mcs_account",
-                        FetchXml = fetchXdocAccount
-                    };
-                    fetchAccountRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
-                    var fetchAccountResponse = await _crmService.Execute(fetchAccountRequest);
-                    var AccountResponse = fetchAccountResponse as CrmRetrieveMultipleFetchResponseMessage;
-                    account = AccountResponse.Value.Results[0];
-
-                }
-                if (account == null)
-                {
-                    //查询没有厅店的销售机会
-                    var fetchAccount = _smallbookingRepository.QueryAccountMater(onlyleadid);
-                    var fetchXdocAccount = XDocument.Parse(fetchAccount);
-                    var fetchAccountRequest = new CrmRetrieveMultipleFetchRequestMessage()
-                    {
-                        EntityName = "mcs_account",
-                        FetchXml = fetchXdocAccount
-                    };
-                    fetchAccountRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
-                    var fetchAccountResponse = await _crmService.Execute(fetchAccountRequest);
-                    var AccountResponse = fetchAccountResponse as CrmRetrieveMultipleFetchResponseMessage;
-                    account = AccountResponse.Value.Results[0];
-                }
-                if (account == null)
-                {
-                    //创建销售机会
-                    CreateAccount(blindOrder, onlyLead, smallorder, request, dealer);
-                }
-                if (account != null)
-                {
-                    var upaccount = new CrmExecuteEntity(account.EntityName, account.Id);
-                    //关联小订记录
-                    var smallOrderRef = new CrmEntityReference(smallorder.EntityName, smallorder.Id);
-                    upaccount.Attributes.Add("mcs_smallorderid", smallOrderRef);
-                    if (string.IsNullOrWhiteSpace(account.Attributes.Value<string>("mcs_dealerid")))
-                    {
-                        //关联到合作伙伴
-                        if (dealer != null)
-                        {
-                            var dealerRef = new CrmEntityReference(dealer.EntityName, dealer.Id);
-                            upaccount.Attributes.Add("mcs_dealerid", dealerRef);
-                        }
-                    }
-                    //更新门店销售机会
-                    await _crmService.Update(upaccount);
-
-                    //更新盲定关联门店销售机会字段
-                    var updBlindOrder = new CrmExecuteEntity(blindOrder.EntityName, blindOrder.Id);
-                    var accountRef = new CrmEntityReference(account.EntityName, account.Id);
-                    updBlindOrder.Attributes.Add("mcs_accountid", accountRef);
-                    await _crmService.Update(updBlindOrder);
-                }
-
-                //创建支付记录
-                var paymentRecord=CreatePaymentRecord(smallorder, request);
-                await _crmService.Update(paymentRecord);
-
-                //修改小订记录状态
-                var upSmallOrder = new CrmExecuteEntity(smallorder.EntityName, smallorder.Id);
-                //小订状态
-                upSmallOrder.Attributes.Add("mcs_orderstatus", request.OrderStatus);
-                await _crmService.Update(upSmallOrder);
-            }
-
-            ////3.3 订单状态为申请退订时，更新订单状态为申请退订，创建小订退订记录
-            //if (request.OrderStatus == (int)SmallOrderStatus.ApplyForUnsubscribe)
-            //{
-            //    //创建小订退订记录
-            //    CreateSmallRefund(smallorder, request, request);
-
-            //    //修改小订记录状态
-            //    UpdateSmallOrder(smallorder, (int)SmallOrderStatus.ApplyForUnsubscribe, request);
-            //}
-
-            ////3.4 订单状态为已退订时
-            ////3.4.1 更新小订订单状态与可用订单总额、更新小订状态存在3 - 已关闭和4 - 已支付部分退订情况，如果可用订单总额为0，则说明已全部退完，为已关闭，否则为已支付部分退订
-            ////3.4.2 如果订单状态为已退订了，则通过小订订单查询销售机会，关闭销售机会
-            //if (request.OrderStatus == (int)SmallOrderStatus.Closed)
-            //{
-            //    //订单可用金额
-            //    var oldavailabletotalorder = 0.00M;
-            //    if (smallorder.Contains("mcs_availabletotalorder"))
-            //    {
-            //        oldavailabletotalorder = smallorder.GetAttributeValue<Money>("mcs_availabletotalorder").Value;
-            //    }
-            //    var nowavailabletotalorder = 0.00M;
-            //    if (request.Transactionamount != null)
-            //    {
-            //        nowavailabletotalorder = (decimal)request.Transactionamount;
-            //    }
-
-            //    if (smallorder.Contains("mcs_orderstatus") && smallorder.GetAttributeValue<OptionSetValue>("mcs_orderstatus").Value != (int)SmallOrderStatus.Unpaid)
-            //    {
-            //        //创建支付记录
-            //        CreatePaymentRecord(smallorder, request, request);
-            //    }
-            //    if (oldavailabletotalorder - nowavailabletotalorder <= 0.00M)
-            //    {
-            //        var account = QueryAccount(smallorder.Id, service);
-            //        if (account != null)
-            //        {
-            //            //修改销售机会状态
-            //            UpdateAccount(account, request);
-            //        }
-            //        //修改小订记录
-            //        UpdateSmallOrder(smallorder, (int)SmallOrderStatus.Closed, 0.00M, request);
-            //    }
-            //    else
-            //    {
-            //        //修改小订记录
-            //        UpdateSmallOrder(smallorder, (int)SmallOrderStatus.PartiallyCancelled, oldavailabletotalorder - nowavailabletotalorder, request);
-            //    }
-            //}
-
-            ////执行处理
-            //service.Execute(request);
-
-            validateResult.Data = reusetCrmEntity;
-            validateResult.Result = true;
-            validateResult.Description = "操作成功";
-            return validateResult;
         }
 
         /// <summary>
@@ -458,7 +477,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
             //交易时间
             if (request.TransactionTime != null)
             {
-                paymentrecord.Attributes.Add("mcs_transactiontime", DateTime.Parse(request.TransactionTime));
+                paymentrecord.Attributes.Add("mcs_transactiontime", DateTime.Parse(request.TransactionTime).ToUniversalTime());
             }
             //交易金额
             if (request.Transactionamount != null)
@@ -512,9 +531,9 @@ namespace DCEM.UserCenterService.Main.Application.Services
             var onlyleadRef = new CrmEntityReference(onlylead.EntityName, onlylead.Id);
             createaccountentity.Attributes.Add("mcs_onlyleadid", onlyleadRef);
             //ownerid.赋值团队
-            if (dealer != null && !string.IsNullOrWhiteSpace(dealer.Attributes.Value<string>("mcs_teamid")))
+            if (dealer != null && !string.IsNullOrWhiteSpace(dealer.Attributes.Value<string>("_mcs_teamid_value")))
             {
-                var teamRef= new CrmEntityReference("team",Guid.Parse(dealer.Attributes.Value<string>("mcs_teamid")));
+                var teamRef= new CrmEntityReference("team",Guid.Parse(dealer.Attributes.Value<string>("_mcs_teamid_value")));
                 createaccountentity.Attributes.Add("ownerid", teamRef);
             }
             //关联小订记录
@@ -560,7 +579,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
             //生日
             if (onlylead.Attributes.Value<DateTime?>("birthDate")!=null)
             {
-                accountentity.Attributes.Add("mcs_birthdate", onlylead.Attributes.Value<DateTime?>("birthDate"));
+                accountentity.Attributes.Add("mcs_birthdate", onlylead.Attributes.Value<DateTime?>("birthDate").Value.ToUniversalTime());
             }
             //渠道
             if (onlylead.Attributes.Value<int?>("mcs_channel")!= null)
@@ -643,27 +662,27 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 accountentity.Attributes.Add("mcs_vehicleusers", onlylead.Attributes.Value<string>("mcs_vehicleusers"));
             }
             //关联到国家
-            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("mcs_countryid")))
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("_mcs_countryid_value")))
             {
-                var countryRef = new CrmEntityReference("mcs_sysarea", Guid.Parse(onlylead.Attributes.Value<string>("mcs_countryid")));
+                var countryRef = new CrmEntityReference("mcs_sysarea", Guid.Parse(onlylead.Attributes.Value<string>("_mcs_countryid_value")));
                 accountentity.Attributes.Add("mcs_countryid", countryRef);
             }
             //关联到省
-            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("mcs_provinceid")))
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("_mcs_provinceid_value")))
             {
-                var provinceRef = new CrmEntityReference("mcs_sysarea", Guid.Parse(onlylead.Attributes.Value<string>("mcs_provinceid")));
+                var provinceRef = new CrmEntityReference("mcs_sysarea", Guid.Parse(onlylead.Attributes.Value<string>("_mcs_provinceid_value")));
                 accountentity.Attributes.Add("mcs_provinceid", provinceRef);
             }
             //关联到城市
-            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("mcs_cityid")))
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("_mcs_cityid_value")))
             {
-                var cityRef = new CrmEntityReference("mcs_sysarea", Guid.Parse(onlylead.Attributes.Value<string>("mcs_cityid")));
+                var cityRef = new CrmEntityReference("mcs_sysarea", Guid.Parse(onlylead.Attributes.Value<string>("_mcs_cityid_value")));
                 accountentity.Attributes.Add("mcs_cityid", cityRef);
             }
             //区
-            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("mcs_districtid")))
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("_mcs_districtid_value")))
             {
-                var districtRef = new CrmEntityReference("mcs_sysarea", Guid.Parse(onlylead.Attributes.Value<string>("mcs_districtid")));
+                var districtRef = new CrmEntityReference("mcs_sysarea", Guid.Parse(onlylead.Attributes.Value<string>("_mcs_districtid_value")));
                 accountentity.Attributes.Add("mcs_districtid", districtRef);
             }
             //身份证所在地
@@ -781,9 +800,9 @@ namespace DCEM.UserCenterService.Main.Application.Services
             {
                 accountentity.Attributes.Add("description", onlylead.Attributes.Value<string>("description"));
             }
-            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("mcs_contactid")))//潜客
+            if (!string.IsNullOrWhiteSpace(onlylead.Attributes.Value<string>("_mcs_contactid_value")))//潜客
             {
-                var contactRef= new CrmEntityReference("contact", Guid.Parse(onlylead.Attributes.Value<string>("mcs_contactid")));
+                var contactRef= new CrmEntityReference("contact", Guid.Parse(onlylead.Attributes.Value<string>("_mcs_contactid_value")));
                 accountentity.Attributes.Add("mcs_contactid", contactRef);
             }
             //销售类型，1-整车销售，2-充电桩，3-服务类
@@ -807,7 +826,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
             string[] optionalArray = Regex.Split(OptionalId, ";", RegexOptions.IgnoreCase);
             foreach (var id in optionalArray)
             {
-                await _crmService.Associate(creEntity.EntityName, "mcs_optional", "mcs_mcs_optional_mcs_smallorder", creEntity.Id, Guid.Parse(id));
+                await _crmService.Associate(creEntity.EntityName, "mcs_optional", "mcs_mcs_smallorder_mcs_optional", creEntity.Id, Guid.Parse(id));
             }
         }
 
@@ -821,7 +840,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
             string[] equityPackageArray = Regex.Split(equityPackageId, ";", RegexOptions.IgnoreCase);
             foreach (var id in equityPackageArray)
             {
-                await _crmService.Associate(creEntity.EntityName, "mcs_equitypackage", "mcs_mcs_equitypackage_mcs_smallorder", creEntity.Id, Guid.Parse(id));
+                await _crmService.Associate(creEntity.EntityName, "mcs_equitypackage", "mcs_mcs_smallorder_mcs_equitypackage", creEntity.Id, Guid.Parse(id));
             }
         }
 
