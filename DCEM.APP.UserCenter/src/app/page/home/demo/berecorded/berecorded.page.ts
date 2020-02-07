@@ -58,6 +58,7 @@ export class BerecordedPage implements OnInit {
 
 
         this.mediaObj.startRecord();
+        alert(filePath);
     }
 
     pauseRecord() { //暂停录音
