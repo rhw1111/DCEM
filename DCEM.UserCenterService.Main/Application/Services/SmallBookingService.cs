@@ -984,39 +984,29 @@ namespace DCEM.UserCenterService.Main.Application.Services
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public Task<QueryResult<CrmEntity>> QuerySmallOrder(SmallOrderListRequest request)
+        public async Task<QueryResult<CrmEntity>> QuerySmallOrder(SmallOrderListRequest request)
         {
-            //try
-            //{
-            //    var fetchString = _smallbookingRepository.QuerySmallOrder(request);
-
-            //    var fetchXdoc = XDocument.Parse(fetchString);
-            //    var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
-            //    {
-            //        EntityName = "mcs_appointmentconfig",
-            //        FetchXml = fetchXdoc
-            //    };
-            //    var fetchResponse = await _crmService.Execute(fetchRequest);
-            //    var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
-
-            //    var queryResult = new QueryResult<CrmEntity>();
-            //    queryResult.Results = fetchResponseResult.Value.Results;
-            //    queryResult.CurrentPage = appointmentConfiggRequest.page;
-            //    queryResult.TotalCount = 0;
-
-            //    return queryResult;
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw ex;
-            //}
-
             var queryResult = new QueryResult<CrmEntity>();
-            //queryResult.Results = fetchResponseResult.Value.Results;
-            //queryResult.CurrentPage = appointmentConfiggRequest.page;
-            //queryResult.TotalCount = 0;
-
-            return null;
+            try
+            {
+                var fetchString = _smallbookingRepository.QuerySmallOrder(request);
+                var fetchXdoc = XDocument.Parse(fetchString);
+                var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "mcs_smallorder",
+                    FetchXml = fetchXdoc
+                };
+                var fetchResponse = await _crmService.Execute(fetchRequest);
+                var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                queryResult.Results = fetchResponseResult.Value.Results;
+                queryResult.CurrentPage = request.PageIndex;
+                //queryResult.TotalCount = 0;
+                return queryResult;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
