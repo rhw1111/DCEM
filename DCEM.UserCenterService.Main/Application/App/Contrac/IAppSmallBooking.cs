@@ -32,5 +32,12 @@ namespace DCEM.UserCenterService.Main.Application.App.Contrac
         /// <param name="request"></param>
         /// <returns></returns>
         Task<ValidateResult<CrmEntity>> AddOrEdit(SmallBookingRequest request);
+
+        /// <summary>
+        /// 小订订单查询接口
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<QueryResult<CrmEntity>> QuerySmallOrder(SmallOrderListRequest request);
     }
 }
