@@ -53,7 +53,6 @@ export class FillinfoPage implements OnInit {
         //获取参数
         var datastr = this.routerinfo.snapshot.queryParams["params"];
         this.model.datas = JSON.parse(datastr);
-        this.checkLogin();
     }
     ionViewWillEnter() {
         this.initListLoading();
@@ -81,21 +80,7 @@ export class FillinfoPage implements OnInit {
             }
         }
     }
-    //检查是否登陆
-    async checkLogin() {
-            if (this._logininfo.GetNickName() != null) {
-            } else {
-                const modal = await this._modalCtrl.create({
-                    component: LoginComponent,
-                    componentProps: {
-                        'status': 1//登录页面状态 
-                    }
-                });
-                await modal.present();
-                //监听销毁的事件
-                const { data } = await modal.onDidDismiss();
-            }
-    }
+    
 
     //获取预约号数据
     getblindorder(event, mobile) {
@@ -103,7 +88,7 @@ export class FillinfoPage implements OnInit {
         var request = {
             "mcs_mobilephone": mobile
         };
-        this._http.get(this.model.search.apiUrl,
+        this._http.get(this.model.search.apiUrl + "?mcs_mobilephone=" + mobile,
             request,
             (res: any) => {
                 if (res != null) {
@@ -206,6 +191,7 @@ export class FillinfoPage implements OnInit {
         this.model.datas.request.Gender = gender;
         this.model.datas.request.CityOnCard = province;
         this.model.datas.request.ProvinceOnCard = city;
+        this.model.datas.request.UserId = this._logininfo.GetSystemUserId();
         this._page.goto("/carreserve/confirm", { params: JSON.stringify(this.model.datas) });
     }
     //获取省组件

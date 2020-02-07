@@ -22,7 +22,7 @@
                 </div>
                 <div class="confirm-block-title is-flex">
                     <h5>预订人信息</h5>
-                    <span class="modify">修改</span>
+                    <!--<span class="modify">修改</span>-->
                 </div>
                 <div class="confirm-shadowbox">
                     <div class="user-info">
@@ -41,7 +41,7 @@
             <div class="confirm-content">
                 <div class="confirm-block-title is-flex">
                     <h5>权益一：预订专属豪礼</h5>
-                    <span class="modify">修改</span>
+                    <!--<span class="modify">修改</span>-->
                 </div>
                 <div class="confirm-package-radio" *ngFor="let item of model.checkedequitypackage ">
                     <input type="checkbox" name="preorderPackageOne-readonly" id="{{item.EquityPackageInfo.mcs_equitypackageid}}" disabled="disabled" class="readonly" value="{{item.EquityPackageInfo.mcs_code}}">
@@ -76,7 +76,7 @@
             <div class="confirm-content">
                 <div class="confirm-block-title is-flex">
                     <h5>权益二：限时优享套件</h5>
-                    <span class="modify">修改</span>
+                    <!--<span class="modify">修改</span>-->
                 </div>
                 <div class="confirm-package-checkbox" *ngFor="let item of model.checkedoptional">
                     <input type="checkbox" name="preorderPackageTwo-readonly" disabled="disabled" id="{{item.OptionalInfo.mcs_optionalid}}" class="readonly" value="{{item.OptionalInfo.mcs_code}}">
