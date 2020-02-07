@@ -281,18 +281,18 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 var reuset = await _crmService.Create(creEntity);
                 reusetCrmEntity.Id = creEntity.Id;
 
-                //小订关联权益包、选配
-                if (!string.IsNullOrWhiteSpace(request.EquityPackageId))
-                {
-                    //权益包多对多关联小订
-                    AssociateEquityPackage(creEntity, request.EquityPackageId);
-                }
-                //小订关联权益包、选配
-                if (!string.IsNullOrWhiteSpace(request.OptionalId))
-                {
-                    //选配多对多关联小订
-                    AssociateOptional(creEntity, request.OptionalId);
-                }
+                ////小订关联权益包、选配
+                //if (!string.IsNullOrWhiteSpace(request.EquityPackageId))
+                //{
+                //    //权益包多对多关联小订
+                //    AssociateEquityPackage(creEntity, request.EquityPackageId);
+                //}
+                ////小订关联权益包、选配
+                //if (!string.IsNullOrWhiteSpace(request.OptionalId))
+                //{
+                //    //选配多对多关联小订
+                //    AssociateOptional(creEntity, request.OptionalId);
+                //}
             }
 
             //3.2 订单状态我已支付时，更新订单记录为已支付，创建销售机会，创建支付记录
@@ -821,7 +821,6 @@ namespace DCEM.UserCenterService.Main.Application.Services
             string[] equityPackageArray = Regex.Split(equityPackageId, ";", RegexOptions.IgnoreCase);
             foreach (var id in equityPackageArray)
             {
-                //var Packageid = "{" + id + "}";
                 await _crmService.Associate(creEntity.EntityName, "mcs_equitypackage", "mcs_mcs_equitypackage_mcs_smallorder", creEntity.Id, Guid.Parse(id));
             }
         }
