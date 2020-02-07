@@ -304,6 +304,10 @@ namespace DCEM.UserCenterService.Main.Application.Services
                         AssociateOptional(creEntity, request.OptionalId);
                     }
                 }
+                else
+                {
+                    reusetCrmEntity = smallorder;
+                }
 
                 //3.2 订单状态我已支付时，更新订单记录为已支付，创建销售机会，创建支付记录
                 if (request.OrderStatus == 1)
@@ -433,7 +437,6 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
                 ////执行处理
                 //service.Execute(request);
-                reusetCrmEntity.Id = smallorder.Id;
                 validateResult.Data = reusetCrmEntity;
                 validateResult.Result = true;
                 validateResult.Description = "操作成功";
@@ -826,7 +829,10 @@ namespace DCEM.UserCenterService.Main.Application.Services
             string[] optionalArray = Regex.Split(OptionalId, ";", RegexOptions.IgnoreCase);
             foreach (var id in optionalArray)
             {
-                await _crmService.Associate(creEntity.EntityName, "mcs_optional", "mcs_mcs_smallorder_mcs_optional", creEntity.Id, Guid.Parse(id));
+                if (!string.IsNullOrWhiteSpace(id))
+                {
+                    await _crmService.Associate(creEntity.EntityName, "mcs_optional", "mcs_mcs_smallorder_mcs_optional", creEntity.Id, Guid.Parse(id));
+                }
             }
         }
 
@@ -840,7 +846,10 @@ namespace DCEM.UserCenterService.Main.Application.Services
             string[] equityPackageArray = Regex.Split(equityPackageId, ";", RegexOptions.IgnoreCase);
             foreach (var id in equityPackageArray)
             {
-                await _crmService.Associate(creEntity.EntityName, "mcs_equitypackage", "mcs_mcs_smallorder_mcs_equitypackage", creEntity.Id, Guid.Parse(id));
+                if (!string.IsNullOrWhiteSpace(id))
+                {
+                    await _crmService.Associate(creEntity.EntityName, "mcs_equitypackage", "mcs_mcs_smallorder_mcs_equitypackage", creEntity.Id, Guid.Parse(id));
+                }
             }
         }
 
@@ -967,6 +976,37 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 createSmallOrder.Attributes.Add("mcs_spare7", request.Spare7);
             }
             return createSmallOrder;
+        }
+
+
+        /// <summary>
+        /// 小订订单查询接口
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<QueryResult<CrmEntity>> QuerySmallOrder(SmallOrderListRequest request)
+        {
+            var queryResult = new QueryResult<CrmEntity>();
+            try
+            {
+                var fetchString = _smallbookingRepository.QuerySmallOrder(request);
+                var fetchXdoc = XDocument.Parse(fetchString);
+                var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "mcs_smallorder",
+                    FetchXml = fetchXdoc
+                };
+                var fetchResponse = await _crmService.Execute(fetchRequest);
+                var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                queryResult.Results = fetchResponseResult.Value.Results;
+                queryResult.CurrentPage = request.PageIndex;
+                //queryResult.TotalCount = 0;
+                return queryResult;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

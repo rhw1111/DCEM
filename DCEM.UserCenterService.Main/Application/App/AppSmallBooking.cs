@@ -37,5 +37,10 @@ namespace DCEM.UserCenterService.Main.Application.App
         {
             return await _smallbookingService.QuerySmallBooking(request);
         }
+
+        public async Task<QueryResult<CrmEntity>> QuerySmallOrder(SmallOrderListRequest request)
+        {
+            return await _smallbookingService.QuerySmallOrder(request);
+        }
     }
 }

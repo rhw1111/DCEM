@@ -98,5 +98,11 @@ namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
         /// <param name="onlyleadid"></param>
         /// <returns></returns>
         string QueryAccountMater(string onlyleadid);
+        /// <summary>
+        /// 查询小订订单
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        string QuerySmallOrder(SmallOrderListRequest request);
     }
 }

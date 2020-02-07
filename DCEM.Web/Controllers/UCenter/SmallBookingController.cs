@@ -57,6 +57,19 @@ namespace DCEM.Web.Controllers.UCenter
             return await app.AddOrEdit(request);
         }
 
+        /// <summary>
+        ///  小订订单询接口
+        /// </summary>
+        /// <param name="appointmentInfoRequest"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("QuerySmallOrder")]
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> QuerySmallOrder([FromQuery]SmallOrderListRequest request)
+        {
+            return await app.QuerySmallOrder(request);
+        }
+
+
     }
 
 

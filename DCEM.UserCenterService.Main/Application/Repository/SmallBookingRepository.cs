@@ -453,5 +453,65 @@ namespace DCEM.UserCenterService.Main.Application.Repository
             </fetch>";
             return str;
         }
+
+        /// <summary>
+        /// 查询小订订单
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public string QuerySmallOrder(SmallOrderListRequest request)
+        {
+            var filter = string.Empty;
+            if (request.mcs_smallorderid != null)
+            {
+                filter += $"<condition attribute='mcs_smallorderid' operator='eq' value='{request.mcs_smallorderid}' />";
+            }
+            if (request.mcs_mobilephone != null)
+            {
+                filter += $"<condition attribute='mcs_mobilephone' operator='eq' value='{request.mcs_mobilephone}' />";
+            }
+            if (request.mcs_name != null)
+            {
+                filter += $"<condition attribute='mcs_name' operator='eq' value='{request.mcs_name}' />";
+            }
+            string str = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+              <entity name='mcs_smallorder'>
+                <attribute name='mcs_name' />
+                <attribute name='createdon' />
+                <attribute name='mcs_blindorderid' />
+                <attribute name='mcs_optionalcode' />
+                <attribute name='mcs_optionalname' />
+                <attribute name='mcs_orderstatus' />
+                <attribute name='mcs_totalorder' />
+                <attribute name='mcs_availabletotalorder' />
+                <attribute name='mcs_mobilephone' />
+                <attribute name='mcs_fullname' />
+                <attribute name='mcs_equitycode' />
+                <attribute name='mcs_equityname' />
+                <attribute name='mcs_vehconfigcode' />
+                <attribute name='mcs_vehconfigname' />
+                <attribute name='mcs_vehtypecode' />
+                <attribute name='mcs_vehtypename' />
+                <attribute name='mcs_provinceoncard' />
+                <attribute name='mcs_cityoncard' />
+                <attribute name='mcs_gender' />
+                <attribute name='mcs_smallorderid' />
+                <order attribute='createdon' descending='true' />
+                <filter type='and'>
+                  <condition attribute='statecode' operator='eq' value='0' />
+                  {filter}
+                </filter>
+              <link-entity name='mcs_onlylead' from='mcs_onlyleadid' to='mcs_onlyleadid' visible='false' link-type='outer' alias='onlylead'>
+                  <attribute name='mcs_name' />
+                  <attribute name='mcs_mobilephone' />
+                </link-entity>
+                <link-entity name='mcs_blindorder' from='mcs_blindorderid' to='mcs_blindorderid' visible='false' link-type='outer' alias='blindorder'>
+                  <attribute name='mcs_premiumcode' />
+                  <attribute name='mcs_name' />
+                </link-entity>
+              </entity>
+            </fetch>";
+            return str;
+        }
     }
 }
