@@ -9,8 +9,11 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ConfirmPage implements OnInit {
     public model: any = {
-        search: {
+        submit: {
             apiUrl: "api/smallbooking/AddOrEdit",
+        },
+        search: {
+            apiUrl: "api/BlindOrder/QueryList",
         },
         title: "确认订单信息",
         datas: {},
@@ -49,21 +52,27 @@ export class ConfirmPage implements OnInit {
     //提交订单
     btnSubmit() {
         var request = this.model.datas.request;
+        request.OrderCode = this.Gen(9);
         this._page.loadingShow();
-        this._http.post(this.model.search.apiUrl,
+        debugger;
+        this._http.post(this.model.submit.apiUrl,
             request,
             (res: any) => {
                 debugger;
                 if (res != null) {
-                    this._page.goto("/carreserve/payorder/payment", { params: JSON.stringify(request) });
+                    if (res.Result) {
+                        this._page.goto("/carreserve/payorder/payment", { params: JSON.stringify(request) });
+                    } else {
+                        this._page.alert("消息提示", "提交订单失败!");
+                    }
                 }
                 else {
-                    this._page.alert("消息提示", "数据加载异常");
+                    this._page.alert("消息提示", "提交订单失败");
                 }
                 this._page.loadingHide();
             },
             (err: any) => {
-                this._page.alert("消息提示", "数据加载异常");
+                this._page.alert("消息提示", "提交订单失败");
                 this._page.loadingHide();
             }
         );

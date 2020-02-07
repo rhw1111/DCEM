@@ -58,6 +58,10 @@ const routes: Routes = [
                     {
                         path: 'voice',
                         loadChildren: () => import('./page/home/demo/voice/voice.module').then(m => m.VoicePageModule)
+                    },
+                    {
+                        path: 'berecorded',
+                        loadChildren: () => import('./page/home/demo/berecorded/berecorded.module').then(m => m.BerecordedPageModule)
                     }
                 ]
             },

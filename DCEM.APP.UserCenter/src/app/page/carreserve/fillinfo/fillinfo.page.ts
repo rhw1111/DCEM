@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { Storage_LoginInfo } from '../../../component/typescript/logininfo.storage';
 import { SelectSysareaComponent } from '../../../component/modal/select-sysarea/select-sysarea.component'
+import { LoginComponent } from '../../../component/modal/login/login.component'
 import * as $ from 'jquery';
 
 @Component({
@@ -14,12 +15,13 @@ import * as $ from 'jquery';
 export class FillinfoPage implements OnInit {
     public model: any = {
         search: {
-            apiUrl: "api/product/Detail",
+            apiUrl: "api/BlindOrder/QueryList",
         },
         title: "完善预定信息",
         datas: {},
         fullname: this._logininfo.GetName(),
         mobile: this._logininfo.GetPhone(),
+        blindorder:"",//预约号
         id: this._logininfo.GetSystemUserId(),
         countryId: "DD0D2AE0-E414-EA11-B394-86D989685D12",//UAT:"7E83801C-795B-E911-A824-B53F780FAC1C",
         level: 2,//行政区域级别 0:全球、1:国家、2:省、3:市、4:地区
@@ -51,7 +53,79 @@ export class FillinfoPage implements OnInit {
         //获取参数
         var datastr = this.routerinfo.snapshot.queryParams["params"];
         this.model.datas = JSON.parse(datastr);
+        this.checkLogin();
     }
+    ionViewWillEnter() {
+        this.initListLoading();
+    }
+    //初始化页面数据加载
+    initListLoading() {
+        this._page.loadingShow();
+        this.getblindorder(null, this._logininfo.GetPhone());
+    }
+    //检查是否登陆 然后跳转
+    async checkLoginAndTurn(url) {
+        if ($("#blindorder").val() == "") {
+            if (this._logininfo.GetNickName() != null) {
+                this._page.goto(url);
+            } else {
+                const modal = await this._modalCtrl.create({
+                    component: LoginComponent,
+                    componentProps: {
+                        'status': 1//登录页面状态 
+                    }
+                });
+                await modal.present();
+                //监听销毁的事件
+                const { data } = await modal.onDidDismiss();
+            }
+        }
+    }
+    //检查是否登陆
+    async checkLogin() {
+            if (this._logininfo.GetNickName() != null) {
+            } else {
+                const modal = await this._modalCtrl.create({
+                    component: LoginComponent,
+                    componentProps: {
+                        'status': 1//登录页面状态 
+                    }
+                });
+                await modal.present();
+                //监听销毁的事件
+                const { data } = await modal.onDidDismiss();
+            }
+    }
+
+    //获取预约号数据
+    getblindorder(event, mobile) {
+        this.model.blindorder = "";
+        var request = {
+            "mcs_mobilephone": mobile
+        };
+        this._http.get(this.model.search.apiUrl,
+            request,
+            (res: any) => {
+                if (res != null) {
+                    if (res.Results != null) {
+                        this.model.blindorder = res.Results[0].Attributes.mcs_name;
+                        $("#blindorder").attr("style","");
+                    }
+                    //绑定数据
+
+                }
+                else {
+                    this._page.alert("消息提示", "数据加载异常");
+                }
+                this._page.loadingHide();
+            },
+            (err: any) => {
+                this._page.alert("消息提示", "数据加载异常");
+                this._page.loadingHide();
+            }
+        );
+    }
+
     //焦点事件
     onchange(event, t) {
         var _that = event.target;
@@ -72,6 +146,7 @@ export class FillinfoPage implements OnInit {
                 this.showValidate(target);
             } else {
                 this.hideValidate(target);
+                this.getblindorder(null, text);
             }
         }
     }
@@ -99,16 +174,15 @@ export class FillinfoPage implements OnInit {
     }
     //确认订单
     BtnSave() {
-        debugger;
         this.validation("#fullname", 1);
         this.validation("#mobile", 2);
         if ($("#fullname").hasClass("is-danger") || $("#mobile").hasClass("is-danger")) {
             return false;
         }
-        var gender = "";
+        var gender = 1;
         $("div.label-radio").each(function (i, item) {
             if ($(item).hasClass("active")) {
-                gender = $(item).children("input").val().toString();
+                gender = parseInt($(item).children("input").val().toString());
             }
         })
         var province = $("#province").val();
@@ -121,6 +195,12 @@ export class FillinfoPage implements OnInit {
             $("#city").attr("style", "border-color:red;")
             return false;
         }
+        var blindorder = $("#blindorder").val();
+        if (!blindorder) {
+            $("#blindorder").attr("style", "border-color:red;")
+            return false;
+        }
+        this.model.datas.request.BlindOrder = blindorder;
         this.model.datas.request.FullName = $("#fullname").val();
         this.model.datas.request.MobilePhone = $("#mobile").val();
         this.model.datas.request.Gender = gender;
