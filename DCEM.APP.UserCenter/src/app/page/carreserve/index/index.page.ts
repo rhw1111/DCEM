@@ -167,7 +167,7 @@ export class IndexPage implements OnInit {
                 "MobilePhone": this._logininfo.GetPhone(),
                 "OrderCode": "",// 小订订单编号
                 "OrderStatus": 0,
-                "Gender": this._logininfo.GetGender(),
+                "Gender": this._logininfo.GetGender() ? parseInt(this._logininfo.GetGender()) : 1,
                 "TotalOrder": this.model.totalprice,
                 "BlindOrder": "",// 预约单号
                 "VehTypeCode": "",// 意向车型编号
@@ -185,15 +185,22 @@ export class IndexPage implements OnInit {
                 "UnsubscribeReason": "",// 退订原因(订单状态为2- 退订申请时必传)
                 "PaymentCode": "",// 支付记录编码(订单状态为1-已支付、3-已退订时必传)
                 "TransactionTime": new Date(),// 交易时间
-                "Transactionamount": "",// 交易金额（精确两位小数）
-                "PaymentChannel": "",// 支付渠道 0-储蓄卡、1-网上银行、2-微信、3-支付宝
+                "Transactionamount": this.model.totalprice,// 交易金额（精确两位小数）
+                "PaymentChannel": 2,// 支付渠道 0-储蓄卡、1-网上银行、2-微信、3-支付宝
                 "SmallRefundCode": "",// 小订退订编号(订单状态为2-申请退订、3-已关闭时必传)
-                "EquityRefundAmount": "",// 权益退订金额(订单状态为2-退订申请时必传)
+                "EquityRefundAmount": 0,// 权益退订金额(订单状态为2-退订申请时必传)
                 "EquityRefundCode": "",//退订权益编号(订单状态为2-申请退订、3-已关闭时必传)
                 "EquityRefundName": "",// 退订权益名称(订单状态为2-申请退订、3-已关闭时必传)
-                "OptionalRefundAmount": "",// 选配退订金额
+                "OptionalRefundAmount": 0,// 选配退订金额
                 "OptionalRefundCode": "",// 选配退订编号
-                "OptionalRefundName": ""// 退订选配名称(订单状态为2-申请退订、3-已关闭时必传)
+                "OptionalRefundName": "",// 退订选配名称(订单状态为2-申请退订、3-已关闭时必传)
+                "Spare1": "",
+                "Spare2": "",
+                "Spare3": "",
+                "Spare4": "",
+                "Spare5": "",
+                "Spare6": "",
+                "Spare7": ""
             }
         }
         this._page.goto("/carreserve/fillinfo", { params: JSON.stringify(params)});

@@ -477,4 +477,67 @@ article, aside, figure, footer, header, hgroup, section {
     color: #636669;
     font-size: 14px;
 }
+.preorder-modal.show {
+    transform: translateZ(0);
+    opacity: 1;
+}
+.preorder-modal {
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    border-bottom: 1px solid #eee;
+    transition: all .3s ease;
+    position: fixed;
+    background-color: #fff;
+    font-size: 14px;
+    z-index: 20;
+    max-height: calc(100% - 90px);
+    overflow: auto;
+}
+.preorder-modal-header {
+    padding: 20px 20px 10px;
+    border-bottom: 1px solid #eee;
+    font-size: 20px;
+    font-weight: 700;
+    position: -webkit-sticky;
+    position: sticky;
+    z-index: 10;
+    top: 0;
+    background-color: #fff;
+}
+.preorder-modal-close {
+    margin-left: auto;
+    font-size: 22px !important;
+    cursor: pointer;
+}
+.iconclose::before {
+    content: "\E6EE";
+}
+.preorder-modal-body {
+    padding: 20px;
+}
+.columns.is-centered {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+.columns:last-child {
+    margin-bottom: -.75rem;
+}
+.columns {
+    margin-left: -.75rem;
+    margin-right: -.75rem;
+    margin-top: -.75rem;
+}
+
+.preorder-modal-background {
+    position: fixed;
+    height: 100vh;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(32,48,61,.9);
+    width: 100%;
+    z-index: 15;
+}
 

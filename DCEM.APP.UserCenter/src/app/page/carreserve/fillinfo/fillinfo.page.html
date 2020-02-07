@@ -21,6 +21,15 @@
                                 <section data-v-00de53e1="" class="column">
                                     <div data-v-00de53e1="" class="field">
                                         <div data-v-00de53e1="" class="control has-icons-right is-clearfix">
+                                            <input type="text" readonly="readonly" autocomplete="on" value="{{model.blindorder}}" maxlength="30" placeholder="请获取预约号" id="blindorder" class="input" (click)="checkLoginAndTurn('/carreserve/blindorder/edit')">
+                                            <span class="icon is-right has-text-danger">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="10" height="10" t="1581061481999" p-id="8101" version="1.1"><path d="M 856.269 247.654 h -81.0496 a 52.0704 52.0704 0 1 0 0 104.141 h 81.0496 c 34.4576 0 63.5904 20.48 63.5904 44.4928 V 834.56 c 0 24.1152 -29.1328 44.4928 -63.5904 44.4928 H 167.731 c -34.4576 0 -63.5904 -20.48 -63.5904 -44.4928 V 396.288 c 0 -24.1152 29.1328 -44.4928 63.5904 -44.4928 h 73.472 a 52.0704 52.0704 0 0 0 0 -104.141 H 167.731 C 75.264 247.654 0 314.368 0 396.288 V 834.56 c 0 81.92 75.264 148.48 167.731 148.48 h 688.538 c 92.4672 0 167.731 -66.56 167.731 -148.48 V 396.288 c 0 -81.92 -75.264 -148.634 -167.731 -148.634 Z" p-id="8102" /><path d="M 331.776 505.446 l 152.166 133.581 a 46.08 46.08 0 0 0 61.44 -0.4608 l 147.507 -133.581 a 46.08 46.08 0 0 0 -61.8496 -68.3008 L 558.08 502.579 V 87.04 a 46.08 46.08 0 0 0 -92.16 0 v 413.542 L 392.55 436.173 A 46.08 46.08 0 1 0 331.776 505.446 Z" p-id="8103" /></svg>
+                                                <i class="mdi mdi-alert-circle mdi-24px"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div data-v-00de53e1="" class="field">
+                                        <div data-v-00de53e1="" class="control has-icons-right is-clearfix">
                                             <input type="text" autocomplete="on" (blur)="onchange($event,1)" (focus)="onchange($event,1)" (change)="onchange($event,1)" value="{{model.fullname}}" placeholder="请输入您姓名" id="fullname" data-vv-name="fullName" class="input">
                                             <span class="icon is-right has-text-danger">
                                                 <svg style="display:none;" xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="6" height="6" t="1580962184712" p-id="2349" version="1.1"><path fill="#d81e06" d="M 512 102.4 a 409.6 409.6 0 1 0 409.6 409.6 a 409.6 409.6 0 0 0 -409.6 -409.6 Z m 181.248 518.144 a 51.2 51.2 0 0 1 -72.704 72.704 L 512 584.192 l -108.544 109.056 a 51.2 51.2 0 0 1 -72.704 -72.704 L 439.808 512 L 330.752 403.456 a 51.2 51.2 0 0 1 72.704 -72.704 L 512 439.808 l 108.544 -109.056 a 51.2 51.2 0 0 1 72.704 72.704 L 584.192 512 Z" p-id="2350" /></svg>
@@ -31,11 +40,11 @@
                                     <div data-v-00de53e1="" class="field">
                                         <div data-v-00de53e1="" class="block gender-section">
                                             <div data-v-00de53e1="" class="label-radio active" (click)="chooseGender($event);$event.stopPropagation();">
-                                                <input data-v-00de53e1="" type="radio" name="gender" value="0" id="gender-gentleman">
+                                                <input data-v-00de53e1="" type="radio" name="gender" value="1" id="gender-gentleman">
                                                 <label data-v-00de53e1="" for="gender-gentleman">先生</label>
                                             </div>
                                             <div data-v-00de53e1="" class="label-radio" (click)="chooseGender($event);$event.stopPropagation();">
-                                                <input data-v-00de53e1="" type="radio" name="gender" value="1" id="gender-lady">
+                                                <input data-v-00de53e1="" type="radio" name="gender" value="2" id="gender-lady">
                                                 <label data-v-00de53e1="" for="gender-lady">女士</label>
                                             </div>
                                         </div>
@@ -68,25 +77,25 @@
                                         </div>
                                     </div>
                                     <!--<div data-v-00de53e1="" class="region">
-        <div data-v-00de53e1="" class="field">
-            <div data-v-00de53e1="" class="region-inner">
-                <div data-v-00de53e1="" class="control item province is-expanded">
-                    <span class="select is-fullwidth">
-                        <select id="province" data-vv-name="provinceCode" (click)="provinceOnClick()">
-                            <option style="display:none" selected>{{model.info.provincename}}</option>
-                        </select>
-                    </span>
-                </div>
-                <div data-v-00de53e1="" class="control is-expanded item city">
-                    <span class="select is-fullwidth">
-                        <select id="city" data-vv-name="cityCode" (click)="cityOnClick()">
-                            <option style="display:none" selected>{{model.info.cityname}}</option>
-                        </select>
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>-->
+                                        <div data-v-00de53e1="" class="field">
+                                            <div data-v-00de53e1="" class="region-inner">
+                                                <div data-v-00de53e1="" class="control item province is-expanded">
+                                                    <span class="select is-fullwidth">
+                                                        <select id="province" data-vv-name="provinceCode" (click)="provinceOnClick()">
+                                                            <option style="display:none" selected>{{model.info.provincename}}</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <div data-v-00de53e1="" class="control is-expanded item city">
+                                                    <span class="select is-fullwidth">
+                                                        <select id="city" data-vv-name="cityCode" (click)="cityOnClick()">
+                                                            <option style="display:none" selected>{{model.info.cityname}}</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>-->
                                     <div data-v-00de53e1="" class="field buttons-section">
                                         <div data-v-00de53e1="" class="buttons control">
                                             <button data-v-00de53e1="" class="button is-block btn-normal" (click)="GoBack()">
