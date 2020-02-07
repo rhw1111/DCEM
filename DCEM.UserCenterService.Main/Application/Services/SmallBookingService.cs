@@ -863,7 +863,8 @@ namespace DCEM.UserCenterService.Main.Application.Services
         private CrmExecuteEntity CreateSmallOrder(SmallBookingRequest request, CrmEntity blindOrder, CrmEntity onlylead, CrmEntity referreronlylead)
         {
             var createSmallOrder = new CrmExecuteEntity("mcs_smallorder", Guid.NewGuid());
-
+            //用户Id
+            createSmallOrder.Attributes.Add("mcs_userid", request.UserId);
             //用车人姓名
             createSmallOrder.Attributes.Add("mcs_fullname", request.FullName);
             //用车人手机号码

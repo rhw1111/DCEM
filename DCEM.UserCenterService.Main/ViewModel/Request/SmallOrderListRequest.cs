@@ -7,6 +7,11 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
     public class SmallOrderListRequest : PageBaseRequestModel
     {
         /// <summary>
+        /// 用户ID
+        /// </summary>
+        public string mcs_userid { get; set; }          
+
+        /// <summary>
         /// 小订订单Id
         /// </summary>
         public string mcs_smallorderid { get; set; }

@@ -462,6 +462,10 @@ namespace DCEM.UserCenterService.Main.Application.Repository
         public string QuerySmallOrder(SmallOrderListRequest request)
         {
             var filter = string.Empty;
+            if (request.mcs_userid != null)
+            {
+                filter += $"<condition attribute='mcs_userid' operator='eq' value='{request.mcs_userid}' />";
+            }
             if (request.mcs_smallorderid != null)
             {
                 filter += $"<condition attribute='mcs_smallorderid' operator='eq' value='{request.mcs_smallorderid}' />";

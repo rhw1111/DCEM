@@ -7,6 +7,11 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
     public class SmallBookingRequest
     {
         /// <summary>
+        /// 用户Id
+        /// </summary>
+        public string UserId { get; set; }
+
+        /// <summary>
         /// 用车人姓名
         /// </summary>
         public string FullName { get; set; }
