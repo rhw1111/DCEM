@@ -38,9 +38,13 @@ export class BerecordedPage implements OnInit {
 
     startReocrd() {  //开始录音
 
+        
         var filePath = this._file.tempDirectory + "test.wav";
+        console.log(filePath);
         this.mediaObj = this._media.create(filePath);
 
+        console.log(filePath);
+        console.log(this.mediaObj);   
         this.mediaObj.onStatusUpdate.subscribe(
             status => console.log(status)
         );
