@@ -111,8 +111,8 @@ export class FillinfoPage implements OnInit {
                 gender = $(item).children("input").val().toString();
             }
         })
-        var province = $("#province").find("option:selected").text();
-        var city = $("#city").find("option:selected").text();
+        var province = $("#province").val();
+        var city = $("#city").val();
         if (!province) {
             $("#province").attr("style", "border-color:red;")
             return false;

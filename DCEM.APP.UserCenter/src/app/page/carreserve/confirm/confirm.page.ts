@@ -53,6 +53,7 @@ export class ConfirmPage implements OnInit {
         this._http.post(this.model.search.apiUrl,
             request,
             (res: any) => {
+                debugger;
                 if (res != null) {
                     this._page.goto("/carreserve/payorder/payment", { params: JSON.stringify(request) });
                 }

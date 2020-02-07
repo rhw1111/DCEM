@@ -19,18 +19,16 @@
                         <div data-v-48849fa2="" class="title">完善预订信息</div><section data-v-00de53e1="" data-v-48849fa2="" class="form-container">
                             <section data-v-00de53e1="" class="columns is-centered">
                                 <section data-v-00de53e1="" class="column">
-                                    <!----><div data-v-00de53e1="" class="field">
-                                        <!---->
+                                    <div data-v-00de53e1="" class="field">
                                         <div data-v-00de53e1="" class="control has-icons-right is-clearfix">
-                                            <input type="text" autocomplete="on" (blur)="onchange($event,1)" (focus)="onchange($event,1)" (change)="onchange($event,1)" value="{{model.fullname}}" placeholder="请输入您姓名" id="fullname" data-vv-name="fullName" class="input"> <!----> <!----> <!---->
+                                            <input type="text" autocomplete="on" (blur)="onchange($event,1)" (focus)="onchange($event,1)" (change)="onchange($event,1)" value="{{model.fullname}}" placeholder="请输入您姓名" id="fullname" data-vv-name="fullName" class="input">
                                             <span class="icon is-right has-text-danger">
                                                 <svg style="display:none;" xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="6" height="6" t="1580962184712" p-id="2349" version="1.1"><path fill="#d81e06" d="M 512 102.4 a 409.6 409.6 0 1 0 409.6 409.6 a 409.6 409.6 0 0 0 -409.6 -409.6 Z m 181.248 518.144 a 51.2 51.2 0 0 1 -72.704 72.704 L 512 584.192 l -108.544 109.056 a 51.2 51.2 0 0 1 -72.704 -72.704 L 439.808 512 L 330.752 403.456 a 51.2 51.2 0 0 1 72.704 -72.704 L 512 439.808 l 108.544 -109.056 a 51.2 51.2 0 0 1 72.704 72.704 L 584.192 512 Z" p-id="2350" /></svg>
                                                 <i class="mdi mdi-alert-circle mdi-24px"></i>
                                             </span>
-                                        </div> <!---->
+                                        </div>
                                     </div>
                                     <div data-v-00de53e1="" class="field">
-                                        <!---->
                                         <div data-v-00de53e1="" class="block gender-section">
                                             <div data-v-00de53e1="" class="label-radio active" (click)="chooseGender($event);$event.stopPropagation();">
                                                 <input data-v-00de53e1="" type="radio" name="gender" value="0" id="gender-gentleman">
@@ -40,51 +38,64 @@
                                                 <input data-v-00de53e1="" type="radio" name="gender" value="1" id="gender-lady">
                                                 <label data-v-00de53e1="" for="gender-lady">女士</label>
                                             </div>
-                                        </div> <!---->
+                                        </div>
                                     </div>
                                     <div data-v-00de53e1="" class="field">
-                                        <!----> <div data-v-00de53e1="" class="control has-icons-right is-clearfix">
-                                            <input type="text" autocomplete="on" (blur)="onchange($event,2)" (focus)="onchange($event,2)" (change)="onchange($event,2)" value="{{model.mobile}}" maxlength="30" placeholder="请输入您的手机号" id="mobile" data-vv-name="mobilePhone" class="input"> <!----> <!---->
+                                        <div data-v-00de53e1="" class="control has-icons-right is-clearfix">
+                                            <input type="text" autocomplete="on" (blur)="onchange($event,2)" (focus)="onchange($event,2)" (change)="onchange($event,2)" value="{{model.mobile}}" maxlength="30" placeholder="请输入您的手机号" id="mobile" data-vv-name="mobilePhone" class="input">
                                             <span class="icon is-right has-text-danger">
                                                 <svg style="display:none;" xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="6" height="6" t="1580962184712" p-id="2349" version="1.1"><path fill="#d81e06" d="M 512 102.4 a 409.6 409.6 0 1 0 409.6 409.6 a 409.6 409.6 0 0 0 -409.6 -409.6 Z m 181.248 518.144 a 51.2 51.2 0 0 1 -72.704 72.704 L 512 584.192 l -108.544 109.056 a 51.2 51.2 0 0 1 -72.704 -72.704 L 439.808 512 L 330.752 403.456 a 51.2 51.2 0 0 1 72.704 -72.704 L 512 439.808 l 108.544 -109.056 a 51.2 51.2 0 0 1 72.704 72.704 L 584.192 512 Z" p-id="2350" /></svg>
                                                 <i class="mdi mdi-alert-circle mdi-24px"></i>
                                             </span>
-                                            <small class="help counter is-invisible">
-                                                11 / 30
-                                            </small>
-                                        </div> <!---->
-                                    </div>
-                                    <div data-v-00de53e1="" class="region">
-                                        <div data-v-00de53e1="" class="field">
-                                            <!---->
-                                            <div data-v-00de53e1="" class="region-inner">
-                                                <div data-v-00de53e1="" class="control item province is-expanded">
-                                                    <span class="select is-fullwidth">
-                                                        <select id="province" data-vv-name="provinceCode" (click)="provinceOnClick()">
-                                                            <option style="display:none" selected>{{model.info.provincename}}</option>
-                                                        </select>
-                                                    </span> <!---->
-                                                </div>
-                                                <div data-v-00de53e1="" class="control is-expanded item city">
-                                                    <span class="select is-fullwidth">
-                                                        <select id="city" data-vv-name="cityCode" (click)="cityOnClick()">
-                                                            <option style="display:none" selected>{{model.info.cityname}}</option>
-                                                        </select>
-                                                    </span> <!---->
-                                                </div>
-                                            </div> <!---->
                                         </div>
-                                    </div><!---->
+                                    </div>
+                                    <div data-v-00de53e1="" class="field">
+                                        <div data-v-00de53e1="" class="control has-icons-right is-clearfix">
+                                            <input type="text" readonly="readonly" autocomplete="on" (click)="provinceOnClick()" value="{{model.info.provincename}}" maxlength="30" placeholder="请选择所在省份" id="province" class="input">
+                                            <span class="icon is-right has-text-danger">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="6" height="6" t="1581000578723" p-id="3185" version="1.1"><path fill="#231815" d="M 217.472 311.808 l 384.64 384.64 l -90.432 90.56 l -384.64 -384.64 Z" p-id="3186" /><path fill="#231815" d="M 896.32 401.984 l -384.64 384.64 l -90.56 -90.496 l 384.64 -384.64 Z" p-id="3187" /></svg>
+                                                <i class="mdi mdi-alert-circle mdi-24px"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div data-v-00de53e1="" class="field">
+                                        <div data-v-00de53e1="" class="control has-icons-right is-clearfix">
+                                            <input type="text" readonly="readonly" autocomplete="on" (click)="cityOnClick()" value="{{model.info.cityname}}" maxlength="30" placeholder="请选择所在城市" id="city" class="input">
+                                            <span class="icon is-right has-text-danger">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="6" height="6" t="1581000578723" p-id="3185" version="1.1"><path fill="#231815" d="M 217.472 311.808 l 384.64 384.64 l -90.432 90.56 l -384.64 -384.64 Z" p-id="3186" /><path fill="#231815" d="M 896.32 401.984 l -384.64 384.64 l -90.56 -90.496 l 384.64 -384.64 Z" p-id="3187" /></svg>
+                                                <i class="mdi mdi-alert-circle mdi-24px"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <!--<div data-v-00de53e1="" class="region">
+        <div data-v-00de53e1="" class="field">
+            <div data-v-00de53e1="" class="region-inner">
+                <div data-v-00de53e1="" class="control item province is-expanded">
+                    <span class="select is-fullwidth">
+                        <select id="province" data-vv-name="provinceCode" (click)="provinceOnClick()">
+                            <option style="display:none" selected>{{model.info.provincename}}</option>
+                        </select>
+                    </span>
+                </div>
+                <div data-v-00de53e1="" class="control is-expanded item city">
+                    <span class="select is-fullwidth">
+                        <select id="city" data-vv-name="cityCode" (click)="cityOnClick()">
+                            <option style="display:none" selected>{{model.info.cityname}}</option>
+                        </select>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>-->
                                     <div data-v-00de53e1="" class="field buttons-section">
-                                        <!---->
                                         <div data-v-00de53e1="" class="buttons control">
                                             <button data-v-00de53e1="" class="button is-block btn-normal" (click)="GoBack()">
                                                 重新预订
                                             </button>
                                             <button data-v-00de53e1="" class="button is-block btn-normal btn-save" (click)="BtnSave()">
-                                                确认订单 <!---->
+                                                确认订单
                                             </button>
-                                        </div> <!---->
+                                        </div>
                                     </div>
                                 </section>
                             </section>
