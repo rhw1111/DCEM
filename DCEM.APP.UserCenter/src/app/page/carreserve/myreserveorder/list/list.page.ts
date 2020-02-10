@@ -43,11 +43,13 @@ export class ListPage implements OnInit {
         this._http.get(this.model.search.apiUrl + "?mcs_userid=" + this._logininfo.GetSystemUserId() + "&mcs_smallorderid=&mcs_mobilephone=" + this._logininfo.GetPhone() + "&mcs_name=",
             requests,
             (res: any) => {
-                if (res != null && res.Results != null) {
+                if (res != null && res.Results.length > 0) {
                     //绑定数据
                     this.model.datas = res.Results;
                     for (var i = 0; i < this.model.datas.length; i++) {
                         this.model.datas[i].Attributes.paystatus = this.getPayStatus(this.model.datas[i].Attributes.mcs_orderstatus);
+                        this.model.datas[i].Attributes.mcs_premiumcode = this.model.datas[i]["Attributes"]["blindorder.mcs_premiumcode"];
+                        this.model.datas[i].Attributes.mcs_premiumname = this.model.datas[i]["Attributes"]["blindorder.mcs_name"];
                     }
                     event ? event.target.complete() : '';
                     //判断是否有新数据
@@ -67,19 +69,19 @@ export class ListPage implements OnInit {
             }
         );
     }
-    paynow(ordercode) {
+    paynow(ordercode, mcs_premiumname, mcs_totalorder) {
         var param = {
             "OrderCode": ordercode,
-            "BlindOrder": "",
+            "BlindOrder": mcs_premiumname,
+            "TotalOrder": mcs_totalorder,
             "OrderStatus": 1
         };
         this._page.goto("/carreserve/payorder/payment", { params: JSON.stringify(param) });
     }
-    orderdetail(ordercode) {
+    orderdetail(ordercode, mcs_smallorderid) {
         var param = {
             "OrderCode": ordercode,
-            "BlindOrder": "",
-            "OrderStatus": 1
+            "mcs_smallorderid": mcs_smallorderid
         };
         this._page.goto("/carreserve/myreserveorder/detail", { params: JSON.stringify(param) });
     }

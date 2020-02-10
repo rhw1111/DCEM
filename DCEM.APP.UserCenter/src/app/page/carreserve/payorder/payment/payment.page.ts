@@ -72,14 +72,18 @@ export class PaymentPage implements OnInit {
         }, 1000);
     }
     payAmount() {
-        var request = this.model.datas;
+        var request = {
+            "OrderCode": this.model.datas.OrderCode,
+            "BlindOrder": this.model.datas.BlindOrder,
+            "TotalOrder": this.model.datas.TotalOrder,
+            "OrderStatus": this.model.datas.OrderStatus
+        };
+
         request.OrderStatus = 1;
         this._page.loadingShow();
-        debugger;
-        this._http.post(this.model.submit.apiUrl,
+        this._http.post(this.model.search.apiUrl,
             request,
             (res: any) => {
-                debugger;
                 if (res != null) {
                     if (res.Result) {
                         this.presentAlertConfirm();
@@ -107,7 +111,11 @@ export class PaymentPage implements OnInit {
                 {
                     text: '确定',
                     handler: () => {
-                        this._page.navigateRoot("/carreserve/payorder/success", { code: this.model.datas.OrderCode });
+                        var param = {
+                            "OrderCode": this.model.datas.OrderCode,
+                            "mcs_smallorderid": this.model.datas.mcs_smallorderid
+                        };
+                        this._page.navigateRoot("/carreserve/payorder/success", { params: JSON.stringify(param) });
                     }
                 }
             ]

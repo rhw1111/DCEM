@@ -54,16 +54,16 @@ export class ConfirmPage implements OnInit {
         var request = this.model.datas.request;
         request.OrderCode = this.Gen(9);
         this._page.loadingShow();
-        debugger;
         this._http.post(this.model.submit.apiUrl,
             request,
             (res: any) => {
-                debugger;
                 if (res != null) {
                     if (res.Result) {
                         var param = {
                             "OrderCode": request.OrderCode,
+                            "mcs_smallorderid":res.Data.Id,
                             "BlindOrder": request.BlindOrder,
+                            "TotalOrder": request.TotalOrder,
                             "OrderStatus": 1
                         };
                         this._page.goto("/carreserve/payorder/payment", { params: JSON.stringify(param) });
