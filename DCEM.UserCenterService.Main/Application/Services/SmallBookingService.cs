@@ -303,6 +303,12 @@ namespace DCEM.UserCenterService.Main.Application.Services
                         //选配多对多关联小订
                         AssociateOptional(creEntity, request.OptionalId);
                     }
+
+                    //下单回写预约号的预约状态
+                    var upBindorder = new CrmExecuteEntity(blindOrder.EntityName, blindOrder.Id);
+                    //预约号状态 0：未下单，1：已下单
+                    upBindorder.Attributes.Add("mcs_premiumcodestatus", 1);
+                    await _crmService.Update(upBindorder);
                 }
                 else
                 {
