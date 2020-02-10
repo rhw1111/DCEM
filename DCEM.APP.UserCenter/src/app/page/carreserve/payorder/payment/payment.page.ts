@@ -12,7 +12,7 @@ import * as $ from 'jquery';
 export class PaymentPage implements OnInit {
     public model: any = {
         search: {
-            apiUrl: "api/order/PayedConfrim",
+            apiUrl: "api/smallbooking/AddOrEdit",
             productCode: "",
         },
         title: "选择支付方式",
@@ -26,6 +26,9 @@ export class PaymentPage implements OnInit {
     ) { }
 
     ngOnInit() {
+        //获取参数
+        var datastr = this.routerinfo.snapshot.queryParams["params"];
+        this.model.datas = JSON.parse(datastr);
         this.initListLoading();
   }
     //初始化页面数据加载
@@ -68,13 +71,37 @@ export class PaymentPage implements OnInit {
 
         }, 1000);
     }
-    payAmount(){
-        this.presentAlertConfirm();
+    payAmount() {
+        var request = this.model.datas;
+        request.OrderStatus = 1;
+        this._page.loadingShow();
+        debugger;
+        this._http.post(this.model.submit.apiUrl,
+            request,
+            (res: any) => {
+                debugger;
+                if (res != null) {
+                    if (res.Result) {
+                        this.presentAlertConfirm();
+                    } else {
+                        this._page.alert("消息提示", "提交订单失败!");
+                    }
+                }
+                else {
+                    this._page.alert("消息提示", "提交订单失败");
+                }
+                this._page.loadingHide();
+            },
+            (err: any) => {
+                this._page.alert("消息提示", "提交订单失败");
+                this._page.loadingHide();
+            }
+        );
     }
     //支付成功跳转
     async presentAlertConfirm() {
         const alert = await this.alertController.create({
-            header: '支付成功',
+            header: '消息提示',
             message: '订单已支付成功',
             buttons: [
                 {

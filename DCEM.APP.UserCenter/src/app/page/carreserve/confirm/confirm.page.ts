@@ -61,7 +61,12 @@ export class ConfirmPage implements OnInit {
                 debugger;
                 if (res != null) {
                     if (res.Result) {
-                        this._page.goto("/carreserve/payorder/payment", { params: JSON.stringify(request) });
+                        var param = {
+                            "OrderCode": request.OrderCode,
+                            "BlindOrder": request.BlindOrder,
+                            "OrderStatus": 1
+                        };
+                        this._page.goto("/carreserve/payorder/payment", { params: JSON.stringify(param) });
                     } else {
                         this._page.alert("消息提示", "提交订单失败!");
                     }
