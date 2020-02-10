@@ -41,6 +41,11 @@ namespace DCEM.UserCenterService.Main.Application.Services
             dicHead.Add(dicHeadKey, new List<string>() { "odata.include-annotations=\"*\"" });
         }
 
+        /// <summary>
+        /// 小订活动内容查询
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task<SmallBookingListResponse> QuerySmallBooking(SmallBookingListRequest request)
         {
             var smallBookingListResponse = new SmallBookingListResponse();
@@ -187,6 +192,11 @@ namespace DCEM.UserCenterService.Main.Application.Services
             return smallBookingListResponse;
         }
 
+        /// <summary>
+        /// 小订订单创建，支付、退款申请、退款
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task<ValidateResult<CrmEntity>> AddOrEdit(SmallBookingRequest request)
         {
             var validateResult = new ValidateResult<CrmEntity>();
@@ -1009,6 +1019,126 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 queryResult.CurrentPage = request.PageIndex;
                 //queryResult.TotalCount = 0;
                 return queryResult;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 小订明细查询
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<SmallOrderListResponse> QuerySmallOrderDetail(SmallOrderRequest request)
+        {
+            var smallOrderListResponse = new SmallOrderListResponse();
+            try
+            {
+                var fetchString = _smallbookingRepository.QuerySmallOrderDetail(request);
+                var fetchXdoc = XDocument.Parse(fetchString);
+                var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "mcs_smallorder",
+                    FetchXml = fetchXdoc
+                };
+                var fetchResponse = await _crmService.Execute(fetchRequest);
+                var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                var result= fetchResponseResult.Value.Results.Count>0? fetchResponseResult.Value.Results[0]:null;
+
+                if (result != null)
+                {
+                    var smallOrder = new SmallOrder();
+                    #region 查询小订权益包
+                    var fetchEquityPackage = _smallbookingRepository.QueryEquityPackageByOrder(result.Id);
+                    var fetchXdocEquityPackage = XDocument.Parse(fetchEquityPackage);
+                    var fetchEquityPackageRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                    {
+                        EntityName = "mcs_equitypackage",
+                        FetchXml = fetchXdocEquityPackage
+                    };
+                    fetchEquityPackageRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                    var fetchEquityPackageResponse = await _crmService.Execute(fetchEquityPackageRequest);
+                    var equityPackageResponse = fetchEquityPackageResponse as CrmRetrieveMultipleFetchResponseMessage;
+                    #endregion
+
+                    #region 查询权益包对应的权益项
+                    var equityResponse = new CrmRetrieveMultipleFetchResponseMessage();
+                    if (equityPackageResponse.Value.Results.Count > 0)
+                    {
+                        foreach (var item in equityPackageResponse.Value.Results)
+                        {
+                            var equityPackage = new EquityPackage();
+                            var fetchEquity = _smallbookingRepository.QueryEquity(item.Id);
+                            var fetchXdocEquity = XDocument.Parse(fetchEquity);
+                            var fetchEquityRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                            {
+                                EntityName = "mcs_equity",
+                                FetchXml = fetchXdocEquity
+                            };
+                            fetchEquityRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                            var fetchEquityResponse = await _crmService.Execute(fetchEquityRequest);
+                            equityResponse = fetchEquityResponse as CrmRetrieveMultipleFetchResponseMessage;
+
+                            #region 组装小订权益包与权益项
+                            equityPackage.EquityPackageInfo = item.Attributes;
+                            if (equityResponse.Value.Results.Count > 0)
+                            {
+                                foreach (var equity in equityResponse.Value.Results)
+                                {
+                                    equityPackage.EquityArray.Add(equity.Attributes);
+                                }
+                            }
+                            smallOrder.EquityPackageArray.Add(equityPackage);
+                            #endregion
+                        }
+                    }
+                    #endregion
+
+                    #region 查询小订选配
+                    var optionalResponse = new CrmRetrieveMultipleFetchResponseMessage();
+                    var fetchOptional = _smallbookingRepository.QueryOptionalByOrder(result.Id);
+                    var fetchXdocOptional = XDocument.Parse(fetchOptional);
+                    var fetchOptionalRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                    {
+                        EntityName = "mcs_optional",
+                        FetchXml = fetchXdocOptional
+                    };
+                    fetchOptionalRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                    var fetchOptionalResponse = await _crmService.Execute(fetchOptionalRequest);
+                    optionalResponse = fetchOptionalResponse as CrmRetrieveMultipleFetchResponseMessage;
+                    #endregion
+
+                    #region 查询选配图片
+                    foreach (var item in optionalResponse.Value.Results)
+                    {
+                        Optional optional = new Optional();
+                        var optionalImageResponse = new CrmRetrieveMultipleFetchResponseMessage();
+                        var fetchOptionalImage = _smallbookingRepository.QueryOptionalImage(item.Id);
+                        var fetchXdocOptionalImage = XDocument.Parse(fetchOptionalImage);
+                        var fetchOptionalImageRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                        {
+                            EntityName = "mcs_tc_productimage",
+                            FetchXml = fetchXdocOptionalImage
+                        };
+                        fetchOptionalImageRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                        var fetchOptionalImageResponse = await _crmService.Execute(fetchOptionalImageRequest);
+                        optionalImageResponse = fetchOptionalImageResponse as CrmRetrieveMultipleFetchResponseMessage;
+                        #region 组装小订选配及选配图片
+                        optional.OptionalInfo = item.Attributes;
+                        foreach (var optionalimage in optionalImageResponse.Value.Results)
+                        {
+                            optional.OptionalImageArray.Add(optionalimage.Attributes);
+                        }
+                        smallOrder.OptionalArray.Add(optional);
+                        #endregion
+                    }
+                    #endregion
+
+                    smallOrderListResponse.SmallOrderList.Add(smallOrder);
+                }
+                return smallOrderListResponse;
             }
             catch (Exception ex)
             {
