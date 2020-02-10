@@ -618,6 +618,14 @@ namespace DCEM.UserCenterService.Main.Application.Repository
                   <condition attribute='statecode' operator='eq' value='0' />
                   <condition attribute='mcs_smallorderid' operator='eq' value='{request.mcs_smallorderid}' />
                 </filter>
+                <link-entity name='mcs_onlylead' from='mcs_onlyleadid' to='mcs_onlyleadid' visible='false' link-type='outer' alias='onlylead'>
+                  <attribute name='mcs_name' />
+                  <attribute name='mcs_mobilephone' />
+                </link-entity>
+                <link-entity name='mcs_blindorder' from='mcs_blindorderid' to='mcs_blindorderid' visible='false' link-type='outer' alias='blindorder'>
+                  <attribute name='mcs_premiumcode' />
+                  <attribute name='mcs_name' />
+                </link-entity>
               </entity>
             </fetch>";
             return str;

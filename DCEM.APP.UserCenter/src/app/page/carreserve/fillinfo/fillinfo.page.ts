@@ -21,7 +21,8 @@ export class FillinfoPage implements OnInit {
         datas: {},
         fullname: this._logininfo.GetName(),
         mobile: this._logininfo.GetPhone(),
-        blindorder:"",//预约号
+        blindorder: "",//预约号
+        showblindorder:"",//用于前台显示
         id: this._logininfo.GetSystemUserId(),
         countryId: "DD0D2AE0-E414-EA11-B394-86D989685D12",//UAT:"7E83801C-795B-E911-A824-B53F780FAC1C",
         level: 2,//行政区域级别 0:全球、1:国家、2:省、3:市、4:地区
@@ -86,21 +87,16 @@ export class FillinfoPage implements OnInit {
     getblindorder(event, mobile) {
         this.model.blindorder = "";
         var request = {
-            "mcs_mobilephone": mobile
+            "mcs_mobilephone": mobile,
+            "mcs_premiumcodestatus":0
         };
-        this._http.get(this.model.search.apiUrl + "?mcs_mobilephone=" + mobile,
+        this._http.get(this.model.search.apiUrl + "?mcs_mobilephone=" + mobile + "&mcs_premiumcodestatus=0" ,
             request,
             (res: any) => {
-                if (res != null) {
-                    if (res.Results != null) {
-                        this.model.blindorder = res.Results[0].Attributes.mcs_name;
-                        $("#blindorder").attr("style","");
-                    }
-                    //绑定数据
-
-                }
-                else {
-                    this._page.alert("消息提示", "数据加载异常");
+                if (res != null && res.Results.length > 0) {
+                    this.model.blindorder = res.Results[0].Attributes.mcs_name;
+                    this.model.showblindorder = "您的预约号：" + res.Results[0].Attributes.mcs_premiumcode;
+                    $("#blindorder").attr("style", "");
                 }
                 this._page.loadingHide();
             },
@@ -114,10 +110,10 @@ export class FillinfoPage implements OnInit {
     //焦点事件
     onchange(event, t) {
         var _that = event.target;
-        this.validation(_that, t);
+        this.validation(_that, t,true);
     }
     //验证
-    validation(target, t) {
+    validation(target, t,flag) {
         var text = $(target).val().toString();
         if (t == 1) {
             if (text) {
@@ -131,7 +127,10 @@ export class FillinfoPage implements OnInit {
                 this.showValidate(target);
             } else {
                 this.hideValidate(target);
-                this.getblindorder(null, text);
+                if (flag) {
+                    this.getblindorder(null, text);
+                }
+                
             }
         }
     }
@@ -159,8 +158,8 @@ export class FillinfoPage implements OnInit {
     }
     //确认订单
     BtnSave() {
-        this.validation("#fullname", 1);
-        this.validation("#mobile", 2);
+        this.validation("#fullname", 1,true);
+        this.validation("#mobile", 2,false);
         if ($("#fullname").hasClass("is-danger") || $("#mobile").hasClass("is-danger")) {
             return false;
         }
@@ -169,7 +168,7 @@ export class FillinfoPage implements OnInit {
             if ($(item).hasClass("active")) {
                 gender = parseInt($(item).children("input").val().toString());
             }
-        })
+        });
         var province = $("#province").val();
         var city = $("#city").val();
         if (!province) {
@@ -185,7 +184,7 @@ export class FillinfoPage implements OnInit {
             $("#blindorder").attr("style", "border-color:red;")
             return false;
         }
-        this.model.datas.request.BlindOrder = blindorder;
+        this.model.datas.request.BlindOrder = this.model.blindorder;
         this.model.datas.request.FullName = $("#fullname").val();
         this.model.datas.request.MobilePhone = $("#mobile").val();
         this.model.datas.request.Gender = gender;

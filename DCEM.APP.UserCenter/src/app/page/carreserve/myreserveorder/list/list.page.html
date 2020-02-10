@@ -36,7 +36,7 @@
             </div>
             <div *ngSwitchCase="'equityorder'">
                 <ng-container *ngFor="let item of model.datas">
-                    <ion-card (click)="orderdetail(item.Attributes.mcs_name)">
+                    <ion-card (click)="orderdetail(item.Attributes.mcs_name,item.Attributes.mcs_smallorderid)">
                         <ion-item lines="none">
                             <div class="card-header-title">
                                 <div class="order-info">
@@ -46,7 +46,7 @@
                                     <span class="order-label">下单时间:</span><span class="order-head-title">{{item.Attributes.createdon}}</span>
                                 </div>
                                 <div class="order-info">
-                                    <!--<span class="order-label">您的预约号:</span><span class="order-head-title">NO.{{item.Attributes.blindorder.mcs_premiumcode}}</span>-->
+                                    <span class="order-label">您的预约号:</span><span class="order-head-title">NO.{{item.Attributes.mcs_premiumcode}}</span>
                                 </div>
                             </div>
                         </ion-item>
@@ -75,10 +75,10 @@
                                     <div>
                                         <div *ngIf="item.Attributes.mcs_orderstatus == 0; then trueTemplate else falseTemplate;"></div>
                                         <ng-template #trueTemplate>
-                                            <a class="paynow" (click)="paynow(item.Attributes.mcs_name);$event.stopPropagation();" href="javascript:void(0);">立即支付</a>
+                                            <a class="paynow" (click)="paynow(item.Attributes.mcs_name,item.Attributes.mcs_premiumname,item.Attributes.mcs_totalorder);$event.stopPropagation();" href="javascript:void(0);">立即支付</a>
                                         </ng-template>
                                         <ng-template #falseTemplate>
-                                            <a class="paynow" (click)="orderdetail(item.Attributes.mcs_name);$event.stopPropagation();" href="javascript:void(0);">订单详情</a>
+                                            <a class="paynow" (click)="orderdetail(item.Attributes.mcs_name,item.Attributes.mcs_smallorderid);$event.stopPropagation();" href="javascript:void(0);">订单详情</a>
                                         </ng-template>
 
                                     </div>
