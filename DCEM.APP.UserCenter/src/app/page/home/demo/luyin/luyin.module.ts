@@ -7,9 +7,9 @@ import { IonicModule } from '@ionic/angular';
 import { LuyinPageRoutingModule } from './luyin-routing.module';
 
 import { LuyinPage } from './luyin.page';
-import { Media } from '@ionic-native/media/ngx';
+import { Media, MediaObject } from '@ionic-native/media/ngx';
 import { File } from '@ionic-native/file/ngx';
-
+import { FileTransfer, FileUploadOptions, FileTransferObject, FileUploadResult } from '@ionic-native/file-transfer/ngx';
 @NgModule({
   imports: [
     CommonModule,
@@ -18,6 +18,6 @@ import { File } from '@ionic-native/file/ngx';
     LuyinPageRoutingModule
   ],
   declarations: [LuyinPage],
-  providers: [Media, File]
+  providers:[Media,File,FileTransfer,FileTransferObject]
 })
 export class LuyinPageModule {}
