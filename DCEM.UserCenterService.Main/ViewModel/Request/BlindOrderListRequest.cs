@@ -20,5 +20,12 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
         /// 手机号
         /// </summary>
         public string mcs_mobilephone { get; set; }
+
+        /// <summary>
+        /// 预约号状态（0：未下单，1：已下单）
+        /// </summary>
+        public int? mcs_premiumcodestatus { get; set; }
+
+
     }
 }

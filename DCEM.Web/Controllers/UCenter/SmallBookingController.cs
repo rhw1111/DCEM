@@ -36,7 +36,7 @@ namespace DCEM.Web.Controllers.UCenter
         /// <summary>
         ///  小订订单活动查询接口（小订活动、小订权益包、小订权益项、小订选配）
         /// </summary>
-        /// <param name="appointmentInfoRequest"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("QuerySmallBooking")]
@@ -48,7 +48,7 @@ namespace DCEM.Web.Controllers.UCenter
         /// <summary>
         ///  小订订单创建、支付、退款申请、退订
         /// </summary>
-        /// <param name="appointmentInfoRequest"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
         [Route("AddOrEdit")]
@@ -58,9 +58,9 @@ namespace DCEM.Web.Controllers.UCenter
         }
 
         /// <summary>
-        ///  小订订单询接口
+        ///  小订订单列表查询接口
         /// </summary>
-        /// <param name="appointmentInfoRequest"></param>
+        /// <param name="request"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("QuerySmallOrder")]
@@ -69,7 +69,17 @@ namespace DCEM.Web.Controllers.UCenter
             return await app.QuerySmallOrder(request);
         }
 
-
+        /// <summary>
+        ///  小订订单明细接口
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("QuerySmallOrderDetail")]
+        public async Task<NewtonsoftJsonActionResult<SmallOrderListResponse>> QuerySmallOrderDetail([FromQuery]SmallOrderRequest request)
+        {
+            return await app.QuerySmallOrderDetail(request);
+        }
     }
 
 

@@ -31,6 +31,10 @@ namespace DCEM.UserCenterService.Main.Application.Repository
             {
                 filter += $"<condition attribute='mcs_mobilephone' operator='eq' value='{request.mcs_mobilephone}' />";
             }
+            if (request.mcs_premiumcodestatus!=null)
+            {
+                filter += $"<condition attribute='mcs_premiumcodestatus' operator='eq' value='{request.mcs_premiumcodestatus}' />";
+            }
             var fetchString = $@"<fetch version='1.0' count='{request.PageSize}' page='{request.PageIndex}' output-format='xml-platform' mapping='logical' distinct='false'>
                   <entity name='mcs_blindorder'>
                     <attribute name='mcs_name' />
