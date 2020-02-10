@@ -1049,7 +1049,15 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
                 if (result != null)
                 {
+
+
+                    #region 组装小订订单
                     var smallOrder = new SmallOrder();
+                    //把符合条件的最新一条小订活动返回出去
+                    var entity = result;
+                    smallOrder.SmallOrderInfo = entity.Attributes;
+                    #endregion
+
                     #region 查询小订权益包
                     var fetchEquityPackage = _smallbookingRepository.QueryEquityPackageByOrder(result.Id);
                     var fetchXdocEquityPackage = XDocument.Parse(fetchEquityPackage);
