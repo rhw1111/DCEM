@@ -76,6 +76,19 @@ namespace DCEM.Web.Controllers
         {
             return await _appVehnetwork.UpdateCard(request);
         }
+
+        /// <summary>
+        /// 销售机会 语音文本转换录入
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Route("voice")]
+        [HttpPost]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<string>>> Voice(VoiceRequest request)
+        {
+            return await _appVehnetwork.Voice(request);
+        }
+
     }
 }
 

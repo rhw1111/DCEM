@@ -15,5 +15,6 @@ namespace DCEM.SalesAssistant.Main.Application.Services.Contrac
         Task<VehnetworkDetailRepository> getdetail(Guid id);
         Task<ValidateResult<string>> PostStatus(Guid id);
         Task<ValidateResult<string>> UpdateCard(UpdateCardRequest request);
+        Task<ValidateResult<string>> Voice(VoiceRequest request);
     }
 }
