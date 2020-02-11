@@ -270,7 +270,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                     logcall.Attributes.Add("mcs_content", request.content);
                     logcall.Attributes.Add("mcs_results", request.content);
                     logcall.Attributes.Add("mcs_visittime", DateTime.Now.ToUniversalTime());
-
+                    logcall.Attributes.Add("mcs_accountid", new CrmEntityReference(entity.EntityName, entity.Id));
                     await _crmService.Create(logcall, null);
                 }
 

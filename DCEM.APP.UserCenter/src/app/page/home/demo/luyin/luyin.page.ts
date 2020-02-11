@@ -29,7 +29,7 @@ export class LuyinPage implements OnInit {
     public entry:any;
 
     public phone="13544290760";
-    public VoiceContent:any;//语音识别内容
+    public VoiceContent:any="";//语音识别内容
     public _startVoice=false;//是否开始录音
     public voiceTit="长按录音";
     public style:any={
@@ -40,6 +40,7 @@ export class LuyinPage implements OnInit {
     }
 
   ngOnInit() {
+    //this.addLogcall();
   }
 
   //开始录音
