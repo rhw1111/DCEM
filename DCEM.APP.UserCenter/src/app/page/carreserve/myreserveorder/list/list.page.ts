@@ -69,9 +69,10 @@ export class ListPage implements OnInit {
             }
         );
     }
-    paynow(ordercode, mcs_premiumname, mcs_totalorder) {
+    paynow(ordercode, mcs_smallorderid,mcs_premiumname, mcs_totalorder) {
         var param = {
             "OrderCode": ordercode,
+            "mcs_smallorderid": mcs_smallorderid,
             "BlindOrder": mcs_premiumname,
             "TotalOrder": mcs_totalorder,
             "OrderStatus": 1
