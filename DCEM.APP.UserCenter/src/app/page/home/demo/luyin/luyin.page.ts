@@ -4,6 +4,7 @@ import { DCore_Http, DCore_Page } from 'app/component/typescript/dcem.core';
 import { Media, MediaObject } from '@ionic-native/media/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { FileTransfer, FileUploadOptions, FileTransferObject, FileUploadResult } from '@ionic-native/file-transfer/ngx';	
+import 'hammerjs';
 @Component({
   selector: 'app-luyin',
   templateUrl: './luyin.page.html',
@@ -22,14 +23,61 @@ export class LuyinPage implements OnInit {
 
     public filePath: any; //录音文件的名字
     public mediaObj: MediaObject; //录音对象
-    public fileName:any="爱车APP录音.wav";
+    public fileName:any="aicheappvoice.wav";
+    public base64File:any;//文件的base64
+    public directory:any;
+    public entry:any;
 
+    public VoiceContent:any;//语音识别内容
+    public _startVoice=false;//是否开始录音
+    public voiceTit="长按录音";
+    public style:any={
+      ico1:true,
+      ico2:false,
+      click:false,
+      loading:false
+    }
 
   ngOnInit() {
   }
 
+  //开始录音
+  startVoice(){
+    if(!this._startVoice){
+      this.style.ico1=false;
+      this.style.ico2=true;
+      this.style.click=true;
+      this._startVoice=true;
+      this.voiceTit="正在录音…";
+      this.fileName="aiche-"+this.guid()+".wav";
+      this.startRecord();
+    }
+  }
+  //结束录音
+  stopVoice(){
+    
+    this.style.ico1=true;
+    this.style.ico2=false;
+    this.style.click=false;
+    this._startVoice=false;
+    this.voiceTit="长按录音";
+    setTimeout(() => {
+      this.stopRecord();
+      this.uploadRecord();
+    }, 200);
+  }
+  blurVoie(){
+    this.style.ico1=true;
+    this.style.ico2=false;
+    this.style.click=false;
+    this._startVoice=false;
+    this.stopRecord();
+    this.uploadRecord();
+    this.voiceTit="长按录音";
+  }
+
   startRecord(){
-    var directory=this._file.externalApplicationStorageDirectory;
+    this.directory=this._file.externalApplicationStorageDirectory;
     // this._file.createFile(directory, fileName, true).then(() => {
     //     this.mediaObj = this._media.create(directory + fileName);
     //     this.mediaObj.startRecord();
@@ -37,8 +85,8 @@ export class LuyinPage implements OnInit {
     // });
 
 
-    this.mediaObj = this._media.create(directory+this.fileName);
-    this.filePath=directory+this.fileName;
+    this.mediaObj = this._media.create(this.directory+this.fileName);
+    this.filePath=this.directory+this.fileName;
     this.mediaObj.startRecord();
   }
   stopRecord(){
@@ -50,20 +98,60 @@ export class LuyinPage implements OnInit {
   }
   uploadRecord(){
 
+    this.style.loading=true;
+
     let options: FileUploadOptions = {											
       fileKey: "file",											
       fileName: this.fileName,											
       mimeType: "audio/wav"											
     };
-    const ftObj: FileTransferObject = this.ft.create();											
-    ftObj.upload(this._file.externalApplicationStorageDirectory.replace(/^file:\/\//, '') + this.fileName,											
+    const ftObj: FileTransferObject = this.ft.create();			
+    //this.entry=ftObj;								
+    ftObj.upload(this.directory.replace(/^file:\/\//, '') + this.fileName,											
       encodeURI("http://106.14.121.65:8082/dcem/Api/Files/Upload"), options).then(											
-      (data) => {											
-        alert("File upload success!");											
+      (data) => {		
+        this.base64File="http://106.14.121.65:8082/dcem/FilesDir/"+this.fileName;
+        this.voice();
+        //alert("File upload success!");											
       },											
       (err) => {											
-        alert("File upload fail!");											
+        alert("File upload fail!");	
+        this.style.loading=false;										
       });	
+  }
+  //语音文本证识别方法
+  voice(){
+    var json={
+      FileUrl:this.base64File
+    }
+    //this._page.loadingShow();
+    this._http.postCustom(
+        "https://subcrmuatapi.sokon.com/ocr/api/ocr/Voice",
+        json,
+        (res: any) => {
+            console.log(res);
+            if(res!=null && res.Code=="000"){
+              this.entry=res.Data;
+              this.VoiceContent=res.Data;
+            }
+            else {
+              this._page.alert("消息提示", res.Message);
+            }
+
+            this.style.loading=false;	
+        },
+        (err: any) => {
+            console.log(err);
+            this._page.alert("消息提示", "语音信息识别错误");
+            this.style.loading=false;	
+        }
+    );
+  }
+ guid() {
+    function S4() {
+        return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+    }
+    return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
   }
 
 }
