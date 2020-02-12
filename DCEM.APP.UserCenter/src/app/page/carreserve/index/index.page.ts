@@ -2,6 +2,8 @@
 import { DCore_Http, DCore_Page } from '../../../../app/component/typescript/dcem.core';
 import { ActivatedRoute } from '@angular/router';
 import { Storage_LoginInfo } from '../../../component/typescript/logininfo.storage';
+import { ModalController } from '@ionic/angular';
+import { LoginComponent } from '../../../component/modal/login/login.component'
 import * as $ from 'jquery';
 
 @Component({
@@ -34,6 +36,7 @@ export class IndexPage implements OnInit {
         private _http: DCore_Http,
         private _page: DCore_Page,
         private routerinfo: ActivatedRoute,
+        private _modalCtrl: ModalController,
     ) { }
 
     ngOnInit() {
@@ -155,54 +158,72 @@ export class IndexPage implements OnInit {
     }
     //确认
     BtnSubmit() {
-        var params = {
-            "smallbooking": {
-                "smallbookname": this.model.smallbookname,
-                "imgurl": this.model.imgurl,
-                "equitypackagelist": this.model.equitypackagelist,
-                "optionallist": this.model.optionallist
-            },
-            "request": {
-                "FullName": this._logininfo.GetName(),
-                "MobilePhone": this._logininfo.GetPhone(),
-                "OrderCode": "",// 小订订单编号
-                "OrderStatus": 0,
-                "Gender": this._logininfo.GetGender() ? parseInt(this._logininfo.GetGender()) : 1,
-                "TotalOrder": this.model.totalprice,
-                "BlindOrder": "",// 预约单号
-                "VehTypeCode": "",// 意向车型编号
-                "VehTypeName": "",// 意向车型名称
-                "VehConfigCode": "",// 意向配置编号
-                "VehConfigName": "",// 意向配置名称
-                "EquityCode": this.model.checkedequitypackagecode,//权益编号
-                "EquityPackageId": this.model.checkedequitypackageid,//权益ID
-                "EquityName": this.model.checkedequitypackagename,// 权益名称
-                "OptionalCode": this.model.checkedoptionalcode,// 选配编号
-                "OptionalId": this.model.checkedoptionalid,//选装ID
-                "OptionalName": this.model.checkedoptionalname,// 选配名称
-                "CityOnCard": "",// 上牌城市
-                "ProvinceOnCard": "",// 上牌省份
-                "UnsubscribeReason": "",// 退订原因(订单状态为2- 退订申请时必传)
-                "PaymentCode": "",// 支付记录编码(订单状态为1-已支付、3-已退订时必传)
-                "TransactionTime": new Date(),// 交易时间
-                "Transactionamount": this.model.totalprice,// 交易金额（精确两位小数）
-                "PaymentChannel": 2,// 支付渠道 0-储蓄卡、1-网上银行、2-微信、3-支付宝
-                "SmallRefundCode": "",// 小订退订编号(订单状态为2-申请退订、3-已关闭时必传)
-                "EquityRefundAmount": 0,// 权益退订金额(订单状态为2-退订申请时必传)
-                "EquityRefundCode": "",//退订权益编号(订单状态为2-申请退订、3-已关闭时必传)
-                "EquityRefundName": "",// 退订权益名称(订单状态为2-申请退订、3-已关闭时必传)
-                "OptionalRefundAmount": 0,// 选配退订金额
-                "OptionalRefundCode": "",// 选配退订编号
-                "OptionalRefundName": "",// 退订选配名称(订单状态为2-申请退订、3-已关闭时必传)
-                "Spare1": "",
-                "Spare2": "",
-                "Spare3": "",
-                "Spare4": "",
-                "Spare5": "",
-                "Spare6": "",
-                "Spare7": ""
+        this.checkLogin();
+    }
+
+    //检查是否登陆
+    async checkLogin() {
+        if (this._logininfo.GetNickName() != null) {
+            var params = {
+                "smallbooking": {
+                    "smallbookname": this.model.smallbookname,
+                    "imgurl": this.model.imgurl,
+                    "equitypackagelist": this.model.equitypackagelist,
+                    "optionallist": this.model.optionallist
+                },
+                "request": {
+                    "UserId":"",
+                    "FullName": "",
+                    "MobilePhone": "",
+                    "OrderCode": "",// 小订订单编号
+                    "OrderStatus": 0,
+                    "Gender": 1,
+                    "TotalOrder": this.model.totalprice,
+                    "BlindOrder": "",// 预约单号
+                    "VehTypeCode": "",// 意向车型编号
+                    "VehTypeName": "",// 意向车型名称
+                    "VehConfigCode": "",// 意向配置编号
+                    "VehConfigName": "",// 意向配置名称
+                    "EquityCode": this.model.checkedequitypackagecode,//权益编号
+                    "EquityPackageId": this.model.checkedequitypackageid,//权益ID
+                    "EquityName": this.model.checkedequitypackagename,// 权益名称
+                    "OptionalCode": this.model.checkedoptionalcode,// 选配编号
+                    "OptionalId": this.model.checkedoptionalid,//选装ID
+                    "OptionalName": this.model.checkedoptionalname,// 选配名称
+                    "CityOnCard": "",// 上牌城市
+                    "ProvinceOnCard": "",// 上牌省份
+                    "UnsubscribeReason": "",// 退订原因(订单状态为2- 退订申请时必传)
+                    "PaymentCode": "",// 支付记录编码(订单状态为1-已支付、3-已退订时必传)
+                    "TransactionTime": new Date(),// 交易时间
+                    "Transactionamount": this.model.totalprice,// 交易金额（精确两位小数）
+                    "PaymentChannel": 2,// 支付渠道 0-储蓄卡、1-网上银行、2-微信、3-支付宝
+                    "SmallRefundCode": "",// 小订退订编号(订单状态为2-申请退订、3-已关闭时必传)
+                    "EquityRefundAmount": 0,// 权益退订金额(订单状态为2-退订申请时必传)
+                    "EquityRefundCode": "",//退订权益编号(订单状态为2-申请退订、3-已关闭时必传)
+                    "EquityRefundName": "",// 退订权益名称(订单状态为2-申请退订、3-已关闭时必传)
+                    "OptionalRefundAmount": 0,// 选配退订金额
+                    "OptionalRefundCode": "",// 选配退订编号
+                    "OptionalRefundName": "",// 退订选配名称(订单状态为2-申请退订、3-已关闭时必传)
+                    "Spare1": "",
+                    "Spare2": "",
+                    "Spare3": "",
+                    "Spare4": "",
+                    "Spare5": "",
+                    "Spare6": "",
+                    "Spare7": ""
+                }
             }
+            this._page.goto("/carreserve/fillinfo", { params: JSON.stringify(params) });
+        } else {
+            const modal = await this._modalCtrl.create({
+                component: LoginComponent,
+                componentProps: {
+                    'status': 1//登录页面状态 
+                }
+            });
+            await modal.present();
+            //监听销毁的事件
+            const { data } = await modal.onDidDismiss();
         }
-        this._page.goto("/carreserve/fillinfo", { params: JSON.stringify(params)});
     }
 }

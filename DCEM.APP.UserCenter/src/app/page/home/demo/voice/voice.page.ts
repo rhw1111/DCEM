@@ -28,7 +28,7 @@ export class VoicePage implements OnInit {
   }
 
   ngOnInit() {
-    this.voice(this.data.json);
+    //this.voice(this.data.json);
   }
   //语音文本证识别方法
   voice(json){

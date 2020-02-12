@@ -128,6 +128,29 @@ namespace DCEM.SalesAssistant.Main.Application.Repository
 
 
         /// <summary>
+        /// 销售机会明细
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<XDocument> GetAccountFetchXml(string phone)
+        {
+            return await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+  <entity name='account'>
+    <attribute name='accountid' />
+    <attribute name='mcs_mobilephone' />
+    <order attribute='createdon' descending='true' />
+    <filter type='and'> 
+      <condition attribute='mcs_mobilephone' operator='eq'  value='{phone}' />
+    </filter>
+  </entity>
+</fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
+
+        /// <summary>
         /// 附件材料
         /// </summary>
         /// <param name="id"></param>

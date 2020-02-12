@@ -23,5 +23,6 @@ namespace DCEM.UserCenterService.Main.Application.Services.Contrac
         Task<SmallBookingListResponse> QuerySmallBooking(SmallBookingListRequest request);
         Task<ValidateResult<CrmEntity>> AddOrEdit(SmallBookingRequest request);
         Task<QueryResult<CrmEntity>> QuerySmallOrder(SmallOrderListRequest request);
+        Task<SmallOrderListResponse> QuerySmallOrderDetail(SmallOrderRequest request);
     }
 }

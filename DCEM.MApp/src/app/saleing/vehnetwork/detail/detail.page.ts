@@ -213,9 +213,10 @@ export class DetailPage implements OnInit {
                   }
               },
               (err: any) => {
+                  var tit=type==1?"身份证信息":"发票信息";
                   this._page.loadingHide();
                   console.log(err);
-                  this._page.alert("消息提示", "身份证信息识别错误");
+                  this._page.alert("消息提示", tit+"识别错误");
                   //this._page.loadingHide();
               }
           );

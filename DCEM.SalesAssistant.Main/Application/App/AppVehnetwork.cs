@@ -39,5 +39,11 @@ namespace DCEM.SalesAssistant.Main.Application.App
 
         }
 
+        public async Task<ValidateResult<string>> Voice(VoiceRequest request)
+        {
+            return await _service.Voice(request);
+
+        }
+
     }
 }

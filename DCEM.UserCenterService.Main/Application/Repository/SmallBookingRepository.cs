@@ -239,6 +239,40 @@ namespace DCEM.UserCenterService.Main.Application.Repository
             return strFetch;
 
         }
+
+        /// <summary>
+        /// 小订订单明细关联的权益包
+        /// </summary>
+        /// <param name="samllorderid"></param>
+        /// <returns></returns>
+        public string QueryEquityPackageByOrder(Guid samllorderid)
+        {
+            var strFetch = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+               <entity name='mcs_equitypackage'>
+                <attribute name='mcs_name' />
+                <attribute name='createdon' />
+                <attribute name='mcs_description' />
+                <attribute name='mcs_code' />
+                <attribute name='mcs_originalprice' />
+                <attribute name='mcs_limitedtimeprice' />
+                <attribute name='mcs_equitypackageid' />
+                <order attribute='mcs_code' descending='false' />
+                <filter type='and'>
+                  <condition attribute='statecode' operator='eq' value='0' />
+                </filter>
+                <link-entity name='mcs_mcs_smallorder_mcs_equitypackage' from='mcs_equitypackageid' to='mcs_equitypackageid' visible='false' intersect='true'>
+                  <link-entity name='mcs_smallorder' from='mcs_smallorderid' to='mcs_smallorderid' alias='so'>
+                    <filter type='and'>
+                      <condition attribute='mcs_smallorderid' operator='eq' value='{samllorderid}' />
+                    </filter>
+                  </link-entity>
+                </link-entity>
+              </entity>
+            </fetch>";
+
+            return strFetch;
+        }
+
         /// <summary>
         /// 查询唯一线索
         /// </summary>
@@ -356,6 +390,38 @@ namespace DCEM.UserCenterService.Main.Application.Repository
         }
 
         /// <summary>
+        /// 查询小订订单关联的选配包
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public string QueryOptionalByOrder(Guid samllorderid)
+        {
+            var strFetch = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+              <entity name='mcs_optional'>
+                <attribute name='mcs_optionalid' />
+                <attribute name='mcs_name' />
+                <attribute name='mcs_limitedtimeprice' />
+                <attribute name='mcs_description' />
+                <attribute name='mcs_code' />
+                <attribute name='mcs_originalprice' />
+                <order attribute='mcs_name' descending='false' />
+                <filter type='and'>
+                  <condition attribute='statecode' operator='eq' value='0' />
+                </filter>
+                <link-entity name='mcs_mcs_smallorder_mcs_optional' from='mcs_optionalid' to='mcs_optionalid' visible='false' intersect='true'>
+                  <link-entity name='mcs_smallorder' from='mcs_smallorderid' to='mcs_smallorderid' alias='af'>
+                    <filter type='and'>
+                      <condition attribute='mcs_smallorderid' operator='eq' value='{samllorderid}' />
+                    </filter>
+                  </link-entity>
+                </link-entity>
+              </entity>
+            </fetch>";
+
+            return strFetch;
+        }
+
+        /// <summary>
         /// 查询选配图片
         /// </summary>
         /// <param name="id"></param>
@@ -462,6 +528,10 @@ namespace DCEM.UserCenterService.Main.Application.Repository
         public string QuerySmallOrder(SmallOrderListRequest request)
         {
             var filter = string.Empty;
+            if (request.mcs_userid != null)
+            {
+                filter += $"<condition attribute='mcs_userid' operator='eq' value='{request.mcs_userid}' />";
+            }
             if (request.mcs_smallorderid != null)
             {
                 filter += $"<condition attribute='mcs_smallorderid' operator='eq' value='{request.mcs_smallorderid}' />";
@@ -502,6 +572,53 @@ namespace DCEM.UserCenterService.Main.Application.Repository
                   {filter}
                 </filter>
               <link-entity name='mcs_onlylead' from='mcs_onlyleadid' to='mcs_onlyleadid' visible='false' link-type='outer' alias='onlylead'>
+                  <attribute name='mcs_name' />
+                  <attribute name='mcs_mobilephone' />
+                </link-entity>
+                <link-entity name='mcs_blindorder' from='mcs_blindorderid' to='mcs_blindorderid' visible='false' link-type='outer' alias='blindorder'>
+                  <attribute name='mcs_premiumcode' />
+                  <attribute name='mcs_name' />
+                </link-entity>
+              </entity>
+            </fetch>";
+            return str;
+        }
+
+        /// <summary>
+        /// 小订订单明细
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public string QuerySmallOrderDetail(SmallOrderRequest request)
+        {
+            string str = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+              <entity name='mcs_smallorder'>
+                <attribute name='mcs_name' />
+                <attribute name='createdon' />
+                <attribute name='mcs_blindorderid' />
+                <attribute name='mcs_optionalcode' />
+                <attribute name='mcs_optionalname' />
+                <attribute name='mcs_orderstatus' />
+                <attribute name='mcs_totalorder' />
+                <attribute name='mcs_availabletotalorder' />
+                <attribute name='mcs_mobilephone' />
+                <attribute name='mcs_fullname' />
+                <attribute name='mcs_equitycode' />
+                <attribute name='mcs_equityname' />
+                <attribute name='mcs_vehconfigcode' />
+                <attribute name='mcs_vehconfigname' />
+                <attribute name='mcs_vehtypecode' />
+                <attribute name='mcs_vehtypename' />
+                <attribute name='mcs_provinceoncard' />
+                <attribute name='mcs_cityoncard' />
+                <attribute name='mcs_gender' />
+                <attribute name='mcs_smallorderid' />
+                <order attribute='createdon' descending='true' />
+                <filter type='and'>
+                  <condition attribute='statecode' operator='eq' value='0' />
+                  <condition attribute='mcs_smallorderid' operator='eq' value='{request.mcs_smallorderid}' />
+                </filter>
+                <link-entity name='mcs_onlylead' from='mcs_onlyleadid' to='mcs_onlyleadid' visible='false' link-type='outer' alias='onlylead'>
                   <attribute name='mcs_name' />
                   <attribute name='mcs_mobilephone' />
                 </link-entity>

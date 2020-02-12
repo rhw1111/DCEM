@@ -104,5 +104,23 @@ namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
         /// <param name="request"></param>
         /// <returns></returns>
         string QuerySmallOrder(SmallOrderListRequest request);
+        /// <summary>
+        /// 小订订单明细接口
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        string QuerySmallOrderDetail(SmallOrderRequest request);
+        /// <summary>
+        /// 查询小订订单关联的权益包
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        string QueryEquityPackageByOrder(Guid id);
+        /// <summary>
+        /// 小订订单明细关联查询选配
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        string QueryOptionalByOrder(Guid id);
     }
 }
