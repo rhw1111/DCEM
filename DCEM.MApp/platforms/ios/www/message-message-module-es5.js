@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-buttons slot=\"start\">\r\n      <ion-back-button text=\"返回\" defaultHref=\"/serving/home/mywork\"></ion-back-button>\r\n    </ion-buttons>\r\n    <ion-title>消息列表</ion-title>\r\n    <!-- <ion-nav-buttons side=\"right\"> \r\n        <button ng-click=\"openNewChat()\"></button> \r\n      </ion-nav-buttons> -->\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n    <ion-searchbar placeholder=\"快速查找\" (keyup)=\"search()\"></ion-searchbar>\r\n  </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n  <ion-list ng-if=\"activities\">\r\n    <ion-item-sliding *ngFor=\"let room of activities;let key=index\">\r\n      <ion-item (click)=\"toRoomMessage(room)\">\r\n        <ion-avatar size=\"large\" slot=\"start\">\r\n            <img src=\"{{room.thumbnail}}\">\r\n        </ion-avatar>\r\n        <ion-label>\r\n          <h2>{{room.title}}</h2>\r\n          <p>{{room.latest_chat}}</p>\r\n        </ion-label>\r\n        <ion-note slot=\"end\">\r\n          {{room.activeTime}}\r\n        </ion-note>\r\n        <ion-badge *ngIf=\"room.unreadcount>0\" slot=\"end\" color=\"danger\">{{room.unreadcount}}</ion-badge>\r\n      </ion-item>\r\n      <ion-item-options side=\"end\">\r\n        <ion-item-option color=\"danger\" expandable ng-click=\"remove(room)\">\r\n          删除\r\n        </ion-item-option>\r\n      </ion-item-options>\r\n    </ion-item-sliding>\r\n  </ion-list>\r\n  <!--show when there is no activity-->\r\n  <div *ngIf=\"!activities\">\r\n    <div style=\"height: 60px\"></div>\r\n    <div class=\"text-center\" style=\"padding: 45px\">\r\n      <h2 class=\"grey\"> Recent </h2>\r\n      <div style=\"height: 10px\"></div>\r\n      <h4 class=\"grey\">Once you start chatting, all your messages will be here.</h4>\r\n      <div style=\"height: 20px\"></div> <button class=\"button button-outline\" ng-click=\"openNewChat()\">New\r\n        Message</button>\r\n    </div>\r\n  </div>\r\n</ion-content>"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-title>消息列表</ion-title>\n    <!-- <ion-nav-buttons side=\"right\"> \n        <button ng-click=\"openNewChat()\"></button> \n      </ion-nav-buttons> -->\n  </ion-toolbar>\n  <ion-toolbar>\n    <ion-searchbar placeholder=\"快速查找\" (keyup)=\"search()\"></ion-searchbar>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-list ng-if=\"activities\">\n    <ion-item-sliding *ngFor=\"let room of activities;let key=index\">\n      <ion-item (click)=\"toRoomMessage(room)\">\n        <ion-badge slot=\"start\" *ngIf=\"room.unreadcount>0\" color=\"danger\">{{room.unreadcount}}</ion-badge>\n        <ion-avatar size=\"large\" slot=\"start\">\n            <img src=\"{{room.thumbnail}}\">\n        </ion-avatar>\n        <ion-label>\n          <h2>{{room.title}}</h2>\n          <p>{{room.latest_chat}}</p>\n        </ion-label>\n        <ion-note slot=\"end\">\n          {{room.activeTime}}\n        </ion-note>\n      </ion-item>\n      <ion-item-options side=\"end\">\n        <ion-item-option color=\"danger\" expandable ng-click=\"remove(room)\">\n          删除\n        </ion-item-option>\n      </ion-item-options>\n    </ion-item-sliding>\n  </ion-list>\n  <!--show when there is no activity-->\n  <div *ngIf=\"!activities\">\n    <div style=\"height: 60px\"></div>\n    <div class=\"text-center\" style=\"padding: 45px\">\n      <h2 class=\"grey\"> Recent </h2>\n      <div style=\"height: 10px\"></div>\n      <h4 class=\"grey\">Once you start chatting, all your messages will be here.</h4>\n      <div style=\"height: 20px\"></div> <button class=\"button button-outline\" ng-click=\"openNewChat()\">New\n        Message</button>\n    </div>\n  </div>\n</ion-content>"
 
 /***/ }),
 
@@ -69,7 +69,7 @@ var MessagePageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "h2 {\n  display: inline-block;\n  font-family: Lato, \"Helvetica Neue\", \"Roboto\", \"Segoe UI\", sans-serif;\n  font-weight: 700;\n  line-height: 1.2;\n  font-size: 18px; }\n\nion-avatar {\n  height: 50px;\n  width: 50px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2VydmluZy9ob21lLmNvbS9tZXNzYWdlL0U6XFxBcHBQcm9qZWN0XFxEQ0VNXFxEQ0VNLk1BcHAvc3JjXFxhcHBcXHNlcnZpbmdcXGhvbWUuY29tXFxtZXNzYWdlXFxtZXNzYWdlLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLHFCQUFxQjtFQUNyQixxRUFBcUU7RUFDckUsZ0JBQWdCO0VBQ2hCLGdCQUFnQjtFQUNoQixlQUFlLEVBQUE7O0FBRW5CO0VBQ0ksWUFBWTtFQUNaLFdBQVcsRUFBQSIsImZpbGUiOiJzcmMvYXBwL3NlcnZpbmcvaG9tZS5jb20vbWVzc2FnZS9tZXNzYWdlLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImgye1xyXG4gICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xyXG4gICAgZm9udC1mYW1pbHk6IExhdG8sIFwiSGVsdmV0aWNhIE5ldWVcIiwgXCJSb2JvdG9cIiwgXCJTZWdvZSBVSVwiLCBzYW5zLXNlcmlmO1xyXG4gICAgZm9udC13ZWlnaHQ6IDcwMDtcclxuICAgIGxpbmUtaGVpZ2h0OiAxLjI7XHJcbiAgICBmb250LXNpemU6IDE4cHg7XHJcbn1cclxuaW9uLWF2YXRhcntcclxuICAgIGhlaWdodDogNTBweDtcclxuICAgIHdpZHRoOiA1MHB4O1xyXG59Il19 */"
+module.exports = "ion-avatar {\n  height: 50px;\n  width: 50px;\n}\n\nion-item h2 {\n  display: inline-block;\n  font-family: Lato, \"Helvetica Neue\", \"Roboto\", \"Segoe UI\", sans-serif;\n  font-weight: 400;\n  line-height: 1.2;\n  font-size: 14px;\n}\n\nion-item P {\n  font-size: 12px;\n}\n\nion-item ion-badge {\n  position: absolute;\n  left: 45px;\n  width: 25px;\n  top: 0px;\n}\n\nion-item ion-note {\n  font-size: 12px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Wb2x1bWVzL0YvRENFTS9EQ0VNLk1BcHAvc3JjL2FwcC9zZXJ2aW5nL2hvbWUuY29tL21lc3NhZ2UvbWVzc2FnZS5wYWdlLnNjc3MiLCJzcmMvYXBwL3NlcnZpbmcvaG9tZS5jb20vbWVzc2FnZS9tZXNzYWdlLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFDQTtFQUNJLFlBQUE7RUFDQSxXQUFBO0FDQUo7O0FER0k7RUFDSSxxQkFBQTtFQUNBLHFFQUFBO0VBQ0EsZ0JBQUE7RUFDQSxnQkFBQTtFQUNBLGVBQUE7QUNBUjs7QURFSTtFQUNJLGVBQUE7QUNBUjs7QURFSTtFQUNJLGtCQUFBO0VBQ0EsVUFBQTtFQUNBLFdBQUE7RUFDQSxRQUFBO0FDQVI7O0FERUk7RUFDSSxlQUFBO0FDQVIiLCJmaWxlIjoic3JjL2FwcC9zZXJ2aW5nL2hvbWUuY29tL21lc3NhZ2UvbWVzc2FnZS5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJcbmlvbi1hdmF0YXJ7XG4gICAgaGVpZ2h0OiA1MHB4O1xuICAgIHdpZHRoOiA1MHB4O1xufVxuaW9uLWl0ZW17XG4gICAgaDJ7XG4gICAgICAgIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgICAgICAgZm9udC1mYW1pbHk6IExhdG8sIFwiSGVsdmV0aWNhIE5ldWVcIiwgXCJSb2JvdG9cIiwgXCJTZWdvZSBVSVwiLCBzYW5zLXNlcmlmO1xuICAgICAgICBmb250LXdlaWdodDogNDAwO1xuICAgICAgICBsaW5lLWhlaWdodDogMS4yO1xuICAgICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgfVxuICAgIFB7XG4gICAgICAgIGZvbnQtc2l6ZTogMTJweDtcbiAgICB9XG4gICAgaW9uLWJhZGdle1xuICAgICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICAgIGxlZnQ6IDQ1cHg7XG4gICAgICAgIHdpZHRoOiAyNXB4O1xuICAgICAgICB0b3A6IDBweDtcbiAgICB9XG4gICAgaW9uLW5vdGV7XG4gICAgICAgIGZvbnQtc2l6ZTogMTJweDtcbiAgICB9XG59XG4iLCJpb24tYXZhdGFyIHtcbiAgaGVpZ2h0OiA1MHB4O1xuICB3aWR0aDogNTBweDtcbn1cblxuaW9uLWl0ZW0gaDIge1xuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIGZvbnQtZmFtaWx5OiBMYXRvLCBcIkhlbHZldGljYSBOZXVlXCIsIFwiUm9ib3RvXCIsIFwiU2Vnb2UgVUlcIiwgc2Fucy1zZXJpZjtcbiAgZm9udC13ZWlnaHQ6IDQwMDtcbiAgbGluZS1oZWlnaHQ6IDEuMjtcbiAgZm9udC1zaXplOiAxNHB4O1xufVxuaW9uLWl0ZW0gUCB7XG4gIGZvbnQtc2l6ZTogMTJweDtcbn1cbmlvbi1pdGVtIGlvbi1iYWRnZSB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgbGVmdDogNDVweDtcbiAgd2lkdGg6IDI1cHg7XG4gIHRvcDogMHB4O1xufVxuaW9uLWl0ZW0gaW9uLW5vdGUge1xuICBmb250LXNpemU6IDEycHg7XG59Il19 */"
 
 /***/ }),
 
@@ -98,7 +98,7 @@ var MessagePage = /** @class */ (function () {
                 thumbnail: "assets/img/userhead/thumbnail03.jpg",
                 roomType: "group",
                 title: "系统管理员",
-                activeTime: "最新消息",
+                activeTime: "2019-12-18",
                 latest_chat: "本周官方举办活动！",
                 unreadcount: 1,
                 chatList: [
@@ -117,7 +117,7 @@ var MessagePage = /** @class */ (function () {
                 thumbnail: "assets/img/userhead/thumbnail01.jpg",
                 roomType: "ms_friend",
                 title: "我的朋友A",
-                activeTime: "昨日消息",
+                activeTime: "2019-12-17",
                 latest_chat: "你好，最近怎么样？",
                 unreadcount: 0,
                 chatList: []
@@ -127,7 +127,7 @@ var MessagePage = /** @class */ (function () {
                 thumbnail: "assets/img/userhead/user01.jpg",
                 roomType: "fb_friend",
                 title: "朋友B",
-                activeTime: "3天前消息",
+                activeTime: "2019-11-11",
                 latest_chat: "你好，最近怎么样？",
                 unreadcount: 0,
                 chatList: [
@@ -154,7 +154,7 @@ var MessagePage = /** @class */ (function () {
                 thumbnail: "assets/img/userhead/user02.jpg",
                 roomType: "fb_friend",
                 title: "张小明",
-                activeTime: "暂无消息",
+                activeTime: "2019-11-11",
                 latest_chat: "暂无消息",
                 unreadcount: 0,
                 chatList: []
@@ -164,7 +164,7 @@ var MessagePage = /** @class */ (function () {
                 thumbnail: "assets/img/userhead/user03.jpg",
                 roomType: "fb_friend",
                 title: "销售顾问A",
-                activeTime: "消息未读",
+                activeTime: "2019-10-02",
                 latest_chat: "可有很强的购车意愿。",
                 unreadcount: 5,
                 chatList: [
