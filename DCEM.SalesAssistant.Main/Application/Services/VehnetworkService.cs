@@ -247,7 +247,38 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             return validateResult;
         }
 
+        public async Task<ValidateResult<string>> Voice(VoiceRequest request)
+        {
+            var validateResult = new ValidateResult<string>();
 
+            if (!string.IsNullOrEmpty(request.phone) && !string.IsNullOrEmpty(request.content)) {
+
+                var fetchXdoc = _Repository.GetAccountFetchXml(request.phone);
+                var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "account",
+                    FetchXml = fetchXdoc.Result
+                };
+                var fetchResponse = await _crmService.Execute(fetchRequest);
+                var detailResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                var entity = detailResult.Value.Results[0];
+                if (entity != null) {
+                    //插入logcall数据
+                    var logcall = new CrmExecuteEntity("mcs_logcall", Guid.NewGuid());
+                    logcall.Attributes.Add("mcs_fullname", "爱车APP语音转换");
+                    logcall.Attributes.Add("mcs_mobilephone", request.phone);
+                    logcall.Attributes.Add("mcs_content", request.content);
+                    logcall.Attributes.Add("mcs_results", request.content);
+                    logcall.Attributes.Add("mcs_visittime", DateTime.Now.ToUniversalTime());
+                    logcall.Attributes.Add("mcs_accountid", new CrmEntityReference(entity.EntityName, entity.Id));
+                    await _crmService.Create(logcall, null);
+                }
+
+            }
+            validateResult.Result = true;
+            validateResult.Description = "操作成功";
+            return validateResult;
+        }
 
     }
 }

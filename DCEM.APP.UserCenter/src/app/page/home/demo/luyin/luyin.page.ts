@@ -28,7 +28,8 @@ export class LuyinPage implements OnInit {
     public directory:any;
     public entry:any;
 
-    public VoiceContent:any;//语音识别内容
+    public phone="13544290760";
+    public VoiceContent:any="";//语音识别内容
     public _startVoice=false;//是否开始录音
     public voiceTit="长按录音";
     public style:any={
@@ -39,6 +40,7 @@ export class LuyinPage implements OnInit {
     }
 
   ngOnInit() {
+    //this.addLogcall();
   }
 
   //开始录音
@@ -133,6 +135,7 @@ export class LuyinPage implements OnInit {
             if(res!=null && res.Code=="000"){
               this.entry=res.Data;
               this.VoiceContent=res.Data;
+              this.addLogcall();
             }
             else {
               this._page.alert("消息提示", res.Message);
@@ -147,11 +150,29 @@ export class LuyinPage implements OnInit {
         }
     );
   }
- guid() {
+  guid() {
     function S4() {
         return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
     }
     return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
   }
 
+  //插入logcall
+  addLogcall(){
+    var json={
+      phone:this.phone,
+      content:this.VoiceContent
+    }
+    this._http.post(
+      "/api/vehnetwork/voice",
+      json,
+      (res: any) => {
+          console.log("logcall数据插入成功："+res);
+      },
+      (err: any) => {
+          this._page.alert("消息提示", "logcall数据插入失败");
+      }
+  );
+
+  }
 }

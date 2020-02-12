@@ -47,4 +47,15 @@ namespace DCEM.SalesAssistant.Main.ViewModel.Request
         /// </summary>
         public string time { get; set; }
     }
+
+    public class VoiceRequest { 
+        /// <summary>
+        /// 手机号码
+        /// </summary>
+        public string phone { get; set; }
+        /// <summary>
+        /// 语音文本内容
+        /// </summary>
+        public string content { get; set; }
+    }
 }

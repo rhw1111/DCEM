@@ -30,7 +30,9 @@
 <div>上传文件返回消息:{{base64File}}</div>
 <div>语音识别文本:{{entry}}</div>
 </div>
-
+<div>
+  <input type="text" id="phone" placeholder="请输入手机号码" [ngModel]="phone"  />
+</div>
 <div style="margin-top:20px;width: 100%;line-height: 20px;padding: 10px;">{{VoiceContent}}</div>
 <div id="voice_main">
 <div id="voice_ico" (press)="startVoice()" (pressup)="stopVoice()" (click)="blurVoie()"   [class]="style.click?'click':''">
