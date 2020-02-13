@@ -82,6 +82,21 @@ export class IndexPage {
                     svg: "../assets/svg/servicecenter/index/zxkf.svg",
                     link: "#",
                 },
+                {
+                    title: "车辆施工",
+                    svg: "../assets/svg/servicecenter/index/clsg.svg",
+                    link: "/servicecenter/construction/list",
+                },
+                {
+                    title: "业务办理",
+                    svg: "../assets/svg/servicecenter/index/ywbl.svg",
+                    link: "/servicecenter/businessdeal/list",
+                },
+                {
+                    title: "车辆服务",
+                    svg: "../assets/svg/servicecenter/index/clfw.svg",
+                    link: "/servicecenter/vehicleservice/list",
+                },
             ],
             advertisement: {
                 imgscr: "./assets/img/jf.jpg",
@@ -134,7 +149,7 @@ export class IndexPage {
         this._http.postForShopping(this.model.search.apiUrl,
             {
                 StartDateTime: "2019-01-01 00:00:00",
-                EndDateTime: "2019-12-31 23:59:59",
+                EndDateTime: "2022-12-31 23:59:59",
                 PageSize: this.model.search.pageSize,
                 PageIndex: this.model.search.page,
                 McsType: this.model.search.mcstype

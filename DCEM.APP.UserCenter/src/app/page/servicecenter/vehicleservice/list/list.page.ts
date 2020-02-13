@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page } from '../../../../../app/component/typescript/dcem.core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -17,7 +17,7 @@ export class ListPage implements OnInit {
             opack: "-1",
             pageSize: 10,//页数
             page: 1,//分页
-            mcstype: 10//精品
+            mcstype: 11//服务
         },
         datalist: [],//数据集合
         isending: false,//是否加载完成
@@ -92,7 +92,7 @@ export class ListPage implements OnInit {
     //        }
     //    );
     //}
-    getList(event,id) {
+    getList(event, id) {
         this._http.postForShopping(this.model.search.apiUrl,
             {
                 StartDateTime: "2019-01-01 00:00:00",

@@ -1,0 +1,203 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{model.title}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content overflow-scroll="true" style="overflow: hidden">
+    <ion-grid class="padding0">
+        <!--轮播图-->
+        <ion-row>
+            <ion-col class="padding0">
+                <ion-slides pager="true">
+                    <ng-container *ngFor="let item of model.datadetail.ImageData">
+                        <ion-slide style="width:100%;" *ngIf="item.Category == 2">
+                            <ion-grid class="padding0">
+                                <ion-row>
+                                    <ion-col class="padding0">
+                                        <img src="https://ceo-oss.oss-cn-hangzhou.aliyuncs.com/{{item.Name}}" width="495" height="495" />
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
+                        </ion-slide>
+                    </ng-container>
+                </ion-slides>
+            </ion-col>
+        </ion-row>
+        <!--商品名称、副标题-->
+        <ion-row>
+            <ion-col style="padding-left:20px;margin-top:5px">
+                <ion-label class="lab-proname" style="margin-top:30px">
+                    <p style="font-size:16px; font-weight:500; color:#000;">
+                        {{model.datadetail.Name}}
+                    </p>
+                    <p style="margin-top:10px;">
+                        {{model.datadetail.Introduction}}
+                    </p>
+                </ion-label>
+            </ion-col>
+        </ion-row>
+        <!--价格-->
+        <ion-row style="padding-top:20px; padding-bottom:15px">
+            <ion-col size="9" style="padding-left:20px;font-weight:bold; color:#2FACE5; ">
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="22" height="22" t="1576662222688" p-id="4131" version="1.1"><path fill="#38b3ee" d="M 883.804 246.032 c -7.274 7.274 -27.391 22.947 -34.043 29.599 c 44.117 64.68 69.974 142.806 69.974 227.009 c 0 222.864 -180.66 403.514 -403.53 403.514 c -222.872 0 -403.532 -180.65 -403.532 -403.514 c 0 -222.861 180.66 -403.513 403.532 -403.513 c 111.711 0 212.784 45.417 285.846 118.764 c 8.459 -8.458 24.012 -25.305 31.066 -32.36 c -81.13 -81.079 -193.158 -131.239 -316.912 -131.239 c -247.609 0 -448.368 200.707 -448.368 448.348 c 0 247.6 200.76 448.35 448.368 448.35 c 247.607 0 448.365 -200.75 448.365 -448.35 c 0.001 -95.468 -29.906 -183.906 -80.765 -256.608 Z" p-id="4132" /><path fill="#38b3ee" d="M 647.413 240.965 l -84.113 154.977 c -22.412 41.965 -36.15 69.883 -41.162 83.751 h -1.431 c -14.765 -33.643 -56.554 -113.235 -125.276 -238.729 h -79.103 l 147.11 252.688 l -120.624 0.001 v 55.835 h 141.382 v 76.949 h -141.382 v 56.553 h 141.382 v 112.027 h 70.155 v -112.027 h 136.373 v -56.551 h -136.374 v -76.951 h 136.373 v -55.834 h -117.045 l 148.541 -252.689 h -74.807 Z" p-id="4133" /></svg>
+                </span>
+                <span class="lab-price" style="font-size:18px;position: relative;bottom: 3px;left: 2px;">{{model.datadetail.SkuData?.length > 0 ? model.datadetail.SkuData[0].Price : "0.00"}}</span>
+                <div *ngIf="model.datadetail.PaymentType == 2; then integralTemplate else otherTemplate"></div>
+                <ng-template #integralTemplate>
+                    <span style="margin-left:3px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="18" height="18" t="1576662312009" p-id="5052" version="1.1"><path fill="#cdcdcd" d="M 512.06 927 C 279.32 927 97 831.31 97 709.16 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.29 20.75 20.75 c 0 95.59 171.07 176.34 373.56 176.34 c 202.42 0 373.44 -80.75 373.44 -176.34 c 0 -11.46 9.29 -20.75 20.75 -20.75 S 927 697.7 927 709.16 C 927 831.31 744.74 927 512.06 927 Z" p-id="5053" /><path fill="#cdcdcd" d="M 512.06 729.91 C 279.32 729.91 97 634.22 97 512.06 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.29 20.75 20.75 c 0 95.59 171.07 176.34 373.56 176.34 c 202.42 0 373.44 -80.75 373.44 -176.34 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.3 20.75 20.75 c 0 122.16 -182.26 217.85 -414.94 217.85 Z" p-id="5054" /><path fill="#cdcdcd" d="M 512.06 532.81 C 279.32 532.81 97 437.07 97 314.84 C 97 192.69 279.32 97 512.06 97 C 744.74 97 927 192.69 927 314.84 c 0 122.23 -182.26 217.97 -414.94 217.97 Z m 0 -394.31 c -202.49 0 -373.56 80.75 -373.56 176.34 c 0 95.66 171.07 176.47 373.56 176.47 c 202.42 0 373.44 -80.81 373.44 -176.47 c 0 -95.59 -171.01 -176.34 -373.44 -176.34 Z" p-id="5055" /></svg>
+                    </span>
+                    <span class="lab-integral" style="font-size:16px;color:#cdcdcd;position: relative;bottom: 3px;left: 2px;">{{model.datadetail.SkuData?.length > 0 ? model.datadetail.SkuData[0].Integral : "0"}}</span>
+                </ng-template>
+                <ng-template #otherTemplate></ng-template>
+            </ion-col>
+            <ion-col style="padding-right:15px;text-align:right;">
+                <ion-label>
+                    <p>
+                        快递: 包邮
+                    </p>
+                </ion-label>
+            </ion-col>
+        </ion-row>
+        <!--规格-->
+        <ion-card style="width: 100%;padding: 15px 0;margin:0;background: #f6f6f6;border-radius:0;">
+            <ion-item (click)="ShowTwoBtn(0)" lines="none" detail style="padding:10px 6px;width:100%;background:#fff;font-size:16px;">
+                <span style="color:#000;margin-right:6px;">
+                    选择:
+                </span>
+                <span class="lab-selected" style="color:#a5a2a2;">
+                    <span *ngIf="model.datadetail.SkuData?.length > 0; then trueTemplate else falseTemplate"></span>
+                    <ng-template #trueTemplate>
+                        <ng-container *ngFor="let item of model.datadetail.SkuData[0].Arrts">
+                            <span *ngIf="item.Values?.length > 0; then tTemplate else fTemplate"></span>
+                            <ng-template #tTemplate>
+                                {{item.Values[0].Value}}
+                            </ng-template>
+                            <ng-template #fTemplate>
+                                <!--不做操作-->
+                            </ng-template>
+                        </ng-container>
+                    </ng-template>
+                    <ng-template #falseTemplate>
+                        <!--不做操作-->
+                    </ng-template>
+                </span>
+            </ion-item>
+        </ion-card>
+        <!--商品概览-->
+        <ion-segment [(ngModel)]="tab" color="primary" model="md" class="segment-custom">
+            <ion-segment-button value="probably">
+                <ion-label>商品概览</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="aftersale">
+                <ion-label>售后服务</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+        <div [ngSwitch]="tab">
+            <div *ngSwitchCase="'probably'" style="line-height:0;">
+                <ng-container *ngFor="let item of model.datadetail.ImageData">
+                    <div *ngIf="item.Category == 3; then truesTemplate else falsesTemplate"></div>
+                    <ng-template #truesTemplate>
+                        <img src="https://ceo-oss.oss-cn-hangzhou.aliyuncs.com/{{item.Name}}" />
+                    </ng-template>
+                    <ng-template #falsesTemplate>
+                        <!--不做操作-->
+                    </ng-template>
+                </ng-container>
+            </div>
+            <div *ngSwitchCase="'aftersale'">
+                <div>
+                    售后服务
+                </div>
+            </div>
+        </div>
+    </ion-grid>
+    <!--规格选择-->
+    <div class="TwoBtnDialog" style="display:none;">
+        <div class="div-content">
+            <div class="div-skuimg">
+                <img src="{{model.defaultimg}}" width="100" height="100" style="border-radius:10px;" />
+            </div>
+            <div style="margin-left:30px;">
+                <div style="font-size:16px;margin-bottom:25px;">{{model.datadetail.Name}}</div>
+                <div *ngIf="model.datadetail.PaymentType == 2; then intTemplate else othersTemplate"></div>
+                <ng-template #intTemplate>
+                    <div style="color:#cdcdcd">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="18" height="18" t="1576662312009" p-id="5052" version="1.1"><path fill="#cdcdcd" d="M 512.06 927 C 279.32 927 97 831.31 97 709.16 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.29 20.75 20.75 c 0 95.59 171.07 176.34 373.56 176.34 c 202.42 0 373.44 -80.75 373.44 -176.34 c 0 -11.46 9.29 -20.75 20.75 -20.75 S 927 697.7 927 709.16 C 927 831.31 744.74 927 512.06 927 Z" p-id="5053" /><path fill="#cdcdcd" d="M 512.06 729.91 C 279.32 729.91 97 634.22 97 512.06 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.29 20.75 20.75 c 0 95.59 171.07 176.34 373.56 176.34 c 202.42 0 373.44 -80.75 373.44 -176.34 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.3 20.75 20.75 c 0 122.16 -182.26 217.85 -414.94 217.85 Z" p-id="5054" /><path fill="#cdcdcd" d="M 512.06 532.81 C 279.32 532.81 97 437.07 97 314.84 C 97 192.69 279.32 97 512.06 97 C 744.74 97 927 192.69 927 314.84 c 0 122.23 -182.26 217.97 -414.94 217.97 Z m 0 -394.31 c -202.49 0 -373.56 80.75 -373.56 176.34 c 0 95.66 171.07 176.47 373.56 176.47 c 202.42 0 373.44 -80.81 373.44 -176.47 c 0 -95.59 -171.01 -176.34 -373.44 -176.34 Z" p-id="5055" /></svg>
+                        <div *ngIf="model.datadetail.SkuData?.length > 0; then truthysesTemplate else falsysesTemplate"></div>
+                        <ng-template #truthysesTemplate>
+                            <span class="span-integral" style="font-size:16px;position: relative;left: 3px;bottom: 3px;">{{model.datadetail.SkuData[0].Integral}}</span>
+                        </ng-template>
+                        <ng-template #falsysesTemplate>
+                            <span class="span-integral" style="font-size:16px;position: relative;left: 3px;bottom: 3px;">0</span>
+                        </ng-template>
+                    </div>
+                </ng-template>
+                <ng-template #othersTemplate>
+
+                </ng-template>
+                <div style="color:#38B3EE">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="22" height="22" t="1576662222688" p-id="4131" version="1.1"><path fill="#38b3ee" d="M 883.804 246.032 c -7.274 7.274 -27.391 22.947 -34.043 29.599 c 44.117 64.68 69.974 142.806 69.974 227.009 c 0 222.864 -180.66 403.514 -403.53 403.514 c -222.872 0 -403.532 -180.65 -403.532 -403.514 c 0 -222.861 180.66 -403.513 403.532 -403.513 c 111.711 0 212.784 45.417 285.846 118.764 c 8.459 -8.458 24.012 -25.305 31.066 -32.36 c -81.13 -81.079 -193.158 -131.239 -316.912 -131.239 c -247.609 0 -448.368 200.707 -448.368 448.348 c 0 247.6 200.76 448.35 448.368 448.35 c 247.607 0 448.365 -200.75 448.365 -448.35 c 0.001 -95.468 -29.906 -183.906 -80.765 -256.608 Z" p-id="4132" /><path fill="#38b3ee" d="M 647.413 240.965 l -84.113 154.977 c -22.412 41.965 -36.15 69.883 -41.162 83.751 h -1.431 c -14.765 -33.643 -56.554 -113.235 -125.276 -238.729 h -79.103 l 147.11 252.688 l -120.624 0.001 v 55.835 h 141.382 v 76.949 h -141.382 v 56.553 h 141.382 v 112.027 h 70.155 v -112.027 h 136.373 v -56.551 h -136.374 v -76.951 h 136.373 v -55.834 h -117.045 l 148.541 -252.689 h -74.807 Z" p-id="4133" /></svg>
+                    <div *ngIf="model.datadetail.SkuData?.length > 0; then truthysTemplate else falsysTemplate"></div>
+                    <ng-template #truthysTemplate>
+                        <span class="span-price" style="font-size:18px;position: relative;left: 3px;bottom: 4px;">{{model.datadetail.SkuData[0].Price}}</span>
+                    </ng-template>
+                    <ng-template #falsysTemplate>
+                        <span class="span-price" style="font-size:18px;position: relative;left: 3px;bottom: 4px;">0.00</span>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+        <div style="padding: 0 30px 20px 30px;">
+            <div style="margin-bottom:10px;font-size:16px;">数量</div>
+            <div>
+                <button (click)="changeValue(-1)" class="decrease icon-reduce" type="button">-</button>
+                <input type="number" class="spinners" value="1" readonly="readonly" maxlength="2">
+                <button (click)="changeValue(1)" class="increase icon-add" type="button">+</button>
+            </div>
+        </div>
+        <div class='standard' style="padding: 0 30px 20px 30px;">
+            <ng-container *ngFor="let item of model.datadetail.AttrData">
+                <p>{{item.AttrName}}</p>
+                <div class="div-attr">
+                    <ng-container *ngFor="let v of item.Values">
+                        <input value="{{v.Value}}" type="radio" name="standard{{item.AttrId}}" style="display:none;" title="{{v.checked}}" />
+                        <a class="{{v.active}}" (click)="OptionBtnCheck($event,v.MainImage)">{{v.Value}}</a>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </div>
+        <div class="div-btn">
+            <ion-button text="确定" (click)="TwoBtnSure()" style="width:100%;">确定</ion-button>
+        </div>
+    </div>
+
+    <!--遮罩层-->
+    <div class="shade" *ngIf="IsShowCover" (click)="CloseDialog()"></div>
+
+    <input type="hidden" id="standardcount" value="" />
+    <input type="hidden" id="proSkuID" value="" />
+</ion-content>
+
+<ion-footer class="footer-bottom">
+    <ion-tab-bar slot="bottom">
+        <ion-tab-button [routerLink]="['/servicecenter/shoppingcart/list']" style="max-width:110px;">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="32" height="32" t="1576145933524" p-id="1544" version="1.1"><path d="M 520.195 741.379 c -98.8201 0 -177.097 -0.404793 -186.812 -1.65712 c -32.5732 -4.18708 -47.4999 -32.6238 -51.181 -48.7649 l -0.101198 -0.468042 L 150.024 48.0692 l 0.366844 -2.8715 A 12.1311 12.1311 0 0 0 148.886 44.2742 H 45.6633 a 22.1371 22.1371 0 0 1 0 -44.2742 h 110.23 l 2.80825 0.746337 a 57.2529 57.2529 0 0 1 18.1777 8.98135 c 11.9414 8.93075 18.3042 21.8715 17.8615 36.0013 l 130.622 635.31 c 0.505991 1.80892 4.16178 13.5479 13.6871 14.7749 c 21.7829 2.28961 388.348 1.15113 629.428 -0.177097 h 0.126498 a 22.1371 22.1371 0 0 1 0.113848 44.2742 c -39.6065 0.215046 -275.462 1.46738 -448.523 1.46738 Z M 150.492 44.2742 Z" p-id="1545" /><path d="M 286.427 600.865 a 22.1371 22.1371 0 0 1 -3.30159 -44.0212 l 585.685 -89.1936 l 80.44 -293.475 H 198.726 a 22.1371 22.1371 0 1 1 0 -44.2742 h 779.606 a 22.1371 22.1371 0 0 1 21.3528 27.994 L 907.746 493.228 a 22.1371 22.1371 0 0 1 -18.0133 16.0273 l -599.941 91.3694 a 22.3522 22.3522 0 0 1 -3.36484 0.240346 Z M 442.942 1024 a 118.048 118.048 0 1 1 118.048 -118.048 a 118.174 118.174 0 0 1 -118.048 118.048 Z m 0 -191.809 a 73.7735 73.7735 0 1 0 73.7735 73.7735 a 73.8494 73.8494 0 0 0 -73.7735 -73.7735 Z M 842.473 1024 a 118.048 118.048 0 1 1 118.048 -118.048 a 118.174 118.174 0 0 1 -118.048 118.048 Z m 0 -191.809 a 73.7735 73.7735 0 1 0 73.7735 73.7735 a 73.8494 73.8494 0 0 0 -73.7735 -73.7735 Z" p-id="1546" /></svg>
+            <ion-badge *ngIf="Isbadge" color="danger">{{BadgeCount}}</ion-badge>
+        </ion-tab-button>
+
+        <ion-tab-button tab="servicecenter" (click)="ShowTwoBtn(1)">
+            <ion-label style="font-size:16px; color:#000;">加入购物车</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="personalcenter" (click)="ShowTwoBtn(2)" style="background-color:#38B3EE;">
+            <ion-label style="font-size:16px; color:#fff;">立即购买</ion-label>
+        </ion-tab-button>
+    </ion-tab-bar>
+</ion-footer>
+

@@ -280,6 +280,27 @@ const routes: Routes = [
                 ]
             },
             {
+                path: 'construction',  //施工商城
+                children: [
+                    { path: 'list', loadChildren: () => import('./page/servicecenter/construction/list/list.module').then(m => m.ListPageModule) },
+                    { path: 'detail', loadChildren: () => import('./page/servicecenter/construction/detail/detail.module').then(m => m.DetailPageModule) },
+                ]
+            },
+            {
+                path: 'businessdeal',  //业务办理
+                children: [
+                    { path: 'list', loadChildren: () => import('./page/servicecenter/businessdeal/list/list.module').then(m => m.ListPageModule) },
+                    { path: 'detail', loadChildren: () => import('./page/servicecenter/businessdeal/detail/detail.module').then(m => m.DetailPageModule) },
+                ]
+            },
+            {
+                path: 'vehicleservice',  //车辆服务
+                children: [
+                    { path: 'list', loadChildren: () => import('./page/servicecenter/vehicleservice/list/list.module').then(m => m.ListPageModule) },
+                    { path: 'detail', loadChildren: () => import('./page/servicecenter/vehicleservice/detail/detail.module').then(m => m.DetailPageModule) },
+                ]
+            },
+            {
                 path: 'dealer',  //体验中心
                 children: [
                     { path: 'list', loadChildren: () => import('./page/servicecenter/dealer/list/list.module').then(m => m.ListPageModule) },
@@ -369,7 +390,6 @@ const routes: Routes = [
         ]
     },
 ]  
-  
 ;
 
 
