@@ -40,7 +40,8 @@ export class DCore_Config {
     }
     getOcrUrl(){
 
-        return "https://subcrmuatapi.sokon.com/ocr/";
+        //return "https://subcrmuatapi.sokon.com/ocr/";
+        return "http://106.14.121.65:8082/ocr/";
     }
 }
 
