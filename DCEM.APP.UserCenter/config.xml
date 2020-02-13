@@ -110,6 +110,7 @@
         <splash height="1792" src="resources/ios/splash/Default-1792h~iphone.png" width="828" />
         <splash height="828" src="resources/ios/splash/Default-Landscape-1792h~iphone.png" width="1792" />
         <preference name="StatusBarOverlaysWebView" value="false" />
+        <preference name="iosPersistentFileLocation" value="Compatibility" />
         <config-file parent="NSPhotoLibraryUsageDescription" target="*-Info.plist">
             <string>App需要您的同意，才能访问相册</string>
         </config-file>
