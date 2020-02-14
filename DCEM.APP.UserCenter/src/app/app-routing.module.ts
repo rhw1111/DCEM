@@ -221,8 +221,16 @@ const routes: Routes = [
                                 loadChildren: () => import('./page/personalcenter/myorder/carorder/detail/detail.module').then(m => m.DetailPageModule)
                             },
                         ]
-                    }
-
+                    }, 
+                    {
+                        path: 'prodorder',
+                        children: [
+                            {
+                                path: 'list',
+                                loadChildren: () => import('./page/personalcenter/myorder/prodorder/list/list.module').then(m => m.ListPageModule)
+                            }
+                        ]
+                    },
                 ]
             },
             {
@@ -389,7 +397,7 @@ const routes: Routes = [
             }
         ]
     },
-]  
+]
 ;
 
 

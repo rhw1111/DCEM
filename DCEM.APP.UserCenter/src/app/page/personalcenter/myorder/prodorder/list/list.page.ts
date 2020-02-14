@@ -1,22 +1,29 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page } from '../../../../../component/typescript/dcem.core';
 import { Storage_LoginInfo } from '../../../../../component/typescript/logininfo.storage';
 import { ActivatedRoute } from '@angular/router';
+import { debug } from 'util';
 
 @Component({
-  selector: 'app-list',
-  templateUrl: './list.page.html',
-  styleUrls: ['./list.page.scss'],
+    selector: 'app-list',
+    templateUrl: './list.page.html',
+    styleUrls: ['./list.page.scss'],
 })
 export class ListPage implements OnInit {
+    public tab: any = 'carorder';
     public model: any = {
         search: {
             apiUrl: "api/order/MyTypeOrders",
             pageSize: 10,//页数
             page: 1,//分页
         },
-        title: "精品订单",
-        datalist: [],
+        title: "商品订单",
+        datalist: [],//所有订单
+        carorderlist: [],//整车订单
+        fineorderlist: [],//精品订单
+        consorderlist: [],//施工订单
+        busiorderlist: [],//办理订单
+        servorderlist:[],//服务订单
         isending: false,//是否加载完成
         score: {
             apiUrl: "api/user/getuserscore",
@@ -29,8 +36,12 @@ export class ListPage implements OnInit {
             balance: 0,
         },
         OrderClass: "",
-        OrderType: 10, //商品类型; 1: 整车; 2: 整车选装件; 3: 充电桩 / 枪; 4: 备件; 7: 业务办理; 8: 施工; 10: 精品;
-        isShowNone: false
+        //OrderType: 10, //商品类型; 1: 整车; 2: 整车选装件; 3: 充电桩 / 枪; 4: 备件; 7: 业务办理; 8: 施工; 10: 精品;
+        isShowCarNone: false,
+        isShowFineNone: false,
+        isShowConsNone: false,
+        isShowBusiNone: false,
+        isShowServNone: false,
     };
 
     constructor(
@@ -67,25 +78,49 @@ export class ListPage implements OnInit {
         this._http.postForShopping(this.model.search.apiUrl,
             {
                 UserId: this._logininfo.GetSystemUserId(),
-                McsType: this.model.OrderType,
+                //McsType: this.model.OrderType,
                 PageSize: this.model.search.pageSize,
                 PageIndex: this.model.search.page
             },
             (res: any) => {
                 if (res != null && res.Data !== null) {
                     //绑定数据
+                    var carorderlist = [];
+                    var busiorderlist = [];
+                    var consorderlist = [];
+                    var fineorderlist = [];
                     for (var i = 0; i < res.Data.length; i++) {
-                        res.Data[i].OrderData.PayStatusStr = this.getPayStatus(res.Data[i].OrderData.PaymentStatus)
-                        res.Data[i].OrderData.OrderTime = this.Format(res.Data[i].OrderData.OrderTime,"yyyy-MM-dd HH:mm:ss")
+                        res.Data[i].OrderData.PayStatusStr = this.getPayStatus(res.Data[i].OrderData.PaymentStatus);
+                        res.Data[i].OrderData.OrderTime = this.Format(res.Data[i].OrderData.OrderTime, "yyyy-MM-dd HH:mm:ss");
+                        if (res.Data[i].OrderData.ProductTypeList.indexOf(1) > -1) {
+                            carorderlist.push(res.Data[i]);
+                        }
+                        if (res.Data[i].OrderData.ProductTypeList.indexOf(7) > -1) {
+                            busiorderlist.push(res.Data[i]);
+                        }
+                        if (res.Data[i].OrderData.ProductTypeList.indexOf(8) > -1) {
+                            consorderlist.push(res.Data[i]);
+                        }
+                        if (res.Data[i].OrderData.ProductTypeList.indexOf(10) > -1) {
+                            fineorderlist.push(res.Data[i]);
+                        }
                     }
                     this.model.datalist = res.Data;
+                    this.model.carorderlist = carorderlist;
+                    this.model.busiorderlist = busiorderlist;
+                    this.model.consorderlist = consorderlist;
+                    this.model.fineorderlist = fineorderlist;
                     event ? event.target.complete() : '';
                     //判断是否有新数据
                     if (res.Data.length < this.model.search.pageSize) {
                         event ? event.target.disabled = true : "";
                         this.model.isending = true;
                     }
-                    this.model.isShowNone = this.model.datalist.length <= 0;
+                    this.model.isShowCarNone = this.model.carorderlist.length <= 0;
+                    this.model.isShowFineNone = this.model.fineorderlist.length <= 0;
+                    this.model.isShowConsNone = this.model.consorderlist.length <= 0;
+                    this.model.isShowBusiNone = this.model.busiorderlist.length <= 0;
+                    this.model.isShowServNone = this.model.servorderlist.length <= 0;
                 }
                 this._page.loadingHide();
             },
@@ -96,7 +131,7 @@ export class ListPage implements OnInit {
         );
     }
     //获取当前用户积分
-    getScore(orderno, price, ReceivedIntegral, CashPayment, CashTotal,InstallmentTotal,event) {
+    getScore(orderno, price, ReceivedIntegral, CashPayment, CashTotal, InstallmentTotal, event) {
         this._http.postForToaken(
             this.model.score.apiUrl,
             this.model.score.search,
@@ -139,7 +174,7 @@ export class ListPage implements OnInit {
             };
             this._page.goto("/servicecenter/payment/payment", returndata);
         }
-        
+
     }
 
     getPayStatus(param) {

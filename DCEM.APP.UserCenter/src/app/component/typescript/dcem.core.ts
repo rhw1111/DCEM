@@ -38,14 +38,14 @@ export class DCore_Config {
     constructor(
     ) {
         this.dcem_serverName = "local";
-        this.tc_serverName = "9_0";
+        this.tc_serverName = "local";
 
         this.tc_host_map = function () {
             var map = new Map<string, any>();
             map.set("dev", "https://subcrmdevapi.sokon.com/tc/");
             map.set("sit", "https://subcrmsitapi.sokon.com/tc/");
             map.set("uat", "https://subcrmuatapi.sokon.com/tc/");
-            map.set("local", "https://localhost:5000/");
+            map.set("local", "http://localhost:57021/");
             map.set("9_0", "http://106.14.121.65:8082/tc/");
             map.set("iis", "http://localhost:9099/");
             return map;
