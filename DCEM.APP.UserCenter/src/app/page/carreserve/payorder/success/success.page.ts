@@ -28,6 +28,7 @@ export class SuccessPage implements OnInit {
             "OrderCode": this.model.params.OrderCode,
             "mcs_smallorderid": this.model.params.mcs_smallorderid
         };
+        console.log(param);
         this._page.navigateRoot("/carreserve/myreserveorder/detail", { params: JSON.stringify(param) });
     }
 

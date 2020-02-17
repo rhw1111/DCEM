@@ -221,8 +221,16 @@ const routes: Routes = [
                                 loadChildren: () => import('./page/personalcenter/myorder/carorder/detail/detail.module').then(m => m.DetailPageModule)
                             },
                         ]
-                    }
-
+                    }, 
+                    {
+                        path: 'prodorder',
+                        children: [
+                            {
+                                path: 'list',
+                                loadChildren: () => import('./page/personalcenter/myorder/prodorder/list/list.module').then(m => m.ListPageModule)
+                            }
+                        ]
+                    },
                 ]
             },
             {
@@ -277,6 +285,27 @@ const routes: Routes = [
                 children: [
                     { path: 'list', loadChildren: () => import('./page/servicecenter/boutique/list/list.module').then(m => m.ListPageModule) },
                     { path: 'detail', loadChildren: () => import('./page/servicecenter/boutique/detail/detail.module').then(m => m.DetailPageModule) },
+                ]
+            },
+            {
+                path: 'construction',  //施工商城
+                children: [
+                    { path: 'list', loadChildren: () => import('./page/servicecenter/construction/list/list.module').then(m => m.ListPageModule) },
+                    { path: 'detail', loadChildren: () => import('./page/servicecenter/construction/detail/detail.module').then(m => m.DetailPageModule) },
+                ]
+            },
+            {
+                path: 'businessdeal',  //业务办理
+                children: [
+                    { path: 'list', loadChildren: () => import('./page/servicecenter/businessdeal/list/list.module').then(m => m.ListPageModule) },
+                    { path: 'detail', loadChildren: () => import('./page/servicecenter/businessdeal/detail/detail.module').then(m => m.DetailPageModule) },
+                ]
+            },
+            {
+                path: 'vehicleservice',  //车辆服务
+                children: [
+                    { path: 'list', loadChildren: () => import('./page/servicecenter/vehicleservice/list/list.module').then(m => m.ListPageModule) },
+                    { path: 'detail', loadChildren: () => import('./page/servicecenter/vehicleservice/detail/detail.module').then(m => m.DetailPageModule) },
                 ]
             },
             {
@@ -368,8 +397,7 @@ const routes: Routes = [
             }
         ]
     },
-]  
-  
+]
 ;
 
 

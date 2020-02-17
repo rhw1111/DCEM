@@ -16,13 +16,13 @@ export class VoicePage implements OnInit {
   ) { }
 
   data={
-    url:"https://subcrmuatapi.sokon.com/ocr/api/ocr/Voice",
+    url:"http://106.14.121.65:8082/ocr/api/ocr/Voice",
     json:{
       FileUrl:"https://subcrmdevinapi.sokon.com/vi/test/test2.mp3",
       Type:1
     },
     mod:{
-      content:"",
+      content:"13544290760",
     }
 
   }

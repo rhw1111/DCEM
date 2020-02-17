@@ -441,9 +441,12 @@ namespace DCEM.UserCenterService.Main.Application.Services
             foreach (var entity in rightspackageproductArrayResponse.Value.Results)
             {
                 var productGuid = Guid.Parse(entity.Attributes.Value<string>("_mcs_product_value"));
-                var rightspackageGuid = Guid.Parse(entity.Attributes.Value<string>("_mcs_rightspackage_value"));
-                if (dicProduct.ContainsKey(productGuid) && dicRightspackage.ContainsKey(rightspackageGuid))
-                    dicProduct[productGuid].ProductRightspackageArray.Add(dicRightspackage[rightspackageGuid]);
+                if (entity.Attributes.Value<string>("_mcs_rightspackage_value")!=null)
+                {
+                    var rightspackageGuid = Guid.Parse(entity.Attributes.Value<string>("_mcs_rightspackage_value"));
+                    if (dicProduct.ContainsKey(productGuid) && dicRightspackage.ContainsKey(rightspackageGuid))
+                        dicProduct[productGuid].ProductRightspackageArray.Add(dicRightspackage[rightspackageGuid]);
+                }
             }
             #endregion
 

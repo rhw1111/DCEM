@@ -26,5 +26,13 @@ namespace DCEM.SalesAssistant.Main.Application.Repository.Contrac
         /// <param name="filecategory">附件类型 身份证附件 3 ；整车发票附件 4 ；整车补贴申请附件 7</param>
         /// <returns></returns>
         Task<XDocument> GetAttachmentDetaillFetchXml(Guid id, string partnertype, string filecategory);
+
+        /// <summary>
+        /// 获取销售机会
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<XDocument> GetAccountFetchXml(string phone);
+        
     }
 }

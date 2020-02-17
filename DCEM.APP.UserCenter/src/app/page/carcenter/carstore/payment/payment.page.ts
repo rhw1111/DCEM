@@ -146,8 +146,8 @@ export class PaymentPage implements OnInit {
                 "PaymentStatus": 1,
                 "CashTotal": this.shareData.packageMoney,  //线上应收金额
                 "TotalDepositAmount": this.shareData.selectProduct["ProductInfo"]["mcs_depositamount"],  //线上已收金额
-                "ReceivedDepositAmount": 0,
-                "ReceivableAmount": 0,
+                "ReceivedDepositAmount": this.shareData.selectProduct["ProductInfo"]["mcs_depositamount"],
+                "ReceivableAmount": this.shareData.selectProduct["ProductInfo"]["mcs_depositamount"],
                 "DeductionAmount": 0,
                 "FinalPayment": this.shareData.packageMoney,  //订单尾款
                 "IntegralTotal": 0,

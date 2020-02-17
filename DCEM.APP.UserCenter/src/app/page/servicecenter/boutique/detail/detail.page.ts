@@ -232,6 +232,7 @@ export class DetailPage implements OnInit {
                 "productname": productname,
                 "skuname": skuname,
                 "paymenttype": this.model.datadetail.PaymentType,
+                "orderclass":200,
                 "price": price,
                 "integral": integral,
                 "img": img,

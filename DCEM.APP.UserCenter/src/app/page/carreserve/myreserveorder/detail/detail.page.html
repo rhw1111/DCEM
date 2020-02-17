@@ -122,7 +122,7 @@
                 </div>
                 <div *ngIf="model.smallorderinfo.mcs_orderstatus == 0; then trueTemplate else falseTemplate"></div>
                 <ng-template #trueTemplate>
-                    <button class="preorder-toolbar-button" (click)="paynow(model.smallorderinfo.mcs_name,model.smallorderinfo.mcs_premiumname,model.smallorderinfo.mcs_totalorder)">立即支付  <!----></button>
+                    <button class="preorder-toolbar-button" (click)="paynow(model.smallorderinfo.mcs_name,model.params.mcs_smallorderid,model.smallorderinfo.mcs_premiumname,model.smallorderinfo.mcs_totalorder)">立即支付  <!----></button>
                 </ng-template>
                 <ng-template #falseTemplate>
                 </ng-template>

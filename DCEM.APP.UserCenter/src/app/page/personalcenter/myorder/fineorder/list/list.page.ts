@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ListPage implements OnInit {
     public model: any = {
         search: {
-            apiUrl: "api/order/MyAllOrders",
+            apiUrl: "api/order/MyTypeOrders",
             pageSize: 10,//页数
             page: 1,//分页
         },
@@ -28,7 +28,9 @@ export class ListPage implements OnInit {
             data: [],
             balance: 0,
         },
-        OrderClass:""
+        OrderClass: "",
+        OrderType: 10, //商品类型; 1: 整车; 2: 整车选装件; 3: 充电桩 / 枪; 4: 备件; 7: 业务办理; 8: 施工; 10: 精品;
+        isShowNone: false
     };
 
     constructor(
@@ -65,7 +67,7 @@ export class ListPage implements OnInit {
         this._http.postForShopping(this.model.search.apiUrl,
             {
                 UserId: this._logininfo.GetSystemUserId(),
-                OrderClass: this.model.OrderClass,
+                McsType: this.model.OrderType,
                 PageSize: this.model.search.pageSize,
                 PageIndex: this.model.search.page
             },
@@ -83,6 +85,7 @@ export class ListPage implements OnInit {
                         event ? event.target.disabled = true : "";
                         this.model.isending = true;
                     }
+                    this.model.isShowNone = this.model.datalist.length <= 0;
                 }
                 this._page.loadingHide();
             },
