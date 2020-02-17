@@ -14,7 +14,7 @@
                 <h3>订单列表</h3>
             </div>
         </ion-row>
-        <ion-segment [(ngModel)]="tab" color="primary" model="md" scrollable class="segment-custom">
+        <!--<ion-segment [(ngModel)]="tab" color="primary" model="md" scrollable class="segment-custom">
             <ion-segment-button value="myreserveno">
                 <ion-label>我的预约号</ion-label>
             </ion-segment-button>
@@ -34,7 +34,7 @@
                     我的预约号
                 </div>
             </div>
-            <div *ngSwitchCase="'equityorder'">
+            <div *ngSwitchCase="'equityorder'">-->
                 <ng-container *ngFor="let item of model.datas">
                     <ion-card (click)="orderdetail(item.Attributes.mcs_name,item.Attributes.mcs_smallorderid)">
                         <ion-item lines="none">
@@ -87,7 +87,7 @@
                         </ion-item>
                     </ion-card>
                 </ng-container>
-            </div>
+            <!--</div>
             <div *ngSwitchCase="'vehicleorder'">
                 <div>
                     整车订单
@@ -98,7 +98,7 @@
                     试乘试驾
                 </div>
             </div>
-        </div>
+        </div>-->
         <ion-row>
 
         </ion-row>
