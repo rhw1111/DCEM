@@ -79,6 +79,7 @@
     <Folder Include="src\app\page\home\demo\index\" />
     <Folder Include="src\app\page\home\demo\berecorded\" />
     <Folder Include="src\app\page\home\demo\invoice\" />
+    <Folder Include="src\app\page\home\demo\luyin\" />
     <Folder Include="src\app\page\home\demo\orcode\" />
     <Folder Include="src\app\page\home\demo\photograph\" />
     <Folder Include="src\app\page\home\" />
@@ -303,6 +304,10 @@
     <TypeScriptCompile Include="src\app\page\home\demo\invoice\invoice.module.ts" />
     <TypeScriptCompile Include="src\app\page\home\demo\invoice\invoice.page.spec.ts" />
     <TypeScriptCompile Include="src\app\page\home\demo\invoice\invoice.page.ts" />
+    <TypeScriptCompile Include="src\app\page\home\demo\luyin\luyin-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\home\demo\luyin\luyin.module.ts" />
+    <TypeScriptCompile Include="src\app\page\home\demo\luyin\luyin.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\home\demo\luyin\luyin.page.ts" />
     <TypeScriptCompile Include="src\app\page\home\demo\orcode\orcode-routing.module.ts" />
     <TypeScriptCompile Include="src\app\page\home\demo\orcode\orcode.module.ts" />
     <TypeScriptCompile Include="src\app\page\home\demo\orcode\orcode.page.spec.ts" />
@@ -590,6 +595,8 @@
     <Content Include="src\app\page\home\demo\index\index.page.scss" />
     <Content Include="src\app\page\home\demo\invoice\invoice.page.html" />
     <Content Include="src\app\page\home\demo\invoice\invoice.page.scss" />
+    <Content Include="src\app\page\home\demo\luyin\luyin.page.html" />
+    <Content Include="src\app\page\home\demo\luyin\luyin.page.scss" />
     <Content Include="src\app\page\home\demo\orcode\orcode.page.html" />
     <Content Include="src\app\page\home\demo\orcode\orcode.page.scss" />
     <Content Include="src\app\page\home\demo\photograph\photograph.page.html" />
