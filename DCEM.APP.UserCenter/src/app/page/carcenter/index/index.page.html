@@ -13,9 +13,19 @@
                             <ion-row>
                                 <ion-col style="padding-left:30px;padding-right:30px">
                                     <ion-button expand="block" color="light" class="button-outline"
-                                        style="margin-top:10px; border-radius:50px"
-                                        [routerLink]="['/carcenter/carstore/index']">
+                                                style="margin-top:10px; border-radius:50px"
+                                                [routerLink]="['/carcenter/carstore/index']">
                                         立即购买
+                                    </ion-button>
+                                    <br />
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col style="padding-left:30px;padding-right:30px">
+                                    <ion-button expand="block" color="primary" class="button-outline"
+                                                style="margin-top:10px; border-radius:50px"
+                                                [routerLink]="['/carreserve/index']">
+                                        立即预订
                                     </ion-button>
                                     <br />
                                 </ion-col>
@@ -95,6 +105,14 @@
         <ion-row>
             <ion-col style="padding-left:20px; padding-right:20px">
                 <img style="border-radius:5px" src="{{shareData.page.middle_finance.imgscr}}" />
+            </ion-col>
+        </ion-row>
+        <ion-row style="padding-top:30px">
+            <ion-col style="padding-left:50px;padding-right:50px">
+                <ion-button expand="block" color="primary" class="button-outline"
+                    [routerLink]="" (click)="checkLoginAndTurn('/carreserve/blindorder/edit')">
+                    领取预约号
+                </ion-button>
             </ion-col>
         </ion-row>
 

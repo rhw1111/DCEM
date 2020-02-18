@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-title>领号成功</ion-title>
+      <ion-buttons slot="start" style="margin-top: 3px;">
+        <ion-back-button text="返回" defaultHref="/carcenter/index"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen scroll-y="false">
+  <ion-card>
+      <ion-card-content>
+          <ion-grid>
+              <ion-row>
+                  <!-- <ion-col>
+                      <div style="height: 30px;">
+                      </div>
+                  </ion-col> -->
+              </ion-row>
+              <ion-row>
+                  <ion-col>
+                  </ion-col>
+                  <ion-col>
+                      <div style="height: 80px;">
+                          <img src="./assets/img/circle.png" />
+                      </div>
+                  </ion-col>
+                  <ion-col>
+                  </ion-col>
+              </ion-row>
+              <ion-row>
+                  <ion-col class="title" style="text-align:center">
+                    <ion-label style="font-size: 20px;" position="fixed">预约号:{{model.premiumcode}}</ion-label>
+                  </ion-col>
+              </ion-row>
+          </ion-grid>
+      </ion-card-content>
+  </ion-card>
+</ion-content>

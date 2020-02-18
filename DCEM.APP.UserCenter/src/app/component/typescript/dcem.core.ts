@@ -45,7 +45,7 @@ export class DCore_Config {
             map.set("dev", "https://subcrmdevapi.sokon.com/tc/");
             map.set("sit", "https://subcrmsitapi.sokon.com/tc/");
             map.set("uat", "https://subcrmuatapi.sokon.com/tc/");
-            map.set("local", "http://localhost:5000/");
+            map.set("local", "https://localhost:5000/");
             map.set("9_0", "http://106.14.121.65:8082/tc/");
             map.set("iis", "http://localhost:9099/");
             return map;
@@ -57,6 +57,7 @@ export class DCore_Config {
             map.set("sit", "https://subcrmdevapi.sokon.com/dcem/");
             map.set("uat", "https://subcrmuatapi.sokon.com/dcem/");
             map.set("local", "https://localhost:44382/");
+            map.set("local2", "http://localhost:5000/");
             map.set("9_0", "http://106.14.121.65:8082/dcem/");
             map.set("iis", "http://localhost:9099/");
             return map;
@@ -135,6 +136,16 @@ export class DCore_Http {
     //post请求
     post(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
         this._httpClient.post(this._config.dcem_host + url, params).subscribe(
+            (res: any) => {
+                rescallback && rescallback(res);
+            },
+            (err: any) => {
+                errcallback && errcallback(err);
+            });
+    }
+    //post请求自定义
+    postCustom(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
+        this._httpClient.post(url, params).subscribe(
             (res: any) => {
                 rescallback && rescallback(res);
             },

@@ -28,6 +28,30 @@ var map = {
 		"./src/app/base/message.com/room/room.module.ts",
 		"base-message-com-room-room-module"
 	],
+	"./base/sys.com/about/about.module": [
+		"./src/app/base/sys.com/about/about.module.ts",
+		"base-sys-com-about-about-module"
+	],
+	"./base/sys.com/change-password/change-password.module": [
+		"./src/app/base/sys.com/change-password/change-password.module.ts",
+		"base-sys-com-change-password-change-password-module"
+	],
+	"./base/sys.com/log/log.module": [
+		"./src/app/base/sys.com/log/log.module.ts",
+		"base-sys-com-log-log-module"
+	],
+	"./base/sys.com/loginfo/loginfo.module": [
+		"./src/app/base/sys.com/loginfo/loginfo.module.ts",
+		"base-sys-com-loginfo-loginfo-module"
+	],
+	"./base/sys.com/message-settings/message-settings.module": [
+		"./src/app/base/sys.com/message-settings/message-settings.module.ts",
+		"base-sys-com-message-settings-message-settings-module"
+	],
+	"./base/sys.com/systemsetup/systemsetup.module": [
+		"./src/app/base/sys.com/systemsetup/systemsetup.module.ts",
+		"base-sys-com-systemsetup-systemsetup-module"
+	],
 	"./base/uc.com/detail/detail.module": [
 		"./src/app/base/uc.com/detail/detail.module.ts",
 		"base-uc-com-detail-detail-module"
@@ -39,6 +63,22 @@ var map = {
 	"./base/uc.com/welcome/welcome.module": [
 		"./src/app/base/uc.com/welcome/welcome.module.ts",
 		"base-uc-com-welcome-welcome-module"
+	],
+	"./saleing/carorder/detail/detail.module": [
+		"./src/app/saleing/carorder/detail/detail.module.ts",
+		"saleing-carorder-detail-detail-module"
+	],
+	"./saleing/carorder/edit/edit.module": [
+		"./src/app/saleing/carorder/edit/edit.module.ts",
+		"saleing-carorder-edit-edit-module"
+	],
+	"./saleing/carorder/list/list.module": [
+		"./src/app/saleing/carorder/list/list.module.ts",
+		"saleing-carorder-list-list-module"
+	],
+	"./saleing/carorder/success/success.module": [
+		"./src/app/saleing/carorder/success/success.module.ts",
+		"saleing-carorder-success-success-module"
 	],
 	"./saleing/delivery/appointment/appointment.module": [
 		"./src/app/saleing/delivery/appointment/appointment.module.ts",
@@ -54,7 +94,7 @@ var map = {
 	],
 	"./saleing/delivery/list/list.module": [
 		"./src/app/saleing/delivery/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
 		"saleing-delivery-list-list-module"
 	],
 	"./saleing/delivery/pdiservice/pdiservice.module": [
@@ -75,12 +115,12 @@ var map = {
 	],
 	"./saleing/lead.com/edit/edit.module": [
 		"./src/app/saleing/lead.com/edit/edit.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
 		"saleing-lead-com-edit-edit-module"
 	],
 	"./saleing/lead.com/list/list.module": [
 		"./src/app/saleing/lead.com/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
 		"saleing-lead-com-list-list-module"
 	],
 	"./saleing/lead.com/success/success.module": [
@@ -89,29 +129,27 @@ var map = {
 	],
 	"./saleing/mc-vehorder.com/detail/detail.module": [
 		"./src/app/saleing/mc-vehorder.com/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
-		"common",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
 		"saleing-mc-vehorder-com-detail-detail-module"
 	],
 	"./saleing/mc-vehorder.com/list/list.module": [
 		"./src/app/saleing/mc-vehorder.com/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
 		"saleing-mc-vehorder-com-list-list-module"
 	],
 	"./saleing/mcs-account.com/detail/detail.module": [
 		"./src/app/saleing/mcs-account.com/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
-		"common",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
 		"saleing-mcs-account-com-detail-detail-module"
 	],
 	"./saleing/mcs-account.com/edit/edit.module": [
 		"./src/app/saleing/mcs-account.com/edit/edit.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
 		"saleing-mcs-account-com-edit-edit-module"
 	],
 	"./saleing/mcs-account.com/list/list.module": [
 		"./src/app/saleing/mcs-account.com/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
 		"saleing-mcs-account-com-list-list-module"
 	],
 	"./saleing/mcs-account.com/success/success.module": [
@@ -132,18 +170,17 @@ var map = {
 	],
 	"./saleing/mcs-cultivatetask.com/detail/detail.module": [
 		"./src/app/saleing/mcs-cultivatetask.com/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
-		"common",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
 		"saleing-mcs-cultivatetask-com-detail-detail-module"
 	],
 	"./saleing/mcs-cultivatetask.com/edit/edit.module": [
 		"./src/app/saleing/mcs-cultivatetask.com/edit/edit.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
 		"saleing-mcs-cultivatetask-com-edit-edit-module"
 	],
 	"./saleing/mcs-cultivatetask.com/list/list.module": [
 		"./src/app/saleing/mcs-cultivatetask.com/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
 		"saleing-mcs-cultivatetask-com-list-list-module"
 	],
 	"./saleing/mcs-cultivatetask.com/success/success.module": [
@@ -160,13 +197,12 @@ var map = {
 	],
 	"./saleing/mcs-onlylead.com/detail/detail.module": [
 		"./src/app/saleing/mcs-onlylead.com/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
-		"common",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
 		"saleing-mcs-onlylead-com-detail-detail-module"
 	],
 	"./saleing/mcs-onlylead.com/edit/edit.module": [
 		"./src/app/saleing/mcs-onlylead.com/edit/edit.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
 		"saleing-mcs-onlylead-com-edit-edit-module"
 	],
 	"./saleing/mcs-onlylead.com/list/list.module": [
@@ -179,56 +215,31 @@ var map = {
 	],
 	"./saleing/mcs_driverecord.com/calendar/calendar.module": [
 		"./src/app/saleing/mcs_driverecord.com/calendar/calendar.module.ts",
-		"common",
 		"saleing-mcs_driverecord-com-calendar-calendar-module"
 	],
 	"./saleing/mcs_driverecord.com/detail/detail.module": [
 		"./src/app/saleing/mcs_driverecord.com/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
 		"saleing-mcs_driverecord-com-detail-detail-module"
 	],
 	"./saleing/mcs_driverecord.com/edit/edit.module": [
 		"./src/app/saleing/mcs_driverecord.com/edit/edit.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
-		"common",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
 		"saleing-mcs_driverecord-com-edit-edit-module"
 	],
 	"./saleing/mcs_driverecord.com/feedback/feedback.module": [
 		"./src/app/saleing/mcs_driverecord.com/feedback/feedback.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
 		"saleing-mcs_driverecord-com-feedback-feedback-module"
 	],
 	"./saleing/mcs_driverecord.com/list/list.module": [
 		"./src/app/saleing/mcs_driverecord.com/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
-		"common",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
 		"saleing-mcs_driverecord-com-list-list-module"
 	],
 	"./saleing/mcs_driverecord.com/success/success.module": [
 		"./src/app/saleing/mcs_driverecord.com/success/success.module.ts",
 		"saleing-mcs_driverecord-com-success-success-module"
-	],
-	"./saleing/mcs_installationorder/detail/detail.module": [
-		"./src/app/saleing/mcs_installationorder/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
-		"common",
-		"saleing-mcs_installationorder-detail-detail-module"
-	],
-	"./saleing/mcs_installationorder/list/list.module": [
-		"./src/app/saleing/mcs_installationorder/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
-		"saleing-mcs_installationorder-list-list-module"
-	],
-	"./saleing/mcs_surveyorder/detail/detail.module": [
-		"./src/app/saleing/mcs_surveyorder/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
-		"common",
-		"saleing-mcs_surveyorder-detail-detail-module"
-	],
-	"./saleing/mcs_surveyorder/list/list.module": [
-		"./src/app/saleing/mcs_surveyorder/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
-		"saleing-mcs_surveyorder-list-list-module"
 	],
 	"./saleing/orderpaydetail/detail/detail.module": [
 		"./src/app/saleing/orderpaydetail/detail/detail.module.ts",
@@ -236,17 +247,22 @@ var map = {
 	],
 	"./saleing/orderpaydetail/edit/edit.module": [
 		"./src/app/saleing/orderpaydetail/edit/edit.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
 		"saleing-orderpaydetail-edit-edit-module"
 	],
 	"./saleing/vehlisense/detail/detail.module": [
 		"./src/app/saleing/vehlisense/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
 		"saleing-vehlisense-detail-detail-module"
+	],
+	"./saleing/vehlisense/edit/edit.module": [
+		"./src/app/saleing/vehlisense/edit/edit.module.ts",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
+		"saleing-vehlisense-edit-edit-module"
 	],
 	"./saleing/vehlisense/list/list.module": [
 		"./src/app/saleing/vehlisense/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
 		"saleing-vehlisense-list-list-module"
 	],
 	"./saleing/vehlisense/success/success.module": [
@@ -255,45 +271,25 @@ var map = {
 	],
 	"./saleing/vehnetwork/detail/detail.module": [
 		"./src/app/saleing/vehnetwork/detail/detail.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
 		"saleing-vehnetwork-detail-detail-module"
 	],
 	"./saleing/vehnetwork/list/list.module": [
 		"./src/app/saleing/vehnetwork/list/list.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
 		"saleing-vehnetwork-list-list-module"
 	],
 	"./saleing/vehnetwork/success/success.module": [
 		"./src/app/saleing/vehnetwork/success/success.module.ts",
 		"saleing-vehnetwork-success-success-module"
 	],
-	"./serving/home.com/about/about.module": [
-		"./src/app/serving/home.com/about/about.module.ts",
-		"serving-home-com-about-about-module"
-	],
-	"./serving/home.com/change-password/change-password.module": [
-		"./src/app/serving/home.com/change-password/change-password.module.ts",
-		"serving-home-com-change-password-change-password-module"
-	],
 	"./serving/home.com/index/index.module": [
 		"./src/app/serving/home.com/index/index.module.ts",
 		"index-index-module"
 	],
-	"./serving/home.com/message-settings/message-settings.module": [
-		"./src/app/serving/home.com/message-settings/message-settings.module.ts",
-		"serving-home-com-message-settings-message-settings-module"
-	],
 	"./serving/home.com/message/message.module": [
 		"./src/app/serving/home.com/message/message.module.ts",
 		"message-message-module"
-	],
-	"./serving/home.com/mywork/mywork.module": [
-		"./src/app/serving/home.com/mywork/mywork.module.ts",
-		"mywork-mywork-module"
-	],
-	"./serving/home.com/systemsetup/systemsetup.module": [
-		"./src/app/serving/home.com/systemsetup/systemsetup.module.ts",
-		"serving-home-com-systemsetup-systemsetup-module"
 	],
 	"./serving/home.com/tabs/tabs.module": [
 		"./src/app/serving/home.com/tabs/tabs.module.ts",
@@ -301,7 +297,6 @@ var map = {
 	],
 	"./serving/maintenance/calendar/calendar.module": [
 		"./src/app/serving/maintenance/calendar/calendar.module.ts",
-		"common",
 		"serving-maintenance-calendar-calendar-module"
 	],
 	"./serving/mc-reservation.com/calendar/calendar.module": [
@@ -310,44 +305,25 @@ var map = {
 	],
 	"./serving/mc-reservation.com/cancel/cancel.module": [
 		"./src/app/serving/mc-reservation.com/cancel/cancel.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
 		"serving-mc-reservation-com-cancel-cancel-module"
 	],
 	"./serving/mc-reservation.com/detail/detail.module": [
 		"./src/app/serving/mc-reservation.com/detail/detail.module.ts",
-		"common",
 		"serving-mc-reservation-com-detail-detail-module"
 	],
 	"./serving/mc-reservation.com/edit/edit.module": [
 		"./src/app/serving/mc-reservation.com/edit/edit.module.ts",
-		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~6a96e23c",
-		"common",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
 		"serving-mc-reservation-com-edit-edit-module"
 	],
 	"./serving/mc-reservation.com/list/list.module": [
 		"./src/app/serving/mc-reservation.com/list/list.module.ts",
-		"common",
 		"serving-mc-reservation-com-list-list-module"
 	],
 	"./serving/mc-reservation.com/success/success.module": [
 		"./src/app/serving/mc-reservation.com/success/success.module.ts",
 		"serving-mc-reservation-com-success-success-module"
-	],
-	"./serving/mc-resume.com/detail/detail.module": [
-		"./src/app/serving/mc-resume.com/detail/detail.module.ts",
-		"serving-mc-resume-com-detail-detail-module"
-	],
-	"./serving/mc-resume.com/edit/edit.module": [
-		"./src/app/serving/mc-resume.com/edit/edit.module.ts",
-		"serving-mc-resume-com-edit-edit-module"
-	],
-	"./serving/mc-resume.com/list/list.module": [
-		"./src/app/serving/mc-resume.com/list/list.module.ts",
-		"serving-mc-resume-com-list-list-module"
-	],
-	"./serving/mc-resume.com/success/success.module": [
-		"./src/app/serving/mc-resume.com/success/success.module.ts",
-		"serving-mc-resume-com-success-success-module"
 	],
 	"./serving/mc-sc.com/detail/detail.module": [
 		"./src/app/serving/mc-sc.com/detail/detail.module.ts",
@@ -377,6 +353,43 @@ var map = {
 		"./src/app/serving/mc-sc.com/success/success.module.ts",
 		"serving-mc-sc-com-success-success-module"
 	],
+	"./serving/mcs_installationorder/detail/detail.module": [
+		"./src/app/serving/mcs_installationorder/detail/detail.module.ts",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
+		"serving-mcs_installationorder-detail-detail-module"
+	],
+	"./serving/mcs_installationorder/edit/edit.module": [
+		"./src/app/serving/mcs_installationorder/edit/edit.module.ts",
+		"serving-mcs_installationorder-edit-edit-module"
+	],
+	"./serving/mcs_installationorder/list/list.module": [
+		"./src/app/serving/mcs_installationorder/list/list.module.ts",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
+		"serving-mcs_installationorder-list-list-module"
+	],
+	"./serving/mcs_installationorder/success/success.module": [
+		"./src/app/serving/mcs_installationorder/success/success.module.ts",
+		"serving-mcs_installationorder-success-success-module"
+	],
+	"./serving/mcs_surveyorder/detail/detail.module": [
+		"./src/app/serving/mcs_surveyorder/detail/detail.module.ts",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
+		"serving-mcs_surveyorder-detail-detail-module"
+	],
+	"./serving/mcs_surveyorder/edit/edit.module": [
+		"./src/app/serving/mcs_surveyorder/edit/edit.module.ts",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
+		"serving-mcs_surveyorder-edit-edit-module"
+	],
+	"./serving/mcs_surveyorder/list/list.module": [
+		"./src/app/serving/mcs_surveyorder/list/list.module.ts",
+		"default~saleing-delivery-list-list-module~saleing-lead-com-edit-edit-module~saleing-lead-com-list-li~181f25ec",
+		"serving-mcs_surveyorder-list-list-module"
+	],
+	"./serving/mcs_surveyorder/success/success.module": [
+		"./src/app/serving/mcs_surveyorder/success/success.module.ts",
+		"serving-mcs_surveyorder-success-success-module"
+	],
 	"./serving/my-customer.com/detail/detail.module": [
 		"./src/app/serving/my-customer.com/detail/detail.module.ts",
 		"serving-my-customer-com-detail-detail-module"
@@ -388,10 +401,6 @@ var map = {
 	"./serving/my-customer.com/list/list.module": [
 		"./src/app/serving/my-customer.com/list/list.module.ts",
 		"serving-my-customer-com-list-list-module"
-	],
-	"./serving/my-customer.com/select/select.module": [
-		"./src/app/serving/my-customer.com/select/select.module.ts",
-		"serving-my-customer-com-select-select-module"
 	],
 	"./serving/reception-interrogation.com/detail/detail.module": [
 		"./src/app/serving/reception-interrogation.com/detail/detail.module.ts",
@@ -450,12 +459,10 @@ var map = {
 	],
 	"./serving/technical-support.com/edit/edit.module": [
 		"./src/app/serving/technical-support.com/edit/edit.module.ts",
-		"common",
 		"serving-technical-support-com-edit-edit-module"
 	],
 	"./serving/technical-support.com/list/list.module": [
 		"./src/app/serving/technical-support.com/list/list.module.ts",
-		"common",
 		"serving-technical-support-com-list-list-module"
 	],
 	"./serving/technical-support.com/success/success.module": [
@@ -909,7 +916,7 @@ module.exports = webpackAsyncContext;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\r\n    <ion-split-pane>\r\n      <ion-menu type=\"overlay\" menuId=\"homeMenu\">\r\n        <ion-header>\r\n          <ion-toolbar>\r\n            <!-- <ion-avatar item-start>\r\n              <img src=\"{{headpicture}}\" />\r\n            </ion-avatar> -->\r\n            <ion-title style=\"text-align: left;\">张云，你好!</ion-title>\r\n          </ion-toolbar>\r\n        </ion-header>\r\n        <ion-content>\r\n          <ion-list>\r\n            <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of appPages\">\r\n              <ion-item [routerDirection]=\"'root'\" [routerLink]=\"[p.url]\">\r\n                <ion-icon  color=\"primary\"  slot=\"start\" [name]=\"p.icon\"></ion-icon>\r\n                <ion-label>\r\n                  {{p.title}}\r\n                </ion-label>\r\n                <ion-badge *ngIf=\"p.num>0\" color=\"danger\" >{{p.num}}</ion-badge>\r\n              </ion-item>\r\n            </ion-menu-toggle>\r\n            <ion-item (click)=\"loginout()\">\r\n                <ion-icon  color=\"danger\" slot=\"start\" name=\"log-out\"></ion-icon>\r\n                <ion-label>\r\n                  注销\r\n                </ion-label>\r\n            </ion-item>\r\n          </ion-list>\r\n        </ion-content>\r\n      </ion-menu>\r\n      <ion-router-outlet main></ion-router-outlet>\r\n    </ion-split-pane>\r\n  </ion-app>\r\n<!-- \r\n<ion-app>\r\n    <ion-router-outlet></ion-router-outlet>\r\n</ion-app>\r\n -->\r\n"
+module.exports = "<ion-app>\n    <ion-split-pane>\n      <ion-menu type=\"overlay\" menuId=\"homeMenu\">\n        <ion-header>\n          <ion-toolbar>\n            <ion-title style=\"text-align: left;\">张云，你好!</ion-title>\n          </ion-toolbar>\n        </ion-header>\n        <ion-content>\n          <ion-list>\n            <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of appPages\">\n              <ion-item [routerDirection]=\"'root'\" [routerLink]=\"[p.url]\">\n                <ion-icon  color=\"primary\"  slot=\"start\" [name]=\"p.icon\"></ion-icon>\n                <ion-label>\n                  {{p.title}}\n                </ion-label>\n                <ion-badge *ngIf=\"p.num>0\" color=\"danger\" >{{p.num}}</ion-badge>\n              </ion-item>\n            </ion-menu-toggle>\n            <ion-item (click)=\"loginout()\">\n                <ion-icon  color=\"danger\" slot=\"start\" name=\"log-out\"></ion-icon>\n                <ion-label>\n                  注销\n                </ion-label>\n            </ion-item>\n          </ion-list>\n        </ion-content>\n      </ion-menu>\n      <ion-router-outlet main [swipeGesture]=\"false\"></ion-router-outlet>\n    </ion-split-pane>\n  </ion-app>\n"
 
 /***/ }),
 
@@ -920,7 +927,7 @@ module.exports = "<ion-app>\r\n    <ion-split-pane>\r\n      <ion-menu type=\"ov
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header translucent>\r\n    <ion-toolbar>\r\n        <ion-title>地图展示</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n</ion-header>\r\n<ion-content fullscreen>\r\n    <div id=\"container\"></div>\r\n</ion-content>"
+module.exports = "<ion-header translucent>\n    <ion-toolbar>\n        <ion-title>地图展示</ion-title>\n        <ion-buttons slot=\"end\">\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\n        </ion-buttons>\n    </ion-toolbar>\n</ion-header>\n<ion-content fullscreen>\n    <div id=\"container\"></div>\n</ion-content>"
 
 /***/ }),
 
@@ -935,6 +942,28 @@ module.exports = "<ion-header translucent>\n    <ion-toolbar>\n      <ion-title>
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/saleing/saleing.ser/components/select-carproduct/select-carproduct.component.html":
+/*!*****************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/saleing/saleing.ser/components/select-carproduct/select-carproduct.component.html ***!
+  \*****************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-title>选择车辆</ion-title>\n        <ion-buttons slot=\"end\">\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\n        </ion-buttons>\n    </ion-toolbar>\n\n</ion-header>\n\n<ion-content>\n    <ion-list lines=\"full\">\n        <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\n            <ion-item (click)=\"itemClick(item)\">\n                <ion-label>\n                    <h2>{{item['ProductInfo']['mcs_name']}}</h2>\n                    <p>{{item['ProductInfo']['mcs_baseprice']}}<small>元起</small></p>\n                </ion-label>\n                <ion-note slot=\"end\">\n                    定金:{{item['ProductInfo'][\"mcs_depositamount@OData.Community.Display.V1.FormattedValue\"]}}\n                </ion-note>\n            </ion-item>\n        </ion-item-sliding>\n    </ion-list>\n</ion-content>\n"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/saleing/saleing.ser/components/select-dealer/select-dealer.component.html":
+/*!*********************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/saleing/saleing.ser/components/select-dealer/select-dealer.component.html ***!
+  \*********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-title>选择厅店</ion-title>\n        <ion-buttons slot=\"end\">\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\n        </ion-buttons>\n    </ion-toolbar>\n    <ion-toolbar>\n        <ion-searchbar animated [(ngModel)]=\"mod.searchData.search\" placeholder=\"请输入经销商名\\编码\\联系方式\" (keyup)=\"searchOnKeyup($event)\"></ion-searchbar>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <ion-list lines=\"full\">\n        <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\n            <ion-item (click)=\"itemClick(item)\">\n                <ion-icon slot=\"start\"  name=\"bookmark\" size=\"large\" style=\"width:60px;height:60px\"></ion-icon>\n                <ion-label>\n                    <h2>{{item['mcs_name']}}</h2>\n                    <p>{{item['mcs_code']}}</p>\n                    <p>{{item['mcs_address']}}</p>\n                    <p>{{item['mcs_email']}}</p>\n                    <p>{{item['mcs_phone']}}</p>\n                </ion-label>\n            </ion-item>\n        </ion-item-sliding>\n        <ion-item *ngIf=\"ionInfiniteScroll.disabled\">\n            <ion-label>\n                <p>\n                    没有更多的记录显示啦\n                </p>\n            </ion-label>\n        </ion-item>\n    </ion-list>\n    <ion-infinite-scroll (ionInfinite)=\"doInfinite($event)\">\n        <ion-infinite-scroll-content></ion-infinite-scroll-content>\n    </ion-infinite-scroll>\n</ion-content>\n"
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/saleing/saleing.ser/components/select-receptioncommissioner/select-receptioncommissioner.component.html":
 /*!***************************************************************************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/saleing/saleing.ser/components/select-receptioncommissioner/select-receptioncommissioner.component.html ***!
@@ -942,7 +971,7 @@ module.exports = "<ion-header translucent>\n    <ion-toolbar>\n      <ion-title>
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header translucent>\r\n  <ion-toolbar>\r\n    <ion-title>选择接待专员</ion-title>\r\n    <ion-buttons slot=\"end\">\r\n      <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n    </ion-buttons>\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n    <ion-searchbar [(ngModel)]=\"mod.searchData.search\" placeholder=\"支持名称\\ID\\编号查找\" (keyup)=\"searchOnKeyup($event)\" ></ion-searchbar>\r\n  </ion-toolbar>\r\n</ion-header>\r\n<ion-content fullscreen>\r\n  <ion-list>\r\n      <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n          <ion-item (click)=\"itemClick(item)\"> \r\n              <ion-label>\r\n                  <p>{{item.mcs_code}}</p>  \r\n                  <p style=\"color:black\">{{item.name}}</p>    \r\n              </ion-label> \r\n          </ion-item>\r\n      </ion-item-sliding>\r\n      <ion-radio-group [(ngModel)]=\"selectItemValue\"> \r\n      </ion-radio-group> \r\n  </ion-list>\r\n  <ion-row *ngIf=\"ionInfiniteScroll.disabled\">\r\n    <ion-col class=\"nodata\" text-center>\r\n      没有更多内容啦\r\n    </ion-col>\r\n  </ion-row>\r\n  <ion-infinite-scroll (ionInfinite)=\"doInfinite($event)\">\r\n    <ion-infinite-scroll-content></ion-infinite-scroll-content>\r\n  </ion-infinite-scroll>\r\n</ion-content>"
+module.exports = "<ion-header translucent>\n  <ion-toolbar>\n    <ion-title>选择接待专员</ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n  <ion-toolbar>\n    <ion-searchbar [(ngModel)]=\"mod.searchData.search\" placeholder=\"支持名称\\ID\\编号查找\" (keyup)=\"searchOnKeyup($event)\" ></ion-searchbar>\n  </ion-toolbar>\n</ion-header>\n<ion-content fullscreen>\n  <ion-list>\n      <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\n          <ion-item (click)=\"itemClick(item)\"> \n              <ion-label>\n                  <p>{{item.mcs_code}}</p>  \n                  <p style=\"color:black\">{{item.name}}</p>    \n              </ion-label> \n          </ion-item>\n      </ion-item-sliding>\n      <ion-radio-group [(ngModel)]=\"selectItemValue\"> \n      </ion-radio-group> \n  </ion-list>\n  <ion-row *ngIf=\"ionInfiniteScroll.disabled\">\n    <ion-col class=\"nodata\" text-center>\n      没有更多内容啦\n    </ion-col>\n  </ion-row>\n  <ion-infinite-scroll (ionInfinite)=\"doInfinite($event)\">\n    <ion-infinite-scroll-content></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>"
 
 /***/ }),
 
@@ -953,7 +982,7 @@ module.exports = "<ion-header translucent>\r\n  <ion-toolbar>\r\n    <ion-title>
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header translucent>\r\n  <ion-toolbar>\r\n    <ion-title>选择试驾时段</ion-title>\r\n    <ion-buttons slot=\"end\">\r\n      <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n    </ion-buttons>\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n          <ion-datetime max-height=\"36px\"  class=\"titledate\"  [(ngModel)]=\"mod.searchData.search\" placeholder=\"支持预约开始时段查找\" displayFormat=\"YYYY-MM-DD\" minuteValues=\"0,30\" cancelText=\"取消\"\r\n          doneText=\"检索\" (ngModelChange)=\"searchOnKeyup($event)\" min=\"1997\"   value=\"\"></ion-datetime>\r\n    </ion-toolbar>\r\n</ion-header>\r\n<ion-content fullscreen>\r\n  <ion-list>\r\n      <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n          <ion-item (click)=\"itemClick(item)\"> \r\n              <ion-label>\r\n                  <p style=\"color: black;font-size: 17px;\">{{item.mcs_reservationdate}} {{item.mcs_begintime}}-{{item.mcs_endtime}}</p> \r\n                  <p>预约数量：{{item.mcs_usednum}}</p>\r\n              </ion-label>\r\n              <ion-note slot=\"end\" style=\"font-size: 14px;    padding-top: 7%;\">\r\n                  {{item.carmodelname}}\r\n              </ion-note>\r\n            \r\n          </ion-item>\r\n      </ion-item-sliding>\r\n      <ion-radio-group [(ngModel)]=\"selectItemValue\"> \r\n      </ion-radio-group> \r\n  </ion-list>\r\n  <ion-row *ngIf=\"ionInfiniteScroll.disabled\">\r\n    <ion-col class=\"nodata\" text-center>\r\n      没有更多内容啦\r\n    </ion-col>\r\n  </ion-row>\r\n  <ion-infinite-scroll (ionInfinite)=\"doInfinite($event)\">\r\n    <ion-infinite-scroll-content></ion-infinite-scroll-content>\r\n  </ion-infinite-scroll>\r\n</ion-content>"
+module.exports = "<ion-header translucent>\n  <ion-toolbar>\n    <ion-title>选择试驾时段</ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n  <ion-toolbar>\n          <ion-datetime max-height=\"36px\"  class=\"titledate\"  [(ngModel)]=\"mod.searchData.search\" placeholder=\"支持预约开始时段查找\" displayFormat=\"YYYY-MM-DD\" minuteValues=\"0,30\" cancelText=\"取消\"\n          doneText=\"检索\" (ngModelChange)=\"searchOnKeyup($event)\" min=\"1997\"   value=\"\"></ion-datetime>\n    </ion-toolbar>\n</ion-header>\n<ion-content fullscreen>\n  <ion-list>\n      <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\n          <ion-item (click)=\"itemClick(item)\"> \n              <ion-label>\n                  <p style=\"color: black;font-size: 17px;\">{{item.mcs_reservationdate}} {{item.mcs_begintime}}-{{item.mcs_endtime}}</p> \n                  <p>预约数量：{{item.mcs_usednum}}</p>\n              </ion-label>\n              <ion-note slot=\"end\" style=\"font-size: 14px;    padding-top: 7%;\">\n                  {{item.carmodelname}}\n              </ion-note>\n            \n          </ion-item>\n      </ion-item-sliding>\n      <ion-radio-group [(ngModel)]=\"selectItemValue\"> \n      </ion-radio-group> \n  </ion-list>\n  <ion-row *ngIf=\"ionInfiniteScroll.disabled\">\n    <ion-col class=\"nodata\" text-center>\n      没有更多内容啦\n    </ion-col>\n  </ion-row>\n  <ion-infinite-scroll (ionInfinite)=\"doInfinite($event)\">\n    <ion-infinite-scroll-content></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>"
 
 /***/ }),
 
@@ -964,7 +993,18 @@ module.exports = "<ion-header translucent>\r\n  <ion-toolbar>\r\n    <ion-title>
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header translucent>\r\n  <ion-toolbar>\r\n    <ion-title>选择省市区</ion-title>\r\n    <ion-buttons slot=\"end\">\r\n      <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n    </ion-buttons>\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n    <ion-searchbar [(ngModel)]=\"mod.searchData.search\" placeholder=\"支持名称\\ID\\编号查找\" (keyup)=\"searchOnKeyup($event)\">\r\n    </ion-searchbar>\r\n  </ion-toolbar>\r\n</ion-header>\r\n<ion-content fullscreen>\r\n  <ion-list>\r\n    <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n      <ion-item (click)=\"itemClick(item)\">\r\n        <ion-label>\r\n          <p>{{item.mcs_code}}</p>\r\n        </ion-label>\r\n        <ion-note slot=\"end\">\r\n          {{item.name}}\r\n        </ion-note>\r\n      </ion-item>\r\n    </ion-item-sliding>\r\n    <ion-radio-group [(ngModel)]=\"selectItemValue\">\r\n\r\n    </ion-radio-group>\r\n  </ion-list>\r\n  <ion-row *ngIf=\"ionInfiniteScroll.disabled\">\r\n    <ion-col class=\"nodata\" text-center>\r\n      没有更多内容啦\r\n    </ion-col>\r\n  </ion-row>\r\n  <ion-infinite-scroll (ionInfinite)=\"doInfinite($event)\">\r\n    <ion-infinite-scroll-content></ion-infinite-scroll-content>\r\n  </ion-infinite-scroll>\r\n</ion-content>"
+module.exports = "<ion-header translucent>\n  <ion-toolbar>\n    <ion-title>选择省市区</ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n  <ion-toolbar>\n    <ion-searchbar [(ngModel)]=\"mod.searchData.search\" placeholder=\"支持名称\\ID\\编号查找\" (keyup)=\"searchOnKeyup($event)\">\n    </ion-searchbar>\n  </ion-toolbar>\n</ion-header>\n<ion-content fullscreen>\n  <ion-list>\n    <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\n      <ion-item (click)=\"itemClick(item)\">\n        <ion-label>\n          <p>{{item.mcs_code}}</p>\n        </ion-label>\n        <ion-note slot=\"end\">\n          {{item.name}}\n        </ion-note>\n      </ion-item>\n    </ion-item-sliding>\n    <ion-radio-group [(ngModel)]=\"selectItemValue\">\n\n    </ion-radio-group>\n  </ion-list>\n  <ion-row *ngIf=\"ionInfiniteScroll.disabled\">\n    <ion-col class=\"nodata\" text-center>\n      没有更多内容啦\n    </ion-col>\n  </ion-row>\n  <ion-infinite-scroll (ionInfinite)=\"doInfinite($event)\">\n    <ion-infinite-scroll-content></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/saleing/saleing.ser/components/select-user/select-user.component.html":
+/*!*****************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/saleing/saleing.ser/components/select-user/select-user.component.html ***!
+  \*****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-title>选择用户</ion-title>\n        <ion-buttons slot=\"end\">\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\n        </ion-buttons>\n    </ion-toolbar>\n    <ion-toolbar>\n        <ion-searchbar animated [(ngModel)]=\"mod.searchData.search\" placeholder=\"请输入姓名\\手机号\\证件号码\" (keyup)=\"searchOnKeyup($event)\"></ion-searchbar>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <ion-list lines=\"full\">\n        <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\n            <ion-item (click)=\"itemClick(item)\">\n                <ion-icon slot=\"start\" color=\"{{item['gendercolor']}}\" name=\"contact\" size=\"large\" style=\"width:60px;height:60px\"></ion-icon>\n                <ion-label>\n                    <h2>{{item['mcs_name']}}</h2>\n                    <p>{{item['mcs_nickname']}}</p>\n                    <p>{{item['mcs_profession']}}</p>\n                </ion-label>\n                <ion-icon *ngIf=\"item['mcs_phone']\" name=\"phone-portrait\" size=\"small\"></ion-icon>\n                <ion-note slot=\"end\">\n                    {{item['mcs_phone']}}\n                </ion-note>\n            </ion-item>\n        </ion-item-sliding>\n        <ion-item *ngIf=\"ionInfiniteScroll.disabled\">\n            <ion-label>\n                <p>\n                    没有更多的记录显示啦\n                </p>\n            </ion-label>\n        </ion-item>\n    </ion-list>\n    <ion-infinite-scroll (ionInfinite)=\"doInfinite($event)\">\n        <ion-infinite-scroll-content></ion-infinite-scroll-content>\n    </ion-infinite-scroll>\n</ion-content>\n"
 
 /***/ }),
 
@@ -975,7 +1015,7 @@ module.exports = "<ion-header translucent>\r\n  <ion-toolbar>\r\n    <ion-title>
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header translucent>\r\n  <ion-toolbar>\r\n    <ion-title>选择车型颜色</ion-title>\r\n    <ion-buttons slot=\"end\">\r\n      <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n    </ion-buttons>\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n    <ion-searchbar [(ngModel)]=\"mod.searchData.search\" placeholder=\"支持名称\\ID\\编号查找\" (keyup)=\"searchOnKeyup($event)\" ></ion-searchbar>\r\n  </ion-toolbar>\r\n</ion-header>\r\n<ion-content fullscreen>\r\n  <ion-list>\r\n      <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n          <ion-item (click)=\"itemClick(item)\"> \r\n              <ion-label>\r\n                  <p>{{item.mcs_code}}</p> \r\n                  <p>{{item.vehicletypename}}</p>\r\n              </ion-label> \r\n              <ion-note slot=\"end\">\r\n                {{item.name}}\r\n            </ion-note>\r\n          </ion-item>\r\n          \r\n      </ion-item-sliding>\r\n      <ion-radio-group [(ngModel)]=\"selectItemValue\"> \r\n      </ion-radio-group> \r\n  </ion-list>\r\n  <ion-row *ngIf=\"ionInfiniteScroll.disabled\">\r\n    <ion-col class=\"nodata\" text-center>\r\n      没有更多内容啦\r\n    </ion-col>\r\n  </ion-row>\r\n  <ion-infinite-scroll (ionInfinite)=\"doInfinite($event)\">\r\n    <ion-infinite-scroll-content></ion-infinite-scroll-content>\r\n  </ion-infinite-scroll>\r\n</ion-content>"
+module.exports = "<ion-header translucent>\n  <ion-toolbar>\n    <ion-title>选择车型颜色</ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n  <ion-toolbar>\n    <ion-searchbar [(ngModel)]=\"mod.searchData.search\" placeholder=\"支持名称\\ID\\编号查找\" (keyup)=\"searchOnKeyup($event)\" ></ion-searchbar>\n  </ion-toolbar>\n</ion-header>\n<ion-content fullscreen>\n  <ion-list>\n      <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\n          <ion-item (click)=\"itemClick(item)\"> \n              <ion-label>\n                  <p>{{item.mcs_code}}</p> \n                  <p>{{item.vehicletypename}}</p>\n              </ion-label> \n              <ion-note slot=\"end\">\n                {{item.name}}\n            </ion-note>\n          </ion-item>\n          \n      </ion-item-sliding>\n      <ion-radio-group [(ngModel)]=\"selectItemValue\"> \n      </ion-radio-group> \n  </ion-list>\n  <ion-row *ngIf=\"ionInfiniteScroll.disabled\">\n    <ion-col class=\"nodata\" text-center>\n      没有更多内容啦\n    </ion-col>\n  </ion-row>\n  <ion-infinite-scroll (ionInfinite)=\"doInfinite($event)\">\n    <ion-infinite-scroll-content></ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>"
 
 /***/ }),
 
@@ -986,7 +1026,7 @@ module.exports = "<ion-header translucent>\r\n  <ion-toolbar>\r\n    <ion-title>
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header translucent>\r\n  <ion-toolbar>\r\n    <ion-title>选择车型</ion-title>\r\n    <ion-buttons slot=\"end\">\r\n      <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n    </ion-buttons>\r\n  </ion-toolbar>\r\n  <ion-toolbar>\r\n    <ion-searchbar [(ngModel)]=\"mod.searchData.search\" placeholder=\"支持名称\\ID\\编号查找\" (keyup)=\"searchOnKeyup($event)\" ></ion-searchbar>\r\n  </ion-toolbar>\r\n</ion-header>\r\n<ion-content fullscreen>\r\n  <ion-list>\r\n      <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n          <ion-item (click)=\"itemClick(item)\"> \r\n              <ion-label>\r\n                  <p>{{item.mcs_code}}</p> \r\n                  <p>{{item.brandname}}</p>\r\n              </ion-label> \r\n              <ion-note slot=\"end\">\r\n                {{item.name}}\r\n            </ion-note>\r\n          </ion-item>\r\n      </ion-item-sliding>\r\n      <ion-radio-group [(ngModel)]=\"selectItemValue\">\r\n           \r\n      </ion-radio-group>\r\n     \r\n     \r\n  </ion-list>\r\n  \r\n</ion-content>"
+module.exports = "<ion-header translucent>\n  <ion-toolbar>\n    <ion-title>选择车型</ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n  <ion-toolbar>\n    <ion-searchbar [(ngModel)]=\"mod.searchData.search\" placeholder=\"支持名称\\ID\\编号查找\" (keyup)=\"searchOnKeyup($event)\" ></ion-searchbar>\n  </ion-toolbar>\n</ion-header>\n<ion-content fullscreen>\n  <ion-list>\n      <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\n          <ion-item (click)=\"itemClick(item)\"> \n              <ion-label>\n                  <p>{{item.mcs_code}}</p> \n                  <p>{{item.brandname}}</p>\n              </ion-label> \n              <ion-note slot=\"end\">\n                {{item.name}}\n            </ion-note>\n          </ion-item>\n      </ion-item-sliding>\n      <ion-radio-group [(ngModel)]=\"selectItemValue\">\n           \n      </ion-radio-group>\n     \n     \n  </ion-list>\n  \n</ion-content>"
 
 /***/ }),
 
@@ -997,7 +1037,18 @@ module.exports = "<ion-header translucent>\r\n  <ion-toolbar>\r\n    <ion-title>
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header translucent>\r\n        <ion-toolbar>\r\n          <ion-title>选择服务委托书</ion-title>\r\n          <ion-buttons slot=\"end\">\r\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n          </ion-buttons>\r\n        </ion-toolbar>\r\n        <ion-toolbar>\r\n          <ion-searchbar [(ngModel)]=\"mod.searchData.searchkey\" placeholder=\"支持名称\\ID\\编号查找\" (keyup)=\"searchOnKeyup($event)\" ></ion-searchbar>\r\n        </ion-toolbar>\r\n      </ion-header>\r\n      <ion-content fullscreen>\r\n        <ion-list>\r\n            <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n                <ion-item (click)=\"itemClick(item)\">\r\n                    <ion-label>\r\n                        <p>{{item.carplate}}</p>\r\n                        <p>{{item.customername}}</p>\r\n                        <p>{{item.createdon}}</p>\r\n                    </ion-label>\r\n                    <ion-note slot=\"end\">\r\n                        {{item.name}}\r\n                    </ion-note>\r\n                </ion-item>\r\n            </ion-item-sliding>\r\n        </ion-list>\r\n        \r\n      </ion-content>"
+module.exports = "<ion-header translucent>\n        <ion-toolbar>\n          <ion-title>选择服务委托书</ion-title>\n          <ion-buttons slot=\"end\">\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\n          </ion-buttons>\n        </ion-toolbar>\n        <ion-toolbar>\n          <ion-searchbar [(ngModel)]=\"mod.searchData.searchkey\" placeholder=\"支持名称\\ID\\编号查找\" (keyup)=\"searchOnKeyup($event)\" ></ion-searchbar>\n        </ion-toolbar>\n      </ion-header>\n      <ion-content fullscreen>\n        <ion-list>\n            <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\n                <ion-item (click)=\"itemClick(item)\">\n                    <ion-label>\n                        <p>{{item.carplate}}</p>\n                        <p>{{item.customername}}</p>\n                        <p>{{item.createdon}}</p>\n                    </ion-label>\n                    <ion-note slot=\"end\">\n                        {{item.name}}\n                    </ion-note>\n                </ion-item>\n            </ion-item-sliding>\n        </ion-list>\n        \n      </ion-content>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/serving/serving.ser/components/select-account/select-account.component.html":
+/*!***********************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/serving/serving.ser/components/select-account/select-account.component.html ***!
+  \***********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ion-header translucent>\n  <ion-toolbar>\n    <ion-title>选择销售机会</ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n  <ion-toolbar>\n    <ion-searchbar [(ngModel)]=\"model.params.SearchKey\" placeholder=\"支持编码\\姓名\\手机号查找\" (keyup)=\"searchOnKeyup($event)\" ></ion-searchbar>\n  </ion-toolbar>\n</ion-header>\n<ion-content fullscreen>\n  <ion-list>\n      <ion-item-sliding *ngFor=\"let item of model.data;let key=index\">\n          <ion-item (click)=\"itemClick(item)\">\n              <ion-label>\n                  <p>{{item.accountnumber}}</p>\n                  <p>{{item.name}}</p>\n                  <p>{{item.mcs_mobilephone}}</p>\n              </ion-label>         \n          </ion-item>\n      </ion-item-sliding>\n  </ion-list>\n  \n</ion-content>"
 
 /***/ }),
 
@@ -1008,7 +1059,7 @@ module.exports = "<ion-header translucent>\r\n        <ion-toolbar>\r\n         
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>选择预约时段</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n            <ion-item (click)=\"itemClick(item)\">\r\n                <ion-label>\r\n                    <h2>预约时段:{{item.mcs_name}}</h2>\r\n                    <p>预约最大容量：{{item.mcs_maxcapacity}}</p>\r\n                    <p>已预约数量:{{item.mcs_alreadynum}}</p>\r\n                    <p>剩余预约数量:{{item.mcs_surplusnum}}</p>\r\n                </ion-label>\r\n            </ion-item>\r\n        </ion-item-sliding>\r\n        <ion-row *ngIf=\"mod.nodata\">\r\n            <ion-col class=\"nodata\" text-center>\r\n                当天没有预约了！！！\r\n            </ion-col>\r\n        </ion-row>\r\n    </ion-list>\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-title>选择预约时段</ion-title>\n        <ion-buttons slot=\"end\">\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\n        </ion-buttons>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <ion-list lines=\"full\">\n        <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\n            <ion-item (click)=\"itemClick(item)\">\n                <ion-label>\n                    <h2>预约时段:{{item.mcs_name}}</h2>\n                    <p>预约最大容量：{{item.mcs_maxcapacity}}</p>\n                    <p>已预约数量:{{item.mcs_alreadynum}}</p>\n                    <p>剩余预约数量:{{item.mcs_surplusnum}}</p>\n                </ion-label>\n            </ion-item>\n        </ion-item-sliding>\n        <ion-row *ngIf=\"mod.nodata\">\n            <ion-col class=\"nodata\" text-center>\n                当天没有预约了！！！\n            </ion-col>\n        </ion-row>\n    </ion-list>\n</ion-content>\n"
 
 /***/ }),
 
@@ -1019,7 +1070,7 @@ module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>选择
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>预约单</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-searchbar animated [(ngModel)]=\"mod.searchData.search\" placeholder=\"请输入姓名\\手机号\\车牌号查找\" (keyup)=\"searchOnKeyup($event)\"></ion-searchbar>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n            <ion-item (click)=\"itemClick(item)\">\r\n                <ion-icon color=\"tertiary\" name=\"document\"></ion-icon>\r\n                <ion-label style=\"margin-left:10px\">\r\n                    <h2>{{item[\"mcs_name\"]}}</h2>\r\n                    <p>{{item[\"mcs_carplate\"]}}</p>\r\n                    <p>{{item[\"mcs_customername\"]}}</p>\r\n                    <p>{{item[\"mcs_customerphone\"]}}</p>\r\n                </ion-label>\r\n                <ion-note slot=\"end\">\r\n                    {{item[\"mcs_status@OData.Community.Display.V1.FormattedValue\"]}}\r\n                </ion-note>\r\n            </ion-item>\r\n        </ion-item-sliding>\r\n        <ion-item *ngIf=\"ionInfiniteScroll.disabled\">\r\n            <ion-label>\r\n                <p>\r\n                    没有更多的记录显示啦\r\n                </p>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n    <ion-infinite-scroll (ionInfinite)=\"doInfinite($event)\">\r\n        <ion-infinite-scroll-content></ion-infinite-scroll-content>\r\n    </ion-infinite-scroll>\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-title>预约单</ion-title>\n        <ion-buttons slot=\"end\">\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\n        </ion-buttons>\n    </ion-toolbar>\n    <ion-toolbar>\n        <ion-searchbar animated [(ngModel)]=\"mod.searchData.search\" placeholder=\"请输入姓名\\手机号\\车牌号查找\" (keyup)=\"searchOnKeyup($event)\"></ion-searchbar>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <ion-list lines=\"full\">\n        <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\n            <ion-item (click)=\"itemClick(item)\">\n                <ion-icon color=\"tertiary\" name=\"document\"></ion-icon>\n                <ion-label style=\"margin-left:10px\">\n                    <h2>{{item[\"mcs_name\"]}}</h2>\n                    <p>{{item[\"mcs_carplate\"]}}</p>\n                    <p>{{item[\"mcs_customername\"]}}</p>\n                    <p>{{item[\"mcs_customerphone\"]}}</p>\n                </ion-label>\n                <ion-note slot=\"end\">\n                    {{item[\"mcs_status@OData.Community.Display.V1.FormattedValue\"]}}\n                </ion-note>\n            </ion-item>\n        </ion-item-sliding>\n        <ion-item *ngIf=\"ionInfiniteScroll.disabled\">\n            <ion-label>\n                <p>\n                    没有更多的记录显示啦\n                </p>\n            </ion-label>\n        </ion-item>\n    </ion-list>\n    <ion-infinite-scroll (ionInfinite)=\"doInfinite($event)\">\n        <ion-infinite-scroll-content></ion-infinite-scroll-content>\n    </ion-infinite-scroll>\n</ion-content>\n"
 
 /***/ }),
 
@@ -1030,7 +1081,7 @@ module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>预约
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>选择车型</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n            <ion-item (click)=\"itemClick(item)\">\r\n                <ion-label>\r\n                    <h2>{{item[\"model\"][\"mcs_name\"]}}</h2>\r\n                    <p>{{item[\"model\"][\"mcs_name_en\"]}}</p>\r\n                    <p>{{item[\"model\"][\"mcs_code\"]}}</p>\r\n                </ion-label>\r\n            </ion-item>\r\n        </ion-item-sliding>\r\n    </ion-list>\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-title>选择车型</ion-title>\n        <ion-buttons slot=\"end\">\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\n        </ion-buttons>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <ion-list lines=\"full\">\n        <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\n            <ion-item (click)=\"itemClick(item)\">\n                <ion-label>\n                    <h2>{{item[\"model\"][\"mcs_name\"]}}</h2>\n                    <p>{{item[\"model\"][\"mcs_name_en\"]}}</p>\n                    <p>{{item[\"model\"][\"mcs_code\"]}}</p>\n                </ion-label>\n            </ion-item>\n        </ion-item-sliding>\n    </ion-list>\n</ion-content>\n"
 
 /***/ }),
 
@@ -1041,7 +1092,7 @@ module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>选择
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>{{shareData.viewTitle}}</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-button expand=\"block\" (click)=\"dismissModal()\" >关闭</ion-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-divider color=\"primary\">\r\n            <ion-label>\r\n                客户信息\r\n            </ion-label>\r\n        </ion-item-divider>\r\n        <ion-item>\r\n            <ion-label position=\"stacked\">\r\n                姓名\r\n                <ion-text color=\"danger\">*</ion-text>\r\n            </ion-label>\r\n            <ion-input placeholder=\"请输入姓名\" maxlength=\"12\" [(ngModel)]=\"shareData.vehowner['mcs_fullname']\" required></ion-input>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label position=\"stacked\">\r\n                车牌\r\n                <ion-text color=\"danger\">*</ion-text>\r\n            </ion-label>\r\n            <ion-input placeholder=\"请输入车牌\" maxlength=\"12\" [(ngModel)]=\"shareData.vehowner['mcs_vehplate']\" required></ion-input>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label position=\"stacked\">\r\n                手机\r\n                <ion-text color=\"danger\">*</ion-text>\r\n            </ion-label>\r\n            <ion-input placeholder=\"请输入手机\" maxlength=\"12\" [(ngModel)]=\"shareData.vehowner['mcs_mobilephone']\" required></ion-input>\r\n        </ion-item>\r\n        <ion-item (click)=\"presentCarmodelModal()\">\r\n            <ion-label position=\"stacked\">\r\n                <ion-icon name=\"search\"></ion-icon>\r\n                车型\r\n            </ion-label>\r\n            <p>{{shareData.vehowner[\"_mcs_vehtype_value@OData.Community.Display.V1.FormattedValue\"]}}&nbsp;</p>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label position=\"stacked\">\r\n                Vin\r\n            </ion-label>\r\n            <ion-input placeholder=\"请输入Vin\" maxlength=\"12\" [(ngModel)]=\"shareData.vehowner['mcs_name']\" required></ion-input>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label position=\"stacked\">\r\n                发动机号\r\n            </ion-label>\r\n            <ion-input placeholder=\"请输入发动机号\" type=\"phone\" [(ngModel)]=\"shareData.vehowner['mcs_enginennumber']\" required></ion-input>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label position=\"stacked\">\r\n                生产日期\r\n            </ion-label>\r\n            <ion-datetime cancelText=\"取消\" doneText=\"确定\" placeholder=\"请选择生产日期\" display-format=\"YYYY-MM-DD\" [(ngModel)]=\"shareData.vehowner['mcs_prodtime']\"></ion-datetime>\r\n        </ion-item>\r\n        <ion-item>\r\n            <ion-label position=\"stacked\">\r\n                销售日期\r\n            </ion-label>\r\n            <ion-datetime cancelText=\"取消\" doneText=\"确定\" placeholder=\"请选择销售日期\" display-format=\"YYYY-MM-DD\" [(ngModel)]=\"shareData.vehowner['mcs_salesdate']\"></ion-datetime>\r\n        </ion-item>\r\n    </ion-list>\r\n    <section style=\"text-align:center;\">\r\n        <ion-button style=\"width:40%\" color=\"danger\" (click)=\"saveOnClick()\">保存</ion-button>\r\n    </section>\r\n    <br />\r\n    <br />\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-title>{{shareData.viewTitle}}</ion-title>\n        <ion-buttons slot=\"end\">\n            <ion-button expand=\"block\" (click)=\"dismissModal()\" >关闭</ion-button>\n        </ion-buttons>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <ion-list lines=\"full\">\n        <ion-item-divider color=\"primary\">\n            <ion-label>\n                客户信息\n            </ion-label>\n        </ion-item-divider>\n        <ion-item>\n            <ion-label position=\"stacked\">\n                姓名\n                <ion-text color=\"danger\">*</ion-text>\n            </ion-label>\n            <ion-input placeholder=\"请输入姓名\" maxlength=\"12\" [(ngModel)]=\"shareData.vehowner['mcs_fullname']\" required></ion-input>\n        </ion-item>\n        <ion-item>\n            <ion-label position=\"stacked\">\n                车牌\n                <ion-text color=\"danger\">*</ion-text>\n            </ion-label>\n            <ion-input placeholder=\"请输入车牌\" maxlength=\"12\" [(ngModel)]=\"shareData.vehowner['mcs_vehplate']\" required></ion-input>\n        </ion-item>\n        <ion-item>\n            <ion-label position=\"stacked\">\n                手机\n                <ion-text color=\"danger\">*</ion-text>\n            </ion-label>\n            <ion-input placeholder=\"请输入手机\" maxlength=\"12\" [(ngModel)]=\"shareData.vehowner['mcs_mobilephone']\" required></ion-input>\n        </ion-item>\n        <ion-item (click)=\"presentCarmodelModal()\">\n            <ion-label position=\"stacked\">\n                <ion-icon name=\"search\"></ion-icon>\n                车型\n            </ion-label>\n            <p>{{shareData.vehowner[\"_mcs_vehtype_value@OData.Community.Display.V1.FormattedValue\"]}}&nbsp;</p>\n        </ion-item>\n        <ion-item>\n            <ion-label position=\"stacked\">\n                Vin\n            </ion-label>\n            <ion-input placeholder=\"请输入Vin\" maxlength=\"12\" [(ngModel)]=\"shareData.vehowner['mcs_name']\" required></ion-input>\n        </ion-item>\n        <ion-item>\n            <ion-label position=\"stacked\">\n                发动机号\n            </ion-label>\n            <ion-input placeholder=\"请输入发动机号\" type=\"phone\" [(ngModel)]=\"shareData.vehowner['mcs_enginennumber']\" required></ion-input>\n        </ion-item>\n        <ion-item>\n            <ion-label position=\"stacked\">\n                生产日期\n            </ion-label>\n            <ion-datetime cancelText=\"取消\" doneText=\"确定\" placeholder=\"请选择生产日期\" display-format=\"YYYY-MM-DD\" [(ngModel)]=\"shareData.vehowner['mcs_prodtime']\"></ion-datetime>\n        </ion-item>\n        <ion-item>\n            <ion-label position=\"stacked\">\n                销售日期\n            </ion-label>\n            <ion-datetime cancelText=\"取消\" doneText=\"确定\" placeholder=\"请选择销售日期\" display-format=\"YYYY-MM-DD\" [(ngModel)]=\"shareData.vehowner['mcs_salesdate']\"></ion-datetime>\n        </ion-item>\n    </ion-list>\n    <section style=\"text-align:center;\">\n        <ion-button style=\"width:40%\" color=\"danger\" (click)=\"saveOnClick()\">保存</ion-button>\n    </section>\n    <br />\n    <br />\n</ion-content>\n"
 
 /***/ }),
 
@@ -1052,7 +1103,7 @@ module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>{{shar
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>选择客户</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-searchbar animated [(ngModel)]=\"mod.searchData.search\" placeholder=\"请输入姓名\\手机号\\车牌号搜索\" (keyup)=\"searchOnKeyup($event)\"></ion-searchbar>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n            <ion-item (click)=\"itemClick(item)\">\r\n                <ion-icon slot=\"start\" color=\"{{item.gendercolor}}\" name=\"contact\" size=\"large\" style=\"width:60px;height:60px\"></ion-icon>\r\n                <ion-label>\r\n                    <h2>{{item.fullname}}</h2>\r\n                    <p>{{item.vehplate}}</p>\r\n                    <p>{{item.vehtype}}</p>\r\n                </ion-label>\r\n                <ion-icon *ngIf=\"item.mobilephone\" name=\"phone-portrait\" size=\"small\"></ion-icon>\r\n                <ion-note slot=\"end\">\r\n                    {{item.mobilephone}}\r\n                </ion-note>\r\n                <ion-icon slot=\"end\" *ngIf=\"item.iscarserviceadvisor\" name=\"create\" size=\"small\" color=\"primary\"></ion-icon>\r\n            </ion-item>\r\n            <ion-item-options side=\"end\" *ngIf=\"item.iscarserviceadvisor\">\r\n                <ion-item-option color=\"tertiary\" expandable (click)=\"presentCustomerEditModal('2',item.model['a_x002e_mcs_carserviceadvisorid'])\">\r\n                    编辑\r\n                </ion-item-option>\r\n            </ion-item-options>\r\n        </ion-item-sliding>\r\n        <ion-item *ngIf=\"ionInfiniteScroll.disabled\">\r\n            <ion-label>\r\n                <p>\r\n                    没有更多的记录显示啦\r\n                </p>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n    <ion-infinite-scroll (ionInfinite)=\"doInfinite($event)\">\r\n        <ion-infinite-scroll-content></ion-infinite-scroll-content>\r\n    </ion-infinite-scroll>\r\n\r\n    <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\r\n        <ion-fab-button>\r\n            <ion-icon name=\"arrow-dropup\"></ion-icon>\r\n        </ion-fab-button>\r\n        <ion-fab-list side=\"top\">\r\n            <ion-fab-button color=\"success\" (click)=\"presentCustomerEditModal('1')\"><ion-icon name=\"add\"></ion-icon></ion-fab-button>\r\n        </ion-fab-list>\r\n    </ion-fab>\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-title>选择客户</ion-title>\n        <ion-buttons slot=\"end\">\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\n        </ion-buttons>\n    </ion-toolbar>\n    <ion-toolbar>\n        <ion-searchbar animated [(ngModel)]=\"mod.searchData.search\" placeholder=\"请输入姓名\\手机号\\车牌号搜索\" (keyup)=\"searchOnKeyup($event)\"></ion-searchbar>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <ion-list lines=\"full\">\n        <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\n            <ion-item (click)=\"itemClick(item)\">\n                <ion-icon slot=\"start\" color=\"{{item.gendercolor}}\" name=\"contact\" size=\"large\" style=\"width:60px;height:60px\"></ion-icon>\n                <ion-label>\n                    <h2>{{item.fullname}}</h2>\n                    <p>{{item.vehplate}}</p>\n                    <p>{{item.vehtype}}</p>\n                </ion-label>\n                <ion-icon *ngIf=\"item.mobilephone\" name=\"phone-portrait\" size=\"small\"></ion-icon>\n                <ion-note slot=\"end\">\n                    {{item.mobilephone}}\n                </ion-note>\n                <ion-icon slot=\"end\" *ngIf=\"item.iscarserviceadvisor\" name=\"create\" size=\"small\" color=\"primary\"></ion-icon>\n            </ion-item>\n            <ion-item-options side=\"end\" *ngIf=\"item.iscarserviceadvisor\">\n                <ion-item-option color=\"tertiary\" expandable (click)=\"presentCustomerEditModal('2',item.model['a_x002e_mcs_carserviceadvisorid'])\">\n                    编辑\n                </ion-item-option>\n            </ion-item-options>\n        </ion-item-sliding>\n        <ion-item *ngIf=\"ionInfiniteScroll.disabled\">\n            <ion-label>\n                <p>\n                    没有更多的记录显示啦\n                </p>\n            </ion-label>\n        </ion-item>\n    </ion-list>\n    <ion-infinite-scroll (ionInfinite)=\"doInfinite($event)\">\n        <ion-infinite-scroll-content></ion-infinite-scroll-content>\n    </ion-infinite-scroll>\n\n    <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\n        <ion-fab-button>\n            <ion-icon name=\"arrow-dropup\"></ion-icon>\n        </ion-fab-button>\n        <ion-fab-list side=\"top\">\n            <ion-fab-button color=\"success\" (click)=\"presentCustomerEditModal('1')\"><ion-icon name=\"add\"></ion-icon></ion-fab-button>\n        </ion-fab-list>\n    </ion-fab>\n</ion-content>\n"
 
 /***/ }),
 
@@ -1063,7 +1114,7 @@ module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>选择
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>附件上传</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-sliding *ngFor=\"let key of objectKeys(mod.data.filesMap)\">\r\n            <ion-item>\r\n                <ion-thumbnail slot=\"start\">\r\n                    <img src=\"{{mod.data.filesMap[key]['url']}}\" />\r\n                </ion-thumbnail>\r\n                <ion-label>\r\n                    <h3>{{mod.data.filesMap[key][\"fileName\"]}}</h3>\r\n                    <p>{{mod.data.filesMap[key][\"fileSize\"]}}</p>\r\n                    <p><ion-progress-bar value=\"{{mod.data.filesMap[key]['progress']}}\" buffer=\"1\"></ion-progress-bar></p>\r\n                </ion-label>\r\n            </ion-item>\r\n            <ion-item-options side=\"end\">\r\n                <ion-item-option color=\"danger\" expandable (click)=\"fileDeleteClick(key)\">\r\n                    移除\r\n                </ion-item-option>\r\n            </ion-item-options>\r\n        </ion-item-sliding>\r\n        <ion-item (click)=\"selectFiles()\">\r\n            <ion-thumbnail slot=\"start\">\r\n                <img src=\"./assets/img/upload.png\" />\r\n                <input id=\"fileInput\" type=\"file\" ng2FileSelect [uploader]=\"uploader\" style=\"display:none\" (change)=\"uploadVideo($event)\" multiple />\r\n            </ion-thumbnail>\r\n            <ion-label>\r\n                <h3>&nbsp;</h3>\r\n                <p>请点击此处选择图片进行上传</p>\r\n                <p>&nbsp;</p>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n\r\n    <section style=\"text-align:center;\">\r\n        <ion-button style=\"width:40%\" color=\"danger\" (click)=\"cancelClick()\">取消</ion-button>\r\n        <ion-button style=\"width:40%\" color=\"success\" (click)=\"okClick()\">确定</ion-button>\r\n    </section>\r\n    <br />\r\n    <br />\r\n</ion-content>"
+module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-title>附件上传</ion-title>\n        <ion-buttons slot=\"end\">\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\n        </ion-buttons>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <ion-list lines=\"full\">\n        <ion-item-sliding *ngFor=\"let key of objectKeys(mod.data.filesMap)\">\n            <ion-item>\n                <ion-thumbnail slot=\"start\">\n                    <img src=\"{{mod.data.filesMap[key]['url']}}\" />\n                </ion-thumbnail>\n                <ion-label>\n                    <h3>{{mod.data.filesMap[key][\"fileName\"]}}</h3>\n                    <p>{{mod.data.filesMap[key][\"fileSize\"]}}</p>\n                    <p><ion-progress-bar value=\"{{mod.data.filesMap[key]['progress']}}\" buffer=\"1\"></ion-progress-bar></p>\n                </ion-label>\n            </ion-item>\n            <ion-item-options side=\"end\">\n                <ion-item-option color=\"danger\" expandable (click)=\"fileDeleteClick(key)\">\n                    移除\n                </ion-item-option>\n            </ion-item-options>\n        </ion-item-sliding>\n        <ion-item (click)=\"selectFiles()\">\n            <ion-thumbnail slot=\"start\">\n                <img src=\"./assets/img/upload.png\" />\n                <input id=\"fileInput\" type=\"file\" ng2FileSelect [uploader]=\"uploader\" style=\"display:none\" (change)=\"uploadVideo($event)\" multiple />\n            </ion-thumbnail>\n            <ion-label>\n                <h3>&nbsp;</h3>\n                <p>请点击此处选择图片进行上传</p>\n                <p>&nbsp;</p>\n            </ion-label>\n        </ion-item>\n    </ion-list>\n\n    <section style=\"text-align:center;\">\n        <ion-button style=\"width:40%\" color=\"danger\" (click)=\"cancelClick()\">取消</ion-button>\n        <ion-button style=\"width:40%\" color=\"success\" (click)=\"okClick()\">确定</ion-button>\n    </section>\n    <br />\n    <br />\n</ion-content>"
 
 /***/ }),
 
@@ -1074,7 +1125,7 @@ module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>附件
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>选择保养项</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n            <ion-item (click)=\"itemClick(item)\">\r\n                <ion-label>\r\n                    <h2>{{item[\"model\"][\"mcs_name\"]}}</h2>\r\n                    <p>{{item[\"model\"][\"mcs_mileagekm\"]}}</p>\r\n                    <p>{{item[\"model\"][\"mcs_monthcount\"]}}</p>\r\n                </ion-label>\r\n            </ion-item>\r\n        </ion-item-sliding>\r\n    </ion-list>\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-title>选择保养项</ion-title>\n        <ion-buttons slot=\"end\">\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\n        </ion-buttons>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <ion-list lines=\"full\">\n        <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\n            <ion-item (click)=\"itemClick(item)\">\n                <ion-label>\n                    <h2>{{item[\"model\"][\"mcs_name\"]}}</h2>\n                    <p>{{item[\"model\"][\"mcs_mileagekm\"]}}</p>\n                    <p>{{item[\"model\"][\"mcs_monthcount\"]}}</p>\n                </ion-label>\n            </ion-item>\n        </ion-item-sliding>\n    </ion-list>\n</ion-content>\n"
 
 /***/ }),
 
@@ -1085,7 +1136,7 @@ module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>选择
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header translucent>\r\n        <ion-toolbar>\r\n          <ion-title>选择故障类别代码</ion-title>\r\n          <ion-buttons slot=\"end\">\r\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n          </ion-buttons>\r\n        </ion-toolbar>\r\n        <ion-toolbar>\r\n          <ion-searchbar [(ngModel)]=\"mod.searchData.search\" placeholder=\"支持名称\\ID\\编号查找\" (keyup)=\"searchOnKeyup($event)\" ></ion-searchbar>\r\n        </ion-toolbar>\r\n      </ion-header>\r\n      <ion-content fullscreen>\r\n        <ion-list>\r\n            <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n                <ion-item (click)=\"itemClick(item)\"> \r\n                    <ion-label>\r\n                        <p>{{item.mcs_malfunctiontypename}}</p> \r\n                        <p>{{item.createdon}}</p>\r\n                    </ion-label>\r\n                    <ion-note slot=\"end\">\r\n                        {{item.name}}\r\n                    </ion-note>\r\n                  \r\n                </ion-item>\r\n            </ion-item-sliding>\r\n            <ion-radio-group [(ngModel)]=\"selectItemValue\">\r\n                 \r\n            </ion-radio-group>\r\n           \r\n           \r\n        </ion-list>\r\n        \r\n      </ion-content>"
+module.exports = "<ion-header translucent>\n        <ion-toolbar>\n          <ion-title>选择故障类别代码</ion-title>\n          <ion-buttons slot=\"end\">\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\n          </ion-buttons>\n        </ion-toolbar>\n        <ion-toolbar>\n          <ion-searchbar [(ngModel)]=\"mod.searchData.search\" placeholder=\"支持名称\\ID\\编号查找\" (keyup)=\"searchOnKeyup($event)\" ></ion-searchbar>\n        </ion-toolbar>\n      </ion-header>\n      <ion-content fullscreen>\n        <ion-list>\n            <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\n                <ion-item (click)=\"itemClick(item)\"> \n                    <ion-label>\n                        <p>{{item.mcs_malfunctiontypename}}</p> \n                        <p>{{item.createdon}}</p>\n                    </ion-label>\n                    <ion-note slot=\"end\">\n                        {{item.name}}\n                    </ion-note>\n                  \n                </ion-item>\n            </ion-item-sliding>\n            <ion-radio-group [(ngModel)]=\"selectItemValue\">\n                 \n            </ion-radio-group>\n           \n           \n        </ion-list>\n        \n      </ion-content>"
 
 /***/ }),
 
@@ -1096,7 +1147,7 @@ module.exports = "<ion-header translucent>\r\n        <ion-toolbar>\r\n         
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>选择维修配件</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-searchbar animated [(ngModel)]=\"mod.searchData.search\" placeholder=\"请输入维修配件名称\\代码\\首字母\" (keyup)=\"searchOnKeyup($event)\"></ion-searchbar>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n            <ion-item (click)=\"itemClick(item)\">\r\n                <ion-label>\r\n                    <h2>{{item[\"model\"][\"mcs_partscode\"]}}</h2>\r\n                    <p text-wrap>{{item[\"model\"][\"mcs_nameen\"]}}</p>\r\n                    <p>{{item[\"model\"][\"mcs_name\"]}}</p>\r\n                </ion-label>\r\n            </ion-item>\r\n        </ion-item-sliding>\r\n        <ion-item *ngIf=\"ionInfiniteScroll.disabled\">\r\n            <ion-label>\r\n                <p>\r\n                    没有更多的记录显示啦\r\n                </p>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n    <ion-infinite-scroll (ionInfinite)=\"doInfinite($event)\">\r\n        <ion-infinite-scroll-content></ion-infinite-scroll-content>\r\n    </ion-infinite-scroll>\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-title>选择维修配件</ion-title>\n        <ion-buttons slot=\"end\">\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\n        </ion-buttons>\n    </ion-toolbar>\n    <ion-toolbar>\n        <ion-searchbar animated [(ngModel)]=\"mod.searchData.search\" placeholder=\"请输入维修配件名称\\代码\\首字母\" (keyup)=\"searchOnKeyup($event)\"></ion-searchbar>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <ion-list lines=\"full\">\n        <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\n            <ion-item (click)=\"itemClick(item)\">\n                <ion-label>\n                    <h2>{{item[\"model\"][\"mcs_partscode\"]}}</h2>\n                    <p text-wrap>{{item[\"model\"][\"mcs_nameen\"]}}</p>\n                    <p>{{item[\"model\"][\"mcs_name\"]}}</p>\n                </ion-label>\n            </ion-item>\n        </ion-item-sliding>\n        <ion-item *ngIf=\"ionInfiniteScroll.disabled\">\n            <ion-label>\n                <p>\n                    没有更多的记录显示啦\n                </p>\n            </ion-label>\n        </ion-item>\n    </ion-list>\n    <ion-infinite-scroll (ionInfinite)=\"doInfinite($event)\">\n        <ion-infinite-scroll-content></ion-infinite-scroll-content>\n    </ion-infinite-scroll>\n</ion-content>\n"
 
 /***/ }),
 
@@ -1107,7 +1158,7 @@ module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>选择
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>选择维修项目</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n    <ion-toolbar>\r\n        <ion-searchbar animated [(ngModel)]=\"mod.searchData.search\" placeholder=\"请输入维修项目名称\\代码\\首字母\" (keyup)=\"searchOnKeyup($event)\"></ion-searchbar>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n            <ion-item (click)=\"itemClick(item)\">\r\n                <ion-label>\r\n                    <h2>{{item[\"model\"][\"mcs_repairitemcode\"]}}</h2>\r\n                    <p>{{item[\"model\"][\"mcs_name\"]}}</p>\r\n                    <p>{{item[\"model\"][\"mcs_workinghour\"]}}小时</p>\r\n                </ion-label>\r\n            </ion-item>\r\n        </ion-item-sliding>\r\n        <ion-item *ngIf=\"ionInfiniteScroll.disabled\">\r\n            <ion-label>\r\n                <p>\r\n                    没有更多的记录显示啦\r\n                </p>\r\n            </ion-label>\r\n        </ion-item>\r\n    </ion-list>\r\n    <ion-infinite-scroll (ionInfinite)=\"doInfinite($event)\">\r\n        <ion-infinite-scroll-content></ion-infinite-scroll-content>\r\n    </ion-infinite-scroll>\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-title>选择维修项目</ion-title>\n        <ion-buttons slot=\"end\">\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\n        </ion-buttons>\n    </ion-toolbar>\n    <ion-toolbar>\n        <ion-searchbar animated [(ngModel)]=\"mod.searchData.search\" placeholder=\"请输入维修项目名称\\代码\\首字母\" (keyup)=\"searchOnKeyup($event)\"></ion-searchbar>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <ion-list lines=\"full\">\n        <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\n            <ion-item (click)=\"itemClick(item)\">\n                <ion-label>\n                    <h2>{{item[\"model\"][\"mcs_repairitemcode\"]}}</h2>\n                    <p>{{item[\"model\"][\"mcs_name\"]}}</p>\n                    <p>{{item[\"model\"][\"mcs_workinghour\"]}}小时</p>\n                </ion-label>\n            </ion-item>\n        </ion-item-sliding>\n        <ion-item *ngIf=\"ionInfiniteScroll.disabled\">\n            <ion-label>\n                <p>\n                    没有更多的记录显示啦\n                </p>\n            </ion-label>\n        </ion-item>\n    </ion-list>\n    <ion-infinite-scroll (ionInfinite)=\"doInfinite($event)\">\n        <ion-infinite-scroll-content></ion-infinite-scroll-content>\n    </ion-infinite-scroll>\n</ion-content>\n"
 
 /***/ }),
 
@@ -1118,7 +1169,7 @@ module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>选择
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>选择维修类别</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n            <ion-item (click)=\"itemClick(item)\">\r\n                <ion-label>\r\n                    <h2>{{item[\"model\"][\"mcs_name\"]}}</h2>\r\n                </ion-label>\r\n            </ion-item>\r\n        </ion-item-sliding>\r\n    </ion-list>\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-title>选择维修类别</ion-title>\n        <ion-buttons slot=\"end\">\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\n        </ion-buttons>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <ion-list lines=\"full\">\n        <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\n            <ion-item (click)=\"itemClick(item)\">\n                <ion-label>\n                    <h2>{{item[\"model\"][\"mcs_name\"]}}</h2>\n                </ion-label>\n            </ion-item>\n        </ion-item-sliding>\n    </ion-list>\n</ion-content>\n"
 
 /***/ }),
 
@@ -1129,7 +1180,7 @@ module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>选择
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>选择维修类型</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n            <ion-item (click)=\"itemClick(item)\">\r\n                <ion-label>\r\n                    <h2>{{item[\"model\"][\"mcs_name\"]}}</h2>\r\n                </ion-label>\r\n            </ion-item>\r\n        </ion-item-sliding>\r\n    </ion-list>\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-title>选择维修类型</ion-title>\n        <ion-buttons slot=\"end\">\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\n        </ion-buttons>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <ion-list lines=\"full\">\n        <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\n            <ion-item (click)=\"itemClick(item)\">\n                <ion-label>\n                    <h2>{{item[\"model\"][\"mcs_name\"]}}</h2>\n                </ion-label>\n            </ion-item>\n        </ion-item-sliding>\n    </ion-list>\n</ion-content>\n"
 
 /***/ }),
 
@@ -1140,7 +1191,29 @@ module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>选择
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\r\n    <ion-toolbar>\r\n        <ion-title>选择工位</ion-title>\r\n        <ion-buttons slot=\"end\">\r\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\r\n        </ion-buttons>\r\n    </ion-toolbar>\r\n    <!--<ion-toolbar>\r\n        <ion-searchbar animated [(ngModel)]=\"mod.searchData.search\" placeholder=\"请输入姓名\\手机号\\车牌号搜索\" (keyup)=\"searchOnKeyup($event)\"></ion-searchbar>\r\n    </ion-toolbar>-->\r\n</ion-header>\r\n\r\n<ion-content>\r\n    <ion-list lines=\"full\">\r\n        <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\r\n            <ion-item (click)=\"itemClick(item)\">\r\n                <ion-label>\r\n                    <h2>{{item[\"model\"][\"mcs_name\"]}}</h2>\r\n                    <p>{{item[\"model\"][\"mcs_repairlocationtype\"]}}</p>\r\n                    <p>{{item[\"model\"][\"mcs_repairlocationcode\"]}}</p>\r\n                </ion-label>\r\n            </ion-item>\r\n        </ion-item-sliding>\r\n    </ion-list>\r\n</ion-content>\r\n"
+module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-title>选择工位</ion-title>\n        <ion-buttons slot=\"end\">\n            <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\n        </ion-buttons>\n    </ion-toolbar>\n    <!--<ion-toolbar>\n        <ion-searchbar animated [(ngModel)]=\"mod.searchData.search\" placeholder=\"请输入姓名\\手机号\\车牌号搜索\" (keyup)=\"searchOnKeyup($event)\"></ion-searchbar>\n    </ion-toolbar>-->\n</ion-header>\n\n<ion-content>\n    <ion-list lines=\"full\">\n        <ion-item-sliding *ngFor=\"let item of mod.data;let key=index\">\n            <ion-item (click)=\"itemClick(item)\">\n                <ion-label>\n                    <h2>{{item[\"model\"][\"mcs_name\"]}}</h2>\n                    <p>{{item[\"model\"][\"mcs_repairlocationtype\"]}}</p>\n                    <p>{{item[\"model\"][\"mcs_repairlocationcode\"]}}</p>\n                </ion-label>\n            </ion-item>\n        </ion-item-sliding>\n    </ion-list>\n</ion-content>\n"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/serving/serving.ser/components/select-surveyorder/select-surveyorder.component.html":
+/*!*******************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/serving/serving.ser/components/select-surveyorder/select-surveyorder.component.html ***!
+  \*******************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ion-header translucent>\n  <ion-toolbar>\n    <ion-title>选择勘测单</ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n  <ion-toolbar>\n    <ion-searchbar [(ngModel)]=\"model.params.SearchKey\" placeholder=\"支持编码\\姓名\\手机号查找\" (keyup)=\"searchOnKeyup($event)\" ></ion-searchbar>\n  </ion-toolbar>\n</ion-header>\n<ion-content fullscreen>\n  <ion-list>\n      <ion-item-sliding *ngFor=\"let item of model.data;let key=index\">\n          <ion-item (click)=\"itemClick(item)\">\n              <ion-label>\n                  <p>{{item.mcs_name}}</p>\n                  <p>{{item.mcs_username}}</p>\n                  <p>{{item.mcs_userphone}}</p>\n              </ion-label>         \n          </ion-item>\n      </ion-item-sliding>\n  </ion-list>\n  \n</ion-content>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/serving/serving.ser/components/select-vehorder/select-vehorder.component.html":
+/*!*************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/serving/serving.ser/components/select-vehorder/select-vehorder.component.html ***!
+  \*************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ion-header translucent>\n  <ion-toolbar>\n    <ion-title>选择整车订单(大订)</ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button expand=\"block\" (click)=\"dismissModal()\">关闭</ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n  <ion-toolbar>\n    <ion-searchbar [(ngModel)]=\"model.params.SearchKey\" placeholder=\"支持编码查找\" (keyup)=\"searchOnKeyup($event)\" ></ion-searchbar>\n  </ion-toolbar>\n</ion-header>\n<ion-content fullscreen>\n  <ion-list>\n      <ion-item-sliding *ngFor=\"let item of model.data;let key=index\">\n          <ion-item (click)=\"itemClick(item)\">\n              <ion-label>\n                  <p>{{item.mcs_code}}</p>                         \n              </ion-label>         \n          </ion-item>\n      </ion-item-sliding>\n  </ion-list>\n  \n</ion-content>"
 
 /***/ }),
 
@@ -1181,6 +1254,17 @@ var routes = [
                     { path: 'room', loadChildren: './base/message.com/room/room.module#RoomPageModule' },
                     { path: 'activities', loadChildren: './base/message.com/activities/activities.module#ActivitiesPageModule' },
                 ]
+            },
+            {
+                path: 'sys',
+                children: [
+                    { path: 'systemsetup', loadChildren: './base/sys.com/systemsetup/systemsetup.module#SystemsetupPageModule' },
+                    { path: 'about', loadChildren: './base/sys.com/about/about.module#AboutPageModule' },
+                    { path: 'change-password', loadChildren: './base/sys.com/change-password/change-password.module#ChangePasswordPageModule' },
+                    { path: 'message-settings', loadChildren: './base/sys.com/message-settings/message-settings.module#MessageSettingsPageModule' },
+                    { path: 'log', loadChildren: './base/sys.com/log/log.module#LogPageModule' },
+                    { path: 'loginfo', loadChildren: './base/sys.com/loginfo/loginfo.module#LoginfoPageModule' },
+                ]
             }
         ]
     },
@@ -1192,12 +1276,8 @@ var routes = [
                 children: [
                     { path: 'index', loadChildren: './serving/home.com/index/index.module#IndexPageModule' },
                     { path: 'tabs', loadChildren: './serving/home.com/tabs/tabs.module#TabsPageModule' },
-                    { path: 'mywork', loadChildren: './serving/home.com/mywork/mywork.module#MyworkPageModule' },
+                    //{ path: 'mywork', loadChildren: './serving/home.com/mywork/mywork.module#MyworkPageModule' },
                     { path: 'message', loadChildren: './serving/home.com/message/message.module#MessagePageModule' },
-                    { path: 'systemsetup', loadChildren: './serving/home.com/systemsetup/systemsetup.module#SystemsetupPageModule' },
-                    { path: 'about', loadChildren: './serving/home.com/about/about.module#AboutPageModule' },
-                    { path: 'change-password', loadChildren: './serving/home.com/change-password/change-password.module#ChangePasswordPageModule' },
-                    { path: 'message-settings', loadChildren: './serving/home.com/message-settings/message-settings.module#MessageSettingsPageModule' }
                 ]
             },
             {
@@ -1205,7 +1285,6 @@ var routes = [
                 children: [
                     { path: 'list', loadChildren: './serving/my-customer.com/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './serving/my-customer.com/detail/detail.module#DetailPageModule' },
-                    { path: 'select', loadChildren: './serving/my-customer.com/select/select.module#SelectPageModule' },
                     { path: 'edit', loadChildren: './serving/my-customer.com/edit/edit.module#EditPageModule' }
                 ]
             },
@@ -1230,15 +1309,6 @@ var routes = [
                     { path: 'subeditworking', loadChildren: './serving/mc-sc.com/subeditworking/subeditworking.module#SubeditworkingPageModule' },
                     { path: 'subeditpart', loadChildren: './serving/mc-sc.com/subeditpart/subeditpart.module#SubeditpartPageModule' },
                     { path: 'success', loadChildren: './serving/mc-sc.com/success/success.module#SuccessPageModule' }
-                ]
-            },
-            {
-                path: 'resume',
-                children: [
-                    { path: 'list', loadChildren: './serving/mc-resume.com/list/list.module#ListPageModule' },
-                    { path: 'detail', loadChildren: './serving/mc-resume.com/detail/detail.module#DetailPageModule' },
-                    { path: 'edit', loadChildren: './serving/mc-resume.com/edit/edit.module#EditPageModule' },
-                    { path: 'success', loadChildren: './serving/mc-resume.com/success/success.module#SuccessPageModule' }
                 ]
             },
             {
@@ -1279,6 +1349,24 @@ var routes = [
                 path: 'maintenance',
                 children: [
                     { path: 'calendar', loadChildren: './serving/maintenance/calendar/calendar.module#CalendarPageModule' }
+                ]
+            },
+            {
+                path: 'surveyorder',
+                children: [
+                    { path: 'list', loadChildren: './serving/mcs_surveyorder/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './serving/mcs_surveyorder/detail/detail.module#DetailPageModule' },
+                    { path: 'edit', loadChildren: './serving/mcs_surveyorder/edit/edit.module#EditPageModule' },
+                    { path: 'success', loadChildren: './serving/mcs_surveyorder/success/success.module#SuccessPageModule' },
+                ]
+            },
+            {
+                path: 'installationorder',
+                children: [
+                    { path: 'list', loadChildren: './serving/mcs_installationorder/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './serving/mcs_installationorder/detail/detail.module#DetailPageModule' },
+                    { path: 'edit', loadChildren: './serving/mcs_installationorder/edit/edit.module#EditPageModule' },
+                    { path: 'success', loadChildren: './serving/mcs_installationorder/success/success.module#SuccessPageModule' },
                 ]
             }
         ],
@@ -1353,7 +1441,7 @@ var routes = [
                 path: 'vehorder',
                 children: [
                     { path: 'list', loadChildren: './saleing/mc-vehorder.com/list/list.module#ListPageModule' },
-                    { path: 'detail', loadChildren: './saleing/mc-vehorder.com/detail/detail.module#DetailPageModule' }
+                    { path: 'detail', loadChildren: './saleing/mc-vehorder.com/detail/detail.module#DetailPageModule' },
                 ]
             },
             {
@@ -1377,20 +1465,7 @@ var routes = [
                     { path: 'list', loadChildren: './saleing/vehlisense/list/list.module#ListPageModule' },
                     { path: 'detail', loadChildren: './saleing/vehlisense/detail/detail.module#DetailPageModule' },
                     { path: 'success', loadChildren: './saleing/vehlisense/success/success.module#SuccessPageModule' },
-                ]
-            },
-            {
-                path: 'surveyorder',
-                children: [
-                    { path: 'list', loadChildren: './saleing/mcs_surveyorder/list/list.module#ListPageModule' },
-                    { path: 'detail', loadChildren: './saleing/mcs_surveyorder/detail/detail.module#DetailPageModule' }
-                ]
-            },
-            {
-                path: 'installationorder',
-                children: [
-                    { path: 'list', loadChildren: './saleing/mcs_installationorder/list/list.module#ListPageModule' },
-                    { path: 'detail', loadChildren: './saleing/mcs_installationorder/detail/detail.module#DetailPageModule' }
+                    { path: 'edit', loadChildren: './saleing/vehlisense/edit/edit.module#EditPageModule' },
                 ]
             },
             {
@@ -1403,6 +1478,15 @@ var routes = [
                     { path: 'calendar', loadChildren: './saleing/mcs_driverecord.com/calendar/calendar.module#CalendarPageModule' },
                     { path: 'feedback', loadChildren: './saleing/mcs_driverecord.com/feedback/feedback.module#FeedbackPageModule' }
                 ]
+            },
+            {
+                path: 'carorder',
+                children: [
+                    { path: 'edit', loadChildren: './saleing/carorder/edit/edit.module#EditPageModule' },
+                    { path: 'list', loadChildren: './saleing/carorder/list/list.module#ListPageModule' },
+                    { path: 'detail', loadChildren: './saleing/carorder/detail/detail.module#DetailPageModule' },
+                    { path: 'success', loadChildren: './saleing/carorder/success/success.module#SuccessPageModule' },
+                ]
             }
         ]
     },
@@ -1414,13 +1498,6 @@ var routes = [
     },
     { path: 'fileupload-test', loadChildren: './serving/serving.ser/components/fileupload-test/fileupload-test.module#FileuploadTestPageModule' },
     { path: 'fileupload', loadChildren: './serving/serving.ser/components/fileupload/fileupload.module#FileuploadPageModule' },
-    { path: 'list', loadChildren: './saleing/mcs_installationorder/list/list.module#ListPageModule' },
-    { path: 'detail', loadChildren: './saleing/mcs_installationorder/detail/detail.module#DetailPageModule' },
-    { path: 'success', loadChildren: './saleing/mcs-contactrecord/success/success.module#SuccessPageModule' },
-    { path: 'systemsetup', loadChildren: './serving/home.com/systemsetup/systemsetup.module#SystemsetupPageModule' },
-    { path: 'about', loadChildren: './serving/home.com/about/about.module#AboutPageModule' },
-    { path: 'change-password', loadChildren: './serving/home.com/change-password/change-password.module#ChangePasswordPageModule' },
-    { path: 'message-settings', loadChildren: './serving/home.com/message-settings/message-settings.module#MessageSettingsPageModule' },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -1518,7 +1595,12 @@ var AppComponent = /** @class */ (function () {
     AppComponent.prototype.initializeApp = function () {
         var _this = this;
         this.platform.ready().then(function () {
+            //样式设置
             _this.statusBar.styleDefault();
+            //隐藏启动页,防止白屏
+            _this.splashScreen.hide();
+            //是否重叠
+            _this.statusBar.overlaysWebView(false);
             /** 设置智能竖屏*/
             _this.screenOrientation.lock(_this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY);
             if (location.href.indexOf('base/uc/welcome') == -1) {
@@ -1529,14 +1611,16 @@ var AppComponent = /** @class */ (function () {
                     _this._page.goto("/serving/home/tabs/index");
                 }
                 else {
-                    _this._page.goto("/base/uc/login");
+                    if ((location.href.length - location.host.length) <= location.href.lastIndexOf(location.host + '/')) {
+                        _this._page.goto("/base/uc/login");
+                    }
                 }
             }
         });
     };
     AppComponent.prototype.loginout = function () {
         this.menu.close("homeMenu");
-        this.authService.logout();
+        this._http.loginout();
     };
     AppComponent.ctorParameters = function () { return [
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"] },
@@ -1622,33 +1706,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _serving_serving_ser_components_sc_select_sc_select_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./serving/serving.ser/components/sc-select/sc-select.component */ "./src/app/serving/serving.ser/components/sc-select/sc-select.component.ts");
-/* harmony import */ var app_serving_serving_ser_components_select_customer_select_customer_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! app/serving/serving.ser/components/select-customer/select-customer.component */ "./src/app/serving/serving.ser/components/select-customer/select-customer.component.ts");
-/* harmony import */ var app_serving_serving_ser_components_select_customer_edit_select_customer_edit_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! app/serving/serving.ser/components/select-customer-edit/select-customer-edit.component */ "./src/app/serving/serving.ser/components/select-customer-edit/select-customer-edit.component.ts");
-/* harmony import */ var app_serving_serving_ser_components_select_repairlocation_select_repairlocation_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! app/serving/serving.ser/components/select-repairlocation/select-repairlocation.component */ "./src/app/serving/serving.ser/components/select-repairlocation/select-repairlocation.component.ts");
-/* harmony import */ var app_serving_serving_ser_components_select_carmodel_select_carmodel_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! app/serving/serving.ser/components/select-carmodel/select-carmodel.component */ "./src/app/serving/serving.ser/components/select-carmodel/select-carmodel.component.ts");
-/* harmony import */ var app_base_base_ser_components_select_systemuser_select_systemuser_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! app/base/base.ser/components/select-systemuser/select-systemuser.component */ "./src/app/base/base.ser/components/select-systemuser/select-systemuser.component.ts");
-/* harmony import */ var app_serving_serving_ser_components_select_maintenance_select_maintenance_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! app/serving/serving.ser/components/select-maintenance/select-maintenance.component */ "./src/app/serving/serving.ser/components/select-maintenance/select-maintenance.component.ts");
-/* harmony import */ var app_serving_serving_ser_components_select_appointmentconfig_select_appointmentconfig_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! app/serving/serving.ser/components/select-appointmentconfig/select-appointmentconfig.component */ "./src/app/serving/serving.ser/components/select-appointmentconfig/select-appointmentconfig.component.ts");
-/* harmony import */ var app_serving_serving_ser_components_select_parts_select_parts_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! app/serving/serving.ser/components/select-parts/select-parts.component */ "./src/app/serving/serving.ser/components/select-parts/select-parts.component.ts");
-/* harmony import */ var app_serving_serving_ser_components_select_repairitem_select_repairitem_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! app/serving/serving.ser/components/select-repairitem/select-repairitem.component */ "./src/app/serving/serving.ser/components/select-repairitem/select-repairitem.component.ts");
-/* harmony import */ var app_serving_serving_ser_components_select_malfunctiontype_select_malfunctiontype_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! app/serving/serving.ser/components/select-malfunctiontype/select.malfunctiontype.component */ "./src/app/serving/serving.ser/components/select-malfunctiontype/select.malfunctiontype.component.ts");
-/* harmony import */ var app_saleing_saleing_ser_components_select_receptioncommissioner_select_receptioncommissioner_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! app/saleing/saleing.ser/components/select-receptioncommissioner/select-receptioncommissioner.component */ "./src/app/saleing/saleing.ser/components/select-receptioncommissioner/select-receptioncommissioner.component.ts");
-/* harmony import */ var app_saleing_saleing_ser_components_select_reservationconfiguration_select_reservationconfiguration_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! app/saleing/saleing.ser/components/select-reservationconfiguration/select-reservationconfiguration.component */ "./src/app/saleing/saleing.ser/components/select-reservationconfiguration/select-reservationconfiguration.component.ts");
-/* harmony import */ var app_saleing_saleing_ser_components_select_sysarea_select_sysarea_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! app/saleing/saleing.ser/components/select-sysarea/select-sysarea.component */ "./src/app/saleing/saleing.ser/components/select-sysarea/select-sysarea.component.ts");
-/* harmony import */ var app_saleing_saleing_ser_components_select_vehiclecolor_select_vehiclecolor_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! app/saleing/saleing.ser/components/select-vehiclecolor/select-vehiclecolor.component */ "./src/app/saleing/saleing.ser/components/select-vehiclecolor/select-vehiclecolor.component.ts");
-/* harmony import */ var app_saleing_saleing_ser_components_select_vehicletype_select_vehicletype_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! app/saleing/saleing.ser/components/select-vehicletype/select-vehicletype.component */ "./src/app/saleing/saleing.ser/components/select-vehicletype/select-vehicletype.component.ts");
-/* harmony import */ var ng_zorro_antd_mobile__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ng-zorro-antd-mobile */ "./node_modules/ng-zorro-antd-mobile/fesm5/ng-zorro-antd-mobile.js");
-/* harmony import */ var app_serving_serving_ser_components_select_repairitemtype_select_repairitemtype_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component */ "./src/app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component.ts");
-/* harmony import */ var app_serving_serving_ser_components_select_repairitemtypedetail_select_repairitemtypedetail_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component */ "./src/app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component.ts");
-/* harmony import */ var app_serving_serving_ser_components_select_appointmentinfo_select_appointmentinfo_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component */ "./src/app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component.ts");
-/* harmony import */ var app_serving_serving_ser_components_select_file_edit_select_file_edit_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! app/serving/serving.ser/components/select-file-edit/select-file-edit.component */ "./src/app/serving/serving.ser/components/select-file-edit/select-file-edit.component.ts");
-/* harmony import */ var app_base_base_ser_components_map_dragroute_dragroute_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! app/base/base.ser/components/map/dragroute/dragroute.component */ "./src/app/base/base.ser/components/map/dragroute/dragroute.component.ts");
-/* harmony import */ var _ionic_native_image_picker_ngx__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! @ionic-native/image-picker/ngx */ "./node_modules/@ionic-native/image-picker/ngx/index.js");
-/* harmony import */ var _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! @ionic-native/file-transfer/ngx */ "./node_modules/@ionic-native/file-transfer/ngx/index.js");
-/* harmony import */ var _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! @ionic-native/camera/ngx */ "./node_modules/@ionic-native/camera/ngx/index.js");
-/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/fesm5/ng2-file-upload.js");
-/* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "./node_modules/@ionic-native/screen-orientation/ngx/index.js");
+/* harmony import */ var app_base_base_ser_global_error_handler__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! app/base/base.ser/global.error.handler */ "./src/app/base/base.ser/global.error.handler.ts");
+/* harmony import */ var _serving_serving_ser_components_sc_select_sc_select_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./serving/serving.ser/components/sc-select/sc-select.component */ "./src/app/serving/serving.ser/components/sc-select/sc-select.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_customer_select_customer_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! app/serving/serving.ser/components/select-customer/select-customer.component */ "./src/app/serving/serving.ser/components/select-customer/select-customer.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_customer_edit_select_customer_edit_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! app/serving/serving.ser/components/select-customer-edit/select-customer-edit.component */ "./src/app/serving/serving.ser/components/select-customer-edit/select-customer-edit.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_repairlocation_select_repairlocation_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! app/serving/serving.ser/components/select-repairlocation/select-repairlocation.component */ "./src/app/serving/serving.ser/components/select-repairlocation/select-repairlocation.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_carmodel_select_carmodel_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! app/serving/serving.ser/components/select-carmodel/select-carmodel.component */ "./src/app/serving/serving.ser/components/select-carmodel/select-carmodel.component.ts");
+/* harmony import */ var app_base_base_ser_components_select_systemuser_select_systemuser_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! app/base/base.ser/components/select-systemuser/select-systemuser.component */ "./src/app/base/base.ser/components/select-systemuser/select-systemuser.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_maintenance_select_maintenance_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! app/serving/serving.ser/components/select-maintenance/select-maintenance.component */ "./src/app/serving/serving.ser/components/select-maintenance/select-maintenance.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_appointmentconfig_select_appointmentconfig_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! app/serving/serving.ser/components/select-appointmentconfig/select-appointmentconfig.component */ "./src/app/serving/serving.ser/components/select-appointmentconfig/select-appointmentconfig.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_parts_select_parts_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! app/serving/serving.ser/components/select-parts/select-parts.component */ "./src/app/serving/serving.ser/components/select-parts/select-parts.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_repairitem_select_repairitem_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! app/serving/serving.ser/components/select-repairitem/select-repairitem.component */ "./src/app/serving/serving.ser/components/select-repairitem/select-repairitem.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_malfunctiontype_select_malfunctiontype_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! app/serving/serving.ser/components/select-malfunctiontype/select.malfunctiontype.component */ "./src/app/serving/serving.ser/components/select-malfunctiontype/select.malfunctiontype.component.ts");
+/* harmony import */ var app_saleing_saleing_ser_components_select_receptioncommissioner_select_receptioncommissioner_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! app/saleing/saleing.ser/components/select-receptioncommissioner/select-receptioncommissioner.component */ "./src/app/saleing/saleing.ser/components/select-receptioncommissioner/select-receptioncommissioner.component.ts");
+/* harmony import */ var app_saleing_saleing_ser_components_select_reservationconfiguration_select_reservationconfiguration_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! app/saleing/saleing.ser/components/select-reservationconfiguration/select-reservationconfiguration.component */ "./src/app/saleing/saleing.ser/components/select-reservationconfiguration/select-reservationconfiguration.component.ts");
+/* harmony import */ var app_saleing_saleing_ser_components_select_sysarea_select_sysarea_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! app/saleing/saleing.ser/components/select-sysarea/select-sysarea.component */ "./src/app/saleing/saleing.ser/components/select-sysarea/select-sysarea.component.ts");
+/* harmony import */ var app_saleing_saleing_ser_components_select_vehiclecolor_select_vehiclecolor_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! app/saleing/saleing.ser/components/select-vehiclecolor/select-vehiclecolor.component */ "./src/app/saleing/saleing.ser/components/select-vehiclecolor/select-vehiclecolor.component.ts");
+/* harmony import */ var app_saleing_saleing_ser_components_select_vehicletype_select_vehicletype_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! app/saleing/saleing.ser/components/select-vehicletype/select-vehicletype.component */ "./src/app/saleing/saleing.ser/components/select-vehicletype/select-vehicletype.component.ts");
+/* harmony import */ var ng_zorro_antd_mobile__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ng-zorro-antd-mobile */ "./node_modules/ng-zorro-antd-mobile/fesm5/ng-zorro-antd-mobile.js");
+/* harmony import */ var app_serving_serving_ser_components_select_repairitemtype_select_repairitemtype_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component */ "./src/app/serving/serving.ser/components/select-repairitemtype/select-repairitemtype.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_repairitemtypedetail_select_repairitemtypedetail_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component */ "./src/app/serving/serving.ser/components/select-repairitemtypedetail/select-repairitemtypedetail.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_appointmentinfo_select_appointmentinfo_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component */ "./src/app/serving/serving.ser/components/select-appointmentinfo/select-appointmentinfo.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_file_edit_select_file_edit_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! app/serving/serving.ser/components/select-file-edit/select-file-edit.component */ "./src/app/serving/serving.ser/components/select-file-edit/select-file-edit.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_account_select_account_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! app/serving/serving.ser/components/select-account/select-account.component */ "./src/app/serving/serving.ser/components/select-account/select-account.component.ts");
+/* harmony import */ var app_serving_serving_ser_components_select_surveyorder_select_surveyorder_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! app/serving/serving.ser/components/select-surveyorder/select-surveyorder.component */ "./src/app/serving/serving.ser/components/select-surveyorder/select-surveyorder.component.ts");
+/* harmony import */ var app_saleing_saleing_ser_components_select_user_select_user_component__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! app/saleing/saleing.ser/components/select-user/select-user.component */ "./src/app/saleing/saleing.ser/components/select-user/select-user.component.ts");
+/* harmony import */ var app_saleing_saleing_ser_components_select_dealer_select_dealer_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! app/saleing/saleing.ser/components/select-dealer/select-dealer.component */ "./src/app/saleing/saleing.ser/components/select-dealer/select-dealer.component.ts");
+/* harmony import */ var app_saleing_saleing_ser_components_select_carproduct_select_carproduct_component__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! app/saleing/saleing.ser/components/select-carproduct/select-carproduct.component */ "./src/app/saleing/saleing.ser/components/select-carproduct/select-carproduct.component.ts");
+/* harmony import */ var app_base_base_ser_components_map_dragroute_dragroute_component__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! app/base/base.ser/components/map/dragroute/dragroute.component */ "./src/app/base/base.ser/components/map/dragroute/dragroute.component.ts");
+/* harmony import */ var _ionic_native_image_picker_ngx__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! @ionic-native/image-picker/ngx */ "./node_modules/@ionic-native/image-picker/ngx/index.js");
+/* harmony import */ var _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! @ionic-native/file-transfer/ngx */ "./node_modules/@ionic-native/file-transfer/ngx/index.js");
+/* harmony import */ var _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! @ionic-native/camera/ngx */ "./node_modules/@ionic-native/camera/ngx/index.js");
+/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/fesm5/ng2-file-upload.js");
+/* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "./node_modules/@ionic-native/screen-orientation/ngx/index.js");
+/* harmony import */ var app_serving_serving_ser_components_select_vehorder_select_vehorder_component__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! app/serving/serving.ser/components/select-vehorder/select-vehorder.component */ "./src/app/serving/serving.ser/components/select-vehorder/select-vehorder.component.ts");
+
 
 
 
@@ -1689,6 +1781,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -1696,72 +1794,85 @@ var AppModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"],
-                _serving_serving_ser_components_sc_select_sc_select_component__WEBPACK_IMPORTED_MODULE_12__["ScSelectComponent"],
-                app_serving_serving_ser_components_select_customer_select_customer_component__WEBPACK_IMPORTED_MODULE_13__["SelectCustomerComponent"],
-                app_serving_serving_ser_components_select_customer_edit_select_customer_edit_component__WEBPACK_IMPORTED_MODULE_14__["SelectCustomerEditComponent"],
-                app_serving_serving_ser_components_select_repairlocation_select_repairlocation_component__WEBPACK_IMPORTED_MODULE_15__["SelectRepairlocationComponent"],
-                app_serving_serving_ser_components_select_carmodel_select_carmodel_component__WEBPACK_IMPORTED_MODULE_16__["SelectCarmodelComponent"],
-                app_serving_serving_ser_components_select_maintenance_select_maintenance_component__WEBPACK_IMPORTED_MODULE_18__["SelectMaintenanceComponent"],
-                app_base_base_ser_components_select_systemuser_select_systemuser_component__WEBPACK_IMPORTED_MODULE_17__["SelectSystemuserComponent"],
-                app_serving_serving_ser_components_select_appointmentconfig_select_appointmentconfig_component__WEBPACK_IMPORTED_MODULE_19__["SelectAppointmentconfigComponent"],
-                app_serving_serving_ser_components_select_malfunctiontype_select_malfunctiontype_component__WEBPACK_IMPORTED_MODULE_22__["SelectMalFunctionTypeComponent"],
-                app_serving_serving_ser_components_select_parts_select_parts_component__WEBPACK_IMPORTED_MODULE_20__["SelectPartsComponent"],
-                app_serving_serving_ser_components_select_repairitem_select_repairitem_component__WEBPACK_IMPORTED_MODULE_21__["SelectRepairitemComponent"],
-                app_serving_serving_ser_components_select_malfunctiontype_select_malfunctiontype_component__WEBPACK_IMPORTED_MODULE_22__["SelectMalFunctionTypeComponent"],
-                app_saleing_saleing_ser_components_select_vehicletype_select_vehicletype_component__WEBPACK_IMPORTED_MODULE_27__["SelectVehicletypeComponent"],
-                app_saleing_saleing_ser_components_select_receptioncommissioner_select_receptioncommissioner_component__WEBPACK_IMPORTED_MODULE_23__["SelectReceptioncommissionerComponent"],
-                app_saleing_saleing_ser_components_select_reservationconfiguration_select_reservationconfiguration_component__WEBPACK_IMPORTED_MODULE_24__["SelectReservationconfigurationComponent"],
-                app_saleing_saleing_ser_components_select_sysarea_select_sysarea_component__WEBPACK_IMPORTED_MODULE_25__["SelectSysareaComponent"],
-                app_saleing_saleing_ser_components_select_vehiclecolor_select_vehiclecolor_component__WEBPACK_IMPORTED_MODULE_26__["SelectVehiclecolorComponent"],
-                app_serving_serving_ser_components_select_repairitemtype_select_repairitemtype_component__WEBPACK_IMPORTED_MODULE_29__["SelectRepairitemtypeComponent"],
-                app_serving_serving_ser_components_select_repairitemtypedetail_select_repairitemtypedetail_component__WEBPACK_IMPORTED_MODULE_30__["SelectRepairitemtypedetailComponent"],
-                app_serving_serving_ser_components_select_appointmentinfo_select_appointmentinfo_component__WEBPACK_IMPORTED_MODULE_31__["SelectAppointmentinfoComponent"],
-                app_serving_serving_ser_components_select_file_edit_select_file_edit_component__WEBPACK_IMPORTED_MODULE_32__["SelectFileEditComponent"],
-                app_base_base_ser_components_map_dragroute_dragroute_component__WEBPACK_IMPORTED_MODULE_33__["DragrouteComponent"]
+                _serving_serving_ser_components_sc_select_sc_select_component__WEBPACK_IMPORTED_MODULE_13__["ScSelectComponent"],
+                app_serving_serving_ser_components_select_customer_select_customer_component__WEBPACK_IMPORTED_MODULE_14__["SelectCustomerComponent"],
+                app_serving_serving_ser_components_select_customer_edit_select_customer_edit_component__WEBPACK_IMPORTED_MODULE_15__["SelectCustomerEditComponent"],
+                app_serving_serving_ser_components_select_repairlocation_select_repairlocation_component__WEBPACK_IMPORTED_MODULE_16__["SelectRepairlocationComponent"],
+                app_serving_serving_ser_components_select_carmodel_select_carmodel_component__WEBPACK_IMPORTED_MODULE_17__["SelectCarmodelComponent"],
+                app_serving_serving_ser_components_select_maintenance_select_maintenance_component__WEBPACK_IMPORTED_MODULE_19__["SelectMaintenanceComponent"],
+                app_base_base_ser_components_select_systemuser_select_systemuser_component__WEBPACK_IMPORTED_MODULE_18__["SelectSystemuserComponent"],
+                app_serving_serving_ser_components_select_appointmentconfig_select_appointmentconfig_component__WEBPACK_IMPORTED_MODULE_20__["SelectAppointmentconfigComponent"],
+                app_serving_serving_ser_components_select_malfunctiontype_select_malfunctiontype_component__WEBPACK_IMPORTED_MODULE_23__["SelectMalFunctionTypeComponent"],
+                app_serving_serving_ser_components_select_parts_select_parts_component__WEBPACK_IMPORTED_MODULE_21__["SelectPartsComponent"],
+                app_serving_serving_ser_components_select_repairitem_select_repairitem_component__WEBPACK_IMPORTED_MODULE_22__["SelectRepairitemComponent"],
+                app_serving_serving_ser_components_select_malfunctiontype_select_malfunctiontype_component__WEBPACK_IMPORTED_MODULE_23__["SelectMalFunctionTypeComponent"],
+                app_saleing_saleing_ser_components_select_vehicletype_select_vehicletype_component__WEBPACK_IMPORTED_MODULE_28__["SelectVehicletypeComponent"],
+                app_saleing_saleing_ser_components_select_receptioncommissioner_select_receptioncommissioner_component__WEBPACK_IMPORTED_MODULE_24__["SelectReceptioncommissionerComponent"],
+                app_saleing_saleing_ser_components_select_reservationconfiguration_select_reservationconfiguration_component__WEBPACK_IMPORTED_MODULE_25__["SelectReservationconfigurationComponent"],
+                app_saleing_saleing_ser_components_select_sysarea_select_sysarea_component__WEBPACK_IMPORTED_MODULE_26__["SelectSysareaComponent"],
+                app_saleing_saleing_ser_components_select_vehiclecolor_select_vehiclecolor_component__WEBPACK_IMPORTED_MODULE_27__["SelectVehiclecolorComponent"],
+                app_serving_serving_ser_components_select_repairitemtype_select_repairitemtype_component__WEBPACK_IMPORTED_MODULE_30__["SelectRepairitemtypeComponent"],
+                app_serving_serving_ser_components_select_repairitemtypedetail_select_repairitemtypedetail_component__WEBPACK_IMPORTED_MODULE_31__["SelectRepairitemtypedetailComponent"],
+                app_serving_serving_ser_components_select_appointmentinfo_select_appointmentinfo_component__WEBPACK_IMPORTED_MODULE_32__["SelectAppointmentinfoComponent"],
+                app_serving_serving_ser_components_select_file_edit_select_file_edit_component__WEBPACK_IMPORTED_MODULE_33__["SelectFileEditComponent"],
+                app_base_base_ser_components_map_dragroute_dragroute_component__WEBPACK_IMPORTED_MODULE_39__["DragrouteComponent"],
+                app_serving_serving_ser_components_select_account_select_account_component__WEBPACK_IMPORTED_MODULE_34__["SelectAccountComponent"],
+                app_serving_serving_ser_components_select_surveyorder_select_surveyorder_component__WEBPACK_IMPORTED_MODULE_35__["SelectSurveyorderComponent"],
+                app_saleing_saleing_ser_components_select_user_select_user_component__WEBPACK_IMPORTED_MODULE_36__["SelectUserComponent"],
+                app_saleing_saleing_ser_components_select_carproduct_select_carproduct_component__WEBPACK_IMPORTED_MODULE_38__["SelectCarproductComponent"],
+                app_saleing_saleing_ser_components_select_dealer_select_dealer_component__WEBPACK_IMPORTED_MODULE_37__["SelectDealerComponent"],
+                app_serving_serving_ser_components_select_vehorder_select_vehorder_component__WEBPACK_IMPORTED_MODULE_45__["SelectVehorderComponent"] //选择整车订单（大订）
             ],
             entryComponents: [
-                _serving_serving_ser_components_sc_select_sc_select_component__WEBPACK_IMPORTED_MODULE_12__["ScSelectComponent"],
-                app_serving_serving_ser_components_select_customer_select_customer_component__WEBPACK_IMPORTED_MODULE_13__["SelectCustomerComponent"],
-                app_serving_serving_ser_components_select_customer_edit_select_customer_edit_component__WEBPACK_IMPORTED_MODULE_14__["SelectCustomerEditComponent"],
-                app_serving_serving_ser_components_select_repairlocation_select_repairlocation_component__WEBPACK_IMPORTED_MODULE_15__["SelectRepairlocationComponent"],
-                app_serving_serving_ser_components_select_carmodel_select_carmodel_component__WEBPACK_IMPORTED_MODULE_16__["SelectCarmodelComponent"],
-                app_serving_serving_ser_components_select_maintenance_select_maintenance_component__WEBPACK_IMPORTED_MODULE_18__["SelectMaintenanceComponent"],
-                app_base_base_ser_components_select_systemuser_select_systemuser_component__WEBPACK_IMPORTED_MODULE_17__["SelectSystemuserComponent"],
-                app_serving_serving_ser_components_select_appointmentconfig_select_appointmentconfig_component__WEBPACK_IMPORTED_MODULE_19__["SelectAppointmentconfigComponent"],
-                app_serving_serving_ser_components_select_malfunctiontype_select_malfunctiontype_component__WEBPACK_IMPORTED_MODULE_22__["SelectMalFunctionTypeComponent"],
-                app_serving_serving_ser_components_select_parts_select_parts_component__WEBPACK_IMPORTED_MODULE_20__["SelectPartsComponent"],
-                app_serving_serving_ser_components_select_repairitem_select_repairitem_component__WEBPACK_IMPORTED_MODULE_21__["SelectRepairitemComponent"],
-                app_serving_serving_ser_components_select_malfunctiontype_select_malfunctiontype_component__WEBPACK_IMPORTED_MODULE_22__["SelectMalFunctionTypeComponent"],
-                app_saleing_saleing_ser_components_select_vehicletype_select_vehicletype_component__WEBPACK_IMPORTED_MODULE_27__["SelectVehicletypeComponent"],
-                app_saleing_saleing_ser_components_select_receptioncommissioner_select_receptioncommissioner_component__WEBPACK_IMPORTED_MODULE_23__["SelectReceptioncommissionerComponent"],
-                app_saleing_saleing_ser_components_select_reservationconfiguration_select_reservationconfiguration_component__WEBPACK_IMPORTED_MODULE_24__["SelectReservationconfigurationComponent"],
-                app_saleing_saleing_ser_components_select_sysarea_select_sysarea_component__WEBPACK_IMPORTED_MODULE_25__["SelectSysareaComponent"],
-                app_saleing_saleing_ser_components_select_vehiclecolor_select_vehiclecolor_component__WEBPACK_IMPORTED_MODULE_26__["SelectVehiclecolorComponent"],
-                app_serving_serving_ser_components_select_repairitemtype_select_repairitemtype_component__WEBPACK_IMPORTED_MODULE_29__["SelectRepairitemtypeComponent"],
-                app_serving_serving_ser_components_select_repairitemtypedetail_select_repairitemtypedetail_component__WEBPACK_IMPORTED_MODULE_30__["SelectRepairitemtypedetailComponent"],
-                app_serving_serving_ser_components_select_appointmentinfo_select_appointmentinfo_component__WEBPACK_IMPORTED_MODULE_31__["SelectAppointmentinfoComponent"],
-                app_serving_serving_ser_components_select_file_edit_select_file_edit_component__WEBPACK_IMPORTED_MODULE_32__["SelectFileEditComponent"],
-                app_base_base_ser_components_map_dragroute_dragroute_component__WEBPACK_IMPORTED_MODULE_33__["DragrouteComponent"]
+                _serving_serving_ser_components_sc_select_sc_select_component__WEBPACK_IMPORTED_MODULE_13__["ScSelectComponent"],
+                app_serving_serving_ser_components_select_customer_select_customer_component__WEBPACK_IMPORTED_MODULE_14__["SelectCustomerComponent"],
+                app_serving_serving_ser_components_select_customer_edit_select_customer_edit_component__WEBPACK_IMPORTED_MODULE_15__["SelectCustomerEditComponent"],
+                app_serving_serving_ser_components_select_repairlocation_select_repairlocation_component__WEBPACK_IMPORTED_MODULE_16__["SelectRepairlocationComponent"],
+                app_serving_serving_ser_components_select_carmodel_select_carmodel_component__WEBPACK_IMPORTED_MODULE_17__["SelectCarmodelComponent"],
+                app_serving_serving_ser_components_select_maintenance_select_maintenance_component__WEBPACK_IMPORTED_MODULE_19__["SelectMaintenanceComponent"],
+                app_base_base_ser_components_select_systemuser_select_systemuser_component__WEBPACK_IMPORTED_MODULE_18__["SelectSystemuserComponent"],
+                app_serving_serving_ser_components_select_appointmentconfig_select_appointmentconfig_component__WEBPACK_IMPORTED_MODULE_20__["SelectAppointmentconfigComponent"],
+                app_serving_serving_ser_components_select_malfunctiontype_select_malfunctiontype_component__WEBPACK_IMPORTED_MODULE_23__["SelectMalFunctionTypeComponent"],
+                app_serving_serving_ser_components_select_parts_select_parts_component__WEBPACK_IMPORTED_MODULE_21__["SelectPartsComponent"],
+                app_serving_serving_ser_components_select_repairitem_select_repairitem_component__WEBPACK_IMPORTED_MODULE_22__["SelectRepairitemComponent"],
+                app_serving_serving_ser_components_select_malfunctiontype_select_malfunctiontype_component__WEBPACK_IMPORTED_MODULE_23__["SelectMalFunctionTypeComponent"],
+                app_saleing_saleing_ser_components_select_vehicletype_select_vehicletype_component__WEBPACK_IMPORTED_MODULE_28__["SelectVehicletypeComponent"],
+                app_saleing_saleing_ser_components_select_receptioncommissioner_select_receptioncommissioner_component__WEBPACK_IMPORTED_MODULE_24__["SelectReceptioncommissionerComponent"],
+                app_saleing_saleing_ser_components_select_reservationconfiguration_select_reservationconfiguration_component__WEBPACK_IMPORTED_MODULE_25__["SelectReservationconfigurationComponent"],
+                app_saleing_saleing_ser_components_select_sysarea_select_sysarea_component__WEBPACK_IMPORTED_MODULE_26__["SelectSysareaComponent"],
+                app_saleing_saleing_ser_components_select_vehiclecolor_select_vehiclecolor_component__WEBPACK_IMPORTED_MODULE_27__["SelectVehiclecolorComponent"],
+                app_serving_serving_ser_components_select_repairitemtype_select_repairitemtype_component__WEBPACK_IMPORTED_MODULE_30__["SelectRepairitemtypeComponent"],
+                app_serving_serving_ser_components_select_repairitemtypedetail_select_repairitemtypedetail_component__WEBPACK_IMPORTED_MODULE_31__["SelectRepairitemtypedetailComponent"],
+                app_serving_serving_ser_components_select_appointmentinfo_select_appointmentinfo_component__WEBPACK_IMPORTED_MODULE_32__["SelectAppointmentinfoComponent"],
+                app_serving_serving_ser_components_select_file_edit_select_file_edit_component__WEBPACK_IMPORTED_MODULE_33__["SelectFileEditComponent"],
+                app_base_base_ser_components_map_dragroute_dragroute_component__WEBPACK_IMPORTED_MODULE_39__["DragrouteComponent"],
+                app_serving_serving_ser_components_select_account_select_account_component__WEBPACK_IMPORTED_MODULE_34__["SelectAccountComponent"],
+                app_serving_serving_ser_components_select_surveyorder_select_surveyorder_component__WEBPACK_IMPORTED_MODULE_35__["SelectSurveyorderComponent"],
+                app_saleing_saleing_ser_components_select_user_select_user_component__WEBPACK_IMPORTED_MODULE_36__["SelectUserComponent"],
+                app_saleing_saleing_ser_components_select_carproduct_select_carproduct_component__WEBPACK_IMPORTED_MODULE_38__["SelectCarproductComponent"],
+                app_saleing_saleing_ser_components_select_dealer_select_dealer_component__WEBPACK_IMPORTED_MODULE_37__["SelectDealerComponent"],
+                app_serving_serving_ser_components_select_vehorder_select_vehorder_component__WEBPACK_IMPORTED_MODULE_45__["SelectVehorderComponent"]
             ],
             imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
                 _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot({ mode: 'ios' }),
-                ng2_file_upload__WEBPACK_IMPORTED_MODULE_37__["FileUploadModule"],
+                ng2_file_upload__WEBPACK_IMPORTED_MODULE_43__["FileUploadModule"],
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HttpClientModule"],
                 _ionic_storage__WEBPACK_IMPORTED_MODULE_10__["IonicStorageModule"].forRoot(),
                 _angular_forms__WEBPACK_IMPORTED_MODULE_11__["FormsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_11__["ReactiveFormsModule"],
-                ng_zorro_antd_mobile__WEBPACK_IMPORTED_MODULE_28__["NgZorroAntdMobileModule"]
+                ng_zorro_antd_mobile__WEBPACK_IMPORTED_MODULE_29__["NgZorroAntdMobileModule"]
             ],
             providers: [
-                app_base_base_ser_components_map_dragroute_dragroute_component__WEBPACK_IMPORTED_MODULE_33__["DragrouteComponent"],
+                app_base_base_ser_components_map_dragroute_dragroute_component__WEBPACK_IMPORTED_MODULE_39__["DragrouteComponent"],
                 _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],
                 _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"],
-                _ionic_native_image_picker_ngx__WEBPACK_IMPORTED_MODULE_34__["ImagePicker"],
-                _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_35__["FileTransfer"],
-                _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_36__["Camera"],
-                _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_38__["ScreenOrientation"],
-                { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] }
+                _ionic_native_image_picker_ngx__WEBPACK_IMPORTED_MODULE_40__["ImagePicker"],
+                _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_41__["FileTransfer"],
+                _ionic_native_camera_ngx__WEBPACK_IMPORTED_MODULE_42__["Camera"],
+                _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_44__["ScreenOrientation"],
+                { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] },
+                { provide: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ErrorHandler"], useClass: app_base_base_ser_global_error_handler__WEBPACK_IMPORTED_MODULE_12__["GlobalErrorHandler"] }
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
         })
@@ -1777,7 +1888,7 @@ var AppModule = /** @class */ (function () {
 /*!********************************************!*\
   !*** ./src/app/base/base.ser/Dcem.core.ts ***!
   \********************************************/
-/*! exports provided: DCore_Window, DCore_Config, DCore_Http, DCore_Page, DCore_ShareData, DCore_Valid */
+/*! exports provided: DCore_Window, DCore_Config, DCore_Http, DCore_Page, DCore_ShareData, DCore_Valid, LogModel, DCore_Log, DCore_String */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1788,6 +1899,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DCore_Page", function() { return DCore_Page; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DCore_ShareData", function() { return DCore_ShareData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DCore_Valid", function() { return DCore_Valid; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LogModel", function() { return LogModel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DCore_Log", function() { return DCore_Log; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DCore_String", function() { return DCore_String; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
@@ -1795,6 +1909,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! util */ "./node_modules/util/util.js");
 /* harmony import */ var util__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(util__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var app_base_base_ser_dateformat__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! app/base/base.ser/dateformat */ "./src/app/base/base.ser/dateformat.ts");
+
 
 
 
@@ -1821,11 +1937,15 @@ var DCore_Window = /** @class */ (function () {
 var DCore_Config = /** @class */ (function () {
     function DCore_Config(_window) {
         this._window = _window;
+        this.userCheckNum = true;
         this.serverUrl = _window.storageGet("apiDomainUrl");
     }
     DCore_Config.prototype.getDomain = function () {
         this.serverUrl = this._window.storageGet("apiDomainUrl");
         return this.serverUrl;
+    };
+    DCore_Config.prototype.getOcrUrl = function () {
+        return "https://subcrmuatapi.sokon.com/ocr/";
     };
     DCore_Config.ctorParameters = function () { return [
         { type: DCore_Window }
@@ -1840,9 +1960,10 @@ var DCore_Config = /** @class */ (function () {
 }());
 
 var DCore_Http = /** @class */ (function () {
-    function DCore_Http(_httpClient, _config) {
+    function DCore_Http(_httpClient, _config, _navCtr) {
         this._httpClient = _httpClient;
         this._config = _config;
+        this._navCtr = _navCtr;
         this.ReflashInterval = null;
     }
     //带请求头get请求
@@ -1854,11 +1975,20 @@ var DCore_Http = /** @class */ (function () {
             rescallback && rescallback(res);
         }, function (err) {
             errcallback && errcallback(err);
+            throw err;
         });
     };
     //get请求
     DCore_Http.prototype.get = function (url, params, rescallback, errcallback) {
         this._httpClient.get(this._config.getDomain() + url, params).subscribe(function (res) {
+            rescallback && rescallback(res);
+        }, function (err) {
+            errcallback && errcallback(err);
+        });
+    };
+    //get请求
+    DCore_Http.prototype.getBase = function (url, params, rescallback, errcallback) {
+        this._httpClient.get(url, params).subscribe(function (res) {
             rescallback && rescallback(res);
         }, function (err) {
             errcallback && errcallback(err);
@@ -1872,11 +2002,20 @@ var DCore_Http = /** @class */ (function () {
             rescallback && rescallback(res);
         }, function (err) {
             errcallback && errcallback(err);
+            throw err;
         });
     };
     //post请求
     DCore_Http.prototype.post = function (url, params, rescallback, errcallback) {
         this._httpClient.post(this._config.getDomain() + url, params).subscribe(function (res) {
+            rescallback && rescallback(res);
+        }, function (err) {
+            errcallback && errcallback(err);
+        });
+    };
+    //post Ocr请求
+    DCore_Http.prototype.postOcr = function (url, params, rescallback, errcallback) {
+        this._httpClient.post(this._config.getOcrUrl() + url, params).subscribe(function (res) {
             rescallback && rescallback(res);
         }, function (err) {
             errcallback && errcallback(err);
@@ -1909,7 +2048,12 @@ var DCore_Http = /** @class */ (function () {
         window.localStorage.setItem('auth-token', token);
         window.localStorage.setItem('auth-account', account);
         window.localStorage.setItem('auth-password', password);
-        window.localStorage.setItem('auth-logintime', new Date().getTime().toString());
+        window.localStorage.setItem('auth-logintime', (new Date().getTime()).toString());
+    };
+    //登出,清理缓存，跳转并重新登录
+    DCore_Http.prototype.loginout = function () {
+        window.localStorage.clear();
+        this._navCtr.navigateRoot("/base/uc/login", {});
     };
     //刷新token
     DCore_Http.prototype.reflashToken = function () {
@@ -1919,46 +2063,48 @@ var DCore_Http = /** @class */ (function () {
             this.ReflashInterval = setInterval(function () {
                 console.log("定时刷新" + new Date().getTime());
                 var lastlogintime = window.localStorage.getItem("auth-logintime");
-                if (lastlogintime != null && lastlogintime !== "") {
-                    var lastdateTime = parseInt(lastlogintime);
-                    var time = 10 * 60 * 1000;
-                    console.log("time：" + time + " last:" + lastdateTime + " now:" + new Date().getTime());
-                    if (new Date().getTime() - lastdateTime >= time) {
-                        console.log("登录超时10分钟,重新登录");
-                        var account = window.localStorage.getItem('auth-account');
-                        var password = window.localStorage.getItem('auth-password');
-                        if (account != "" && password != "") {
-                            _this.get('/api/User/GetAuthToken', {
-                                params: {
-                                    username: encodeURIComponent(account),
-                                    password: encodeURIComponent(password)
-                                }
-                            }, function (res) {
-                                if (res.access_token == "") {
-                                    return false;
-                                }
-                                window.localStorage.setItem('auth-token', res.access_token);
-                                window.localStorage.setItem('auth-account', account);
-                                window.localStorage.setItem('auth-password', password);
-                                window.localStorage.setItem('auth-logintime', new Date().toLocaleTimeString());
-                            }, function (err) {
-                            });
+                var token = window.localStorage.getItem("auth-token");
+                if (token != undefined && token != "") {
+                    if (lastlogintime != null && lastlogintime !== "") {
+                        var lastdateTime = parseInt(lastlogintime);
+                        var time = 30 * 60 * 1000;
+                        if (new Date().getTime() - lastdateTime >= time) {
+                            console.log("登录超时10分钟,重新登录");
+                            var account = window.localStorage.getItem('auth-account');
+                            var password = window.localStorage.getItem('auth-password');
+                            if (account != "" && password != "") {
+                                console.log("域url：" + _this._config.getDomain());
+                                _this.get('/api/User/GetAuthToken', {
+                                    params: {
+                                        username: encodeURIComponent(account),
+                                        password: encodeURIComponent(password)
+                                    }
+                                }, function (res) {
+                                    window.localStorage.setItem('auth-token', res.access_token);
+                                    window.localStorage.setItem('auth-account', account);
+                                    window.localStorage.setItem('auth-password', password);
+                                    window.localStorage.setItem('auth-logintime', (new Date().getTime()).toString());
+                                }, function (err) {
+                                });
+                            }
                         }
                     }
                 }
-            }, 3000);
+            }, 30000);
         }
     };
     DCore_Http.ctorParameters = function () { return [
         { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"] },
-        { type: DCore_Config }
+        { type: DCore_Config },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"] }
     ]; };
     DCore_Http = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Injectable"])({
             providedIn: 'root'
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
-            DCore_Config])
+            DCore_Config,
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"]])
     ], DCore_Http);
     return DCore_Http;
 }());
@@ -2039,6 +2185,47 @@ var DCore_Page = /** @class */ (function () {
             });
         });
     };
+    //弹出提示
+    DCore_Page.prototype.alertCancel = function (header, message, callback, cancelCallBack) {
+        if (callback === void 0) { callback = null; }
+        if (cancelCallBack === void 0) { cancelCallBack = null; }
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var alert;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        alert = this.alertCtr.create({
+                            header: header,
+                            message: message,
+                            buttons: [
+                                {
+                                    text: '取消',
+                                    handler: function () {
+                                        if (Object(util__WEBPACK_IMPORTED_MODULE_5__["isFunction"])(cancelCallBack)) {
+                                            cancelCallBack();
+                                        }
+                                    }
+                                },
+                                {
+                                    text: '确定',
+                                    handler: function () {
+                                        if (Object(util__WEBPACK_IMPORTED_MODULE_5__["isFunction"])(callback)) {
+                                            callback();
+                                        }
+                                    }
+                                }
+                            ]
+                        });
+                        return [4 /*yield*/, alert.then(function (a) {
+                                a.present();
+                            })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     //确认提示
     DCore_Page.prototype.confirm = function (header, message, callback, cancelCallBack) {
         if (callback === void 0) { callback = null; }
@@ -2087,7 +2274,7 @@ var DCore_Page = /** @class */ (function () {
             this.loading = this.loadingCtr.create({
                 //message: "请稍后...",
                 translucent: true,
-                duration: 30000
+                duration: 60000
             });
             this.loading.then(function (a) {
                 a.present();
@@ -2202,6 +2389,101 @@ var DCore_Valid = /** @class */ (function () {
     return DCore_Valid;
 }());
 
+var LogModel = /** @class */ (function () {
+    function LogModel() {
+    }
+    return LogModel;
+}());
+
+//系统日志跟踪
+var DCore_Log = /** @class */ (function () {
+    function DCore_Log(_dateformat) {
+        this._dateformat = _dateformat;
+        this.logList = [];
+    }
+    //写入提示日志
+    DCore_Log.prototype.WriteInfoLog = function (message) {
+        this.WriteLog(message, 1);
+    };
+    //写入错误日志
+    DCore_Log.prototype.WriteErrorLog = function (message) {
+        this.WriteLog(message, 2);
+    };
+    DCore_Log.prototype.WriteLog = function (message, type) {
+        var list = this.GetList();
+        if (list != null) {
+            this.logList = list;
+        }
+        var logModel = new LogModel();
+        logModel.Id = new Date().getTime();
+        logModel.CreateTime = this._dateformat.FormatToDateTime(new Date());
+        ;
+        logModel.Message = message;
+        logModel.Type = type;
+        this.logList.unshift(logModel); //插入顶部
+        window.localStorage.setItem('Sys-Log', JSON.stringify(this.logList));
+    };
+    //获取日志
+    DCore_Log.prototype.GetList = function () {
+        return JSON.parse(window.localStorage.getItem('Sys-Log'));
+    };
+    //清除日志
+    DCore_Log.prototype.Clear = function () {
+        window.localStorage.removeItem('Sys-Log');
+    };
+    DCore_Log.ctorParameters = function () { return [
+        { type: app_base_base_ser_dateformat__WEBPACK_IMPORTED_MODULE_6__["Dateformat"] }
+    ]; };
+    DCore_Log = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_base_base_ser_dateformat__WEBPACK_IMPORTED_MODULE_6__["Dateformat"]])
+    ], DCore_Log);
+    return DCore_Log;
+}());
+
+//字符串处理
+var DCore_String = /** @class */ (function () {
+    function DCore_String() {
+    }
+    DCore_String.prototype.GetRandom = function (len) {
+        if (len === void 0) { len = 24; }
+        var $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var maxPos = $chars.length;
+        var pwd = '';
+        for (var i = 0; i < len; i++) {
+            pwd += $chars.charAt(Math.floor(Math.random() * (maxPos + 1)));
+        }
+        return pwd;
+    };
+    DCore_String.prototype.GetDateFormat = function (date, format) {
+        date["M+"] = date.getMonth() + 1;
+        date["d+"] = date.getDate();
+        date["h+"] = date.getHours();
+        date["m+"] = date.getMinutes();
+        date["s+"] = date.getSeconds();
+        date["q+"] = Math.floor((date.getMonth() + 3) / 3);
+        date["S+"] = date.getMilliseconds();
+        if (/(y+)/i.test(format)) {
+            format = format.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+        }
+        for (var k in date) {
+            if (new RegExp("(" + k + ")").test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+            }
+        }
+        return format;
+    };
+    DCore_String = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], DCore_String);
+    return DCore_String;
+}());
+
 
 
 /***/ }),
@@ -2296,7 +2578,7 @@ var AuthenticationService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#container {\n  width: 100%;\n  height: 100%; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYmFzZS9iYXNlLnNlci9jb21wb25lbnRzL21hcC9kcmFncm91dGUvRTpcXEFwcFByb2plY3RcXERDRU1cXERDRU0uTUFwcC9zcmNcXGFwcFxcYmFzZVxcYmFzZS5zZXJcXGNvbXBvbmVudHNcXG1hcFxcZHJhZ3JvdXRlXFxkcmFncm91dGUuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFFSSxXQUFVO0VBQ1YsWUFBWSxFQUFBIiwiZmlsZSI6InNyYy9hcHAvYmFzZS9iYXNlLnNlci9jb21wb25lbnRzL21hcC9kcmFncm91dGUvZHJhZ3JvdXRlLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiI2NvbnRhaW5lclxyXG57XHJcbiAgICB3aWR0aDoxMDAlO1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG59Il19 */"
+module.exports = "#container {\n  width: 100%;\n  height: 100%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Wb2x1bWVzL0YvRENFTS9EQ0VNLk1BcHAvc3JjL2FwcC9iYXNlL2Jhc2Uuc2VyL2NvbXBvbmVudHMvbWFwL2RyYWdyb3V0ZS9kcmFncm91dGUuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2Jhc2UvYmFzZS5zZXIvY29tcG9uZW50cy9tYXAvZHJhZ3JvdXRlL2RyYWdyb3V0ZS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUVJLFdBQUE7RUFDQSxZQUFBO0FDQUoiLCJmaWxlIjoic3JjL2FwcC9iYXNlL2Jhc2Uuc2VyL2NvbXBvbmVudHMvbWFwL2RyYWdyb3V0ZS9kcmFncm91dGUuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIjY29udGFpbmVyXG57XG4gICAgd2lkdGg6MTAwJTtcbiAgICBoZWlnaHQ6IDEwMCU7XG59IiwiI2NvbnRhaW5lciB7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDEwMCU7XG59Il19 */"
 
 /***/ }),
 
@@ -2487,6 +2769,147 @@ var SelectSystemuserComponent = /** @class */ (function () {
             app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"]])
     ], SelectSystemuserComponent);
     return SelectSystemuserComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/base/base.ser/dateformat.ts":
+/*!*********************************************!*\
+  !*** ./src/app/base/base.ser/dateformat.ts ***!
+  \*********************************************/
+/*! exports provided: Dateformat */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Dateformat", function() { return Dateformat; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var silly_datetime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! silly-datetime */ "./node_modules/silly-datetime/dest/index.js");
+/* harmony import */ var silly_datetime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(silly_datetime__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+var Dateformat = /** @class */ (function () {
+    /*
+    日期时间格式化处理
+    */
+    function Dateformat() {
+    }
+    Dateformat.prototype.FormatToDate = function (date) {
+        if (date != null && date != undefined) {
+            return silly_datetime__WEBPACK_IMPORTED_MODULE_2___default.a.format(date, 'YYYY-MM-DD');
+        }
+        else {
+            return '';
+        }
+    };
+    Dateformat.prototype.FormatToDateTime = function (date) {
+        if (date != null && date != undefined) {
+            return silly_datetime__WEBPACK_IMPORTED_MODULE_2___default.a.format(date, 'YYYY-MM-DD hh:mm:ss');
+        }
+        else {
+            return '--';
+        }
+    };
+    Dateformat = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        })
+        /*
+        日期时间格式化处理
+        */
+    ], Dateformat);
+    return Dateformat;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/base/base.ser/global.error.handler.ts":
+/*!*******************************************************!*\
+  !*** ./src/app/base/base.ser/global.error.handler.ts ***!
+  \*******************************************************/
+/*! exports provided: GlobalErrorHandler */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GlobalErrorHandler", function() { return GlobalErrorHandler; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
+/* harmony import */ var app_base_base_ser_message_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/base/base.ser/message.service */ "./src/app/base/base.ser/message.service.ts");
+// import {ErrorHandler, Injectable} from "@angular/core";
+// import {Events} from "@ionic/angular";
+
+// @Injectable({
+//     providedIn: 'root'
+// })
+// export class GlobalErrorHandler implements ErrorHandler {
+//   constructor(private events: Events) {
+//   }
+//   handleError(err: any): void {
+//     if (err.status === 401) {
+//       this.events.publish('userCheck');
+//       alert("接口请求异常，无权限");
+//     }
+//     console.log("请求异常：err.status："+err.status);
+//     // do something with the errorswitch
+//   }
+// }
+
+
+
+
+// import { stat } from 'fs';
+// import { NGXLogger } from 'ngx-logger';
+// import * as StackTrace from 'stacktrace-js';
+/**
+ * 全局异常处理
+ */
+var GlobalErrorHandler = /** @class */ (function () {
+    function GlobalErrorHandler(injector, events, _page, _log) {
+        this.injector = injector;
+        this.events = events;
+        this._page = _page;
+        this._log = _log;
+    }
+    GlobalErrorHandler.prototype.handleError = function (error) {
+        this.events.publish('userCheck');
+        var message = error.message ? error.message : error.toString();
+        var status = error.status ? JSON.stringify(error.status) : error.toString();
+        if (status === 0
+            && error.name === 'HttpErrorResponse'
+            && error.statusText === 'Unknown Error') {
+            this._log.WriteErrorLog(app_base_base_ser_message_service__WEBPACK_IMPORTED_MODULE_4__["MessageService"].ErrorRequestException + "-" + app_base_base_ser_message_service__WEBPACK_IMPORTED_MODULE_4__["MessageService"].ErrorRequestServer + "【status:" + status + " message:" + message + "】");
+        }
+        else if (status === 401) {
+            this.events.publish('userCheck');
+            this._log.WriteErrorLog(app_base_base_ser_message_service__WEBPACK_IMPORTED_MODULE_4__["MessageService"].ErrorRequestException + "-" + app_base_base_ser_message_service__WEBPACK_IMPORTED_MODULE_4__["MessageService"].ErrorNoAuth + "【status:" + status + " message:" + message + "】");
+        }
+        else {
+            this._log.WriteErrorLog("status:" + status + " message:" + message);
+        }
+    };
+    GlobalErrorHandler.ctorParameters = function () { return [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Events"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Log"] }
+    ]; };
+    GlobalErrorHandler = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Events"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Log"]])
+    ], GlobalErrorHandler);
+    return GlobalErrorHandler;
 }());
 
 
@@ -2937,6 +3360,48 @@ var Storage_LoginInfo = /** @class */ (function () {
             return data.mcs_dealername;
         return null;
     };
+    //获取拥有角色名称
+    Storage_LoginInfo.prototype.GetRoleNames = function () {
+        var data = this.GetUserInfo();
+        if (data != null)
+            return data.rolenames;
+        return null;
+    };
+    //获取拥有厅店编码
+    Storage_LoginInfo.prototype.GetDealerCode = function () {
+        var data = this.GetUserInfo();
+        if (data != null)
+            return data.mcs_dealercode;
+        return null;
+    };
+    //验证是否是销售顾问
+    Storage_LoginInfo.prototype.IsSalingManager = function () {
+        var result = false;
+        var data = this.GetUserInfo();
+        if (data != null) {
+            if (data.rolenames.indexOf('系统管理员') != -1) {
+                result = true;
+            }
+            else if (data.rolenames.indexOf('厅店销售机会跟进人员') != -1) {
+                result = true;
+            }
+        }
+        return result;
+    };
+    //验证是否是服务顾问
+    Storage_LoginInfo.prototype.IsServingManager = function () {
+        var result = false;
+        var data = this.GetUserInfo();
+        if (data != null) {
+            if (data.rolenames.indexOf('系统管理员') != -1) {
+                result = true;
+            }
+            else if (data.rolenames.indexOf('维保-服务顾问') != -1) {
+                result = true;
+            }
+        }
+        return result;
+    };
     Storage_LoginInfo = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
@@ -2946,6 +3411,322 @@ var Storage_LoginInfo = /** @class */ (function () {
         */
     ], Storage_LoginInfo);
     return Storage_LoginInfo;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/base/base.ser/message.service.ts":
+/*!**************************************************!*\
+  !*** ./src/app/base/base.ser/message.service.ts ***!
+  \**************************************************/
+/*! exports provided: MessageService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MessageService", function() { return MessageService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var MessageService = /** @class */ (function () {
+    /**
+     * 错误信息定义
+     */
+    function MessageService() {
+    }
+    //------------标题信息-----------------
+    /**消息提醒 */
+    MessageService.AlterTitleMessage = '消息提醒';
+    //------------错误提示-----------------
+    /**请求异常*/
+    MessageService.ErrorRequestException = '请求异常';
+    /**请求超时*/
+    MessageService.ErrorRequestTimeout = '请求超时';
+    /**服务器响应失败500 */
+    MessageService.ErrorRequestServer = "后台服务遇到了问题，目前正在修复中，请稍后访问，给您带来不便,深表歉意。";
+    /**权限不够 */
+    MessageService.ErrorNoAuth = "权限不够，请重新登录。";
+    //------------信息提醒-----------------
+    /**操作成功*/
+    MessageService.InfoOprationSucceed = '操作成功';
+    /**操作成功*/
+    MessageService.InfoOprationFailed = '操作失败';
+    /**保存失败！*/
+    MessageService.InfoSaveFailed = '保存失败！';
+    /**登录成功*/
+    MessageService.InfoLoginSuccess = '登录成功';
+    /**登录失败*/
+    MessageService.InfoLoginFailed = '登录失败';
+    /**退出系统成功*/
+    MessageService.InfoLoginOut = '退出系统成功';
+    MessageService.InfoLoginOutAlter = "退出后不会删除任何历史数据";
+    //------------验证信息---------------------
+    /**手机号不能为空*/
+    MessageService.ValidPhoneIsNull = '手机号不能为空';
+    /**请输入主题*/
+    MessageService.ValidTitleIsNull = '请输入主题';
+    /**请选择技术系统*/
+    MessageService.ValidTechsystemIsNull = '请选择技术系统';
+    /**请选择故障类别代码*/
+    MessageService.ValidMalfunctiontypeIsNull = '请选择故障类别代码';
+    //-------------页面标题----------------
+    /**编辑技术支持申请单*/
+    MessageService.PageTitleEditTech = '编辑技术支持申请单';
+    /**新增技术支持申请单*/
+    MessageService.PageTitleAddTech = '新增技术支持申请单';
+    /**暂时没有数据 */
+    MessageService.PageNoData = '暂时没有数据';
+    /**没有更多数据了 */
+    MessageService.PageNoMore = '没有更多数据了';
+    //订单状态不允许修改！
+    MessageService.PageCannotEdit = '订单状态不允许修改！';
+    MessageService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        })
+        /**
+         * 错误信息定义
+         */
+    ], MessageService);
+    return MessageService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/saleing/saleing.ser/components/select-carproduct/select-carproduct.component.ts":
+/*!*************************************************************************************************!*\
+  !*** ./src/app/saleing/saleing.ser/components/select-carproduct/select-carproduct.component.ts ***!
+  \*************************************************************************************************/
+/*! exports provided: SelectCarproductComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectCarproductComponent", function() { return SelectCarproductComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
+
+
+
+
+var SelectCarproductComponent = /** @class */ (function () {
+    function SelectCarproductComponent(_http, _page, _valid, _modalCtrl, _navCtr) {
+        this._http = _http;
+        this._page = _page;
+        this._valid = _valid;
+        this._modalCtrl = _modalCtrl;
+        this._navCtr = _navCtr;
+        this.mod = {
+            apiUrl: '/api/Store/GetProductList',
+            //apiUrl: '/assets/json/carproduct.json',
+            data: [],
+            searchData: {
+                pageindex: 1,
+                search: ""
+            },
+        };
+        this.shareData = {
+            productMap: {},
+        };
+    }
+    SelectCarproductComponent.prototype.ngOnInit = function () {
+        this.listOnBind();
+    };
+    SelectCarproductComponent.prototype.itemClick = function (item) {
+        this._modalCtrl.dismiss({
+            product: item
+        });
+    };
+    SelectCarproductComponent.prototype.dismissModal = function () {
+        this._modalCtrl.dismiss({});
+    };
+    SelectCarproductComponent.prototype.listOnBind = function () {
+        var _this = this;
+        if (this.mod.searchData.pageindex == 1)
+            this._page.loadingShow();
+        this._http.get(this.mod.apiUrl, {}, function (res) {
+            var that = _this;
+            if (!_this._valid.isNull(res.ProductList) !== null && res.ProductList.length > 0) {
+                //组装产品地图
+                for (var key in res.ProductList) {
+                    var asseProductMap = function () {
+                        var productInfo = res.ProductList[key]["ProductInfo"];
+                        var productKey = productInfo["mcs_tc_productid"];
+                        that.shareData.productMap[productKey] = res.ProductList[key];
+                    }();
+                }
+                for (var key in res.ProductList) {
+                    if (res.ProductList[key]["ProductInfo"]["mcs_type"] === 1 && res.ProductList[key]["ProductPriceArray"].length > 0) {
+                        //加入商品关系的产品信息
+                        var productRelatedArray = res.ProductList[key]["ProductRelatedArray"];
+                        for (var relKey in productRelatedArray) {
+                            var productKey = productRelatedArray[relKey]["a.mcs_product"];
+                            if (!_this._valid.isNull(_this.shareData.productMap[productKey])) {
+                                productRelatedArray[relKey]["Product"] = _this.shareData.productMap[productKey];
+                            }
+                        }
+                        _this.mod.data.push(res.ProductList[key]);
+                    }
+                }
+            }
+            else {
+            }
+            _this._page.loadingHide();
+        }, function (err) {
+            _this._page.alert("消息提示", "数据加载异常");
+            if (_this.mod.searchData.pageindex == 1)
+                _this._page.loadingHide();
+        });
+    };
+    SelectCarproductComponent.ctorParameters = function () { return [
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Valid"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"] }
+    ]; };
+    SelectCarproductComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-select-carproduct',
+            template: __webpack_require__(/*! raw-loader!./select-carproduct.component.html */ "./node_modules/raw-loader/index.js!./src/app/saleing/saleing.ser/components/select-carproduct/select-carproduct.component.html")
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Valid"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"]])
+    ], SelectCarproductComponent);
+    return SelectCarproductComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/saleing/saleing.ser/components/select-dealer/select-dealer.component.ts":
+/*!*****************************************************************************************!*\
+  !*** ./src/app/saleing/saleing.ser/components/select-dealer/select-dealer.component.ts ***!
+  \*****************************************************************************************/
+/*! exports provided: SelectDealerComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectDealerComponent", function() { return SelectDealerComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
+
+
+
+
+var SelectDealerComponent = /** @class */ (function () {
+    function SelectDealerComponent(_http, _page, _valid, _modalCtrl, _navCtr) {
+        this._http = _http;
+        this._page = _page;
+        this._valid = _valid;
+        this._modalCtrl = _modalCtrl;
+        this._navCtr = _navCtr;
+        this.mod = {
+            apiUrl: '/Api/CUser/GetDealerList',
+            //apiUrl: '/assets/json/user.json',
+            data: [],
+            searchData: {
+                pageindex: 1,
+                search: ""
+            },
+        };
+    }
+    SelectDealerComponent.prototype.ngOnInit = function () {
+        this.listOnBind();
+    };
+    SelectDealerComponent.prototype.itemClick = function (item) {
+        this._modalCtrl.dismiss({
+            dealer: item
+        });
+    };
+    SelectDealerComponent.prototype.dismissModal = function () {
+        this._modalCtrl.dismiss({});
+    };
+    //下拉刷新
+    SelectDealerComponent.prototype.doInfinite = function (event) {
+        this.mod.searchData.pageindex = this.mod.searchData.pageindex + 1;
+        this.listOnBind();
+    };
+    SelectDealerComponent.prototype.searchOnKeyup = function (event) {
+        var keyCode = event ? event.keyCode : "";
+        if (keyCode == 13) {
+            this.mod.data = [];
+            this.mod.searchData.pageindex = 1;
+            this.ionInfiniteScroll.disabled = false;
+            this.ionContent.scrollToTop(200);
+            this.listOnBind();
+        }
+    };
+    SelectDealerComponent.prototype.listOnBind = function () {
+        var _this = this;
+        if (this.mod.searchData.pageindex == 1)
+            this._page.loadingShow();
+        this._http.get(this.mod.apiUrl, {
+            params: {
+                pageindex: this.mod.searchData.pageindex,
+                search: this.mod.searchData.search
+            }
+        }, function (res) {
+            if (!_this._valid.isNull(res.Results) !== null && res.Results.length > 0) {
+                for (var key in res.Results) {
+                    var obj = res.Results[key];
+                    _this.mod.data.push(res.Results[key]);
+                }
+            }
+            else {
+                _this.ionInfiniteScroll.disabled = true;
+            }
+            if (_this.mod.searchData.pageindex == 1)
+                _this._page.loadingHide();
+            _this.ionInfiniteScroll.complete();
+        }, function (err) {
+            _this._page.alert("消息提示", "数据加载异常");
+            if (_this.mod.searchData.pageindex == 1)
+                _this._page.loadingHide();
+            _this.ionInfiniteScroll.complete();
+        });
+    };
+    SelectDealerComponent.ctorParameters = function () { return [
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Valid"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"] }
+    ]; };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonContent"], null),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonContent"])
+    ], SelectDealerComponent.prototype, "ionContent", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonInfiniteScroll"], null),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonInfiniteScroll"])
+    ], SelectDealerComponent.prototype, "ionInfiniteScroll", void 0);
+    SelectDealerComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-select-dealer',
+            template: __webpack_require__(/*! raw-loader!./select-dealer.component.html */ "./node_modules/raw-loader/index.js!./src/app/saleing/saleing.ser/components/select-dealer/select-dealer.component.html")
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Valid"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"]])
+    ], SelectDealerComponent);
+    return SelectDealerComponent;
 }());
 
 
@@ -3096,7 +3877,7 @@ var SelectReceptioncommissionerComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".titledate {\n  background-color: #d0d0d04d;\n  border-radius: 6px;\n  margin-bottom: 8px;\n  width: 94%;\n  left: 3%; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2FsZWluZy9zYWxlaW5nLnNlci9jb21wb25lbnRzL3NlbGVjdC1yZXNlcnZhdGlvbmNvbmZpZ3VyYXRpb24vRTpcXEFwcFByb2plY3RcXERDRU1cXERDRU0uTUFwcC9zcmNcXGFwcFxcc2FsZWluZ1xcc2FsZWluZy5zZXJcXGNvbXBvbmVudHNcXHNlbGVjdC1yZXNlcnZhdGlvbmNvbmZpZ3VyYXRpb25cXHNlbGVjdC1yZXNlcnZhdGlvbmNvbmZpZ3VyYXRpb24uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSwyQkFBMkI7RUFDM0Isa0JBQWtCO0VBQ2xCLGtCQUFrQjtFQUNsQixVQUFVO0VBQ1YsUUFBUSxFQUFBIiwiZmlsZSI6InNyYy9hcHAvc2FsZWluZy9zYWxlaW5nLnNlci9jb21wb25lbnRzL3NlbGVjdC1yZXNlcnZhdGlvbmNvbmZpZ3VyYXRpb24vc2VsZWN0LXJlc2VydmF0aW9uY29uZmlndXJhdGlvbi5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi50aXRsZWRhdGV7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZDBkMGQwNGQ7XHJcbiAgICBib3JkZXItcmFkaXVzOiA2cHg7XHJcbiAgICBtYXJnaW4tYm90dG9tOiA4cHg7XHJcbiAgICB3aWR0aDogOTQlO1xyXG4gICAgbGVmdDogMyU7XHJcbn0iXX0= */"
+module.exports = ".titledate {\n  background-color: #d0d0d04d;\n  border-radius: 6px;\n  margin-bottom: 8px;\n  width: 94%;\n  left: 3%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Wb2x1bWVzL0YvRENFTS9EQ0VNLk1BcHAvc3JjL2FwcC9zYWxlaW5nL3NhbGVpbmcuc2VyL2NvbXBvbmVudHMvc2VsZWN0LXJlc2VydmF0aW9uY29uZmlndXJhdGlvbi9zZWxlY3QtcmVzZXJ2YXRpb25jb25maWd1cmF0aW9uLmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9zYWxlaW5nL3NhbGVpbmcuc2VyL2NvbXBvbmVudHMvc2VsZWN0LXJlc2VydmF0aW9uY29uZmlndXJhdGlvbi9zZWxlY3QtcmVzZXJ2YXRpb25jb25maWd1cmF0aW9uLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksMkJBQUE7RUFDQSxrQkFBQTtFQUNBLGtCQUFBO0VBQ0EsVUFBQTtFQUNBLFFBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL3NhbGVpbmcvc2FsZWluZy5zZXIvY29tcG9uZW50cy9zZWxlY3QtcmVzZXJ2YXRpb25jb25maWd1cmF0aW9uL3NlbGVjdC1yZXNlcnZhdGlvbmNvbmZpZ3VyYXRpb24uY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIudGl0bGVkYXRle1xuICAgIGJhY2tncm91bmQtY29sb3I6ICNkMGQwZDA0ZDtcbiAgICBib3JkZXItcmFkaXVzOiA2cHg7XG4gICAgbWFyZ2luLWJvdHRvbTogOHB4O1xuICAgIHdpZHRoOiA5NCU7XG4gICAgbGVmdDogMyU7XG59IiwiLnRpdGxlZGF0ZSB7XG4gIGJhY2tncm91bmQtY29sb3I6ICNkMGQwZDA0ZDtcbiAgYm9yZGVyLXJhZGl1czogNnB4O1xuICBtYXJnaW4tYm90dG9tOiA4cHg7XG4gIHdpZHRoOiA5NCU7XG4gIGxlZnQ6IDMlO1xufSJdfQ== */"
 
 /***/ }),
 
@@ -3372,6 +4153,136 @@ var SelectSysareaComponent = /** @class */ (function () {
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavParams"]])
     ], SelectSysareaComponent);
     return SelectSysareaComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/saleing/saleing.ser/components/select-user/select-user.component.ts":
+/*!*************************************************************************************!*\
+  !*** ./src/app/saleing/saleing.ser/components/select-user/select-user.component.ts ***!
+  \*************************************************************************************/
+/*! exports provided: SelectUserComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectUserComponent", function() { return SelectUserComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
+
+
+
+
+var SelectUserComponent = /** @class */ (function () {
+    function SelectUserComponent(_http, _page, _valid, _modalCtrl, _navCtr) {
+        this._http = _http;
+        this._page = _page;
+        this._valid = _valid;
+        this._modalCtrl = _modalCtrl;
+        this._navCtr = _navCtr;
+        this.mod = {
+            apiUrl: '/Api/CUser/GetUserList',
+            //apiUrl: '/assets/json/user.json',
+            data: [],
+            searchData: {
+                pageindex: 1,
+                search: ""
+            },
+        };
+    }
+    SelectUserComponent.prototype.ngOnInit = function () {
+        this.listOnBind();
+    };
+    SelectUserComponent.prototype.itemClick = function (item) {
+        this._modalCtrl.dismiss({
+            user: item
+        });
+    };
+    SelectUserComponent.prototype.dismissModal = function () {
+        this._modalCtrl.dismiss({});
+    };
+    //下拉刷新
+    SelectUserComponent.prototype.doInfinite = function (event) {
+        this.mod.searchData.pageindex = this.mod.searchData.pageindex + 1;
+        this.listOnBind();
+    };
+    SelectUserComponent.prototype.searchOnKeyup = function (event) {
+        var keyCode = event ? event.keyCode : "";
+        if (keyCode == 13) {
+            this.mod.data = [];
+            this.mod.searchData.pageindex = 1;
+            this.ionInfiniteScroll.disabled = false;
+            this.ionContent.scrollToTop(200);
+            this.listOnBind();
+        }
+    };
+    SelectUserComponent.prototype.listOnBind = function () {
+        var _this = this;
+        if (this.mod.searchData.pageindex == 1)
+            this._page.loadingShow();
+        this._http.get(this.mod.apiUrl, {
+            params: {
+                pageindex: this.mod.searchData.pageindex,
+                search: this.mod.searchData.search
+            }
+        }, function (res) {
+            if (!_this._valid.isNull(res.Results) !== null && res.Results.length > 0) {
+                for (var key in res.Results) {
+                    var obj = res.Results[key];
+                    obj["gendercolor"] = "medium";
+                    if (obj["mcs_gender"] === 1) {
+                        obj["gendercolor"] = "primary";
+                    }
+                    else if (obj["mcs_gender"] === 2) {
+                        obj["gendercolor"] = "danger";
+                    }
+                    _this.mod.data.push(res.Results[key]);
+                }
+            }
+            else {
+                _this.ionInfiniteScroll.disabled = true;
+            }
+            if (_this.mod.searchData.pageindex == 1)
+                _this._page.loadingHide();
+            _this.ionInfiniteScroll.complete();
+        }, function (err) {
+            _this._page.alert("消息提示", "数据加载异常");
+            if (_this.mod.searchData.pageindex == 1)
+                _this._page.loadingHide();
+            _this.ionInfiniteScroll.complete();
+        });
+    };
+    SelectUserComponent.ctorParameters = function () { return [
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Valid"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"] }
+    ]; };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonContent"], null),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonContent"])
+    ], SelectUserComponent.prototype, "ionContent", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonInfiniteScroll"], null),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["IonInfiniteScroll"])
+    ], SelectUserComponent.prototype, "ionInfiniteScroll", void 0);
+    SelectUserComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-select-user',
+            template: __webpack_require__(/*! raw-loader!./select-user.component.html */ "./node_modules/raw-loader/index.js!./src/app/saleing/saleing.ser/components/select-user/select-user.component.html")
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Valid"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"]])
+    ], SelectUserComponent);
+    return SelectUserComponent;
 }());
 
 
@@ -3767,6 +4678,123 @@ var ScSelectComponent = /** @class */ (function () {
             app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"]])
     ], ScSelectComponent);
     return ScSelectComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/serving/serving.ser/components/select-account/select-account.component.scss":
+/*!*********************************************************************************************!*\
+  !*** ./src/app/serving/serving.ser/components/select-account/select-account.component.scss ***!
+  \*********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NlcnZpbmcvc2VydmluZy5zZXIvY29tcG9uZW50cy9zZWxlY3QtYWNjb3VudC9zZWxlY3QtYWNjb3VudC5jb21wb25lbnQuc2NzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/serving/serving.ser/components/select-account/select-account.component.ts":
+/*!*******************************************************************************************!*\
+  !*** ./src/app/serving/serving.ser/components/select-account/select-account.component.ts ***!
+  \*******************************************************************************************/
+/*! exports provided: SelectAccountComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectAccountComponent", function() { return SelectAccountComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
+
+
+
+
+var SelectAccountComponent = /** @class */ (function () {
+    function SelectAccountComponent(modalCtrl, _http, _page) {
+        this.modalCtrl = modalCtrl;
+        this._http = _http;
+        this._page = _page;
+        this.model = {
+            apiUrl: '/api/account/GetList',
+            data: [],
+            params: {
+                PageIndex: 1,
+                PageSize: 10,
+                SearchKey: ""
+            }
+        };
+    }
+    SelectAccountComponent.prototype.ngOnInit = function () {
+        this.listOnBind();
+    };
+    SelectAccountComponent.prototype.searchOnKeyup = function (event) {
+        var keyCode = event ? event.keyCode : "";
+        if (keyCode == 13) {
+            this.listOnBind();
+        }
+    };
+    SelectAccountComponent.prototype.listOnBind = function () {
+        var _this = this;
+        this._page.loadingShow();
+        this.model.data = [];
+        this._http.postForToaken(this.model.apiUrl, this.model.params, function (res) {
+            console.log(res);
+            if (res.Results !== null) {
+                //debugger;
+                for (var key in res.Results) {
+                    var obj = {};
+                    obj["accountid"] = res.Results[key]["Attributes"]["accountid"];
+                    obj["accountnumber"] = res.Results[key]["Attributes"]["accountnumber"];
+                    obj["name"] = res.Results[key]["Attributes"]["name"];
+                    obj["mcs_mobilephone"] = res.Results[key]["Attributes"]["mcs_mobilephone"];
+                    _this.model.data.push(obj);
+                }
+                _this._page.loadingHide();
+            }
+            else {
+                _this._page.alert("消息提示", "数据加载异常");
+                _this._page.loadingHide();
+            }
+        }, function (err) {
+            _this._page.alert("消息提示", "数据加载异常");
+            _this._page.loadingHide();
+        });
+    };
+    SelectAccountComponent.prototype.dismissModal = function () {
+        this.modalCtrl.dismiss({
+            'dismissed': true
+        });
+    };
+    //保存所选项
+    SelectAccountComponent.prototype.itemClick = function (item) {
+        //debugger;
+        this.modalCtrl.dismiss({
+            'accountid': item.accountid,
+            'accountnumber': item.accountnumber,
+            'username': item.name,
+            'mcs_mobilephone': item.mcs_mobilephone
+        });
+    };
+    SelectAccountComponent.ctorParameters = function () { return [
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"] }
+    ]; };
+    SelectAccountComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-select-account',
+            template: __webpack_require__(/*! raw-loader!./select-account.component.html */ "./node_modules/raw-loader/index.js!./src/app/serving/serving.ser/components/select-account/select-account.component.html"),
+            styles: [__webpack_require__(/*! ./select-account.component.scss */ "./src/app/serving/serving.ser/components/select-account/select-account.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"]])
+    ], SelectAccountComponent);
+    return SelectAccountComponent;
 }());
 
 
@@ -4224,7 +5252,7 @@ var SelectCustomerEditComponent = /** @class */ (function () {
             });
         });
     };
-    SelectCustomerEditComponent.prototype.ionViewWillEnter = function () {
+    SelectCustomerEditComponent.prototype.ionViewDidEnter = function () {
         console.log(this.actionCode);
         this.shareData.actioncode = Number(this.actionCode);
         if (this.shareData.actioncode === 2) {
@@ -5514,6 +6542,290 @@ var SelectRepairlocationComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/serving/serving.ser/components/select-surveyorder/select-surveyorder.component.scss":
+/*!*****************************************************************************************************!*\
+  !*** ./src/app/serving/serving.ser/components/select-surveyorder/select-surveyorder.component.scss ***!
+  \*****************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NlcnZpbmcvc2VydmluZy5zZXIvY29tcG9uZW50cy9zZWxlY3Qtc3VydmV5b3JkZXIvc2VsZWN0LXN1cnZleW9yZGVyLmNvbXBvbmVudC5zY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/serving/serving.ser/components/select-surveyorder/select-surveyorder.component.ts":
+/*!***************************************************************************************************!*\
+  !*** ./src/app/serving/serving.ser/components/select-surveyorder/select-surveyorder.component.ts ***!
+  \***************************************************************************************************/
+/*! exports provided: SelectSurveyorderComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectSurveyorderComponent", function() { return SelectSurveyorderComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
+
+
+
+
+var SelectSurveyorderComponent = /** @class */ (function () {
+    function SelectSurveyorderComponent(modalCtrl, _http, _page) {
+        this.modalCtrl = modalCtrl;
+        this._http = _http;
+        this._page = _page;
+        this.model = {
+            apiUrl: '/api/Installation/GetSurveyorderListAll',
+            data: [],
+            params: {
+                PageIndex: 1,
+                PageSize: 10,
+                SearchKey: "",
+                mcs_surveystatus: 19 //19
+            }
+        };
+    }
+    SelectSurveyorderComponent.prototype.ngOnInit = function () {
+        this.listOnBind();
+    };
+    SelectSurveyorderComponent.prototype.searchOnKeyup = function (event) {
+        var keyCode = event ? event.keyCode : "";
+        if (keyCode == 13) {
+            this.listOnBind();
+        }
+    };
+    SelectSurveyorderComponent.prototype.listOnBind = function () {
+        var _this = this;
+        this._page.loadingShow();
+        this.model.data = [];
+        this._http.postForToaken(this.model.apiUrl, this.model.params, function (res) {
+            console.log(res);
+            if (res.Results !== null) {
+                //debugger;
+                for (var key in res.Results) {
+                    var obj = {};
+                    obj["mcs_surveyorderid"] = res.Results[key]["Attributes"]["mcs_surveyorderid"];
+                    obj["mcs_name"] = res.Results[key]["Attributes"]["mcs_name"];
+                    obj["mcs_username"] = res.Results[key]["Attributes"]["mcs_username"];
+                    obj["mcs_userphone"] = res.Results[key]["Attributes"]["mcs_userphone"];
+                    obj["mcs_email"] = res.Results[key]["Attributes"]["mcs_email"];
+                    obj["mcs_carmodelid"] = res.Results[key]["Attributes"]["_mcs_carmodelid_value"];
+                    obj["mcs_carmodelname"] = res.Results[key]["Attributes"]["a.mcs_name"];
+                    obj["mcs_dealer"] = res.Results[key]["Attributes"]["_mcs_dealer_value"];
+                    obj["mcs_dealername"] = res.Results[key]["Attributes"]["b.mcs_name"];
+                    obj["mcs_salesconsultant"] = res.Results[key]["Attributes"]["_mcs_salesconsultant_value"];
+                    obj["mcs_salesconsultantname"] = res.Results[key]["Attributes"]["c.fullname"];
+                    obj["mcs_province"] = res.Results[key]["Attributes"]["_mcs_province_value"];
+                    obj["mcs_provincename"] = res.Results[key]["Attributes"]["d.mcs_name"];
+                    obj["mcs_city"] = res.Results[key]["Attributes"]["_mcs_city_value"];
+                    obj["mcs_cityname"] = res.Results[key]["Attributes"]["e.mcs_name"];
+                    obj["mcs_area"] = res.Results[key]["Attributes"]["_mcs_area_value"];
+                    obj["mcs_areaname"] = res.Results[key]["Attributes"]["f.mcs_name"];
+                    obj["mcs_installationaddress"] = res.Results[key]["Attributes"]["mcs_installationaddress"];
+                    obj["mcs_detailaddress"] = res.Results[key]["Attributes"]["mcs_detailaddress"];
+                    obj["mcs_price"] = res.Results[key]["Attributes"]["mcs_price"];
+                    obj["mcs_communityname"] = res.Results[key]["Attributes"]["mcs_communityname"];
+                    obj["mcs_vin"] = res.Results[key]["Attributes"]["mcs_vin"];
+                    obj["mcs_surveyprovider"] = res.Results[key]["Attributes"]["_mcs_surveyprovider_value"];
+                    obj["mcs_surveyprovidername"] = res.Results[key]["Attributes"]["g.mcs_name"];
+                    obj["mcs_contact"] = res.Results[key]["Attributes"]["mcs_contact"];
+                    obj["mcs_surveyproviderphone"] = res.Results[key]["Attributes"]["mcs_surveyproviderphone"];
+                    obj["mcs_appointmentdate"] = res.Results[key]["Attributes"]["mcs_appointmentdate"];
+                    obj["mcs_surveyengineer"] = res.Results[key]["Attributes"]["_mcs_surveyengineer_value"];
+                    obj["mcs_surveyengineername"] = res.Results[key]["Attributes"]["h.mcs_name"];
+                    obj["mcs_surveyengineerphone"] = res.Results[key]["Attributes"]["mcs_surveyengineerphone"];
+                    _this.model.data.push(obj);
+                }
+                _this._page.loadingHide();
+            }
+            else {
+                _this._page.alert("消息提示", "数据加载异常");
+                _this._page.loadingHide();
+            }
+        }, function (err) {
+            _this._page.alert("消息提示", "数据加载异常");
+            _this._page.loadingHide();
+        });
+    };
+    SelectSurveyorderComponent.prototype.dismissModal = function () {
+        this.modalCtrl.dismiss({
+            'dismissed': true
+        });
+    };
+    //保存所选项
+    SelectSurveyorderComponent.prototype.itemClick = function (item) {
+        //debugger;
+        this.modalCtrl.dismiss({
+            'mcs_surveyorderid': item.mcs_surveyorderid,
+            'mcs_name': item.mcs_name,
+            'mcs_username': item.mcs_username,
+            'mcs_userphone': item.mcs_userphone,
+            'mcs_email': item.mcs_email,
+            'mcs_carmodelid': item.mcs_carmodelid,
+            'mcs_carmodelname': item.mcs_carmodelname,
+            'mcs_dealer': item.mcs_dealer,
+            'mcs_dealername': item.mcs_dealername,
+            'mcs_salesconsultant': item.mcs_salesconsultant,
+            'mcs_salesconsultantname': item.mcs_salesconsultantname,
+            'mcs_province': item.mcs_province,
+            'mcs_provincename': item.mcs_provincename,
+            'mcs_city': item.mcs_city,
+            'mcs_cityname': item.mcs_cityname,
+            'mcs_area': item.mcs_area,
+            'mcs_areaname': item.mcs_areaname,
+            'mcs_installationaddress': item.mcs_installationaddress,
+            'mcs_detailaddress': item.mcs_detailaddress,
+            'mcs_price': item.mcs_price,
+            'mcs_communityname': item.mcs_communityname,
+            'mcs_vin': item.mcs_vin,
+            'mcs_surveyprovider': item.mcs_surveyprovider,
+            'mcs_surveyprovidername': item.mcs_surveyprovidername,
+            'mcs_contact': item.mcs_contact,
+            'mcs_surveyproviderphone': item.mcs_surveyproviderphone,
+            'mcs_appointmentdate': item.mcs_appointmentdate,
+            'mcs_surveyengineer': item.mcs_surveyengineer,
+            'mcs_surveyengineername': item.mcs_surveyengineername,
+            'mcs_surveyengineerphone': item.mcs_surveyengineerphone
+        });
+    };
+    SelectSurveyorderComponent.ctorParameters = function () { return [
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"] }
+    ]; };
+    SelectSurveyorderComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-select-surveyorder',
+            template: __webpack_require__(/*! raw-loader!./select-surveyorder.component.html */ "./node_modules/raw-loader/index.js!./src/app/serving/serving.ser/components/select-surveyorder/select-surveyorder.component.html"),
+            styles: [__webpack_require__(/*! ./select-surveyorder.component.scss */ "./src/app/serving/serving.ser/components/select-surveyorder/select-surveyorder.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"]])
+    ], SelectSurveyorderComponent);
+    return SelectSurveyorderComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/serving/serving.ser/components/select-vehorder/select-vehorder.component.scss":
+/*!***********************************************************************************************!*\
+  !*** ./src/app/serving/serving.ser/components/select-vehorder/select-vehorder.component.scss ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NlcnZpbmcvc2VydmluZy5zZXIvY29tcG9uZW50cy9zZWxlY3QtdmVob3JkZXIvc2VsZWN0LXZlaG9yZGVyLmNvbXBvbmVudC5zY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/serving/serving.ser/components/select-vehorder/select-vehorder.component.ts":
+/*!*********************************************************************************************!*\
+  !*** ./src/app/serving/serving.ser/components/select-vehorder/select-vehorder.component.ts ***!
+  \*********************************************************************************************/
+/*! exports provided: SelectVehorderComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SelectVehorderComponent", function() { return SelectVehorderComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/base/base.ser/Dcem.core */ "./src/app/base/base.ser/Dcem.core.ts");
+
+
+
+
+var SelectVehorderComponent = /** @class */ (function () {
+    function SelectVehorderComponent(modalCtrl, _http, _page) {
+        this.modalCtrl = modalCtrl;
+        this._http = _http;
+        this._page = _page;
+        this.model = {
+            apiUrl: '/api/vehorder/GetVehorderList',
+            data: [],
+            params: {
+                PageIndex: 1,
+                PageSize: 10,
+                SearchKey: ""
+            }
+        };
+    }
+    SelectVehorderComponent.prototype.ngOnInit = function () {
+        this.listOnBind();
+    };
+    SelectVehorderComponent.prototype.searchOnKeyup = function (event) {
+        var keyCode = event ? event.keyCode : "";
+        if (keyCode == 13) {
+            this.listOnBind();
+        }
+    };
+    SelectVehorderComponent.prototype.listOnBind = function () {
+        var _this = this;
+        this._page.loadingShow();
+        this.model.data = [];
+        this._http.postForToaken(this.model.apiUrl, this.model.params, function (res) {
+            console.log(res);
+            if (res.Results !== null) {
+                // debugger;
+                for (var key in res.Results) {
+                    var obj = {};
+                    obj["mcs_vehorderid"] = res.Results[key]["Attributes"]["mcs_vehorderid"];
+                    obj["mcs_code"] = res.Results[key]["Attributes"]["mcs_code"];
+                    obj["createdon"] = res.Results[key]["Attributes"]["createdon"];
+                    _this.model.data.push(obj);
+                }
+                _this._page.loadingHide();
+            }
+            else {
+                _this._page.alert("消息提示", "数据加载异常");
+                _this._page.loadingHide();
+            }
+        }, function (err) {
+            _this._page.alert("消息提示", "数据加载异常");
+            _this._page.loadingHide();
+        });
+    };
+    SelectVehorderComponent.prototype.dismissModal = function () {
+        this.modalCtrl.dismiss({
+            'dismissed': true
+        });
+    };
+    //保存所选项
+    SelectVehorderComponent.prototype.itemClick = function (item) {
+        //debugger;
+        this.modalCtrl.dismiss({
+            'mcs_vehorderid': item.mcs_vehorderid,
+            'mcs_code': item.mcs_code
+        });
+    };
+    SelectVehorderComponent.ctorParameters = function () { return [
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"] },
+        { type: app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"] }
+    ]; };
+    SelectVehorderComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-select-vehorder',
+            template: __webpack_require__(/*! raw-loader!./select-vehorder.component.html */ "./node_modules/raw-loader/index.js!./src/app/serving/serving.ser/components/select-vehorder/select-vehorder.component.html"),
+            styles: [__webpack_require__(/*! ./select-vehorder.component.scss */ "./src/app/serving/serving.ser/components/select-vehorder/select-vehorder.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Http"],
+            app_base_base_ser_Dcem_core__WEBPACK_IMPORTED_MODULE_3__["DCore_Page"]])
+    ], SelectVehorderComponent);
+    return SelectVehorderComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/environments/environment.ts":
 /*!*****************************************!*\
   !*** ./src/environments/environment.ts ***!
@@ -5575,7 +6887,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\AppProject\DCEM\DCEM.MApp\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! /Volumes/F/DCEM/DCEM.MApp/src/main.ts */"./src/main.ts");
 
 
 /***/ })

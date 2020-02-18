@@ -19,7 +19,7 @@
   </div>
 </ion-content>
 
-<ion-footer *ngIf="model.activityEntity.status==1">
+<ion-footer *ngIf="model.activityEntity.status=='1'">
   <ion-toolbar class="dm-footer">
     <ion-button id="btn_signup" [routerLink]="['/community/activitydetail']"
        [queryParams]="{id:model.activityEntity.Id}" expand="block" shape="round">马上报名</ion-button>

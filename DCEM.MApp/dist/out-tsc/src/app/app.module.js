@@ -36,6 +36,7 @@ import { SelectFileEditComponent } from 'app/serving/serving.ser/components/sele
 import { SelectAccountComponent } from 'app/serving/serving.ser/components/select-account/select-account.component';
 import { SelectSurveyorderComponent } from "app/serving/serving.ser/components/select-surveyorder/select-surveyorder.component";
 import { SelectUserComponent } from 'app/saleing/saleing.ser/components/select-user/select-user.component';
+import { SelectDealerComponent } from 'app/saleing/saleing.ser/components/select-dealer/select-dealer.component';
 import { SelectCarproductComponent } from 'app/saleing/saleing.ser/components/select-carproduct/select-carproduct.component';
 import { DragrouteComponent } from 'app/base/base.ser/components/map/dragroute/dragroute.component';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
@@ -43,6 +44,7 @@ import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { SelectVehorderComponent } from "app/serving/serving.ser/components/select-vehorder/select-vehorder.component";
 let AppModule = class AppModule {
 };
 AppModule = tslib_1.__decorate([
@@ -75,6 +77,8 @@ AppModule = tslib_1.__decorate([
             SelectSurveyorderComponent,
             SelectUserComponent,
             SelectCarproductComponent,
+            SelectDealerComponent,
+            SelectVehorderComponent //选择整车订单（大订）
         ],
         entryComponents: [
             ScSelectComponent,
@@ -103,6 +107,8 @@ AppModule = tslib_1.__decorate([
             SelectSurveyorderComponent,
             SelectUserComponent,
             SelectCarproductComponent,
+            SelectDealerComponent,
+            SelectVehorderComponent
         ],
         imports: [BrowserModule,
             IonicModule.forRoot({ mode: 'ios' }),

@@ -38,6 +38,11 @@ export class DCore_Config {
         this.serverUrl = this._window.storageGet("apiDomainUrl");
         return this.serverUrl;
     }
+    getOcrUrl(){
+
+        //return "https://subcrmuatapi.sokon.com/ocr/";
+        return "http://106.14.121.65:8082/ocr/";
+    }
 }
 
 @Injectable({
@@ -110,6 +115,17 @@ export class DCore_Http {
     post(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
         this._httpClient.post(
             this._config.getDomain() + url, params).subscribe(
+                (res: any) => {
+                    rescallback && rescallback(res);
+                },
+                (err: any) => {
+                    errcallback && errcallback(err);
+                });
+    }
+    //post Ocr请求
+    postOcr(url: string, params: any, rescallback?: (res: any) => void, errcallback?: (err: any) => void): void {
+        this._httpClient.post(
+            this._config.getOcrUrl() + url, params).subscribe(
                 (res: any) => {
                     rescallback && rescallback(res);
                 },
@@ -248,6 +264,34 @@ export class DCore_Page {
             header,
             message,
             buttons: [
+                {
+                    text: '确定',
+                    handler: () => {
+                        if (isFunction(callback)) {
+                            callback();
+                        }
+                    }
+                }
+            ]
+        });
+        await alert.then(a => {
+            a.present();
+        });
+    }
+    //弹出提示
+    async alertCancel(header: any, message: any, callback: any = null,cancelCallBack:any=null) {
+        const alert = this.alertCtr.create({
+            header,
+            message,
+            buttons: [
+                {
+                    text: '取消',
+                    handler: () => {
+                        if (isFunction(cancelCallBack)) {
+                            cancelCallBack();
+                        }
+                    }
+                },
                 {
                     text: '确定',
                     handler: () => {

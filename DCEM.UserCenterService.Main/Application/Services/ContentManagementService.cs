@@ -138,7 +138,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
         {
             var crmRequestHelper = new CrmRequestHelper();
             XDocument fetchXdoc = null;
-            fetchXdoc = await _configRepository.GetConfigFetchXml("CEO_Key_FilePreviewUrl");
+            fetchXdoc = await _configRepository.GetConfigFetchXml("DCEM_APP_FilePreviewURL");
             var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_cepconfig", fetchXdoc);
             if (entities != null && entities.Results != null && entities.Results.Count > 0)
             {

@@ -16,7 +16,7 @@
           <i *ngIf="notice.mcs_readstatus==0" class="tip"></i>
           <ion-label>{{notice.mcs_name}}</ion-label>
         </ion-item> -->
-        <ion-item *ngIf="notice.mcs_type==2" [routerLink]="['/message/notice']"  [queryParams]="{url:notice.mcs_url,mcs_user_msgid:notice.mcs_user_msgid,mcs_readstatus:notice.mcs_readstatus}">
+        <ion-item *ngIf="notice.mcs_type==2" [routerLink]="['/message/notice']"  [queryParams]="{url:notice.mcs_url,mcs_user_msgid:notice.mcs_user_msgid,mcs_readstatus:notice.mcs_readstatus,mcs_name:notice.mcs_name,mcs_content:notice.mcs_content}">
           <i *ngIf="notice.mcs_readstatus==0" class="tip"></i>
           <ion-label>{{notice.mcs_name}}</ion-label>
         </ion-item>

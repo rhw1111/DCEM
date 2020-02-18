@@ -89,36 +89,6 @@
                     </span>
             </ion-item>
         </ion-card>
-        <!--<ion-row style="background-color:#F6F6F6;">
-            <ion-row (click)="ShowTwoBtn(0)" style="padding:15px 10px; background-color:#fff; width:100%;margin:20px 0;">
-                <ion-col style="padding-left:15px;">
-                    <ion-label style="color:#000;">
-                        选择:
-                    </ion-label>
-                    <ion-label class="lab-selected" style="color:#a5a2a2;">
-                        <div *ngIf="model.datadetail.SkuData?.length > 0; then trueTemplate else falseTemplate"></div>
-                        <ng-template #trueTemplate>
-                            <ng-container *ngFor="let item of model.datadetail.SkuData[0].Arrts">
-                                <div *ngIf="item.Values?.length > 0; then tTemplate else fTemplate"></div>
-                                <ng-template #tTemplate>
-                                    {{item.Values[0].Value}}
-                                </ng-template>
-                                <ng-template #fTemplate>
-                                </ng-template>
-                            </ng-container>
-                        </ng-template>
-                        <ng-template #falseTemplate>
-                        </ng-template>
-                    </ion-label>
-
-                </ion-col>
-                <ion-col style="padding-right:15px;text-align:right;max-width:20px;">
-                    <ion-label style="font-size:22px;line-height:0px;color:#a5a2a2;">
-                        >
-                    </ion-label>
-                </ion-col>
-            </ion-row>
-        </ion-row>-->
         <!--商品概览-->
         <ion-segment [(ngModel)]="tab" color="primary" model="md" class="segment-custom">
             <ion-segment-button value="probably">

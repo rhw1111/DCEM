@@ -26,8 +26,9 @@ namespace DCEM.UserCenterService.Main.ViewModel.Response
             ProductOrderingattributeArray = new JArray();
             ProductRelatedArray = new JArray();
             ProductPriceArray = new JArray();
+            ProductRightspackageArray = new List<Rightspackage>();
         }
-        
+
         /// <summary>
         /// 商品实体
         /// </summary>
@@ -56,5 +57,24 @@ namespace DCEM.UserCenterService.Main.ViewModel.Response
         /// 商品SKU
         /// </summary>
         public JArray ProductPriceArray { get; set; }
+
+        /// <summary>
+        /// 商品权益包
+        /// </summary>
+        public List<Rightspackage> ProductRightspackageArray { get; set; }
     }
+
+
+    public class Rightspackage
+    {
+        public Rightspackage()
+        {
+            RightspackageInfo = new JObject();
+            RightsArray = new JArray();
+        }
+        public JObject RightspackageInfo { get; set; }
+
+        public JArray RightsArray { get; set; }
+    }
+
 }

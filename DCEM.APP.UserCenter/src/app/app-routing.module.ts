@@ -1,4 +1,5 @@
-﻿import { NgModule } from '@angular/core';
+﻿
+import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
@@ -46,6 +47,26 @@ const routes: Routes = [
                         path: 'orcode',
                         loadChildren: () => import('./page/home/demo/orcode/orcode.module').then(m => m.OrcodePageModule)
                     },
+                    {
+                        path: 'idcard',
+                        loadChildren: () => import('./page/home/demo/idcard/idcard.module').then(m => m.IdcardPageModule)
+                    },
+                    {
+                        path: 'invoice',
+                        loadChildren: () => import('./page/home/demo/invoice/invoice.module').then(m => m.InvoicePageModule)
+                    },
+                    {
+                        path: 'voice',
+                        loadChildren: () => import('./page/home/demo/voice/voice.module').then(m => m.VoicePageModule)
+                    },
+                    {
+                        path: 'berecorded',
+                        loadChildren: () => import('./page/home/demo/berecorded/berecorded.module').then(m => m.BerecordedPageModule)
+                    },
+                    {
+                        path: 'luyin',
+                        loadChildren: () => import('./page/home/demo/luyin/luyin.module').then(m => m.LuyinPageModule)
+                    }
                 ]
             },
         ]
@@ -200,8 +221,16 @@ const routes: Routes = [
                                 loadChildren: () => import('./page/personalcenter/myorder/carorder/detail/detail.module').then(m => m.DetailPageModule)
                             },
                         ]
-                    }
-
+                    }, 
+                    {
+                        path: 'prodorder',
+                        children: [
+                            {
+                                path: 'list',
+                                loadChildren: () => import('./page/personalcenter/myorder/prodorder/list/list.module').then(m => m.ListPageModule)
+                            }
+                        ]
+                    },
                 ]
             },
             {
@@ -220,6 +249,7 @@ const routes: Routes = [
 
                 ]
             },
+
         ]
     },
     {
@@ -255,6 +285,27 @@ const routes: Routes = [
                 children: [
                     { path: 'list', loadChildren: () => import('./page/servicecenter/boutique/list/list.module').then(m => m.ListPageModule) },
                     { path: 'detail', loadChildren: () => import('./page/servicecenter/boutique/detail/detail.module').then(m => m.DetailPageModule) },
+                ]
+            },
+            {
+                path: 'construction',  //施工商城
+                children: [
+                    { path: 'list', loadChildren: () => import('./page/servicecenter/construction/list/list.module').then(m => m.ListPageModule) },
+                    { path: 'detail', loadChildren: () => import('./page/servicecenter/construction/detail/detail.module').then(m => m.DetailPageModule) },
+                ]
+            },
+            {
+                path: 'businessdeal',  //业务办理
+                children: [
+                    { path: 'list', loadChildren: () => import('./page/servicecenter/businessdeal/list/list.module').then(m => m.ListPageModule) },
+                    { path: 'detail', loadChildren: () => import('./page/servicecenter/businessdeal/detail/detail.module').then(m => m.DetailPageModule) },
+                ]
+            },
+            {
+                path: 'vehicleservice',  //车辆服务
+                children: [
+                    { path: 'list', loadChildren: () => import('./page/servicecenter/vehicleservice/list/list.module').then(m => m.ListPageModule) },
+                    { path: 'detail', loadChildren: () => import('./page/servicecenter/vehicleservice/detail/detail.module').then(m => m.DetailPageModule) },
                 ]
             },
             {
@@ -308,8 +359,46 @@ const routes: Routes = [
 
         ]
     },
+    {
+        path: 'carreserve',
+        children: [
+            {
+                path: 'index',//整车预定
+                loadChildren: () => import('./page/carreserve/index/index.module').then(m => m.IndexPageModule)
+            },
+            {
+                path: 'fillinfo',//完善预定信息
+                loadChildren: () => import('./page/carreserve/fillinfo/fillinfo.module').then(m => m.FillinfoPageModule)
+            },
+            {
+                path: 'confirm',//确认订单信息
+                loadChildren: () => import('./page/carreserve/confirm/confirm.module').then(m => m.ConfirmPageModule)
+            },
+            {
+                path: 'payorder',//支付
+                children: [
+                    { path: "payment", loadChildren: () => import('./page/carreserve/payorder/payment/payment.module').then(m => m.PaymentPageModule) },
+                    { path: 'success', loadChildren: () => import('./page/carreserve/payorder/success/success.module').then(m => m.SuccessPageModule) },
+                ]
+            },
+            {
+                path: 'myreserveorder',//我的预订订单
+                children: [
+                    { path: "list", loadChildren: () => import('./page/carreserve/myreserveorder/list/list.module').then(m => m.ListPageModule) },
+                    { path: 'detail', loadChildren: () => import('./page/carreserve/myreserveorder/detail/detail.module').then(m => m.DetailPageModule) },
+                ]
+            },
+            {
+                path: 'blindorder',  //领预约号
+                children: [
+                    { path: 'success', loadChildren: () => import('./page/carreserve/blindorder/success/success.module').then(m => m.SuccessPageModule) },
+                    { path: 'edit', loadChildren: () => import('./page/carreserve/blindorder/edit/edit.module').then(m => m.EditPageModule) }
+                ]
+            }
+        ]
+    },
 ]
-    ;
+;
 
 
 @NgModule({

@@ -10,12 +10,12 @@ import { OptionSetService } from 'app/component/typescript/optionset.service';
   styleUrls: ['./detail.page.scss'],
 })
 export class DetailPage implements OnInit {
- 
+
   model = {
     apiUrlInfo: 'api/testdrive/GetDriveFeedbackDetail',
-  
+
     data: {
-      mcs_testdrivefeedbackmasterid:"", //主键id
+      //mcs_testdrivefeedbackmasterid:"", //主键id
       mcs_username: "", //姓名
       mcs_userphone: "", //手机号
       mcs_surveytime: "", //反馈时间
@@ -24,7 +24,7 @@ export class DetailPage implements OnInit {
     },
 
     DrivefeedbackList: [],
-   
+
 
   }
 
@@ -32,48 +32,48 @@ export class DetailPage implements OnInit {
     private _http: DCore_Http,
     private _page: DCore_Page,
     private activeRoute: ActivatedRoute,
-    private optionset:OptionSetService
+    private optionset: OptionSetService
   ) { }
 
   ngOnInit() {
     this.activeRoute.queryParams.subscribe((params: Params) => {
       if (params['id'] != null && params['id'] != undefined) {
-          this.model.data.mcs_testdrivefeedbackmasterid=params['id'];
-          this.pageOnBind(params['id']);
+        //this.model.data.mcs_testdrivefeedbackmasterid=params['id'];
+        this.pageOnBind(params['id']);
       }
-   });
+    });
   }
 
   //加载详情
-  pageOnBind(id:any) {
-    
+  pageOnBind(id: any) {
+
     this._page.loadingShow();
     this._http.get(
       this.model.apiUrlInfo,
       {
         params: {
-          testdrivefeedbackmasterid: this.model.data.mcs_testdrivefeedbackmasterid,
+          testdriveid: id
         }
       },
       (res: any) => {
         //debugger;
-       //绑定基本信息
-        if (res.TestDriveFeedbackInfo != null) { 
-          this.model.data.mcs_username = res["TestDriveFeedbackInfo"]["Attributes"]["mcs_username"]; 
-          this.model.data.mcs_userphone = res["TestDriveFeedbackInfo"]["Attributes"]["mcs_userphone"]; 
-          this.model.data.mcs_surveytime =this.FormatToDateTime(res["TestDriveFeedbackInfo"]["Attributes"]["mcs_surveytime"]); 
-          this.model.data.mcs_score = res["TestDriveFeedbackInfo"]["Attributes"]["mcs_score"]; 
-          this.model.data.mcs_averagescore = res["TestDriveFeedbackInfo"]["Attributes"]["mcs_averagescore"];        
+        //绑定基本信息
+        if (res.TestDriveFeedbackInfo != null) {
+          this.model.data.mcs_username = res["TestDriveFeedbackInfo"]["Attributes"]["mcs_username"];
+          this.model.data.mcs_userphone = res["TestDriveFeedbackInfo"]["Attributes"]["mcs_userphone"];
+          this.model.data.mcs_surveytime = this.FormatToDateTime(res["TestDriveFeedbackInfo"]["Attributes"]["mcs_surveytime"]);
+          this.model.data.mcs_score = res["TestDriveFeedbackInfo"]["Attributes"]["mcs_score"];
+          this.model.data.mcs_averagescore = res["TestDriveFeedbackInfo"]["Attributes"]["mcs_averagescore"];
         }
-        
+
         //问题项
         if (res.DrivefeedbackList != null) {
-          var i=1;
+          var i = 1;
           for (var key in res.DrivefeedbackList) {
             var obj = {};
-            obj["mcs_surveyquestion"] = res.DrivefeedbackList[key]["Attributes"]["mcs_surveyquestion"];        
-            obj["mcs_suveryanswer"] =res.DrivefeedbackList[key]["Attributes"]["mcs_suveryanswer"];  
-            obj["i"] =i;
+            obj["mcs_surveyquestion"] = res.DrivefeedbackList[key]["Attributes"]["mcs_surveyquestion"];
+            obj["mcs_suveryanswer"] = res.DrivefeedbackList[key]["Attributes"]["mcs_suveryanswer"];
+            obj["i"] = i;
             this.model.DrivefeedbackList.push(obj);
             i++;
           }
@@ -90,12 +90,12 @@ export class DetailPage implements OnInit {
 
   FormatToDateTime(date) {
     if (date != null && date != undefined) {
-        return dateformat.format(date, 'YYYY-MM-DD');
+      return dateformat.format(date, 'YYYY-MM-DD');
     }
     else {
-        return '';
-     }
+      return '';
+    }
   }
 
-  
+
 }

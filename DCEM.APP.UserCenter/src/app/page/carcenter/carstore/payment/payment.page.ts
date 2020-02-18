@@ -36,7 +36,7 @@ export class PaymentPage implements OnInit {
         packageMap: {},                             //选择的所有对象
         userInfo: {},  //用户信息
         buyingMode: 1,//购车方式
-        payMode: 1,//支付方式
+        payMode: 0,//支付方式
     }
     constructor(
         private _http: DCore_Http,
@@ -62,7 +62,7 @@ export class PaymentPage implements OnInit {
 
     public initShareData() {
 
-        this.shareData.payMode = 1;
+        this.shareData.payMode = 0;
         this.shareData.productPriceMap = {};
         for (var productPrice of this.shareData.selectProduct["ProductPriceArray"]) {
             var key = productPrice["mcs_orderguid"];
@@ -88,7 +88,12 @@ export class PaymentPage implements OnInit {
             (res: any) => {
                 if (res["Code"] === "000" && !this._valid.isNullOrEmpty(res["OrderId"])) {
                     this._page.alert("消息提示", "您的订单已经下单成功", function () {
-                        that._page.navigateRoot("/personalcenter/myorder/carorder/detail", { code: postData["OrderData"]["OrderCode"] }, "");
+
+                        //that._page.navigateRoot("/personalcenter/myorder/carorder/detail", { code: postData["OrderData"]["OrderCode"] }, "");
+
+                        //that._page.navigateRoot("/personalcenter/myorder/carorder/detail", { orderid: res["OrderId"] }, "");
+
+                        that._page.navigateRoot("/personalcenter/myorder/index", {}, "");
                     });
                 }
                 else {
@@ -138,11 +143,11 @@ export class PaymentPage implements OnInit {
                 "CarBuyerId": this.shareData.userInfo["certNumber"],
                 "ShippingFlag": false,
                 "PaymentFlag": true,
-                "PaymentStatus": 1,
+                "PaymentStatus": 3,
                 "CashTotal": this.shareData.packageMoney,  //线上应收金额
                 "TotalDepositAmount": this.shareData.selectProduct["ProductInfo"]["mcs_depositamount"],  //线上已收金额
-                "ReceivedDepositAmount": 0,
-                "ReceivableAmount": 0,
+                "ReceivedDepositAmount": this.shareData.selectProduct["ProductInfo"]["mcs_depositamount"],
+                "ReceivableAmount": this.shareData.selectProduct["ProductInfo"]["mcs_depositamount"],
                 "DeductionAmount": 0,
                 "FinalPayment": this.shareData.packageMoney,  //订单尾款
                 "IntegralTotal": 0,
@@ -173,12 +178,31 @@ export class PaymentPage implements OnInit {
                 //    "AmountMonthly": 0
                 //},
                 "PaymentStatusList": [
+                    {
+                        "Status": 3,
+                        "HandlerTime": new Date()
+                    }
                 ]
             },
             "Products": [
-
+                
             ],
             "PayRecordsList": [
+                {
+                    "PaymentType": 1, //支付方式1：现金;2：积分;3：权益项抵扣;
+                    "PaymentAmount": this.shareData.selectProduct["ProductInfo"]["mcs_depositamount"], //支付金额或积分
+                    "CashPayment": 0, //积分不够现金支付数
+                    "PaymentTotal": this.shareData.packageMoney,
+                    "PaymentTime": new Date(),
+                    "PaySerialNumber": "PAY-" + this._string.GetDateFormat(new Date(), "yyyyMMddhhmmssSSS"),
+                    "SerialNumber": this._string.GetDateFormat(new Date(), "yyyyMMddhhmmssSSS"),
+                    "EquityItem": "",
+                    "EquityItemCode": "",
+                    "DirectionOfPayment": "",
+                    "PaymentUserId": this._storage_LoginInfo.GetSystemUserId(),
+                    "PaymentChannel": this.shareData.payMode,
+                    "Remark": ""
+                }
             ]
         }
 
@@ -204,6 +228,24 @@ export class PaymentPage implements OnInit {
                 "UnitPrice": this.shareData.productPriceMap[orderGuid]["mcs_salesprice_base"],  //单价
                 "ImageUrl": "",
                 "TotalPrice": this.shareData.productPriceMap[orderGuid]["mcs_salesprice_base"],    //总价
+                "DeliveryType": 1,  //交货方式
+                "ProviderParams": [
+                ]
+            }
+            data["Products"].push(product);
+        }
+
+        //组装选装地图
+        for (var relatedKey in this.shareData.selectproductRelatedMap) {
+            var product = {
+                "ProductCode": this.shareData.productMap[this.shareData.productRelatedMap[relatedKey]["a.mcs_product"]]["ProductInfo"]["mcs_code"],
+                "SkuCode": this.shareData.productRelatedMap[relatedKey]["a.mcs_skucode"],
+                "OrderQty": 1,   //数量
+                "Integral": 0,
+                "Totalintegral": 0,
+                "UnitPrice": this.shareData.selectproductRelatedMap[relatedKey]["money"],  //单价
+                "ImageUrl": "",
+                "TotalPrice": this.shareData.selectproductRelatedMap[relatedKey]["money"],    //总价
                 "DeliveryType": 1,  //交货方式
                 "ProviderParams": [
                 ]
