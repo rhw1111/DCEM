@@ -51,7 +51,7 @@ namespace MSLibrary.Template
             while (true)
             {
                 //通过正则表达式获取标签参数
-                Regex reg = new Regex(@"\{(?<!\\)\$((?!(\{(?<!\\)\$[A-Aa-z0-9_]+\(.*\)(?<!\\)\})).)+?(?<!\\)\}");
+                Regex reg = new Regex(@"\{(?<!\\)\$((?!(\{(?<!\\)\$[A-Za-z0-9_]+\(.*\)(?<!\\)\})).)+?(?<!\\)\}");
                 var matchs = reg.Matches(content);
                 int length = matchs.Count;
 
@@ -139,7 +139,7 @@ namespace MSLibrary.Template
         {
 
             //分割出标签名和参数
-            Regex reg = new Regex(@"\{\$([A-Aa-z0-9_]+)\((.*)\)\}", RegexOptions.None);
+            Regex reg = new Regex(@"\{\$([A-Za-z0-9_]+)\((.*)\)\}", RegexOptions.None);
             var match = reg.Match(text);
 
             if (match == null || !match.Success)

@@ -2232,6 +2232,113 @@ namespace MSLibrary
         /// {0}：Jwt验证类型
         /// </summary>
         public const string NotFoundjwtValidateParameterBuildServiceByType = "NotFoundjwtValidateParameterBuildServiceByType";
+
+        /// <summary>
+        /// 找不到指定队列类型的队列实际处理服务
+        /// 格式为“找不到队列类型为{0}的队列实际处理服务，发生位置为{1}”
+        /// {0}：指定的队列类型
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFountCommonQueueRealExecuteServiceByType = "NotFountCommonQueueRealExecuteServiceByType";
+        /// <summary>
+        /// 在指定消息类型下找不到指定监听ID的监听
+        /// 格式为“名称为{0}的消息类型下，找不到监听ID为{1}的监听”
+        /// {0}：消息类型名称
+        /// {1}：监听ID
+        /// </summary>
+        public const string NotFoundSMessageTypeListenerFromTypeByID = "NotFoundSMessageTypeListenerFromTypeByID";
+        /// <summary>
+        /// 找不到指定名称的消息类型
+        /// 格式为“找不到名称为{0}的消息类型”
+        /// {0}：消息类型名称
+        /// </summary>
+        public const string NotFoundSMessageTypeByName = "NotFoundSMessageTypeByName";
+        /// <summary>
+        /// 找不到指定名称的Azure服务总线To转换服务
+        /// 格式为“找不到名称为{0}的Azure服务总线To转换服务，发生位置为{1}”
+        /// {0}：服务名称
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFoundAzureServiceBusMessageConvertToServiceByName = "NotFoundAzureServiceBusMessageConvertToServiceByName";
+        /// <summary>
+        /// 找不到指定名称的Azure服务总线From转换服务
+        /// 格式为“找不到名称为{0}的Azure服务总线From转换服务，发生位置为{1}”
+        /// {0}：服务名称
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFoundAzureServiceBusMessageConvertFromServiceByName = "NotFoundAzureServiceBusMessageConvertFromServiceByName";
+        /// <summary>
+        /// 找不到指定类型名称的通用消息客户端类型
+        /// 格式为“找不到类型名称为{0}的通用消息客户端类型”
+        /// {0}：类型名称
+        /// </summary>
+        public const string NotFoundCommonMessageClientType = "NotFoundCommonMessageClientType";
+        /// <summary>
+        /// 找不到指定消息类型的消息处理服务
+        /// 格式为“找不到消息类型为{0}的消息处理服务，发生位置为{1}”
+        /// {0}：消息类型
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFoundCommonMessageHandleServiceByMessageType = "NotFoundCommonMessageHandleServiceByMessageType";
+        /// <summary>
+        /// 在指定名称的表达式计算器中，要计算的表达式为空
+        /// 格式为“在名称为{0}的表达式计算器中，要计算的表达式为空”
+        /// {0}：表达式计算器的名称
+        /// </summary>
+        public const string ExpressionEmptyInExpressionCalculatorByName = "ExpressionEmptyInExpressionCalculatorByName";
+        /// <summary>
+        /// 指定的表达式格式不正确
+        /// 格式为“在名称为{0}的表达式计算器中，表达式格式不正确，表达式为{1}”
+        /// {0}：表达式计算器的名称
+        /// {1}；表达式
+        /// </summary>
+        public const string ExpressionFormatError = "ExpressionFormatError";
+        /// <summary>
+        /// 在指定的表达式的存储之中，找不到指定键的值
+        /// 格式为“在名称为{0}的表达式计算器中，找不到键为{1}的值，表达式为{2}”
+        /// {0}：表达式计算器的名称
+        /// {1}：键
+        /// {2}；表达式
+        /// </summary>
+        public const string NotFoundValueInExpressionStoreValues = "NotFoundValueInExpressionStoreValues";
+        /// <summary>
+        ///  在指定的表达式中，找不到公式服务列表
+        ///  格式为“找不到名称为{0}的表达式所对应的公式服务列表”
+        ///  {0}：表达式计算器的名称
+        /// </summary>
+        public const string NotFoundFormulaServiceListFromExpression = "NotFoundFormulaServiceListFromExpression";
+        /// <summary>
+        /// 在指定的表达式的公式服务列表中，找不到指定的公式服务
+        /// 格式为“名称为{0}的表达式所对应的公式服务列表中，找不到公式名称为{1}的公式服务”
+        /// {0}：表达式计算器的名称
+        /// {1}：公式名称
+        /// </summary>
+        public const string NotFoundFormulaServiceFormServiceList = "NotFoundFormulaServiceFormServiceList";
+        /// <summary>
+        /// 找不到指定类型的工作流活动服务
+        /// 格式为“找不到类型为{0}的工作流活动服务，发生位置为{1}”
+        /// {0}：工作流活动类型
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFoundWorkflowActivityServiceByType = "NotFoundWorkflowActivityServiceByType";
+        /// <summary>
+        /// 指定类型的工作流活动服务参数数量不正确
+        /// 格式为“类型为{0}的工作流活动服务参数数量不正确，需要的数量为{1}，实际数量为{2}”
+        /// {0}：活动类型
+        /// {1}：需要的数量
+        /// {2}：实际的数量
+        /// </summary>
+        public const string WorkflowActivityServiceParameterCountError = "WorkflowActivityServiceParameterCountError";
+        /// <summary>
+        /// 指定类型的工作流活动服务的指定位数参数类型不正确
+        /// 格式为“类型为{0}的工作流活动服务的第{1}位参数类型不正确，期待的类型为{2}，实际类型为{3}”
+        /// {0}：活动类型
+        /// {1}：参数在列表中的所属位置
+        /// {2}：期待的类型
+        /// {3}：实际的类型
+        /// </summary>
+        public const string WorkflowActivityServiceParameterTypeError = "WorkflowActivityServiceParameterTypeError";
+
     }
 
 
@@ -2519,6 +2626,33 @@ namespace MSLibrary
     public static class CrmRetrieveJTokenHandleExtensionParameterNames
     {
         public const string EntityName = "EntityName";
+    }
+
+    /// <summary>
+    /// 通用队列类型集
+    /// </summary>
+    public static class CommonQueueTypes
+    {
+        /// <summary>
+        /// Azure服务总线
+        /// </summary>
+        public const string AzureServiceBus = "AzureServiceBus";
+    }
+
+    /// <summary>
+    /// Azure服务总线消息转换To服务名称集
+    /// </summary>
+    public static class AzureServiceBusMessageConvertToServiceNames
+    {
+        public const string Default = "Default";
+    }
+
+    /// <summary>
+    /// Azure服务总线消息转换From服务名称集
+    /// </summary>
+    public static class AzureServiceBusMessageConvertFromServiceNames
+    {
+        public const string Default = "Default";
     }
 
     /// <summary>

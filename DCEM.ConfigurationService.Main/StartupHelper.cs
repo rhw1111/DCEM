@@ -22,9 +22,9 @@ using DCEM.Main.Context;
 
 namespace DCEM.ConfigurationService.Main
 {
+    using MainStartupHelper = DCEM.Main.StartupHelper;
     public static class StartupHelper
     {
-        public static DIContainerForAutofac DIContainerForAutofac { get; set; }
 
         /// <summary>
         /// 初始化配置容器
@@ -65,14 +65,32 @@ namespace DCEM.ConfigurationService.Main
         /// <param name="dISetting"></param>
         public static void InitDI(IServiceCollection services, ContainerBuilder containerBuilder, DISetting dISetting)
         {
-            services.AddHttpClient();
-            var serviceProvider = services.BuildServiceProvider();
-            containerBuilder.RegisterInstance(serviceProvider.GetService<IHttpClientFactory>()).As<IHttpClientFactory>();
+            //services.AddHttpClient();
+            //var serviceProvider = services.BuildServiceProvider();
+            //containerBuilder.RegisterInstance(serviceProvider.GetService<IHttpClientFactory>()).As<IHttpClientFactory>();
 
-            DIContainerForAutofac = new DIContainerForAutofac(containerBuilder);
-            DIContainerContainer.DIContainer = DIContainerForAutofac;
+            DIContainerForAutofac diContainer = new DIContainerForAutofac(containerBuilder);
+            DIContainerContainer.DIContainer = diContainer;
+           
+
             DIContainerInit.Init = new DIContainerInitDefault();
             DIContainerInit.Execute(dISetting.SearchAssemblyNames);
+
+            containerBuilder.RegisterBuildCallback((container) =>
+            {
+                diContainer.CompleteInit(container.BeginLifetimeScope());
+
+                //初始化静态设置
+                MainStartupHelper.InitStaticInfo();
+                InitStaticInfo();
+
+                //配置日志工厂
+                var loggerFactory = LoggerFactory.Create((builder) =>
+                {
+                    MainStartupHelper.InitLogger(builder);
+                });
+                DIContainerContainer.Inject<ILoggerFactory>(loggerFactory);
+            });
 
 
             //装载需要手动处理的DI数据

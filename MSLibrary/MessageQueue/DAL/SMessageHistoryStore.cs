@@ -89,6 +89,8 @@ namespace MSLibrary.MessageQueue.DAL
                                                       ,[key]
 	                                                  ,[type]
 	                                                  ,[data]
+                                                      ,[originalmessageid]
+                                                      ,[delaymessageid]
 	                                                  ,[status]
                                                       ,[createtime]
                                                       ,[modifytime]
@@ -98,6 +100,8 @@ namespace MSLibrary.MessageQueue.DAL
                                                     , @key
                                                     , @type
                                                     , @data
+                                                    , @originalmessageid
+                                                    , @delaymessageid
                                                     , @status
                                                     , GETUTCDATE()
                                                     , GETUTCDATE());
@@ -117,6 +121,8 @@ namespace MSLibrary.MessageQueue.DAL
                                                       ,[key]
 	                                                  ,[type]
 	                                                  ,[data]
+                                                      ,[originalmessageid]
+                                                      ,[delaymessageid]
 	                                                  ,[status]
                                                       ,[createtime]
                                                       ,[modifytime]
@@ -127,6 +133,8 @@ namespace MSLibrary.MessageQueue.DAL
                                                     , @key
                                                     , @type
                                                     , @data
+                                                    , @originalmessageid
+                                                    , @delaymessageid
                                                     , @status
                                                     , GETUTCDATE()
                                                     , GETUTCDATE());", tableName);
@@ -153,6 +161,41 @@ namespace MSLibrary.MessageQueue.DAL
                         Value = history.Data
                     };
                     command.Parameters.Add(parameter);
+
+                    if (history.OriginalMessageID.HasValue)
+                    {
+                        parameter = new SqlParameter("@originalmessageid", SqlDbType.UniqueIdentifier)
+                        {
+                            Value = history.OriginalMessageID
+                        };
+                    }
+                    else
+                    {
+                        parameter = new SqlParameter("@originalmessageid", SqlDbType.UniqueIdentifier)
+                        {
+                            Value = DBNull.Value
+                        };
+                    }
+                    command.Parameters.Add(parameter);
+
+                    if (history.DelayMessageID.HasValue)
+                    {
+                        parameter = new SqlParameter("@delaymessageid", SqlDbType.UniqueIdentifier)
+                        {
+                            Value = history.DelayMessageID
+                        };
+                    }
+                    else
+                    {
+                        parameter = new SqlParameter("@delaymessageid", SqlDbType.UniqueIdentifier)
+                        {
+                            Value = DBNull.Value
+                        };
+                    }
+                    command.Parameters.Add(parameter);
+
+                   
+
                     parameter = new SqlParameter("@status", SqlDbType.Int)
                     {
                         Value = history.Status

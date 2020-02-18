@@ -97,6 +97,53 @@ namespace MSLibrary.MessageQueue
         }
 
         /// <summary>
+        /// 关联的监听ID
+        /// </summary>
+        public Guid? TypeListenerID
+        {
+            get
+            {
+                return GetAttribute<Guid?>("TypeListenerID");
+            }
+            set
+            {
+                SetAttribute<Guid?>("TypeListenerID", value);
+            }
+        }
+
+        /// <summary>
+        /// 初始消息ID
+        /// </summary>
+        public Guid? OriginalMessageID
+        {
+            get
+            {
+                return GetAttribute<Guid?>("OriginalMessageID");
+            }
+            set
+            {
+                SetAttribute<Guid?>("OriginalMessageID", value);
+            }
+        }
+
+        /// <summary>
+        /// 延迟消息所属的来源消息ID
+        /// </summary>
+        public Guid? DelayMessageID
+        {
+            get
+            {
+                return GetAttribute<Guid?>("DelayMessageID");
+            }
+            set
+            {
+                SetAttribute<Guid?>("DelayMessageID", value);
+            }
+        }
+
+
+
+        /// <summary>
         /// 创建时间(UTC)
         /// </summary>
         public DateTime CreateTime
@@ -172,6 +219,22 @@ namespace MSLibrary.MessageQueue
         }
 
         /// <summary>
+        /// 附加信息
+        /// 用来记录额外信息
+        /// </summary>
+        public string ExtensionMessage
+        {
+            get
+            {
+                return GetAttribute<string>("ExtensionMessage");
+            }
+            set
+            {
+                SetAttribute<string>("ExtensionMessage", value);
+            }
+        }
+
+        /// <summary>
         /// 是否是死消息
         /// </summary>
         public bool IsDead
@@ -225,6 +288,12 @@ namespace MSLibrary.MessageQueue
         Task Add(SMessage message);
         Task Delete(SMessage message);
         Task<StatusResult> Execute(SMessage message);
+        /// <summary>
+        /// 创建该消息的延迟消息
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        Task AddDelay(SMessage message,int delaySeconds,string extensionMessage);
 
     }
 
@@ -242,9 +311,12 @@ namespace MSLibrary.MessageQueue
         private ISMessageOperationContextFactory _smessageOperationContextFactory;
         private ISMessageHistoryStore _smessageHistoryStore;
         private ISMessageHistoryListenerDetailStore _smessageHistoryListenerDetailStore;
+        private SMessageExecuteTypeRepositoryHelper _sMessageExecuteTypeRepositoryHelper;
+        private IListenerMessageKeyGenerateService _listenerMessageKeyGenerateService;
 
         public SMessageIMP(ISMessageStore smessageStore, ISQueueChooseService sQueueChooseService, ISMessageExecuteTypeRepository smessageExecuteTypeRepository, ISMessageTypeListenerPostContextFactory smessageTypeListenerPostContextFactory, ISMessageOperationContextFactory smessageOperationContextFactory,
-            ISMessageHistoryStore smessageHistoryStore, ISMessageHistoryListenerDetailStore smessageHistoryListenerDetailStore
+            ISMessageHistoryStore smessageHistoryStore, ISMessageHistoryListenerDetailStore smessageHistoryListenerDetailStore, SMessageExecuteTypeRepositoryHelper sMessageExecuteTypeRepositoryHelper, IListenerMessageKeyGenerateService listenerMessageKeyGenerateService
+
             )
         {
             _smessageStore = smessageStore;
@@ -254,6 +326,8 @@ namespace MSLibrary.MessageQueue
             _smessageOperationContextFactory = smessageOperationContextFactory;
             _smessageHistoryStore = smessageHistoryStore;
             _smessageHistoryListenerDetailStore = smessageHistoryListenerDetailStore;
+            _sMessageExecuteTypeRepositoryHelper = _sMessageExecuteTypeRepositoryHelper;
+            _listenerMessageKeyGenerateService = listenerMessageKeyGenerateService;
         }
 
         /// <summary>
@@ -313,6 +387,21 @@ namespace MSLibrary.MessageQueue
                 Status = 0
             };
 
+            //获取消息执行类型
+            var executeType = await _sMessageExecuteTypeRepositoryHelper.QueryByName(message.Type);
+
+            if (executeType==null)
+            {
+                var fragment = new TextFragment()
+                {
+                    Code = TextCodes.NotFoundSMessageTypeByName,
+                    DefaultFormatting = "找不到名称为{0}的消息类型",
+                    ReplaceParameters = new List<object>() { message.Type }
+                };
+                throw new UtilityException((int)Errors.NotFoundSMessageTypeByName, fragment);
+            }
+
+
             var queue = GetQueue(message);
             if (queue == null)
             {
@@ -353,29 +442,15 @@ namespace MSLibrary.MessageQueue
                     }
                 }
 
-               
+
                 return await Task.FromResult(result);
             }
 
 
-
-            //获取消息执行类型
-            var executeType = await _smessageExecuteTypeRepository.QueryByName(message.Type);
-            if (executeType==null)
-            {
-                throw new Exception($"not found messagetype {message.Type}");
-            }
-            //为每个监听者并行执行监听处理
-            List<Task> tasks = new List<Task>();
-            List<Exception> taskExceptions = new List<Exception>();
-            ParallelHelper parallel = new ParallelHelper(10);
-
-            Dictionary<Guid, ISMessageTypeListenerPostContext> postContextList = new Dictionary<Guid, ISMessageTypeListenerPostContext>();
-
             //增加消息历史
             var messageHistory = await _smessageHistoryStore.QueryById(message.ID);
 
-            if (messageHistory==null)
+            if (messageHistory == null)
             {
                 messageHistory = new SMessageHistory()
                 {
@@ -384,127 +459,316 @@ namespace MSLibrary.MessageQueue
                     ModifyTime = DateTime.UtcNow,
                     Type = message.Type,
                     Key = message.Key,
-                    Data = message.Data
+                    Data = message.Data,
+                    OriginalMessageID = message.OriginalMessageID,
+                    DelayMessageID = message.DelayMessageID
                 };
                 await messageHistory.Add();
             }
 
-            await executeType.GetAllListener(async (listener) =>
+            Dictionary<Guid, ISMessageTypeListenerPostContext> postContextList = new Dictionary<Guid, ISMessageTypeListenerPostContext>();
+            ISMessageTypeListenerPostContext postContext=null;
+
+
+
+            //如果已经关联了监听，则直接执行监听的行为
+            if (message.TypeListenerID.HasValue)
             {
-                ISMessageTypeListenerPostContext postContext;
-                 parallel.Run(tasks, async (exception) =>
-                 {
-                     while(exception.InnerException!=null)
-                     {
-                         exception = exception.InnerException;
-                     }
-                     taskExceptions.Add(exception);
-                     postContext = _smessageTypeListenerPostContextFactory.Create(listener, message, exception, new Dictionary<string, object>());
-                     postContextList[listener.ID] = postContext;
-                     await Task.FromResult(0);
-                 },
-                 async () =>
-                 {
-                     //判断该监听是否已经完成
-                     var listenerDetail = await _smessageHistoryListenerDetailStore.QueryByName(message.ID, listener.Name);
-                     if (listenerDetail == null)
-                     {
-                         var execueResult = await listener.PostToListener(message);
-                         if (!execueResult.Result)
-                         {
-                             throw new Exception(execueResult.Description);
-                         }
-
-                         postContext = _smessageTypeListenerPostContextFactory.Create(listener, message, null, new Dictionary<string, object>());
-                         postContextList[listener.ID] = postContext;
-
-                         listenerDetail = new SMessageHistoryListenerDetail()
-                         {
-                             SMessageHistoryID = messageHistory.ID,
-                             ListenerMode = listener.Mode,
-                             ListenerFactoryType = listener.ListenerFactoryType,
-                             ListenerName = listener.Name,
-                             ListenerRealWebUrl = string.Empty,
-                             ListenerWebUrl = listener.ListenerWebUrl,
-
-                         };
-
-                         await messageHistory.AddListenerDetail(listenerDetail);
-                     }
-                 }
-                 );
-                await Task.FromResult(0);
-            });
-
-            //等待所有监听者执行完成
-            foreach(var taskItem in tasks)
-            {
-                await taskItem;
-            }
-            
-
-            //调用扩展介入类的OnSMessageTypeListenerExecuted方法
-            foreach(var item in postContextList)
-            {
-                await MessageQueueExtensionDescription.OnSMessageTypeListenerExecuted(item.Value);
-            }
-
-            if (taskExceptions.Count > 0)
-            {
-                var strError = new StringBuilder();
-                foreach(var exceptionItem in taskExceptions)
+                var listener=await executeType.GetListener(message.TypeListenerID.Value);
+                if (listener==null)
                 {
-                    strError.Append("Message:");
-                    strError.Append(await exceptionItem.GetCurrentLcidMessage());
-                    strError.Append("\n");
-                    strError.Append("StackTrace");
-                    strError.Append(exceptionItem.StackTrace);
-                    strError.Append("\n\n");
-                }
-                result.Status = 2;
-                result.Description = StringLanguageTranslate.Translate(TextCodes.SMessageExecuteError, string.Format("消息执行出错，消息key:{0},消息type:{1},消息内容:{2},错误内容:{3}",message.Key,message.Type,message.Data, strError));
-
-                //如果消息不是死消息，并且重试次数超过3次，则移除到死消息队列中
-                //否则增加重试次数
-                if (!message.IsDead && message.RetryNumber + 1 >= 3)
-                {
-                    message.ExceptionMessage = result.Description;
-                    var deadQueue = await _sQueueChooseService.ChooseDead(message.Key);
-
-                    using (var transactionScope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 30, 30) }))
+                    var fragment = new TextFragment()
                     {
-                        await _smessageStore.Delete(queue, message.ID);
-                        await _smessageStore.AddToDead(deadQueue, message);
-                        result.Status = 3;
-                        //执行扩展
-                        var context = _smessageOperationContextFactory.Create(message, new Dictionary<string, object>());
-                        await MessageQueueExtensionDescription.OnSMessageAddToDeadExecuted(context);
+                        Code = TextCodes.NotFoundSMessageTypeListenerFromTypeByID,
+                        DefaultFormatting = "名称为{0}的消息类型下，找不到监听ID为{1}的监听",
+                        ReplaceParameters = new List<object>() { message.Type, message.TypeListenerID.Value.ToString() }
+                    };
 
-                        transactionScope.Complete();
+                    throw new UtilityException((int)Errors.NotFoundSMessageTypeListenerFromTypeByID, fragment);
+                }
+
+                Exception error = null;
+                try
+                {
+                    //判断该监听是否已经完成
+                    var listenerDetail = await _smessageHistoryListenerDetailStore.QueryByName(message.ID, listener.Name);
+                    if (listenerDetail == null)
+                    {
+                        var execueResult = await listener.PostToListener(message);
+                        if (!execueResult.Result)
+                        {
+                            throw new Exception(execueResult.Description);
+                        }
+
+                        postContext = _smessageTypeListenerPostContextFactory.Create(listener, message, null, new Dictionary<string, object>());
+
+                        listenerDetail = new SMessageHistoryListenerDetail()
+                        {
+                            SMessageHistoryID = messageHistory.ID,
+                            ListenerMode = listener.Mode,
+                            ListenerFactoryType = listener.ListenerFactoryType,
+                            ListenerName = listener.Name,
+                            ListenerRealWebUrl = string.Empty,
+                            ListenerWebUrl = listener.ListenerWebUrl,
+
+                        };
+
+                        await messageHistory.AddListenerDetail(listenerDetail);
                     }
+
+                }
+                catch(Exception ex)
+                {
+                    error = ex;
+                    while (ex.InnerException != null)
+                    {
+                        ex = ex.InnerException;
+                    }
+                   
+                    postContext = _smessageTypeListenerPostContextFactory.Create(listener, message, ex, new Dictionary<string, object>());              
+                }
+
+                if (postContext != null)
+                {
+                    await MessageQueueExtensionDescription.OnSMessageTypeListenerExecuted(postContext);
+                }
+
+                if (error!=null)
+                {
+                    string strError = $"{error.Message},{error.StackTrace}";
+                        result.Status = 2;
+                        result.Description = StringLanguageTranslate.Translate(TextCodes.SMessageExecuteError, string.Format("消息执行出错，消息key:{0},消息type:{1},消息内容:{2},错误内容:{3}", message.Key, message.Type, message.Data, strError));
+
+                        //如果消息不是死消息，并且重试次数超过3次，则移除到死消息队列中
+                        //否则增加重试次数
+                        if (!message.IsDead && message.RetryNumber + 1 >= 3)
+                        {
+                            message.ExceptionMessage = result.Description;
+                            var deadQueue = await _sQueueChooseService.ChooseDead(message.Key);
+
+                            using (var transactionScope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 30, 30) }))
+                            {
+                                await _smessageStore.Delete(queue, message.ID);
+                                await _smessageStore.AddToDead(deadQueue, message);
+                                result.Status = 3;
+                                //执行扩展
+                                var context = _smessageOperationContextFactory.Create(message, new Dictionary<string, object>());
+                                await MessageQueueExtensionDescription.OnSMessageAddToDeadExecuted(context);
+
+                                transactionScope.Complete();
+                            }
+                        }
+                        else
+                        {
+                            using (var transactionScope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 30, 30) }))
+                            {
+
+                                /*if (strError.Length > 3000)
+                                {
+                                    strError = strError.Remove(3000, strError.Length - 3000);
+                                }*/
+
+                                await _smessageStore.AddRetry(queue, message.ID, strError);
+                                await _smessageStore.UpdateLastExecuteTime(queue, message.ID);
+
+                                transactionScope.Complete();
+                            }
+                        }
+
+                    
+
+                    return await Task.FromResult(result);
                 }
                 else
                 {
-                    using (var transactionScope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 30, 30) }))
-                    {
-
-                        /*if (strError.Length > 3000)
-                        {
-                            strError = strError.Remove(3000, strError.Length - 3000);
-                        }*/
-
-                        await _smessageStore.AddRetry(queue, message.ID, strError.ToString());
-                        await _smessageStore.UpdateLastExecuteTime(queue, message.ID);
-
-                        transactionScope.Complete();
-                    }
+                    await messageHistory.Complete();
                 }
 
             }
             else
             {
-                await messageHistory.Complete();
+
+
+
+
+                //为每个监听者并行执行监听处理
+                List<Task> tasks = new List<Task>();
+                List<Exception> taskExceptions = new List<Exception>();
+                ParallelHelper parallel = new ParallelHelper(10);
+
+
+                await executeType.GetAllListener(async (listener) =>
+                {
+
+                    parallel.Run(tasks, async (exception) =>
+                    {
+                        while (exception.InnerException != null)
+                        {
+                            exception = exception.InnerException;
+                        }
+                        taskExceptions.Add(exception);
+                        postContext = _smessageTypeListenerPostContextFactory.Create(listener, message, exception, new Dictionary<string, object>());
+                        postContextList[listener.ID] = postContext;
+                        await Task.FromResult(0);
+                    },
+                    async () =>
+                    {
+                        //判断该监听是否已经完成
+                        var listenerDetail = await _smessageHistoryListenerDetailStore.QueryByName(message.ID, listener.Name);
+                        if (listenerDetail == null)
+                        {
+
+                            //检查监听是否有所属队列，如果有，则为该监听创建新的消息，如果没有，则执行消息
+                            if (!string.IsNullOrEmpty(listener.QueueGroupName))
+                            {
+                                //生成key
+                                var newKey = await _listenerMessageKeyGenerateService.Generate(message.Key, listener);
+
+                                //获取新消息所属队列
+                                var newMessageQueue = await _sQueueChooseService.Choose(newKey);
+                                var newMessageDeadQueue= await _sQueueChooseService.ChooseDead(newKey);
+
+                                //检查是否已经存在消息
+                                var existNewMessage = _smessageStore.QueryByOriginalID(newMessageQueue, message.ID, listener.ID);
+                                if (existNewMessage==null)
+                                {
+                                    existNewMessage = _smessageStore.QueryByOriginalID(newMessageDeadQueue, message.ID, listener.ID);
+                                }
+
+                                if (existNewMessage == null)
+                                {
+                                    SMessage newMessage = new SMessage()
+                                    {
+                                        Data = message.Data,
+                                        Key = newKey,
+                                        IsDead = message.IsDead,
+                                        ExpectationExecuteTime = message.ExpectationExecuteTime,
+                                        Type = message.Type,
+                                        TypeListenerID = listener.ID,
+                                        RetryNumber = 0
+
+                                    };
+
+                                    await newMessage.Add();
+                                }
+                            }
+                            else
+                            {
+                                var execueResult = await listener.PostToListener(message);
+                                if (!execueResult.Result)
+                                {
+                                    throw new Exception(execueResult.Description);
+                                }
+                            }
+
+
+                            postContext = _smessageTypeListenerPostContextFactory.Create(listener, message, null, new Dictionary<string, object>());
+                            postContextList[listener.ID] = postContext;
+
+                            listenerDetail = new SMessageHistoryListenerDetail()
+                            {
+                                SMessageHistoryID = messageHistory.ID,
+                                ListenerMode = listener.Mode,
+                                ListenerFactoryType = listener.ListenerFactoryType,
+                                ListenerName = listener.Name,
+                                ListenerRealWebUrl = string.Empty,
+                                ListenerWebUrl = listener.ListenerWebUrl,
+
+                            };
+
+                            await messageHistory.AddListenerDetail(listenerDetail);
+                        }
+                    }
+                    );
+                    await Task.FromResult(0);
+                });
+
+                //等待所有监听者执行完成
+                foreach (var taskItem in tasks)
+                {
+                    await taskItem;
+                }
+
+
+                //调用扩展介入类的OnSMessageTypeListenerExecuted方法
+                foreach (var item in postContextList)
+                {
+                    await MessageQueueExtensionDescription.OnSMessageTypeListenerExecuted(item.Value);
+                }
+
+                if (taskExceptions.Count > 0)
+                {
+                    var strError = new StringBuilder();
+                    foreach (var exceptionItem in taskExceptions)
+                    {
+                        strError.Append("Message:");
+                        strError.Append(await exceptionItem.GetCurrentLcidMessage());
+                        strError.Append("\n");
+                        strError.Append("StackTrace");
+                        strError.Append(exceptionItem.StackTrace);
+                        strError.Append("\n\n");
+                    }
+
+                    message.ExceptionMessage = strError.ToString();
+                    result.Status = 2;
+                    result.Description = StringLanguageTranslate.Translate(TextCodes.SMessageExecuteError, string.Format("消息执行出错，消息key:{0},消息type:{1},消息内容:{2},错误内容:{3}", message.Key, message.Type, message.Data, strError));
+
+                    //如果消息不是死消息，并且重试次数超过3次，则移除到死消息队列中
+                    //否则增加重试次数
+                    if (!message.IsDead && message.RetryNumber + 1 >= 3)
+                    {
+                        message.ExceptionMessage = result.Description;
+                        var deadQueue = await _sQueueChooseService.ChooseDead(message.Key);
+
+                        using (var transactionScope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 30, 30) }))
+                        {
+                            await _smessageStore.Delete(queue, message.ID);
+                            await _smessageStore.AddToDead(deadQueue, message);
+                            result.Status = 3;
+                            //执行扩展
+                            var context = _smessageOperationContextFactory.Create(message, new Dictionary<string, object>());
+                            await MessageQueueExtensionDescription.OnSMessageAddToDeadExecuted(context);
+
+                            transactionScope.Complete();
+                        }
+                    }
+                    else
+                    {
+                        using (var transactionScope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 30, 30) }))
+                        {
+
+                            /*if (strError.Length > 3000)
+                            {
+                                strError = strError.Remove(3000, strError.Length - 3000);
+                            }*/
+
+                            await _smessageStore.AddRetry(queue, message.ID, strError.ToString());
+                            await _smessageStore.UpdateLastExecuteTime(queue, message.ID);
+
+                            transactionScope.Complete();
+                        }
+                    }
+
+                }
+                else
+                {
+                    await messageHistory.Complete();
+                }
+
+
+
+
             }
+
+
+
+
+
+
+
+
+
+
 
             return await Task.FromResult(result);
         }
@@ -570,6 +834,43 @@ namespace MSLibrary.MessageQueue
 
             return null;
 
+        }
+
+        public async Task AddDelay(SMessage message, int delaySeconds, string extensionMessage)
+        {
+            //尝试获取message扩展属性中存储的队列
+            var queue = GetQueue(message);
+            if (queue == null)
+            {
+                //如果扩展属性中的队列为空，则需要通过Key来获取队列
+                //如果消息为死消息，则需要获取所属的死队列
+                if (message.IsDead)
+                {
+                    queue = await _sQueueChooseService.ChooseDead(message.Key);
+                }
+                else
+                {
+                    queue = await _sQueueChooseService.Choose(message.Key);
+                }
+            }
+
+            var existMessage=await _smessageStore.QueryByDelayID(queue, message.ID);
+            if (existMessage==null)
+            {
+                var newMessage = new SMessage()
+                {
+                    Key = message.Key,
+                    Type = message.Type,
+                    OriginalMessageID = message.OriginalMessageID,
+                    TypeListenerID = message.TypeListenerID,
+                    ExtensionMessage = extensionMessage,
+                    ExpectationExecuteTime = DateTime.UtcNow.AddSeconds(delaySeconds),
+                    DelayMessageID = message.ID,
+                    Data = message.Data
+
+                };
+                await message.Add();
+            }
         }
     }
 }

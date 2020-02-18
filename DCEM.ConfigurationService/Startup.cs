@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Net.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -38,7 +39,7 @@ namespace DCEM.ConfigurationService
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddHttpClient();
             services.AddControllers((opts) =>
             {
 
@@ -57,27 +58,7 @@ namespace DCEM.ConfigurationService
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            var containerScope=app.ApplicationServices.GetAutofacRoot();
-            StartupHelper.DIContainerForAutofac.CompleteInit(containerScope);
-
- 
-
-            //初始化静态设置
-            MainStartupHelper.InitStaticInfo();
-            StartupHelper.InitStaticInfo();
-
-
-
-
-            //配置日志工厂
-            var loggerFactory = LoggerFactory.Create((builder) =>
-            {
-                MainStartupHelper.InitLogger(builder);
-            });
-            DIContainerContainer.Inject<ILoggerFactory>(loggerFactory);
-
-
-
+          
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

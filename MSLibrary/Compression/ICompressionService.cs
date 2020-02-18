@@ -18,6 +18,25 @@ namespace MSLibrary.Compression
         /// <param name="items"></param>
         /// <returns></returns>
         Task GetCompressionStream(Func<Stream, Task> action, params CompressionTextItemFileInfo[] items);
+        /// <summary>
+        /// 解压文本数据
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <returns></returns>
+        Task<CompressionTextItemFileInfo[]> GetUnCompressionFileInfo(Stream stream);
+        /// <summary>
+        /// 压缩文本数据
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        Task<string> GetCompressionText(string text);
+        /// <summary>
+        /// 解压文本数据
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <returns></returns>
+        Task<string> GetUnCompressionText(string compressionText);
     }
 
     /// <summary>

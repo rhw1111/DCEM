@@ -175,10 +175,10 @@ namespace MSLibrary.MessageQueue.DAL
         /// <returns></returns>
         public static string GetSMessageTypeListenerSelectFields(string prefix)
         {
-            var strSelect = @"{0}.[id] as [{0}id],{0}.[name] as [{0}name],{0}.[mode] as [{0}mode],{0}.[listenerfactorytype] as [{0}listenerfactorytype],{0}.[listenerfactorytypeusedi] as [{0}listenerfactorytypeusedi],{0}.[listenerweburl] as [{0}listenerweburl],{0}.[listenerwebsignature] as [{0}listenerwebsignature],{0}.[createtime] as [{0}createtime],{0}.[modifytime] as [{0}modifytime],{0}.[sequence] as [{0}sequence]";
+            var strSelect = @"{0}.[id] as [{0}id],{0}.[name] as [{0}name],{0}.QueueGroupName as [{0}QueueGroupName],{0}.[mode] as [{0}mode],{0}.[listenerfactorytype] as [{0}listenerfactorytype],{0}.[listenerfactorytypeusedi] as [{0}listenerfactorytypeusedi],{0}.[listenerweburl] as [{0}listenerweburl],{0}.[listenerwebsignature] as [{0}listenerwebsignature],{0}.[createtime] as [{0}createtime],{0}.[modifytime] as [{0}modifytime],{0}.[sequence] as [{0}sequence]";
             if (string.IsNullOrEmpty(prefix))
             {
-                strSelect = @"[id],[name],[mode],[listenerfactorytype],[listenerfactorytypeusedi],[listenerweburl],[listenerwebsignature],[createtime],[modifytime],[sequence]";
+                strSelect = @"[id],[name],[QueueGroupName],[mode],[listenerfactorytype],[listenerfactorytypeusedi],[listenerweburl],[listenerwebsignature],[createtime],[modifytime],[sequence]";
             }
             return string.Format(strSelect, prefix);
         }
@@ -196,6 +196,11 @@ namespace MSLibrary.MessageQueue.DAL
             if (reader[string.Format("{0}name", prefix)] != DBNull.Value)
             {
                 listener.Name = reader[string.Format("{0}name", prefix)].ToString();
+            }
+
+            if (reader[string.Format("{0}queuegroupname", prefix)] != DBNull.Value)
+            {
+                listener.QueueGroupName = reader[string.Format("{0}queuegroupname", prefix)].ToString();
             }
 
             if (reader[string.Format("{0}mode", prefix)] != DBNull.Value)
@@ -242,10 +247,10 @@ namespace MSLibrary.MessageQueue.DAL
         /// <returns></returns>
         public static string GetSMessageSelectFields(string prefix)
         {
-            var strSelect = @"{0}.[id] as [{0}id],{0}.[key] as [{0}key],{0}.[type] as [{0}type],{0}.[data] as [{0}data],{0}.[createtime] as [{0}createtime],{0}.[expectationexecutetime] as [{0}expectationexecutetime],{0}.[lastexecutetime] as [{0}lastexecutetime],{0}.[retrynumber] as [{0}retrynumber],{0}.[exceptionmessage] as [{0}exceptionmessage],{0}.[isdead] as [{0}isdead],{0}.[sequence] as [{0}sequence]";
+            var strSelect = @"{0}.[id] as [{0}id],{0}.[key] as [{0}key],{0}.[type] as [{0}type],{0}.[data] as [{0}data],{0}.[typelistenerid] as [{0}typelistenerid],{0}.[originalmessageid] as [{0}originalmessageid],{0}.[delaymessageid] as [{0}delaymessageid],{0}.[extensionmessage] as [{0}extensionmessage],{0}.[createtime] as [{0}createtime],{0}.[expectationexecutetime] as [{0}expectationexecutetime],{0}.[lastexecutetime] as [{0}lastexecutetime],{0}.[retrynumber] as [{0}retrynumber],{0}.[exceptionmessage] as [{0}exceptionmessage],{0}.[isdead] as [{0}isdead],{0}.[sequence] as [{0}sequence]";
             if (string.IsNullOrEmpty(prefix))
             {
-                strSelect = @"[id],[key],[type],[data],[createtime],[expectationexecutetime],[lastexecutetime],[retrynumber],[exceptionmessage],[isdead],[sequence]";
+                strSelect = @"[id],[key],[type],[data],[typelistenerid],[originalmessageid],[delaymessageid],[extensionmessage],[createtime],[expectationexecutetime],[lastexecutetime],[retrynumber],[exceptionmessage],[isdead],[sequence]";
             }
             return string.Format(strSelect, prefix);
         }
@@ -269,6 +274,28 @@ namespace MSLibrary.MessageQueue.DAL
             {
                 message.Data = (string)reader[string.Format("{0}data", prefix)];
             }
+
+            if (reader[string.Format("{0}typelistenerid", prefix)] != DBNull.Value)
+            {
+                message.TypeListenerID = (Guid)reader[string.Format("{0}typelistenerid", prefix)];
+            }
+
+            if (reader[string.Format("{0}originalmessageid", prefix)] != DBNull.Value)
+            {
+                message.OriginalMessageID = (Guid)reader[string.Format("{0}originalmessageid", prefix)];
+            }
+
+            if (reader[string.Format("{0}delaymessageid", prefix)] != DBNull.Value)
+            {
+                message.DelayMessageID = (Guid)reader[string.Format("{0}delaymessageid", prefix)];
+            }
+          
+
+            if (reader[string.Format("{0}extensionmessage", prefix)] != DBNull.Value)
+            {
+                message.ExtensionMessage = (string)reader[string.Format("{0}extensionmessage", prefix)];
+            }
+
 
             if (reader[string.Format("{0}createtime", prefix)] != DBNull.Value)
             {
@@ -357,10 +384,10 @@ namespace MSLibrary.MessageQueue.DAL
         /// <returns></returns>
         public static string GetSMessageHistorySelectFields(string prefix)
         {
-            var strSelect = @"{0}.[id] as [{0}id],{0}.[key] as [{0}key],{0}.[type] as [{0}type],{0}.[data] as [{0}data],{0}.[status] as [{0}status],{0}.[createtime] as [{0}createtime],{0}.[modifytime] as [{0}modifytime],{0}.[sequence] as [{0}sequence]";
+            var strSelect = @"{0}.[id] as [{0}id],{0}.[key] as [{0}key],{0}.[type] as [{0}type],{0}.[data] as [{0}data],{0}.[originalmessageid] as [{0}originalmessageid],{0}.[delaymessageid] as [{0}delaymessageid] ,{0}.[status] as [{0}status],{0}.[createtime] as [{0}createtime],{0}.[modifytime] as [{0}modifytime],{0}.[sequence] as [{0}sequence]";
             if (string.IsNullOrEmpty(prefix))
             {
-                strSelect = @"[id],[key],[type],[data],[status],[createtime],[modifytime],[sequence]";
+                strSelect = @"[id],[key],[type],[data],[originalmessageid],[delaymessageid],[status],[createtime],[modifytime],[sequence]";
             }
             return string.Format(strSelect, prefix);
         }
@@ -388,6 +415,18 @@ namespace MSLibrary.MessageQueue.DAL
             {
                 history.Data = reader[string.Format("{0}data", prefix)].ToString();
             }
+
+            if (reader[string.Format("{0}originalmessageid", prefix)] != DBNull.Value)
+            {
+                history.OriginalMessageID = (Guid)reader[string.Format("{0}originalmessageid", prefix)];
+            }
+
+            if (reader[string.Format("{0}delaymessageid", prefix)] != DBNull.Value)
+            {
+                history.DelayMessageID = (Guid)reader[string.Format("{0}delaymessageid", prefix)];
+            }
+
+            
 
             if (reader[string.Format("{0}status", prefix)] != DBNull.Value)
             {

@@ -33,6 +33,7 @@ namespace MSLibrary.Configuration
             set
             {
                 _configurationsByName.Length = value;
+                _cacheSize = value;
             }
         }
         /// <summary>

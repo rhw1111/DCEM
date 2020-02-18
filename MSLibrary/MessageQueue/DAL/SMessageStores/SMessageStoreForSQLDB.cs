@@ -54,14 +54,14 @@ namespace MSLibrary.MessageQueue.DAL.SMessageStores
 
                     if (message.ID == Guid.Empty)
                     {
-                        commond.CommandText = string.Format(@"insert into {0}([id],[key],[type],[data],[createtime],[expectationexecutetime],[lastexecutetime],[retrynumber],[exceptionmessage],[isdead])
-                                    values(default,@key,@type,@data,getutcdate(),@expectationexecutetime,null,0,null,0);
+                        commond.CommandText = string.Format(@"insert into {0}([id],[key],[type],[data],[typelistenerid],[originalmessageid],[delaymessageid],[extensionmessage],[createtime],[expectationexecutetime],[lastexecutetime],[retrynumber],[exceptionmessage],[isdead])
+                                    values(default,@key,@type,@data,@typelistenerid,@originalmessageid,@delaymessageid,@extensionmessage,getutcdate(),@expectationexecutetime,null,0,null,0);
                                     select @newid=[id] from {0} where [sequence]=SCOPE_IDENTITY()", queue.Name);
                     }
                     else
                     {
-                        commond.CommandText = string.Format(@"insert into {0}([id],[key],[type],[data],[createtime],[expectationexecutetime],[lastexecutetime],[retrynumber],[exceptionmessage],[isdead])
-                                    values(@id,@key,@type,@data,getutcdate(),@expectationexecutetime,null,0,null,0)", queue.Name);
+                        commond.CommandText = string.Format(@"insert into {0}([id],[key],[type],[data],[typelistenerid],[originalmessageid],[delaymessageid],[extensionmessage],[createtime],[expectationexecutetime],[lastexecutetime],[retrynumber],[exceptionmessage],[isdead])
+                                    values(@id,@key,@type,@data,@typelistenerid,@originalmessageid,@delaymessageid,@extensionmessage,getutcdate(),@expectationexecutetime,null,0,null,0)", queue.Name);
                     }
 
                     SqlParameter parameter;
@@ -99,6 +99,76 @@ namespace MSLibrary.MessageQueue.DAL.SMessageStores
                         Value = message.Data
                     };
                     commond.Parameters.Add(parameter);
+
+                    if (message.TypeListenerID.HasValue)
+                    {
+                        parameter = new SqlParameter("@typelistenerid", SqlDbType.UniqueIdentifier)
+                        {
+                            Value = message.TypeListenerID
+                        };
+                    }
+                    else
+                    {
+                        parameter = new SqlParameter("@typelistenerid", SqlDbType.UniqueIdentifier)
+                        {
+                            Value =DBNull.Value
+                        };
+                    }
+                    commond.Parameters.Add(parameter);
+
+
+                    if (message.OriginalMessageID.HasValue)
+                    {
+                        parameter = new SqlParameter("@originalmessageid", SqlDbType.UniqueIdentifier)
+                        {
+                            Value = message.OriginalMessageID
+                        };
+                    }
+                    else
+                    {
+                        parameter = new SqlParameter("@originalmessageid", SqlDbType.UniqueIdentifier)
+                        {
+                            Value = DBNull.Value
+                        };
+                    }
+                    commond.Parameters.Add(parameter);
+
+                    if (message.DelayMessageID.HasValue)
+                    {
+                        parameter = new SqlParameter("@delaymessageid", SqlDbType.UniqueIdentifier)
+                        {
+                            Value = message.DelayMessageID
+                        };
+                    }
+                    else
+                    {
+                        parameter = new SqlParameter("@delaymessageid", SqlDbType.UniqueIdentifier)
+                        {
+                            Value = DBNull.Value
+                        };
+                    }
+                    commond.Parameters.Add(parameter);
+                    
+
+
+                    if (message.ExtensionMessage!=null)
+                    {
+                        parameter = new SqlParameter("@extensionmessage", SqlDbType.NVarChar, message.ExtensionMessage.Length)
+                        {
+                            Value = message.ExtensionMessage
+                        };
+                    }
+                    else
+                    {
+                        parameter = new SqlParameter("@extensionmessage", SqlDbType.NVarChar,10)
+                        {
+                            Value = DBNull.Value
+                        };
+                    }
+                    commond.Parameters.Add(parameter);
+
+
+
 
                     parameter = new SqlParameter("@expectationexecutetime", SqlDbType.DateTime)
                     {
@@ -191,14 +261,14 @@ namespace MSLibrary.MessageQueue.DAL.SMessageStores
 
                     if (message.ID == Guid.Empty)
                     {
-                        commond.CommandText = string.Format(@"insert into {0}([id],[key],[type],[data],[createtime],[expectationexecutetime],[lastexecutetime],[retrynumber],[exceptionMessage],[isdead])
-                                    values(default,@key,@type,@data,getutcdate(),@expectationexecutetime,null,0,@exceptionmessage,1);
+                        commond.CommandText = string.Format(@"insert into {0}([id],[key],[type],[data],[typelistenerid],[originalmessageid],[extensionmessage],[createtime],[expectationexecutetime],[lastexecutetime],[retrynumber],[exceptionMessage],[isdead])
+                                    values(default,@key,@type,@data,@typelistenerid,@originalmessageid,@extensionmessage,getutcdate(),@expectationexecutetime,null,0,@exceptionmessage,1);
                                     select @newid=[id] from {0} where [sequence]=SCOPE_IDENTITY()", queue.Name);
                     }
                     else
                     {
-                        commond.CommandText = string.Format(@"insert into {0}([id],[key],[type],[data],[createtime],[expectationexecutetime],[lastexecutetime],[retrynumber],[exceptionMessage],[isdead])
-                                    values(@id,@key,@type,@data,getutcdate(),@expectationexecutetime,null,0,@exceptionmessage,1)", queue.Name);
+                        commond.CommandText = string.Format(@"insert into {0}([id],[key],[type],[data],[typelistenerid],[originalmessageid],[extensionmessage],[createtime],[expectationexecutetime],[lastexecutetime],[retrynumber],[exceptionMessage],[isdead])
+                                    values(@id,@key,@type,@data,@typelistenerid,@originalmessageid,@extensionmessage,getutcdate(),@expectationexecutetime,null,0,@exceptionmessage,1)", queue.Name);
                     }
 
                     SqlParameter parameter;
@@ -236,6 +306,57 @@ namespace MSLibrary.MessageQueue.DAL.SMessageStores
                         Value = message.Data
                     };
                     commond.Parameters.Add(parameter);
+
+                    if (message.TypeListenerID.HasValue)
+                    {
+                        parameter = new SqlParameter("@typelistenerid", SqlDbType.UniqueIdentifier)
+                        {
+                            Value = message.TypeListenerID
+                        };
+                    }
+                    else
+                    {
+                        parameter = new SqlParameter("@typelistenerid", SqlDbType.UniqueIdentifier)
+                        {
+                            Value = DBNull.Value
+                        };
+                    }
+                    commond.Parameters.Add(parameter);
+
+
+                    if (message.OriginalMessageID.HasValue)
+                    {
+                        parameter = new SqlParameter("@originalmessageid", SqlDbType.UniqueIdentifier)
+                        {
+                            Value = message.OriginalMessageID
+                        };
+                    }
+                    else
+                    {
+                        parameter = new SqlParameter("@originalmessageid", SqlDbType.UniqueIdentifier)
+                        {
+                            Value = DBNull.Value
+                        };
+                    }
+                    commond.Parameters.Add(parameter);
+
+
+                    if (message.ExtensionMessage != null)
+                    {
+                        parameter = new SqlParameter("@extensionmessage", SqlDbType.NVarChar, message.ExtensionMessage.Length)
+                        {
+                            Value = message.ExtensionMessage
+                        };
+                    }
+                    else
+                    {
+                        parameter = new SqlParameter("@extensionmessage", SqlDbType.NVarChar, 10)
+                        {
+                            Value = DBNull.Value
+                        };
+                    }
+                    commond.Parameters.Add(parameter);
+
 
                     parameter = new SqlParameter("@expectationexecutetime", SqlDbType.DateTime)
                     {
@@ -393,6 +514,61 @@ namespace MSLibrary.MessageQueue.DAL.SMessageStores
 
         }
 
+        public async Task<SMessage> QueryByDelayID(SQueue queue, Guid delayMessageID)
+        {
+            SMessage message = null;
+            //根据存储类型和服务器名称获取连接字符串
+            var strConn = _messageQueueConnectionFactory.CreateReadForMessageQueue(queue.StoreType, queue.ServerName);
+
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, strConn, async (conn, transaction) =>
+            {
+                SqlTransaction sqlTran = null;
+                if (transaction != null)
+                {
+                    sqlTran = (SqlTransaction)transaction;
+                }
+
+                using (SqlCommand commond = new SqlCommand()
+                {
+                    Connection = (SqlConnection)conn,
+                    CommandType = CommandType.Text,
+                    Transaction = sqlTran,
+                    CommandText = string.Format(@"select top 1 {0} from {1} where [delaymessageid]=@delaymessageid ", StoreHelper.GetSMessageSelectFields(string.Empty), queue.Name)
+                })
+                {
+
+
+                    var parameter = new SqlParameter("@delaymessageid", SqlDbType.UniqueIdentifier)
+                    {
+                        Value = delayMessageID
+                    };
+                    commond.Parameters.Add(parameter);
+
+                    commond.Prepare();
+
+
+                    SqlDataReader reader = null;
+
+                    using (reader = await commond.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            message = new SMessage();
+                            StoreHelper.SetSMessageSelectFields(message, reader, string.Empty);
+                            message.Extensions[_queueName] = queue;
+                        }
+
+                        reader.Close();
+                    }
+
+
+                }
+
+            });
+
+            return message;
+        }
+
         public async Task<SMessage> QueryByKeyAndBeforeExpectTime(SQueue queue, string key, DateTime expectTime)
         {
             SMessage message = null;
@@ -426,6 +602,67 @@ namespace MSLibrary.MessageQueue.DAL.SMessageStores
                     parameter = new SqlParameter("@expectationexecutetime", SqlDbType.DateTime)
                     {
                         Value = expectTime
+                    };
+                    commond.Parameters.Add(parameter);
+
+                    commond.Prepare();
+
+
+                    SqlDataReader reader = null;
+
+                    using (reader = await commond.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            message = new SMessage();
+                            StoreHelper.SetSMessageSelectFields(message, reader, string.Empty);
+                            message.Extensions[_queueName] = queue;
+                        }
+
+                        reader.Close();
+                    }
+
+
+                }
+
+            });
+
+            return message;
+        }
+
+        public async Task<SMessage> QueryByOriginalID(SQueue queue, Guid originalMessageID, Guid listenerID)
+        {
+            SMessage message = null;
+            //根据存储类型和服务器名称获取连接字符串
+            var strConn = _messageQueueConnectionFactory.CreateReadForMessageQueue(queue.StoreType, queue.ServerName);
+
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, strConn, async (conn, transaction) =>
+            {
+                SqlTransaction sqlTran = null;
+                if (transaction != null)
+                {
+                    sqlTran = (SqlTransaction)transaction;
+                }
+
+                using (SqlCommand commond = new SqlCommand()
+                {
+                    Connection = (SqlConnection)conn,
+                    CommandType = CommandType.Text,
+                    Transaction = sqlTran,
+                    CommandText = string.Format(@"select top 1 {0} from {1} where [originalmessageid]=@originalmessageid and [listenerid]=@listenerid ", StoreHelper.GetSMessageSelectFields(string.Empty), queue.Name)
+                })
+                {
+
+
+                    var parameter = new SqlParameter("@originalmessageid", SqlDbType.UniqueIdentifier)
+                    {
+                        Value = originalMessageID
+                    };
+                    commond.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter("@listenerid", SqlDbType.UniqueIdentifier)
+                    {
+                        Value = listenerID
                     };
                     commond.Parameters.Add(parameter);
 
