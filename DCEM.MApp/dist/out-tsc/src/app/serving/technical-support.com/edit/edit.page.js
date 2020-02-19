@@ -65,7 +65,7 @@ let EditPage = class EditPage {
         };
     }
     //每次页面加载
-    ionViewDidEnter() {
+    ionViewWillEnter() {
         this.menuController.enable(true);
     }
     ngOnInit() {

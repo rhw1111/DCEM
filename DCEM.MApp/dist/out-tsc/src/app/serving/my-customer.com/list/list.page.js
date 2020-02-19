@@ -25,7 +25,7 @@ let ListPage = class ListPage {
         //this.listOnBind();
     }
     //每次页面加载
-    ionViewDidEnter() {
+    ionViewWillEnter() {
         this.mod.data = [];
         this.mod.searchData = {
             type: 1,

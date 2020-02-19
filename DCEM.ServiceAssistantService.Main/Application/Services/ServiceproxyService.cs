@@ -10,6 +10,9 @@ using MSLibrary.Xrm.Message.Retrieve;
 using MSLibrary.Xrm.Message.RetrieveSignleAttribute;
 using Newtonsoft.Json.Linq;
 using System.Linq;
+using DCEM.Main.Entities;
+using DCEM.Main;
+
 namespace DCEM.ServiceAssistantService.Main.Application
 {
     //服务委托书相关
@@ -106,10 +109,14 @@ namespace DCEM.ServiceAssistantService.Main.Application
             #region 获取记录结果集
             var filter = await GetQueryListFilter(type, search);
             var fetchXdoc = await GetGetQueryListFetchXml(pageIndex, filter);
+
+            var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+
             var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
             {
                 EntityName = "mcs_serviceproxy",
-                FetchXml = fetchXdoc
+                FetchXml = fetchXdoc,
+                ProxyUserId = userInfo != null ? userInfo.systemuserid: null
             };
             fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
             var fetchResponse = await _crmService.Execute(fetchRequest);
@@ -675,10 +682,13 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 </fetch>";
                 return XDocument.Parse(fetchXml);
             });
+            var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+
             var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
             {
                 EntityName = "mcs_spmpartspricemanagement",
-                FetchXml = xdoc
+                FetchXml = xdoc,
+                ProxyUserId= userInfo!=null? userInfo.systemuserid:null
             };
             fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
             var fetchResponse = await _crmService.Execute(fetchRequest);
@@ -819,10 +829,14 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 </fetch>";
                 return XDocument.Parse(fetchXml);
             });
+
+            var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+
             var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
             {
                 EntityName = "mcs_parts",
-                FetchXml = xdoc
+                FetchXml = xdoc,
+                ProxyUserId = userInfo != null ? userInfo.systemuserid : null
             };
             fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
             var fetchResponse = await _crmService.Execute(fetchRequest);

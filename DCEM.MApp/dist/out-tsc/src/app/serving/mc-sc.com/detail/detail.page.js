@@ -47,7 +47,7 @@ let DetailPage = class DetailPage {
             }
         };
     }
-    ionViewDidEnter() {
+    ionViewWillEnter() {
         this.menuController.enable(true);
     }
     ngOnInit() {

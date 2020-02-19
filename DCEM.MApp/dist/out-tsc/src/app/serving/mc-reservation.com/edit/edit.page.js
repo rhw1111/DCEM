@@ -45,7 +45,7 @@ let EditPage = class EditPage {
     }
     ngOnInit() {
     }
-    ionViewDidEnter() {
+    ionViewWillEnter() {
         this.activeRoute.queryParams.subscribe((params) => {
             //编辑绑定预约单数据
             if (params['id'] != null && params['id'] != undefined) {

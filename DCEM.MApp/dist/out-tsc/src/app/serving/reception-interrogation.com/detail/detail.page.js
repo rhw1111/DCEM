@@ -46,7 +46,7 @@ let DetailPage = class DetailPage {
         });
     }
     //每次页面加载
-    ionViewDidEnter() {
+    ionViewWillEnter() {
         this.menuController.enable(true);
     }
     pageOnBind(id) {

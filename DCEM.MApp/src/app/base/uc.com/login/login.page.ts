@@ -35,7 +35,7 @@ export class LoginPage implements OnInit {
     };
 
     //每次进入页面时，我们将初始化禁用侧滑菜单
-    ionViewDidEnter() {   
+    ionViewWillEnter() {   
         this.menuCtrl.enable(false);
     }
     // 初始化
@@ -83,7 +83,7 @@ export class LoginPage implements OnInit {
                 this.mod.domain = "https://mscrm.sokon.com/dcem";
                 break;
             case 'localhost':
-                this.mod.domain = "https://localhost:44382";
+                this.mod.domain = "http://localhost:5000";
                 break;
             default:
                 this.mod.domain = "http://localhost:52151";

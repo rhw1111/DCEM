@@ -50,7 +50,7 @@ export class Edit2Page implements OnInit {
     ) {
 
     }
-    ionViewDidEnter() {
+    ionViewWillEnter() {
         if (this._shareData.has(this.mod.shareDataKey)) {
             this.shareData = this._shareData.get(this.mod.shareDataKey);
 

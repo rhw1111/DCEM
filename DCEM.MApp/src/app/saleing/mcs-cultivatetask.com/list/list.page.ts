@@ -41,7 +41,7 @@ export class ListPage implements OnInit {
    
   }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
     // debugger;
     this.menuController.enable(false);
     this.model.datalist=[];
@@ -95,16 +95,14 @@ export class ListPage implements OnInit {
 
   //获取列表数据
   getList(event) {
-    this._http.get(this.model.apiUrl,
+    this._http.getForToaken(this.model.apiUrl,
       {
-        params: {
           mcs_activitystatus: this.model.mcs_activitystatus,
           seachkey: this.model.seachkey,
           sort: this.model.sort,
           pageSize: this.model.pageSize,
           page: this.model.page,
           systemuserid: this.model.systemUserId
-        }
       },
       (res: any) => {
         //debugger;
