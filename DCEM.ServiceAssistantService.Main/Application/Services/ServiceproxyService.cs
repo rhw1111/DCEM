@@ -569,6 +569,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
         #region 加工 额外维修项目信息
         public async Task<List<CrmEntity>> AddExtRepairitemList(List<CrmEntity> repairitemList, string dealeridGuid)
         {
+          
             var repairitemMap = new Dictionary<Guid, CrmEntity>();
 
             #region 组装 维修项目Map

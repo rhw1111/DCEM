@@ -10,7 +10,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
         /// <summary>
         /// 查询车辆档案
         /// </summary>
-        Task<QueryResult<CrmEntity>> QueryList(int pageindex, string search);
+        Task<QueryResult<CrmEntity>> QueryList(int pageindex, string search,string dealeridGuid);
         #endregion
 
         #region 查询车型列表

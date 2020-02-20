@@ -8,6 +8,9 @@ using DCEM.ServiceAssistantService.Main.DTOModel;
 using System.Collections.Generic;
 using MSLibrary.Xrm.Message.Retrieve;
 using MSLibrary.Xrm.Message.RetrieveSignleAttribute;
+using DCEM.Main.Entities;
+using DCEM.Main;
+
 namespace DCEM.ServiceAssistantService.Main.Application
 {
     public class VehownerService : IVehownerService
@@ -31,8 +34,9 @@ namespace DCEM.ServiceAssistantService.Main.Application
         #region 获取车辆档案列表
 
         #region filter组装
-        public async Task<string> GetQueryListFilter(string search)
+        public async Task<string> GetQueryListFilter(string search,string dealeridGuid)
         {
+           
             return await Task<string>.Run(() =>
             {
                 var filter = string.Empty;
@@ -44,13 +48,12 @@ namespace DCEM.ServiceAssistantService.Main.Application
                     filter += $"<condition attribute='mcs_mobilephone' operator='like' value='%{search}%' />";
                     filter += $"<condition attribute='mcs_fullname' operator='like' value='%{search}%' />";
                     filter += $"</filter>";
-                }
-
-                if (!string.IsNullOrEmpty(filter))
-                {
-                    filter = "<filter type='and'>" + filter;
-                    filter = filter + "</filter>";
-                }
+                }          
+               filter = "<filter type='and'>" + filter;
+               filter = filter + $" <condition attribute='mcs_dealer' operator='eq'  value='{dealeridGuid}' />";
+               filter = filter + "</filter>";
+                
+             
                 return filter;
             });
         }
@@ -78,10 +81,10 @@ namespace DCEM.ServiceAssistantService.Main.Application
         #endregion
 
         #region 查询记录集
-        public async Task<QueryResult<CrmEntity>> QueryList(int pageindex, string search)
+        public async Task<QueryResult<CrmEntity>> QueryList(int pageindex, string search,string dealeridGuid)
         {
             #region 获取记录结果集
-            var filter = await GetQueryListFilter(search);
+            var filter = await GetQueryListFilter(search, dealeridGuid);
             var fetchXdoc = await GetQueryListFetchXml(pageindex, filter);
             var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
             {
