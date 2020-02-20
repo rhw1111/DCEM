@@ -275,7 +275,7 @@ export class Edit2Page implements OnInit {
 
         //提交数据保存
         this._page.loadingShow();
-        this._http.post(
+        this._http.postForToaken(
             this.mod.postApiUrl, this.mod.postData,
             (res: any) => {
                 this._page.loadingHide();
