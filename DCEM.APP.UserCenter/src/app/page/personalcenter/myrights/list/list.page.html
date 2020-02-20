@@ -1,0 +1,69 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{model.title}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row style="margin-top:-40px;">
+            <div class="order-head">
+                <h3>权益列表</h3>
+            </div>
+        </ion-row>
+        <ion-segment [(ngModel)]="tab" color="primary" model="md" scrollable class="segment-custom">
+            <ion-segment-button value="rightsget">
+                <ion-label>已领用权益</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="rightsuse">
+                <ion-label>已使用权益</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+        <div [ngSwitch]="tab">
+            <div *ngSwitchCase="'rightsget'">
+                <ion-list lines="none">
+                    <ion-card *ngFor="let item of model.rightsget" style="margin: 10px;">
+                        <!--<ion-card-content [routerLink]="['/personalcenter/myorder/fineorder/detail']" [queryParams]="{code:item.OrderData.OrderCode}">-->
+                        <div style="padding:20px;color:#000;">
+                            <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
+                                <div>{{item.RightsName}}</div>
+                                <div>X {{item.RemainTimes}}</div>
+                            </div>
+                            <div>领用日期:  {{item.Getdate}}</div>
+                        </div>
+                    </ion-card>
+                    <!--无数据时显示-->
+                    <div class="non-product" *ngIf="model.isShowGetNone">
+                        <div style="margin-top:100px;text-align:center;color:#a5a2a2;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="64" height="64" t="1581581086758" p-id="9481" version="1.1"><path fill="#cdcdcd" d="M 807.424 389.12 V 208.896 c 0 -55.296 -50.176 -80.384 -75.264 -80.384 H 296.448 c -34.816 0 -70.144 34.816 -75.264 100.352 v 510.976 c 0 80.384 55.296 80.384 75.264 80.384 h 155.136 c 14.848 0 25.088 14.848 25.088 30.208 s -10.24 30.208 -25.088 30.208 H 291.84 c -45.056 0 -125.44 -30.208 -125.44 -110.08 V 224.256 c 0 -104.96 65.024 -150.528 125.44 -150.528 h 445.44 c 70.144 0 125.44 45.056 125.44 130.048 V 389.12 c 0 14.848 -10.24 30.208 -25.088 30.208 c -19.968 -5.12 -30.208 -14.848 -30.208 -30.208 Z" p-id="9482" /><path fill="#cdcdcd" d="M 341.504 228.864 h 350.72 c 14.848 0 25.088 10.24 25.088 25.088 c 0 14.848 -10.24 25.088 -25.088 25.088 H 341.504 c -14.848 0 -25.088 -10.24 -25.088 -25.088 c 0.512 -14.848 10.24 -25.088 25.088 -25.088 Z M 341.504 379.392 h 350.72 c 14.848 0 25.088 10.24 25.088 25.088 c 0 14.848 -10.24 25.088 -25.088 25.088 H 341.504 c -14.848 0 -25.088 -10.24 -25.088 -25.088 c 0.512 -15.36 10.24 -25.088 25.088 -25.088 Z M 341.504 529.408 h 150.528 c 14.848 0 25.088 10.24 25.088 25.088 c 0 14.848 -10.24 25.088 -25.088 25.088 H 341.504 c -14.848 0 -25.088 -10.24 -25.088 -25.088 c 0.512 -14.848 10.24 -25.088 25.088 -25.088 Z" p-id="9483" /><path fill="#cdcdcd" d="M 724.992 488.96 l -170.496 207.872 c -3.584 4.608 -6.144 10.24 -6.144 16.384 l -0.512 93.696 c 0 16.384 15.36 29.184 31.232 25.6 l 91.648 -18.944 c 6.144 -1.024 11.264 -4.608 14.848 -9.216 l 170.496 -207.872 c 9.216 -11.264 7.68 -27.648 -3.584 -36.864 l -91.136 -74.752 c -10.752 -8.704 -27.136 -7.168 -36.352 4.096 Z m -70.656 274.432 l -19.456 8.192 c -18.944 7.68 -38.912 -8.192 -35.84 -28.16 l 3.072 -22.016 c 0.512 -4.608 2.56 -9.216 5.632 -12.8 l 118.784 -144.896 c 9.216 -11.264 25.6 -12.8 36.864 -3.584 l 16.896 13.824 c 11.264 9.216 12.8 25.6 3.584 36.864 l -119.296 145.408 c -3.072 2.56 -6.144 5.12 -10.24 7.168 Z" p-id="9484" /></svg>
+                            <div><ion-label>暂无记录</ion-label></div>
+                        </div>
+                    </div>
+                </ion-list>
+            </div>
+            <div *ngSwitchCase="'rightsuse'">
+                <ion-list lines="none">
+                    <ion-card *ngFor="let item of model.rightsuse" style="margin: 10px;">
+                        <div style="padding:20px;color:#000;">
+                            <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
+                                <div>{{item.RightsName}}</div>
+                                <div>X {{item.CheckNum}}</div>
+                            </div>
+                            <div>使用日期:  {{item.CheckDate}}</div>
+                        </div>
+                    </ion-card>
+                    <!--无数据时显示-->
+                    <div class="non-product" *ngIf="model.isShowUseNone">
+                        <div style="margin-top:100px;text-align:center;color:#a5a2a2;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="64" height="64" t="1581581086758" p-id="9481" version="1.1"><path fill="#cdcdcd" d="M 807.424 389.12 V 208.896 c 0 -55.296 -50.176 -80.384 -75.264 -80.384 H 296.448 c -34.816 0 -70.144 34.816 -75.264 100.352 v 510.976 c 0 80.384 55.296 80.384 75.264 80.384 h 155.136 c 14.848 0 25.088 14.848 25.088 30.208 s -10.24 30.208 -25.088 30.208 H 291.84 c -45.056 0 -125.44 -30.208 -125.44 -110.08 V 224.256 c 0 -104.96 65.024 -150.528 125.44 -150.528 h 445.44 c 70.144 0 125.44 45.056 125.44 130.048 V 389.12 c 0 14.848 -10.24 30.208 -25.088 30.208 c -19.968 -5.12 -30.208 -14.848 -30.208 -30.208 Z" p-id="9482" /><path fill="#cdcdcd" d="M 341.504 228.864 h 350.72 c 14.848 0 25.088 10.24 25.088 25.088 c 0 14.848 -10.24 25.088 -25.088 25.088 H 341.504 c -14.848 0 -25.088 -10.24 -25.088 -25.088 c 0.512 -14.848 10.24 -25.088 25.088 -25.088 Z M 341.504 379.392 h 350.72 c 14.848 0 25.088 10.24 25.088 25.088 c 0 14.848 -10.24 25.088 -25.088 25.088 H 341.504 c -14.848 0 -25.088 -10.24 -25.088 -25.088 c 0.512 -15.36 10.24 -25.088 25.088 -25.088 Z M 341.504 529.408 h 150.528 c 14.848 0 25.088 10.24 25.088 25.088 c 0 14.848 -10.24 25.088 -25.088 25.088 H 341.504 c -14.848 0 -25.088 -10.24 -25.088 -25.088 c 0.512 -14.848 10.24 -25.088 25.088 -25.088 Z" p-id="9483" /><path fill="#cdcdcd" d="M 724.992 488.96 l -170.496 207.872 c -3.584 4.608 -6.144 10.24 -6.144 16.384 l -0.512 93.696 c 0 16.384 15.36 29.184 31.232 25.6 l 91.648 -18.944 c 6.144 -1.024 11.264 -4.608 14.848 -9.216 l 170.496 -207.872 c 9.216 -11.264 7.68 -27.648 -3.584 -36.864 l -91.136 -74.752 c -10.752 -8.704 -27.136 -7.168 -36.352 4.096 Z m -70.656 274.432 l -19.456 8.192 c -18.944 7.68 -38.912 -8.192 -35.84 -28.16 l 3.072 -22.016 c 0.512 -4.608 2.56 -9.216 5.632 -12.8 l 118.784 -144.896 c 9.216 -11.264 25.6 -12.8 36.864 -3.584 l 16.896 13.824 c 11.264 9.216 12.8 25.6 3.584 36.864 l -119.296 145.408 c -3.072 2.56 -6.144 5.12 -10.24 7.168 Z" p-id="9484" /></svg>
+                            <div><ion-label>暂无记录</ion-label></div>
+                        </div>
+                    </div>
+                </ion-list>
+            </div>
+        </div>
+    </ion-grid>
+</ion-content>

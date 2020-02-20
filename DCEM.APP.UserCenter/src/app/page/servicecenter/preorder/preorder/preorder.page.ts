@@ -3,6 +3,8 @@ import { DCore_Http, DCore_Page } from '../../../../../app/component/typescript/
 import { Storage_LoginInfo } from '../../../../component/typescript/logininfo.storage';
 import { OptionSetService } from "../../../../component/typescript/optionset.service";
 import { ActivatedRoute } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { LoginComponent } from '../../../../component/modal/login/login.component'
 import * as $ from 'jquery';
 
 @Component({
@@ -11,7 +13,7 @@ import * as $ from 'jquery';
     styleUrls: ['./preorder.page.scss'],
 })
 export class PreorderPage implements OnInit {
-    IsShowCover: boolean = false;
+    //IsShowCover: boolean = false;
     public model: any = {
         submit: {
             apiUrl: "api/order/CreateOrder",
@@ -32,15 +34,15 @@ export class PreorderPage implements OnInit {
             data: [],
             balance: 0,
         },
-        rights: {
-            apiUrl: "api/cashcoupon/MyCashCoupon",
-            productCode: "",
-            datas: [],
-            myRightses: [],//用户权益项
-            rightsMutuallyExclusives: [],//互斥权益项
-            RightsPackageGet: {},//选择权益项
-            showRights: false,
-        }
+        //rights: {
+        //    apiUrl: "api/cashcoupon/MyCashCoupon",
+        //    productCode: "",
+        //    datas: [],
+        //    myRightses: [],//用户权益项
+        //    rightsMutuallyExclusives: [],//互斥权益项
+        //    RightsPackageGet: {},//选择权益项
+        //    showRights: false,
+        //}
     };
     public mod: any = {
         isending: false,//是否加载完成  
@@ -59,6 +61,7 @@ export class PreorderPage implements OnInit {
         private _page: DCore_Page,
         private routerinfo: ActivatedRoute,
         private _optionset: OptionSetService,
+        private _modalCtrl: ModalController,
     ) { }
 
     ngOnInit() {
@@ -72,7 +75,9 @@ export class PreorderPage implements OnInit {
         if (datastr) {
             this.mod.model = JSON.parse(datastr);
         } else {
-            this.getList(null);
+            if (this._logininfo.GetNickName() != null) {
+                this.getList(null);
+            }
         }
     }
     //初始化页面数据加载
@@ -88,9 +93,25 @@ export class PreorderPage implements OnInit {
         });
         this.model.totalprice = parseFloat(totalprice.toString()).toFixed(2);
         this.model.totalintegral = totalintegral;
-        this.getRights(null);
-        this.getScore(null);
+        this.checkLogin();
         this._page.loadingHide();
+    }
+    //检查是否登陆
+    async checkLogin() {
+        if (this._logininfo.GetNickName() != null) {
+            //this.getRights(null);
+            this.getScore(null);
+        } else {
+            const modal = await this._modalCtrl.create({
+                component: LoginComponent,
+                componentProps: {
+                    'status': 1//登录页面状态 
+                }
+            });
+            await modal.present();
+            //监听销毁的事件
+            const { data } = await modal.onDidDismiss();
+        }
     }
     //获取收货地址数据
     getList(event) {
@@ -153,63 +174,63 @@ export class PreorderPage implements OnInit {
         );
     }
     //获取用户权益
-    getRights(event) {
-        this._http.getForShopping(this.model.rights.apiUrl,
-            { userid: this._logininfo.GetSystemUserId() },
-            (res: any) => {
-                if (res != null && res.MyRightses.length > 0) {
-                    //绑定数据
-                    res.MyRightses.forEach(item => {
-                        item.hideRights = false;
-                        item.checked = false;
-                    });
-                    this.model.rights.showRights = true;
-                    this.model.rights.myRightses = res.MyRightses;
-                    this.model.rights.rightsMutuallyExclusives = res.RightsMutuallyExclusives;
-                    event ? event.target.complete() : '';
-                }
-                this._page.loadingHide();
-            },
-            (err: any) => {
-                this._page.alert("消息提示", "数据加载异常");
-                this._page.loadingHide();
-            }
-        );
-    }
+    //getRights(event) {
+    //    this._http.getForShopping(this.model.rights.apiUrl,
+    //        { userid: this._logininfo.GetSystemUserId() },
+    //        (res: any) => {
+    //            if (res != null && res.MyRightses.length > 0) {
+    //                //绑定数据
+    //                res.MyRightses.forEach(item => {
+    //                    item.hideRights = false;
+    //                    item.checked = false;
+    //                });
+    //                this.model.rights.showRights = true;
+    //                this.model.rights.myRightses = res.MyRightses;
+    //                this.model.rights.rightsMutuallyExclusives = res.RightsMutuallyExclusives;
+    //                event ? event.target.complete() : '';
+    //            }
+    //            this._page.loadingHide();
+    //        },
+    //        (err: any) => {
+    //            this._page.alert("消息提示", "数据加载异常");
+    //            this._page.loadingHide();
+    //        }
+    //    );
+    //}
     //选择权益项
-    change(param) {
-        this.model.rights.rightsMutuallyExclusives.forEach(item => {
-            if (param.checked) {
-                if (item.MemberRightsCode == param.RightsCode) {
-                    this.model.rights.myRightses.forEach(rights => {
-                        if (rights.RightsCode == item.MutuallyExclusiveRightsCode) {
-                            rights.hideRights = true;
-                        }
-                    });
-                } else if (item.MutuallyExclusiveRightsCode == param.RightsCode) {
-                    this.model.rights.myRightses.forEach(rights => {
-                        if (rights.RightsCode == item.MemberRightsCode) {
-                            rights.hideRights = true;
-                        }
-                    });
-                }
-            } else {
-                if (item.MemberRightsCode == param.RightsCode) {
-                    this.model.rights.myRightses.forEach(rights => {
-                        if (rights.RightsCode == item.MutuallyExclusiveRightsCode) {
-                            rights.hideRights = false;
-                        }
-                    });
-                } else if (item.MutuallyExclusiveRightsCode == param.RightsCode) {
-                    this.model.rights.myRightses.forEach(rights => {
-                        if (rights.RightsCode == item.MemberRightsCode) {
-                            rights.hideRights = false;
-                        }
-                    });
-                }
-            }
-        });
-    }
+    //change(param) {
+    //    this.model.rights.rightsMutuallyExclusives.forEach(item => {
+    //        if (param.checked) {
+    //            if (item.MemberRightsCode == param.RightsCode) {
+    //                this.model.rights.myRightses.forEach(rights => {
+    //                    if (rights.RightsCode == item.MutuallyExclusiveRightsCode) {
+    //                        rights.hideRights = true;
+    //                    }
+    //                });
+    //            } else if (item.MutuallyExclusiveRightsCode == param.RightsCode) {
+    //                this.model.rights.myRightses.forEach(rights => {
+    //                    if (rights.RightsCode == item.MemberRightsCode) {
+    //                        rights.hideRights = true;
+    //                    }
+    //                });
+    //            }
+    //        } else {
+    //            if (item.MemberRightsCode == param.RightsCode) {
+    //                this.model.rights.myRightses.forEach(rights => {
+    //                    if (rights.RightsCode == item.MutuallyExclusiveRightsCode) {
+    //                        rights.hideRights = false;
+    //                    }
+    //                });
+    //            } else if (item.MutuallyExclusiveRightsCode == param.RightsCode) {
+    //                this.model.rights.myRightses.forEach(rights => {
+    //                    if (rights.RightsCode == item.MemberRightsCode) {
+    //                        rights.hideRights = false;
+    //                    }
+    //                });
+    //            }
+    //        }
+    //    });
+    //}
     //提交
     submitOrder() {
         if (this.model.paymenttype == 2) {
@@ -249,7 +270,7 @@ export class PreorderPage implements OnInit {
                             "TotalPrice": deducationintegral == 0 ? this.model.totalprice : deducationintegral,
                             "TotalIntegral": integral,
                             "IsNeedCash": isneedcash,
-                            "RightsPackageGet": this.model.rights.RightsPackageGet
+                            //"RightsPackageGet": this.model.rights.RightsPackageGet
                         };
                         this._page.navigateRoot("/servicecenter/payment/payment", returndata);
                     }
@@ -358,22 +379,22 @@ export class PreorderPage implements OnInit {
             };
             data.Products.push(product);
         });
-        var rightsPackageGet = {
-            "rightscheck": [],
-            "dealerid": null,
-            "mutuallyexclusiveactivity": "",
-            "userid": this._logininfo.GetSystemUserId()
-        };
-        this.model.rights.myRightses.forEach(rights => {
-            if (rights.checked) {
-                var rightscheck = {
-                    "rightspackagegetid": rights.RightsPackageGetId,
-                    "checknum": 1
-                };
-                rightsPackageGet.rightscheck.push(rightscheck);
-            }
-        });
-        this.model.rights.RightsPackageGet = rightsPackageGet;
+        //var rightsPackageGet = {
+        //    "rightscheck": [],
+        //    "dealerid": null,
+        //    "mutuallyexclusiveactivity": "",
+        //    "userid": this._logininfo.GetSystemUserId()
+        //};
+        //this.model.rights.myRightses.forEach(rights => {
+        //    if (rights.checked) {
+        //        var rightscheck = {
+        //            "rightspackagegetid": rights.RightsPackageGetId,
+        //            "checknum": 1
+        //        };
+        //        rightsPackageGet.rightscheck.push(rightscheck);
+        //    }
+        //});
+        //this.model.rights.RightsPackageGet = rightsPackageGet;
         return data;
     }
 
@@ -437,30 +458,30 @@ export class PreorderPage implements OnInit {
         var currentdate = "" + year + strmonth + strdate;
         return currentdate;
     }
-    ShowTwoBtn(productcode) {
-        this.model.datas.datas.forEach(res => {
-            if (productcode == res.productcode) {
-                this.model.rights.datas = res.RightsPackages;
-                return false;
-            }
-        });
-        this.IsShowCover = true;
-        $(".TwoBtnDialog").slideDown();
-        $(".footer-bottom").fadeOut();
-    }
-    TwoBtnSure() {
-        $(".TwoBtnDialog").slideUp();
-        this.IsShowCover = false;
-        $(".footer-bottom").fadeIn();
-    }
-    CloseDialog() {
-        if (this.IsShowCover) {
-            $(".TwoBtnDialog").slideUp();
-            this.IsShowCover = false;
-            $(".footer-bottom").fadeIn();
-            this.model.rights.myRightses.forEach(rights => {
-                rights.checked = false;
-            });
-        }
-    }
+    //ShowTwoBtn(productcode) {
+    //    this.model.datas.datas.forEach(res => {
+    //        if (productcode == res.productcode) {
+    //            this.model.rights.datas = res.RightsPackages;
+    //            return false;
+    //        }
+    //    });
+    //    this.IsShowCover = true;
+    //    $(".TwoBtnDialog").slideDown();
+    //    $(".footer-bottom").fadeOut();
+    //}
+    //TwoBtnSure() {
+    //    $(".TwoBtnDialog").slideUp();
+    //    this.IsShowCover = false;
+    //    $(".footer-bottom").fadeIn();
+    //}
+    //CloseDialog() {
+    //    if (this.IsShowCover) {
+    //        $(".TwoBtnDialog").slideUp();
+    //        this.IsShowCover = false;
+    //        $(".footer-bottom").fadeIn();
+    //        this.model.rights.myRightses.forEach(rights => {
+    //            rights.checked = false;
+    //        });
+    //    }
+    //}
 }

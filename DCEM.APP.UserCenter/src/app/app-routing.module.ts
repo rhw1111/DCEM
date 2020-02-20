@@ -249,7 +249,13 @@ const routes: Routes = [
 
                 ]
             },
+            {
+                path: 'myrights',
+                children: [
+                    { path: 'list', loadChildren: () => import('./page/personalcenter/myrights/list/list.module').then(m => m.ListPageModule) },
 
+                ]
+            },
         ]
     },
     {
