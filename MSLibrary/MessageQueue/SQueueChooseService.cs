@@ -14,11 +14,11 @@ namespace MSLibrary.MessageQueue
     [Injection(InterfaceType = typeof(ISQueueChooseService), Scope = InjectionScope.Singleton)]
     public class SQueueChooseService : ISQueueChooseService
     {
-        private ISQueueRepository _sQueueRepository;
+        private SQueueRepositoryHelper _sQueueRepositoryHelper;
 
-        public SQueueChooseService(ISQueueRepository sQueueRepository)
+        public SQueueChooseService(SQueueRepositoryHelper sQueueRepositoryHelper)
         {
-            _sQueueRepository = sQueueRepository;
+            _sQueueRepositoryHelper = sQueueRepositoryHelper;
         }
         public async Task<SQueue> Choose(string key)
         {
@@ -29,18 +29,18 @@ namespace MSLibrary.MessageQueue
             }
 
             //获取总记录数
-            var queryResult=await _sQueueRepository.QueryByGroup(arrayKey[0], false, 1, 1);
-            if (queryResult.TotalCount==0)
+            var count=await _sQueueRepositoryHelper.QueryGroupCount(arrayKey[0], false);
+            if (count==0)
             {
                 throw new Exception($"the number of queues whose groupname is {arrayKey[0]} must greater than 0");
             }
 
             //计算散列值
             var keyNumber=key.ToInt();
-            var code = keyNumber % queryResult.TotalCount;
+            var code = keyNumber % count;
 
             //获取队列
-            return await _sQueueRepository.QueryByCode(arrayKey[0], false, code);
+            return await _sQueueRepositoryHelper.QueryByCode(arrayKey[0], false, code);
             
         }
 
@@ -53,18 +53,18 @@ namespace MSLibrary.MessageQueue
             }
 
             //获取总记录数
-            var queryResult = await _sQueueRepository.QueryByGroup(arrayKey[0], true, 1, 1);
-            if (queryResult.TotalCount == 0)
+            var count = await _sQueueRepositoryHelper.QueryGroupCount(arrayKey[0], true);
+            if (count == 0)
             {
                 throw new Exception($"the number of dead queues whose groupname is {arrayKey[0]} must greater than 0");
             }
 
             //计算散列值
             var keyNumber = key.ToInt();
-            var code = keyNumber % queryResult.TotalCount;
+            var code = keyNumber % count;
 
             //获取队列
-            return await _sQueueRepository.QueryByCode(arrayKey[0], true, code);
+            return await _sQueueRepositoryHelper.QueryByCode(arrayKey[0], true, code);
         }
     }
 }

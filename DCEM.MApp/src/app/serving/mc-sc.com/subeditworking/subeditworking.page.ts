@@ -42,7 +42,7 @@ export class SubeditworkingPage implements OnInit {
         serviceorderpartMap: {},
     }
 
-    ionViewDidEnter() {
+    ionViewWillEnter() {
         if (this._shareData.has(this.mod.shareDataKey)) {
             this.shareData = this._shareData.get(this.mod.shareDataKey);
         }

@@ -30,7 +30,7 @@ namespace MSLibrary.Thread
                 actions.Add(new PollingAction() { Complete = true, PollingConfiguration = item });
             }
 
-            Task.Run(() =>
+            Task.Run(async () =>
             {
                 while (true)
                 {
@@ -84,13 +84,15 @@ namespace MSLibrary.Thread
                             }
                             else
                             {
-                                System.Threading.Thread.Sleep(10);
+                                await Task.Delay(10);
+                                ///System.Threading.Thread.Sleep(10);
                             }
                         }
                     }
                     else
                     {
-                        System.Threading.Thread.Sleep(10);
+                        await Task.Delay(10);
+                        //System.Threading.Thread.Sleep(10);
                     }
 
                     if (needBreak)

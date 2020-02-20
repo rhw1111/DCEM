@@ -29,5 +29,10 @@ namespace MSLibrary.MessageQueue.DAL
 
         Task<QueryResult<SMessage>> QueryByQueue(SQueue queue, int page, int pageSize);
 
+        Task<SMessage> QueryByOriginalID(SQueue queue,Guid originalMessageID,Guid listenerID);
+
+
+        Task<SMessage> QueryByDelayID(SQueue queue, Guid delayMessageID);
+
     }
 }

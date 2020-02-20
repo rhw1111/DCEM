@@ -72,6 +72,7 @@ namespace DCEM.ConfigurationService
                 {
 
                 })
+                //.ConfigureServices(services => services.AddAutofac())
                 .UseConfiguration(ConfigurationContainer.GetConfiguration(ConfigurationNames.Host))
                 .UseStartup<Startup>();
         })

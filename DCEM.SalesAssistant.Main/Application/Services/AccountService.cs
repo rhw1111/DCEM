@@ -37,11 +37,14 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             {
                 var fetchString = _AccountRepository.QueryList(accountRequest);
 
+                var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+
                 var fetchXdoc = XDocument.Parse(fetchString);
                 var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                 {
                     EntityName = EntityName,
-                    FetchXml = fetchXdoc
+                    FetchXml = fetchXdoc,
+                    ProxyUserId = userInfo != null ? userInfo.systemuserid : null
                 };
                 var fetchResponse = await _crmService.Execute(fetchRequest);
                 var fetchResponseResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;

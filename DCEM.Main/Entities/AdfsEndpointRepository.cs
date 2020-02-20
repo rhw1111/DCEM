@@ -29,7 +29,9 @@ namespace DCEM.Main.Entities
         public async Task<UserInfo> GetLoginInfo(string username, string token)
         {
             CacheTimeContainer<UserInfo> userInfoItem = _loginInfo.GetValue(token);
-            if (userInfoItem == null || userInfoItem.Expire())
+            if (userInfoItem == null 
+                || userInfoItem.Expire()
+                || userInfoItem.Value.systemuserid.GetValueOrDefault()==Guid.Empty)
             {
                 var loginModel = await _authService.GetLoginInfo(username);
                 userInfoItem = new CacheTimeContainer<UserInfo>(loginModel, CacheTimeout);

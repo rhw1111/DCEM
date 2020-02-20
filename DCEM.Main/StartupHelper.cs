@@ -74,6 +74,10 @@ using MSLibrary.Xrm.Convert.CrmActionParameterHandle;
 using MSLibrary.Security.Jwt.JwtGenerateCreateSignKeyServices;
 using MSLibrary.Security.Jwt.JwtGenerateValidateSignKeyServices;
 using MSLibrary.Security.Jwt.JwtValidateParameterBuildServices;
+using MSLibrary.CommonQueue;
+using MSLibrary.CommonQueue.QueueRealExecuteServices;
+using MSLibrary.CommonQueue.MessageConvertServices.AzureServiceBus.To;
+using MSLibrary.CommonQueue.MessageConvertServices.AzureServiceBus.From;
 using DCEM.Main;
 using DCEM.Main.Context;
 using DCEM.Main.Context.HttpClaimGeneratorServices;
@@ -235,6 +239,12 @@ namespace DCEM.Main
             JwtValidateParameterBuildMainService.JwtValidateParameterBuildServiceFactories[JwtValidateParameterBuildServiceTypes.Audience] = DIContainerContainer.Get<JwtValidateParameterBuildServiceForAudienceFactory>();
             JwtValidateParameterBuildMainService.JwtValidateParameterBuildServiceFactories[JwtValidateParameterBuildServiceTypes.Issuer] = DIContainerContainer.Get<JwtValidateParameterBuildServiceForIssuerFactory>();
             JwtValidateParameterBuildMainService.JwtValidateParameterBuildServiceFactories[JwtValidateParameterBuildServiceTypes.Lifetime] = DIContainerContainer.Get<JwtValidateParameterBuildServiceForLifetimeFactory>();
+
+            CommonQueueConsumeEndpointIMP.QueueRealExecuteServiceFactories[CommonQueueTypes.AzureServiceBus]= DIContainerContainer.Get<QueueRealExecuteServiceForAzureServiceBusFactory>();
+            CommonQueueProductEndpointIMP.QueueRealExecuteServiceFactories[CommonQueueTypes.AzureServiceBus] = DIContainerContainer.Get<QueueRealExecuteServiceForAzureServiceBusFactory>();
+            QueueRealExecuteServiceForAzureServiceBus.ConsumeErrorLoggerCategoryName = "AzureServiceBus";
+            QueueRealExecuteServiceForAzureServiceBus.ConvertFromServiceFactories[AzureServiceBusMessageConvertFromServiceNames.Default]= DIContainerContainer.Get<AzureServiceBusMessageConvertFromForDefaultFactory>();
+            QueueRealExecuteServiceForAzureServiceBus.ConvertToServiceFactories[AzureServiceBusMessageConvertToServiceNames.Default] = DIContainerContainer.Get<AzureServiceBusMessageConvertToForDefaultFactory>();
 
             InitThirdInterfaceSetting();
 

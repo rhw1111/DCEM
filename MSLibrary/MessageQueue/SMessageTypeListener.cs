@@ -78,6 +78,24 @@ namespace MSLibrary.MessageQueue
             }
         }
 
+
+        /// <summary>
+        /// 关联队列组名称
+        /// </summary>
+        public string QueueGroupName
+        {
+            get
+            {
+                return GetAttribute<string>("QueueGroupName");
+            }
+            set
+            {
+                SetAttribute<string>("QueueGroupName", value);
+            }
+        }
+
+
+
         /// <summary>
         /// 监听模式
         /// 0：指定实现特定接口的类型工厂

@@ -15,7 +15,7 @@ export class TestdriveratePage implements OnInit {
 
   ngOnInit() {
   }
-  ionViewDidEnter() {
+  ionViewWillEnter() {
     this.menuController.enable(true);
     const ec = echarts as any;
     const container = document.getElementById('chart');

@@ -43,14 +43,14 @@ namespace MSLibrary.MessageQueue.DAL
                 {
                     if (listener.ID == Guid.Empty)
                     {
-                        commond.CommandText = @"insert into SMessageTypeListener([id],[messagetypeid],[name],[mode],[listenerfactorytype],[listenerfactorytypeusedi],[listenerweburl],[listenerwebsignature],[createtime],[modifytime])
-                                    values(default,@messagetypeid,@name,@mode,@listenerfactorytype,@listenerfactorytypeusedi,@listenerweburl,@listenerwebsignature,getutcdate(),getutcdate());
+                        commond.CommandText = @"insert into SMessageTypeListener([id],[messagetypeid],[name],[queuegroupname],[mode],[listenerfactorytype],[listenerfactorytypeusedi],[listenerweburl],[listenerwebsignature],[createtime],[modifytime])
+                                    values(default,@messagetypeid,@name,@queuegroupname,@mode,@listenerfactorytype,@listenerfactorytypeusedi,@listenerweburl,@listenerwebsignature,getutcdate(),getutcdate());
                                     select @newid=[id] from SMessageTypeListener where [sequence]=SCOPE_IDENTITY()";
                     }
                     else
                     {
-                        commond.CommandText = @"insert into SMessageTypeListener([id],[messagetypeid],[name],[mode],[listenerfactorytype],[listenerfactorytypeusedi],[listenerweburl],[listenerwebsignature],[createtime],[modifytime])
-                                    values(@id,@messagetypeid,@name,@mode,@listenerfactorytype,@listenerfactorytypeusedi,@listenerweburl,@listenerwebsignature,getutcdate(),getutcdate())";
+                        commond.CommandText = @"insert into SMessageTypeListener([id],[messagetypeid],[name],[queuegroupname],[mode],[listenerfactorytype],[listenerfactorytypeusedi],[listenerweburl],[listenerwebsignature],[createtime],[modifytime])
+                                    values(@id,@messagetypeid,@name,@queuegroupname,@mode,@listenerfactorytype,@listenerfactorytypeusedi,@listenerweburl,@listenerwebsignature,getutcdate(),getutcdate())";
                     }
 
                     SqlParameter parameter;
@@ -81,6 +81,22 @@ namespace MSLibrary.MessageQueue.DAL
                     {
                         Value = listener.Name
                     };
+                    commond.Parameters.Add(parameter);
+
+                    if (listener.QueueGroupName != null)
+                    {
+                        parameter = new SqlParameter("@queuegroupname", SqlDbType.NVarChar, 100)
+                        {
+                            Value = listener.Name
+                        };
+                    }
+                    else
+                    {
+                        parameter = new SqlParameter("@queuegroupname", SqlDbType.NVarChar, 100)
+                        {
+                            Value = DBNull.Value
+                        };
+                    }
                     commond.Parameters.Add(parameter);
 
                     parameter = new SqlParameter("@mode", SqlDbType.Int)
