@@ -110,8 +110,13 @@ export class PaymentPage implements OnInit {
         }
     }
     postPay() {
-        this._http.postForShopping(this.model.search.apiUrl, { OrderCode: this.model.datas.OrderCode },
+        this._http.postForShopping(this.model.search.apiUrl,
+            {
+                OrderCode: this.model.datas.OrderCode,
+                RightsPackageGet: this.model.datas.RightsPackageGet
+            },
             (res: any) => {
+                console.log(res);
                 if (res != null) {
                     if (res.IsSuccess) {
                         this.presentAlertConfirm();

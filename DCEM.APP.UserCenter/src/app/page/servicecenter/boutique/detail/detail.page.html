@@ -67,28 +67,38 @@
         <!--规格-->
         <ion-card style="width: 100%;padding: 15px 0;margin:0;background: #f6f6f6;border-radius:0;">
             <ion-item (click)="ShowTwoBtn(0)" lines="none" detail style="padding:10px 6px;width:100%;background:#fff;font-size:16px;">
-                    <span style="color:#000;margin-right:6px;">
-                        选择:
-                    </span>
-                    <span class="lab-selected" style="color:#a5a2a2;">
-                        <span *ngIf="model.datadetail.SkuData?.length > 0; then trueTemplate else falseTemplate"></span>
-                        <ng-template #trueTemplate>
-                            <ng-container *ngFor="let item of model.datadetail.SkuData[0].Arrts">
-                                <span *ngIf="item.Values?.length > 0; then tTemplate else fTemplate"></span>
-                                <ng-template #tTemplate>
-                                    {{item.Values[0].Value}}
-                                </ng-template>
-                                <ng-template #fTemplate>
-                                    <!--不做操作-->
-                                </ng-template>
-                            </ng-container>
-                        </ng-template>
-                        <ng-template #falseTemplate>
-                            <!--不做操作-->
-                        </ng-template>
-                    </span>
+                <span style="color:#000;margin-right:6px;">
+                    选择:
+                </span>
+                <span class="lab-selected" style="color:#a5a2a2;">
+                    <span *ngIf="model.datadetail.SkuData?.length > 0; then trueTemplate else falseTemplate"></span>
+                    <ng-template #trueTemplate>
+                        <ng-container *ngFor="let item of model.datadetail.SkuData[0].Arrts">
+                            <span *ngIf="item.Values?.length > 0; then tTemplate else fTemplate"></span>
+                            <ng-template #tTemplate>
+                                {{item.Values[0].Value}}
+                            </ng-template>
+                            <ng-template #fTemplate>
+                                <!--不做操作-->
+                            </ng-template>
+                        </ng-container>
+                    </ng-template>
+                    <ng-template #falseTemplate>
+                        <!--不做操作-->
+                    </ng-template>
+                </span>
+            </ion-item>
+            <br />
+            <ion-item (click)="ShowThreeBtn()" lines="none" detail style="padding:10px 6px;width:100%;background:#fff;font-size:16px;">
+                <span style="color:#000;margin-right:6px;">
+                    权益:
+                </span>
+                <span class="lab-selected" style="color:#a5a2a2;">
+                    商品权益
+                </span>
             </ion-item>
         </ion-card>
+
         <!--商品概览-->
         <ion-segment [(ngModel)]="tab" color="primary" model="md" class="segment-custom">
             <ion-segment-button value="probably">
@@ -174,6 +184,26 @@
         </div>
         <div class="div-btn">
             <ion-button text="确定" (click)="TwoBtnSure()" style="width:100%;">确定</ion-button>
+        </div>
+    </div>
+    <!--权益查看-->
+    <div class="ThreeBtnDialog" style="display:none;">
+        <div class="div-content">
+            <h5 style="margin:0;padding-bottom:20px;font-weight:bold;">您将获得:</h5>
+            <div *ngFor="let item of model.rights.datas" style="width:100%;margin-bottom:20px;">
+                <div style="padding: 15px 10px;width: 100%;font-size: 16px;background: #20303d; color:#fff;border-top-right-radius: 10px;border-top-left-radius: 10px;">
+                    <span>{{item.PackageName}}</span>
+                </div>
+                <!--<div>{{item.PackageDesc}}</div>-->
+                <section style="padding: 10px 10px 10px 30px;border: 1px solid #20303d;border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;">
+                    <div *ngFor="let i of item.ProductRightses">
+                        <div style="font-size:14px;color:#636669">{{i.RightsName}}</div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="div-btn">
+            <ion-button text="确定" (click)="CloseDialog()" style="width:100%;">确定</ion-button>
         </div>
     </div>
 
