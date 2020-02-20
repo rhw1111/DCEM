@@ -269,6 +269,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
 
         public async Task<ValidateResult<CrmEntity>> AddOrUpdate(ServiceproxyAddOrUpdateRequest request)
         {
+            var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
             var validateResult = new ValidateResult<CrmEntity>();
             var reusetCrmEntity = new CrmEntity("mcs_serviceproxy", new Guid());
             var serviceproxyGuid = new Guid();
@@ -284,7 +285,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 //加入服务委托书
                 serviceproxyGuid = Guid.NewGuid();
                 var serviceproxyEntity = await AddOrUpdateGetServiceproxyEntity(request, serviceproxyGuid);
-                var reuset = await _crmService.Create(serviceproxyEntity);
+                var reuset = await _crmService.Create(serviceproxyEntity, userInfo?.systemuserid);
                 #endregion
             }
             else if (request.actioncode == 2)

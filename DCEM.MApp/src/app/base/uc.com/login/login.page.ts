@@ -61,14 +61,14 @@ export class LoginPage implements OnInit {
     // 提交
     submit() {
         if (this.mod.username.length <= 0) {
-            this._page.alert('消息提示', '请输入手机号码');
+            this._page.alert('消息提示', '请输入登录名');
             return;
         }
         if (this.mod.password.length <= 0) {
             this._page.alert('消息提示', '请输入密码');
             return;
         }
-
+       
         switch (this.mod.domainType) {
             case 'Dev':
                 this.mod.domain = "https://subcrmdevapi.sokon.com/dcem";
@@ -83,10 +83,10 @@ export class LoginPage implements OnInit {
                 this.mod.domain = "https://mscrm.sokon.com/dcem";
                 break;
             case 'localhost':
-                this.mod.domain = "http://localhost:5000";
+                this.mod.domain = "https://localhost:44382";
                 break;
             default:
-                this.mod.domain = "http://localhost:52151";
+                this.mod.domain = "https://localhost:52151";
                 break;
         }
 
