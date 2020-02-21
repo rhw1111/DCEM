@@ -241,9 +241,9 @@
             var campaignCode = getParam("campaignCode");
             var dealerCode = getParam("dealerCode");
             var referrerMobilephone = getParam("ReferrerMobilephone");
-            if (referrerMobilephone == "" || referrerMobilephone == null) {
-                referrerMobilephone = "18938027907";
-            }
+            //if (referrerMobilephone == "" || referrerMobilephone == null) {
+            //    referrerMobilephone = "18938027907";
+            //}
             //渠道(0：CC，1：官网，2：商城，3：APP，4：微站/H5，5：小程序，6：线下活动，7：到店，8：其他)
             var channel = "$channel$";//getParam("channel");
             //电子折页订阅	electronic_folding_subscription
@@ -370,9 +370,9 @@
             //var referrerMobilephone = getParam("ReferrerMobilephone");
 
             var referrerMobilephone = $("#txt_phone").val();
-            if (referrerMobilephone == "" || referrerMobilephone == null) {
-                referrerMobilephone = "18938027907";
-            }
+            //if (referrerMobilephone == "" || referrerMobilephone == null) {
+            //    referrerMobilephone = "18938027907";
+            //}
             //微信会改写链接地址，故分享地址自己拼接
             var labelValue = "$pageurl$?campaignCode=" + campaignCode + "&dealerCode=" + dealerCode + "&ReferrerMobilephone=" + referrerMobilephone;
 

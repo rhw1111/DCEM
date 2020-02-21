@@ -150,7 +150,8 @@ export class EditPage implements OnInit {
         postData["Carserviceadvisor"] = this.shareData.carserviceadvisor;
         postData["actionCode"] = this.shareData.actioncode;
         postData["dealerid"] = this._loginInfo.GetDealerid();
-
+        
+        
         //提交数据保存
         this._page.loadingShow();
         this._http.post(
