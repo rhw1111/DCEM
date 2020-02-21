@@ -57,7 +57,9 @@ export class DetailPage implements OnInit {
                 console.log(res);
                 if (res != null) {
                     //绑定数据
-                    res.OrderData.PayStatusStr = this.getPayStatus(res.OrderData.PaymentStatus)
+                    var paystatus = this.getPayStatus(res.OrderData.Status, res.OrderData.PaymentStatus);
+                    res.OrderData.PayStatusStr = paystatus.paystatusname;
+                    res.OrderData.PayStatusCode = paystatus.paystatuscode;
                     res.OrderData.OrderTime = this.Format(res.OrderData.OrderTime, "yyyy-MM-dd HH:mm:ss")
                     if (res.OrderData.ProductType == 7 || res.OrderData.ProductType == 8) {
                         this.model.buyertitle = "购买人信息";
@@ -125,23 +127,43 @@ export class DetailPage implements OnInit {
         
     }
 
-    getPayStatus(param) {
-        var paystatus;
-        switch (param) {
-            case 0:
-                paystatus = "不需要支付";
-                break;
-            case 1:
-                paystatus = "等待支付";
-                break;
-            case 3:
-                paystatus = "支付成功";
-                break;
-            case 4:
-                paystatus = "退款成功"
-                break;
+    getPayStatus(orderstatus, paymentstatus) {
+        var returndata = {
+            "paystatusname": "",
+            "paystatuscode": 0
+        };
+        if (paymentstatus == 1 && orderstatus == 5) {
+            returndata.paystatusname = "已取消";
+            returndata.paystatuscode = 10;
+        } else if (paymentstatus == 1 && orderstatus != 5) {
+            returndata.paystatusname = "待支付";
+            returndata.paystatuscode = 20;
+        } else if (paymentstatus == 3 && orderstatus == 8) {
+            returndata.paystatusname = "退款中";
+            returndata.paystatuscode = 30;
+        } else if (paymentstatus == 3 && orderstatus == 9) {
+            returndata.paystatusname = "退款完成";
+            returndata.paystatuscode = 40;
+        } else if (paymentstatus == 3 && orderstatus != 8 && orderstatus != 9) {
+            returndata.paystatusname = "已支付";
+            returndata.paystatuscode = 50;
         }
-        return paystatus;
+
+        //switch (param) {
+        //    case 0:
+        //        paystatus = "不需要支付";
+        //        break;
+        //    case 1:
+        //        paystatus = "等待支付";
+        //        break;
+        //    case 3:
+        //        paystatus = "支付成功";
+        //        break;
+        //    case 4:
+        //        paystatus = "退款成功"
+        //        break;
+        //}
+        return returndata;
     }
 
     Format(datetime, fmt) {

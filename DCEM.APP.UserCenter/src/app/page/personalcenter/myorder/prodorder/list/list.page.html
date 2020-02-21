@@ -81,6 +81,7 @@
                             <ion-item>
                                 <div *ngIf="item.OrderData.ReceivedIntegral == 0; then ttTemplate else ffTemplate"></div>
                                 <ng-template #ttTemplate>
+                                    <ion-label style="text-align:right;"><span>共{{item.OrderData.ProductCount}}件商品</span></ion-label>
                                     <ion-label>
                                         <h2>
                                             合计:
@@ -92,6 +93,7 @@
                                     </ion-label>
                                 </ng-template>
                                 <ng-template #ffTemplate>
+                                    <ion-label style="text-align:right;"><span>共{{item.OrderData.ProductCount}}件商品</span></ion-label>
                                     <ion-label>
                                         <h2>
                                             合计:
@@ -102,21 +104,39 @@
                                         </h2>
                                     </ion-label>
                                 </ng-template>
-                                <div *ngIf="item.OrderData.PaymentStatus == 1; then tTemplate else fTemplate"></div>
-                                <ng-template #tTemplate>
+                            </ion-item>
+                            <ion-item>
+                                <ng-container *ngIf="item.OrderData.PayStatusCode == 10 || item.OrderData.PayStatusCode == 30 || item.OrderData.PayStatusCode == 40">
+                                    <ion-note slot="end">
+                                        <ion-chip color="success">
+                                            <ion-label class="chip-label">查看详情</ion-label>
+                                        </ion-chip>
+                                    </ion-note>
+                                </ng-container>
+                                <ng-container *ngIf="item.OrderData.PayStatusCode == 20">
+                                    <ion-note slot="end" (click)="goPay(item.OrderData.OrderCode,item.OrderData.ReceivedIntegral == 0 ? item.OrderData.TotalDeposiAmount : (-item.OrderData.CashPayment),item.OrderData.ReceivedIntegral,-item.OrderData.CashPayment,item.OrderData.CashTotal,item.OrderData.InstallmentTotal);$event.stopPropagation();" style="z-index:99;">
+                                        <ion-chip color="dark">
+                                            <ion-label class="chip-label">取消订单</ion-label>
+                                        </ion-chip>
+                                    </ion-note>
                                     <ion-note slot="end" (click)="goPay(item.OrderData.OrderCode,item.OrderData.ReceivedIntegral == 0 ? item.OrderData.TotalDeposiAmount : (-item.OrderData.CashPayment),item.OrderData.ReceivedIntegral,-item.OrderData.CashPayment,item.OrderData.CashTotal,item.OrderData.InstallmentTotal);$event.stopPropagation();" style="z-index:99;">
                                         <ion-chip color="primary">
-                                            <ion-label style="margin-left: 30px;margin-right: 30px;">去支付</ion-label>
+                                            <ion-label class="chip-label">去支付</ion-label>
                                         </ion-chip>
                                     </ion-note>
-                                </ng-template>
-                                <ng-template #fTemplate>
+                                </ng-container>
+                                <ng-container *ngIf="item.OrderData.PayStatusCode == 50">
+                                    <ion-note slot="end" (click)="goPay(item.OrderData.OrderCode,item.OrderData.ReceivedIntegral == 0 ? item.OrderData.TotalDeposiAmount : (-item.OrderData.CashPayment),item.OrderData.ReceivedIntegral,-item.OrderData.CashPayment,item.OrderData.CashTotal,item.OrderData.InstallmentTotal);$event.stopPropagation();" style="z-index:99;">
+                                        <ion-chip color="secondary">
+                                            <ion-label class="chip-label">申请退款</ion-label>
+                                        </ion-chip>
+                                    </ion-note>
                                     <ion-note slot="end">
-                                        <ion-chip color="primary">
-                                            <ion-label style="margin-left: 30px;margin-right: 30px;">查看详情</ion-label>
+                                        <ion-chip color="success">
+                                            <ion-label class="chip-label">查看详情</ion-label>
                                         </ion-chip>
                                     </ion-note>
-                                </ng-template>
+                                </ng-container>
                             </ion-item>
                         </ion-card-content>
                     </ion-card>
@@ -178,6 +198,7 @@
                             <ion-item>
                                 <div *ngIf="item.OrderData.ReceivedIntegral == 0; then ttTemplate else ffTemplate"></div>
                                 <ng-template #ttTemplate>
+                                    <ion-label style="text-align:right;"><span>共{{item.OrderData.ProductCount}}件商品</span></ion-label>
                                     <ion-label>
                                         <h2>
                                             合计:
@@ -189,6 +210,7 @@
                                     </ion-label>
                                 </ng-template>
                                 <ng-template #ffTemplate>
+                                    <ion-label style="text-align:right;"><span>共{{item.OrderData.ProductCount}}件商品</span></ion-label>
                                     <ion-label>
                                         <h2>
                                             合计:
@@ -199,21 +221,54 @@
                                         </h2>
                                     </ion-label>
                                 </ng-template>
-                                <div *ngIf="item.OrderData.PaymentStatus == 1; then tTemplate else fTemplate"></div>
-                                <ng-template #tTemplate>
+                            </ion-item>
+                            <ion-item>
+                                <ng-container *ngIf="item.OrderData.PayStatusCode == 10 || item.OrderData.PayStatusCode == 30 || item.OrderData.PayStatusCode == 40">
+                                    <ion-note slot="end">
+                                        <ion-chip color="success">
+                                            <ion-label class="chip-label">查看详情</ion-label>
+                                        </ion-chip>
+                                    </ion-note>
+                                </ng-container>
+                                <ng-container *ngIf="item.OrderData.PayStatusCode == 20">
+                                    <ion-note slot="end" (click)="goPay(item.OrderData.OrderCode,item.OrderData.ReceivedIntegral == 0 ? item.OrderData.TotalDeposiAmount : (-item.OrderData.CashPayment),item.OrderData.ReceivedIntegral,-item.OrderData.CashPayment,item.OrderData.CashTotal,item.OrderData.InstallmentTotal);$event.stopPropagation();" style="z-index:99;">
+                                        <ion-chip color="dark">
+                                            <ion-label class="chip-label">取消订单</ion-label>
+                                        </ion-chip>
+                                    </ion-note>
                                     <ion-note slot="end" (click)="goPay(item.OrderData.OrderCode,item.OrderData.ReceivedIntegral == 0 ? item.OrderData.TotalDeposiAmount : (-item.OrderData.CashPayment),item.OrderData.ReceivedIntegral,-item.OrderData.CashPayment,item.OrderData.CashTotal,item.OrderData.InstallmentTotal);$event.stopPropagation();" style="z-index:99;">
                                         <ion-chip color="primary">
-                                            <ion-label style="margin-left: 30px;margin-right: 30px;">去支付</ion-label>
+                                            <ion-label class="chip-label">去支付</ion-label>
                                         </ion-chip>
                                     </ion-note>
-                                </ng-template>
-                                <ng-template #fTemplate>
+                                </ng-container>
+                                <ng-container *ngIf="item.OrderData.PayStatusCode == 50">
+                                    <ion-note slot="end" (click)="goPay(item.OrderData.OrderCode,item.OrderData.ReceivedIntegral == 0 ? item.OrderData.TotalDeposiAmount : (-item.OrderData.CashPayment),item.OrderData.ReceivedIntegral,-item.OrderData.CashPayment,item.OrderData.CashTotal,item.OrderData.InstallmentTotal);$event.stopPropagation();" style="z-index:99;">
+                                        <ion-chip color="secondary">
+                                            <ion-label class="chip-label">申请退款</ion-label>
+                                        </ion-chip>
+                                    </ion-note>
                                     <ion-note slot="end">
-                                        <ion-chip color="primary">
-                                            <ion-label style="margin-left: 30px;margin-right: 30px;">查看详情</ion-label>
+                                        <ion-chip color="success">
+                                            <ion-label class="chip-label">查看详情</ion-label>
                                         </ion-chip>
                                     </ion-note>
-                                </ng-template>
+                                </ng-container>
+                                <!--<div *ngIf="item.OrderData.PaymentStatus == 1; then tTemplate else fTemplate"></div>
+    <ng-template #tTemplate>
+        <ion-note slot="end" (click)="goPay(item.OrderData.OrderCode,item.OrderData.ReceivedIntegral == 0 ? item.OrderData.TotalDeposiAmount : (-item.OrderData.CashPayment),item.OrderData.ReceivedIntegral,-item.OrderData.CashPayment,item.OrderData.CashTotal,item.OrderData.InstallmentTotal);$event.stopPropagation();" style="z-index:99;">
+            <ion-chip color="primary">
+                <ion-label style="margin-left: 30px;margin-right: 30px;">去支付</ion-label>
+            </ion-chip>
+        </ion-note>
+    </ng-template>
+    <ng-template #fTemplate>
+        <ion-note slot="end">
+            <ion-chip color="primary">
+                <ion-label style="margin-left: 30px;margin-right: 30px;">查看详情</ion-label>
+            </ion-chip>
+        </ion-note>
+    </ng-template>-->
                             </ion-item>
                         </ion-card-content>
                     </ion-card>
@@ -275,6 +330,7 @@
                             <ion-item>
                                 <div *ngIf="item.OrderData.ReceivedIntegral == 0; then ttTemplate else ffTemplate"></div>
                                 <ng-template #ttTemplate>
+                                    <ion-label style="text-align:right;"><span>共{{item.OrderData.ProductCount}}件商品</span></ion-label>
                                     <ion-label>
                                         <h2>
                                             合计:
@@ -286,6 +342,7 @@
                                     </ion-label>
                                 </ng-template>
                                 <ng-template #ffTemplate>
+                                    <ion-label style="text-align:right;"><span>共{{item.OrderData.ProductCount}}件商品</span></ion-label>
                                     <ion-label>
                                         <h2>
                                             合计:
@@ -296,21 +353,39 @@
                                         </h2>
                                     </ion-label>
                                 </ng-template>
-                                <div *ngIf="item.OrderData.PaymentStatus == 1; then tTemplate else fTemplate"></div>
-                                <ng-template #tTemplate>
+                            </ion-item>
+                            <ion-item>
+                                <ng-container *ngIf="item.OrderData.PayStatusCode == 10 || item.OrderData.PayStatusCode == 30 || item.OrderData.PayStatusCode == 40">
+                                    <ion-note slot="end">
+                                        <ion-chip color="success">
+                                            <ion-label class="chip-label">查看详情</ion-label>
+                                        </ion-chip>
+                                    </ion-note>
+                                </ng-container>
+                                <ng-container *ngIf="item.OrderData.PayStatusCode == 20">
+                                    <ion-note slot="end" (click)="goPay(item.OrderData.OrderCode,item.OrderData.ReceivedIntegral == 0 ? item.OrderData.TotalDeposiAmount : (-item.OrderData.CashPayment),item.OrderData.ReceivedIntegral,-item.OrderData.CashPayment,item.OrderData.CashTotal,item.OrderData.InstallmentTotal);$event.stopPropagation();" style="z-index:99;">
+                                        <ion-chip color="dark">
+                                            <ion-label class="chip-label">取消订单</ion-label>
+                                        </ion-chip>
+                                    </ion-note>
                                     <ion-note slot="end" (click)="goPay(item.OrderData.OrderCode,item.OrderData.ReceivedIntegral == 0 ? item.OrderData.TotalDeposiAmount : (-item.OrderData.CashPayment),item.OrderData.ReceivedIntegral,-item.OrderData.CashPayment,item.OrderData.CashTotal,item.OrderData.InstallmentTotal);$event.stopPropagation();" style="z-index:99;">
                                         <ion-chip color="primary">
-                                            <ion-label style="margin-left: 30px;margin-right: 30px;">去支付</ion-label>
+                                            <ion-label class="chip-label">去支付</ion-label>
                                         </ion-chip>
                                     </ion-note>
-                                </ng-template>
-                                <ng-template #fTemplate>
+                                </ng-container>
+                                <ng-container *ngIf="item.OrderData.PayStatusCode == 50">
+                                    <ion-note slot="end" (click)="goPay(item.OrderData.OrderCode,item.OrderData.ReceivedIntegral == 0 ? item.OrderData.TotalDeposiAmount : (-item.OrderData.CashPayment),item.OrderData.ReceivedIntegral,-item.OrderData.CashPayment,item.OrderData.CashTotal,item.OrderData.InstallmentTotal);$event.stopPropagation();" style="z-index:99;">
+                                        <ion-chip color="secondary">
+                                            <ion-label class="chip-label">申请退款</ion-label>
+                                        </ion-chip>
+                                    </ion-note>
                                     <ion-note slot="end">
-                                        <ion-chip color="primary">
-                                            <ion-label style="margin-left: 30px;margin-right: 30px;">查看详情</ion-label>
+                                        <ion-chip color="success">
+                                            <ion-label class="chip-label">查看详情</ion-label>
                                         </ion-chip>
                                     </ion-note>
-                                </ng-template>
+                                </ng-container>
                             </ion-item>
                         </ion-card-content>
                     </ion-card>
@@ -372,6 +447,7 @@
                             <ion-item>
                                 <div *ngIf="item.OrderData.ReceivedIntegral == 0; then ttTemplate else ffTemplate"></div>
                                 <ng-template #ttTemplate>
+                                    <ion-label style="text-align:right;"><span>共{{item.OrderData.ProductCount}}件商品</span></ion-label>
                                     <ion-label>
                                         <h2>
                                             合计:
@@ -383,6 +459,7 @@
                                     </ion-label>
                                 </ng-template>
                                 <ng-template #ffTemplate>
+                                    <ion-label style="text-align:right;"><span>共{{item.OrderData.ProductCount}}件商品</span></ion-label>
                                     <ion-label>
                                         <h2>
                                             合计:
@@ -393,21 +470,39 @@
                                         </h2>
                                     </ion-label>
                                 </ng-template>
-                                <div *ngIf="item.OrderData.PaymentStatus == 1; then tTemplate else fTemplate"></div>
-                                <ng-template #tTemplate>
+                            </ion-item>
+                            <ion-item>
+                                <ng-container *ngIf="item.OrderData.PayStatusCode == 10 || item.OrderData.PayStatusCode == 30 || item.OrderData.PayStatusCode == 40">
+                                    <ion-note slot="end">
+                                        <ion-chip color="success">
+                                            <ion-label class="chip-label">查看详情</ion-label>
+                                        </ion-chip>
+                                    </ion-note>
+                                </ng-container>
+                                <ng-container *ngIf="item.OrderData.PayStatusCode == 20">
+                                    <ion-note slot="end" (click)="goPay(item.OrderData.OrderCode,item.OrderData.ReceivedIntegral == 0 ? item.OrderData.TotalDeposiAmount : (-item.OrderData.CashPayment),item.OrderData.ReceivedIntegral,-item.OrderData.CashPayment,item.OrderData.CashTotal,item.OrderData.InstallmentTotal);$event.stopPropagation();" style="z-index:99;">
+                                        <ion-chip color="dark">
+                                            <ion-label class="chip-label">取消订单</ion-label>
+                                        </ion-chip>
+                                    </ion-note>
                                     <ion-note slot="end" (click)="goPay(item.OrderData.OrderCode,item.OrderData.ReceivedIntegral == 0 ? item.OrderData.TotalDeposiAmount : (-item.OrderData.CashPayment),item.OrderData.ReceivedIntegral,-item.OrderData.CashPayment,item.OrderData.CashTotal,item.OrderData.InstallmentTotal);$event.stopPropagation();" style="z-index:99;">
                                         <ion-chip color="primary">
-                                            <ion-label style="margin-left: 30px;margin-right: 30px;">去支付</ion-label>
+                                            <ion-label class="chip-label">去支付</ion-label>
                                         </ion-chip>
                                     </ion-note>
-                                </ng-template>
-                                <ng-template #fTemplate>
+                                </ng-container>
+                                <ng-container *ngIf="item.OrderData.PayStatusCode == 50">
+                                    <ion-note slot="end" (click)="goPay(item.OrderData.OrderCode,item.OrderData.ReceivedIntegral == 0 ? item.OrderData.TotalDeposiAmount : (-item.OrderData.CashPayment),item.OrderData.ReceivedIntegral,-item.OrderData.CashPayment,item.OrderData.CashTotal,item.OrderData.InstallmentTotal);$event.stopPropagation();" style="z-index:99;">
+                                        <ion-chip color="secondary">
+                                            <ion-label class="chip-label">申请退款</ion-label>
+                                        </ion-chip>
+                                    </ion-note>
                                     <ion-note slot="end">
-                                        <ion-chip color="primary">
-                                            <ion-label style="margin-left: 30px;margin-right: 30px;">查看详情</ion-label>
+                                        <ion-chip color="success">
+                                            <ion-label class="chip-label">查看详情</ion-label>
                                         </ion-chip>
                                     </ion-note>
-                                </ng-template>
+                                </ng-container>
                             </ion-item>
                         </ion-card-content>
                     </ion-card>
@@ -469,6 +564,7 @@
                             <ion-item>
                                 <div *ngIf="item.OrderData.ReceivedIntegral == 0; then ttTemplate else ffTemplate"></div>
                                 <ng-template #ttTemplate>
+                                    <ion-label style="text-align:right;"><span>共{{item.OrderData.ProductCount}}件商品</span></ion-label>
                                     <ion-label>
                                         <h2>
                                             合计:
@@ -480,6 +576,7 @@
                                     </ion-label>
                                 </ng-template>
                                 <ng-template #ffTemplate>
+                                    <ion-label style="text-align:right;"><span>共{{item.OrderData.ProductCount}}件商品</span></ion-label>
                                     <ion-label>
                                         <h2>
                                             合计:
@@ -490,21 +587,39 @@
                                         </h2>
                                     </ion-label>
                                 </ng-template>
-                                <div *ngIf="item.OrderData.PaymentStatus == 1; then tTemplate else fTemplate"></div>
-                                <ng-template #tTemplate>
+                            </ion-item>
+                            <ion-item>
+                                <ng-container *ngIf="item.OrderData.PayStatusCode == 10 || item.OrderData.PayStatusCode == 30 || item.OrderData.PayStatusCode == 40">
+                                    <ion-note slot="end">
+                                        <ion-chip color="success">
+                                            <ion-label class="chip-label">查看详情</ion-label>
+                                        </ion-chip>
+                                    </ion-note>
+                                </ng-container>
+                                <ng-container *ngIf="item.OrderData.PayStatusCode == 20">
+                                    <ion-note slot="end" (click)="goPay(item.OrderData.OrderCode,item.OrderData.ReceivedIntegral == 0 ? item.OrderData.TotalDeposiAmount : (-item.OrderData.CashPayment),item.OrderData.ReceivedIntegral,-item.OrderData.CashPayment,item.OrderData.CashTotal,item.OrderData.InstallmentTotal);$event.stopPropagation();" style="z-index:99;">
+                                        <ion-chip color="dark">
+                                            <ion-label class="chip-label">取消订单</ion-label>
+                                        </ion-chip>
+                                    </ion-note>
                                     <ion-note slot="end" (click)="goPay(item.OrderData.OrderCode,item.OrderData.ReceivedIntegral == 0 ? item.OrderData.TotalDeposiAmount : (-item.OrderData.CashPayment),item.OrderData.ReceivedIntegral,-item.OrderData.CashPayment,item.OrderData.CashTotal,item.OrderData.InstallmentTotal);$event.stopPropagation();" style="z-index:99;">
                                         <ion-chip color="primary">
-                                            <ion-label style="margin-left: 30px;margin-right: 30px;">去支付</ion-label>
+                                            <ion-label class="chip-label">去支付</ion-label>
                                         </ion-chip>
                                     </ion-note>
-                                </ng-template>
-                                <ng-template #fTemplate>
+                                </ng-container>
+                                <ng-container *ngIf="item.OrderData.PayStatusCode == 50">
+                                    <ion-note slot="end" (click)="goPay(item.OrderData.OrderCode,item.OrderData.ReceivedIntegral == 0 ? item.OrderData.TotalDeposiAmount : (-item.OrderData.CashPayment),item.OrderData.ReceivedIntegral,-item.OrderData.CashPayment,item.OrderData.CashTotal,item.OrderData.InstallmentTotal);$event.stopPropagation();" style="z-index:99;">
+                                        <ion-chip color="secondary">
+                                            <ion-label class="chip-label">申请退款</ion-label>
+                                        </ion-chip>
+                                    </ion-note>
                                     <ion-note slot="end">
-                                        <ion-chip color="primary">
-                                            <ion-label style="margin-left: 30px;margin-right: 30px;">查看详情</ion-label>
+                                        <ion-chip color="success">
+                                            <ion-label class="chip-label">查看详情</ion-label>
                                         </ion-chip>
                                     </ion-note>
-                                </ng-template>
+                                </ng-container>
                             </ion-item>
                         </ion-card-content>
                     </ion-card>

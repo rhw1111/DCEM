@@ -3,6 +3,7 @@ import { DCore_Http, DCore_Page } from '../../../../../component/typescript/dcem
 import { Storage_LoginInfo } from '../../../../../component/typescript/logininfo.storage';
 import { ActivatedRoute } from '@angular/router';
 import { debug } from 'util';
+import { concat } from 'rxjs';
 
 @Component({
     selector: 'app-list',
@@ -89,9 +90,17 @@ export class ListPage implements OnInit {
                     var busiorderlist = [];
                     var consorderlist = [];
                     var fineorderlist = [];
+                    var servorderlist = [];
                     for (var i = 0; i < res.Data.length; i++) {
-                        res.Data[i].OrderData.PayStatusStr = this.getPayStatus(res.Data[i].OrderData.PaymentStatus);
+                        var paystatus = this.getPayStatus(res.Data[i].OrderData.Status, res.Data[i].OrderData.PaymentStatus);
+                        res.Data[i].OrderData.PayStatusStr = paystatus.paystatusname;
+                        res.Data[i].OrderData.PayStatusCode = paystatus.paystatuscode;
                         res.Data[i].OrderData.OrderTime = this.Format(res.Data[i].OrderData.OrderTime, "yyyy-MM-dd HH:mm:ss");
+                        var productCount = 0;
+                        res.Data[i].Products.forEach(item => {
+                            productCount += item.OrderQty;
+                        });
+                        res.Data[i].OrderData.ProductCount = productCount;
                         if (res.Data[i].OrderData.ProductTypeList.indexOf(1) > -1) {
                             carorderlist.push(res.Data[i]);
                         }
@@ -104,12 +113,16 @@ export class ListPage implements OnInit {
                         if (res.Data[i].OrderData.ProductTypeList.indexOf(10) > -1) {
                             fineorderlist.push(res.Data[i]);
                         }
+                        if (res.Data[i].OrderData.ProductTypeList.indexOf(11) > -1) {
+                            servorderlist.push(res.Data[i]);
+                        }
                     }
                     this.model.datalist = res.Data;
                     this.model.carorderlist = carorderlist;
                     this.model.busiorderlist = busiorderlist;
                     this.model.consorderlist = consorderlist;
                     this.model.fineorderlist = fineorderlist;
+                    this.model.servorderlist = servorderlist;
                     event ? event.target.complete() : '';
                     //判断是否有新数据
                     if (res.Data.length < this.model.search.pageSize) {
@@ -177,23 +190,43 @@ export class ListPage implements OnInit {
 
     }
 
-    getPayStatus(param) {
-        var paystatus;
-        switch (param) {
-            case 0:
-                paystatus = "不需要支付";
-                break;
-            case 1:
-                paystatus = "等待支付";
-                break;
-            case 3:
-                paystatus = "支付成功";
-                break;
-            case 4:
-                paystatus = "退款成功"
-                break;
+    getPayStatus(orderstatus,paymentstatus) {
+        var returndata = {
+            "paystatusname": "",
+            "paystatuscode":0
+        };
+        if (paymentstatus == 1 && orderstatus == 5) {
+            returndata.paystatusname = "已取消";
+            returndata.paystatuscode = 10;
+        } else if (paymentstatus == 1 && orderstatus != 5) {
+            returndata.paystatusname = "待支付";
+            returndata.paystatuscode = 20;
+        } else if (paymentstatus == 3 && orderstatus == 8) {
+            returndata.paystatusname = "退款中";
+            returndata.paystatuscode = 30;
+        } else if (paymentstatus == 3 && orderstatus == 9) {
+            returndata.paystatusname = "退款完成";
+            returndata.paystatuscode = 40;
+        } else if (paymentstatus == 3 && orderstatus != 8 && orderstatus != 9) {
+            returndata.paystatusname = "已支付";
+            returndata.paystatuscode = 50;
         }
-        return paystatus;
+
+        //switch (param) {
+        //    case 0:
+        //        paystatus = "不需要支付";
+        //        break;
+        //    case 1:
+        //        paystatus = "等待支付";
+        //        break;
+        //    case 3:
+        //        paystatus = "支付成功";
+        //        break;
+        //    case 4:
+        //        paystatus = "退款成功"
+        //        break;
+        //}
+        return returndata;
     }
 
     Format(datetime, fmt) {
