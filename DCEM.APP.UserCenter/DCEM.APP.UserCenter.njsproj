@@ -119,6 +119,8 @@
     <Folder Include="src\app\page\personalcenter\mycar\" />
     <Folder Include="src\app\page\personalcenter\myorder\prodorder\" />
     <Folder Include="src\app\page\personalcenter\myorder\prodorder\list\" />
+    <Folder Include="src\app\page\personalcenter\myrights\" />
+    <Folder Include="src\app\page\personalcenter\myrights\list\" />
     <Folder Include="src\app\page\personalcenter\scores\" />
     <Folder Include="src\app\page\personalcenter\scores\list\" />
     <Folder Include="src\app\page\personalcenter\usercarinfo\" />
@@ -415,6 +417,10 @@
     <TypeScriptCompile Include="src\app\page\personalcenter\myorder\prodorder\list\list.module.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\myorder\prodorder\list\list.page.spec.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\myorder\prodorder\list\list.page.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\myrights\list\list-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\myrights\list\list.module.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\myrights\list\list.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\personalcenter\myrights\list\list.page.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\scores\list\list-routing.module.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\scores\list\list.module.ts" />
     <TypeScriptCompile Include="src\app\page\personalcenter\scores\list\list.page.spec.ts" />
@@ -687,6 +693,8 @@
     <Content Include="src\app\page\personalcenter\myorder\index\index.page.scss" />
     <Content Include="src\app\page\personalcenter\myorder\prodorder\list\list.page.html" />
     <Content Include="src\app\page\personalcenter\myorder\prodorder\list\list.page.scss" />
+    <Content Include="src\app\page\personalcenter\myrights\list\list.page.html" />
+    <Content Include="src\app\page\personalcenter\myrights\list\list.page.scss" />
     <Content Include="src\app\page\personalcenter\scores\list\list.page.html" />
     <Content Include="src\app\page\personalcenter\scores\list\list.page.scss" />
     <Content Include="src\app\page\personalcenter\usercarinfo\list\list.page.html" />

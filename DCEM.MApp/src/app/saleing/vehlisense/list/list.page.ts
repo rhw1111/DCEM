@@ -52,7 +52,7 @@ export class ListPage implements OnInit {
     this.listOnBind(null);
   }
     //每次页面加载
-  ionViewDidEnter() {
+  ionViewWillEnter() {
     this.menuController.enable(false);
 
   }

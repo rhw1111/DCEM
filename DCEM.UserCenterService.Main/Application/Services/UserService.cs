@@ -299,7 +299,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
 
                 //积分充值接口调用  
-               await IntegralCreate(IntegralReg_Key, id.ToString());
+               //await IntegralCreate(IntegralReg_Key, id.ToString());
 
                 #region 组装数据返回 
                 validateResult.Result = true;
@@ -376,20 +376,20 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
 
 
-                #region    积分完善个人资料埋点
-                //判断完善个人资料积分是否发送，如果已发送，不能再次发送
-                string code = await GetConfig(IntegralUserInfo_Key);
-                var crmRequestHelper = new CrmRequestHelper();
-                XDocument fetchXdoc = null;
-                fetchXdoc = await _repository.GetMemberintegraldetail(entity.Id, code);
-                var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_memberintegraldetail", fetchXdoc);
-                if (entities.Results.Count == 0)
-                {
-                   await IntegralCreate(IntegralUserInfo_Key, entity.Id.ToString());
-                }
+                //#region    积分完善个人资料埋点
+                ////判断完善个人资料积分是否发送，如果已发送，不能再次发送
+                //string code = await GetConfig(IntegralUserInfo_Key);
+                //var crmRequestHelper = new CrmRequestHelper();
+                //XDocument fetchXdoc = null;
+                //fetchXdoc = await _repository.GetMemberintegraldetail(entity.Id, code);
+                //var entities = await crmRequestHelper.ExecuteAsync(_crmService, "mcs_memberintegraldetail", fetchXdoc);
+                //if (entities.Results.Count == 0)
+                //{
+                //   await IntegralCreate(IntegralUserInfo_Key, entity.Id.ToString());
+                //}
 
 
-                #endregion
+                //#endregion
                 #region 组装数据返回 
                 validateResult.Result = true;
                 validateResult.Description = "操作成功";
@@ -662,21 +662,21 @@ namespace DCEM.UserCenterService.Main.Application.Services
         /// <param name="userid"></param>
         public async Task<ValidateResult> IntegralCreate(string key, string userid)
         {
-             string code = await GetConfig(key);
-            if (!string.IsNullOrEmpty(code))
-            {
-                string num = await GetMemberintegralpoint(code);
-                IntegralRequest req = new IntegralRequest();
-                req.UserId = userid;
-                req.SourceSystem = 3;
-                req.IntegralPointCode = code;
-                req.Num = num;
-                req.Description = "";
-                req.TransactionTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                Random rnd = new Random();
-                req.OrderNumber = "IC" + DateTime.Now.ToString("yyyyMMddHHmmss") + rnd.Next(100, 100000).ToString();
-                return await IntegralPost(req);
-            }
+            // string code = await GetConfig(key);
+            //if (!string.IsNullOrEmpty(code))
+            //{
+            //    string num = await GetMemberintegralpoint(code);
+            //    IntegralRequest req = new IntegralRequest();
+            //    req.UserId = userid;
+            //    req.SourceSystem = 3;
+            //    req.IntegralPointCode = code;
+            //    req.Num = num;
+            //    req.Description = "";
+            //    req.TransactionTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            //    Random rnd = new Random();
+            //    req.OrderNumber = "IC" + DateTime.Now.ToString("yyyyMMddHHmmss") + rnd.Next(100, 100000).ToString();
+            //    return await IntegralPost(req);
+            //}
             return null;
           
         }

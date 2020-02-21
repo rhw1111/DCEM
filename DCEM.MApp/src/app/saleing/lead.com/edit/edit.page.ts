@@ -57,7 +57,7 @@ export class EditPage implements OnInit {
     ngOnInit() {
     }
 
-    ionViewDidEnter() {
+    ionViewWillEnter() {
         this.model.scoreoption = this._optionset.Get("lead_mcs_accountpoints");
         this.model.genderoption = this._optionset.Get("lead_mcs_gender");
         this.model.leadoriginoption = this._optionset.Get("lead_mcs_leadorigin");

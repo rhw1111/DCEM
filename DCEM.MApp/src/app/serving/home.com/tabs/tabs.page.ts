@@ -21,7 +21,7 @@ export class TabsPage implements OnInit {
     }
 
     //每次进入页面时，我们将初始化禁用侧滑菜单
-    ionViewDidEnter() {   
+    ionViewWillEnter() {   
         this.menuController.enable(false);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Net;
 using System.Net.Http;
@@ -9,12 +10,14 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using System.Runtime.Serialization;
 using System.Security;
 using System.IO.Compression;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging.Console;
 using Newtonsoft.Json;
@@ -28,6 +31,10 @@ using MSLibrary.Security.Jwt;
 using MSLibrary.Security.Jwt.DAL;
 using MSLibrary.Security.Jwt.JwtGenerateCreateSignKeyServices;
 using MSLibrary.Security.Jwt.JwtGenerateValidateSignKeyServices;
+using MSLibrary.CommonQueue;
+using MSLibrary.CommonQueue.DAL;
+using MSLibrary.CommonQueue.QueueRealExecuteServices;
+using MSLibrary.ExpressionCalculate;
 using DCEM.Main;
 using DCEM.ServiceAssistantService.Main.Entities;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,6 +45,7 @@ using System.Diagnostics.Contracts;
 using MSLibrary.Oauth.ADFS;
 using ICSharpCode.SharpZipLib.Zip;
 using ICSharpCode.SharpZipLib.Checksum;
+using DCEM.ConsoleApp.FormulaCalculateServices;
 
 namespace DCEM.ConsoleApp
 {
@@ -47,12 +55,146 @@ namespace DCEM.ConsoleApp
 
         private static string _baseUrl;
 
-        async static Task  Main(string[] args)
+        static void consoleChar(int offset1,int offset2,string str,string strInner,string strStar)
+        {
+            StringBuilder strBuilder = new StringBuilder();
+
+            for(var index=0;index<=offset1-1;index++)
+            {
+                strBuilder.Append(" ");
+            }
+            
+            strBuilder.Append(str);
+
+            if (offset1 != 0)
+            {
+                for (var index = 0; index <= offset2 - offset1 - 2; index++)
+                {
+              
+                    strBuilder.Append(strInner);
+                }
+            }
+            else
+            {
+                for (var index = 0; index <= offset2 - offset1 - 2; index++)
+                {
+                    if (index == (offset2 - offset1 - 2) / 2)
+                    {
+
+                        strBuilder.Append(strStar);
+                    }
+                    else
+                    {
+                      
+                        strBuilder.Append(strInner);
+                    }
+                }
+            }
+
+            if (offset1 != offset2)
+            {
+          
+                strBuilder.Append(str);
+            }
+
+            foreach(var item in strBuilder.ToString())
+            {
+                setRanColor();
+                Console.Write(item);
+            }
+            
+        }
+
+        private static ConsoleColor[] _colors = new ConsoleColor[]
+        {
+             ConsoleColor.Red,
+              ConsoleColor.Green,
+               ConsoleColor.Yellow,
+                ConsoleColor.Blue,
+                 ConsoleColor.Cyan,
+                  ConsoleColor.White
+        };
+
+        private static Random _r = new Random(DateTime.Now.Millisecond);
+        static void setRanColor()
+        {
+           
+            Console.ForegroundColor=_colors[_r.Next(0, _colors.Count())];
+        }
+        async static Task Main(string[] args)
         {
 
 
+            /*Regex reg = new Regex(@"\{(?<!\\)\$((?!(\{(?<!\\)\$[A-Za-z0-9][A-Za-z0-9_]+\(.*\)(?<!\\)\})).)+?(?<!\\)\}");
+            Regex reg1 = new Regex(@"\{(?<!\\)\$[A-Za-z0-9]((?!(\{(?<!\\)\$[A-Za-z0-9][A-Za-z0-9_]+\(.*\)(?<!\\)\})).)+?(?<!\\)\}");
+            var str1 = "{$Tes1(1,{$Test1(1)},3)}";
+            var matchs = reg1.Matches(str1);
 
-            XNamespace xmlns = XNamespace.Get("http://schemas.microsoft.com/dynamics/2015/01/DataManagement");
+            var count = matchs.Count;*/
+            /* while (true)
+             {
+                 Console.Clear();
+
+                 int start = 20;
+                 int offset = 10;
+                 int x = start + offset;
+                 int y = start + offset;
+
+                 consoleChar(x, y, "X", "@", "*");
+                 Console.Write("\r\n");
+                 int interVal = 1;
+                 while (true)
+                 {
+                     //setRanColor();
+                     x = x - interVal;
+                     y = y + interVal;
+                     if (x == start)
+                     {
+                         interVal = -interVal;
+                     }
+
+                     consoleChar(x, y, "X", "@", "*");
+                     Console.Write("\r\n");
+                     if (x == y)
+                     {
+                         break;
+                     }
+                 }
+
+                 await Task.Delay(1000);
+             }
+             */
+
+
+
+
+
+
+            //设置编码，解决中文问题
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            //设置应用程序工作基目录
+            var baseUrl = Path.GetDirectoryName(typeof(Program).Assembly.Location);
+            Environment.CurrentDirectory = baseUrl ?? Environment.CurrentDirectory;
+
+            //获取运行环境名称
+            var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_APPLICATIONNAME");
+            if (environmentName == null)
+            {
+                environmentName = string.Empty;
+            }
+            //初始化配置容器
+            MainStartupHelper.InitConfigurationContainer(environmentName, baseUrl);
+
+            //初始化上下文容器
+            MainStartupHelper.InitContext();
+
+            await CreateHostBuilder(args).Build().RunAsync();
+
+
+
+
+
+            /*XNamespace xmlns = XNamespace.Get("http://schemas.microsoft.com/dynamics/2015/01/DataManagement");
             XNamespace i = XNamespace.Get("http://www.w3.org/2001/XMLSchema-instance");
             XDocument doc = new XDocument(
                 new XElement(xmlns+"DataManagementPackageManifest",
@@ -774,7 +916,7 @@ namespace DCEM.ConsoleApp
             Environment.CurrentDirectory = _baseUrl ?? Environment.CurrentDirectory;
 
             //获取运行环境名称
-            var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_APPLICATIONNAME");
+            //var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_APPLICATIONNAME");
             if (environmentName == null)
             {
                 environmentName = string.Empty;
@@ -943,9 +1085,43 @@ namespace DCEM.ConsoleApp
                     }
                 }
                 );
-
+                */
             Console.Read();
         }
+
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+    Host
+    .CreateDefaultBuilder(args)
+    .ConfigureServices((services)=>
+    {
+        //获取核心配置
+        var coreConfiguration = ConfigurationContainer.Get<CoreConfiguration>(ConfigurationNames.Application);
+        //初始化DI容器
+        MainStartupHelper.InitDI(services, coreConfiguration.DISetting);
+        MainStartupHelper.InitStaticInfo();
+
+        CommonMessageHandleServiceMain.MessageHandleServiceFactories["T1"]= DIContainerContainer.Get<CommonMessageHandleForT1Factory>();
+
+        ExpressionCalculatorIMP.FormulaCalculateServiceFactories["T1"] = new Dictionary<string, IFactory<IFormulaCalculateService>>();
+        ExpressionCalculatorIMP.FormulaCalculateServiceFactories["T1"]["Test1"] = DIContainerContainer.Get<FormulaCalculateServiceForTest1Factory>();
+
+
+
+        services.AddHostedService<HostedService>();
+    })
+
+    .ConfigureHostConfiguration(configHost =>
+    {
+    })
+    .ConfigureAppConfiguration((buildContext, builder) =>
+    {
+
+    })
+    .ConfigureLogging((bulider) =>
+    {
+        MainStartupHelper.InitLogger(bulider);
+    });
 
         private static async Task GetZipStream(Func<Stream, Task> action, params ZipTextItemFileInfo[] items)
         {
@@ -1214,6 +1390,19 @@ namespace DCEM.ConsoleApp
         }
     }
 
+    [Injection(InterfaceType = typeof(ICommonQueueConnectionFactory), Scope = InjectionScope.Singleton)]
+    public class CommonQueueConnectionFactory : ICommonQueueConnectionFactory
+    {
+        public string CreateAllForCommonQueue()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string CreateReadForCommonQueue()
+        {
+            throw new NotImplementedException();
+        }
+    }
     public class EntityContext : DbContext
     {
         public EntityContext(DbContextOptions options):base(options)
@@ -1290,5 +1479,132 @@ namespace DCEM.ConsoleApp
     {
         [JsonProperty(PropertyName = "entries")]
         public List<Entries> Entries { get; set; }
+    }
+
+
+    public class HostedService : IHostedService
+    {
+        private ICommonMessageHandleService _commonMessageHandleService;
+
+        private ICommonQueueEndpointConsumeController _consumeController = null;
+        public HostedService(ICommonMessageHandleService commonMessageHandleService)
+        {
+            _commonMessageHandleService = commonMessageHandleService;
+        }
+        public async Task StartAsync(CancellationToken cancellationToken)
+        {
+
+            ExpressionCalculator expressionCalculator = new ExpressionCalculator()
+            {
+                 ID=Guid.NewGuid(),
+                  Name="T1",
+                   FormulaExecuteParallelism=1
+            };
+
+            var r=await expressionCalculator.Calcualte(@"{$Test1(1,\$_ref(sss),3)}",new object());
+
+            var aa = 1;
+
+
+    /*        CommonQueueProductEndpoint productEndpoint = new CommonQueueProductEndpoint()
+            {
+                ID = Guid.Parse("7CD820A6-C7AE-46DF-901F-DCC9002E96F2"),
+                Name = "First",
+                QueueType = "AzureServiceBus",
+                QueueConfiguration = @"
+                    {
+                        ""ConvertToServiceName"":""Default"",
+                        ""Items"":
+                            {
+                                ""Endpoint=sb://rhcndd.servicebus.chinacloudapi.cn/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=Rgzu8APH+4jzcGybxgk1mltj69XoFgSCyie1A0zTmGg="":
+                                [
+                                    {
+                                        ""Code"":0,
+                                        ""TopicItem"":""main""
+                                    }
+                                ]
+                            }
+                    }",
+                CreateTime = DateTime.UtcNow,
+                ModifyTime = DateTime.UtcNow
+
+            };
+
+            for (var index = 0; index <= 0; index++)
+            {
+                CommonMessage commonMessage = new CommonMessage()
+                {
+                    Data = $"AAA-{index.ToString()}",
+                    CreateTime = DateTime.UtcNow,
+                    Key = "SD",
+                    Type = "T1"
+                };
+                await productEndpoint.Product(commonMessage);
+            }
+            
+            */
+
+
+            /* CommonQueueConsumeEndpoint consumeEndpoint = new CommonQueueConsumeEndpoint()
+             {
+                 ID = Guid.Parse("FEC2C05C-5D3F-4217-9D8C-D617CA796BEF"),
+                 Name = "First",
+                 QueueType = "AzureServiceBus",
+                 QueueConfiguration = @"
+                     {
+                         ""ConnectionString"":""Endpoint=sb://rhcndd.servicebus.chinacloudapi.cn/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=Rgzu8APH+4jzcGybxgk1mltj69XoFgSCyie1A0zTmGg="",
+                         ""Subscription"":""sub1"",
+                         ""Items"":
+                             [
+                                 {
+                                     ""ConvertFromServiceName"":""Default"",
+                                     ""Topic"":""main""
+                                 }
+                             ]
+                     }",
+                 CreateTime = DateTime.UtcNow,
+                 ModifyTime = DateTime.UtcNow
+
+             };
+
+             _consumeController = await consumeEndpoint.Consume(_commonMessageHandleService.Handle);
+             */
+
+            //await consumeController.Stop();
+        }
+
+        public async Task StopAsync(CancellationToken cancellationToken)
+        {
+            if (_consumeController != null)
+            {
+                await _consumeController.Stop();
+            }
+        }
+    }
+
+    [Injection(InterfaceType = typeof(CommonMessageHandleForT1), Scope = InjectionScope.Singleton)]
+    public class CommonMessageHandleForT1 : ICommonMessageHandleService
+    {
+        public async Task Handle(CommonMessage message)
+        {
+            throw new Exception("Error");
+            Console.WriteLine(message.Data);
+            await Task.CompletedTask;
+        }
+    }
+
+    [Injection(InterfaceType = typeof(CommonMessageHandleForT1Factory), Scope = InjectionScope.Singleton)]
+    public class CommonMessageHandleForT1Factory : IFactory<ICommonMessageHandleService>
+    {
+        private CommonMessageHandleForT1 _commonMessageHandleForT1;
+
+        public CommonMessageHandleForT1Factory(CommonMessageHandleForT1 commonMessageHandleForT1)
+        {
+            _commonMessageHandleForT1 = commonMessageHandleForT1;
+        }
+        public ICommonMessageHandleService Create()
+        {
+            return _commonMessageHandleForT1;
+        }
     }
 }

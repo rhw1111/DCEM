@@ -47,7 +47,7 @@ export class ListPage implements OnInit {
         this.showlist(null);
   }
      //每次页面加载
-     ionViewDidEnter() {
+     ionViewWillEnter() {
         this.menuController.enable(false);
     }
     //搜索方法

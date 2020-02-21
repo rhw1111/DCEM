@@ -11,6 +11,7 @@ import * as $ from 'jquery';
     styleUrls: ['./payment.page.scss'],
 })
 export class PaymentPage implements OnInit {
+    IsShowCover: boolean = false;
     public model: any = {
         search: {
             apiUrl: "api/order/PayedConfrim",
@@ -28,6 +29,15 @@ export class PaymentPage implements OnInit {
             data: [],
             balance: 0,
         },
+        rights: {
+            apiUrl: "api/cashcoupon/MyCashCoupon",
+            productCode: "",
+            datas: [],
+            myRightses: [],//用户权益项
+            rightsMutuallyExclusives: [],//互斥权益项
+            RightsPackageGet: {},//选择权益项
+            showRights: false,
+        }
     };
     constructor(
         private _logininfo: Storage_LoginInfo,
@@ -46,7 +56,66 @@ export class PaymentPage implements OnInit {
     initListLoading() {
         this._page.loadingShow();
         this.TimeDown();
+        this.getRights(null);
         this._page.loadingHide();
+    }
+    //获取用户权益
+    getRights(event) {
+        this._http.getForShopping(this.model.rights.apiUrl,
+            { userid: this._logininfo.GetSystemUserId() },
+            (res: any) => {
+                if (res != null && res.MyRightses.length > 0) {
+                    //绑定数据
+                    res.MyRightses.forEach(item => {
+                        item.hideRights = false;
+                        item.checked = false;
+                    });
+                    this.model.rights.showRights = true;
+                    this.model.rights.myRightses = res.MyRightses;
+                    this.model.rights.rightsMutuallyExclusives = res.RightsMutuallyExclusives;
+                    event ? event.target.complete() : '';
+                }
+                this._page.loadingHide();
+            },
+            (err: any) => {
+                this._page.alert("消息提示", "数据加载异常");
+                this._page.loadingHide();
+            }
+        );
+    }
+    //选择权益项
+    change(param) {
+        this.model.rights.rightsMutuallyExclusives.forEach(item => {
+            if (param.checked) {
+                if (item.MemberRightsCode == param.RightsCode) {
+                    this.model.rights.myRightses.forEach(rights => {
+                        if (rights.RightsCode == item.MutuallyExclusiveRightsCode) {
+                            rights.hideRights = true;
+                        }
+                    });
+                } else if (item.MutuallyExclusiveRightsCode == param.RightsCode) {
+                    this.model.rights.myRightses.forEach(rights => {
+                        if (rights.RightsCode == item.MemberRightsCode) {
+                            rights.hideRights = true;
+                        }
+                    });
+                }
+            } else {
+                if (item.MemberRightsCode == param.RightsCode) {
+                    this.model.rights.myRightses.forEach(rights => {
+                        if (rights.RightsCode == item.MutuallyExclusiveRightsCode) {
+                            rights.hideRights = false;
+                        }
+                    });
+                } else if (item.MutuallyExclusiveRightsCode == param.RightsCode) {
+                    this.model.rights.myRightses.forEach(rights => {
+                        if (rights.RightsCode == item.MemberRightsCode) {
+                            rights.hideRights = false;
+                        }
+                    });
+                }
+            }
+        });
     }
     //倒计时
     TimeDown() {
@@ -106,11 +175,31 @@ export class PaymentPage implements OnInit {
                 }
             );
         } else {
+            var rightsPackageGet = {
+                "rightscheck": [],
+                "dealerid": null,
+                "mutuallyexclusiveactivity": "",
+                "userid": this._logininfo.GetSystemUserId()
+            };
+            this.model.rights.myRightses.forEach(rights => {
+                if (rights.checked) {
+                    var rightscheck = {
+                        "rightspackagegetid": rights.RightsPackageGetId,
+                        "checknum": 1
+                    };
+                    rightsPackageGet.rightscheck.push(rightscheck);
+                }
+            });
+            this.model.rights.RightsPackageGet = rightsPackageGet;
             this.postPay()
         }
     }
     postPay() {
-        this._http.postForShopping(this.model.search.apiUrl, { OrderCode: this.model.datas.OrderCode },
+        this._http.postForShopping(this.model.search.apiUrl,
+            {
+                OrderCode: this.model.datas.OrderCode,
+                RightsPackageGet: this.model.rights.RightsPackageGet
+            },
             (res: any) => {
                 if (res != null) {
                     if (res.IsSuccess) {
@@ -143,5 +232,35 @@ export class PaymentPage implements OnInit {
             ]
         });
         await alert.present();
+    }
+
+    ShowTwoBtn(productcode) {
+        this.IsShowCover = true;
+        $(".TwoBtnDialog").slideDown();
+        $(".footer-bottom").fadeOut();
+    }
+    TwoBtnSure() {
+        debugger;
+        $(".TwoBtnDialog").slideUp();
+        this.IsShowCover = false;
+        $(".footer-bottom").fadeIn();
+        //for (var i = 0; i < this.model.rights.myRightses.length; i++) {
+        //    if (this.model.rights.myRightses[i].checked) {
+        //        $(".selected").show();
+        //        break;
+        //    } else {
+        //        $(".selected").hide();
+        //    }
+        //}
+    }
+    CloseDialog() {
+        if (this.IsShowCover) {
+            $(".TwoBtnDialog").slideUp();
+            this.IsShowCover = false;
+            $(".footer-bottom").fadeIn();
+            //this.model.rights.myRightses.forEach(rights => {
+            //    rights.checked = false;
+            //});
+        }
     }
 }

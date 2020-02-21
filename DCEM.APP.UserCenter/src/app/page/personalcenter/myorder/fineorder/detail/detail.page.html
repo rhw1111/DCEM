@@ -35,8 +35,6 @@
                 <ion-label>商品信息</ion-label>
             </ion-item>
             <ng-container *ngFor="let item of model.datalist">
-
-
                 <ion-item lines="none" style="padding-bottom:30px;"  [routerLink]="['/servicecenter/boutique/detail']" [queryParams]="{id:item.ProductCode}">
                     <div *ngIf="item.ImageUrl != null; then truesTemplate else falsesTemplate"></div>
                     <ng-template #truesTemplate>

@@ -58,10 +58,22 @@ namespace MSLibrary.MessageQueue.DAL
             await store.QueryAllByQueue(queue,pageSize,callBack);
         }
 
+        public async Task<SMessage> QueryByDelayID(SQueue queue, Guid delayMessageID)
+        {
+            var store = GetRealSMessageStore(queue.StoreType);
+            return await store.QueryByDelayID(queue, delayMessageID);
+        }
+
         public async Task<SMessage> QueryByKeyAndBeforeExpectTime(SQueue queue, string key, DateTime expectTime)
         {
             var store = GetRealSMessageStore(queue.StoreType);
             return await store.QueryByKeyAndBeforeExpectTime(queue,key,expectTime);
+        }
+
+        public async Task<SMessage> QueryByOriginalID(SQueue queue, Guid originalMessageID, Guid listenerID)
+        {
+            var store = GetRealSMessageStore(queue.StoreType);
+            return await store.QueryByOriginalID(queue, originalMessageID, listenerID);
         }
 
         public async Task<QueryResult<SMessage>> QueryByQueue(SQueue queue, int page, int pageSize)

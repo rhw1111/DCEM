@@ -37,7 +37,7 @@ export class ListPage implements OnInit {
     }
 
     //每次页面加载
-    ionViewDidEnter() {
+    ionViewWillEnter() {
         this.mod.data = {};
         this.mod.searchData = {
             type: 2,
@@ -70,14 +70,12 @@ export class ListPage implements OnInit {
         if (this.mod.searchData.pageindex == 1)
             this._page.loadingShow();
 
-        this._http.get(
+        this._http.getForToaken(
             this.mod.apiUrl,
             {
-                params: {
-                    type: this.mod.searchData.type,
-                    pageindex: this.mod.searchData.pageindex,
-                    search: this.mod.searchData.search
-                }
+                type: this.mod.searchData.type,
+                pageindex: this.mod.searchData.pageindex,
+                search: this.mod.searchData.search
             },
             (res: any) => {
                 if (!this._valid.isNull(res.Results) !== null && res.Results.length > 0) {

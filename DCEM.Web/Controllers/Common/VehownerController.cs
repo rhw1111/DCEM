@@ -38,9 +38,9 @@ namespace DCEM.Web.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetList")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetList(int pageindex = 1, string search = "")
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetList(int pageindex = 1, string search = "", string dealeridGuid = "")
         {
-            return await _vehownerService.QueryList(pageindex, search);
+            return await _vehownerService.QueryList(pageindex, search, dealeridGuid);
         }
         #endregion
 

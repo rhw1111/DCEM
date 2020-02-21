@@ -119,7 +119,7 @@ namespace DCEM.Web.Controllers
         #region 查询 维修项目 列表
         [HttpGet]
         [Route("GetRepairitemList")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetRepairitemList(int pageIndex, string search, string dealeridGuid = "D2B7AE95-72F4-E911-A821-F2106C4094A1")
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> GetRepairitemList(int pageIndex, string search, string dealeridGuid = "")
         {
             return await _serviceproxyService.QueryRepairitemList(dealeridGuid, pageIndex, search);
         }

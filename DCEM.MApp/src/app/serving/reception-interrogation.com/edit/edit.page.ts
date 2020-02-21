@@ -54,7 +54,7 @@ export class EditPage implements OnInit {
         }
     }
 
-    ionViewDidEnter() {
+    ionViewWillEnter() {
         this._activeRoute.queryParams.subscribe((params: Params) => {
             if (this._shareData.has(this.mod.shareDataKey)) {
                 this.shareData = this._shareData.get(this.mod.shareDataKey);

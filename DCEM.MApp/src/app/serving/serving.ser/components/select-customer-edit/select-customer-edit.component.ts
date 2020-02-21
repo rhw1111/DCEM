@@ -67,7 +67,7 @@ export class SelectCustomerEditComponent implements OnInit {
         }
     }
 
-    ionViewDidEnter() {
+    ionViewWillEnter() {
 
         console.log(this.actionCode);
 
