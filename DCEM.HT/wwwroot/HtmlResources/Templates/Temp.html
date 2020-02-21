@@ -7,7 +7,35 @@
     <meta name="keywords">
     <meta name="description">
     <meta name="author" content="Lorem ipsum dolor">
-    <style>
+    <style type="text/css">
+        .button_sub {
+            background: #2e466e;
+            background-image: -webkit-linear-gradient(top, #2e466e, #415989);
+            background-image: -moz-linear-gradient(top, #2e466e, #415989);
+            background-image: -ms-linear-gradient(top, #2e466e, #415989);
+            background-image: -o-linear-gradient(top, #2e466e, #415989);
+            background-image: linear-gradient(to bottom, #2e466e, #415989);
+            -webkit-border-radius: 17;
+            -moz-border-radius: 17;
+            border-radius: 17px;
+            text-shadow: 0px 1px 0px #263666;
+            -webkit-box-shadow: inset 0px 0px 15px 3px #23395e;
+            -moz-box-shadow: inset 0px 0px 15px 3px #23395e;
+            box-shadow: inset 0px 0px 15px 3px #23395e;
+            font-family: 微软雅黑;
+            color: #ffffff;
+            font-size: 16px;
+            padding: 12px 30px 12px 30px;
+            border: solid #1f2f47 1px;
+            text-decoration: none;
+        }
+
+            .button_sub:hover {
+                color: #ffffff;
+                background: #415989;
+                text-decoration: none;
+            }
+
         [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide:not(.ng-hide-animate) {
             display: none !important;
         }
@@ -213,9 +241,9 @@
             var campaignCode = getParam("campaignCode");
             var dealerCode = getParam("dealerCode");
             var referrerMobilephone = getParam("ReferrerMobilephone");
-            if (referrerMobilephone == "" || referrerMobilephone == null) {
-                referrerMobilephone = "18938027907";
-            }
+            //if (referrerMobilephone == "" || referrerMobilephone == null) {
+            //    referrerMobilephone = "18938027907";
+            //}
             //渠道(0：CC，1：官网，2：商城，3：APP，4：微站/H5，5：小程序，6：线下活动，7：到店，8：其他)
             var channel = "$channel$";//getParam("channel");
             //电子折页订阅	electronic_folding_subscription
@@ -274,7 +302,7 @@
                         var postData = {
                             account: moblie,
                             logintype: 1,
-                            key: "DCEM_APP_Integral_"+behaviorCode
+                            key: "DCEM_APP_Integral_" + behaviorCode
                         };
                         var json = JSON.stringify(postData);
                         $.ajax({
@@ -287,25 +315,25 @@
 
                                 //分享送积分
                                 postData = {
-                                            account: referrerMobilephone,
-                                            logintype: 1,
-                                            key: "DCEM_APP_IntegralSharePhone"
-                                        };
-                                        var json = JSON.stringify(postData);
-                                        $.ajax({
-                                            type: "post",
-                                            url: url,
-                                            dataType: "json",
-                                            contentType: "application/json;charset=utf-8",
-                                            data: json,
-                                            success: function (data) {
-                                                window.location.href = './SuccessPage.html';
-                                            },
-                                            //调用出错执行的函数
-                                            error: function (data) {
-                                                debugger;
-                                            }
-                                        });
+                                    account: referrerMobilephone,
+                                    logintype: 1,
+                                    key: "DCEM_APP_IntegralSharePhone"
+                                };
+                                var json = JSON.stringify(postData);
+                                $.ajax({
+                                    type: "post",
+                                    url: url,
+                                    dataType: "json",
+                                    contentType: "application/json;charset=utf-8",
+                                    data: json,
+                                    success: function (data) {
+                                        window.location.href = './SuccessPage.html';
+                                    },
+                                    //调用出错执行的函数
+                                    error: function (data) {
+                                        debugger;
+                                    }
+                                });
 
                             },
                             //调用出错执行的函数
@@ -338,10 +366,13 @@
             $("#dv_qrcode").empty();
             var campaignCode = getParam("campaignCode");
             var dealerCode = getParam("dealerCode");
-            var referrerMobilephone = getParam("ReferrerMobilephone");
-            if (referrerMobilephone == "" || referrerMobilephone == null) {
-                referrerMobilephone = "18938027907";
-            }
+
+            //var referrerMobilephone = getParam("ReferrerMobilephone");
+
+            var referrerMobilephone = $("#txt_phone").val();
+            //if (referrerMobilephone == "" || referrerMobilephone == null) {
+            //    referrerMobilephone = "18938027907";
+            //}
             //微信会改写链接地址，故分享地址自己拼接
             var labelValue = "$pageurl$?campaignCode=" + campaignCode + "&dealerCode=" + dealerCode + "&ReferrerMobilephone=" + referrerMobilephone;
 
@@ -351,6 +382,35 @@
             }
             ShowDiv();
         }
+
+
+
+        //弹出层输入手机号码
+        function ShowPhoneDiv() {
+            var bgdiv = document.getElementById("fade");
+            bgdiv.style.width = document.body.scrollWidth;  // bgdiv.style.height = $(document).height();
+            $("#fade").height($(document).height());
+            $("#dv_poster_phone").show();
+            $("#fade").show();
+
+        }
+
+        function Subphone_click() {
+            var referrerMobilephone = $("#txt_phone").val()
+            if (referrerMobilephone == "") {
+                $("#div_phone_errinfo").text("请输入推荐人手机号");
+                return;
+            }
+            if (!(/^1\d{10}$/.test(referrerMobilephone))) {
+                $("#div_phone_errinfo").text("您的推荐人手机号格式输入错误");
+                return false;
+            }
+            $("#div_phone_errinfo").text(" ");
+            $("#dv_poster_phone").hide();
+            GeneratePoster();
+        }
+
+
         //弹出隐藏层
         function ShowDiv() {
             var bgdiv = document.getElementById("fade");
@@ -366,11 +426,11 @@
                     $("#img_tosave").attr("src", dataUrl);
                 }
             });
-
             $("#dv_poster").show();
         }
         //关闭弹出层
         function CloseDiv() {
+            $("#dv_poster_phone").hide();
             $("#dv_poster").hide();
             $("#fade").hide();
         }
@@ -479,9 +539,15 @@
                                         <p style="margin-bottom:40px">
                                             $content$
                                         </p>-->
-                                        <div style="position: fixed;right:0px;bottom:60%;display:$shareable$;">
+                                        <!--<div style="position: fixed;right:0px;bottom:60%;display:$shareable$;">
                                             <div>
                                                 <span class="button button-black" onclick="GeneratePoster()" style="background-color: orange;border-radius: 2em 0 0 2em;">生成专属海报</span>
+                                            </div>
+                                        </div>-->
+
+                                        <div style="position: fixed;right:0px;bottom:60%;display:$shareable$;">
+                                            <div>
+                                                <span class="button button-black" onclick="ShowPhoneDiv()" style="background-color: orange;border-radius: 2em 0 0 2em;">生成专属海报</span>
                                             </div>
                                         </div>
                                     </div>
@@ -494,6 +560,7 @@
                                 </div>
                             </div>
                         </div>-->
+
                         <div id="fade" class="black_overlay">
                         </div>
                         <div id="dv_poster" class="white_content">
@@ -515,6 +582,25 @@
                                 </div>
                             </div>
                         </div>
+
+
+                        <div id="dv_poster_phone" class="white_content" style="height:367px;">
+                            <div style="text-align: right;cursor: default;height: 40px;padding-top: 1%;">
+                                <span style="font-size: 16px;font-weight: bold;margin-right: 2%;" onclick="CloseDiv()">X</span>
+                            </div>
+                            <div style="padding: 40px 50px;text-align:center;">
+                                <div style="margin-top:50px">
+                                    <input id="txt_phone" type="text" style="outline-style: none;border: 1px solid #ccc;border-radius: 3px;padding: 13px 14px;font-size: 14px;font-weight: 700; width:100%;" placeholder="请输入推荐人手机号">
+
+                                    <div id="div_phone_errinfo" style="color:red;font-size:14px;margin-top:15px;">&nbsp;</div>
+                                    <div style="margin-top:15px;">
+                                        <button onclick="Subphone_click()" type="button" class="button_sub">确定</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
             </div>
