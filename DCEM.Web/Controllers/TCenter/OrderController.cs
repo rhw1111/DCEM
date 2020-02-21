@@ -8,6 +8,8 @@ using DCEM.Main.Entities.TCenter.MktCloud;
 using DCEM.Main.Entities.Request.OrderManager;
 using DCEM.Main.Entities;
 using DCEM.Main.TCenter;
+using MSLibrary;
+using MSLibrary.Xrm;
 
 namespace DCEM.Web.Controllers
 {
@@ -44,6 +46,21 @@ namespace DCEM.Web.Controllers
             return await logic.CreateOrder(param);
         }
         #endregion
+
+        /// <summary>
+        /// 综合订单取消接口
+        /// </summary>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("cancelOrder")]
+        public async Task<NewtonsoftJsonActionResult<ValidateResult<CrmEntity>>> CancelOrder([FromBody]CancelOrderRequest cancelOrder)
+        {
+            var orderLogic = await _tCenterFactory.Create();
+            return await orderLogic.CancelOrder(cancelOrder.OrderCode);
+        }
+
+
 
         ///// <summary>
         ///// 大订订单取消接口

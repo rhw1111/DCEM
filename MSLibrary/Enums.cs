@@ -1149,4 +1149,66 @@ namespace MSLibrary
         /// </summary>
         Other=3
     }
+
+    /// <summary>
+    /// 综合订单支付状态 0:不需要支付，1:等待支付，3:支付成功
+    /// </summary>
+    public enum PayStatus 
+    {
+        /// <summary>
+        /// 不需要支付
+        /// </summary>
+        NoNeedPay = 0,
+        /// <summary>
+        /// 等待支付
+        /// </summary>
+        ToBePay = 1,
+        /// <summary>
+        /// 支付成功
+        /// </summary>
+        Paid = 3
+    }
+
+    /// <summary>
+    /// 综合订单订单状态 1:待审批,2:审批中,3:已通过,4:已驳回,5:订单取消,6:订单退货,7:交易完成,8:退款中,9:退款完成
+    /// </summary>
+    public enum Tc_OrderState 
+    {
+        /// <summary>
+        /// 待审批
+        /// </summary>
+        Pending = 1,
+        /// <summary>
+        /// 审批中
+        /// </summary>
+        UnderReview = 2,
+        /// <summary>
+        /// 已通过
+        /// </summary>
+        Passed = 3,
+        /// <summary>
+        /// 已驳回
+        /// </summary>
+        Dismissed = 4,
+        /// <summary>
+        /// 订单取消
+        /// </summary>
+        Cancel = 5,
+        /// <summary>
+        /// 订单退货
+        /// </summary>
+        Returns = 6,
+        /// <summary>
+        /// 交易完成
+        /// </summary>
+        Complete = 7,
+        /// <summary>
+        /// 退款中
+        /// </summary>
+        Refunding = 8,
+        /// <summary>
+        /// 退款完成
+        /// </summary>
+        RefundCompleted = 9
+    }
 }
