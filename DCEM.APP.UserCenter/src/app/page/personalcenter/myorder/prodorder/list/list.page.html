@@ -231,7 +231,7 @@
                                     </ion-note>
                                 </ng-container>
                                 <ng-container *ngIf="item.OrderData.PayStatusCode == 20">
-                                    <ion-note slot="end" (click)="goPay(item.OrderData.OrderCode,item.OrderData.ReceivedIntegral == 0 ? item.OrderData.TotalDeposiAmount : (-item.OrderData.CashPayment),item.OrderData.ReceivedIntegral,-item.OrderData.CashPayment,item.OrderData.CashTotal,item.OrderData.InstallmentTotal);$event.stopPropagation();" style="z-index:99;">
+                                    <ion-note slot="end" (click)="goCancel(item.OrderData.OrderCode,1);$event.stopPropagation();" style="z-index:99;">
                                         <ion-chip color="dark">
                                             <ion-label class="chip-label">取消订单</ion-label>
                                         </ion-chip>
@@ -243,7 +243,7 @@
                                     </ion-note>
                                 </ng-container>
                                 <ng-container *ngIf="item.OrderData.PayStatusCode == 50">
-                                    <ion-note slot="end" (click)="goPay(item.OrderData.OrderCode,item.OrderData.ReceivedIntegral == 0 ? item.OrderData.TotalDeposiAmount : (-item.OrderData.CashPayment),item.OrderData.ReceivedIntegral,-item.OrderData.CashPayment,item.OrderData.CashTotal,item.OrderData.InstallmentTotal);$event.stopPropagation();" style="z-index:99;">
+                                    <ion-note slot="end" (click)="goCancel(item.OrderData.OrderCode,2);$event.stopPropagation();" style="z-index:99;">
                                         <ion-chip color="secondary">
                                             <ion-label class="chip-label">申请退款</ion-label>
                                         </ion-chip>

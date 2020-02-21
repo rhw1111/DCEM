@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page } from '../../../../../component/typescript/dcem.core';
 import { Storage_LoginInfo } from '../../../../../component/typescript/logininfo.storage';
 import { ActivatedRoute } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { debug } from 'util';
 import { concat } from 'rxjs';
 
@@ -36,6 +37,9 @@ export class ListPage implements OnInit {
             data: [],
             balance: 0,
         },
+        cancel: {
+            apiUrl: "api/order/cancelOrder",
+        },
         OrderClass: "",
         //OrderType: 10, //商品类型; 1: 整车; 2: 整车选装件; 3: 充电桩 / 枪; 4: 备件; 7: 业务办理; 8: 施工; 10: 精品;
         isShowCarNone: false,
@@ -50,6 +54,7 @@ export class ListPage implements OnInit {
         private _http: DCore_Http,
         private _page: DCore_Page,
         private routerinfo: ActivatedRoute,
+        private alertController: AlertController,
     ) { }
 
     ngOnInit() {
@@ -188,6 +193,86 @@ export class ListPage implements OnInit {
             this._page.goto("/servicecenter/payment/payment", returndata);
         }
 
+    }
+    //取消订单/申请退款
+    goCancel(orderno, ordertype) {
+        this.presentAlertConfirm(orderno, ordertype);
+    }
+
+    async presentAlertConfirm(orderno,ordertype) {
+        var tips = ordertype == 1 ? "确定取消订单?" : "确定申请退款?";
+        const alert = await this.alertController.create({
+            header: tips,
+            //message: tips,
+            buttons: [
+                {
+                    text: '取消',
+                    role: 'cancel',
+                    cssClass: 'secondary',
+                    handler: (blah) => {
+                        console.log('Confirm Cancel: blah');
+                    }
+                },
+                {
+                    text: '确定',
+                    handler: () => {
+                        this._page.loadingShow();
+                        var failtips = ordertype == 1 ? "取消订单失败" : "申请退款失败";
+                        var successtips = ordertype == 1 ? "订单取消成功" : "申请退款成功";
+                        this._http.post(
+                            this.model.cancel.apiUrl,
+                            { OrderCode: orderno },
+                            (res: any) => {
+                                if (res == null || !res.Result) {
+                                    this._page.alert("消息提示", failtips);
+                                }
+                                else {
+                                    this._page.alert("消息提示", successtips);
+                                    //重新绑定数据
+                                    var carorderlist = [];
+                                    var busiorderlist = [];
+                                    var consorderlist = [];
+                                    var fineorderlist = [];
+                                    var servorderlist = [];
+                                    for (var i = 0; i < this.model.datalist.length; i++) {
+                                        this.model.datalist[i].OrderData.Status = ordertype == 1 ? 5 : 8;
+                                        var paystatus = this.getPayStatus(this.model.datalist[i].OrderData.Status, this.model.datalist[i].OrderData.PaymentStatus);
+                                        this.model.datalist[i].OrderData.PayStatusStr = paystatus.paystatusname;
+                                        this.model.datalist[i].OrderData.PayStatusCode = paystatus.paystatuscode;
+                                        if (this.model.datalist[i].OrderData.ProductTypeList.indexOf(1) > -1) {
+                                            carorderlist.push(this.model.datalist[i]);
+                                        }
+                                        if (this.model.datalist[i].OrderData.ProductTypeList.indexOf(7) > -1) {
+                                            busiorderlist.push(this.model.datalist[i]);
+                                        }
+                                        if (this.model.datalist[i].OrderData.ProductTypeList.indexOf(8) > -1) {
+                                            consorderlist.push(this.model.datalist[i]);
+                                        }
+                                        if (this.model.datalist[i].OrderData.ProductTypeList.indexOf(10) > -1) {
+                                            fineorderlist.push(this.model.datalist[i]);
+                                        }
+                                        if (this.model.datalist[i].OrderData.ProductTypeList.indexOf(11) > -1) {
+                                            servorderlist.push(this.model.datalist[i]);
+                                        }
+                                    }
+                                    this.model.carorderlist = carorderlist;
+                                    this.model.busiorderlist = busiorderlist;
+                                    this.model.consorderlist = consorderlist;
+                                    this.model.fineorderlist = fineorderlist;
+                                    this.model.servorderlist = servorderlist;
+                                }
+                                this._page.loadingHide();
+                            },
+                            (err: any) => {
+                                this._page.loadingHide();
+                                this._page.alert("消息提示", failtips);
+                            }
+                        );
+                    }
+                }
+            ]
+        });
+        await alert.present();
     }
 
     getPayStatus(orderstatus,paymentstatus) {

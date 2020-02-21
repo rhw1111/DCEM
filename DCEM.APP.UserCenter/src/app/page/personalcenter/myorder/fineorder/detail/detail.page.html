@@ -162,7 +162,7 @@
             </ng-template>
 
         </ion-tab-button>
-        <ion-tab-button tab="servicecenter" style="background-color:#DADDE6;">
+        <ion-tab-button tab="servicecenter" (click)="goCancel(1)" style="background-color:#DADDE6;">
             <ion-label style="font-size:18px;">取消</ion-label>
         </ion-tab-button>
         <ion-tab-button tab="personalcenter" (click)="goPay()" class="tab-cac" style="background-color:#38B3EE;">
@@ -190,7 +190,7 @@
         </ion-tab-button>
         <ion-tab-button tab="servicecenter" style="opacity:0;">
         </ion-tab-button>
-        <ion-tab-button tab="personalcenter" (click)="goPay()" class="tab-cac" style="background-color:#38B3EE;">
+        <ion-tab-button tab="personalcenter" (click)="goCancel(2)" class="tab-cac" style="background-color:#38B3EE;">
             <ion-label style="font-size:18px; color:#fff;">申请退款</ion-label>
         </ion-tab-button>
     </ion-tab-bar>

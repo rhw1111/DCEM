@@ -2,6 +2,7 @@
 import { DCore_Http, DCore_Page } from '../../../../../component/typescript/dcem.core';
 import { Storage_LoginInfo } from '../../../../../component/typescript/logininfo.storage';
 import { ActivatedRoute } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-detail',
@@ -28,6 +29,9 @@ export class DetailPage implements OnInit {
             data: [],
             balance: 0,
         },
+        cancel: {
+            apiUrl: "api/order/cancelOrder",
+        },
     };
     private code
     constructor(
@@ -35,23 +39,24 @@ export class DetailPage implements OnInit {
         private _http: DCore_Http,
         private _page: DCore_Page,
         private routerinfo: ActivatedRoute,
+        private alertController: AlertController,
     ) { }
 
     ngOnInit() {
         //code为参数名字
         this.code = this.routerinfo.snapshot.queryParams["code"];
-        this.initListLoading(this.code);
+        this.initListLoading();
   }
     //初始化页面数据加载
-    initListLoading(code) {
+    initListLoading() {
         this._page.loadingShow();
-        this.getDetail(null, code);
+        this.getDetail(null);
     }
     //获取详情数据
-    getDetail(event, code) {
+    getDetail(event) {
         this._http.postForShopping(this.model.search.apiUrl,
             {
-                OrderCode: code
+                OrderCode: this.code
             },
             (res: any) => {
                 console.log(res);
@@ -125,6 +130,59 @@ export class DetailPage implements OnInit {
             this._page.goto("/servicecenter/payment/payment", returndata);
         }
         
+    }
+
+    //取消订单/申请退款
+    goCancel(ordertype) {
+        this.presentAlertConfirm(ordertype);
+    }
+    async presentAlertConfirm(ordertype) {
+        var tips = ordertype == 1 ? "确定取消订单?" : "确定申请退款?";
+        const alert = await this.alertController.create({
+            header: tips,
+            //message: tips,
+            buttons: [
+                {
+                    text: '取消',
+                    role: 'cancel',
+                    cssClass: 'secondary',
+                    handler: (blah) => {
+                        console.log('Confirm Cancel: blah');
+                    }
+                },
+                {
+                    text: '确定',
+                    handler: () => {
+                        this._page.loadingShow();
+                        var failtips = ordertype == 1 ? "取消订单失败" : "申请退款失败";
+                        var successtips = ordertype == 1 ? "订单取消成功" : "申请退款成功";
+                        this._http.post(
+                            this.model.cancel.apiUrl,
+                            { OrderCode: this.code },
+                            (res: any) => {
+                                if (res == null || !res.Result) {
+                                    this._page.alert("消息提示", failtips);
+                                }
+                                else {
+                                    this._page.alert("消息提示", successtips);
+                                    //重新绑定数据
+                                    this.model.datadetail.Status = ordertype == 1 ? 5 : 8;
+                                    var paystatus = this.getPayStatus(this.model.datadetail.Status, this.model.datadetail.PaymentStatus);
+                                    this.model.datadetail.PayStatusStr = paystatus.paystatusname;
+                                    this.model.datadetail.PayStatusCode = paystatus.paystatuscode;
+                                }
+                                this._page.loadingHide();
+                            },
+                            (err: any) => {
+                                this._page.loadingHide();
+                                this._page.alert("消息提示", failtips);
+                            }
+                        );
+                    }
+                }
+            ]
+        });
+        await alert.present();
     }
 
     getPayStatus(orderstatus, paymentstatus) {
