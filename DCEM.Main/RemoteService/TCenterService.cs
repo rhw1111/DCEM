@@ -144,11 +144,11 @@ namespace DCEM.Main.RemoteService
         /// <param name="mcs_name"></param>
         /// <param name="mcs_paystatus"></param>
         /// <returns></returns>
-        public async Task<ValidateResult<CrmEntity>> CancelOrder(string mcs_name)
+        public async Task<ValidateResult<CrmEntity>> CancelOrder(CancelOrderRequest cancelOrder)
         {
             var validateResult = new ValidateResult<CrmEntity>();
 
-            var fetchOrder = QueryOrder(mcs_name);
+            var fetchOrder = QueryOrder(cancelOrder.OrderCode);
             var fetchXdocOrder = XDocument.Parse(fetchOrder);
             var fetchOrderRequest = new CrmRetrieveMultipleFetchRequestMessage()
             {

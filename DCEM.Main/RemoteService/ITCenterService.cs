@@ -67,7 +67,7 @@ namespace DCEM.Main.RemoteService
         /// <param name="mcs_name"></param>
         /// <param name="mcs_paystatus"></param>
         /// <returns></returns>
-        Task<ValidateResult<CrmEntity>> CancelOrder(string mcs_name);
+        Task<ValidateResult<CrmEntity>> CancelOrder(CancelOrderRequest cancelOrder);
 
         /// <summary>
         /// 商品全量查询--优化后方法

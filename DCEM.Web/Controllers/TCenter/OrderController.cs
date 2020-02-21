@@ -57,7 +57,7 @@ namespace DCEM.Web.Controllers
         public async Task<NewtonsoftJsonActionResult<ValidateResult<CrmEntity>>> CancelOrder([FromBody]CancelOrderRequest cancelOrder)
         {
             var orderLogic = await _tCenterFactory.Create();
-            return await orderLogic.CancelOrder(cancelOrder.OrderCode);
+            return await orderLogic.CancelOrder(cancelOrder);
         }
 
 
