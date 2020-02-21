@@ -52,10 +52,10 @@ export class LoginPage implements OnInit {
 
         this.mod.apiurl = '/api/User/GetAuthToken';
         this.mod.domainType = 'localhost';
-        //var welcomeisloading= this._window.storageGet("welcomeisloading");
-        //if(welcomeisloading==null || welcomeisloading==""){
-        //    this._window.storageSet("welcomeisloading","true");
-        //}
+        var welcomeisloading= this._window.storageGet("welcomeisloading");
+        if(welcomeisloading==null || welcomeisloading==""){
+           this._window.storageSet("welcomeisloading","true");
+        }
     }
 
     // 提交
