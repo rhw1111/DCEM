@@ -1,3 +1,3 @@
 ﻿function dcem_url() {
-    return "https://localhost:44382/";
+    return "http://106.14.121.65:8082/dcem/";
 }
