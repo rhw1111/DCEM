@@ -10,6 +10,9 @@ using MSLibrary.Xrm.Message.Retrieve;
 using MSLibrary.Xrm.Message.RetrieveSignleAttribute;
 using Newtonsoft.Json.Linq;
 using System.Linq;
+using DCEM.Main.Entities;
+using DCEM.Main;
+
 namespace DCEM.ServiceAssistantService.Main.Application
 {
     //服务委托书相关
@@ -106,10 +109,14 @@ namespace DCEM.ServiceAssistantService.Main.Application
             #region 获取记录结果集
             var filter = await GetQueryListFilter(type, search);
             var fetchXdoc = await GetGetQueryListFetchXml(pageIndex, filter);
+
+            var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+
             var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
             {
                 EntityName = "mcs_serviceproxy",
-                FetchXml = fetchXdoc
+                FetchXml = fetchXdoc,
+                ProxyUserId = userInfo != null ? userInfo.systemuserid: null
             };
             fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
             var fetchResponse = await _crmService.Execute(fetchRequest);
@@ -262,6 +269,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
 
         public async Task<ValidateResult<CrmEntity>> AddOrUpdate(ServiceproxyAddOrUpdateRequest request)
         {
+            var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
             var validateResult = new ValidateResult<CrmEntity>();
             var reusetCrmEntity = new CrmEntity("mcs_serviceproxy", new Guid());
             var serviceproxyGuid = new Guid();
@@ -277,7 +285,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 //加入服务委托书
                 serviceproxyGuid = Guid.NewGuid();
                 var serviceproxyEntity = await AddOrUpdateGetServiceproxyEntity(request, serviceproxyGuid);
-                var reuset = await _crmService.Create(serviceproxyEntity);
+                var reuset = await _crmService.Create(serviceproxyEntity, userInfo?.systemuserid);
                 #endregion
             }
             else if (request.actioncode == 2)
@@ -561,6 +569,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
         #region 加工 额外维修项目信息
         public async Task<List<CrmEntity>> AddExtRepairitemList(List<CrmEntity> repairitemList, string dealeridGuid)
         {
+          
             var repairitemMap = new Dictionary<Guid, CrmEntity>();
 
             #region 组装 维修项目Map
@@ -675,10 +684,13 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 </fetch>";
                 return XDocument.Parse(fetchXml);
             });
+            var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+
             var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
             {
                 EntityName = "mcs_spmpartspricemanagement",
-                FetchXml = xdoc
+                FetchXml = xdoc,
+                ProxyUserId= userInfo!=null? userInfo.systemuserid:null
             };
             fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
             var fetchResponse = await _crmService.Execute(fetchRequest);
@@ -819,10 +831,14 @@ namespace DCEM.ServiceAssistantService.Main.Application
                 </fetch>";
                 return XDocument.Parse(fetchXml);
             });
+
+            var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
+
             var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
             {
                 EntityName = "mcs_parts",
-                FetchXml = xdoc
+                FetchXml = xdoc,
+                ProxyUserId = userInfo != null ? userInfo.systemuserid : null
             };
             fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
             var fetchResponse = await _crmService.Execute(fetchRequest);

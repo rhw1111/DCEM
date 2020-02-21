@@ -1,9 +1,118 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>invoice</ion-title>
+      <ion-buttons slot="start">
+          <ion-back-button text="返回" defaultHref="/home/demo/index"></ion-back-button>
+      </ion-buttons>
+      <ion-title>
+          <ion-label>增值税发票识别Demo</ion-label>
+      </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+  <ion-list>
+      <ion-item>
+        发票名称：{{data.mod.fpmc}}
+      </ion-item>
+      <ion-item>
+        发票种类：{{data.mod.fpzl}}
+      </ion-item>
+      <ion-item>
+        发票代码：{{data.mod.fpdm}}
+      </ion-item>
+      <ion-item>
+        发票号码：{{data.mod.fphm}}
+      </ion-item>
+      <ion-item>
+        开票日期：{{data.mod.kprq}}
+      </ion-item>
+      <ion-item>
+        校验码：{{data.mod.jym}}
+      </ion-item>
+      <ion-item>
+        购方名称：{{data.mod.gfmc}}
+      </ion-item>
+      <ion-item>
+        购方纳税人识别号：{{data.mod.gfsbh}}
+      </ion-item>
+      <ion-item>
+        购方地址及电话：{{data.mod.gfdh}}
+      </ion-item>
+      <ion-item>
+        购方开户行及账号：{{data.mod.gfzh}}
+      </ion-item>
+      <ion-item>
+        密码区：{{data.mod.mmq}}
+      </ion-item>
+      <ion-item>
+        销售方名称：{{data.mod.xsfmc}}
+      </ion-item>
+      <ion-item>
+        销售方纳税人识别号：{{data.mod.xsfsbh}}
+      </ion-item>
+      <ion-item>
+        销售方地址及电话：{{data.mod.xsfdh}}
+      </ion-item>
+      <ion-item>
+        销售方开户行及账号：{{data.mod.xsfzh}}
+      </ion-item>
+      <ion-item>
+        合计金额：{{data.mod.hjje}}
+      </ion-item>
+      <ion-item>
+        合计税额：{{data.mod.hjse}}
+      </ion-item>
+      <ion-item>
+        价税合计大写：{{data.mod.hjdx}}
+      </ion-item>
+      <ion-item>
+        价税合计小写：{{data.mod.hjxx}}
+      </ion-item>
+      <ion-item>
+        收款人：{{data.mod.skr}}
+      </ion-item>
+      <ion-item>
+        复核：{{data.mod.fh}}
+      </ion-item>
+      <ion-item>
+        开票人：{{data.mod.kpr}}
+      </ion-item>
+      <ion-item>
+        备注：{{data.mod.bz}}
+      </ion-item>
+
+      <h5 style="text-indent: 15px;">商品清单</h5>
+      <div  *ngIf="data.mod.list!=null && data.mod.list.length>0" >
+      <ion-card *ngFor="let item of data.mod.list ">
+          <ion-card-content>
+          <ion-item>
+            商品名称：{{item.spmc}}
+          </ion-item>
+          <ion-item>
+            规格型号：{{item.ggxh}}
+          </ion-item>
+          <ion-item>
+            单位：{{item.dw}}
+          </ion-item>
+          <ion-item>
+            数量：{{item.sl}}
+          </ion-item>
+          <ion-item>
+            单价：{{item.dj}}
+          </ion-item>
+          <ion-item>
+            金额：{{item.je}}
+          </ion-item>
+          <ion-item>
+            税率：{{item.slv}}
+          </ion-item>
+          <ion-item>
+            税额：{{item.se}}
+          </ion-item>
+
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </ion-list>
 </ion-content>

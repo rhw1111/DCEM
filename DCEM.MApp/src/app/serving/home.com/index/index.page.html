@@ -23,7 +23,43 @@
         <ion-label>待办项</ion-label>
     </ion-item-divider>
     <ion-grid>
-        <ion-row>
+        <ion-row *ngIf="IsSalingManager">
+            <ion-col>
+                <div>
+                    <ion-tab-button [routerLink]="['/saleing/lead/edit']">
+                        <ion-icon color="primary" size="large" name="git-branch"></ion-icon>
+                        <ion-label>线索留资</ion-label>
+                    </ion-tab-button>
+                </div>
+            </ion-col>
+            <ion-col>
+                <div>
+                    <ion-tab-button [routerLink]="['/saleing/account/edit']">
+                        <ion-icon color="primary" size="large" name="logo-model-s"></ion-icon>
+                        <ion-label>创建销售机会</ion-label>
+                    </ion-tab-button>
+                </div>
+            </ion-col>
+            <ion-col>
+                <div>
+                    <ion-tab-button [routerLink]="['/saleing/driverecord/edit']">
+                        <ion-icon color="primary" size="large" name="logo-model-s"></ion-icon>
+                        <ion-label>试乘试驾</ion-label>
+                    </ion-tab-button>
+                </div>
+            </ion-col>
+            <ion-col>
+                <div *ngIf="IsSalingManager">
+                    <ion-tab-button [routerLink]="['/saleing/cultivatetask/list']">
+                        <ion-icon color="primary" size="large" name="list"></ion-icon>
+                        <ion-label>我的任务</ion-label>
+                        <ion-badge color="danger" *ngIf="MyTaskCount>0">{{MyTaskCount}}</ion-badge>
+                    </ion-tab-button>
+                </div>
+            </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="IsSerlingManager">
             <ion-col>
                 <div>
                     <ion-tab-button [routerLink]="['/serving/reservation/edit']">
@@ -35,9 +71,8 @@
             <ion-col>
                 <div>
                     <ion-tab-button [routerLink]="['/serving/ri/edit']">
-                        <ion-icon color="primary" size="large" name="archive"></ion-icon>
+                        <ion-icon color="primary" size="large" name="medkit"></ion-icon>
                         <ion-label>快速问诊</ion-label>
-                        <ion-badge color="danger">6</ion-badge>
                     </ion-tab-button>
                 </div>
             </ion-col>
@@ -51,9 +86,9 @@
             </ion-col>
             <ion-col>
                 <div>
-                    <ion-tab-button [routerLink]="['/saleing/cultivatetask/list']">
+                    <ion-tab-button [routerLink]="['/serving/ts/edit']">
                         <ion-icon color="primary" size="large" name="cog"></ion-icon>
-                        <ion-label>我的任务</ion-label>
+                        <ion-label>技术申请</ion-label>
                     </ion-tab-button>
                 </div>
             </ion-col>

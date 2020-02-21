@@ -14,7 +14,7 @@
                 {{model.datadetail.PayStatusStr}}
             </div>
             <ion-item lines="none" class="ion-item-addr">
-                <ion-label>收货信息</ion-label>
+                <ion-label>{{model.buyertitle}}</ion-label>
             </ion-item>
             <ion-item lines="none">
                 <div style="width:98%;">
@@ -34,46 +34,51 @@
             <ion-item lines="none" class="ion-item-addr">
                 <ion-label>商品信息</ion-label>
             </ion-item>
-            <ion-item lines="none" style="padding-bottom:30px;" *ngFor="let item of model.datalist" [routerLink]="['/servicecenter/boutique/detail']" [queryParams]="{id:item.ProductCode}">
-                <div *ngIf="item.ImageUrl != null; then truesTemplate else falsesTemplate"></div>
-                <ng-template #truesTemplate>
-                    <div style="width:28%;z-index:1;">
-                        <img src="{{item.ImageUrl}}" style="border-radius:15px;width:90%;height:90%;" />
-                    </div>
-                </ng-template>
-                <ng-template #falsesTemplate>
-                    <div style="width:28%;z-index:1;">
-                        <img src="../../../../../../assets/img/temp/xiaopeng1.jpg" style="border-radius:15px;width:90%;height:90%;" />
-                    </div>
-                </ng-template>
-                <div style="width:70%;z-index:1;">
-                    <div>{{item.ProductName}}</div>
-                    <div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:16px;margin:10px 0;color:#a5a2a2;">{{item.SkuCode}}</div>
-                    <div *ngIf="model.datadetail.ReceivedIntegral == 0; then tTemplate else fTemplate"></div>
-                    <ng-template #tTemplate>
-                        <div style="display:flex;justify-content:space-between;">
-                            <div style="color:#38B3EE;line-height:35px;">
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="16" height="16" t="1576662222688" p-id="4131" version="1.1"><path fill="#38b3ee" d="M 883.804 246.032 c -7.274 7.274 -27.391 22.947 -34.043 29.599 c 44.117 64.68 69.974 142.806 69.974 227.009 c 0 222.864 -180.66 403.514 -403.53 403.514 c -222.872 0 -403.532 -180.65 -403.532 -403.514 c 0 -222.861 180.66 -403.513 403.532 -403.513 c 111.711 0 212.784 45.417 285.846 118.764 c 8.459 -8.458 24.012 -25.305 31.066 -32.36 c -81.13 -81.079 -193.158 -131.239 -316.912 -131.239 c -247.609 0 -448.368 200.707 -448.368 448.348 c 0 247.6 200.76 448.35 448.368 448.35 c 247.607 0 448.365 -200.75 448.365 -448.35 c 0.001 -95.468 -29.906 -183.906 -80.765 -256.608 Z" p-id="4132" /><path fill="#38b3ee" d="M 647.413 240.965 l -84.113 154.977 c -22.412 41.965 -36.15 69.883 -41.162 83.751 h -1.431 c -14.765 -33.643 -56.554 -113.235 -125.276 -238.729 h -79.103 l 147.11 252.688 l -120.624 0.001 v 55.835 h 141.382 v 76.949 h -141.382 v 56.553 h 141.382 v 112.027 h 70.155 v -112.027 h 136.373 v -56.551 h -136.374 v -76.951 h 136.373 v -55.834 h -117.045 l 148.541 -252.689 h -74.807 Z" p-id="4133" /></svg>
-                                </span>
-                                <span>{{item.UnitPrice}} </span>
-                                <span style="color:#000;">x{{item.OrderQty}}</span>
-                            </div>
+            <ng-container *ngFor="let item of model.datalist">
+                <ion-item lines="none" style="padding-bottom:30px;"  [routerLink]="['/servicecenter/boutique/detail']" [queryParams]="{id:item.ProductCode}">
+                    <div *ngIf="item.ImageUrl != null; then truesTemplate else falsesTemplate"></div>
+                    <ng-template #truesTemplate>
+                        <div style="width:28%;z-index:1;">
+                            <img src="{{item.ImageUrl}}" style="border-radius:15px;width:90%;height:90%;" />
                         </div>
                     </ng-template>
-                    <ng-template #fTemplate>
-                        <div style="display:flex;justify-content:space-between;">
-                            <div style="color:#38B3EE;line-height:35px;">
-                                <span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="16" height="16" t="1576662312009" p-id="5052" version="1.1"><path fill="#38b3ee" d="M 512.06 927 C 279.32 927 97 831.31 97 709.16 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.29 20.75 20.75 c 0 95.59 171.07 176.34 373.56 176.34 c 202.42 0 373.44 -80.75 373.44 -176.34 c 0 -11.46 9.29 -20.75 20.75 -20.75 S 927 697.7 927 709.16 C 927 831.31 744.74 927 512.06 927 Z" p-id="5053" /><path fill="#38b3ee" d="M 512.06 729.91 C 279.32 729.91 97 634.22 97 512.06 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.29 20.75 20.75 c 0 95.59 171.07 176.34 373.56 176.34 c 202.42 0 373.44 -80.75 373.44 -176.34 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.3 20.75 20.75 c 0 122.16 -182.26 217.85 -414.94 217.85 Z" p-id="5054" /><path fill="#38b3ee" d="M 512.06 532.81 C 279.32 532.81 97 437.07 97 314.84 C 97 192.69 279.32 97 512.06 97 C 744.74 97 927 192.69 927 314.84 c 0 122.23 -182.26 217.97 -414.94 217.97 Z m 0 -394.31 c -202.49 0 -373.56 80.75 -373.56 176.34 c 0 95.66 171.07 176.47 373.56 176.47 c 202.42 0 373.44 -80.81 373.44 -176.47 c 0 -95.59 -171.01 -176.34 -373.44 -176.34 Z" p-id="5055" /></svg>
-                                </span>
-                                <span>{{item.Integral}} </span>
-                                <span style="color:#000;">x{{item.OrderQty}}</span>
-                            </div>
+                    <ng-template #falsesTemplate>
+                        <div style="width:28%;z-index:1;">
+                            <img src="../../../../../../assets/img/temp/xiaopeng1.jpg" style="border-radius:15px;width:90%;height:90%;" />
                         </div>
                     </ng-template>
-                </div>
-            </ion-item>
+                    <div style="width:70%;z-index:1;">
+                        <div>{{item.ProductName}}</div>
+                        <div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:16px;margin:10px 0;color:#a5a2a2;">{{item.SkuCode}}</div>
+                        <div *ngIf="model.datadetail.ReceivedIntegral == 0; then tTemplate else fTemplate"></div>
+                        <ng-template #tTemplate>
+                            <div style="display:flex;justify-content:space-between;">
+                                <div style="color:#38B3EE;line-height:35px;">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="16" height="16" t="1576662222688" p-id="4131" version="1.1"><path fill="#38b3ee" d="M 883.804 246.032 c -7.274 7.274 -27.391 22.947 -34.043 29.599 c 44.117 64.68 69.974 142.806 69.974 227.009 c 0 222.864 -180.66 403.514 -403.53 403.514 c -222.872 0 -403.532 -180.65 -403.532 -403.514 c 0 -222.861 180.66 -403.513 403.532 -403.513 c 111.711 0 212.784 45.417 285.846 118.764 c 8.459 -8.458 24.012 -25.305 31.066 -32.36 c -81.13 -81.079 -193.158 -131.239 -316.912 -131.239 c -247.609 0 -448.368 200.707 -448.368 448.348 c 0 247.6 200.76 448.35 448.368 448.35 c 247.607 0 448.365 -200.75 448.365 -448.35 c 0.001 -95.468 -29.906 -183.906 -80.765 -256.608 Z" p-id="4132" /><path fill="#38b3ee" d="M 647.413 240.965 l -84.113 154.977 c -22.412 41.965 -36.15 69.883 -41.162 83.751 h -1.431 c -14.765 -33.643 -56.554 -113.235 -125.276 -238.729 h -79.103 l 147.11 252.688 l -120.624 0.001 v 55.835 h 141.382 v 76.949 h -141.382 v 56.553 h 141.382 v 112.027 h 70.155 v -112.027 h 136.373 v -56.551 h -136.374 v -76.951 h 136.373 v -55.834 h -117.045 l 148.541 -252.689 h -74.807 Z" p-id="4133" /></svg>
+                                    </span>
+                                    <span>{{item.UnitPrice}} </span>
+                                    <span style="color:#000;">x{{item.OrderQty}}</span>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template #fTemplate>
+                            <div style="display:flex;justify-content:space-between;">
+                                <div style="color:#38B3EE;line-height:35px;">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="16" height="16" t="1576662312009" p-id="5052" version="1.1"><path fill="#38b3ee" d="M 512.06 927 C 279.32 927 97 831.31 97 709.16 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.29 20.75 20.75 c 0 95.59 171.07 176.34 373.56 176.34 c 202.42 0 373.44 -80.75 373.44 -176.34 c 0 -11.46 9.29 -20.75 20.75 -20.75 S 927 697.7 927 709.16 C 927 831.31 744.74 927 512.06 927 Z" p-id="5053" /><path fill="#38b3ee" d="M 512.06 729.91 C 279.32 729.91 97 634.22 97 512.06 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.29 20.75 20.75 c 0 95.59 171.07 176.34 373.56 176.34 c 202.42 0 373.44 -80.75 373.44 -176.34 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.3 20.75 20.75 c 0 122.16 -182.26 217.85 -414.94 217.85 Z" p-id="5054" /><path fill="#38b3ee" d="M 512.06 532.81 C 279.32 532.81 97 437.07 97 314.84 C 97 192.69 279.32 97 512.06 97 C 744.74 97 927 192.69 927 314.84 c 0 122.23 -182.26 217.97 -414.94 217.97 Z m 0 -394.31 c -202.49 0 -373.56 80.75 -373.56 176.34 c 0 95.66 171.07 176.47 373.56 176.47 c 202.42 0 373.44 -80.81 373.44 -176.47 c 0 -95.59 -171.01 -176.34 -373.44 -176.34 Z" p-id="5055" /></svg>
+                                    </span>
+                                    <span>{{item.Integral}} </span>
+                                    <span style="color:#000;">x{{item.OrderQty}}</span>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </div>
+                </ion-item>
+                <ion-item *ngIf="item.SonOrderType != 0">
+                    <ion-label>状态: {{item.SonOrderState}}</ion-label>
+                </ion-item>
+            </ng-container>
         </ion-card>
 
         <ion-card style="width: 100%;padding: 0;margin: 10px 0;background: #fff;">

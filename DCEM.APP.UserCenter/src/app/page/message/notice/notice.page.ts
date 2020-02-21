@@ -13,6 +13,8 @@ export class NoticePage implements OnInit {
   public Url: any = null;
   public mcs_user_msgid = "";
   public mcs_readstatus = 0;
+  public mcs_name="";
+  public mcs_content="";
   constructor(
     private activeRoute: ActivatedRoute,
     public sanitizer: DomSanitizer,
@@ -32,6 +34,14 @@ export class NoticePage implements OnInit {
 
       if (params['mcs_readstatus'] != null && params['mcs_readstatus'] != undefined) {
         this.mcs_readstatus = parseInt(params['mcs_readstatus']);
+      }
+
+      if (params['mcs_name'] != null && params['mcs_name'] != undefined) {
+        this.mcs_name = params['mcs_name'];
+      }
+
+      if (params['mcs_content'] != null && params['mcs_content'] != undefined) {
+        this.mcs_content = params['mcs_content'];
       }
       this.toread();
     });

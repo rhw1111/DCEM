@@ -4,12 +4,6 @@
 ion-item{
     font-size:14px;
 }
-.item-native{
-    padding:0 !important;
-}
-.item-inner{
-    padding:0 !important;
-}
 .order-head {
     background: url(http://sf-test.mediaman.com.cn/img/purchase-center-header-bg.cf04443e.jpg) no-repeat;
     background-position: center;
@@ -26,6 +20,7 @@ ion-item{
     position: sticky;
     top: 0px;
     background-color: #fff;
+    z-index:999;
 }
 
 .sc-ion-segment-ios-h.ion-color.sc-ion-segment-ios-s > ion-segment-button {
@@ -51,6 +46,7 @@ ion-item{
     padding: 20px;
     font-weight: 200;
     border-bottom: 1px solid rgba(10,10,10,.1);
+    width:100%;
 }
 .order-info {
     margin-bottom: 5px;
@@ -78,6 +74,7 @@ ion-item{
 .order-equity {
     /*background: #f8f8f8;*/
     padding: 20px;
+    border-bottom: 1px solid rgba(10, 10, 10, 0.1);
 }
 .order-price-area {
     padding: 24px 20px;
@@ -89,4 +86,5 @@ ion-item{
     border: 1px solid;
     border-radius: 20px;
     padding: 10px 20px;
+    text-decoration: none;
 }

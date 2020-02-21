@@ -24,7 +24,7 @@
 </ion-header>
 <ion-content>
     <ion-list lines="full">
-        <ion-item-sliding *ngFor="let item of mod.data;let key=index">
+        <ion-item-sliding *ngFor="let item of mod.data;">
             <ion-item [routerLink]="['/serving/mycustomer/detail']" [queryParams]="{id:item.Id}">
                 <ion-icon slot="start" color="{{item.gendercolor}}" name="contact" size="large" style="width:60px;height:60px"></ion-icon>
                 <ion-label>

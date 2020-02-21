@@ -248,7 +248,14 @@ namespace MSLibrary
         /// 消息类型监听器与消息体不匹配
         /// </summary>
         SMessageTypeListenerNotMatchSMessageBody = 314720025,
-
+        /// <summary>
+        /// 在指定消息类型下找不到指定监听ID的监听
+        /// </summary>
+        NotFoundSMessageTypeListenerFromTypeByID= 314720026,
+        /// <summary>
+        /// 找不到指定名称的消息类型
+        /// </summary>
+        NotFoundSMessageTypeByName = 314720027,
 
         /// <summary>
         /// 池长度超出阈值
@@ -1065,6 +1072,59 @@ namespace MSLibrary
         /// 找不到指定类型的Jwt验证参数组装服务
         /// </summary>
         NotFoundjwtValidateParameterBuildServiceByType = 314726803,
+        /// <summary>
+        /// 找不到指定队列类型的队列实际处理服务
+        /// </summary>
+        NotFountCommonQueueRealExecuteServiceByType= 314727001,
+        /// <summary>
+        /// 找不到指定名称的Azure服务总线From转换服务
+        /// </summary>
+        NotFoundAzureServiceBusMessageConvertFromServiceByName= 314727011,
+        /// <summary>
+        /// 找不到指定名称的Azure服务总线To转换服务
+        /// </summary>
+        NotFoundAzureServiceBusMessageConvertToServiceByName = 314727012,
+        /// <summary>
+        /// 找不到指定类型名称的通用消息客户端类型
+        /// </summary>
+        NotFoundCommonMessageClientType= 314727021,
+        /// <summary>
+        /// 找不到指定消息类型的消息处理服务
+        /// </summary>
+        NotFoundCommonMessageHandleServiceByMessageType = 314727031,
+        /// <summary>
+        /// 在指定名称的表达式计算器中，要计算的表达式为空
+        /// </summary>
+        ExpressionEmptyInExpressionCalculatorByName= 314727101,
+        /// <summary>
+        /// 指定的表达式格式不正确
+        /// </summary>
+        ExpressionFormatError = 314727102,
+        /// <summary>
+        /// 在指定的表达式的存储之中，找不到指定键的值
+        /// </summary>
+        NotFoundValueInExpressionStoreValues = 314727103,
+        /// <summary>
+        /// 在指定的表达式中，找不到公式服务列表
+        /// </summary>
+        NotFoundFormulaServiceListFromExpression= 314727104,
+        /// <summary>
+        /// 在指定的表达式的公式服务列表中，找不到指定的公式服务
+        /// </summary>
+        NotFoundFormulaServiceFormServiceList = 314727105,
+        /// <summary>
+        /// 找不到指定类型的工作流活动服务
+        /// </summary>
+        NotFoundWorkflowActivityServiceByType= 314727111,
+        /// <summary>
+        /// 指定类型的工作流活动服务参数数量不正确
+        /// </summary>
+        WorkflowActivityServiceParameterCountError= 314727120,
+        /// <summary>
+        /// 指定类型的工作流活动服务的指定位数参数类型不正确
+        /// </summary>
+        WorkflowActivityServiceParameterTypeError = 314727121
+
     }
 
     /// <summary>

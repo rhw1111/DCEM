@@ -11,11 +11,13 @@ import { ActivatedRoute } from '@angular/router';
 export class DetailPage implements OnInit {
     public model: any = {
         search: {
-            apiUrl: "api/order/OrderDetail",
+            apiUrl: "api/order/SonOrderDetail",
         },
         title: "订单详情",
         datadetail: {},
         datalist: [],
+        buyertitle:"",
+        //OrderType: 10, //商品类型; 1: 整车; 2: 整车选装件; 3: 充电桩 / 枪; 4: 备件; 7: 业务办理; 8: 施工; 10: 精品;
         score: {
             apiUrl: "api/user/getuserscore",
             search: {
@@ -52,10 +54,16 @@ export class DetailPage implements OnInit {
                 OrderCode: code
             },
             (res: any) => {
+                console.log(res);
                 if (res != null) {
                     //绑定数据
                     res.OrderData.PayStatusStr = this.getPayStatus(res.OrderData.PaymentStatus)
                     res.OrderData.OrderTime = this.Format(res.OrderData.OrderTime, "yyyy-MM-dd HH:mm:ss")
+                    if (res.OrderData.ProductType == 7 || res.OrderData.ProductType == 8) {
+                        this.model.buyertitle = "购买人信息";
+                    } else {
+                        this.model.buyertitle = "收货信息";
+                    }
                     this.model.datadetail = res.OrderData;
                     this.model.datalist = res.Products;
                     event ? event.target.complete() : '';

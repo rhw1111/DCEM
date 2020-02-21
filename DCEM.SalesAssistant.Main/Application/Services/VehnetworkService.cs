@@ -192,9 +192,93 @@ namespace DCEM.SalesAssistant.Main.Application.Services
             validateResult.Result = true;
             return validateResult;
         }
+        public async Task<ValidateResult<string>> UpdateCard(UpdateCardRequest request)
+        {
+            var validateResult = new ValidateResult<string>();
+
+            
+
+            #region 开票明细
+            var fetchXdoc = _Repository.GetDetaillFetchXml(request.id);
+            var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_vehnetwork",
+                FetchXml = fetchXdoc.Result
+            };
+            var fetchResponse = await _crmService.Execute(fetchRequest);
+            var detailResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            var detail = detailResult.Value.Results[0];
+            if (detail != null) {
+                //修改开票信息的身份证、发票信息
+                var entity = new CrmExecuteEntity("mcs_vehnetwork", request.id);
+ 
+                if (!string.IsNullOrEmpty(request.name)) {
+                    entity.Attributes.Add("mcs_carder", request.name);
+                    entity.Attributes.Add("mcs_idcode", request.idcard);
+                    entity.Attributes.Add("mcs_address", request.idaddress);
+                    if (request.sex == "男")
+                        entity.Attributes.Add("mcs_gender", 1);
+                    else
+                        entity.Attributes.Add("mcs_gender", 2);
+                    entity.Attributes.Add("mcs_idtype", 1);
+                    entity.Attributes.Add("mcs_invoiceidtype", 1);
+                    entity.Attributes.Add("mcs_invoiceidcode", request.idcard);
+                }
+                if (!string.IsNullOrEmpty(request.fpname)) {
+                    entity.Attributes.Add("mcs_invoicename", request.fpname);
+                    entity.Attributes.Add("mcs_code", request.fpnumber);
+                    string time = request.time.Replace("年", "-").Replace("月", "-").Replace("日", "");
+                    DateTime dates = DateTime.Parse(time);
+                    //entity.Attributes.Add("mcs_invoiceon", dates);
+
+                    entity.Attributes.Add("mcs_invoiceon", dates.ToUniversalTime());
+                }
 
 
 
+                await _crmService.Update(entity, null);
+
+            }
+            #endregion
+            
+
+            validateResult.Result = true;
+            validateResult.Description = "修改成功";
+            return validateResult;
+        }
+
+        public async Task<ValidateResult<string>> Voice(VoiceRequest request)
+        {
+            var validateResult = new ValidateResult<string>();
+
+            if (!string.IsNullOrEmpty(request.phone) && !string.IsNullOrEmpty(request.content)) {
+
+                var fetchXdoc = _Repository.GetAccountFetchXml(request.phone);
+                var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                {
+                    EntityName = "account",
+                    FetchXml = fetchXdoc.Result
+                };
+                var fetchResponse = await _crmService.Execute(fetchRequest);
+                var detailResult = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                var entity = detailResult.Value.Results[0];
+                if (entity != null) {
+                    //插入logcall数据
+                    var logcall = new CrmExecuteEntity("mcs_logcall", Guid.NewGuid());
+                    logcall.Attributes.Add("mcs_fullname", "爱车APP语音转换");
+                    logcall.Attributes.Add("mcs_mobilephone", request.phone);
+                    logcall.Attributes.Add("mcs_content", request.content);
+                    logcall.Attributes.Add("mcs_results", request.content);
+                    logcall.Attributes.Add("mcs_visittime", DateTime.Now.ToUniversalTime());
+                    logcall.Attributes.Add("mcs_accountid", new CrmEntityReference(entity.EntityName, entity.Id));
+                    await _crmService.Create(logcall, null);
+                }
+
+            }
+            validateResult.Result = true;
+            validateResult.Description = "操作成功";
+            return validateResult;
+        }
 
     }
 }

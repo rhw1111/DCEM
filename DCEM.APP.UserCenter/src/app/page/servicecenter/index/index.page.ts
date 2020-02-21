@@ -36,51 +36,79 @@ export class IndexPage {
                     title: "购车",
                     svg: "../assets/svg/servicecenter/index/gc.svg",
                     link: "/carcenter/carstore/index",
+                    mcstype: 0,
                 },
                 {
                     title: "体验中心",
                     svg: "../assets/svg/servicecenter/index/tyzc.svg",
                     link: "/servicecenter/dealer/list",
+                    mcstype: 0,
                 },
                 {
                     title: "金融服务",
                     svg: "../assets/svg/servicecenter/index/jrfw.svg",
                     link: "#",
+                    mcstype: 0,
                 },
                 {
                     title: "车险服务",
                     svg: "../assets/svg/servicecenter/index/cxfw.svg",
                     link: "#",
+                    mcstype: 0,
                 },
                 {
                     title: "流量服务",
                     svg: "../assets/svg/servicecenter/index/llfw.svg",
                     link: "#",
+                    mcstype: 0,
                 },
                 {
                     title: "违章代缴",
                     svg: "../assets/svg/servicecenter/index/wzdj.svg",
                     link: "#",
+                    mcstype: 0,
                 },
                 {
                     title: "预约维保",
                     svg: "../assets/svg/servicecenter/index/yywb.svg",
                     link: "/servicecenter/reservation/edit",
+                    mcstype: 0,
                 },
                 {
                     title: "道路救援",
                     svg: "../assets/svg/servicecenter/index/dljy.svg",
                     link: "#",
+                    mcstype: 0,
                 },
                 {
                     title: "停车服务",
                     svg: "../assets/svg/servicecenter/index/tcff.svg",
                     link: "#",
+                    mcstype: 0,
                 },
                 {
                     title: "在线客服",
                     svg: "../assets/svg/servicecenter/index/zxkf.svg",
                     link: "#",
+                    mcstype: 0,
+                },
+                {
+                    title: "车辆施工",
+                    svg: "../assets/svg/servicecenter/index/clsg.svg",
+                    link: "/servicecenter/boutique/list",
+                    mcstype: 8,
+                },
+                {
+                    title: "业务办理",
+                    svg: "../assets/svg/servicecenter/index/ywbl.svg",
+                    link: "/servicecenter/boutique/list",
+                    mcstype: 7,
+                },
+                {
+                    title: "车辆服务",
+                    svg: "../assets/svg/servicecenter/index/clfw.svg",
+                    link: "/servicecenter/boutique/list",
+                    mcstype: 11,
                 },
             ],
             advertisement: {
@@ -134,7 +162,7 @@ export class IndexPage {
         this._http.postForShopping(this.model.search.apiUrl,
             {
                 StartDateTime: "2019-01-01 00:00:00",
-                EndDateTime: "2019-12-31 23:59:59",
+                EndDateTime: "2022-12-31 23:59:59",
                 PageSize: this.model.search.pageSize,
                 PageIndex: this.model.search.page,
                 McsType: this.model.search.mcstype

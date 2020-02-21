@@ -14,7 +14,7 @@
                 <h3>订单列表</h3>
             </div>
         </ion-row>
-        <ion-segment [(ngModel)]="tab" color="primary" model="md" class="segment-custom">
+        <!--<ion-segment [(ngModel)]="tab" color="primary" model="md" scrollable class="segment-custom">
             <ion-segment-button value="myreserveno">
                 <ion-label>我的预约号</ion-label>
             </ion-segment-button>
@@ -34,53 +34,60 @@
                     我的预约号
                 </div>
             </div>
-            <div *ngSwitchCase="'equityorder'">
-                <ion-card>
-                    <ion-item lines="none">
-                        <div class="card-header-title">
-                            <div class="order-info">
-                                <span class="order-label">订单状态:</span><span class="red">待支付</span>
-                            </div>
-                            <div class="order-info">
-                                <span class="order-label">下单时间:</span><span class="order-head-title">2020-01-20 16:53:26</span>
-                            </div>
-                            <div class="order-info">
-                                <span class="order-label">您的预约号:</span><span class="order-head-title">NO.3753</span>
-                            </div>
-                        </div>
-                    </ion-item>
-                    <ion-item lines="none">
-                        <div class="card-content">
-                            <div class="car-name">SERES SF5 EVR 增程</div>
-                            <div><img src="http://sf-test.mediaman.com.cn/img/my_orders_list_car.28282611.png" /></div>
-                        </div>
-                    </ion-item>
-                    <ion-item lines="none">
-                        <div style="width:100%;">
-                            <div class="order-equity">
-                                <div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1053 1024" width="16" height="16" t="1579574393839" p-id="2372" version="1.1"><path fill="#272636" d="M 488.218 225.024 v 231.388 H 13.5168 V 270.664 c 0 -29.2352 23.1168 -52.6182 52.0806 -52.6182 h 216.335 c -58.0864 -12.2982 -101.688 -37.4374 -103.27 -83.8144 C 177.034 79.529 238.019 -8.81664 327.122 11.3664 c 91.9552 20.9254 156.196 92.8768 205.384 154.486 c 49.664 -62.8941 120.018 -143.836 216.023 -156.621 c 80.2048 -10.2195 146.504 70.7277 137.974 124.14 c -7.3216 46.807 -51.6608 72.3149 -108.273 84.6182 h 213.596 c 28.9638 0 52.0858 23.4291 52.0858 52.6182 v 185.692 h -474.752 l -0.9984 -233.836 M 336.916 59.8323 c -44.3904 -17.7357 -70.4051 1.28 -89.1034 32.4813 c -10.1632 17.6282 -21.12 41.1136 -4.89472 58.3168 c 42.7059 44.4109 159.826 41.1136 238.403 32.855 c -37.0227 -46.7558 -82.5754 -99.0003 -144.404 -123.653 Z m 485.284 90.4806 c 30.4947 -39.465 -29.2813 -121.692 -93.527 -91.2794 c -61.4554 29.184 -105.795 76.8461 -143.974 123.709 c 32.9114 2.92864 66.2426 3.67616 99.2614 2.0736 c 40.2381 -1.70496 114.703 -4.52608 138.24 -34.5088 Z m -330.716 861.645 H 104.571 c -26.0096 0 -47.1859 -21.2992 -47.1859 -48.0358 v -470.067 h 434.15 v 518.103 h -0.0512 Z m 508.508 -48.0922 c 0 26.7315 -21.12 48.0358 -47.1859 48.0358 h -386.857 V 493.798 h 434.043 v 470.067 Z" p-id="2373" /></svg>
-                                    <span>尊享权益</span>
+            <div *ngSwitchCase="'equityorder'">-->
+                <ng-container *ngFor="let item of model.datas">
+                    <ion-card (click)="orderdetail(item.Attributes.mcs_name,item.Attributes.mcs_smallorderid)">
+                        <ion-item lines="none">
+                            <div class="card-header-title">
+                                <div class="order-info">
+                                    <span class="order-label">订单状态:</span><span class="red">{{item.Attributes.paystatus}}</span>
                                 </div>
-                                <div style="margin-top:10px;">
-                                    <span>3,000元订金即享</span>
-                                    <strong>“无忧优享”</strong>
-                                    <strong>权益礼包</strong>
+                                <div class="order-info">
+                                    <span class="order-label">下单时间:</span><span class="order-head-title">{{item.Attributes.createdon}}</span>
                                 </div>
-                                <div><span>个性魅影套装</span></div>
-                            </div>
-                            <div class="order-price-area">
-                                <div>
-                                    <span>预订金：</span><strong>0.03 元</strong>
-                                </div>
-                                <div>
-                                    <a class="paynow" href="javascript:void(0);">立即支付</a>
+                                <div class="order-info">
+                                    <span class="order-label">您的预约号:</span><span class="order-head-title">NO.{{item.Attributes.mcs_premiumcode}}</span>
                                 </div>
                             </div>
-                        </div>
-                    </ion-item>
-                </ion-card>
-            </div>
+                        </ion-item>
+                        <ion-item lines="none">
+                            <div class="card-content">
+                                <div class="car-name">SERES SF5 EVR 增程</div>
+                                <div><img src="http://sf-test.mediaman.com.cn/img/my_orders_list_car.28282611.png" /></div>
+                            </div>
+                        </ion-item>
+                        <ion-item lines="none">
+                            <div style="width:100%;">
+                                <div class="order-equity">
+                                    <div>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1053 1024" width="16" height="16" t="1579574393839" p-id="2372" version="1.1"><path fill="#272636" d="M 488.218 225.024 v 231.388 H 13.5168 V 270.664 c 0 -29.2352 23.1168 -52.6182 52.0806 -52.6182 h 216.335 c -58.0864 -12.2982 -101.688 -37.4374 -103.27 -83.8144 C 177.034 79.529 238.019 -8.81664 327.122 11.3664 c 91.9552 20.9254 156.196 92.8768 205.384 154.486 c 49.664 -62.8941 120.018 -143.836 216.023 -156.621 c 80.2048 -10.2195 146.504 70.7277 137.974 124.14 c -7.3216 46.807 -51.6608 72.3149 -108.273 84.6182 h 213.596 c 28.9638 0 52.0858 23.4291 52.0858 52.6182 v 185.692 h -474.752 l -0.9984 -233.836 M 336.916 59.8323 c -44.3904 -17.7357 -70.4051 1.28 -89.1034 32.4813 c -10.1632 17.6282 -21.12 41.1136 -4.89472 58.3168 c 42.7059 44.4109 159.826 41.1136 238.403 32.855 c -37.0227 -46.7558 -82.5754 -99.0003 -144.404 -123.653 Z m 485.284 90.4806 c 30.4947 -39.465 -29.2813 -121.692 -93.527 -91.2794 c -61.4554 29.184 -105.795 76.8461 -143.974 123.709 c 32.9114 2.92864 66.2426 3.67616 99.2614 2.0736 c 40.2381 -1.70496 114.703 -4.52608 138.24 -34.5088 Z m -330.716 861.645 H 104.571 c -26.0096 0 -47.1859 -21.2992 -47.1859 -48.0358 v -470.067 h 434.15 v 518.103 h -0.0512 Z m 508.508 -48.0922 c 0 26.7315 -21.12 48.0358 -47.1859 48.0358 h -386.857 V 493.798 h 434.043 v 470.067 Z" p-id="2373" /></svg>
+                                        <span>尊享权益</span>
+                                    </div>
+                                    <div style="margin-top:10px;">
+                                        {{item.Attributes.mcs_equityname}}
+                                    </div>
+                                    <div><span>{{item.Attributes.mcs_optionalname}}</span></div>
+                                </div>
+                                <div class="order-price-area">
+                                    <div>
+                                        <span>预订金：</span><strong>{{item.Attributes.mcs_totalorder}} 元</strong>
+                                    </div>
+                                    <div>
+                                        <div *ngIf="item.Attributes.mcs_orderstatus == 0; then trueTemplate else falseTemplate;"></div>
+                                        <ng-template #trueTemplate>
+                                            <a class="paynow" (click)="paynow(item.Attributes.mcs_name,item.Attributes.mcs_smallorderid,item.Attributes.mcs_premiumname,item.Attributes.mcs_totalorder);$event.stopPropagation();" href="javascript:void(0);">立即支付</a>
+                                        </ng-template>
+                                        <ng-template #falseTemplate>
+                                            <a class="paynow" (click)="orderdetail(item.Attributes.mcs_name,item.Attributes.mcs_smallorderid);$event.stopPropagation();" href="javascript:void(0);">订单详情</a>
+                                        </ng-template>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </ion-item>
+                    </ion-card>
+                </ng-container>
+            <!--</div>
             <div *ngSwitchCase="'vehicleorder'">
                 <div>
                     整车订单
@@ -91,7 +98,7 @@
                     试乘试驾
                 </div>
             </div>
-        </div>
+        </div>-->
         <ion-row>
 
         </ion-row>

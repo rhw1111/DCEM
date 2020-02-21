@@ -178,7 +178,7 @@ input:-ms-input-placeholder {
     pointer-events: none;
     position: absolute;
     top: 0;
-    width: 2.25em;
+    /*width: 2.25em;*/
     z-index: 4;
 }
 .icon {
@@ -197,9 +197,9 @@ input:-ms-input-placeholder {
 .has-text-danger {
     color: #ff3860 !important;
 }
-.field[data-v-00de53e1] .control .has-text-danger:before {
+/*.field[data-v-00de53e1] .control .has-text-danger:before {
     content: "\E737";
-}
+}*/
 address, cite, dfn, em, i, var {
     font-style: normal;
 }
@@ -325,13 +325,13 @@ button, input, select, textarea {
     transform-origin: center;
     width: .625em;
 }
-.form-container[data-v-00de53e1] .select select option {
+/*.form-container[data-v-00de53e1] .select select option {
     font-size: .875rem;
 }
 .select select option {
     color: #4a4a4a;
     padding: .25em .5em;
-}
+}*/
 .form-container[data-v-00de53e1] .region-inner .item.city {
     margin-bottom: 30px;
 }
@@ -414,6 +414,6 @@ button, input, select, textarea {
     -webkit-transition: all .3s ease;
     transition: all .3s ease;
 }
-.form-container[data-v-00de53e1] .buttons button:last-child {
-    margin-bottom: max(20px,env(safe-area-inset-bottom));
-}
+// .form-container[data-v-00de53e1] .buttons button:last-child {
+//     margin-bottom: max(20px,env(safe-area-inset-bottom));
+// }

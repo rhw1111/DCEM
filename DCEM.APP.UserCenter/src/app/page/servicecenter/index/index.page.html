@@ -10,7 +10,7 @@
         <ion-row>
             <ion-col class="dm-ico-list">
                 <ul>
-                    <li *ngFor="let item of shareData.page.icolist" [routerLink]="[item['link']]">
+                    <li *ngFor="let item of shareData.page.icolist" [routerLink]="[item['link']]" [queryParams]="{id:item['mcstype']}">
                         <img src="{{item['svg']}}" />
                         <p>{{item['title']}}</p>
                     </li>
@@ -30,7 +30,7 @@
                 </ion-label>
             </ion-col>
             <ion-col style="padding-right:15px;text-align:right">
-                <ion-chip color="primary" [routerLink]="['/servicecenter/category/list']">
+                <ion-chip color="primary" [routerLink]="['/servicecenter/boutique/list']" [queryParams]="{id:10}">
                     <ion-label>&nbsp;&nbsp;更多精品 >&nbsp;&nbsp;</ion-label>
                 </ion-chip>
             </ion-col>

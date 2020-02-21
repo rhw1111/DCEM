@@ -156,7 +156,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                 var queryResult = new QueryResult<CrmEntity>();
                 queryResult.Results = fetchResponseResult.Value.Results;
                 queryResult.CurrentPage = activityrequest.PageIndex;
-                queryResult.TotalCount = 0;
+                queryResult.TotalCount = fetchResponseResult.Value.Count;
                 return queryResult;
             }
             catch (Exception ex)

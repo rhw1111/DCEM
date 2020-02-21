@@ -75,6 +75,37 @@ namespace MSLibrary.MessageQueue
                 SetAttribute<string>("Type", value);
             }
         }
+        /// <summary>
+        /// 初始消息ID
+        /// </summary>
+        public Guid? OriginalMessageID
+        {
+            get
+            {
+                return GetAttribute<Guid?>("OriginalMessageID");
+            }
+            set
+            {
+                SetAttribute<Guid?>("OriginalMessageID", value);
+            }
+        }
+
+        /// <summary>
+        /// 延迟消息所属的来源消息ID
+        /// </summary>
+        public Guid? DelayMessageID
+        {
+            get
+            {
+                return GetAttribute<Guid?>("DelayMessageID");
+            }
+            set
+            {
+                SetAttribute<Guid?>("DelayMessageID", value);
+            }
+        }
+
+        
 
         /// <summary>
         /// 消息内容

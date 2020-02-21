@@ -22,6 +22,8 @@ namespace MSLibrary.MessageQueue.DAL
         /// <param name="id"></param>
         /// <returns></returns>
         Task<SMessageHistory> QueryById(Guid id);
+
+
         /// <summary>
         /// 修改状态
         /// </summary>

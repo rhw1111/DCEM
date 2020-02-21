@@ -42,6 +42,10 @@ namespace DCEM.Web.Filters
                 if (token.Contains("ADAUTH:"))
                 {
                     userName = token.Split(':')[1];
+                    if (userName.Contains("\\"))
+                    {
+                        userName = userName.Split("\\")[1];
+                    }
                 }
                 else
                 {

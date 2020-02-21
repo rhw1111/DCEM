@@ -3,7 +3,7 @@ import { NavController, IonContent, IonInfiniteScroll, ModalController } from '@
 import { DatePipe } from '@angular/common';
 import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
 import { SelectCustomerEditComponent } from 'app/serving/serving.ser/components/select-customer-edit/select-customer-edit.component';
-
+import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 @Component({
     selector: 'app-select-customer',
     templateUrl: './select-customer.component.html',
@@ -19,7 +19,8 @@ export class SelectCustomerComponent implements OnInit {
         data: [],
         searchData: {
             pageindex: 1,
-            search: ""
+            search: "",
+            dealeridGuid:this._userinfo.GetDealerid()
         },
     };
     constructor(
@@ -28,6 +29,7 @@ export class SelectCustomerComponent implements OnInit {
         private _valid: DCore_Valid,
         private _modalCtrl: ModalController,
         private _navCtr: NavController,
+        private _userinfo: Storage_LoginInfo,
     ) {
 
     }
@@ -75,7 +77,8 @@ export class SelectCustomerComponent implements OnInit {
             {
                 params: {
                     pageindex: this.mod.searchData.pageindex,
-                    search: this.mod.searchData.search
+                    search: this.mod.searchData.search,
+                    dealeridGuid:this.mod.searchData.dealeridGuid
                 }
             },
             (res: any) => {

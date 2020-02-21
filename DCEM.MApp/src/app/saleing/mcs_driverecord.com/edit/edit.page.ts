@@ -53,7 +53,7 @@ export class EditPage implements OnInit {
     ngOnInit() {
   }
 
-    ionViewDidEnter() {
+    ionViewWillEnter() {
         // debugger;
         //预约车型
         this.CarModelOption();

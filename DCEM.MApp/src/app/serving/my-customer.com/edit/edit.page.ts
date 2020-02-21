@@ -67,7 +67,7 @@ export class EditPage implements OnInit {
         }
     }
 
-    ionViewDidEnter() {
+    ionViewWillEnter() {
         this._activeRoute.queryParams.subscribe((params: Params) => {
             if (!this._valid.isNull(params['id']) && !this._valid.isNull(params['actionCode'])) {
                 this.shareData.actioncode = Number(params['actionCode']);
@@ -150,7 +150,8 @@ export class EditPage implements OnInit {
         postData["Carserviceadvisor"] = this.shareData.carserviceadvisor;
         postData["actionCode"] = this.shareData.actioncode;
         postData["dealerid"] = this._loginInfo.GetDealerid();
-
+        
+        
         //提交数据保存
         this._page.loadingShow();
         this._http.post(

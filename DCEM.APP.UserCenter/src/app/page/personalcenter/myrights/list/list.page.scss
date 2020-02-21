@@ -1,0 +1,55 @@
+h2 {
+    padding: 10px;
+}
+
+p {
+    padding: 10px;
+}
+
+ion-grid {
+    padding: 0;
+}
+
+ion-item {
+    font-size: 14px;
+}
+
+.order-head {
+    background: url(http://sf-test.mediaman.com.cn/img/purchase-center-header-bg.cf04443e.jpg) no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 13.75rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+.segment-custom {
+    position: sticky;
+    top: 0px;
+    background-color: #fff;
+    z-index: 999;
+}
+
+.sc-ion-segment-ios-h.ion-color.sc-ion-segment-ios-s > ion-segment-button {
+    border: none;
+    font-size: 16px;
+    color: #898a8c;
+    height: 60px;
+}
+
+.sc-ion-segment-ios-h.ion-color.sc-ion-segment-ios-s > .segment-button-checked {
+    background: none;
+    color: #47B0E4;
+}
+
+.sc-ion-segment-ios-h.ion-color.sc-ion-segment-ios-s > .segment-button-checked::after {
+    content: "";
+    display: inline-block;
+    width: 20%;
+    margin: 0 40%;
+    border-bottom: 2px solid #47B0E4;
+}

@@ -1,4 +1,4 @@
-.shade {
+.shadetime {
     position: absolute;
     top: 0%;
     left: 0%;
@@ -9,4 +9,50 @@
     opacity: 0.4;
     text-align: center;
     padding: 5% 0;
+}
+.TwoBtnDialog {
+    position: fixed;
+    width: 100%;
+    height: auto;
+    bottom: 0;
+    z-index: 1000;
+    background-color: white;
+    border-radius: 10px 10px 0 0;
+
+    .div-content {
+        padding: 20px;
+        /*display: flex;
+        justify-content: flex-start;*/
+        .div-rights {
+            padding: 10px 10px 5px 10px;
+            width: 100%;
+            font-size: 16px;
+            color: #fff;
+            margin-bottom: 5px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}
+
+.shade {
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 999;
+    -moz-opacity: 0.3;
+    opacity: .30;
+    filter: alpha(opacity=30);
+}
+
+.showrights {
+    background: #20303d;
+}
+
+.hiderights {
+    background: #ccc;
 }

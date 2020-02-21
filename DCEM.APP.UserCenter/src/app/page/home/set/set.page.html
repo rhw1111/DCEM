@@ -7,35 +7,39 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <div
+  <!-- <div
     style="background-image:url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1574605434796&di=fabe7013a7b3f0981e11911ed2bcfba5&imgtype=0&src=http%3A%2F%2Fpic30.nipic.com%2F20130624%2F610812_110550186381_2.jpg)">
-    <ion-grid>
-      <ion-row style="padding-bottom:15px;background: #fff;">
-        <ion-col>
-          <ion-list lines="none" style="margin-top:15px;">
-            <ion-item (click)="loginModal()" *ngIf="islogin">
-              <ion-label style="margin-left:20px;">
-                <h3>修改密码</h3>
-              </ion-label>
-            </ion-item>
-            <ion-item [routerLink]="['/personalcenter/config/about']">
-              <ion-label style="margin-left:20px;">
-                <h3>关于我们</h3>
-              </ion-label>
-            </ion-item>
-            <ion-item (click)="OnVersion()" [routerLink]="['#']">
-              <ion-label style="margin-left:20px;">
-                <h3>版本更新</h3>
-              </ion-label>
-              <ion-label style="margin-right: 0px;text-align: right;color: #9a9a9a;">
-                <h3>当前版本{{version}}</h3>
-              </ion-label>
-            </ion-item>
-          </ion-list>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
+    
+  </div> -->
+  <ion-grid>
+    <ion-row style="padding-bottom:15px;background: #fff;">
+      <ion-col>
+        <ion-list lines="none" style="margin-top:15px;">
+          <ion-item [routerLink]="" (click)="loginModal()" *ngIf="islogin">
+            <ion-icon name="ellipsis-vertical-circle-outline"></ion-icon>
+            <ion-label style="margin-left:20px;">
+              <h3>修改密码</h3>
+            </ion-label>
+          </ion-item>
+          <ion-item [routerLink]="['/personalcenter/config/about']">
+            <ion-icon name="help-circle-outline"></ion-icon>
+            <ion-label style="margin-left:20px;">
+              <h3>关于我们</h3>
+            </ion-label>
+          </ion-item>
+          <ion-item (click)="OnVersion()" [routerLink]="['#']">
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <ion-label style="margin-left:20px;">
+              <h3>版本更新</h3>
+            </ion-label>
+            <ion-label style="margin-right: 0px;text-align: right;color: #9a9a9a;">
+              <h3>当前版本{{version}}</h3>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <div class="ion-padding" *ngIf="islogin">
     <ion-button expand="block" type="button" (click)="onRetrun()"
       class="ion-no-margin ios button button-block button-solid ion-activatable ion-focusable hydrated">

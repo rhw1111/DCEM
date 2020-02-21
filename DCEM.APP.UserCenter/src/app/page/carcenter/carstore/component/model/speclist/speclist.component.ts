@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalController, IonContent, NavParams, IonInfiniteScroll } from '@ionic/angular';
 import { DCore_Http, DCore_Page, DCore_Valid, DCore_ShareData } from 'app/component/typescript/dcem.core';
+import { debug } from 'util';
 
 @Component({
     selector: 'app-speclist',
@@ -11,7 +12,8 @@ export class SpeclistComponent implements OnInit {
 
     public mod: any = {
         selectProductMap: {},
-        selectProductSpecificationViewClassMap: {}
+        selectProductSpecificationViewClassMap: {},
+        selectRightspackageViewClassMap: {}
     };
 
     public objectKeys = Object.keys;
@@ -24,6 +26,7 @@ export class SpeclistComponent implements OnInit {
 
         this.mod.selectProductMap = this._navParams.get('selectProductMap');
 
+
         //规格型号分组
         for (var productSpecification of this.mod.selectProductMap["ProductSpecificationArray"]) {
 
@@ -35,16 +38,20 @@ export class SpeclistComponent implements OnInit {
                 this.mod.selectProductSpecificationViewClassMap[key]["productSpecificationArray"] = [];
             }
             this.mod.selectProductSpecificationViewClassMap[key]["productSpecificationArray"].push(productSpecification);
-
-
-
-
-
             //this.mod.selectProductSpecificationViewClassMap = this._navParams.get('selectProductSpecificationViewClassMap');
 
         }
 
-        console.log(this.mod.selectProductSpecificationViewClassMap);
+        //权益包分组
+        for (var ProductRightspackage of this.mod.selectProductMap["ProductRightspackageArray"]) {
+
+            var key = ProductRightspackage["RightspackageInfo"]["mcs_rc_rightspackageid"];
+            if (this._valid.isNull(this.mod.selectRightspackageViewClassMap[key])) {
+                this.mod.selectRightspackageViewClassMap[key] = ProductRightspackage;
+            }
+        }
+
+        console.log(this.mod.selectRightspackageViewClassMap);
     }
 
     ngOnInit() {

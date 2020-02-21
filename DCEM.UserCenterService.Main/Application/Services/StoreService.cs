@@ -36,6 +36,8 @@ namespace DCEM.UserCenterService.Main.Application.Services
         {
             var producListResponse = new ProducListResponse();
             var dicProduct = new Dictionary<Guid, Product>();
+            var dicRightspackage = new Dictionary<Guid, Rightspackage>();
+            var dicRights = new Dictionary<Guid, JObject>();
 
             #region 查询所有商品
             var xdoc = await Task<XDocument>.Run(() =>
@@ -46,6 +48,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                         <order attribute='createdon' descending='true' />
                         <filter type='and'>
                             <condition attribute='mcs_type' operator='in'>
+                                <value>7</value>
                                 <value>2</value>
                                 <value>1</value>
                             </condition>
@@ -238,6 +241,95 @@ namespace DCEM.UserCenterService.Main.Application.Services
             var productrElatedArrayResponse = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
             #endregion
 
+            #region 查询权益包
+            xdoc = await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"
+                <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+                    <entity name='mcs_rc_rightspackage'>
+                        <order attribute='createdon' descending='true' />
+                    </entity>
+                </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+
+            fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_rc_rightspackage",
+                FetchXml = xdoc
+            };
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+            fetchResponse = await _crmService.Execute(fetchRequest);
+            var rightspackageArrayResponse = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            #endregion
+
+            #region 查询权益项
+            xdoc = await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"
+                <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+                    <entity name='mcs_rc_rights'>
+                        <order attribute='createdon' descending='true' />
+                    </entity>
+                </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+
+
+            fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_rc_rights",
+                FetchXml = xdoc
+            };
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+            fetchResponse = await _crmService.Execute(fetchRequest);
+            var rightsArrayResponse = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            #endregion
+
+            #region 查询权益包与权益项的关系
+            xdoc = await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"
+                <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+                    <entity name='mcs_rc_rightspackagedetail'>
+                        <order attribute='createdon' descending='true' />
+                    </entity>
+                </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+
+            fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_rc_rightspackagedetail",
+                FetchXml = xdoc
+            };
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+            fetchResponse = await _crmService.Execute(fetchRequest);
+            var rightspackagedetailArrayResponse = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            #endregion
+
+            #region 查询权益包与商品的关系
+            xdoc = await Task<XDocument>.Run(() =>
+            {
+                var fetchXml = $@"
+                <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+                    <entity name='mcs_rc_rightspackageproduct'>
+                        <order attribute='createdon' descending='true' />
+                    </entity>
+                </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+
+            fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+            {
+                EntityName = "mcs_rc_rightspackageproduct",
+                FetchXml = xdoc
+            };
+            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+            fetchResponse = await _crmService.Execute(fetchRequest);
+            var rightspackageproductArrayResponse = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+            #endregion
+
             #region 组装商品
             foreach (var entity in procudtResponse.Value.Results)
             {
@@ -317,6 +409,47 @@ namespace DCEM.UserCenterService.Main.Application.Services
             }
             #endregion
 
+            #region 组装权益包
+            foreach (var entity in rightspackageArrayResponse.Value.Results)
+            {
+                var rightspackage = new Rightspackage();
+                rightspackage.RightspackageInfo = entity.Attributes;
+                dicRightspackage.Add(entity.Id, rightspackage);
+            }
+            #endregion
+
+            #region 组装权益项
+            foreach (var entity in rightsArrayResponse.Value.Results)
+            {
+                var rights = new JObject();
+                rights = entity.Attributes;
+                dicRights.Add(entity.Id, rights);
+            }
+            #endregion
+
+            #region 组装权益包与权益项的关系
+            foreach (var entity in rightspackagedetailArrayResponse.Value.Results)
+            {
+                var rightsGuid = Guid.Parse(entity.Attributes.Value<string>("_mcs_rights_value"));
+                var rightspackageGuid = Guid.Parse(entity.Attributes.Value<string>("_mcs_rightspackage_value"));
+                if (dicRights.ContainsKey(rightsGuid) && dicRightspackage.ContainsKey(rightspackageGuid))
+                    dicRightspackage[rightspackageGuid].RightsArray.Add(dicRights[rightsGuid]);
+            }
+            #endregion
+
+            #region 组装权益包与商品的关系
+            foreach (var entity in rightspackageproductArrayResponse.Value.Results)
+            {
+                var productGuid = Guid.Parse(entity.Attributes.Value<string>("_mcs_product_value"));
+                if (entity.Attributes.Value<string>("_mcs_rightspackage_value")!=null)
+                {
+                    var rightspackageGuid = Guid.Parse(entity.Attributes.Value<string>("_mcs_rightspackage_value"));
+                    if (dicProduct.ContainsKey(productGuid) && dicRightspackage.ContainsKey(rightspackageGuid))
+                        dicProduct[productGuid].ProductRightspackageArray.Add(dicRightspackage[rightspackageGuid]);
+                }
+            }
+            #endregion
+
             #region 返回对象组装
             foreach (var kv in dicProduct)
             {
@@ -344,9 +477,9 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
             //if (!string.IsNullOrEmpty(filter))
             //{
-                filter = @"<filter type='and'>
+            filter = @"<filter type='and'>
                            <condition attribute='mcs_orderclass' operator='eq' value='100' />" + filter;
-                filter = filter + "</filter>";
+            filter = filter + "</filter>";
             //}
             #endregion
 

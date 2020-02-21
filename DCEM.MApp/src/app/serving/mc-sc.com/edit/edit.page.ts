@@ -47,7 +47,7 @@ export class EditPage implements OnInit {
     }
 
 
-    ionViewDidEnter() {
+    ionViewWillEnter() {
         //数据初始化
         this.shareData.serviceproxy["arrivalon"] = new Date();
 

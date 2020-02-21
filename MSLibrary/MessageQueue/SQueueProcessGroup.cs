@@ -371,15 +371,15 @@ namespace MSLibrary.MessageQueue
                                         {
                                             ex = ex.InnerException;
                                         }
-                                        if (errorMessageList.Count<=100000)
-                                        {
-                                            if (!errorMessageList.ContainsKey(message.ID))
-                                            {
-                                                errorMessageList.TryAdd(message.ID, message.ID);
+                                        //if (errorMessageList.Count<=100000)
+                                        //{
+                                            //if (!errorMessageList.ContainsKey(message.ID))
+                                            //{
+                                             //   errorMessageList.TryAdd(message.ID, message.ID);
                                                 LoggerHelper.LogError(ErrorLoggerCategoryName,
-                                                    $"SQueueProcessGroup Execute Error,message Type {message.Type},message id {message.ID.ToString()},ErrorMessage:{await ex.GetCurrentLcidMessage()},StackTrace:{ex.StackTrace}");
-                                            }
-                                        }
+                                                    $"SQueueProcessGroup {group.Name} Execute Error,message Type {message.Type},message id {message.ID.ToString()},ErrorMessage:{await ex.GetCurrentLcidMessage()},StackTrace:{ex.StackTrace}");
+                                            //}
+                                        //}
                                     }
 
                                     if (executeResult.Status == 0)
@@ -388,12 +388,13 @@ namespace MSLibrary.MessageQueue
                                         needRestart = true;
                                         await message.Delete();
 
-                                        errorMessageList.TryRemove(message.ID, out Guid deleteId);
+                                        //errorMessageList.TryRemove(message.ID, out Guid deleteId);
                                     }
                                     else
                                     {
-                                        if (executeResult.Status == 2)
+                                        if (executeResult.Status == 3)
                                         {
+                                            needRestart = true;
                                             //执行失败
                                             //LoggerHelper.LogError(ErrorLoggerCategoryName, $"SQueueProcessGroup Message Execute Error,Type:{message.Type},Key:{message.Key},Data:{message.Data},ErrorMessage:{executeResult.Description}");
                                         }
@@ -414,18 +415,18 @@ namespace MSLibrary.MessageQueue
                         }
                         catch (Exception ex)
                         {
-                            if (!errorLogRecord)
-                            {
+                            //if (!errorLogRecord)
+                            //{
                                 while(ex.InnerException!=null)
                                 {
                                     ex = ex.InnerException;
                                 }
                                 LoggerHelper.LogError(ErrorLoggerCategoryName,
-                                    $"SQueueProcessGroup Execute Error,ErrorMessage:{await ex.GetCurrentLcidMessage()},StackTrace:{ex.StackTrace}");
-                                errorLogRecord = true;
-                            }
+                                    $"SQueueProcessGroup {group.Name} Execute Error,ErrorMessage:{await ex.GetCurrentLcidMessage()},StackTrace:{ex.StackTrace}");
+                            //    errorLogRecord = true;
+                            //}
 
-                            //System.Threading.Thread.Sleep(1000);
+                            await Task.Delay(1000 * 60*2);
                         }
 
                     },

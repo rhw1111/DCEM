@@ -32,6 +32,19 @@
                 </ion-card-content>
             </ng-template>
         </ion-card>
+        <ion-card style="width: 100%;padding: 0;margin: 10px 0;background: #fff;">
+            <ion-item lines="none" (click)="ShowTwoBtn()" detail>
+                <ion-label>可用权益</ion-label>
+                <ion-label style="color:#a4a4a4;text-align:right;">请选择</ion-label>
+            </ion-item>
+        </ion-card>
+        <div class="selected" style="padding:0 30px;">
+            <div *ngFor="let item of model.rights.myRightses">
+                <div *ngIf="item.checked">
+                    {{item.RightsName}}
+                </div>
+            </div>
+        </div>
         <div *ngIf="model.datas.TotalIntegral != 0; then ttTemplate else ffTemplate"></div>
         <ng-template #ttTemplate>
             <div *ngIf="model.datas.IsNeedCash == 'true'; then tttTemplate else fffTemplate"></div>
@@ -74,7 +87,30 @@
         </ng-template>
     </ion-grid>
 
-    <div class="shade">
+    <!--权益选择-->
+    <div class="TwoBtnDialog" style="display:none;">
+        <div class="div-content">
+            <h5 style="margin:0;padding-bottom:20px;font-weight:bold;">选择权益项</h5>
+            <div *ngFor="let item of model.rights.myRightses" style="width:100%;">
+                <div class="div-rights {{item.hideRights ? 'hiderights' : 'showrights'}}">
+                    <div style="width:100%;">
+                        <span>{{item.RightsName}}</span>
+                    </div>
+                    <div style="width:10%;">
+                        <ion-checkbox [(ngModel)]="item.checked" disabled="{{item.hideRights}}" (ionChange)="change(item)" style="width:75%;height:75%;"></ion-checkbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="div-btn">
+            <ion-button text="确定" (click)="TwoBtnSure()" style="width:100%;">确定</ion-button>
+        </div>
+    </div>
+
+    <!--遮罩层-->
+    <div class="shade" *ngIf="IsShowCover" (click)="CloseDialog()"></div>
+
+    <div class="shadetime">
         <span>剩余时间</span>
         <span id="minute">00</span>分
         <span id="second">00</span>秒

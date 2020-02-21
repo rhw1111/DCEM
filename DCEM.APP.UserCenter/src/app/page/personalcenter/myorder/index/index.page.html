@@ -8,57 +8,25 @@
 </ion-header>
 
 <ion-content>
-  <ion-list lines="none">
-    <ion-item style="height: 50px;font-size: 35px;">
+  <ion-list  lines="none">
+    <ion-item  lines="none" style="height: 50px;font-size: 35px;">
       <ion-label>
         订单列表
       </ion-label>
     </ion-item>
   </ion-list>
   <ion-list>
-    <ion-item lines="none" style="height: 50px;" [routerLink]="['/personalcenter/myorder/carorder/list']" [queryParams]="{orderclass:100}">
-      <ion-label>
-        <h2>整车订单</h2>
-      </ion-label>
-      <ion-note slot="end">
-        <p></p>
-      </ion-note>
-    </ion-item>
-    <ion-item *ngFor="let item of model.orders" [routerLink]="['/personalcenter/myorder/carorder/detail']"
-       [queryParams]="{orderid:item.orderid}">
-      <ion-card style="width: 100%;height: 300px;margin: 10px;">
-        <ion-card-content style="padding: 10px;">
-          <ion-list lines="none">
-            <ion-item>
-              <ion-icon name="arrow-dropright" color="primary"></ion-icon>
-              <ion-label>
-                {{item.paystatus}}
-              </ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-label style="margin: 0px;">
-                <img src="../../../../../assets/img/goods-detail.png" style="height: 150px" />
-              </ion-label>
-            </ion-item>
-            <ion-item lines="none">
-              <ion-label style="color:#a4a4a4;">订单号</ion-label>
-              <ion-label style="color:#a4a4a4;text-align:right;">{{item.orderno}}</ion-label>
-            </ion-item>
-            <ion-item lines="none">
-              <ion-label style="color:#a4a4a4;">车价</ion-label>
-              <ion-label style="color:#a4a4a4;text-align:right;">{{item.mcs_unitprice}}</ion-label>
-            </ion-item>
-          </ion-list>
-        </ion-card-content>
+      <ion-card style="width: 100%;padding: 0;margin: 10px 0;background: #fff;">
+          <ion-item lines="none" href="javascript:void(0);" [routerLink]="['/personalcenter/myorder/prodorder/list']" [queryParams]="{orderclass:100}" style="padding:10px 0;">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="32" height="32" t="1581302890736" p-id="3056" version="1.1"><path d="M 920.337 447.805 c -6.06718 -6.06718 -10.9187 -11.6432 -16.9859 -17.7104 l 48.5364 -30.3349 l -42.4693 -109.207 l -121.341 12.1344 c -6.06718 -6.06718 -6.06718 -12.1344 -12.1344 -18.2015 c -12.1344 -12.1344 -18.2015 -24.2677 -24.2677 -30.3349 c -24.2687 -36.4021 -30.3349 -42.4693 -54.6036 -42.4693 H 339.117 c -18.2015 0 -24.2677 6.06718 -54.6036 42.4693 c -6.06718 6.06718 -12.1344 18.2015 -24.2677 30.3349 c 0 0 -6.06718 6.06718 -12.1344 18.2015 l -115.274 -12.1344 l -48.5364 109.207 l 51.0906 24.3782 c -6.06718 6.06718 -30.3349 34.6604 -30.3349 34.6604 l -15.543 22.2804 l -12.2827 17.0186 c -6.06718 12.1344 -5.06434 10.8685 -5.06434 29.0701 v 224.481 c 0 36.4021 18.2015 60.6708 54.6036 60.6708 h 115.273 c 36.4021 0 54.6036 -24.2677 54.6036 -54.6036 v -18.2015 h 424.694 v 18.2015 c 0 30.3349 18.2015 54.6036 54.6036 54.6036 h 115.273 c 36.4021 0 60.6708 -24.2677 60.6708 -60.6708 V 539.301 c 0 -42.4693 0.685615 -46.6628 -11.4487 -64.8633 c -4.73177 -6.74461 -11.944 -16.1969 -20.1018 -26.6326 Z m -35.1864 -78.3812 l -30.3349 18.2015 l -12.1344 -12.1344 c -6.06718 -8.89969 -12.1344 -12.1344 -12.1344 -18.2015 l 42.4693 -6.06718 l 12.1344 18.2015 Z m -533.9 -97.0729 h 339.755 l 78.8713 103.14 H 272.379 l 78.8724 -103.14 Z M 175.306 357.29 h 36.4021 c -6.06718 6.06718 -6.06718 12.1344 -12.1344 18.2015 l -18.2015 6.06718 l -18.2015 -12.1344 l 12.1354 -12.1344 Z m 667.376 394.358 h -54.6036 V 678.844 H 242.044 v 72.8041 H 132.837 V 527.167 c 0 -12.1344 -0.041956 -20.6626 1.21671 -23.5565 c 1.25867 -2.89391 9.95575 -16.9245 21.1937 -29.1734 l 35.7226 -38.2768 h 639.577 l 21.9172 20.9389 c 6.06718 6.06718 21.8476 21.3666 25.7126 28.7324 c 7.62158 9.99668 6.97383 10.9995 13.041 23.1339 v 242.682 h -48.5364 Z M 242.044 533.235 h 133.475 v 60.6708 H 242.044 v -60.6708 Z m 412.559 0 h 133.475 v 60.6708 H 654.603 v -60.6708 Z" p-id="3057" /></svg>
+              <ion-label style="margin-left:10px;">商品订单</ion-label>
+          </ion-item>
       </ion-card>
-    </ion-item>
-    <ion-item style="height: 100px;" [routerLink]="['/personalcenter/myorder/fineorder/list']" [queryParams]="{orderclass:200}">
-      <ion-label>
-        <h2>精品订单</h2>
-      </ion-label>
-      <ion-note slot="end">
-        <p></p>
-      </ion-note>
-    </ion-item>
+      <ion-card style="width: 100%;padding: 0;margin: 10px 0;background: #fff;">
+          <ion-item lines="none" href="javascript:void(0);" [routerLink]="['/carreserve/myreserveorder/list']" style="padding:10px 0;">
+              <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="32" height="32" t="1581303039461" p-id="4048" version="1.1"><path d="M 640 128 h 213.76 A 127.701 127.701 0 0 1 981.333 255.787 v 597.76 A 127.872 127.872 0 0 1 853.76 981.333 H 170.24 A 127.701 127.701 0 0 1 42.6667 853.547 V 255.787 A 127.872 127.872 0 0 1 170.24 128 H 384 V 64 a 21.3333 21.3333 0 0 1 42.6667 0 V 128 h 170.667 V 64 a 21.3333 21.3333 0 1 1 42.6667 0 V 128 Z m 0 42.6667 v 64 a 21.3333 21.3333 0 1 1 -42.6667 0 V 170.667 h -170.667 v 64 a 21.3333 21.3333 0 0 1 -42.6667 0 V 170.667 H 170.24 C 123.691 170.667 85.3333 208.768 85.3333 255.787 v 597.76 C 85.3333 900.565 123.349 938.667 170.24 938.667 h 683.52 c 46.592 0 84.9067 -38.1013 84.9067 -85.12 V 255.787 A 85.0347 85.0347 0 0 0 853.76 170.667 H 640 Z" p-id="4049" /><path d="M 351.147 539.861 l 103.723 123.563 a 21.3333 21.3333 0 0 0 32.6827 -27.392 l -103.68 -123.605 a 21.3333 21.3333 0 0 0 -32.6827 27.4347 Z" p-id="4050" /><path d="M 495.872 674.048 l 258.389 -216.832 a 21.3333 21.3333 0 1 0 -27.4347 -32.7253 l -258.389 216.875 a 21.3333 21.3333 0 0 0 27.4347 32.6827 Z" p-id="4051" /></svg>
+              <ion-label style="margin-left:10px;">预约订单</ion-label>
+          </ion-item>
+      </ion-card>
   </ion-list>
 </ion-content>
