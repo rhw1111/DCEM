@@ -27,7 +27,7 @@ export class IndexPage {
                 ]
             },
             middle_finance: {
-                title: "一层首付开回家",
+                title: "10%首付开回家",
                 imgscr: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3682338120,1128590170&fm=26&gp=0.jpg"
             },
             middle_equity: {
