@@ -26,7 +26,6 @@ export class IndexPage implements OnInit {
          //this.statusBar.overlaysWebView(true);
          this.IsSalingManager=this._loginInfo.IsSalingManager();
          this.IsSerlingManager=this._loginInfo.IsServingManager();
-debugger;
          var welcomeisloading= this._window.storageGet("welcomeisloading");
          if(welcomeisloading==null || welcomeisloading==""){
            this._page.goto("/base/uc/welcome");

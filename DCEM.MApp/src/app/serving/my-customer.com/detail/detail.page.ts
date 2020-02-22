@@ -72,7 +72,7 @@ export class DetailPage implements OnInit {
             (res: any) => {
 
                 this.mod.data.id = id;
-
+                console.log(res);
                 if (!this._valid.isNull(res.Carserviceadvisor)) {
                     this.mod.data.vehowner.fullname = res["Vehowner"]["Attributes"]["mcs_fullname"];
                     this.mod.data.vehowner.idtype = res["Vehowner"]["Attributes"]["mcs_idtype@OData.Community.Display.V1.FormattedValue"];
