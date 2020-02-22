@@ -175,7 +175,9 @@ namespace DCEM.UserCenterService.Main.Application.Services
                                     Guid id = Guid.NewGuid();
                                     var entity = new CrmExecuteEntity("mcs_testdrivefeedbackmaster", id);
                                     entity.Attributes.Add("mcs_username", userentities.Results[0].Attributes["mcs_name"].ToString());
-                                    entity.Attributes.Add("mcs_userid", userentities.Results[0].Attributes["mcs_code"].ToString());
+                                    //新逻辑 存储id
+                                    //entity.Attributes.Add("mcs_userid", userentities.Results[0].Attributes["mcs_code"].ToString());
+                                    entity.Attributes.Add("mcs_userid", userentities.Results[0].Attributes["mcs_userid"].ToString());
                                     entity.Attributes.Add("mcs_driverecordid", new CrmEntityReference("mcs_driverecord", driverecord.Results[0].Id));
                                     entity.Attributes.Add("mcs_surveytime", DateTime.Now);
                                     entity.Attributes.Add("mcs_userphone", userentities.Results[0].Attributes["mcs_phone"].ToString());

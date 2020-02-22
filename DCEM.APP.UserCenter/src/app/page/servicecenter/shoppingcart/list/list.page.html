@@ -73,7 +73,7 @@
 </ion-content>
 <!--底部栏-->
 <ion-tab-bar slot="bottom">
-    <ion-tab-button (click)="changeAll($event)" style="max-width:110px;">
+    <ion-tab-button (click)="changeAll($event)" style="max-width:100px;">
         <span style="display:inline-flex;font-size:16px;color:#000;">
             <ion-checkbox [(checked)]="model.cartList.checkAll"></ion-checkbox>
             <span style="padding-left:5px;">全选</span>
@@ -97,10 +97,10 @@
     <!--<ion-tab-button tab="servicecenter">
         <span class="span-total" style="font-size:16px;">合计:<span style="color:#38B3EE;">￥{{model.cartList.totalprice}}</span></span>
     </ion-tab-button>-->
-    <ion-tab-button (click)="BuyPro()" class="tab-cac tab-background-5a5" disabled>
+    <ion-tab-button (click)="BuyPro()" class="tab-cac tab-background-5a5" style="max-width:100px;" disabled>
         <ion-label style="font-size:16px; color:#fff;">去结算</ion-label>
     </ion-tab-button>
-    <ion-tab-button (click)="removeCart()" class="tab-hide tab-background-5a5" disabled>
+    <ion-tab-button (click)="removeCart()" class="tab-hide tab-background-5a5" style="max-width:100px;" disabled>
         <ion-label style="font-size:16px; color:#fff;">删除所选</ion-label>
     </ion-tab-button>
 </ion-tab-bar>

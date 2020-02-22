@@ -41,9 +41,9 @@ namespace DCEM.Web.Controllers.UCenter
         /// <param name="pageSize"></param>
         /// <param name="page"></param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpPost]
         [Route("QueryList")]
-        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> QueryList([FromQuery]BlindOrderListRequest request)
+        public async Task<NewtonsoftJsonActionResult<QueryResult<CrmEntity>>> QueryList(BlindOrderListRequest request)
         {
             return await app.QueryList(request);
         }

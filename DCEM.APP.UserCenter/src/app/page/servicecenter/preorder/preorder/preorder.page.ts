@@ -333,7 +333,7 @@ export class PreorderPage implements OnInit {
                 ],
                 "PaymentStatusList": [
                     {
-                        "PaymentStatus": 0,
+                        "PaymentStatus": 0, //支付状态：不需要支付=0, 等待支付=1 支付成功=3 
                         "HandlerTime": new Date()
                     }
                 ]
