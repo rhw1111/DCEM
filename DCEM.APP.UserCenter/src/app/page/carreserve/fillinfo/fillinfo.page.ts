@@ -90,7 +90,7 @@ export class FillinfoPage implements OnInit {
             "mcs_mobilephone": mobile,
             "mcs_premiumcodestatus":0
         };
-        this._http.get(this.model.search.apiUrl + "?mcs_mobilephone=" + mobile + "&mcs_premiumcodestatus=0" ,
+        this._http.post(this.model.search.apiUrl + "?mcs_mobilephone=" + mobile + "&mcs_premiumcodestatus=0" ,
             request,
             (res: any) => {
                 if (res != null && res.Results.length > 0) {
