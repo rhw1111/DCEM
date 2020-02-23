@@ -184,7 +184,7 @@ export class FillinfoPage implements OnInit {
             $("#blindorder").attr("style", "border-color:red;")
             return false;
         }
-        this.model.datas.request.BlindOrder = this.model.blindorder;
+        this.model.datas.request.PremiumCode =blindorder;
         this.model.datas.request.FullName = $("#fullname").val();
         this.model.datas.request.MobilePhone = $("#mobile").val();
         this.model.datas.request.Gender = gender;
