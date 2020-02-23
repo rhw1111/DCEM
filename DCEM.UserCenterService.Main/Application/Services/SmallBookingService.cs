@@ -204,7 +204,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
             try
             {
                 #region 通过预约号查询是否有预约记录
-                var fetchBlindOrder = _smallbookingRepository.QueryBlindOrder(request.BlindOrder);
+                var fetchBlindOrder = _smallbookingRepository.QueryBlindOrder(request.PremiumCode);
 
                 var fetchXdocBlindOrder = XDocument.Parse(fetchBlindOrder);
                 var fetchBlindOrderRequest = new CrmRetrieveMultipleFetchRequestMessage()
