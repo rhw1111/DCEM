@@ -73,7 +73,7 @@ export class ConfirmPage implements OnInit {
                     }
                 }
                 else {
-                    this._page.alert("消息提示", "提交订单失败");
+                    this._page.alert("消息提示",  res.Description);
                 }
                 this._page.loadingHide();
             },

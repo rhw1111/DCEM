@@ -75,6 +75,7 @@ export class PaymentPage implements OnInit {
         var request = {
             "OrderCode": this.model.datas.OrderCode,
             "BlindOrder": this.model.datas.BlindOrder,
+            "PremiumCode": this.model.datas.PremiumCode,
             "TotalOrder": this.model.datas.TotalOrder,
             "OrderStatus": this.model.datas.OrderStatus
         };
@@ -113,6 +114,7 @@ export class PaymentPage implements OnInit {
                     handler: () => {
                         var param = {
                             "OrderCode": this.model.datas.OrderCode,
+                            "PremiumCode":this.model.datas.PremiumCode,
                             "mcs_smallorderid": this.model.datas.mcs_smallorderid
                         };
                         this._page.navigateRoot("/carreserve/payorder/success", { params: JSON.stringify(param) });
