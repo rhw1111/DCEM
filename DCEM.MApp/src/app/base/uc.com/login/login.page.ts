@@ -72,25 +72,32 @@ export class LoginPage implements OnInit {
         switch (this.mod.domainType) {
             case 'Dev':
                 this.mod.domain = "https://subcrmdevapi.sokon.com/dcem";
+                this.mod.domainType = 'Dev';
                 break;
             case 'CRM9.0':
                 this.mod.domain = "http://106.14.121.65:8082/dcem";
+                this.mod.domainType = 'CRM9.0';
                 break;
             case 'Uat':
                 this.mod.domain = "https://subcrmuatapi.sokon.com/dcem";
+                this.mod.domainType = 'Uat';
                 break;
             case 'Pro':
                 this.mod.domain = "https://mscrm.sokon.com/dcem";
+                this.mod.domainType = 'Pro';
                 break;
             case 'localhost':
                 this.mod.domain = "https://localhost:44382";
+                this.mod.domainType = 'localhost';
                 break;
             default:
                 this.mod.domain = "https://localhost:52151";
+                this.mod.domainType = 'default';
                 break;
         }
 
         this._window.storageSet("apiDomainUrl", this.mod.domain);
+        this._window.storageSet("apiDomainType", this.mod.domainType);
 
         this._page.loadingShow();
         
