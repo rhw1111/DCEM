@@ -225,17 +225,17 @@
                 </div>
                 <!--<div>{{item.PackageDesc}}</div>-->
                 <section style="padding:10px 30px;border: 1px solid #20303d;border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;">
-                    <div *ngFor="let i of item.InstanceParams" style="padding: 0px 15px;border: 1px solid;border-radius: 15px;margin-bottom: 10px;">
+                    <div *ngFor="let i of item.InstanceParams" style="padding: 0px 15px;border: 1px solid #ccc;border-radius: 15px;margin-bottom: 10px;">
                         <div *ngIf="i.EnumValues?.length > 0; then hasEnum else nonEnum"></div>
                         <ng-template #hasEnum>
-                            <select name="{{i.Code}}">
+                            <select id="{{item.InstanceCode}};{{i.Code}}" name="providerselect">
                                 <ng-container *ngFor="let enumval of i.EnumValues">
                                     <option value="{{enumval.Value}}">{{enumval.Name}}</option>
                                 </ng-container>
                             </select>
                         </ng-template>
                         <ng-template #nonEnum>
-                            <input name="{{i.Code}}" placeholder="{{i.Name}}" value="" style="width: 100%;border:0;line-height: 35px;" />
+                            <input id="{{item.InstanceCode}};{{i.Code}}" type="text" name="providertext" placeholder="{{i.Name}}" value="" style="width: 100%;border:0;line-height: 35px;" />
                         </ng-template>
                     </div>
                 </section>

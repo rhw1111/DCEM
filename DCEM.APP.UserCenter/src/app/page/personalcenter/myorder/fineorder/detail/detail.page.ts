@@ -3,6 +3,7 @@ import { DCore_Http, DCore_Page } from '../../../../../component/typescript/dcem
 import { Storage_LoginInfo } from '../../../../../component/typescript/logininfo.storage';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-detail',
@@ -17,7 +18,7 @@ export class DetailPage implements OnInit {
         title: "订单详情",
         datadetail: {},
         datalist: [],
-        buyertitle:"",
+        buyertitle: "",
         //OrderType: 10, //商品类型; 1: 整车; 2: 整车选装件; 3: 充电桩 / 枪; 4: 备件; 7: 业务办理; 8: 施工; 10: 精品;
         score: {
             apiUrl: "api/user/getuserscore",
@@ -183,6 +184,18 @@ export class DetailPage implements OnInit {
             ]
         });
         await alert.present();
+    }
+
+    showProvider() {
+        if ($("ion-item[name=provider]").css("display") == "none") {
+            $("#plus").hide();
+            $("#el").show();
+            $("ion-item[name=provider]").slideDown();
+        } else {
+            $("#el").hide();
+            $("#plus").show();
+            $("ion-item[name=provider]").slideUp();
+        }
     }
 
     getPayStatus(orderstatus, paymentstatus) {

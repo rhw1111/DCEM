@@ -234,7 +234,7 @@ export class PaymentPage implements OnInit {
         await alert.present();
     }
 
-    ShowTwoBtn(productcode) {
+    ShowTwoBtn() {
         this.IsShowCover = true;
         $(".TwoBtnDialog").slideDown();
         $(".footer-bottom").fadeOut();
