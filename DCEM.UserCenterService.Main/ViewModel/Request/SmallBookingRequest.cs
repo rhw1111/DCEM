@@ -200,5 +200,10 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
         /// 备用字段7
         /// </summary>
         public string Spare7 { get; set; }
+
+        /// <summary>
+        /// 预约号
+        /// </summary>
+        public string PremiumCode { get; set; }
     }
 }
