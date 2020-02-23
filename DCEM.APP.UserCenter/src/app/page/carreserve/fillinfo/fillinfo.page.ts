@@ -67,7 +67,7 @@ export class FillinfoPage implements OnInit {
     async checkLoginAndTurn(url) {
         if ($("#blindorder").val() == "") {
             if (this._logininfo.GetNickName() != null) {
-                this._page.goto(url);
+                //this._page.goto(url);
             } else {
                 const modal = await this._modalCtrl.create({
                     component: LoginComponent,

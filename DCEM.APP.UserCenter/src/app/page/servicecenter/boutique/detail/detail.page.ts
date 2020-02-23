@@ -155,6 +155,7 @@ export class DetailPage implements OnInit {
             //this.IsShowTwoBtnDialog = false;
             $(".TwoBtnDialog").slideUp();
             $(".ThreeBtnDialog").slideUp();
+            $(".FourBtnDialog").slideUp();
             this.IsShowCover = false;
             $(".footer-bottom").fadeIn();
         }
@@ -162,6 +163,11 @@ export class DetailPage implements OnInit {
     ShowThreeBtn() {
         this.IsShowCover = true;
         $(".ThreeBtnDialog").slideDown();
+        $(".footer-bottom").fadeOut();
+    }
+    ShowFourBtn() {
+        this.IsShowCover = true;
+        $(".FourBtnDialog").slideDown();
         $(".footer-bottom").fadeOut();
     }
     //增减数量
