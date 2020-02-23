@@ -71,6 +71,7 @@ export class EditPage implements OnInit {
 
   ionViewWillEnter() {
 
+    //debugger;
     // //校验登录
     // var logininfo = this._logininfo.GetUserInfo();
     // if (logininfo == null || logininfo == undefined) {
@@ -94,7 +95,7 @@ export class EditPage implements OnInit {
         this.shareData = this._shareData.get(this.model.shareDataKey);
       }
       //编辑绑定预约单数据
-      if (params['id'] != null && params['id'] != undefined) {
+      if (params['id'] != null && params['id'] != undefined&& params['id']!=0) {
         this.model.appointmentinfoId = params['id'];
         this.pageOnBind(this.model.appointmentinfoId);
 

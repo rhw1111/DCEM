@@ -62,17 +62,18 @@ export class ConfirmPage implements OnInit {
                         var param = {
                             "OrderCode": request.OrderCode,
                             "mcs_smallorderid":res.Data.Id,
-                            "BlindOrder": request.BlindOrder,
+                            //"BlindOrder": request.BlindOrder,
+                            "PremiumCode":request.PremiumCode,
                             "TotalOrder": request.TotalOrder,
                             "OrderStatus": 1
                         };
                         this._page.goto("/carreserve/payorder/payment", { params: JSON.stringify(param) });
                     } else {
-                        this._page.alert("消息提示", "提交订单失败!");
+                        this._page.alert("消息提示", res.Description);
                     }
                 }
                 else {
-                    this._page.alert("消息提示", "提交订单失败");
+                    this._page.alert("消息提示",  res.Description);
                 }
                 this._page.loadingHide();
             },

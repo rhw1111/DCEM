@@ -204,7 +204,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
             try
             {
                 #region 通过预约号查询是否有预约记录
-                var fetchBlindOrder = _smallbookingRepository.QueryBlindOrder(request.BlindOrder);
+                var fetchBlindOrder = _smallbookingRepository.QueryBlindOrder(request.PremiumCode);
 
                 var fetchXdocBlindOrder = XDocument.Parse(fetchBlindOrder);
                 var fetchBlindOrderRequest = new CrmRetrieveMultipleFetchRequestMessage()
@@ -483,15 +483,15 @@ namespace DCEM.UserCenterService.Main.Application.Services
             {
                 paymentrecord.Attributes.Add("mcs_name", request.PaymentCode);
             }
-            //支付状态
+            //支付状态 0：已支付，1：已退款
             if (request.OrderStatus == 1)
             {
-                paymentrecord.Attributes.Add("mcs_paymentstatus", request.OrderStatus);
+                paymentrecord.Attributes.Add("mcs_paymentstatus",0);
             }
             //支付状态
             if (request.OrderStatus == 3)
             {
-                paymentrecord.Attributes.Add("mcs_paymentstatus", request.OrderStatus);
+                paymentrecord.Attributes.Add("mcs_paymentstatus", 1);
             }
             //交易时间
             if (request.TransactionTime != null)

@@ -60,7 +60,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
         /// </summary>
         /// <param name="blindOrder"></param>
         /// <returns></returns>
-        string QueryBlindOrder(string blindOrder);
+        string QueryBlindOrder(string premiumcode);
         /// <summary>
         /// 查询唯一线索
         /// </summary>
