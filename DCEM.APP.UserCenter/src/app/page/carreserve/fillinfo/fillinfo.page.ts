@@ -56,7 +56,7 @@ export class FillinfoPage implements OnInit {
         this.model.datas = JSON.parse(datastr);
     }
     ionViewWillEnter() {
-        this.initListLoading();
+        //this.initListLoading();
     }
     //初始化页面数据加载
     initListLoading() {
@@ -90,7 +90,7 @@ export class FillinfoPage implements OnInit {
             "mcs_mobilephone": mobile,
             "mcs_premiumcodestatus":0
         };
-        this._http.post(this.model.search.apiUrl + "?mcs_mobilephone=" + mobile + "&mcs_premiumcodestatus=0" ,
+        this._http.postForToaken(this.model.search.apiUrl,
             request,
             (res: any) => {
                 if (res != null && res.Results.length > 0) {
