@@ -193,8 +193,8 @@ export class EditPage implements OnInit {
     }
 
     //生成预约号
-    GetPremiumCode(){
-        this._http.get(this.model.getApiUrl,
+    GetPremiumCode() {
+        this._http.post(this.model.getApiUrl,
             {
                 params: {
                     pageSize: 10,
