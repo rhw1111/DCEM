@@ -13,12 +13,18 @@ namespace MSLibrary.Cache
     /// </summary>
     public class HashLinkedCache<TKey, TValue> : ICache<TKey, TValue>
     {
+        /// <summary>
+        /// 引入tempDict，防止在大并发新建缓存时发生缓存穿透，
+        /// 发生缓存穿透的原因是缓存执行策略时为异步
+        /// </summary>
+        private ConcurrentDictionary<TKey, TValue> _tempDict;
         private ConcurrentDictionary<TKey, LinkedListNode<KeyValuePair<TKey, TValue>>> _dict;
         private NLinkedList<KeyValuePair<TKey, TValue>> _linked;
         private INLinkedListStrategy _linkedStrategy;
         private int _length;
         public HashLinkedCache()
         {
+            _tempDict = new ConcurrentDictionary<TKey, TValue>();
             _linked = new NLinkedList<KeyValuePair<TKey, TValue>>();
             _dict = new ConcurrentDictionary<TKey, LinkedListNode<KeyValuePair<TKey, TValue>>>();
             _linkedStrategy = new NLinkedListStrategyLRU();
@@ -28,10 +34,12 @@ namespace MSLibrary.Cache
             _linked.OnAdded = (node, value) =>
             {
                 _dict[value.Key] = node;
+                _tempDict.TryRemove(value.Key, out TValue v);
             };
             _linked.OnRemoved = (value) =>
             {
                 _dict.TryRemove(value.Key, out LinkedListNode<KeyValuePair<TKey, TValue>>  v);
+                _tempDict.TryRemove(value.Key, out TValue tv);
             };
         }
         public Dictionary<TKey, LinkedListNode<KeyValuePair<TKey, TValue>>> Dict
@@ -97,6 +105,10 @@ namespace MSLibrary.Cache
                     }
                 });
             }
+            else if (_tempDict.TryGetValue(key, out TValue tv))
+            {
+                result = tv;
+            }
 
             return result;
         }
@@ -107,6 +119,7 @@ namespace MSLibrary.Cache
             //从hash表中取数据
             if (!_dict.TryGetValue(key, out LinkedListNode<KeyValuePair<TKey, TValue>> tNode))
             {
+                _tempDict[key] = value;
                 //异步使用策略
                 Task.Run(() =>
                 {
@@ -126,6 +139,7 @@ namespace MSLibrary.Cache
             }
             else
             {
+                _tempDict[key] = value;
                 tNode.Value = pair;
                 //异步使用策略
                 Task.Run(() =>
@@ -167,6 +181,7 @@ namespace MSLibrary.Cache
             //{
                 lock (_dict)
                 {
+                    _tempDict.Clear();
                     _dict.Clear();
                     _linked.Clear();
                 }

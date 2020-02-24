@@ -73,7 +73,7 @@ namespace MSLibrary.Collections
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return this;
         }
     }
 }

@@ -22,6 +22,12 @@ namespace MSLibrary
             _fragment = fragment;
         }
 
+        public UtilityException(int code,string message)
+            :base(message)
+        {
+            Code = code;
+        }
+
         public TextFragment Fragment
         {
             get

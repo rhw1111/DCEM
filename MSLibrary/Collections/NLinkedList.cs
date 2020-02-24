@@ -54,6 +54,7 @@ namespace MSLibrary.Collections
                 }
                 else
                 {
+                    CurrentLength++;
                     if (node == First)
                     {
                         result = base.AddFirst(value);
@@ -85,6 +86,7 @@ namespace MSLibrary.Collections
                 }
                 else
                 {
+                    CurrentLength++;
                     if (node == First)
                     {
                         base.AddFirst(newNode);
@@ -117,6 +119,7 @@ namespace MSLibrary.Collections
                 }
                 else
                 {
+                    CurrentLength++;
                     if (node == First)
                     {
                         result = base.AddFirst(value);
@@ -148,6 +151,7 @@ namespace MSLibrary.Collections
                 }
                 else
                 {
+                    CurrentLength++;
                     if (node == First)
                     {
                         base.AddFirst(newNode);
@@ -180,6 +184,7 @@ namespace MSLibrary.Collections
                 }
                 else
                 {
+                    CurrentLength++;
                     result = base.AddFirst(value);
                     RemoveLast();
                 }
@@ -192,20 +197,34 @@ namespace MSLibrary.Collections
         {
             lock (this)
             {
-                if (CurrentLength < MaxLength)
+                if (CurrentLength <= MaxLength)
                 {
-                    CurrentLength++;
-                    base.Remove(node);
+                    //CurrentLength++;
+                    try
+                    {
+                        base.Remove(node);
+                    }
+                    catch
+                    {
+
+                    }
                     base.AddFirst(node);
                 }
                 else
                 {
-                    base.Remove(node);
+                    try
+                    {
+                        base.Remove(node);
+                    }
+                    catch
+                    {
+
+                    }
                     base.AddFirst(node);
                     RemoveLast();
                 }
             }
-            InnerOnAdded(node, node.Value);
+            //InnerOnAdded(node, node.Value);
         }
 
         public new LinkedListNode<T> AddLast(T value)
@@ -220,6 +239,7 @@ namespace MSLibrary.Collections
                 }
                 else
                 {
+                    CurrentLength++;
                     RemoveLast();
                     result = base.AddLast(value);
                 }
@@ -233,20 +253,34 @@ namespace MSLibrary.Collections
         {
             lock (this)
             {
-                if (CurrentLength < MaxLength)
+                if (CurrentLength <= MaxLength)
                 {
-                    CurrentLength++;
-                    base.Remove(node);
+                    //CurrentLength++;
+                    try
+                    {
+                        base.Remove(node);
+                    }
+                    catch
+                    {
+
+                    }
                     base.AddLast(node);
                 }
                 else
                 {
                     RemoveLast();
-                    base.Remove(node);
+                    try
+                    {
+                        base.Remove(node);
+                    }
+                    catch
+                    {
+
+                    }
                     base.AddLast(node);
                 }
             }
-            InnerOnAdded(node, node.Value);
+            //InnerOnAdded(node, node.Value);
         }
 
 
@@ -273,7 +307,14 @@ namespace MSLibrary.Collections
         {
             lock (this)
             {
-                base.Remove(node);
+                try
+                {
+                    base.Remove(node);
+                }
+                catch
+                {
+
+                }
                 CurrentLength--;
             }
             InnerOnRemoved(node.Value);

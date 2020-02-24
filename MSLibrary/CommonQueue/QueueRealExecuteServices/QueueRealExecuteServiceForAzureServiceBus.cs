@@ -59,61 +59,64 @@ namespace MSLibrary.CommonQueue.QueueRealExecuteServices
                 loggerDatetimes[item.Topic] = DateTime.UtcNow;
                 var messageHandlerOptions = new MessageHandlerOptions(async (args) =>
                 {
-                    if ((DateTime.UtcNow- loggerDatetimes[tempItem.Topic]).TotalSeconds>300)
+                    if ((DateTime.UtcNow - loggerDatetimes[tempItem.Topic]).TotalSeconds > 300)
                     {
                         loggerDatetimes[tempItem.Topic] = DateTime.UtcNow;
                         LoggerHelper.LogError(ConsumeErrorLoggerCategoryName, $"Message:{args.Exception.Message},stack:{args.Exception.StackTrace},Endpoint: {args.ExceptionReceivedContext.Endpoint},Entity Path: {args.ExceptionReceivedContext.EntityPath},Executing Action: {args.ExceptionReceivedContext.Action}");
                     }
-                
+
                 })
                 {
                     MaxConcurrentCalls = 1,
                     MaxAutoRenewDuration = new TimeSpan(2, 0, 0),
                     AutoComplete = false
                 };
-                
+
                 newClient.RegisterMessageHandler(async (azureMessage, cancellation) =>
                 {
-                    var fromService = getAzureServiceBusMessageConvertFromService(tempItem.ConvertFromServiceName);
-                    var message=await fromService.From(azureMessage);
-
                     bool isError = false;
-                    try
+                    var fromService = getAzureServiceBusMessageConvertFromService(tempItem.ConvertFromServiceName);
+                    var message = await fromService.From(azureMessage);
+                    if (message != null)
                     {
-                        await messageHandle(message);
-                    }
-                    catch(Exception ex)
-                    {
-                        StringBuilder strError = new StringBuilder($"message:{ex.Message},stack:{ex.StackTrace}");
-                        while(ex.InnerException!=null)
+
+                        try
                         {
-                            ex = ex.InnerException;
+                            await messageHandle(message);
                         }
-                        strError.Append($",message:{ex.Message},innerstack:{ex.StackTrace}");
-
-                        if (strError.Length>5000)
+                        catch (Exception ex)
                         {
-                            strError=strError.Remove(4999, strError.Length - 5000);
+                            StringBuilder strError = new StringBuilder($"message:{ex.Message},stack:{ex.StackTrace}");
+                            while (ex.InnerException != null)
+                            {
+                                ex = ex.InnerException;
+                            }
+                            strError.Append($",message:{ex.Message},innerstack:{ex.StackTrace}");
+
+                            if (strError.Length > 5000)
+                            {
+                                strError = strError.Remove(4999, strError.Length - 5000);
+                            }
+
+                            var newAzureMessage = new Message(azureMessage.Body);
+                            newAzureMessage.UserProperties["Exception"] = strError.ToString();
+                            newAzureMessage.UserProperties["ExceptionRetry"] = true;
+                            newAzureMessage.ScheduledEnqueueTimeUtc = DateTime.UtcNow.AddSeconds(60);
+
+                            isError = true;
+
+                            var topicClient = new TopicClient(newClient.ServiceBusConnection, tempItem.Topic, null);
+
+
+                            using (var ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                            {
+                                await newClient.CompleteAsync(azureMessage.SystemProperties.LockToken);
+                                await topicClient.SendAsync(newAzureMessage).ConfigureAwait(false);
+
+                                ts.Complete();
+                            }
+
                         }
-
-                        var newAzureMessage = new Message(azureMessage.Body);
-                        newAzureMessage.UserProperties["Exception"] = strError.ToString();
-                        newAzureMessage.UserProperties["ExceptionRetry"] = true;
-                        newAzureMessage.ScheduledEnqueueTimeUtc = DateTime.UtcNow.AddSeconds(60);
-
-                        isError = true;
-
-                        var topicClient = new TopicClient(newClient.ServiceBusConnection, tempItem.Topic, null);
-
-
-                        using (var ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-                        {
-                            await newClient.CompleteAsync(azureMessage.SystemProperties.LockToken);
-                            await topicClient.SendAsync(newAzureMessage).ConfigureAwait(false);
-
-                            ts.Complete();
-                        }
-
                     }
 
                     if (!isError)

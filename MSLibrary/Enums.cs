@@ -1123,7 +1123,16 @@ namespace MSLibrary
         /// <summary>
         /// 指定类型的工作流活动服务的指定位数参数类型不正确
         /// </summary>
-        WorkflowActivityServiceParameterTypeError = 314727121
+        WorkflowActivityServiceParameterTypeError = 314727121,
+        /// <summary>
+        /// 找不到指定缓存类型的实际KV缓存访问服务
+        /// </summary>
+        NotFoundRealKVCacheVisitServiceByCacheType= 314727201,
+        /// <summary>
+        /// 找不到指定版本名称的KV缓存版本服务
+        /// </summary>
+        NotFoundIKVCacheVersionServiceByName= 314727202,
+
 
     }
 
