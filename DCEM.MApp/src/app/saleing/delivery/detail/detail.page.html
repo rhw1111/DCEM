@@ -265,20 +265,20 @@
 
             <ion-card>
                 <ion-card-content>
-            <Steps [size]="'small'"  [current]="5">
-                <Step  [title]="'PDI检测未提交'"></Step> 
-                <Step  [icon]="'ellipsis'" [description]="deliverorderflowmodel.model.issubmitpdi"></Step> 
-                <Step [title]="'PDI检测已提交'"></Step>
-                <Step  [icon]="'ellipsis'" [description]="deliverorderflowmodel.model.pdisubmittime"></Step> 
-                <Step [title]="'PDI检测完成'"></Step>
-                <Step  [icon]="'ellipsis'" [description]="deliverorderflowmodel.model.pditime"></Step> 
-                <Step [title]="'预约完成'"></Step>
-                <Step   [icon]="'ellipsis'" [description]="deliverorderflowmodel.model.appointmenton"></Step> 
-                <Step [title]="'已收尾款'" ></Step>
-                <Step  [icon]="'ellipsis'" [description]="deliverorderflowmodel.model.settlestatus"></Step> 
-                <Step  [icon]="'ellipsis'" [description]="deliverorderflowmodel.model.receipton"></Step> 
-                <Step [title]="'交车完成'" ></Step>
-                <Step  [icon]="'ellipsis'" [description]="deliverorderflowmodel.model.deliveryon"></Step> 
+            <Steps [size]="'small'"  [current]="deliverorderflowmodel.model.current">
+                <Step  [title]="'PDI检测未提交'" [description]="deliverorderflowmodel.model.issubmitpdi"></Step> 
+                <!-- <Step  [icon]="'ellipsis'" [description]="deliverorderflowmodel.model.issubmitpdi"></Step>  -->
+                <Step [title]="'PDI检测已提交'" [description]="deliverorderflowmodel.model.pdisubmittime"></Step>
+                <!-- <Step  [icon]="'ellipsis'" [description]="deliverorderflowmodel.model.pdisubmittime"></Step>  -->
+                <Step [title]="'PDI检测完成'" [description]="deliverorderflowmodel.model.pditime"></Step>
+                <!-- <Step  [icon]="'ellipsis'" [description]="deliverorderflowmodel.model.pditime"></Step>  -->
+                <Step [title]="'预约完成'" [description]="deliverorderflowmodel.model.appointmenton"></Step>
+                <!-- <Step   [icon]="'ellipsis'" [description]="deliverorderflowmodel.model.appointmenton"></Step>  -->
+                <Step [title]="'已收尾款'" [description]="deliverorderflowmodel.model.settles"></Step>
+                <!-- <Step  [icon]="'ellipsis'" [description]="deliverorderflowmodel.model.settlestatus"></Step> 
+                <Step  [icon]="'ellipsis'" [description]="deliverorderflowmodel.model.receipton"></Step>  -->
+                <Step [title]="'交车完成'"  [description]="deliverorderflowmodel.model.deliveryon"></Step>
+                <!-- <Step  [icon]="'ellipsis'" [description]="deliverorderflowmodel.model.deliveryon"></Step>  -->
             </Steps>
                 </ion-card-content>
             </ion-card>
