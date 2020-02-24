@@ -41,14 +41,8 @@ export class LoginPage implements OnInit {
     // 初始化
     ngOnInit() {
         // 加入测试参数
-        // this.mod.username = 'subdevcrmadmin';
-        // this.mod.password = 'password01#';
-
-        // this.mod.username = 'crm9admin';
-        // this.mod.password = '@Msc.com@';
-
-        this.mod.username = 'crm9admin';
-        this.mod.password = '@Msc.com@';
+        this.mod.username = '';
+        this.mod.password = '';
 
         this.mod.apiurl = '/api/User/GetAuthToken';
         this.mod.domainType = 'localhost';
