@@ -72,6 +72,11 @@ export class DetailPage implements OnInit {
                     } else {
                         this.model.buyertitle = "收货信息";
                     }
+                    res.Products.forEach(item => {
+                        item.ProviderInstances.forEach(it => {
+                            it.InstanceStateStr = this.getProviderStatus(it.InstanceState);
+                        });
+                    });
                     this.model.datadetail = res.OrderData;
                     this.model.datalist = res.Products;
                     event ? event.target.complete() : '';
@@ -196,6 +201,25 @@ export class DetailPage implements OnInit {
             $("#plus").show();
             $("ion-item[name=provider]").slideUp();
         }
+    }
+
+    getProviderStatus(param) {
+        var returndata = "";
+        switch (param) {
+            case 1:
+                returndata = "待录入";
+                break;
+            case 2:
+                returndata = "提交待办理";
+                break;
+            case 3:
+                returndata = "办理成功";
+                break;
+            case 4:
+                returndata = "办理失败"
+                break;
+        }
+        return returndata;
     }
 
     getPayStatus(orderstatus, paymentstatus) {
