@@ -32,7 +32,7 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
         public int? OrderStatus { get; set; }
 
         /// <summary>
-        /// 称谓（0-男，1-女）
+        /// 称谓（1-男，2-女）
         /// </summary>
         public int? Gender { get; set; }
 
