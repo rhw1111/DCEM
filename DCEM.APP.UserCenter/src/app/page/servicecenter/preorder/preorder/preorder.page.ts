@@ -370,12 +370,7 @@ export class PreorderPage implements OnInit {
                 "TotalPrice": parseFloat((res.price * res.num).toString()).toFixed(2),
                 "DeliveryType": 0,
                 "ProviderInstanceCode": "",
-                "ProviderParams": [
-                    {
-                        "ProviderCode": "",
-                        "ProviderValue": ""
-                    }
-                ]
+                "ProviderParams": res.ProviderParams
             };
             data.Products.push(product);
         });

@@ -155,6 +155,7 @@ export class DetailPage implements OnInit {
             //this.IsShowTwoBtnDialog = false;
             $(".TwoBtnDialog").slideUp();
             $(".ThreeBtnDialog").slideUp();
+            $(".FourBtnDialog").slideUp();
             this.IsShowCover = false;
             $(".footer-bottom").fadeIn();
         }
@@ -162,6 +163,11 @@ export class DetailPage implements OnInit {
     ShowThreeBtn() {
         this.IsShowCover = true;
         $(".ThreeBtnDialog").slideDown();
+        $(".footer-bottom").fadeOut();
+    }
+    ShowFourBtn() {
+        this.IsShowCover = true;
+        $(".FourBtnDialog").slideDown();
         $(".footer-bottom").fadeOut();
     }
     //增减数量
@@ -267,6 +273,7 @@ export class DetailPage implements OnInit {
                 "integral": integral,
                 "img": img,
                 "num": num,
+                "ProviderParams": this.getProvider(),
                 "checked": false
             }]
         };
@@ -325,9 +332,36 @@ export class DetailPage implements OnInit {
                 "price": price,
                 "integral": integral,
                 "img": img,
-                "num": num
+                "num": num,
+                "ProviderParams": this.getProvider()
             }]
         };
+        this.getProvider();
         this._page.goto("/servicecenter/preorder/preorder", { params:JSON.stringify(orderata) });
+    }
+
+    getProvider() {
+        var ProviderParams = [];
+        $("input[name=providertext]").each(function (i, item) {
+            var inputid = $(item).attr("id");
+            var codes = inputid.split(';');
+            var providerParam = {
+                "ProviderInstanceCode": codes[0],
+                "ProviderCode": codes[1],
+                "ProviderValue": $(item).val()
+            };
+            ProviderParams.push(providerParam);
+        });
+        $("select[name=providerselect]").each(function (i, item) {
+            var selectid = $(item).attr("id");
+            var codes = selectid.split(';');
+            var providerParam = {
+                "ProviderInstanceCode": codes[0],
+                "ProviderCode": codes[1],
+                "ProviderValue": $(item).children("option:selected").text()
+            };
+            ProviderParams.push(providerParam);
+        });
+        return ProviderParams;
     }
 }

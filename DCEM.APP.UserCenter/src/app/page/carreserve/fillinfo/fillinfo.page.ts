@@ -67,7 +67,7 @@ export class FillinfoPage implements OnInit {
     async checkLoginAndTurn(url) {
         if ($("#blindorder").val() == "") {
             if (this._logininfo.GetNickName() != null) {
-                this._page.goto(url);
+                //this._page.goto(url);
             } else {
                 const modal = await this._modalCtrl.create({
                     component: LoginComponent,
@@ -184,7 +184,7 @@ export class FillinfoPage implements OnInit {
             $("#blindorder").attr("style", "border-color:red;")
             return false;
         }
-        this.model.datas.request.BlindOrder = this.model.blindorder;
+        this.model.datas.request.PremiumCode =blindorder;
         this.model.datas.request.FullName = $("#fullname").val();
         this.model.datas.request.MobilePhone = $("#mobile").val();
         this.model.datas.request.Gender = gender;

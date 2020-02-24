@@ -97,6 +97,15 @@
                     商品权益
                 </span>
             </ion-item>
+            <br />
+            <ion-item (click)="ShowFourBtn()" lines="none" detail style="padding:10px 6px;width:100%;background:#fff;font-size:16px;">
+                <span style="color:#000;margin-right:6px;">
+                    履约:
+                </span>
+                <span class="lab-selected" style="color:#a5a2a2;">
+                    商品履约
+                </span>
+            </ion-item>
         </ion-card>
 
         <!--商品概览-->
@@ -198,6 +207,36 @@
                 <section style="padding: 10px 10px 10px 30px;border: 1px solid #20303d;border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;">
                     <div *ngFor="let i of item.ProductRightses">
                         <div style="font-size:14px;color:#636669">{{i.RightsName}}</div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="div-btn">
+            <ion-button text="确定" (click)="CloseDialog()" style="width:100%;">确定</ion-button>
+        </div>
+    </div>
+    <!--商品履约-->
+    <div class="FourBtnDialog" style="display:none;">
+        <div class="div-content">
+            <h5 style="margin:0;padding-bottom:20px;font-weight:bold;">商品履约:</h5>
+            <div *ngFor="let item of model.datadetail.ProviderData" style="width:100%;margin-bottom:20px;">
+                <div style="padding: 15px 10px;width: 100%;font-size: 16px;background: #20303d; color:#fff;border-top-right-radius: 10px;border-top-left-radius: 10px;">
+                    <span>{{item.InstanceName}}</span>
+                </div>
+                <!--<div>{{item.PackageDesc}}</div>-->
+                <section style="padding:10px 30px;border: 1px solid #20303d;border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;">
+                    <div *ngFor="let i of item.InstanceParams" style="padding: 0px 15px;border: 1px solid #ccc;border-radius: 15px;margin-bottom: 10px;">
+                        <div *ngIf="i.EnumValues?.length > 0; then hasEnum else nonEnum"></div>
+                        <ng-template #hasEnum>
+                            <select id="{{item.InstanceCode}};{{i.Code}}" name="providerselect">
+                                <ng-container *ngFor="let enumval of i.EnumValues">
+                                    <option value="{{enumval.Value}}">{{enumval.Name}}</option>
+                                </ng-container>
+                            </select>
+                        </ng-template>
+                        <ng-template #nonEnum>
+                            <input id="{{item.InstanceCode}};{{i.Code}}" type="text" name="providertext" placeholder="{{i.Name}}" value="" style="width: 100%;border:0;line-height: 35px;" />
+                        </ng-template>
                     </div>
                 </section>
             </div>
