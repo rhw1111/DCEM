@@ -155,7 +155,7 @@ export class EditPage implements OnInit {
 
     //编辑绑定数据
     public pageOnBind(id: any) {
-        debugger;
+        //debugger;
         this._page.loadingShow();
         this._http.getForToaken(
             this.model.getApiUrl,
@@ -401,7 +401,7 @@ export class EditPage implements OnInit {
 
     //选择附件模式窗口 
     async presentFileModal(id: any) {
-        debugger;
+        //debugger;
         var fileInputArray = [];
         const modalWin = await this.modalCtrl.create({
             component: SelectFileEditComponent,
