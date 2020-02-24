@@ -5,8 +5,8 @@
         </ion-buttons>
         <ion-title>新增留资</ion-title>
         <ion-buttons slot="end">
-                <ion-menu-button></ion-menu-button>
-            </ion-buttons>
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
@@ -46,7 +46,8 @@
                         <h2>称&nbsp;&nbsp;呼:</h2>
                     </ion-label>
                     <ion-select name="gender" okText="确认" cancelText="取消" [(ngModel)]="model.info.gender">
-                        <ion-select-option *ngFor="let item of model.genderoption" value="{{item.value}}">{{item.name}}
+                        <ion-select-option *ngFor="let item of model.genderoption" value="{{item.value}}">
+                            {{item.name}}
                         </ion-select-option>
                     </ion-select>
                 </ion-item>
@@ -59,7 +60,8 @@
                 <ion-item>
                     <ion-label>评&nbsp;&nbsp;分<ion-text color="danger">*</ion-text>:</ion-label>
                     <ion-select name="score" okText="确认" cancelText="取消" [(ngModel)]="model.info.score">
-                        <ion-select-option *ngFor="let item of model.scoreoption" value="{{item.value}}">{{item.name}}
+                        <ion-select-option *ngFor="let item of model.scoreoption" value="{{item.value}}">
+                            {{item.name}}
                         </ion-select-option>
                     </ion-select>
                 </ion-item>
@@ -84,18 +86,24 @@
                     <ion-textarea [(ngModel)]="model.info.describe" name="describe"></ion-textarea>
                 </ion-item>
             </ion-card-content>
-        </ion-card> 
+        </ion-card>
         <ion-card>
             <ion-card-content>
                 <ion-list>
                     <ion-item-divider color="primary">
                         <ion-label>客户标签</ion-label>
                     </ion-item-divider>
-                    <ion-item *ngFor="let item of CustomerTagModel.CustomerTags">
-                        <ion-checkbox  color="{{item.customcolor}}" value="{{item.value}}" slot="start" (ionChange)="checkClick($event)" ></ion-checkbox>
-                        <ion-label slot="end">{{item.name}}</ion-label>
-                    </ion-item>
+
                 </ion-list>
+                <ul class="list">
+                    <li *ngFor="let item of CustomerTagModel.CustomerTags">
+                        <p (click)="chipClick(item.value)">
+                            <span [ngClass]="{'select':item.selected===true}">
+                                <label>{{item.name}}</label>
+                            </span>
+                        </p>
+                    </li>
+                </ul>
             </ion-card-content>
         </ion-card>
 
