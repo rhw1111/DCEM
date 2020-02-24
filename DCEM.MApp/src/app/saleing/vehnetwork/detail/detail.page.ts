@@ -332,7 +332,7 @@ export class DetailPage implements OnInit {
           this.mod.data.detail["mcs_opencardtime"] = res["Detail"]["Attributes"]["mcs_opencardtime"];
           this.mod.data.detail["mcs_deliveryon"] = res["Detail"]["Attributes"]["mcs_deliveryon"];
           this.mod.data.detail["rostatus"] = this._optionset.GetOptionSetNameByValue("mcs_rostatus", res["Detail"]["Attributes"]["rostatus"]);
-          this.mod.data.detail["ontactphone"] = res["Detail"]["Attributes"]["contactphone"];
+          this.mod.data.detail["contactphone"] = res["Detail"]["Attributes"]["contactphone"];
           this.mod.data.detail["contactname"] = res["Detail"]["Attributes"]["contactname"];
           this.mod.data.detail["idcard"] = res["Detail"]["Attributes"]["idcard"];
           this.mod.data.detail["orderon"] = res["Detail"]["Attributes"]["orderon"];
