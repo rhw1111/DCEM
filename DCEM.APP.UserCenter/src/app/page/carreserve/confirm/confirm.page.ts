@@ -1,11 +1,11 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { DCore_Http, DCore_Page } from '../../../../app/component/typescript/dcem.core';
+import { DCore_Http, DCore_Page, DCore_ShareData } from '../../../../app/component/typescript/dcem.core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-confirm',
-  templateUrl: './confirm.page.html',
-  styleUrls: ['./confirm.page.scss'],
+    selector: 'app-confirm',
+    templateUrl: './confirm.page.html',
+    styleUrls: ['./confirm.page.scss'],
 })
 export class ConfirmPage implements OnInit {
     public model: any = {
@@ -18,36 +18,44 @@ export class ConfirmPage implements OnInit {
         title: "确认订单信息",
         datas: {},
         checkedequitypackage: [],//选择权益包
-        checkedoptional:[]//选择选装包
+        checkedoptional: [],//选择选装包
+        shareDataKey: "smallbooking",
     };
     constructor(
         private _http: DCore_Http,
         private _page: DCore_Page,
         private routerinfo: ActivatedRoute,
+        private _shareData: DCore_ShareData
     ) { }
 
     ngOnInit() {
         //获取参数
-        var datastr = this.routerinfo.snapshot.queryParams["params"];
-        this.model.datas = JSON.parse(datastr);
-        var equitycode = this.model.datas.request.EquityCode;
-        var optionallist = this.model.datas.request.OptionalCode.split(';');
-        var checkedequitypackage = [];
-        var checkedoptional = [];
-        this.model.datas.smallbooking.equitypackagelist.forEach(item => {
-            if (item.EquityPackageInfo.mcs_code == equitycode) {
-                checkedequitypackage.push(item);
-            }
-        });
-        this.model.checkedequitypackage = checkedequitypackage;
-        for (var j = 0; j < optionallist.length - 1; j++) {
-            this.model.datas.smallbooking.optionallist.forEach(item => {
-                if (optionallist[j] == item.OptionalInfo.mcs_code) {
-                    checkedoptional.push(item);
+        //var datastr = this.routerinfo.snapshot.queryParams["params"];
+        //this.model.datas = JSON.parse(datastr);
+        if (this._shareData.has(this.model.shareDataKey)) {
+            this.model.datas = this._shareData.get(this.model.shareDataKey);
+            var equitycode = this.model.datas.request.EquityCode;
+            var optionallist = this.model.datas.request.OptionalCode.split(';');
+            var checkedequitypackage = [];
+            var checkedoptional = [];
+            this.model.datas.smallbooking.equitypackagelist.forEach(item => {
+                if (item.EquityPackageInfo.mcs_code == equitycode) {
+                    checkedequitypackage.push(item);
                 }
-            })
+            });
+            this.model.checkedequitypackage = checkedequitypackage;
+            for (var j = 0; j < optionallist.length - 1; j++) {
+                this.model.datas.smallbooking.optionallist.forEach(item => {
+                    if (optionallist[j] == item.OptionalInfo.mcs_code) {
+                        checkedoptional.push(item);
+                    }
+                })
+            }
+            this.model.checkedoptional = checkedoptional;
         }
-        this.model.checkedoptional = checkedoptional;
+        else {
+            this._page.goto("/carreserve/index");
+        }
     }
     //提交订单
     btnSubmit() {
@@ -83,6 +91,10 @@ export class ConfirmPage implements OnInit {
             }
         );
     }
+
+
+
+
     //生成订单号
     Gen(len) {
         len = len || 10;
