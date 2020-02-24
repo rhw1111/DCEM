@@ -165,7 +165,7 @@ export class FillinfoPage implements OnInit {
         if ($("#fullname").hasClass("is-danger") || $("#mobile").hasClass("is-danger")) {
             return false;
         }
-        var gender = 0;
+        var gender = 1;
         $("div.label-radio").each(function (i, item) {
             if ($(item).hasClass("active")) {
                 gender = parseInt($(item).children("input").val().toString());
