@@ -210,7 +210,8 @@ export class ListPage implements OnInit {
                     "price": res.price,
                     "integral": res.integral,
                     "img": res.img,
-                    "num": res.num
+                    "num": res.num,
+                    "ProviderParams": res.ProviderParams
                 });
                 if (i == 0) {
                     paymenttype = res.paymenttype;

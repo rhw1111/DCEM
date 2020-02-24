@@ -51,10 +51,11 @@ export class ListPage implements OnInit {
   ngOnInit() {
   }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
     this.menuController.enable(false);
     this.model.page = 1;
     this.model.systemUserId = this._logininfo.GetSystemUserId();
+    this.model.datalist = [];
     this.getList(null);
   }
 
@@ -71,7 +72,7 @@ export class ListPage implements OnInit {
 
   //下拉刷新
   doRefresh(event) {
-    debugger;
+    //debugger;
     this.model.datalist = [];
     this.model.page = 1;
     this.model.isending = false;

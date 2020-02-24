@@ -37,7 +37,7 @@ export class ListPage implements OnInit {
   ngOnInit() { 
   }
    
-  ionViewDidEnter(){
+  ionViewWillEnter(){
     // alert("先执行");
     this.listOnBind(null);
     this.menuController.enable(false);

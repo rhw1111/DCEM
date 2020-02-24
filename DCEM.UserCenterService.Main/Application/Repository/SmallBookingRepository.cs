@@ -111,7 +111,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository
         /// </summary>
         /// <param name="blindOrder"></param>
         /// <returns></returns>
-        public string QueryBlindOrder(string blindcode)
+        public string QueryBlindOrder(string premiumcode)
         {
             string str = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
               <entity name='mcs_blindorder'>
@@ -141,7 +141,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository
                 <order attribute='modifiedon' descending='true' />
                 <filter type='and'>
                   <condition attribute='statecode' operator='eq' value='0' />
-                  <condition attribute='mcs_name' operator='eq' value='{blindcode}' />
+                  <condition attribute='mcs_premiumcode' operator='eq' value='{premiumcode}' />
                 </filter>
               </entity>
             </fetch>";

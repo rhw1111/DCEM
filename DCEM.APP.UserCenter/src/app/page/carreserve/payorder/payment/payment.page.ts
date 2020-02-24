@@ -75,8 +75,15 @@ export class PaymentPage implements OnInit {
         var request = {
             "OrderCode": this.model.datas.OrderCode,
             "BlindOrder": this.model.datas.BlindOrder,
+            "PremiumCode": this.model.datas.PremiumCode,
             "TotalOrder": this.model.datas.TotalOrder,
-            "OrderStatus": this.model.datas.OrderStatus
+            "OrderStatus": this.model.datas.OrderStatus,//订单状态0-待支付、1-已支付、2-申请退订、3-已退订
+            "PaymentCode": this.model.datas.PaymentCode, //支付记录编码
+            "TransactionTime": this.model.datas.TransactionTime, //交易时间
+            "Transactionamount": this.model.datas.Transactionamount, //交易金额
+            "PaymentChannel": this.model.datas.PaymentChannel,// 支付渠道 0-储蓄卡、1-网上银行、2-微信、3-支付宝
+            "Spare5": this.model.datas.Spare5, //支付流水号
+            "Spare6": this.model.datas.Spare6
         };
 
         request.OrderStatus = 1;
@@ -113,6 +120,7 @@ export class PaymentPage implements OnInit {
                     handler: () => {
                         var param = {
                             "OrderCode": this.model.datas.OrderCode,
+                            "PremiumCode":this.model.datas.PremiumCode,
                             "mcs_smallorderid": this.model.datas.mcs_smallorderid
                         };
                         this._page.navigateRoot("/carreserve/payorder/success", { params: JSON.stringify(param) });

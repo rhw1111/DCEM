@@ -296,13 +296,24 @@ namespace DCEM.ServiceAssistantService.Main.Application
             {
                 vehownerGuid = Guid.Parse(vehownerJo.Value<string>("mcs_vehownerid"));
                 vehownerEntity.Id = vehownerGuid;
+
+                carserviceadvisorGuid = Guid.Parse(carserviceadvisorJo.Value<string>("mcs_carserviceadvisorid"));
+                carserviceadvisorEntity.Id = carserviceadvisorGuid;
             }
             if (vehownerJo.ContainsKey("mcs_fullname"))
+            {
                 vehownerEntity.Attributes.Add("mcs_fullname", vehownerJo.Value<string>("mcs_fullname"));
+                carserviceadvisorEntity.Attributes.Add("mcs_fullname", vehownerJo.Value<string>("mcs_fullname"));
+            }
             if (vehownerJo.ContainsKey("mcs_vehplate"))
+            {
                 vehownerEntity.Attributes.Add("mcs_vehplate", vehownerJo.Value<string>("mcs_vehplate"));
+            }
             if (vehownerJo.ContainsKey("mcs_mobilephone"))
+            {
                 vehownerEntity.Attributes.Add("mcs_mobilephone", vehownerJo.Value<string>("mcs_mobilephone"));
+                carserviceadvisorEntity.Attributes.Add("mcs_mobilephone", vehownerJo.Value<string>("mcs_mobilephone"));
+            }
             if (vehownerJo.ContainsKey("mcs_name"))
                 vehownerEntity.Attributes.Add("mcs_name", vehownerJo.Value<string>("mcs_name"));
             if (vehownerJo.ContainsKey("mcs_enginennumber"))
@@ -314,9 +325,15 @@ namespace DCEM.ServiceAssistantService.Main.Application
             if (vehownerJo.ContainsKey("_mcs_vehtype_value"))
                 vehownerEntity.Attributes.Add("mcs_vehtype", new CrmEntityReference("mcs_carmodel", Guid.Parse(vehownerJo.Value<string>("_mcs_vehtype_value"))));
             if (vehownerJo.ContainsKey("mcs_shuttlename"))
+            {
                 vehownerEntity.Attributes.Add("mcs_shuttlename", vehownerJo.Value<string>("mcs_shuttlename"));
+                carserviceadvisorEntity.Attributes.Add("mcs_shuttlename", vehownerJo.Value<string>("mcs_shuttlename"));
+            }
             if (vehownerJo.ContainsKey("mcs_shuttlephone"))
+            {
                 vehownerEntity.Attributes.Add("mcs_shuttlephone", vehownerJo.Value<string>("mcs_shuttlephone"));
+                carserviceadvisorEntity.Attributes.Add("mcs_shuttlephone", vehownerJo.Value<string>("mcs_shuttlephone"));
+            }
 
 
             if (actionCode == 1)
@@ -332,6 +349,7 @@ namespace DCEM.ServiceAssistantService.Main.Application
             else
             {
                 await _crmService.Update(vehownerEntity, null);
+                await _crmService.Update(carserviceadvisorEntity, null);
             }
 
             #region 组装数据返回

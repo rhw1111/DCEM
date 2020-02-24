@@ -46,6 +46,38 @@ ion-row {
     }
 }
 
+.ThreeBtnDialog {
+    position: fixed;
+    width: 100%;
+    height: auto;
+    bottom: 0;
+    z-index: 1000;
+    background-color: white;
+    border-radius: 10px 10px 0 0;
+
+    .div-content {
+        padding: 20px;
+        /*display: flex;
+        justify-content: flex-start;*/
+    }
+}
+
+.FourBtnDialog {
+    position: fixed;
+    width: 100%;
+    height: auto;
+    bottom: 0;
+    z-index: 1000;
+    background-color: white;
+    border-radius: 10px 10px 0 0;
+
+    .div-content {
+        padding: 20px;
+        /*display: flex;
+        justify-content: flex-start;*/
+    }
+}
+
 .shade {
     position: fixed;
     top: 0%;

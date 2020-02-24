@@ -17,7 +17,7 @@ export class ListPage implements OnInit {
             opack: "-1",
             pageSize: 10,//页数
             page: 1,//分页
-            mcstype: 10//精品
+            mcstype: 0//1:整车;2:整车选装件;3:充电桩/枪;4:备件;7:业务办理;8:施工;10:精品;11:服务产品;
         },
         datalist: [],//数据集合
         isending: false,//是否加载完成
@@ -31,6 +31,7 @@ export class ListPage implements OnInit {
     private id
     ngOnInit() {
         this.id = this.routerinfo.snapshot.queryParams["id"];
+        this.model.search.mcstype = this.id;
         this.initListLoading();
     }
     //下拉刷新

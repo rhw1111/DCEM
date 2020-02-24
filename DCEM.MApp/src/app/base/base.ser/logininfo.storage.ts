@@ -99,7 +99,8 @@ export class Storage_LoginInfo {
             if (data.rolenames.indexOf('系统管理员') != -1) {
                 result = true;
             }
-            else if (data.rolenames.indexOf('厅店销售机会跟进人员') != -1) {
+            else if (data.rolenames.indexOf('厅店销售机会跟进人员') != -1
+        || data.rolenames.indexOf('厅店销售机会管理人员') != -1) {
                 result = true;
             }
         }

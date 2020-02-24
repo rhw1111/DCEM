@@ -2,7 +2,7 @@
 import { NavController, IonContent, IonInfiniteScroll, ModalController } from '@ionic/angular';
 import { DatePipe } from '@angular/common';
 import { DCore_Http, DCore_Page, DCore_Valid } from 'app/base/base.ser/Dcem.core';
-
+import { Storage_LoginInfo } from 'app/base/base.ser/logininfo.storage';
 @Component({
     selector: 'app-select-repairitem',
     templateUrl: './select-repairitem.component.html',
@@ -25,7 +25,8 @@ export class SelectRepairitemComponent implements OnInit {
         private _http: DCore_Http,
         private _page: DCore_Page,
         private _valid: DCore_Valid,
-        private _modalCtrl: ModalController
+        private _modalCtrl: ModalController,
+        private _userinfo: Storage_LoginInfo,
     ) {
         this.mod.apiUrl = "/Api/Serviceproxy/GetRepairitemList";
     }
@@ -70,7 +71,8 @@ export class SelectRepairitemComponent implements OnInit {
             {
                 params: {
                     pageindex: this.mod.searchData.pageindex,
-                    search: this.mod.searchData.search
+                    search: this.mod.searchData.search,
+                    dealeridGuid:this._userinfo.GetDealerid()
                 }
             },
             (res: any) => {

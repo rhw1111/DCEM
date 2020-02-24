@@ -29,22 +29,21 @@ namespace DCEM.Main.Entities.Request.OrderManager
     /// </summary>
     public class CancelOrderRequest
     {
-        /// <summary>
-        /// 用户Id
-        /// </summary>
-        [JsonProperty("userId")]
-        public string UserId { get; set; }
+        ///// <summary>
+        ///// 用户Id
+        ///// </summary>
+        //[JsonProperty("userId")]
+        //public string UserId { get; set; }
 
         /// <summary>
         /// 综合订单编号
         /// </summary>
-        [JsonProperty("orderCode")]
         public string OrderCode { get; set; }
 
-        /// <summary>
-        /// 取消原因
-        /// </summary>
-        [JsonProperty("cancelReason")]
-        public string CancelReason { get; set; }
+        ///// <summary>
+        ///// 取消原因
+        ///// </summary>
+        //[JsonProperty("cancelReason")]
+        //public string CancelReason { get; set; }
     }
 }

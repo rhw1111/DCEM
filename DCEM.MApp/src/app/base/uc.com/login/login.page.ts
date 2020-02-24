@@ -35,62 +35,63 @@ export class LoginPage implements OnInit {
     };
 
     //每次进入页面时，我们将初始化禁用侧滑菜单
-    ionViewDidEnter() {   
+    ionViewWillEnter() {   
         this.menuCtrl.enable(false);
     }
     // 初始化
     ngOnInit() {
         // 加入测试参数
-        // this.mod.username = 'subdevcrmadmin';
-        // this.mod.password = 'password01#';
-
-        // this.mod.username = 'crm9admin';
-        // this.mod.password = '@Msc.com@';
-
-        this.mod.username = 'crm9admin';
-        this.mod.password = '@Msc.com@';
+        this.mod.username = '';
+        this.mod.password = '';
 
         this.mod.apiurl = '/api/User/GetAuthToken';
         this.mod.domainType = 'localhost';
-        //var welcomeisloading= this._window.storageGet("welcomeisloading");
-        //if(welcomeisloading==null || welcomeisloading==""){
-        //    this._window.storageSet("welcomeisloading","true");
-        //}
+        var welcomeisloading= this._window.storageGet("welcomeisloading");
+        if(welcomeisloading==null || welcomeisloading==""){
+           this._window.storageSet("welcomeisloading","true");
+        }
     }
 
     // 提交
     submit() {
         if (this.mod.username.length <= 0) {
-            this._page.alert('消息提示', '请输入手机号码');
+            this._page.alert('消息提示', '请输入登录名');
             return;
         }
         if (this.mod.password.length <= 0) {
             this._page.alert('消息提示', '请输入密码');
             return;
         }
-
+       
         switch (this.mod.domainType) {
             case 'Dev':
                 this.mod.domain = "https://subcrmdevapi.sokon.com/dcem";
+                this.mod.domainType = 'Dev';
                 break;
             case 'CRM9.0':
                 this.mod.domain = "http://106.14.121.65:8082/dcem";
+                this.mod.domainType = 'CRM9.0';
                 break;
             case 'Uat':
                 this.mod.domain = "https://subcrmuatapi.sokon.com/dcem";
+                this.mod.domainType = 'Uat';
                 break;
             case 'Pro':
                 this.mod.domain = "https://mscrm.sokon.com/dcem";
+                this.mod.domainType = 'Pro';
                 break;
             case 'localhost':
                 this.mod.domain = "https://localhost:44382";
+                this.mod.domainType = 'localhost';
                 break;
             default:
-                this.mod.domain = "http://localhost:52151";
+                this.mod.domain = "https://localhost:52151";
+                this.mod.domainType = 'default';
                 break;
         }
 
         this._window.storageSet("apiDomainUrl", this.mod.domain);
+        this._window.storageSet("apiDomainType", this.mod.domainType);
 
         this._page.loadingShow();
         

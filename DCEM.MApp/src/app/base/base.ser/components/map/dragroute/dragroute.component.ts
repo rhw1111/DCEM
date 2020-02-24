@@ -35,12 +35,14 @@ export class DragrouteComponent implements OnInit {
     }); 
     //绘制初始路径
     var path = []; 
-    path.push([this.model.startlongitude, this.model.startlatitude]);
-    path.push([this.model.endlongitude, this.model.endlatitude]);
+    path.push([this.model.startlatitude, this.model.startlongitude]);
+    path.push([this.model.endlatitude, this.model.endlongitude]);
+    console.log(path);
     map.plugin("AMap.DragRoute", function () {
       route = new AMap.DragRoute(map, path, AMap.DrivingPolicy.LEAST_FEE); //构造拖拽导航类
       route.search(); //查询导航路径并开启拖拽导航
     });
+    console.log("结束");
   }
   dismissModal() {
     this.modalCtrl.dismiss({

@@ -5,6 +5,8 @@ using DCEM.Main.Entities.Request.Payment;
 using DCEM.Main.Entities.Response.OrderManager;
 using DCEM.Main.Entities.TCenter.MktCloud;
 using DCEM.Main.Response;
+using MSLibrary;
+using MSLibrary.Xrm;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -58,6 +60,14 @@ namespace DCEM.Main.RemoteService
         /// <param name="request"></param>
         /// <returns></returns>
         Task<Product> QueryNewProductByCode(string productCode);
+
+        /// <summary>
+        ///  综合订单取消
+        /// </summary>
+        /// <param name="mcs_name"></param>
+        /// <param name="mcs_paystatus"></param>
+        /// <returns></returns>
+        Task<ValidateResult<CrmEntity>> CancelOrder(CancelOrderRequest cancelOrder);
 
         /// <summary>
         /// 商品全量查询--优化后方法

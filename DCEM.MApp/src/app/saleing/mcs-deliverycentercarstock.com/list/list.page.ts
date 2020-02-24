@@ -40,13 +40,13 @@ export class ListPage implements OnInit {
     }
 
     //每次页面加载
-    ionViewDidEnter() {
+    ionViewWillEnter() {
         this.menuController.enable(false);
     }
 
 
     //每次页面加载
-    //ionViewDidEnter() {
+    //ionViewWillEnter() {
     //    this.mod.searchData = {
     //        pageindex: 1,
     //        search: ""

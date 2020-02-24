@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { DCore_Http, DCore_Page } from '../../../../app/component/typescript/dcem.core';
+import { DCore_Http, DCore_Page, DCore_ShareData } from '../../../../app/component/typescript/dcem.core';
 import { ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { Storage_LoginInfo } from '../../../component/typescript/logininfo.storage';
@@ -41,6 +41,7 @@ export class FillinfoPage implements OnInit {
             areaname: "",
             describe: ""
         },
+        shareDataKey: "smallbooking",
     };
     constructor(
         private _logininfo: Storage_LoginInfo,
@@ -48,6 +49,7 @@ export class FillinfoPage implements OnInit {
         private _page: DCore_Page,
         private _modalCtrl: ModalController,
         private routerinfo: ActivatedRoute,
+        private _shareData: DCore_ShareData
     ) { }
 
     ngOnInit() {
@@ -56,7 +58,7 @@ export class FillinfoPage implements OnInit {
         this.model.datas = JSON.parse(datastr);
     }
     ionViewWillEnter() {
-        this.initListLoading();
+        //this.initListLoading();
     }
     //初始化页面数据加载
     initListLoading() {
@@ -67,7 +69,7 @@ export class FillinfoPage implements OnInit {
     async checkLoginAndTurn(url) {
         if ($("#blindorder").val() == "") {
             if (this._logininfo.GetNickName() != null) {
-                this._page.goto(url);
+                //this._page.goto(url);
             } else {
                 const modal = await this._modalCtrl.create({
                     component: LoginComponent,
@@ -90,7 +92,7 @@ export class FillinfoPage implements OnInit {
             "mcs_mobilephone": mobile,
             "mcs_premiumcodestatus":0
         };
-        this._http.get(this.model.search.apiUrl + "?mcs_mobilephone=" + mobile + "&mcs_premiumcodestatus=0" ,
+        this._http.postForToaken(this.model.search.apiUrl,
             request,
             (res: any) => {
                 if (res != null && res.Results.length > 0) {
@@ -184,14 +186,16 @@ export class FillinfoPage implements OnInit {
             $("#blindorder").attr("style", "border-color:red;")
             return false;
         }
-        this.model.datas.request.BlindOrder = this.model.blindorder;
+        this.model.datas.request.PremiumCode =blindorder;
         this.model.datas.request.FullName = $("#fullname").val();
         this.model.datas.request.MobilePhone = $("#mobile").val();
         this.model.datas.request.Gender = gender;
         this.model.datas.request.CityOnCard = province;
         this.model.datas.request.ProvinceOnCard = city;
         this.model.datas.request.UserId = this._logininfo.GetSystemUserId();
-        this._page.goto("/carreserve/confirm", { params: JSON.stringify(this.model.datas) });
+        this._shareData.set(this.model.shareDataKey, this.model.datas);
+        //this._page.goto("/carreserve/confirm", { params: JSON.stringify(this.model.datas) });
+        this._page.goto("/carreserve/confirm");
     }
     //获取省组件
     async provinceModal() {

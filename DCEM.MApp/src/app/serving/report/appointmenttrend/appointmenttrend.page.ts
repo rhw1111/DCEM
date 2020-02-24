@@ -16,7 +16,7 @@ export class AppointmenttrendPage implements OnInit {
   ngOnInit() {
   }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
     this.menuController.enable(true);
     
     const ec = echarts as any;

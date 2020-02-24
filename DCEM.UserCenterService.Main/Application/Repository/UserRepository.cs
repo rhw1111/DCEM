@@ -307,7 +307,7 @@ namespace DCEM.UserCenterService.Main.Application.Repository
     <attribute name='mcs_integraltype' />
     <attribute name='mcs_num' />
     <attribute name='overriddencreatedon' />
-    <order attribute='mcs_name' descending='false' />
+    <order attribute='createdon' descending='true' />
     <link-entity name='mcs_member' from='mcs_memberid' to='mcs_memberid' link-type='inner' alias='am'>
       <link-entity name='mcs_user' from='mcs_memberid' to='mcs_memberid' link-type='inner' alias='an'>
         <filter type='and'>

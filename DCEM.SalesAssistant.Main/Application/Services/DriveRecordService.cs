@@ -87,32 +87,35 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                         {
                             //获取试驾明细
                             var detail = GetDetail((Guid)request.driveRecord.mcs_driverecordid);
-                            //用户获取
-                            fetchString = _driveRecordRepository.GetUser(detail.Result.Detail.Attributes["mcs_userid"].ToString());
-                            fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                            if (detail!=null&& detail.Result.Detail.Attributes.ContainsKey("mcs_userid"))
                             {
-                                EntityName = "mcs_user",
-                                FetchXml = fetchString,
-                                ProxyUserId = userInfo?.systemuserid
-                            };
-                            fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
-                            fetchResponse = await _crmService.Execute(fetchRequest);
-                            var responseUser = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
-                            if (responseUser.Value.Results.Count > 0)//判断试驾用户信息是否存在
-                            {
-                                var obj = JsonConvert.DeserializeObject<DriveRecordEndSendMsg>(fetchResponseResult.Value.Results[0].Attributes["mcs_val"].ToString());
-                                var createUsermsgEntity = new CrmExecuteEntity("mcs_user_msg", Guid.NewGuid());
+                                //用户获取
+                                fetchString = _driveRecordRepository.GetUser(detail.Result.Detail.Attributes["mcs_userid"].ToString());
+                                fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                                {
+                                    EntityName = "mcs_user",
+                                    FetchXml = fetchString,
+                                    ProxyUserId = userInfo?.systemuserid
+                                };
+                                fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                                fetchResponse = await _crmService.Execute(fetchRequest);
+                                var responseUser = fetchResponse as CrmRetrieveMultipleFetchResponseMessage;
+                                if (responseUser.Value.Results.Count > 0)//判断试驾用户信息是否存在
+                                {
+                                    var obj = JsonConvert.DeserializeObject<DriveRecordEndSendMsg>(fetchResponseResult.Value.Results[0].Attributes["mcs_val"].ToString());
+                                    var createUsermsgEntity = new CrmExecuteEntity("mcs_user_msg", Guid.NewGuid());
 
-                                createUsermsgEntity.Attributes.Add("mcs_name", obj.mcs_name);
-                                createUsermsgEntity.Attributes.Add("mcs_content", obj.mcs_content);
-                                createUsermsgEntity.Attributes.Add("mcs_type", 2);
-                                createUsermsgEntity.Attributes.Add("mcs_readstatus", 0);
-                                var mcs_url = string.Format(obj.mcs_url, responseUser.Value.Results[0].Attributes["mcs_code"], detail.Result.Detail.Attributes["mcs_name"]);
-                                createUsermsgEntity.Attributes.Add("mcs_url", mcs_url);
-                                var UserEntityEF = new CrmEntityReference("mcs_user", responseUser.Value.Results[0].Id);
-                                createUsermsgEntity.Attributes.Add("mcs_user", UserEntityEF);
-                                await _crmService.Create(createUsermsgEntity, userInfo?.systemuserid);
+                                    createUsermsgEntity.Attributes.Add("mcs_name", obj.mcs_name);
+                                    createUsermsgEntity.Attributes.Add("mcs_content", obj.mcs_content);
+                                    createUsermsgEntity.Attributes.Add("mcs_type", 2);
+                                    createUsermsgEntity.Attributes.Add("mcs_readstatus", 0);
+                                    var mcs_url = string.Format(obj.mcs_url, responseUser.Value.Results[0].Attributes["mcs_code"], detail.Result.Detail.Attributes["mcs_name"]);
+                                    createUsermsgEntity.Attributes.Add("mcs_url", mcs_url);
+                                    var UserEntityEF = new CrmEntityReference("mcs_user", responseUser.Value.Results[0].Id);
+                                    createUsermsgEntity.Attributes.Add("mcs_user", UserEntityEF);
+                                    await _crmService.Create(createUsermsgEntity, userInfo?.systemuserid);
 
+                                }
                             }
                         }
                     }

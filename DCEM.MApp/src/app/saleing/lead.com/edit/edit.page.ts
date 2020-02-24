@@ -44,7 +44,7 @@ export class EditPage implements OnInit {
             describe: "",
             userid: this._userinfo.GetSystemUserId(),
             dealerid: this._userinfo.GetDealerid(),
-            behaviorcode:"visiting_the_store"//用户行为编码
+            behaviorcode: "visiting_the_store"//用户行为编码
 
         }
     }
@@ -57,27 +57,57 @@ export class EditPage implements OnInit {
     ngOnInit() {
     }
 
-    ionViewDidEnter() {
+    ionViewWillEnter() {
         this.model.scoreoption = this._optionset.Get("lead_mcs_accountpoints");
         this.model.genderoption = this._optionset.Get("lead_mcs_gender");
         this.model.leadoriginoption = this._optionset.Get("lead_mcs_leadorigin");
         this.getcustomertag();
     }
 
-    //客户标签点击事件
-    checkClick(event) {
-        var checkstatus = event.detail.checked;
-        var id = event.detail.value;
-        if (checkstatus) {
-            var index = this.model.ChoiceTag.indexOf(id);
+
+    chipClick(tagid) {
+
+        var selectitem = {};
+
+        for (var x in this.CustomerTagModel.CustomerTags) {
+            var id = this.CustomerTagModel.CustomerTags[x]["value"];
+            var name = this.CustomerTagModel.CustomerTags[x]["name"];
+            if (id == tagid) {
+                selectitem = this.CustomerTagModel.CustomerTags[x];
+                break;
+            }
+        }
+        if (selectitem["selected"] == true) {
+            selectitem["selected"] = false;
+            var index = this.model.ChoiceTag.indexOf(tagid);
+            this.model.ChoiceTag.splice(index, 1);
+        }
+        else {
+            selectitem["selected"] = true;
+            var index = this.model.ChoiceTag.indexOf(tagid);
             if (index < 0) {
                 this.model.ChoiceTag.push(id);
             }
         }
-        else {
-            var index = this.model.ChoiceTag.indexOf(id);
-            this.model.ChoiceTag.splice(index, 1)
-        }
+
+
+
+    }
+
+    //客户标签点击事件
+    checkClick(event) {
+        //var checkstatus = event.detail.checked;
+        //var id = event.detail.value;
+        //if (checkstatus) {
+        //    var index = this.model.ChoiceTag.indexOf(id);
+        //    if (index < 0) {
+        //        this.model.ChoiceTag.push(id);
+        //    }
+        //}
+        //else {
+        //    var index = this.model.ChoiceTag.indexOf(id);
+        //    this.model.ChoiceTag.splice(index, 1)
+        //}
     }
 
     //获取客户标签
@@ -93,6 +123,7 @@ export class EditPage implements OnInit {
                     var obj = {};
                     obj["name"] = attr["mcs_name"];
                     obj["value"] = attr["mcs_tagid"];
+                    obj["selected"] = false;
                     if (colorindex == this.CustomerTagModel.CustomColor.length - 1) {
                         colorindex = 0;
                     }
@@ -233,7 +264,7 @@ export class EditPage implements OnInit {
             this._page.alert("消息提示", "请选择评分");
             return;
         }
-        var tagName = this.model.info.describe==""?this.model.info.describe + "客户标签：":this.model.info.describe + ", 客户标签：";
+        var tagName = this.model.info.describe == "" ? this.model.info.describe + "客户标签：" : this.model.info.describe + ", 客户标签：";
         for (var i in this.model.ChoiceTag) {
             var tagid = this.model.ChoiceTag[i];
             for (var x in this.CustomerTagModel.CustomerTags) {
@@ -246,7 +277,7 @@ export class EditPage implements OnInit {
             }
         }
         this.model.info.describe = tagName;
-        this.model.info.gender=parseInt(this.model.info.gender);
+        this.model.info.gender = parseInt(this.model.info.gender);
         this._page.loadingShow();
         this._http.postForToaken(
             this.model.apiUrl,
