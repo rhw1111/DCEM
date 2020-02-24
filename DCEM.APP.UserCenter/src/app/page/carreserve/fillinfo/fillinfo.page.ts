@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { DCore_Http, DCore_Page } from '../../../../app/component/typescript/dcem.core';
+import { DCore_Http, DCore_Page, DCore_ShareData } from '../../../../app/component/typescript/dcem.core';
 import { ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { Storage_LoginInfo } from '../../../component/typescript/logininfo.storage';
@@ -41,6 +41,7 @@ export class FillinfoPage implements OnInit {
             areaname: "",
             describe: ""
         },
+        shareDataKey: "smallbooking",
     };
     constructor(
         private _logininfo: Storage_LoginInfo,
@@ -48,6 +49,7 @@ export class FillinfoPage implements OnInit {
         private _page: DCore_Page,
         private _modalCtrl: ModalController,
         private routerinfo: ActivatedRoute,
+        private _shareData: DCore_ShareData
     ) { }
 
     ngOnInit() {
@@ -191,7 +193,9 @@ export class FillinfoPage implements OnInit {
         this.model.datas.request.CityOnCard = province;
         this.model.datas.request.ProvinceOnCard = city;
         this.model.datas.request.UserId = this._logininfo.GetSystemUserId();
-        this._page.goto("/carreserve/confirm", { params: JSON.stringify(this.model.datas) });
+        this._shareData.set(this.model.shareDataKey, this.model.datas);
+        //this._page.goto("/carreserve/confirm", { params: JSON.stringify(this.model.datas) });
+        this._page.goto("/carreserve/confirm");
     }
     //获取省组件
     async provinceModal() {
