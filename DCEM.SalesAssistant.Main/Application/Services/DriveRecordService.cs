@@ -77,8 +77,8 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                         var fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                         {
                             EntityName = "mcs_cepconfig",
-                            FetchXml = fetchString,
-                            ProxyUserId = userInfo?.systemuserid
+                            FetchXml = fetchString
+                            //ProxyUserId = userInfo?.systemuserid
                         };
                         fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
                         var fetchResponse = await _crmService.Execute(fetchRequest);
@@ -94,8 +94,8 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                                 fetchRequest = new CrmRetrieveMultipleFetchRequestMessage()
                                 {
                                     EntityName = "mcs_user",
-                                    FetchXml = fetchString,
-                                    ProxyUserId = userInfo?.systemuserid
+                                    FetchXml = fetchString
+                                    //ProxyUserId = userInfo?.systemuserid
                                 };
                                 fetchRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
                                 fetchResponse = await _crmService.Execute(fetchRequest);
@@ -113,7 +113,7 @@ namespace DCEM.SalesAssistant.Main.Application.Services
                                     createUsermsgEntity.Attributes.Add("mcs_url", mcs_url);
                                     var UserEntityEF = new CrmEntityReference("mcs_user", responseUser.Value.Results[0].Id);
                                     createUsermsgEntity.Attributes.Add("mcs_user", UserEntityEF);
-                                    await _crmService.Create(createUsermsgEntity, userInfo?.systemuserid);
+                                    await _crmService.Create(createUsermsgEntity);
 
                                 }
                             }
