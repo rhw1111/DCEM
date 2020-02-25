@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { DCore_Http, DCore_Page } from '../../../../app/component/typescript/dcem.core';
+import { DCore_Http, DCore_Page, DCore_ShareData } from '../../../../app/component/typescript/dcem.core';
 import { ActivatedRoute } from '@angular/router';
 import { Storage_LoginInfo } from '../../../component/typescript/logininfo.storage';
 import { ModalController } from '@ionic/angular';
@@ -7,9 +7,9 @@ import { LoginComponent } from '../../../component/modal/login/login.component'
 import * as $ from 'jquery';
 
 @Component({
-  selector: 'app-index',
-  templateUrl: './index.page.html',
-  styleUrls: ['./index.page.scss'],
+    selector: 'app-index',
+    templateUrl: './index.page.html',
+    styleUrls: ['./index.page.scss'],
 })
 export class IndexPage implements OnInit {
     public model: any = {
@@ -23,13 +23,14 @@ export class IndexPage implements OnInit {
         equitypackagelist: [],//权益项
         checkedequitypackagecode: "",//选中权益包编码
         checkedequitypackageid: "",//选中权益包id
-        checkedequitypackagename:"",//选中权益包名称
+        checkedequitypackagename: "",//选中权益包名称
         optionallist: [],//选装包
         checkedoptionalcode: "",//选中选装包编码
         checkedoptionalid: "",//选中选装包id
-        checkedoptionalname:"",//选中选装包名称
+        checkedoptionalname: "",//选中选装包名称
         totalprice: 0,//订单总金额
-        radioprice:0,
+        radioprice: 0,
+        shareDataIndexKey: "carreserveIndex"
     };
     constructor(
         private _logininfo: Storage_LoginInfo,
@@ -37,6 +38,7 @@ export class IndexPage implements OnInit {
         private _page: DCore_Page,
         private routerinfo: ActivatedRoute,
         private _modalCtrl: ModalController,
+        private _shareData: DCore_ShareData
     ) { }
 
     ngOnInit() {
@@ -153,7 +155,7 @@ export class IndexPage implements OnInit {
         if (this.model.totalprice != 0) {
             $(".index-toolbar-button").removeClass("is-disabled").removeAttr("disabled");
         } else {
-            $(".index-toolbar-button").addClass("is-disabled").attr("disabled","disabled");
+            $(".index-toolbar-button").addClass("is-disabled").attr("disabled", "disabled");
         }
     }
     //确认
@@ -172,7 +174,7 @@ export class IndexPage implements OnInit {
                     "optionallist": this.model.optionallist
                 },
                 "request": {
-                    "UserId":"",
+                    "UserId": "",
                     "FullName": "",
                     "MobilePhone": "",
                     "OrderCode": "",// 小订订单编号
@@ -213,7 +215,11 @@ export class IndexPage implements OnInit {
                     "Spare7": ""
                 }
             }
-            this._page.goto("/carreserve/fillinfo", { params: JSON.stringify(params) });
+
+            this._shareData.set(this.model.shareDataIndexKey, this.model.datas);
+            this._page.goto("/carreserve/fillinfo");
+            //this._page.goto("/carreserve/fillinfo", { params: JSON.stringify(params) });
+
         } else {
             const modal = await this._modalCtrl.create({
                 component: LoginComponent,
