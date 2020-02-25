@@ -8,7 +8,7 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using PALibrary.PAEntityExtensions;
 
-namespace PALibrary.Entities
+namespace PALibrary.PAEntityExtensions
 {
     /// <summary>
     /// PAEntity的快捷查询辅助类

@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PALibrary.Entities
-{
+namespace PALibrary
+{ 
     /// <summary>
     /// PA解决方案信息
     /// 负责解决方案的相关静态信息的存取

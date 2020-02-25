@@ -10,16 +10,16 @@ namespace MSLibrary.AspNet.Middleware.Application
     [Injection(InterfaceType = typeof(IAppGetOutputStreamReplaceExcludePaths), Scope = InjectionScope.Singleton)]
     public class AppGetOutputStreamReplaceExcludePaths : IAppGetOutputStreamReplaceExcludePaths
     {
-        private SystemConfigurationRepositoryHelper _systemConfigurationRepositoryHelper;
+        private ISystemConfigurationRepositoryCacheProxy _systemConfigurationRepositoryCacheProxy;
 
-        public AppGetOutputStreamReplaceExcludePaths(SystemConfigurationRepositoryHelper systemConfigurationRepositoryHelper)
+        public AppGetOutputStreamReplaceExcludePaths(ISystemConfigurationRepositoryCacheProxy systemConfigurationRepositoryCacheProxy)
         {
-            _systemConfigurationRepositoryHelper = systemConfigurationRepositoryHelper;
+            _systemConfigurationRepositoryCacheProxy = systemConfigurationRepositoryCacheProxy;
         }
 
         public async Task<List<string>> Do()
         {
-            var configuration = _systemConfigurationRepositoryHelper.QueryByName(SystemConfigurationNamesForAspNetMA.OutputStreamReplaceExcludePaths);
+            var configuration = _systemConfigurationRepositoryCacheProxy.QueryByName(SystemConfigurationNamesForAspNetMA.OutputStreamReplaceExcludePaths);
             var excludePaths = configuration.GetConfigurationValue<List<string>>();
 
             if (excludePaths == null)
