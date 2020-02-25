@@ -2678,4 +2678,25 @@ namespace MSLibrary
     {
         public const string Catch = "Catch";
     }
+
+    /// <summary>
+    /// KV缓存类型集合
+    /// </summary>
+    public static class KVCacheTypes
+    {
+        /// <summary>
+        /// 本地超时
+        /// </summary>
+        public const string LocalTimeout = "LocalTimeout";
+        /// <summary>
+        /// 本地版本号
+        /// </summary>
+        public const string LocalVersion = "LocalVersion";
+        /// <summary>
+        /// 组合
+        /// </summary>
+        public const string Combination = "Combination";
+
+    }
+
 }

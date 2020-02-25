@@ -42,6 +42,7 @@ export class FillinfoPage implements OnInit {
             describe: ""
         },
         shareDataKey: "smallbooking",
+        shareDataIndexKey: "carreserveIndex"
     };
     constructor(
         private _logininfo: Storage_LoginInfo,
@@ -54,8 +55,15 @@ export class FillinfoPage implements OnInit {
 
     ngOnInit() {
         //获取参数
-        var datastr = this.routerinfo.snapshot.queryParams["params"];
-        this.model.datas = JSON.parse(datastr);
+        if (this._shareData.has(this.model.shareDataIndexKey)) {
+            this.model.datas = this._shareData.get(this.model.shareDataIndexKey);
+        }
+        else {
+            this._page.goto("/carreserve/index");
+        }
+
+        //var datastr = this.routerinfo.snapshot.queryParams["params"];
+        //this.model.datas = JSON.parse(datastr);
     }
     ionViewWillEnter() {
         //this.initListLoading();

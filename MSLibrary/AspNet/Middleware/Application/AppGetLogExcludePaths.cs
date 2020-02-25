@@ -10,16 +10,16 @@ namespace MSLibrary.AspNet.Middleware.Application
     [Injection(InterfaceType = typeof(IAppGetLogExcludePaths), Scope = InjectionScope.Singleton)]
     public class AppGetLogExcludePaths : IAppGetLogExcludePaths
     {
-        private SystemConfigurationRepositoryHelper _systemConfigurationRepositoryHelper;
+        private ISystemConfigurationRepositoryCacheProxy _systemConfigurationRepositoryCacheProxy;
 
-        public AppGetLogExcludePaths(SystemConfigurationRepositoryHelper systemConfigurationRepositoryHelper)
+        public AppGetLogExcludePaths(ISystemConfigurationRepositoryCacheProxy systemConfigurationRepositoryCacheProxy)
         {
-            _systemConfigurationRepositoryHelper = systemConfigurationRepositoryHelper;
+            _systemConfigurationRepositoryCacheProxy = _systemConfigurationRepositoryCacheProxy;
         }
 
         public async Task<List<string>> Do()
         {
-            var configuration=_systemConfigurationRepositoryHelper.QueryByName(SystemConfigurationNamesForAspNetMA.LogExcludePaths);
+            var configuration= _systemConfigurationRepositoryCacheProxy.QueryByName(SystemConfigurationNamesForAspNetMA.LogExcludePaths);
             var excludePaths=configuration.GetConfigurationValue<List<string>>();
 
             if (excludePaths==null)

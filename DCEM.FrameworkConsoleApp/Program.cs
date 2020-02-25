@@ -30,6 +30,10 @@ namespace DCEM.FrameworkConsoleApp
     {
         static void Main(string[] args)
         {
+            NC.Length = 700;
+            NC nc = new NC();
+
+
             var service1=Service1Factory.Get();
             service1.Do();
             var v1=TF1.Get();
@@ -332,5 +336,13 @@ namespace DCEM.FrameworkConsoleApp
                 SetAttribute<TestModel>("M", value);
             }
         }
+    }
+
+    public class NC
+    {
+        public static int Max { get; set; } = 100;
+        public static int Length { get; set; } = 200;
+
+        public string Value { get; set; } = string.Format(@"{{Max={0},Length={1}}}", Max.ToString(), Length.ToString());
     }
 }

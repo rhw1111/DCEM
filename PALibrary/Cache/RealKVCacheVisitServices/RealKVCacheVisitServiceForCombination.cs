@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
-using MSLibrary.DI;
-using MSLibrary.Serializer;
+using PALibrary.Thread;
+using PALibrary.Serializer;
 
-namespace MSLibrary.Cache.RealKVCacheVisitServices
+namespace PALibrary.Cache.RealKVCacheVisitServices
 {
     /// <summary>
     /// 基于组合的KV缓存访问服务
@@ -17,7 +18,6 @@ namespace MSLibrary.Cache.RealKVCacheVisitServices
     ///     "VistorNames":[访问者名称1，访问者名称2,...]
     /// }
     /// </summary>
-    [Injection(InterfaceType = typeof(RealKVCacheVisitServiceForCombination), Scope = InjectionScope.Singleton)]
     public class RealKVCacheVisitServiceForCombination : IRealKVCacheVisitService
     {
 
@@ -26,28 +26,6 @@ namespace MSLibrary.Cache.RealKVCacheVisitServices
         public RealKVCacheVisitServiceForCombination(IKVCacheVisitorRepositoryCacheProxy kvCacheVisitorRepositoryCacheProxy)
         {
             _kvCacheVisitorRepositoryCacheProxy = kvCacheVisitorRepositoryCacheProxy;
-        }
-
-        public async Task<V> Get<K, V>(string cacheConfiguration, Func<Task<V>> creator, string prefix, K key)
-        {
-            var configuration = JsonSerializerHelper.Deserialize<KVCacheConfiguration>(cacheConfiguration);
-
-            Func<K, Task<V>> currentCreator = async (k) =>
-            {
-                return await creator();
-            };
-            for (var index = configuration.VistorNames.Count - 1; index >= 0; index--)
-            {
-                var innerIndex = index;
-                var innerCreate = currentCreator;
-                currentCreator = async (k) =>
-                {
-                    var visitor = await _kvCacheVisitorRepositoryCacheProxy.QueryByName(configuration.VistorNames[innerIndex]);
-                    return await visitor.Get(innerCreate, key);
-                };
-            }
-
-            return await currentCreator(key);
         }
 
         public V GetSync<K, V>(string cacheConfiguration, Func<V> creator, string prefix, K key)
