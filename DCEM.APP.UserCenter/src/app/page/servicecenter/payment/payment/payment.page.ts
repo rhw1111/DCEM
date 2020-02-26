@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { DCore_Http, DCore_Page } from '../../../../../app/component/typescript/dcem.core';
+import { DCore_Http, DCore_Page, DCore_ShareData } from '../../../../../app/component/typescript/dcem.core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Storage_LoginInfo } from '../../../../component/typescript/logininfo.storage';
@@ -37,7 +37,8 @@ export class PaymentPage implements OnInit {
             rightsMutuallyExclusives: [],//互斥权益项
             RightsPackageGet: {},//选择权益项
             showRights: false,
-        }
+        },
+        shareDataIndexKey: "productperorder"
     };
     constructor(
         private _logininfo: Storage_LoginInfo,
@@ -45,11 +46,18 @@ export class PaymentPage implements OnInit {
         private _page: DCore_Page,
         private routerinfo: ActivatedRoute,
         private alertController: AlertController,
+        private _shareData: DCore_ShareData
     ) { }
 
     ngOnInit() {
         //获取参数
-        this.model.datas = this.routerinfo.snapshot.queryParams;
+        //this.model.datas = this.routerinfo.snapshot.queryParams;
+        if (this._shareData.has(this.model.shareDataIndexKey)) {
+            this.model.datas = this._shareData.get(this.model.shareDataIndexKey);
+        }
+        else {
+            this._page.goto("/tabs/servicecenter");
+        }
         this.initListLoading();
     }
     //初始化页面数据加载
@@ -153,6 +161,7 @@ export class PaymentPage implements OnInit {
     }
     //支付
     payAmount(i) {
+        debugger;
         this._page.loadingShow();
         if (i == 0) {
             this.model.score.search.Integral = this.model.datas.TotalIntegral;

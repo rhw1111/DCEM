@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { DCore_Http, DCore_Page } from '../../../../../app/component/typescript/dcem.core';
+import { DCore_Http, DCore_Page, DCore_ShareData } from '../../../../../app/component/typescript/dcem.core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import * as $ from 'jquery';
@@ -12,7 +12,8 @@ import * as $ from 'jquery';
 export class ListPage implements OnInit {
     public model: any = {
         title: "购物车",
-        cartList: {}
+        cartList: {},
+        shareDataIndexKey: "productdetail"
     };
     IsEdit: boolean = false;
     IsEmpty: boolean = false;
@@ -21,6 +22,7 @@ export class ListPage implements OnInit {
         private _page: DCore_Page,
         private routerinfo: ActivatedRoute,
         private alertController: AlertController,
+        private _shareData: DCore_ShareData
     ) { }
 
     ngOnInit() {
@@ -226,7 +228,8 @@ export class ListPage implements OnInit {
         if (flag) {
             this.presentAlertConfirm();
         } else {
-            this._page.goto("/servicecenter/preorder/preorder", { params: JSON.stringify(orderata) });
+            this._shareData.set(this.model.shareDataIndexKey, orderata);
+            this._page.goto("/servicecenter/preorder/preorder");
         }
     }
     //提示信息

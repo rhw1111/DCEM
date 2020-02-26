@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { DCore_Http, DCore_Page } from '../../../../../component/typescript/dcem.core';
+import { DCore_Http, DCore_Page, DCore_ShareData } from '../../../../../component/typescript/dcem.core';
 import { Storage_LoginInfo } from '../../../../../component/typescript/logininfo.storage';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
@@ -33,6 +33,7 @@ export class DetailPage implements OnInit {
         cancel: {
             apiUrl: "api/order/cancelOrder",
         },
+        shareDataIndexKey: "productperorder"
     };
     private code
     constructor(
@@ -41,6 +42,7 @@ export class DetailPage implements OnInit {
         private _page: DCore_Page,
         private routerinfo: ActivatedRoute,
         private alertController: AlertController,
+        private _shareData: DCore_ShareData
     ) { }
 
     ngOnInit() {
@@ -133,7 +135,8 @@ export class DetailPage implements OnInit {
                 "TotalIntegral": this.model.datadetail.ReceivedIntegral,
                 "IsNeedCash": this.model.datadetail.CashPayment != 0
             };
-            this._page.goto("/servicecenter/payment/payment", returndata);
+            this._shareData.set(this.model.shareDataIndexKey, returndata);
+            this._page.goto("/servicecenter/payment/payment");
         }
         
     }

@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { DCore_Http, DCore_Page } from '../../../../../app/component/typescript/dcem.core';
+import { DCore_Http, DCore_Page, DCore_ShareData } from '../../../../../app/component/typescript/dcem.core';
 import { Storage_LoginInfo } from '../../../../component/typescript/logininfo.storage';
 import { OptionSetService } from "../../../../component/typescript/optionset.service";
 import { ActivatedRoute } from '@angular/router';
@@ -34,6 +34,8 @@ export class PreorderPage implements OnInit {
             data: [],
             balance: 0,
         },
+        shareDataKey: "productperorder",
+        shareDataIndexKey: "productdetail"
         //rights: {
         //    apiUrl: "api/cashcoupon/MyCashCoupon",
         //    productCode: "",
@@ -62,12 +64,19 @@ export class PreorderPage implements OnInit {
         private routerinfo: ActivatedRoute,
         private _optionset: OptionSetService,
         private _modalCtrl: ModalController,
+        private _shareData: DCore_ShareData
     ) { }
 
     ngOnInit() {
         //获取参数
-        var datastr = this.routerinfo.snapshot.queryParams["params"];
-        this.model.datas = JSON.parse(datastr);
+        //var datastr = this.routerinfo.snapshot.queryParams["params"];
+        //this.model.datas = JSON.parse(datastr);
+        if (this._shareData.has(this.model.shareDataIndexKey)) {
+            this.model.datas = this._shareData.get(this.model.shareDataIndexKey);
+        }
+        else {
+            this._page.goto("/tabs/servicecenter");
+        }
         this.initListLoading();
     }
     ionViewWillEnter() {
@@ -272,7 +281,8 @@ export class PreorderPage implements OnInit {
                             "IsNeedCash": isneedcash,
                             //"RightsPackageGet": this.model.rights.RightsPackageGet
                         };
-                        this._page.navigateRoot("/servicecenter/payment/payment", returndata);
+                        this._shareData.set(this.model.shareDataKey, returndata);
+                        this._page.navigateRoot("/servicecenter/payment/payment");
                     }
                 }
                 else {
