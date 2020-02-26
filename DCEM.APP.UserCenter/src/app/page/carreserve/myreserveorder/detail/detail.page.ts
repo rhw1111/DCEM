@@ -49,6 +49,7 @@ export class DetailPage implements OnInit {
                     this.model.datas = res;
                     this.model.smallorderinfo = this.model.datas.SmallOrderList[0].SmallOrderInfo;
                     this.model.smallorderinfo.paystatus = this.getPayStatus(this.model.datas.SmallOrderList[0].SmallOrderInfo.mcs_orderstatus);
+                    this.model.smallorderinfo.createdon = this.Format(this.model.datas.SmallOrderList[0].SmallOrderInfo.createdon, "yyyy-MM-dd HH:mm:ss");
                     this.model.smallorderinfo.mcs_premiumcode = this.model.datas.SmallOrderList[0]["SmallOrderInfo"]["blindorder.mcs_premiumcode"];
                     this.model.smallorderinfo.mcs_premiumname = this.model.datas.SmallOrderList[0]["SmallOrderInfo"]["blindorder.mcs_name"];
                     this.model.equitypackagelist = this.model.datas.SmallOrderList[0].EquityPackageArray;
@@ -94,5 +95,26 @@ export class DetailPage implements OnInit {
                 break;
         }
         return paystatus;
+    }
+    Format(datetime, fmt) {
+        var date = new Date(datetime);
+        var o = {
+            "M+": date.getMonth() + 1, //月份 
+            "d+": date.getDate(), //日 
+            "H+": date.getHours(), //小时 
+            "m+": date.getMinutes(), //分 
+            "s+": date.getSeconds(), //秒 
+            "q+": Math.floor((date.getMonth() + 3) / 3), //季度 
+            "S": date.getMilliseconds() //毫秒 
+        };
+        if (/(y+)/.test(fmt)) {
+            fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
+        }
+        for (var k in o) {
+            if (new RegExp("(" + k + ")").test(fmt)) {
+                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            }
+        }
+        return fmt;
     }
 }
