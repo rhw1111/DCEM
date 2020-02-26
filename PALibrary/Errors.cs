@@ -23,5 +23,13 @@ namespace PALibrary
         /// 已经达到池的最大长度
         /// </summary>
         PoolLengthOverflow = 614710200,
+        /// <summary>
+        /// 找不到指定缓存类型的实际KV缓存访问服务
+        /// </summary>
+        NotFoundRealKVCacheVisitServiceByCacheType = 614710250,
+        /// <summary>
+        /// 
+        /// </summary>
+        NotFoundIKVCacheVersionServiceByName= 614710251,
     }
 }

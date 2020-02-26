@@ -25,7 +25,7 @@ namespace PALibrary.Entities
                                         <condition attribute=""name"" operator=""eq"" value=""{0}"" />
                                     </filter>
                                 </entity>
-                            </fetch>", name);
+                            </fetch>", name.ToXML());
 
             return PAEntityQueryHelper.Retrive<PAWebResource>(strFetch);
         }

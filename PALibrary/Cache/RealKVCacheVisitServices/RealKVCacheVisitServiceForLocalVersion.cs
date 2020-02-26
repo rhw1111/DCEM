@@ -4,12 +4,11 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
-using MSLibrary.DI;
-using MSLibrary.Serializer;
-using MSLibrary.LanguageTranslate;
-using MSLibrary.Thread;
+using PALibrary.Serializer;
+using PALibrary.LanguageTranslate;
+using PALibrary.Thread;
 
-namespace MSLibrary.Cache.RealKVCacheVisitServices
+namespace PALibrary.Cache.RealKVCacheVisitServices
 {
     /// <summary>
     /// 基于本地版本号控制的KV缓存访问服务
@@ -24,7 +23,6 @@ namespace MSLibrary.Cache.RealKVCacheVisitServices
     ///     "DefaultVersionName":"默认版本名称,找不到KV类型与版本名称的映射时使用该名称"
     /// }
     /// </summary>
-    [Injection(InterfaceType = typeof(RealKVCacheVisitServiceForLocalVersion), Scope = InjectionScope.Singleton)]
     public class RealKVCacheVisitServiceForLocalVersion : IRealKVCacheVisitService
     {
         private static SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
@@ -45,80 +43,6 @@ namespace MSLibrary.Cache.RealKVCacheVisitServices
             }
         }
 
-        public async Task<V> Get<K, V>(string cacheConfiguration, Func<Task<V>> creator, string prefix, K key)
-        {
-            var versionMappingKey = $"{typeof(K).FullName}-{typeof(V).FullName}";
-            var configuration = JsonSerializerHelper.Deserialize<KVCacheConfiguration>(cacheConfiguration);
-            if (!_datas.TryGetValue(prefix, out CacheContainer cacheContainer))
-            {
-                await _lock.WaitAsync();
-                try
-                {
-                    if (!_datas.TryGetValue(prefix, out cacheContainer))
-                    {
-                        var (versionService, versionname) = getVersionService(configuration, versionMappingKey);
-                        var version = await versionService.GetVersion(versionname);
-                        cacheContainer = new CacheContainer() { Version = version, LatestVersionTime = DateTime.UtcNow, CacheDict = new HashLinkedCache<object, CacheValueContainer>() { Length = configuration.MaxLength } };
-                        _datas[prefix] = cacheContainer;
-                    }
-                }
-                finally
-                {
-                    _lock.Release();
-                }
-            }
-            else
-            {
-                if ((DateTime.UtcNow - cacheContainer.LatestVersionTime).TotalSeconds > configuration.VersionCallTimeout)
-                {
-                    await _lock.WaitAsync();
-                    try
-                    {
-                        if ((DateTime.UtcNow - cacheContainer.LatestVersionTime).TotalSeconds > configuration.VersionCallTimeout)
-                        {
-                            var (versionService, versionname) = getVersionService(configuration, versionMappingKey);
-                            var version = await versionService.GetVersion(versionname);
-                            if (version != cacheContainer.Version)
-                            {
-                                cacheContainer = new CacheContainer() { Version = version, LatestVersionTime = DateTime.UtcNow, CacheDict = new HashLinkedCache<object, CacheValueContainer>() { Length = configuration.MaxLength } };
-                                _datas[prefix] = cacheContainer;
-                            }
-                            else
-                            {
-                                cacheContainer.LatestVersionTime = DateTime.UtcNow;
-                            }
-                        }
-                    }
-                    finally
-                    {
-                        _lock.Release();
-                    }
-
-                }
-            }
-
-
-
-            var valueItem = cacheContainer.CacheDict.GetValue(key);
-            if (valueItem == null)
-            {
-                await cacheContainer.SyncOperate(
-                async () =>
-                {
-                    valueItem = cacheContainer.CacheDict.GetValue(key);
-                    if (valueItem == null)
-                    {
-                        var cacheValue = await creator();
-                        valueItem = new CacheValueContainer() { Value = cacheValue };
-                        cacheContainer.CacheDict.SetValue(key, valueItem);
-                    }
-                }
-                );
-
-            }
-
-            return (V)valueItem.Value;
-        }
 
         public V GetSync<K, V>(string cacheConfiguration, Func<V> creator, string prefix, K key)
         {
@@ -131,8 +55,8 @@ namespace MSLibrary.Cache.RealKVCacheVisitServices
                 {
                     if (!_datas.TryGetValue(prefix, out cacheContainer))
                     {
-                        var (versionService, versionname) = getVersionService(configuration, versionMappingKey);
-                        var version = versionService.GetVersionSync(versionname);
+                        var result = getVersionService(configuration, versionMappingKey);
+                        var version = result.Service.GetVersionSync(result.VersionName);
                         cacheContainer = new CacheContainer() { Version = version, LatestVersionTime = DateTime.UtcNow, CacheDict = new HashLinkedCache<object, CacheValueContainer>() { Length = configuration.MaxLength } };
                         _datas[prefix] = cacheContainer;
                     }
@@ -151,8 +75,8 @@ namespace MSLibrary.Cache.RealKVCacheVisitServices
                     {
                         if ((DateTime.UtcNow - cacheContainer.LatestVersionTime).TotalSeconds > configuration.VersionCallTimeout)
                         {
-                            var (versionService, versionname) = getVersionService(configuration, versionMappingKey);
-                            var version = versionService.GetVersionSync(versionname);
+                            var result = getVersionService(configuration, versionMappingKey);
+                            var version = result.Service.GetVersionSync(result.VersionName);
                             if (version != cacheContainer.Version)
                             {
                                 cacheContainer = new CacheContainer() { Version = version, LatestVersionTime = DateTime.UtcNow, CacheDict = new HashLinkedCache<object, CacheValueContainer>() { Length = configuration.MaxLength } };
@@ -179,15 +103,15 @@ namespace MSLibrary.Cache.RealKVCacheVisitServices
             {
                 cacheContainer.SyncOperate(
                 () =>
-               {
-                   valueItem = cacheContainer.CacheDict.GetValue(key);
-                   if (valueItem == null)
-                   {
-                       var cacheValue = creator();
-                       valueItem = new CacheValueContainer() { Value = cacheValue };
-                       cacheContainer.CacheDict.SetValue(key, valueItem);
-                   }
-               }
+                {
+                    valueItem = cacheContainer.CacheDict.GetValue(key);
+                    if (valueItem == null)
+                    {
+                        var cacheValue = creator();
+                        valueItem = new CacheValueContainer() { Value = cacheValue };
+                        cacheContainer.CacheDict.SetValue(key, valueItem);
+                    }
+                }
                );
 
             }
@@ -196,7 +120,7 @@ namespace MSLibrary.Cache.RealKVCacheVisitServices
         }
 
 
-        private (IKVCacheVersionService, string) getVersionService(KVCacheConfiguration configuration, string versionMappingKey)
+        private GetVersionServiceResult getVersionService(KVCacheConfiguration configuration, string versionMappingKey)
         {
             if (!configuration.VersionNameMappings.TryGetValue(versionMappingKey, out string versionName))
             {
@@ -215,7 +139,14 @@ namespace MSLibrary.Cache.RealKVCacheVisitServices
                 throw new UtilityException((int)Errors.NotFoundIKVCacheVersionServiceByName, fragment);
             }
 
-            return (serviceFactory.Create(), versionName);
+            return new GetVersionServiceResult() { Service = serviceFactory.Create(), VersionName = versionName };
+        }
+
+        private class GetVersionServiceResult
+        {
+            public IKVCacheVersionService Service { get; set; }
+
+            public string VersionName { get; set; }
         }
 
 
@@ -308,12 +239,6 @@ namespace MSLibrary.Cache.RealKVCacheVisitServices
     /// </summary>
     public interface IKVCacheVersionService
     {
-        /// <summary>
-        /// 获取指定版本名称
-        /// </summary>
-        /// <param name="versionName"></param>
-        /// <returns></returns>
-        Task<string> GetVersion(string versionName);
         /// <summary>
         /// 获取指定版本名称(同步)
         /// </summary>

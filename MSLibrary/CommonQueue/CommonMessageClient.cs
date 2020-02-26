@@ -149,15 +149,15 @@ namespace MSLibrary.CommonQueue
     [Injection(InterfaceType = typeof(ICommonMessageClientIMP), Scope = InjectionScope.Transient)]
     public class CommonMessageClientIMP : ICommonMessageClientIMP
     {
-        private CommonMessageClientTypeRepositoryHelper _commonMessageClientTypeRepositoryHelper;
+        private ICommonMessageClientTypeRepositoryCacheProxy _commonMessageClientTypeRepositoryCacheProxy;
 
-        public CommonMessageClientIMP(CommonMessageClientTypeRepositoryHelper commonMessageClientTypeRepositoryHelper)
+        public CommonMessageClientIMP(ICommonMessageClientTypeRepositoryCacheProxy commonMessageClientTypeRepositoryCacheProxy)
         {
-            _commonMessageClientTypeRepositoryHelper = commonMessageClientTypeRepositoryHelper;
+            _commonMessageClientTypeRepositoryCacheProxy = commonMessageClientTypeRepositoryCacheProxy;
         }
         public async Task Send(CommonMessageClient message)
         {
-            var type=await _commonMessageClientTypeRepositoryHelper.QueryByName(message.Type);
+            var type=await _commonMessageClientTypeRepositoryCacheProxy.QueryByName(message.Type);
             if (type==null)
             {
                 var fragment = new TextFragment()

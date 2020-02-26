@@ -311,11 +311,11 @@ namespace MSLibrary.MessageQueue
         private ISMessageOperationContextFactory _smessageOperationContextFactory;
         private ISMessageHistoryStore _smessageHistoryStore;
         private ISMessageHistoryListenerDetailStore _smessageHistoryListenerDetailStore;
-        private SMessageExecuteTypeRepositoryHelper _sMessageExecuteTypeRepositoryHelper;
+        private ISMessageExecuteTypeRepositoryCacheProxy _smessageExecuteTypeRepositoryCacheProxy;
         private IListenerMessageKeyGenerateService _listenerMessageKeyGenerateService;
 
         public SMessageIMP(ISMessageStore smessageStore, ISQueueChooseService sQueueChooseService, ISMessageExecuteTypeRepository smessageExecuteTypeRepository, ISMessageTypeListenerPostContextFactory smessageTypeListenerPostContextFactory, ISMessageOperationContextFactory smessageOperationContextFactory,
-            ISMessageHistoryStore smessageHistoryStore, ISMessageHistoryListenerDetailStore smessageHistoryListenerDetailStore, SMessageExecuteTypeRepositoryHelper sMessageExecuteTypeRepositoryHelper, IListenerMessageKeyGenerateService listenerMessageKeyGenerateService
+            ISMessageHistoryStore smessageHistoryStore, ISMessageHistoryListenerDetailStore smessageHistoryListenerDetailStore, ISMessageExecuteTypeRepositoryCacheProxy smessageExecuteTypeRepositoryCacheProxy, IListenerMessageKeyGenerateService listenerMessageKeyGenerateService
 
             )
         {
@@ -326,7 +326,7 @@ namespace MSLibrary.MessageQueue
             _smessageOperationContextFactory = smessageOperationContextFactory;
             _smessageHistoryStore = smessageHistoryStore;
             _smessageHistoryListenerDetailStore = smessageHistoryListenerDetailStore;
-            _sMessageExecuteTypeRepositoryHelper = _sMessageExecuteTypeRepositoryHelper;
+            _smessageExecuteTypeRepositoryCacheProxy = smessageExecuteTypeRepositoryCacheProxy;
             _listenerMessageKeyGenerateService = listenerMessageKeyGenerateService;
         }
 
@@ -388,7 +388,7 @@ namespace MSLibrary.MessageQueue
             };
 
             //获取消息执行类型
-            var executeType = await _sMessageExecuteTypeRepositoryHelper.QueryByName(message.Type);
+            var executeType = await _smessageExecuteTypeRepositoryCacheProxy.QueryByName(message.Type);
 
             if (executeType==null)
             {

@@ -67,4 +67,31 @@ namespace PALibrary
         /// </summary>
         public const string AdministratorID = "AdministratorID";
     }
+
+    /// <summary>
+    /// KV缓存类型
+    /// </summary>
+    public static class KVCacheTypes
+    {
+        /// <summary>
+        /// 本地超时
+        /// </summary>
+        public const string LocalTimeout = "LocalTimeout";
+        /// <summary>
+        /// 本地版本号
+        /// </summary>
+        public const string LocalVersion = "LocalVersion";
+        /// <summary>
+        /// 组合
+        /// </summary>
+        public const string Combination = "Combination";
+    }
+
+    /// <summary>
+    /// 缓存版本名称集
+    /// </summary>
+    public static class CacheVersionNames
+    {
+        public const string CommonCacheVersion = "CommonCacheVersion";
+    }
 }

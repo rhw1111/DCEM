@@ -9,31 +9,33 @@ using PALibrary.PAEntityExtensions;
 
 namespace PALibrary.Entities
 {
-    public class SystemConfigurationRepository : ISystemConfigurationRepository
+    public class VersionConfigurationRepository : IVersionConfigurationRepository
     {
-        public SystemConfiguration QueryByName(string name)
+        public VersionConfiguration QueryByName(string name)
         {
             var orgService = ContextContainer.GetValue<IOrganizationService>(ContextTypes.OrgService);
 
             var strFetch = string.Format(@"<fetch version=""1.0"" output-format=""xml-platform"" mapping=""logical"" distinct=""false"">
-                                <entity name=""{0}_systemconfiguration"">
-                                    <attribute name=""{0}_content"" /> 
+                                <entity name=""{0}_versionConfiguration"">
+                                    <attribute name=""{0}_version"" /> 
                                     <filter type=""and"">
                                         <condition attribute=""{0}_name"" operator=""eq"" value=""{1}"" />
                                     </filter>
                                 </entity>
-                            </fetch>", PASolutionInfomation.CommonEntityPrefix,name.ToXML());
+                            </fetch>", PASolutionInfomation.CommonEntityPrefix, name.ToXML());
 
-            return PAEntityQueryHelper.Retrive<SystemConfiguration>(strFetch);
+            return PAEntityQueryHelper.Retrive<VersionConfiguration>(strFetch);
         }
     }
 
-    public class SystemConfigurationRepositoryFactory : SingletonFactorySelf<ISystemConfigurationRepository, SystemConfigurationRepositoryFactory>
+
+    public class VersionConfigurationRepositoryFactory : SingletonFactorySelf<IVersionConfigurationRepository, VersionConfigurationRepositoryFactory>
     {
 
-        protected override ISystemConfigurationRepository RealCreate()
+        protected override IVersionConfigurationRepository RealCreate()
         {
-            return new SystemConfigurationRepository();
+            return new VersionConfigurationRepository();
         }
     }
+
 }

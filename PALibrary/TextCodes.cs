@@ -31,6 +31,21 @@ namespace PALibrary
         /// {1}为池的最大长度
         /// </summary>
         public const string PoolLengthOverflow = "PoolLengthOverflow";
+        /// <summary>
+        /// 找不到指定缓存类型的实际KV缓存访问服务
+        /// 格式为“找不到缓存类型为{0}的实际KV缓存访问服务，发生位置为{1}”
+        /// {0}：缓存类型
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFoundRealKVCacheVisitServiceByCacheType = "NotFoundRealKVCacheVisitServiceByCacheType";
+
+        /// <summary>
+        /// 找不到指定版本名称的KV缓存版本服务
+        /// 格式为“找不到版本名称为{0}的KV缓存版本服务，发生位置为{1}”
+        /// {1}：版本名称
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFoundIKVCacheVersionServiceByName = "NotFoundIKVCacheVersionServiceByName";
 
     }
 }

@@ -49,7 +49,7 @@ export class PaymentPage implements OnInit {
     ) {
 
     }
-
+    private flag = true
 
     ngOnInit() {
         if (this._shareData.has(this.mod.shareDataKey)) {
@@ -72,6 +72,11 @@ export class PaymentPage implements OnInit {
 
     //支付
     public onPayClick() {
+        if (!this.flag) {
+            return;
+        }
+        this._page.loadingShow();
+        this.flag = false;
         var that = this;
         if (this._valid.isNullOrEmpty(this._storage_LoginInfo.GetSystemUserId())) {
             this._page.alert("消息提示", "您尚未登录,请先登录后在进行操作", function () {
@@ -87,8 +92,8 @@ export class PaymentPage implements OnInit {
             postData,
             (res: any) => {
                 if (res["Code"] === "000" && !this._valid.isNullOrEmpty(res["OrderId"])) {
+                    this.flag = true;
                     this._page.alert("消息提示", "您的订单已经下单成功", function () {
-
                         //that._page.navigateRoot("/personalcenter/myorder/carorder/detail", { code: postData["OrderData"]["OrderCode"] }, "");
 
                         //that._page.navigateRoot("/personalcenter/myorder/carorder/detail", { orderid: res["OrderId"] }, "");
@@ -97,11 +102,15 @@ export class PaymentPage implements OnInit {
                     });
                 }
                 else {
+                    this.flag = true;
                     this._page.alert("消息提示", res.Message);
                 }
+                this._page.loadingHide();
             },
             (err: any) => {
+                this.flag = true;
                 this._page.alert("消息提示", "下单异常")
+                this._page.loadingHide();
                 console.log(err);
             }
         );
