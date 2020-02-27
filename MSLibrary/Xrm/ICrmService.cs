@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
+using System.IO;
 using Newtonsoft.Json.Linq;
 
 namespace MSLibrary.Xrm
@@ -278,6 +279,31 @@ namespace MSLibrary.Xrm
         /// <param name="request">请求消息</param>
         /// <returns>响应消息</returns>
         Task<CrmResponseMessage> Execute(CrmRequestMessage request);
+
+
+        /// <summary>
+        /// 为文件类型属性上传文件
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="fileAttributeName"></param>
+        /// <param name="fileName"></param>
+        /// <param name="fileStream"></param>
+        Task UploadAttributeFile(CrmEntityReference entityID, string fileAttributeName, string fileName, string fileMimeType, Stream fileStream, Guid? proxyUserId = null);
+        /// <summary>
+        /// 下载文件类型属性的文件
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="fileAttributeName"></param>
+        /// <param name="action"></param>
+        Task DownloadAttributeFile(CrmEntityReference entityID, string fileAttributeName, Func<string, Stream,Task> action, Guid? proxyUserId = null);
+        /// <summary>
+        /// 删除文件类型属性的文件
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="fileAttributeName"></param>
+        Task DeleteAttributeFileData(CrmEntityReference entityID, string fileAttributeName, Guid? proxyUserId = null);
+
+
     }
 
 

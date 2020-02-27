@@ -137,7 +137,7 @@ namespace MSLibrary.Xrm.MessageHandle
             return await Task.FromResult(result);
         }
 
-        public async Task<CrmResponseMessage> ExecuteResponse(object extension, string requestUrl, string requestBody, int responseCode, Dictionary<string, IEnumerable<string>> responseHeaders, string responseBody)
+        public async Task<CrmResponseMessage> ExecuteResponse(object extension, string requestUrl, string requestBody, int responseCode, Dictionary<string, IEnumerable<string>> responseHeaders, string responseBody, HttpResponseMessage responseMessage)
         {
             CrmBatchResponseMessage response = new CrmBatchResponseMessage()
             {
@@ -201,13 +201,13 @@ namespace MSLibrary.Xrm.MessageHandle
 
                 if (batchType.Type == 0)
                 {
-                    var batchResponse=await ExecuteBatch(responseItem, index, handleMap.BatchHandles);
+                    var batchResponse=await ExecuteBatch(responseItem, index, handleMap.BatchHandles, responseMessage);
                     index++;
                     response.BatchResponses.Add(batchResponse);
                 }
                 else
                 {
-                    var changeSetResponses = await ExecuteChangeSet(responseItem, (string)batchType.Exension, handleMap.ChangeSetHandles);
+                    var changeSetResponses = await ExecuteChangeSet(responseItem, (string)batchType.Exension, handleMap.ChangeSetHandles, responseMessage);
                     response.ChangeSetResponses.AddRange(changeSetResponses);
                 }
             }
@@ -454,7 +454,7 @@ namespace MSLibrary.Xrm.MessageHandle
             return result;
         }
 
-        private async Task<List<CrmResponseMessage>> ExecuteChangeSet(string body,string boundary,List<RequestHandleMapItem> handleResults)
+        private async Task<List<CrmResponseMessage>> ExecuteChangeSet(string body,string boundary,List<RequestHandleMapItem> handleResults,HttpResponseMessage responseMessage)
         {
             List<CrmResponseMessage> result = new List<CrmResponseMessage>();
 
@@ -491,7 +491,7 @@ namespace MSLibrary.Xrm.MessageHandle
                 
                 var messageHandle = _crmMessageHandleSelector.Choose(handleResults[index].Request.GetType().FullName);
 
-                var handleResponse=await messageHandle.ExecuteResponse(handleResults[index].HandleResult.Extension, handleResults[index].HandleResult.Url, handleResults[index].HandleResult.Body, responseInfo.StatusCode, responseInfo.Headers, responseInfo.Body);
+                var handleResponse=await messageHandle.ExecuteResponse(handleResults[index].HandleResult.Extension, handleResults[index].HandleResult.Url, handleResults[index].HandleResult.Body, responseInfo.StatusCode, responseInfo.Headers, responseInfo.Body, responseMessage);
                 result.Add(handleResponse);
                 index++;
             }
@@ -499,7 +499,7 @@ namespace MSLibrary.Xrm.MessageHandle
             return result;
         }
 
-        private async Task<CrmResponseMessage> ExecuteBatch(string body,int index, List<RequestHandleMapItem> handleResults)
+        private async Task<CrmResponseMessage> ExecuteBatch(string body,int index, List<RequestHandleMapItem> handleResults, HttpResponseMessage responseMessage)
         {
             var responseInfo = GetResponseInfo(body);
 
@@ -517,7 +517,7 @@ namespace MSLibrary.Xrm.MessageHandle
 
             var messageHandle = _crmMessageHandleSelector.Choose(handleResults[index].Request.GetType().FullName);
 
-            CrmResponseMessage handleResponse = await messageHandle.ExecuteResponse(handleResults[index].HandleResult.Extension, handleResults[index].HandleResult.Url, handleResults[index].HandleResult.Body, responseInfo.StatusCode, responseInfo.Headers, responseInfo.Body);
+            CrmResponseMessage handleResponse = await messageHandle.ExecuteResponse(handleResults[index].HandleResult.Extension, handleResults[index].HandleResult.Url, handleResults[index].HandleResult.Body, responseInfo.StatusCode, responseInfo.Headers, responseInfo.Body, responseMessage);
 
             return handleResponse;
         }

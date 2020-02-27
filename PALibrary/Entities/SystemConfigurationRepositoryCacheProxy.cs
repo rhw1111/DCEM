@@ -43,4 +43,13 @@ namespace PALibrary.Entities
                 );
         }
     }
+
+    public class SystemConfigurationRepositoryCacheProxyFactory : SingletonFactorySelf<ISystemConfigurationRepositoryCacheProxy, SystemConfigurationRepositoryCacheProxyFactory>
+    {
+        protected override ISystemConfigurationRepositoryCacheProxy RealCreate()
+        {
+            ISystemConfigurationRepository systemConfigurationRepository = SystemConfigurationRepositoryFactory.Get();
+            return new SystemConfigurationRepositoryCacheProxy(systemConfigurationRepository);
+        }
+    }
 }

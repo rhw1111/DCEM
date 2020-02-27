@@ -25,7 +25,7 @@ namespace MSLibrary.Xrm.MessageHandle
         /// <param name="responseHeaders"></param>
         /// <param name="responseBody"></param>
         /// <returns></returns>
-        Task<CrmResponseMessage> ExecuteResponse(object extension,string requestUrl, string requestBody,int responseCode, Dictionary<string, IEnumerable<string>> responseHeaders,string responseBody);
+        Task<CrmResponseMessage> ExecuteResponse(object extension,string requestUrl, string requestBody,int responseCode, Dictionary<string, IEnumerable<string>> responseHeaders,string responseBody,HttpResponseMessage response);
     }
 
 
@@ -50,6 +50,11 @@ namespace MSLibrary.Xrm.MessageHandle
         /// http请求的正文
         /// </summary>
         public string Body { get; set; }
+        /// <summary>
+        /// 要替换的请求内容
+        /// 如果该属性有值。则忽略上面的Body
+        /// </summary>
+        public HttpContent ReplaceHttpContent { get; set; }
         /// <summary>
         /// 附加信息，会回传给响应处理方法
         /// </summary>

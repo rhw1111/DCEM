@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.IO;
 using Newtonsoft.Json.Linq;
 using MSLibrary.DI;
 using MSLibrary.LanguageTranslate;
@@ -31,6 +32,11 @@ using MSLibrary.Xrm.Message.Create;
 using MSLibrary.Xrm.Message.CreateRetrieve;
 using MSLibrary.Xrm.Message.Delete;
 using MSLibrary.Xrm.Message.DisAssociateCollection;
+using MSLibrary.Xrm.Message.FileAttributeDeleteData;
+using MSLibrary.Xrm.Message.FileAttributeDownloadChunking;
+using MSLibrary.Xrm.Message.FileAttributeUploadChunking;
+using MSLibrary.Xrm.Message.GetFileAttributeUploadInfo;
+using MSLibrary.Xrm.IOExtensions;
 
 namespace MSLibrary.Xrm
 {
@@ -203,40 +209,41 @@ namespace MSLibrary.Xrm
 
             using (httpClient)
             {
-                foreach (var headerItem in requestResult.Headers)
-                {
-                    switch (headerItem.Key.ToLower())
+
+                    foreach (var headerItem in requestResult.Headers)
                     {
-                        case "content-type":
-                            strContentType = await headerItem.Value.ToDisplayString(
-                                async (item) =>
-                                {
-                                    return await Task.FromResult(item);
-                                },
-                                async () =>
-                                {
-                                    return await Task.FromResult(";");
-                                }
-                                );
-                            break;
-                        case "content-type-chartset":
-                            strContentChartSet = headerItem.Value.First();
-                            break;
-                        case "accept":
-                            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(headerItem.Value.First()));
-                            break;
-                        default:
-                            if (headerItem.Key.ToLower().StartsWith("content-type-"))
-                            {
-                                contentParameters[headerItem.Key.Substring(13)] = headerItem.Value.First();
+                        switch (headerItem.Key.ToLower())
+                        {
+                            case "content-type":
+                                strContentType = await headerItem.Value.ToDisplayString(
+                                    async (item) =>
+                                    {
+                                        return await Task.FromResult(item);
+                                    },
+                                    async () =>
+                                    {
+                                        return await Task.FromResult(";");
+                                    }
+                                    );
                                 break;
-                            }
-                            httpClient.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
-                            break;
+                            case "content-type-chartset":
+                                strContentChartSet = headerItem.Value.First();
+                                break;
+                            case "accept":
+                                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(headerItem.Value.First()));
+                                break;
+                            default:
+                                if (headerItem.Key.ToLower().StartsWith("content-type-"))
+                                {
+                                    contentParameters[headerItem.Key.Substring(13)] = headerItem.Value.First();
+                                    break;
+                                }
+                                httpClient.DefaultRequestHeaders.Add(headerItem.Key, headerItem.Value);
+                                break;
 
+                        }
                     }
-                }
-
+                
 
                 //判断是否需要加入代理
                 if (request.ProxyUserId != null)
@@ -259,64 +266,115 @@ namespace MSLibrary.Xrm
                         httpClient.DefaultRequestHeaders.Add("Authorization", strToken);
                     }
 
-                    StringContent strContent;
+                    HttpContent httpContent=null;
                     switch (requestResult.Method.Method.ToLower())
                     {
                         case "get":
                             responseMessage = await httpClient.GetAsync(requestResult.Url);
                             break;
                         case "post":
-                            strContent = new StringContent(requestResult.Body);
-                            if (strContentType != null)
+                            try
                             {
-                                strContent.Headers.ContentType = new MediaTypeHeaderValue(strContentType);
-                                if (strContentChartSet != null)
+                                if (requestResult.ReplaceHttpContent == null)
                                 {
-                                    strContent.Headers.ContentType.CharSet = strContentChartSet;
+                                    httpContent = new StringContent(requestResult.Body);
+                                    if (strContentType != null)
+                                    {
+                                        httpContent.Headers.ContentType = new MediaTypeHeaderValue(strContentType);
+                                        if (strContentChartSet != null)
+                                        {
+                                            httpContent.Headers.ContentType.CharSet = strContentChartSet;
+                                        }
+                                        foreach (var item in contentParameters)
+                                        {
+                                            httpContent.Headers.ContentType.Parameters.Add(new NameValueHeaderValue(item.Key, item.Value));
+                                        }
+                                    }
                                 }
-                                foreach (var item in contentParameters)
+                                else
                                 {
-                                    strContent.Headers.ContentType.Parameters.Add(new NameValueHeaderValue(item.Key, item.Value));
+                                    httpContent = requestResult.ReplaceHttpContent;
+                                }
+                                responseMessage = await httpClient.PostAsync(requestResult.Url, httpContent);
+                            }
+                            finally
+                            {
+                                if (httpContent!=null)
+                                {
+                                    httpContent.Dispose();
                                 }
                             }
-                            responseMessage = await httpClient.PostAsync(requestResult.Url, strContent);
                             break;
                         case "put":
-                            strContent = new StringContent(requestResult.Body);
-                            if (strContentType != null)
+                            try
                             {
-                                strContent.Headers.ContentType = new MediaTypeHeaderValue(strContentType);
-                                if (strContentChartSet != null)
+                                if (requestResult.ReplaceHttpContent == null)
                                 {
-                                    strContent.Headers.ContentType.CharSet = strContentChartSet;
+                                    httpContent = new StringContent(requestResult.Body);
+                                    if (strContentType != null)
+                                    {
+                                        httpContent.Headers.ContentType = new MediaTypeHeaderValue(strContentType);
+                                        if (strContentChartSet != null)
+                                        {
+                                            httpContent.Headers.ContentType.CharSet = strContentChartSet;
+                                        }
+                                        foreach (var item in contentParameters)
+                                        {
+                                            httpContent.Headers.ContentType.Parameters.Add(new NameValueHeaderValue(item.Key, item.Value));
+                                        }
+                                    }
                                 }
-                                foreach (var item in contentParameters)
+                                else
                                 {
-                                    strContent.Headers.ContentType.Parameters.Add(new NameValueHeaderValue(item.Key, item.Value));
+                                    httpContent = requestResult.ReplaceHttpContent;
+                                }
+                                responseMessage = await httpClient.PutAsync(requestResult.Url, httpContent);
+                            }
+                            finally
+                            {
+                                if (httpContent != null)
+                                {
+                                    httpContent.Dispose();
                                 }
                             }
-                            responseMessage = await httpClient.PutAsync(requestResult.Url, strContent);
                             break;
                         case "patch":
-                            strContent = new StringContent(requestResult.Body);
-                            if (strContentType != null)
+                            try
                             {
-                                strContent.Headers.ContentType = new MediaTypeHeaderValue(strContentType);
-                                if (strContentChartSet != null)
+                                if (requestResult.ReplaceHttpContent == null)
                                 {
-                                    strContent.Headers.ContentType.CharSet = strContentChartSet;
+                                    httpContent = new StringContent(requestResult.Body);
+                                    if (strContentType != null)
+                                    {
+                                        httpContent.Headers.ContentType = new MediaTypeHeaderValue(strContentType);
+                                        if (strContentChartSet != null)
+                                        {
+                                            httpContent.Headers.ContentType.CharSet = strContentChartSet;
+                                        }
+                                        foreach (var item in contentParameters)
+                                        {
+                                            httpContent.Headers.ContentType.Parameters.Add(new NameValueHeaderValue(item.Key, item.Value));
+                                        }
+                                    }
                                 }
-                                foreach (var item in contentParameters)
+                                else
                                 {
-                                    strContent.Headers.ContentType.Parameters.Add(new NameValueHeaderValue(item.Key, item.Value));
+                                    httpContent = requestResult.ReplaceHttpContent;
+                                }
+
+                                HttpRequestMessage httpRequest = new HttpRequestMessage(new HttpMethod("Patch"), requestResult.Url)
+                                {
+                                    Content = httpContent
+                                };
+                                responseMessage = await httpClient.SendAsync(httpRequest);
+                            }
+                            finally
+                            {
+                                if (httpContent != null)
+                                {
+                                    httpContent.Dispose();
                                 }
                             }
-
-                            HttpRequestMessage httpRequest = new HttpRequestMessage(new HttpMethod("Patch"), requestResult.Url)
-                            {
-                                Content = strContent
-                            };
-                            responseMessage = await httpClient.SendAsync(httpRequest);
                             break;
                         case "delete":
                             responseMessage = await httpClient.DeleteAsync(requestResult.Url);
@@ -339,7 +397,7 @@ namespace MSLibrary.Xrm
                 {
                     responseHeaders.Add(headerItem.Key, headerItem.Value);
                 }
-                var result = await handle.ExecuteResponse(requestResult.Extension, requestResult.Url, requestResult.Body, (int)responseMessage.StatusCode, responseHeaders, await responseMessage.Content.ReadAsStringAsync());
+                var result = await handle.ExecuteResponse(requestResult.Extension, requestResult.Url, requestResult.Body, (int)responseMessage.StatusCode, responseHeaders, await responseMessage.Content.ReadAsStringAsync(),responseMessage);
 
                 return result;
             }        
@@ -699,6 +757,102 @@ namespace MSLibrary.Xrm
             var response = await Execute(request);
             return ((CrmUpsertRetrieveResponseMessage)response).Entity;
         }
+
+
+        /// <summary>
+        /// 为文件类型属性上传文件
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="fileAttributeName"></param>
+        /// <param name="fileName"></param>
+        /// <param name="fileStream"></param>
+        public async Task UploadAttributeFile(CrmEntityReference entityID, string fileAttributeName, string fileName, string fileMimeType, Stream fileStream, Guid? proxyUserId = null)
+        {
+
+            CrmGetFileAttributeUploadInfoRequestMessage getRequest = new CrmGetFileAttributeUploadInfoRequestMessage()
+            {
+                EntityName = entityID.EntityName,
+                EntityId = entityID.Id,
+                AttributeName = fileAttributeName,
+                FileName = fileName
+            };
+
+
+            var getResponse = (CrmGetFileAttributeUploadInfoResponseMessage)await this.Execute(getRequest);
+
+            int perSize = getResponse.PerSize;
+            int currentSize = perSize;
+            byte[] buff = new byte[perSize];
+            List<string> blockIDs = new List<string>();
+            int position = 0;
+            while (currentSize == perSize)
+            {
+                currentSize = fileStream.Read(buff, 0, perSize);
+                if (currentSize != 0)
+                {
+  
+                    var blockID = Guid.NewGuid().ToString();
+                    blockIDs.Add(blockID);
+
+                    CrmFileAttributeUploadChunkingRequestMessage uploadRequest = new CrmFileAttributeUploadChunkingRequestMessage()
+                    {
+                        UploadUrl = getResponse.UploadUrl,
+                        Data = buff.Take(currentSize).ToArray(),
+                        FileName = fileName,
+                        Start = position,
+                        End = currentSize-1,
+                        Total = fileStream.Length
+                    };
+
+                    position += currentSize;
+                    await this.Execute(uploadRequest);
+                }
+            }
+        }
+        /// <summary>
+        /// 下载文件类型属性的文件
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="fileAttributeName"></param>
+        /// <param name="action"></param>
+        public async Task DownloadAttributeFile(CrmEntityReference entityID, string fileAttributeName, Func<string, Stream,Task> action, Guid? proxyUserId = null)
+        {
+            CrmFileAttributeDownloadChunkingRequestMessage request = new CrmFileAttributeDownloadChunkingRequestMessage()
+            {
+                EntityName = entityID.EntityName,
+                EntityId = entityID.Id,
+                AttributeName = fileAttributeName,
+                Start = 0,
+                End = 1                 
+            };
+
+            var response=(CrmFileAttributeDownloadChunkingResponseMessage)await this.Execute(request);
+
+            using (var stream = new CrmFileBlocksStream (entityID.EntityName,entityID.Id, response.FileName, response.Total, this,proxyUserId))
+            {
+                
+                  await action(response.FileName, stream);
+            }
+        }
+        /// <summary>
+        /// 删除文件类型属性的文件
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="fileAttributeName"></param>
+        public async Task DeleteAttributeFileData(CrmEntityReference entityID, string fileAttributeName, Guid? proxyUserId = null)
+        {
+            CrmFileAttributeDeleteDataRequestMessage request = new CrmFileAttributeDeleteDataRequestMessage()
+            {
+                EntityName = entityID.EntityName,
+                EntityId = entityID.Id,
+                AttributeName = fileAttributeName,
+            };
+
+            await this.Execute(request);
+
+        }
+
+
     }
 
 

@@ -46,6 +46,11 @@ namespace PALibrary
         /// {1}：发生的位置
         /// </summary>
         public const string NotFoundIKVCacheVersionServiceByName = "NotFoundIKVCacheVersionServiceByName";
-
+        /// <summary>
+        /// 指定的实体无法判断权限
+        /// 格式为“实体{0}无法判断权限，它的OwnershipType为空”
+        /// {1}：实体名称
+        /// </summary>
+        public const string EntityNotCheckPrivilege = "EntityNotCheckPrivilege";
     }
 }
