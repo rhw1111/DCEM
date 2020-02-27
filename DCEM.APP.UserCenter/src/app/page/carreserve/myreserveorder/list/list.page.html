@@ -73,13 +73,22 @@
                                         <span>预订金：</span><strong>{{item.Attributes.mcs_totalorder}} 元</strong>
                                     </div>
                                     <div>
-                                        <div *ngIf="item.Attributes.mcs_orderstatus == 0; then trueTemplate else falseTemplate;"></div>
+                                        <div *ngIf="item.Attributes.mcs_orderstatus == 0">
+                                            <a class="paynow" style="color:#f06e23;" (click)="paynow(item.Attributes.mcs_name,item.Attributes.mcs_smallorderid,item.Attributes.mcs_premiumname,item.Attributes.mcs_totalorder);$event.stopPropagation();" href="javascript:void(0);">立即支付</a>
+                                        </div>
+                                        <div *ngIf="item.Attributes.mcs_orderstatus == 1">
+                                            <a class="paynow" (click)="cancelnow(item.Attributes.mcs_name,item.Attributes.mcs_premiumcode,item.Attributes.mcs_equityname,item.Attributes.mcs_equitycode,item.Attributes.mcs_equityamount,item.Attributes.mcs_optionalname,item.Attributes.mcs_optionalcode,item.Attributes.mcs_optionalamount);$event.stopPropagation();" href="javascript:void(0);">申请退订</a>
+                                        </div>
+                                        <div *ngIf="item.Attributes.mcs_orderstatus != 0 && item.Attributes.mcs_orderstatus != 1">
+                                            <a class="paynow" (click)="orderdetail(item.Attributes.mcs_name,item.Attributes.mcs_smallorderid);$event.stopPropagation();" href="javascript:void(0);">订单详情</a>
+                                        </div>
+                                        <!--<div *ngIf="item.Attributes.mcs_orderstatus == 0; then trueTemplate else falseTemplate;"></div>
                                         <ng-template #trueTemplate>
                                             <a class="paynow" (click)="paynow(item.Attributes.mcs_name,item.Attributes.mcs_smallorderid,item.Attributes.mcs_premiumname,item.Attributes.mcs_totalorder);$event.stopPropagation();" href="javascript:void(0);">立即支付</a>
                                         </ng-template>
                                         <ng-template #falseTemplate>
                                             <a class="paynow" (click)="orderdetail(item.Attributes.mcs_name,item.Attributes.mcs_smallorderid);$event.stopPropagation();" href="javascript:void(0);">订单详情</a>
-                                        </ng-template>
+                                        </ng-template>-->
 
                                     </div>
                                 </div>

@@ -24,10 +24,12 @@ export class IndexPage implements OnInit {
         checkedequitypackagecode: "",//选中权益包编码
         checkedequitypackageid: "",//选中权益包id
         checkedequitypackagename: "",//选中权益包名称
+        checkedequitypackageamount: 0,//选中权益包金额
         optionallist: [],//选装包
         checkedoptionalcode: "",//选中选装包编码
         checkedoptionalid: "",//选中选装包id
         checkedoptionalname: "",//选中选装包名称
+        checkedoptionalamount: 0,//选中选装包金额
         totalprice: 0,//订单总金额
         radioprice: 0,
         shareDataIndexKey: "carreserveIndex"
@@ -91,6 +93,7 @@ export class IndexPage implements OnInit {
             this.model.checkedequitypackagecode = $(_that).siblings("input[type=checkbox]").val();
             this.model.checkedequitypackageid = $(_that).siblings("input[type=checkbox]").attr("id");
             this.model.checkedequitypackagename = $(_that).html();
+            this.model.checkedequitypackageamount = price;
             this.model.totalprice -= this.model.radioprice;
             this.model.totalprice += price;
             this.model.radioprice = price;
@@ -99,6 +102,7 @@ export class IndexPage implements OnInit {
             this.model.radioprice = 0;
             this.model.checkedequitypackagecode = "";
             this.model.checkedequitypackagename = "";
+            this.model.checkedequitypackageamount = 0;
         }
         if (this.model.totalprice != 0) {
             $(".index-toolbar-button").removeClass("is-disabled").removeAttr("disabled");
@@ -116,11 +120,13 @@ export class IndexPage implements OnInit {
         var checkedname = $(_that).parents("div.index-package-checkbox").children().find("div.index-intro-title").html();
         if (!ischecked) {
             this.model.totalprice += price;
+            this.model.checkedoptionalamount += price;
             this.model.checkedoptionalcode += (checkedcode + ";");
             this.model.checkedoptionalid += (checkedid + ";");
             this.model.checkedoptionalname += (checkedname + ";");
         } else {
             this.model.totalprice -= price;
+            this.model.checkedoptionalamount -= price;
             if (this.model.checkedoptionalcode.indexOf(checkedcode) != -1) {
                 var strcodelist = this.model.checkedoptionalcode.split(';');
                 var strcode = "";
@@ -189,6 +195,8 @@ export class IndexPage implements OnInit {
                     "EquityCode": this.model.checkedequitypackagecode,//权益编号
                     "EquityPackageId": this.model.checkedequitypackageid,//权益ID
                     "EquityName": this.model.checkedequitypackagename,// 权益名称
+                    "EquityAmount": this.model.checkedequitypackageamount,//权益金额
+                    "OptionalAmount": this.model.checkedoptionalamount,//选配金额
                     "OptionalCode": this.model.checkedoptionalcode,// 选配编号
                     "OptionalId": this.model.checkedoptionalid,//选装ID
                     "OptionalName": this.model.checkedoptionalname,// 选配名称

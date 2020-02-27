@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { DCore_Http, DCore_Page } from '../../../../../app/component/typescript/dcem.core';
 import { ActivatedRoute } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-detail',
@@ -11,6 +12,9 @@ export class DetailPage implements OnInit {
     public model: any = {
         search: {
             apiUrl: "api/smallbooking/QuerySmallOrderDetail",
+        },
+        submit: {
+            apiUrl: "api/smallbooking/AddOrEdit",
         },
         title: "订单详情",
         datas: {},
@@ -23,6 +27,7 @@ export class DetailPage implements OnInit {
         private _http: DCore_Http,
         private _page: DCore_Page,
         private routerinfo: ActivatedRoute,
+        private alertController: AlertController,
     ) { }
 
     ngOnInit() {
@@ -45,6 +50,7 @@ export class DetailPage implements OnInit {
             requests,
             (res: any) => {
                 if (res != null) {
+                    console.log(res);
                     //绑定数据
                     this.model.datas = res;
                     this.model.smallorderinfo = this.model.datas.SmallOrderList[0].SmallOrderInfo;
@@ -77,6 +83,104 @@ export class DetailPage implements OnInit {
         };
         this._page.goto("/carreserve/payorder/payment", { params: JSON.stringify(param) });
     }
+    cancelnow() {
+        var orderstatus = 2;
+        this.presentAlertConfirm(orderstatus);
+    }
+    async presentAlertConfirm(orderstatus) {
+        const alert = await this.alertController.create({
+            header: "确定申请退订",
+            //message: tips,
+            inputs: [
+                {
+                    name: 'reason',
+                    type: 'text',
+                    placeholder: '退订原因'
+                }
+            ],
+            buttons: [
+                {
+                    text: '取消',
+                    role: 'cancel',
+                    cssClass: 'secondary',
+                    handler: (blah) => {
+                        console.log('Confirm Cancel: blah');
+                    }
+                },
+                {
+                    text: '确定',
+                    handler: (data) => {
+                        this._page.loadingShow();
+                        var request = {
+                            "UserId": "",
+                            "FullName": "",
+                            "MobilePhone": "",
+                            "OrderCode": this.model.smallorderinfo.mcs_name,// 小订订单编号*
+                            "OrderStatus": orderstatus, //订单状态*
+                            "Gender": 1,
+                            "TotalOrder": 0,
+                            "BlindOrder": "",// 预约单号
+                            "VehTypeCode": "",// 意向车型编号
+                            "VehTypeName": "",// 意向车型名称
+                            "VehConfigCode": "",// 意向配置编号
+                            "VehConfigName": "",// 意向配置名称
+                            "EquityCode": "",//权益编号
+                            "EquityPackageId": "",//权益ID
+                            "EquityName": "",// 权益名称
+                            "OptionalCode": "",// 选配编号
+                            "OptionalId": "",//选装ID
+                            "OptionalName": "",// 选配名称
+                            "CityOnCard": "",// 上牌城市
+                            "ProvinceOnCard": "",// 上牌省份
+                            "UnsubscribeReason": data.reason,// 退订原因(订单状态为2- 退订申请时必传)*
+                            "PaymentCode": "",// 支付记录编码(订单状态为1-已支付、3-已退订时必传)
+                            "TransactionTime": new Date(),// 交易时间
+                            "Transactionamount": 0,// 交易金额（精确两位小数）
+                            "PaymentChannel": 2,// 支付渠道 0-储蓄卡、1-网上银行、2-微信、3-支付宝
+                            "SmallRefundCode": this.Gen("RYO", 9),// 小订退订编号(订单状态为2-申请退订、3-已关闭时必传)*
+                            "EquityRefundAmount": this.model.smallorderinfo.mcs_equityamount,// 权益退订金额(订单状态为2-退订申请时必传)*
+                            "EquityRefundCode": this.model.smallorderinfo.mcs_equitycode,//退订权益编号(订单状态为2-申请退订、3-已关闭时必传)*
+                            "EquityRefundName": this.model.smallorderinfo.mcs_equityname,// 退订权益名称(订单状态为2-申请退订、3-已关闭时必传)*
+                            "OptionalRefundAmount": this.model.smallorderinfo.mcs_optionalamount,// 选配退订金额*
+                            "OptionalRefundCode": this.model.smallorderinfo.mcs_optionalcode,// 选配退订编号*
+                            "OptionalRefundName": this.model.smallorderinfo.mcs_optionalname,// 退订选配名称(订单状态为2-申请退订、3-已关闭时必传)*
+                            "Spare1": "",
+                            "Spare2": "",
+                            "Spare3": "",
+                            "Spare4": "",
+                            "Spare5": "",
+                            "Spare6": "",
+                            "Spare7": "",
+                            "PremiumCode": this.model.smallorderinfo.mcs_premiumcode// 预约号*
+                        };
+                        console.log(request);
+                        this._http.post(
+                            this.model.submit.apiUrl,
+                            request,
+                            (res: any) => {
+                                if (res == null || !res.Result) {
+                                    this._page.alert("消息提示", "申请退订失败");
+                                }
+                                else {
+                                    this._page.alert("消息提示", "申请退订成功");
+                                    //重新绑定数据
+                                    this.model.datas.SmallOrderList[0].SmallOrderInfo.mcs_orderstatus = orderstatus;
+                                    this.model.smallorderinfo = this.model.datas.SmallOrderList[0].SmallOrderInfo;
+                                    this.model.smallorderinfo.paystatus = this.getPayStatus(this.model.datas.SmallOrderList[0].SmallOrderInfo.mcs_orderstatus);
+                                }
+                                this._page.loadingHide();
+                            },
+                            (err: any) => {
+                                this._page.loadingHide();
+                                this._page.alert("消息提示", "申请退订失败");
+                            }
+                        );
+                    }
+                }
+            ]
+        });
+        await alert.present();
+    }
     //订单状态0-待支付、1 - 已支付、2 - 申请退订、3 - 已退订
     getPayStatus(param) {
         var paystatus;
@@ -88,10 +192,16 @@ export class DetailPage implements OnInit {
                 paystatus = "已支付";
                 break;
             case 2:
-                paystatus = "申请退订";
+                paystatus = "申请退订中";
                 break;
             case 3:
                 paystatus = "已退订"
+                break;
+            case 4:
+                paystatus = "已支付部分退订"
+                break;
+            case 5:
+                paystatus = "退订申请拒绝"
                 break;
         }
         return paystatus;
@@ -116,5 +226,38 @@ export class DetailPage implements OnInit {
             }
         }
         return fmt;
+    }
+    //生成订单号
+    Gen(str, len) {
+        len = len || 10;
+        var $chars = '0123456789';
+        var maxPos = $chars.length;
+        var pwd = '';
+        for (var i = 0; i < len; i++) {
+            //0~32的整数
+            pwd += $chars.charAt(Math.floor(Math.random() * (maxPos + 1)));
+        }
+        return str + this.getNowFormatDate() + pwd;
+    }
+    //获取当前日期组合
+    getNowFormatDate() {
+        var datetime = new Date();
+        var year = datetime.getFullYear();
+        var month = datetime.getMonth() + 1;
+        var date = datetime.getDate();
+        var strmonth;
+        var strdate;
+        if (month >= 1 && month <= 9) {
+            strmonth = "0" + month;
+        } else {
+            strmonth = month;
+        }
+        if (date >= 0 && date <= 9) {
+            strdate = "0" + date;
+        } else {
+            strdate = date
+        }
+        var currentdate = "" + year + strmonth + strdate;
+        return currentdate;
     }
 }
