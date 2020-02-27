@@ -120,6 +120,7 @@
     <Compile Include="Entities\IVersionConfigurationRepository.cs" />
     <Compile Include="Entities\PAMetadataServiceCacheProxy.cs" />
     <Compile Include="Entities\SystemConfigurationRepositoryCacheProxy.cs" />
+    <Compile Include="IOExtensions\PAFileBlocksStream.cs" />
     <Compile Include="PAEntityExtensions\PAEntityQueryHelper.cs" />
     <Compile Include="Entities\PAMetadataService.cs" />
     <Compile Include="Entities\IConfigurationService.cs" />

@@ -124,6 +124,11 @@ namespace DCEM.ConsoleApp
         async static Task Main(string[] args)
         {
 
+            HttpClient client = new HttpClient();
+
+
+            client.DefaultRequestHeaders.Range= new System.Net.Http.Headers.RangeHeaderValue(0,1000);
+            await client.GetAsync("http://www.baidu.com");
 
             /*Regex reg = new Regex(@"\{(?<!\\)\$((?!(\{(?<!\\)\$[A-Za-z0-9][A-Za-z0-9_]+\(.*\)(?<!\\)\})).)+?(?<!\\)\}");
             Regex reg1 = new Regex(@"\{(?<!\\)\$[A-Za-z0-9]((?!(\{(?<!\\)\$[A-Za-z0-9][A-Za-z0-9_]+\(.*\)(?<!\\)\})).)+?(?<!\\)\}");

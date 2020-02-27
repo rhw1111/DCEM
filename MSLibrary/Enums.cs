@@ -136,6 +136,10 @@ namespace MSLibrary
         /// 找不到指定名称的Crm服务工厂
         /// </summary>
         NotFountCrmServiceFactorybyName= 314710235,
+        /// <summary>
+        /// 在指定消息的响应中，找不到指定名称的header
+        /// </summary>
+        NotFoundHeaderFromResponse= 314710236,
 
 
         /// <summary>

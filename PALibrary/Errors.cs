@@ -28,8 +28,12 @@ namespace PALibrary
         /// </summary>
         NotFoundRealKVCacheVisitServiceByCacheType = 614710250,
         /// <summary>
-        /// 
+        /// 找不到指定版本名称的KV缓存版本服务
         /// </summary>
-        NotFoundIKVCacheVersionServiceByName= 614710251,
+        NotFoundIKVCacheVersionServiceByName = 614710251,
+        /// <summary>
+        /// 指定的实体无法判断权限
+        /// </summary>
+        EntityNotCheckPrivilege= 614710271,
     }
 }
