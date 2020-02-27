@@ -1020,6 +1020,16 @@ namespace DCEM.UserCenterService.Main.Application.Services
             {
                 createSmallOrder.Attributes.Add("mcs_equityname", request.EquityName);
             }
+            //权益金额
+            if (request.EquityAmount!=null)
+            {
+                createSmallOrder.Attributes.Add("mcs_equityamount",(decimal)request.EquityAmount);
+            }
+            //选配金额
+            if (request.OptionalAmount!=null)
+            {
+                createSmallOrder.Attributes.Add("mcs_optionalamount",(decimal)request.OptionalAmount);
+            }
             //选配编号
             if (!string.IsNullOrWhiteSpace(request.OptionalCode))
             {

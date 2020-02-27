@@ -30,7 +30,11 @@ namespace DCEM.UserCenterService.Main.Common
             /// <summary>
             /// 已支付部分退订
             /// </summary>
-            PartiallyCancelled = 4
+            PartiallyCancelled = 4,
+            /// <summary>
+            /// 退订申请拒绝
+            /// </summary>
+            ApprovalRejected = 5
         }
     }
 }
