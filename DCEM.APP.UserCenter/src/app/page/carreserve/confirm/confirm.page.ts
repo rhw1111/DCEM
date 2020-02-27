@@ -20,7 +20,8 @@ export class ConfirmPage implements OnInit {
         datas: {},
         checkedequitypackage: [],//选择权益包
         checkedoptional: [],//选择选装包
-        shareDataKey: "smallbooking",
+        shareDataKey: "paymenting",
+        shareDataIndexKey: "smallbooking",
     };
     constructor(
         private _logininfo: Storage_LoginInfo,
@@ -34,8 +35,8 @@ export class ConfirmPage implements OnInit {
         //获取参数
         //var datastr = this.routerinfo.snapshot.queryParams["params"];
         //this.model.datas = JSON.parse(datastr);
-        if (this._shareData.has(this.model.shareDataKey)) {
-            this.model.datas = this._shareData.get(this.model.shareDataKey);
+        if (this._shareData.has(this.model.shareDataIndexKey)) {
+            this.model.datas = this._shareData.get(this.model.shareDataIndexKey);
             var equitycode = this.model.datas.request.EquityCode;
             var optionallist = this.model.datas.request.OptionalCode.split(';');
             var checkedequitypackage = [];
@@ -83,7 +84,8 @@ export class ConfirmPage implements OnInit {
                             "Spare5": this.Gen("PAY", 9), //支付流水号
                             "Spare6": this._logininfo.GetSystemUserId()
                         };
-                        this._page.goto("/carreserve/payorder/payment", { params: JSON.stringify(param) });
+                        this._shareData.set(this.model.shareDataKey, param);
+                        this._page.goto("/carreserve/payorder/payment");
                     } else {
                         this._page.alert("消息提示", res.Description);
                     }

@@ -216,7 +216,7 @@ export class IndexPage implements OnInit {
                 }
             }
 
-            this._shareData.set(this.model.shareDataIndexKey, this.model.datas);
+            this._shareData.set(this.model.shareDataIndexKey, params);
             this._page.goto("/carreserve/fillinfo");
             //this._page.goto("/carreserve/fillinfo", { params: JSON.stringify(params) });
 

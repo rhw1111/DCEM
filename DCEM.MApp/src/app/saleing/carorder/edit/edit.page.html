@@ -125,7 +125,7 @@
                 {{shareData.productRelatedMap[relKey]['a.mcs_product@OData.Community.Display.V1.FormattedValue']}}({{shareData.productRelatedMap[relKey]['_mcs_relatedproductsku_value@OData.Community.Display.V1.FormattedValue']}})
                 <span *ngIf="shareData.productRelatedMap[relKey]['ext_select']==='2'" style="float:right">+{{shareData.productRelatedMap[relKey]['a.mcs_salesprice']}}</span>
             </ion-label>
-            <ion-select (ionChange)="calcSum()" cancelText="取消" okText="确定" placeholder="请选择{{groupKey}}" [(ngModel)]="shareData.productRelatedMap[relKey]['ext_select']">
+            <ion-select (ionChange)="calcSum()" cancelText="取消" okText="确定" placeholder="请选择{{relKey}}" [(ngModel)]="shareData.productRelatedMap[relKey]['ext_select']">
                 <ion-select-option value="1">不订购</ion-select-option>
                 <ion-select-option value="2">订购</ion-select-option>
             </ion-select>

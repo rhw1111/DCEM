@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { DCore_Http, DCore_Page } from '../../../../../app/component/typescript/dcem.core';
+import { DCore_Http, DCore_Page, DCore_ShareData} from '../../../../../app/component/typescript/dcem.core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import * as $ from 'jquery';
@@ -17,18 +17,26 @@ export class PaymentPage implements OnInit {
         },
         title: "选择支付方式",
         datas: {},
+        shareDataKey: "successing",
+        shareDataIndexKey: "paymenting",
     };
     constructor(
         private _http: DCore_Http,
         private _page: DCore_Page,
         private routerinfo: ActivatedRoute,
         private alertController: AlertController,
+        private _shareData: DCore_ShareData
     ) { }
 
     ngOnInit() {
         //获取参数
-        var datastr = this.routerinfo.snapshot.queryParams["params"];
-        this.model.datas = JSON.parse(datastr);
+        //var datastr = this.routerinfo.snapshot.queryParams["params"];
+        //this.model.datas = JSON.parse(datastr);
+        if (this._shareData.has(this.model.shareDataIndexKey)) {
+            this.model.datas = this._shareData.get(this.model.shareDataIndexKey);
+        } else {
+            this._page.goto("/carreserve/index");
+        }
         this.initListLoading();
   }
     //初始化页面数据加载
@@ -123,7 +131,8 @@ export class PaymentPage implements OnInit {
                             "PremiumCode":this.model.datas.PremiumCode,
                             "mcs_smallorderid": this.model.datas.mcs_smallorderid
                         };
-                        this._page.navigateRoot("/carreserve/payorder/success", { params: JSON.stringify(param) });
+                        this._shareData.set(this.model.shareDataKey, param);
+                        this._page.navigateRoot("/carreserve/payorder/success");
                     }
                 }
             ]

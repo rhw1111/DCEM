@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { DCore_Http, DCore_Page } from '../../../../../app/component/typescript/dcem.core';
+import { DCore_Http, DCore_Page, DCore_ShareData } from '../../../../../app/component/typescript/dcem.core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import * as $ from 'jquery';
@@ -23,7 +23,8 @@ export class DetailPage implements OnInit {
             apiUrl: "api/cashcoupon/ProductCashCoupon",
             productCode: "",
             datas: []
-        }
+        },
+        shareDataIndexKey: "productdetail"
     };
     //IsShowTwoBtnDialog: boolean = false;
     ShowType: any;
@@ -37,6 +38,7 @@ export class DetailPage implements OnInit {
         private _page: DCore_Page,
         private routerinfo: ActivatedRoute,
         public toastCtrl: ToastController,
+        private _shareData: DCore_ShareData
     ) { }
     private id
     ngOnInit() {
@@ -336,8 +338,8 @@ export class DetailPage implements OnInit {
                 "ProviderParams": this.getProvider()
             }]
         };
-        this.getProvider();
-        this._page.goto("/servicecenter/preorder/preorder", { params:JSON.stringify(orderata) });
+        this._shareData.set(this.model.shareDataIndexKey, orderata);
+        this._page.goto("/servicecenter/preorder/preorder");
     }
 
     getProvider() {
