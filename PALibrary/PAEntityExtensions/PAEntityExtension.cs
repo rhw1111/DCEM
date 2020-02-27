@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using Microsoft.Xrm.Sdk;
 using PALibrary.LanguageTranslate;
 
@@ -130,6 +131,7 @@ namespace PALibrary.PAEntityExtensions
             var service = getPADomainEntityConvertService(typeof(T));
             return (T)service.Convert(entity);
         }
+
 
         private static IPADomainEntityConvertService getPADomainEntityConvertService(Type type)
         {

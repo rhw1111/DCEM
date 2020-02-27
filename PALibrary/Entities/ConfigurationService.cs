@@ -16,11 +16,11 @@ namespace PALibrary.Entities
             CacheTimeout = 300
         };
 
-        private ISystemConfigurationRepository _systemConfigurationRepository;
+        private ISystemConfigurationRepositoryCacheProxy _systemConfigurationRepositoryCacheProxy;
 
-        public ConfigurationService(ISystemConfigurationRepository systemConfigurationRepository)
+        public ConfigurationService(ISystemConfigurationRepositoryCacheProxy systemConfigurationRepositoryCacheProxy)
         {
-            _systemConfigurationRepository = systemConfigurationRepository;
+            _systemConfigurationRepositoryCacheProxy = systemConfigurationRepositoryCacheProxy;
         }
         public EntityReference GetAdministratorID()
         {
@@ -28,7 +28,7 @@ namespace PALibrary.Entities
 
             var administratorID=_administratorIDCache.GetValue((key) =>
             {
-                var configuration = _systemConfigurationRepository.QueryByName(SystemConfigurationNames.AdministratorID);
+                var configuration = _systemConfigurationRepositoryCacheProxy.QueryByName(SystemConfigurationNames.AdministratorID);
                 var id = configuration.GetConfigurationValue<Guid>();
                 return new EntityReference("systemuser", id);
             },orgId.ToString());
@@ -38,7 +38,7 @@ namespace PALibrary.Entities
 
         public string GetCacheVersion(string name)
         {
-            var configuration = _systemConfigurationRepository.QueryByName(SystemConfigurationNames.CommonCacheVersion);
+            var configuration = _systemConfigurationRepositoryCacheProxy.QueryByName(SystemConfigurationNames.CommonCacheVersion);
             var version = configuration.GetConfigurationValue<string>();
             return version;
         }
@@ -48,8 +48,8 @@ namespace PALibrary.Entities
     {
         protected override IConfigurationService RealCreate()
         {
-            var systemConfigurationRepository = SystemConfigurationRepositoryFactory.Get();
-            return new ConfigurationService(systemConfigurationRepository);
+            var systemConfigurationRepositoryCacheProxy = SystemConfigurationRepositoryCacheProxyFactory.Get();
+            return new ConfigurationService(systemConfigurationRepositoryCacheProxy);
         }
 
 

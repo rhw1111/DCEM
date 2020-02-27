@@ -140,7 +140,7 @@ namespace MSLibrary.Xrm.MessageHandle
             return result;
         }
 
-        public async Task<CrmResponseMessage> ExecuteResponse(object extension, string requestUrl, string requestBody, int responseCode, Dictionary<string, IEnumerable<string>> responseHeaders, string responseBody)
+        public async Task<CrmResponseMessage> ExecuteResponse(object extension, string requestUrl, string requestBody, int responseCode, Dictionary<string, IEnumerable<string>> responseHeaders, string responseBody, HttpResponseMessage responseMessage)
         {
             CrmBoundFunctionResponseMessage response = new CrmBoundFunctionResponseMessage();
             response.Value = JsonSerializerHelper.Deserialize<JObject>(responseBody);

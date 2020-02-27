@@ -105,6 +105,9 @@ namespace MSLibrary.Xrm
         public const string RetrieveO2NRelationMetadata = "RetrieveO2NRelationMetadata";
         public const string RetrieveGlobalOptionSetMetadata = "RetrieveGlobalOptionSetMetadata";
 
-
+        public const string GetFileAttributeUploadInfo = "GetFileAttributeUploadInfo";
+        public const string FileAttributeUploadChunking = "FileAttributeUploadChunking";
+        public const string FileAttributeDeleteData = "FileAttributeDeleteData";
+        public const string FileAttributeDownloadChunking = "FileAttributeDownloadChunking";
     }
 }

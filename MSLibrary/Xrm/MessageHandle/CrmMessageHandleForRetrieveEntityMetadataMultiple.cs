@@ -65,7 +65,7 @@ namespace MSLibrary.Xrm.MessageHandle
             return await Task.FromResult(result);
         }
 
-        public async Task<CrmResponseMessage> ExecuteResponse(object extension, string requestUrl, string requestBody, int responseCode, Dictionary<string, IEnumerable<string>> responseHeaders, string responseBody)
+        public async Task<CrmResponseMessage> ExecuteResponse(object extension, string requestUrl, string requestBody, int responseCode, Dictionary<string, IEnumerable<string>> responseHeaders, string responseBody, HttpResponseMessage responseMessage)
         {
             CrmRetrieveEntityMetadataMultipleResponseMessage response = new CrmRetrieveEntityMetadataMultipleResponseMessage();
             

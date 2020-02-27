@@ -23,6 +23,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using PALibrary;
 using PALibrary.Serializer;
+using System.Security.Policy;
 
 namespace DCEM.FrameworkConsoleApp
 {
@@ -30,8 +31,9 @@ namespace DCEM.FrameworkConsoleApp
     {
         static void Main(string[] args)
         {
-            NC.Length = 700;
-            NC nc = new NC();
+
+
+            
 
 
             var service1=Service1Factory.Get();

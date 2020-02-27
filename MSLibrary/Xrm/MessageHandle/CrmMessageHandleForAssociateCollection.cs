@@ -92,7 +92,7 @@ namespace MSLibrary.Xrm.MessageHandle
             return result;
         }
 
-        public async Task<CrmResponseMessage> ExecuteResponse(object extension, string requestUrl, string requestBody, int responseCode, Dictionary<string, IEnumerable<string>> responseHeaders, string responseBody)
+        public async Task<CrmResponseMessage> ExecuteResponse(object extension, string requestUrl, string requestBody, int responseCode, Dictionary<string, IEnumerable<string>> responseHeaders, string responseBody,HttpResponseMessage responseMessage)
         {
             CrmAssociateCollectionResponseMessage response = new CrmAssociateCollectionResponseMessage();
             return await Task.FromResult(response);

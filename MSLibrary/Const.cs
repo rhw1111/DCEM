@@ -1873,6 +1873,14 @@ namespace MSLibrary
         /// {0}：属性的返回类型
         /// </summary>
         public const string NotFoundCrmAttributeMetadataHandleByType = "NotFoundCrmAttributeMetadataHandleByType";
+        /// <summary>
+        /// 在指定消息的响应中，找不到指定名称的header
+        /// 格式为“在消息{0}的响应中，找不到名称为{1}的header，返回的header名称集合为{2}”
+        /// {0}：消息名称
+        /// {1}：要找的Header名称
+        /// {2}：实际响应中的Header名称集合
+        /// </summary>
+        public const string NotFoundHeaderFromResponse = "NotFoundHeaderFromResponse";
 
         /// <summary>
         /// 找不到指定表达式类型的工作流活动参数处理
