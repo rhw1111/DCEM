@@ -27,6 +27,10 @@ const routes: Routes = [
                 loadChildren: () => import('./page/home/set/set.module').then(m => m.SetPageModule)
             },
             {
+                path: 'update',
+                loadChildren: () => import('.//page/home/update/update.module').then(m => m.UpdatePageModule)
+            },
+            {
                 path: 'demo',  // demo
                 children: [
                     {
@@ -221,7 +225,7 @@ const routes: Routes = [
                                 loadChildren: () => import('./page/personalcenter/myorder/carorder/detail/detail.module').then(m => m.DetailPageModule)
                             },
                         ]
-                    }, 
+                    },
                     {
                         path: 'prodorder',
                         children: [
@@ -403,8 +407,9 @@ const routes: Routes = [
             }
         ]
     },
+
 ]
-;
+    ;
 
 
 @NgModule({

@@ -91,6 +91,7 @@
     <Folder Include="src\app\page\community\" />
     <Folder Include="src\app\page\carcenter\" />
     <Folder Include="src\app\page\" />
+    <Folder Include="src\app\page\home\update\" />
     <Folder Include="src\app\page\message\" />
     <Folder Include="src\app\page\message\index\" />
     <Folder Include="src\app\page\message\noticelist\" />
@@ -349,6 +350,10 @@
     <TypeScriptCompile Include="src\app\page\home\tabs\tabs.module.ts" />
     <TypeScriptCompile Include="src\app\page\home\tabs\tabs.page.spec.ts" />
     <TypeScriptCompile Include="src\app\page\home\tabs\tabs.page.ts" />
+    <TypeScriptCompile Include="src\app\page\home\update\update-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\page\home\update\update.module.ts" />
+    <TypeScriptCompile Include="src\app\page\home\update\update.page.spec.ts" />
+    <TypeScriptCompile Include="src\app\page\home\update\update.page.ts" />
     <TypeScriptCompile Include="src\app\page\message\index\index.module.ts" />
     <TypeScriptCompile Include="src\app\page\message\index\index.page.spec.ts" />
     <TypeScriptCompile Include="src\app\page\message\index\index.page.ts" />
@@ -656,6 +661,8 @@
     <Content Include="src\app\page\home\shippingaddress\shippingaddress.page.scss" />
     <Content Include="src\app\page\home\tabs\tabs.page.html" />
     <Content Include="src\app\page\home\tabs\tabs.page.scss" />
+    <Content Include="src\app\page\home\update\update.page.html" />
+    <Content Include="src\app\page\home\update\update.page.scss" />
     <Content Include="src\app\page\message\index\index.page.html" />
     <Content Include="src\app\page\message\index\index.page.scss" />
     <Content Include="src\app\page\message\noticelist\noticelist.page.html" />
