@@ -17,6 +17,8 @@ using DCEM.ServiceAssistantService.Main;
 using MSLibrary.Xrm;
 using MSLibrary.Xrm.Message.RetrieveMultipleFetch;
 using System.Xml.Linq;
+using DCEM.Main.Entities.TCenter.Response.Payment;
+using DCEM.Main.Entities.TCenter.Request.Payment;
 
 namespace DCEM.Main.RemoteService
 {
@@ -203,6 +205,62 @@ namespace DCEM.Main.RemoteService
             validateResult.Result = true;
             validateResult.Description = "操作成功";
             return validateResult;
+        }
+
+        /// <summary>
+        /// 模拟微信/支付宝退款接口
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<SimulatedRefundResponse> SimulatedRefund(SimulatedRefundRequest request)
+        {
+            return await Task.Run(() =>
+            {
+                var refund_id = GenerateOrderNo("420000");
+                if (!string.IsNullOrEmpty(request.notify_url))
+                {
+                    var callBackResponse = new RefundCallBackResponse()
+                    {
+                        return_code = "SUCCESS",
+                        appid = request.appid,
+                        mch_id = request.mch_id,
+                        nonce_str = request.nonce_str,
+                        transaction_id = GenerateOrderNo("420000"),
+                        out_trade_no = request.out_trade_no,
+                        out_refund_no = request.out_refund_no,
+                        refund_id = refund_id,
+                        total_fee = request.total_fee,
+                        refund_fee = request.refund_fee,
+                        settlement_refund_fee = request.refund_fee,
+                        refund_status = "SUCCESS",
+                        success_time = DateTime.Now.ToString()
+                    };
+                    var results = HttpClinetHelper.PostAsync<RefundCallBackResponse, BaseRefundResponse>(callBackResponse, request.notify_url);
+                }
+                return new SimulatedRefundResponse()
+                {
+                    return_code = "SUCCESS",
+                    return_msg = "",
+                    appid = request.appid,
+                    mch_id = request.mch_id,
+                    nonce_str = request.nonce_str,
+                    sign = request.sign,
+                    out_trade_no = request.out_trade_no,
+                    out_refund_no = request.out_refund_no,
+                    refund_id = refund_id,
+                    total_fee = request.total_fee,
+                    refund_fee = request.refund_fee
+                };
+            });
+        }
+        /// <summary>
+        /// 随机订单号
+        /// </summary>
+        /// <returns></returns>
+        public static string GenerateOrderNo(string title)
+        {
+            Random ran = new Random();
+            return string.Format("{0}{1}{2}", title, DateTime.Now.ToString("yyyyMMddHHmmss"), ran.Next(999));
         }
 
         /// <summary>
