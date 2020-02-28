@@ -559,6 +559,8 @@ namespace DCEM.UserCenterService.Main.Application.Repository
                 <attribute name='mcs_equitycode' />
                 <attribute name='mcs_equityname' />
                 <attribute name='mcs_vehconfigcode' />
+                <attribute name='mcs_optionalamount' />
+                <attribute name='mcs_equityamount' />
                 <attribute name='mcs_vehconfigname' />
                 <attribute name='mcs_vehtypecode' />
                 <attribute name='mcs_vehtypename' />
@@ -607,6 +609,8 @@ namespace DCEM.UserCenterService.Main.Application.Repository
                 <attribute name='mcs_equityname' />
                 <attribute name='mcs_vehconfigcode' />
                 <attribute name='mcs_vehconfigname' />
+                <attribute name='mcs_optionalamount' />
+                <attribute name='mcs_equityamount' />
                 <attribute name='mcs_vehtypecode' />
                 <attribute name='mcs_vehtypename' />
                 <attribute name='mcs_provinceoncard' />

@@ -23,6 +23,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
     using System.Linq;
     using MSLibrary;
     using System.Text.RegularExpressions;
+    using static DCEM.UserCenterService.Main.Common.Enums;
 
     public class SmallBookingService : ISmallBookingService
     {
@@ -265,6 +266,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 }
                 #endregion
 
+                #region 查询订单是否存在
                 //是否包含厅店
                 CrmEntity dealer = null;
                 var dealerid = onlyLead.Attributes.Value<string>("_mcs_dealerid_value");
@@ -282,7 +284,6 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     var DealerResponse = fetchDealerResponse as CrmRetrieveMultipleFetchResponseMessage;
                     dealer = DealerResponse.Value.Results.Count > 0 ? DealerResponse.Value.Results[0] : null;
                 }
-                //2.通过小订订单号查询是否有小订编号，没有则创建
                 var fetchSmallOrder = _smallbookingRepository.QuerySmallOrder(request.OrderCode);
                 var fetchXdocSmallOrder = XDocument.Parse(fetchSmallOrder);
                 var fetchrequest = new CrmRetrieveMultipleFetchRequestMessage()
@@ -294,7 +295,9 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 var fetchSmallOrderResponse = await _crmService.Execute(fetchrequest);
                 var smallOrderResponse = fetchSmallOrderResponse as CrmRetrieveMultipleFetchResponseMessage;
                 var smallorder = smallOrderResponse.Value.Results.Count > 0 ? smallOrderResponse.Value.Results[0] : null;
-                //3.根据传进来的小订记录状态，处理不同业务逻辑（0 - 待支付、1 - 已支付、2 - 申请退订、3 - 已关闭、4 - 已支付部分退订）
+                #endregion
+
+                #region 小订记录创建
                 if (smallorder == null)
                 {
                     //3.1 默认第一次传进来的是待支付 新建记录
@@ -324,9 +327,11 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 {
                     reusetCrmEntity = smallorder;
                 }
+                #endregion
 
+                #region 订单状态为已支付
                 //3.2 订单状态我已支付时，更新订单记录为已支付，创建销售机会，创建支付记录
-                if (request.OrderStatus == 1)
+                if (request.OrderStatus == (int)SmallOrderStatus.Paid)
                 {
                     CrmEntity account = null;
                     if (dealer != null)
@@ -398,20 +403,36 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     //小订状态
                     upSmallOrder.Attributes.Add("mcs_orderstatus", request.OrderStatus);
                     await _crmService.Update(upSmallOrder);
-                  
+
                 }
+                #endregion
 
-                ////3.3 订单状态为申请退订时，更新订单状态为申请退订，创建小订退订记录
-                //if (request.OrderStatus == (int)SmallOrderStatus.ApplyForUnsubscribe)
-                //{
-                //    //创建小订退订记录
-                //    CreateSmallRefund(smallorder, request, request);
+                #region 订单状态为申请退订
+                //3.3 订单状态为申请退订时，更新订单状态为申请退订，创建小订退订记录
+                if (request.OrderStatus == (int)SmallOrderStatus.ApplyForUnsubscribe)
+                {
+                    if (smallorder != null && smallorder.Attributes.ContainsKey("mcs_orderstatus"))
+                    {
+                        var orderstatus = smallorder.Attributes.Value<int>("mcs_orderstatus");
+                        if (orderstatus == (int)SmallOrderStatus.Unpaid)
+                        {
+                            //修改小订记录状态
+                            UpdateSmallOrder(smallorder, (int)SmallOrderStatus.Closed);
+                        }
+                        if (orderstatus == (int)SmallOrderStatus.Paid)
+                        {
+                            //创建小订退订记录
+                            CreateSmallRefund(smallorder, request);
 
-                //    //修改小订记录状态
-                //    UpdateSmallOrder(smallorder, (int)SmallOrderStatus.ApplyForUnsubscribe, request);
-                //}
+                            //修改小订记录状态
+                            UpdateSmallOrder(smallorder, (int)SmallOrderStatus.ApplyForUnsubscribe);
+                        }
+                    }
+                }
+                #endregion
 
-                ////3.4 订单状态为已退订时
+                #region 订单状态为已退订
+                ////3.4 订单状态为已退订
                 ////3.4.1 更新小订订单状态与可用订单总额、更新小订状态存在3 - 已关闭和4 - 已支付部分退订情况，如果可用订单总额为0，则说明已全部退完，为已关闭，否则为已支付部分退订
                 ////3.4.2 如果订单状态为已退订了，则通过小订订单查询销售机会，关闭销售机会
                 //if (request.OrderStatus == (int)SmallOrderStatus.Closed)
@@ -453,6 +474,8 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
                 ////执行处理
                 //service.Execute(request);
+                #endregion
+
                 validateResult.Data = reusetCrmEntity;
                 validateResult.Result = true;
                 validateResult.Description = "操作成功";
@@ -466,6 +489,86 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 return validateResult;
             }
         }
+
+        /// <summary>
+        /// 修改小订记录
+        /// </summary>
+        /// <param name="smallorder"></param>
+        /// <param name="smallOrderRequest"></param>
+        /// <param name="request"></param>
+        private async void UpdateSmallOrder(CrmEntity smallorder, int orderstatus)
+        {
+            var upsmallorder = new CrmExecuteEntity(smallorder.EntityName, smallorder.Id);
+            //小订状态
+            upsmallorder.Attributes.Add("mcs_orderstatus", orderstatus);
+            await _crmService.Update(upsmallorder);
+        }
+
+        /// <summary>
+        /// 创建小订退订记录
+        /// </summary>
+        /// <param name="smallorder"></param>
+        /// <param name="smallOrderRequest"></param>
+        /// <param name="request"></param>
+        private async void CreateSmallRefund(CrmEntity smallorder, SmallBookingRequest smallOrderRequest)
+        {
+            var smallrefund = new CrmExecuteEntity("mcs_smallrefund", Guid.NewGuid());
+            //小订退订编号
+            if (!string.IsNullOrWhiteSpace(smallOrderRequest.SmallRefundCode))
+            {
+                smallrefund.Attributes.Add("mcs_name", smallOrderRequest.SmallRefundCode);
+            }
+            var equityrefundamount = 0.00m;
+            //权益退订金额
+            if (smallOrderRequest.EquityRefundAmount != null)
+            {
+                smallrefund.Attributes.Add("mcs_equityrefundamount", (decimal)smallOrderRequest.EquityRefundAmount);
+                equityrefundamount = (decimal)smallOrderRequest.EquityRefundAmount;
+            }
+            //退订权益编号
+            if (!string.IsNullOrWhiteSpace(smallOrderRequest.EquityRefundCode))
+            {
+                smallrefund.Attributes.Add("mcs_equityrefundcode", smallOrderRequest.EquityRefundCode);
+            }
+            //退订权益名称
+            if (!string.IsNullOrWhiteSpace(smallOrderRequest.EquityRefundName))
+            {
+                smallrefund.Attributes.Add("mcs_equityrefundname", smallOrderRequest.EquityRefundName);
+            }
+            var optionalrefundamount = 0.00m;
+            //选配退订金额
+            if (smallOrderRequest.OptionalRefundAmount != null)
+            {
+                smallrefund.Attributes.Add("mcs_optionalrefundamount", (decimal)smallOrderRequest.OptionalRefundAmount);
+                optionalrefundamount = (decimal)smallOrderRequest.OptionalRefundAmount;
+            }
+            //退订合计金额
+            var untotalamount = (decimal)optionalrefundamount + (decimal)equityrefundamount;
+            smallrefund.Attributes.Add("mcs_untotalamount", (decimal)untotalamount);
+
+            //退订选配编号
+            if (!string.IsNullOrWhiteSpace(smallOrderRequest.OptionalRefundCode))
+            {
+                smallrefund.Attributes.Add("mcs_optionalrefundcode", smallOrderRequest.OptionalRefundCode);
+            }
+            //退订选配名称
+            if (!string.IsNullOrWhiteSpace(smallOrderRequest.OptionalRefundName))
+            {
+                smallrefund.Attributes.Add("mcs_optionalrefundname", smallOrderRequest.OptionalRefundName);
+            }
+            //退订申请状态 0-已提交、1-一级审批通过:2-一级审批拒绝、3-二级审批通过、4-二级审批拒绝
+            smallrefund.Attributes.Add("mcs_approvalstatus", 0);
+            //退订原因
+            if (!string.IsNullOrWhiteSpace(smallOrderRequest.UnsubscribeReason))
+            {
+                smallrefund.Attributes.Add("mcs_unsubscribereason", smallOrderRequest.UnsubscribeReason);
+            }
+            //关联小订记录
+            smallrefund.Attributes.Add("mcs_smallorderid", new CrmEntityReference(smallorder.EntityName, smallorder.Id));
+
+            await _crmService.Create(smallrefund);
+        }
+
 
         /// <summary>
         /// 创建支付记录
@@ -916,6 +1019,16 @@ namespace DCEM.UserCenterService.Main.Application.Services
             if (!string.IsNullOrWhiteSpace(request.EquityName))
             {
                 createSmallOrder.Attributes.Add("mcs_equityname", request.EquityName);
+            }
+            //权益金额
+            if (request.EquityAmount!=null)
+            {
+                createSmallOrder.Attributes.Add("mcs_equityamount",(decimal)request.EquityAmount);
+            }
+            //选配金额
+            if (request.OptionalAmount!=null)
+            {
+                createSmallOrder.Attributes.Add("mcs_optionalamount",(decimal)request.OptionalAmount);
             }
             //选配编号
             if (!string.IsNullOrWhiteSpace(request.OptionalCode))
