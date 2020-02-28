@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+ï»¿import { Component, OnInit } from '@angular/core';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
@@ -24,11 +24,13 @@ export class UpdatePage implements OnInit {
     }
 
     ngAfterContentInit(): void {
+        debugger;
         this.isUpdate();
     }
 
     isUpdate() {
         this.appVersion.getVersionNumber().then((value: any) => {
+            console.log(value);
             this.showAlert();
 
         }).catch(err => {
@@ -37,20 +39,20 @@ export class UpdatePage implements OnInit {
     }
 
     async showAlert() {
- 
+
         const alert = await this.alertController.create({
-            header: 'Éı¼¶!',
-            message: '·¢ÏÖĞÂ°æ±¾,ÊÇ·ñÁ¢¼´Éı¼¶£¿',
+            header: 'å‡çº§!',
+            message: 'å‘ç°æ–°ç‰ˆæœ¬,æ˜¯å¦ç«‹å³å‡çº§ï¼Ÿ',
             buttons: [
                 {
-                    text: 'È¡Ïû',
+                    text: 'å–æ¶ˆ',
                     role: 'cancel',
                     cssClass: 'secondary',
                     handler: (blah) => {
 
                     }
                 }, {
-                    text: 'È·ÈÏ',
+                    text: 'ç¡®è®¤',
                     handler: () => {
                         this.downloadApp();
                     }
@@ -61,17 +63,20 @@ export class UpdatePage implements OnInit {
     }
 
     downloadApp() {
-        //4.ÏÂÔØapk
-        const targetUrl = 'http://127.0.0.1:8080/test.apk';
+
+        //4.ä¸‹è½½apk
+        const targetUrl = 'http://106.14.121.65:8083/app-debug.apk';
         const fileTransfer: FileTransferObject = this.transfer.create();
 
-        console.log(this.file.dataDirectory);   //»ñÈ¡µ±Ç°Ó¦ÓÃµÄ°²×°£¨home£©Ä¿Â¼     1¡¢Ó¦ÓÃ°üÃû³ÆÒªÒ»ÖÂ   2¡¢Éı¼¶µÄ°üµÄ°æ±¾ºÅÒª´óÓÚµ±Ç°Ó¦ÓÃµÄ°æ±¾ºÅ   3¡¢Ç©ÃûÒªÒ»ÖÂ    4¡¢sdk Òª°²×°
+        console.log(this.file.dataDirectory);   //è·å–å½“å‰åº”ç”¨çš„å®‰è£…ï¼ˆhomeï¼‰ç›®å½•     1ã€åº”ç”¨åŒ…åç§°è¦ä¸€è‡´   2ã€å‡çº§çš„åŒ…çš„ç‰ˆæœ¬å·è¦å¤§äºå½“å‰åº”ç”¨çš„ç‰ˆæœ¬å·   3ã€ç­¾åè¦ä¸€è‡´    4ã€sdk è¦å®‰è£…
 
-        fileTransfer.download(targetUrl, this.file.dataDirectory + 'aaa.apk').then((entry) => {
-            //6¡¢ÏÂÔØÍê³Éµ÷ÓÃ´ò¿ªÓ¦ÓÃ
+        fileTransfer.download(targetUrl, this.file.dataDirectory + 'dcem.apk').then((entry) => {
+            debugger;
+            //6ã€ä¸‹è½½å®Œæˆè°ƒç”¨æ‰“å¼€åº”ç”¨
             this.fileOpener.open(entry.toURL(),
                 'application/vnd.android.package-archive')
                 .then(() => {
+                    debugger;
                     console.log('File is opened')
                 })
                 .catch(e => {
@@ -84,14 +89,14 @@ export class UpdatePage implements OnInit {
         });
 
 
-        //5¡¢»ñÈ¡ÏÂÔØ½ø¶È    
+        //5ã€è·å–ä¸‹è½½è¿›åº¦    
         var oProgressNum = document.getElementById('progressnum');
         fileTransfer.onProgress((event) => {
-            let num = Math.ceil(event.loaded / event.total * 100);  //×ª»¯³É1-100µÄ½ø¶È
+            let num = Math.ceil(event.loaded / event.total * 100);  //è½¬åŒ–æˆ1-100çš„è¿›åº¦
             if (num === 100) {
-                oProgressNum.innerHTML = 'ÏÂÔØÍê³É';
+                oProgressNum.innerHTML = 'ä¸‹è½½å®Œæˆ';
             } else {
-                oProgressNum.innerHTML = 'ÏÂÔØ½ø¶È£º' + num + '%';
+                oProgressNum.innerHTML = 'ä¸‹è½½è¿›åº¦ï¼š' + num + '%';
 
             }
         });

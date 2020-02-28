@@ -5,7 +5,8 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
     {
         path: '',
-        loadChildren: () => import('./page/home/tabs/tabs.module').then(m => m.TabsPageModule)
+        //loadChildren: () => import('./page/home/update/update.module').then(m => m.UpdatePageModule)
+        loadChildren: () => import('./page/home/tabs/tabs.module').then(m => m.TabsPageModule),
     },
     {
         path: 'home',  //通用目录
@@ -27,7 +28,7 @@ const routes: Routes = [
                 loadChildren: () => import('./page/home/set/set.module').then(m => m.SetPageModule)
             },
             {
-                path: 'update',
+                path: 'update', //自动更新
                 loadChildren: () => import('.//page/home/update/update.module').then(m => m.UpdatePageModule)
             },
             {
