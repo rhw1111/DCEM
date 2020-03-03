@@ -51,7 +51,7 @@ namespace DCEM.Web.Controllers
         [Route("simulatedrefund")]
         //[InterfaceSuccessFilter]
         //[OtherSystemAuthenticationActionFilter]
-        public async Task<SimulatedRefundResponse> SyncPayedRecords(SimulatedRefundRequest request)
+        public async Task<SimulatedRefundResponse> SyncPayedRecords([FromBody]SimulatedRefundRequest request)
         {
             //var app = _payLogicFactory.Create();
             //var result = app.SyncPayedRecords(request);

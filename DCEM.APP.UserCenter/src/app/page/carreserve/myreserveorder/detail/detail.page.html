@@ -121,7 +121,7 @@
         </div>-->
                 </div>
                 <div *ngIf="model.smallorderinfo.mcs_orderstatus == 0">
-                    <button class="preorder-toolbar-button" (click)="paynow(model.smallorderinfo.mcs_name,model.params.mcs_smallorderid,model.smallorderinfo.mcs_premiumname,model.smallorderinfo.mcs_totalorder)">立即支付</button>
+                    <button class="preorder-toolbar-button" (click)="paynow(model.smallorderinfo.mcs_name,model.params.mcs_smallorderid,model.smallorderinfo.mcs_premiumcode,model.smallorderinfo.mcs_totalorder)">立即支付</button>
                 </div>
                 <div *ngIf="model.smallorderinfo.mcs_orderstatus == 1">
                     <button class="preorder-toolbar-button" style="background-color:#3880ff;border:1px solid #3880ff;" (click)="cancelnow()">申请退订</button>
