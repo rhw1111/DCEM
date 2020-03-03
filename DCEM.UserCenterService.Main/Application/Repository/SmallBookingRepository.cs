@@ -107,6 +107,29 @@ namespace DCEM.UserCenterService.Main.Application.Repository
         }
 
         /// <summary>
+        /// 通过小订查询销售机会
+        /// </summary>
+        /// <param name="onlyleadid"></param>
+        /// <returns></returns>
+        public string QueryAccountBySmallOrderId(Guid smallorderid)
+        {
+            var strFetch = string.Format(@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+              <entity name='account'>
+                <attribute name='name' />
+                <attribute name='mcs_dealerid' />
+                <attribute name='mcs_customerstatus' />
+                <attribute name='accountid' />
+                <attribute name='mcs_mobilephone' />
+                <filter type='and'>
+                  <condition attribute='statecode' operator='eq' value='0' />
+                  <condition attribute='mcs_smallorderid' operator='eq'  value='{0}' />
+                </filter>
+              </entity>
+            </fetch>", smallorderid);
+            return strFetch;
+        }
+
+        /// <summary>
         /// 查询预约号
         /// </summary>
         /// <param name="blindOrder"></param>

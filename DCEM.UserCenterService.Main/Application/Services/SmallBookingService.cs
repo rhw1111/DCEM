@@ -435,42 +435,58 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 ////3.4 订单状态为已退订
                 ////3.4.1 更新小订订单状态与可用订单总额、更新小订状态存在3 - 已关闭和4 - 已支付部分退订情况，如果可用订单总额为0，则说明已全部退完，为已关闭，否则为已支付部分退订
                 ////3.4.2 如果订单状态为已退订了，则通过小订订单查询销售机会，关闭销售机会
-                //if (request.OrderStatus == (int)SmallOrderStatus.Closed)
-                //{
-                //    //订单可用金额
-                //    var oldavailabletotalorder = 0.00M;
-                //    if (smallorder.Contains("mcs_availabletotalorder"))
-                //    {
-                //        oldavailabletotalorder = smallorder.GetAttributeValue<Money>("mcs_availabletotalorder").Value;
-                //    }
-                //    var nowavailabletotalorder = 0.00M;
-                //    if (request.Transactionamount != null)
-                //    {
-                //        nowavailabletotalorder = (decimal)request.Transactionamount;
-                //    }
+                if (request.OrderStatus == (int)SmallOrderStatus.Closed)
+                {
+                    //订单可用金额
+                    var oldavailabletotalorder = 0.00M;
+                    if (smallorder.Attributes.ContainsKey("mcs_availabletotalorder"))
+                    {
+                        oldavailabletotalorder = smallorder.Attributes.Value<int>("mcs_availabletotalorder");
+                    }
+                    var nowavailabletotalorder = 0.00M;
+                    if (request.Transactionamount != null)
+                    {
+                        nowavailabletotalorder = (decimal)request.Transactionamount;
+                    }
 
-                //    if (smallorder.Contains("mcs_orderstatus") && smallorder.GetAttributeValue<OptionSetValue>("mcs_orderstatus").Value != (int)SmallOrderStatus.Unpaid)
-                //    {
-                //        //创建支付记录
-                //        CreatePaymentRecord(smallorder, request, request);
-                //    }
-                //    if (oldavailabletotalorder - nowavailabletotalorder <= 0.00M)
-                //    {
-                //        var account = QueryAccount(smallorder.Id, service);
-                //        if (account != null)
-                //        {
-                //            //修改销售机会状态
-                //            UpdateAccount(account, request);
-                //        }
-                //        //修改小订记录
-                //        UpdateSmallOrder(smallorder, (int)SmallOrderStatus.Closed, 0.00M, request);
-                //    }
-                //    else
-                //    {
-                //        //修改小订记录
-                //        UpdateSmallOrder(smallorder, (int)SmallOrderStatus.PartiallyCancelled, oldavailabletotalorder - nowavailabletotalorder, request);
-                //    }
-                //}
+                    if (smallorder.Attributes.ContainsKey("mcs_orderstatus") && smallorder.Attributes.Value<int>("mcs_orderstatus") != (int)SmallOrderStatus.Unpaid)
+                    {
+                        //创建支付记录
+                        var paymentRecord = CreatePaymentRecord(smallorder, request);
+                    }
+                    if (oldavailabletotalorder - nowavailabletotalorder <= 0.00M)
+                    {
+                        CrmEntity account = null;
+                        //通过小订查询销售机会
+                        var fetchAccount = _smallbookingRepository.QueryAccountBySmallOrderId(smallorder.Id);
+                        var fetchXdocAccount = XDocument.Parse(fetchAccount);
+                        var fetchAccountRequest = new CrmRetrieveMultipleFetchRequestMessage()
+                        {
+                            EntityName = "account",
+                            FetchXml = fetchXdocAccount
+                        };
+                        fetchAccountRequest.Headers.Add(dicHeadKey, dicHead[dicHeadKey]);
+                        var fetchAccountResponse = await _crmService.Execute(fetchAccountRequest);
+                        var AccountResponse = fetchAccountResponse as CrmRetrieveMultipleFetchResponseMessage;
+                        account = AccountResponse.Value.Results.Count > 0 ? AccountResponse.Value.Results[0] : null;
+                        if (account != null)
+                        {
+                            var upaccount = new CrmExecuteEntity(account.EntityName, account.Id);
+                            var smallOrderRef = new CrmEntityReference(smallorder.EntityName, smallorder.Id);
+                            //更改销售机会状态1-待指派，2-已指派，3-申请战败，4-已成交，5-已战败，6-已关闭
+                            upaccount.Attributes.Add("mcs_customerstatus", 6);
+                            //修改销售机会状态
+                            await _crmService.Update(upaccount);
+                        }
+                        //修改小订记录
+                        UpdateSmallOrder(smallorder, (int)SmallOrderStatus.Closed, 0.00M);
+                    }
+                    else
+                    {
+                        //修改小订记录
+                        UpdateSmallOrder(smallorder, (int)SmallOrderStatus.PartiallyCancelled, oldavailabletotalorder - nowavailabletotalorder);
+                    }
+                }
 
                 ////执行处理
                 //service.Execute(request);
@@ -502,6 +518,23 @@ namespace DCEM.UserCenterService.Main.Application.Services
             //小订状态
             upsmallorder.Attributes.Add("mcs_orderstatus", orderstatus);
             await _crmService.Update(upsmallorder);
+        }
+
+        /// <summary>
+        /// 修改小订记录可用金额
+        /// </summary>
+        /// <param name="smallorder"></param>
+        /// <param name="orderstatus"></param>
+        /// <param name="availabletotal"></param>
+        private async void UpdateSmallOrder(CrmEntity smallorder, int orderstatus, decimal availabletotal)
+        {
+            var upsmallorder = new CrmExecuteEntity(smallorder.EntityName, smallorder.Id);
+            //小订状态
+            upsmallorder.Attributes.Add("mcs_orderstatus", orderstatus);
+            //可用订单金额
+            upsmallorder.Attributes.Add("mcs_availabletotalorder", (int)availabletotal);
+            await _crmService.Update(upsmallorder);
+
         }
 
         /// <summary>

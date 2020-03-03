@@ -1,7 +1,8 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { DCore_Http, DCore_Page } from '../../../../../app/component/typescript/dcem.core';
+import { DCore_Http, DCore_Page, DCore_ShareData } from '../../../../../app/component/typescript/dcem.core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { Storage_LoginInfo } from '../../../../component/typescript/logininfo.storage';
 
 @Component({
   selector: 'app-detail',
@@ -22,12 +23,15 @@ export class DetailPage implements OnInit {
         equitypackagelist: [],
         optionallist:[],
         params: {},
+        shareDataKey: "paymenting",
     };
     constructor(
+        private _logininfo: Storage_LoginInfo,
         private _http: DCore_Http,
         private _page: DCore_Page,
         private routerinfo: ActivatedRoute,
         private alertController: AlertController,
+        private _shareData: DCore_ShareData
     ) { }
 
     ngOnInit() {
@@ -73,15 +77,29 @@ export class DetailPage implements OnInit {
             }
         );
     }
-    paynow(ordercode, mcs_smallorderid, mcs_premiumname, mcs_totalorder) {
+    paynow(ordercode, mcs_smallorderid, mcs_premiumcode, mcs_totalorder) {
+        //var param = {
+        //    "OrderCode": ordercode,
+        //    "mcs_smallorderid": mcs_smallorderid,
+        //    "BlindOrder": mcs_premiumname,
+        //    "TotalOrder": mcs_totalorder,
+        //    "OrderStatus": 1
+        //};
         var param = {
             "OrderCode": ordercode,
             "mcs_smallorderid": mcs_smallorderid,
-            "BlindOrder": mcs_premiumname,
+            "PremiumCode": mcs_premiumcode,
             "TotalOrder": mcs_totalorder,
-            "OrderStatus": 1
+            "PaymentCode": this.Gen("XDPN", 9), //支付记录编码
+            "OrderStatus": 1, //订单状态0-待支付、1-已支付、2-申请退订、3-已退订
+            "TransactionTime": this.Format(new Date(), "yyyy-MM-dd HH:mm:ss"), //交易时间
+            "Transactionamount": mcs_totalorder, //交易金额
+            "PaymentChannel": 2,// 支付渠道 0-储蓄卡、1-网上银行、2-微信、3-支付宝
+            "Spare5": this.Gen("PAY", 9), //支付流水号
+            "Spare6": this._logininfo.GetSystemUserId()
         };
-        this._page.goto("/carreserve/payorder/payment", { params: JSON.stringify(param) });
+        this._shareData.set(this.model.shareDataKey, param);
+        this._page.goto("/carreserve/payorder/payment");
     }
     cancelnow() {
         var orderstatus = 2;

@@ -99,6 +99,7 @@ export class PaymentPage implements OnInit {
         this._http.post(this.model.search.apiUrl,
             request,
             (res: any) => {
+                console.log(res);
                 if (res != null) {
                     if (res.Result) {
                         this.presentAlertConfirm();
