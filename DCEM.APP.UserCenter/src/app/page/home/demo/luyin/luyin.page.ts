@@ -108,9 +108,9 @@ export class LuyinPage implements OnInit {
         const ftObj: FileTransferObject = this.ft.create();
         //this.entry=ftObj;								
         ftObj.upload(this.filePath.replace(/^file:\/\//, ''),
-            encodeURI("http://106.14.121.65:8082/dcem/Api/Files/Upload"), options).then(
+            encodeURI("http://106.14.27.132:8082/dcem/Api/Files/Upload"), options).then(
                 (data) => {
-                    this.base64File = "http://106.14.121.65:8082/dcem/FilesDir/" + this.fileName;
+                    this.base64File = "http://106.14.27.132:8082/dcem/FilesDir/" + this.fileName;
                     this.voice();
                     //alert("File upload success!");											
                 },
@@ -126,7 +126,7 @@ export class LuyinPage implements OnInit {
         }
         //this._page.loadingShow();
         this._http.postCustom(
-            "http://106.14.121.65:8082/ocr/api/ocr/Voice",
+            "http://106.14.27.132:8082/ocr/api/ocr/Voice",
             json,
             (res: any) => {
                 console.log(res);
