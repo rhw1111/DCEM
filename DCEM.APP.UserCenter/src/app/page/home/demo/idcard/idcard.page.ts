@@ -16,7 +16,7 @@ export class IdcardPage implements OnInit {
   ) { }
 
   data={
-    url:"https://subcrmuatapi.sokon.com/ocr/api/ocr/IdCard",
+      url:"http://106.14.27.132:8082/ocr/api/ocr/IdCard",
     json1:{
       FileUrl:"D:\\Publish\\WebSite\\API\\OCR\\img\\身份证-正面.jpg",
       Type:1
