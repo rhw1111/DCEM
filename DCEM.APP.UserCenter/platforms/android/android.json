@@ -29,31 +29,31 @@
           "/manifest": [
             {
               "xml": "<uses-permission android:name=\"android.permission.REQUEST_INSTALL_PACKAGES\" />",
-              "count": 3
+              "count": 4
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
-              "count": 6
+              "count": 8
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.RECORD_AUDIO\" />",
-              "count": 3
+              "count": 4
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.RECORD_VIDEO\" />",
-              "count": 3
+              "count": 4
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />",
-              "count": 3
+              "count": 4
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\" />",
-              "count": 3
+              "count": 4
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />",
-              "count": 3
+              "count": 4
             }
           ],
           "/*": [

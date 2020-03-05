@@ -100,7 +100,7 @@
   "es.keensoft.fullscreenimage": {
     "source": {
       "type": "registry",
-      "id": "es.keensoft.fullscreenimage"
+      "id": "es.keensoft.fullscreenimage@^0.2.10"
     },
     "is_top_level": true,
     "variables": {}
