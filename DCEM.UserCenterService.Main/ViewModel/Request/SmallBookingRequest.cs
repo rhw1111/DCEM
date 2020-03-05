@@ -172,7 +172,7 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
         public string OptionalRefundCode { get; set; }
 
         /// <summary>
-        /// 退订选配名称(订单状态为2-申请退订、3-已关闭时必传)
+        /// 退订选配名称(订单状态为2-申请退订)
         /// </summary>
         public string OptionalRefundName { get; set; }
 

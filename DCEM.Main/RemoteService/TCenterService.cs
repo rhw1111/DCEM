@@ -237,7 +237,10 @@ namespace DCEM.Main.RemoteService
                     };
                     var results = HttpClinetHelper.PostAsync<RefundCallBackResponse, BaseRefundResponse>(callBackResponse, request.notify_url);
                     //记录回调是否成功
+                    if (results != null)
+                    {
 
+                    }
                 }
                 return new SimulatedRefundResponse()
                 {
