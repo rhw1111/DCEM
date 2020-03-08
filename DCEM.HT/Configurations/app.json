@@ -10,7 +10,7 @@
     "TokenServiceType": "AD",
     "Domain": "MCS",
     "AdfsUrl": "",
-    "CrmUrl": "http://106.14.121.65/crm9",
+    "CrmUrl": "http://106.15.138.75/crm9",
     "ClientId": "",
     "ClientSecret": "",
     "UserName": "crm9admin",

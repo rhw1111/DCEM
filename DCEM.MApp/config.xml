@@ -2,7 +2,7 @@
 <widget id="ms.crmapp.seleassist" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>经销商助手</name>
     <description>经销商助手V1.0</description>
-    <author email="190563430@qq.com" href="http://106.14.121.65/crm9/main.aspx">微软Dynamic CRM开发团队</author>
+    <author email="190563430@qq.com" href="http://106.15.138.75/crm9/main.aspx">微软Dynamic CRM开发团队</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />

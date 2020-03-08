@@ -16,7 +16,7 @@ export class VoicePage implements OnInit {
   ) { }
 
   data={
-    url:"http://106.14.27.132:8082/ocr/api/ocr/Voice",
+    url:"http://106.15.138.75:8082/ocr/api/ocr/Voice",
     json:{
       FileUrl:"https://subcrmdevinapi.sokon.com/vi/test/test2.mp3",
       Type:1

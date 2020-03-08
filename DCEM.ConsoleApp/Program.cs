@@ -314,13 +314,13 @@ namespace DCEM.ConsoleApp
 
             HttpClient client = new HttpClient(h);
 
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "http://106.14.121.65/crm9/api/data/v9.0");
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "http://106.15.138.75/crm9/api/data/v9.0");
 
             var r=await client.SendAsync(request);
 
             var authHeader=r.RequestMessage.Headers.Authorization;
 
-            request = new HttpRequestMessage(HttpMethod.Get, "http://106.14.121.65/crm9/api/data/v9.0");
+            request = new HttpRequestMessage(HttpMethod.Get, "http://106.15.138.75/crm9/api/data/v9.0");
             request.Headers.Authorization = authHeader;
             HttpClient newClient = new HttpClient();
             var newR = await newClient.SendAsync(request);

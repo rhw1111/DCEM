@@ -65,7 +65,7 @@ export class UpdatePage implements OnInit {
     downloadApp() {
 
         //4.下载apk
-        const targetUrl = 'http://106.14.27.132:8083/app-debug.apk';
+        const targetUrl = 'http://106.15.138.75:8083/app-debug.apk';
         const fileTransfer: FileTransferObject = this.transfer.create();
 
         console.log(this.file.dataDirectory);   //获取当前应用的安装（home）目录     1、应用包名称要一致   2、升级的包的版本号要大于当前应用的版本号   3、签名要一致    4、sdk 要安装

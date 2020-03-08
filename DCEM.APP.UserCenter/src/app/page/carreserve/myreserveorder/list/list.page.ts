@@ -20,6 +20,7 @@ export class ListPage implements OnInit {
         },
         title: "我的预订订单",
         datas: [],
+        isShowCarNone:false,
         shareDataKey: "paymenting",
     };
     constructor(
@@ -50,22 +51,26 @@ export class ListPage implements OnInit {
         this._http.get(this.model.search.apiUrl + "?mcs_userid=" + this._logininfo.GetSystemUserId() + "&mcs_smallorderid=&mcs_mobilephone=" + this._logininfo.GetPhone() + "&mcs_name=",
             requests,
             (res: any) => {
-                if (res != null && res.Results.length > 0) {
-                    console.log(res.Results);
-                    //绑定数据
-                    this.model.datas = res.Results;
-                    for (var i = 0; i < this.model.datas.length; i++) {
-                        this.model.datas[i].Attributes.paystatus = this.getPayStatus(this.model.datas[i].Attributes.mcs_orderstatus);
-                        this.model.datas[i].Attributes.mcs_premiumcode = this.model.datas[i]["Attributes"]["blindorder.mcs_premiumcode"];
-                        this.model.datas[i].Attributes.mcs_premiumname = this.model.datas[i]["Attributes"]["blindorder.mcs_name"];
-                        this.model.datas[i].Attributes.createdon = this.Format(this.model.datas[i].Attributes.createdon,"yyyy-MM-dd HH:mm:ss");
+                console.log(res);
+                if (res != null) {
+                    if (res.Results.length > 0) {
+                        //绑定数据
+                        this.model.datas = res.Results;
+                        for (var i = 0; i < this.model.datas.length; i++) {
+                            this.model.datas[i].Attributes.paystatus = this.getPayStatus(this.model.datas[i].Attributes.mcs_orderstatus);
+                            this.model.datas[i].Attributes.mcs_premiumcode = this.model.datas[i]["Attributes"]["blindorder.mcs_premiumcode"];
+                            this.model.datas[i].Attributes.mcs_premiumname = this.model.datas[i]["Attributes"]["blindorder.mcs_name"];
+                            this.model.datas[i].Attributes.createdon = this.Format(this.model.datas[i].Attributes.createdon, "yyyy-MM-dd HH:mm:ss");
+                        }
+                        event ? event.target.complete() : '';
+                        //判断是否有新数据
+                        //if (res.Datas.length < this.model.search.pageSize) {
+                        //    event ? event.target.disabled = true : "";
+                        //    this.model.isending = true;
+                        //}
+                    } else {
+                        this.model.isShowCarNone = true;
                     }
-                    event ? event.target.complete() : '';
-                    //判断是否有新数据
-                    //if (res.Datas.length < this.model.search.pageSize) {
-                    //    event ? event.target.disabled = true : "";
-                    //    this.model.isending = true;
-                    //}
                 }
                 else {
                     this._page.alert("消息提示", "数据加载异常");
