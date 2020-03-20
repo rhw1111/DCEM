@@ -26,7 +26,7 @@ namespace MSLibrary.MessageQueue.DAL
 
         public async Task Add(SMessageExecuteType messageType)
         {
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _messageQueueConnectionFactory.CreateAllForMessageQueueMain(), async (conn,transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _messageQueueConnectionFactory.CreateAllForMessageQueueMain(), async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)
@@ -38,11 +38,11 @@ namespace MSLibrary.MessageQueue.DAL
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
-                     Transaction=sqlTran
+                    Transaction = sqlTran
                 })
                 {
 
-                    if (messageType.ID==Guid.Empty)
+                    if (messageType.ID == Guid.Empty)
                     {
                         commond.CommandText = @"insert into SMessageExecuteType([id],[name],[createtime],[modifytime])
                                     values(default,@name,getutcdate(),getutcdate());
@@ -67,12 +67,12 @@ namespace MSLibrary.MessageQueue.DAL
                     {
                         parameter = new SqlParameter("@newid", SqlDbType.UniqueIdentifier)
                         {
-                            Direction= ParameterDirection.Output
+                            Direction = ParameterDirection.Output
                         };
                         commond.Parameters.Add(parameter);
                     }
 
-                    parameter = new SqlParameter("@name", SqlDbType.NVarChar, 100)
+                    parameter = new SqlParameter("@name", SqlDbType.VarChar, 150)
                     {
                         Value = messageType.Name
                     };
@@ -80,7 +80,7 @@ namespace MSLibrary.MessageQueue.DAL
 
                     commond.Prepare();
 
-                    await commond.ExecuteNonQueryAsync();                                        
+                    await commond.ExecuteNonQueryAsync();
 
                     if (messageType.ID == Guid.Empty)
                     {
@@ -92,7 +92,7 @@ namespace MSLibrary.MessageQueue.DAL
 
         public async Task Delete(Guid id)
         {
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _messageQueueConnectionFactory.CreateAllForMessageQueueMain(), async (conn,transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _messageQueueConnectionFactory.CreateAllForMessageQueueMain(), async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)
@@ -104,7 +104,7 @@ namespace MSLibrary.MessageQueue.DAL
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
-                    Transaction=sqlTran,
+                    Transaction = sqlTran,
                     CommandText = @"declare @delnum int
                                     set @delnum = 1000
                                     while @delnum = 1000
@@ -135,7 +135,7 @@ namespace MSLibrary.MessageQueue.DAL
                     await commond.ExecuteNonQueryAsync();
 
 
-                    
+
                 }
             });
         }
@@ -144,7 +144,7 @@ namespace MSLibrary.MessageQueue.DAL
         {
             QueryResult<SMessageExecuteType> result = new QueryResult<SMessageExecuteType>();
 
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, _messageQueueConnectionFactory.CreateReadForMessageQueueMain(), async (conn,transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, _messageQueueConnectionFactory.CreateReadForMessageQueueMain(), async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)
@@ -156,7 +156,7 @@ namespace MSLibrary.MessageQueue.DAL
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
-                     Transaction=sqlTran,
+                    Transaction = sqlTran,
                     CommandText = string.Format(@"set @currentpage=@page
 		                           select @count= count(*) from SMessageExecuteType where [name] like @name
 		                           if @pagesize*@page>=@count
@@ -192,7 +192,7 @@ namespace MSLibrary.MessageQueue.DAL
                         Value = pageSize
                     };
 
-                    parameter = new SqlParameter("@name", SqlDbType.NVarChar, 100)
+                    parameter = new SqlParameter("@name", SqlDbType.VarChar, 200)
                     {
                         Value = string.Format("{0}%", name.ToSqlLike())
                     };
@@ -240,7 +240,7 @@ namespace MSLibrary.MessageQueue.DAL
         {
             SMessageExecuteType type = null;
 
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, _messageQueueConnectionFactory.CreateReadForMessageQueueMain(), async (conn,transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, _messageQueueConnectionFactory.CreateReadForMessageQueueMain(), async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)
@@ -252,7 +252,7 @@ namespace MSLibrary.MessageQueue.DAL
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
-                     Transaction=sqlTran,
+                    Transaction = sqlTran,
                     CommandText = string.Format(@"select {0} from SMessageExecuteType where [id]=@id", StoreHelper.GetSMessageExecuteTypeSelectFields(string.Empty))
                 })
                 {
@@ -287,7 +287,7 @@ namespace MSLibrary.MessageQueue.DAL
         {
             SMessageExecuteType type = null;
 
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, _messageQueueConnectionFactory.CreateReadForMessageQueueMain(), async (conn,transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, _messageQueueConnectionFactory.CreateReadForMessageQueueMain(), async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)
@@ -304,7 +304,7 @@ namespace MSLibrary.MessageQueue.DAL
                 })
                 {
 
-                    var parameter = new SqlParameter("@name", SqlDbType.NVarChar,100)
+                    var parameter = new SqlParameter("@name", SqlDbType.VarChar, 150)
                     {
                         Value = name
                     };
@@ -312,7 +312,7 @@ namespace MSLibrary.MessageQueue.DAL
 
                     commond.Prepare();
 
-                    SqlDataReader reader = null;    
+                    SqlDataReader reader = null;
 
                     using (reader = await commond.ExecuteReaderAsync())
                     {
@@ -332,7 +332,7 @@ namespace MSLibrary.MessageQueue.DAL
 
         public async Task Update(SMessageExecuteType messageType)
         {
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _messageQueueConnectionFactory.CreateAllForMessageQueueMain(), async (conn,transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _messageQueueConnectionFactory.CreateAllForMessageQueueMain(), async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)
@@ -356,7 +356,7 @@ namespace MSLibrary.MessageQueue.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@name", SqlDbType.NVarChar, 100)
+                    parameter = new SqlParameter("@name", SqlDbType.VarChar, 150)
                     {
                         Value = messageType.Name
                     };

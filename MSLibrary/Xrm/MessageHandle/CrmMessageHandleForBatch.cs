@@ -48,14 +48,16 @@ namespace MSLibrary.Xrm.MessageHandle
             RequestHandleMap handleMap = new RequestHandleMap();
 
             string strBody = string.Empty;
-            if (realRequest.BatchMessages != null && realRequest.BatchMessages.Count > 0)
+            if (realRequest.ChangeSetMessages != null && realRequest.ChangeSetMessages.Count > 0)
             {
                 strBody = $"--{batchBoundary}\n";
                 strBody = $"{strBody}Content-Type: multipart/mixed;boundary={changeSetBoundary}\n\n";
 
                 var changeSetIndex = 0;
-                foreach (var batchItem in realRequest.BatchMessages)
+                foreach (var batchItem in realRequest.ChangeSetMessages)
                 {
+                    batchItem.ApiVersion = realRequest.ApiVersion;
+                    batchItem.OrganizationURI = realRequest.OrganizationURI;
                     changeSetIndex++;
                     strBody = $"{strBody}--{changeSetBoundary}\n";
                     strBody = $"{strBody}Content-Type: application/http\n";
@@ -72,12 +74,21 @@ namespace MSLibrary.Xrm.MessageHandle
                     }
 
                     strBody = $"{strBody}\n";
-                    if (!string.IsNullOrEmpty(handleResult.Body))
+                    if (handleResult.ReplaceHttpContent != null)
                     {
-                        strBody = $"{strBody}handleResult.Body\n";
+                        strBody = $"{strBody}{await handleResult.ReplaceHttpContent.ReadAsStringAsync()}\n";
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(handleResult.Body))
+                        {
+                            strBody = $"{strBody}{handleResult.Body}\n";
+                        }
                     }
 
-                    handleMap.ChangeSetHandles.Add(new RequestHandleMapItem() { Request=batchItem, HandleResult= handleResult });
+
+
+                    handleMap.ChangeSetHandles.Add(new RequestHandleMapItem() { Request = batchItem, HandleResult = handleResult });
 
 
                 }
@@ -85,10 +96,13 @@ namespace MSLibrary.Xrm.MessageHandle
                 strBody = $"{strBody}\n--{changeSetBoundary}--\n\n";
             }
 
-            if (realRequest.BatchMessages!=null && realRequest.BatchMessages.Count>0)
+            if (realRequest.BatchMessages != null && realRequest.BatchMessages.Count > 0)
             {
-                foreach(var batchItem in realRequest.BatchMessages)
+                foreach (var batchItem in realRequest.BatchMessages)
                 {
+                    batchItem.ApiVersion = realRequest.ApiVersion;
+                    batchItem.OrganizationURI = realRequest.OrganizationURI;
+
                     strBody = $"{strBody}--{batchBoundary}--\n";
                     strBody = $"{strBody}Content-Type: application/http\n";
                     strBody = $"{strBody}Content-Transfer-Encoding:binary\n\n";
@@ -106,7 +120,7 @@ namespace MSLibrary.Xrm.MessageHandle
                 }
             }
 
-            if ((realRequest.BatchMessages!=null && realRequest.BatchMessages.Count>0)|| (realRequest.ChangeSetMessages != null && realRequest.ChangeSetMessages.Count > 0))
+            if ((realRequest.BatchMessages != null && realRequest.BatchMessages.Count > 0) || (realRequest.ChangeSetMessages != null && realRequest.ChangeSetMessages.Count > 0))
             {
                 strBody = $"{strBody}--{batchBoundary}--";
             }
@@ -117,7 +131,7 @@ namespace MSLibrary.Xrm.MessageHandle
             headers["OData-MaxVersion"] = new List<string> { "4.0" };
             headers["OData-Version"] = new List<string> { "4.0" };
             headers["Content-Type"] = new List<string> { "multipart/mixed" };
-            headers["Content-Type-boundary"]= new List<string> { batchBoundary };
+            headers["Content-Type-boundary"] = new List<string> { batchBoundary };
 
             headers["Accept"] = new List<string> { "application/json" };
 
@@ -159,10 +173,10 @@ namespace MSLibrary.Xrm.MessageHandle
             }
             //取第一行
             var arrayBody = responseBody.Split(new string[] { "\r\n" }, StringSplitOptions.None);
-           
-            Regex regBatchSplit = new Regex("--batchresponse_([A-Za-z0-9-]+)");
-            var batchSplitMath=regBatchSplit.Match(arrayBody[0]);
-            if (batchSplitMath==null)
+
+            Regex regBatchSplit = new Regex("--batchresponse_([A-Za-z0-9-]+)", RegexOptions.IgnoreCase);
+            var batchSplitMath = regBatchSplit.Match(arrayBody[0]);
+            if (batchSplitMath == null)
             {
                 var fragment = new TextFragment()
                 {
@@ -174,23 +188,23 @@ namespace MSLibrary.Xrm.MessageHandle
                 throw new UtilityException((int)Errors.NotFoundBatchCodeInCrmBatchResponse, fragment);
             }
 
-            
-            var batchCode=batchSplitMath.Groups[1].Value;
+
+            var batchCode = batchSplitMath.Groups[1].Value;
 
             string strBody = string.Empty;
             int index = 0;
-            for(index=0;index<=arrayBody.Length-2;index++)
+            for (index = 0; index <= arrayBody.Length - 2; index++)
             {
                 strBody = $"{ strBody}\r\n{arrayBody[index]}";
             }
 
-            regBatchSplit = new Regex($"--batchresponse_{batchCode} *\r\n");
+            regBatchSplit = new Regex($"--batchresponse_{batchCode} *\r\n", RegexOptions.IgnoreCase);
 
             arrayBody = regBatchSplit.Split(strBody);
 
             index = 0;
 
-            foreach(var responseItem in arrayBody)
+            foreach (var responseItem in arrayBody)
             {
                 if (string.IsNullOrWhiteSpace(responseItem))
                 {
@@ -201,7 +215,7 @@ namespace MSLibrary.Xrm.MessageHandle
 
                 if (batchType.Type == 0)
                 {
-                    var batchResponse=await ExecuteBatch(responseItem, index, handleMap.BatchHandles, responseMessage);
+                    var batchResponse = await ExecuteBatch(responseItem, index, handleMap.BatchHandles, responseMessage);
                     index++;
                     response.BatchResponses.Add(batchResponse);
                 }
@@ -220,9 +234,9 @@ namespace MSLibrary.Xrm.MessageHandle
         {
             BatchTypeInfo result = new BatchTypeInfo();
 
-            var contentArray=body.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+            var contentArray = body.Split(new string[] { "\r\n" }, StringSplitOptions.None);
             var splitIndex = contentArray[0].IndexOf(":");
-            if (splitIndex<=0)
+            if (splitIndex <= 0)
             {
                 var fragment = new TextFragment()
                 {
@@ -234,7 +248,7 @@ namespace MSLibrary.Xrm.MessageHandle
                 throw new UtilityException((int)Errors.CrmBatchResponseItemFormatError, fragment);
             }
 
-            if (contentArray[0].Length - splitIndex - 1<0)
+            if (contentArray[0].Length - splitIndex - 1 < 0)
             {
                 var fragment = new TextFragment()
                 {
@@ -247,7 +261,7 @@ namespace MSLibrary.Xrm.MessageHandle
             }
 
             var headerName = contentArray[0].Substring(0, splitIndex).Trim();
-            var headerValue = contentArray[0].Substring(splitIndex + 1, contentArray[0].Length- splitIndex-1).Trim();
+            var headerValue = contentArray[0].Substring(splitIndex + 1, contentArray[0].Length - splitIndex - 1).Trim();
 
             if (headerName.ToLower() != "content-type")
             {
@@ -258,18 +272,18 @@ namespace MSLibrary.Xrm.MessageHandle
                     ReplaceParameters = new List<object>() { body, "First line need content-type" }
                 };
 
-                throw new UtilityException((int)Errors.CrmBatchResponseItemFormatError, fragment);        
+                throw new UtilityException((int)Errors.CrmBatchResponseItemFormatError, fragment);
             }
 
             var arrayValue = headerValue.Split(';');
-            if (arrayValue[0].Trim().ToLower()!= "multipart/mixed")
+            if (arrayValue[0].Trim().ToLower() != "multipart/mixed")
             {
                 result.Type = 0;
             }
             else
             {
                 result.Type = 1;
-                if (arrayValue.Length<2)
+                if (arrayValue.Length < 2)
                 {
                     var fragment = new TextFragment()
                     {
@@ -281,8 +295,8 @@ namespace MSLibrary.Xrm.MessageHandle
                     throw new UtilityException((int)Errors.CrmBatchResponseItemFormatError, fragment);
                 }
 
-                var arrayBoundary=arrayValue[1].Split('=');
-                if (arrayBoundary.Length!=2)
+                var arrayBoundary = arrayValue[1].Split('=');
+                if (arrayBoundary.Length != 2)
                 {
                     var fragment = new TextFragment()
                     {
@@ -309,8 +323,8 @@ namespace MSLibrary.Xrm.MessageHandle
             result.Headers = headers;
             result.Body = string.Empty;
 
-            var httpLabelIndex=body.ToLower().IndexOf("http/1.1");
-            if (httpLabelIndex==-1)
+            var httpLabelIndex = body.ToLower().IndexOf("http/1.1");
+            if (httpLabelIndex == -1)
             {
                 var fragment = new TextFragment()
                 {
@@ -324,7 +338,7 @@ namespace MSLibrary.Xrm.MessageHandle
 
 
 
-            var startIndex= body.IndexOf("\r\n", httpLabelIndex);
+            var startIndex = body.IndexOf("\r\n", httpLabelIndex);
 
             if (startIndex == -1)
             {
@@ -339,7 +353,7 @@ namespace MSLibrary.Xrm.MessageHandle
             }
 
 
-            if (startIndex- httpLabelIndex<=0)
+            if (startIndex - httpLabelIndex <= 0)
             {
                 var fragment = new TextFragment()
                 {
@@ -353,9 +367,9 @@ namespace MSLibrary.Xrm.MessageHandle
 
             var strHttpInfo = body.Substring(httpLabelIndex, startIndex - httpLabelIndex);
 
-            Regex regHttpInfo = new Regex("http/1.1 +([0-9\\.]+) +");
-            var httpInfoMatch=regHttpInfo.Match(strHttpInfo);
-            if (httpInfoMatch==null)
+            Regex regHttpInfo = new Regex("http/1.1 +([0-9\\.]+) +", RegexOptions.IgnoreCase);
+            var httpInfoMatch = regHttpInfo.Match(strHttpInfo);
+            if (httpInfoMatch == null)
             {
                 var fragment = new TextFragment()
                 {
@@ -364,7 +378,7 @@ namespace MSLibrary.Xrm.MessageHandle
                     ReplaceParameters = new List<object>() { body, "miss http status code" }
                 };
 
-                throw new UtilityException((int)Errors.CrmBatchResponseItemFormatError,fragment);
+                throw new UtilityException((int)Errors.CrmBatchResponseItemFormatError, fragment);
             }
 
             var strStatusCode = httpInfoMatch.Groups[1].Value.Trim();
@@ -376,10 +390,10 @@ namespace MSLibrary.Xrm.MessageHandle
             {
                 result.StatusCode = int.Parse(httpInfoMatch.Groups[1].Value.Trim());
             }
-            
 
-            var endIndex= body.IndexOf("\r\n\r\n", startIndex+2);
-            if (endIndex==-1)
+
+            var endIndex = body.IndexOf("\r\n\r\n", startIndex + 2);
+            if (endIndex == -1)
             {
                 var fragment = new TextFragment()
                 {
@@ -391,7 +405,7 @@ namespace MSLibrary.Xrm.MessageHandle
                 throw new UtilityException((int)Errors.CrmBatchResponseItemFormatError, fragment);
             }
 
-            if (endIndex - startIndex - 2<=0)
+            if (endIndex - startIndex - 2 <= 0)
             {
                 return result;
             }
@@ -400,7 +414,7 @@ namespace MSLibrary.Xrm.MessageHandle
             var strHeaders = body.Substring(startIndex + 2, endIndex - startIndex - 2);
 
             var arrayHeaders = strHeaders.Split(new string[] { "\r\n" }, StringSplitOptions.None);
-            foreach(var headerItem in arrayHeaders)
+            foreach (var headerItem in arrayHeaders)
             {
                 if (string.IsNullOrWhiteSpace(headerItem))
                 {
@@ -419,7 +433,7 @@ namespace MSLibrary.Xrm.MessageHandle
 
                     throw new UtilityException((int)Errors.CrmBatchResponseItemFormatError, fragment);
                 }
-                if (headerItem.Length - splitIndex - 1<0)
+                if (headerItem.Length - splitIndex - 1 < 0)
                 {
                     var fragment = new TextFragment()
                     {
@@ -436,7 +450,7 @@ namespace MSLibrary.Xrm.MessageHandle
 
                 List<string> headerValueList = new List<string>();
                 var arrayHeaderValue = headerValue.Split(';');
-                foreach(var valueItem in arrayHeaderValue)
+                foreach (var valueItem in arrayHeaderValue)
                 {
                     headerValueList.Add(valueItem.Trim());
                 }
@@ -444,17 +458,17 @@ namespace MSLibrary.Xrm.MessageHandle
                 headers.Add(headerName, headerValueList);
             }
 
-            if (endIndex+4>=body.Length-1)
+            if (endIndex + 4 >= body.Length - 1)
             {
                 return result;
             }
 
-            var strBody= body.Substring(endIndex + 4, body.Length- endIndex - 4);
+            var strBody = body.Substring(endIndex + 4, body.Length - endIndex - 4);
             result.Body = strBody.Trim();
             return result;
         }
 
-        private async Task<List<CrmResponseMessage>> ExecuteChangeSet(string body,string boundary,List<RequestHandleMapItem> handleResults,HttpResponseMessage responseMessage)
+        private async Task<List<CrmResponseMessage>> ExecuteChangeSet(string body, string boundary, List<RequestHandleMapItem> handleResults, HttpResponseMessage responseMessage)
         {
             List<CrmResponseMessage> result = new List<CrmResponseMessage>();
 
@@ -464,20 +478,20 @@ namespace MSLibrary.Xrm.MessageHandle
 
             var arrayBody = regBatchSplit.Split(body);
 
-            arrayBody=arrayBody.Skip(1).ToArray();
+            arrayBody = arrayBody.Skip(1).ToArray();
 
             int index = 0;
 
-            foreach(var bodyItem in arrayBody)
+            foreach (var bodyItem in arrayBody)
             {
                 if (string.IsNullOrWhiteSpace(bodyItem))
                 {
                     continue;
                 }
 
-                var responseInfo=GetResponseInfo(bodyItem);
+                var responseInfo = GetResponseInfo(bodyItem);
 
-                if (index>handleResults.Count-1)
+                if (index > handleResults.Count - 1)
                 {
                     var fragment = new TextFragment()
                     {
@@ -488,10 +502,10 @@ namespace MSLibrary.Xrm.MessageHandle
 
                     throw new UtilityException((int)Errors.CrmBatchResponseItemFormatError, fragment);
                 }
-                
+
                 var messageHandle = _crmMessageHandleSelector.Choose(handleResults[index].Request.GetType().FullName);
 
-                var handleResponse=await messageHandle.ExecuteResponse(handleResults[index].HandleResult.Extension, handleResults[index].HandleResult.Url, handleResults[index].HandleResult.Body, responseInfo.StatusCode, responseInfo.Headers, responseInfo.Body, responseMessage);
+                var handleResponse = await messageHandle.ExecuteResponse(handleResults[index].HandleResult.Extension, handleResults[index].HandleResult.Url, handleResults[index].HandleResult.Body, responseInfo.StatusCode, responseInfo.Headers, responseInfo.Body, responseMessage);
                 result.Add(handleResponse);
                 index++;
             }
@@ -499,7 +513,7 @@ namespace MSLibrary.Xrm.MessageHandle
             return result;
         }
 
-        private async Task<CrmResponseMessage> ExecuteBatch(string body,int index, List<RequestHandleMapItem> handleResults, HttpResponseMessage responseMessage)
+        private async Task<CrmResponseMessage> ExecuteBatch(string body, int index, List<RequestHandleMapItem> handleResults, HttpResponseMessage responseMessage)
         {
             var responseInfo = GetResponseInfo(body);
 
@@ -525,7 +539,7 @@ namespace MSLibrary.Xrm.MessageHandle
         class RequestHandleMapItem
         {
             public CrmRequestMessage Request { get; set; }
-            public CrmRequestMessageHandleResult HandleResult{get;set;}
+            public CrmRequestMessageHandleResult HandleResult { get; set; }
         }
         class RequestHandleMap
         {

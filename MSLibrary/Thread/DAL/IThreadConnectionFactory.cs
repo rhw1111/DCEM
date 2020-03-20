@@ -13,7 +13,8 @@ namespace MSLibrary.Thread.DAL
         /// <summary>
         /// 创建系统锁读写数据连接字符串
         /// </summary>
+        /// <param name="lockName"></param>
         /// <returns></returns>
-        string CreateAllForApplicationLock(DBConnectionNames connectionNames);
+        string CreateAllForApplicationLock(DBConnectionNames connNames, string lockName);
     }
 }

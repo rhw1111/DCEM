@@ -77,6 +77,7 @@ namespace MSLibrary.MessageQueue
 
         /// <summary>
         /// 所属服务器名称
+        /// 在Dynamics存储中，表示CrmServiceFactory的名称，需要预设
         /// </summary>
         public string ServerName
         {

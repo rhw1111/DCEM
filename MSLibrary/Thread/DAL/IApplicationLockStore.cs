@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MSLibrary.DAL;
 
 namespace MSLibrary.Thread.DAL
 {
@@ -11,10 +12,10 @@ namespace MSLibrary.Thread.DAL
     /// </summary>
     public interface IApplicationLockStore
     {
-        Task Lock(string lockName, int timeout);
-        Task UnLock(string lockName);
+        Task Lock(DBConnectionNames connNames,string lockName, int timeout);
+        Task UnLock(DBConnectionNames connNames,string lockName);
 
-        void LockSync(string lockName, int timeout);
-        void UnLockSync(string lockName);
+        void LockSync(DBConnectionNames connNames,string lockName, int timeout);
+        void UnLockSync(DBConnectionNames connNames,string lockName);
     }
 }

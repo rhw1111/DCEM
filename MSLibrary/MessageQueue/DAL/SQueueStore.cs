@@ -25,7 +25,7 @@ namespace MSLibrary.MessageQueue.DAL
         }
         public async Task Add(SQueue queue)
         {
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _messageQueueConnectionFactory.CreateAllForMessageQueueMain(), async (conn,transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _messageQueueConnectionFactory.CreateAllForMessageQueueMain(), async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)
@@ -37,10 +37,10 @@ namespace MSLibrary.MessageQueue.DAL
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
-                     Transaction=sqlTran
+                    Transaction = sqlTran
                 })
                 {
-                    if (queue.ID==Guid.Empty)
+                    if (queue.ID == Guid.Empty)
                     {
                         commond.CommandText = @"insert into SQueue([id],[groupname],[interval],[storetype],[servername],[name],[code],[isdead],[createtime],[modifytime])
                                     values(default,@groupname,@interval,@storetype,@servername,@name,@code,@isdead,getutcdate(),getutcdate());
@@ -65,12 +65,12 @@ namespace MSLibrary.MessageQueue.DAL
                     {
                         parameter = new SqlParameter("@newid", SqlDbType.UniqueIdentifier)
                         {
-                             Direction= ParameterDirection.Output
+                            Direction = ParameterDirection.Output
                         };
                         commond.Parameters.Add(parameter);
                     }
 
-                    parameter = new SqlParameter("@groupname", SqlDbType.NVarChar,100)
+                    parameter = new SqlParameter("@groupname", SqlDbType.VarChar, 150)
                     {
                         Value = queue.GroupName
                     };
@@ -81,7 +81,7 @@ namespace MSLibrary.MessageQueue.DAL
                         Value = queue.Interval
                     };
                     commond.Parameters.Add(parameter);
-                    
+
 
                     parameter = new SqlParameter("@storetype", SqlDbType.Int)
                     {
@@ -89,13 +89,13 @@ namespace MSLibrary.MessageQueue.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@servername", SqlDbType.NVarChar,100)
+                    parameter = new SqlParameter("@servername", SqlDbType.VarChar, 200)
                     {
                         Value = queue.ServerName
                     };
                     commond.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@name", SqlDbType.NVarChar, 100)
+                    parameter = new SqlParameter("@name", SqlDbType.VarChar, 150)
                     {
                         Value = queue.Name
                     };
@@ -125,7 +125,7 @@ namespace MSLibrary.MessageQueue.DAL
 
         public async Task AddProcessGroupRelation(Guid processGroupId, Guid queueId)
         {
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _messageQueueConnectionFactory.CreateAllForMessageQueueMain(), async (conn,transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _messageQueueConnectionFactory.CreateAllForMessageQueueMain(), async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)
@@ -137,7 +137,7 @@ namespace MSLibrary.MessageQueue.DAL
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
-                    Transaction=sqlTran,
+                    Transaction = sqlTran,
                     CommandText = @"update SQueue set processgroupid=@processgroupid where [id]=@id and processgroupid is null"
                 })
                 {
@@ -154,14 +154,14 @@ namespace MSLibrary.MessageQueue.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    await commond.ExecuteNonQueryAsync();            
+                    await commond.ExecuteNonQueryAsync();
                 }
             });
         }
 
         public async Task Delete(Guid id)
         {
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _messageQueueConnectionFactory.CreateAllForMessageQueueMain(), async (conn,transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _messageQueueConnectionFactory.CreateAllForMessageQueueMain(), async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)
@@ -173,7 +173,7 @@ namespace MSLibrary.MessageQueue.DAL
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
-                    Transaction=sqlTran,
+                    Transaction = sqlTran,
                     CommandText = @"delete from SQueue where [id]=@id"
                 })
                 {
@@ -185,14 +185,14 @@ namespace MSLibrary.MessageQueue.DAL
                     commond.Parameters.Add(parameter);
 
                     await commond.ExecuteNonQueryAsync();
-                
+
                 }
             });
         }
 
         public async Task DeleteProcessGroupRelation(Guid processGroupId, Guid queueId)
         {
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _messageQueueConnectionFactory.CreateAllForMessageQueueMain(), async (conn,transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _messageQueueConnectionFactory.CreateAllForMessageQueueMain(), async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)
@@ -339,7 +339,7 @@ namespace MSLibrary.MessageQueue.DAL
                 })
                 {
 
-                    var parameter = new SqlParameter("@groupname", SqlDbType.NVarChar,100)
+                    var parameter = new SqlParameter("@groupname", SqlDbType.VarChar, 150)
                     {
                         Value = groupName
                     };
@@ -362,7 +362,7 @@ namespace MSLibrary.MessageQueue.DAL
 
                     SqlDataReader reader = null;
 
-                    using (reader= await commond.ExecuteReaderAsync())
+                    using (reader = await commond.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
@@ -382,7 +382,7 @@ namespace MSLibrary.MessageQueue.DAL
         {
             QueryResult<SQueue> result = new QueryResult<SQueue>();
 
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, _messageQueueConnectionFactory.CreateReadForMessageQueueMain(), async (conn,transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, _messageQueueConnectionFactory.CreateReadForMessageQueueMain(), async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)
@@ -394,7 +394,7 @@ namespace MSLibrary.MessageQueue.DAL
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
-                    Transaction=sqlTran,
+                    Transaction = sqlTran,
                     CommandText = string.Format(@"set @currentpage=@page
 		                           select @count= count(*) from SQueue where [isdead]=@isdead and [groupname] = @groupname
 		                           if @pagesize*@page>=@count
@@ -438,9 +438,9 @@ namespace MSLibrary.MessageQueue.DAL
                     commond.Parameters.Add(parameter);
 
 
-                    parameter = new SqlParameter("@groupname", SqlDbType.NVarChar, groupName.Length)
+                    parameter = new SqlParameter("@groupname", SqlDbType.VarChar, groupName.Length)
                     {
-                        Value =  groupName
+                        Value = groupName
                     };
                     commond.Parameters.Add(parameter);
 
@@ -484,7 +484,7 @@ namespace MSLibrary.MessageQueue.DAL
         {
             SQueue queue = null;
 
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, _messageQueueConnectionFactory.CreateReadForMessageQueueMain(), async (conn,transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, _messageQueueConnectionFactory.CreateReadForMessageQueueMain(), async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)
@@ -496,7 +496,7 @@ namespace MSLibrary.MessageQueue.DAL
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
-                    Transaction=sqlTran,
+                    Transaction = sqlTran,
                     CommandText = string.Format(@"select {0} from SQueue where [id]=@id", StoreHelper.GetSQueueSelectFields(string.Empty))
                 })
                 {
@@ -531,7 +531,7 @@ namespace MSLibrary.MessageQueue.DAL
         {
             QueryResult<SQueue> result = new QueryResult<SQueue>();
 
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, _messageQueueConnectionFactory.CreateReadForMessageQueueMain(), async (conn,transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, _messageQueueConnectionFactory.CreateReadForMessageQueueMain(), async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)
@@ -543,7 +543,7 @@ namespace MSLibrary.MessageQueue.DAL
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
-                    Transaction=sqlTran,
+                    Transaction = sqlTran,
                     CommandText = string.Format(@"set @currentpage=@page
 		                           select @count= count(*) from SQueue where processgroupid is null
 		                           if @pagesize*@page>=@count
@@ -596,7 +596,7 @@ namespace MSLibrary.MessageQueue.DAL
 
                     SqlDataReader reader = null;
 
-                    using (reader= await commond.ExecuteReaderAsync())
+                    using (reader = await commond.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
                         {
@@ -620,12 +620,12 @@ namespace MSLibrary.MessageQueue.DAL
         {
             List<SQueue> queueList = new List<SQueue>();
 
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, _messageQueueConnectionFactory.CreateReadForMessageQueueMain(), async (conn,transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, _messageQueueConnectionFactory.CreateReadForMessageQueueMain(), async (conn, transaction) =>
             {
-                Int64? sequence=null;
+                Int64? sequence = null;
                 int pageSize = 500;
 
-                while(true)
+                while (true)
                 {
                     queueList.Clear();
 
@@ -639,7 +639,7 @@ namespace MSLibrary.MessageQueue.DAL
                     {
                         Connection = (SqlConnection)conn,
                         CommandType = CommandType.Text,
-                         Transaction=sqlTran
+                        Transaction = sqlTran
                     })
                     {
                         if (!sequence.HasValue)
@@ -677,7 +677,7 @@ namespace MSLibrary.MessageQueue.DAL
 
                         SqlDataReader reader = null;
 
-                        using (reader= await commond.ExecuteReaderAsync())
+                        using (reader = await commond.ExecuteReaderAsync())
                         {
                             while (await reader.ReadAsync())
                             {
@@ -693,12 +693,12 @@ namespace MSLibrary.MessageQueue.DAL
 
                     }
 
-                    foreach(var queueItem in queueList)
+                    foreach (var queueItem in queueList)
                     {
                         await callback(queueItem);
                     }
 
-                    if (queueList.Count!=pageSize)
+                    if (queueList.Count != pageSize)
                     {
                         break;
                     }
@@ -714,7 +714,7 @@ namespace MSLibrary.MessageQueue.DAL
         {
             QueryResult<SQueue> result = new QueryResult<SQueue>();
 
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, _messageQueueConnectionFactory.CreateReadForMessageQueueMain(), async (conn,transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, _messageQueueConnectionFactory.CreateReadForMessageQueueMain(), async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)
@@ -726,7 +726,7 @@ namespace MSLibrary.MessageQueue.DAL
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
-                     Transaction=sqlTran,
+                    Transaction = sqlTran,
                     CommandText = string.Format(@"set @currentpage=@page
 		                           select @count= count(*) from SQueue where processgroupid=@processgroupid
 		                           if @pagesize*@page>=@count
@@ -807,7 +807,7 @@ namespace MSLibrary.MessageQueue.DAL
 
         public async Task<QueryResult<SQueue>> QueryByProceeGroup(string processGroupName, int page, int pageSize)
         {
-            
+
             QueryResult<SQueue> result = new QueryResult<SQueue>();
 
             await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, _messageQueueConnectionFactory.CreateReadForMessageQueueMain(), async (conn, transaction) =>
@@ -859,7 +859,7 @@ namespace MSLibrary.MessageQueue.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@processgroupname", SqlDbType.NVarChar,100)
+                    parameter = new SqlParameter("@processgroupname", SqlDbType.NVarChar, 100)
                     {
                         Value = processGroupName
                     };
@@ -936,7 +936,7 @@ namespace MSLibrary.MessageQueue.DAL
                             commond.CommandText = string.Format(@"select top (@pagesize) {0} from SQueue as q join SQueueProcessGroup as g on q.processgroupid=g.id where g.[name]=@processgroupname and [q.sequence]>@sequence order by [sequence]", StoreHelper.GetSQueueSelectFields("q"));
                         }
 
-                        var parameter = new SqlParameter("@processgroupname", SqlDbType.NVarChar,100)
+                        var parameter = new SqlParameter("@processgroupname", SqlDbType.VarChar, 150)
                         {
                             Value = processGroupName
                         };
@@ -996,7 +996,7 @@ namespace MSLibrary.MessageQueue.DAL
 
         public async Task Update(SQueue queue)
         {
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _messageQueueConnectionFactory.CreateAllForMessageQueueMain(), async (conn,transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _messageQueueConnectionFactory.CreateAllForMessageQueueMain(), async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)
@@ -1020,7 +1020,7 @@ namespace MSLibrary.MessageQueue.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@groupname", SqlDbType.NVarChar, 100)
+                    parameter = new SqlParameter("@groupname", SqlDbType.VarChar, 150)
                     {
                         Value = queue.GroupName
                     };
@@ -1039,13 +1039,13 @@ namespace MSLibrary.MessageQueue.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@servername", SqlDbType.NVarChar, 100)
+                    parameter = new SqlParameter("@servername", SqlDbType.VarChar, 200)
                     {
                         Value = queue.ServerName
                     };
                     commond.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@name", SqlDbType.NVarChar, 100)
+                    parameter = new SqlParameter("@name", SqlDbType.VarChar, 150)
                     {
                         Value = queue.Name
                     };

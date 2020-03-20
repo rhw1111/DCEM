@@ -146,6 +146,7 @@ namespace PALibrary
             var initResponse = (InitializeFileBlocksUploadResponse)orgService.Execute(initRequest);
 
             int perSize = 1024 * 1024 * 3;
+            //int perSize = 100;
             int currentSize = perSize;
             byte[] buff = new byte[perSize];
             List<string> blockIDs = new List<string>(); 
@@ -154,7 +155,7 @@ namespace PALibrary
                 currentSize=fileStream.Read(buff, 0, perSize);
                 if (currentSize!=0)
                 {
-                    var blockID = Guid.NewGuid().ToString();
+                    var blockID = Guid.NewGuid().ToString().Base64Encode();
                     blockIDs.Add(blockID);
                     UploadBlockRequest uploadRequest = new UploadBlockRequest()
                     {
@@ -172,7 +173,7 @@ namespace PALibrary
                 BlockList = blockIDs.ToArray(),
                 FileContinuationToken = initResponse.FileContinuationToken,
                 FileName = fileName,
-                MimeType = fileAttributeName
+                MimeType = fileMimeType
             };
             orgService.Execute(commitRequest);
         }

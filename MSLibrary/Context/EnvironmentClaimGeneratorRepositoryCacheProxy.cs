@@ -11,32 +11,28 @@ namespace MSLibrary.Context
     [Injection(InterfaceType = typeof(IEnvironmentClaimGeneratorRepositoryCacheProxy), Scope = InjectionScope.Singleton)]
     public class EnvironmentClaimGeneratorRepositoryCacheProxy : IEnvironmentClaimGeneratorRepositoryCacheProxy
     {
-        public static int MaxLength { get; set; } = 500;
-        public static int ExpireSeconds { get; set; } = 600;
+        public static KVCacheVisitorSetting KVCacheVisitorSetting = new KVCacheVisitorSetting()
+        {
+            Name = "_EnvironmentClaimGeneratorRepository",
+            ExpireSeconds = -1,
+            MaxLength = 500
+        };
 
         private IEnvironmentClaimGeneratorRepository _environmentClaimGeneratorRepository;
 
-        private KVCacheVisitor _timeoutCache = new KVCacheVisitor()
-        {
-            Name = "_EnvironmentClaimGeneratorRepository",
-            CacheType = KVCacheTypes.LocalTimeout,
-            CacheConfiguration = string.Format(@"{{
-                        ""MaxLength"":{0},
-                        ""ExpireSeconds"":{1}
-                }}", MaxLength.ToString(), ExpireSeconds.ToString())
-
-        };
+        private KVCacheVisitor _kvcacheVisitor;
 
 
         public EnvironmentClaimGeneratorRepositoryCacheProxy(IEnvironmentClaimGeneratorRepository environmentClaimGeneratorRepository)
         {
             _environmentClaimGeneratorRepository = environmentClaimGeneratorRepository;
+            _kvcacheVisitor = CacheInnerHelper.CreateKVCacheVisitor(KVCacheVisitorSetting);
         }
 
 
         public async Task<EnvironmentClaimGenerator> QueryByName(string name)
         {
-            return await _timeoutCache.Get(
+            return await _kvcacheVisitor.Get(
                 async(k)=>
                 {
                     return await _environmentClaimGeneratorRepository.QueryByName(name);

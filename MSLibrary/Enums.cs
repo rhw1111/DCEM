@@ -140,7 +140,10 @@ namespace MSLibrary
         /// 在指定消息的响应中，找不到指定名称的header
         /// </summary>
         NotFoundHeaderFromResponse= 314710236,
-
+        /// <summary>
+        /// 在查询获取的CrmEntity中的属性中，找不到指定名称的属性
+        /// </summary>
+        NotFoundAttributeNameInRetrieveCrmEntity= 314710237,
 
         /// <summary>
         /// 在Adfs的Oauth认证的响应中，找不到指定名称的参数
@@ -452,6 +455,10 @@ namespace MSLibrary
         /// </summary>
         ScheduleActionServiceTypeError = 314720423,
         /// <summary>
+        /// 找不到指定类型的调度动作初始化服务
+        /// </summary>
+        NotFoundScheduleActionInitServiceByType= 314720424,
+        /// <summary>
         /// 找不到指定类型的Factory<IValidateUserKeyService>
         /// </summary>
         NotFoundWorkflowValidateUserKeyServiceFactoryByType = 314720480,
@@ -576,6 +583,14 @@ namespace MSLibrary
         /// 第三方系统服务HttpPost请求发生错误
         /// </summary>
         ThirdPartySystemServiceHttpPostError= 314720635,
+        /// <summary>
+        /// 找不到指定类型的令牌控制器服务
+        /// </summary>
+        NotFoundTokenControllerServiceByType= 314720640,
+        /// <summary>
+        /// 找不到指定名称的令牌控制器
+        /// </summary>
+        NotFoundTokenControllerByName= 314720641,
 
         /// <summary>
         /// 工作流用户动作中已存在相同的用户关键字数据
@@ -1136,7 +1151,74 @@ namespace MSLibrary
         /// 找不到指定版本名称的KV缓存版本服务
         /// </summary>
         NotFoundIKVCacheVersionServiceByName= 314727202,
-
+        /// <summary>
+        /// 业务动作验证失败
+        /// </summary>
+        BusinessActionValidateFail = 314727300,
+        /// <summary>
+        /// 找不到指定名称的业务动作
+        /// </summary>
+        NotFoundBusinessActionByName = 314727301,
+        /// <summary>
+        /// 找不到指定类型的机密数据服务
+        /// </summary>
+        NotFoundSecurityVaultServiceByType= 314727302,
+        /// <summary>
+        /// 找不到指定名称的国际化处理服务工厂
+        /// </summary>
+        NotFountInternationalizationHandleServiceFactoryByName = 314727351,
+        /// <summary>
+        /// 不支持指定的AzureVault验证方式
+        /// </summary>
+        NotSupportAzureVaultAuthType= 314727401,
+        /// <summary>
+        /// 找不到指定类型的Azure令牌凭据生成服务
+        /// </summary>
+        NotFoundTokenCredentialGeneratorServiceByType= 314727501,
+        /// <summary>
+        /// 找不到指定名称的Azure令牌凭据生成器
+        /// </summary>
+        NotFoundTokenCredentialGeneratorByName = 314727502,
+        /// <summary>
+        /// 找不到指定类型的分布式操作记录服务
+        /// </summary>
+        NotFoundDTOperationRecordServiceByType= 314727601,
+        /// <summary>
+        /// 找不到指定类型的分布式操作数据服务
+        /// </summary>
+        NotFoundDTOperationDataServiceByType = 314727602,
+        /// <summary>
+        /// 在指定的存储组中找不到指定名称的组成员
+        /// </summary>
+        NotFounStoreGroupMemberByName= 314727701,
+        /// <summary>
+        /// 找不到指定名称的存储组
+        /// </summary>
+        NotFounStoreGroupByName = 314727702,
+        /// <summary>
+        /// 指定的存储组中指定名称的组成员的存储信息不是指定的类型
+        /// </summary>
+        StoreGroupMemberInfoTypeError = 314727703,
+        /// <summary>
+        /// 在指定的存储信息中找不到指定的实体表映射
+        /// </summary>
+        NotFoundEntityNameInStoreInfoFromStoreGroup = 314727704,
+        /// <summary>
+        /// 在指定的存储信息中找不到指定的实体表映射
+        /// </summary>
+        NotFoundEntityNameInStoreInfo = 314727705,
+        /// <summary>
+        /// 存储信息类型不正确
+        /// </summary>
+        StoreInfoTypeError= 314727706,
+        /// <summary>
+        /// 在指定存储组下找不到指定的成员
+        /// </summary>
+        NotFoundStoreGroupMemberInGroup= 314727707,
+        /// <summary>
+        /// 分布式操作数据在Cancel时发生并发错误
+        /// </summary>
+        DTOperationDataConcurrenceErrorInCancel = 314727708,
 
     }
 

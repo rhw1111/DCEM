@@ -9,30 +9,28 @@ namespace MSLibrary.Configuration
     [Injection(InterfaceType = typeof(ISystemConfigurationRepositoryCacheProxy), Scope = InjectionScope.Singleton)]
     public class SystemConfigurationRepositoryCacheProxy : ISystemConfigurationRepositoryCacheProxy
     {
-        public static int MaxLength { get; set; } = 500;
-        public static int ExpireSeconds { get; set; } = 600;
+
+        public static KVCacheVisitorSetting KVCacheVisitorSetting = new KVCacheVisitorSetting()
+        {
+            Name = "_SystemConfigurationRepository",
+            ExpireSeconds = 600,
+            MaxLength = 500
+        };
+
 
         private ISystemConfigurationRepository _systemConfigurationRepository;
 
         public SystemConfigurationRepositoryCacheProxy(ISystemConfigurationRepository systemConfigurationRepository)
         {
             _systemConfigurationRepository= systemConfigurationRepository;
+            _kvcacheVisitor = CacheInnerHelper.CreateKVCacheVisitor(KVCacheVisitorSetting);
         }
 
-        private KVCacheVisitor _timeoutCache = new KVCacheVisitor()
-        {
-            Name = "_SystemConfigurationRepository",
-            CacheType = KVCacheTypes.LocalTimeout,
-            CacheConfiguration = string.Format(@"{{
-                        ""MaxLength"":{0},
-                        ""ExpireSeconds"":{1}
-                }}", MaxLength.ToString(), ExpireSeconds.ToString())
-
-        };
+        private KVCacheVisitor _kvcacheVisitor;
 
         public SystemConfiguration QueryByName(string name)
         {
-            return _timeoutCache.GetSync(
+            return _kvcacheVisitor.GetSync(
                 (k)=>
                 {
                     return _systemConfigurationRepository.QueryByName(name);

@@ -72,6 +72,19 @@ namespace MSLibrary.AspNet.Middleware
                     }
                 }
 
+                //从Http上下文中获取国际化上下文初始化对象
+                if (context.Items.TryGetValue("InternationalizationContextInit", out object objInit))
+                {
+                    try
+                    {
+                        ((IInternationalizationContextInit)objInit).Execute();
+                    }
+                    catch
+                    {
+
+                    }
+                }
+
                 //将异常存储在上下文的Item中
                 context.Items.Add("ExecuteException", ex);
 

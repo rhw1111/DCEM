@@ -201,14 +201,14 @@ namespace MSLibrary.MessageQueue
 
     public class SQueueProcessGroupExecuteResultDefalut : ISQueueProcessGroupExecuteResult
     {
-        private PollingResult _pollingResult;
-        public SQueueProcessGroupExecuteResultDefalut(PollingResult pollingResult)
+        private IAsyncPollingResult _pollingResult;
+        public SQueueProcessGroupExecuteResultDefalut(IAsyncPollingResult pollingResult)
         {
             _pollingResult = pollingResult;
         }
         public async Task Stop()
         {
-            _pollingResult.Stop();
+            await _pollingResult.Stop();
             await Task.FromResult(0);
         }
     }
@@ -434,69 +434,16 @@ namespace MSLibrary.MessageQueue
                 }
                     );
 
-
-
-                /*   parallel.RunCircle(taskList, async (exception) =>
-                   {
-                       LoggerHelper.LogError(_loggerFactory, ErrorLoggerCategoryName, $"SQueueProcessGroup Execute Error,ErrorMessage:{exception.Message},StackTrace:{exception.StackTrace}");
-                       await Task.FromResult(0);
-                   },
-                    async () =>
-                    {
-                        try
-                        {
-                            //获取队列中的消息
-                            await _smessageRepository.QueryAllByQueue(queue, 500, async(messages)=>
-                            {
-                                bool needRestart = false;
-
-                                foreach(var message in messages)
-                                {
-                                    //对每个消息执行处理
-                                    var executeResult=await message.Execute();
-
-                                    if (executeResult.Status==0)
-                                    {
-                                        //执行成功
-                                        needRestart = true;
-                                        await message.Delete();
-                                    }
-                                    else
-                                    {
-                                        if (executeResult.Status==2)
-                                        {
-                                            //执行失败
-                                            LoggerHelper.LogError(_loggerFactory, ErrorLoggerCategoryName, $"SQueueProcessGroup Message Execute Error,Type:{message.Type},Key:{message.Key},Data:{message.Data},ErrorMessage:{executeResult.Description}");
-                                        }
-                                    }
-                                }
-
-                                if (needRestart)
-                                {
-                                    return await Task.FromResult(false);
-                                }
-                                else
-                                {
-                                    return await Task.FromResult(true);
-                                }
-                            });
-
-                            System.Threading.Thread.Sleep(1000);
-                        }
-                        catch(Exception ex)
-                        {
-                            LoggerHelper.LogError(_loggerFactory, ErrorLoggerCategoryName, $"SQueueProcessGroup Execute Error,ErrorMessage:{ex.Message},StackTrace:{ex.StackTrace}");
-                            System.Threading.Thread.Sleep(1000);
-                        }
-
-                        return await Task.FromResult(true);
-                    }
-                    );
-                    */
                 await Task.FromResult(0);
             });
 
-            var pollingResult=PollingHelper.Polling(pollingConfigurations);
+            var pollingResult=PollingHelper.Polling(pollingConfigurations,
+                async(ex)=>
+                {
+                    LoggerHelper.LogError(ErrorLoggerCategoryName,
+                        $"PollingHelper Execute Error,ErrorMessage:{ex.Message},StackTrace:{ex.StackTrace}");
+                }
+                );
             return new SQueueProcessGroupExecuteResultDefalut(pollingResult);
         }
 

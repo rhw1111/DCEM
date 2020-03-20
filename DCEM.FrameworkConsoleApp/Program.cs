@@ -23,6 +23,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using PALibrary;
 using PALibrary.Serializer;
+using PALibrary.Entities;
 using System.Security.Policy;
 
 namespace DCEM.FrameworkConsoleApp
@@ -33,14 +34,8 @@ namespace DCEM.FrameworkConsoleApp
         {
 
 
-            
+            StartupMain.Start();
 
-
-            var service1=Service1Factory.Get();
-            service1.Do();
-            var v1=TF1.Get();
-            var v2 = TF2.Get();    
-             
 
                 ServicePointManager.ServerCertificateValidationCallback = delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };
 
@@ -58,9 +53,38 @@ namespace DCEM.FrameworkConsoleApp
 
 
             OrganizationServiceProxy proxy = new OrganizationServiceProxy(orgServiceManagement, tokenCredentials.SecurityTokenResponse);
+           
 
 
-            MetadataFilterExpression EntityFilter = new MetadataFilterExpression(LogicalOperator.And);
+            ContextContainer.SetValue<IOrganizationService>(ContextTypes.OrgService, proxy);
+
+
+            var record=PAEntityRepositoryFactory.Get().QueryByID("ms_test", Guid.Parse("3EE7916F-0A5A-EA11-A811-000D3A854084"), "ms_name");
+
+
+            record.DownloadAttributeFile("ms_file", (name, stream) =>
+             {
+                 List<byte> total = new List<byte>();
+                 int size = 1000;
+                 int cSize = size;
+                 byte[] buff = new byte[size];
+                 while(cSize==size)
+                 {
+                     cSize=stream.Read(buff, 0, size);
+                     total.AddRange(buff.Take(cSize).ToList());
+                 }
+
+                 var str=UTF8Encoding.UTF8.GetString(total.ToArray());
+             });
+
+
+            using (var stream=File.OpenRead("D:\\2.txt"))
+            {
+                record.UploadAttributeFile("ms_file", "test.txt", "application/octet-stream", stream);
+            }
+
+
+                MetadataFilterExpression EntityFilter = new MetadataFilterExpression(LogicalOperator.And);
             EntityFilter.Conditions.Add(new MetadataConditionExpression("ObjectTypeCode", MetadataConditionOperator.Equals, 9800));
 
             EntityQueryExpression entityQueryExpression = new EntityQueryExpression();

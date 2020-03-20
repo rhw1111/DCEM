@@ -278,6 +278,16 @@ namespace MSLibrary.MessageQueue
         {
             return await _imp.Execute(this);
         }
+        /// <summary>
+        /// 延迟当前消息
+        /// </summary>
+        /// <param name="delaySeconds"></param>
+        /// <param name="extensionMessage"></param>
+        /// <returns></returns>
+        public async Task AddDelay(int delaySeconds, string extensionMessage)
+        {
+            await _imp.AddDelay(this, delaySeconds, extensionMessage);
+        }
     }
 
     /// <summary>
@@ -645,6 +655,7 @@ namespace MSLibrary.MessageQueue
                                         ExpectationExecuteTime = message.ExpectationExecuteTime,
                                         Type = message.Type,
                                         TypeListenerID = listener.ID,
+                                        OriginalMessageID=message.ID,
                                         RetryNumber = 0
 
                                     };

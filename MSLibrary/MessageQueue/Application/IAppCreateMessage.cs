@@ -13,27 +13,4 @@ namespace MSLibrary.MessageQueue.Application
     {
         Task Do(SMessageData messageData);
     }
-
-
-    [DataContract]
-    public class SMessageData
-    {
-        [DataMember]
-        public string Key
-        {
-            get;set;
-        }
-        
-        [DataMember]
-        public string Type
-        {
-            get;set;
-        }
-
-        [DataMember]
-        public string Data
-        {
-            get;set;
-        }
-    }
 }

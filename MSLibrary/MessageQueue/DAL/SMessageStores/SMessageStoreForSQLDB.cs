@@ -82,13 +82,13 @@ namespace MSLibrary.MessageQueue.DAL.SMessageStores
                         commond.Parameters.Add(parameter);
                     }
 
-                    parameter = new SqlParameter("@key", SqlDbType.NVarChar, 150)
+                    parameter = new SqlParameter("@key", SqlDbType.VarChar, 150)
                     {
                         Value = message.Key
                     };
                     commond.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@type", SqlDbType.NVarChar, 150)
+                    parameter = new SqlParameter("@type", SqlDbType.VarChar, 150)
                     {
                         Value = message.Type
                     };
@@ -111,7 +111,7 @@ namespace MSLibrary.MessageQueue.DAL.SMessageStores
                     {
                         parameter = new SqlParameter("@typelistenerid", SqlDbType.UniqueIdentifier)
                         {
-                            Value =DBNull.Value
+                            Value = DBNull.Value
                         };
                     }
                     commond.Parameters.Add(parameter);
@@ -148,10 +148,10 @@ namespace MSLibrary.MessageQueue.DAL.SMessageStores
                         };
                     }
                     commond.Parameters.Add(parameter);
-                    
 
 
-                    if (message.ExtensionMessage!=null)
+
+                    if (message.ExtensionMessage != null)
                     {
                         parameter = new SqlParameter("@extensionmessage", SqlDbType.NVarChar, message.ExtensionMessage.Length)
                         {
@@ -160,7 +160,7 @@ namespace MSLibrary.MessageQueue.DAL.SMessageStores
                     }
                     else
                     {
-                        parameter = new SqlParameter("@extensionmessage", SqlDbType.NVarChar,10)
+                        parameter = new SqlParameter("@extensionmessage", SqlDbType.NVarChar, 10)
                         {
                             Value = DBNull.Value
                         };
@@ -289,13 +289,13 @@ namespace MSLibrary.MessageQueue.DAL.SMessageStores
                         commond.Parameters.Add(parameter);
                     }
 
-                    parameter = new SqlParameter("@key", SqlDbType.NVarChar, 150)
+                    parameter = new SqlParameter("@key", SqlDbType.VarChar, 150)
                     {
                         Value = message.Key
                     };
                     commond.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@type", SqlDbType.NVarChar, 150)
+                    parameter = new SqlParameter("@type", SqlDbType.VarChar, 150)
                     {
                         Value = message.Type
                     };
@@ -482,8 +482,8 @@ namespace MSLibrary.MessageQueue.DAL.SMessageStores
                         commond.Prepare();
 
                         SqlDataReader reader = null;
-                      
-                        using (reader= await commond.ExecuteReaderAsync())
+
+                        using (reader = await commond.ExecuteReaderAsync())
                         {
                             while (await reader.ReadAsync())
                             {
@@ -593,7 +593,7 @@ namespace MSLibrary.MessageQueue.DAL.SMessageStores
                 {
 
 
-                    var parameter = new SqlParameter("@key", SqlDbType.NVarChar, 150)
+                    var parameter = new SqlParameter("@key", SqlDbType.VarChar, 150)
                     {
                         Value = key
                     };

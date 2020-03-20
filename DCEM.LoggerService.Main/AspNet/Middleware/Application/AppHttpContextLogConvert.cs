@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using MSLibrary.AspNet.Middleware.Application;
 using MSLibrary.DI;
+using MSLibrary.AspNet.Middleware;
 using MSLibrary.Logger;
 
 namespace DCEM.LoggerService.Main.AspNet.Middleware.Application
@@ -28,20 +29,18 @@ namespace DCEM.LoggerService.Main.AspNet.Middleware.Application
         /// 超过长度的，将截取响应内容
         /// </summary>
         private const long _maxResponseLength = 102400;
-        public async Task<object> Convert(HttpContext context)
+        public async Task<object> Convert(HttpContextData data)
         {
             byte[] bufferBytes = new byte[1024];
             string strRequestBody = null;
             string strResponseBody = null;
             //尝试获取请求内容和响应内容
-            if (context.Request != null && context.Request.Body != null && context.Request.Body.CanRead )
+            if (data.Request != null )
             {
-                using (MemoryStream requestStream = new MemoryStream())
+                using (data.Request)
                 {
                     List<byte> requestBytes = new List<byte>();
-                    //context.Request.Body.Position = 0;
-                    await context.Request.Body.CopyToAsync(requestStream);
-                    requestStream.Position = 0;
+
 
                     long totalLength = 0;
                     while (true)
@@ -51,7 +50,7 @@ namespace DCEM.LoggerService.Main.AspNet.Middleware.Application
                         {
                             bufSize = (int)(_maxRequestLength - totalLength);
                         }
-                        var length = await requestStream.ReadAsync(bufferBytes, 0, bufSize);
+                        var length = await data.Request.ReadAsync(bufferBytes, 0, bufSize);
                         totalLength = totalLength + length;
                         requestBytes.AddRange(bufferBytes.Take(length));
                         if (length != 1024)
@@ -64,14 +63,11 @@ namespace DCEM.LoggerService.Main.AspNet.Middleware.Application
                 }
             }
 
-            if (context.Response != null && context.Response.Body != null && context.Response.Body.CanRead)
+            if (data.Response!=null)
             {
-                using (MemoryStream responseStream = new MemoryStream())
+                using (data.Response)
                 {
                     List<byte> responseBytes = new List<byte>();
-                    //context.Response.Body.Position = 0;
-                    await context.Response.Body.CopyToAsync(responseStream);
-                    responseStream.Position = 0;
 
                     long totalLength = 0;
                     while (true)
@@ -82,7 +78,7 @@ namespace DCEM.LoggerService.Main.AspNet.Middleware.Application
                             bufSize = (int)(_maxResponseLength - totalLength);
                         }
 
-                        var length = await responseStream.ReadAsync(bufferBytes, 0, bufSize);
+                        var length = await data.Response.ReadAsync(bufferBytes, 0, bufSize);
                         totalLength = totalLength + length;
                         responseBytes.AddRange(bufferBytes.Take(length));
                         if (length != 1024)
@@ -96,12 +92,9 @@ namespace DCEM.LoggerService.Main.AspNet.Middleware.Application
             }
 
             string strActionName = string.Empty;
-            if (context.Items.ContainsKey("ActionName"))
-            {
-                strActionName = context.Items["ActionName"].ToString();
-            }
 
-            CommonLogLocalContent content = new CommonLogLocalContent() { RequestUri = context.Request.Path.Value, ActionName = strActionName, RequestBody = strRequestBody, ResponseBody = strResponseBody, Message = "" };
+
+            CommonLogLocalContent content = new CommonLogLocalContent() { RequestUri ="", ActionName = strActionName, RequestBody = strRequestBody, ResponseBody = strResponseBody, Message = "" };
             return await Task.FromResult(content);
         }
     }

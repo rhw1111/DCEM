@@ -26,7 +26,7 @@ namespace MSLibrary.MessageQueue.DAL
 
         public async Task Add(SMessageTypeListener listener)
         {
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _messageQueueConnectionFactory.CreateAllForMessageQueueMain(), async (conn,transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _messageQueueConnectionFactory.CreateAllForMessageQueueMain(), async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)
@@ -77,7 +77,7 @@ namespace MSLibrary.MessageQueue.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@name", SqlDbType.NVarChar, 100)
+                    parameter = new SqlParameter("@name", SqlDbType.VarChar, 150)
                     {
                         Value = listener.Name
                     };
@@ -85,14 +85,14 @@ namespace MSLibrary.MessageQueue.DAL
 
                     if (listener.QueueGroupName != null)
                     {
-                        parameter = new SqlParameter("@queuegroupname", SqlDbType.NVarChar, 100)
+                        parameter = new SqlParameter("@queuegroupname", SqlDbType.VarChar, 150)
                         {
                             Value = listener.Name
                         };
                     }
                     else
                     {
-                        parameter = new SqlParameter("@queuegroupname", SqlDbType.NVarChar, 100)
+                        parameter = new SqlParameter("@queuegroupname", SqlDbType.VarChar, 150)
                         {
                             Value = DBNull.Value
                         };
@@ -107,7 +107,7 @@ namespace MSLibrary.MessageQueue.DAL
 
                     if (listener.ListenerFactoryType != null)
                     {
-                        parameter = new SqlParameter("@listenerfactorytype", SqlDbType.NVarChar, 150)
+                        parameter = new SqlParameter("@listenerfactorytype", SqlDbType.VarChar, 150)
                         {
                             Value = listener.ListenerFactoryType
                         };
@@ -115,7 +115,7 @@ namespace MSLibrary.MessageQueue.DAL
                     }
                     else
                     {
-                        parameter = new SqlParameter("@listenerfactorytype", SqlDbType.NVarChar, 150)
+                        parameter = new SqlParameter("@listenerfactorytype", SqlDbType.VarChar, 150)
                         {
                             Value = DBNull.Value
                         };
@@ -141,7 +141,7 @@ namespace MSLibrary.MessageQueue.DAL
 
                     if (listener.ListenerWebUrl != null)
                     {
-                        parameter = new SqlParameter("@listenerweburl", SqlDbType.NVarChar, 150)
+                        parameter = new SqlParameter("@listenerweburl", SqlDbType.VarChar, 200)
                         {
                             Value = listener.ListenerWebUrl
                         };
@@ -149,7 +149,7 @@ namespace MSLibrary.MessageQueue.DAL
                     }
                     else
                     {
-                        parameter = new SqlParameter("@listenerweburl", SqlDbType.NVarChar, 150)
+                        parameter = new SqlParameter("@listenerweburl", SqlDbType.VarChar, 200)
                         {
                             Value = DBNull.Value
                         };
@@ -159,7 +159,7 @@ namespace MSLibrary.MessageQueue.DAL
 
                     if (listener.ListenerWebSignature != null)
                     {
-                        parameter = new SqlParameter("@listenerwebsignature", SqlDbType.NVarChar, 150)
+                        parameter = new SqlParameter("@listenerwebsignature", SqlDbType.VarChar, 150)
                         {
                             Value = listener.ListenerWebSignature
                         };
@@ -167,7 +167,7 @@ namespace MSLibrary.MessageQueue.DAL
                     }
                     else
                     {
-                        parameter = new SqlParameter("@listenerwebsignature", SqlDbType.NVarChar, 150)
+                        parameter = new SqlParameter("@listenerwebsignature", SqlDbType.VarChar, 150)
                         {
                             Value = DBNull.Value
                         };
@@ -188,7 +188,7 @@ namespace MSLibrary.MessageQueue.DAL
 
         public async Task Delete(Guid id)
         {
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _messageQueueConnectionFactory.CreateAllForMessageQueueMain(), async (conn,transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _messageQueueConnectionFactory.CreateAllForMessageQueueMain(), async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)
@@ -220,7 +220,7 @@ namespace MSLibrary.MessageQueue.DAL
 
         public async Task DeleteByTypeRelation(Guid typeId, Guid listenerId)
         {
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _messageQueueConnectionFactory.CreateAllForMessageQueueMain(), async (conn,transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _messageQueueConnectionFactory.CreateAllForMessageQueueMain(), async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)
@@ -264,7 +264,7 @@ namespace MSLibrary.MessageQueue.DAL
         {
             SMessageTypeListener listener = null;
 
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, _messageQueueConnectionFactory.CreateReadForMessageQueueMain(), async (conn,transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, _messageQueueConnectionFactory.CreateReadForMessageQueueMain(), async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)
@@ -276,7 +276,7 @@ namespace MSLibrary.MessageQueue.DAL
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
-                    Transaction=sqlTran,
+                    Transaction = sqlTran,
                     CommandText = string.Format(@"select {0},{1} from SMessageTypeListener as listener join SMessageExecuteType as mtype on listener.messagetypeid=mtype.id where listener.[id]=@id", StoreHelper.GetSMessageTypeListenerSelectFields("listener"), StoreHelper.GetSMessageExecuteTypeSelectFields("mtype"))
                 })
                 {
@@ -290,7 +290,7 @@ namespace MSLibrary.MessageQueue.DAL
                     commond.Prepare();
 
                     SqlDataReader reader = null;
- 
+
                     reader = await commond.ExecuteReaderAsync();
 
                     using (reader = await commond.ExecuteReaderAsync())
@@ -315,7 +315,7 @@ namespace MSLibrary.MessageQueue.DAL
         {
             List<SMessageTypeListener> listenerList = new List<SMessageTypeListener>();
 
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, _messageQueueConnectionFactory.CreateReadForMessageQueueMain(), async (conn,transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, _messageQueueConnectionFactory.CreateReadForMessageQueueMain(), async (conn, transaction) =>
             {
                 Int64? sequence = null;
                 int pageSize = 500;
@@ -334,7 +334,7 @@ namespace MSLibrary.MessageQueue.DAL
                     {
                         Connection = (SqlConnection)conn,
                         CommandType = CommandType.Text,
-                         Transaction=sqlTran
+                        Transaction = sqlTran
                     })
                     {
                         if (!sequence.HasValue)
@@ -379,7 +379,7 @@ namespace MSLibrary.MessageQueue.DAL
                                 StoreHelper.SetSMessageTypeListenerSelectFields(listener, reader, "listener");
                                 sequence = (Int64)reader["listenersequence"];
                                 listener.MessageType = new SMessageExecuteType();
-                                StoreHelper.SetSMessageExecuteTypeSelectFields(listener.MessageType,reader, "mtype");
+                                StoreHelper.SetSMessageExecuteTypeSelectFields(listener.MessageType, reader, "mtype");
                                 listenerList.Add(listener);
                             }
 
@@ -408,7 +408,7 @@ namespace MSLibrary.MessageQueue.DAL
         {
             QueryResult<SMessageTypeListener> result = new QueryResult<SMessageTypeListener>();
 
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, _messageQueueConnectionFactory.CreateReadForMessageQueueMain(), async (conn,transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, _messageQueueConnectionFactory.CreateReadForMessageQueueMain(), async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)
@@ -420,7 +420,7 @@ namespace MSLibrary.MessageQueue.DAL
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
-                     Transaction=sqlTran,
+                    Transaction = sqlTran,
                     CommandText = string.Format(@"set @currentpage=@page
 		                           select @count= count(*) from SMessageTypeListener where messagetypeid=@typeid
 		                           if @pagesize*@page>=@count
@@ -441,7 +441,7 @@ namespace MSLibrary.MessageQueue.DAL
                                     select {0},{1} from SMessageTypeListener as listener join SMessageExecuteType as mtype where listener.messagetypeid=@typeid
                                     order by listener.[sequence]
 		                            offset (@pagesize * (@currentpage - 1)) rows 
-		                            fetch next @pagesize rows only;", StoreHelper.GetSMessageTypeListenerSelectFields("listener"),StoreHelper.GetSMessageExecuteTypeSelectFields("mtype"))
+		                            fetch next @pagesize rows only;", StoreHelper.GetSMessageTypeListenerSelectFields("listener"), StoreHelper.GetSMessageExecuteTypeSelectFields("mtype"))
                 })
                 {
 
@@ -505,7 +505,7 @@ namespace MSLibrary.MessageQueue.DAL
         {
             SMessageTypeListener listener = null;
 
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, _messageQueueConnectionFactory.CreateReadForMessageQueueMain(), async (conn,transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, _messageQueueConnectionFactory.CreateReadForMessageQueueMain(), async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)
@@ -517,7 +517,7 @@ namespace MSLibrary.MessageQueue.DAL
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
-                     Transaction=sqlTran,
+                    Transaction = sqlTran,
                     CommandText = string.Format(@"select {0},{1} from SMessageTypeListener as listener join SMessageExecuteType as mtype on listener.messagetypeid=mtype.id where listener.[id]=@id and mtype.[id]=@typeid", StoreHelper.GetSMessageTypeListenerSelectFields("listener"), StoreHelper.GetSMessageExecuteTypeSelectFields("mtype"))
                 })
                 {
@@ -559,7 +559,7 @@ namespace MSLibrary.MessageQueue.DAL
 
         public async Task UpdateByTypeRelation(SMessageTypeListener listener)
         {
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _messageQueueConnectionFactory.CreateAllForMessageQueueMain(), async (conn,transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _messageQueueConnectionFactory.CreateAllForMessageQueueMain(), async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)
@@ -571,7 +571,7 @@ namespace MSLibrary.MessageQueue.DAL
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
-                     Transaction=sqlTran,
+                    Transaction = sqlTran,
                     CommandText = @"update SMessageTypeListener set [name]=@name,[mode]=@mode,[listenerfactorytype]=@listenerfactorytype,[listenerfactorytypeusedi]=@listenerfactorytypeusedi,[listenerweburl]=@listenerweburl,[listenerwebsignature]=@listenerwebsignature where [id]=@id and messagetypeid=@messagetypeid"
                 })
                 {
@@ -588,7 +588,7 @@ namespace MSLibrary.MessageQueue.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@name", SqlDbType.NVarChar, 100)
+                    parameter = new SqlParameter("@name", SqlDbType.VarChar, 150)
                     {
                         Value = listener.Name
                     };
@@ -602,7 +602,7 @@ namespace MSLibrary.MessageQueue.DAL
 
                     if (listener.ListenerFactoryType != null)
                     {
-                        parameter = new SqlParameter("@listenerfactorytype", SqlDbType.NVarChar, 150)
+                        parameter = new SqlParameter("@listenerfactorytype", SqlDbType.VarChar, 150)
                         {
                             Value = listener.ListenerFactoryType
                         };
@@ -610,7 +610,7 @@ namespace MSLibrary.MessageQueue.DAL
                     }
                     else
                     {
-                        parameter = new SqlParameter("@listenerfactorytype", SqlDbType.NVarChar, 150)
+                        parameter = new SqlParameter("@listenerfactorytype", SqlDbType.VarChar, 150)
                         {
                             Value = DBNull.Value
                         };
@@ -636,7 +636,7 @@ namespace MSLibrary.MessageQueue.DAL
 
                     if (listener.ListenerWebUrl != null)
                     {
-                        parameter = new SqlParameter("@listenerweburl", SqlDbType.NVarChar, 150)
+                        parameter = new SqlParameter("@listenerweburl", SqlDbType.VarChar, 200)
                         {
                             Value = listener.ListenerWebUrl
                         };
@@ -644,7 +644,7 @@ namespace MSLibrary.MessageQueue.DAL
                     }
                     else
                     {
-                        parameter = new SqlParameter("@listenerweburl", SqlDbType.NVarChar, 150)
+                        parameter = new SqlParameter("@listenerweburl", SqlDbType.VarChar, 200)
                         {
                             Value = DBNull.Value
                         };
@@ -654,7 +654,7 @@ namespace MSLibrary.MessageQueue.DAL
 
                     if (listener.ListenerWebSignature != null)
                     {
-                        parameter = new SqlParameter("@listenerwebsignature", SqlDbType.NVarChar, 150)
+                        parameter = new SqlParameter("@listenerwebsignature", SqlDbType.VarChar, 150)
                         {
                             Value = listener.ListenerWebSignature
                         };
@@ -662,7 +662,7 @@ namespace MSLibrary.MessageQueue.DAL
                     }
                     else
                     {
-                        parameter = new SqlParameter("@listenerwebsignature", SqlDbType.NVarChar, 150)
+                        parameter = new SqlParameter("@listenerwebsignature", SqlDbType.VarChar, 150)
                         {
                             Value = DBNull.Value
                         };
@@ -674,7 +674,7 @@ namespace MSLibrary.MessageQueue.DAL
                     await commond.ExecuteNonQueryAsync();
 
 
-                    
+
                 }
             });
         }

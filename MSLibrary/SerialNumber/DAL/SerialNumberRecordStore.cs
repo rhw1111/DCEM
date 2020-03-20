@@ -35,11 +35,11 @@ namespace MSLibrary.SerialNumber.DAL
 
 
 
-        private IHashGroupRepository _hashGroupRepository;
+        private IHashGroupRepositoryCacheProxy _hashGroupRepository;
         private ISerialNumberConnectionFactory _serialNumberConnectionFactory;
 
         private IStoreInfoResolveService _storeInfoResolveService;
-        public SerialNumberRecordStore(IHashGroupRepository hashGroupRepository, ISerialNumberConnectionFactory serialNumberConnectionFactory, IStoreInfoResolveService storeInfoResolveService)
+        public SerialNumberRecordStore(IHashGroupRepositoryCacheProxy hashGroupRepository, ISerialNumberConnectionFactory serialNumberConnectionFactory, IStoreInfoResolveService storeInfoResolveService)
         {
             _hashGroupRepository = hashGroupRepository;
             _serialNumberConnectionFactory = serialNumberConnectionFactory;

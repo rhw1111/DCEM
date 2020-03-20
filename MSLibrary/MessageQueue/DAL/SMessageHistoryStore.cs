@@ -32,13 +32,13 @@ namespace MSLibrary.MessageQueue.DAL
         }
 
 
-        private IHashGroupRepository _hashGroupRepository;
+        private IHashGroupRepositoryCacheProxy _hashGroupRepository;
         private IMessageQueueConnectionFactory _messageQueueConnectionFactory;
 
         private IStoreInfoResolveService _storeInfoResolveService;
 
 
-        public SMessageHistoryStore(IHashGroupRepository hashGroupRepository, IMessageQueueConnectionFactory messageQueueConnectionFactory, IStoreInfoResolveService storeInfoResolveService)
+        public SMessageHistoryStore(IHashGroupRepositoryCacheProxy hashGroupRepository, IMessageQueueConnectionFactory messageQueueConnectionFactory, IStoreInfoResolveService storeInfoResolveService)
         {
             _hashGroupRepository = hashGroupRepository;
             _messageQueueConnectionFactory = messageQueueConnectionFactory;
@@ -50,7 +50,7 @@ namespace MSLibrary.MessageQueue.DAL
         public async Task Add(SMessageHistory history)
         {
 
-            var storeInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService,_hashGroupRepository, _messageHistoryHashGroupName, history.ID.ToString());
+            var storeInfo = await StoreInfoHelper.GetHashStoreInfo(_storeInfoResolveService, _hashGroupRepository, _messageHistoryHashGroupName, history.ID.ToString());
 
             if (!storeInfo.TableNames.TryGetValue(HashEntityNames.SMessageHistory, out string tableName))
             {
@@ -58,13 +58,13 @@ namespace MSLibrary.MessageQueue.DAL
                 {
                     Code = TextCodes.NotFoundKeyInHashNodeKeyInfo,
                     DefaultFormatting = "哈希组{0}中的哈希节点关键信息中找不到键值{1}",
-                    ReplaceParameters = new List<object>() { _messageHistoryHashGroupName , HashEntityNames.SMessageHistory }
+                    ReplaceParameters = new List<object>() { _messageHistoryHashGroupName, HashEntityNames.SMessageHistory }
                 };
 
                 throw new UtilityException((int)Errors.NotFoundKeyInHashNodeKeyInfo, fragment);
             }
 
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, storeInfo.DBConnectionNames.ReadAndWrite, async (conn, transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _messageQueueConnectionFactory.CreateAllForSMessageHistory(storeInfo.DBConnectionNames), async (conn, transaction) =>
             {
                 //新增
                 SqlTransaction sqlTran = null;
@@ -146,17 +146,17 @@ namespace MSLibrary.MessageQueue.DAL
                         command.Parameters.Add(parameter);
                     }
 
-                    parameter = new SqlParameter("@key", SqlDbType.NVarChar, 100)
+                    parameter = new SqlParameter("@key", SqlDbType.VarChar, 150)
                     {
                         Value = history.Key
                     };
                     command.Parameters.Add(parameter);
-                    parameter = new SqlParameter("@type", SqlDbType.NVarChar, 50)
+                    parameter = new SqlParameter("@type", SqlDbType.VarChar, 150)
                     {
                         Value = history.Type
                     };
                     command.Parameters.Add(parameter);
-                    parameter = new SqlParameter("@data", SqlDbType.NVarChar, 500)
+                    parameter = new SqlParameter("@data", SqlDbType.VarChar, history.Data.Length)
                     {
                         Value = history.Data
                     };
@@ -194,7 +194,7 @@ namespace MSLibrary.MessageQueue.DAL
                     }
                     command.Parameters.Add(parameter);
 
-                   
+
 
                     parameter = new SqlParameter("@status", SqlDbType.Int)
                     {
@@ -222,7 +222,7 @@ namespace MSLibrary.MessageQueue.DAL
 
         public async Task<SMessageHistory> QueryById(Guid id)
         {
-            var storeInfo = await StoreInfoHelper.GetHashStoreInfo(_storeInfoResolveService,_hashGroupRepository, _messageHistoryHashGroupName, id.ToString());
+            var storeInfo = await StoreInfoHelper.GetHashStoreInfo(_storeInfoResolveService, _hashGroupRepository, _messageHistoryHashGroupName, id.ToString());
 
             if (!storeInfo.TableNames.TryGetValue(HashEntityNames.SMessageHistory, out string tableName))
             {
@@ -237,7 +237,7 @@ namespace MSLibrary.MessageQueue.DAL
             }
             SMessageHistory smssageHistory = null;
 
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, storeInfo.DBConnectionNames.Read, async (conn, transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false,_messageQueueConnectionFactory.CreateReadForSMessageHistory(storeInfo.DBConnectionNames), async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)
@@ -281,7 +281,7 @@ namespace MSLibrary.MessageQueue.DAL
 
         public async Task UpdateStatus(Guid id, int status)
         {
-            var storeInfo = await StoreInfoHelper.GetHashStoreInfo(_storeInfoResolveService,_hashGroupRepository, _messageHistoryHashGroupName, id.ToString());
+            var storeInfo = await StoreInfoHelper.GetHashStoreInfo(_storeInfoResolveService, _hashGroupRepository, _messageHistoryHashGroupName, id.ToString());
 
             if (!storeInfo.TableNames.TryGetValue(HashEntityNames.SMessageHistory, out string tableName))
             {
@@ -295,7 +295,7 @@ namespace MSLibrary.MessageQueue.DAL
                 throw new UtilityException((int)Errors.NotFoundKeyInHashNodeKeyInfo, fragment);
             }
 
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, storeInfo.DBConnectionNames.ReadAndWrite, async (conn, transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false,_messageQueueConnectionFactory.CreateAllForSMessageHistory(storeInfo.DBConnectionNames), async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)

@@ -12,9 +12,9 @@ namespace MSLibrary.Context.Application
     [Injection(InterfaceType = typeof(IAppSystemAuthentication), Scope = InjectionScope.Singleton)]
     public class AppSystemAuthentication : IAppSystemAuthentication
     {
-        private HttpClaimGeneratorRepositoryHelper _httpClaimGeneratorRepositoryHelper;
+        private IHttpClaimGeneratorRepositoryCacheProxy _httpClaimGeneratorRepositoryHelper;
         
-        public AppSystemAuthentication(HttpClaimGeneratorRepositoryHelper httpClaimGeneratorRepositoryHelper)
+        public AppSystemAuthentication(IHttpClaimGeneratorRepositoryCacheProxy httpClaimGeneratorRepositoryHelper)
         {
             _httpClaimGeneratorRepositoryHelper = httpClaimGeneratorRepositoryHelper;
         }

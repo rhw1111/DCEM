@@ -1,22 +1,25 @@
 //Dev
 {
-  "Connections": null,
-  "DISetting": {
-    "SearchAssemblyNames": [ "MSLibrary", "DCEM.Main", "DCEM.ServiceAssistantService.Main", "DCEM.ConsoleApp" ]
+  "Connections": {
+    "ConfigurationAll": "Password=bgyuser;Persist Security Info=True;User ID=bgyuser;Initial Catalog=BGY_CONFIG;Data Source=106.15.138.75",
+    "ConfigurationRead": "Password=bgyuser;Persist Security Info=True;User ID=bgyuser;Initial Catalog=BGY_CONFIG;Data Source=106.15.138.75"
   },
-  "DyCRMSetting": {
-    "CrmApiMaxRetry": 10,
-    "CrmApiVersion": "8.2",
-    "TokenServiceType": "ADFSPassword",
-    "AdfsUrl": "https://subcrmadfs.sokon.com/",
-    "CrmUrl": "https://subcrmdev.sokon.com",
-    "ClientId": "e3053682-935d-41df-bcc3-f7fc4de37040",
-    "ClientSecret": "VfEqoCGnQ9p-pFFS2jUXmiYI0zzo8XzhQBYj18wD",
-    "UserName": "sfmotors\\subdevcrmadmin",
-    "Password": "password01#",
-    "RedirectUri": ""
+    "DISetting": {
+      "SearchAssemblyNames": [ "MSLibrary", "DCEM.Main", "DCEM.ServiceAssistantService.Main", "DCEM.ConsoleApp" ]
+    },
+    "DyCRMSetting": {
+      "CrmApiMaxRetry": 10,
+      "CrmApiVersion": "8.2",
+      "TokenServiceType": "ADFSPassword",
+      "AdfsUrl": "https://subcrmadfs.sokon.com/",
+      "CrmUrl": "https://subcrmdev.sokon.com",
+      "ClientId": "e3053682-935d-41df-bcc3-f7fc4de37040",
+      "ClientSecret": "VfEqoCGnQ9p-pFFS2jUXmiYI0zzo8XzhQBYj18wD",
+      "UserName": "sfmotors\\subdevcrmadmin",
+      "Password": "password01#",
+      "RedirectUri": ""
+    }
   }
-}
 //Uat
 //{
 //  "Connections": null,

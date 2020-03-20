@@ -478,6 +478,13 @@ namespace MSLibrary
         /// </summary>
         public const string NotFoundScheduleActionByName = "NotFoundScheduleActionByName";
         /// <summary>
+        /// 找不到指定类型的调度动作初始化服务
+        /// 格式为“找不到类型为{0}的调度动作初始化服务，发生位置为{1}”
+        /// {0}：服务类型
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFoundScheduleActionInitServiceByType = "NotFoundScheduleActionInitServiceByType";
+        /// <summary>
         /// 找不到指定名称的调度动作组
         /// 格式为“找不到名称为{0}的调度动作组”
         /// {0}为调度动作组名称
@@ -2360,9 +2367,144 @@ namespace MSLibrary
         /// {1}：发生的位置
         /// </summary>
         public const string NotFoundIKVCacheVersionServiceByName = "NotFoundIKVCacheVersionServiceByName";
+        /// <summary>
+        /// 找不到指定类型的令牌控制器服务
+        /// 格式为“找不到类型为{0}的令牌控制器服务”
+        /// {0}：控制器类型
+        /// </summary>
+        public const string NotFoundTokenControllerServiceByType = "NotFoundTokenControllerServiceByType";
 
+        /// <summary>
+        /// 找不到指定名称的令牌控制器
+        /// 格式为“找不到名称为{0}的令牌控制器”
+        /// {0}：控制器名称
+        /// </summary>
+        public const string NotFoundTokenControllerByName = "NotFoundTokenControllerByName";
+        /// 业务动作验证失败
+        /// 格式为“{0}”
+        /// {0}：验证结果详细信息
+        public const string BusinessActionValidateFail = "BusinessActionValidateFail";
+        /// <summary>
+        /// 找不到指定名称的业务动作
+        /// 格式为“找不到名称为{0}的业务动作”
+        /// {0}：业务动作名称
+        /// </summary>
+        public const string NotFoundBusinessActionByName = "NotFoundBusinessActionByName";
+        /// <summary>
+        /// 找不到指定名称的国际化处理服务工厂
+        /// 格式为“找不到名称为{0}的国际化处理服务工厂，发生位置为{1}”
+        /// {0}：名称
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFountInternationalizationHandleServiceFactoryByName = "NotFountInternationalizationHandleServiceFactoryByName";
+        /// <summary>
+        /// 找不到指定类型的机密数据服务
+        /// 格式为“找不到类型为{0}的机密数据服务，发生位置为{1}”
+        /// {0}：类型
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFoundSecurityVaultServiceByType = "NotFoundSecurityVaultServiceByType";
+        /// <summary>
+        /// 不支持指定的AzureVault验证方式
+        /// 格式为“不支持方式为{0}的AzureVault验证方式，发生位置为{1}”
+        /// {0}：验证方式
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotSupportAzureVaultAuthType = "NotSupportAzureVaultAuthType";
+        /// <summary>
+        /// 找不到指定类型的Azure令牌凭据生成服务
+        /// 格式为“找不到类型为{0}的Azure令牌凭据生成服务，发生位置为{1}”
+        /// {0}：类型
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFoundTokenCredentialGeneratorServiceByType = "NotFoundTokenCredentialGeneratorServiceByType";
+        /// <summary>
+        /// 找不到指定名称的Azure令牌凭据生成器
+        /// 格式为“找不到名称为{0}的Azure令牌凭据生成器”
+        /// {0}：Azure令牌凭据生成器名称
+        /// </summary>
+        public const string NotFoundTokenCredentialGeneratorByName = "NotFoundTokenCredentialGeneratorByName";
+        /// <summary>
+        /// 找不到指定类型的分布式操作记录服务
+        /// 格式为“找不到类型为{0}的分布式操作记录服务，发生位置为{1}”
+        /// {0}：类型
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFoundDTOperationRecordServiceByType = "NotFoundDTOperationRecordServiceByType";
+        /// <summary>
+        /// 找不到指定类型的分布式操作数据服务
+        /// 格式为“找不到类型为{0}的分布式操作数据服务，发生位置为{1}”
+        /// {0}：类型
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFoundDTOperationDataServiceByType = "NotFoundDTOperationDataServiceByType";
+        /// <summary>
+        /// 在指定的存储组中找不到指定名称的组成员
+        /// 格式为“在id为{0}的存储组中找不到名称为{1}的组成员”
+        /// {0}：组ID
+        /// {1}：组成员名称
+        /// </summary>
+        public const string NotFounStoreGroupMemberByName = "NotFounStoreGroupMemberByName";
+        /// <summary>
+        /// 找不到指定名称的存储组
+        /// 格式为“找不到名称为{0}的存储组”
+        /// {0}：组名称
+        /// </summary>
+        public const string NotFounStoreGroupByName = "NotFounStoreGroupByName";
+        /// <summary>
+        /// 指定的存储组中指定名称的组成员的存储信息不是指定的类型
+        /// 格式为“名称为{0}的存储组中名称为{1}的组成员的存储信息不是需要的类型{2}”
+        /// {0}：存储组名称
+        /// {1}：成员名称
+        /// {2}：需要的类型
+        /// </summary>
+        public const string StoreGroupMemberInfoTypeError = "StoreGroupMemberInfoTypeError";
+        /// <summary>
+        /// 在指定的存储信息中找不到指定的实体表映射
+        /// 格式为“名称为{0}的存储组中名称为{1}的组成员的存储信息中缺少实体名称为{2}的实体表映射”
+        /// {0}：存储组名称
+        /// {1}：成员名称
+        /// {2}：实体名称
+        /// </summary>
+        public const string NotFoundEntityNameInStoreInfoFromStoreGroup = "NotFoundEntityNameInStoreInfoFromStoreGroup";
+        /// <summary>
+        /// 在指定的存储信息中找不到指定的实体表映射
+        /// 格式为“存储信息{0}中缺少实体名称为{1}的实体表映射”
+        /// {0}：存储信息序列化后的内容
+        /// {1}：实体名称
+        /// </summary>
+        public const string NotFoundEntityNameInStoreInfo = "NotFoundEntityNameInStoreInfo";
+        /// <summary>
+        /// 存储信息类型不正确
+        /// 格式为“存储信息{0}要求的格式为{1}，发生位置{2}”
+        /// {0}:存储信息内容
+        /// {1}：要求的格式
+        /// {2}:发生的位置
+        /// </summary>
+        public const string StoreInfoTypeError = "StoreInfoTypeError";
+        /// <summary>
+        /// 在指定存储组下找不到指定的成员
+        /// 格式为“在名称为{0}的存储组下找不到名称为{1}的成员”
+        /// {0}：组名称
+        /// {1}：成员名称
+        /// </summary>
+        public const string NotFoundStoreGroupMemberInGroup = "NotFoundStoreGroupMemberInGroup";
+        /// <summary>
+        /// 分布式操作数据在Cancel时发生并发错误
+        /// 格式为“分布式操作数据在Cancel时发生并发错误，StoreGroupName:{0},HashInfo:{1},ID:{2}”
+        /// {0}：数据的StoreGroupName
+        /// {1}:数据的HashInfo
+        /// {2}:数据的ID
+        /// </summary>
+        public const string DTOperationDataConcurrenceErrorInCancel = "DTOperationDataConcurrenceErrorInCancel";
 
-
+        /// <summary>
+        /// 在查询获取的CrmEntity中的属性中，找不到指定名称的属性
+        /// 格式为“在查询获取的CrmEntity中的属性中，找不到名称为{0}的属性，实体名称为{1}”
+        /// {0}：查询的属性名称
+        /// {1}：实体名称
+        /// </summary>
+        public const string NotFoundAttributeNameInRetrieveCrmEntity = "NotFoundAttributeNameInRetrieveCrmEntity";
     }
 
 
@@ -2405,6 +2547,7 @@ namespace MSLibrary
         public const string UploadFile = "UploadFile";
         public const string ThirdPartySystemTokenRecord = "ThirdPartySystemTokenRecord";
         public const string CommonLog = "CommonLog";
+        public const string DTOperationRecord = "DTOperationRecord";
     }
 
 

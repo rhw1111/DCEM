@@ -36,10 +36,10 @@ namespace MSLibrary.Collections.Hash.DAL
                 using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
-                    CommandType = CommandType.Text, 
+                    CommandType = CommandType.Text,
                     Transaction = sqlTran
                 })
-                { 
+                {
                     SqlParameter parameter;
 
                     if (strategy.ID != Guid.Empty)
@@ -361,13 +361,13 @@ namespace MSLibrary.Collections.Hash.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@name", SqlDbType.NVarChar, 100)
+                    parameter = new SqlParameter("@name", SqlDbType.VarChar, 100)
                     {
                         Value = strategy.Name
                     };
                     commond.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@strategyservicefactorytype", SqlDbType.NVarChar, 500)
+                    parameter = new SqlParameter("@strategyservicefactorytype", SqlDbType.VarChar, 500)
                     {
                         Value = strategy.StrategyServiceFactoryType
                     };

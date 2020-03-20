@@ -29,11 +29,11 @@ namespace MSLibrary.Workflow.DAL
         }
 
         private readonly IWorkflowConnectionFactory _workflowConnectionFactory;
-        private IHashGroupRepository _hashGroupRepository;
+        private IHashGroupRepositoryCacheProxy _hashGroupRepository;
         private IStoreInfoResolveService _storeInfoResolveService;
 
 
-        public WorkflowStepStore(IWorkflowConnectionFactory dbConnectionMainFactory, IHashGroupRepository hashGroupRepository, IStoreInfoResolveService storeInfoResolveService)
+        public WorkflowStepStore(IWorkflowConnectionFactory dbConnectionMainFactory, IHashGroupRepositoryCacheProxy hashGroupRepository, IStoreInfoResolveService storeInfoResolveService)
         {
             _workflowConnectionFactory = dbConnectionMainFactory;
             _hashGroupRepository = hashGroupRepository;

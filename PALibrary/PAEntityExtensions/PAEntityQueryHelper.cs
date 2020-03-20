@@ -48,7 +48,7 @@ namespace PALibrary.PAEntityExtensions
 
             var orgService = ContextContainer.GetValue<IOrganizationService>(ContextTypes.OrgService);
 
-
+            
             while (true)
             {
                 doc.Root.SetAttributeValue("page", page.ToString());
@@ -77,7 +77,7 @@ namespace PALibrary.PAEntityExtensions
         /// <param name="strFetch"></param>
         /// <param name="size"></param>
         /// <param name="callBack"></param>
-        public static void RetrievTop(string strFetch, int size, Action<Entity> callBack)
+        public static void RetriveTop(string strFetch, int size, Action<Entity> callBack)
         {
             var doc = XDocument.Parse(strFetch);
 
@@ -101,7 +101,7 @@ namespace PALibrary.PAEntityExtensions
         /// <param name="strFetch"></param>
         /// <param name="size"></param>
         /// <returns></returns>
-        public static List<Entity> RetrievTop(string strFetch, int size)
+        public static List<Entity> RetriveTop(string strFetch, int size)
         {
             List<Entity> result = new List<Entity>();
             var doc = XDocument.Parse(strFetch);
@@ -121,7 +121,25 @@ namespace PALibrary.PAEntityExtensions
         }
 
 
+        public static QueryResult<Entity> RetrivePage(string strFetch, int page, int pageSize)
+        {
+            QueryResult<Entity> result = new QueryResult<Entity>();
+            var doc = XDocument.Parse(strFetch);
+            var orgService = ContextContainer.GetValue<IOrganizationService>(ContextTypes.OrgService);
+            doc.Root.SetAttributeValue("page", page.ToString());
+            doc.Root.SetAttributeValue("count", pageSize.ToString());
 
+            FetchExpression fetchExpression = new FetchExpression(doc.ToString());
+            var queryResponse = orgService.RetrieveMultiple(fetchExpression);
+            result.TotalCount = queryResponse.TotalRecordCount;
+            result.CurrentPage = page;
+            foreach (var item in queryResponse.Entities)
+            {
+                result.Results.Add(item);
+            }
+
+            return result;
+        }
 
         /// <summary>
         /// 根据Fetch查询字符串获取第一条记录
@@ -185,7 +203,7 @@ namespace PALibrary.PAEntityExtensions
         /// <param name="strFetch"></param>
         /// <param name="size"></param>
         /// <param name="callBack"></param>
-        public static void RetrievTop<T>(string strFetch, int size, Action<T> callBack)
+        public static void RetriveTop<T>(string strFetch, int size, Action<T> callBack)
         {
             var doc = XDocument.Parse(strFetch);
 
@@ -209,12 +227,13 @@ namespace PALibrary.PAEntityExtensions
         /// <param name="strFetch"></param>
         /// <param name="size"></param>
         /// <returns></returns>
-        public static List<T> RetrievTop<T>(string strFetch, int size)
+        public static List<T> RetriveTop<T>(string strFetch, int size)
         {
             List<T> result = new List<T>();
             var doc = XDocument.Parse(strFetch);
 
             var orgService = ContextContainer.GetValue<IOrganizationService>(ContextTypes.OrgService);
+
 
             doc.Root.SetAttributeValue("count", size.ToString());
 
@@ -228,6 +247,26 @@ namespace PALibrary.PAEntityExtensions
             return result;
         }
 
+
+        public static QueryResult<T> RetrivePage<T>(string strFetch,int page,int pageSize)
+        {
+            QueryResult<T> result = new QueryResult<T>();
+            var doc = XDocument.Parse(strFetch);
+            var orgService = ContextContainer.GetValue<IOrganizationService>(ContextTypes.OrgService);
+            doc.Root.SetAttributeValue("page", page.ToString());
+            doc.Root.SetAttributeValue("count", pageSize.ToString());
+
+            FetchExpression fetchExpression = new FetchExpression(doc.ToString());
+            var queryResponse = orgService.RetrieveMultiple(fetchExpression);
+            result.TotalCount = queryResponse.TotalRecordCount;
+            result.CurrentPage = page;
+            foreach(var item in queryResponse.Entities)
+            {
+                result.Results.Add(item.ConvertToDomainEntity<T>());
+            }
+
+            return result;
+        }
 
     }
 }

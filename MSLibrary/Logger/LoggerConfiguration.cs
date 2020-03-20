@@ -67,7 +67,9 @@ namespace MSLibrary.Logger
         /// 配置信息
         /// </summary>
         [DataMember]
-        public JObject Configuration { get; set; }
+        public Dictionary<string,object> Configuration { get; set; }
+
+        public JObject ConfigurationObj { get; set; }
 
         /// <summary>
         /// 日志级别设置（指定目录）

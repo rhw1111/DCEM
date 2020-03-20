@@ -16,6 +16,7 @@ namespace MSLibrary.Schedule.DAL
                                 {0}.[name] as [{0}name],
                                 {0}.[groupid] as [{0}groupid],
                                 {0}.[triggercondition] as [{0}triggercondition],
+                                {0}.[configuration] as [{0}configuration],
                                 {0}.[mode] as [{0}mode],
                                 {0}.[scheduleactionservicefactorytype] as [{0}scheduleactionservicefactorytype],
                                 {0}.[scheduleactionservicefactorytypeusedi] as [{0}scheduleactionservicefactorytypeusedi]
@@ -31,6 +32,7 @@ namespace MSLibrary.Schedule.DAL
                                [name],
                                [groupid],
                                [triggercondition],
+                               [configuration],
                                [mode],
                                [scheduleactionservicefactorytype],
                                [scheduleactionservicefactorytypeusedi],
@@ -55,6 +57,7 @@ namespace MSLibrary.Schedule.DAL
             action.ID = (Guid)reader[string.Format("{0}id", prefix)];
             action.Name = reader[string.Format("{0}name", prefix)].ToString();
             action.TriggerCondition = reader[string.Format("{0}triggercondition", prefix)].ToString();
+            action.Configuration = reader[string.Format("{0}configuration", prefix)].ToString();
             action.Mode = (int)reader[string.Format("{0}Mode", prefix)];
             if (reader[string.Format("{0}ScheduleActionServiceFactoryType", prefix)] != DBNull.Value)
             {
@@ -88,14 +91,20 @@ namespace MSLibrary.Schedule.DAL
                               {0}.[name] as [{0}name],
                               {0}.[createtime] as [{0}createtime],
                               {0}.[modifytime] as [{0}modifytime],
-                              {0}.[uselog] as [{0}uselog]";
+                              {0}.[uselog] as [{0}uselog],
+                              {0}.[executeactioninittype] as [{0}executeactioninittype],
+                              {0}.[executeactioninitconfiguration] as [{0}executeactioninitconfiguration]
+                              ";
+
             if (string.IsNullOrEmpty(prefix))
             {
                 strSelect = @"[id]
                              ,[name]
                              ,[createtime]
                              ,[modifytime]
-                             ,[uselog]";
+                             ,[uselog]
+                             ,[executeactioninittype]
+                             ,[executeactioninitconfiguration]";
             }
             return string.Format(strSelect, prefix);
         }
@@ -113,6 +122,8 @@ namespace MSLibrary.Schedule.DAL
             actionGroup.CreateTime = (DateTime)reader[string.Format("{0}createtime", prefix)];
             actionGroup.ModifyTime = (DateTime)reader[string.Format("{0}modifytime", prefix)];
             actionGroup.UseLog = (bool)reader[string.Format("{0}uselog", prefix)];
+            actionGroup.ExecuteActionInitType = reader[string.Format("{0}executeactioninittype", prefix)].ToString();
+            actionGroup.ExecuteActionInitConfiguration = reader[string.Format("{0}executeactioninitconfiguration", prefix)].ToString();
         }
     }
 }

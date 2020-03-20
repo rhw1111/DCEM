@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MSLibrary.DAL;
 
 namespace MSLibrary.Thread
 {
@@ -18,7 +19,7 @@ namespace MSLibrary.Thread
         /// <param name="lockName">资源名称</param>
         /// <param name="callBack">回调函数</param>
         /// <param name="timeout">超时时间（-1为永不超时）,单位毫秒</param>
-        void ExecuteSync(string lockName, Action callBack, int timeout = -1);
+        void ExecuteSync(DBConnectionNames connNames,string lockName, Action callBack, int timeout = -1);
 
         /// <summary>
         /// 执行串行化
@@ -26,6 +27,6 @@ namespace MSLibrary.Thread
         /// <param name="lockName">资源名称</param>
         /// <param name="callBack">回调函数</param>
         /// <param name="timeout">超时时间（-1为永不超时），单位毫秒</param>
-        Task Execute(string lockName, Func<Task> callBack, int timeout = -1);
+        Task Execute(DBConnectionNames connNames,string lockName, Func<Task> callBack, int timeout = -1);
     }
 }

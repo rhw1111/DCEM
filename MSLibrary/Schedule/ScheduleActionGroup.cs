@@ -101,6 +101,40 @@ namespace MSLibrary.Schedule
         }
 
         /// <summary>
+        /// 执行动作时初始化的类型
+        /// </summary>
+        public string ExecuteActionInitType
+        {
+            get
+            {
+                return GetAttribute<string>("ExecuteActionInitType");
+            }
+            set
+            {
+                SetAttribute<string>("ExecuteActionInitType", value);
+            }
+        }
+
+        /// <summary>
+        /// 执行动作时初始化的配置
+        /// 不同的类型有不同的配置
+        /// </summary>
+        public string ExecuteActionInitConfiguration
+        {
+            get
+            {
+                return GetAttribute<string>("ExecuteActionInitConfiguration");
+            }
+            set
+            {
+                SetAttribute<string>("ExecuteActionInitConfiguration", value);
+            }
+        }
+
+
+
+
+        /// <summary>
         /// 修改时间
         /// </summary>
         public DateTime ModifyTime
@@ -257,6 +291,15 @@ namespace MSLibrary.Schedule
         Task Shutdown(ScheduleActionGroup group);
     }
 
+    public interface IScheduleActionInitGeneratorService
+    {
+        Task<IScheduleActionInit> Generator(string configiration);
+    }
+    public interface IScheduleActionInit
+    {
+        void Init();
+    }
+
     [Injection(InterfaceType = typeof(IScheduleActionGroupIMP), Scope = InjectionScope.Transient)]
     public class ScheduleActionGroupIMP : IScheduleActionGroupIMP
     {
@@ -267,15 +310,16 @@ namespace MSLibrary.Schedule
         private int _scheduleStatus = 0;
         private IScheduler _scheduler;
         private IScheduleActionStore _scheduleActionStore;
+        private IScheduleActionRepositoryCacheProxy _scheduleActionRepositoryCacheProxy;
         private IScheduleActionGroupStore _scheduleActionGroupStore;
-        private IEnvironmentClaimGeneratorRepository _environmentClaimGeneratorRepository;
-        private IClaimContextGeneratorRepository _claimContextGeneratorRepository;
+        private IEnvironmentClaimGeneratorRepositoryCacheProxy _environmentClaimGeneratorRepository;
+        private IClaimContextGeneratorRepositoryCacheProxy _claimContextGeneratorRepository;
         private List<ScheduleAction> _actions = new List<ScheduleAction>();
 
         private static string _informationCategory;
         private static string _errorCategory;
-        private static string _environmentClaimGeneratorName;
-        private static string _claimContextGeneratorName;
+
+        public static IDictionary<string, IFactory<IScheduleActionInitGeneratorService>> ScheduleActionInitGeneratorServiceFactories = new Dictionary<string, IFactory<IScheduleActionInitGeneratorService>>();
 
         public static string InformationCategory
         {
@@ -293,27 +337,12 @@ namespace MSLibrary.Schedule
             }
         }
 
-        public static string EnvironmentClaimGeneratorName
-        {
-            set
-            {
-                _environmentClaimGeneratorName = value;
-            }
-        }
+        
 
-
-        public static string ClaimContextGeneratorName
-        {
-            set
-            {
-                _claimContextGeneratorName = value;
-            }
-        }
-
-
-        public ScheduleActionGroupIMP(IScheduleActionStore scheduleActionStore, IScheduleActionGroupStore scheduleActionGroupStore, IEnvironmentClaimGeneratorRepository environmentClaimGeneratorRepository, IClaimContextGeneratorRepository claimContextGeneratorRepository)
+        public ScheduleActionGroupIMP(IScheduleActionStore scheduleActionStore, IScheduleActionRepositoryCacheProxy scheduleActionRepositoryCacheProxy, IScheduleActionGroupStore scheduleActionGroupStore, IEnvironmentClaimGeneratorRepositoryCacheProxy environmentClaimGeneratorRepository, IClaimContextGeneratorRepositoryCacheProxy claimContextGeneratorRepository)
         {
             _scheduleActionStore = scheduleActionStore;
+            _scheduleActionRepositoryCacheProxy = scheduleActionRepositoryCacheProxy;
             _scheduleActionGroupStore = scheduleActionGroupStore;
             _environmentClaimGeneratorRepository = environmentClaimGeneratorRepository;
             _claimContextGeneratorRepository = claimContextGeneratorRepository;
@@ -400,11 +429,8 @@ namespace MSLibrary.Schedule
                 StdSchedulerFactory factory = new StdSchedulerFactory(props);
                 _scheduler = await factory.GetScheduler();
 
-                MainJob.ScheduleActionStore = _scheduleActionStore;
-                MainJob.ClaimContextGeneratorRepository = _claimContextGeneratorRepository;
-                MainJob.EnvironmentClaimGeneratorRepository = _environmentClaimGeneratorRepository;
-                MainJob.ClaimContextGeneratorName = _claimContextGeneratorName;
-                MainJob.EnvironmentClaimGeneratorName = _environmentClaimGeneratorName;
+                MainJob.ScheduleActionRepository = _scheduleActionRepositoryCacheProxy;
+                MainJob.ScheduleActionInitGeneratorServiceFactories = ScheduleActionInitGeneratorServiceFactories;
                 MainJob.ErrorCategory = _errorCategory;
                 MainJob.InformationCategory = _informationCategory;
 
@@ -413,9 +439,11 @@ namespace MSLibrary.Schedule
                 await GetAllAction(group, 1, async (action) =>
                   {
                       _actions.Add(action);
-
+                      
                       IJobDetail job = JobBuilder.Create<MainJob>()
                             .WithIdentity(action.Name, group.Name)
+                            .UsingJobData("InitType", group.ExecuteActionInitType)
+                            .UsingJobData("InitConfiguration", group.ExecuteActionInitConfiguration)
                             .UsingJobData("ActionName", action.Name)
                             .UsingJobData("GroupName", group.Name)
                             .Build();
@@ -506,13 +534,20 @@ namespace MSLibrary.Schedule
             private static bool _useLog;
             private static string _informationCategory;
             private static string _errorCategory;
-            private static string _environmentClaimGeneratorName;
-            private static string _claimContextGeneratorName;
-            private static IEnvironmentClaimGeneratorRepository _environmentClaimGeneratorRepository;
-            private static IClaimContextGeneratorRepository _claimContextGeneratorRepository;
-            private static IScheduleActionStore _scheduleActionStore;
+
+       
+            private static IScheduleActionRepositoryCacheProxy _scheduleActionRepository;
             private static Dictionary<string, ScheduleActionRunStatus> _actionRunStatuses = new Dictionary<string, ScheduleActionRunStatus>();
 
+            private static IDictionary<string, IFactory<IScheduleActionInitGeneratorService>> _scheduleActionInitGeneratorServiceFactories;
+
+            public static IDictionary<string, IFactory<IScheduleActionInitGeneratorService>> ScheduleActionInitGeneratorServiceFactories
+            {
+                set
+                {
+                    _scheduleActionInitGeneratorServiceFactories = value;
+                }
+            }
 
             public static bool UseLog
             {
@@ -538,46 +573,34 @@ namespace MSLibrary.Schedule
                 }
             }
 
-            public static IScheduleActionStore ScheduleActionStore
+            public static IScheduleActionRepositoryCacheProxy ScheduleActionRepository
             {
                 set
                 {
-                    _scheduleActionStore = value;
-                }
-            }
-
-            public static IEnvironmentClaimGeneratorRepository EnvironmentClaimGeneratorRepository
-            {
-                set
-                {
-                    _environmentClaimGeneratorRepository = value;
-                }
-            }
-
-            public static IClaimContextGeneratorRepository ClaimContextGeneratorRepository
-            {
-                set
-                {
-                    _claimContextGeneratorRepository = value;
-                }
-            }
-
-            public static string EnvironmentClaimGeneratorName
-            {
-                set
-                {
-                    _environmentClaimGeneratorName = value;
+                    _scheduleActionRepository = value;
                 }
             }
 
 
-            public static string ClaimContextGeneratorName
+            private IScheduleActionInitGeneratorService getInitGeneratorService(string type)
             {
-                set
+                if (!_scheduleActionInitGeneratorServiceFactories.TryGetValue(type,out IFactory<IScheduleActionInitGeneratorService> serviceFactory))
                 {
-                    _claimContextGeneratorName = value;
+                    var fragment = new TextFragment()
+                    {
+                        Code = TextCodes.NotFoundScheduleActionInitServiceByType,
+                        DefaultFormatting = "找不到类型为{0}的调度动作初始化服务，发生位置为{1}",
+                        ReplaceParameters = new List<object>() { type,$"{typeof(ScheduleActionGroupIMP).FullName}.ScheduleActionInitGeneratorServiceFactories" }
+                    };
+
+                    throw new UtilityException((int)Errors.NotFoundScheduleActionInitServiceByType, fragment);
                 }
+
+                return serviceFactory.Create();
+                
             }
+
+      
 
             public async Task Execute(IJobExecutionContext context)
             {
@@ -585,13 +608,17 @@ namespace MSLibrary.Schedule
                 var actionName = context.JobDetail.JobDataMap.GetString("ActionName");
                 //获取调度动作名称
                 var groupName = context.JobDetail.JobDataMap.GetString("GroupName");
+                //获取初始化类型
+                var initType = context.JobDetail.JobDataMap.GetString("InitType");
+                //获取初始化配置
+                var initConfiguration = context.JobDetail.JobDataMap.GetString("InitConfiguration");
 
 
                 try
                 {
                     if (!_actionRunStatuses.TryGetValue(actionName, out ScheduleActionRunStatus runStatus))
                     {
-                        var scheduleAction = await _scheduleActionStore.QueryByName(actionName);
+                        var scheduleAction = await _scheduleActionRepository.QueryByName(actionName);
                         if (scheduleAction == null)
                         {
                             var fragment = new TextFragment()
@@ -610,37 +637,44 @@ namespace MSLibrary.Schedule
 
                     if (runStatus.Status == 0)
                     {
-                        var environmentClaimGenerator = await _environmentClaimGeneratorRepository.QueryByName(_environmentClaimGeneratorName);
-                        var claimContextGenerator = await _claimContextGeneratorRepository.QueryByName(_claimContextGeneratorName);
+                        /* var environmentClaimGenerator = await _environmentClaimGeneratorRepository.QueryByName(_environmentClaimGeneratorName);
+                         var claimContextGenerator = await _claimContextGeneratorRepository.QueryByName(_claimContextGeneratorName);
 
 
 
-                        if (environmentClaimGenerator == null)
-                        {
-                            var fragment = new TextFragment()
-                            {
-                                Code = TextCodes.NotFoundEnvironmentClaimGeneratorByName,
-                                DefaultFormatting = "没有找到名称为{0}的上下文生成器",
-                                ReplaceParameters = new List<object>() { _environmentClaimGeneratorName }
-                            };
+                         if (environmentClaimGenerator == null)
+                         {
+                             var fragment = new TextFragment()
+                             {
+                                 Code = TextCodes.NotFoundEnvironmentClaimGeneratorByName,
+                                 DefaultFormatting = "没有找到名称为{0}的上下文生成器",
+                                 ReplaceParameters = new List<object>() { _environmentClaimGeneratorName }
+                             };
 
-                            throw new UtilityException((int)Errors.NotFoundEnvironmentClaimGeneratorByName, fragment);
-                        }
+                             throw new UtilityException((int)Errors.NotFoundEnvironmentClaimGeneratorByName, fragment);
+                         }
 
-                        if (claimContextGenerator == null)
-                        {
-                            var fragment = new TextFragment()
-                            {
-                                Code = TextCodes.NotFoundClaimContextGeneratorByName,
-                                DefaultFormatting = "没有找到名称为{0}的上下文生成器",
-                                ReplaceParameters = new List<object>() { _claimContextGeneratorName }
-                            };
+                         if (claimContextGenerator == null)
+                         {
+                             var fragment = new TextFragment()
+                             {
+                                 Code = TextCodes.NotFoundClaimContextGeneratorByName,
+                                 DefaultFormatting = "没有找到名称为{0}的上下文生成器",
+                                 ReplaceParameters = new List<object>() { _claimContextGeneratorName }
+                             };
 
-                            throw new UtilityException((int)Errors.NotFoundClaimContextGeneratorByName, fragment);
-                        }
+                             throw new UtilityException((int)Errors.NotFoundClaimContextGeneratorByName, fragment);
+                         }
 
-                        var claims = await environmentClaimGenerator.Generate();
-                        claimContextGenerator.ContextInit(claims.Claims);
+                         var claims = await environmentClaimGenerator.Generate();
+                         claimContextGenerator.ContextInit(claims.Claims);
+                         */
+
+                        var initGeneratorService = getInitGeneratorService(initType);
+
+                        var initService= await initGeneratorService.Generator(initConfiguration);
+
+                        initService.Init();
 
                         if (_useLog)
                         {

@@ -31,7 +31,7 @@ namespace MSLibrary.SystemToken.DAL
         }
 
 
-        private IHashGroupRepository _hashGroupRepository;
+        private IHashGroupRepositoryCacheProxy _hashGroupRepository;
         private ISystemTokenConnectionFactory _systemTokenConnectionFactory;
 
         private IStoreInfoResolveService _storeInfoResolveService;
@@ -39,7 +39,7 @@ namespace MSLibrary.SystemToken.DAL
         private IAuthorizationEndpointStore _authorizationEndpointStore;
         private ISystemLoginEndpointStore _systemLoginEndpointStore;
 
-        public ThirdPartySystemTokenRecordStore(IHashGroupRepository hashGroupRepository, ISystemTokenConnectionFactory systemTokenConnectionFactory, IStoreInfoResolveService storeInfoResolveService
+        public ThirdPartySystemTokenRecordStore(IHashGroupRepositoryCacheProxy hashGroupRepository, ISystemTokenConnectionFactory systemTokenConnectionFactory, IStoreInfoResolveService storeInfoResolveService
             , ISystemLoginEndpointStore systemLoginEndpointStore, IAuthorizationEndpointStore authorizationEndpointStore
             )
         {

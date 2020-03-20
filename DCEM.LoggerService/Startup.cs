@@ -20,6 +20,7 @@ using DCEM.Main.Logger;
 using DCEM.LoggerService.Main;
 using DCEM.Main;
 using MSLibrary.DI;
+using Microsoft.AspNetCore.Mvc.TagHelpers.Cache;
 
 namespace DCEM.LoggerService
 {
@@ -62,7 +63,7 @@ namespace DCEM.LoggerService
 
             app.UseExceptionWrapper(LoggerCategoryNames.HttpRequest);
 
-            app.UseSystemAuthentication(string.Empty, HttpClaimGeneratorServiceTypes.Inner);
+            app.UseSystemAuthentication(string.Empty, HttpClaimGeneratorServiceTypes.Inner,"");
 
           
         }

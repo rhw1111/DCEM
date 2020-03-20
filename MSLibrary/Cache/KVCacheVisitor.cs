@@ -9,9 +9,18 @@ namespace MSLibrary.Cache
 {
     public class KVCacheVisitor : EntityBase<IKVCacheVisitorIMP>
     {
+        private static IFactory<IKVCacheVisitorIMP> _kvCacheVisitorIMPFactory;
+
+        public static IFactory<IKVCacheVisitorIMP> KVCacheVisitorIMPFactory
+        {
+            set
+            {
+                _kvCacheVisitorIMPFactory = value;
+            }
+        }
         public override IFactory<IKVCacheVisitorIMP> GetIMPFactory()
         {
-            throw new NotImplementedException();
+            return _kvCacheVisitorIMPFactory;
         }
 
         /// <summary>

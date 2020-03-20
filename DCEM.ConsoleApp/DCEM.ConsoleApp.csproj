@@ -37,16 +37,33 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Identity" Version="1.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.1" />
     <PackageReference Include="SharpZipLib.NETStandard" Version="1.0.7" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DCEM.Main\DCEM.Main.csproj" />
     <ProjectReference Include="..\DCEM.ServiceAssistantService.Main\DCEM.ServiceAssistantService.Main.csproj" />
     <ProjectReference Include="..\MSLibrary\MSLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="dd.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>dd.sql</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="dd.sql">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dd.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>

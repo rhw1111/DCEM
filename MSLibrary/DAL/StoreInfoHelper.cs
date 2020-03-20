@@ -11,10 +11,10 @@ namespace MSLibrary.DAL
     public static class StoreInfoHelper
     {
 
-        public async static Task<StoreInfo> GetHashStoreInfo(IStoreInfoResolveService storeInfoResolveService,IHashGroupRepository hashGroupRepository, string hashGroupName, params string[] keys)
+        public async static Task<StoreInfo> GetHashStoreInfo(IStoreInfoResolveService storeInfoResolveService,IHashGroupRepositoryCacheProxy hashGroupRepositoryCacheProxy, string hashGroupName, params string[] keys)
         {
-            var helper = HashGroupRepositoryHelperFactory.Create(hashGroupRepository);
-            var group = await helper.QueryByName(hashGroupName);
+            //var helper = HashGroupRepositoryHelperFactory.Create(hashGroupRepository);
+            var group = await hashGroupRepositoryCacheProxy.QueryByName(hashGroupName);
             if (group == null)
             {
                 var fragment = new TextFragment()
@@ -39,11 +39,11 @@ namespace MSLibrary.DAL
 
 
 
-        public static StoreInfo GetHashStoreInfoSync(IStoreInfoResolveService storeInfoResolveService,IHashGroupRepository hashGroupRepository, string hashGroupName, params string[] keys)
+        public static StoreInfo GetHashStoreInfoSync(IStoreInfoResolveService storeInfoResolveService, IHashGroupRepositoryCacheProxy hashGroupRepositoryCacheProxy, string hashGroupName, params string[] keys)
         {
 
-            var helper = HashGroupRepositoryHelperFactory.Create(hashGroupRepository);
-            var group =  helper.QueryByNameSync(hashGroupName);
+            
+            var group = hashGroupRepositoryCacheProxy.QueryByNameSync(hashGroupName);
             if (group == null)
             {
                 var fragment = new TextFragment()
@@ -68,12 +68,12 @@ namespace MSLibrary.DAL
 
 
 
-        public async static Task<List<StoreInfo>> GetHashStoreInfos(IStoreInfoResolveService storeInfoResolveService,IHashGroupRepository hashGroupRepository, string hashGroupName)
+        public async static Task<List<StoreInfo>> GetHashStoreInfos(IStoreInfoResolveService storeInfoResolveService, IHashGroupRepositoryCacheProxy hashGroupRepositoryCacheProxy, string hashGroupName)
         {
-            var helper = HashGroupRepositoryHelperFactory.Create(hashGroupRepository);
+            
 
             List<StoreInfo> result = new List<StoreInfo>();
-            var group = await helper.QueryByName(hashGroupName);
+            var group = await hashGroupRepositoryCacheProxy.QueryByName(hashGroupName);
             if (group == null)
             {
                 var fragment = new TextFragment()

@@ -253,28 +253,28 @@ namespace MSLibrary.Xrm
 
 
                 HttpResponseMessage responseMessage = null;
-
-
-                await _crmMessageResponseHandle.Execute(request, async () =>
+                HttpContent httpContent = null;
+                try
                 {
+                    await _crmMessageResponseHandle.Execute(request, async () =>
+                    {
                     //获取令牌
                     if (TokenServiceType.ToLower() != CrmServiceTokenGenerateServiceNames.AD.ToLower())
-                    {
-                        var tokenService = _crmServiceTokenGenerateServiceSelector.Choose(TokenServiceType);
-                        var strToken = await tokenService.Genereate(TokenServiceParameters);
+                        {
+                            var tokenService = _crmServiceTokenGenerateServiceSelector.Choose(TokenServiceType);
+                            var strToken = await tokenService.Genereate(TokenServiceParameters);
 
-                        httpClient.DefaultRequestHeaders.Add("Authorization", strToken);
-                    }
+                            httpClient.DefaultRequestHeaders.Add("Authorization", strToken);
+                        }
 
-                    HttpContent httpContent=null;
-                    switch (requestResult.Method.Method.ToLower())
-                    {
-                        case "get":
-                            responseMessage = await httpClient.GetAsync(requestResult.Url);
-                            break;
-                        case "post":
-                            try
-                            {
+                       
+                        switch (requestResult.Method.Method.ToLower())
+                        {
+                            case "get":
+                                responseMessage = await httpClient.GetAsync(requestResult.Url);
+                                break;
+                            case "post":
+
                                 if (requestResult.ReplaceHttpContent == null)
                                 {
                                     httpContent = new StringContent(requestResult.Body);
@@ -296,18 +296,10 @@ namespace MSLibrary.Xrm
                                     httpContent = requestResult.ReplaceHttpContent;
                                 }
                                 responseMessage = await httpClient.PostAsync(requestResult.Url, httpContent);
-                            }
-                            finally
-                            {
-                                if (httpContent!=null)
-                                {
-                                    httpContent.Dispose();
-                                }
-                            }
-                            break;
-                        case "put":
-                            try
-                            {
+
+                                break;
+                            case "put":
+
                                 if (requestResult.ReplaceHttpContent == null)
                                 {
                                     httpContent = new StringContent(requestResult.Body);
@@ -329,18 +321,10 @@ namespace MSLibrary.Xrm
                                     httpContent = requestResult.ReplaceHttpContent;
                                 }
                                 responseMessage = await httpClient.PutAsync(requestResult.Url, httpContent);
-                            }
-                            finally
-                            {
-                                if (httpContent != null)
-                                {
-                                    httpContent.Dispose();
-                                }
-                            }
-                            break;
-                        case "patch":
-                            try
-                            {
+
+                                break;
+                            case "patch":
+
                                 if (requestResult.ReplaceHttpContent == null)
                                 {
                                     httpContent = new StringContent(requestResult.Body);
@@ -367,31 +351,31 @@ namespace MSLibrary.Xrm
                                     Content = httpContent
                                 };
                                 responseMessage = await httpClient.SendAsync(httpRequest);
-                            }
-                            finally
-                            {
-                                if (httpContent != null)
+
+                                break;
+                            case "delete":
+                                responseMessage = await httpClient.DeleteAsync(requestResult.Url);
+                                break;
+                            default:
+                                TextFragment fragment = new TextFragment()
                                 {
-                                    httpContent.Dispose();
-                                }
-                            }
-                            break;
-                        case "delete":
-                            responseMessage = await httpClient.DeleteAsync(requestResult.Url);
-                            break;
-                        default:
-                            TextFragment fragment = new TextFragment()
-                            {
-                                Code = TextCodes.CrmMessageExecuteNotSupportMethod,
-                                DefaultFormatting = "Crm消息处理不支持名称为{0}的HttpMethod",
-                                ReplaceParameters = new List<object>() { requestResult.Method.Method }
-                            };
-                            throw new UtilityException((int)Errors.CrmMessageExecuteNotSupportMethod, fragment);
+                                    Code = TextCodes.CrmMessageExecuteNotSupportMethod,
+                                    DefaultFormatting = "Crm消息处理不支持名称为{0}的HttpMethod",
+                                    ReplaceParameters = new List<object>() { requestResult.Method.Method }
+                                };
+                                throw new UtilityException((int)Errors.CrmMessageExecuteNotSupportMethod, fragment);
+                        }
+
+                        return responseMessage;
+                    });
+                }
+                finally
+                {
+                    if (httpContent != null)
+                    {
+                        httpContent.Dispose();
                     }
-
-                    return responseMessage;
-                });
-
+                }
                 Dictionary<string, IEnumerable<string>> responseHeaders = new Dictionary<string, IEnumerable<string>>();
                 foreach (var headerItem in responseMessage.Headers)
                 {

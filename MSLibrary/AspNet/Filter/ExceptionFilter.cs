@@ -45,6 +45,20 @@ namespace MSLibrary.AspNet.Filter
                     }
                 }
 
+                //从Http上下文中获取国际化上下文初始化对象
+                if (context.HttpContext.Items.TryGetValue("InternationalizationContextInit", out object objInit))
+                {
+                    try
+                    {
+                        ((IInternationalizationContextInit)objInit).Execute();
+                    }
+                    catch
+                    {
+
+                    }
+                }
+
+
                 if (context.Exception is UtilityException)
                 {
                     var utilityException = (UtilityException)context.Exception;

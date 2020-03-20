@@ -114,8 +114,8 @@ namespace MSLibrary.Collections.Hash.DAL
 
                     command.Prepare();
 
-                        await command.ExecuteNonQueryAsync();
-                    
+                    await command.ExecuteNonQueryAsync();
+
 
                     //如果用户未赋值ID则创建成功后返回ID
                     if (node.ID == Guid.Empty)
@@ -161,7 +161,7 @@ namespace MSLibrary.Collections.Hash.DAL
 
                     command.Prepare();
                     await command.ExecuteNonQueryAsync();
-                 
+
                 }
             });
 
@@ -181,19 +181,19 @@ namespace MSLibrary.Collections.Hash.DAL
                 result.Clear();
 
                 await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, true, false, strConn, async (conn, transaction) =>
-            {
-                SqlTransaction sqlTran = null;
-                if (transaction != null)
                 {
-                    sqlTran = (SqlTransaction)transaction;
-                }
+                    SqlTransaction sqlTran = null;
+                    if (transaction != null)
+                    {
+                        sqlTran = (SqlTransaction)transaction;
+                    }
 
-                using (SqlCommand commond = new SqlCommand()
-                {
-                    Connection = (SqlConnection)conn,
-                    CommandType = CommandType.Text,
-                    Transaction = sqlTran,
-                    CommandText = string.Format(@"if @nodeid is null
+                    using (SqlCommand commond = new SqlCommand()
+                    {
+                        Connection = (SqlConnection)conn,
+                        CommandType = CommandType.Text,
+                        Transaction = sqlTran,
+                        CommandText = string.Format(@"if @nodeid is null
                                                             begin
                                                                 select top (@size) {0},{1},{2} from HashRealNode as n join HashGroup as g
                                                                 on n.groupid=g.id
@@ -211,61 +211,61 @@ namespace MSLibrary.Collections.Hash.DAL
                                                                 where n.[groupid]=@groupid and n.id>@nodeid
                                                                 order by n.id                                  
                                                             end", StoreHelper.GetHashRealNodeSelectFields("n"), StoreHelper.GetHashGroupSelectFields("g"), StoreHelper.GetHashGroupStrategySelectFields("s"))
-                })
-                {
-                    var parameter = new SqlParameter("@groupid", SqlDbType.UniqueIdentifier)
+                    })
                     {
-                        Value = groupId
-                    };
-                    commond.Parameters.Add(parameter);
-
-                    if (nodeId == null)
-                    {
-                        parameter = new SqlParameter("@nodeid", SqlDbType.UniqueIdentifier)
+                        var parameter = new SqlParameter("@groupid", SqlDbType.UniqueIdentifier)
                         {
-                            Value = DBNull.Value
+                            Value = groupId
                         };
-                    }
-                    else
-                    {
-                        parameter = new SqlParameter("@nodeid", SqlDbType.UniqueIdentifier)
+                        commond.Parameters.Add(parameter);
+
+                        if (nodeId == null)
                         {
-                            Value = nodeId
-                        };
-                    }
-                    commond.Parameters.Add(parameter);
-
-                    parameter = new SqlParameter("@size", SqlDbType.Int)
-                    {
-                        Value = size
-                    };
-                    commond.Parameters.Add(parameter);
-
-
-                    commond.Prepare();
-
-
-                    SqlDataReader reader = null;
-
-                    using (reader = await commond.ExecuteReaderAsync())
-                    {
-                        while (await reader.ReadAsync())
-                        {
-                            var record = new HashRealNode();
-                            StoreHelper.SetHashRealNodeSelectFields(record, reader, "n");
-                            record.Group = new HashGroup();
-                            StoreHelper.SetHashGroupSelectFields(record.Group, reader, "g");
-                            record.Group.Strategy = new HashGroupStrategy();
-                            StoreHelper.SetHashGroupStrategySelectFields(record.Group.Strategy, reader, "s");
-                            result.Add(record);
-
-                            nodeId = record.ID;
+                            parameter = new SqlParameter("@nodeid", SqlDbType.UniqueIdentifier)
+                            {
+                                Value = DBNull.Value
+                            };
                         }
+                        else
+                        {
+                            parameter = new SqlParameter("@nodeid", SqlDbType.UniqueIdentifier)
+                            {
+                                Value = nodeId
+                            };
+                        }
+                        commond.Parameters.Add(parameter);
 
-                        reader.Close();
+                        parameter = new SqlParameter("@size", SqlDbType.Int)
+                        {
+                            Value = size
+                        };
+                        commond.Parameters.Add(parameter);
+
+
+                        commond.Prepare();
+
+
+                        SqlDataReader reader = null;
+
+                        using (reader = await commond.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                var record = new HashRealNode();
+                                StoreHelper.SetHashRealNodeSelectFields(record, reader, "n");
+                                record.Group = new HashGroup();
+                                StoreHelper.SetHashGroupSelectFields(record.Group, reader, "g");
+                                record.Group.Strategy = new HashGroupStrategy();
+                                StoreHelper.SetHashGroupStrategySelectFields(record.Group.Strategy, reader, "s");
+                                result.Add(record);
+
+                                nodeId = record.ID;
+                            }
+
+                            reader.Close();
+                        }
                     }
-                }
-            });
+                });
 
                 perSize = result.Count;
 
@@ -565,21 +565,21 @@ namespace MSLibrary.Collections.Hash.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@name", SqlDbType.NVarChar, 100)
+                    parameter = new SqlParameter("@name", SqlDbType.VarChar, 100)
                     {
                         Value = node.Name
                     };
                     command.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@nodekey", SqlDbType.NVarChar, 1000)
+                    parameter = new SqlParameter("@nodekey", SqlDbType.VarChar, 4000)
                     {
                         Value = node.NodeKey
                     };
                     command.Parameters.Add(parameter);
 
                     command.Prepare();
-    
-                        await command.ExecuteNonQueryAsync();
+
+                    await command.ExecuteNonQueryAsync();
 
 
                 }

@@ -49,6 +49,7 @@ namespace MSLibrary.Collections.Hash.DAL
                                                 INSERT INTO [dbo].[HashNode](
                                                         [id]
                                                         ,[groupid]
+                                                        ,[realnodeid]
                                                         ,[code]
                                                         ,[status]
                                                         ,[createtime]
@@ -57,6 +58,7 @@ namespace MSLibrary.Collections.Hash.DAL
                                                 VALUES(
                                                          @id
                                                         ,@groupid
+                                                        ,@realnodeid
                                                         ,@code
                                                         ,@status
                                                         ,GETUTCDATE()
@@ -78,6 +80,7 @@ namespace MSLibrary.Collections.Hash.DAL
                                                 (
                                                         [id]
                                                         ,[groupid]
+                                                        ,[realnodeid]
                                                         ,[code]
                                                         ,[status]
                                                         ,[createtime]
@@ -86,6 +89,7 @@ namespace MSLibrary.Collections.Hash.DAL
                                                 VALUES(
                                                         DEFAULT
                                                         ,@groupid
+                                                        ,@realnodeid
                                                         ,@code
                                                         ,@status
                                                         ,GETUTCDATE()
@@ -119,6 +123,12 @@ namespace MSLibrary.Collections.Hash.DAL
                     parameter = new SqlParameter("@code", SqlDbType.BigInt)
                     {
                         Value = node.Code
+                    };
+                    commond.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter("@status", SqlDbType.Int)
+                    {
+                        Value = node.Status
                     };
                     commond.Parameters.Add(parameter);
 

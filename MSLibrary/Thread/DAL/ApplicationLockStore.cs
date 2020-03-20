@@ -16,20 +16,6 @@ namespace MSLibrary.Thread.DAL
     [Injection(InterfaceType = typeof(IApplicationLockStore), Scope = InjectionScope.Singleton)]
     public class ApplicationLockStore : IApplicationLockStore
     {
-        private static string _hashGroupName;
-        /// <summary>
-        /// 需要用到的一致性哈希组的名称
-        /// 需要在系统初始化时赋值
-        /// </summary>
-        public static string HashGroupName
-        {
-            set
-            {
-                _hashGroupName = value;
-            }
-        }
-
-
         private IThreadConnectionFactory _dbConnectionFactory;
         private IHashGroupRepository _hashGroupRepository;
         private IStoreInfoResolveService _storeInfoResolveService;
@@ -42,24 +28,9 @@ namespace MSLibrary.Thread.DAL
             _storeInfoResolveService = storeInfoResolveService;
         }
 
-        public async Task Lock(string lockName, int timeout)
+        public async Task Lock(DBConnectionNames connNames,string lockName, int timeout)
         {
-            var storeInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService,_hashGroupRepository, _hashGroupName, lockName);
-
-            if (!storeInfo.TableNames.TryGetValue(HashEntityNames.ApplicationLock, out string tableName))
-            {
-                var fragment = new TextFragment()
-                {
-                    Code = TextCodes.NotFoundKeyInHashNodeKeyInfo,
-                    DefaultFormatting = "哈希组{0}中的哈希节点关键信息中找不到键值{1}",
-                    ReplaceParameters = new List<object>() {  _hashGroupName, HashEntityNames.ApplicationLock }
-                };
-
-
-                throw new UtilityException((int)Errors.NotFoundKeyInHashNodeKeyInfo, fragment);
-            }
-
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, storeInfo.DBConnectionNames.ReadAndWrite,
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _dbConnectionFactory.CreateAllForApplicationLock(connNames,lockName),
                 async (conn, transaction) =>
                 {
                     string strTimeout;
@@ -147,23 +118,11 @@ namespace MSLibrary.Thread.DAL
         }
 
 
-        public void LockSync(string lockName, int timeout)
+        public void LockSync(DBConnectionNames connNames,string lockName, int timeout)
         {
-            var storeInfo = StoreInfoHelper.GetHashStoreInfoSync(_storeInfoResolveService,_hashGroupRepository, _hashGroupName, lockName);
 
-            if (!storeInfo.TableNames.TryGetValue(HashEntityNames.ApplicationLock, out string tableName))
-            {
-                var fragment = new TextFragment()
-                {
-                    Code = TextCodes.NotFoundKeyInHashNodeKeyInfo,
-                    DefaultFormatting = "哈希组{0}中的哈希节点关键信息中找不到键值{1}",
-                    ReplaceParameters = new List<object>() {_hashGroupName, HashEntityNames.ApplicationLock }
-                };
 
-                throw new UtilityException((int)Errors.NotFoundKeyInHashNodeKeyInfo, fragment);
-            }
-
-            DBTransactionHelper.SqlTransactionWork(DBTypes.SqlServer, false, false, storeInfo.DBConnectionNames.ReadAndWrite,
+            DBTransactionHelper.SqlTransactionWork(DBTypes.SqlServer, false, false, _dbConnectionFactory.CreateAllForApplicationLock(connNames,lockName),
                 (conn, transaction) =>
                 {
                     string strTimeout;
@@ -249,23 +208,10 @@ namespace MSLibrary.Thread.DAL
             );
         }
 
-        public async Task UnLock(string lockName)
+        public async Task UnLock(DBConnectionNames connNames,string lockName)
         {
-            var storeInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService,_hashGroupRepository, _hashGroupName, lockName);
 
-            if (!storeInfo.TableNames.TryGetValue(HashEntityNames.ApplicationLock, out string tableName))
-            {
-                var fragment = new TextFragment()
-                {
-                    Code = TextCodes.NotFoundKeyInHashNodeKeyInfo,
-                    DefaultFormatting = "哈希组{0}中的哈希节点关键信息中找不到键值{1}",
-                    ReplaceParameters = new List<object>() { _hashGroupName, HashEntityNames.ApplicationLock }
-                };
-
-                throw new UtilityException((int)Errors.NotFoundKeyInHashNodeKeyInfo, fragment);
-            }
-
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, storeInfo.DBConnectionNames.ReadAndWrite,
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _dbConnectionFactory.CreateAllForApplicationLock(connNames,lockName),
                 async (conn, transaction) =>
                 {
                     string strSql = string.Format(@"declare @result int,@resource nvarchar(300),@message nvarchar(300)
@@ -329,23 +275,10 @@ namespace MSLibrary.Thread.DAL
             );
         }
 
-        public void UnLockSync(string lockName)
+        public void UnLockSync(DBConnectionNames connNames,string lockName)
         {
-            var storeInfo = StoreInfoHelper.GetHashStoreInfoSync(_storeInfoResolveService,_hashGroupRepository, _hashGroupName, lockName);
-
-            if (!storeInfo.TableNames.TryGetValue(HashEntityNames.ApplicationLock, out string tableName))
-            {
-                var fragment = new TextFragment()
-                {
-                    Code = TextCodes.NotFoundKeyInHashNodeKeyInfo,
-                    DefaultFormatting = "哈希组{0}中的哈希节点关键信息中找不到键值{1}",
-                    ReplaceParameters = new List<object>() { _hashGroupName, HashEntityNames.ApplicationLock }
-                };
-
-                throw new UtilityException((int)Errors.NotFoundKeyInHashNodeKeyInfo, fragment);
-            }
             
-            DBTransactionHelper.SqlTransactionWork(DBTypes.SqlServer, false, false, storeInfo.DBConnectionNames.ReadAndWrite,
+            DBTransactionHelper.SqlTransactionWork(DBTypes.SqlServer, false, false, _dbConnectionFactory.CreateAllForApplicationLock(connNames,lockName),
                 (conn, transaction) =>
                 {
                     string strSql = string.Format(@"declare @result int,@resource nvarchar(300),@message nvarchar(300)

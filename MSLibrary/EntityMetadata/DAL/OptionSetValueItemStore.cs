@@ -486,7 +486,7 @@ namespace MSLibrary.EntityMetadata.DAL
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
                     Transaction = sqlTran,
-                    CommandText = string.Format(@"select {0},{1} from OptionSetValueItem as item join OptionSetValueMetadata as metadata on item.optionsetvalueid=metadata.id where item.[id]=@id", StoreHelper.GetOptionSetValueMetadataSelectFields(string.Empty))
+                    CommandText = string.Format(@"select {0},{1} from OptionSetValueItem as item join OptionSetValueMetadata as metadata on item.optionsetvalueid=metadata.id where item.[id]=@id", StoreHelper.GetOptionSetValueMetadataSelectFields("metadata"),StoreHelper.GetOptionSetValueItemSelectFields("item"))
                 })
                 {
 

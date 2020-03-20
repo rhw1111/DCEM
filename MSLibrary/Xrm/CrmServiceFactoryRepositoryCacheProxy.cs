@@ -11,25 +11,23 @@ namespace MSLibrary.Xrm
     public class CrmServiceFactoryRepositoryCacheProxy : ICrmServiceFactoryRepositoryCacheProxy
     {
 
-        public static int MaxLength { get; set; } = 500;
-        public static int ExpireSeconds { get; set; } = 600;
+        public static KVCacheVisitorSetting KVCacheVisitorSetting = new KVCacheVisitorSetting()
+        {
+            Name = "_CrmServiceFactoryRepository",
+            ExpireSeconds = 600,
+            MaxLength = 500
+        };
 
         private ICrmServiceFactoryRepository _crmServiceFactoryRepository;
 
         public CrmServiceFactoryRepositoryCacheProxy(ICrmServiceFactoryRepository crmServiceFactoryRepository)
         {
             _crmServiceFactoryRepository = crmServiceFactoryRepository;
+            _kvcacheVisitor = CacheInnerHelper.CreateKVCacheVisitor(KVCacheVisitorSetting);
         }
-        private KVCacheVisitor _kvcacheVisitor = new KVCacheVisitor()
-        {
-            Name = "_CrmServiceFactoryRepository",
-            CacheType = KVCacheTypes.LocalTimeout,
-            CacheConfiguration = string.Format(@"{{
-                        ""MaxLength"":{0},
-                        ""ExpireSeconds"":{1}
-                }}", MaxLength.ToString(), ExpireSeconds.ToString())
 
-        };
+        private KVCacheVisitor _kvcacheVisitor;
+
         public async Task<CrmServiceFactory> QueryByName(string name)
         {
             return await _kvcacheVisitor.Get(

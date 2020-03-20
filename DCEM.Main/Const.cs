@@ -273,6 +273,14 @@ namespace DCEM.Main
     }
 
     /// <summary>
+    /// 令牌控制器类型集合
+    /// </summary>
+    public static class TokenControllerTypes
+    {
+        public const string JWT = "JWT";
+    }
+
+    /// <summary>
     /// Crm属性返回类型集
     /// </summary>
     public static class CrmAttributeReturnTypes

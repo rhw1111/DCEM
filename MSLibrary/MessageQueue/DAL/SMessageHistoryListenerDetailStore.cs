@@ -31,13 +31,13 @@ namespace MSLibrary.MessageQueue.DAL
         }
 
 
-        private IHashGroupRepository _hashGroupRepository;
+        private IHashGroupRepositoryCacheProxy _hashGroupRepository;
         private IMessageQueueConnectionFactory _messageQueueConnectionFactory;
 
         private IStoreInfoResolveService _storeInfoResolveService;
 
 
-        public SMessageHistoryListenerDetailStore(IHashGroupRepository hashGroupRepository, IMessageQueueConnectionFactory messageQueueConnectionFactory, IStoreInfoResolveService storeInfoResolveService)
+        public SMessageHistoryListenerDetailStore(IHashGroupRepositoryCacheProxy hashGroupRepository, IMessageQueueConnectionFactory messageQueueConnectionFactory, IStoreInfoResolveService storeInfoResolveService)
         {
             _hashGroupRepository = hashGroupRepository;
             _messageQueueConnectionFactory = messageQueueConnectionFactory;
@@ -47,7 +47,7 @@ namespace MSLibrary.MessageQueue.DAL
 
         public async Task Add(SMessageHistoryListenerDetail detail)
         {
-            var storeInfo = await StoreInfoHelper.GetHashStoreInfo(_storeInfoResolveService,_hashGroupRepository, _messageHistoryListenerDetailHashGroupName, detail.SMessageHistoryID.ToString());
+            var storeInfo = await StoreInfoHelper.GetHashStoreInfo(_storeInfoResolveService, _hashGroupRepository, _messageHistoryListenerDetailHashGroupName, detail.SMessageHistoryID.ToString());
 
             if (!storeInfo.TableNames.TryGetValue(HashEntityNames.SMessageHistoryListenerDetail, out string tableNameListenerDetail))
             {
@@ -58,7 +58,7 @@ namespace MSLibrary.MessageQueue.DAL
                     ReplaceParameters = new List<object>() { _messageHistoryListenerDetailHashGroupName, HashEntityNames.SMessageHistoryListenerDetail }
                 };
 
-                throw new UtilityException((int)Errors.NotFoundKeyInHashNodeKeyInfo,fragment);
+                throw new UtilityException((int)Errors.NotFoundKeyInHashNodeKeyInfo, fragment);
             }
             if (!storeInfo.TableNames.TryGetValue(HashEntityNames.SMessageHistory, out string tableNameHistory))
             {
@@ -72,7 +72,7 @@ namespace MSLibrary.MessageQueue.DAL
                 throw new UtilityException((int)Errors.NotFoundKeyInHashNodeKeyInfo, fragment);
             }
 
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, storeInfo.DBConnectionNames.ReadAndWrite, async (conn, transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, _messageQueueConnectionFactory.CreateAllForSMessageHistoryListenerDetail(storeInfo.DBConnectionNames), async (conn, transaction) =>
             {
                 //新增
                 SqlTransaction sqlTran = null;
@@ -160,7 +160,7 @@ namespace MSLibrary.MessageQueue.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@ListenerName", SqlDbType.NVarChar, 100)
+                    parameter = new SqlParameter("@ListenerName", SqlDbType.VarChar, 150)
                     {
                         Value = detail.ListenerName
                     };
@@ -172,7 +172,7 @@ namespace MSLibrary.MessageQueue.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@ListenerFactoryType", SqlDbType.NVarChar, 100)
+                    parameter = new SqlParameter("@ListenerFactoryType", SqlDbType.VarChar, 150)
                     {
                         Value = detail.ListenerFactoryType
                     };
@@ -180,14 +180,14 @@ namespace MSLibrary.MessageQueue.DAL
 
                     if (detail.ListenerWebUrl == null)
                     {
-                        parameter = new SqlParameter("@ListenerWebUrl", SqlDbType.NVarChar, 4000)
+                        parameter = new SqlParameter("@ListenerWebUrl", SqlDbType.VarChar, 200)
                         {
                             Value = DBNull.Value
                         };
                     }
                     else
                     {
-                        parameter = new SqlParameter("@ListenerWebUrl", SqlDbType.NVarChar, 4000)
+                        parameter = new SqlParameter("@ListenerWebUrl", SqlDbType.VarChar, 200)
                         {
                             Value = detail.ListenerWebUrl
                         };
@@ -196,14 +196,14 @@ namespace MSLibrary.MessageQueue.DAL
 
                     if (detail.ListenerRealWebUrl == null)
                     {
-                        parameter = new SqlParameter("@ListenerRealWebUrl", SqlDbType.NVarChar, 4000)
+                        parameter = new SqlParameter("@ListenerRealWebUrl", SqlDbType.VarChar, 200)
                         {
                             Value = DBNull.Value
                         };
                     }
                     else
                     {
-                        parameter = new SqlParameter("@ListenerRealWebUrl", SqlDbType.NVarChar, 4000)
+                        parameter = new SqlParameter("@ListenerRealWebUrl", SqlDbType.VarChar, 200)
                         {
                             Value = detail.ListenerRealWebUrl
                         };
@@ -212,28 +212,28 @@ namespace MSLibrary.MessageQueue.DAL
 
                     command.Prepare();
 
-                        try
+                    try
+                    {
+                        await command.ExecuteNonQueryAsync();
+                    }
+                    catch (SqlException ex)
+                    {
+                        if (ex.Number == 2601)
                         {
-                            await command.ExecuteNonQueryAsync();
-                        }
-                        catch (SqlException ex)
-                        {
-                            if (ex.Number == 2601)
+                            var fragment = new TextFragment()
                             {
-                                var fragment = new TextFragment()
-                                {
-                                    Code = TextCodes.ExistSMessageHistoryDetailByName,
-                                    DefaultFormatting = "消息历史监听明细中存在相同的名称\"{0}\"数据",
-                                    ReplaceParameters = new List<object>() { detail.ListenerName }
-                                };
+                                Code = TextCodes.ExistSMessageHistoryDetailByName,
+                                DefaultFormatting = "消息历史监听明细中存在相同的名称\"{0}\"数据",
+                                ReplaceParameters = new List<object>() { detail.ListenerName }
+                            };
 
-                                throw new UtilityException((int)Errors.ExistSMessageHistoryDetailByName, fragment);
-                            }
-                            else
-                            {
-                                throw;
-                            }
+                            throw new UtilityException((int)Errors.ExistSMessageHistoryDetailByName, fragment);
                         }
+                        else
+                        {
+                            throw;
+                        }
+                    }
 
                     //如果用户未赋值ID则创建成功后返回ID
                     if (detail.ID == Guid.Empty)
@@ -247,7 +247,7 @@ namespace MSLibrary.MessageQueue.DAL
 
         public async Task<SMessageHistoryListenerDetail> QueryByName(Guid historyId, string name)
         {
-            var storeInfo = await StoreInfoHelper.GetHashStoreInfo( _storeInfoResolveService,_hashGroupRepository, _messageHistoryListenerDetailHashGroupName, historyId.ToString());
+            var storeInfo = await StoreInfoHelper.GetHashStoreInfo(_storeInfoResolveService, _hashGroupRepository, _messageHistoryListenerDetailHashGroupName, historyId.ToString());
 
             if (!storeInfo.TableNames.TryGetValue(HashEntityNames.SMessageHistoryListenerDetail, out string tableNameListenerDetail))
             {
@@ -274,7 +274,7 @@ namespace MSLibrary.MessageQueue.DAL
 
             SMessageHistoryListenerDetail smessageHistoryListenerDetail = null;
 
-            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, storeInfo.DBConnectionNames.Read, async (conn, transaction) =>
+            await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false,_messageQueueConnectionFactory.CreateReadForSMessageHistoryListenerDetail(storeInfo.DBConnectionNames), async (conn, transaction) =>
             {
                 SqlTransaction sqlTran = null;
                 if (transaction != null)

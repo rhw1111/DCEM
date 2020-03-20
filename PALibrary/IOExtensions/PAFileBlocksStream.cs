@@ -16,7 +16,8 @@ namespace PALibrary.IOExtensions
     {
         private string _fileContinuationToken;
         private long _fileSize;
-        private long _perSize = (long)1024 * 1024 * 3;
+        //private long _perSize = (long)1024 * 1024 * 3;
+        private long _perSize = (long)1024 * 10;
         private long _position = 0;
         private bool _complete = false;
         private IOrganizationService _orgService;
@@ -132,11 +133,12 @@ namespace PALibrary.IOExtensions
                 }
             }
 
-            for(var index= offset; index<= offset + currentBytes.Count-1;index++)
+            /*for(var index= offset; index<= offset + currentBytes.Count-1;index++)
             {
                 buffer[index] = currentBytes[index - offset];
             }
-
+            */
+            currentBytes.CopyTo(buffer, offset);
             return currentBytes.Count;
         }
 

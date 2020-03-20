@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,94 +20,156 @@ namespace MSLibrary.Thread
         /// <param name="parallel"></param>
         /// <param name="configurations"></param>
         /// <returns></returns>
-        public static PollingResult Polling(List<PollingConfiguration> configurations)
+        public static IAsyncPollingResult Polling(List<PollingConfiguration> configurations,Func<Exception,Task> exceptionHandler)
         {
-            PollingResult result = new PollingResult();
-            result.Semaphere.Wait();
+            List<Task> tasks = new List<Task>();
 
-            List<PollingAction> actions = new List<PollingAction>();
+            AsyncPollingResultDefault result = new AsyncPollingResultDefault(
+                async()=>
+                {
+                    //等待最终所有任务完成
+                    foreach (var item in tasks)
+                    {
+                        await item;
+                    }
+                }
+                );
+
             foreach (var item in configurations)
             {
-                actions.Add(new PollingAction() { Complete = true, PollingConfiguration = item });
-            }
-
-            Task.Run(async () =>
-            {
-                while (true)
-                {
-                    //执行到了轮询时间的动作
-                    foreach (var item in actions)
-                    {
-                        if (item.Complete == true && (item.NextTime == null || (item.NextTime != null && item.NextTime.Value <= DateTime.UtcNow)))
+                tasks.Add(
+                    Task.Run(
+                        async () =>
                         {
-                            item.Complete = false;
-                            Task.Run(async () =>
+                            while (true)
                             {
+                                if (result.IsStop)
+                                {
+                                    break;
+                                }
+
                                 try
                                 {
-                                    await item.PollingConfiguration.Action();
+                                    await item.Action();
                                 }
-                                catch(Exception ex)
+                                catch (Exception ex)
                                 {
-                                    LoggerHelper.LogError(null, $"PollingHelper Execute Error,ErrorMessage:{ex.Message},StackTrace:{ex.StackTrace}");
+                                    await exceptionHandler(ex);
+                                    //LoggerHelper.LogError(null, $"PollingHelper Execute Error,ErrorMessage:{ex.Message},StackTrace:{ex.StackTrace}");
                                 }
-                                finally
-                                {
-                                    item.Complete = true;
-                                    item.NextTime = DateTime.UtcNow.AddMilliseconds(item.PollingConfiguration.Interval);
-                                }
-                            });
+
+                                await Task.Delay(item.Interval);
+                            }
                         }
+                        )
+                    );
+            }
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// 按指定的并行度，不间断从源中获取数据处理，当每次数据源取完后,执行perCompleteAction，wait指定的interval毫秒数，再次轮询
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="maxDegree"></param>
+        /// <param name="interval"></param>
+        /// <param name="body"></param>
+        /// <returns></returns>
+        public static async Task<IAsyncPollingResult> Polling<T>(Func<Task<IAsyncEnumerable<T>>> sourceGereratorFun, int maxDegree, int interval, Func<T, Task> body,Func<Task> perCompleteAction,Func<Exception,Task> exceptionHandler)
+        {
+            SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
+
+            var sourceEnumerator = (await sourceGereratorFun()).GetAsyncEnumerator();
+
+            List<Task> tasks = new List<Task>();
+
+            AsyncPollingResultDefault result = new AsyncPollingResultDefault(
+                async () =>
+                {
+                    //等待最终所有任务完成
+                    foreach (var item in tasks)
+                    {
+                        await item;
                     }
+                }
+                );
 
 
-                    var needBreak = false;
-
-                    if (result.IsStop)
+            for (var index = 0; index <= maxDegree - 1; index++)
+            {
+                tasks.Add(
+                    Task.Run(async () =>
                     {
                         while (true)
                         {
-                            bool allComplete = true;
-                            foreach (var item in actions)
+                            if (result.IsStop)
                             {
-                                if (!item.Complete)
+                                break;
+                            }
+                            var tempSourceEnumerator = sourceEnumerator;
+
+
+                            await _lock.WaitAsync();
+                            T data = default(T);
+                            bool isError = false;
+                            try
+                            {
+                                if (await sourceEnumerator.MoveNextAsync())
                                 {
-                                    allComplete = false;
-                                    break;
+                                    data = sourceEnumerator.Current;
+                                }
+                                else
+                                {
+                                    if (perCompleteAction!=null)
+                                    {
+                                        await perCompleteAction();
+                                    }
+                                    await Task.Delay(interval);
+
+                                    if (tempSourceEnumerator != sourceEnumerator)
+                                    {
+                                        continue;
+                                    }
+                                    sourceEnumerator = (await sourceGereratorFun()).GetAsyncEnumerator();
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                isError = true;
+                                await exceptionHandler(ex);
+                            }
+                            finally
+                            {
+                                _lock.Release();
+                            }
+
+                            if (!isError)
+                            {
+                                try
+                                {
+                                    await body(data);
+                                }
+                                catch (Exception ex)
+                                {
+                                    await exceptionHandler(ex);
                                 }
                             }
 
-                            if (allComplete)
-                            {
-                                result.Semaphere.Release();
-                                needBreak = true;
-                                break;
-                            }
-                            else
-                            {
-                                await Task.Delay(10);
-                                ///System.Threading.Thread.Sleep(10);
-                            }
                         }
-                    }
-                    else
-                    {
-                        await Task.Delay(10);
-                        //System.Threading.Thread.Sleep(10);
-                    }
+                    })
+                    );
 
-                    if (needBreak)
-                    {
-                        break;
-                    }
-                }
-
-            });
-
+            }
 
             return result;
 
         }
+
+
+
     }
 
     /// <summary>
@@ -181,5 +244,40 @@ namespace MSLibrary.Thread
         /// 是否已经完成
         /// </summary>
         public bool Complete { get; set; }
+    }
+
+
+    public interface IAsyncPollingResult
+    {
+        Task Stop();
+    }
+
+    public class AsyncPollingResultDefault : IAsyncPollingResult
+    {
+        private bool _stop = false;
+        private Func<Task> _completeAction;
+
+        public AsyncPollingResultDefault(Func<Task> completeAction)
+        {
+            _completeAction = completeAction;
+        }
+
+        public async Task Stop()
+        {
+            _stop = true;
+            if (_completeAction!=null)
+            {
+                await _completeAction();
+            }
+            await Task.CompletedTask;
+        }
+
+        public bool IsStop
+        {
+            get
+            {
+                return _stop;
+            }
+        }
     }
 }

@@ -11,6 +11,6 @@ namespace MSLibrary.AspNet.Middleware.Application
     /// </summary>
     public interface IAppHttpContextLogConvert
     {
-        Task<object> Convert(HttpContext context);
+        Task<object> Convert(HttpContextData context);
     }
 }

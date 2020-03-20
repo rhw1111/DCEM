@@ -40,8 +40,8 @@ namespace MSLibrary.Schedule.DAL
                     SqlParameter parameter;
                     if (group.ID == Guid.Empty)
                     {
-                        command.CommandText = @"insert into [dbo].[ScheduleActionGroup] ([id] ,[name] ,[createtime] ,[modifytime] ,[uselog])
-                                                values (default ,@name ,GETUTCDATE() ,GETUTCDATE() ,@uselog);
+                        command.CommandText = @"insert into [dbo].[ScheduleActionGroup] ([id] ,[name] ,[createtime] ,[modifytime] ,[uselog],[executeactioninittype],[executeactioninitconfiguration])
+                                                values (default ,@name ,GETUTCDATE() ,GETUTCDATE() ,@uselog,@executeactioninittype,@executeactioninitconfiguration);
                                                 select @newid =[id] from [dbo].[ScheduleActionGroup] where [sequence] = SCOPE_IDENTITY()";
                         parameter = new SqlParameter("@newid", SqlDbType.UniqueIdentifier)
                         {
@@ -51,7 +51,7 @@ namespace MSLibrary.Schedule.DAL
                     }
                     else
                     {
-                        command.CommandText = @"insert into [dbo].[ScheduleActionGroup] ([id] ,[name] ,[createtime] ,[modifytime] ,[uselog]) 
+                        command.CommandText = @"insert into [dbo].[ScheduleActionGroup] ([id] ,[name] ,[createtime] ,[modifytime] ,[uselog],[executeactioninittype],[executeactioninitconfiguration]) 
                                                 values (@id ,@name ,GETUTCDATE() ,GETUTCDATE() ,@uselog)";
                         parameter = new SqlParameter("@id", SqlDbType.UniqueIdentifier)
                         {
@@ -71,6 +71,19 @@ namespace MSLibrary.Schedule.DAL
                         Value = group.UseLog
                     };
                     command.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter("@executeactioninittype", SqlDbType.VarChar,150)
+                    {
+                        Value = group.ExecuteActionInitType
+                    };
+                    command.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter("@executeactioninitconfiguration", SqlDbType.NVarChar, group.ExecuteActionInitConfiguration.Length)
+                    {
+                        Value = group.ExecuteActionInitConfiguration
+                    };
+                    command.Parameters.Add(parameter);
+
 
                     command.Prepare();
 

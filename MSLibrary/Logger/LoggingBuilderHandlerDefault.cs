@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
 using MSLibrary.Configuration;
 using MSLibrary.DI;
 using MSLibrary.LanguageTranslate;
+using MSLibrary.Serializer;
 
 namespace MSLibrary.Logger
 {
@@ -52,6 +54,7 @@ namespace MSLibrary.Logger
             //处理每一个提供方
             foreach(var providerItem in configuration.Providers)
             {
+                providerItem.Value.ConfigurationObj = JsonSerializerHelper.Deserialize<JObject>(JsonSerializerHelper.Serializer(providerItem.Value.Configuration));
                 var providerHandler = getProviderHandler(providerItem.Key);
                 await providerHandler.Execute(builder, providerItem.Value);
             }

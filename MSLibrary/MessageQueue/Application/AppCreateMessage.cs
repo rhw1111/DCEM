@@ -15,7 +15,8 @@ namespace MSLibrary.MessageQueue.Application
             {
                 Key = messageData.Key,
                 Type = messageData.Type,
-                Data = messageData.Data
+                Data = messageData.Data,
+                 ExpectationExecuteTime=messageData.ExpectationExecuteTime
             };
 
             await message.Add();

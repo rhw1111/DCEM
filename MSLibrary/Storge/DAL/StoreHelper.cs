@@ -138,5 +138,87 @@ namespace MSLibrary.Storge.DAL
         }
 
 
+
+
+        /// <summary>
+        /// 获取存储组的数据查询的字段字符串
+        /// </summary>
+        /// <param name="prefix"></param>
+        /// <returns></returns>
+        public static string GetStoreGroupSelectFields(string prefix)
+        {
+            var strSelect = @"{0}.[id] as [{0}id],
+                                {0}.[name] as [{0}name],
+                                {0}.[createtime] as [{0}createtime],
+                                {0}.[modifytime] as [{0}modifytime],
+                                {0}.[sequence] as [{0}sequence]";
+            if (string.IsNullOrEmpty(prefix))
+            {
+                strSelect = @"[id],
+                               [name],
+                               [createtime],
+                               [modifytime],
+                               [sequence]";
+            }
+            return string.Format(strSelect, prefix);
+        }
+
+        /// <summary>
+        /// 存储组实体的数据赋值
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="reader"></param>
+        /// <param name="prefix"></param>
+        public static void SetStoreGroupSelectFields(StoreGroup group, DbDataReader reader, string prefix)
+        {
+            group.ID = (Guid)reader[string.Format("{0}id", prefix)];
+            group.Name = reader[string.Format("{0}name", prefix)].ToString();
+
+            group.CreateTime = (DateTime)reader[string.Format("{0}createtime", prefix)];
+            group.ModifyTime = (DateTime)reader[string.Format("{0}modifytime", prefix)];
+        }
+
+        /// <summary>
+        /// 获取存储组的数据查询的字段字符串
+        /// </summary>
+        /// <param name="prefix"></param>
+        /// <returns></returns>
+        public static string GetStoreGroupMemberSelectFields(string prefix)
+        {
+            var strSelect = @"{0}.[id] as [{0}id],
+                                {0}.[name] as [{0}name],
+                                {0}.[groupid] as [{0}groupid],
+                                {0}.[storeinfo] as [{0}storeinfo],
+                                {0}.[createtime] as [{0}createtime],
+                                {0}.[modifytime] as [{0}modifytime],
+                                {0}.[sequence] as [{0}sequence]";
+            if (string.IsNullOrEmpty(prefix))
+            {
+                strSelect = @"[id],
+                               [name],
+                               [groupid],
+                               [storeinfo],
+                               [createtime],
+                               [modifytime],
+                               [sequence]";
+            }
+            return string.Format(strSelect, prefix);
+        }
+
+        /// <summary>
+        /// 存储组实体的数据赋值
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="reader"></param>
+        /// <param name="prefix"></param>
+        public static void SetStoreGroupMemberSelectFields(StoreGroupMember member, DbDataReader reader, string prefix)
+        {
+            member.ID = (Guid)reader[string.Format("{0}id", prefix)];
+            member.Name = reader[string.Format("{0}name", prefix)].ToString();
+            member.GroupID = (Guid)reader[string.Format("{0}groupid", prefix)];
+            member.StoreInfo = reader[string.Format("{0}storeinfo", prefix)].ToString();
+            member.CreateTime = (DateTime)reader[string.Format("{0}createtime", prefix)];
+            member.ModifyTime = (DateTime)reader[string.Format("{0}modifytime", prefix)];
+        }
     }
 }

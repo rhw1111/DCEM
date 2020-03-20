@@ -46,6 +46,12 @@ using MSLibrary.Oauth.ADFS;
 using ICSharpCode.SharpZipLib.Zip;
 using ICSharpCode.SharpZipLib.Checksum;
 using DCEM.ConsoleApp.FormulaCalculateServices;
+using System.IdentityModel.Tokens.Jwt;
+using MSLibrary.SystemToken;
+using MSLibrary.SystemToken.TokenControllerServices;
+using Azure.Identity;
+using Azure.Core;
+using MSLibrary.Collections;
 
 namespace DCEM.ConsoleApp
 {
@@ -121,14 +127,26 @@ namespace DCEM.ConsoleApp
            
             Console.ForegroundColor=_colors[_r.Next(0, _colors.Count())];
         }
+
+   static async Task InitContext()
+        {
+            //await Task.Delay(10);
+            ContextContainer.SetValue(ContextTypes.CurrentUserLcid, 100);
+        }
+
+        static async Task CheckContext()
+        {
+            await Task.Delay(10);
+            var v= ContextContainer.GetValue<int>(ContextTypes.CurrentUserLcid);
+        }
+
         async static Task Main(string[] args)
         {
 
-            HttpClient client = new HttpClient();
+            Regex regHttpInfo = new Regex("http/1.1 +([0-9\\.]+) +", RegexOptions.IgnoreCase);
+            var httpInfoMatch = regHttpInfo.Match("HTTP/1.1 204 No Content");
+            var strStatusCode = httpInfoMatch.Groups[1].Value.Trim();
 
-
-            client.DefaultRequestHeaders.Range= new System.Net.Http.Headers.RangeHeaderValue(0,1000);
-            await client.GetAsync("http://www.baidu.com");
 
             /*Regex reg = new Regex(@"\{(?<!\\)\$((?!(\{(?<!\\)\$[A-Za-z0-9][A-Za-z0-9_]+\(.*\)(?<!\\)\})).)+?(?<!\\)\}");
             Regex reg1 = new Regex(@"\{(?<!\\)\$[A-Za-z0-9]((?!(\{(?<!\\)\$[A-Za-z0-9][A-Za-z0-9_]+\(.*\)(?<!\\)\})).)+?(?<!\\)\}");
@@ -1112,6 +1130,21 @@ namespace DCEM.ConsoleApp
         ExpressionCalculatorIMP.FormulaCalculateServiceFactories["T1"]["Test1"] = DIContainerContainer.Get<FormulaCalculateServiceForTest1Factory>();
 
 
+        TokenControllerRepository.Controllers["Client"] = new TokenController()
+        {
+            ID = Guid.NewGuid(),
+            Type = "JWT",
+            Name = "Client",
+            Configuration = @"
+                    {
+                        ""Issuer"":""MSCRM.ClientService"",
+                        ""Audience"":""MSCRM.ClientService"",
+                        ""ExpireSeconds"":600,
+                        ""SignKey"":""1223112345672346""                  
+                    }"
+        };
+
+
 
         services.AddHostedService<HostedService>();
     })
@@ -1489,27 +1522,21 @@ namespace DCEM.ConsoleApp
 
     public class HostedService : IHostedService
     {
-        private ICommonMessageHandleService _commonMessageHandleService;
+        private ITokenControllerRepository _tokenControllerRepository;
 
-        private ICommonQueueEndpointConsumeController _consumeController = null;
-        public HostedService(ICommonMessageHandleService commonMessageHandleService)
+
+        public HostedService(ITokenControllerRepository tokenControllerRepository)
         {
-            _commonMessageHandleService = commonMessageHandleService;
+            _tokenControllerRepository = tokenControllerRepository;
         }
         public async Task StartAsync(CancellationToken cancellationToken)
         {
 
-            ExpressionCalculator expressionCalculator = new ExpressionCalculator()
-            {
-                 ID=Guid.NewGuid(),
-                  Name="T1",
-                   FormulaExecuteParallelism=1
-            };
+           var controller=await  _tokenControllerRepository.QueryByName("Client");
 
-            var r=await expressionCalculator.Calcualte(@"{$Test1(1,\$_ref(sss),3)}",new object());
+           var strToken=await controller.Generate(new List<Claim>() { new Claim("A","A") , new Claim("B", "B") });
 
-            var aa = 1;
-
+           var principal= await controller.Validate(strToken);
 
     /*        CommonQueueProductEndpoint productEndpoint = new CommonQueueProductEndpoint()
             {
@@ -1580,10 +1607,7 @@ namespace DCEM.ConsoleApp
 
         public async Task StopAsync(CancellationToken cancellationToken)
         {
-            if (_consumeController != null)
-            {
-                await _consumeController.Stop();
-            }
+ 
         }
     }
 

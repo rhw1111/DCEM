@@ -58,13 +58,13 @@ namespace MSLibrary.FileManagement.DAL
         }
 
 
-        private IHashGroupRepository _hashGroupRepository;
+        private IHashGroupRepositoryCacheProxy _hashGroupRepository;
         private IFileManagementConnectionFactory _uploadFileConnectionFactory;
 
         private IStoreInfoResolveService _storeInfoResolveService;
 
 
-        public UploadFileStore(IHashGroupRepository hashGroupRepository, IFileManagementConnectionFactory uploadFileConnectionFactory, IStoreInfoResolveService storeInfoResolveService)
+        public UploadFileStore(IHashGroupRepositoryCacheProxy hashGroupRepository, IFileManagementConnectionFactory uploadFileConnectionFactory, IStoreInfoResolveService storeInfoResolveService)
         {
             _hashGroupRepository = hashGroupRepository;
             _uploadFileConnectionFactory = uploadFileConnectionFactory;

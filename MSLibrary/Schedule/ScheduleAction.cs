@@ -76,6 +76,23 @@ namespace MSLibrary.Schedule
         }
 
         /// <summary>
+        /// 提供给具体服务使用的配置
+        /// 不同服务有不同的格式
+        /// </summary>
+        public string Configuration
+        {
+            get
+            {
+                return GetAttribute<string>("Configuration");
+            }
+            set
+            {
+                SetAttribute<string>("Configuration", value);
+            }
+        }
+
+
+        /// <summary>
         /// 动作调用模式
         /// 0：指定实现特定接口的类型工厂
         /// 1：指定实现特定Rest标准的web接口
@@ -315,7 +332,7 @@ namespace MSLibrary.Schedule
 
             var actionObj = actionFactory.Create();
 
-            return await actionObj.Execute();
+            return await actionObj.Execute(action.Configuration);
         }
 
         /// <summary>
@@ -343,7 +360,7 @@ namespace MSLibrary.Schedule
 
     public interface IScheduleActionService
     {
-        Task<IScheduleActionResult> Execute();
+        Task<IScheduleActionResult> Execute(string configuration);
     }
 
     /// <summary>

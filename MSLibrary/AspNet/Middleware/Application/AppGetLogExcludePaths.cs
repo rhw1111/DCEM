@@ -14,7 +14,7 @@ namespace MSLibrary.AspNet.Middleware.Application
 
         public AppGetLogExcludePaths(ISystemConfigurationRepositoryCacheProxy systemConfigurationRepositoryCacheProxy)
         {
-            _systemConfigurationRepositoryCacheProxy = _systemConfigurationRepositoryCacheProxy;
+            _systemConfigurationRepositoryCacheProxy = systemConfigurationRepositoryCacheProxy;
         }
 
         public async Task<List<string>> Do()

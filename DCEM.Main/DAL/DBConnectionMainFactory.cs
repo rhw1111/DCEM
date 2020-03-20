@@ -54,6 +54,16 @@ namespace DCEM.Main.DAL
             throw new NotImplementedException();
         }
 
+        public string CreateAllForApplicationLock(string lockName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string CreateAllForApplicationLock(MSLibrary.DAL.DBConnectionNames connNames, string lockName)
+        {
+            throw new NotImplementedException();
+        }
+
         public string CreateAllForCache()
         {
             throw new NotImplementedException();

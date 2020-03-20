@@ -10,30 +10,26 @@ namespace MSLibrary.Context
     [Injection(InterfaceType = typeof(IClaimContextGeneratorRepositoryCacheProxy), Scope = InjectionScope.Singleton)]
     public class ClaimContextGeneratorRepositoryCacheProxy : IClaimContextGeneratorRepositoryCacheProxy
     {
-        public static int MaxLength { get; set; } = 500;
-        public static int ExpireSeconds { get; set; } = 600;
+        public static KVCacheVisitorSetting KVCacheVisitorSetting = new KVCacheVisitorSetting()
+        {
+            Name = "_ClaimContextGeneratorRepository",
+            ExpireSeconds = -1,
+            MaxLength = 500
+        };
 
         private IClaimContextGeneratorRepository _claimContextGeneratorRepository;
 
         public ClaimContextGeneratorRepositoryCacheProxy(IClaimContextGeneratorRepository claimContextGeneratorRepository)
         {
             _claimContextGeneratorRepository = claimContextGeneratorRepository;
+            _kvcacheVisitor = CacheInnerHelper.CreateKVCacheVisitor(KVCacheVisitorSetting);
         }
 
-        private KVCacheVisitor _timeoutCache = new KVCacheVisitor()
-        {
-            Name = "_ClaimContextGeneratorRepository",
-            CacheType = KVCacheTypes.LocalTimeout,
-            CacheConfiguration = string.Format(@"{{
-                        ""MaxLength"":{0},
-                        ""ExpireSeconds"":{1}
-                }}", MaxLength.ToString(), ExpireSeconds.ToString())
-
-        };
+        private KVCacheVisitor _kvcacheVisitor;
 
         public async Task<ClaimContextGenerator> QueryByName(string name)
         {
-            return await _timeoutCache.Get(
+            return await _kvcacheVisitor.Get(
                 async(k)=>
                 {
                     return await _claimContextGeneratorRepository.QueryByName(name);

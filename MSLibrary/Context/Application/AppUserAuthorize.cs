@@ -11,9 +11,9 @@ namespace MSLibrary.Context.Application
     [Injection(InterfaceType = typeof(IAppUserAuthorize), Scope = InjectionScope.Singleton)]
     public class AppUserAuthorize : IAppUserAuthorize
     {
-        private IClaimContextGeneratorRepository _claimContextGeneratorRepository;
+        private IClaimContextGeneratorRepositoryCacheProxy _claimContextGeneratorRepository;
 
-        public AppUserAuthorize(IClaimContextGeneratorRepository claimContextGeneratorRepository)
+        public AppUserAuthorize(IClaimContextGeneratorRepositoryCacheProxy claimContextGeneratorRepository)
         {
             _claimContextGeneratorRepository = claimContextGeneratorRepository;
         }

@@ -85,6 +85,14 @@ using DCEM.Main.Context.ClaimContextGeneratorServices;
 using System.Net.Http;
 using DCEM.Main.Configuration;
 using DCEM.Main.Entities;
+using MSLibrary.Xrm.Message.GetFileAttributeUploadInfo;
+using MSLibrary.Xrm.Message.FileAttributeDeleteData;
+using MSLibrary.Xrm.Message.FileAttributeDownloadChunking;
+using MSLibrary.SystemToken;
+using MSLibrary.SystemToken.TokenControllerServices;
+using MSLibrary.MessageQueue;
+using MSLibrary.MessageQueue.DAL;
+using MSLibrary.MessageQueue.DAL.SMessageStores;
 
 namespace DCEM.Main
 {
@@ -246,6 +254,12 @@ namespace DCEM.Main
             QueueRealExecuteServiceForAzureServiceBus.ConvertFromServiceFactories[AzureServiceBusMessageConvertFromServiceNames.Default]= DIContainerContainer.Get<AzureServiceBusMessageConvertFromForDefaultFactory>();
             QueueRealExecuteServiceForAzureServiceBus.ConvertToServiceFactories[AzureServiceBusMessageConvertToServiceNames.Default] = DIContainerContainer.Get<AzureServiceBusMessageConvertToForDefaultFactory>();
 
+           
+
+
+            TokenControllerIMP.TokenControllerServiceFactories[TokenControllerTypes.JWT] = DIContainerContainer.Get<TokenControllerServiceForJWTFactory>();
+
+
             InitThirdInterfaceSetting();
 
         }
@@ -301,6 +315,10 @@ namespace DCEM.Main
             CrmMessageHandleSelector.HandleFactories[typeof(CrmUpdateRetrieveRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForUpdateRetrieveFactory>();
             CrmMessageHandleSelector.HandleFactories[typeof(CrmUpsertRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForUpsertFactory>();
             CrmMessageHandleSelector.HandleFactories[typeof(CrmUpsertRetrieveRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForUpsertRetrieveFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmGetFileAttributeUploadInfoRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForGetFileAttributeUploadInfoFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmFileAttributeDeleteDataRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForFileAttributeDeleteDataFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmFileAttributeDownloadChunkingRequestMessage).FullName] = DIContainerContainer.Get<CrmMessageHandleForFileAttributeDownloadChunkingFactory>();
+            CrmMessageHandleSelector.HandleFactories[typeof(CrmMessageHandleForFileAttributeUploadChunkingFactory).FullName] = DIContainerContainer.Get<CrmMessageHandleForFileAttributeUploadChunkingFactory>();
 
 
             //为CrmAttributeMetadataHandleSelector.HandleFactories赋值

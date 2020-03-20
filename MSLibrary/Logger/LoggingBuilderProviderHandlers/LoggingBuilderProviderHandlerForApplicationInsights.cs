@@ -20,7 +20,7 @@ namespace MSLibrary.Logger.LoggingBuilderProviderHandlers
         public async Task Execute(ILoggingBuilder builder, LoggerItemConfiguration configuration)
         {
             //反序列化特定配置
-            var innerConfiguration = JsonSerializerHelper.Deserialize<ApplicationInsightsConfiguration>(JsonSerializerHelper.Serializer(configuration.Configuration));
+            var innerConfiguration = JsonSerializerHelper.Deserialize<ApplicationInsightsConfiguration>(JsonSerializerHelper.Serializer(configuration.ConfigurationObj));
             //绑定提供方
             builder.AddApplicationInsights(innerConfiguration.Key, (opt) =>
              {

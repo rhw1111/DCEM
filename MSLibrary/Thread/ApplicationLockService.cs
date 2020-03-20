@@ -6,6 +6,7 @@ using System.Transactions;
 using MSLibrary.DI;
 using MSLibrary.Transaction;
 using MSLibrary.Thread.DAL;
+using MSLibrary.DAL;
 
 namespace MSLibrary.Thread
 {
@@ -18,18 +19,18 @@ namespace MSLibrary.Thread
         {
             _applicationLockStore = applicationLockStore;
         }
-        public void ExecuteSync(string lockName, Action callBack, int timeout = -1)
+        public void ExecuteSync(DBConnectionNames connNames,string lockName, Action callBack, int timeout = -1)
         {
             using (DBTransactionScope transactionScope = new DBTransactionScope(TransactionScopeOption.Required,new TransactionOptions() { IsolationLevel= IsolationLevel.ReadCommitted, Timeout=new TimeSpan(0,30,0) }))
             {
                 try
                 {
-                    _applicationLockStore.LockSync(lockName, timeout);
+                    _applicationLockStore.LockSync(connNames, lockName, timeout);
                     callBack();
                 }
                 finally
                 {
-                    _applicationLockStore.UnLockSync(lockName);
+                    _applicationLockStore.UnLockSync(connNames,lockName);
                 }
 
                 transactionScope.Complete();
@@ -37,18 +38,18 @@ namespace MSLibrary.Thread
 
         }
 
-        public async Task Execute(string lockName, Func<Task> callBack, int timeout = -1)
+        public async Task Execute(DBConnectionNames connNames,string lockName, Func<Task> callBack, int timeout = -1)
         {
             using (DBTransactionScope transactionScope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 30, 0) }))
             {
                 try
                 {
-                    await _applicationLockStore.Lock(lockName, timeout);
+                    await _applicationLockStore.Lock(connNames, lockName, timeout);
                     await callBack();
                 }
                 finally
                 {
-                    await _applicationLockStore.UnLock(lockName);
+                    await _applicationLockStore.UnLock(connNames,lockName);
                 }
 
                 transactionScope.Complete();

@@ -16,6 +16,7 @@ namespace DCEM.LoggerService.Controllers
         [HttpPost("do")]
         public async Task<string> Do()
         {
+           
             CommonLogLocalContent content = new CommonLogLocalContent()
             {
                  ActionName="A",

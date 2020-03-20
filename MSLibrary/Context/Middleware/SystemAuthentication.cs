@@ -35,12 +35,13 @@ namespace MSLibrary.Context.Middleware
         /// <param name="generatorName">声明生成器名称</param>
         /// <param name="loggerFactory">日志工厂</param>
         /// <param name="appSystemAuthentication"></param>
-        public SystemAuthentication(RequestDelegate next,string generatorName,ILoggerFactory loggerFactory, IAppSystemAuthentication appSystemAuthentication)
+        public SystemAuthentication(RequestDelegate next,string generatorName, string errorCatalogName, ILoggerFactory loggerFactory, IAppSystemAuthentication appSystemAuthentication)
         {
             _nextMiddleware = next;
             _generatorName = generatorName;
             _loggerFactory = loggerFactory;
             _appSystemAuthentication = appSystemAuthentication;
+            _errorCatalogName = errorCatalogName;
         }
 
         public async Task Invoke(HttpContext context)
@@ -53,12 +54,12 @@ namespace MSLibrary.Context.Middleware
             using (var diContainer = DIContainerContainer.CreateContainer())
             {
                 var loggerFactory = diContainer.Get<ILoggerFactory>();
-                logger = loggerFactory.CreateLogger(_generatorName);
+                logger = loggerFactory.CreateLogger(_errorCatalogName);
             }
 
 
-            //await HttpErrorHelper.ExecuteByHttpContextAsync(context,logger, async () =>
-             //{
+            await HttpErrorHelper.ExecuteByHttpContextAsync(context,logger, async () =>
+             {
                  var claimsIdentity = await _appSystemAuthentication.Do(context, _generatorName);
 
 
@@ -72,7 +73,7 @@ namespace MSLibrary.Context.Middleware
                  }
 
                  await _nextMiddleware(context);
-            // });
+             });
 
           
         }

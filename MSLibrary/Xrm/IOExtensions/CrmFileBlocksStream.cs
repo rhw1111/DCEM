@@ -147,10 +147,7 @@ namespace MSLibrary.Xrm.IOExtensions
                 }
             }
 
-            for (var index = offset; index <= offset + currentBytes.Count - 1; index++)
-            {
-                buffer[index] = currentBytes[index - offset];
-            }
+            currentBytes.CopyTo(buffer, offset);
 
             return currentBytes.Count;
         }

@@ -9,6 +9,7 @@ using MSLibrary.AspNet.Middleware.Application;
 using Microsoft.AspNetCore.Http.Extensions;
 using MSLibrary;
 using MSLibrary.DI;
+using MSLibrary.AspNet.Middleware;
 using MSLibrary.Logger;
 
 namespace DCEM.Main.AspNet.Middleware.Application
@@ -26,30 +27,27 @@ namespace DCEM.Main.AspNet.Middleware.Application
         /// </summary>
         private const long _maxRequestLength = 102400;
 
-        public async Task<object> Convert(HttpContext context)
+        public async Task<object> Convert(HttpContextData data)
         {
             CommonLogContent content = new CommonLogContent();
             content.ParentID = ContextContainer.GetValue<Guid>(ContextExtensionTypes.ParentCommonLogID);
             content.ParentActionName = ContextContainer.GetValue<string>(ContextExtensionTypes.ParentCommonLogActionName);
-            content.ActionName = context.Request.Path;
+            content.ActionName = data.RequestPath;
             content.Message = string.Empty;
 
             byte[] bufferBytes = new byte[1024];
             string strRequestBody = string.Empty;
             string strResponseBody = string.Empty;
             //尝试获取请求内容和响应内容
-            if (context.Request != null && context.Request.Body != null && context.Request.Body.CanRead && context.Request.Body.CanSeek)
+            if (data.Request!=null)
             {
-                using (MemoryStream requestStream = new MemoryStream())
+                using (data.Request)
                 {
                     List<byte> requestBytes = new List<byte>();
-                    context.Request.Body.Position = 0;
-                    await context.Request.Body.CopyToAsync(requestStream);
-                    requestStream.Position = 0;
 
                     while (true)
                     {
-                        var length = await requestStream.ReadAsync(bufferBytes, 0, 1024);
+                        var length = await data.Request.ReadAsync(bufferBytes, 0, 1024);
                         requestBytes.AddRange(bufferBytes.Take(length));
                         if (length != 1024)
                         {
@@ -58,22 +56,18 @@ namespace DCEM.Main.AspNet.Middleware.Application
                     }
 
                     strRequestBody = UTF8Encoding.UTF8.GetString(requestBytes.ToArray());
-                    context.Request.Body.Position = 0;
                 }
             }
 
-            if (context.Response != null && context.Response.Body != null && context.Response.Body.CanRead && context.Response.Body.CanSeek)
+            if (data.Response!=null)
             {
-                using (MemoryStream responseStream = new MemoryStream())
+                using (data.Response)
                 {
                     List<byte> responseBytes = new List<byte>();
-                    context.Response.Body.Position = 0;
-                    await context.Response.Body.CopyToAsync(responseStream);
-                    responseStream.Position = 0;
-
+                    
                     while (true)
                     {
-                        var length = await responseStream.ReadAsync(bufferBytes, 0, 1024);
+                        var length = await data.Response.ReadAsync(bufferBytes, 0, 1024);
                         responseBytes.AddRange(bufferBytes.Take(length));
                         if (length != 1024)
                         {
@@ -82,13 +76,13 @@ namespace DCEM.Main.AspNet.Middleware.Application
                     }
 
                     strResponseBody = UTF8Encoding.UTF8.GetString(responseBytes.ToArray());
-                    context.Response.Body.Position = 0;
+            
                 }
             }
 
             content.RequestBody = strRequestBody;
             content.ResponseBody = strResponseBody;
-            content.RequestUri = context.Request.GetDisplayUrl();
+            content.RequestUri = data.RequestUri;
             content.Message = string.Empty;
 
             return await Task.FromResult(content);
