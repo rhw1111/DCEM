@@ -66,7 +66,7 @@
   "cordova-plugin-app-version": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-app-version"
+      "id": "cordova-plugin-app-version@^0.1.9"
     },
     "is_top_level": true,
     "variables": {}
@@ -126,6 +126,14 @@
     "source": {
       "type": "registry",
       "id": "cordova-plugin-file-transfer"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-file-opener2": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-file-opener2@^3.0.0"
     },
     "is_top_level": true,
     "variables": {}

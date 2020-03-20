@@ -28,6 +28,9 @@ import { SelectDealerComponent } from './component/modal/select-dealer/select-de
 import {SelectDealerListComponent} from './component/modal/select-dealer-list/select-dealer-list.component'
 import { SelectUsercarinfoComponent } from './component/modal/select-usercarinfo/select-usercarinfo.component';
 
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
+import { File } from '@ionic-native/file/ngx';
 
 @NgModule({
   declarations: [RegAgreementComponent,AppComponent,SelectSysareaComponent,LoginComponent,SelectDealerComponent,UserinfoComponent,SelectUsercarinfoComponent,SelectDealerListComponent],
@@ -47,6 +50,10 @@ import { SelectUsercarinfoComponent } from './component/modal/select-usercarinfo
       SplashScreen,
       GaoDeLocation,
       ScreenOrientation,
+      FileOpener,
+      FileTransfer,
+      AppVersion,
+      File,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
     bootstrap: [AppComponent],

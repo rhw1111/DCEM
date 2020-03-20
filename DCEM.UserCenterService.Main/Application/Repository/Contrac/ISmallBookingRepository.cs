@@ -122,5 +122,11 @@ namespace DCEM.UserCenterService.Main.Application.Repository.Contrac
         /// <param name="id"></param>
         /// <returns></returns>
         string QueryOptionalByOrder(Guid id);
+        /// <summary>
+        /// 通过小订查询销售机会
+        /// </summary>
+        /// <param name="onlyleadid"></param>
+        /// <returns></returns>
+        string QueryAccountBySmallOrderId(Guid smallorderid);
     }
 }

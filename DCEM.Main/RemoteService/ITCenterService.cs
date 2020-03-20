@@ -4,6 +4,8 @@ using DCEM.Main.Entities.Request.OrderManager;
 using DCEM.Main.Entities.Request.Payment;
 using DCEM.Main.Entities.Response.OrderManager;
 using DCEM.Main.Entities.TCenter.MktCloud;
+using DCEM.Main.Entities.TCenter.Request.Payment;
+using DCEM.Main.Entities.TCenter.Response.Payment;
 using DCEM.Main.Response;
 using MSLibrary;
 using MSLibrary.Xrm;
@@ -89,6 +91,15 @@ namespace DCEM.Main.RemoteService
 
         #region 3.订单管理
         Task<CreateOrderManagerResponse> CreateOrder(CreateOrderManagerRequest param);
+        #endregion
+
+        #region 4.支付管理
+        /// <summary>
+        /// 模拟微信/支付宝退款接口
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<SimulatedRefundResponse> SimulatedRefund(SimulatedRefundRequest request);
         #endregion
     }
 

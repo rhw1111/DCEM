@@ -9,7 +9,8 @@ export class IndexPage implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+    ngOnInit() {
+     
   }
 
 }

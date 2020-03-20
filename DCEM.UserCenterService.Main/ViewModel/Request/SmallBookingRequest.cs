@@ -79,7 +79,17 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
         /// <summary>
         /// 权益名称
         /// </summary>
-        public string EquityName { get; set; }  
+        public string EquityName { get; set; }
+
+        /// <summary>
+        /// 权益金额
+        /// </summary>
+        public decimal? EquityAmount { get; set; }
+
+        /// <summary>
+        /// 选配金额
+        /// </summary>
+        public decimal? OptionalAmount { get; set; }
 
         /// <summary>
         /// 选配编号
@@ -162,7 +172,7 @@ namespace DCEM.UserCenterService.Main.ViewModel.Request
         public string OptionalRefundCode { get; set; }
 
         /// <summary>
-        /// 退订选配名称(订单状态为2-申请退订、3-已关闭时必传)
+        /// 退订选配名称(订单状态为2-申请退订)
         /// </summary>
         public string OptionalRefundName { get; set; }
 

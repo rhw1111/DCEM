@@ -69,7 +69,8 @@ export class LoginPage implements OnInit {
                 this.mod.domainType = 'Dev';
                 break;
             case 'CRM9.0':
-                this.mod.domain = "http://106.14.121.65:8082/dcem";
+                //this.mod.domain = "http://106.15.138.75:8082/dcem";
+                this.mod.domain = "http://106.15.138.75:8082/dcem";
                 this.mod.domainType = 'CRM9.0';
                 break;
             case 'Uat':

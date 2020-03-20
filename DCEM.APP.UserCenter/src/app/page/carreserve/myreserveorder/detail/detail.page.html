@@ -112,20 +112,26 @@
             </div>
         </ion-row>
         <div data-v-0f23208c="">
-            <section class="preorder-toolbar is-flex has-shadow is-fullwidth">
+            <section class="preorder-toolbar is-flex has-shadow is-fullwidth" style="justify-content:space-between;">
                 <div class="preorder-info">
                     <div class="preorder-info-price">订金合计：<strong>{{model.smallorderinfo.mcs_totalorder}} 元</strong></div>
                     <!--<div class="preorder-info-brief is-inline-block">
-                        <span>权益详情</span>
-                        <span class="iconfont iconarrow-line-down-s is-inline-block"></span>
-                    </div>-->
+            <span>权益详情</span>
+            <span class="iconfont iconarrow-line-down-s is-inline-block"></span>
+        </div>-->
                 </div>
-                <div *ngIf="model.smallorderinfo.mcs_orderstatus == 0; then trueTemplate else falseTemplate"></div>
+                <div *ngIf="model.smallorderinfo.mcs_orderstatus == 0">
+                    <button class="preorder-toolbar-button" (click)="paynow(model.smallorderinfo.mcs_name,model.params.mcs_smallorderid,model.smallorderinfo.mcs_premiumcode,model.smallorderinfo.mcs_totalorder)">立即支付</button>
+                </div>
+                <div *ngIf="model.smallorderinfo.mcs_orderstatus == 1">
+                    <button class="preorder-toolbar-button" style="background-color:#3880ff;border:1px solid #3880ff;" (click)="cancelnow()">申请退订</button>
+                </div>
+                <!--<div *ngIf="model.smallorderinfo.mcs_orderstatus == 0; then trueTemplate else falseTemplate"></div>
                 <ng-template #trueTemplate>
-                    <button class="preorder-toolbar-button" (click)="paynow(model.smallorderinfo.mcs_name,model.params.mcs_smallorderid,model.smallorderinfo.mcs_premiumname,model.smallorderinfo.mcs_totalorder)">立即支付  <!----></button>
+                    <button class="preorder-toolbar-button" (click)="paynow(model.smallorderinfo.mcs_name,model.params.mcs_smallorderid,model.smallorderinfo.mcs_premiumname,model.smallorderinfo.mcs_totalorder)">立即支付</button>
                 </ng-template>
                 <ng-template #falseTemplate>
-                </ng-template>
+                </ng-template>-->
             </section>
             <!--<div class="preorder-conf-items">
                 <div class="preorder-modal">

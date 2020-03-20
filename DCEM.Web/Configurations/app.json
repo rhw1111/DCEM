@@ -18,10 +18,10 @@
 //    "RedirectUri": ""
 //  }
 //}
-//Dev-ADÈÏÖ¤CRM9
+//Dev-ADï¿½ï¿½Ö¤CRM9
 {
   "Connections": {
-    "MainDBRead": "Password=password01#;Persist Security Info=True;User ID=crm9admin;Initial Catalog=DCEM_mod;Data Source=106.14.121.65"
+    "MainDBRead": "Password=password01#;Persist Security Info=True;User ID=crm9admin;Initial Catalog=DCEM_mod;Data Source=106.15.138.75"
   },
   "DISetting": {
     "SearchAssemblyNames": [ "MSLibrary", "DCEM.Main", "DCEM.ServiceAssistantService.Main", "DCEM.Web" ]
@@ -32,7 +32,7 @@
     "TokenServiceType": "AD",
     "Domain": "MCS",
     "AdfsUrl": "",
-    "CrmUrl": "http://106.14.121.65/crm9",
+    "CrmUrl": "http://106.15.138.75/crm9",
     "ClientId": "",
     "ClientSecret": "",
     "UserName": "crm9admin",

@@ -182,6 +182,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "runs": true
     },
     {
+      "id": "cordova-plugin-file-opener2.FileOpener2",
+      "file": "plugins/cordova-plugin-file-opener2/www/plugins.FileOpener2.js",
+      "pluginId": "cordova-plugin-file-opener2",
+      "clobbers": [
+        "cordova.plugins.fileOpener2"
+      ]
+    },
+    {
       "id": "cordova-plugin-file-transfer.FileTransferError",
       "file": "plugins/cordova-plugin-file-transfer/www/FileTransferError.js",
       "pluginId": "cordova-plugin-file-transfer",
@@ -272,6 +280,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-add-swift-support": "2.0.2",
     "cordova-plugin-device": "2.0.2",
     "cordova-plugin-file": "6.0.2",
+    "cordova-plugin-file-opener2": "3.0.0",
     "cordova-plugin-file-transfer": "1.7.1",
     "cordova-plugin-ionic-keyboard": "2.2.0",
     "cordova-plugin-ionic-webview": "4.1.3",
