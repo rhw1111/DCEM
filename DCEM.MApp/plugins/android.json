@@ -20,6 +20,9 @@
       "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+",
       "PACKAGE_NAME": "ms.crmapp.seleassist"
     },
+    "cordova-plugin-screen-orientation": {
+      "PACKAGE_NAME": "ms.crmapp.seleassist"
+    },
     "cordova-plugin-splashscreen": {
       "PACKAGE_NAME": "ms.crmapp.seleassist"
     },
@@ -34,15 +37,17 @@
     },
     "cordova-plugin-x-toast": {
       "PACKAGE_NAME": "ms.crmapp.seleassist"
-    },
-    "cordova-plugin-screen-orientation": {
-      "PACKAGE_NAME": "ms.crmapp.seleassist"
-    },
-    "es.keensoft.fullscreenimage": {
-      "PACKAGE_NAME": "ms.crmapp.seleassist"
     }
   },
   "dependent_plugins": {
+    "cordova-android-support-gradle-release": {
+      "ANDROID_SUPPORT_VERSION": "27.+",
+      "PACKAGE_NAME": "ms.crmapp.seleassist"
+    },
+    "cordova-plugin-camera": {
+      "ANDROID_SUPPORT_V4_VERSION": "27.+",
+      "PACKAGE_NAME": "ms.crmapp.seleassist"
+    },
     "cordova-plugin-file": {
       "PACKAGE_NAME": "ms.crmapp.seleassist"
     },
