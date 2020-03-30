@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using System.Runtime.CompilerServices;
 
 namespace MSLibrary.AspNet.Middleware.Application
 {

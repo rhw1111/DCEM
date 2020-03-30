@@ -121,12 +121,27 @@ namespace MSLibrary.Cache
         {
             return _imp.GetSync<K, V>(this, creator, key);
         }
+
+        public async Task Set<K, V>( K key, V value)
+        {
+            await _imp.Set(this, key, value);
+        }
+
+        public void SetSync<K, V>(K key, V value)
+        {
+            _imp.SetSync(this,key, value);
+        }
     }
 
     public interface IKVCacheVisitorIMP
     {
         Task<V> Get<K,V>(KVCacheVisitor visito,Func<K,Task<V>> creator,K key);
         V GetSync<K, V>(KVCacheVisitor visitor,Func<K, V> creator, K key);
+
+        Task Set<K, V>(KVCacheVisitor visitor, K key, V value);
+        void SetSync<K, V>(KVCacheVisitor visitor, K key, V value);
+
+
     }
 
     [Injection(InterfaceType = typeof(IKVCacheVisitorIMP), Scope = InjectionScope.Transient)]
@@ -195,6 +210,20 @@ namespace MSLibrary.Cache
             return serviceFactory.Create();
 
         }
+
+        public async Task Set<K, V>(KVCacheVisitor visitor, K key, V value)
+        {
+            var prefix = GetPrefix(visitor.Name, typeof(K), typeof(V));
+            var realService = getRealService(visitor.CacheType);
+            await realService.Set(visitor.CacheConfiguration, prefix, key, value);
+        }
+
+        public void SetSync<K, V>(KVCacheVisitor visitor, K key, V value)
+        {
+            var prefix = GetPrefix(visitor.Name, typeof(K), typeof(V));
+            var realService = getRealService(visitor.CacheType);
+            realService.SetSync(visitor.CacheConfiguration, prefix, key, value);
+        }
     }
 
 
@@ -202,5 +231,8 @@ namespace MSLibrary.Cache
     {
         Task<V> Get<K,V>(string cacheConfiguration,Func<Task<V>> creator,string prefix, K key);
         V GetSync<K,V>(string cacheConfiguration,Func<V> creator,string prefix, K key);
+
+        Task Set<K, V>(string cacheConfiguration,string prefix, K key,V value);
+        void SetSync<K, V>(string cacheConfiguration, string prefix, K key,V value);
     }
 }

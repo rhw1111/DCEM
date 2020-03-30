@@ -291,7 +291,7 @@ namespace MSLibrary.FileManagement
 
         public async Task Delete(UploadFileHandleRecord record)
         {
-            using (DBTransactionScope scope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted }))
+            await using (DBTransactionScope scope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted }))
             {
                 await _uploadFileHandleRecordStore.Delete(record.ID);
                 if (record.UploadFile != null)
@@ -320,7 +320,7 @@ namespace MSLibrary.FileManagement
                 }
                 var service = serviceFactory.Create();
 
-                using (DBTransactionScope scope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted }))
+                await using (DBTransactionScope scope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted }))
                 {
                     try
                     {

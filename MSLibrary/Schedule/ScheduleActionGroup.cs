@@ -193,7 +193,7 @@ namespace MSLibrary.Schedule
         /// <returns></returns>
         public async Task RemoveAction(Guid actionId)
         {
-            await _imp.RemoveAction(this,actionId);
+            await _imp.RemoveAction(this, actionId);
         }
 
         /// <summary>
@@ -204,7 +204,7 @@ namespace MSLibrary.Schedule
         /// <returns></returns>
         public async Task GetAllAction(int status, Func<ScheduleAction, Task> callback)
         {
-            await _imp.GetAllAction(this,status,callback);
+            await _imp.GetAllAction(this, status, callback);
         }
 
         /// <summary>
@@ -262,7 +262,7 @@ namespace MSLibrary.Schedule
         Task AddAction(ScheduleActionGroup group, Guid actionId);
         Task RemoveAction(ScheduleActionGroup group, Guid actionId);
 
-        Task GetAllAction(ScheduleActionGroup group,int status, Func<ScheduleAction, Task> callback);
+        Task GetAllAction(ScheduleActionGroup group, int status, Func<ScheduleAction, Task> callback);
 
         Task<QueryResult<ScheduleAction>> GetAction(ScheduleActionGroup group, int page, int pageSize);
         /// <summary>
@@ -337,7 +337,7 @@ namespace MSLibrary.Schedule
             }
         }
 
-        
+
 
         public ScheduleActionGroupIMP(IScheduleActionStore scheduleActionStore, IScheduleActionRepositoryCacheProxy scheduleActionRepositoryCacheProxy, IScheduleActionGroupStore scheduleActionGroupStore, IEnvironmentClaimGeneratorRepositoryCacheProxy environmentClaimGeneratorRepository, IClaimContextGeneratorRepositoryCacheProxy claimContextGeneratorRepository)
         {
@@ -366,7 +366,7 @@ namespace MSLibrary.Schedule
 
         public async Task GetAllAction(ScheduleActionGroup group, int status, Func<ScheduleAction, Task> callback)
         {
-            await _scheduleActionStore.QueryAllAction(group.ID,status,callback);
+            await _scheduleActionStore.QueryAllAction(group.ID, status, callback);
         }
 
         public async Task<QueryResult<ScheduleAction>> GetAction(ScheduleActionGroup group, int page, int pageSize)
@@ -421,7 +421,7 @@ namespace MSLibrary.Schedule
 
         public async Task Start(ScheduleActionGroup group)
         {
-            if (_scheduleStatus==0)
+            if (_scheduleStatus == 0)
             {
                 var props = new NameValueCollection();
                 props["quartz.serializer.type"] = "binary";
@@ -437,24 +437,24 @@ namespace MSLibrary.Schedule
                 _actions = new List<ScheduleAction>();
 
                 await GetAllAction(group, 1, async (action) =>
-                  {
-                      _actions.Add(action);
-                      
-                      IJobDetail job = JobBuilder.Create<MainJob>()
-                            .WithIdentity(action.Name, group.Name)
-                            .UsingJobData("InitType", group.ExecuteActionInitType)
-                            .UsingJobData("InitConfiguration", group.ExecuteActionInitConfiguration)
-                            .UsingJobData("ActionName", action.Name)
-                            .UsingJobData("GroupName", group.Name)
-                            .Build();
+                {
+                    _actions.Add(action);
 
-                      ITrigger trigger = TriggerBuilder.Create()
-                            .WithIdentity(action.Name, group.Name)
-                            .StartNow()
-                            .WithCronSchedule(action.TriggerCondition)
-                            .Build();
-                      await _scheduler.ScheduleJob(job, trigger);
-                  });
+                    IJobDetail job = JobBuilder.Create<MainJob>()
+                          .WithIdentity(action.Name, group.Name)
+                          .UsingJobData("InitType", group.ExecuteActionInitType)
+                          .UsingJobData("InitConfiguration", group.ExecuteActionInitConfiguration)
+                          .UsingJobData("ActionName", action.Name)
+                          .UsingJobData("GroupName", group.Name)
+                          .Build();
+
+                    ITrigger trigger = TriggerBuilder.Create()
+                          .WithIdentity(action.Name, group.Name)
+                          .StartNow()
+                          .WithCronSchedule(action.TriggerCondition)
+                          .Build();
+                    await _scheduler.ScheduleJob(job, trigger);
+                });
 
                 await _scheduler.Start();
                 _scheduleStatus = 1;
@@ -535,7 +535,7 @@ namespace MSLibrary.Schedule
             private static string _informationCategory;
             private static string _errorCategory;
 
-       
+
             private static IScheduleActionRepositoryCacheProxy _scheduleActionRepository;
             private static Dictionary<string, ScheduleActionRunStatus> _actionRunStatuses = new Dictionary<string, ScheduleActionRunStatus>();
 
@@ -584,23 +584,23 @@ namespace MSLibrary.Schedule
 
             private IScheduleActionInitGeneratorService getInitGeneratorService(string type)
             {
-                if (!_scheduleActionInitGeneratorServiceFactories.TryGetValue(type,out IFactory<IScheduleActionInitGeneratorService> serviceFactory))
+                if (!_scheduleActionInitGeneratorServiceFactories.TryGetValue(type, out IFactory<IScheduleActionInitGeneratorService> serviceFactory))
                 {
                     var fragment = new TextFragment()
                     {
                         Code = TextCodes.NotFoundScheduleActionInitServiceByType,
                         DefaultFormatting = "找不到类型为{0}的调度动作初始化服务，发生位置为{1}",
-                        ReplaceParameters = new List<object>() { type,$"{typeof(ScheduleActionGroupIMP).FullName}.ScheduleActionInitGeneratorServiceFactories" }
+                        ReplaceParameters = new List<object>() { type, $"{typeof(ScheduleActionGroupIMP).FullName}.ScheduleActionInitGeneratorServiceFactories" }
                     };
 
                     throw new UtilityException((int)Errors.NotFoundScheduleActionInitServiceByType, fragment);
                 }
 
                 return serviceFactory.Create();
-                
+
             }
 
-      
+
 
             public async Task Execute(IJobExecutionContext context)
             {
@@ -669,37 +669,51 @@ namespace MSLibrary.Schedule
                          var claims = await environmentClaimGenerator.Generate();
                          claimContextGenerator.ContextInit(claims.Claims);
                          */
-
-                        var initGeneratorService = getInitGeneratorService(initType);
-
-                        var initService= await initGeneratorService.Generator(initConfiguration);
-
-                        initService.Init();
-
-                        if (_useLog)
+                        using (var diContainer = DIContainerContainer.CreateContainer())
                         {
-                            LoggerHelper.LogInformation(_informationCategory, $"ScheduleAction {actionName} in Grioup {groupName} start");
-                        }
-                        var actionResult = await runStatus.Action.Execute();
-                        runStatus.Result = actionResult;
-
-                        if (runStatus.Result.Polling)
-                        {
-                            runStatus.Status = 1;
-                        }
-                        else
-                        {
-                            await runStatus.Result.Stop();
-                            if (_useLog)
+                            var orginialDI= ContextContainer.GetValue<IDIContainer>("DI");
+                            try
                             {
-                                LoggerHelper.LogInformation(_informationCategory, $"ScheduleAction {actionName} in Grioup {groupName} stop");
+                                ContextContainer.SetValue<IDIContainer>("DI", diContainer);
+
+                                var initGeneratorService = getInitGeneratorService(initType);
+                                var initService = await initGeneratorService.Generator(initConfiguration);
+
+                                initService.Init();
+
+                                if (_useLog)
+                                {
+                                    LoggerHelper.LogInformation(_informationCategory, $"ScheduleAction {actionName} in Grioup {groupName} start");
+                                }
+                                var actionResult = await runStatus.Action.Execute();
+                                runStatus.Result = actionResult;
+
+                                if (runStatus.Result.Polling)
+                                {
+                                    runStatus.Status = 1;
+                                }
+                                else
+                                {
+                                    await runStatus.Result.Stop();
+                                    if (_useLog)
+                                    {
+                                        LoggerHelper.LogInformation(_informationCategory, $"ScheduleAction {actionName} in Grioup {groupName} stop");
+                                    }
+                                }
                             }
+                            finally
+                            {
+                                ContextContainer.SetValue<IDIContainer>("DI", orginialDI);
+                            }
+
                         }
+
+
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    LoggerHelper.LogInformation(_errorCategory, $"ScheduleAction {actionName} in Grioup {groupName} start error,detail:{ex.Message},stacktrace:{ex.StackTrace}");
+                    LoggerHelper.LogError(_errorCategory, $"ScheduleAction {actionName} in Grioup {groupName} start error,detail:{ex.Message},stacktrace:{ex.StackTrace}");
                     //throw;
                 }
             }
@@ -709,7 +723,7 @@ namespace MSLibrary.Schedule
             {
                 if (_actionRunStatuses.TryGetValue(actionName, out ScheduleActionRunStatus runStatus))
                 {
-                    if (runStatus.Status==1)
+                    if (runStatus.Status == 1)
                     {
                         try
                         {
@@ -781,6 +795,6 @@ namespace MSLibrary.Schedule
 
 
 
-   
+
 
 }

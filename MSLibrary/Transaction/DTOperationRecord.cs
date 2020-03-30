@@ -311,7 +311,7 @@ namespace MSLibrary.Transaction
         {
             try
             {
-                using (DBTransactionScope scope = new DBTransactionScope(System.Transactions.TransactionScopeOption.Required, new System.Transactions.TransactionOptions() { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 0, 10) }))
+                await using (DBTransactionScope scope = new DBTransactionScope(System.Transactions.TransactionScopeOption.Required, new System.Transactions.TransactionOptions() { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 0, 10) }))
                 {
                     await _dtOperationRecordStore.UpdateVersion(record.StoreGroupName,record.HashInfo,record.ID, Guid.NewGuid().ToString());
 

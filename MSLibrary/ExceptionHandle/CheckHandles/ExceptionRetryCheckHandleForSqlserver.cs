@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
+using MSLibrary.DI;
 
 namespace MSLibrary.ExceptionHandle.CheckHandles
 {
+    [Injection(InterfaceType = typeof(ExceptionRetryCheckHandleForSqlserver), Scope = InjectionScope.Singleton)]
     public class ExceptionRetryCheckHandleForSqlserver : IExceptionRetryCheckHandle
     {
         public async Task<bool> Check(Exception ex)

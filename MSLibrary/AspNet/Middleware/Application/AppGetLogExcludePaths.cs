@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MSLibrary.DI;
 using MSLibrary.Configuration;
+using System.Runtime.CompilerServices;
 
 namespace MSLibrary.AspNet.Middleware.Application
 {
@@ -17,6 +18,7 @@ namespace MSLibrary.AspNet.Middleware.Application
             _systemConfigurationRepositoryCacheProxy = systemConfigurationRepositoryCacheProxy;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public async Task<List<string>> Do()
         {
             var configuration= _systemConfigurationRepositoryCacheProxy.QueryByName(SystemConfigurationNamesForAspNetMA.LogExcludePaths);

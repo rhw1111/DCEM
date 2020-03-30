@@ -39,7 +39,7 @@ namespace MSLibrary.SystemToken.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -147,7 +147,7 @@ namespace MSLibrary.SystemToken.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
                         try
                         {
@@ -201,7 +201,7 @@ namespace MSLibrary.SystemToken.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -277,7 +277,7 @@ namespace MSLibrary.SystemToken.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
 
                         try
@@ -327,7 +327,7 @@ namespace MSLibrary.SystemToken.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -341,11 +341,11 @@ namespace MSLibrary.SystemToken.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
 
-                        await command.ExecuteNonQueryAsync();
-              
+                    await command.ExecuteNonQueryAsync();
+
                 }
 
             });
@@ -368,7 +368,7 @@ namespace MSLibrary.SystemToken.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -381,10 +381,10 @@ namespace MSLibrary.SystemToken.DAL
                         Value = id
                     };
                     command.Parameters.Add(parameter);
-                    command.Prepare();
+                    await command.PrepareAsync();
                     SqlDataReader reader = null;
 
-                    using (reader = await command.ExecuteReaderAsync())
+                    await using (reader = await command.ExecuteReaderAsync())
                     {
 
                         if (await reader.ReadAsync())
@@ -392,7 +392,7 @@ namespace MSLibrary.SystemToken.DAL
                             result = new SystemLoginEndpoint();
                             StoreHelper.SetSystemLoginEndpointStoreSelectFields(result, reader, string.Empty);
                         }
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
             });
@@ -415,7 +415,7 @@ namespace MSLibrary.SystemToken.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -428,10 +428,10 @@ namespace MSLibrary.SystemToken.DAL
                         Value = name
                     };
                     command.Parameters.Add(parameter);
-                    command.Prepare();
+                    await command.PrepareAsync();
                     SqlDataReader reader = null;
 
-                    using (reader = await command.ExecuteReaderAsync())
+                    await using (reader = await command.ExecuteReaderAsync())
                     {
 
                         if (await reader.ReadAsync())
@@ -439,7 +439,7 @@ namespace MSLibrary.SystemToken.DAL
                             result = new SystemLoginEndpoint();
                             StoreHelper.SetSystemLoginEndpointStoreSelectFields(result, reader, string.Empty);
                         }
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
             });
@@ -464,7 +464,7 @@ namespace MSLibrary.SystemToken.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -525,10 +525,10 @@ namespace MSLibrary.SystemToken.DAL
 
                     };
                     command.Parameters.Add(parameter);
-                    command.Prepare();
+                    await command.PrepareAsync();
                     SqlDataReader reader = null;
 
-                    using (reader = await command.ExecuteReaderAsync())
+                    await using (reader = await command.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
                         {
@@ -536,7 +536,7 @@ namespace MSLibrary.SystemToken.DAL
                             StoreHelper.SetSystemLoginEndpointStoreSelectFields(systemLoginEndpoint, reader, string.Empty);
                             result.Results.Add(systemLoginEndpoint);
                         }
-                        reader.Close();
+                        await reader.CloseAsync();
                         result.TotalCount = (int)command.Parameters["@count"].Value;
                         result.CurrentPage = (int)command.Parameters["@currentpage"].Value;
                     }

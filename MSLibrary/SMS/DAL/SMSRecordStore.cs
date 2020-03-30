@@ -35,7 +35,7 @@ namespace MSLibrary.SMS.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -141,7 +141,7 @@ namespace MSLibrary.SMS.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
                     await command.ExecuteNonQueryAsync();
                    
@@ -170,7 +170,7 @@ namespace MSLibrary.SMS.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -196,7 +196,7 @@ namespace MSLibrary.SMS.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
                     await command.ExecuteNonQueryAsync();
 

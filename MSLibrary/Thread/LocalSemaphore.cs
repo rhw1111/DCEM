@@ -54,7 +54,7 @@ namespace MSLibrary.Thread
 
         public void SyncOperator(Action action)
         {
-            Console.WriteLine(System.Threading.Thread.CurrentThread.ManagedThreadId);
+            //Console.WriteLine(System.Threading.Thread.CurrentThread.ManagedThreadId);
             bool needWait = true;
             if (_local.Value != null)
             {

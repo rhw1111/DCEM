@@ -32,7 +32,7 @@ namespace MSLibrary.SocketManagement.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -119,7 +119,7 @@ namespace MSLibrary.SocketManagement.DAL
                     commond.Parameters.Add(parameter);
 
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
                     await commond.ExecuteNonQueryAsync();
 
@@ -141,7 +141,7 @@ namespace MSLibrary.SocketManagement.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -156,7 +156,7 @@ namespace MSLibrary.SocketManagement.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
                     await commond.ExecuteNonQueryAsync();         
                 }
@@ -175,7 +175,7 @@ namespace MSLibrary.SocketManagement.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -190,11 +190,11 @@ namespace MSLibrary.SocketManagement.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
                     SqlDataReader reader = null;
 
-                    using (reader= await commond.ExecuteReaderAsync())
+                    await using (reader= await commond.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
@@ -202,7 +202,7 @@ namespace MSLibrary.SocketManagement.DAL
                             StoreHelper.SetTcpClientEndpointSelectFields(endpoint, reader, string.Empty);
                         }
 
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
             });
@@ -222,7 +222,7 @@ namespace MSLibrary.SocketManagement.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -237,12 +237,12 @@ namespace MSLibrary.SocketManagement.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
                     SqlDataReader reader = null;
                     reader = await commond.ExecuteReaderAsync();            
 
-                    using (reader = await commond.ExecuteReaderAsync())
+                    await using (reader = await commond.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
@@ -250,7 +250,7 @@ namespace MSLibrary.SocketManagement.DAL
                             StoreHelper.SetTcpClientEndpointSelectFields(endpoint, reader, string.Empty);
                         }
 
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
             });
@@ -270,7 +270,7 @@ namespace MSLibrary.SocketManagement.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -330,11 +330,11 @@ namespace MSLibrary.SocketManagement.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
                     SqlDataReader reader = null;
 
-                    using (reader= await commond.ExecuteReaderAsync())
+                    await using (reader= await commond.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
                         {
@@ -343,7 +343,7 @@ namespace MSLibrary.SocketManagement.DAL
                             result.Results.Add(endpoint);
                         }
 
-                        reader.Close();
+                        await reader.CloseAsync();
 
                         result.TotalCount = (int)commond.Parameters["@count"].Value;
                         result.CurrentPage = (int)commond.Parameters["@currentpage"].Value;
@@ -365,7 +365,7 @@ namespace MSLibrary.SocketManagement.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -430,7 +430,7 @@ namespace MSLibrary.SocketManagement.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
                     await commond.ExecuteNonQueryAsync();
                 }
             });

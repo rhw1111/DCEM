@@ -11,14 +11,14 @@ namespace MSLibrary.AspNet.Middleware
     /// </summary>
     public static class MiddlewareExtensions
     {
-        public static IApplicationBuilder UseDIWrapper(this IApplicationBuilder app,string diContainerContextName, string categoryName)
+        public static IApplicationBuilder UseDIWrapper(this IApplicationBuilder app, string diContainerContextName, string categoryName)
         {
-            return app.UseMiddleware<DIWrapper>(diContainerContextName,categoryName);
+            return app.UseMiddleware<DIWrapper>(diContainerContextName, categoryName);
         }
 
-        public static IApplicationBuilder UseExceptionWrapper(this IApplicationBuilder app, string categoryName)
+        public static IApplicationBuilder UseExceptionWrapper(this IApplicationBuilder app, string categoryName, bool isDebug)
         {
-            return app.UseMiddleware<ExceptionWrapper>(categoryName);
+            return app.UseMiddleware<ExceptionWrapper>(categoryName, isDebug);
         }
 
 

@@ -70,6 +70,28 @@ namespace MSLibrary.Cache.RealKVCacheVisitServices
             return currentCreator(key);
         }
 
+        public async Task Set<K, V>(string cacheConfiguration, string prefix, K key, V value)
+        {
+            var configuration = JsonSerializerHelper.Deserialize<KVCacheConfiguration>(cacheConfiguration);
+
+            for (var index = configuration.VistorNames.Count - 1; index >= 0; index--)
+            {
+                    var visitor = _kvCacheVisitorRepositoryCacheProxy.QueryByNameSync(configuration.VistorNames[index]);
+                    await visitor.Set(key,value);
+            }
+        }
+
+        public void SetSync<K, V>(string cacheConfiguration, string prefix, K key, V value)
+        {
+            var configuration = JsonSerializerHelper.Deserialize<KVCacheConfiguration>(cacheConfiguration);
+
+            for (var index = configuration.VistorNames.Count - 1; index >= 0; index--)
+            {
+                var visitor = _kvCacheVisitorRepositoryCacheProxy.QueryByNameSync(configuration.VistorNames[index]);
+                visitor.SetSync(key, value);
+            }
+        }
+
 
         /// <summary>
         /// 配置信息

@@ -103,7 +103,7 @@ namespace MSLibrary.Workflow.RealWorkfolwActivityHandle.Calculate
                 transactionOptions.Timeout = data.Timeout.Value;
             }
 
-            using (DBTransactionScope transactionScope = new DBTransactionScope(scope, transactionOptions))
+            await using (DBTransactionScope transactionScope = new DBTransactionScope(scope, transactionOptions))
             {
                 await ExecuteMatch(data.Activities, context);
                 transactionScope.Complete();

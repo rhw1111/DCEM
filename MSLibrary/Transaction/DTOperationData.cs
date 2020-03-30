@@ -250,7 +250,7 @@ namespace MSLibrary.Transaction
             }
             var service = getService(data.Type);
 
-            using (DBTransactionScope transactionScope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 30, 0) }))
+            await using (DBTransactionScope transactionScope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 30, 0) }))
             {
                
                 await service.Cancel(data.Data);

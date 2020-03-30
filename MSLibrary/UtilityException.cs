@@ -14,6 +14,9 @@ namespace MSLibrary
     {
         private Dictionary<string, object> _data = new Dictionary<string, object>();
         private TextFragment _fragment;
+
+        public int Level { get; set; } = -1;
+
         public int Code { get; set; }
         public UtilityException(int code, TextFragment fragment)
             : base(fragment.GetDefaultTextSync())

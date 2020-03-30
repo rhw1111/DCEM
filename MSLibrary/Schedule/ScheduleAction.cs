@@ -304,7 +304,8 @@ namespace MSLibrary.Schedule
                         if (action.ScheduleActionServiceFactoryTypeUseDI == true)
                         {
                             //通过DI容器创建
-                            objActionFactory = DIContainerContainer.Get(actionFactoryType);
+                            //objActionFactory = DIContainerContainer.Get(actionFactoryType);
+                            objActionFactory = DIContainerGetHelper.Get().Get(actionFactoryType);
                         }
                         else
                         {

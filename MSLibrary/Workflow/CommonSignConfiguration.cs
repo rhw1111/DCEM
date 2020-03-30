@@ -296,7 +296,7 @@ namespace MSLibrary.Workflow
             await _commonSignConfigurationStore.Lock(string.Format(ApplicationLockBaseNames.CommonSignConfiguration, configuration.EntityType, entityKey),
                 async () =>
                 {
-                    using (DBTransactionScope scope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 5, 0) }))
+                    await using (DBTransactionScope scope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 5, 0) }))
                     {
                         await rootAction.ExecuteEntry(entityKey, executeUserKey, executeUserExtensionInfo, userInfos, data);
 

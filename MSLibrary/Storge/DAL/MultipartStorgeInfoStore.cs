@@ -207,7 +207,7 @@ namespace MSLibrary.Storge.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -223,7 +223,7 @@ namespace MSLibrary.Storge.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
                     await command.ExecuteNonQueryAsync();
                 }
 
@@ -239,7 +239,7 @@ namespace MSLibrary.Storge.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -261,7 +261,7 @@ namespace MSLibrary.Storge.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
                     await command.ExecuteNonQueryAsync();
                 }
 
@@ -279,7 +279,7 @@ namespace MSLibrary.Storge.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -293,12 +293,12 @@ namespace MSLibrary.Storge.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
 
                     SqlDataReader reader = null;
 
-                    using (reader = await command.ExecuteReaderAsync())
+                    await using (reader = await command.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
@@ -306,7 +306,7 @@ namespace MSLibrary.Storge.DAL
                             StoreHelper.SetMultipartStorgeInfoSelectFields(result, reader, string.Empty);
                         }
 
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
             });
@@ -330,7 +330,7 @@ namespace MSLibrary.Storge.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -404,11 +404,11 @@ namespace MSLibrary.Storge.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
                     SqlDataReader reader = null;
 
-                    using (reader = await command.ExecuteReaderAsync())
+                    await using (reader = await command.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
                         {
@@ -417,7 +417,7 @@ namespace MSLibrary.Storge.DAL
 
                             result.Results.Add(info);
                         }
-                        reader.Close();
+                        await reader.CloseAsync();
                         result.TotalCount = (int)command.Parameters["@count"].Value;
                         result.CurrentPage = (int)command.Parameters["@currentpage"].Value;
                     }
@@ -437,7 +437,7 @@ namespace MSLibrary.Storge.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -451,11 +451,11 @@ namespace MSLibrary.Storge.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
                     SqlDataReader reader = null;
 
-                    using (reader = await command.ExecuteReaderAsync())
+                    await using (reader = await command.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
@@ -463,7 +463,7 @@ namespace MSLibrary.Storge.DAL
                             StoreHelper.SetMultipartStorgeInfoSelectFields(result, reader, string.Empty);
                         }
 
-                        reader.Close();
+                       await reader.CloseAsync();
                     }
                 }
             });
@@ -487,7 +487,7 @@ namespace MSLibrary.Storge.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -545,11 +545,11 @@ namespace MSLibrary.Storge.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
                     SqlDataReader reader = null;
 
-                    using (reader = await command.ExecuteReaderAsync())
+                    await using (reader = await command.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
                         {
@@ -558,7 +558,7 @@ namespace MSLibrary.Storge.DAL
 
                             result.Results.Add(info);
                         }
-                        reader.Close();
+                        await reader.CloseAsync();
                         result.TotalCount = (int)command.Parameters["@count"].Value;
                         result.CurrentPage = (int)command.Parameters["@currentpage"].Value;
                     }
@@ -578,7 +578,7 @@ namespace MSLibrary.Storge.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand command = new SqlCommand()
+               await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -592,11 +592,11 @@ namespace MSLibrary.Storge.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
                     SqlDataReader reader = null;
 
-                    using (reader = await command.ExecuteReaderAsync())
+                    await using (reader = await command.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
@@ -604,7 +604,7 @@ namespace MSLibrary.Storge.DAL
                             StoreHelper.SetMultipartStorgeInfoSelectFields(result, reader, string.Empty);
                         }
 
-                        reader.Close();
+                       await reader.CloseAsync();
                     }
                 }
             });
@@ -623,7 +623,7 @@ namespace MSLibrary.Storge.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -643,11 +643,11 @@ namespace MSLibrary.Storge.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
                     SqlDataReader reader = null;
 
-                    using (reader = await command.ExecuteReaderAsync())
+                    await using (reader = await command.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
@@ -655,7 +655,7 @@ namespace MSLibrary.Storge.DAL
                             StoreHelper.SetMultipartStorgeInfoSelectFields(result, reader, string.Empty);
                         }
 
-                        reader.Close();
+                       await reader.CloseAsync();
                     }
                 }
             });
@@ -735,7 +735,7 @@ namespace MSLibrary.Storge.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -755,7 +755,7 @@ namespace MSLibrary.Storge.DAL
                         command.Parameters.Add(parameterItem);
                     }
 
-                    command.Prepare();
+                    await command.PrepareAsync();
                     await command.ExecuteNonQueryAsync();
                 }
 

@@ -126,7 +126,7 @@ namespace MSLibrary.Transaction
     */
 
 
-    public class DBTransactionScope : IDisposable
+    public class DBTransactionScope : IDisposable,IAsyncDisposable
     {
 
         private static AsyncLocal<bool> _inTransaction = new AsyncLocal<bool>();
@@ -203,6 +203,10 @@ namespace MSLibrary.Transaction
             {
                 _needClose = true;
                 _connections.Value = new Dictionary<string, DBConnectionContainer>();
+                if (scopeOption == TransactionScopeOption.Suppress)
+                {
+                    _inTransaction.Value = false;
+                }
 
             }
             else if (scopeOption == TransactionScopeOption.Required && _preConnections == null)
@@ -426,7 +430,102 @@ namespace MSLibrary.Transaction
             }
         }
 
+        public async ValueTask DisposeAsync()
+        {
+            try
+            {
+                bool partSubmit = false;
+                try
+                {
+                    //提交或回滚属于该事务范围的事务
+                    if (_connections.Value != null)
+                    {
+                        foreach (var item in _connections.Value)
+                        {
+                            if (item.Value.Transactions.TryGetValue(_transactionInfo.Value.ID, out DbTransaction transaction))
+                            {
+                                if (item.Value.Error)
+                                {
+                                    await transaction.RollbackAsync();
+                                }
+                                else
+                                {
+                                    await transaction.CommitAsync();
+                                    partSubmit = true;
+                                }
 
+                            }
+
+                        }
+
+                    }
+                }
+                catch
+                {
+                    ///如果有部分被提交，则需要调用回滚函数
+                    if (partSubmit)
+                    {
+                        if (_rollbackAction != null)
+                        {
+                            _rollbackAction();
+                        }
+                    }
+
+                    throw;
+                }
+                finally
+                {
+                    //关闭连接
+                    if (_needClose)
+                    {
+                        if (_connections.Value != null)
+                        {
+                            foreach (var item in _connections.Value)
+                            {
+                                try
+                                {
+
+                                    if (item.Value.Connection.State != ConnectionState.Closed)
+                                    {
+                                        await item.Value.Connection.CloseAsync();
+                                        await item.Value.Connection.DisposeAsync();
+                                    }
+                                }
+                                catch
+                                {
+
+                                }
+
+                            }
+
+                        }
+
+                        _connections.Value = null;
+                    }
+                }
+
+                if (_needClearTransactionScope)
+                {
+                    _inTransaction.Value = false;
+                }
+
+
+                if (_connections.Value != null)
+                {
+                    foreach (var item in _connections.Value)
+                    {
+
+                        item.Value.Error = true;
+                    }
+                }
+            }
+            finally
+            {
+                _connections.Value = _preConnections;
+                _transactionInfo.Value = _preTransactionInfo;
+                _transactionScope.Value = _preTransactionScope;
+            }
+        }
 
         public class DBConnectionContainer
         {
@@ -494,6 +593,44 @@ namespace MSLibrary.Transaction
                 return result;
             }
 
+            public async Task<DbTransaction> CreateTransactionAsync(Func<DbConnection, TransactionOptions, Task<DbTransaction>> createTransactionAction)
+            {
+                DbTransaction result = null;
+                var scope = DBTransactionScope.CurrentScope;
+                List<DBTransactionScope> scopeList = new List<DBTransactionScope>();
+
+                if (scope != null)
+                {
+                    while (true)
+                    {
+                        scopeList.Insert(0, scope);
+                        if (scope.PreScope == null || scope.NeedClose)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            scope = scope.PreScope;
+                        }
+
+                    }
+                }
+
+                for (var index = 0; index <= scopeList.Count - 1; index++)
+                {
+                    if (!_transactions.ContainsKey(scopeList[index].ID) && scopeList[index].NeedCreateNewTransaction)
+                    {
+                        _transactions[scopeList[index].ID] = await createTransactionAction(Connection, scopeList[index].TransactionOptions);
+                    }
+
+                    if (_transactions.ContainsKey(scopeList[index].ID))
+                    {
+                        result = _transactions[scopeList[index].ID];
+                    }
+                }
+
+                return result;
+            }
 
 
         }

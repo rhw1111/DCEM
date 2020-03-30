@@ -15,13 +15,13 @@ namespace MSLibrary
     /// </summary>
     public static class HttpClinetHelper
     {
-        private static IHttpClientFactory _httpClientFactory;
+        private static Func<IHttpClientFactory> _httpClientFactoryGenerator;
 
-        public static IHttpClientFactory HttpClientFactory
+        public static Func<IHttpClientFactory> HttpClientFactoryGenerator
         {
             set
             {
-                _httpClientFactory = value;
+                _httpClientFactoryGenerator = value;
             }
         }
         /// <summary>
@@ -849,7 +849,7 @@ namespace MSLibrary
                 httpContent = new StringContent(json, new UTF8Encoding(), "application/json");
             }
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -907,7 +907,7 @@ namespace MSLibrary
                 httpContent = new StringContent(json, new UTF8Encoding(), "application/json");
             }
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
                 if (httpHeaders != null)
@@ -976,7 +976,7 @@ namespace MSLibrary
             }
 
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
                 if (httpHeaders != null)
@@ -1045,7 +1045,7 @@ namespace MSLibrary
             }
 
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
                 if (httpHeaders != null)
@@ -1125,7 +1125,7 @@ namespace MSLibrary
                 httpContent = new StringContent(json, new UTF8Encoding(), "application/json");
             }
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -1182,7 +1182,7 @@ namespace MSLibrary
                 httpContent = new StringContent(json, new UTF8Encoding(), "application/json");
             }
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
                 if (httpHeaders != null)
@@ -1249,7 +1249,7 @@ namespace MSLibrary
             }
 
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -1318,7 +1318,7 @@ namespace MSLibrary
             }
 
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -1384,7 +1384,7 @@ namespace MSLibrary
         /// <param name="url">服务地址</param>
         public static void Get(string url, Dictionary<string, string> httpHeaders)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -1424,7 +1424,7 @@ namespace MSLibrary
         /// <param name="httpHeaders">http头信息</param>
         public static async Task GetAsync(string url, Dictionary<string, string> httpHeaders)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
                 if (httpHeaders != null)
@@ -1462,7 +1462,7 @@ namespace MSLibrary
         /// <returns></returns>
         public static T Get<T>(string url, Dictionary<string, string> httpHeaders)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -1509,7 +1509,7 @@ namespace MSLibrary
         /// <returns></returns>
         public static async Task<T> GetAsync<T>(string url, Dictionary<string, string> httpHeaders)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -1562,7 +1562,7 @@ namespace MSLibrary
         /// <param name="url">服务地址</param>
         public static void Get(string url, Dictionary<string, string> httpHeaders, IHttpErrorHandler errorHandler)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -1601,7 +1601,7 @@ namespace MSLibrary
         /// <param name="httpHeaders">http头信息</param>
         public static async Task GetAsync(string url, Dictionary<string, string> httpHeaders, IHttpErrorHandler errorHandler)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -1640,7 +1640,7 @@ namespace MSLibrary
         /// <returns></returns>
         public static T Get<T>(string url, Dictionary<string, string> httpHeaders, IHttpErrorHandler errorHandler)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -1688,7 +1688,7 @@ namespace MSLibrary
         /// <returns></returns>
         public static async Task<T> GetAsync<T>(string url, Dictionary<string, string> httpHeaders, IHttpErrorHandler errorHandler)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -1748,7 +1748,7 @@ namespace MSLibrary
                 httpContent = new StringContent(json, new UTF8Encoding(), "application/json");
             }
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -1805,7 +1805,7 @@ namespace MSLibrary
                 httpContent = new StringContent(json, new UTF8Encoding(), "application/json");
             }
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -1873,7 +1873,7 @@ namespace MSLibrary
             }
 
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -1942,7 +1942,7 @@ namespace MSLibrary
             }
 
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -2020,7 +2020,7 @@ namespace MSLibrary
                 httpContent = new StringContent(json, new UTF8Encoding(), "application/json");
             }
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -2077,7 +2077,7 @@ namespace MSLibrary
                 httpContent = new StringContent(json, new UTF8Encoding(), "application/json");
             }
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -2145,7 +2145,7 @@ namespace MSLibrary
             }
 
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
                 if (httpHeaders != null)
@@ -2215,7 +2215,7 @@ namespace MSLibrary
             }
 
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -2292,7 +2292,7 @@ namespace MSLibrary
                 httpContent = new StringContent(json, new UTF8Encoding(), "application/json");
             }
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -2355,7 +2355,7 @@ namespace MSLibrary
                 httpContent = new StringContent(json, new UTF8Encoding(), "application/json");
             }
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -2427,7 +2427,7 @@ namespace MSLibrary
             }
 
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -2501,7 +2501,7 @@ namespace MSLibrary
             }
 
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -2585,7 +2585,7 @@ namespace MSLibrary
                 httpContent = new StringContent(json, new UTF8Encoding(), "application/json");
             }
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -2648,7 +2648,7 @@ namespace MSLibrary
                 httpContent = new StringContent(json, new UTF8Encoding(), "application/json");
             }
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -2720,7 +2720,7 @@ namespace MSLibrary
             }
 
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -2794,7 +2794,7 @@ namespace MSLibrary
             }
 
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -2862,7 +2862,7 @@ namespace MSLibrary
         /// <param name="url">服务地址</param>
         public static void Delete(string url, Dictionary<string, string> httpHeaders)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -2900,7 +2900,7 @@ namespace MSLibrary
         /// <param name="httpHeaders">http头信息</param>
         public static async Task DeleteAsync(string url, Dictionary<string, string> httpHeaders)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -2940,7 +2940,7 @@ namespace MSLibrary
         /// <returns></returns>
         public static T Delete<T>(string url, Dictionary<string, string> httpHeaders)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -2987,7 +2987,7 @@ namespace MSLibrary
         /// <returns></returns>
         public static async Task<T> DeleteAsync<T>(string url, Dictionary<string, string> httpHeaders)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -3037,7 +3037,7 @@ namespace MSLibrary
         /// <param name="url">服务地址</param>
         public static void Delete(string url, Dictionary<string, string> httpHeaders, IHttpErrorHandler errorHandler)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -3075,7 +3075,7 @@ namespace MSLibrary
         /// <param name="httpHeaders">http头信息</param>
         public static async Task DeleteAsync(string url, Dictionary<string, string> httpHeaders, IHttpErrorHandler errorHandler)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -3114,7 +3114,7 @@ namespace MSLibrary
         /// <returns></returns>
         public static T Delete<T>(string url, Dictionary<string, string> httpHeaders, IHttpErrorHandler errorHandler)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -3161,7 +3161,7 @@ namespace MSLibrary
         /// <returns></returns>
         public static async Task<T> DeleteAsync<T>(string url, Dictionary<string, string> httpHeaders, IHttpErrorHandler errorHandler)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -4057,7 +4057,7 @@ namespace MSLibrary
                 httpContent = new StringContent(json, new UTF8Encoding(), "application/json");
             }
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -4117,7 +4117,7 @@ namespace MSLibrary
                 httpContent = new StringContent(json, new UTF8Encoding(), "application/json");
             }
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
                 if (httpHeaders != null)
@@ -4188,7 +4188,7 @@ namespace MSLibrary
             }
 
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
                 if (httpHeaders != null)
@@ -4257,7 +4257,7 @@ namespace MSLibrary
             }
 
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
                 if (httpHeaders != null)
@@ -4337,7 +4337,7 @@ namespace MSLibrary
                 httpContent = new StringContent(json, new UTF8Encoding(), "application/json");
             }
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -4396,7 +4396,7 @@ namespace MSLibrary
                 httpContent = new StringContent(json, new UTF8Encoding(), "application/json");
             }
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
                 if (httpHeaders != null)
@@ -4465,7 +4465,7 @@ namespace MSLibrary
             }
 
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -4534,7 +4534,7 @@ namespace MSLibrary
             }
 
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -4602,7 +4602,7 @@ namespace MSLibrary
         /// <param name="url">服务地址</param>
         public static HttpResponseMessage GetWithResponse(string url, Dictionary<string, string> httpHeaders)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -4643,7 +4643,7 @@ namespace MSLibrary
         /// <param name="httpHeaders">http头信息</param>
         public static async Task<HttpResponseMessage> GetWithResponseAsync(string url, Dictionary<string, string> httpHeaders)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
                 if (httpHeaders != null)
@@ -4682,7 +4682,7 @@ namespace MSLibrary
         /// <returns></returns>
         public static HttpResult<T> GetWithResponse<T>(string url, Dictionary<string, string> httpHeaders)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -4729,7 +4729,7 @@ namespace MSLibrary
         /// <returns></returns>
         public static async Task<HttpResult<T>> GetWithResponseAsync<T>(string url, Dictionary<string, string> httpHeaders)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -4782,7 +4782,7 @@ namespace MSLibrary
         /// <param name="url">服务地址</param>
         public static HttpResponseMessage GetWithResponse(string url, Dictionary<string, string> httpHeaders, IHttpErrorHandler errorHandler)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -4822,7 +4822,7 @@ namespace MSLibrary
         /// <param name="httpHeaders">http头信息</param>
         public static async Task<HttpResponseMessage> GetWithResponseAsync(string url, Dictionary<string, string> httpHeaders, IHttpErrorHandler errorHandler)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -4862,7 +4862,7 @@ namespace MSLibrary
         /// <returns></returns>
         public static HttpResult<T> GetWithResponse<T>(string url, Dictionary<string, string> httpHeaders, IHttpErrorHandler errorHandler)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -4910,7 +4910,7 @@ namespace MSLibrary
         /// <returns></returns>
         public static async Task<HttpResult<T>> GetWithResponseAsync<T>(string url, Dictionary<string, string> httpHeaders, IHttpErrorHandler errorHandler)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -4970,7 +4970,7 @@ namespace MSLibrary
                 httpContent = new StringContent(json, new UTF8Encoding(), "application/json");
             }
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -5029,7 +5029,7 @@ namespace MSLibrary
                 httpContent = new StringContent(json, new UTF8Encoding(), "application/json");
             }
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -5099,7 +5099,7 @@ namespace MSLibrary
             }
 
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -5168,7 +5168,7 @@ namespace MSLibrary
             }
 
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -5246,7 +5246,7 @@ namespace MSLibrary
                 httpContent = new StringContent(json, new UTF8Encoding(), "application/json");
             }
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -5305,7 +5305,7 @@ namespace MSLibrary
                 httpContent = new StringContent(json, new UTF8Encoding(), "application/json");
             }
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -5375,7 +5375,7 @@ namespace MSLibrary
             }
 
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
                 if (httpHeaders != null)
@@ -5445,7 +5445,7 @@ namespace MSLibrary
             }
 
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -5522,7 +5522,7 @@ namespace MSLibrary
                 httpContent = new StringContent(json, new UTF8Encoding(), "application/json");
             }
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -5587,7 +5587,7 @@ namespace MSLibrary
                 httpContent = new StringContent(json, new UTF8Encoding(), "application/json");
             }
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -5661,7 +5661,7 @@ namespace MSLibrary
             }
 
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -5735,7 +5735,7 @@ namespace MSLibrary
             }
 
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -5819,7 +5819,7 @@ namespace MSLibrary
                 httpContent = new StringContent(json, new UTF8Encoding(), "application/json");
             }
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -5884,7 +5884,7 @@ namespace MSLibrary
                 httpContent = new StringContent(json, new UTF8Encoding(), "application/json");
             }
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -5957,7 +5957,7 @@ namespace MSLibrary
             }
 
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -6031,7 +6031,7 @@ namespace MSLibrary
             }
 
 
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -6099,7 +6099,7 @@ namespace MSLibrary
         /// <param name="url">服务地址</param>
         public static HttpResponseMessage DeleteWithResponse(string url, Dictionary<string, string> httpHeaders)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -6138,7 +6138,7 @@ namespace MSLibrary
         /// <param name="httpHeaders">http头信息</param>
         public static async Task<HttpResponseMessage> DeleteWithResponseAsync(string url, Dictionary<string, string> httpHeaders)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -6179,7 +6179,7 @@ namespace MSLibrary
         /// <returns></returns>
         public static HttpResult<T> DeleteWithResponse<T>(string url, Dictionary<string, string> httpHeaders)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -6226,7 +6226,7 @@ namespace MSLibrary
         /// <returns></returns>
         public static async Task<HttpResult<T>> DeleteWithResponseAsync<T>(string url, Dictionary<string, string> httpHeaders)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -6276,7 +6276,7 @@ namespace MSLibrary
         /// <param name="url">服务地址</param>
         public static HttpResponseMessage DeleteWithResponse(string url, Dictionary<string, string> httpHeaders, IHttpErrorHandler errorHandler)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -6316,7 +6316,7 @@ namespace MSLibrary
         /// <param name="httpHeaders">http头信息</param>
         public static async Task<HttpResponseMessage> DeleteWithResponseAsync(string url, Dictionary<string, string> httpHeaders, IHttpErrorHandler errorHandler)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -6356,7 +6356,7 @@ namespace MSLibrary
         /// <returns></returns>
         public static HttpResult<T> DeleteWithResponse<T>(string url, Dictionary<string, string> httpHeaders, IHttpErrorHandler errorHandler)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -6403,7 +6403,7 @@ namespace MSLibrary
         /// <returns></returns>
         public static async Task<HttpResult<T>> DeleteWithResponseAsync<T>(string url, Dictionary<string, string> httpHeaders, IHttpErrorHandler errorHandler)
         {
-            using (HttpClient client = _httpClientFactory.CreateClient())
+            using (HttpClient client = _httpClientFactoryGenerator().CreateClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 

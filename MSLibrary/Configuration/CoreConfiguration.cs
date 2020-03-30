@@ -22,10 +22,12 @@ namespace MSLibrary.Configuration
         [DataMember]
         public DISetting DISetting { get; set; }
         /// <summary>
-        /// 日志设置
+        /// 是否是调试
         /// </summary>
         [DataMember]
-        public LoggerSetting LoggerSetting { get; set; }
+        public bool Debug { get; set; }
+        [DataMember]
+        public ThreadPoolSetting ThreadPoolSetting { get; set; }
     }
     /// <summary>
     /// DI容器设置
@@ -41,56 +43,31 @@ namespace MSLibrary.Configuration
     }
 
     /// <summary>
-    /// 日志设置
+    /// 线程池设置
     /// </summary>
     [DataContract]
-    public class LoggerSetting
+    public class ThreadPoolSetting
     {
         /// <summary>
-        /// 应用程序要添加的日志处理名称
+        /// 最大工作线程(实际数值为该数*核数)
         /// </summary>
         [DataMember]
-        public string[] LoggerNames { get; set; }
+        public int MaxWorkThread { get; set; }
         /// <summary>
-        /// Log4net设置
+        /// 最小工作线程(实际数值为该数*核数)
         /// </summary>
         [DataMember]
-        public Log4netSetting Log4netSetting { get; set; }
+        public int MinWorkThread { get; set; }
+        /// <summary>
+        /// 最大IO线程(实际数值为该数*核数)
+        /// </summary>
+        [DataMember]
+        public int MaxIOThread { get; set; }
+        /// <summary>
+        /// 最小IO线程(实际数值为该数*核数)
+        /// </summary>
+        [DataMember]
+        public int MinIOThread { get; set; }
     }
-
-    /// <summary>
-    /// 针对Log4net的设置
-    /// </summary>
-    [DataContract]
-    public class Log4netSetting
-    {
-        /// <summary>
-        /// log4net配置文件路径
-        /// </summary>
-        [DataMember]
-        public string Log4netConfiguarationUrl { get; set; }
-        /// <summary>
-        /// log4net日志集合
-        /// </summary>
-        [DataMember]
-        public Log4netNameItem[] Log4netNames { get; set; }
-    }
-
-    /// <summary>
-    /// 针对每个Log4net日志的配置
-    /// </summary>
-    [DataContract]
-    public class Log4netNameItem
-    {
-        /// <summary>
-        /// 名称
-        /// </summary>
-        [DataMember]
-        public string Name { get; set; }
-        /// <summary>
-        /// 接受的类型名称
-        /// </summary>
-        [DataMember]
-        public string AcceptTypeName { get; set; }
-    }
+ 
 }

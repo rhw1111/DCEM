@@ -80,7 +80,7 @@ namespace MSLibrary.MessageQueue.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -210,7 +210,7 @@ namespace MSLibrary.MessageQueue.DAL
                     }
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
                     try
                     {
@@ -281,7 +281,7 @@ namespace MSLibrary.MessageQueue.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -306,7 +306,7 @@ namespace MSLibrary.MessageQueue.DAL
                     command.Parameters.Add(parameter);
 
 
-                    command.Prepare();
+                    await command.PrepareAsync();
                     SqlDataReader reader = null;
 
                     using (reader = await command.ExecuteReaderAsync())
@@ -318,7 +318,7 @@ namespace MSLibrary.MessageQueue.DAL
                             smessageHistoryListenerDetail.SMessageHistory = new SMessageHistory();
                             StoreHelper.SetSMessageHistorySelectFields(smessageHistoryListenerDetail.SMessageHistory, reader, "h");
                         }
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
 

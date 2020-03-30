@@ -38,7 +38,7 @@ namespace MSLibrary.Storge.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -63,7 +63,7 @@ namespace MSLibrary.Storge.DAL
                     commond.Prepare();
                     SqlDataReader reader = null;
 
-                    using (reader = await commond.ExecuteReaderAsync())
+                    await using (reader = await commond.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
@@ -74,7 +74,7 @@ namespace MSLibrary.Storge.DAL
 
                         }
 
-                        reader.Close();
+                       await  reader.CloseAsync();
                     }
                 }
             });

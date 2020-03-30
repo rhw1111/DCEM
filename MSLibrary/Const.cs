@@ -2505,6 +2505,60 @@ namespace MSLibrary
         /// {1}：实体名称
         /// </summary>
         public const string NotFoundAttributeNameInRetrieveCrmEntity = "NotFoundAttributeNameInRetrieveCrmEntity";
+        /// <summary>
+        /// 在指定的实体上下文类型对象中，找不到指定实体的实体表名映射键值对
+        /// 格式为“在实体上下文类型{0}的对象中，找不到实体名称为{1}的实体表名映射键值对”
+        /// {0}：实体上下文对象的类型
+        /// {1}：实体名称
+        /// </summary>
+        public const string NotFoundEntityTableMappintForDBContext = "NotFoundEntityTableMappintForDBContext";
+        /// <summary>
+        /// 找不到指定类型的Redis客户端生成服务
+        /// 格式为“找不到类型为{0}的Redis客户端生成服务,发生位置{1}”
+        /// {0}：服务类型
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFoundRedisClientGenerateServiceByType = "NotFoundRedisClientGenerateServiceByType";
+        /// <summary>
+        /// 生成Redis客户端错误
+        /// 格式为"生成Redis客户端错误,配置信息为{0}，错误内容为{1}"
+        /// {0}：配置信息
+        /// {1}：错误内容
+        /// </summary>
+        public const string GenerateRedisClientError = "GenerateRedisClientError";
+        /// <summary>
+        /// 找不到指定类型的应用程序锁服务
+        /// 格式为“找不到类型为{0}的应用程序锁服务，发生位置{1}”
+        /// {0}：服务类型
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFoundApplicationLockServiceByType = "NotFoundApplicationLockServiceByType";
+        /// <summary>
+        /// 找不到指定类型的应用程序限流服务
+        /// 格式为“找不到类型为{0}的应用程序限流服务，发生位置{1}”
+        /// {0}：服务类型
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFoundApplicationLimitServiceByType = "NotFoundApplicationLimitServiceByType";
+        /// <summary>
+        /// 请求获取Redis应用程序锁超时
+        /// 格式为“请求获取Redis应用程序锁超时，请求的锁名称为{0}，Redis客户端工厂名称为{1}”
+        /// {0}：锁名称
+        /// {1}：Redis客户端工厂名称
+        /// </summary>
+        public const string AcquireRedisApplicationLockExpire = "AcquireRedisApplicationLockExpire";
+        /// <summary>
+        /// 从Redis限流令牌桶中获取令牌超时
+        /// 格式为“从Redis限流令牌桶中获取令牌超时，请求的令牌桶名称为{0}，Redis客户端工厂名称为{1}”
+        /// {0}：令牌桶名称
+        /// {1}：Redis客户端工厂名称
+        /// </summary>
+        public const string AcquireRedisLimitTokenExpire = "AcquireRedisLimitTokenExpire";
+        /// <summary>
+        /// 找不到指定名称的Redis客户端工厂
+        /// 格式为“找不到名称为{0}的Redis客户端工厂”
+        /// </summary>
+        public const string NotFoundRedisClientFactoryByName = "NotFoundRedisClientFactoryByName";
     }
 
 
@@ -2513,6 +2567,7 @@ namespace MSLibrary
         public const string SqlServer = "SqlServer";
         public const string Oracle = "Oracle";
         public const string MySql = "MySql";
+        public const string MongoDB = "MongoDB";
     }
 
 

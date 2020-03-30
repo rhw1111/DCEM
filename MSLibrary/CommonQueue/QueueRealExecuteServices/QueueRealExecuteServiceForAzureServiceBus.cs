@@ -79,44 +79,66 @@ namespace MSLibrary.CommonQueue.QueueRealExecuteServices
                     var message = await fromService.From(azureMessage);
                     if (message != null)
                     {
-
-                        try
+                        int retry = 0;
+                        while(true)
                         {
-                            await messageHandle(message);
+                            try
+                            {
+                                await messageHandle(message);
+                            }
+                            catch (Exception ex)
+                            {
+                                if (ex is UtilityException || retry >= consumeConfiguration.MaxRetry)
+                                {
+                                    StringBuilder strError = new StringBuilder($"message:{ex.Message},stack:{ex.StackTrace}");
+                                    var innerEx = ex.InnerException;
+
+                                    while (innerEx!=null && innerEx.InnerException!=null)
+                                    {
+                                        innerEx = innerEx.InnerException;
+                                    }
+                                    if (innerEx != null)
+                                    {
+                                        strError.Append($",innermessage:{innerEx.Message},innerstack:{innerEx.StackTrace}");
+                                    }
+
+
+                                    if (strError.Length > 5000)
+                                    {
+                                        strError = strError.Remove(4999, strError.Length - 5000);
+                                    }
+
+                                    var newAzureMessage = new Message(azureMessage.Body);
+                                    newAzureMessage.UserProperties["Exception"] = strError.ToString();
+                                    newAzureMessage.UserProperties["ExceptionRetry"] = true;
+                                    newAzureMessage.ScheduledEnqueueTimeUtc = DateTime.UtcNow.AddSeconds(60);
+
+                                    isError = true;
+
+                                    var topicClient = new TopicClient(newClient.ServiceBusConnection, tempItem.Topic, null);
+
+
+                                    using (var ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                                    {
+                                        await newClient.CompleteAsync(azureMessage.SystemProperties.LockToken);
+                                        await topicClient.SendAsync(newAzureMessage).ConfigureAwait(false);
+
+                                        ts.Complete();
+                                    }
+
+                                    break;
+                                }
+                                else
+                                {
+                                    retry++;
+                                    await Task.Delay(100);
+                                }
+
+
+                            }
                         }
-                        catch (Exception ex)
-                        {
-                            StringBuilder strError = new StringBuilder($"message:{ex.Message},stack:{ex.StackTrace}");
-                            while (ex.InnerException != null)
-                            {
-                                ex = ex.InnerException;
-                            }
-                            strError.Append($",message:{ex.Message},innerstack:{ex.StackTrace}");
-
-                            if (strError.Length > 5000)
-                            {
-                                strError = strError.Remove(4999, strError.Length - 5000);
-                            }
-
-                            var newAzureMessage = new Message(azureMessage.Body);
-                            newAzureMessage.UserProperties["Exception"] = strError.ToString();
-                            newAzureMessage.UserProperties["ExceptionRetry"] = true;
-                            newAzureMessage.ScheduledEnqueueTimeUtc = DateTime.UtcNow.AddSeconds(60);
-
-                            isError = true;
-
-                            var topicClient = new TopicClient(newClient.ServiceBusConnection, tempItem.Topic, null);
 
 
-                            using (var ts = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-                            {
-                                await newClient.CompleteAsync(azureMessage.SystemProperties.LockToken);
-                                await topicClient.SendAsync(newAzureMessage).ConfigureAwait(false);
-
-                                ts.Complete();
-                            }
-
-                        }
                     }
 
                     if (!isError)
@@ -204,10 +226,23 @@ namespace MSLibrary.CommonQueue.QueueRealExecuteServices
     [DataContract]
     public class ConsumeQueueRealExecuteServiceForAzureServiceBusConfiguration
     {
+        /// <summary>
+        /// 连接字符串
+        /// </summary>
         [DataMember]
         public string ConnectionString { get; set; }
+        /// <summary>
+        /// 订阅
+        /// </summary>
         [DataMember]
         public string Subscription { get; set; }
+        /// <summary>
+        /// 当发生未知异常时的最大重试次数
+        /// </summary>
+        public int MaxRetry { get; set; } = 1;
+        /// <summary>
+        /// 配置项列表
+        /// </summary>
         [DataMember]
         public List<ConsumeQueueRealExecuteServiceForAzureServiceBusConfigurationItem> Items { get; set; }
     }
@@ -215,10 +250,14 @@ namespace MSLibrary.CommonQueue.QueueRealExecuteServices
     [DataContract]
     public class ConsumeQueueRealExecuteServiceForAzureServiceBusConfigurationItem
     {
-
+        /// <summary>
+        /// 从原始消息转换为通用消息的服务名称，对应QueueRealExecuteServiceForAzureServiceBus.ConvertFromServiceFactories的键
+        /// </summary>
         [DataMember]
         public string ConvertFromServiceName { get; set; }
-
+        /// <summary>
+        /// 队列主题
+        /// </summary>
         [DataMember]
         public string Topic { get; set; }
     }

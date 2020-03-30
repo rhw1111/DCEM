@@ -34,7 +34,7 @@ namespace MSLibrary.MessageQueue.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -174,7 +174,7 @@ namespace MSLibrary.MessageQueue.DAL
                         commond.Parameters.Add(parameter);
                     }
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
                     await commond.ExecuteNonQueryAsync();
 
@@ -196,7 +196,7 @@ namespace MSLibrary.MessageQueue.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -211,7 +211,7 @@ namespace MSLibrary.MessageQueue.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
                     await commond.ExecuteNonQueryAsync();
                 }
@@ -228,7 +228,7 @@ namespace MSLibrary.MessageQueue.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -249,7 +249,7 @@ namespace MSLibrary.MessageQueue.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
 
                     await commond.ExecuteNonQueryAsync();
@@ -272,7 +272,7 @@ namespace MSLibrary.MessageQueue.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -287,13 +287,13 @@ namespace MSLibrary.MessageQueue.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
                     SqlDataReader reader = null;
 
                     reader = await commond.ExecuteReaderAsync();
 
-                    using (reader = await commond.ExecuteReaderAsync())
+                    await using (reader = await commond.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
@@ -303,7 +303,7 @@ namespace MSLibrary.MessageQueue.DAL
                             StoreHelper.SetSMessageExecuteTypeSelectFields(listener.MessageType, reader, "mtype");
                         }
 
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
             });
@@ -330,7 +330,7 @@ namespace MSLibrary.MessageQueue.DAL
                         sqlTran = (SqlTransaction)transaction;
                     }
 
-                    using (SqlCommand commond = new SqlCommand()
+                    await using (SqlCommand commond = new SqlCommand()
                     {
                         Connection = (SqlConnection)conn,
                         CommandType = CommandType.Text,
@@ -367,11 +367,11 @@ namespace MSLibrary.MessageQueue.DAL
                             commond.Parameters.Add(parameter);
                         }
 
-                        commond.Prepare();
+                        await commond.PrepareAsync();
 
                         SqlDataReader reader = null;
 
-                        using (reader = await commond.ExecuteReaderAsync())
+                        await using (reader = await commond.ExecuteReaderAsync())
                         {
                             while (await reader.ReadAsync())
                             {
@@ -383,7 +383,7 @@ namespace MSLibrary.MessageQueue.DAL
                                 listenerList.Add(listener);
                             }
 
-                            reader.Close();
+                            await reader.CloseAsync();
                         }
 
 
@@ -416,7 +416,7 @@ namespace MSLibrary.MessageQueue.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -475,11 +475,11 @@ namespace MSLibrary.MessageQueue.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
                     SqlDataReader reader = null;
 
-                    using (reader = await commond.ExecuteReaderAsync())
+                    await using (reader = await commond.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
                         {
@@ -490,7 +490,7 @@ namespace MSLibrary.MessageQueue.DAL
                             result.Results.Add(listener);
                         }
 
-                        reader.Close();
+                        await reader.CloseAsync();
 
                         result.TotalCount = (int)commond.Parameters["@count"].Value;
                         result.CurrentPage = (int)commond.Parameters["@currentpage"].Value;
@@ -513,7 +513,7 @@ namespace MSLibrary.MessageQueue.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -535,11 +535,11 @@ namespace MSLibrary.MessageQueue.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
                     SqlDataReader reader = null;
 
-                    using (reader = await commond.ExecuteReaderAsync())
+                    await using (reader = await commond.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
@@ -549,7 +549,7 @@ namespace MSLibrary.MessageQueue.DAL
                             StoreHelper.SetSMessageExecuteTypeSelectFields(listener.MessageType, reader, "mtype");
                         }
 
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
             });
@@ -567,7 +567,7 @@ namespace MSLibrary.MessageQueue.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -669,7 +669,7 @@ namespace MSLibrary.MessageQueue.DAL
                         commond.Parameters.Add(parameter);
                     }
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
                     await commond.ExecuteNonQueryAsync();
 

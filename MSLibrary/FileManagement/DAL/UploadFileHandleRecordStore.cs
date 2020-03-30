@@ -33,7 +33,7 @@ namespace MSLibrary.FileManagement.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -165,10 +165,10 @@ namespace MSLibrary.FileManagement.DAL
                     command.Parameters.Add(parameter);
 
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
 
-                        await command.ExecuteNonQueryAsync();
+                    await command.ExecuteNonQueryAsync();
                  
 
                     //如果用户未赋值ID则创建成功后返回ID
@@ -192,7 +192,7 @@ namespace MSLibrary.FileManagement.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -209,11 +209,11 @@ namespace MSLibrary.FileManagement.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
 
-                        await command.ExecuteNonQueryAsync();
-                 
+                    await command.ExecuteNonQueryAsync();
+
                 }
             });
 
@@ -230,7 +230,7 @@ namespace MSLibrary.FileManagement.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+               await  using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -243,7 +243,7 @@ namespace MSLibrary.FileManagement.DAL
                         Value = recordId
                     };
                     command.Parameters.Add(parameter);
-                    command.Prepare();
+                    await command.PrepareAsync();
                     SqlDataReader reader = null;
 
                     using (reader = await command.ExecuteReaderAsync())
@@ -254,7 +254,7 @@ namespace MSLibrary.FileManagement.DAL
 
                             StoreHelper.SetUploadFileHandleRecordFields(record, reader, string.Empty);
                         }
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
             });
@@ -272,7 +272,7 @@ namespace MSLibrary.FileManagement.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -312,7 +312,7 @@ namespace MSLibrary.FileManagement.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                   await command.PrepareAsync();
 
 
                         await command.ExecuteNonQueryAsync();

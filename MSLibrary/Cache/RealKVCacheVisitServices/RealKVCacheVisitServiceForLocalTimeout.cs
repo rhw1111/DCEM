@@ -107,6 +107,35 @@ namespace MSLibrary.Cache.RealKVCacheVisitServices
             return (V)cacheItem.Value;
         }
 
+        public async Task Set<K, V>(string cacheConfiguration, string prefix, K key, V value)
+        {
+            SetSync(cacheConfiguration, prefix, key, value);
+            await Task.CompletedTask;
+        }
+
+        public void SetSync<K, V>(string cacheConfiguration, string prefix, K key, V value)
+        {
+            var configuration = JsonSerializerHelper.Deserialize<KVCacheConfiguration>(cacheConfiguration);
+            if (!_datas.TryGetValue(prefix, out CacheContainer cacheContainer))
+            {
+                _lock.Wait();
+                try
+                {
+                    if (!_datas.TryGetValue(prefix, out cacheContainer))
+                    {
+                        cacheContainer = new CacheContainer() { CacheDict = new HashLinkedCache<object, CacheTimeContainer<object>>() { Length = configuration.MaxLength } };
+                        _datas[prefix] = cacheContainer;
+                    }
+                }
+                finally
+                {
+                    _lock.Release();
+                }
+            }
+
+            cacheContainer.CacheDict.SetValue(key, new CacheTimeContainer<object>(value, configuration.ExpireSeconds));
+        }
+
 
         /// <summary>
         ///内部缓存容器

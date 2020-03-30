@@ -32,11 +32,11 @@ namespace MSLibrary.SocketManagement.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
-                     Transaction=sqlTran
+                    Transaction = sqlTran
                 })
                 {
 
@@ -84,7 +84,7 @@ namespace MSLibrary.SocketManagement.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    if (log.RequestContent.Length==0)
+                    if (log.RequestContent.Length == 0)
                     {
                         parameterSize = 500;
                     }
@@ -92,7 +92,7 @@ namespace MSLibrary.SocketManagement.DAL
                     {
                         parameterSize = log.RequestContent.Length;
                     }
-                    parameter = new SqlParameter("@requestcontent", SqlDbType.NVarChar,parameterSize)
+                    parameter = new SqlParameter("@requestcontent", SqlDbType.NVarChar, parameterSize)
                     {
                         Value = log.RequestContent
                     };
@@ -139,20 +139,20 @@ namespace MSLibrary.SocketManagement.DAL
                     {
                         parameterSize = log.ErrorMessage.Length;
                     }
-                    parameter = new SqlParameter("@errormessage", SqlDbType.NVarChar,parameterSize)
+                    parameter = new SqlParameter("@errormessage", SqlDbType.NVarChar, parameterSize)
                     {
                         Value = log.ErrorMessage
                     };
                     commond.Parameters.Add(parameter);
 
 
-                    commond.Prepare();
-
-  
-                            await commond.ExecuteNonQueryAsync();
+                    await commond.PrepareAsync();
 
 
-            
+                    await commond.ExecuteNonQueryAsync();
+
+
+
 
                     if (log.ID == Guid.Empty)
                     {
@@ -172,7 +172,7 @@ namespace MSLibrary.SocketManagement.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -187,7 +187,7 @@ namespace MSLibrary.SocketManagement.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
                     await commond.ExecuteNonQueryAsync();
                 }
@@ -206,7 +206,7 @@ namespace MSLibrary.SocketManagement.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -221,12 +221,12 @@ namespace MSLibrary.SocketManagement.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
 
                     SqlDataReader reader = null;
 
-                    using (reader = await commond.ExecuteReaderAsync())
+                    await using (reader = await commond.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
@@ -234,7 +234,7 @@ namespace MSLibrary.SocketManagement.DAL
                             StoreHelper.SetTcpListenerLogSelectFields(log, reader, string.Empty);
                         }
 
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
             });
@@ -254,7 +254,7 @@ namespace MSLibrary.SocketManagement.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -314,11 +314,11 @@ namespace MSLibrary.SocketManagement.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
                     SqlDataReader reader = null;
 
-                    using (reader = await commond.ExecuteReaderAsync())
+                    await using (reader = await commond.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
                         {
@@ -327,7 +327,7 @@ namespace MSLibrary.SocketManagement.DAL
                             result.Results.Add(log);
                         }
 
-                        reader.Close();
+                       await reader.CloseAsync();
 
                         result.TotalCount = (int)commond.Parameters["@count"].Value;
                         result.CurrentPage = (int)commond.Parameters["@currentpage"].Value;
@@ -351,7 +351,7 @@ namespace MSLibrary.SocketManagement.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -405,12 +405,12 @@ namespace MSLibrary.SocketManagement.DAL
                         commond.Parameters.Add(parameter);
                     }
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
                  
                     SqlDataReader reader = null;
 
-                    using (reader = await commond.ExecuteReaderAsync())
+                    await using (reader = await commond.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
                         {
@@ -419,7 +419,7 @@ namespace MSLibrary.SocketManagement.DAL
                             result.Add(log);
                         }
 
-                        reader.Close();
+                        await reader.CloseAsync();
 
                     }
                 }

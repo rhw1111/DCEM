@@ -49,9 +49,9 @@ namespace MSLibrary.Schedule.DAL
                     if (action.ID == Guid.Empty)
                     {
                         command.CommandText = @"INSERT INTO [dbo].[ScheduleAction]
-                                                    ([id],[name],[triggercondition],[mode],[scheduleactionservicefactorytype],[scheduleactionservicefactorytypeusedi],[scheduleactionserviceweburl],[websignature],[status],[createtime],[modifytime])
+                                                    ([id],[name],[triggercondition],[configuration],[mode],[scheduleactionservicefactorytype],[scheduleactionservicefactorytypeusedi],[scheduleactionserviceweburl],[websignature],[status],[createtime],[modifytime])
                                                 VALUES
-                                                    (default, @name, @triggercondition, @mode, @scheduleactionservicefactorytype, @scheduleactionservicefactorytypeusedi, @scheduleactionserviceweburl, @websignature, @status, GETUTCDATE(), GETUTCDATE());
+                                                    (default, @name, @triggercondition,@configuration, @mode, @scheduleactionservicefactorytype, @scheduleactionservicefactorytypeusedi, @scheduleactionserviceweburl, @websignature, @status, GETUTCDATE(), GETUTCDATE());
                                                 select @newid =[id] from [dbo].[ScheduleAction] where [sequence] = SCOPE_IDENTITY()";
                         parameter = new SqlParameter("@newid", SqlDbType.UniqueIdentifier)
                         {
@@ -62,25 +62,33 @@ namespace MSLibrary.Schedule.DAL
                     else
                     {
                         command.CommandText = @"INSERT INTO [dbo].[ScheduleAction]
-                                                    ([id],[name],[triggercondition],[mode],[scheduleactionservicefactorytype],[scheduleactionservicefactorytypeusedi],[scheduleactionserviceweburl],[websignature],[status],[createtime],[modifytime])
+                                                    ([id],[name],[triggercondition],[configuration],[mode],[scheduleactionservicefactorytype],[scheduleactionservicefactorytypeusedi],[scheduleactionserviceweburl],[websignature],[status],[createtime],[modifytime])
                                                 VALUES
-                                                    (@id, @name, @triggercondition, @mode, @scheduleactionservicefactorytype, @scheduleactionservicefactorytypeusedi, @scheduleactionserviceweburl, @websignature, @status, GETUTCDATE(), GETUTCDATE());";
+                                                    (@id, @name, @triggercondition,@configuration, @mode, @scheduleactionservicefactorytype, @scheduleactionservicefactorytypeusedi, @scheduleactionserviceweburl, @websignature, @status, GETUTCDATE(), GETUTCDATE());";
                         parameter = new SqlParameter("@id", SqlDbType.UniqueIdentifier)
                         {
                             Value = action.ID
                         };
                         command.Parameters.Add(parameter);
                     }
-                    parameter = new SqlParameter("@name", SqlDbType.NVarChar, 500)
+                    parameter = new SqlParameter("@name", SqlDbType.VarChar, 150)
                     {
                         Value = action.Name
                     };
                     command.Parameters.Add(parameter);
-                    parameter = new SqlParameter("@triggercondition", SqlDbType.NVarChar, 500)
+
+                    parameter = new SqlParameter("@triggercondition", SqlDbType.VarChar, 200)
                     {
                         Value = action.TriggerCondition
                     };
                     command.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter("@configuration", SqlDbType.NVarChar, action.Configuration.Length)
+                    {
+                        Value = action.Configuration
+                    };
+                    command.Parameters.Add(parameter);
+
                     parameter = new SqlParameter("@mode", SqlDbType.Int)
                     {
                         Value = action.Mode
@@ -88,7 +96,7 @@ namespace MSLibrary.Schedule.DAL
                     command.Parameters.Add(parameter);
                     if (action.ScheduleActionServiceFactoryType != null)
                     {
-                        parameter = new SqlParameter("@scheduleactionservicefactorytype", SqlDbType.NVarChar, 500)
+                        parameter = new SqlParameter("@scheduleactionservicefactorytype", SqlDbType.VarChar, 200)
                         {
                             Value = action.ScheduleActionServiceFactoryType
                         };
@@ -96,7 +104,7 @@ namespace MSLibrary.Schedule.DAL
                     }
                     else
                     {
-                        parameter = new SqlParameter("@scheduleactionservicefactorytype", SqlDbType.NVarChar, 500)
+                        parameter = new SqlParameter("@scheduleactionservicefactorytype", SqlDbType.VarChar, 200)
                         {
                             Value = DBNull.Value
                         };
@@ -120,7 +128,7 @@ namespace MSLibrary.Schedule.DAL
                     }
                     if (action.ScheduleActionServiceWebUrl != null)
                     {
-                        parameter = new SqlParameter("@scheduleactionserviceweburl", SqlDbType.NVarChar, 500)
+                        parameter = new SqlParameter("@scheduleactionserviceweburl", SqlDbType.VarChar, 200)
                         {
                             Value = action.ScheduleActionServiceWebUrl
                         };
@@ -128,7 +136,7 @@ namespace MSLibrary.Schedule.DAL
                     }
                     else
                     {
-                        parameter = new SqlParameter("@scheduleactionserviceweburl", SqlDbType.NVarChar, 500)
+                        parameter = new SqlParameter("@scheduleactionserviceweburl", SqlDbType.VarChar, 200)
                         {
                             Value = DBNull.Value
                         };
@@ -136,7 +144,7 @@ namespace MSLibrary.Schedule.DAL
                     }
                     if (action.WebSignature != null)
                     {
-                        parameter = new SqlParameter("@websignature", SqlDbType.NVarChar, 500)
+                        parameter = new SqlParameter("@websignature", SqlDbType.VarChar, 200)
                         {
                             Value = action.WebSignature
                         };
@@ -144,7 +152,7 @@ namespace MSLibrary.Schedule.DAL
                     }
                     else
                     {
-                        parameter = new SqlParameter("@websignature", SqlDbType.NVarChar, 500)
+                        parameter = new SqlParameter("@websignature", SqlDbType.VarChar, 200)
                         {
                             Value = DBNull.Value
                         };
@@ -217,6 +225,7 @@ namespace MSLibrary.Schedule.DAL
                                    SET 
                                       [name] = @name,
                                       [triggercondition] = @triggercondition,
+                                      [configuration]=@configuration,
                                       [mode] = @mode,
                                       [scheduleactionservicefactorytype] = @scheduleactionservicefactorytype,
                                       [scheduleactionservicefactorytypeusedi] = @scheduleactionservicefactorytypeusedi,
@@ -232,16 +241,26 @@ namespace MSLibrary.Schedule.DAL
                         Value = action.ID
                     };
                     command.Parameters.Add(parameter);
-                    parameter = new SqlParameter("@name", SqlDbType.NVarChar, 500)
+                    parameter = new SqlParameter("@name", SqlDbType.VarChar, 150)
                     {
                         Value = action.Name
                     };
                     command.Parameters.Add(parameter);
-                    parameter = new SqlParameter("@triggercondition", SqlDbType.NVarChar, 500)
+
+                    parameter = new SqlParameter("@triggercondition", SqlDbType.VarChar, 200)
                     {
                         Value = action.TriggerCondition
                     };
                     command.Parameters.Add(parameter);
+
+
+                    parameter = new SqlParameter("@configuration", SqlDbType.NVarChar, action.Configuration.Length)
+                    {
+                        Value = action.Configuration
+                    };
+                    command.Parameters.Add(parameter);
+
+
                     parameter = new SqlParameter("@mode", SqlDbType.Int)
                     {
                         Value = action.Mode
@@ -249,7 +268,7 @@ namespace MSLibrary.Schedule.DAL
                     command.Parameters.Add(parameter);
                     if (action.ScheduleActionServiceFactoryType != null)
                     {
-                        parameter = new SqlParameter("@scheduleactionservicefactorytype", SqlDbType.NVarChar, 500)
+                        parameter = new SqlParameter("@scheduleactionservicefactorytype", SqlDbType.VarChar, 200)
                         {
                             Value = action.ScheduleActionServiceFactoryType
                         };
@@ -257,7 +276,7 @@ namespace MSLibrary.Schedule.DAL
                     }
                     else
                     {
-                        parameter = new SqlParameter("@scheduleactionservicefactorytype", SqlDbType.NVarChar, 500)
+                        parameter = new SqlParameter("@scheduleactionservicefactorytype", SqlDbType.VarChar, 200)
                         {
                             Value = DBNull.Value
                         };
@@ -281,7 +300,7 @@ namespace MSLibrary.Schedule.DAL
                     }
                     if (action.ScheduleActionServiceWebUrl != null)
                     {
-                        parameter = new SqlParameter("@scheduleactionserviceweburl", SqlDbType.NVarChar, 500)
+                        parameter = new SqlParameter("@scheduleactionserviceweburl", SqlDbType.VarChar, 200)
                         {
                             Value = action.ScheduleActionServiceWebUrl
                         };
@@ -289,7 +308,7 @@ namespace MSLibrary.Schedule.DAL
                     }
                     else
                     {
-                        parameter = new SqlParameter("@scheduleactionserviceweburl", SqlDbType.NVarChar, 500)
+                        parameter = new SqlParameter("@scheduleactionserviceweburl", SqlDbType.VarChar, 200)
                         {
                             Value = DBNull.Value
                         };
@@ -297,7 +316,7 @@ namespace MSLibrary.Schedule.DAL
                     }
                     if (action.WebSignature != null)
                     {
-                        parameter = new SqlParameter("@websignature", SqlDbType.NVarChar, 500)
+                        parameter = new SqlParameter("@websignature", SqlDbType.VarChar, 200)
                         {
                             Value = action.WebSignature
                         };
@@ -305,7 +324,7 @@ namespace MSLibrary.Schedule.DAL
                     }
                     else
                     {
-                        parameter = new SqlParameter("@websignature", SqlDbType.NVarChar, 500)
+                        parameter = new SqlParameter("@websignature", SqlDbType.VarChar, 200)
                         {
                             Value = DBNull.Value
                         };
@@ -605,7 +624,7 @@ namespace MSLibrary.Schedule.DAL
                     Transaction = sqlTran
                 })
                 {
-                    var parameter = new SqlParameter("@name", SqlDbType.NVarChar, 500)
+                    var parameter = new SqlParameter("@name", SqlDbType.VarChar, 150)
                     {
                         Value = name
                     };
@@ -700,7 +719,7 @@ namespace MSLibrary.Schedule.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@name", SqlDbType.NVarChar, 500)
+                    parameter = new SqlParameter("@name", SqlDbType.VarChar, 200)
                     {
                         Value = $"{name.ToSqlLike()}%"
 
@@ -900,7 +919,7 @@ namespace MSLibrary.Schedule.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@name", SqlDbType.NVarChar, 500)
+                    parameter = new SqlParameter("@name", SqlDbType.VarChar, 200)
                     {
                         Value = $"{name.ToSqlLike()}%"
                     };

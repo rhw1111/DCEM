@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.IO;
+using System.Buffers;
 using Newtonsoft.Json.Linq;
 using MSLibrary.DI;
 using MSLibrary.LanguageTranslate;
@@ -766,32 +767,41 @@ namespace MSLibrary.Xrm
 
             int perSize = getResponse.PerSize;
             int currentSize = perSize;
-            byte[] buff = new byte[perSize];
-            List<string> blockIDs = new List<string>();
-            int position = 0;
-            while (currentSize == perSize)
+
+            using (var buffOwner = MemoryPool<byte>.Shared.Rent(perSize))
             {
-                currentSize = fileStream.Read(buff, 0, perSize);
-                if (currentSize != 0)
+                var buff = buffOwner.Memory;
+                List<string> blockIDs = new List<string>();
+                int position = 0;
+                while (currentSize == perSize)
                 {
-  
-                    var blockID = Guid.NewGuid().ToString();
-                    blockIDs.Add(blockID);
-
-                    CrmFileAttributeUploadChunkingRequestMessage uploadRequest = new CrmFileAttributeUploadChunkingRequestMessage()
+                    currentSize = await fileStream.ReadAsync(buff);
+                    if (currentSize != 0)
                     {
-                        UploadUrl = getResponse.UploadUrl,
-                        Data = buff.Take(currentSize).ToArray(),
-                        FileName = fileName,
-                        Start = position,
-                        End = currentSize-1,
-                        Total = fileStream.Length
-                    };
 
-                    position += currentSize;
-                    await this.Execute(uploadRequest);
+                        var blockID = Guid.NewGuid().ToString();
+                        blockIDs.Add(blockID);
+
+                        CrmFileAttributeUploadChunkingRequestMessage uploadRequest = new CrmFileAttributeUploadChunkingRequestMessage()
+                        {
+                            UploadUrl = getResponse.UploadUrl,
+                            Data = buff.Slice(0, currentSize).ToArray(),
+                            FileName = fileName,
+                            Start = position,
+                            End = currentSize - 1,
+                            Total = fileStream.Length
+                        };
+
+                        position += currentSize;
+                        await this.Execute(uploadRequest);
+                    }
                 }
             }
+
+
+
+                
+
         }
         /// <summary>
         /// 下载文件类型属性的文件
@@ -812,7 +822,7 @@ namespace MSLibrary.Xrm
 
             var response=(CrmFileAttributeDownloadChunkingResponseMessage)await this.Execute(request);
 
-            using (var stream = new CrmFileBlocksStream (entityID.EntityName,entityID.Id, response.FileName, response.Total, this,proxyUserId))
+            await using (var stream = new CrmFileBlocksStream (entityID.EntityName,entityID.Id, response.FileName, response.Total, this,proxyUserId))
             {
                 
                   await action(response.FileName, stream);

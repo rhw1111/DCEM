@@ -30,7 +30,7 @@ namespace MSLibrary.Azure.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -45,21 +45,21 @@ namespace MSLibrary.Azure.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
 
                     SqlDataReader reader = null;
 
-                    using (reader = await commond.ExecuteReaderAsync())
+                    await using (reader = await commond.ExecuteReaderAsync())
                     {
 
-                        if (reader.Read())
+                        if (await reader.ReadAsync())
                         {
                             generator = new TokenCredentialGenerator();
                             StoreHelper.SetTokenCredentialGeneratorSelectFields(generator, reader, string.Empty);
                         }
 
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
             });

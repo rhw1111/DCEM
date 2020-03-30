@@ -83,7 +83,7 @@ namespace MSLibrary.FileManagement.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -231,7 +231,7 @@ namespace MSLibrary.FileManagement.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
                         try
                         {
@@ -281,7 +281,7 @@ namespace MSLibrary.FileManagement.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -429,7 +429,7 @@ namespace MSLibrary.FileManagement.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
                         try
                         {
@@ -471,7 +471,7 @@ namespace MSLibrary.FileManagement.DAL
             var storeInfo = await GetDBAllStoreInfo(regardingType, regardingKey, _uploadFileHashGroupName);
             var deleteStoreInfo = await GetDBAllStoreInfo(regardingType, regardingKey, _uploadFileDeleteHashGroupName);
             //分别删除
-            using (DBTransactionScope scope = new DBTransactionScope(System.Transactions.TransactionScopeOption.Required, new System.Transactions.TransactionOptions() { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 0, 10) }))
+            await using (DBTransactionScope scope = new DBTransactionScope(System.Transactions.TransactionScopeOption.Required, new System.Transactions.TransactionOptions() { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 0, 10) }))
             {
                 await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, draftStoreInfo[0], async (conn, transaction) =>
                 {
@@ -481,7 +481,7 @@ namespace MSLibrary.FileManagement.DAL
                     {
                         sqlTran = (SqlTransaction)transaction;
                     }
-                    using (SqlCommand command = new SqlCommand()
+                    await using (SqlCommand command = new SqlCommand()
                     {
                         Connection = (SqlConnection)conn,
                         CommandType = CommandType.Text,
@@ -498,7 +498,7 @@ namespace MSLibrary.FileManagement.DAL
                         };
                         command.Parameters.Add(parameter);
 
-                        command.Prepare();
+                        await command.PrepareAsync();
   
                             await command.ExecuteNonQueryAsync();
                         
@@ -512,7 +512,7 @@ namespace MSLibrary.FileManagement.DAL
                     {
                         sqlTran = (SqlTransaction)transaction;
                     }
-                    using (SqlCommand command = new SqlCommand()
+                    await using (SqlCommand command = new SqlCommand()
                     {
                         Connection = (SqlConnection)conn,
                         CommandType = CommandType.Text,
@@ -529,7 +529,7 @@ namespace MSLibrary.FileManagement.DAL
                         };
                         command.Parameters.Add(parameter);
 
-                        command.Prepare();
+                        await command.PrepareAsync();
 
                         await command.ExecuteNonQueryAsync();
 
@@ -545,7 +545,7 @@ namespace MSLibrary.FileManagement.DAL
                     {
                         sqlTran = (SqlTransaction)transaction;
                     }
-                    using (SqlCommand command = new SqlCommand()
+                    await using (SqlCommand command = new SqlCommand()
                     {
                         Connection = (SqlConnection)conn,
                         CommandType = CommandType.Text,
@@ -562,10 +562,10 @@ namespace MSLibrary.FileManagement.DAL
                         };
                         command.Parameters.Add(parameter);
 
-                        command.Prepare();
+                        await command.PrepareAsync();
 
-                            await command.ExecuteNonQueryAsync();
-                     
+                        await command.ExecuteNonQueryAsync();
+
                     }
                 });
 
@@ -578,7 +578,7 @@ namespace MSLibrary.FileManagement.DAL
         private async Task Delete(Guid id, string[] storeInfo)
         {
             //分别删除
-            using (DBTransactionScope scope = new DBTransactionScope(System.Transactions.TransactionScopeOption.Required, new System.Transactions.TransactionOptions() { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 0, 10) }))
+            await using (DBTransactionScope scope = new DBTransactionScope(System.Transactions.TransactionScopeOption.Required, new System.Transactions.TransactionOptions() { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 0, 10) }))
             {
                 await DBTransactionHelper.SqlTransactionWorkAsync(DBTypes.SqlServer, false, false, storeInfo[0], async (conn, transaction) =>
                 {
@@ -588,7 +588,7 @@ namespace MSLibrary.FileManagement.DAL
                     {
                         sqlTran = (SqlTransaction)transaction;
                     }
-                    using (SqlCommand command = new SqlCommand()
+                    await using (SqlCommand command = new SqlCommand()
                     {
                         Connection = (SqlConnection)conn,
                         CommandType = CommandType.Text,
@@ -605,9 +605,9 @@ namespace MSLibrary.FileManagement.DAL
                         };
                         command.Parameters.Add(parameter);
 
-                        command.Prepare();
+                        await command.PrepareAsync();
  
-                            await command.ExecuteNonQueryAsync();
+                        await command.ExecuteNonQueryAsync();
                        
                     }
 
@@ -633,7 +633,7 @@ namespace MSLibrary.FileManagement.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -646,16 +646,16 @@ namespace MSLibrary.FileManagement.DAL
                         Value = id
                     };
                     command.Parameters.Add(parameter);
-                    command.Prepare();
+                    await command.PrepareAsync();
                     SqlDataReader reader = null;
 
-                    using (reader = await command.ExecuteReaderAsync())
+                    await using (reader = await command.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
                             StoreHelper.SetUploadFileFields(uploadFile, reader, string.Empty);
                         }
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
 
@@ -685,16 +685,16 @@ namespace MSLibrary.FileManagement.DAL
                         Value = id
                     };
                     command.Parameters.Add(parameter);
-                    command.Prepare();
+                    await command.PrepareAsync();
                     SqlDataReader reader = null;
 
-                    using (reader = await command.ExecuteReaderAsync())
+                    await using (reader = await command.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
                             StoreHelper.SetUploadFileFields(uploadFile, reader, string.Empty);
                         }
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
             });
@@ -711,7 +711,7 @@ namespace MSLibrary.FileManagement.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -724,16 +724,16 @@ namespace MSLibrary.FileManagement.DAL
                         Value = id
                     };
                     command.Parameters.Add(parameter);
-                    command.Prepare();
+                    await command.PrepareAsync();
                     SqlDataReader reader = null;
 
-                    using (reader = await command.ExecuteReaderAsync())
+                    await using (reader = await command.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
                             StoreHelper.SetUploadFileFields(uploadFile, reader, string.Empty);
                         }
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
 
@@ -902,7 +902,7 @@ namespace MSLibrary.FileManagement.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -974,10 +974,10 @@ namespace MSLibrary.FileManagement.DAL
                         Direction = ParameterDirection.Output
                     };
                     command.Parameters.Add(parameter);
-                    command.Prepare();
+                    await command.PrepareAsync();
                     SqlDataReader reader = null;
 
-                    using (reader = await command.ExecuteReaderAsync())
+                    await using (reader = await command.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
                         {
@@ -985,7 +985,7 @@ namespace MSLibrary.FileManagement.DAL
                             StoreHelper.SetUploadFileFields(template, reader, string.Empty);
                             result.Results.Add(template);
                         }
-                        reader.Close();
+                        await reader.CloseAsync();
                         result.TotalCount = (int)command.Parameters["@count"].Value;
                         result.CurrentPage = (int)command.Parameters["@currentpage"].Value;
                     }
@@ -1028,7 +1028,7 @@ namespace MSLibrary.FileManagement.DAL
                     {
                         sqlTran = (SqlTransaction)transaction;
                     }
-                    using (SqlCommand command = new SqlCommand()
+                    await using (SqlCommand command = new SqlCommand()
                     {
                         Connection = (SqlConnection)conn,
                         CommandType = CommandType.Text,
@@ -1042,10 +1042,10 @@ namespace MSLibrary.FileManagement.DAL
                         };
                         command.Parameters.Add(parameter);
 
-                        command.Prepare();
+                        await command.PrepareAsync();
                         SqlDataReader reader = null;
 
-                        using (reader = await command.ExecuteReaderAsync())
+                        await using (reader = await command.ExecuteReaderAsync())
                         {
                             while (await reader.ReadAsync())
                             {
@@ -1053,7 +1053,7 @@ namespace MSLibrary.FileManagement.DAL
                                 StoreHelper.SetUploadFileFields(template, reader, string.Empty);
                                 partResult.Add(template);
                             }
-                            reader.Close();
+                            await reader.CloseAsync();
                         }
                     }
 
@@ -1106,7 +1106,7 @@ namespace MSLibrary.FileManagement.DAL
                     {
                         sqlTran = (SqlTransaction)transaction;
                     }
-                    using (SqlCommand command = new SqlCommand()
+                    await using (SqlCommand command = new SqlCommand()
                     {
                         Connection = (SqlConnection)conn,
                         CommandType = CommandType.Text,
@@ -1126,10 +1126,10 @@ namespace MSLibrary.FileManagement.DAL
                         };
                         command.Parameters.Add(parameter);
 
-                        command.Prepare();
+                        await command.PrepareAsync();
                         SqlDataReader reader = null;
 
-                        using (reader = await command.ExecuteReaderAsync())
+                        await using (reader = await command.ExecuteReaderAsync())
                         {
                             while (await reader.ReadAsync())
                             {
@@ -1137,7 +1137,7 @@ namespace MSLibrary.FileManagement.DAL
                                 StoreHelper.SetUploadFileFields(template, reader, string.Empty);
                                 partResult.Add(template);
                             }
-                            reader.Close();
+                            await reader.CloseAsync();
                         }
                     }
 
@@ -1183,7 +1183,7 @@ namespace MSLibrary.FileManagement.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -1271,7 +1271,7 @@ namespace MSLibrary.FileManagement.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
                         try
                         {
@@ -1526,7 +1526,7 @@ namespace MSLibrary.FileManagement.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -1552,17 +1552,17 @@ namespace MSLibrary.FileManagement.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
                     SqlDataReader reader = null;
-     
-     
-                    using (reader = await command.ExecuteReaderAsync())
+
+
+                    await using (reader = await command.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
                             StoreHelper.SetUploadFileFields(uploadFile, reader, string.Empty);
                         }
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
 
@@ -1603,7 +1603,7 @@ namespace MSLibrary.FileManagement.DAL
                     {
                         sqlTran = (SqlTransaction)transaction;
                     }
-                    using (SqlCommand command = new SqlCommand()
+                    await using (SqlCommand command = new SqlCommand()
                     {
                         Connection = (SqlConnection)conn,
                         CommandType = CommandType.Text,
@@ -1646,7 +1646,7 @@ namespace MSLibrary.FileManagement.DAL
                             Value = offset
                         };
                         command.Parameters.Add(parameter);
-                        command.Prepare();
+                        await command.PrepareAsync();
                         SqlDataReader reader = null;
 
                         using (reader = await command.ExecuteReaderAsync())
@@ -1657,7 +1657,7 @@ namespace MSLibrary.FileManagement.DAL
                                 StoreHelper.SetUploadFileFields(template, reader, string.Empty);
                                 result.Add(template);
                             }
-                            reader.Close();
+                            await reader.CloseAsync();
 
                         }
                     }

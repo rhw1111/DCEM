@@ -39,7 +39,7 @@ namespace MSLibrary.Workflow.DAL
                         sqlTran = (SqlTransaction)transaction;
                     }
 
-                    using (var command = new SqlCommand()
+                    await using (var command = new SqlCommand()
                     {
                         Connection = (SqlConnection)conn,
                         CommandType = CommandType.Text,
@@ -103,11 +103,11 @@ namespace MSLibrary.Workflow.DAL
                             command.Parameters.Add(parameter);
                         }
 
-                        command.Prepare();
+                        await command.PrepareAsync();
 
                         SqlDataReader reader = null;
 
-                        using (reader = await command.ExecuteReaderAsync())
+                        await using (reader = await command.ExecuteReaderAsync())
                         {
                             while (await reader.ReadAsync())
                             {
@@ -128,7 +128,7 @@ namespace MSLibrary.Workflow.DAL
                                 sequence = (long)reader["rootactionsequence"];
                                 resultList.Add(data);
                             }
-                            reader.Close();
+                            await reader.CloseAsync();
                         }
                     }
 
@@ -156,7 +156,7 @@ namespace MSLibrary.Workflow.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (var command = new SqlCommand()
+                await using (var command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -188,11 +188,11 @@ namespace MSLibrary.Workflow.DAL
                         Value = actionName
                     };
                     command.Parameters.Add(parameter);
-                    command.Prepare();
+                    await command.PrepareAsync();
 
                     SqlDataReader reader = null;
 
-                    using (reader = await command.ExecuteReaderAsync())
+                    await using (reader = await command.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
@@ -212,7 +212,7 @@ namespace MSLibrary.Workflow.DAL
                             }
                         }
 
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
             });

@@ -89,6 +89,7 @@ namespace MSLibrary.Xrm.IOExtensions
             int resultSize = 0;
             if (_currentBytes.Count() >= count)
             {
+               
                 currentBytes.AddRange(_currentBytes.Take(count).ToList());
                 _currentBytes.RemoveRange(0, count);
                 resultSize = count;

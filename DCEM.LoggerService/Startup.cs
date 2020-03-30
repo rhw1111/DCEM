@@ -61,7 +61,7 @@ namespace DCEM.LoggerService
 
             app.UseDIWrapper(ContextExtensionTypes.DI,LoggerCategoryNames.DIWrapper);
 
-            app.UseExceptionWrapper(LoggerCategoryNames.HttpRequest);
+            app.UseExceptionWrapper(LoggerCategoryNames.HttpRequest,true);
 
             app.UseSystemAuthentication(string.Empty, HttpClaimGeneratorServiceTypes.Inner,"");
 

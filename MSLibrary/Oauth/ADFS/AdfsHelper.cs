@@ -16,13 +16,13 @@ namespace MSLibrary.Oauth.ADFS
 {
     public static class AdfsHelper
     {
-        private static IHttpClientFactory _httpClientFactory;
+        private static Func<IHttpClientFactory> _httpClientFactoryGenerator;
 
-        public static IHttpClientFactory HttpClientFactory
+        public static Func<IHttpClientFactory> HttpClientFactoryGenerator
         {
             set
             {
-                _httpClientFactory = value;
+                _httpClientFactoryGenerator = value;
             }
         }
         public static async Task<AdfsAuth> GetAdfsAuth(string adfsUri, string resource, string clientId, string redirectUri, string userName, string password)
@@ -32,7 +32,7 @@ namespace MSLibrary.Oauth.ADFS
             var list = BuildCodeParams(userName, password);
 
 
-            using (var httpClient = _httpClientFactory.CreateClient())
+            using (var httpClient = _httpClientFactoryGenerator().CreateClient())
             {
 
                 //第1次请求
@@ -114,7 +114,7 @@ namespace MSLibrary.Oauth.ADFS
         public static async Task<AdfsAuth> RefreshToken(string adfsUri, string refresh_token)
         {
             var tokenUrl = BuildTokenUrl(adfsUri);
-            using (var httpClient = _httpClientFactory.CreateClient())
+            using (var httpClient = _httpClientFactoryGenerator().CreateClient())
             {
                 //请求Token
                 var tokenParams = BuildRefreshTokenParams(refresh_token);
@@ -132,7 +132,7 @@ namespace MSLibrary.Oauth.ADFS
                             ReplaceParameters = new List<object>() { tokenUrl, postData, strContent }
                         };
 
-                        throw new UtilityException((int)Errors.AdfsOauthResponseError,fragment);
+                        throw new UtilityException((int)Errors.AdfsOauthResponseError, fragment);
                     }
 
                     var json = await response.Content.ReadAsStringAsync();
@@ -147,7 +147,7 @@ namespace MSLibrary.Oauth.ADFS
         public static async Task<AdfsAuth> RefreshToken(string adfsUri, string clientid, string clientSecret, string refresh_token)
         {
             var tokenUrl = BuildTokenUrl(adfsUri);
-            using (var httpClient = _httpClientFactory.CreateClient())
+            using (var httpClient = _httpClientFactoryGenerator().CreateClient())
             {
                 //请求Token
                 var tokenParams = BuildRefreshTokenParams(refresh_token, clientid, clientSecret);
@@ -181,9 +181,9 @@ namespace MSLibrary.Oauth.ADFS
         public static async Task<AdfsAuth> GetAdfsAuthDirect(string adfsUri, string resource, string clientId, string clientSecret, string userName, string password)
         {
             var tokenUrl = BuildTokenUrl(adfsUri);
-            var list = BuildTokenPasswordParams(clientId,clientSecret,resource, userName, password);
+            var list = BuildTokenPasswordParams(clientId, clientSecret, resource, userName, password);
 
-            using (var httpClient = _httpClientFactory.CreateClient())
+            using (var httpClient = _httpClientFactoryGenerator().CreateClient())
             {
                 //第1次请求
                 using (var response = await httpClient.PostAsync(tokenUrl, new FormUrlEncodedContent(list)))
@@ -209,14 +209,14 @@ namespace MSLibrary.Oauth.ADFS
                     return auth;
                 }
             }
-            
+
         }
 
         public static async Task<IEnumerable<SecurityKey>> GetAdfsSigningKeys(string adfsUri)
         {
             IConfigurationManager<OpenIdConnectConfiguration> configurationManager = new ConfigurationManager<OpenIdConnectConfiguration>($"{adfsUri}adfs/.well-known/openid-configuration",
                  new OpenIdConnectConfigurationRetriever());
-            OpenIdConnectConfiguration openIdConfig =  await configurationManager.GetConfigurationAsync(CancellationToken.None);
+            OpenIdConnectConfiguration openIdConfig = await configurationManager.GetConfigurationAsync(CancellationToken.None);
             return openIdConfig.SigningKeys;
         }
 
@@ -230,7 +230,7 @@ namespace MSLibrary.Oauth.ADFS
             return list;
         }
 
-        private static List<KeyValuePair<string, string>> BuildRefreshTokenParams(string clientId,string clientSecret, string refresh_token)
+        private static List<KeyValuePair<string, string>> BuildRefreshTokenParams(string clientId, string clientSecret, string refresh_token)
         {
             var list = new List<KeyValuePair<string, string>>
              {
@@ -299,7 +299,7 @@ namespace MSLibrary.Oauth.ADFS
         }
 
 
-        private static List<KeyValuePair<string, string>> BuildTokenPasswordParams(string clientId,string clientSecret,string resource, string username, string password)
+        private static List<KeyValuePair<string, string>> BuildTokenPasswordParams(string clientId, string clientSecret, string resource, string username, string password)
         {
             var list = new List<KeyValuePair<string, string>>
              {

@@ -18,6 +18,24 @@ namespace MSLibrary
             return EnhancedStackTrace(new StackTrace(ex, true));
         }
 
+        public static string ToStackTraceString(this Exception ex)
+        {
+            string strError = $"message:{ex.Message},stack:{ex.StackTrace}";
+            var innerEx = ex;
+            while(innerEx.InnerException!=null)
+            {
+                innerEx = innerEx.InnerException;
+            }
+
+            if (innerEx!=null)
+            {
+                strError = $"inner message:{innerEx.Message},inner stack:{innerEx.StackTrace}";
+            }
+
+            return strError;
+        }
+
+
         private static string EnhancedStackTrace(StackTrace st)
         {
             StringBuilder sb = new StringBuilder();

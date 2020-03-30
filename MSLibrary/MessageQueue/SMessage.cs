@@ -439,7 +439,7 @@ namespace MSLibrary.MessageQueue
                 if (!message.IsDead && beforeMessage.IsDead)
                 {
                     var deadQueue = await _sQueueChooseService.ChooseDead(message.Key);
-                    using (var transactionScope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 30, 30) }))
+                    await using (var transactionScope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 30, 30) }))
                     {
                         await _smessageStore.Delete(queue, message.ID);
                         await _smessageStore.AddToDead(deadQueue, message);
@@ -556,7 +556,7 @@ namespace MSLibrary.MessageQueue
                             message.ExceptionMessage = result.Description;
                             var deadQueue = await _sQueueChooseService.ChooseDead(message.Key);
 
-                            using (var transactionScope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 30, 30) }))
+                            await using (var transactionScope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 30, 30) }))
                             {
                                 await _smessageStore.Delete(queue, message.ID);
                                 await _smessageStore.AddToDead(deadQueue, message);
@@ -570,7 +570,7 @@ namespace MSLibrary.MessageQueue
                         }
                         else
                         {
-                            using (var transactionScope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 30, 30) }))
+                            await using (var transactionScope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 30, 30) }))
                             {
 
                                 /*if (strError.Length > 3000)
@@ -731,7 +731,7 @@ namespace MSLibrary.MessageQueue
                         message.ExceptionMessage = result.Description;
                         var deadQueue = await _sQueueChooseService.ChooseDead(message.Key);
 
-                        using (var transactionScope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 30, 30) }))
+                        await using (var transactionScope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 30, 30) }))
                         {
                             await _smessageStore.Delete(queue, message.ID);
                             await _smessageStore.AddToDead(deadQueue, message);
@@ -745,7 +745,7 @@ namespace MSLibrary.MessageQueue
                     }
                     else
                     {
-                        using (var transactionScope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 30, 30) }))
+                        await using (var transactionScope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 30, 30) }))
                         {
 
                             /*if (strError.Length > 3000)

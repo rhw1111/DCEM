@@ -9,6 +9,7 @@ using System.Data;
 using Microsoft.Data.SqlClient;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 
 namespace MSLibrary.Workflow.DAL
 {
@@ -88,7 +89,7 @@ namespace MSLibrary.Workflow.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -137,7 +138,7 @@ namespace MSLibrary.Workflow.DAL
                         Value = action.Result
                     };
                     command.Parameters.Add(parameter);
-                    command.Prepare();
+                    await command.PrepareAsync();
 
 
                         try
@@ -211,7 +212,7 @@ namespace MSLibrary.Workflow.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -232,7 +233,7 @@ namespace MSLibrary.Workflow.DAL
                         Value = stepId
                     };
                     command.Parameters.Add(parameter);
-                    command.Prepare();
+                    await command.PrepareAsync();
 
 
                         await command.ExecuteNonQueryAsync();
@@ -273,7 +274,7 @@ namespace MSLibrary.Workflow.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -287,7 +288,7 @@ namespace MSLibrary.Workflow.DAL
                         Value = stepId
                     };
                     command.Parameters.Add(parameter);
-                    command.Prepare();
+                    await command.PrepareAsync();
 
 
                         await command.ExecuteNonQueryAsync();
@@ -330,7 +331,7 @@ namespace MSLibrary.Workflow.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -343,10 +344,10 @@ namespace MSLibrary.Workflow.DAL
                         Value = stepId
                     };
                     command.Parameters.Add(parameter);
-                    command.Prepare();
+                    await command.PrepareAsync();
                     SqlDataReader reader = null;
 
-                    using (reader = await command.ExecuteReaderAsync())
+                    await using (reader = await command.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
                         {
@@ -354,7 +355,7 @@ namespace MSLibrary.Workflow.DAL
                             StoreHelper.SetWorkflowStepUserActionStoreSelectFields(workflowStepUserAction, reader, string.Empty);
                             listAction.Add(workflowStepUserAction);
                         }
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
                 foreach (var actionItem in listAction)
@@ -398,7 +399,7 @@ namespace MSLibrary.Workflow.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -411,7 +412,7 @@ namespace MSLibrary.Workflow.DAL
                         Value = stepId
                     };
                     command.Parameters.Add(parameter);
-                    command.Prepare();
+                    await command.PrepareAsync();
 
 
                         result = (int)await command.ExecuteScalarAsync();
@@ -487,7 +488,7 @@ namespace MSLibrary.Workflow.DAL
                     {
                         sqlTran = (SqlTransaction)transaction;
                     }
-                    using (SqlCommand command = new SqlCommand()
+                    await using (SqlCommand command = new SqlCommand()
                     {
                         Connection = (SqlConnection)conn,
                         CommandType = CommandType.Text,
@@ -528,10 +529,10 @@ namespace MSLibrary.Workflow.DAL
                         };
                         command.Parameters.Add(parameter);
 
-                        command.Prepare();
+                        await command.PrepareAsync();
                         SqlDataReader reader = null;
 
-                        using (reader = await command.ExecuteReaderAsync())
+                        await using (reader = await command.ExecuteReaderAsync())
                         {
                             while (await reader.ReadAsync())
                             {
@@ -539,7 +540,7 @@ namespace MSLibrary.Workflow.DAL
                                 StoreHelper.SetWorkflowStepUserActionStoreSelectFields(workflowStepUserAction, reader, "action");
                                 listAction.Add(workflowStepUserAction);
                             }
-                            reader.Close();
+                            await reader.CloseAsync();
                         }
                     }
                     foreach (var actionItem in listAction)
@@ -620,7 +621,7 @@ namespace MSLibrary.Workflow.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -639,17 +640,17 @@ namespace MSLibrary.Workflow.DAL
                         Value = userKey
                     };
                     command.Parameters.Add(parameter);
-                    command.Prepare();
+                    await command.PrepareAsync();
                     SqlDataReader reader = null;
 
-                    using (reader = await command.ExecuteReaderAsync())
+                    await using (reader = await command.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
                             result = new WorkflowStepUserAction();
                             StoreHelper.SetWorkflowStepUserActionStoreSelectFields(result, reader, string.Empty);
                         }
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
             });
@@ -712,7 +713,7 @@ namespace MSLibrary.Workflow.DAL
                     {
                         sqlTran = (SqlTransaction)transaction;
                     }
-                    using (SqlCommand command = new SqlCommand()
+                    await using (SqlCommand command = new SqlCommand()
                     {
                         Connection = (SqlConnection)conn,
                         CommandType = CommandType.Text,
@@ -747,10 +748,10 @@ namespace MSLibrary.Workflow.DAL
                         };
                         command.Parameters.Add(parameter);
 
-                        command.Prepare();
+                        await command.PrepareAsync();
                         SqlDataReader reader = null;
 
-                        using (reader = await command.ExecuteReaderAsync())
+                        await using (reader = await command.ExecuteReaderAsync())
                         {
                             while (await reader.ReadAsync())
                             {
@@ -758,7 +759,7 @@ namespace MSLibrary.Workflow.DAL
                                 StoreHelper.SetWorkflowStepUserActionStoreSelectFields(workflowStepUserAction, reader, "action");
                                 listAction.Add(workflowStepUserAction);
                             }
-                            reader.Close();
+                            await reader.CloseAsync();
                         }
                     }
                     foreach (var actionItem in listAction)
@@ -833,7 +834,7 @@ namespace MSLibrary.Workflow.DAL
                     {
                         sqlTran = (SqlTransaction)transaction;
                     }
-                    using (SqlCommand command = new SqlCommand()
+                    await using (SqlCommand command = new SqlCommand()
                     {
                         Connection = (SqlConnection)conn,
                         CommandType = CommandType.Text,
@@ -862,10 +863,10 @@ namespace MSLibrary.Workflow.DAL
                         };
                         command.Parameters.Add(parameter);
 
-                        command.Prepare();
+                        await command.PrepareAsync();
                         SqlDataReader reader = null;
 
-                        using (reader = await command.ExecuteReaderAsync())
+                        await using (reader = await command.ExecuteReaderAsync())
                         {
                             while (await reader.ReadAsync())
                             {
@@ -873,7 +874,7 @@ namespace MSLibrary.Workflow.DAL
                                 StoreHelper.SetWorkflowStepUserActionStoreSelectFields(workflowStepUserAction, reader, "action");
                                 listAction.Add(workflowStepUserAction);
                             }
-                            reader.Close();
+                            await reader.CloseAsync();
                         }
                     }
                     foreach (var actionItem in listAction)

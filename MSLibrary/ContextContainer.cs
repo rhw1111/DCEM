@@ -41,6 +41,18 @@ namespace MSLibrary
         {
             _conteiner.SetValue(name, value);
         }
+
+        /// <summary>
+        /// 检查是否已经注册过指定名称的上下文
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static bool IsRegister(string name)
+        {
+            return _conteiner.IsRegister(name);
+        }
+
+
         /// <summary>
         /// 获取指定名称的上下文值
         /// </summary>

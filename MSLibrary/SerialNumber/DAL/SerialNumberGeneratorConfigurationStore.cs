@@ -37,7 +37,7 @@ namespace MSLibrary.SerialNumber.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -126,7 +126,7 @@ namespace MSLibrary.SerialNumber.DAL
                     };
                     commond.Parameters.Add(parameter);
                      
-                    commond.Prepare();
+                    await commond.PrepareAsync();
                      
                     await commond.ExecuteNonQueryAsync();
                      
@@ -150,7 +150,7 @@ namespace MSLibrary.SerialNumber.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -168,7 +168,7 @@ namespace MSLibrary.SerialNumber.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
 
                     await commond.ExecuteNonQueryAsync();
@@ -195,7 +195,7 @@ namespace MSLibrary.SerialNumber.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -211,11 +211,11 @@ namespace MSLibrary.SerialNumber.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
                     SqlDataReader reader = null;
 
-                    using (reader = await commond.ExecuteReaderAsync())
+                    await using (reader = await commond.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
@@ -223,7 +223,7 @@ namespace MSLibrary.SerialNumber.DAL
                             StoreHelper.SetSerialNumberGeneratorConfigurationSelectFields(configuration, reader, string.Empty);
                         }
 
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
             });
@@ -247,7 +247,7 @@ namespace MSLibrary.SerialNumber.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -263,7 +263,7 @@ namespace MSLibrary.SerialNumber.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
                     SqlDataReader reader = null;
 
@@ -272,7 +272,7 @@ namespace MSLibrary.SerialNumber.DAL
 
 
 
-                    using (reader = await commond.ExecuteReaderAsync())
+                    await using (reader = await commond.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
@@ -280,7 +280,7 @@ namespace MSLibrary.SerialNumber.DAL
                             StoreHelper.SetSerialNumberGeneratorConfigurationSelectFields(configuration, reader, string.Empty);
                         }
 
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
             });
@@ -301,7 +301,7 @@ namespace MSLibrary.SerialNumber.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -340,7 +340,7 @@ namespace MSLibrary.SerialNumber.DAL
                     commond.Parameters.Add(parameter);
 
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
 
                     await commond.ExecuteNonQueryAsync();

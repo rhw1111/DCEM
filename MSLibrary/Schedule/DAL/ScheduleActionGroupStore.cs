@@ -30,7 +30,7 @@ namespace MSLibrary.Schedule.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -60,7 +60,7 @@ namespace MSLibrary.Schedule.DAL
                         command.Parameters.Add(parameter);
                     }
 
-                    parameter = new SqlParameter("@name", SqlDbType.NVarChar, 500)
+                    parameter = new SqlParameter("@name", SqlDbType.VarChar, 150)
                     {
                         Value = group.Name
                     };
@@ -85,7 +85,7 @@ namespace MSLibrary.Schedule.DAL
                     command.Parameters.Add(parameter);
 
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
 
                         try
@@ -127,7 +127,7 @@ namespace MSLibrary.Schedule.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -142,7 +142,7 @@ namespace MSLibrary.Schedule.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
                     await command.ExecuteNonQueryAsync();
                 }
@@ -160,7 +160,7 @@ namespace MSLibrary.Schedule.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -174,12 +174,12 @@ namespace MSLibrary.Schedule.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
 
                     SqlDataReader reader = null;
 
-                    using (reader = await command.ExecuteReaderAsync())
+                    await using (reader = await command.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
@@ -187,7 +187,7 @@ namespace MSLibrary.Schedule.DAL
                             StoreHelper.SetScheduleActionGroupSelectFields(result, reader, string.Empty);
                         }
 
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
             });
@@ -206,7 +206,7 @@ namespace MSLibrary.Schedule.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -214,17 +214,17 @@ namespace MSLibrary.Schedule.DAL
                     Transaction = sqlTran
                 })
                 {
-                    var parameter = new SqlParameter("@name", SqlDbType.NVarChar, 500)
+                    var parameter = new SqlParameter("@name", SqlDbType.VarChar, 150)
                     {
                         Value = name
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
                     SqlDataReader reader = null;
 
-                    using (reader = await command.ExecuteReaderAsync())
+                    await using (reader = await command.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
@@ -232,7 +232,7 @@ namespace MSLibrary.Schedule.DAL
                             StoreHelper.SetScheduleActionGroupSelectFields(result, reader, string.Empty);
                         }
 
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
             });
@@ -251,7 +251,7 @@ namespace MSLibrary.Schedule.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -282,7 +282,7 @@ namespace MSLibrary.Schedule.DAL
                     Transaction = sqlTran
                 })
                 {
-                    var parameter = new SqlParameter("@name", SqlDbType.NVarChar, 500)
+                    var parameter = new SqlParameter("@name", SqlDbType.VarChar, 200)
                     {
                         Value = string.Format("{0}%", name.ToSqlLike())
                     };
@@ -312,11 +312,11 @@ namespace MSLibrary.Schedule.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
                     SqlDataReader reader = null;
 
-                    using (reader = await command.ExecuteReaderAsync())
+                    await using (reader = await command.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
                         {
@@ -325,7 +325,7 @@ namespace MSLibrary.Schedule.DAL
 
                             result.Results.Add(scheduleActionGroup);
                         }
-                        reader.Close();
+                        await reader.CloseAsync();
                         result.TotalCount = (int)command.Parameters["@count"].Value;
                         result.CurrentPage = (int)command.Parameters["@currentpage"].Value;
                     }
@@ -343,7 +343,7 @@ namespace MSLibrary.Schedule.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -361,7 +361,7 @@ namespace MSLibrary.Schedule.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    parameter = new SqlParameter("@name", SqlDbType.NVarChar, 500)
+                    parameter = new SqlParameter("@name", SqlDbType.VarChar, 150)
                     {
                         Value = group.Name
                     };
@@ -373,7 +373,7 @@ namespace MSLibrary.Schedule.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
                     await command.ExecuteNonQueryAsync();
 

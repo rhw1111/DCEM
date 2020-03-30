@@ -72,7 +72,7 @@ namespace MSLibrary.MessageQueue.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -202,7 +202,7 @@ namespace MSLibrary.MessageQueue.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
 
                     await command.ExecuteNonQueryAsync();
@@ -244,7 +244,7 @@ namespace MSLibrary.MessageQueue.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -260,14 +260,14 @@ namespace MSLibrary.MessageQueue.DAL
                     command.Prepare();
                     SqlDataReader reader = null;
 
-                    using (reader = await command.ExecuteReaderAsync())
+                    await using (reader = await command.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
                             smssageHistory = new SMessageHistory();
                             StoreHelper.SetSMessageHistorySelectFields(smssageHistory, reader, string.Empty);
                         }
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
 
@@ -302,7 +302,7 @@ namespace MSLibrary.MessageQueue.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -323,7 +323,7 @@ namespace MSLibrary.MessageQueue.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
                     await command.ExecuteNonQueryAsync();
 

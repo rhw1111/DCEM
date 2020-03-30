@@ -77,7 +77,7 @@ namespace DCEM.ConfigurationService
 
             //app.UseDIWrapper(ContextExtensionTypes.DI, LoggerCategoryNames.DIWrapper);
 
-            app.UseExceptionWrapper(LoggerCategoryNames.HttpRequest);
+            app.UseExceptionWrapper(LoggerCategoryNames.HttpRequest,true);
         }
 
 

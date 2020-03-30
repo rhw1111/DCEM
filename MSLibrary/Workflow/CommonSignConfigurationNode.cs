@@ -456,7 +456,7 @@ namespace MSLibrary.Workflow
             await _commonSignConfigurationNodeStore.Lock(string.Format(ApplicationLockBaseNames.CommonSignConfiguration, configuration.EntityType, entityKey),
                 async () =>
                 {
-                    using (DBTransactionScope scope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 5, 0) }))
+                    await using (DBTransactionScope scope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 5, 0) }))
                     {
                         if (!string.IsNullOrEmpty(node.DirectGoExecuteServiceName))
                         {

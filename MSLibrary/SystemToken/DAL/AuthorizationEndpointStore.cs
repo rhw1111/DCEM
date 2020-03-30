@@ -42,7 +42,7 @@ namespace MSLibrary.SystemToken.DAL
             {
                 sqlTran = (SqlTransaction)transaction;
             }
-            using (SqlCommand command = new SqlCommand()
+           await using (SqlCommand command = new SqlCommand()
             {
                 Connection = (SqlConnection)conn,
                 CommandType = CommandType.Text,
@@ -179,7 +179,7 @@ namespace MSLibrary.SystemToken.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                   await command.PrepareAsync();
 
                         try
                         {
@@ -235,7 +235,7 @@ namespace MSLibrary.SystemToken.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -268,7 +268,7 @@ namespace MSLibrary.SystemToken.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
                     await command.ExecuteNonQueryAsync();
 
@@ -292,7 +292,7 @@ namespace MSLibrary.SystemToken.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -308,7 +308,7 @@ namespace MSLibrary.SystemToken.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
                     await command.ExecuteNonQueryAsync();
                 }
@@ -332,7 +332,7 @@ namespace MSLibrary.SystemToken.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -356,7 +356,7 @@ namespace MSLibrary.SystemToken.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
                     await command.ExecuteNonQueryAsync();
 
@@ -381,7 +381,7 @@ namespace MSLibrary.SystemToken.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -397,19 +397,19 @@ namespace MSLibrary.SystemToken.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
                     SqlDataReader reader = null;
 
 
-                    using (reader = await command.ExecuteReaderAsync())
+                    await using (reader = await command.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
                             result = new AuthorizationEndpoint();
                             StoreHelper.SetAuthorizationEndpointSelectFields(result, reader, string.Empty);
                         }
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
             });
@@ -432,7 +432,7 @@ namespace MSLibrary.SystemToken.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -448,18 +448,18 @@ namespace MSLibrary.SystemToken.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
                     SqlDataReader reader = null;
 
-                    using (reader = await command.ExecuteReaderAsync())
+                    await using (reader = await command.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
                             result = new AuthorizationEndpoint();
                             StoreHelper.SetAuthorizationEndpointSelectFields(result, reader, string.Empty);
                         }
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
             });
@@ -484,7 +484,7 @@ namespace MSLibrary.SystemToken.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -541,11 +541,11 @@ namespace MSLibrary.SystemToken.DAL
 
                     };
                     command.Parameters.Add(parameter);
-                    command.Prepare();
+                    await command.PrepareAsync();
                     SqlDataReader reader = null;
 
 
-                    using (reader = await command.ExecuteReaderAsync())
+                    await using (reader = await command.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
                         {
@@ -553,7 +553,7 @@ namespace MSLibrary.SystemToken.DAL
                             StoreHelper.SetAuthorizationEndpointSelectFields(authorizationEndpoint, reader, string.Empty);
                             result.Results.Add(authorizationEndpoint);
                         }
-                        reader.Close();
+                        await reader.CloseAsync();
                         result.TotalCount = (int)command.Parameters["@count"].Value;
                         result.CurrentPage = (int)command.Parameters["@currentpage"].Value;
                     }
@@ -579,7 +579,7 @@ namespace MSLibrary.SystemToken.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -612,14 +612,14 @@ namespace MSLibrary.SystemToken.DAL
                     SqlDataReader reader = null;
 
 
-                    using (reader = await command.ExecuteReaderAsync())
+                    await using (reader = await command.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
                             result = new AuthorizationEndpoint();
                             StoreHelper.SetAuthorizationEndpointSelectFields(result, reader, "A");
                         }
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
             });
@@ -644,7 +644,7 @@ namespace MSLibrary.SystemToken.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -672,19 +672,19 @@ namespace MSLibrary.SystemToken.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
                     SqlDataReader reader = null;
 
 
-                    using (reader = await command.ExecuteReaderAsync())
+                    await using (reader = await command.ExecuteReaderAsync())
                     {
                         if (await reader.ReadAsync())
                         {
                             result = new AuthorizationEndpoint();
                             StoreHelper.SetAuthorizationEndpointSelectFields(result, reader, "A");
                         }
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
             });
@@ -711,7 +711,7 @@ namespace MSLibrary.SystemToken.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -778,10 +778,10 @@ namespace MSLibrary.SystemToken.DAL
                         Value = $"{authorizationName.ToSqlLike()}%"
                     };
                     command.Parameters.Add(parameter);
-                    command.Prepare();
+                    await command.PrepareAsync();
                     SqlDataReader reader = null;
 
-                    using (reader = await command.ExecuteReaderAsync())
+                    await using (reader = await command.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
                         {
@@ -789,7 +789,7 @@ namespace MSLibrary.SystemToken.DAL
                             StoreHelper.SetAuthorizationEndpointSelectFields(authorizationEndpoint, reader, "A");
                             result.Results.Add(authorizationEndpoint);
                         }
-                        reader.Close();
+                        await reader.CloseAsync();
                         result.TotalCount = (int)command.Parameters["@count"].Value;
                         result.CurrentPage = (int)command.Parameters["@currentpage"].Value;
                     }
@@ -813,7 +813,7 @@ namespace MSLibrary.SystemToken.DAL
                 {
                     sqlTran = (SqlTransaction)transaction;
                 }
-                using (SqlCommand command = new SqlCommand()
+                await using (SqlCommand command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -896,7 +896,7 @@ namespace MSLibrary.SystemToken.DAL
                     };
                     command.Parameters.Add(parameter);
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
                     await command.ExecuteNonQueryAsync();
 

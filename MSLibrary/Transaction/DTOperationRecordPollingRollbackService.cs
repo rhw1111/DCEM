@@ -97,10 +97,28 @@ namespace MSLibrary.Transaction
                 {
                     try
                     {
-                        if (await record.NeedCancel())
+
+                        using (var diContainer = DIContainerContainer.CreateContainer())
                         {
-                            await record.Cancel();
+                            var orginialDI = ContextContainer.GetValue<IDIContainer>("DI");
+                            try
+                            {
+                                ContextContainer.SetValue<IDIContainer>("DI", diContainer);
+
+                                if (await record.NeedCancel())
+                                {
+                                    await record.Cancel();
+                                }
+                            }
+                            finally
+                            {
+                                ContextContainer.SetValue<IDIContainer>("DI", orginialDI);
+                            }
                         }
+
+
+
+
                     }
                     catch(Exception ex)
                     {

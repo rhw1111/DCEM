@@ -138,68 +138,100 @@ namespace MSLibrary.AspNet.Middleware
             {
                 MemoryStream requestStream = null;
                 MemoryStream responseStream = null;
-                if (context.Request != null && context.Request.Body != null && context.Request.Body.CanRead)
+
+                try
                 {
-                    //context.Request.Body.can.Position = 0;
-                    requestStream = new MemoryStream();
-                    await context.Request.Body.CopyToAsync(requestStream);
-                    requestStream.Position = 0;
+                    if (context.Request != null && context.Request.Body != null && context.Request.Body.CanRead)
+                    {
+                        //context.Request.Body.can.Position = 0;
+                        requestStream = new MemoryStream();
+                        await context.Request.Body.CopyToAsync(requestStream);
+                        requestStream.Position = 0;
+                    }
+
+                    if (context.Response != null && context.Response.Body != null && context.Response.Body.CanRead)
+                    {
+                        context.Response.Body.Position = 0;
+                        responseStream = new MemoryStream();
+                        await context.Response.Body.CopyToAsync(responseStream);
+                        responseStream.Position = 0;
+                    }
+
+                    HttpContextData data = new HttpContextData(requestStream, responseStream, context.Request.GetDisplayUrl(), context.Request.Path.Value, context.Request.PathBase.Value, watch.ElapsedMilliseconds);
+
+
+
+                    //从Http上下文中获取上下文生成结果
+                    if (context.Items.TryGetValue("AuthorizeResult", out object objResult))
+                    {
+                    }
+
+                    //从Http上下文中获取国际化上下文初始化对象
+                    if (context.Items.TryGetValue("InternationalizationContextInit", out object objInit))
+                    {
+                    }
+
+                    Task.Run(async () =>
+                    {
+                        if (objResult != null)
+                        {
+                            try
+                            {
+                                ((IAppUserAuthorizeResult)objResult).Execute();
+                            }
+                            catch
+                            {
+
+                            }
+                        }
+
+                        if (objInit != null)
+                        {
+                            try
+                            {
+                                ((IInternationalizationContextInit)objInit).Execute();
+                            }
+                            catch
+                            {
+
+                            }
+                        }
+
+                        var logObj = await _appHttpContextLogConvert.Convert(data);
+
+                        LoggerHelper.LogInformation(_categoryName, logObj);
+
+                    });
+
+
+
                 }
-
-                if (context.Response != null && context.Response.Body != null && context.Response.Body.CanRead)
+                catch
                 {
-                    context.Response.Body.Position = 0;
-                    responseStream = new MemoryStream();
-                    await context.Response.Body.CopyToAsync(responseStream);
-                    responseStream.Position = 0;
-                }
-
-                HttpContextData data = new HttpContextData(requestStream, responseStream, context.Request.GetDisplayUrl(), context.Request.Path.Value, context.Request.PathBase.Value, watch.ElapsedMilliseconds);
-
-
-
-                //从Http上下文中获取上下文生成结果
-                if (context.Items.TryGetValue("AuthorizeResult", out object objResult))
-                {
-                }
-
-                //从Http上下文中获取国际化上下文初始化对象
-                if (context.Items.TryGetValue("InternationalizationContextInit", out object objInit))
-                {
-                }
-
-                Task.Run(async () =>
-                {
-                    if (objResult != null)
+                    if (requestStream!=null)
                     {
                         try
                         {
-                            ((IAppUserAuthorizeResult)objResult).Execute();
+                            await requestStream.DisposeAsync();
                         }
                         catch
                         {
 
                         }
                     }
-
-                    if (objInit != null)
+                    if (responseStream!=null)
                     {
                         try
                         {
-                            ((IInternationalizationContextInit)objInit).Execute();
+                            await responseStream.DisposeAsync();
                         }
                         catch
                         {
-
+                         
                         }
                     }
-
-                });
-
-
-                var logObj = await _appHttpContextLogConvert.Convert(data);
-
-                LoggerHelper.LogInformation(_categoryName, logObj);
+                    throw;
+                }
 
             }
 

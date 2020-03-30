@@ -1025,7 +1025,7 @@ namespace MSLibrary.Ali
                 throw new UtilityException((int)Errors.AliOSSMultipartLessMaxPerSize, fragment);
             }
 
-            using (DBTransactionScope scope = new DBTransactionScope(System.Transactions.TransactionScopeOption.Required, new System.Transactions.TransactionOptions() { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 0, 30) }))
+            await using (DBTransactionScope scope = new DBTransactionScope(System.Transactions.TransactionScopeOption.Required, new System.Transactions.TransactionOptions() { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 0, 30) }))
             {
                 await storgeInfo.Add();
                 await storgeInfo.AddDetails(size, (int)number);
@@ -1870,7 +1870,7 @@ namespace MSLibrary.Ali
                 throw new UtilityException((int)Errors.AliOSSMultipartLessMaxPerSize, fragment);
             }
 
-            using (DBTransactionScope scope = new DBTransactionScope(System.Transactions.TransactionScopeOption.Required, new System.Transactions.TransactionOptions() { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 0, 30) }))
+            await using (DBTransactionScope scope = new DBTransactionScope(System.Transactions.TransactionScopeOption.Required, new System.Transactions.TransactionOptions() { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 0, 30) }))
             {
                 await storgeInfo.Add();
                 await storgeInfo.AddDetails(storgeInfo.Size, (int)number);

@@ -1219,7 +1219,38 @@ namespace MSLibrary
         /// 分布式操作数据在Cancel时发生并发错误
         /// </summary>
         DTOperationDataConcurrenceErrorInCancel = 314727708,
-
+        /// <summary>
+        /// 在指定的实体上下文类型对象中，找不到指定实体的实体表名映射键值对
+        /// </summary>
+        NotFoundEntityTableMappintForDBContext= 314727801,
+        /// <summary>
+        /// 找不到指定名称的Redis客户端工厂
+        /// </summary>
+        NotFoundRedisClientFactoryByName= 314727900,
+        /// <summary>
+        /// 找不到指定类型的Redis客户端生成服务
+        /// </summary>
+        NotFoundRedisClientGenerateServiceByType = 314727901,
+        /// <summary>
+        /// 生成Redis客户端错误
+        /// </summary>
+        GenerateRedisClientError= 314727902,
+        /// <summary>
+        /// 找不到指定类型的应用程序锁服务
+        /// </summary>
+        NotFoundApplicationLockServiceByType= 314727931,
+        /// <summary>
+        /// 获取Redis应用程序锁超时
+        /// </summary>
+        AcquireRedisApplicationLockExpire= 314727932,
+        /// <summary>
+        /// 找不到指定类型的应用程序限流服务
+        /// </summary>
+        NotFoundApplicationLimitServiceByType = 314727933,
+        /// <summary>
+        /// 从Redis限流令牌桶中获取令牌超时
+        /// </summary>
+        AcquireRedisLimitTokenExpire = 314727934,
     }
 
     /// <summary>

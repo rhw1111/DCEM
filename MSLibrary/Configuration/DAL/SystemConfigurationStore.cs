@@ -85,7 +85,7 @@ namespace MSLibrary.Configuration.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -108,7 +108,7 @@ namespace MSLibrary.Configuration.DAL
                     commond.Parameters.Add(parameter);
 
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
                     await commond.ExecuteNonQueryAsync();
                 }

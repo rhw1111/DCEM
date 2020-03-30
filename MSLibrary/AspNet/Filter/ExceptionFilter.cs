@@ -21,11 +21,13 @@ namespace MSLibrary.AspNet.Filter
     public class ExceptionFilter : ExceptionFilterAttribute
     {
         private string _categoryName;
+        private bool _isDebug;
         private IAppExceptionContextLogConvert _appExceptionContextLogConvert;
 
-        public ExceptionFilter(string categoryName, IAppExceptionContextLogConvert appExceptionContextLogConvert) :base()
+        public ExceptionFilter(string categoryName, bool isDebug, IAppExceptionContextLogConvert appExceptionContextLogConvert) : base()
         {
             _categoryName = categoryName;
+            _isDebug = isDebug;
             _appExceptionContextLogConvert = appExceptionContextLogConvert;
         }
 
@@ -59,23 +61,33 @@ namespace MSLibrary.AspNet.Filter
                 }
 
 
-                if (context.Exception is UtilityException)
+                if (context.Exception is UtilityException && ((UtilityException)context.Exception).Level > 0)
                 {
                     var utilityException = (UtilityException)context.Exception;
 
                     ErrorMessage errorMessage = new ErrorMessage()
                     {
                         Code = utilityException.Code,
-                        Message =await utilityException.GetCurrentLcidMessage()
+                        Message = await utilityException.GetCurrentLcidMessage()
                     };
                     context.Result = new JsonContentResult<ErrorMessage>(StatusCodes.Status500InternalServerError, errorMessage);
                 }
                 else
                 {
+                    string message;
+                    if (_isDebug)
+                    {
+                        message = context.Exception.ToStackTraceString();
+                    }
+                    else
+                    {
+                        message = string.Format(StringLanguageTranslate.Translate(TextCodes.InnerError, "系统内部错误，请查看系统日志"));
+                    }
+
                     ErrorMessage errorMessage = new ErrorMessage()
                     {
                         Code = -1,
-                        Message = string.Format(StringLanguageTranslate.Translate(TextCodes.InnerError, "系统内部错误，请查看系统日志"))
+                        Message = message
                     };
                     context.Result = new JsonContentResult<ErrorMessage>(StatusCodes.Status500InternalServerError, errorMessage);
                 }

@@ -15,8 +15,10 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using System.Runtime.Serialization;
+using System.Diagnostics;
 using System.Security;
 using System.IO.Compression;
+using System.Buffers;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging.Console;
@@ -140,10 +142,83 @@ namespace DCEM.ConsoleApp
             var v= ContextContainer.GetValue<int>(ContextTypes.CurrentUserLcid);
         }
 
+        private class ServiceD:IDisposable
+        {
+            public void Dispose()
+            {
+                var dd = 1;
+            }
+
+            public string Do()
+            {
+                return "1";
+            }
+        }
+
+        private class DisposeClass : IAsyncDisposable
+        {
+            public  ValueTask DisposeAsync()
+            {
+                var aa = 1;
+                return new ValueTask();
+            }
+        }
+
+        static void SetSpan()
+        {
+            Memory<int> m = new Memory<int>(new int[] { 1, 2, 3 });
+            Span<int> sp = m.Span;
+            sp[2] = 5;
+        }
         async static Task Main(string[] args)
         {
+            string aa = "";
+            var spanAA=aa.AsMemory();
 
-            Regex regHttpInfo = new Regex("http/1.1 +([0-9\\.]+) +", RegexOptions.IgnoreCase);
+
+            MemoryList<int> mList = new MemoryList<int>();
+            List<int> cList = new List<int>();
+
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+
+            for (int index = 0; index < 100000; index++)
+            {
+                mList.Add(new Memory<int>(new int[] { 1, 2, 3,4,5 }));
+                //cList.AddRange(new int[] { 1, 2, 3, 4, 5 });
+            }
+
+            watch.Stop();
+
+
+            for (int index = 0; index < 1000; index++)
+            {
+                 mList.Slice(102,100);
+                //cList.GetRange(102, 10000);
+            }
+
+
+
+
+            Console.WriteLine(watch.ElapsedMilliseconds);
+            Console.ReadKey();
+
+
+
+            ServiceCollection newServiceCollection = new ServiceCollection();
+            newServiceCollection.AddScoped<ServiceD,ServiceD>();
+            ServiceD dObj;
+            using (var provider = newServiceCollection.BuildServiceProvider())
+            {
+                using (dObj = (ServiceD)provider.GetService<ServiceD>())
+                {
+
+                }
+            }
+
+            var s = dObj.Do();
+
+                Regex regHttpInfo = new Regex("http/1.1 +([0-9\\.]+) +", RegexOptions.IgnoreCase);
             var httpInfoMatch = regHttpInfo.Match("HTTP/1.1 204 No Content");
             var strStatusCode = httpInfoMatch.Groups[1].Value.Trim();
 

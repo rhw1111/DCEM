@@ -45,7 +45,7 @@ namespace MSLibrary.EntityMetadata.DAL
                         sqlTran = (SqlTransaction)transaction;
                     }
 
-                    using (SqlCommand commond = new SqlCommand()
+                    await using (SqlCommand commond = new SqlCommand()
                     {
                         Connection = (SqlConnection)conn,
                         CommandType = CommandType.Text,
@@ -93,11 +93,11 @@ namespace MSLibrary.EntityMetadata.DAL
                             commond.Parameters.Add(parameter);
                         }
 
-                        commond.Prepare();
+                        await commond.PrepareAsync();
                         SqlDataReader reader = null;
 
 
-                        using (reader = await commond.ExecuteReaderAsync())
+                        await using (reader = await commond.ExecuteReaderAsync())
                         {
                             while (await reader.ReadAsync())
                             {
@@ -110,7 +110,7 @@ namespace MSLibrary.EntityMetadata.DAL
                                 StoreHelper.SetEntityAttributeInfoSelectFields(item.EntityAttributeInfo, reader, "attribute");
                                 itemList.Add(item);
                             }
-                            reader.Close();
+                            await reader.CloseAsync();
                         }
                     }
 

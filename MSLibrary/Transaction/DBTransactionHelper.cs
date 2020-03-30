@@ -7,6 +7,8 @@ using System.Data.Common;
 using Microsoft.Data.SqlClient;
 using System.Transactions;
 using MSLibrary.DI;
+using MSLibrary.Transaction.DbConnections;
+using MSLibrary.Transaction.DBTransactions;
 
 namespace MSLibrary.Transaction
 {
@@ -215,6 +217,7 @@ namespace MSLibrary.Transaction
         static DBTransactionHelper()
         {
             _dbConnGenerates.Add(DBTypes.SqlServer, new DBConnGenerateForSql());
+            _dbConnGenerates.Add(DBTypes.MongoDB, new DBConnGenerateForMongoDB());
         }
         /// <summary>
         /// 提供静态属性可以替换连接生成器
@@ -360,9 +363,9 @@ namespace MSLibrary.Transaction
                 if (DBTransactionScope.CurrentConnections.ContainsKey(strConn.ToLower()) && (DBTransactionScope.CurrentConnections[strConn.ToLower()].Connection.State == ConnectionState.Connecting || DBTransactionScope.CurrentConnections[strConn.ToLower()].Connection.State == ConnectionState.Open))
                 {
                     conn = DBTransactionScope.CurrentConnections[strConn.ToLower()].Connection;
-                    transaction = DBTransactionScope.CurrentConnections[strConn.ToLower()].CreateTransaction((connection, options) =>
+                    transaction = await DBTransactionScope.CurrentConnections[strConn.ToLower()].CreateTransactionAsync(async (connection, options) =>
                     {
-                        return CreateTransaction(dbConnGenerate, connection, options);
+                        return await CreateTransactionAsync(dbConnGenerate, connection, options);
                     });
                     
                     await callBack(conn, transaction);
@@ -374,13 +377,13 @@ namespace MSLibrary.Transaction
                     {
                         //using (var transactionScope = new TransactionScope(TransactionScopeOption.Suppress, TransactionScopeAsyncFlowOption.Enabled))
                         //{
-                        using (conn = dbConnGenerate.Generate(strConn))
+                        await using (conn = dbConnGenerate.Generate(strConn))
                         {
                             await conn.OpenAsync();
                             //判断IsolationLevel是否是ReadUncommitted,如果是，则需要单独创建事务
                             if (DBTransactionScope.CurrentTransactionInfo.TransactionOptions.IsolationLevel == System.Transactions.IsolationLevel.ReadUncommitted)
                             {
-                                transaction = dbConnGenerate.GenerateTransaction(conn, ConvertIsolationLevel(DBTransactionScope.CurrentTransactionInfo.TransactionOptions.IsolationLevel));
+                                transaction =await dbConnGenerate.GenerateTransactionAsync(conn, ConvertIsolationLevel(DBTransactionScope.CurrentTransactionInfo.TransactionOptions.IsolationLevel));
                             }
                             else
                             {
@@ -389,9 +392,9 @@ namespace MSLibrary.Transaction
                             await callBack(conn, transaction);
                             if (transaction != null)
                             {
-                                transaction.Commit();
+                                await transaction.CommitAsync();
                             }
-                            conn.Close();
+                            await conn.CloseAsync();
                         }
 
                         //    transactionScope.Complete();
@@ -404,9 +407,9 @@ namespace MSLibrary.Transaction
                         await conn.OpenAsync();
 
                         DBTransactionScope.CurrentConnections[strConn.ToLower()] = new DBTransactionScope.DBConnectionContainer() { Connection = conn, Error = true };
-                        transaction = DBTransactionScope.CurrentConnections[strConn.ToLower()].CreateTransaction((connection, options) =>
+                        transaction =await DBTransactionScope.CurrentConnections[strConn.ToLower()].CreateTransactionAsync(async (connection, options) =>
                         {
-                            return CreateTransaction(dbConnGenerate, connection, options);
+                            return await CreateTransactionAsync(dbConnGenerate, connection, options);
                         });
 
                         await callBack(conn, transaction);
@@ -420,14 +423,14 @@ namespace MSLibrary.Transaction
                 {
                     //using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, TransactionScopeAsyncFlowOption.Enabled))
                     //{
-                    using (conn = dbConnGenerate.Generate(strConn))
+                    await using (conn = dbConnGenerate.Generate(strConn))
                     {
                         await conn.OpenAsync();
-                        transaction = dbConnGenerate.GenerateTransaction(conn, ConvertIsolationLevel(innerTransactionIsolationLevel));
+                        transaction =await dbConnGenerate.GenerateTransactionAsync(conn, ConvertIsolationLevel(innerTransactionIsolationLevel));
                         await callBack(conn, transaction);
 
-                        transaction.Commit();
-                        conn.Close();
+                        await transaction.CommitAsync();
+                        await conn.CloseAsync();
                     }
 
                     //    transactionScope.Complete();
@@ -435,16 +438,20 @@ namespace MSLibrary.Transaction
                 }
                 else
                 {
-                    using (conn = dbConnGenerate.Generate(strConn))
+                    await using (conn = dbConnGenerate.Generate(strConn))
                     {
                         await conn.OpenAsync();
                         await callBack(conn,null);
-                        conn.Close();
+                        await conn.CloseAsync ();
                     }
                 }
 
             }
         }
+
+
+
+
 
         public static System.Data.IsolationLevel ConvertIsolationLevel(System.Transactions.IsolationLevel level)
         {
@@ -484,6 +491,12 @@ namespace MSLibrary.Transaction
         {
             return dbConnGenerate.GenerateTransaction(connection, ConvertIsolationLevel(options.IsolationLevel));
         }
+
+        public static async Task<DbTransaction> CreateTransactionAsync(IDBConnGenerate dbConnGenerate, DbConnection connection, TransactionOptions options)
+        {
+            return await dbConnGenerate.GenerateTransactionAsync(connection, ConvertIsolationLevel(options.IsolationLevel));
+        }
+
     }
 
     /// <summary>
@@ -503,6 +516,13 @@ namespace MSLibrary.Transaction
         /// <param name="conn"></param>
         /// <returns></returns>
         DbTransaction GenerateTransaction(DbConnection conn,System.Data.IsolationLevel isolationLevel);
+        /// <summary>
+        /// 根据连接创建事务(异步)
+        /// </summary>
+        /// <param name="conn"></param>
+        /// <param name="isolationLevel"></param>
+        /// <returns></returns>
+        Task<DbTransaction> GenerateTransactionAsync(DbConnection conn, System.Data.IsolationLevel isolationLevel);
     }
 
     /// <summary>
@@ -519,6 +539,33 @@ namespace MSLibrary.Transaction
         public DbTransaction GenerateTransaction(DbConnection conn, System.Data.IsolationLevel isolationLevel)
         {
             return ((SqlConnection)conn).BeginTransaction(isolationLevel);
+        }
+
+        public async Task<DbTransaction> GenerateTransactionAsync(DbConnection conn, System.Data.IsolationLevel isolationLevel)
+        {
+            return await ((SqlConnection)conn).BeginTransactionAsync(isolationLevel);
+        }
+    }
+
+    /// <summary>
+    /// 实现针对MongoDB的连接创建
+    /// </summary>
+    [Injection(InterfaceType = typeof(DBConnGenerateForMongoDB), Scope = InjectionScope.Singleton)]
+    public class DBConnGenerateForMongoDB : IDBConnGenerate
+    {
+        public DbConnection Generate(string strConn)
+        {
+            return new MongoDBConnection(strConn);
+        }
+
+        public DbTransaction GenerateTransaction(DbConnection conn, System.Data.IsolationLevel isolationLevel)
+        {
+            return conn.BeginTransaction();
+        }
+
+        public async Task<DbTransaction> GenerateTransactionAsync(DbConnection conn, System.Data.IsolationLevel isolationLevel)
+        {
+            return await conn.BeginTransactionAsync();
         }
     }
 }

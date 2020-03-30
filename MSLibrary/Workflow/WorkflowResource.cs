@@ -541,7 +541,7 @@ namespace MSLibrary.Workflow
 
         public async Task AddUserAction(WorkflowResource resource, string actionName, int status, string userKey, int result)
         {
-            using (var scope = new DBTransactionScope(System.Transactions.TransactionScopeOption.Required, new System.Transactions.TransactionOptions() { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 1, 0) }))
+            await using (var scope = new DBTransactionScope(System.Transactions.TransactionScopeOption.Required, new System.Transactions.TransactionOptions() { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 1, 0) }))
             {
                 List<WorkflowStep> stepList = new List<WorkflowStep>();
                 //找到该资源下面的所有名称为actionName,状态为status的步骤

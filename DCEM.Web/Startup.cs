@@ -95,7 +95,7 @@ namespace DCEM.Web
                c => c.Request.Path.Value.Contains("FilesDir"),
                _ => _.UseMiddleware<AuthorizeStaticFilesMiddleware>());
 
-            app.UseExceptionWrapper(LoggerCategoryNames.HttpRequest);
+            app.UseExceptionWrapper(LoggerCategoryNames.HttpRequest,true);
         }
     }
 }

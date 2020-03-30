@@ -217,10 +217,10 @@ namespace DCEM.Main
             InitCrmStaticInfo();
 
             //为HttpClinetHelper的HttpClientFactory赋值
-            HttpClinetHelper.HttpClientFactory = DIContainerContainer.Get<IHttpClientFactory>();
+            HttpClinetHelper.HttpClientFactoryGenerator = ()=>DIContainerContainer.Get<IHttpClientFactory>();
 
             //为AdfsHelper.HttpClientFactory赋值
-            AdfsHelper.HttpClientFactory= DIContainerContainer.Get<IHttpClientFactory>();
+            AdfsHelper.HttpClientFactoryGenerator= ()=>DIContainerContainer.Get<IHttpClientFactory>();
 
             //CrmServiceFactoryRepositoryHelper.Repository = DIContainerContainer.Get<ICrmServiceFactoryRepository>();
             //为日志构建器处理的提供方处理工厂赋值

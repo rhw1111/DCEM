@@ -43,7 +43,7 @@ namespace MSLibrary.Workflow.DAL
                     conditionStr = $"{conditionStr}{item.Key} = @{item.Key} AND ";
                 }
 
-                using (var command = new SqlCommand()
+                await using (var command = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -62,7 +62,7 @@ namespace MSLibrary.Workflow.DAL
                         command.Parameters.Add(parameter);
                     }
 
-                    command.Prepare();
+                    await command.PrepareAsync();
 
 
                     var executeObj = await command.ExecuteScalarAsync();

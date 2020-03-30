@@ -272,7 +272,8 @@ namespace MSLibrary.MessageQueue
                         if (listener.ListenerFactoryTypeUseDI==true)
                         {
                             //通过DI容器创建
-                            objListenerFactory = DIContainerContainer.Get(listenerFactoryType);
+                            //objListenerFactory = DIContainerContainer.Get(listenerFactoryType);
+                            objListenerFactory = DIContainerGetHelper.Get().Get(listenerFactoryType);
                         }
                         else
                         {

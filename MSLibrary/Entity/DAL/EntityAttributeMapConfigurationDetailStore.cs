@@ -41,7 +41,7 @@ namespace MSLibrary.Entity.DAL
                     }
 
 
-                    using (SqlCommand commond = new SqlCommand()
+                    await using (SqlCommand commond = new SqlCommand()
                     {
                         Connection = (SqlConnection)conn,
                         CommandType = CommandType.Text,
@@ -117,7 +117,7 @@ namespace MSLibrary.Entity.DAL
 
                         SqlDataReader reader = null;
 
-                        using (reader = await commond.ExecuteReaderAsync())
+                        await using (reader = await commond.ExecuteReaderAsync())
                         {
                             string prefix = string.Empty;
                             if (await reader.ReadAsync())
@@ -136,7 +136,7 @@ namespace MSLibrary.Entity.DAL
                                 }
                             }
 
-                            reader.Close();
+                            await reader.CloseAsync();
 
                             result.TotalCount = (int)commond.Parameters["@count"].Value;
                             result.CurrentPage = (int)commond.Parameters["@currentpage"].Value;
@@ -306,7 +306,7 @@ namespace MSLibrary.Entity.DAL
                     }
 
 
-                    using (SqlCommand commond = new SqlCommand()
+                    await using (SqlCommand commond = new SqlCommand()
                     {
                         Connection = (SqlConnection)conn,
                         CommandType = CommandType.Text,
@@ -383,7 +383,7 @@ namespace MSLibrary.Entity.DAL
                         SqlDataReader reader = null;         
 
 
-                        using (reader= await commond.ExecuteReaderAsync())
+                        await using (reader= await commond.ExecuteReaderAsync())
                         {
                             string prefix = string.Empty;
                             if (await reader.ReadAsync())
@@ -402,7 +402,7 @@ namespace MSLibrary.Entity.DAL
                                 }
                             }
 
-                            reader.Close();
+                            await reader.CloseAsync();
 
                             result.TotalCount = (int)commond.Parameters["@count"].Value;
                             result.CurrentPage = (int)commond.Parameters["@currentpage"].Value;

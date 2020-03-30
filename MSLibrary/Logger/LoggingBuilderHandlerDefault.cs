@@ -8,6 +8,7 @@ using MSLibrary.Configuration;
 using MSLibrary.DI;
 using MSLibrary.LanguageTranslate;
 using MSLibrary.Serializer;
+using System.Runtime.CompilerServices;
 
 namespace MSLibrary.Logger
 {
@@ -60,7 +61,7 @@ namespace MSLibrary.Logger
             }
         }
 
-
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private ILoggingBuilderProviderHandler getProviderHandler(string type)
         {
             if (!_providerHandlerFactories.TryGetValue(type,out IFactory<ILoggingBuilderProviderHandler> serviceFactory))

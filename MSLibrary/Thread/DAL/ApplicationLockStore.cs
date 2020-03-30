@@ -81,14 +81,14 @@ namespace MSLibrary.Thread.DAL
                         sqlTran = (SqlTransaction)transaction;
                     }
 
-                    using (SqlCommand command = new SqlCommand())
+                    await using (SqlCommand command = new SqlCommand())
                     {
                         command.CommandTimeout = 300;
                         command.Connection = (SqlConnection)conn;
                         command.CommandType = CommandType.Text;
                         command.CommandText = strSql;
                         command.Transaction = sqlTran;
-                        command.Prepare();
+                        await command.PrepareAsync();
                         try
                         {
                             await command.ExecuteNonQueryAsync();
@@ -240,14 +240,14 @@ namespace MSLibrary.Thread.DAL
                         sqlTran = (SqlTransaction)transaction;
                     }
 
-                    using (SqlCommand command = new SqlCommand())
+                    await using (SqlCommand command = new SqlCommand())
                     {
                         command.CommandTimeout = 300;
                         command.Connection = (SqlConnection)conn;
                         command.CommandType = CommandType.Text;
                         command.CommandText = strSql;
                         command.Transaction = sqlTran;
-                        command.Prepare();
+                        await command.PrepareAsync();
                         try
                         {
                             await command.ExecuteNonQueryAsync();

@@ -17,6 +17,12 @@ namespace MSLibrary
         /// <param name="name">注册名称</param>
         /// <param name="context">上下文</param>
         void Register<T>(string name, IContext<T> context);
+        /// <summary>
+        /// 检查指定名称的上下文是否已经注册
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        bool IsRegister(string name);
 
         /// <summary>
         /// 为指定注册名称的上下文赋值

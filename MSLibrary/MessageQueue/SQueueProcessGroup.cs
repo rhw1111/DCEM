@@ -362,8 +362,21 @@ namespace MSLibrary.MessageQueue
 
                                     try
                                     {
-                                        //对每个消息执行处理
-                                        executeResult = await message.Execute();
+                                        using (var diContainer = DIContainerContainer.CreateContainer())
+                                        {
+                                            var orginialDI = ContextContainer.GetValue<IDIContainer>("DI");
+                                            try
+                                            {
+                                                ContextContainer.SetValue<IDIContainer>("DI", diContainer);
+                                                //对每个消息执行处理
+                                                executeResult = await message.Execute();
+                                            }
+                                            finally
+                                            {
+                                                ContextContainer.SetValue<IDIContainer>("DI", orginialDI);
+                                            }
+                                        }
+
                                     }
                                     catch(Exception ex)
                                     {

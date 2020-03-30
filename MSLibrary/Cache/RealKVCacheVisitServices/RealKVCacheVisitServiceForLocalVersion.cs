@@ -195,6 +195,119 @@ namespace MSLibrary.Cache.RealKVCacheVisitServices
             return (V)valueItem.Value;
         }
 
+        public async Task Set<K, V>(string cacheConfiguration, string prefix, K key, V value)
+        {
+            var versionMappingKey = $"{typeof(K).FullName}-{typeof(V).FullName}";
+            var configuration = JsonSerializerHelper.Deserialize<KVCacheConfiguration>(cacheConfiguration);
+
+            if (!_datas.TryGetValue(prefix, out CacheContainer cacheContainer))
+            {
+                _lock.Wait();
+                try
+                {
+                    if (!_datas.TryGetValue(prefix, out cacheContainer))
+                    {
+                        var (versionService, versionname) = getVersionService(configuration, versionMappingKey);
+                        var version = await versionService.GetVersion(versionname);
+                        cacheContainer = new CacheContainer() { Version = version, LatestVersionTime = DateTime.UtcNow, CacheDict = new HashLinkedCache<object, CacheValueContainer>() { Length = configuration.MaxLength } };
+                        _datas[prefix] = cacheContainer;
+                    }
+                }
+                finally
+                {
+                    _lock.Release();
+                }
+            }
+            else
+            {
+                if ((DateTime.UtcNow - cacheContainer.LatestVersionTime).TotalSeconds > configuration.VersionCallTimeout)
+                {
+                    _lock.Wait();
+                    try
+                    {
+                        if ((DateTime.UtcNow - cacheContainer.LatestVersionTime).TotalSeconds > configuration.VersionCallTimeout)
+                        {
+                            var (versionService, versionname) = getVersionService(configuration, versionMappingKey);
+                            var version =await versionService.GetVersion(versionname);
+                            if (version != cacheContainer.Version)
+                            {
+                                cacheContainer = new CacheContainer() { Version = version, LatestVersionTime = DateTime.UtcNow, CacheDict = new HashLinkedCache<object, CacheValueContainer>() { Length = configuration.MaxLength } };
+                                _datas[prefix] = cacheContainer;
+                            }
+                            else
+                            {
+                                cacheContainer.LatestVersionTime = DateTime.UtcNow;
+                            }
+                        }
+                    }
+                    finally
+                    {
+                        _lock.Release();
+                    }
+
+                }
+            }
+
+            var valueItem = new CacheValueContainer() { Value = value };
+            cacheContainer.CacheDict.SetValue(key, valueItem);
+        }
+
+        public void SetSync<K, V>(string cacheConfiguration, string prefix, K key, V value)
+        {
+            var versionMappingKey = $"{typeof(K).FullName}-{typeof(V).FullName}";
+            var configuration = JsonSerializerHelper.Deserialize<KVCacheConfiguration>(cacheConfiguration);
+
+            if (!_datas.TryGetValue(prefix, out CacheContainer cacheContainer))
+            {
+                _lock.Wait();
+                try
+                {
+                    if (!_datas.TryGetValue(prefix, out cacheContainer))
+                    {
+                        var (versionService, versionname) = getVersionService(configuration, versionMappingKey);
+                        var version = versionService.GetVersionSync(versionname);
+                        cacheContainer = new CacheContainer() { Version = version, LatestVersionTime = DateTime.UtcNow, CacheDict = new HashLinkedCache<object, CacheValueContainer>() { Length = configuration.MaxLength } };
+                        _datas[prefix] = cacheContainer;
+                    }
+                }
+                finally
+                {
+                    _lock.Release();
+                }
+            }
+            else
+            {
+                if ((DateTime.UtcNow - cacheContainer.LatestVersionTime).TotalSeconds > configuration.VersionCallTimeout)
+                {
+                    _lock.Wait();
+                    try
+                    {
+                        if ((DateTime.UtcNow - cacheContainer.LatestVersionTime).TotalSeconds > configuration.VersionCallTimeout)
+                        {
+                            var (versionService, versionname) = getVersionService(configuration, versionMappingKey);
+                            var version = versionService.GetVersionSync(versionname);
+                            if (version != cacheContainer.Version)
+                            {
+                                cacheContainer = new CacheContainer() { Version = version, LatestVersionTime = DateTime.UtcNow, CacheDict = new HashLinkedCache<object, CacheValueContainer>() { Length = configuration.MaxLength } };
+                                _datas[prefix] = cacheContainer;
+                            }
+                            else
+                            {
+                                cacheContainer.LatestVersionTime = DateTime.UtcNow;
+                            }
+                        }
+                    }
+                    finally
+                    {
+                        _lock.Release();
+                    }
+
+                }
+            }
+
+            var valueItem = new CacheValueContainer() { Value = value };
+            cacheContainer.CacheDict.SetValue(key, valueItem);
+        }
 
         private (IKVCacheVersionService, string) getVersionService(KVCacheConfiguration configuration, string versionMappingKey)
         {

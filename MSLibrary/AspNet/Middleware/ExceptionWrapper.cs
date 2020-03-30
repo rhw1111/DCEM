@@ -20,12 +20,14 @@ namespace MSLibrary.AspNet.Middleware
         private RequestDelegate _nextMiddleware;
         private string _categoryName;
         private IAppExceptionHttpContextLogConvert _appExceptionHttpContextLogConvert;
+        private bool _isDebug = false;
 
-        public ExceptionWrapper(RequestDelegate nextMiddleware,string categoryName, IAppExceptionHttpContextLogConvert appExceptionHttpContextLogConvert) :base()
+        public ExceptionWrapper(RequestDelegate nextMiddleware, string categoryName, bool isDebug, IAppExceptionHttpContextLogConvert appExceptionHttpContextLogConvert) : base()
         {
             _nextMiddleware = nextMiddleware;
             _categoryName = categoryName;
             _appExceptionHttpContextLogConvert = appExceptionHttpContextLogConvert;
+            _isDebug = isDebug;
         }
 
         public async Task Invoke(HttpContext context)
@@ -35,25 +37,34 @@ namespace MSLibrary.AspNet.Middleware
             {
                 await _nextMiddleware.Invoke(context);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                if (ex is UtilityException)
+                if (ex is UtilityException && ((UtilityException)ex).Level > 0)
                 {
                     var utilityException = (UtilityException)ex;
 
                     ErrorMessage errorMessage = new ErrorMessage()
                     {
                         Code = utilityException.Code,
-                        Message =await utilityException.GetCurrentLcidMessage()
+                        Message = await utilityException.GetCurrentLcidMessage()
                     };
                     await context.Response.WriteJson(StatusCodes.Status500InternalServerError, errorMessage);
                 }
                 else
                 {
+                    string message;
+                    if (_isDebug)
+                    {
+                        message = ex.ToStackTraceString();
+                    }
+                    else
+                    {
+                        message = string.Format(StringLanguageTranslate.Translate(TextCodes.InnerError, "系统内部错误，请查看系统日志"));
+                    }
                     ErrorMessage errorMessage = new ErrorMessage()
                     {
                         Code = -1,
-                        Message = string.Format(StringLanguageTranslate.Translate(TextCodes.InnerError, "系统内部错误，请查看系统日志"))
+                        Message = message
                     };
                     await context.Response.WriteJson(StatusCodes.Status500InternalServerError, errorMessage);
                 }
@@ -89,15 +100,15 @@ namespace MSLibrary.AspNet.Middleware
                 context.Items.Add("ExecuteException", ex);
 
                 //加到日志中
-                var logObj=await _appExceptionHttpContextLogConvert.Convert(context);
+                var logObj = await _appExceptionHttpContextLogConvert.Convert(context);
 
-                    LoggerHelper.LogError( _categoryName, logObj);
-                
+                LoggerHelper.LogError(_categoryName, logObj);
+
                 //var logger = _loggerFactory.CreateLogger(_categoryName);
                 //logger.LogError($"Unhandle Error,\nmessage:{ex.Message},\nstacktrace:{ex.StackTrace}");
             }
 
-            
+
         }
 
     }

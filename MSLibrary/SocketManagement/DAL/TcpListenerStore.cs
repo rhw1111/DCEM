@@ -32,7 +32,7 @@ namespace MSLibrary.SocketManagement.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -128,7 +128,7 @@ namespace MSLibrary.SocketManagement.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
                     int reply = 3;
                     while (true)
@@ -184,7 +184,7 @@ namespace MSLibrary.SocketManagement.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -199,7 +199,7 @@ namespace MSLibrary.SocketManagement.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
                     int reply = 3;
                     while (true)
@@ -239,7 +239,7 @@ namespace MSLibrary.SocketManagement.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -254,7 +254,7 @@ namespace MSLibrary.SocketManagement.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
                     int reply = 3;
                     SqlDataReader reader = null;
@@ -264,7 +264,7 @@ namespace MSLibrary.SocketManagement.DAL
                         {
                             try
                             {
-                                reader.Close();
+                                await reader.CloseAsync();
                             }
                             catch
                             {
@@ -292,7 +292,7 @@ namespace MSLibrary.SocketManagement.DAL
                         }
                     }
 
-                    using (reader)
+                    await using (reader)
                     {
                         if (await reader.ReadAsync())
                         {
@@ -300,7 +300,7 @@ namespace MSLibrary.SocketManagement.DAL
                             StoreHelper.SetTcpListenerSelectFields(listener, reader, string.Empty);
                         }
 
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
             });
@@ -322,7 +322,7 @@ namespace MSLibrary.SocketManagement.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -337,7 +337,7 @@ namespace MSLibrary.SocketManagement.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
                     int reply = 3;
                     SqlDataReader reader = null;
@@ -347,7 +347,7 @@ namespace MSLibrary.SocketManagement.DAL
                         {
                             try
                             {
-                                reader.Close();
+                                await reader.CloseAsync();
                             }
                             catch
                             {
@@ -375,7 +375,7 @@ namespace MSLibrary.SocketManagement.DAL
                         }
                     }
 
-                    using (reader)
+                    await using (reader)
                     {
                         if (await reader.ReadAsync())
                         {
@@ -383,7 +383,7 @@ namespace MSLibrary.SocketManagement.DAL
                             StoreHelper.SetTcpListenerSelectFields(listener, reader, string.Empty);
                         }
 
-                        reader.Close();
+                        await reader.CloseAsync();
                     }
                 }
             });
@@ -403,7 +403,7 @@ namespace MSLibrary.SocketManagement.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -463,7 +463,7 @@ namespace MSLibrary.SocketManagement.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
                     int reply = 3;
                     SqlDataReader reader = null;
@@ -473,7 +473,7 @@ namespace MSLibrary.SocketManagement.DAL
                         {
                             try
                             {
-                                reader.Close();
+                                await reader.CloseAsync();
                             }
                             catch
                             {
@@ -501,7 +501,7 @@ namespace MSLibrary.SocketManagement.DAL
                         }
                     }
 
-                    using (reader)
+                    await using (reader)
                     {
                         while (await reader.ReadAsync())
                         {
@@ -510,7 +510,7 @@ namespace MSLibrary.SocketManagement.DAL
                             result.Results.Add(listener);
                         }
 
-                        reader.Close();
+                        await reader.CloseAsync();
 
                         result.TotalCount = (int)commond.Parameters["@count"].Value;
                         result.CurrentPage = (int)commond.Parameters["@currentpage"].Value;
@@ -534,7 +534,7 @@ namespace MSLibrary.SocketManagement.DAL
                     sqlTran = (SqlTransaction)transaction;
                 }
 
-                using (SqlCommand commond = new SqlCommand()
+                await using (SqlCommand commond = new SqlCommand()
                 {
                     Connection = (SqlConnection)conn,
                     CommandType = CommandType.Text,
@@ -605,7 +605,7 @@ namespace MSLibrary.SocketManagement.DAL
                     };
                     commond.Parameters.Add(parameter);
 
-                    commond.Prepare();
+                    await commond.PrepareAsync();
 
                     int reply = 3;
                     while (true)

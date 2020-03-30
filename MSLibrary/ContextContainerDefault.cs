@@ -22,9 +22,30 @@ namespace MSLibrary
             return context.IsAuto();
         }
 
+        public bool IsRegister(string name)
+        {
+            if(_contextList.ContainsKey(name))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public void Register<T>(string name, IContext<T> context)
         {
-            _contextList[name] = context;
+            if (!_contextList.ContainsKey(name))
+            {
+                lock (_contextList)
+                {
+                    if (!_contextList.ContainsKey(name))
+                    {
+                        _contextList[name] = context;
+                    }
+                }
+            }
         }
 
         public void SetValue<T>(string name, T value)

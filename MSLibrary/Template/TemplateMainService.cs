@@ -66,12 +66,12 @@ namespace MSLibrary.Template
 
                 Dictionary<string, string> dictLabelResult = new Dictionary<string, string>();
 
-                Dictionary<string, Semaphore> lockObjs = new Dictionary<string, Semaphore>();
+                Dictionary<string, SemaphoreSlim> lockObjs = new Dictionary<string, SemaphoreSlim>();
 
                 //生成锁定对象集
                 foreach (var item in matchList)
                 {
-                    lockObjs[item.Value]=new Semaphore(1, 1);
+                    lockObjs[item.Value]=new SemaphoreSlim(1, 1);
                 }
 
                 //设定并行计算
@@ -96,7 +96,7 @@ namespace MSLibrary.Template
 
                                 try
                                 {
-                                    lockObjs[match.Value].WaitOne();
+                                    await lockObjs[match.Value].WaitAsync();
                                     if (!dictLabelResult.TryGetValue(match.Value, out matchResult))
                                     {
                                         matchResult = await label.Execute(context, label.GetExtension<string[]>(LabelExecuteParameters));

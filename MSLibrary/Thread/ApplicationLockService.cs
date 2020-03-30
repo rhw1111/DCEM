@@ -40,7 +40,7 @@ namespace MSLibrary.Thread
 
         public async Task Execute(DBConnectionNames connNames,string lockName, Func<Task> callBack, int timeout = -1)
         {
-            using (DBTransactionScope transactionScope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 30, 0) }))
+            await using (DBTransactionScope transactionScope = new DBTransactionScope(TransactionScopeOption.Required, new TransactionOptions() { IsolationLevel = IsolationLevel.ReadCommitted, Timeout = new TimeSpan(0, 30, 0) }))
             {
                 try
                 {
