@@ -98,7 +98,7 @@ ext {
 }
 
 // PLUGIN GRADLE EXTENSIONS START
-apply from: "../cordova-plugin-qrscanner/ucenter-qrscanner.gradle"
+apply from: "../cordova-plugin-qrscanner/kblgather-qrscanner.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras1 = file('build-extras.gradle').exists()

@@ -47,7 +47,7 @@ export class DCore_Config {
             map.set("uat", "https://subcrmuatapi.sokon.com/tc/");
             map.set("local", "http://localhost:57021/");
             map.set("local2", "https://localhost:5000/");
-            map.set("9_0", "http://106.15.138.75:8082/tc/");
+            map.set("9_0", "http://106.15.138.75:9102/");
             map.set("iis", "http://localhost:9099/");
             return map;
         }();
@@ -59,7 +59,7 @@ export class DCore_Config {
             map.set("uat", "https://subcrmuatapi.sokon.com/dcem/");
             map.set("local", "https://localhost:44382/");
             map.set("local2", "http://localhost:5000/");
-            map.set("9_0", "http://106.15.138.75:8082/dcem/");
+            map.set("9_0", "http://106.15.138.75:9101/");
             map.set("iis", "http://localhost:9099/");
             return map;
         }();

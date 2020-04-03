@@ -37,7 +37,108 @@ export class IndexPage {
             PageSize: 5,
             PageIndex: 1,
             //MaxPageIndex: 0
-        }
+        },
+        //问答
+        questionsList:[
+            {
+                Title:"关于营养均横调养有没有更好的调配秘方？",
+                ShortTitle:"营养专家",
+                UserName:"马小红",
+                UserHeader:"/assets/img/community/index/kbl/h1.jpg",
+                ImageUrl:"",
+                Description:"5个紫薯煮熟去皮，4个压成紫薯泥，加入2勺香草口味蛋白混合饮料，用紫薯泥包裹低脂奶酪块，搓成若干小球。另1个紫薯切块，将其余食材加入搅拌机，低速搅拌2-3分钟。将奶昔淋在先前制作的紫薯球上，即可享用",
+                CreateTime:"2020-1-23 12:23:12"
+            },
+            {
+                Title:"香蕉圣女果奶昔制作方法如何？",
+                ShortTitle:"营养专家",
+                UserName:"王金华",
+                UserHeader:"/assets/img/community/index/kbl/h2.jpg",
+                ImageUrl:"",
+                Description:"2勺 蛋白混合饮料（香草口味，约25克）1杯 脱脂牛奶（约240毫升）6颗 圣女果1根 小香蕉",
+                CreateTime:"2020-1-13 17:34:52"
+            },
+            {
+                Title:"酸奶牛油果奶昔制作方法？",
+                ShortTitle:"营养专家",
+                UserName:"高亢先生",
+                UserHeader:"/assets/img/community/index/kbl/h3.jpg",
+                ImageUrl:"",
+                Description:"2勺 蛋白混合饮料（香草口味，约25克）1勺 普莱乐奶昔伴侣（约10.6克）小杯 脱脂酸奶（约150毫升）1/4个 牛油果（约25克）",
+                CreateTime:"2019-12-23 08:13:22"
+            },
+            {
+                Title:"酸奶牛油果奶昔制作方法？",
+                ShortTitle:"营养专家",
+                UserName:"马小红",
+                UserHeader:"/assets/img/community/index/kbl/h1.jpg",
+                ImageUrl:"",
+                Description:"将南瓜煮熟捞出，将所有食材加入搅拌机，低速搅拌2-3分钟，直至顺滑。",
+                CreateTime:"2019-11-08 15:11:21"
+            },
+            {
+                Title:"酸奶牛油果奶昔制作方法？",
+                ShortTitle:"营养专家",
+                UserName:"默~",
+                UserHeader:"/assets/img/community/index/kbl/h4.jpg",
+                ImageUrl:"",
+                Description:"2勺 蛋白混合饮料（香草口味，约25克）1勺 普莱乐奶昔伴侣（约10.6克）小杯 脱脂酸奶（约150毫升）1/4个 牛油果（约25克）",
+                CreateTime:"2019-10-15 10:04:40"
+            },
+            {
+                Title:"酸奶牛油果奶昔制作方法？",
+                ShortTitle:"营养专家",
+                UserName:"王金华",
+                UserHeader:"/assets/img/community/index/kbl/h2.jpg",
+                ImageUrl:"",
+                Description:"1勺 蛋白混合饮料（香草口味，约12.5克） 1勺 蛋白混合饮料（草莓口味，约12.5克）2勺 营养蛋白粉（约20克）1杯 水（约240毫升）15克 干枸杞4块 冰块",
+                CreateTime:"2019-09-05 21:11:03"
+            }
+        ],
+        //社区活动
+        communityActivityList:[
+            {
+                Title:"香蕉火龙果香草奶昔制作方法",
+                ShortTitle:"营养专家",
+                UserName:"马小红",
+                UserHeader:"/assets/img/community/index/kbl/h1.jpg",
+                ImageUrl:"./assets/img/community/index/kbl/1.jpg",
+                ReadCount:100,
+                CreateTime:"2019-21-23 12:23:12",
+                TimeSpan:"10小时前"
+            },
+            {
+                Title:"玉米菠菜奶昔制作方法",
+                ShortTitle:"营养专家",
+                UserName:"王金华",
+                UserHeader:"/assets/img/community/index/kbl/h2.jpg",
+                ImageUrl:"./assets/img/community/index/kbl/2.jpg",
+                ReadCount:234,
+                CreateTime:"2019-21-23 12:23:12",
+                TimeSpan:"15小时前"
+            },
+            {
+                Title:"香蕉南瓜高蛋白奶昔制作方法",
+                ShortTitle:"营养专家",
+                UserName:"高亢先生",
+                UserHeader:"/assets/img/community/index/kbl/h3.jpg",
+                ImageUrl:"./assets/img/community/index/kbl/3.jpg",
+                ReadCount:311,
+                CreateTime:"2019-21-23 12:23:12",
+                TimeSpan:"18小时前"
+            }
+            ,
+            {
+                Title:"雪梨蜜枣奶昔制作方法",
+                ShortTitle:"营养专家",
+                UserName:"默~",
+                UserHeader:"/assets/img/community/index/kbl/h4.jpg",
+                ImageUrl:"./assets/img/community/index/kbl/4.jpg",
+                ReadCount:311,
+                CreateTime:"2019-21-23 12:23:12",
+                TimeSpan:"24小时前"
+            }
+        ]
     }
 
     constructor(

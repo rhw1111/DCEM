@@ -3,7 +3,7 @@
      <ion-buttons slot="start" style="margin-top: 3px;">
         <ion-back-button text="返回" defaultHref="/carcenter/index"></ion-back-button>
     </ion-buttons>
-    <ion-title>预约试乘试驾</ion-title>
+    <ion-title>莱秤预约</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -61,10 +61,10 @@
       </ion-item>
       <ion-item>
           <ion-label position="stacked">
-              预约车型
+              莱秤项目
               <ion-text color="danger">*</ion-text>
           </ion-label>   
-          <ion-select placeholder="请选择预约车型" (ionChange)="GetTimeInterval('')" cancelText="取消" okText="确定" [(ngModel)]="model.postData.mcs_carmodel" >
+          <ion-select placeholder="请选评测项目" (ionChange)="GetTimeInterval('')" cancelText="取消" okText="确定" [(ngModel)]="model.postData.mcs_carmodel" >
               <ion-select-option *ngFor="let item of model.VehicletypeList"  value="{{item.mcs_carmodelid}}">
                   {{item.mcs_name}}
               </ion-select-option>           
@@ -77,16 +77,16 @@
           </ion-label>
           <ion-select placeholder="请选择预约类型" cancelText="取消" okText="确定" [(ngModel)]="model.postData.mcs_businesstype">
               <ion-select-option  value="10">
-                  试乘
+                  称体重
               </ion-select-option>
               <ion-select-option  value="11">
-                  试驾
+                  体脂检查
                </ion-select-option>
           </ion-select>
       </ion-item>
       <ion-item (click)="selectDealerModal()">
         <ion-label position="stacked">
-            试驾门店
+            预约门店
             <ion-text color="danger">*</ion-text>
         </ion-label>
         <ion-input placeholder="请选择门店" [(ngModel)]="model.postData.mcs_dealername" required></ion-input>
@@ -114,7 +114,7 @@
       <br/>
       <ion-label position="stacked">
          &nbsp;&nbsp;&nbsp;<ion-checkbox  color="success" style="border:1px solid black;border-radius: 60px;height:15px;width: 15px;" [(ngModel)]="model.postData.isChecked"></ion-checkbox>           
-           我已阅读并同意《试乘试驾指南和协议》
+           我已阅读并同意《莱秤指南和协议》
       </ion-label>
      
    
