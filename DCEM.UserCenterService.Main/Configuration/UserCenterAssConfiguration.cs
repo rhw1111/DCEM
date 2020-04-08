@@ -82,5 +82,10 @@ namespace DCEM.UserCenterService.Main.Configuration
         /// </summary>
         [DataMember]
         public string RedirectUri { get; set; }
+        /// <summary>
+        /// 默认会员实例ID
+        /// </summary>
+        [DataMember]
+        public Guid MemberInstanceId { get; set; }
     }
 }

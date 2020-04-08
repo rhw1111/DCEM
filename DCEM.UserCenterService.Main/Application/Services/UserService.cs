@@ -196,7 +196,6 @@ namespace DCEM.UserCenterService.Main.Application.Services
             var userInfo = ContextContainer.GetValue<UserInfo>(ContextExtensionTypes.CurrentUserInfo);
             var validateResult = new ValidateResult();
 
-
             try
             {
                 //C端用户ID
@@ -209,6 +208,7 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 if (!string.IsNullOrEmpty(model.account))
                 {
                     member.Attributes.Add("mcs_mobilephonemask", model.account);
+                    member.Attributes.Add("mcs_mobile", model.account);
                     entity.Attributes.Add("mcs_phone", model.account);
                 }
                 if (!string.IsNullOrEmpty(model.birthday))
@@ -245,7 +245,33 @@ namespace DCEM.UserCenterService.Main.Application.Services
                 entity.Attributes.Add("mcs_memberid", new CrmEntityReference("mcs_member", memberid));
 
                 member.Attributes.Add("mcs_userid", id.ToString());
+
+                //添加会员实例
+                var mcs_memberinstanceid = ContextContainer.GetValue<Guid>(ContextExtensionTypes.MemberInstanceId);
+                if (mcs_memberinstanceid!=Guid.Empty)
+                {
+                    member.Attributes.Add("mcs_memberinstanceid", new CrmEntityReference("mcs_memberinstance", mcs_memberinstanceid));
+                }
+
+                ////查询潜客是否存在
+                //Guid contactEntityId = Guid.Empty;
+                //for (int i = 0; i < 10; i++)
+                //{
+                //    if (contactEntityId == Guid.Empty)
+                //    {
+                //        XDocument cfetchXdoc = await _repository.GetContactByMobilePhone(model.account);
+                //        var centities = await new CrmRequestHelper().ExecuteAsync(_crmService, "contact", cfetchXdoc);
+                //        if (centities.Results != null && centities.Results.Count > 0)
+                //        {
+                //            contactEntityId = centities.Results[0].Id;
+                //            member.Attributes.Add("mcs_customerid", new CrmEntityReference("contact", contactEntityId));
+                //            break;
+                //        }
+                //    }
+                //}
+                //创建会员
                 await _crmService.Create(member, userInfo?.systemuserid);
+
                 //c端用户实体
                 await _crmService.Create(entity, userInfo?.systemuserid);
 
@@ -297,9 +323,8 @@ namespace DCEM.UserCenterService.Main.Application.Services
                     }
                 }
 
-
                 //积分充值接口调用  
-               //await IntegralCreate(IntegralReg_Key, id.ToString());
+                //await IntegralCreate(IntegralReg_Key, id.ToString());
 
                 #region 组装数据返回 
                 validateResult.Result = true;
@@ -406,7 +431,37 @@ namespace DCEM.UserCenterService.Main.Application.Services
 
         }
 
+        /// <summary>
+        /// 获取潜客
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ValidateResult<CrmEntity>> GetContactByPhone(string mobilePhone)
+        {
+            try
+            {
+                var validateResult = new ValidateResult<CrmEntity>();
+                var crmRequestHelper = new CrmRequestHelper();
+                XDocument fetchXdoc = null;
+                fetchXdoc = await _repository.GetContactByMobilePhone(mobilePhone);
+                var entities = await crmRequestHelper.ExecuteAsync(_crmService, entityName, fetchXdoc);
+                if (entities.Results.Count > 0)
+                {
+                    validateResult.Result = true;
+                    validateResult.Data = entities.Results[0];
+                }
+                else
+                {
+                    validateResult.Result = false;
+                }
+                return validateResult;
 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         /// <summary>
         /// 密码修改

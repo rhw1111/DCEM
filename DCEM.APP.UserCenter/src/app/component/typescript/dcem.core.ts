@@ -37,8 +37,8 @@ export class DCore_Config {
 
     constructor(
     ) {
-        this.dcem_serverName = "9_0";
-        this.tc_serverName = "9_0";
+        this.dcem_serverName = "local2";
+        this.tc_serverName = "local2";
 
         this.tc_host_map = function () {
             var map = new Map<string, any>();
