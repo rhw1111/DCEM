@@ -32,12 +32,13 @@
     "TokenServiceType": "AD",
     "Domain": "MCS",
     "AdfsUrl": "",
-    "CrmUrl": "http://106.15.138.75/crm9",
+    "CrmUrl": "http://106.15.138.75/kbl",
     "ClientId": "",
     "ClientSecret": "",
     "UserName": "crm9admin",
     "Password": "@Msc.com@",
-    "RedirectUri": ""
+    "RedirectUri": "",
+    "MemberInstanceId": "97AB2058-3377-EA11-B3B0-970870B884BE"
   }
 }
 //Uat

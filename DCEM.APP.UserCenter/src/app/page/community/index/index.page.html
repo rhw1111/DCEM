@@ -74,48 +74,48 @@
                     </ion-row>
                     <ion-row>
                         <ion-col>
-                            <ion-button fill="outline" color="warning">汽车学堂</ion-button>
+                            <ion-button fill="outline" color="warning">莱课堂</ion-button>
                         </ion-col>
                         <ion-col>
-                            <ion-button fill="outline" color="primary">专业车评</ion-button>
+                            <ion-button fill="outline" color="primary">莱运动</ion-button>
                         </ion-col>
                         <ion-col>
                             <ion-button fill="outline" color="danger" [routerLink]=""
                                 (click)="checkLoginAndTurn('/personalcenter/testdrive/edit')">
-                                预约试驾
+                                莱秤
                             </ion-button>
                         </ion-col>
                     </ion-row>
                     <ion-row>
                         <ion-col>
                             <ion-grid>
-                                <ion-row>
+                                <ion-row *ngFor="let cActivity of model.communityActivityList">
                                     <ion-col class="dm-main-recommend">
                                         <ion-grid>
                                             <ion-row class="dm-main-recommen-userinfo">
                                                 <ion-col size="2">
-                                                    <img src="/assets/img/community/index/userhead.png" />
+                                                    <img [src]="cActivity.UserHeader" />
                                                 </ion-col>
                                                 <ion-col text-left>
-                                                    <p>隔壁攻城师</p>
-                                                    <p>干货挖掘机</p>
+                                                    <p>{{cActivity.UserName}}</p>
+                                                    <p>{{cActivity.ShortTitle}}</p>
                                                 </ion-col>
                                             </ion-row>
                                             <ion-row class="dm-main-recommen-title">
                                                 <ion-col text-left>
-                                                    <p>冬季用车攻略|解密续航里程消失之谜</p>
+                                                    <p>{{cActivity.Title}}</p>
                                                 </ion-col>
                                             </ion-row>
                                             <ion-row class="dm-main-recommen-content">
                                                 <ion-col text-center>
-                                                    <img src="./assets/img/community/index/djyc.jpg" />
+                                                    <img [src]="cActivity.ImageUrl" />
                                                 </ion-col>
                                             </ion-row>
                                             <ion-row class="dm-main-recommen-bottom">
                                                 <ion-col text-left>
                                                     <p>
-                                                        <span>浏览量:3803</span>
-                                                        <span>10小时前</span>
+                                                        <span>浏览量:{{cActivity.ReadCount}}</span>
+                                                        <span>{{cActivity.TimeSpan}}</span>
                                                     </p>
                                                 </ion-col>
                                             </ion-row>
@@ -128,7 +128,7 @@
                                             style="border-bottom:1px solid rgb(237,237,237);padding-bottom:30px;padding-top:30px;">
                                             <ion-row>
                                                 <ion-col text-left style="padding-left:15px">
-                                                    <p style="font-size:16px;font-weight:bold;">广州车展专区</p>
+                                                    <p style="font-size:16px;font-weight:bold;">花样营养奶昔</p>
                                                 </ion-col>
                                                 <ion-col text-right style="padding-right:15px">
                                                     <p style="font-size:14px; color:rgb(140,140,140)">共14篇 ></p>
@@ -142,164 +142,65 @@
                                                                 style="float:left; margin-left:5px; display: inline-block;">
                                                                 <div>
                                                                     <img style=" border-radius:5px;height:120px; width:150px;"
-                                                                        src="/assets/img/community/index/cz1.jpg" />
+                                                                        src="/assets/img/community/index/kbl/1.jpg" />
                                                                 </div>
                                                                 <p style="font-size:12px;font-weight:bold;">
-                                                                    一个月体验过P7内饰
+                                                                    荔枝柠檬雪梨奶昔制作方法
                                                                 </p>
                                                             </div>
                                                             <div
                                                                 style="float:left; margin-left:5px;display: inline-block; ">
                                                                 <div>
                                                                     <img style=" border-radius:5px;height:120px; width:150px;"
-                                                                        src="/assets/img/community/index/cz2.jpg" />
+                                                                        src="/assets/img/community/index/kbl/2.jpg" />
                                                                 </div>
                                                                 <p style="font-size:12px;font-weight:bold;">
-                                                                    一个月体验过P7内饰
+                                                                    玉米菠菜奶昔制作方法
                                                                 </p>
                                                             </div>
                                                             <div
                                                                 style="float:left; margin-left:5px;display: inline-block; ">
                                                                 <div>
                                                                     <img style=" border-radius:5px;height:120px; width:150px;"
-                                                                        src="/assets/img/community/index/cz3.jpg" />
+                                                                        src="/assets/img/community/index/kbl/3.jpg" />
                                                                 </div>
                                                                 <p style="font-size:12px;font-weight:bold;">
-                                                                    一个月体验过P7内饰
+                                                                    酸奶牛油果奶昔制作方法
                                                                 </p>
                                                             </div>
                                                             <div
                                                                 style="float:left; margin-left:5px; display: inline-block;">
                                                                 <div>
                                                                     <img style=" border-radius:5px;height:120px; width:150px;"
-                                                                        src="assets/img/community/index/cz1.jpg" />
+                                                                        src="assets/img/community/index/kbl/4.jpg" />
                                                                 </div>
                                                                 <p style="font-size:12px;font-weight:bold;">
-                                                                    一个月体验过P7内饰
+                                                                    香草枸杞奶昔制作方法
                                                                 </p>
                                                             </div>
                                                             <div
                                                                 style="float:left; margin-left:5px;display: inline-block; ">
                                                                 <div>
                                                                     <img style=" border-radius:5px;height:120px; width:150px;"
-                                                                        src="/assets/img/community/index/cz2.jpg" />
+                                                                        src="/assets/img/community/index/kbl/2.jpg" />
                                                                 </div>
                                                                 <p style="font-size:12px;font-weight:bold;">
-                                                                    一个月体验过P7内饰
+                                                                    抹茶曲奇奶昔制作方法
                                                                 </p>
                                                             </div>
                                                             <div
                                                                 style="float:left; margin-left:5px;display: inline-block; ">
                                                                 <div>
                                                                     <img style=" border-radius:5px;height:120px; width:150px;"
-                                                                        src="/assets/img/community/index/cz3.jpg" />
+                                                                        src="/assets/img/community/index/kbl/3.jpg" />
                                                                 </div>
                                                                 <p style="font-size:12px;font-weight:bold;">
-                                                                    一个月体验过P7内饰
+                                                                    牛油果香草奶昔制作方法
                                                                 </p>
                                                             </div>
                                                         </div>
                                                     </div>
 
-                                                </ion-col>
-                                            </ion-row>
-                                        </ion-grid>
-                                    </ion-col>
-                                </ion-row>
-                                <ion-row>
-                                    <ion-col class="dm-main-recommend">
-                                        <ion-grid>
-                                            <ion-row class="dm-main-recommen-userinfo">
-                                                <ion-col size="2">
-                                                    <img src="/assets/img/community/index/userhead.png" />
-                                                </ion-col>
-                                                <ion-col text-left>
-                                                    <p>隔壁攻城师</p>
-                                                    <p>干货挖掘机</p>
-                                                </ion-col>
-                                            </ion-row>
-                                            <ion-row class="dm-main-recommen-title">
-                                                <ion-col text-left>
-                                                    <p>冬季用车攻略|解密续航里程消失之谜</p>
-                                                </ion-col>
-                                            </ion-row>
-                                            <ion-row class="dm-main-recommen-content">
-                                                <ion-col text-center>
-                                                    <img src="/assets/img/tyzx.jpg" />
-                                                </ion-col>
-                                            </ion-row>
-                                            <ion-row class="dm-main-recommen-bottom">
-                                                <ion-col text-left>
-                                                    <p>
-                                                        <span>浏览量:3803</span>
-                                                        <span>10小时前</span>
-                                                    </p>
-                                                </ion-col>
-                                            </ion-row>
-                                        </ion-grid>
-                                    </ion-col>
-                                </ion-row>
-                                <ion-row>
-                                    <ion-col class="dm-main-recommend">
-                                        <ion-grid>
-                                            <ion-row class="dm-main-recommen-userinfo">
-                                                <ion-col size="2">
-                                                    <img src="/assets/img/community/index/userhead.png" />
-                                                </ion-col>
-                                                <ion-col text-left>
-                                                    <p>隔壁攻城师</p>
-                                                    <p>干货挖掘机</p>
-                                                </ion-col>
-                                            </ion-row>
-                                            <ion-row class="dm-main-recommen-title">
-                                                <ion-col text-left>
-                                                    <p>冬季用车攻略|解密续航里程消失之谜</p>
-                                                </ion-col>
-                                            </ion-row>
-                                            <ion-row class="dm-main-recommen-content">
-                                                <ion-col text-center>
-                                                    <img src="/assets/img/tyzx.jpg" />
-                                                </ion-col>
-                                            </ion-row>
-                                            <ion-row class="dm-main-recommen-bottom">
-                                                <ion-col text-left>
-                                                    <p>
-                                                        <span>浏览量:3803</span>
-                                                        <span>10小时前</span>
-                                                    </p>
-                                                </ion-col>
-                                            </ion-row>
-                                        </ion-grid>
-                                    </ion-col>
-                                </ion-row>
-                                <ion-row>
-                                    <ion-col class="dm-main-recommend" [routerLink]="['/home/demo/index']">
-                                        <ion-grid>
-                                            <ion-row class="dm-main-recommen-userinfo">
-                                                <ion-col size="2">
-                                                    <img src="/assets/img/community/index/userhead.png" />
-                                                </ion-col>
-                                                <ion-col text-left>
-                                                    <p>隔壁攻城师</p>
-                                                    <p>demo</p>
-                                                </ion-col>
-                                            </ion-row>
-                                            <ion-row class="dm-main-recommen-title">
-                                                <ion-col text-left>
-                                                    <p>冬季用车攻略|解密续航里程消失之谜</p>
-                                                </ion-col>
-                                            </ion-row>
-                                            <ion-row class="dm-main-recommen-content">
-                                                <ion-col text-center>
-                                                    <img src="/assets/img/tyzx.jpg" />
-                                                </ion-col>
-                                            </ion-row>
-                                            <ion-row class="dm-main-recommen-bottom">
-                                                <ion-col text-left>
-                                                    <p>
-                                                        <span>浏览量:3803</span>
-                                                        <span>10小时前</span>
-                                                    </p>
                                                 </ion-col>
                                             </ion-row>
                                         </ion-grid>
@@ -323,7 +224,49 @@
                     <ion-row>
                         <ion-col>
                             <ion-grid>
-                                <ion-row>
+                                <ion-row *ngFor="let question of model.questionsList">
+                                    <ion-col class="dm-main-questions">
+                                        <ion-grid>
+                                            <ion-row class="dm-main-questions-userinfo">
+                                                <ion-col size="2">
+                                                    <img [src]="question.UserHeader" />
+                                                </ion-col>
+                                                <ion-col text-left>
+                                                    <p>{{question.UserName}}</p>
+                                                    <p><span>{{question.CreateTime}}</span><span>{{question.ShortTitle}}</span></p>
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row class="dm-main-questions-title">
+                                                <ion-col size="1">
+                                                    <svg t="1574851375387" class="icon" viewBox="0 0 1024 1024"
+                                                        version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3705"
+                                                        width="32" height="32">
+                                                        <path
+                                                            d="M731.339032 85.038792H292.660968c-114.483404 0-207.622688 93.14133-207.622688 207.623711v438.677041c0 114.482381 93.140307 207.621665 207.622688 207.621664h438.678064c114.482381 0 207.623711-93.13826 207.624735-207.619618V292.66148c-0.001023-114.482381-93.142353-207.622688-207.624735-207.622688z m156.458401 646.302798c0 86.270852-70.186526 156.456355-156.458401 156.456355H292.660968c-86.271876 0-156.457378-70.185502-156.457378-156.456355V292.662503c0-86.272899 70.186526-156.458401 156.457378-156.458401l438.679087-0.001024c86.272899 0 156.458401 70.185502 156.458402 156.458402v438.68011z"
+                                                            fill="#F45B3A" p-id="3706"></path>
+                                                        <path
+                                                            d="M465.442126 305.773102c0-14.129812-11.452843-25.582655-25.582655-25.582655H306.827619c-14.128789 0-25.582655 11.452843-25.582655 25.582655s11.453866 25.582655 25.582655 25.582655h45.025473v336.51322c-0.823761 2.470261-2.926656 7.512091-7.470136 12.214183-8.575306 8.871041-22.326495 13.085016-40.861639 12.511965-14.117532-0.414439-25.922393 10.661827-26.358322 24.785499-0.435928 14.122649 10.661827 25.921369 24.784477 26.358321 1.619894 0.050142 3.207042 0.072655 4.774746 0.072655 41.462321 0 65.075111-17.077957 77.686337-31.715329 14.312984-16.60826 17.723663-33.568537 18.261922-36.797068a25.490557 25.490557 0 0 0 0.347925-4.204765V331.355757h36.841069c14.127765 0 25.582655-11.453866 25.582655-25.582655zM721.266629 280.190447H501.257843c-14.128789 0-25.582655 11.453866-25.582655 25.582655s11.453866 25.582655 25.582655 25.582655h81.759096l-4.923127 37.862329h-65.582671c-14.128789 0-25.582655 11.452843-25.582655 25.582655v209.775724c0 14.129812 11.453866 25.582655 25.582655 25.582655 14.129812 0 25.582655-11.452843 25.582655-25.582655V420.383396h140.19295v184.193069c0 14.129812 11.453866 25.582655 25.582655 25.582655 14.127765 0 25.582655-11.453866 25.582655-25.582655V394.800741c0-14.129812-11.452843-25.582655-25.582655-25.582655h-74.179467l4.892427-37.634132c0.010233-0.075725 0.01535-0.151449 0.023536-0.228197h86.659709c14.127765 0 25.582655-11.453866 25.582655-25.582655s-11.452843-25.582655-25.581632-25.582655z"
+                                                            fill="#F45B3A" p-id="3707"></path>
+                                                        <path
+                                                            d="M634.499473 467.018529c-2.146896-13.94664-15.172561-23.502273-29.127387-21.376866-13.94971 2.119267-23.545252 15.158235-21.449521 29.113061 0.072655 0.48914 7.15905 49.246611-5.643534 100.325963-15.96767 63.701834-55.218626 102.013395-116.665093 113.871467-13.872962 2.676969-22.949688 16.092513-20.271696 29.966499 2.361791 12.235672 13.07683 20.74037 25.091468 20.74037 1.607614 0 3.238764-0.152473 4.877077-0.468674 45.581128-8.794293 82.735329-29.118178 110.433159-60.399625 21.881356-24.712845 37.548174-55.966663 46.566571-92.892667 14.849196-60.807924 6.551206-116.53718 6.188956-118.879528zM664.795477 626.581642c-10.455119-9.505491-26.634614-8.733918-36.138059 1.721201-9.504468 10.454096-8.733918 26.632567 1.720178 36.137035 31.577183 28.706809 66.909899 61.32674 71.585385 66.421782 5.053086 5.812379 12.164041 8.794293 19.314905 8.79327 5.894244 0 11.81714-2.026146 16.639982-6.161327 10.723226-9.194406 11.963473-25.347295 2.769066-36.071543-6.478552-7.556093-55.232952-52.05968-75.891457-70.840418z"
+                                                            fill="#F45B3A" p-id="3708"></path>
+                                                    </svg>
+                                                </ion-col>
+                                                <ion-col text-left>
+                                                    <p>{{question.Title}}</p>
+                                                </ion-col>
+                                            </ion-row>
+                                            <ion-row class="dm-main-questions-content">
+                                                <ion-col text-left>
+                                                    <p>
+                                                        {{question.Description}}
+                                                    </p>
+                                                </ion-col>
+                                            </ion-row>
+                                        </ion-grid>
+                                    </ion-col>
+                                </ion-row>
+                                <!-- <ion-row>
                                     <ion-col class="dm-main-questions">
                                         <ion-grid>
                                             <ion-row class="dm-main-questions-userinfo">
@@ -445,7 +388,7 @@
                                             </ion-row>
                                         </ion-grid>
                                     </ion-col>
-                                </ion-row>
+                                </ion-row> -->
                             </ion-grid>
                         </ion-col>
                     </ion-row>

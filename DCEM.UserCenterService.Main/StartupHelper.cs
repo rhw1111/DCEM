@@ -1,5 +1,6 @@
 ﻿using DCEM.Main;
 using DCEM.UserCenterService.Main.Configuration;
+using MSLibrary;
 using MSLibrary.Configuration;
 using MSLibrary.DI;
 using MSLibrary.Xrm;
@@ -37,6 +38,8 @@ namespace DCEM.UserCenterService.Main
                     crmService.TokenServiceParameters.Add("UserName", dyCRMSetting.UserName);
                     crmService.TokenServiceParameters.Add("Password", dyCRMSetting.Password);
                     crmService.TokenServiceParameters.Add("RedirectUri", dyCRMSetting.RedirectUri);
+
+                    ContextContainer.SetValue<Guid>(ContextExtensionTypes.MemberInstanceId, dyCRMSetting.MemberInstanceId);
 
                 }
             }

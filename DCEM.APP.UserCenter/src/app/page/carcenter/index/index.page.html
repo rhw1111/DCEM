@@ -4,7 +4,7 @@
             <ion-col>
                 <ion-slides>
                     <ion-slide *ngFor="let item of shareData.page.top.slides">
-                        <ion-grid style="background-color:#000">
+                        <ion-grid >
                             <ion-row>
                                 <ion-col style="padding:1px;">
                                     <img src="{{item['imgscr']}}" style="width:100%" />
@@ -12,15 +12,15 @@
                             </ion-row>
                             <ion-row>
                                 <ion-col style="padding-left:30px;padding-right:30px">
-                                    <ion-button expand="block" color="light" class="button-outline"
+                                    <ion-button expand="block" color="green" class="button-outline"
                                                 style="margin-top:10px; border-radius:50px"
-                                                [routerLink]="['/carcenter/carstore/index']">
+                                                [routerLink]="" (click)="showProductDetail(item['productId'])">
                                         立即购买
                                     </ion-button>
                                     <br />
                                 </ion-col>
                             </ion-row>
-                            <ion-row>
+                            <!-- <ion-row>
                                 <ion-col style="padding-left:30px;padding-right:30px">
                                     <ion-button expand="block" color="primary" class="button-outline"
                                                 style="margin-top:10px; border-radius:50px"
@@ -29,15 +29,14 @@
                                     </ion-button>
                                     <br />
                                 </ion-col>
-                            </ion-row>
+                            </ion-row> -->
                         </ion-grid>
                     </ion-slide>
                 </ion-slides>
             </ion-col>
         </ion-row>
 
-
-        <ion-row style="padding-top:30px; padding-bottom:15px">
+        <ion-row style="padding-top:10px; padding-bottom:15px">
             <ion-col style="padding-left:15px;">
                 <ion-label style="font-weight:bold">
                     体验中心
@@ -54,7 +53,7 @@
         </ion-row>
         <ion-row>
             <ion-col style="padding-left:20px; padding-right:20px">
-                <img src="/assets/img/tyzx.jpg" />
+                <img src="/assets/img/carcenter/gs.jpg" />
             </ion-col>
         </ion-row>
         <ion-row style="padding-top:30px; padding-bottom:15px">
@@ -86,11 +85,21 @@
                 </ion-label>
             </ion-col>
         </ion-row>
+
+        <!-- <ion-row style="padding-top:30px">
+            <ion-col style="padding-left:50px;padding-right:50px">
+                <ion-button expand="block" color="primary" class="button-outline"
+                    [routerLink]="" (click)="checkLoginAndTurn('/carreserve/blindorder/edit')">
+                    领取预约号
+                </ion-button>
+            </ion-col>
+        </ion-row> -->
+
         <ion-row style="padding-top:30px">
             <ion-col style="padding-left:50px;padding-right:50px">
                 <ion-button expand="block" color="primary" class="button-outline"
                     [routerLink]="" (click)="checkLoginAndTurn('/personalcenter/testdrive/edit')">
-                    预约试驾
+                    预约莱秤
                 </ion-button>
             </ion-col>
         </ion-row>
@@ -107,19 +116,11 @@
                 <img style="border-radius:5px" src="{{shareData.page.middle_finance.imgscr}}" />
             </ion-col>
         </ion-row>
-        <ion-row style="padding-top:30px">
-            <ion-col style="padding-left:50px;padding-right:50px">
-                <ion-button expand="block" color="primary" class="button-outline"
-                    [routerLink]="" (click)="checkLoginAndTurn('/carreserve/blindorder/edit')">
-                    领取预约号
-                </ion-button>
-            </ion-col>
-        </ion-row>
-
+        
         <ion-row style="padding-top:30px; padding-bottom:15px">
             <ion-col style="padding-left:15px;">
                 <ion-label style="font-weight:bold">
-                    车主九大权益
+                    优惠权益
                 </ion-label>
             </ion-col>
         </ion-row>
@@ -164,7 +165,7 @@
             <ion-col class="dm-ico-list">
                 <ul>
                     <li *ngFor="let item of shareData.page.middle_charging.menulist" [routerLink]="[item['link']]">
-                        <img src="{{item['svg']}}" />
+                        <img style="margin: 0px 5px;border-radius:50%" src="{{item['svg']}}" />
                         <p>{{item['title']}}</p>
                     </li>
                 </ul>
@@ -206,12 +207,13 @@
         <ion-row style="padding-top:30px; padding-bottom:15px">
             <ion-col style="padding-left:15px;">
                 <ion-label style="font-weight:bold">
-                    {{shareData.page.middle_withinreach.title}}
+                    关于我们
+                    <!-- {{shareData.page.middle_withinreach.title}} -->
                 </ion-label>
             </ion-col>
         </ion-row>
 
-        <ion-row style="padding-left:20px;padding-right:20px;">
+        <!-- <ion-row style="padding-left:20px;padding-right:20px;">
             <ion-col>
                 <ion-slides pager>
                     <ion-slide *ngFor="let item of shareData.page.middle_withinreach.slides">
@@ -225,7 +227,7 @@
                     </ion-slide>
                 </ion-slides>
             </ion-col>
-        </ion-row>
+        </ion-row> -->
 
         <ion-row style="padding-top:30px;" [routerLink]="['/home/frontcontent']" [queryParams]="{defcode:'au001'}">
             <ion-col>

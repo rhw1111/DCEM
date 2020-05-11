@@ -181,6 +181,7 @@ namespace DCEM.Main
             ContextContainer.Current.Register<Guid>(ContextExtensionTypes.PreCommonLogLevelID, new ContextCommonLogPreLevelID());
             ContextContainer.Current.Register<Guid>(ContextExtensionTypes.CurrentCommonLogLevelID, new ContextCommonLogCurrentLevelID());
             ContextContainer.Current.Register<UserInfo>(ContextExtensionTypes.CurrentUserInfo, new ContextCurrentUserInfo());
+            ContextContainer.Current.Register<Guid>(ContextExtensionTypes.MemberInstanceId,new ContextMemberInstanceId());
 
         }
 

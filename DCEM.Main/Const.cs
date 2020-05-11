@@ -60,6 +60,10 @@ namespace DCEM.Main
         /// 父通用日志上下文信息
         /// </summary>
         public const string ParentCommonLogContextInfo = "ParentCommonLogContextInfo";
+        /// <summary>
+        /// 默认会员实例ID
+        /// </summary>
+        public const string MemberInstanceId = "MemberInstanceId";
     }
 
     /// <summary>

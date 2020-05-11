@@ -383,5 +383,30 @@ namespace DCEM.UserCenterService.Main.Application.Repository
             });
         }
 
+        /// <summary>
+        /// 通过手机号获取潜客
+        /// </summary>
+        /// <param name="instanceCode"></param>
+        /// <returns></returns>
+        public async Task<XDocument> GetContactByMobilePhone(string mobilePhone)
+        {
+
+            return await Task<XDocument>.Run(() =>
+            {
+
+                var fetchXml = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='false'>
+                  <entity name='contact'>
+                    <attribute name='contactid' />
+                    <attribute name='fullname' />
+                    <order attribute='createdon' descending='true' />
+                    <filter type='and'>
+                      <condition attribute='statecode' operator='eq' value='0' />
+                      <condition attribute='mobilephone' operator='eq' value='{mobilePhone}' />
+                    </filter>
+                  </entity>
+                </fetch>";
+                return XDocument.Parse(fetchXml);
+            });
+        }
     }
 }

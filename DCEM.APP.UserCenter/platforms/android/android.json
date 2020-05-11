@@ -17,7 +17,6 @@
                 "android:hardwareAccelerated": "true",
                 "android:icon": "@mipmap/ic_launcher",
                 "android:label": "@string/app_name",
-                "android:networkSecurityConfig": "@xml/network_security_config",
                 "android:supportsRtl": "true"
               }
             }
@@ -29,37 +28,44 @@
           "/manifest": [
             {
               "xml": "<uses-permission android:name=\"android.permission.REQUEST_INSTALL_PACKAGES\" />",
-              "count": 5
+              "count": 1,
+              "id": "config.xml"
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
-              "count": 10
+              "count": 2,
+              "id": "config.xml"
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.RECORD_AUDIO\" />",
-              "count": 5
+              "count": 1,
+              "id": "config.xml"
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.RECORD_VIDEO\" />",
-              "count": 5
+              "count": 1,
+              "id": "config.xml"
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />",
-              "count": 5
+              "count": 1,
+              "id": "config.xml"
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\" />",
-              "count": 5
+              "count": 1,
+              "id": "config.xml"
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />",
-              "count": 5
+              "count": 1,
+              "id": "config.xml"
             }
           ],
           "/*": [
             {
               "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
-              "count": 4
+              "count": 3
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />",
@@ -92,10 +98,6 @@
           ],
           "application": [
             {
-              "xml": "<provider android:authorities=\"${applicationId}.provider\" android:exported=\"false\" android:grantUriPermissions=\"true\" android:name=\"org.apache.cordova.camera.FileProvider\"><meta-data android:name=\"android.support.FILE_PROVIDER_PATHS\" android:resource=\"@xml/camera_provider_paths\" /></provider>",
-              "count": 1
-            },
-            {
               "xml": "<provider android:authorities=\"${applicationId}.opener.provider\" android:exported=\"false\" android:grantUriPermissions=\"true\" android:name=\"io.github.pwlin.cordova.plugins.fileopener2.FileProvider\"><meta-data android:name=\"android.support.FILE_PROVIDER_PATHS\" android:resource=\"@xml/opener_paths\" /></provider>",
               "count": 1
             }
@@ -105,14 +107,6 @@
       "res/xml/config.xml": {
         "parents": {
           "/*": [
-            {
-              "xml": "<feature name=\"AppVersion\"><param name=\"android-package\" value=\"uk.co.whiteoctober.cordova.AppVersion\" /></feature>",
-              "count": 1
-            },
-            {
-              "xml": "<feature name=\"Camera\"><param name=\"android-package\" value=\"org.apache.cordova.camera.CameraLauncher\" /></feature>",
-              "count": 1
-            },
             {
               "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
               "count": 1
@@ -194,99 +188,52 @@
   },
   "installed_plugins": {
     "cordova-plugin-add-swift-support": {
-      "PACKAGE_NAME": "mcs.dcem.ucenter"
-    },
-    "cordova-plugin-app-version": {
-      "PACKAGE_NAME": "mcs.dcem.ucenter"
-    },
-    "cordova-plugin-camera": {
-      "ANDROID_SUPPORT_V4_VERSION": "27.+",
-      "PACKAGE_NAME": "mcs.dcem.ucenter"
+      "PACKAGE_NAME": "mcs.dcem.kblgather"
     },
     "cordova-plugin-device": {
-      "PACKAGE_NAME": "mcs.dcem.ucenter"
+      "PACKAGE_NAME": "mcs.dcem.kblgather"
     },
     "cordova-plugin-file": {
-      "PACKAGE_NAME": "mcs.dcem.ucenter"
+      "PACKAGE_NAME": "mcs.dcem.kblgather"
     },
     "cordova-plugin-file-opener2": {
       "ANDROID_SUPPORT_V4_VERSION": "27.+",
-      "PACKAGE_NAME": "mcs.dcem.ucenter"
+      "PACKAGE_NAME": "mcs.dcem.kblgather"
     },
     "cordova-plugin-file-transfer": {
-      "PACKAGE_NAME": "mcs.dcem.ucenter"
+      "PACKAGE_NAME": "mcs.dcem.kblgather"
     },
     "cordova-plugin-ionic-keyboard": {
-      "PACKAGE_NAME": "mcs.dcem.ucenter"
+      "PACKAGE_NAME": "mcs.dcem.kblgather"
     },
     "cordova-plugin-ionic-webview": {
       "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+",
-      "PACKAGE_NAME": "mcs.dcem.ucenter"
+      "PACKAGE_NAME": "mcs.dcem.kblgather"
     },
     "cordova-plugin-media": {
-      "PACKAGE_NAME": "mcs.dcem.ucenter"
+      "PACKAGE_NAME": "mcs.dcem.kblgather"
     },
     "cordova-plugin-qrscanner": {
-      "PACKAGE_NAME": "mcs.dcem.ucenter"
+      "PACKAGE_NAME": "mcs.dcem.kblgather"
     },
     "es6-promise-plugin": {
-      "PACKAGE_NAME": "mcs.dcem.ucenter"
+      "PACKAGE_NAME": "mcs.dcem.kblgather"
     },
     "cordova-plugin-screen-orientation": {
-      "PACKAGE_NAME": "mcs.dcem.ucenter"
+      "PACKAGE_NAME": "mcs.dcem.kblgather"
     },
     "cordova-plugin-splashscreen": {
-      "PACKAGE_NAME": "mcs.dcem.ucenter"
+      "PACKAGE_NAME": "mcs.dcem.kblgather"
     },
     "cordova-plugin-statusbar": {
-      "PACKAGE_NAME": "mcs.dcem.ucenter"
+      "PACKAGE_NAME": "mcs.dcem.kblgather"
     },
     "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "mcs.dcem.ucenter"
+      "PACKAGE_NAME": "mcs.dcem.kblgather"
     }
   },
   "dependent_plugins": {},
   "modules": [
-    {
-      "id": "cordova-plugin-app-version.AppVersionPlugin",
-      "file": "plugins/cordova-plugin-app-version/www/AppVersionPlugin.js",
-      "pluginId": "cordova-plugin-app-version",
-      "clobbers": [
-        "cordova.getAppVersion"
-      ]
-    },
-    {
-      "id": "cordova-plugin-camera.Camera",
-      "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
-      "pluginId": "cordova-plugin-camera",
-      "clobbers": [
-        "Camera"
-      ]
-    },
-    {
-      "id": "cordova-plugin-camera.CameraPopoverOptions",
-      "file": "plugins/cordova-plugin-camera/www/CameraPopoverOptions.js",
-      "pluginId": "cordova-plugin-camera",
-      "clobbers": [
-        "CameraPopoverOptions"
-      ]
-    },
-    {
-      "id": "cordova-plugin-camera.camera",
-      "file": "plugins/cordova-plugin-camera/www/Camera.js",
-      "pluginId": "cordova-plugin-camera",
-      "clobbers": [
-        "navigator.camera"
-      ]
-    },
-    {
-      "id": "cordova-plugin-camera.CameraPopoverHandle",
-      "file": "plugins/cordova-plugin-camera/www/CameraPopoverHandle.js",
-      "pluginId": "cordova-plugin-camera",
-      "clobbers": [
-        "CameraPopoverHandle"
-      ]
-    },
     {
       "id": "cordova-plugin-device.device",
       "file": "plugins/cordova-plugin-device/www/device.js",
@@ -565,8 +512,6 @@
   ],
   "plugin_metadata": {
     "cordova-plugin-add-swift-support": "2.0.2",
-    "cordova-plugin-app-version": "0.1.9",
-    "cordova-plugin-camera": "4.1.0",
     "cordova-plugin-device": "2.0.2",
     "cordova-plugin-file": "6.0.2",
     "cordova-plugin-file-opener2": "3.0.0",
