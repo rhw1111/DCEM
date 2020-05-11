@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Runtime.Serialization;
 using MSLibrary.DI;
 using MSLibrary.Serializer;
+using MSLibrary.Template;
 
 namespace MSLibrary.Xrm.CrmServiceFactoryServices
 {
@@ -57,8 +58,17 @@ namespace MSLibrary.Xrm.CrmServiceFactoryServices
     [Injection(InterfaceType = typeof(CrmServiceFactoryServiceForCommon), Scope = InjectionScope.Singleton)]
     public class CrmServiceFactoryServiceForCommon : ICrmServiceFactoryService
     {
+        /// <summary>
+        /// 文本替换服务
+        /// 如果该属性赋值，则configuration中的内容将首先使用该服务来替换占位符
+        /// </summary>
+        public static ITextReplaceService TextReplaceService { set; get; }
         public async Task<ICrmService> Create(string configuration)
         {
+            if (TextReplaceService!=null)
+            {
+                configuration = await TextReplaceService.Replace(configuration);
+            }
             var crmService=DIContainerContainer.Get<CrmService>();
 
             var serviceConfiguration=JsonSerializerHelper.Deserialize<CrmServiceConfiguration>(configuration);

@@ -91,7 +91,7 @@ namespace MSLibrary.Xrm.MessageHandle
 
             CrmRequestMessageHandleResult result = new CrmRequestMessageHandleResult();
             result.Url = url;
-            result.Method = new HttpMethod("Patch");
+            result.Method =HttpMethod.Patch;
             result.Headers = headers;
             result.Body = entityJObject.ToString();
 

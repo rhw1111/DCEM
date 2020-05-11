@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 using MSLibrary.LanguageTranslate;
 using MSLibrary.DI;
+using MSLibrary.ExceptionHandle;
 
 namespace MSLibrary.AspNet
 {
@@ -15,6 +16,13 @@ namespace MSLibrary.AspNet
     /// </summary>
     public static class HttpErrorHelper
     {
+
+        /// <summary>
+        /// 异常转换
+        /// </summary>
+        public static IExceptionConvert ExceptionConvert { set; get; }
+
+
         /// <summary>
         /// 基于Http上下文异步处理
         /// 捕获action中的异常，
@@ -32,24 +40,45 @@ namespace MSLibrary.AspNet
             }
             catch(UtilityException ex)
             {
-                ErrorMessage errorMessage = new ErrorMessage()
+                if (!UtilityExceptionTypeStatusCodeMappings.Mappings.TryGetValue(ex.Type, out int statusCode))
+                {
+                    statusCode = 500;
+                }
+
+                object errorMessage = new ErrorMessage()
                 {
                     Code = ex.Code,
                     Message = await ex.GetCurrentLcidMessage()
                 };
-                await httpContext.Response.WriteJson(StatusCodes.Status500InternalServerError, errorMessage);
+
+                var errorType = typeof(ErrorMessage);
+
+                if (ExceptionConvert != null)
+                {
+                    (errorType, errorMessage) = await ExceptionConvert.Convert(ex);
+                }
+
+
+                await httpContext.Response.WriteJson(statusCode, errorType, errorMessage);
             }
             catch(Exception ex)
             {
-                ErrorMessage errorMessage = new ErrorMessage()
+                object errorMessage = new ErrorMessage()
                 {
                     Code = -1,
                     Message = string.Format(StringLanguageTranslate.Translate(TextCodes.InnerError, "系统内部错误，请查看系统日志"))
                 };
-                await httpContext.Response.WriteJson(StatusCodes.Status500InternalServerError, errorMessage);
 
-              
+                var errorType = typeof(ErrorMessage);
 
+                if (ExceptionConvert != null)
+                {
+                    (errorType, errorMessage) = await ExceptionConvert.Convert(ex);
+                }
+
+                await httpContext.Response.WriteJson(StatusCodes.Status500InternalServerError, errorType, errorMessage);
+
+             
                 //加入日志
                 logger.Log<string>(LogLevel.Error, new EventId(), $"http request {httpContext.Request.Path} error,message:{ex.Message},stacktrace:{ex.StackTrace}",null, (obj, e) => { return string.Empty; });
             }
@@ -72,21 +101,46 @@ namespace MSLibrary.AspNet
             }
             catch (UtilityException ex)
             {
-                ErrorMessage errorMessage = new ErrorMessage()
+                if (!UtilityExceptionTypeStatusCodeMappings.Mappings.TryGetValue(ex.Type, out int statusCode))
+                {
+                    statusCode = 500;
+                }
+
+                object errorMessage = new ErrorMessage()
                 {
                     Code = ex.Code,
-                    Message =await ex.GetCurrentLcidMessage()
+                    Message = await ex.GetCurrentLcidMessage()
                 };
-                context.Result= new JsonContentResult<ErrorMessage>(StatusCodes.Status500InternalServerError, errorMessage);
+
+                var errorType = typeof(ErrorMessage);
+
+                if (ExceptionConvert != null)
+                {
+                    (errorType, errorMessage) = await ExceptionConvert.Convert(ex);
+                }
+
+                context.Result= new JsonContentResult(statusCode, errorType, errorMessage);
             }
             catch (Exception ex)
             {
-                ErrorMessage errorMessage = new ErrorMessage()
+                string message;
+            
+                message = string.Format(StringLanguageTranslate.Translate(TextCodes.InnerError, "系统内部错误，请查看系统日志"));
+                
+
+                object errorMessage = new ErrorMessage()
                 {
                     Code = -1,
-                    Message = string.Format(StringLanguageTranslate.Translate(TextCodes.InnerError, "系统内部错误，请查看系统日志"))
+                    Message = message
                 };
-                context.Result = new JsonContentResult<ErrorMessage>(StatusCodes.Status500InternalServerError, errorMessage);
+                var errorType = typeof(ErrorMessage);
+
+                if (ExceptionConvert != null)
+                {
+                    (errorType, errorMessage) = await ExceptionConvert.Convert(ex);
+                }
+
+                context.Result = new JsonContentResult(StatusCodes.Status500InternalServerError, errorType, errorMessage);
                 //加入日志
                 logger.Log<string>(LogLevel.Error, new EventId(), $"AuthorizationFilter in action {context.ActionDescriptor.DisplayName} error,message:{ex.Message},stacktrace:{ex.StackTrace}", null, (obj, e) => { return string.Empty; });
 
@@ -113,21 +167,46 @@ namespace MSLibrary.AspNet
             }
             catch (UtilityException ex)
             {
-                ErrorMessage errorMessage = new ErrorMessage()
+                if (!UtilityExceptionTypeStatusCodeMappings.Mappings.TryGetValue(ex.Type, out int statusCode))
+                {
+                    statusCode = 500;
+                }
+
+                object errorMessage = new ErrorMessage()
                 {
                     Code = ex.Code,
-                    Message =await ex.GetCurrentLcidMessage()
+                    Message = await ex.GetCurrentLcidMessage()
                 };
-                context.Result = new JsonContentResult<ErrorMessage>(StatusCodes.Status500InternalServerError, errorMessage);
+
+                var errorType = typeof(ErrorMessage);
+
+                if (ExceptionConvert != null)
+                {
+                    (errorType, errorMessage) = await ExceptionConvert.Convert(ex);
+                }
+
+                context.Result = new JsonContentResult(statusCode, errorType, errorMessage);
             }
             catch (Exception ex)
             {
-                ErrorMessage errorMessage = new ErrorMessage()
+                string message;
+
+                message = string.Format(StringLanguageTranslate.Translate(TextCodes.InnerError, "系统内部错误，请查看系统日志"));
+
+
+                object errorMessage = new ErrorMessage()
                 {
                     Code = -1,
-                    Message = string.Format(StringLanguageTranslate.Translate(TextCodes.InnerError, "系统内部错误，请查看系统日志"))
+                    Message = message
                 };
-                context.Result = new JsonContentResult<ErrorMessage>(StatusCodes.Status500InternalServerError, errorMessage);
+                var errorType = typeof(ErrorMessage);
+
+                if (ExceptionConvert != null)
+                {
+                    (errorType, errorMessage) = await ExceptionConvert.Convert(ex);
+                }
+
+                context.Result = new JsonContentResult(StatusCodes.Status500InternalServerError, errorType, errorMessage);
                 //加入日志
                 logger.Log<string>(LogLevel.Error, new EventId(), $"ActionExecutingFilter in action {context.ActionDescriptor.DisplayName} error,message:{ex.Message},stacktrace:{ex.StackTrace}", null, (obj, e) => { return string.Empty; });
             }

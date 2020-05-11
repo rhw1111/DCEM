@@ -10,6 +10,7 @@ using MSLibrary.LanguageTranslate;
 using MSLibrary.Logger;
 using MSLibrary.AspNet.Filter.Application;
 using MSLibrary.Context.Application;
+using MSLibrary.ExceptionHandle;
 
 namespace MSLibrary.AspNet.Filter
 {
@@ -20,6 +21,12 @@ namespace MSLibrary.AspNet.Filter
     [Injection(InterfaceType = typeof(ExceptionFilter), Scope = InjectionScope.Transient)]
     public class ExceptionFilter : ExceptionFilterAttribute
     {
+
+        /// <summary>
+        /// 异常转换
+        /// </summary>
+        public static IExceptionConvert ExceptionConvert { set; get; }
+
         private string _categoryName;
         private bool _isDebug;
         private IAppExceptionContextLogConvert _appExceptionContextLogConvert;
@@ -64,13 +71,30 @@ namespace MSLibrary.AspNet.Filter
                 if (context.Exception is UtilityException && ((UtilityException)context.Exception).Level > 0)
                 {
                     var utilityException = (UtilityException)context.Exception;
-
-                    ErrorMessage errorMessage = new ErrorMessage()
+                    object errorMessage = new ErrorMessage()
                     {
                         Code = utilityException.Code,
                         Message = await utilityException.GetCurrentLcidMessage()
                     };
-                    context.Result = new JsonContentResult<ErrorMessage>(StatusCodes.Status500InternalServerError, errorMessage);
+                    var errorType = typeof(ErrorMessage);
+
+                    if (ExceptionConvert!=null)
+                    {
+                        (errorType,errorMessage) =await ExceptionConvert.Convert(utilityException);
+                    }
+
+                    /*ErrorMessage errorMessage = new ErrorMessage()
+                    {
+                        Code = utilityException.Code,
+                        Message = await utilityException.GetCurrentLcidMessage()
+                    };*/
+
+                    if (!UtilityExceptionTypeStatusCodeMappings.Mappings.TryGetValue(utilityException.Type,out int statusCode))
+                    {
+                        statusCode = 500;
+                    }
+
+                    context.Result = new JsonContentResult(statusCode, errorType, errorMessage);
                 }
                 else
                 {
@@ -84,12 +108,21 @@ namespace MSLibrary.AspNet.Filter
                         message = string.Format(StringLanguageTranslate.Translate(TextCodes.InnerError, "系统内部错误，请查看系统日志"));
                     }
 
-                    ErrorMessage errorMessage = new ErrorMessage()
+                    object errorMessage = new ErrorMessage()
                     {
                         Code = -1,
                         Message = message
                     };
-                    context.Result = new JsonContentResult<ErrorMessage>(StatusCodes.Status500InternalServerError, errorMessage);
+                    var errorType = typeof(ErrorMessage);
+
+                    if (ExceptionConvert != null)
+                    {
+                        (errorType, errorMessage) = await ExceptionConvert.Convert(context.Exception);
+                    }
+
+
+            
+                    context.Result = new JsonContentResult(StatusCodes.Status500InternalServerError, errorType, errorMessage);
                 }
 
                 //加到日志中

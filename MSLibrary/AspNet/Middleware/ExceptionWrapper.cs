@@ -9,6 +9,7 @@ using MSLibrary.LanguageTranslate;
 using MSLibrary.Logger;
 using MSLibrary.AspNet.Middleware.Application;
 using MSLibrary.Context.Application;
+using MSLibrary.ExceptionHandle;
 
 namespace MSLibrary.AspNet.Middleware
 {
@@ -17,6 +18,12 @@ namespace MSLibrary.AspNet.Middleware
     /// </summary>
     public class ExceptionWrapper
     {
+
+        /// <summary>
+        /// 异常转换
+        /// </summary>
+        public static IExceptionConvert ExceptionConvert { set; get; }
+
         private RequestDelegate _nextMiddleware;
         private string _categoryName;
         private IAppExceptionHttpContextLogConvert _appExceptionHttpContextLogConvert;
@@ -43,12 +50,26 @@ namespace MSLibrary.AspNet.Middleware
                 {
                     var utilityException = (UtilityException)ex;
 
-                    ErrorMessage errorMessage = new ErrorMessage()
+
+                    object errorMessage = new ErrorMessage()
                     {
                         Code = utilityException.Code,
                         Message = await utilityException.GetCurrentLcidMessage()
                     };
-                    await context.Response.WriteJson(StatusCodes.Status500InternalServerError, errorMessage);
+                    var errorType = typeof(ErrorMessage);
+
+                    if (ExceptionConvert != null)
+                    {
+                        (errorType, errorMessage) = await ExceptionConvert.Convert(utilityException);
+                    }
+
+   
+                    if (!UtilityExceptionTypeStatusCodeMappings.Mappings.TryGetValue(utilityException.Type, out int statusCode))
+                    {
+                        statusCode = 500;
+                    }
+
+                    await context.Response.WriteJson(statusCode, errorType, errorMessage);
                 }
                 else
                 {
@@ -61,12 +82,21 @@ namespace MSLibrary.AspNet.Middleware
                     {
                         message = string.Format(StringLanguageTranslate.Translate(TextCodes.InnerError, "系统内部错误，请查看系统日志"));
                     }
-                    ErrorMessage errorMessage = new ErrorMessage()
+
+
+                    object errorMessage = new ErrorMessage()
                     {
                         Code = -1,
                         Message = message
                     };
-                    await context.Response.WriteJson(StatusCodes.Status500InternalServerError, errorMessage);
+                    var errorType = typeof(ErrorMessage);
+
+                    if (ExceptionConvert != null)
+                    {
+                        (errorType, errorMessage) = await ExceptionConvert.Convert(ex);
+                    }
+
+                    await context.Response.WriteJson(StatusCodes.Status500InternalServerError, errorType, errorMessage);
                 }
 
 

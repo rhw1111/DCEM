@@ -347,11 +347,7 @@ namespace MSLibrary.Xrm
                                     httpContent = requestResult.ReplaceHttpContent;
                                 }
 
-                                HttpRequestMessage httpRequest = new HttpRequestMessage(new HttpMethod("Patch"), requestResult.Url)
-                                {
-                                    Content = httpContent
-                                };
-                                responseMessage = await httpClient.SendAsync(httpRequest);
+                                responseMessage = await httpClient.PatchAsync(requestResult.Url, httpContent);
 
                                 break;
                             case "delete":

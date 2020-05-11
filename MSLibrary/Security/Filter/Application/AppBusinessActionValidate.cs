@@ -7,7 +7,7 @@ using MSLibrary.DI;
 using MSLibrary.Security.BusinessSecurityRule;
 using MSLibrary.LanguageTranslate;
 
-namespace BOC.GSP2.Main.Security.Filter.Application
+namespace MSLibrary.Security.Filter.Application
 {
     [Injection(InterfaceType = typeof(IAppBusinessActionValidate), Scope = InjectionScope.Singleton)]
     public class AppBusinessActionValidate : IAppBusinessActionValidate

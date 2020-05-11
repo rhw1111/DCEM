@@ -19,7 +19,7 @@ namespace MSLibrary.Xrm.Token
     /// ApplicationId:string,应用的Id
     /// ApplicationKey:string,应用的密钥
     /// CrmUrl:string,Crm的地址
-    /// AADId:string,Application所在的AAD的id
+    /// AADId:string,Application所在的AAD的id,可以为null，这种情况下将多请求一次，用来获取实际带aadid的验证地址
     /// </summary>
     [Injection(InterfaceType = typeof(CrmServiceTokenGenerateServiceForS2S), Scope = InjectionScope.Singleton)]
     public class CrmServiceTokenGenerateServiceForS2S : ICrmServiceTokenGenerateService
@@ -151,7 +151,7 @@ namespace MSLibrary.Xrm.Token
             }
             string strCrmUrl = parameters[CrmServiceTokenGenerateServiceParameterNames.CrmUrl].ToString();
 
-            if (!parameters.ContainsKey(CrmServiceTokenGenerateServiceParameterNames.AADId) || parameters[CrmServiceTokenGenerateServiceParameterNames.AADId] == null)
+            if (!parameters.ContainsKey(CrmServiceTokenGenerateServiceParameterNames.AADId))
             {
                 var fragment = new TextFragment()
                 {
@@ -162,7 +162,7 @@ namespace MSLibrary.Xrm.Token
 
                 throw new UtilityException((int)Errors.NotFoundParameterInCrmServiceTokenGenerateService, fragment);
             }
-            if (!(parameters[CrmServiceTokenGenerateServiceParameterNames.AADId] is string))
+            if (parameters[CrmServiceTokenGenerateServiceParameterNames.AADId]!=null && !(parameters[CrmServiceTokenGenerateServiceParameterNames.AADId] is string))
             {
                 var fragment = new TextFragment()
                 {
@@ -173,7 +173,12 @@ namespace MSLibrary.Xrm.Token
 
                 throw new UtilityException((int)Errors.ParameterTypeNotMatchInCrmServiceTokenGenerateService, fragment);
             }
-            string strAADId = parameters[CrmServiceTokenGenerateServiceParameterNames.AADId].ToString();
+            string strAADId = null;
+
+            if (parameters[CrmServiceTokenGenerateServiceParameterNames.AADId] != null)
+            {
+                strAADId = parameters[CrmServiceTokenGenerateServiceParameterNames.AADId].ToString();
+            }
 
             string strToken = null;
             await GetAuthenticationContext(strBaseUri,strCrmUrl,strApplicationId, strApplcationKey, strAADId,async(context)=>
@@ -193,10 +198,19 @@ namespace MSLibrary.Xrm.Token
             return JsonSerializerHelper.Serializer(new InnerKey(baseUri,crmUrl, applicationId, applicationkey, aadId));
         }
 
-        private AuthenticationContext CreateAuthenticationContext(string baseUri,string aadId)
+        private async Task<AuthenticationContext> CreateAuthenticationContext(string baseUri,string crmUrl,string aadId)
         {
-            AuthenticationContext authenticationContext =
-             new AuthenticationContext($"https://{baseUri}/{aadId}");
+            AuthenticationContext authenticationContext;
+            //如果aadId==null，则需要首先获取认证地址
+            if (aadId == null)
+            {
+                AuthenticationParameters authenticationParameters = await AuthenticationParameters.CreateFromUrlAsync(new Uri(new Uri(crmUrl), "api/data/"));
+                authenticationContext = new AuthenticationContext(authenticationParameters.Authority.Replace("/oauth2/authorize", string.Empty));
+            }
+            else
+            {
+                authenticationContext =new AuthenticationContext($"https://{baseUri}/{aadId}");
+            }
 
             return authenticationContext;
         }
@@ -208,11 +222,7 @@ namespace MSLibrary.Xrm.Token
             {
 
                 SharePool<AuthenticationContext> contextPool = new SharePool<AuthenticationContext>("CrmS2S",
-                    () =>
-                   {
-                       AuthenticationContext newContext = CreateAuthenticationContext(baseUri, aadId);
-                       return newContext;
-                   },
+                   null,
                 (authcContext) =>
                 {
                     return true;
@@ -224,7 +234,7 @@ namespace MSLibrary.Xrm.Token
                 },
                 async () =>
                 {
-                    AuthenticationContext newContext = CreateAuthenticationContext(baseUri, aadId);
+                    AuthenticationContext newContext = await CreateAuthenticationContext(baseUri,crmUrl, aadId);
                     return await Task.FromResult(newContext);
                 }
                 ,

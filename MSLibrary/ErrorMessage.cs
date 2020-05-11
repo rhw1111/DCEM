@@ -12,5 +12,7 @@ namespace MSLibrary
         public int Code { get; set; }
         [DataMember]
         public string Message { get; set; }
+        [DataMember]
+        public DateTime DateTime { get; set; } = DateTime.UtcNow;
     }
 }

@@ -33,6 +33,7 @@ namespace MSLibrary.AspNet.Filter
 
         public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
         {
+           
             bool needDo = true;
 
             var overrideFilter = (from item in context.Filters

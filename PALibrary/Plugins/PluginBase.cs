@@ -20,7 +20,6 @@ namespace PALibrary.Plugins
 
             SystemInitialzation.Start(sFactory, context);
 
-
             if (!OverrideExecute())
             {
                 using (var appResult= _appPluginContextService.Do(serviceProvider))

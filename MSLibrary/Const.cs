@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -25,6 +25,10 @@ namespace MSLibrary
         /// 字典
         /// </summary>
         public const string Dictionary = "Dictionary";
+        /// <summary>
+        /// DI服务提供方
+        /// </summary>
+        public const string ServiceProvider = "ServiceProvider";
     }
 
     /// <summary>
@@ -42,7 +46,21 @@ namespace MSLibrary
         /// 格式为“传入的字符串不是RefreashAccessToken类型”
         /// </summary>
         public const string NotRefreashAccessToken = "NotRefreashAccessToken";
-
+        /// <summary>
+        ///  指定类型没有实现指定接口
+        ///  格式为“类型{0}没有实现接口{1}”
+        ///  {0}：类型
+        ///  {1}：接口
+        /// </summary>
+        public const string TypeNotImplimentInterface = "TypeNotImplimentInterface";
+        /// <summary>
+        /// 指定类型不是所需要的类型
+        /// 格式为“类型{0}不是所需的类型，要求的类型为{1}，发生位置为{2}”
+        /// {0}：当前类型
+        /// {1}：要求的类型
+        /// {1}：发生的位置
+        /// </summary>
+        public const string TypeNotRequire = "TypeNotRequire";
         /// <summary>
         /// 在httpheader中找不到WhitelistAuthorization
         /// 格式为“在http头中没有找到WhitelistAuthorization”
@@ -2557,8 +2575,79 @@ namespace MSLibrary
         /// <summary>
         /// 找不到指定名称的Redis客户端工厂
         /// 格式为“找不到名称为{0}的Redis客户端工厂”
+        /// {0}:工厂名称
         /// </summary>
         public const string NotFoundRedisClientFactoryByName = "NotFoundRedisClientFactoryByName";
+        /// <summary>
+        /// 找不到指定标签的替换内容生成服务
+        /// 格式为“找不到标签为{0}的替换内容生成服务，发生位置：{1}”
+        /// {0}：标签名称
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFoundReplaceContentGenerateServiceByLabel = "NotFoundReplaceContentGenerateServiceByLabel";
+
+        /// <summary>
+        /// 在容器中找不到指定名称的消息请求响应主机服务
+        /// 格式为“找不到名称为{0}的消息请求响应主机服务，发生位置：{1}”
+        /// {0}：服务名称
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFoundSRRHostServiceInContainerByName = "NotFoundSRRHostServiceInContainerByName";
+        /// <summary>
+        /// 找不到指定请求类型的请求处理描述
+        /// 格式为“找不到请求类型为{0}的请求处理描述，发生位置：{1}”
+        /// {0}：请求类型
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFoundSRRRequestHandlerDescriptionByType = "NotFoundSRRRequestHandlerDescriptionByType";
+
+
+
+
+
+
+
+        /// <summary>
+        /// 实际类型与中间数据处理器要求的请求类型不匹配
+        /// 格式为“实际类型{0}与中间数据处理器{1}要求的请求类型{2}不匹配”
+        /// {0}：请求的实际类型
+        /// {1}：处理类型
+        /// {2}：要求的请求类型
+        /// </summary>
+        public const string MiddleDataTypeNotMatchHandler = "MiddleDataTypeNotMatchHandler";
+
+        /// <summary>
+        /// 找不到指定请求类型名称的DAX消息处理
+        /// 格式为“找不到请求类型名称为{0}的DAX消息处理，发生位置：{1}”
+        /// {0}：请求类型名称
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFoundDAXMessageHandleByRequestTypeFullName = "NotFoundDAXMessageHandleByRequestTypeFullName";
+        /// <summary>
+        /// 找不到指定名称的DAX服务令牌生成服务
+        /// 格式为“找不到名称为{0}的DAX服务令牌生成服务，位置为{1}”
+        /// {0}：服务名称
+        /// {1}：发生的位置
+        /// </summary>
+        public const string NotFoundDAXServiceTokenGenerateServiceByName = "NotFoundDAXServiceTokenGenerateServiceByName";
+        /// <summary>
+        /// 在DAX服务令牌生成服务中找不到指定名称的参数
+        /// 格式为“在DAX服务令牌生成服务{0}中，找不到名称为{1}的参数”
+        /// {0}：服务类名
+        /// {1}：参数名称
+        /// </summary>
+        public const string NotFoundParameterInDAXServiceTokenGenerateService = "NotFoundParameterInDAXServiceTokenGenerateService";
+
+        /// <summary>
+        ///  在DAX服务令牌生成服务中指定参数的类型不匹配
+        ///  格式为“在DAX服务令牌生成服务{0}中，名称为{1}的参数期望类型为{2}，而实际类型为{3}”
+        ///  {0}：服务的类名
+        ///  {1}：参数名称
+        ///  {2}：参数期望类型
+        ///  {3}：参数实际类型
+        /// </summary>
+        public const string ParameterTypeNotMatchInDAXServiceTokenGenerateService = "ParameterTypeNotMatchInDAXServiceTokenGenerateService";
+
     }
 
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace MSLibrary
 {
@@ -313,5 +314,47 @@ namespace MSLibrary
         {
             return WebUtility.UrlDecode(encodeUrl);
         }
+
+        /// <summary>
+        /// 从文本中按分隔标识生成IEnumerable列表
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="text"></param>
+        /// <param name="generateContainer"></param>
+        /// <param name="addToContainer"></param>
+        /// <param name="getInterval"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> FromTextByInterval<T>(this string text,Func<IEnumerable<T>> generateContainer,Func<string,T> generateContainerItem,Action<IEnumerable<T>,T> addToContainer, Func<string> getInterval)
+        {
+            var container = generateContainer();
+            var interval = getInterval();
+            Regex reg = new Regex(interval);
+            var strItems= reg.Split(text);
+
+            foreach(var item in strItems)
+            {
+                addToContainer(container, generateContainerItem(item));
+            }
+
+            return container;
+
+        }
+
+        public static async Task<IEnumerable<T>> FromTextByInterval<T>(this string text, Func<Task<IEnumerable<T>>> generateContainer, Func<string, Task<T>> generateContainerItem, Func<IEnumerable<T>, T,Task> addToContainer, Func<Task<string>> getInterval)
+        {
+            var container =await generateContainer();
+            var interval =await getInterval();
+            Regex reg = new Regex(interval);
+            var strItems = reg.Split(text);
+
+            foreach (var item in strItems)
+            {
+                await addToContainer(container, await generateContainerItem(item));
+            }
+
+            return container;
+
+        }
+
     }
 }

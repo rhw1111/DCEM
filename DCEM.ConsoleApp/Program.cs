@@ -14,10 +14,12 @@ using System.Text.RegularExpressions;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using System.Runtime;
 using System.Runtime.Serialization;
 using System.Diagnostics;
 using System.Security;
 using System.IO.Compression;
+using Microsoft.AspNetCore.Authorization;
 using System.Buffers;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Caching.Memory;
@@ -43,6 +45,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Microsoft.Extensions.Configuration;
 using System.Diagnostics.Contracts;
 using MSLibrary.Oauth.ADFS;
 using ICSharpCode.SharpZipLib.Zip;
@@ -54,6 +57,9 @@ using MSLibrary.SystemToken.TokenControllerServices;
 using Azure.Identity;
 using Azure.Core;
 using MSLibrary.Collections;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using System.Globalization;
+using IdentityServer4.Models;
 
 namespace DCEM.ConsoleApp
 {
@@ -166,14 +172,143 @@ namespace DCEM.ConsoleApp
 
         static void SetSpan()
         {
-            Memory<int> m = new Memory<int>(new int[] { 1, 2, 3 });
-            Span<int> sp = m.Span;
-            sp[2] = 5;
+            int[] intArray = new int[] { 1, 2 };
+
+            var intSpan = intArray.AsSpan();
+            intSpan[0] = 5;
+            var newArray=intSpan.ToArray();
+            intSpan[0] = 9;
+        }
+
+        static void LongRun(CancellationToken token)
+        {
+            while(true)
+            {
+                if (token.IsCancellationRequested)
+                {
+                    break;
+                }
+                Console.WriteLine(DateTime.Now);
+                Thread.Sleep(300);
+            }
+        }
+
+
+        class OrderByC
+        {
+            public bool V { get; set; }
         }
         async static Task Main(string[] args)
         {
-            string aa = "";
-            var spanAA=aa.AsMemory();
+
+            List<OrderByC> listC = new List<OrderByC>()
+            {
+                new OrderByC{ V=true },
+                new OrderByC{ V=true },
+                new OrderByC{ V=false },
+            };
+
+            listC = listC.OrderBy((c) => c.V).ToList();
+
+            ApiResource apiResource = new ApiResource("Api1", "Api1", new string[]{ "aa","bb"});
+
+
+            var aa = typeof(MSLibrary.ContextDictionary).Assembly.Location;
+            string str11 = null;
+            var len = str11!.Length;
+
+
+         
+
+            ClaimsIdentity identity = new ClaimsIdentity("User");
+            identity.AddClaim(new Claim("A", "A"));
+
+            ClaimsPrincipal principal = new ClaimsPrincipal(identity);
+
+            string strBase;
+            await using (var st=new MemoryStream())
+            {
+                await using (BinaryWriter w = new BinaryWriter(st))
+                {
+                    principal.WriteTo(w);
+                     strBase=Convert.ToBase64String(st.ToArray());
+                }
+            }
+
+            await using (var st = new MemoryStream(Convert.FromBase64String(strBase)))
+            {
+               using (BinaryReader w = new BinaryReader(st))
+                {
+                    var newPrincipal = new ClaimsPrincipal(w);
+                }
+            }
+
+
+
+            CspParameters cspParams = new CspParameters();
+
+            RSAParameters parameters;
+           
+
+            using (var key = new RSACryptoServiceProvider(2048))
+            {
+
+                parameters=key.ExportParameters(true);
+            }
+
+            var strRSAParameters= JsonSerializerHelper.Serializer(parameters);
+
+
+            using (var key = new RSACryptoServiceProvider(2048))
+            {
+
+                key.ImportParameters(JsonSerializerHelper.Deserialize<RSAParameters>(strRSAParameters));
+            }
+
+
+            var current=CultureInfo.CurrentCulture;
+            CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+
+            ThreadPool.QueueUserWorkItem((aa) =>
+            {
+                current = CultureInfo.CurrentCulture;
+            },1,true);
+
+            Regex regex = new Regex(@"(?<!\\)\{(\S+?)}");
+            var matchs = regex.Matches("sda{sd{dd},{33}dff");
+            foreach (Match item in matchs)
+            {
+                //item.Value
+            }
+
+
+
+            SetSpan();
+
+            using (CancellationTokenSource tokenSource = new CancellationTokenSource())
+            {
+
+                var t = Task.Run(() =>
+                  {
+                      LongRun(tokenSource.Token);
+                  });
+
+                await Task.Delay(5000);
+
+                tokenSource.Cancel();
+            }
+
+            Console.ReadKey();
+           
+
+            AuthenticationParameters authenticationParameters = await AuthenticationParameters.CreateFromUrlAsync(new Uri(new Uri("https://lap4.crm5.dynamics.com/"),"api/data/"));
+    
+
+            ClientCredential clientcred = new ClientCredential("32cf6de9-8823-446b-a0d6-4cef5497807f", "dROZ06SOIaBoA7SHblrm0bhWfe246HhM8quFtn8wxk0=");
+            AuthenticationContext authContext = new AuthenticationContext(authenticationParameters.Authority.Replace("/oauth2/authorize",string.Empty));
+            var authResult= await authContext.AcquireTokenAsync("https://lap4.crm5.dynamics.com", clientcred);
+
+
 
 
             MemoryList<int> mList = new MemoryList<int>();
@@ -1310,6 +1445,15 @@ namespace DCEM.ConsoleApp
     }
 
 
+    public class AInfo
+    {
+        public string Name { get; }
+    }
+
+    public class BInfo : AInfo
+    {
+        public string Name { get; set; }
+    }
     public class ZipTextItemFileInfo
     {
         public string FileName { get; set; }
@@ -1685,6 +1829,9 @@ namespace DCEM.ConsoleApp
  
         }
     }
+
+
+
 
     [Injection(InterfaceType = typeof(CommonMessageHandleForT1), Scope = InjectionScope.Singleton)]
     public class CommonMessageHandleForT1 : ICommonMessageHandleService

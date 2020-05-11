@@ -41,6 +41,14 @@ namespace MSLibrary
         /// Crm唯一键属性值转换处理类型不匹配
         /// </summary>
         CrmAlternateKeyTypeHandleTypeNotMatch = 314710007,
+        /// <summary>
+        /// 指定类型没有实现指定接口
+        /// </summary>
+        TypeNotImplimentInterface= 314710010,
+        /// <summary>
+        /// 指定类型不是所需要的类型
+        /// </summary>
+        TypeNotRequire = 314710011,
 
         /// <summary>
         /// 在Crm服务令牌生成服务中找不到指定名称的参数
@@ -1251,6 +1259,52 @@ namespace MSLibrary
         /// 从Redis限流令牌桶中获取令牌超时
         /// </summary>
         AcquireRedisLimitTokenExpire = 314727934,
+        /// <summary>
+        /// 找不到指定标签的替换内容生成服务
+        /// </summary>
+        NotFoundReplaceContentGenerateServiceByLabel= 314727950,
+
+        /// <summary>
+        /// 在容器中找不到指定名称的消息请求响应主机服务
+        /// </summary>
+        NotFoundSRRHostServiceInContainerByName = 314727960,
+        /// <summary>
+        /// 找不到指定请求类型的请求处理描述
+        /// </summary>
+        NotFoundSRRRequestHandlerDescriptionByType = 314727961,
+
+        /// <summary>
+        /// 实际类型与中间数据处理器要求的请求类型不匹配
+        /// </summary>
+        MiddleDataTypeNotMatchHandler = 314728001,
+        /// <summary>
+        /// 找不到指定请求类型名称的DAX消息处理
+        /// </summary>
+        NotFoundDAXMessageHandleByRequestTypeFullName = 314728101,
+        /// <summary>
+        /// 在DAX服务令牌生成服务中找不到指定名称的参数
+        /// </summary>
+        NotFoundParameterInDAXServiceTokenGenerateService = 314728121,
+        /// <summary>
+        /// 在DAX服务令牌生成服务中指定参数的类型不匹配
+        /// </summary>
+        ParameterTypeNotMatchInDAXServiceTokenGenerateService = 314728122,
+        /// <summary>
+        /// 找不到指定名称的DAX服务令牌生成服务
+        /// </summary>
+        NotFoundDAXServiceTokenGenerateServiceByName = 314728123,
+        /// <summary>
+        /// 找不到指定类型的DAX服务工厂服务
+        /// </summary>
+        NotFoundDAXServiceFactoryServiceByType = 314728124,
+        /// <summary>
+        /// 找不到指定名称的DAX服务工厂
+        /// </summary>
+        NotFountDAXServiceFactorybyName = 314728125,
+        /// <summary>
+        /// Azure复制Blob出错
+        /// </summary>
+        AzureCopyBlobError = 314728501,
     }
 
     /// <summary>

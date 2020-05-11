@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MSLibrary;
 
-namespace BOC.GSP2.Main.Security.Filter.Application
+namespace MSLibrary.Security.Filter.Application
 {
     /// <summary>
     /// 应用层验证业务动作

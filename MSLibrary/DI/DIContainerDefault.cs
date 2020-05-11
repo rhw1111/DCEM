@@ -45,6 +45,14 @@ namespace MSLibrary.DI
 
         }
 
+        public DIContainerDefault(IServiceCollection serviceCollection, IServiceScope serviceScope)
+        {
+            _serviceCollection = serviceCollection;
+            _serviceProvider = serviceScope.ServiceProvider;
+            _disposeProvider = false;
+
+        }
+
         public IDIContainer CreateContainer()
         {
             var disposeProvider = false;

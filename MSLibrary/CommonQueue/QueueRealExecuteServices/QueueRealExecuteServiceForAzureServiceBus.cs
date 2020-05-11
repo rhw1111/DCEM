@@ -146,7 +146,7 @@ namespace MSLibrary.CommonQueue.QueueRealExecuteServices
                         await newClient.CompleteAsync(azureMessage.SystemProperties.LockToken);
                     }
 
-                }, messageHandlerOptions);
+                },messageHandlerOptions);
                 clients.Add(newClient);
             }
 

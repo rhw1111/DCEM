@@ -8,9 +8,9 @@ using MSLibrary;
 using MSLibrary.AspNet.Filter;
 using MSLibrary.LanguageTranslate;
 using MSLibrary.DI;
-using BOC.GSP2.Main.Security.Filter.Application;
+using MSLibrary.Security.Filter.Application;
 
-namespace BOC.GSP2.Main.Security.Filter
+namespace MSLibrary.Security.Filter
 {
     /// <summary>
     /// 业务动作验证过滤器

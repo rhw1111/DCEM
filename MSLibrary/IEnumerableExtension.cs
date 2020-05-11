@@ -28,6 +28,26 @@ namespace MSLibrary
 
             return strDisplay.ToString();
         }
+
+        public static string ToDisplayString<T>(this IEnumerable<T> obj, Func<T, string> getDisplayAction, Func<string> getIntervalAction)
+        {
+            StringBuilder strDisplay = new StringBuilder();
+            var strInterval =  getIntervalAction();
+            foreach (var item in obj)
+            {
+                strDisplay.Append( getDisplayAction(item));
+                strDisplay.Append(strInterval);
+            }
+
+            if (strDisplay.Length > 0)
+            {
+                strDisplay.Remove(strDisplay.Length - strInterval.Length, strInterval.Length);
+            }
+
+            return strDisplay.ToString();
+        }
+
+
     }
 
 }

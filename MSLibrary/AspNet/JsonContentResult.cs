@@ -27,4 +27,22 @@ namespace MSLibrary.AspNet
             await context.HttpContext.Response.WriteJson(_statusCode, _content);
         }
     }
+
+    public class JsonContentResult : IActionResult
+    {
+        private Type _contentType;
+        private object _content;
+        private int _statusCode;
+
+        public JsonContentResult(int statusCode, Type contentType,object content)
+        {
+            _contentType = contentType;
+            _statusCode = statusCode;
+            _content = content;
+        }
+        public async Task ExecuteResultAsync(ActionContext context)
+        {
+            await context.HttpContext.Response.WriteJson(_statusCode,_contentType, _content);
+        }
+    }
 }
