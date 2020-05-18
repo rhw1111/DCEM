@@ -1,0 +1,126 @@
+﻿<ion-header class="dm-top-head">
+    <app-tophead topHeadTitle="金融方案" topHeadBackUrl="/carcenter/carstore/perfect"></app-tophead>
+</ion-header>
+
+
+<ion-content fullscreen>
+    <ion-grid class="dm-plan-top">
+        <ion-row>
+            <ion-col>
+                <div>
+                    <img src="http://sf-test.mediaman.com.cn//img/sf-calc-hero-mobile.f1395f62.jpg" alt="">
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col class="dm-plan-top-title">
+                <div>
+                    <p><small>车型版本</small>&nbsp;&nbsp;{{shareData.selectProduct["ProductInfo"]["mcs_name"]}}</p>
+                    <p>
+                        {{shareData.packageMoney}}&nbsp;<small>元起</small>
+                    </p>
+                </div>
+
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <div class="dm-plan-content">
+        <ion-grid>
+            <ion-row>
+                <ion-col class="dm-plan-title">
+                    货款机构
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col class="dm-plan-list">
+                    <ul>
+                        <li class="select"><p>易鑫</p></li>
+                        <li><p>建行</p></li>
+                        <li><p>潽金</p></li>
+                        <li><p>招商</p></li>
+                    </ul>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col class="dm-plan-title">
+                    货款方案
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col class="dm-plan-list">
+                    <ul>
+                        <li class="select"><p>零首付</p></li>
+                        <li><p>零利息</p></li>
+                        <li><p>弹性贷</p></li>
+                        <li><p>标准贷款</p></li>
+                    </ul>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col class="dm-plan-title">
+                    首付比例
+                </ion-col>
+                <ion-col class="dm-plan-title-info">
+                    0<small>元</small>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col class="dm-plan-range">
+                    <ion-range min="0" max="70" pin step="10" value="30" snaps color="org">
+                    </ion-range>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col class="dm-plan-title">
+                    货款比例
+                </ion-col>
+                <ion-col class="dm-plan-title-info">
+                    10<small>%</small>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col class="dm-plan-box">
+                    <div class="dm-plan-box-content">
+                        &nbsp;
+                        <div class="dm-plan-box-left">
+                            <label>10%</label>
+                        </div>
+                        <div class="dm-plan-box-right">
+                            <span>货款金额：</span>
+                            <label>0</label>
+                            <span>元</span>
+                        </div>
+                    </div>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col class="dm-plan-title">
+                    货款期限
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col class="dm-plan-list co-4">
+                    <ul>
+                        <li class="select"><p>12</p></li>
+                        <li><p>24</p></li>
+                        <li><p>36</p></li>
+                        <li><p>48</p></li>
+                        <li><p>60</p></li>
+                    </ul>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <br />
+    </div>
+
+
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar class="dm-footer">
+        <ion-button color="org" expand="block" shape="round" [routerLink]="['/carcenter/carstore/payment']">确认</ion-button>
+    </ion-toolbar>
+</ion-footer>

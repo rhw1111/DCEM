@@ -1,0 +1,38 @@
+.non-product {
+    height: 100%;
+    display: grid;
+    align-items: center;
+}
+.icon-reduce {
+    border: none;
+    background-color: #fff;
+    font-size: 18px;
+}
+.spinners {
+    border: none;
+    width: 30%;
+    text-align: center;
+    background-color: #F6F6F6;
+    /*font-size:18px;*/
+    margin:0 5px;
+}
+.icon-add {
+    border: none;
+    background-color: #fff;
+    font-size: 18px;
+}
+.item-inner{
+    border:none;
+}
+.tab-background-5a5 {
+    background-color: #5a5a5a;
+}
+.tab-background-38b {
+    background-color: #38B3EE;
+}
+.tab-show{
+    display:initial;
+}
+.tab-hide{
+    display:none;
+}

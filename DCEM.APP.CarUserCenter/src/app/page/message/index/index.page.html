@@ -1,0 +1,41 @@
+<ion-header >
+  <ion-toolbar style="--border-width:0px;">
+    <ion-title size="undefined">朋友</ion-title>
+    <ion-icon name="people" slot="end" size="large" ></ion-icon>
+    <ion-icon name="add" slot="end" size="large" ></ion-icon>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-list ng-if="activities" mode="ios">
+        <ion-item-sliding *ngFor="let room of activities;let key=index">
+            <div class="content">
+                <ion-item *ngIf="room.roomType=='group'" [routerLink]="['/message/sys']" lines="none">
+                  <ion-badge slot="start" *ngIf="room.noreadcount>0" color="danger">{{room.noreadcount}}</ion-badge>  
+                  <ion-avatar item-start>
+                        <img src="{{room.thumbnail}}">
+                    </ion-avatar>
+                    <ion-label>
+                      <h2>{{room.title}}</h2>
+                      <p>{{room.latest_chat}}</p>
+                    </ion-label>
+                  <ion-note slot="end">
+                    {{room.activeTime}}
+                  </ion-note>
+                </ion-item>
+                <ion-item *ngIf="room.roomType!='group'" lines="none" (click)="toRoomMessage(room)">
+                  <ion-badge slot="start" *ngIf="room.noreadcount>0" color="danger">{{room.noreadcount}}</ion-badge>  
+                  <ion-avatar item-start>
+                      <img src="{{room.thumbnail}}">
+                  </ion-avatar>
+                  <ion-label>
+                    <h2>{{room.title}}</h2>
+                    <p>{{room.latest_chat}}</p>
+                  </ion-label>
+                <ion-note slot="end">
+                  {{room.activeTime}}
+                </ion-note>
+              </ion-item>
+            </div>
+            </ion-item-sliding>
+      </ion-list>
+</ion-content>

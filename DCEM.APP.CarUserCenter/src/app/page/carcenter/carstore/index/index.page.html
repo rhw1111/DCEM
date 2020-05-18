@@ -1,0 +1,79 @@
+﻿
+<ion-header class="dm-top-head">
+    <app-tophead topHeadTitle="选择车型版本" topHeadBackUrl="/tabs/carcenter"></app-tophead>
+</ion-header>
+
+<ion-content fullscreen>
+    <ion-grid>
+        <ion-row>
+            <ion-col class="dm-slides">
+                <ion-slides pager>
+                    <ion-slide *ngFor="let key of objectKeys(this.shareData.productImageViewMap)">
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col>
+                                    <img src="{{this.shareData.productImageViewMap[key]['ext_fullurl']}}" />
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-slide>
+                </ion-slides>
+            </ion-col>
+        </ion-row>
+        <div id="carcenter_carstore_index_main">
+            <div *ngFor="let key of objectKeys(this.shareData.productClassViewMap)">
+                <ion-row class="dm-title">
+                    <ion-col>
+                        {{this.shareData.productClassViewMap[key]["productClassName"]}}
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-grid>
+                            <ion-row *ngFor="let proKey of objectKeys(this.shareData.productClassViewMap[key]['productMap'])">
+                                <ion-col class="dm-main-car" attr.proKey="{{proKey}}" [ngClass]="{'select':proKey===this.shareData.selectProductKey}">
+                                    <ion-grid>
+                                        <ion-row class="dm-main-car-top" (click)="itemOnClick(proKey)">
+                                            <ion-col>
+                                                <h5>{{this.shareData.productMap[proKey]["ProductInfo"]["mcs_name"]}}</h5>
+                                            </ion-col>
+                                            <ion-col>
+                                                <h5>{{this.shareData.productMap[proKey]["ProductInfo"]["mcs_baseprice"]}}<small>元起</small></h5>
+                                            </ion-col>
+                                        </ion-row>
+                                        <ion-row class="dm-main-car-middle" (click)="itemOnClick(proKey)">
+                                            <ion-col>
+                                                <h5>{{this.shareData.productClassViewMap[key]["productMap"][proKey]["ext_qdxs_val"]}}&nbsp;</h5>
+                                                <p>驱动形式</p>
+                                            </ion-col>
+                                            <ion-col>
+                                                <h5>{{this.shareData.productClassViewMap[key]["productMap"][proKey]["ext_dcrl_val"]}}&nbsp;</h5>
+                                                <p>电池容量</p>
+                                            </ion-col>
+                                            <ion-col>
+                                                <h5>{{this.shareData.productClassViewMap[key]["productMap"][proKey]["ext_bgljs_val"]}}&nbsp;</h5>
+                                                <p>百公里加速</p>
+                                            </ion-col>
+                                        </ion-row>
+                                        <ion-row class="dm-main-car-bottom">
+                                            <ion-col>
+                                                <p (click)="presentSpeclistModal(proKey)">了解更多</p>
+                                            </ion-col>
+                                        </ion-row>
+                                    </ion-grid>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-col>
+                </ion-row>
+            </div>
+        </div>
+
+    </ion-grid>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar class="dm-footer">
+        <ion-button id="but_next" #ionbuttonNext  color="{{mod.nextButtonColor}}" (click)="onNext()" expand="block" shape="round">下一步</ion-button>
+    </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,105 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{model.title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list lines="none">
+        <ion-card *ngFor="let item of model.datalist" style="margin: 10px;">
+            <ion-card-content [routerLink]="['/personalcenter/myorder/fineorder/detail']" [queryParams]="{code:item.OrderData.OrderCode}">
+                <ion-item lines="full">
+                    <ion-label>
+                        <p>{{item.OrderData.OrderTime}}</p>
+                    </ion-label>
+                    <ion-note slot="end" style="color:orange">
+                        {{item.OrderData.PayStatusStr}}
+                    </ion-note>
+                </ion-item>
+                <ion-item *ngFor="let v of item.Products" lines="full">
+                    <div *ngIf="v.ImageUrl != null; then trueTemplate else falseTemplate"></div>
+                    <ng-template #trueTemplate>
+                        <ion-label>
+                            <img src="{{v.ImageUrl}}" style="width:100%">
+                        </ion-label>
+                    </ng-template>
+                    <ng-template #falseTemplate>
+                        <ion-label>
+                            <img src="../../../../../../assets/img/temp/xiaopeng1.jpg" style="width:100%">
+                        </ion-label>
+                    </ng-template>
+                    <ion-label>
+                        <h2>{{v.ProductName}}</h2>
+                        <p>{{v.SkuCode}}</p>
+                        <div *ngIf="item.OrderData.ReceivedIntegral == 0; then tTemplate else fTemplate"></div>
+                        <ng-template #tTemplate>
+                            <p>
+                                <span style="position:relative;bottom:-2px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="16" height="16" t="1576662222688" p-id="4131" version="1.1"><path fill="#cdcdcd" d="M 883.804 246.032 c -7.274 7.274 -27.391 22.947 -34.043 29.599 c 44.117 64.68 69.974 142.806 69.974 227.009 c 0 222.864 -180.66 403.514 -403.53 403.514 c -222.872 0 -403.532 -180.65 -403.532 -403.514 c 0 -222.861 180.66 -403.513 403.532 -403.513 c 111.711 0 212.784 45.417 285.846 118.764 c 8.459 -8.458 24.012 -25.305 31.066 -32.36 c -81.13 -81.079 -193.158 -131.239 -316.912 -131.239 c -247.609 0 -448.368 200.707 -448.368 448.348 c 0 247.6 200.76 448.35 448.368 448.35 c 247.607 0 448.365 -200.75 448.365 -448.35 c 0.001 -95.468 -29.906 -183.906 -80.765 -256.608 Z" p-id="4132" /><path fill="#cdcdcd" d="M 647.413 240.965 l -84.113 154.977 c -22.412 41.965 -36.15 69.883 -41.162 83.751 h -1.431 c -14.765 -33.643 -56.554 -113.235 -125.276 -238.729 h -79.103 l 147.11 252.688 l -120.624 0.001 v 55.835 h 141.382 v 76.949 h -141.382 v 56.553 h 141.382 v 112.027 h 70.155 v -112.027 h 136.373 v -56.551 h -136.374 v -76.951 h 136.373 v -55.834 h -117.045 l 148.541 -252.689 h -74.807 Z" p-id="4133" /></svg>
+                                </span>
+                                <span>{{v.UnitPrice}}x{{v.OrderQty}}</span>
+                            </p>
+                        </ng-template>
+                        <ng-template #fTemplate>
+                            <p>
+                                <span style="position:relative;bottom:-2px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="16" height="16" t="1576662312009" p-id="5052" version="1.1"><path fill="#cdcdcd" d="M 512.06 927 C 279.32 927 97 831.31 97 709.16 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.29 20.75 20.75 c 0 95.59 171.07 176.34 373.56 176.34 c 202.42 0 373.44 -80.75 373.44 -176.34 c 0 -11.46 9.29 -20.75 20.75 -20.75 S 927 697.7 927 709.16 C 927 831.31 744.74 927 512.06 927 Z" p-id="5053" /><path fill="#cdcdcd" d="M 512.06 729.91 C 279.32 729.91 97 634.22 97 512.06 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.29 20.75 20.75 c 0 95.59 171.07 176.34 373.56 176.34 c 202.42 0 373.44 -80.75 373.44 -176.34 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.3 20.75 20.75 c 0 122.16 -182.26 217.85 -414.94 217.85 Z" p-id="5054" /><path fill="#cdcdcd" d="M 512.06 532.81 C 279.32 532.81 97 437.07 97 314.84 C 97 192.69 279.32 97 512.06 97 C 744.74 97 927 192.69 927 314.84 c 0 122.23 -182.26 217.97 -414.94 217.97 Z m 0 -394.31 c -202.49 0 -373.56 80.75 -373.56 176.34 c 0 95.66 171.07 176.47 373.56 176.47 c 202.42 0 373.44 -80.81 373.44 -176.47 c 0 -95.59 -171.01 -176.34 -373.44 -176.34 Z" p-id="5055" /></svg>
+                                </span>
+                                <span>{{v.Integral}}x{{v.OrderQty}}</span>
+                            </p>
+                        </ng-template>
+                    </ion-label>
+                </ion-item>
+                <ion-item>
+                    <div *ngIf="item.OrderData.ReceivedIntegral == 0; then ttTemplate else ffTemplate"></div>
+                    <ng-template #ttTemplate>
+                        <ion-label>
+                            <h2>
+                                合计:
+                                <span style="position:relative;bottom:-2px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="16" height="16" t="1576662222688" p-id="4131" version="1.1"><path fill="#000" d="M 883.804 246.032 c -7.274 7.274 -27.391 22.947 -34.043 29.599 c 44.117 64.68 69.974 142.806 69.974 227.009 c 0 222.864 -180.66 403.514 -403.53 403.514 c -222.872 0 -403.532 -180.65 -403.532 -403.514 c 0 -222.861 180.66 -403.513 403.532 -403.513 c 111.711 0 212.784 45.417 285.846 118.764 c 8.459 -8.458 24.012 -25.305 31.066 -32.36 c -81.13 -81.079 -193.158 -131.239 -316.912 -131.239 c -247.609 0 -448.368 200.707 -448.368 448.348 c 0 247.6 200.76 448.35 448.368 448.35 c 247.607 0 448.365 -200.75 448.365 -448.35 c 0.001 -95.468 -29.906 -183.906 -80.765 -256.608 Z" p-id="4132" /><path fill="#000" d="M 647.413 240.965 l -84.113 154.977 c -22.412 41.965 -36.15 69.883 -41.162 83.751 h -1.431 c -14.765 -33.643 -56.554 -113.235 -125.276 -238.729 h -79.103 l 147.11 252.688 l -120.624 0.001 v 55.835 h 141.382 v 76.949 h -141.382 v 56.553 h 141.382 v 112.027 h 70.155 v -112.027 h 136.373 v -56.551 h -136.374 v -76.951 h 136.373 v -55.834 h -117.045 l 148.541 -252.689 h -74.807 Z" p-id="4133" /></svg>
+                                </span>
+                                <span>{{item.OrderData.TotalDeposiAmount == 0 ? item.OrderData.InstallmentTotal : item.OrderData.TotalDeposiAmount}}</span>
+                            </h2>
+                        </ion-label>
+                    </ng-template>
+                    <ng-template #ffTemplate>
+                        <ion-label>
+                            <h2>
+                                合计:
+                                <span style="position:relative;bottom:-2px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="16" height="16" t="1576662312009" p-id="5052" version="1.1"><path fill="#000" d="M 512.06 927 C 279.32 927 97 831.31 97 709.16 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.29 20.75 20.75 c 0 95.59 171.07 176.34 373.56 176.34 c 202.42 0 373.44 -80.75 373.44 -176.34 c 0 -11.46 9.29 -20.75 20.75 -20.75 S 927 697.7 927 709.16 C 927 831.31 744.74 927 512.06 927 Z" p-id="5053" /><path fill="#000" d="M 512.06 729.91 C 279.32 729.91 97 634.22 97 512.06 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.29 20.75 20.75 c 0 95.59 171.07 176.34 373.56 176.34 c 202.42 0 373.44 -80.75 373.44 -176.34 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.3 20.75 20.75 c 0 122.16 -182.26 217.85 -414.94 217.85 Z" p-id="5054" /><path fill="#000" d="M 512.06 532.81 C 279.32 532.81 97 437.07 97 314.84 C 97 192.69 279.32 97 512.06 97 C 744.74 97 927 192.69 927 314.84 c 0 122.23 -182.26 217.97 -414.94 217.97 Z m 0 -394.31 c -202.49 0 -373.56 80.75 -373.56 176.34 c 0 95.66 171.07 176.47 373.56 176.47 c 202.42 0 373.44 -80.81 373.44 -176.47 c 0 -95.59 -171.01 -176.34 -373.44 -176.34 Z" p-id="5055" /></svg>
+                                </span>
+                                <span>{{item.OrderData.TotalDeposiAmount == 0 ? item.OrderData.InstallmentTotal : item.OrderData.TotalDeposiAmount}}</span>
+                            </h2>
+                        </ion-label>
+                    </ng-template>
+                    <div *ngIf="item.OrderData.PaymentStatus == 1; then tTemplate else fTemplate"></div>
+                    <ng-template #tTemplate>
+                        <ion-note slot="end" (click)="goPay(item.OrderData.OrderCode,item.OrderData.ReceivedIntegral == 0 ? item.OrderData.TotalDeposiAmount : (-item.OrderData.CashPayment),item.OrderData.ReceivedIntegral,-item.OrderData.CashPayment,item.OrderData.CashTotal,item.OrderData.InstallmentTotal);$event.stopPropagation();" style="z-index:99;">
+                            <ion-chip color="primary">
+                                <ion-label style="margin-left: 30px;margin-right: 30px;">去支付</ion-label>
+                            </ion-chip>
+                        </ion-note>
+                    </ng-template>
+                    <ng-template #fTemplate>
+                        <ion-note slot="end">
+                            <ion-chip color="primary">
+                                <ion-label style="margin-left: 30px;margin-right: 30px;">查看详情</ion-label>
+                            </ion-chip>
+                        </ion-note>
+                    </ng-template>
+                </ion-item>
+            </ion-card-content>
+        </ion-card>
+        <div class="non-product" *ngIf="model.isShowNone">
+            <div style="margin-top:100px;text-align:center;color:#a5a2a2;">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="64" height="64" t="1581581086758" p-id="9481" version="1.1"><path fill="#cdcdcd" d="M 807.424 389.12 V 208.896 c 0 -55.296 -50.176 -80.384 -75.264 -80.384 H 296.448 c -34.816 0 -70.144 34.816 -75.264 100.352 v 510.976 c 0 80.384 55.296 80.384 75.264 80.384 h 155.136 c 14.848 0 25.088 14.848 25.088 30.208 s -10.24 30.208 -25.088 30.208 H 291.84 c -45.056 0 -125.44 -30.208 -125.44 -110.08 V 224.256 c 0 -104.96 65.024 -150.528 125.44 -150.528 h 445.44 c 70.144 0 125.44 45.056 125.44 130.048 V 389.12 c 0 14.848 -10.24 30.208 -25.088 30.208 c -19.968 -5.12 -30.208 -14.848 -30.208 -30.208 Z" p-id="9482" /><path fill="#cdcdcd" d="M 341.504 228.864 h 350.72 c 14.848 0 25.088 10.24 25.088 25.088 c 0 14.848 -10.24 25.088 -25.088 25.088 H 341.504 c -14.848 0 -25.088 -10.24 -25.088 -25.088 c 0.512 -14.848 10.24 -25.088 25.088 -25.088 Z M 341.504 379.392 h 350.72 c 14.848 0 25.088 10.24 25.088 25.088 c 0 14.848 -10.24 25.088 -25.088 25.088 H 341.504 c -14.848 0 -25.088 -10.24 -25.088 -25.088 c 0.512 -15.36 10.24 -25.088 25.088 -25.088 Z M 341.504 529.408 h 150.528 c 14.848 0 25.088 10.24 25.088 25.088 c 0 14.848 -10.24 25.088 -25.088 25.088 H 341.504 c -14.848 0 -25.088 -10.24 -25.088 -25.088 c 0.512 -14.848 10.24 -25.088 25.088 -25.088 Z" p-id="9483" /><path fill="#cdcdcd" d="M 724.992 488.96 l -170.496 207.872 c -3.584 4.608 -6.144 10.24 -6.144 16.384 l -0.512 93.696 c 0 16.384 15.36 29.184 31.232 25.6 l 91.648 -18.944 c 6.144 -1.024 11.264 -4.608 14.848 -9.216 l 170.496 -207.872 c 9.216 -11.264 7.68 -27.648 -3.584 -36.864 l -91.136 -74.752 c -10.752 -8.704 -27.136 -7.168 -36.352 4.096 Z m -70.656 274.432 l -19.456 8.192 c -18.944 7.68 -38.912 -8.192 -35.84 -28.16 l 3.072 -22.016 c 0.512 -4.608 2.56 -9.216 5.632 -12.8 l 118.784 -144.896 c 9.216 -11.264 25.6 -12.8 36.864 -3.584 l 16.896 13.824 c 11.264 9.216 12.8 25.6 3.584 36.864 l -119.296 145.408 c -3.072 2.56 -6.144 5.12 -10.24 7.168 Z" p-id="9484" /></svg>
+                <div><ion-label>暂无订单</ion-label></div>
+            </div>
+        </div>
+    </ion-list>
+</ion-content>

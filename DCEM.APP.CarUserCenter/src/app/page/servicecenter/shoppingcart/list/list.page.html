@@ -1,0 +1,106 @@
+﻿<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/servicecenter/boutique/detail"></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{model.title}}</ion-title>
+        <ion-buttons slot="end">
+            <div *ngIf="IsEdit; then truthysTemplate else falsysTemplate"></div>
+            <ng-template #truthysTemplate>
+                <ion-button text="完成" (click)="doEdit(1)">完成</ion-button>
+            </ng-template>
+            <ng-template #falsysTemplate>
+                <ion-button text="编辑" (click)="doEdit(0)">编辑</ion-button>
+            </ng-template>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-item style="padding:20px 10px;" lines="none" *ngFor="let item of model.cartList.datas">
+            <div style="width:10%;">
+                <ion-checkbox [(ngModel)]="item.checked" (ionChange)="change(item)" style="width:55%;height:55%;"></ion-checkbox>
+            </div>
+            <div style="width:28%;z-index:1;">
+                <div *ngIf="item.img != null; then truthysTemplate else falsysTemplate"></div>
+                <ng-template #truthysTemplate>
+                    <img src="{{item.img}}" style="width:90%;height:90%;border-radius:15px;" />
+                </ng-template>
+                <ng-template #falsysTemplate>
+                    <img src="../assets/img/temp/xiaopeng1.jpg" style="width:80%;height:80%;border-radius:15px;" />
+                </ng-template>
+
+            </div>
+            <div style="width:62%;z-index:1;">
+                <div>{{item.productname}}</div>
+                <div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:14px;margin:10px 0;color:#a5a2a2;">{{item.skuname}}</div>
+                <div style="display:flex;justify-content:space-between;">
+                    <div *ngIf="item.paymenttype == 2; then integralTemplate else otherTemplate"></div>
+                    <ng-template #integralTemplate>
+                        <div style="width:60%;color:#38B3EE;line-height:35px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="18" height="18" t="1576662312009" p-id="5052" version="1.1"><path fill="#38b3ee" d="M 512.06 927 C 279.32 927 97 831.31 97 709.16 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.29 20.75 20.75 c 0 95.59 171.07 176.34 373.56 176.34 c 202.42 0 373.44 -80.75 373.44 -176.34 c 0 -11.46 9.29 -20.75 20.75 -20.75 S 927 697.7 927 709.16 C 927 831.31 744.74 927 512.06 927 Z" p-id="5053" /><path fill="#38b3ee" d="M 512.06 729.91 C 279.32 729.91 97 634.22 97 512.06 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.29 20.75 20.75 c 0 95.59 171.07 176.34 373.56 176.34 c 202.42 0 373.44 -80.75 373.44 -176.34 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.3 20.75 20.75 c 0 122.16 -182.26 217.85 -414.94 217.85 Z" p-id="5054" /><path fill="#38b3ee" d="M 512.06 532.81 C 279.32 532.81 97 437.07 97 314.84 C 97 192.69 279.32 97 512.06 97 C 744.74 97 927 192.69 927 314.84 c 0 122.23 -182.26 217.97 -414.94 217.97 Z m 0 -394.31 c -202.49 0 -373.56 80.75 -373.56 176.34 c 0 95.66 171.07 176.47 373.56 176.47 c 202.42 0 373.44 -80.81 373.44 -176.47 c 0 -95.59 -171.01 -176.34 -373.44 -176.34 Z" p-id="5055" /></svg>
+                            <span style="position: relative;bottom: 3px;left: 3px;">{{item.integral}}</span>
+                        </div>
+                    </ng-template>
+                    <ng-template #otherTemplate>
+                        <div style="width:60%;color:#38B3EE;line-height:35px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="22" height="22" t="1576662222688" p-id="4131" version="1.1"><path fill="#38b3ee" d="M 883.804 246.032 c -7.274 7.274 -27.391 22.947 -34.043 29.599 c 44.117 64.68 69.974 142.806 69.974 227.009 c 0 222.864 -180.66 403.514 -403.53 403.514 c -222.872 0 -403.532 -180.65 -403.532 -403.514 c 0 -222.861 180.66 -403.513 403.532 -403.513 c 111.711 0 212.784 45.417 285.846 118.764 c 8.459 -8.458 24.012 -25.305 31.066 -32.36 c -81.13 -81.079 -193.158 -131.239 -316.912 -131.239 c -247.609 0 -448.368 200.707 -448.368 448.348 c 0 247.6 200.76 448.35 448.368 448.35 c 247.607 0 448.365 -200.75 448.365 -448.35 c 0.001 -95.468 -29.906 -183.906 -80.765 -256.608 Z" p-id="4132" /><path fill="#38b3ee" d="M 647.413 240.965 l -84.113 154.977 c -22.412 41.965 -36.15 69.883 -41.162 83.751 h -1.431 c -14.765 -33.643 -56.554 -113.235 -125.276 -238.729 h -79.103 l 147.11 252.688 l -120.624 0.001 v 55.835 h 141.382 v 76.949 h -141.382 v 56.553 h 141.382 v 112.027 h 70.155 v -112.027 h 136.373 v -56.551 h -136.374 v -76.951 h 136.373 v -55.834 h -117.045 l 148.541 -252.689 h -74.807 Z" p-id="4133" /></svg>
+                            <span style="position: relative;bottom: 3px;left: 3px;">{{item.price}}</span>
+                        </div>
+                    </ng-template>
+                    <div style="width:40%;line-height:35px;">
+                        <button (click)="changeValue($event,-1)" class="decrease icon-reduce" type="button" value="{{item.skucode}}">-</button>
+                        <input type="number" class="spinners" value="{{item.num}}" readonly="readonly" maxlength="2">
+                        <button (click)="changeValue($event,1)" class="increase icon-add" type="button" value="{{item.skucode}}">+</button>
+                    </div>
+                </div>
+            </div>
+
+        </ion-item>
+</ion-list>
+    <!--无数据时显示-->
+    <div class="non-product" *ngIf="IsEmpty">
+        <div style="margin-top:100px;text-align:center;color:#a5a2a2;">
+            <ion-label>购物车暂无商品</ion-label>
+        </div>
+        <div style="margin-top:-300px;text-align:center;">
+            <ion-button [routerLink]="['/servicecenter/category/list']" style="width:80%;">
+                去逛逛
+            </ion-button>
+        </div>
+    </div>
+</ion-content>
+<!--底部栏-->
+<ion-tab-bar slot="bottom">
+    <ion-tab-button (click)="changeAll($event)" style="max-width:100px;">
+        <span style="display:inline-flex;font-size:16px;color:#000;">
+            <ion-checkbox [(checked)]="model.cartList.checkAll"></ion-checkbox>
+            <span style="padding-left:5px;">全选</span>
+        </span>
+    </ion-tab-button>
+    <ion-tab-button>
+        <ion-row  class="span-total" style="font-size:16px;width:100%;height:100%;">
+            <ion-col size="4" style="align-items: center;display: flex;padding:0;">合计:</ion-col>
+            <ion-col style="padding:0;">
+                <ion-row style="color:#38B3EE;height:50%;display:flex;align-items:center;">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="16" height="16" t="1576662312009" p-id="5052" version="1.1"><path fill="#38b3ee" d="M 512.06 927 C 279.32 927 97 831.31 97 709.16 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.29 20.75 20.75 c 0 95.59 171.07 176.34 373.56 176.34 c 202.42 0 373.44 -80.75 373.44 -176.34 c 0 -11.46 9.29 -20.75 20.75 -20.75 S 927 697.7 927 709.16 C 927 831.31 744.74 927 512.06 927 Z" p-id="5053" /><path fill="#38b3ee" d="M 512.06 729.91 C 279.32 729.91 97 634.22 97 512.06 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.29 20.75 20.75 c 0 95.59 171.07 176.34 373.56 176.34 c 202.42 0 373.44 -80.75 373.44 -176.34 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.3 20.75 20.75 c 0 122.16 -182.26 217.85 -414.94 217.85 Z" p-id="5054" /><path fill="#38b3ee" d="M 512.06 532.81 C 279.32 532.81 97 437.07 97 314.84 C 97 192.69 279.32 97 512.06 97 C 744.74 97 927 192.69 927 314.84 c 0 122.23 -182.26 217.97 -414.94 217.97 Z m 0 -394.31 c -202.49 0 -373.56 80.75 -373.56 176.34 c 0 95.66 171.07 176.47 373.56 176.47 c 202.42 0 373.44 -80.81 373.44 -176.47 c 0 -95.59 -171.01 -176.34 -373.44 -176.34 Z" p-id="5055" /></svg>
+                    <span style="margin-left: 3px;">{{model.cartList.totalintegral}}</span>
+                </ion-row>
+                <ion-row style="color:#38B3EE;height:50%;display:flex;align-items:center;">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="16" height="16" t="1576662222688" p-id="4131" version="1.1"><path fill="#38b3ee" d="M 883.804 246.032 c -7.274 7.274 -27.391 22.947 -34.043 29.599 c 44.117 64.68 69.974 142.806 69.974 227.009 c 0 222.864 -180.66 403.514 -403.53 403.514 c -222.872 0 -403.532 -180.65 -403.532 -403.514 c 0 -222.861 180.66 -403.513 403.532 -403.513 c 111.711 0 212.784 45.417 285.846 118.764 c 8.459 -8.458 24.012 -25.305 31.066 -32.36 c -81.13 -81.079 -193.158 -131.239 -316.912 -131.239 c -247.609 0 -448.368 200.707 -448.368 448.348 c 0 247.6 200.76 448.35 448.368 448.35 c 247.607 0 448.365 -200.75 448.365 -448.35 c 0.001 -95.468 -29.906 -183.906 -80.765 -256.608 Z" p-id="4132" /><path fill="#38b3ee" d="M 647.413 240.965 l -84.113 154.977 c -22.412 41.965 -36.15 69.883 -41.162 83.751 h -1.431 c -14.765 -33.643 -56.554 -113.235 -125.276 -238.729 h -79.103 l 147.11 252.688 l -120.624 0.001 v 55.835 h 141.382 v 76.949 h -141.382 v 56.553 h 141.382 v 112.027 h 70.155 v -112.027 h 136.373 v -56.551 h -136.374 v -76.951 h 136.373 v -55.834 h -117.045 l 148.541 -252.689 h -74.807 Z" p-id="4133" /></svg>
+                    <span style="margin-left: 3px;">{{model.cartList.totalprice}}</span>
+                </ion-row>
+            </ion-col>
+        </ion-row>
+    </ion-tab-button>
+    <!--<ion-tab-button tab="servicecenter">
+        <span class="span-total" style="font-size:16px;">合计:<span style="color:#38B3EE;">￥{{model.cartList.totalprice}}</span></span>
+    </ion-tab-button>-->
+    <ion-tab-button (click)="BuyPro()" class="tab-cac tab-background-5a5" style="max-width:100px;" disabled>
+        <ion-label style="font-size:16px; color:#fff;">去结算</ion-label>
+    </ion-tab-button>
+    <ion-tab-button (click)="removeCart()" class="tab-hide tab-background-5a5" style="max-width:100px;" disabled>
+        <ion-label style="font-size:16px; color:#fff;">删除所选</ion-label>
+    </ion-tab-button>
+</ion-tab-bar>

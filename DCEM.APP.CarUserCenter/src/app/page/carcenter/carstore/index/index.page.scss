@@ -1,0 +1,134 @@
+﻿
+@import "../component/scss/main.scss";
+
+//轮播图
+.dm-slides {
+    padding: 15px 20px 0px 20px;
+
+    img {
+        max-width: 100%;
+        height: 200px;
+    }
+}
+
+.dm-title {
+    ion-col:first-child {
+        text-align: left;
+        padding-top: 10px;
+        padding-left: 10px;
+        font-size: 16px;
+        color: $dm-darkblue;
+        font-weight: bold;
+    }
+}
+
+//选择车辆样式
+.dm-main-car {
+    padding: 15px 25px 10px 25px;
+
+    ion-grid {
+        border-radius: 5px 5px 0px 0px;
+        border: 1px solid $dm-darkblue;
+        box-shadow: 0 3px 5px 1px #999;
+    }
+
+    &.select ion-grid {
+        border: 1px solid $dm-orange;
+    }
+
+    .dm-main-car-top {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        border-radius: 5px 5px 0px 0px;
+        background-color: $dm-darkblue;
+        color: $dm-white;
+
+        ion-col:first-child {
+            text-align: center;
+        }
+
+        ion-col:last-child {
+            text-align: right;
+            padding-right: 10px;
+        }
+    }
+
+    &.select .dm-main-car-top {
+        background-color: $dm-orange;
+    }
+
+    .dm-main-car-middle {
+        padding-top: 15px;
+        padding-bottom: 10px;
+
+
+
+        h5 {
+            color: $dm-darkblue;
+            font-size: 14px;
+        }
+
+        p {
+            margin-top: 5px;
+            font-size: 12px;
+            color: $dm-gray;
+        }
+
+        ion-col {
+            text-align: center;
+        }
+
+        ion-col:nth-last-child(-n+2) {
+            &::after {
+                content: '';
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                width: 1px;
+                height: 100%;
+                background-color: $dm-gray-line;
+            }
+        }
+    }
+
+    .dm-main-car-bottom {
+        padding-bottom: 15px;
+
+        p {
+            color: $dm-orange;
+            font-size: 13px;
+        }
+
+        ion-col {
+            text-align: center;
+
+            &::before {
+                content: '';
+                position: absolute;
+                left: 15px;
+                top: 50%;
+                width: 25%;
+                height: 1px;
+                background-color: $dm-gray-line;
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                right: 15px;
+                top: 50%;
+                width: 25%;
+                height: 1px;
+                background-color: $dm-gray-line;
+            }
+        }
+    }
+}
+
+
+
+
+/*.dm-model {
+    --height: 50% !important;
+    bottom: 0px !important;
+}*/

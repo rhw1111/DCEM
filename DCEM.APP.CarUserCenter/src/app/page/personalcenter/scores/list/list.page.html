@@ -1,0 +1,45 @@
+<ion-header> 
+  <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+      </ion-buttons>
+      <ion-title>我的积分</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content style="background-color:goldenrod;">
+      <ion-grid>
+        <ion-row>
+          <ion-col style="text-align: center"> 
+            <ion-note>
+                <svg t="1575359761175" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4301" width="32" height="32"><path d="M403.2 676.8h21.6c11.2 0 20-9.6 19.2-20.8 0-11.2-9.6-20-20.8-19.2h-20.8c-203.2 0-345.6-71.2-345.6-136V268c62.4 57.6 192 96.8 345.6 96.8 152.8 0 282.4-39.2 345.6-96.8v32.8c0 11.2 8.8 20 20 20s20-8.8 20-20V171.2c0-5.6-2.4-10.4-6.4-14.4-32-83.2-187.2-144-379.2-144C211.2 12.8 56 74.4 24 156.8c-4 4-6.4 8.8-6.4 14.4V800c0 98.4 169.6 176 385.6 176h21.6c11.2 0 20-9.6 19.2-20.8 0-11.2-9.6-20-20.8-19.2h-20.8c-202.4 0-344-72-344-136V580c62.4 57.6 192 96.8 344.8 96.8z m0-624c203.2 0 345.6 71.2 345.6 136s-141.6 136-345.6 136-345.6-71.2-345.6-136 142.4-136 345.6-136z" p-id="4302" fill="#2c2c2c"></path><path d="M1000.8 478.4c-22.4-56-120.8-95.2-247.2-95.2S528 422.4 506.4 478.4c-3.2 3.2-4.8 8-4.8 12.8v399.2c0 68 108 119.2 252 119.2s252-51.2 252-119.2v-400c-0.8-4.8-2.4-8.8-4.8-12z m-36 221.6c0 37.6-90.4 79.2-212 79.2s-212-41.6-212-79.2V568c44 32 120.8 52.8 212 52.8s168-20.8 212-52.8v132zM753.6 423.2c121.6 0 212 41.6 212 79.2s-90.4 79.2-212 79.2-212-41.6-212-79.2 90.4-79.2 212-79.2z m0 545.6c-121.6 0-212-41.6-212-79.2V765.6c44 32 120.8 52.8 212 52.8s168-20.8 212-52.8v124c-0.8 37.6-91.2 79.2-212 79.2z" p-id="4303" fill="#2c2c2c"></path></svg>
+            </ion-note>
+            <ion-note style="color: black;"> {{model.balance}}</ion-note>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <ion-list>
+    <ion-item *ngFor="let item of model.data">
+      <ion-label>
+        <h2>{{item.name}}</h2>
+        <p>{{item.time}}</p>
+      </ion-label> 
+      <ion-note slot="end">
+      {{item.num}}
+      </ion-note>
+    </ion-item>
+  </ion-list>
+  <ion-label *ngIf="model.isending" text-center>    
+    <p>
+       没有更多的记录显示啦
+    </p>      
+  </ion-label>
+  <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doLoading($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

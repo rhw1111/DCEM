@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>个人资料</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="full">
+    <ion-item>
+      <ion-label>
+        <h2>姓名：</h2>
+      </ion-label>
+      <ion-note slot="end">
+        <p>{{model.info.username}}</p>
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <h2>手机号：</h2>
+      </ion-label>
+      <ion-note slot="end">
+        <p>{{model.info.mobile}}</p>
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <h2>性别：</h2>
+      </ion-label>
+      <ion-note slot="end">
+        <p>{{model.info.gender}}</p>
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <h2>邮箱：</h2>
+      </ion-label>
+      <ion-note slot="end">
+        <p>{{model.info.mail}}</p>
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <h2>省</h2>
+      </ion-label>
+      <ion-note slot="end">
+        <p>{{model.info.province}}</p>
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <h2>市</h2>
+      </ion-label>
+      <ion-note slot="end">
+        <p>{{model.info.city}}</p>
+      </ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <h2>区</h2>
+      </ion-label>
+      <ion-note slot="end">
+        <p>{{model.info.area}}</p>
+      </ion-note>
+    </ion-item>
+  </ion-list>
+  <ion-card>
+      <ion-card-header> 
+          <ion-card-title style="font-size: 20px;">用户标签</ion-card-title>
+        </ion-card-header>
+    <ion-card-content>
+      <ion-list style="text-align: center;">
+        <ng-container *ngFor="let item of tags;index as i">
+          <p *ngIf="i>1&&(i % 3)==0">
+          </p>
+          <ion-chip outline [color]="item.color">
+            <ion-label>{{item.name}}</ion-label>
+          </ion-chip>
+        </ng-container>
+      </ion-list>
+
+    </ion-card-content>
+  </ion-card>
+  <ion-list lines="none">
+    <ion-button expand="block" color="medium" (click)="saveOnClick()">修改</ion-button>
+  </ion-list>
+</ion-content>

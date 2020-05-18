@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="medium" text="" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>通知详情</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <iframe *ngIf="Url!=null" data-tap-disabled="false" frameborder="no" style="overflow-y:hidden;width:100%;height: 100%;border: none;border: 0px;"
+    [src]="Url"></iframe>
+    <ion-card *ngIf="Url==null">
+      <ion-item>
+        <ion-label>{{mcs_name}}</ion-label>
+      </ion-item>
+      <ion-card-content>
+        {{mcs_content}}
+      </ion-card-content>
+    </ion-card>
+</ion-content>
+

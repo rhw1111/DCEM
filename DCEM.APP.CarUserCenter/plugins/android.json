@@ -1,0 +1,57 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "mcs.dcem.ucenter"
+    },
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "mcs.dcem.ucenter"
+    },
+    "cordova-plugin-file-opener2": {
+      "ANDROID_SUPPORT_V4_VERSION": "27.+",
+      "PACKAGE_NAME": "mcs.dcem.ucenter"
+    },
+    "cordova-plugin-file-transfer": {
+      "PACKAGE_NAME": "mcs.dcem.ucenter"
+    },
+    "cordova-plugin-ionic-keyboard": {
+      "PACKAGE_NAME": "mcs.dcem.ucenter"
+    },
+    "cordova-plugin-ionic-webview": {
+      "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+",
+      "PACKAGE_NAME": "mcs.dcem.ucenter"
+    },
+    "cordova-plugin-media": {
+      "PACKAGE_NAME": "mcs.dcem.ucenter"
+    },
+    "cordova-plugin-qrscanner": {
+      "PACKAGE_NAME": "mcs.dcem.ucenter"
+    },
+    "cordova-plugin-screen-orientation": {
+      "PACKAGE_NAME": "mcs.dcem.ucenter"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "mcs.dcem.ucenter"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "mcs.dcem.ucenter"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "mcs.dcem.ucenter"
+    }
+  },
+  "dependent_plugins": {
+    "cordova-plugin-add-swift-support": {
+      "PACKAGE_NAME": "mcs.dcem.ucenter"
+    },
+    "es6-promise-plugin": {
+      "PACKAGE_NAME": "mcs.dcem.ucenter"
+    }
+  }
+}

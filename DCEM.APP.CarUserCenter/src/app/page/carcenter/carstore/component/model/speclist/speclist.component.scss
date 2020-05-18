@@ -1,0 +1,57 @@
+﻿@import "../../scss/main";
+
+.dm-button-close {
+    color: $dm-darkblue;
+}
+
+.dm-speclist-title {
+    padding-left: 20px;
+    padding-right: 20px;
+
+    ion-col {
+        font-size: 16px;
+        text-align: left;
+        color: $dm-darkblue;
+        padding-left: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}
+
+.dm-speclist {
+    padding-left: 20px;
+    padding-right: 20px;
+
+
+
+    table {
+        border: 1px solid $dm-gray-line;
+        width: 100%;
+
+        tr {
+
+
+            td {
+                padding-top: 10px;
+                padding-bottom: 10px;
+                background-color: #fff;
+            }
+
+            td:first-child {
+                text-align: left;
+                padding-left: 20px;
+                font-size: 12px;
+                color: $dm-black;
+                width: 50%;
+                font-weight: bold;
+            }
+
+            td:last-child {
+                text-align: left;
+                padding-right: 20px;
+                padding-left: 20px;
+                font-size: 12px;
+            }
+        }
+    }
+}

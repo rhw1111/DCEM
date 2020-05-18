@@ -1,0 +1,391 @@
+﻿<ion-header>
+    <ion-toolbar style="height:45px;">
+        <ion-buttons slot="start" style="margin-top: 3px;">
+            <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{model.title}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <img style="width:100%;height:13.75em;" src="http://sf-test.mediaman.com.cn/img/hero-mobile.2f1b5428.jpg" />
+        </ion-row>
+        <ion-row class="index-section">
+            <div class="index-content">
+                <div class="index-conf-hero-intro">
+                    <h5 class="is-text-bold">{{model.smallbookname}}</h5>
+                    <h6>新电动轿跑SUV SF5,专属预售权益惊喜开启</h6>
+                    <h6><span>即日起</span> 至 <span>上市前</span></h6>
+                    <h6>预订SF5的用户可享新车主专属礼</h6>
+                </div>
+            </div>
+        </ion-row>
+        <ion-row class="index-section" style="background-color:#F8F8F8;">
+            <div class="index-content">
+                <div class="index-title-legend index-price">
+                    <div class="index-title"><span class="is-inline-block" style="background-color: #F8F8F8;">预售价 <b style="font-size:20px;">27.8</b> 万起</span></div>
+                </div>
+                <div>
+                    <img src="{{model.imgurl}}" alt="" class="car-image">
+                </div>
+                <strong style="font-size:20px;" class="preorder-spec-cartype">两驱 / 四驱EVR 增程版</strong>
+                <div class="params car-params" style="margin-top:15px;">
+                    <div class="columns is-gapless is-multiline is-mobile">
+                        <div class="column is-half">
+                            <div class="param-item">
+                                <div class="param-value">&lt;4.8 <span class="param-unit">s</span></div>
+                                <div class="param-title">百公里加速</div>
+                            </div>
+                        </div>
+                        <div class="column is-half">
+                            <div class="param-item">
+                                <div class="param-value">150 <span class="param-unit">km+R(里程无忧)</span></div>
+                                <div class="param-title">综合续航里程</div>
+                            </div>
+                        </div>
+                        <div class="column is-half">
+                            <div class="param-item">
+                                <div class="param-value">AliOS <span class="param-unit">2.0</span></div>
+                                <div class="param-title">智能交互系统</div>
+                            </div>
+                        </div>
+                        <div class="column is-half">
+                            <div class="param-item">
+                                <div class="param-value">llHS TSP <span class="param-unit">级</span></div>
+                                <div class="param-title">安全设计标准</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ion-row>
+        <ion-row class="index-section">
+            <div class="index-content">
+                <div class="index-title-legend"><div class="index-title"><span class="is-inline-block" style="background-color: #fff;">权益一：预订专属豪礼</span></div><div class="index-title-tip">可任选其一或不选</div></div>
+                <div>
+                    <div class="index-package-radio" *ngFor="let item of model.equitypackagelist ">
+                        <input name="hidPackageOne" type="hidden" value="{{item.EquityPackageInfo.mcs_limitedtimeprice}}" />
+                        <input type="checkbox" name="preorderPackageOne" id="{{item.EquityPackageInfo.mcs_equitypackageid}}" class="" value="{{item.EquityPackageInfo.mcs_code}}">
+                        <label (click)="RadioBtn($event)" class="index-package-radio-label is-text-bold">
+                            <!--3,000元订金即享<strong>“无忧优享”</strong><strong>权益礼包</strong>-->
+                            {{item.EquityPackageInfo.mcs_name}}
+                        </label>
+                        <ul class="index-package-radio-rights">
+                            <ng-container *ngFor="let i of item.EquityArray">
+                                <div *ngIf="i.mcs_description; then tTemplate else fTemplate"></div>
+                                <ng-template #tTemplate>
+                                    <li class="is-highlight has-description">
+                                        <div class="is-inline-block">{{i.mcs_name}}</div>
+                                        <input type="checkbox" id="{{i.mcs_equityid}}{{item.EquityPackageInfo.mcs_code}}">
+                                        <label for="{{i.mcs_equityid}}{{item.EquityPackageInfo.mcs_code}}"></label>
+                                        <ul class="description">
+                                            <li [innerHTML] = 'i.mcs_description'></li>
+                                        </ul>
+                                    </li>
+                                </ng-template>
+                                <ng-template #fTemplate>
+                                    <li class="is-highlight">
+                                        <div class="is-inline-block">{{i.mcs_name}}</div>
+                                    </li>
+                                </ng-template>
+                            </ng-container>
+
+                            <!--<li class="">
+            <div class="is-inline-block">抵扣3,000元车款</div>
+        </li>
+        <li class="">
+            <div class="is-inline-block">赠送充电桩并安装</div>
+        </li>
+        <li class="is-highlight">
+            <div class="is-inline-block">个性签名版+VIP徽章<span>（原价 2,000 元）</span></div>
+        </li>
+        <li class="is-highlight">
+            <div class="is-inline-block">赠送品牌高端车模（前200位）<span>（原价 1,000 元）</span></div>
+        </li>
+        <li class="is-highlight">
+            <div class="is-inline-block">流量终身免费</div>
+        </li>
+        <li class="is-highlight">
+            <div class="is-inline-block">7年或15万公里整车质保</div>
+        </li>
+        <li class="is-highlight">
+            <div class="is-inline-block">动力电芯终身质保</div>
+        </li>
+        <li class="is-highlight has-description">
+            <div class="is-inline-block">终身紧急道路救援 <span>（原价 3,000 元）</span></div>
+            <input type="checkbox" id="description-toggle-preorderPackageOne-p1-1-7">
+            <label for="description-toggle-preorderPackageOne-p1-1-7"></label>
+            <ul class="description">
+                <li>拖车服务（50公里内）</li>
+                <li>现场快修服务</li>
+                <li>轮胎更换服务（如有备胎）</li>
+                <li>困境救援服务</li>
+            </ul>
+        </li>
+        <li class="is-highlight has-description">
+            <div class="is-inline-block">特惠金融（厂方金融免息5,000元）</div>
+            <input type="checkbox" id="description-toggle-preorderPackageOne-p1-1-8">
+            <label for="description-toggle-preorderPackageOne-p1-1-8"></label>
+            <ul class="description">
+                <li>0利息</li>
+                <li>0首付</li>
+                <li>弹性贷，最低首付20%</li>
+            </ul>
+        </li>-->
+                        </ul>
+                    </div>
+                    <!--<div class="index-package-radio">
+                        <input type="checkbox" name="preorderPackageOne" id="preorderPackageOne-p1-2" class="" value="p1-2">
+                        <label for="preorderPackageOne-p1-2" class="index-package-radio-label is-text-bold">
+                            5,000元订金即享<strong>“视听悦享”</strong><strong>权益礼包</strong>
+                        </label>
+                        <ul class="index-package-radio-rights">
+                            <li class="">
+                                <div class="is-inline-block">抵扣5,000元车款</div>
+                            </li>
+                            <li class="">
+                                <div class="is-inline-block">赠送充电桩并安装</div>
+                            </li>
+                            <li class="is-highlight">
+                                <div class="is-inline-block">个性签名版+VIP徽章<span>（原价 2,000 元）</span></div>
+                            </li>
+                            <li class="is-highlight">
+                                <div class="is-inline-block">赠送品牌高端车模（前200位）<span>（原价 1,000 元）</span></div>
+                            </li>
+                            <li class="is-highlight">
+                                <div class="is-inline-block">流量终身免费</div>
+                            </li>
+                            <li class="is-highlight">
+                                <div class="is-inline-block">7年或15万公里整车质保</div>
+                            </li>
+                            <li class="is-highlight">
+                                <div class="is-inline-block">动力电芯终身质保</div>
+                            </li>
+                            <li class="is-highlight has-description">
+                                <div class="is-inline-block">终身全方位道路救援<span>（原价5,000 元）</span></div>
+                                <span class="tag">升级</span>
+                                <input type="checkbox" id="description-toggle-preorderPackageOne-p1-2-7">
+                                <label for="description-toggle-preorderPackageOne-p1-2-7"></label>
+                                <ul class="description">
+                                    <li>拖车服务（50公里内或就近授权服务网点）</li>
+                                    <li>现场快修服务</li>
+                                    <li>轮胎更换服务（如有备胎）</li>
+                                    <li>困境救援服务</li>
+                                    <li>出租车服务</li>
+                                    <li>代步车服务</li>
+                                    <li>单程取车服务</li>
+                                    <li>酒店住宿服务（三天四星级酒店）</li>
+                                    <li>继续行程服务（继续行程交通费）</li>
+                                    <li>B-CALL</li>
+                                    <li>E-CALL</li>
+                                </ul>
+                            </li>
+                            <li class="is-highlight has-description">
+                                <div class="is-inline-block">特惠金融（厂方金融免息5,000元）</div>
+                                <input type="checkbox" id="description-toggle-preorderPackageOne-p1-2-8">
+                                <label for="description-toggle-preorderPackageOne-p1-2-8"></label>
+                                <ul class="description">
+                                    <li>0利息</li>
+                                    <li>0首付</li>
+                                    <li>弹性贷，最低首付20%</li>
+                                </ul>
+                            </li>
+                            <li class="is-highlight has-description">
+                                <div class="is-inline-block">歌剧魅影套装<span>（原价 5,000 元）</span></div>
+                                <span class="tag">新增</span>
+                                <input type="checkbox" id="description-toggle-preorderPackageOne-p1-2-9">
+                                <label for="description-toggle-preorderPackageOne-p1-2-9"></label>
+                                <ul class="description">
+                                    <li>11扬声器环绕音响系统</li>
+                                    <li>64色LED氛围灯</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="index-package-radio">
+                        <input type="checkbox" name="preorderPackageOne" id="preorderPackageOne-p1-3" class="" value="p1-3">
+                        <label for="preorderPackageOne-p1-3" class="index-package-radio-label is-text-bold">10,000元订金即享<strong>“智行尊享”</strong><strong>权益礼包</strong></label>
+                        <ul class="index-package-radio-rights">
+                            <li class="">
+                                <div class="is-inline-block">抵扣10,000元车款</div>
+                            </li>
+                            <li class="">
+                                <div class="is-inline-block">赠送充电桩并安装</div>
+                            </li>
+                            <li class="is-highlight">
+                                <div class="is-inline-block">个性签名版+VIP徽章<span>（原价 2,000 元）</span></div>
+                            </li>
+                            <li class="is-highlight">
+                                <div class="is-inline-block">赠送品牌高端车模（前200位）<span>（原价 1,000 元）</span></div>
+                            </li>
+                            <li class="is-highlight">
+                                <div class="is-inline-block">流量终身免费</div>
+                            </li>
+                            <li class="is-highlight">
+                                <div class="is-inline-block">7年或15万公里整车质保</div>
+                            </li>
+                            <li class="is-highlight">
+                                <div class="is-inline-block">动力电芯终身质保</div>
+                            </li>
+                            <li class="is-highlight has-description">
+                                <div class="is-inline-block">终身安心旅程（道路救援+旅程保障）<span>（原价 12,000 元）</span></div>
+                                <span class="tag">升级</span>
+                                <input type="checkbox" id="description-toggle-preorderPackageOne-p1-3-7">
+                                <label for="description-toggle-preorderPackageOne-p1-3-7"></label>
+                                <ul class="description">
+                                    <li>拖车服务（50公里内或就近授权服务网点）</li>
+                                    <li>现场快修服务</li>
+                                    <li>轮胎更换服务（如有备胎）</li>
+                                    <li>困境救援服务</li>
+                                    <li>出租车服务</li>
+                                    <li>代步车服务</li>
+                                    <li>单程取车服务</li>
+                                    <li>酒店住宿服务（三天五星级酒店）</li>
+                                    <li>继续行程服务（继续行程交通费）</li>
+                                    <li>B-CALL</li>
+                                    <li>E-CALL</li>
+                                    <li>行李运送服务</li>
+                                    <li>馈电拖车服务</li>
+                                    <li>移动充电服务</li>
+                                    <li>保养取送车服务</li>
+                                    <li>酒后代驾服务</li>
+                                </ul>
+                            </li>
+                            <li class="is-highlight has-description">
+                                <div class="is-inline-block">特惠金融（厂方金融免息5,000元）</div>
+                                <input type="checkbox" id="description-toggle-preorderPackageOne-p1-3-8">
+                                <label for="description-toggle-preorderPackageOne-p1-3-8"></label>
+                                <ul class="description">
+                                    <li>0利息</li>
+                                    <li>0首付</li>
+                                    <li>弹性贷，最低首付20%</li>
+                                </ul>
+                            </li>
+                            <li class="is-highlight has-description">
+                                <div class="is-inline-block">歌剧魅影套装<span>（原价 5,000 元）</span></div>
+                                <input type="checkbox" id="description-toggle-preorderPackageOne-p1-3-9">
+                                <label for="description-toggle-preorderPackageOne-p1-3-9"></label>
+                                <ul class="description">
+                                    <li>11扬声器环绕音响系统</li>
+                                    <li>64色LED氛围灯</li>
+                                </ul>
+                            </li>
+                            <li class="is-highlight has-description">
+                                <div class="is-inline-block">智享科技套装<span>（原价 6,000 元）</span></div>
+                                <span class="tag">新增</span>
+                                <input type="checkbox" id="description-toggle-preorderPackageOne-p1-3-10">
+                                <label for="description-toggle-preorderPackageOne-p1-3-10"></label>
+                                <ul class="description">
+                                    <li>HUD抬头数字显示</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>-->
+                </div>
+            </div>
+        </ion-row>
+        <ion-row class="index-section" style="background-color:#F8F8F8;">
+            <div class="index-content">
+                <div class="index-title-legend">
+                    <div class="index-title">
+                        <span class="is-inline-block" style="background-color: #F8F8F8;">权益 二：限时升级套装</span>
+                    </div>
+                    <div class="index-title-tip">可任选其一、多选或不选</div>
+                </div>
+                <div>
+                    <div class="index-package-checkbox" *ngFor="let item of model.optionallist">
+                        <input type="checkbox" name="preorderPackageTwo" id="{{item.OptionalInfo.mcs_optionalid}}" class="" value="{{item.OptionalInfo.mcs_code}}">
+                        <input name="hidPackageTwo" type="hidden" value="{{item.OptionalInfo.mcs_limitedtimeprice}}" />
+                        <label (click)="CheckBoxBtn($event);$event.stopPropagation();" for="{{item.OptionalInfo.mcs_optionalid}}" class="index-package-checkbox-content">
+                            <section class="columns is-gapless is-mobile package-intro">
+                                <div class="package-image column is-3"><img src="https://ceo-oss.oss-cn-hangzhou.aliyuncs.com/{{item.OptionalImageArray[0].mcs_imagename}}" alt=""></div>
+                                <div class="column is-9 has-text-left" style="padding-left: 15px !important;">
+                                    <div class="index-intro-title is-text-bold">{{item.OptionalInfo.mcs_name}}</div>
+                                    <div class="index-intro-subtitle" [innerHTML] = 'item.OptionalInfo.mcs_description'></div><!---->
+                                </div>
+                            </section>
+                            <section class="index-package-price has-text-left">
+                                <div class="is-inline-block promotion-price">
+                                    限时价：<strong>{{item.OptionalInfo.mcs_limitedtimeprice}} 元</strong>
+                                </div><div class="is-inline-block origin-price">
+                                    原价：<s>{{item.OptionalInfo.mcs_originalprice}} 元</s>
+                                </div>
+                            </section>
+                        </label>
+                    </div>
+                    <!--<div class="index-package-checkbox">
+                        <input type="checkbox" name="preorderPackageTwo" id="preorderPackageTwo-p2-1" class="" value="p2-1">
+                        <label for="preorderPackageTwo-p2-1" class="index-package-checkbox-content">
+                            <section class="columns is-gapless is-mobile package-intro">
+                                <div class="package-image column is-3"><img src="http://sf-test.mediaman.com.cn/img/tire.c5e611ee.png" alt=""></div>
+                                <div class="column is-9 has-text-left" style="padding-left: 15px !important;">
+                                    <div class="package-intro-title is-text-bold">运动性能套装</div>
+                                    <div class="package-intro-subtitle">21英寸高性能多幅铝合金轮毂<br>高级品牌轮胎<br>运动高亮黑车窗饰条</div>
+                                </div>
+                            </section>
+                            <section class="index-package-price has-text-left">
+                                <div class="is-inline-block promotion-price">
+                                    限时价：<strong>5,000 元</strong>
+                                </div><div class="is-inline-block origin-price">
+                                    原价：<s>10,000 元</s>
+                                </div>
+                            </section>
+                        </label>
+                    </div>
+                    <div class="index-package-checkbox">
+                        <input type="checkbox" name="preorderPackageTwo" id="preorderPackageTwo-p2-3" class="" value="p2-3">
+                        <label for="preorderPackageTwo-p2-3" class="index-package-checkbox-content">
+                            <section class="columns is-gapless is-mobile package-intro">
+                                <div class="package-image column is-3"><img src="http://sf-test.mediaman.com.cn/img/interior.f7b4aa37.png" alt=""></div>
+                                <div class="column is-9 has-text-left" style="padding-left: 15px !important;">
+                                    <div class="package-intro-title is-text-bold">无级变色全景天幕</div>
+                                    <div class="package-intro-subtitle">2.09m²超大尺寸全景天幕<br>抗紫外线隔热玻璃<br>智能无级调色</div>
+                                </div>
+                            </section>
+                            <section class="index-package-price has-text-left">
+                                <div class="is-inline-block promotion-price">
+                                    限时价：<strong>5,000 元</strong>
+                                </div><div class="is-inline-block origin-price">
+                                    原价：<s>10,000 元</s>
+                                </div>
+                            </section>
+                        </label>
+                    </div>-->
+                </div>
+            </div>
+        </ion-row>
+        <ion-row class="index-section">
+            <div class="index-content">
+                <div class="index-content-event-tip has-text-left">
+                    <h5>活动说明：</h5>
+                    <p>权益一仅限前500名预订车用户；权益二限订车用户在上市前限时优享。</p>
+                    <p>*以上最终解释权归重庆金康赛力斯汽车销售有限公司所有</p>
+                </div>
+            </div>
+        </ion-row>
+        <div>
+            <section class="index-toolbar is-flex has-shadow">
+                <div class="index-info">
+                    <div class="index-info-price">订金合计：<strong>{{model.totalprice}} 元</strong></div>
+                    <!--<div class="index-info-brief is-inline-block">
+                        <span>权益详情</span>
+                        <span class="iconfont iconarrow-line-down-s is-inline-block"></span>
+                    </div>-->
+                </div>
+                <button class="index-toolbar-button is-disabled" disabled="disabled" (click)="BtnSubmit()">确认预订  <!----></button>
+            </section>
+            <div class="index-conf-items">
+                <div class="index-modal">
+                    <div class="is-flex index-modal-header">
+                        <div>权益详情<!----></div>
+                        <div class="iconfont iconclose index-modal-close"></div><!---->
+                    </div>
+                    <div class="index-modal-body"></div>
+                </div>
+                <div class="index-modal-background" style="display: none;"></div>
+            </div>
+        </div>
+    </ion-grid>
+</ion-content>

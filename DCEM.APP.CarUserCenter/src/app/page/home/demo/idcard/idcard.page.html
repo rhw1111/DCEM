@@ -1,0 +1,43 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/home/demo/index"></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            <ion-label>身份证识别Demo</ion-label>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-list>
+        <ion-item>
+            姓名：{{data.mod.xm}}
+        </ion-item>
+        <ion-item>
+            身份证号码：{{data.mod.idcard}}
+        </ion-item>
+        <ion-item>
+            性别：{{data.mod.sex}}
+        </ion-item>
+        <ion-item>
+            民族：{{data.mod.minzu}}
+        </ion-item>
+        <ion-item>
+            生日：{{data.mod.sr}}
+        </ion-item>
+        <ion-item>
+            住址：{{data.mod.zz}}
+        </ion-item>
+        <ion-item>
+            签发日期：{{data.mod.qfrq}}
+        </ion-item>
+        <ion-item>
+            失效日期：{{data.mod.sxrq}}
+        </ion-item>
+        <ion-item>
+            签发机关：{{data.mod.qfjg}}
+        </ion-item>
+    </ion-list>
+</ion-content>

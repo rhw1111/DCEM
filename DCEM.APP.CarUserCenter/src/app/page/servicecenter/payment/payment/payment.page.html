@@ -1,0 +1,118 @@
+﻿<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{model.title}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid style="padding: 0;">
+        <ion-card style="width: 100%;padding: 0;margin: 10px 0;padding:100px 0;background: #fff;">
+            <ion-card-header>
+                <ion-card-title style="text-align:center;">需要支付</ion-card-title>
+            </ion-card-header>
+            <div *ngIf="model.datas.TotalIntegral != 0; then tTemplate else fTemplate"></div>
+            <ng-template #tTemplate>
+                <ion-card-content style="text-align:center;" *ngIf="model.datas.IsNeedCash == 'true'">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="18" height="18" t="1576662222688" p-id="4131" version="1.1"><path fill="#000" d="M 883.804 246.032 c -7.274 7.274 -27.391 22.947 -34.043 29.599 c 44.117 64.68 69.974 142.806 69.974 227.009 c 0 222.864 -180.66 403.514 -403.53 403.514 c -222.872 0 -403.532 -180.65 -403.532 -403.514 c 0 -222.861 180.66 -403.513 403.532 -403.513 c 111.711 0 212.784 45.417 285.846 118.764 c 8.459 -8.458 24.012 -25.305 31.066 -32.36 c -81.13 -81.079 -193.158 -131.239 -316.912 -131.239 c -247.609 0 -448.368 200.707 -448.368 448.348 c 0 247.6 200.76 448.35 448.368 448.35 c 247.607 0 448.365 -200.75 448.365 -448.35 c 0.001 -95.468 -29.906 -183.906 -80.765 -256.608 Z" p-id="4132" /><path fill="#000" d="M 647.413 240.965 l -84.113 154.977 c -22.412 41.965 -36.15 69.883 -41.162 83.751 h -1.431 c -14.765 -33.643 -56.554 -113.235 -125.276 -238.729 h -79.103 l 147.11 252.688 l -120.624 0.001 v 55.835 h 141.382 v 76.949 h -141.382 v 56.553 h 141.382 v 112.027 h 70.155 v -112.027 h 136.373 v -56.551 h -136.374 v -76.951 h 136.373 v -55.834 h -117.045 l 148.541 -252.689 h -74.807 Z" p-id="4133" /></svg>
+                    <span style="font-size:36px;font-weight:bold;">{{model.datas.TotalPrice}}</span>
+                </ion-card-content>
+
+                <ion-card-content style="text-align:center;">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="18" height="18" t="1576662312009" p-id="5052" version="1.1"><path fill="#000" d="M 512.06 927 C 279.32 927 97 831.31 97 709.16 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.29 20.75 20.75 c 0 95.59 171.07 176.34 373.56 176.34 c 202.42 0 373.44 -80.75 373.44 -176.34 c 0 -11.46 9.29 -20.75 20.75 -20.75 S 927 697.7 927 709.16 C 927 831.31 744.74 927 512.06 927 Z" p-id="5053" /><path fill="#000" d="M 512.06 729.91 C 279.32 729.91 97 634.22 97 512.06 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.29 20.75 20.75 c 0 95.59 171.07 176.34 373.56 176.34 c 202.42 0 373.44 -80.75 373.44 -176.34 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.3 20.75 20.75 c 0 122.16 -182.26 217.85 -414.94 217.85 Z" p-id="5054" /><path fill="#000" d="M 512.06 532.81 C 279.32 532.81 97 437.07 97 314.84 C 97 192.69 279.32 97 512.06 97 C 744.74 97 927 192.69 927 314.84 c 0 122.23 -182.26 217.97 -414.94 217.97 Z m 0 -394.31 c -202.49 0 -373.56 80.75 -373.56 176.34 c 0 95.66 171.07 176.47 373.56 176.47 c 202.42 0 373.44 -80.81 373.44 -176.47 c 0 -95.59 -171.01 -176.34 -373.44 -176.34 Z" p-id="5055" /></svg>
+                    <span style="font-size:36px;font-weight:bold;">{{model.datas.TotalIntegral}}</span>
+                </ion-card-content>
+            </ng-template>
+            <ng-template #fTemplate>
+                <ion-card-content style="text-align:center;">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="18" height="18" t="1576662222688" p-id="4131" version="1.1"><path fill="#000" d="M 883.804 246.032 c -7.274 7.274 -27.391 22.947 -34.043 29.599 c 44.117 64.68 69.974 142.806 69.974 227.009 c 0 222.864 -180.66 403.514 -403.53 403.514 c -222.872 0 -403.532 -180.65 -403.532 -403.514 c 0 -222.861 180.66 -403.513 403.532 -403.513 c 111.711 0 212.784 45.417 285.846 118.764 c 8.459 -8.458 24.012 -25.305 31.066 -32.36 c -81.13 -81.079 -193.158 -131.239 -316.912 -131.239 c -247.609 0 -448.368 200.707 -448.368 448.348 c 0 247.6 200.76 448.35 448.368 448.35 c 247.607 0 448.365 -200.75 448.365 -448.35 c 0.001 -95.468 -29.906 -183.906 -80.765 -256.608 Z" p-id="4132" /><path fill="#000" d="M 647.413 240.965 l -84.113 154.977 c -22.412 41.965 -36.15 69.883 -41.162 83.751 h -1.431 c -14.765 -33.643 -56.554 -113.235 -125.276 -238.729 h -79.103 l 147.11 252.688 l -120.624 0.001 v 55.835 h 141.382 v 76.949 h -141.382 v 56.553 h 141.382 v 112.027 h 70.155 v -112.027 h 136.373 v -56.551 h -136.374 v -76.951 h 136.373 v -55.834 h -117.045 l 148.541 -252.689 h -74.807 Z" p-id="4133" /></svg>
+                    <span style="font-size:36px;font-weight:bold;">{{model.datas.TotalPrice}}</span>
+                </ion-card-content>
+            </ng-template>
+        </ion-card>
+        <ion-card style="width: 100%;padding: 0;margin: 10px 0;background: #fff;">
+            <ion-item lines="none" (click)="ShowTwoBtn()" detail>
+                <ion-label>可用权益</ion-label>
+                <ion-label style="color:#a4a4a4;text-align:right;">请选择</ion-label>
+            </ion-item>
+        </ion-card>
+        <div class="selected" style="padding:0 30px;">
+            <div *ngFor="let item of model.rights.myRightses">
+                <div *ngIf="item.checked">
+                    {{item.RightsName}}
+                </div>
+            </div>
+        </div>
+        <div *ngIf="model.datas.TotalIntegral != 0; then ttTemplate else ffTemplate"></div>
+        <ng-template #ttTemplate>
+            <div *ngIf="model.datas.IsNeedCash == 'true'; then tttTemplate else fffTemplate"></div>
+            <ng-template #tttTemplate>
+                <ion-card style="width: 100%;padding: 0;margin: 10px 0;background: #fff;">
+                    <ion-item lines="none" href="javascript:void(0);" (click)="payAmount(1)" style="padding:10px 0;">
+                        <img src="../assets/img/alipay.png" style="width:40px;margin-right:10px;" />
+                        <ion-label>支付宝支付</ion-label>
+                    </ion-item>
+                </ion-card>
+                <ion-card style="width: 100%;padding: 0;margin: 10px 0;background: #fff;">
+                    <ion-item lines="none" href="javascript:void(0);" (click)="payAmount(1)" style="padding:10px 0;">
+                        <img src="../assets/img/wechatpay.png" style="width:40px;margin-right:10px;border-radius:7px;" />
+                        <ion-label>微信支付</ion-label>
+                    </ion-item>
+                </ion-card>
+            </ng-template>
+            <ng-template #fffTemplate>
+                <ion-card style="width: 100%;padding: 0;margin: 10px 0;background: #fff;">
+                    <ion-item lines="none" href="javascript:void(0);" (click)="payAmount(0)" style="padding:10px 0;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="42" height="42" t="1577785378653" p-id="2905" version="1.1" style="margin-right:10px;"><path fill="#e61f49" d="M 1024 824 c 0 110 -90 200 -200 200 H 200 C 90 1024 0 934 0 824 V 200 C 0 90 90 0 200 0 h 624 c 110 0 200 90 200 200 v 624 Z" p-id="2906" /><path fill="#ffffff" d="M 511.666 209.543 c -167.416 0 -302.275 134.859 -302.275 302.263 c 0 167.412 134.859 302.268 302.275 302.268 c 167.397 0 302.253 -134.855 302.253 -302.268 c 0 -167.403 -134.856 -302.263 -302.253 -302.263 Z m 0 574.051 c -150.05 0 -271.793 -121.757 -271.793 -271.787 c 0 -150.035 121.744 -271.782 271.793 -271.782 c 150.035 0 271.779 121.747 271.779 271.782 c -0.001 150.03 -121.745 271.787 -271.779 271.787 Z m 0 0" p-id="2907" /><path fill="#ffffff" d="M 715.794 412.197 c -2.438 -6.154 -9.825 -8.613 -15.976 -4.922 c -6.149 2.459 -8.612 9.844 -4.918 15.988 c 13.519 28.29 20.894 57.797 20.894 88.544 c 0 111.906 -90.994 202.919 -202.909 202.919 c -6.144 0 -12.294 4.925 -12.294 12.306 c 0 6.15 4.918 12.287 12.294 12.287 c 125.434 0 226.29 -102.068 226.29 -226.281 c -1.231 -35.669 -8.612 -68.866 -23.381 -100.841 Z m 0 0 M 511.666 308.887 c 52.872 0 103.291 20.906 141.416 57.8 c 2.463 2.462 4.925 3.69 8.619 3.69 c 3.688 0 6.144 -1.228 8.594 -3.69 c 4.938 -4.916 4.938 -12.297 0 -17.209 c -43.031 -41.819 -98.368 -63.95 -158.628 -63.95 c -6.156 0 -12.309 4.916 -12.309 12.297 c -0.002 6.144 6.151 11.062 12.308 11.062 Z m 0 0 M 432.95 698.743 c -75.019 -31.975 -124.209 -105.769 -124.209 -186.937 c 0 -78.707 46.731 -151.266 118.056 -184.469 c 6.153 -2.459 8.609 -9.844 6.153 -15.984 c -2.459 -6.153 -9.844 -8.609 -15.984 -6.153 c -79.944 36.894 -131.591 118.063 -131.591 206.606 c 0 91.012 54.109 173.412 138.966 209.063 c 1.231 1.244 3.69 1.244 4.922 1.244 c 4.919 0 8.603 -2.463 11.065 -7.388 c 1.229 -6.151 -1.231 -13.519 -7.378 -15.982 Z m 0 0" p-id="2908" /><path fill="#ffffff" d="M 477.219 557.313 c 3.69 0 7.381 -1.238 9.847 -3.687 c 7.372 -7.383 8.6 -15.994 2.453 -27.063 c -2.453 -2.45 -9.837 -13.525 -24.597 -30.74 c -2.456 -2.454 -3.69 -4.916 -6.144 -7.381 v -3.691 h 17.213 c 4.918 0 11.075 -1.225 13.528 -8.603 v 36.89 c 0 8.613 1.234 14.757 4.919 18.457 c 2.465 3.681 7.381 4.919 13.535 4.919 H 610.05 c 6.145 0 11.056 -1.238 14.75 -4.919 c 3.688 -3.7 4.919 -9.844 4.919 -18.457 v -92.234 c 0 -8.605 -1.231 -14.759 -6.145 -18.446 c -4.924 -4.919 -12.312 -7.381 -22.137 -6.15 h -89.772 c -7.384 0 -13.541 1.231 -17.228 6.15 c -3.685 3.687 -4.919 11.068 -4.919 19.678 v 39.356 c -2.453 -6.144 -8.609 -8.622 -13.528 -9.838 h -17.213 v -27.059 h 3.688 c 2.456 -1.231 6.15 -1.231 8.612 -2.459 c 11.063 -2.462 17.209 -9.837 15.988 -19.678 c -2.466 -8.613 -8.613 -13.528 -18.45 -13.528 h -3.694 c -12.297 2.462 -31.972 6.147 -57.797 8.609 h -8.609 c -12.3 2.459 -18.45 9.837 -18.45 20.906 c 1.231 6.15 4.918 13.522 17.215 13.522 h 15.991 c 3.694 0 7.384 -1.216 9.834 -1.216 v 22.119 H 397.28 c -11.065 1.241 -15.984 7.381 -17.215 17.219 c 0 14.763 8.609 17.229 15.994 17.229 h 24.597 c -8.619 33.21 -22.141 62.716 -36.897 88.541 c -7.384 13.537 -1.231 20.918 4.916 23.381 c 2.462 1.226 6.15 2.456 8.606 2.456 c 6.15 0 11.072 -3.699 15.991 -8.619 c 3.694 -6.144 7.384 -12.293 9.834 -20.912 v 57.813 c 0 6.15 2.466 14.751 17.222 15.988 c 13.531 -1.237 17.219 -8.613 17.219 -14.77 v -81.162 c 1.231 2.463 2.456 3.694 3.685 4.918 c 7.384 -1.226 11.068 2.461 15.987 2.461 Z m 49.194 -62.729 V 430.65 c 0 -3.693 1.225 -3.693 2.462 -3.693 h 61.488 c 3.692 1.228 3.692 2.453 3.692 2.453 v 63.959 c 0 2.454 -1.243 2.454 -2.462 2.454 h -63.956 c -1.224 1.234 -1.224 -0.001 -1.224 -1.239 Z m 0 0" p-id="2909" /><path fill="#ffffff" d="M 541.169 538.862 c -3.694 -1.23 -6.156 -2.449 -9.838 -2.449 c -6.144 0 -12.294 3.681 -15.987 11.056 c -14.753 25.831 -28.278 45.506 -43.044 60.274 c -11.068 11.069 -7.378 20.9 -2.465 25.819 c 4.925 3.688 8.619 4.912 13.541 4.912 c 4.912 0 9.838 -2.449 14.75 -6.138 c 19.681 -22.149 36.888 -44.28 49.193 -67.649 c 7.375 -11.061 4.925 -19.674 -6.15 -25.825 Z m 0 0 M 640.787 607.743 c -12.3 -24.605 -25.831 -46.749 -41.806 -66.418 c -8.618 -7.382 -17.219 -8.606 -25.837 -3.693 c -4.919 3.693 -7.382 7.381 -8.607 11.074 c -1.225 3.688 0 8.606 3.688 12.288 c 11.068 14.763 24.587 35.681 40.587 61.5 c 3.693 6.149 8.606 9.843 14.762 9.843 c 2.457 0 4.913 0 7.37 -1.243 c 9.843 -4.912 13.525 -13.52 9.843 -23.351 Z m 0 0" p-id="2910" /></svg>
+                        <ion-label>积分支付</ion-label>
+                    </ion-item>
+                </ion-card>
+            </ng-template>
+        </ng-template>
+        <ng-template #ffTemplate>
+            <ion-card style="width: 100%;padding: 0;margin: 10px 0;background: #fff;">
+                <ion-item lines="none" href="javascript:void(0);" (click)="payAmount(1)" style="padding:10px 0;">
+                    <img src="../assets/img/alipay.png" style="width:40px;margin-right:10px;" />
+                    <ion-label>支付宝支付</ion-label>
+                </ion-item>
+            </ion-card>
+            <ion-card style="width: 100%;padding: 0;margin: 10px 0;background: #fff;">
+                <ion-item lines="none" href="javascript:void(0);" (click)="payAmount(1)" style="padding:10px 0;">
+                    <img src="../assets/img/wechatpay.png" style="width:40px;margin-right:10px;border-radius:7px;" />
+                    <ion-label>微信支付</ion-label>
+                </ion-item>
+            </ion-card>
+        </ng-template>
+    </ion-grid>
+
+    <!--权益选择-->
+    <div class="TwoBtnDialog" style="display:none;">
+        <div class="div-content">
+            <h5 style="margin:0;padding-bottom:20px;font-weight:bold;">选择权益项</h5>
+            <div *ngFor="let item of model.rights.myRightses" style="width:100%;">
+                <div class="div-rights {{item.hideRights ? 'hiderights' : 'showrights'}}">
+                    <div style="width:100%;">
+                        <span>{{item.RightsName}}</span>
+                    </div>
+                    <div style="width:10%;">
+                        <ion-checkbox [(ngModel)]="item.checked" disabled="{{item.hideRights}}" (ionChange)="change(item)" style="width:75%;height:75%;"></ion-checkbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="div-btn">
+            <ion-button text="确定" (click)="TwoBtnSure()" style="width:100%;">确定</ion-button>
+        </div>
+    </div>
+
+    <!--遮罩层-->
+    <div class="shade" *ngIf="IsShowCover" (click)="CloseDialog()"></div>
+
+    <div class="shadetime">
+        <span>剩余时间</span>
+        <span id="minute">00</span>分
+        <span id="second">00</span>秒
+    </div>
+</ion-content>

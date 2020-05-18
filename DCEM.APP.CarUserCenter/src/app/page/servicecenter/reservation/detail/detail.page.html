@@ -1,0 +1,127 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button  [routerLink]="['/servicecenter/reservation/list']"><ion-icon slot="icon-only" name="arrow-back"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-title>
+      <div>订单明细</div>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/tabs/servicecenter']">
+          <ion-icon slot="icon-only" name="home"></ion-icon>
+      </ion-button>
+  </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>订单信息</ion-card-subtitle>
+      <!-- <ion-card-title style="font-size: 20px;">订单状态:&nbsp;{{model.bindData['mcs_statusvale']}}</ion-card-title> -->
+    </ion-card-header>
+    <ion-card-content >
+      <ion-item>
+        <ion-label position="fixed">订单号<ion-text color="danger">*</ion-text>:</ion-label>
+        <ion-note style="font-weight: bold;color: black;">{{model.bindData["mcs_name"]}}&nbsp;</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label position="fixed">订单状态<ion-text color="danger">*</ion-text>:</ion-label>
+        <ion-note style="font-weight: bold;color: black;">{{model.bindData["mcs_statusvale"]}}&nbsp;</ion-note>
+      </ion-item>
+      <ion-row  *ngIf="model.ifCanEdit">
+        <ion-col style="align-self:center">
+          <ion-button  fill="solid" color="danger"[routerLink]="['/servicecenter/reservation/cancel']" [queryParams]="{id:model.appointmentinfoId}">取消订单</ion-button>
+          &nbsp;&nbsp;&nbsp;&nbsp; 
+          <ion-button fill="solid" color="light" [routerLink]="['/servicecenter/reservation/edit']" [queryParams]="{id:model.appointmentinfoId}">编辑订单</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>车主/车辆信息</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="fixed">车主信息<ion-text color="danger">*</ion-text>:</ion-label>
+        <ion-note slot="">{{model.bindData["mcs_customername"]}}&nbsp;{{model.bindData["mcs_customerphone"]}}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label position="fixed">车牌号:</ion-label>
+        <ion-note>{{model.bindData["mcs_carplate"]}}&nbsp;</ion-note>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>经销商信息</ion-card-subtitle>
+    </ion-card-header>
+    <ion-item>
+      <ion-label position="fixed"> 经销商<ion-text color="danger">*</ion-text>:</ion-label>
+      <ion-note>
+        <p style="font-weight: bold;color: black;">{{model.bindData["mcs_dealername"]}}</p>
+        <p>{{model.bindData["mcs_shopaddress"]}}</p>
+        <p>{{model.bindData["mcs_dealerphone"]}}</p>
+      </ion-note>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>预约信息</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="fixed">服务类型<ion-text color="danger">*</ion-text>:</ion-label>
+        <ion-note>{{model.bindData["mcs_ordertypename"]}}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label position="fixed">预约日期<ion-text color="danger">*</ion-text>:</ion-label>
+        <ion-note>{{FormatToDate(model.bindData["mcs_appointmentat"])}}&nbsp;
+          {{model.bindData["mcs_appointmentconfigname"]}}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label position="fixed">备注:</ion-label>
+        <p>{{model.bindData["mcs_customercomment"]}}</p>
+      </ion-item>
+      <!-- <ion-item>
+        <ion-label position="fixed">问题描述:</ion-label>
+        <p>{{model.bindData["mcs_appointmendescript" ]}}</p>
+      </ion-item> -->
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>服务信息</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list lines="full">
+        <ion-item>
+          <ion-note slot="start">里程选择</ion-note>
+          <ion-note slot="end">{{model.bindData["mcs_mileagename"]}}</ion-note>
+        </ion-item>
+        <!-- <ion-item>
+          <ion-note slot="start">维修耗时</ion-note>
+          <ion-note slot="end">{{model.bindData['totaltime']}}分钟</ion-note>
+        </ion-item> -->
+        <ion-item *ngFor="let item of objectKeys(model.packsMap)">
+          <ion-note slot="start">{{model.packsMap[item]['name']}}</ion-note>
+          <ion-note slot="end">￥{{model.packsMap[item]['price']}}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-note slot="start">订单总额</ion-note>
+          <ion-note slot="end">￥{{model.bindData['totalcost']}}</ion-note>
+        </ion-item>
+        
+      </ion-list>
+
+      <!-- <ion-item>
+      <div class="panel">
+        <ion-label>服务包名称</ion-label>
+        <p> 里程选择:&nbsp;{{model.bindData["mcs_mileagename"]}}</p>
+        <p>服务内容:&nbsp;{{model.bindData["mcs_packname"]}}</p>
+      </div>
+  </ion-item> -->
+    </ion-card-content>
+  </ion-card>
+</ion-content>

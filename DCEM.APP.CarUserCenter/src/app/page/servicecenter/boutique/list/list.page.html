@@ -1,0 +1,75 @@
+﻿<ion-header>
+    <ion-toolbar style="height:45px;">
+        <ion-buttons slot="start" style="margin-top: 3px;">
+            <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+        </ion-buttons>
+        <ion-buttons slot="end" style="margin-top: 3px; margin-right:5px;" [routerLink]="['/servicecenter/shoppingcart/list']">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="32" height="32" t="1577692010573" p-id="2019" version="1.1"><path fill="#38b3ee" d="M 851.2 104.533 c -40.5333 0 -72.5333 32 -74.6667 70.4 l -2.13333 59.7333 H 121.6 c -8.53333 0 -14.9333 4.26667 -19.2 8.53333 s -6.4 12.8 -6.4 21.3333 l 51.2 352 c 2.13333 12.8 12.8 21.3333 23.4667 23.4667 l 584.533 42.6667 v 12.8 c 0 23.4667 -21.3333 40.5333 -51.2 40.5333 H 189.867 V 789.333 H 704 c 57.6 0 104.533 -40.5333 104.533 -91.7333 l 21.3333 -520.533 c 0 -10.6667 10.6667 -19.2 21.3333 -19.2 h 78.9333 V 104.533 h -78.9333 Z M 196.267 586.667 l -42.6667 -298.667 h 618.667 l -14.9333 343.467 l -561.067 -44.8 Z" p-id="2020" /><path fill="#38b3ee" d="M 279.467 864 m -55.4667 0 a 55.4667 55.4667 0 1 0 110.933 0 a 55.4667 55.4667 0 1 0 -110.933 0 Z" p-id="2021" /><path fill="#38b3ee" d="M 672 864 m -55.4667 0 a 55.4667 55.4667 0 1 0 110.933 0 a 55.4667 55.4667 0 1 0 -110.933 0 Z" p-id="2022" /></svg>
+        </ion-buttons>
+        <!--<ion-searchbar placeholder="搜索你感兴趣的车型" style=" font-size:13px;margin-top: 3px;width:250px;"></ion-searchbar>-->
+    </ion-toolbar>
+    <!--<ion-toolbar>
+        <div style="width: 33%;float:left;">
+            <ion-select name="clues" cancelText="取消" okText="确认" style="width: 70px;" [(ngModel)]="model.search.mode">
+                <ion-select-option value="-1">车型</ion-select-option>
+            </ion-select>
+        </div>
+        <div style="width: 33%;float:left;">
+            <ion-select name="clues" cancelText="取消" okText="确认" style="width: 70px;" [(ngModel)]="model.search.price">
+                <ion-select-option value="-1">价格</ion-select-option>
+            </ion-select>
+        </div>
+        <div style="width: 33%;float:left;">
+            <ion-select name="clues" cancelText="取消" okText="确认" style="width: 70px;" [(ngModel)]="model.search.opack">
+                <ion-select-option value="-1">结构</ion-select-option>
+            </ion-select>
+        </div>
+    </ion-toolbar>-->
+</ion-header>
+
+<ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="刷新中...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <ion-list lines="full">
+        <div class="goods-list" *ngFor="let item of model.datalist ">
+            <div class="panel">
+                <ion-tab-button class="panellist" [routerLink]="['/servicecenter/boutique/detail']" [queryParams]="{id:item.ProductId}">
+                    <div *ngIf="item.ImageData.length > 0; then truthyTemplate else falsyTemplate"></div>
+                    <ng-template #truthyTemplate>
+                        <div class="img"><img src="https://ceo-oss.oss-cn-hangzhou.aliyuncs.com/{{item.ImageData[0].Name}}" /></div>
+                    </ng-template>
+                    <ng-template #falsyTemplate>
+                        <div class="img"><img src="./assets/img/goods-list.jpg" /></div>
+                    </ng-template>
+                    <div class="name">
+                        {{item.Name}}
+                    </div>
+                    <div class="price">
+                        <div *ngIf="item.PaymentType == 2; then trueTemplate else falseTemplate"></div>
+                        <ng-template #trueTemplate>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="16" height="16" t="1576662312009" p-id="5052" version="1.1"><path fill="#ffaf1c" d="M 512.06 927 C 279.32 927 97 831.31 97 709.16 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.29 20.75 20.75 c 0 95.59 171.07 176.34 373.56 176.34 c 202.42 0 373.44 -80.75 373.44 -176.34 c 0 -11.46 9.29 -20.75 20.75 -20.75 S 927 697.7 927 709.16 C 927 831.31 744.74 927 512.06 927 Z" p-id="5053" /><path fill="#ffaf1c" d="M 512.06 729.91 C 279.32 729.91 97 634.22 97 512.06 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.29 20.75 20.75 c 0 95.59 171.07 176.34 373.56 176.34 c 202.42 0 373.44 -80.75 373.44 -176.34 c 0 -11.46 9.29 -20.75 20.75 -20.75 s 20.75 9.3 20.75 20.75 c 0 122.16 -182.26 217.85 -414.94 217.85 Z" p-id="5054" /><path fill="#ffaf1c" d="M 512.06 532.81 C 279.32 532.81 97 437.07 97 314.84 C 97 192.69 279.32 97 512.06 97 C 744.74 97 927 192.69 927 314.84 c 0 122.23 -182.26 217.97 -414.94 217.97 Z m 0 -394.31 c -202.49 0 -373.56 80.75 -373.56 176.34 c 0 95.66 171.07 176.47 373.56 176.47 c 202.42 0 373.44 -80.81 373.44 -176.47 c 0 -95.59 -171.01 -176.34 -373.44 -176.34 Z" p-id="5055" /></svg>
+                            <span style="position:relative;left:3px;bottom:3px;">{{item.SkuData?.length > 0 ? item.SkuData[0].Integral : "0"}}</span>
+                        </ng-template>
+                        <ng-template #falseTemplate>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 1024 1024" width="16" height="16" t="1576662222688" p-id="4131" version="1.1"><path fill="#ffaf1c" d="M 883.804 246.032 c -7.274 7.274 -27.391 22.947 -34.043 29.599 c 44.117 64.68 69.974 142.806 69.974 227.009 c 0 222.864 -180.66 403.514 -403.53 403.514 c -222.872 0 -403.532 -180.65 -403.532 -403.514 c 0 -222.861 180.66 -403.513 403.532 -403.513 c 111.711 0 212.784 45.417 285.846 118.764 c 8.459 -8.458 24.012 -25.305 31.066 -32.36 c -81.13 -81.079 -193.158 -131.239 -316.912 -131.239 c -247.609 0 -448.368 200.707 -448.368 448.348 c 0 247.6 200.76 448.35 448.368 448.35 c 247.607 0 448.365 -200.75 448.365 -448.35 c 0.001 -95.468 -29.906 -183.906 -80.765 -256.608 Z" p-id="4132" /><path fill="#ffaf1c" d="M 647.413 240.965 l -84.113 154.977 c -22.412 41.965 -36.15 69.883 -41.162 83.751 h -1.431 c -14.765 -33.643 -56.554 -113.235 -125.276 -238.729 h -79.103 l 147.11 252.688 l -120.624 0.001 v 55.835 h 141.382 v 76.949 h -141.382 v 56.553 h 141.382 v 112.027 h 70.155 v -112.027 h 136.373 v -56.551 h -136.374 v -76.951 h 136.373 v -55.834 h -117.045 l 148.541 -252.689 h -74.807 Z" p-id="4133" /></svg>
+                            <span style="position:relative;left:3px;bottom:3px;">{{item.SkuData?.length > 0 ? item.SkuData[0].Price : "0.00"}}</span>
+                        </ng-template>
+                    </div>
+                </ion-tab-button>
+            </div>
+        </div>
+    </ion-list>
+
+    <ion-row *ngIf="model.isending">
+        <ion-col class="nodata" text-center>
+            <label style="color:gray;">没有更多内容啦</label>
+        </ion-col>
+    </ion-row>
+
+    <ion-infinite-scroll #myInfiniteScroll threshold="100px" (ionInfinite)="doLoading($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

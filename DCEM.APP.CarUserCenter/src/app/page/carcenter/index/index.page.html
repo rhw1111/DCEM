@@ -1,0 +1,236 @@
+﻿<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-slides>
+                    <ion-slide *ngFor="let item of shareData.page.top.slides">
+                        <ion-grid style="background-color:#000">
+                            <ion-row>
+                                <ion-col style="padding:1px;">
+                                    <img src="{{item['imgscr']}}" style="width:100%" />
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col style="padding-left:30px;padding-right:30px">
+                                    <ion-button expand="block" color="light" class="button-outline"
+                                                style="margin-top:10px; border-radius:50px"
+                                                [routerLink]="['/carcenter/carstore/index']">
+                                        立即购买
+                                    </ion-button>
+                                    <br />
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col style="padding-left:30px;padding-right:30px">
+                                    <ion-button expand="block" color="primary" class="button-outline"
+                                                style="margin-top:10px; border-radius:50px"
+                                                [routerLink]="['/carreserve/index']">
+                                        立即预订
+                                    </ion-button>
+                                    <br />
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-slide>
+                </ion-slides>
+            </ion-col>
+        </ion-row>
+
+
+        <ion-row style="padding-top:30px; padding-bottom:15px">
+            <ion-col style="padding-left:15px;">
+                <ion-label style="font-weight:bold">
+                    体验中心
+                </ion-label>
+            </ion-col>
+            <ion-col style="padding-right:15px;text-align:right">
+                <ion-label>
+                    <p>
+                        全部网点
+                        <ion-icon name="arrow-dropright-circle"></ion-icon>
+                    </p>
+                </ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col style="padding-left:20px; padding-right:20px">
+                <img src="/assets/img/tyzx.jpg" />
+            </ion-col>
+        </ion-row>
+        <ion-row style="padding-top:30px; padding-bottom:15px">
+            <ion-col style="padding-left:15px;">
+                <ion-label style="font-weight:bold">
+                    重庆综合服务中心
+                </ion-label>
+            </ion-col>
+            <ion-col style="padding-right:15px;text-align:right" [routerLink]="['/servicecenter/dealer/list']">
+                <ion-label color="primary">
+                    <p>
+                        <ion-icon name="refresh"></ion-icon>
+                        距离最近
+                    </p>
+                </ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col style="padding-left:20px;margin-top:5px">
+                <ion-label style="margin-top:20px">
+                    <p>
+                        <ion-icon name="bookmark"></ion-icon>
+                        重庆市北部新区金开园金渝大道99号
+                    </p>
+                    <p style="margin-top:10px">
+                        <ion-icon name="time"></ion-icon>
+                        09:00-18:00（工作日），09:00-18:00（周末）
+                    </p>
+                </ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row style="padding-top:30px">
+            <ion-col style="padding-left:50px;padding-right:50px">
+                <ion-button expand="block" color="primary" class="button-outline"
+                    [routerLink]="" (click)="checkLoginAndTurn('/personalcenter/testdrive/edit')">
+                    预约试驾
+                </ion-button>
+            </ion-col>
+        </ion-row>
+
+        <ion-row style="padding-top:30px; padding-bottom:15px">
+            <ion-col style="padding-left:15px;">
+                <ion-label style="font-weight:bold">
+                    {{shareData.page.middle_finance.title}}
+                </ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col style="padding-left:20px; padding-right:20px">
+                <img style="border-radius:5px" src="{{shareData.page.middle_finance.imgscr}}" />
+            </ion-col>
+        </ion-row>
+        <ion-row style="padding-top:30px">
+            <ion-col style="padding-left:50px;padding-right:50px">
+                <ion-button expand="block" color="primary" class="button-outline"
+                    [routerLink]="" (click)="checkLoginAndTurn('/carreserve/blindorder/edit')">
+                    领取预约号
+                </ion-button>
+            </ion-col>
+        </ion-row>
+
+        <ion-row style="padding-top:30px; padding-bottom:15px">
+            <ion-col style="padding-left:15px;">
+                <ion-label style="font-weight:bold">
+                    车主九大权益
+                </ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col class="dm-ico-list">
+                <ul>
+                    <li *ngFor="let item of shareData.page.middle_equity.menulist" [routerLink]="[item['link']]">
+                        <img src="{{item['svg']}}" />
+                        <p>{{item['title']}}</p>
+                    </li>
+                </ul>
+            </ion-col>
+        </ion-row>
+        <ion-row style="padding-top:30px">
+            <ion-col style="padding-left:50px;padding-right:50px">
+                <ion-button expand="block" color="primary" class="button-outline">
+                    {{shareData.page.middle_equity.button['text']}}
+                </ion-button>
+            </ion-col>
+        </ion-row>
+
+        <ion-row style="padding-top:30px; padding-bottom:15px">
+            <ion-col style="padding-left:15px;">
+                <ion-label style="font-weight:bold">
+                    {{shareData.page.middle_charging.title}}
+                </ion-label>
+                <ion-label>
+                    <p>
+                        {{shareData.page.middle_charging.subtitle}}
+                    </p>
+                </ion-label>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col style="padding-left:20px; padding-right:20px">
+                <img style="border-radius:5px" src="{{shareData.page.middle_charging.imgscr}}" />
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col class="dm-ico-list">
+                <ul>
+                    <li *ngFor="let item of shareData.page.middle_charging.menulist" [routerLink]="[item['link']]">
+                        <img src="{{item['svg']}}" />
+                        <p>{{item['title']}}</p>
+                    </li>
+                </ul>
+            </ion-col>
+        </ion-row>
+
+        <ion-row style="padding-top:30px; padding-bottom:15px">
+            <ion-col style="padding-left:15px;">
+                <ion-label style="font-weight:bold">
+                    {{shareData.page.middle_trialrun.title}}
+                </ion-label>
+            </ion-col>
+            <ion-col style="padding-right:15px;text-align:right">
+                <ion-label>
+                    <p>
+                        <ion-icon name="arrow-dropright-circle"></ion-icon>
+                    </p>
+                </ion-label>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col style="padding-left:10px;padding-right:10px;">
+                <ion-list>
+                    <ion-item *ngFor="let item of shareData.page.middle_trialrun.list" detail="false"
+                        [routerLink]="[item['link']]">
+                        <ion-label>
+                            <h4 style="font-weight:bold;">{{item["title"]}}</h4>
+                            <p>{{item["source"]}}</p>
+                        </ion-label>
+                        <img slot="end"
+                            style="width:85px;height:70px; border-radius:5%;margin-bottom:10px;margin-top:10px"
+                            src="{{item['imgscr']}}" />
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+
+        <ion-row style="padding-top:30px; padding-bottom:15px">
+            <ion-col style="padding-left:15px;">
+                <ion-label style="font-weight:bold">
+                    {{shareData.page.middle_withinreach.title}}
+                </ion-label>
+            </ion-col>
+        </ion-row>
+
+        <ion-row style="padding-left:20px;padding-right:20px;">
+            <ion-col>
+                <ion-slides pager>
+                    <ion-slide *ngFor="let item of shareData.page.middle_withinreach.slides">
+                        <ion-grid>
+                            <ion-row style="background-color:#000">
+                                <ion-col>
+                                    <img src="{{item['imgscr']}}" />
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-slide>
+                </ion-slides>
+            </ion-col>
+        </ion-row>
+
+        <ion-row style="padding-top:30px;" [routerLink]="['/home/frontcontent']" [queryParams]="{defcode:'au001'}">
+            <ion-col>
+                <img src="{{shareData.page.bottom.imgscr}}" />
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

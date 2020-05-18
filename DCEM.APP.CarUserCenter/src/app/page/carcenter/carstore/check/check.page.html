@@ -1,0 +1,130 @@
+
+<ion-header class="dm-top-head">
+    <app-tophead topHeadTitle="核对配置单" topHeadBackUrl="/carcenter/carstore/selectitem"></app-tophead>
+</ion-header>
+
+<ion-content fullscreen>
+    <ion-grid>
+        <ion-row>
+            <ion-col class="dm-top-img">
+                <div>
+                    <img src="{{shareData.carColorPic}}" alt="">
+                    <span [routerLink]="['/carcenter/carstore/index']">重新配置&nbsp;<ion-icon name="refresh"></ion-icon></span>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col class="dm-title">
+                {{shareData.selectProduct["ProductInfo"]["mcs_name"]}}
+            </ion-col>
+        </ion-row>
+        <div id="carcenter_carstore_checkr_main">
+            <ion-row>
+                <ion-col class="dm-list">
+                    <ion-grid>
+                        <ion-row class="dm-list-title">
+                            <ion-col>
+                                <h5>基础选配</h5>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col>
+                                <ion-grid class="dm-list-grid">
+                                    <ion-row class="dm-list-item" *ngFor="let key of objectKeys(shareData.selectproductOrderingattributeMap)">
+                                        <ion-col size="8">
+                                            <a class="dm-list-itme-img" [innerHTML]="shareData.selectproductOrderingattributeMap[key]['ext_TempHtml']|safeHtml">
+                                            </a>
+                                            <div>
+                                                <label class="dm-list-itme-title">{{shareData.selectproductOrderingattributeMap[key]['text']}}</label>
+                                            </div>
+                                        </ion-col>
+                                        <ion-col>
+                                            <div>
+                                                <h5>{{shareData.selectproductOrderingattributeMap[key]['val']}}</h5>
+                                                <p (click)="productOrderAttrUpdate()">修改</p>
+                                            </div>
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-grid>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col class="dm-list">
+                    <ion-grid>
+                        <ion-row class="dm-list-title">
+                            <ion-col>
+                                <h5>个性化选配</h5>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col>
+                                <ion-grid class="dm-list-grid">
+                                    <ion-row class="dm-list-item" *ngFor="let key of objectKeys(shareData.selectproductRelatedMap)">
+                                        <ion-col size="8">
+                                            <a class="dm-list-itme-img square">
+                                                <div><img style="width:100%;height:100%" src="{{shareData.productRelatedMap[key]['a.mcs_mainimage']}}" /></div>
+                                            </a>
+                                            <div>
+                                                <label>{{shareData.selectproductRelatedMap[key]['text']}}</label>
+                                            </div>
+                                        </ion-col>
+                                        <ion-col>
+                                            <div>
+                                                <h5>{{shareData.selectproductRelatedMap[key]['val']}}</h5>
+                                                <p (click)="productRelatedUpdate()">修改</p>
+                                            </div>
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-grid>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-col>
+            </ion-row>
+        </div>
+        <ion-row class="dm-info">
+            <ion-col>
+                <p>
+                    <i>*</i>请核对您的爱车配置选项，支付完成后将会形成正式订单，预定完成7天内您任然可以更改您的配置选项
+                </p>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+
+<ion-footer id="carcenter_carstore_check_footer">
+    <ion-toolbar class="dm-footer">
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <h6>合计：<strong>{{shareData.packageMoney}} 元</strong></h6>
+                    <span class="dm-footer-svg" (click)="showfooterModelClick()">
+                        查看明细
+                        <span>
+                            <svg t="1575275973323" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2605" width="14" height="14"><path d="M507.58399999 736.064a32.896 32.896 0 0 1-23.35999999-9.664L110.912 353.088a33.024 33.024 0 0 1 46.72-46.656l373.312 373.248a33.024 33.024 0 0 1-23.36000001 56.384" fill="#d81e06" p-id="2606"></path><path d="M507.58399999 736.064a32.896 32.896 0 0 1-23.35999999-56.32l382.144-382.08a33.024 33.024 0 0 1 46.656 46.656l-382.016 382.08a33.152 33.152 0 0 1-23.42400001 9.664" fill="RGB(240,110,35)" p-id="2607"></path></svg>
+                        </span>
+                    </span>
+
+                </ion-col>
+                <ion-col>
+                    <ion-button color="org" expand="block" shape="round" (click)="onNext()">完善预订信息</ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-toolbar>
+</ion-footer>
+
+<div id="carcenter_carstore_check_footer_model" class="dm-footer-model">
+    <div>
+        <ul>
+            <li *ngFor="let key of objectKeys(shareData.packageMap)">
+                <label>{{shareData.packageMap[key]["text"]}}</label>:
+                <span>{{shareData.packageMap[key]["val"]}}</span>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+﻿<ion-content>
+    <ion-grid>
+        <ion-row style="padding-top:30px; padding-bottom:15px">
+            <ion-col style="padding-left:15px;">
+                <ion-label style="font-weight:bold;font-size:30px">
+                    服务
+                </ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col class="dm-ico-list">
+                <ul>
+                    <li *ngFor="let item of shareData.page.icolist" [routerLink]="[item['link']]" [queryParams]="{id:item['mcstype']}">
+                        <img src="{{item['svg']}}" />
+                        <p>{{item['title']}}</p>
+                    </li>
+                </ul>
+            </ion-col>
+        </ion-row>
+        <ion-row style="padding-top:40px;">
+            <ion-col style="padding-left:20px; padding-right:20px">
+                <img style="border-radius:50px" src="{{shareData.page.advertisement.imgscr}}" [routerLink]="[shareData.page.advertisement.link]" />
+            </ion-col>
+        </ion-row>
+
+        <ion-row style="padding-top:30px; padding-bottom:15px">
+            <ion-col style="padding-left:15px;">
+                <ion-label style="font-weight:bold">
+                    精品推荐
+                </ion-label>
+            </ion-col>
+            <ion-col style="padding-right:15px;text-align:right">
+                <ion-chip color="primary" [routerLink]="['/servicecenter/boutique/list']" [queryParams]="{id:10}">
+                    <ion-label>&nbsp;&nbsp;更多精品 >&nbsp;&nbsp;</ion-label>
+                </ion-chip>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col style="padding-left:10px; padding-right:10px">
+                <ion-grid>
+                    <div class="goods-list" *ngFor="let item of model.datalist ">
+                        <div class="panel">
+                            <ion-tab-button class="panellist" [routerLink]="['/servicecenter/boutique/detail']" [queryParams]="{id:item.ProductId}">
+                                <div *ngIf="item.ImageData.length > 0; then truthyTemplate else falsyTemplate"></div>
+                                <ng-template #truthyTemplate>
+                                    <div class="img"><img src="https://ceo-oss.oss-cn-hangzhou.aliyuncs.com/{{item.ImageData[0].Name}}" /></div>
+                                </ng-template>
+                                <ng-template #falsyTemplate>
+                                    <div class="img"><img src="./assets/img/goods-list.jpg" /></div>
+                                </ng-template>
+                                <div class="name">
+                                    {{item.Name}}
+                                </div>
+                                <div class="price">
+                                    ¥ {{item.BasePrice}}
+                                </div>
+                            </ion-tab-button>
+                        </div>
+                    </div>
+                </ion-grid>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <br />
+    <br />
+</ion-content>

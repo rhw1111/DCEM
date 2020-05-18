@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="/tabs/community/index"></ion-back-button>
+    </ion-buttons>
+    <ion-title>新闻详情</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <div style="text-align: center;">
+      <img [src]="model.newsEntity.PicPath">
+      <h2 style="font-weight: bold;">{{model.newsEntity.Title}}</h2>
+    </div>
+    <div style="padding: 10px;font-weight: 100;font-size: 14px;">
+      <div style="float: left;">
+        <span>{{model.newsEntity.Writer}}</span>&nbsp;
+        <span>{{model.newsEntity.Time}}</span>
+      </div>
+      <div style="float: right;">
+        <span>{{ShowEmptyValue(model.newsEntity.Views)}}浏览</span>&nbsp;
+        <span>{{ShowEmptyValue(model.newsEntity.Likes)}}点赞</span>&nbsp;
+        <span>{{ShowEmptyValue(model.newsEntity.Collections)}}收藏</span>
+      </div>
+    </div>
+
+    <div style="padding: 20px;margin-top: 30px;" [innerHTML]="RenderHTML(model.newsEntity.Content)">
+    </div>
+  </div>
+</ion-content>

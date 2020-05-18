@@ -1,0 +1,91 @@
+﻿<!--<ion-header class="dm-top-nav">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="返回" color="darkblue" defaultHref="/carcenter/carstore/selectattr"></ion-back-button>
+        </ion-buttons>
+        <ion-title class="dm-top-nav-tag">
+            <ul>
+                <li>车型版本</li>
+                <li>外观内饰</li>
+                <li class="selected">选装</li>
+            </ul>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>-->
+
+<ion-header class="dm-top-head">
+    <app-tophead topHeadTitle="选装项" topHeadBackUrl="/carcenter/carstore/selectattr"></app-tophead>
+</ion-header>
+
+<ion-content fullscreen>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-grid>
+                    <ion-row *ngFor="let proRelatedKey of objectKeys(shareData.productRelatedMap)">
+                        <ion-col class="dm-main-item" [ngClass]="{'select':shareData.productRelatedMap[proRelatedKey]['ext_select']}" >
+                            <div>
+                                <ion-grid>
+                                    <ion-row class="dm-main-item-top" (click)="itemOnClick(proRelatedKey)">
+                                        <ion-col>
+                                            <img src="{{shareData.productRelatedMap[proRelatedKey]['a.mcs_mainimage']}}" />
+                                        </ion-col>
+                                    </ion-row>
+                                    <ion-row class="dm-main-item-middle" (click)="itemOnClick(proRelatedKey)">
+                                        <ion-col>
+                                            <h5>{{shareData.productRelatedMap[proRelatedKey]['a.mcs_product@OData.Community.Display.V1.FormattedValue']}}({{shareData.productRelatedMap[proRelatedKey]['a.mcs_name']}})</h5>
+                                        </ion-col>
+                                        <ion-col>
+                                            <p>{{shareData.productRelatedMap[proRelatedKey]["ext_moneyFormat"]}}</p>
+                                        </ion-col>
+                                    </ion-row>
+                                    <ion-row class="dm-main-item-bottom">
+                                        <ion-col>
+                                            <h5 (click)="presentSpeclistModal(shareData.productRelatedMap[proRelatedKey]['a.mcs_product'])">了解更多 ></h5>
+                                        </ion-col>
+                                        <ion-col (click)="itemOnClick(proRelatedKey)">
+                                            <h5>&nbsp;</h5>
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-grid>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+
+<ion-footer id="carcenter_carstore_selectitem_footer">
+    <ion-toolbar class="dm-footer">
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <h6>合计：<strong>{{shareData.packageMoney}} 元</strong></h6>
+                    <span class="dm-footer-svg" (click)="showfooterModelClick()">
+                        查看明细
+                        <span>
+                            <svg t="1575275973323" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2605" width="14" height="14"><path d="M507.58399999 736.064a32.896 32.896 0 0 1-23.35999999-9.664L110.912 353.088a33.024 33.024 0 0 1 46.72-46.656l373.312 373.248a33.024 33.024 0 0 1-23.36000001 56.384" fill="#d81e06" p-id="2606"></path><path d="M507.58399999 736.064a32.896 32.896 0 0 1-23.35999999-56.32l382.144-382.08a33.024 33.024 0 0 1 46.656 46.656l-382.016 382.08a33.152 33.152 0 0 1-23.42400001 9.664" fill="RGB(240,110,35)" p-id="2607"></path></svg>
+                        </span>
+                    </span>
+
+                </ion-col>
+                <ion-col>
+                    <ion-button color="org" expand="block" shape="round" [routerLink]="['/carcenter/carstore/check']">核对配置单</ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-toolbar>
+</ion-footer>
+
+<div id="carcenter_carstore_selectitem_footer_model" class="dm-footer-model">
+    <div>
+        <ul>
+            <li *ngFor="let key of objectKeys(shareData.packageMap)">
+                <label>{{shareData.packageMap[key]["text"]}}:</label>
+                <span>{{shareData.packageMap[key]["val"]}}</span>
+            </li>
+        </ul>
+    </div>
+</div>

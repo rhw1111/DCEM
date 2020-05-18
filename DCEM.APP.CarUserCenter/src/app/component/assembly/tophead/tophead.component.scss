@@ -1,0 +1,45 @@
+﻿
+//头带logo
+.dm-top-head {
+    .dm-top-stat {
+        padding-left: 0px;
+        float: left;
+        color: #fff;
+        width: 50px;
+        position: relative;
+
+        svg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateY(-50%) translateX(-50%);
+        }
+    }
+
+    .dm-top-end {
+        padding-right: 0px;
+        float: right;
+        color: #fff;
+        width: 50px;
+        position: relative;
+
+        svg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateY(-50%) translateX(-50%);
+        }
+    }
+
+    ion-title {
+        color: #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateY(-50%) translateX(-50%);
+    }
+
+    background: #000;
+    height: 55px;
+    line-height: 55px;
+}

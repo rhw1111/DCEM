@@ -1,0 +1,66 @@
+﻿<ion-header>
+    <ion-toolbar>
+        <ion-title>{{mod.selectProductMap["ProductInfo"]["mcs_name"]}}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button expand="block" (click)="closeModal()" class="dm-button-close">关闭</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+    <ion-grid>
+        <div *ngFor="let key of objectKeys(this.mod.selectRightspackageViewClassMap)">
+            <ion-row class="dm-speclist-title">
+                <ion-col>
+                    {{this.mod.selectRightspackageViewClassMap[key]["RightspackageInfo"]["mcs_name"]}}
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col class="dm-speclist">
+                    <table border="1">
+                        <tr *ngFor="let item of this.mod.selectRightspackageViewClassMap[key]['RightsArray']">
+                            <td style="width:30%">
+                                {{item["mcs_name"]}}
+                            </td>
+                            <td>
+                                {{item["mcs_rightsdesc"]}}
+                            </td>
+                        </tr>
+                    </table>
+
+                </ion-col>
+            </ion-row>
+        </div>
+
+    </ion-grid>
+
+    <ion-grid>
+        <div *ngFor="let key of objectKeys(this.mod.selectProductSpecificationViewClassMap)">
+            <ion-row class="dm-speclist-title">
+                <ion-col>
+                    {{this.mod.selectProductSpecificationViewClassMap[key]["productSpecificationClassName"]}}
+                </ion-col>
+            </ion-row>
+
+            <ion-row>
+                <ion-col class="dm-speclist">
+                    <table border="1">
+                        <tr *ngFor="let item of this.mod.selectProductSpecificationViewClassMap[key]['productSpecificationArray']">
+                            <td>
+                                {{item["mcs_attributename"]}}
+                            </td>
+                            <td>
+                                {{item["mcs_attributevalue"]}}
+                            </td>
+                        </tr>
+                    </table>
+
+                </ion-col>
+            </ion-row>
+        </div>
+
+    </ion-grid>
+    <br />
+    <br />
+    <br />
+</ion-content>

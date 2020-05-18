@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="返回" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>问卷调查</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div style="margin-bottom: 5%;text-align: center;margin-top: 10%;font-size: 1.4rem;font-weight: 600;">{{mod.qualist.name}}</div>
+  <div style="margin-left: 5%; margin-right: 5%;" *ngFor="let question of   mod.qualist.questions">
+    <ion-grid *ngIf="question.mcs_type==2">
+      <ion-list-header style="padding: 0px;">
+        <ion-label class="ion-text-wrap" style="font-weight: bold">
+          <ion-note slot="start" color="danger" *ngIf="question.mcs_required==1">*</ion-note>
+          {{question.mcs_content}}({{question.mcs_typename}})
+        </ion-label>
+      </ion-list-header>
+      <ion-item *ngFor="let answer of   question.answers">
+        <ion-checkbox  [(ngModel)]="answer.value"   style="height: 20px; width: 20px;"></ion-checkbox>
+        <ion-label style="font-size: 0.8rem;">{{answer.mcs_name}}</ion-label>
+      </ion-item>
+    </ion-grid>
+    <ion-grid *ngIf="question.mcs_type==1">
+      <ion-radio-group [(ngModel)]="question.value">
+        <ion-list-header style="padding: 0px;">
+          <ion-label class="ion-text-wrap" style="font-weight: bold">
+            <ion-note slot="start" color="danger" *ngIf="question.mcs_required==1">*</ion-note>
+            {{question.mcs_content}}({{question.mcs_typename}})
+          </ion-label>
+        </ion-list-header>
+        <ion-item *ngFor="let answer of   question.answers">
+          <ion-label style="font-size: 0.8rem;">{{answer.mcs_name}}</ion-label>
+          <ion-radio value="{{answer.mcs_id}}"  slot="start"   ></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-grid>
+    <ion-grid *ngIf="question.mcs_type==3">
+      <ion-item>
+        <ion-label class="ion-text-wrap" style="font-weight: bold" position="stacked">
+          <ion-note slot="start" color="danger" *ngIf="question.mcs_required==1">*</ion-note>
+          {{question.mcs_content}}
+        </ion-label>
+        <ion-textarea rows=4 [(ngModel)]="question.value" style="width:100%;height:200px;"></ion-textarea>
+      </ion-item>
+    </ion-grid>
+
+  </div>
+  <div class="ion-padding">
+    <ion-button expand="block" type="button" (click)="onPost()"
+      class="ion-no-margin ios button button-block button-solid ion-activatable ion-focusable hydrated">
+      提交
+    </ion-button>
+  </div>
+</ion-content>
