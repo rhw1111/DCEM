@@ -7,7 +7,8 @@ import { AuthenticationService } from './base/base.ser/authentication.service'
 import { Router ,ActivatedRoute} from '@angular/router';
 import { DCore_Http,DCore_Window,DCore_Page } from 'app/base/base.ser/Dcem.core';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
-
+import { JPush } from '@jiguang-ionic/jpush/ngx';
+import { JpushPluginService } from './base/base.ser/jpush-plugin.service'
 
 @Component({
     selector: 'app-root',
@@ -50,7 +51,9 @@ export class AppComponent {
         private _http:DCore_Http,
         private _window: DCore_Window,
         private _page: DCore_Page,
-        private screenOrientation: ScreenOrientation
+        private screenOrientation: ScreenOrientation,
+        private jPush:JPush,
+        private jpushPlugin:JpushPluginService
     ) {
         this.initializeApp();
     }
@@ -78,6 +81,12 @@ export class AppComponent {
                     }
                 }
             }
+            //JPush 配置
+            this.jPush.setDebugMode(true);
+            this.jPush.init();
+            // this.jpushPlugin.setTags(['user']);
+            // this.jpushPlugin.setAlias("android");
+
         });
     }
 

@@ -37,6 +37,11 @@
     },
     "cordova-plugin-x-toast": {
       "PACKAGE_NAME": "ms.crmapp.seleassist"
+    },
+    "jpush-phonegap-plugin": {
+      "APP_KEY": "674200a983b12cb49b2dc9e6",
+      "CHANNEL": "developer-default",
+      "PACKAGE_NAME": "ms.crmapp.seleassist"
     }
   },
   "dependent_plugins": {
@@ -52,6 +57,9 @@
       "PACKAGE_NAME": "ms.crmapp.seleassist"
     },
     "es6-promise-plugin": {
+      "PACKAGE_NAME": "ms.crmapp.seleassist"
+    },
+    "cordova-plugin-jcore": {
       "PACKAGE_NAME": "ms.crmapp.seleassist"
     }
   }

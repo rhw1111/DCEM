@@ -11,8 +11,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+//第三方组件
 import { GlobalErrorHandler } from "app/base/base.ser/global.error.handler";
+import { JPush } from '@jiguang-ionic/jpush/ngx';//极光消息推送
 
 //自定义组件
 import { ScSelectComponent } from './serving/serving.ser/components/sc-select/sc-select.component';
@@ -131,6 +132,7 @@ import { SelectVehorderComponent } from "app/serving/serving.ser/components/sele
         FileTransfer,
         Camera,
         ScreenOrientation,
+        JPush,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         { provide: ErrorHandler, useClass: GlobalErrorHandler }
     ],

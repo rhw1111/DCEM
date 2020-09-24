@@ -85,6 +85,10 @@ export class LoginPage implements OnInit {
                 this.mod.domain = "https://localhost:44382";
                 this.mod.domainType = 'localhost';
                 break;
+            case 'Online':
+                this.mod.domain = "http://106.15.138.75:8082/dcem-online";
+                this.mod.domainType = 'Online';
+                break;     
             default:
                 this.mod.domain = "https://localhost:52151";
                 this.mod.domainType = 'default';
