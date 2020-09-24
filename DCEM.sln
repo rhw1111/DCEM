@@ -33,7 +33,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "005Tests", "005Tests", "{3F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DCEM.AuthorizationService.Main", "DCEM.AuthorizationService.Main\DCEM.AuthorizationService.Main.csproj", "{565E977A-8E92-46E0-8F7C-369682DFDE7D}"
 EndProject
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "DCEM.App", "DCEM.MApp\DCEM.App.njsproj", "{F26CEDE4-F02D-4382-A6BD-49C0CB89D2AA}"
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "DCEM.App.SalesAssistant", "DCEM.MApp\DCEM.App.SalesAssistant.njsproj", "{F26CEDE4-F02D-4382-A6BD-49C0CB89D2AA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "099Others", "099Others", "{05061FC2-A7DF-42F3-ADFD-9DC28994E97A}"
 EndProject
